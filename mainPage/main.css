@@ -1,0 +1,56 @@
+.lesson {
+    margin-top: 120px;
+    font-size: 150%;
+}
+
+.navbar-custom {
+    background-color: #495485;
+}
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: rgba(255, 255, 255, 0.8);
+}
+.navbar-custom .navbar-toggler {
+    border-color: rgba(0, 255, 0, 0.8);
+}
+.navbar-custom .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,255,0,.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.5);
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+}
+
+.imgtext {
+    text-align: center;
+    width: auto;
+    font-weight: normal;
+    font-size: 1.5em;
+    font-family: Trattatello, fantasy, Arial;
+    padding: 10px 10px 0px 0px;
+}
+
+.footer {
+    position: absolute;
+    padding: 10px 0px 0px 0px;
+    margin: 15px;
+    text-align: center;
+    display: block;
+    width: auto;
+    /* Set the fixed height of the footer here */
+    height: 330px;
+    border: solid brown 10px;
+    background-color: lightskyblue;
+    transition: 1s ease-in-out;
+}
+
+.footer:hover {
+    transform: translate(350px, -150px) scale(2, 2);
+    /* transform: rotate(40deg); */
+}

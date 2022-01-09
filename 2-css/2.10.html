@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" type="text/css" href="roma.css" />
+        <title>Padding</title>
+
+        <style>
+            p,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="first-section">
+            <p class="blue">This text is in a &lt;div&gt; pointed by:</p>
+            <pre class="code">
+                #first-section { 
+                    <tab1 /> width 260px;
+                    <tab1 /> background-color: #CEF6CE; 
+                    <tab1 /> margin-left: 150px; 
+                } 
+                p, body {
+                    <tab1 /> margin:0;
+                    <tab1 /> <mark>padding:0;</mark>
+                }
+            </pre>
+            <p class="blue">The quick brown fox jumped over the lazy dog.</p>
+        </div>
+
+        <div id="second-section" class="no-margin">
+            <p class="green">
+                These texts are in another &lt;div&gt; pointed by:
+            </p>
+            <pre class="code">
+                #second-section {
+                    <tab1 /> width: 400px;
+                    <tab1 /> background-color: #8AB4F7;
+                    <tab1 /> <mark>padding: 5px 10px 15px 20px;</mark>
+                }
+            </pre>
+
+            <span class="underlined green">
+                and these words are underlined.
+            </span>
+
+            <h1 class="red">
+                The declaration block contains one or more declarations
+                separated by semicolons.
+            </h1>
+        </div>
+
+        <p>Paragraphs and body with <mark>no spacing!</mark></p>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+.jumbotron {
+    /*background-image: url(background.jpg);
+        background-size: cover; */
+    text-align: left;
+    color: #03dac5;
+    margin-top: 30px;
+    background: none;
+}
+/* color for clicked links */
+a:active {
+    background-color: red;
+}
+a:visited {
+    color: #03dac5;
+}
+/* unvisited link */
+a:link {
+    color: #03dac5;
+}
+/* links without underlining */
+a {
+    text-decoration: none;
+}
+/* when mouse passes over a link */
+a:hover {
+    text-decoration: underline;
+}
+div {
+    margin-left: 20px;
+}
+body {
+    background-image: url("background.jpg");
+    background-position: center 30px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}

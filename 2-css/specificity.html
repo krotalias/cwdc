@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../mainPage/LCG.css" />
+        <title>Combining Selectors</title>
+        <style>
+            /*
+             * Combining multiple items to follow the document structure.
+             *
+             * A span tag nested inside a <p> tag can be target without applying
+             * the style to a span tag not included in a <p> tag.
+             */
+            p span {
+                color: aquamarine;
+                font-style: normal !important;
+            }
+
+            /*
+             * To make the dependency strict on the first level, 
+             * one can use the < symbol between the two tokens.
+             */
+            details > summary {
+                padding: 4px;
+                width: 200px;
+                background-color: #eeeeee;
+                color: black;
+                border: none;
+                box-shadow: 1px 1px 2px #bbbbbb;
+                cursor: pointer;
+            }
+
+            details > ol {
+                background-color: #eeeeee !important;
+                box-shadow: 1px 1px 2px #bbbbbb;
+                width: 500px;
+            }
+
+            /*
+             * Adjacent sibling selectors let us style an element only
+             * if preceded by a specific element.
+             */
+            h3 + p,
+            p + span {
+                padding-left: 2em;
+            }
+
+            /*
+             * Target an element with 2 (or more) classes, by combining the class names
+             * separated with a dot, without spaces.
+             */
+            .engine-name.Daimler-Benz {
+                color: silver;
+                padding-left: 2em;
+                font-style: normal;
+            }
+
+            .engine-name.Rolls_Royce-Merlin {
+                color: burlywood;
+                padding-left: 2em;
+            }
+
+            /*
+             * Apply the same declarations to multiple selectors, by
+             * separating them with a comma.
+             */
+            p,
+            .engine-name {
+                font-style: italic;
+            }
+
+            li {
+                color: brown;
+            }
+
+            #li {
+                color: lightseagreen;
+            }
+
+            .li {
+                color: lightcoral;
+            }
+
+            body {
+                background-color: lightgrey;
+                background-image: url("./BF109.jpg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center 0px;
+                color: white;
+            }
+
+            /*
+             * Underline text, but ignore the spaces.
+             * The spaces come from the line-breaks
+             * (well-known from the display:inline-block problematic).
+            */
+            a {
+                font-style: normal;
+                display: inline-block;
+            }
+
+            a:link {
+                color: coral;
+            }
+
+            /* 
+             * This is a pseudo-class, and
+             * represents links that the user has already visited.
+             */
+            a:visited {
+                color: darkgoldenrod;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h3>
+            <a href="/nodejs/books/css-handbook.pdf#page=14">Single Class!</a>
+            (.engine-name)
+        </h3>
+        <p>P-47's engine name is:</p>
+        <span class="engine-name">
+            &lt;span class="engine-name"&gt;
+            <a href="https://www.youtube.com/watch?v=EyPvpdy4dgg">
+                Pratt & Whitney R-2800 Double Wasp
+            </a>
+            &lt;/span&gt;
+        </span>
+        &rarr; <code>Selector Specificity: (0, 1, 0)</code>
+
+        <h3>
+            <a href="/nodejs/books/css-handbook.pdf#page=15">Two Classes!</a>
+            (.engine-name.Daimler-Benz)
+        </h3>
+        <p class="engine-name Daimler-Benz">
+            &lt;p class="engine-name Daimler-Benz"&gt;Bf 109's engine name is:
+            <a href="https://www.youtube.com/watch?v=I4xGsOAPsJQ">
+                Daimler-Benz
+            </a>
+            &lt;/p&gt; &rarr; <code>Selector Specificity: (0, 2, 0)</code>
+        </p>
+
+        <h3>
+            <a href="/nodejs/books/css-handbook.pdf#page=16">
+                Follow the document tree structure!
+            </a>
+            (p span)
+        </h3>
+        <p>
+            &lt;p&gt; Spitfire's engine name is:
+            <span class="engine-name">
+                &lt;span class="engine-name"&gt;
+                <a
+                    href="#"
+                    onclick="window.open('https://youtu.be/baDZSADYbNM');window.open('https://www.youtube.com/watch?v=-fo7SmNuUU4');"
+                >
+                    Rolls-Royce Merlin
+                </a>
+                &lt;/span&gt;
+            </span>
+            &lt;/p&gt; &rarr; <code>Selector Specificity: (0, 0, 2)</code>
+        </p>
+
+        <details>
+            <summary>
+                <a href="https://www.w3schools.com/css/css_specificity.asp">
+                    Specificity
+                </a>
+                and
+                <a
+                    href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance"
+                >
+                    Inheritance
+                </a>
+            </summary>
+
+            <ol>
+                <li style="color: blueviolet">
+                    Inline styles &rarr; Selector Specificity: (1, 0, 0, 0)
+                </li>
+                <li id="li">
+                    IDs Inline styles &rarr; Selector Specificity: (0, 1, 0, 0)
+                </li>
+                <li class="li">
+                    Classes, attributes and
+                    <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes"
+                    >
+                        pseudo-classes
+                    </a>
+                    &rarr; Selector Specificity: (0, 0, 1, 0)
+                </li>
+                <li>
+                    Elements and
+                    <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements"
+                    >
+                        pseudo-elements
+                    </a>
+                    &rarr; Selector Specificity: (0, 0, 0, 1)
+                </li>
+            </ol>
+        </details>
+    </body>
+</html>

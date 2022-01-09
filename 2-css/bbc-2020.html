@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>BBC News Tech - 11/12/2020</title>
+
+        <link rel="stylesheet" type="text/css" href="bbc.css" />
+        <link rel="stylesheet" type="text/css" href="dropdown.css" />
+    </head>
+
+    <body>
+        <div id="topbar">
+            <img id="logo" src="images/bbc-logo.png" />
+
+            <div id="signin-div" class="topbar-section">
+                <img id="signin-image" src="images/signinimage.png" />
+                <span id="signin-text">
+                    <a href="https://account.bbc.com/signin">Sign in</a>
+                </span>
+            </div>
+
+            <div id="bell-div">
+                <img id="wigglyline" src="images/wigglyline.png" />
+                <img id="bell" src="images/bell.png" />
+            </div>
+
+            <div class="topbar-section topbar-menu">
+                <a href="https://www.bbc.com">Home</a>
+            </div>
+
+            <div class="topbar-section topbar-menu">
+                <a href="https://www.bbc.com/news">News</a>
+            </div>
+
+            <div class="topbar-section topbar-menu">
+                <a href="https://www.bbc.com/sport">Sport</a>
+            </div>
+
+            <div class="topbar-section topbar-menu">
+                <a href="https://www.bbc.com/reel">Reel</a>
+            </div>
+
+            <div class="topbar-section topbar-menu">
+                <a href="https://www.bbc.com/worklife">Worklife</a>
+            </div>
+
+            <div class="topbar-section topbar-menu">
+                <a href="https://www.bbc.com/travel">Travel</a>
+            </div>
+
+            <div class="topbar-section topbar-menu">
+                <a href="https://www.bbc.com/future">Future</a>
+            </div>
+
+            <div class="topbar-section topbar-menu">
+                <a href="https://www.bbc.com/culture">Culture</a>
+            </div>
+
+            <div class="topbar-section topbar-menu dropdown">
+                <button class="dropbtn">
+                    More <img id="more-arrow" src="images/more-arrow.png" />
+                </button>
+                <div class="dropdown-content">
+                    <a href="https://www.bbc.com/culture/music">Music</a>
+                    <a href="https://www.bbc.co.uk/schedules/p00fzl9m">TV</a>
+                    <a href="https://www.bbc.com/weather">Weather</a>
+                    <a href="https://www.bbc.co.uk/sounds">Sounds</a>
+                </div>
+            </div>
+            <!--
+            <div class="topbar-section topbar-menu">
+                <img id="more-arrow" src="images/more-arrow.png">
+            </div>
+            -->
+
+            <div class="topbar-section">
+                <input id="search-box" type="text" value="Search " />
+                <input
+                    type="image"
+                    id="magnifying-glass"
+                    src="images/magnifying-glass.png"
+                />
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div id="menu-bar-container">
+            <div id="menu-bar-1-container">
+                <div id="menu-bar-1">
+                    <div id="menu-news">
+                        <a href="https://www.bbc.com/news">NEWS</a>
+                    </div>
+
+                    <div id="local-news">
+                        <a href="https://www.bbc.com/news/localnews">
+                            Find local news
+                        </a>
+                        <img src="images/pointer.png" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+            <div id="menu-bar-2-container">
+                <div id="menu-bar-2">
+                    <a href="https://www.bbc.com/news">Home </a>
+                    <a href="https://www.bbc.com/news/election/us2020">
+                        US Election
+                    </a>
+                    <a href="https://www.bbc.com/news/coronavirus">
+                        Coronavirus
+                    </a>
+                    <a href="https://www.bbc.com/news/av/10462520">Video </a>
+                    <a href="https://www.bbc.com/news/world">World </a>
+                    <a href="https://www.bbc.com/news/world/us_and_canada">
+                        US & Canada
+                    </a>
+                    <a href="https://www.bbc.com/news/uk">UK </a>
+                    <a href="https://www.bbc.com/news/business">Business </a>
+                    <a href="https://www.bbc.com/news/technology">Tech </a>
+                    <a href="https://www.bbc.com/news/science_and_environment">
+                        Science
+                    </a>
+                    <a href="https://www.bbc.com/news/entertainment_and_arts">
+                        Entertainment & Arts
+                    </a>
+                    <a href="https://www.bbc.com/news/health"> Health </a>
+                    <a href="https://www.bbc.com/news/in_pictures">
+                        In Pictures
+                    </a>
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            More
+                            <img id="down-arrow" src="images/down-arrow.png" />
+                        </button>
+                        <div class="dropdown-content">
+                            <a
+                                href="https://www.bbc.com/news/world_radio_and_tv"
+                            >
+                                World News TV
+                            </a>
+                            <a href="https://www.bbc.com/news/newsbeat">
+                                Newsbeat
+                            </a>
+                            <a href="https://www.bbc.com/news/health">Health</a>
+                            <a href="https://www.bbc.com/news/reality_check">
+                                Reality Check
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div id="page-container">
+            <div id="main-article">
+                <div id="menu-tech">Tech</div>
+
+                <div id="article-container">
+                    <figure id="main-article-image">
+                        <img src="BBC-images/Baby Yoda.jpg" width="100%" />
+
+                        <figcaption style="font-size: 2em; font-weight: bold">
+                            <a
+                                class="article-link"
+                                href="https://www.bbc.com/news/technology-55269531"
+                            >
+                                Disney ramps up Star Wars and Marvel franchises
+                            </a>
+                        </figcaption>
+                    </figure>
+
+                    <div id="article-summary">
+                        <p>
+                            The expansion marks another industry shift away from
+                            cinema to streaming.
+                        </p>
+
+                        <p>
+                            <img class="clock" src="images/clock.png" />
+                            <span class="date">5m</span>
+                            <a
+                                class="topic-link"
+                                href="https://www.bbc.com/news/technology"
+                            >
+                                Technology
+                            </a>
+                        </p>
+
+                        <!--
+                        <hr id="article-hr"  align="left"> -->
+
+                        <ul style="padding-left: 20; font-weight: bold">
+                            <li>
+                                <a
+                                    class="article-link"
+                                    href="https://www.bbc.com/news/business-55180055"
+                                >
+                                    Cinema giant in urgent talks over Dunes
+                                    streaming
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    class="article-link"
+                                    href="https://www.bbc.com/news/business-55001718"
+                                >
+                                    Cineworld eyes UK cinema closures and rescue
+                                    deal
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="watch-listen">
+                <div class="row">
+                    <div class="column">
+                        <figure>
+                            <img src="BBC-images/Porn.jpg" width="100%" />
+
+                            <figcaption>
+                                <a
+                                    class="watch-listen-link"
+                                    href="https://www.bbc.com/news/technology-55267311"
+                                >
+                                    Mastercard severs links with Pornhub after
+                                    review
+                                </a>
+                            </figcaption>
+                        </figure>
+
+                        <div class="side-article">
+                            <p>
+                                The payments giant says an investigation has
+                                confirmed the presence of unlawful content on
+                                the site.
+                            </p>
+
+                            <img class="clock" src="images/clock.png" />
+                            <span class="date border-right">11h </span>
+                            <a
+                                class="topic-link"
+                                href="https://www.bbc.com/news/technology"
+                            >
+                                Technology
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <figure>
+                            <img src="BBC-images/Huawei.jpg" width="100%" />
+
+                            <figcaption>
+                                <a
+                                    class="watch-listen-link"
+                                    href="https://www.bbc.com/news/business-55269879"
+                                >
+                                    US telcos to &#x27;rip and replace&#x27;
+                                    Huawei components
+                                </a>
+                            </figcaption>
+                        </figure>
+
+                        <div class="side-article">
+                            <p>
+                                The order is the latest US move against Chinese
+                                communications firm Huawei on security grounds.
+                            </p>
+
+                            <img class="clock" src="images/clock.png" />
+                            <span class="date border-right">5h </span>
+                            <a
+                                class="topic-link"
+                                href="https://www.bbc.com/news/business"
+                            >
+                                Business
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <figure>
+                            <img src="BBC-images/Retailers.jpg" width="100%" />
+
+                            <figcaption>
+                                <a
+                                    class="watch-listen-link"
+                                    href="https://www.bbc.com/news/technology-55259179"
+                                >
+                                    Co-op facial recognition trial sparks alarm
+                                </a>
+                            </figcaption>
+                        </figure>
+
+                        <div class="side-article">
+                            <p>
+                                It was used to catch shoplifters but has raised
+                                concerns about mass surveillance in stores.
+                            </p>
+
+                            <img class="clock" src="images/clock.png" />
+                            <span class="date border-right">21h </span>
+                            <a
+                                class="topic-link"
+                                href="https://www.bbc.com/news/technology"
+                            >
+                                Technology
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <figure>
+                            <img
+                                src="BBC-images/Google Boss.jpg"
+                                width="100%"
+                            />
+
+                            <figcaption>
+                                <a
+                                    class="watch-listen-link"
+                                    href="https://www.bbc.com/news/technology-55265697"
+                                >
+                                    Google boss apologises for Timnit Gebru row
+                                </a>
+                            </figcaption>
+                        </figure>
+
+                        <div class="side-article">
+                            <p>
+                                But Sandar Pichai does not admit she was fired
+                                or explain the circunstances of her departure.
+                            </p>
+
+                            <img class="clock" src="images/clock.png" />
+                            <span class="date border-right">16h </span>
+                            <a
+                                class="topic-link"
+                                href="https://www.bbc.com/news/technology"
+                            >
+                                Technology
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <figure>
+                            <img src="BBC-images/Cyber Punk.jpg" width="100%" />
+
+                            <figcaption>
+                                <a
+                                    class="watch-listen-link"
+                                    href="https://www.bbc.com/news/av/technology-55252658"
+                                >
+                                    Cyberpunk 2077: The story behind the video
+                                    game
+                                </a>
+                            </figcaption>
+                        </figure>
+
+                        <div class="side-article">
+                            <p>
+                                The creators of the highly anticipated title
+                                reveal their inspirations.
+                            </p>
+
+                            <img class="clock" src="images/clock.png" />
+                            <span class="date border-right">1d </span>
+                            <a
+                                class="topic-link"
+                                href="https://www.bbc.com/news/technology"
+                            >
+                                Technology
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <figure>
+                            <img src="BBC-images/Google.jpg" width="100%" />
+
+                            <figcaption>
+                                <a
+                                    class="watch-listen-link"
+                                    href="https://www.bbc.com/news/technology-55259602"
+                                >
+                                    Google fined &#163;91m over ad-tracking
+                                    cookies
+                                </a>
+                            </figcaption>
+                        </figure>
+
+                        <div class="side-article">
+                            <p>
+                                France's data privacy watchdog said it was the
+                                largest fine it had ever issued.
+                            </p>
+
+                            <img class="clock" src="images/clock.png" />
+                            <span class="date border-right">22h </span>
+                            <a
+                                class="topic-link"
+                                href="https://www.bbc.com/news/technology"
+                            >
+                                Technology
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            window.onkeydown = function (event) {
+                // Detect Safari
+                let safariAgent = navigator.userAgent.indexOf("Safari") > -1;
+                let chromeAgent = navigator.userAgent.indexOf("Chrome") > -1;
+
+                // Discard Safari since it also matches Chrome
+                if (chromeAgent && safariAgent) safariAgent = false;
+
+                if (event.ctrlKey && event.key === "Escape") {
+                    let r = document.querySelector(":root");
+                    let rs = getComputedStyle(r);
+                    let bd = rs.getPropertyValue("--debug_border");
+                    r.style.setProperty(
+                        "--debug_border",
+                        bd == "0px" ? "3px" : "0px"
+                    );
+                } else if (event.ctrlKey && event.key === "e") {
+                    let r = document.querySelector(":root");
+                    let rs = getComputedStyle(r);
+                    let wd = rs.getPropertyValue("--width");
+                    r.style.setProperty(
+                        "--width",
+                        wd == "1700px" ? "95%" : "1700px"
+                    );
+                }
+            };
+
+            function adjustLayout(x) {
+                if (x.matches) {
+                    // If media query matches
+                    let r = document.querySelector(":root");
+                    r.style.setProperty("--width", "95%");
+                } else {
+                    let r = document.querySelector(":root");
+                    r.style.setProperty("--width", "1700px");
+                }
+            }
+
+            var x = window.matchMedia("(max-width: 700px)");
+            adjustLayout(x); // Call listener function at run time
+            x.addListener(adjustLayout); // Attach listener function on state changes
+        </script>
+    </body>
+</html>

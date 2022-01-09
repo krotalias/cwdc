@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" type="text/css" href="roma.css" />
+        <title>Positioning</title>
+
+        <style type="text/css">
+            #first-section {
+                background-color: #cef6ce;
+                width: 260px;
+                /* 
+                 * An element with position: fixed; is positioned relative to the viewport,
+                 * which means it always stays in the same place even if the page is scrolled.
+                 * The top, right, bottom, and left properties are used to position the element.
+                 * Notice the fixed element in the lower-right corner of the page.
+                 */
+                bottom: 0;
+                right: 0;
+                position: fixed;
+            }
+
+            /* 
+             * In most major browsers, the default <body> margin is 8px on all sides.
+             * Default <p> margin-top and margin-bottom is 1em.
+             *
+             * To remove all margins, just use:
+             *      * {
+             *          margin: 0;
+             *      }
+             *
+             * Specificity: (1, 0, 0)
+             */
+            #second-section {
+                background-color: #8ab4f7;
+                width: 400px;
+                height: 5000px;
+                padding: 0;
+                position: relative;
+                z-index: -1;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="first-section">
+            <p class="blue">This text is in a &lt;div&gt; pointed by:</p>
+            <pre class="code">
+                #first-section {
+                    <tab1 /> background-color: #CEF6CE;
+                    <tab1 /> width: 260px; 
+                    <tab1 /> bottom: 0;
+                    <tab1 /> right: 0;
+                    <tab1 /> /* (does not scroll) */ 
+                    <tab1 /> <mark>position: fixed;</mark>
+                }
+            </pre>
+            <p class="blue">The quick brown fox jumped over the lazy dog.</p>
+        </div>
+
+        <div id="second-section" class="no-margin">
+            <p class="green">
+                These texts are in another &lt;div&gt; pointed by:
+            </p>
+            <pre class="code">
+                #second-section {
+                    <tab1 /> background-color: #8AB4F7;
+                    <tab1 /> width: 400px;
+                    <tab1 /> height: 5000px;
+                    <tab1 /> padding: 0;
+                    <tab1 /> <mark>position: relative;</mark>
+                    <tab1 /> <span style="color: red">zindex: -1;</span>
+                } 
+            </pre>
+
+            <p>
+                <span class="underlined green">
+                    and these words are underlined.
+                </span>
+            </p>
+
+            <h1 class="red">
+                Because the second-section has a z-index of -1, it will be
+                placed behind the first-section in a mobile device.
+            </h1>
+        </div>
+    </body>
+</html>

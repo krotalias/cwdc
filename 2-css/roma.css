@@ -1,0 +1,68 @@
+.red {
+    color: red;
+}
+
+.large {
+    font-size: 200%;
+}
+
+.blue {
+    color: #4285f4;
+}
+
+.green {
+    color: green;
+}
+
+.underlined {
+    text-decoration: underline;
+}
+
+#first-section {
+    background-color: #cef6ce;
+    width: 260px;
+    margin-left: 150px;
+}
+
+/* Specificity: (1, 0, 0) */
+#second-section {
+    background-color: #8ab4f7;
+    width: 400px;
+    /* top, right, bottom, left */
+    padding: 5px 10px 15px 20px;
+}
+
+/* 
+ * Beware - Specificity: (1, 1, 1) 
+ * id + div + pseudo-class
+ */
+div#second-section:not(.no-margin) {
+    /* top, right, bottom, left */
+    margin: 50px 20px 50px 20px;
+    padding: 0;
+}
+
+.code {
+    padding: 1em 0.2em 0.6em 1em;
+    color: black;
+    overflow: auto;
+    width: auto;
+    border: solid gray;
+    border-width: 0.1em 0.1em 0.1em 0.8em;
+}
+
+pre {
+    line-height: 125%;
+    /* 
+     * Sequences of white space are collapsed. 
+     * Lines are broken at newline characters, at <br>, 
+     * and as necessary to fill line boxes. 
+     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
+     */
+    white-space: pre-line;
+    margin: 0;
+}
+
+tab1 {
+    padding-left: 2em;
+}

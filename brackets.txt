@@ -1,0 +1,11 @@
+1- go to menu-->Debug
+2- go to "open Preferences File"
+3- go to the file : "brackets.json"
+4- copy and pase these codes on last line and dont forget separate code lines with ",":
+
+
+    "linting.prefer": ["JSHint"],
+    "linting.usePreferredOnly": true
+
+
+*HOPE TO HELP :))

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Borders</title>
+
+        <style type="text/css">
+            body {
+                background-color: lightgray;
+            }
+
+            #square-red {
+                background-color: red;
+                border: 10px yellow solid;
+                line-height: 400px;
+            }
+
+            #square-blue {
+                background-color: lightskyblue;
+                border-style: ridge solid dotted dashed;
+                border-color: green red antiquewhite yellow;
+                border-width: 10px 5px 4px 4px;
+            }
+
+            #square-green {
+                background-color: seagreen;
+                border-radius: 50%;
+                line-height: 400px;
+            }
+
+            .square {
+                width: 400px;
+                height: 400px;
+                margin: 40px;
+                float: left;
+                text-align: center;
+                font-size: 40px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div style="width: 90%; height: 500px; border: 2px yellow solid">
+            <div id="square-red" class="square">Border 10px</div>
+
+            <div id="square-blue" class="square">
+                <span style="line-height: normal">ridge <br /></span>
+                <span style="line-height: 300px; float: right">solid</span>
+                <span style="line-height: 650px">dotted</span>
+                <span style="line-height: 300px; float: left">dashed</span>
+            </div>
+
+            <div id="square-green" class="square">Border radius 50%</div>
+        </div>
+    </body>
+</html>
