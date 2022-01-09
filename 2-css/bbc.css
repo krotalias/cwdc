@@ -1,0 +1,471 @@
+/*
+    Create a global variable.
+    https://www.w3schools.com/css/css3_variables.asp
+*/
+:root {
+    /* try to resize the window */
+    --width: 1700px;
+    --red: #a91717;
+    --darkred: #bb1919;
+    --lightgray: #cccccc;
+    --underline_topbar: #262626;
+    --underline_bar2: white;
+    --underline_width: 6px;
+    --search_height: 10px;
+    --menu_bar_height: 60px;
+    --menu_bar_top: 7px;
+    --font_size: 18px;
+    --debug_border: 0px;
+}
+
+#topbar {
+    width: var(--width);
+    /* 
+        To horizontally center a block element (like <div>), use margin: auto;
+        https://www.w3schools.com/css/css_align.asp
+    */
+    margin: 0 auto 6px auto; /* top margin zero, bottom margin 6 - left and right margins, auto */
+    height: 34px;
+    border: var(--debug_border) solid lightblue;
+}
+
+#topbar a {
+    color: black;
+    text-decoration: none;
+}
+
+#topbar a:hover {
+    text-decoration: none;
+    /* 
+        Each tab has a different underline color set in topbar-section 
+        border-bottom: var(--underline_width) solid var(--underline_topbar);
+    */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0 30px;
+}
+
+li {
+    margin-top: 7px;
+}
+
+li:first-child {
+    margin-top: 40;
+}
+
+#logo {
+    margin-top: 8px;
+    width: 100px;
+    float: left;
+    margin-right: 8px;
+    padding-right: 10px;
+}
+
+#bell-div {
+    padding-right: 10px;
+    padding-left: 20px;
+}
+
+#signin-div {
+    padding: 0 0 13px 0;
+    height: 27px;
+}
+
+.topbar-section {
+    float: left;
+    padding: 0 0 var(--underline_width) 0;
+    height: 100%;
+    border-left: 1px var(--lightgray) solid;
+    /* 
+        That way it won’t require element shift on hover,
+        as the room is already allocated. 
+    */
+    border-bottom: var(--underline_width) solid transparent;
+}
+
+/* Signin */
+.topbar-section:nth-child(2) {
+    padding-right: 40px;
+}
+
+/* Signin */
+.topbar-section:nth-child(2):hover {
+    border-bottom-color: #1188bb;
+}
+
+/* Home */
+.topbar-section:nth-child(4):hover {
+    border-bottom-color: #000000;
+}
+
+/* News */
+.topbar-section:nth-child(5):hover {
+    border-bottom-color: #bb1919;
+}
+
+/* Sport */
+.topbar-section:nth-child(6):hover {
+    border-bottom-color: #ffd230;
+}
+
+/* Reel */
+.topbar-section:nth-child(7):hover {
+    border-bottom-color: #0068ff;
+}
+
+/* Worklife */
+.topbar-section:nth-child(8):hover {
+    border-bottom-color: #0052a1;
+}
+
+/* Travel */
+.topbar-section:nth-child(9):hover {
+    border-bottom-color: #589e50;
+}
+
+/* Future */
+.topbar-section:nth-child(10):hover {
+    border-bottom-color: #002856;
+}
+
+/* Culture */
+.topbar-section:nth-child(11):hover {
+    border-bottom-color: #482878;
+}
+
+/* More */
+.topbar-section:nth-last-child(3) {
+    padding-right: 20px;
+    border-right: 1px solid var(--lightgray);
+}
+
+/* arrow */
+.topbar-section:nth-last-child(2) {
+    padding-right: 20px;
+    border-left: none;
+}
+
+/* Search */
+.topbar-section:last-child {
+    border-left: 1px solid var(--lightgray);
+    border-right: none;
+    padding-left: 10px;
+}
+
+#signin-image {
+    width: 25px;
+    margin: 11px 15px;
+    float: left;
+}
+
+#signin-text {
+    font-weight: bold;
+    font-size: 90%;
+    position: relative;
+    top: 14px;
+    padding-right: 50px;
+}
+
+#wigglyline {
+    float: left;
+    height: 40px;
+}
+
+#bell {
+    height: 25px;
+    margin: 9px 8px 0 8px;
+}
+
+#bell-div {
+    float: left;
+}
+
+.topbar-menu {
+    font-weight: bold;
+    font-size: 90%;
+    padding: 15px 27px 10px 27px;
+    height: 15px; /* 15+10+15=40 */
+}
+
+#more-arrow {
+    width: 16px;
+    margin-left: 40px;
+    padding-left: 20px;
+}
+
+#search-box {
+    background-color: #e4e4e4;
+    border: none;
+    font-weight: bold;
+    font-size: var(--font_size);
+    padding: 5px 5px 5px 5px;
+    margin: var(--search_height) 0 5px 5px;
+    float: left;
+}
+
+#magnifying-glass {
+    height: 32px;
+    margin-top: var(--search_height);
+}
+
+.clear {
+    clear: both;
+}
+
+#menu-bar-container {
+    border-top: 1px solid var(--lightgray);
+    background-color: var(--darkred);
+    width: 100%;
+    /* height: 122px; */
+    border: var(--debug_border) solid blue;
+}
+
+#menu-bar-1-container {
+    background-color: var(--darkred);
+    width: 100%;
+    border: var(--debug_border) solid lightblue;
+}
+
+#menu-bar-1 {
+    width: var(--width);
+    background-color: inherit;
+    min-height: var(--menu_bar_height);
+    margin: 0 auto;
+    padding-left: 0px;
+    border: var(--debug_border) solid green;
+}
+
+#local-news {
+    border: 1px #bb4545 solid;
+    float: right;
+    width: 260px;
+    height: 100%;
+    padding: 10px 5px 0 10px;
+    margin: auto;
+    text-align: right;
+}
+
+#local-news a {
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+    position: relative;
+    top: -8px;
+}
+
+#local-news a:hover {
+    text-decoration: underline;
+}
+
+#local-news img {
+    height: 40px;
+}
+
+#menu-bar-2-container {
+    background-color: var(--red);
+    width: 100%;
+    border: var(--debug_border) solid lightblue;
+}
+
+#menu-bar-2 {
+    width: var(--width);
+    background-color: inherit;
+    margin: 0 auto;
+    min-height: calc(var(--menu_bar_height) * 2 / 3);
+    border: var(--debug_border) solid green;
+    border-bottom: var(--underline_width) solid transparent;
+    font-size: var(--font_size);
+}
+
+#menu-bar-2 a {
+    color: white;
+    background-color: inherit;
+    margin: 0 auto;
+    line-height: 3;
+    text-decoration: none;
+    /* top + padding-top + font-size + padding-bottom = 7+24+18+6+5 = 60 */
+    /* padding: 0px 5px calc(var(--underline_width) + 5px) 5px; */
+    padding: calc(
+            var(--menu_bar_height) - var(--menu_bar_top) - var(--font_size) -
+                var(--underline_width) - 5px
+        )
+        5px calc(var(--underline_width) + 5px) 5px;
+    border-right: 1px solid #bb4545;
+    font-size: var(--font_size);
+    position: relative;
+    top: var(--menu_bar_top);
+    border-bottom: var(--underline_width) solid transparent;
+}
+
+#menu-bar-2 a:hover {
+    border-bottom-color: var(--underline_bar2);
+    color: goldenrod;
+    background-color: var(--darkred);
+    z-index: 10;
+}
+
+#menu-news {
+    padding-top: 7px;
+    margin: 0;
+    color: white;
+    font-size: 44px;
+    font-weight: normal;
+    float: left;
+}
+
+#menu-news a {
+    color: white;
+    text-decoration: none;
+}
+
+#menu-bar-2:first-child {
+    padding: 0 10px 0 0;
+}
+
+/* More */
+#menu-bar-2:last-child {
+    color: white;
+    padding-right: 0;
+}
+
+#down-arrow {
+    height: 10px;
+}
+
+#page-container {
+    width: var(--width);
+    margin: 0 auto;
+    border: var(--debug_border) solid violet;
+    /* 
+     * Add the overflow: hidden attribute for the father to clear the float.
+     * @see https://developpaper.com/understanding-css-overflow-hidden-overflow-collapse-clear-float/
+     */
+    overflow: hidden;
+}
+
+#menu-tech {
+    font-weight: normal;
+    margin: 20px 0;
+    font-size: 22px;
+    border-bottom: 3px solid var(--red);
+    width: 47px;
+}
+
+#article-summary {
+    color: #5a5a5a;
+    width: 100%;
+    float: left;
+}
+
+.clock {
+    height: 15px;
+    position: relative;
+    top: 2px;
+}
+
+.topic-link {
+    text-decoration: none;
+    color: black;
+    border-left: 1px solid var(--lightgray);
+    padding-left: 10px;
+}
+
+.topic-link:hover {
+    color: #1167a8;
+}
+
+.date {
+    padding-right: 10px;
+    color: #5a5a5a;
+}
+
+#article-container {
+    float: left;
+    width: 43%;
+    border-right: 0px solid var(--lightgray);
+    padding-right: 10px;
+    border: var(--debug_border) solid blue;
+}
+
+#main-article-image {
+    width: 100%;
+    margin-left: 0px;
+}
+
+#article-hr {
+    border-top: 1px solid var(--red);
+    width: 400px;
+}
+
+.article-link {
+    color: black;
+    text-decoration: none;
+}
+
+.article-link:hover {
+    color: #1167a8;
+}
+
+#watch-listen {
+    margin-left: 0px;
+    width: 55%;
+    float: left;
+    border: var(--debug_border) solid blue;
+}
+
+figure {
+    float: left;
+    margin: 0px 30px 0 0;
+    border: var(--debug_border) solid darkgray;
+}
+
+figcaption:not(#main-article-image) {
+    padding-top: 10px;
+    text-align: left;
+}
+
+.row {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+/* Create three equal columns that sits next to each other */
+.column {
+    flex: 33.33%;
+    padding: 0;
+}
+
+.watch-listen-link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.watch-listen-link:hover {
+    color: #1167a8;
+}
+
+.side-article {
+    display: inline-block;
+    height: 130px;
+    margin: 0 20px 0px 0;
+    border: var(--debug_border) solid darkgoldenrod;
+}
+
+.no-border {
+    border: none !important;
+    padding: 0;
+}
+
+.border-right {
+    border-right: 1px solid var(--lightgray);
+}
