@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>DIVs</title>
+
+        <style type="text/css">
+            .red {
+                color: red;
+            }
+
+            .large {
+                font-size: 200%;
+            }
+
+            .blue {
+                color: blue;
+            }
+
+            .green {
+                color: green;
+            }
+
+            .underlined {
+                text-decoration: underline;
+            }
+
+            #first-section {
+                background-color: pink;
+                width: 180px;
+            }
+
+            #second-section {
+                background-color: yellow;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 
+            The <div> tag defines a division or a section in an HTML document.
+            - it is used as a container for HTML elements 
+            - which is then styled with CSS or manipulated with JavaScript.
+            The <div> tag is easily styled by using the class or id attribute.
+            Any sort of content can be put inside the <div> tag! 
+            Note: By default, browsers always place a line break before and after the <div> element.
+        -->
+        <div id="first-section">
+            <p class="blue">
+                A text in a &lt;div&gt; pointed by a CSS rule with a selector
+                and three properties:
+            </p>
+            <p>
+                #first-section{<br />
+                &nbsp;&nbsp; width: 180px; <br />
+                &nbsp;&nbsp; color: blue; <br />
+                &nbsp;&nbsp; background-color: pink;<br />
+                }
+            </p>
+            <p class="blue">The quick brown fox jumped over the lazy dog.</p>
+        </div>
+
+        <div id="second-section">
+            <p class="green">
+                These texts are in another &lt;div&gt;,
+                <span class="underlined">and these words are underlined.</span>
+            </p>
+            <h1 class="red">
+                A CSS rule consists of a selector and a declaration block.
+            </h1>
+        </div>
+    </body>
+</html>

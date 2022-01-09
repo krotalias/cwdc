@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Text with Style</title>
+
+        <style type="text/css">
+            .bold {
+                font-weight: bold;
+            }
+
+            .italic {
+                font-style: italic;
+            }
+
+            .underlined {
+                text-decoration: underline;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+                color: green;
+            }
+
+            .big {
+                font-size: 200%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p class="bold">This is some bold text!</p>
+
+        <p class="italic">
+            This is some italic text!
+            <span class="bold">And this is bold and italic.</span>
+        </p>
+
+        <p class="underlined">This text is underlined!</p>
+
+        <a
+            href="https://www.getfilecloud.com/blog/2015/03/tech-tip-how-to-do-hard-refresh-in-browsers/"
+        >
+            This is a non-underlined link for a Hard Refresh
+        </a>
+
+        <p class="big">This text is BIG!</p>
+    </body>
+</html>

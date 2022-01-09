@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Colors</title>
+
+        <style type="text/css">
+            .red {
+                color: red;
+            }
+
+            .large {
+                font-size: 200%;
+            }
+
+            .blue {
+                color: #4285f4;
+            }
+
+            .green {
+                color: green;
+            }
+
+            .underlined {
+                text-decoration: underline;
+            }
+
+            #first-section {
+                background-color: #cef6ce;
+                width: 220px;
+            }
+
+            #second-section {
+                background-color: #8ab4f7;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="first-section">
+            <p class="blue">This text is in a &lt;div&gt; pointed by:</p>
+            <p>
+                #first-section { <br />
+                &nbsp;&nbsp; width: 220px; <br />
+                &nbsp;&nbsp; <mark>color: #4285F4;</mark> <br />
+                &nbsp;&nbsp; background-color: #CEF6CE;<br />
+                }
+            </p>
+            <p class="blue">The quick brown fox jumped over the lazy dog.</p>
+        </div>
+
+        <div id="second-section">
+            <p class="green">
+                These texts are in another &lt;div&gt;,
+                <span class="underlined">and these words are underlined.</span>
+            </p>
+            <h1 class="red">
+                A CSS rule consists of a selector and a declaration block.
+            </h1>
+        </div>
+    </body>
+</html>
