@@ -1,0 +1,67 @@
+    
+    Press:  ctrl-Esc for drawing element boxes
+            ctrl-e for using percentage of viewport
+
+----------------------------------------------------------------------------
+
+    :root {
+            --width: 1700px; /* 95%; */
+        }
+  
+  
+    body
+
+        topbar                          width: var(--width)     margin: auto        lightblue
+
+            BBC    |    signin-div topbar-section     |    bell-div      |      topbar-menu topbar-section    |   .....   |    search-box topbar-section
+
+        menu-bar-container              width: 100%                                 blue
+
+            menu-bar-1-container        width: 100%;                                lightblue
+
+                menu-bar-1              width: var(--width)     margin: auto        green      min-height: var(--menu_bar_height);
+
+                    NEWS
+
+                    local-news
+
+                        Find local news
+
+            menu-bar-2-container        width: 100%;                                lightblue
+
+                menu-bar-2              width: var(--width)     margin: auto        green      min-height: calc(var(--menu_bar_height) * 2 / 3);   
+
+                    Home   US Election ....
+
+
+        page-container                  width: var(--width)     margin: auto        violet
+
+            main-article
+
+                Tech
+
+                article-container       width: 43%;                                 blue
+
+                    figure main-article-image
+                    article-link
+       
+                    article-summary     width: 100%
+                        topic-link
+                        article-link
+                        article-link
+
+            watch-listen                width: 55%;                                 blue
+
+                row
+
+                    column                  column                  column
+                    figure                  figure                  figure          darkgrey
+                    side-article            side-article            side-article    darkgoldenrod
+                    topic-link              topic-link              topic-link
+
+                row
+
+                    column                  column                  column
+                    figure                  figure                  figure
+                    side-article            side-article            side-article
+                    topic-link              topic-link              topic-link
