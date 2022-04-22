@@ -16,31 +16,46 @@
             }
 
             /*
-             * To make the dependency strict on the first level, 
-             * one can use the < symbol between the two tokens.
+             * To make the dependency strict on the first level, that is,
+             * all elements that are the children of a specified element,
+             * one can use the > combinator symbol between the two selectors.
              */
             details > summary {
-                padding: 4px;
-                width: 200px;
+                padding: 6px;
+                width: fit-content;
                 background-color: #eeeeee;
                 color: black;
                 border: none;
-                box-shadow: 1px 1px 2px #bbbbbb;
+                box-shadow: 1px 1px 24px lightblue;
                 cursor: pointer;
+                text-align: center;
             }
 
+            /*
+             * The universal selector (*), 
+             * combinators 
+             * - + (adjacent sibling selector)
+             * - > (child selector)
+             * - ~ (general sibling selector)
+             * - ' ' (descendant selector)
+             * and negation pseudo-class (:not)
+             * have no effect on specificity.
+             */
             details > ol {
                 background-color: #eeeeee !important;
                 box-shadow: 1px 1px 2px #bbbbbb;
-                width: 500px;
+                width: fit-content;
+                padding-right: 10px;
             }
 
             /*
              * Adjacent sibling selectors let us style an element only
              * if preceded by a specific element.
+             * <p> preceded by <h3>, <span> preceded by <p> or <p> preceded by <p>.
              */
             h3 + p,
-            p + span {
+            p + span,
+            p + p {
                 padding-left: 2em;
             }
 
@@ -57,6 +72,7 @@
             .engine-name.Rolls_Royce-Merlin {
                 color: burlywood;
                 padding-left: 2em;
+                font-style: oblique;
             }
 
             /*
@@ -90,6 +106,10 @@
                 color: white;
             }
 
+            code {
+                color: lightseagreen;
+            }
+
             /*
              * Underline text, but ignore the spaces.
              * The spaces come from the line-breaks
@@ -104,12 +124,22 @@
                 color: coral;
             }
 
-            /* 
+            /*
              * This is a pseudo-class, and
              * represents links that the user has already visited.
              */
             a:visited {
                 color: darkgoldenrod;
+            }
+
+            /*
+             * A link that is hovered over by a user's mouse pointer, styled using the :hover pseudo class.
+             * A link that is activated (e.g., clicked on), styled using the :active pseudo class.
+             * Apply to all links not descendant from summary.
+             */
+            a:not(summary a):hover,
+            a:not(summary a):active {
+                font-size: 150%;
             }
         </style>
     </head>
@@ -119,7 +149,7 @@
             <a href="/nodejs/books/css-handbook.pdf#page=14">Single Class!</a>
             (.engine-name)
         </h3>
-        <p>P-47's engine name is:</p>
+        <p>&lt;p&gt; P-47's engine name is: &lt;/p&gt; (h3 + p)</p>
         <span class="engine-name">
             &lt;span class="engine-name"&gt;
             <a href="https://www.youtube.com/watch?v=EyPvpdy4dgg">
@@ -127,7 +157,7 @@
             </a>
             &lt;/span&gt;
         </span>
-        &rarr; <code>Selector Specificity: (0, 1, 0)</code>
+        &rarr; <code>Selector Specificity: (0, 1, 0)</code> (p + span)
 
         <h3>
             <a href="/nodejs/books/css-handbook.pdf#page=15">Two Classes!</a>
@@ -138,7 +168,8 @@
             <a href="https://www.youtube.com/watch?v=I4xGsOAPsJQ">
                 Daimler-Benz
             </a>
-            &lt;/p&gt; &rarr; <code>Selector Specificity: (0, 2, 0)</code>
+            &rarr; <code>Selector Specificity: (0, 2, 0)</code>
+            &lt;/p&gt; (h3 + p)
         </p>
 
         <h3>
@@ -147,8 +178,9 @@
             </a>
             (p span)
         </h3>
-        <p>
-            &lt;p&gt; Spitfire's engine name is:
+        <p class="engine-name Rolls_Royce-Merlin">
+            &lt;p class="engine-name Rolls_Royce-Merlin"&gt; Spitfire's engine
+            name is:
             <span class="engine-name">
                 &lt;span class="engine-name"&gt;
                 <a
@@ -159,7 +191,14 @@
                 </a>
                 &lt;/span&gt;
             </span>
-            &lt;/p&gt; &rarr; <code>Selector Specificity: (0, 0, 2)</code>
+            (p span) &rarr;
+            <code>Selector Specificity: (0, 0, 2)</code> &lt;/p&gt; (h3 + p)
+        </p>
+
+        <p>
+            &lt;p&gt; a:link pseudo-class &rarr;
+            <code>Selector Specificity: (0, 1, 1)</code>
+            &lt;/p&gt; (p + p)
         </p>
 
         <details>
@@ -174,6 +213,17 @@
                     Inheritance
                 </a>
             </summary>
+
+            <br />
+            <a
+                href="https://webdesign.tutsplus.com/pt/tutorials/explaining-the-details-and-summary-elements--cms-21999"
+            >
+                details > summary
+            </a>
+            <br />
+            <a href="https://www.w3schools.com/css/css_combinators.asp">
+                details > ol
+            </a>
 
             <ol>
                 <li style="color: blueviolet">

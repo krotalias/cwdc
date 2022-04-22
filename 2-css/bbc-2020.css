@@ -469,3 +469,10 @@ figcaption:not(#main-article-image) {
 .border-right {
     border-right: 1px solid var(--lightgray);
 }
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    width: fit-content;
+}

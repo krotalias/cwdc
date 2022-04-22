@@ -8,12 +8,20 @@
                 text-decoration: none;
             }
 
-            a:hover {
-                text-decoration: underline;
+            a:link {
+                color: blue;
             }
 
             a:visited {
                 color: green;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            a:active {
+                background-color: red;
             }
         </style>
     </head>
@@ -23,6 +31,12 @@
             <h2>
                 Anchor properties have changed: underlined only when hoovering.
             </h2>
+            Link Pseudo-Classes (In Order)
+            <ul>
+                <li>Link, Visited, Hover, Active</li>
+                <li>L, V, H, A</li>
+                <li>LoVe, HAte</li>
+            </ul>
             <p><a href="http://www.google.com">Google</a></p>
             <p>
                 <a href="http://www.google.se" target="_blank">
