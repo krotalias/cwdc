@@ -67,6 +67,6 @@ div {
 
 body {
     background-color: white;
-    background-image: url("/roma/txt/IMAGEM/stone/yell_roc.jpg");
+    background-image: url("./IMAGEM/stone/yell_roc.jpg");
     text-decoration-color: black;
 }
