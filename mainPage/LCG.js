@@ -14,26 +14,26 @@ function dragAndSave(id) {
   // get positions in localStorage
   var positions = JSON.parse(localStorage.positions || "{}");
 
-  // restore the positions of the saved elements
-  $.each(positions, function (id, pos) {
-    $(id).css(pos);
-  });
+  if (positions[id]) $(id).css(positions[id]);
 
   // save the position of the draggable element into localStorage
   $(id).draggable({
-    containment: "#containment-wrapper",
-    scroll: true,
+    scroll: true, // If set to true, container auto-scrolls while dragging.
+    // Triggered when dragging stops.
     stop: function (event, ui) {
-      positions[id] = ui.position;
+      let positions = JSON.parse(localStorage.positions || "{}");
+      positions[id] = ui.position; // { top, left } object.
       localStorage.positions = JSON.stringify(positions);
     },
   });
 
   // reset localStorage
   window.onkeydown = function (event) {
-    if (event.metaKey && event.key === "Escape") {
-      localStorage.clear();
-      alert("Local storage has been cleared");
+    if (event.key === "Escape" || event.key === "e") {
+      if (event.metaKey || event.ctrlKey) {
+        localStorage.clear();
+        alert("Local storage has been cleared");
+      }
     } else if (event.key == "b") {
       window.location.href = "/cwdc";
     } else if (event.key == "B") {
