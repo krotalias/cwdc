@@ -1,7 +1,17 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-custom">
-    <a class="navbar-brand" href="https://www.lcg.ufrj.br"> <img src="/cwdc/mainPage/logo.png" style="height:48px;" alt="logo"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <a class="navbar-brand" href="https://www.lcg.ufrj.br">
+        <img src="/cwdc/mainPage/logo.png" style="height:48px;" alt="logo">
+    </a>
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -52,11 +62,28 @@
             </li>
         </ul>
 
-        <form class="search form-inline navbar-form navbar-right" action="https://www.google.com/search" method="get" role="search" onSubmit="Gsitesearch(this)">
-            <div class="input-group"> <input name="q" type="hidden" />
-                <input class="form-control mr-sm-2" name="qfront" type="search" required class="searchField" placeholder="Google Site Search" maxlength="50">
+        <form
+            class="search form-inline navbar-form navbar-right"
+            action="https://www.google.com/search"
+            method="get"
+            role="search"
+            onSubmit="Gsitesearch(this)"
+        >
+            <div class="input-group">
+                <input name="q" type="hidden" />
+                <input
+                    class="form-control mr-sm-2"
+                    name="qfront"
+                    type="search"
+                    class="searchField"
+                    placeholder="Google Site Search"
+                    maxlength="50"
+                    required
+                >
                 <span class="input-group-btn">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> Search <span class="glyphicon glyphicon-search"></span> </button>
+                    <button class="btn btn-outline-success my-2 my-sm-0"
+                            type="submit"> Search <span class="glyphicon glyphicon-search"></span>
+                    </button>
                 </span>
             </div>
         </form>
