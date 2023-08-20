@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="en">
+    <head>
+        <meta name="author" content="Paulo Roma" />
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Webpage Structure</title>
+        <style>
+            a {
+                display: inline-block;
+            }
+        </style>
+    </head>
+
+    <body>
+        <a href="https://en.wikipedia.org/wiki/Document_type_declaration">
+            Document Type Declaration
+        </a>
+
+        <p>
+            In <a href="https://en.wikipedia.org/wiki/HTML">HTML 4.01</a> (1999)
+            or
+            <a href="https://en.wikipedia.org/wiki/XHTML">XHTML 1.1</a> (2001),
+            it is necessary a DTD (Document Type Definition) with an FPI (Formal
+            Public Identifier):
+        </p>
+        <ul>
+            <li>&lt;!DOCTYPE root-element PUBLIC "FPI" ["URI"]&gt;</li>
+            <li>
+                &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+                "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;
+            </li>
+        </ul>
+
+        <p>
+            In <a href="https://en.wikipedia.org/wiki/HTML5">HTML5</a> (2014),
+            the declaration is "mostly useless, but required" and simple (case
+            insensitive):
+        </p>
+        <ul>
+            <li>&lt;!DOCTYPE html&gt;</li>
+        </ul>
+
+        <p>
+            There are also a few
+            <a href="http://xahlee.info/js/html5_non-closing_tag.html">
+                self-closing tags,
+            </a>
+            which means they don't need a separate closing tag as they don't
+            contain anything in them.
+        </p>
+
+        <p>
+            <a href="https://www.youtube.com/watch?v=EW7m2WIvFgQ&t=1519s">
+                Web App models:
+            </a>
+            SPA (Single Page Application) x MPA (Multi-Page Application)
+        </p>
+
+        <ul>
+            <li>
+                MPA: Widget approach on a multi-page application, where pages
+                are rendered on and served by a backend server.
+            </li>
+            <li>
+                SPA: Server only sends one HTML page. Threafter,
+                <a href="https://reactjs.org">React</a>,
+                <a href="https://angular.io">Angular</a> or
+                <a href="https://vuejs.org">Vue</a> takes over and controls the
+                UI.
+            </li>
+        </ul>
+
+        <a
+            href="https://www.outsystems.com/blog/posts/single-page-application/"
+        >
+            <img src="single-page-application-01.jpg" />
+        </a>
+    </body>
+</html>
