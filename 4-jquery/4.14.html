@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQueryUI: Accordion</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+        <link
+            href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css"
+            rel="stylesheet"
+        />
+
+        <style type="text/css">
+            #draggable {
+                width: 100px;
+                height: 100px;
+                background-color: blue;
+            }
+
+            #sortable {
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>
+            Best WWII
+            <a
+                href="https://www.warhistoryonline.com/military-vehicle-news/ten-of-the-best-fighters-of-wwii.html"
+            >
+                Fighters
+            </a>
+        </h1>
+
+        <div id="accordion">
+            <h3>Mitsubishi Zero</h3>
+            <div>
+                <p>
+                    When the Zero was first introduced into the war, it was
+                    considered the absolute standard in carrier-based fighters,
+                    combining both long range and maneuverability. During the
+                    early part of the war, it became the most feared dogfighter
+                    of all of the aircraft in existence. Its average
+                    kill-to-death ratio was 12 to 1. But by 1943, the
+                    introduction of better equipment and tactics made it, where
+                    the Allied pilots could compete with the Zero. The IJNAS
+                    would also use the Zero as a land-based fighter. In 1943,
+                    the weaknesses of the Zero were really starting to show, and
+                    it could no longer compete against the newer planes coming
+                    in with their greater speed, firepower, armor and their
+                    ability to match its maneuverability. Even though the Zero
+                    was outdated by 1944, the plane was still in use on the
+                    front lines, because of newer designs being pushed back and
+                    the Japanese having production difficulties. During the
+                    final years of World War II, the Zero was even used in
+                    kamikaze missions. The Zero was the most produced aircraft
+                    for the Japanese during World War II.
+                </p>
+            </div>
+
+            <h3>Spitfire</h3>
+            <div>
+                <p>
+                    The Spitfire is most likely the most famous aircraft from
+                    the World War II era. It was the king of low-altitudes. It
+                    will be known forever as the plane that turned the tide in
+                    the Battle of Britain. It’s main foe in that battle was the
+                    109, but the Spitfire made the Germans stay low with their
+                    bombers, which was not ideal for the 109, but it was perfect
+                    for the Spitfire. In the Battle of Britain, the Spitfire
+                    gained fame by having the highest victory-to-loss ratio
+                    among British aircraft. Bob Tuck (27 kills), Johnnie Johnson
+                    (34 kills), and Douglas Bader (20 Kills), were the ace
+                    fighters in that battle. The Spitfire was also the most
+                    produced fighter for the British, and was continuously
+                    produced throughout the war.
+                </p>
+            </div>
+
+            <h3>P-47 Thunderbolt</h3>
+            <div>
+                <p>
+                    The Thunderbolt was one of the heaviest and largest fighter
+                    planes ever built; it was also only powered by a single
+                    piston engine. It was only built from 1941-1945 and was
+                    equipped with eight .50-calibre machine guns, four per wing,
+                    which were absolutely devastating. When it had a full
+                    payload, the Thunderbolt weighed around 8 tons; it would
+                    carry five-inch rockets or just a single bomb that weighed
+                    2,500 pounds; it could even carry over half of the B-17
+                    which was insane for a fighter plane. It even out killed the
+                    P-51 Mustang during the first three months of 1944, having
+                    540 kills to the Mustang’s 389, but eventually the Mustang
+                    over took it in kills, 972 for the Mustang and 409 for the
+                    P-47, in the second quarter of the year. The Thunderbolt
+                    even flew more attack missions than the P-51s, P-40s and
+                    P-38s combined. Not only was the Thunderbolt one of the main
+                    fighters for the U.S. in World War II, but also served with
+                    the British, French, and Russians. Brazilian and Mexican
+                    squadrons were given the P-47 instead. The cockpit was roomy
+                    and very comfortable, and the pilot had an amazing line of
+                    sight. Even today, the Thunderbolt name lives on with the
+                    Fairchild Republic A-10 Thunderbolt II.
+                </p>
+            </div>
+
+            <h3>P-38 Lightning</h3>
+            <div>
+                <p>
+                    Want to know about one of the greatest Allied fighters ever?
+                    How about two turbocharged engines, range, firepower, and
+                    the best aerodynamics of the era, made the P-38 one of the
+                    top choices ever. Its only drawback was its altitude
+                    capabilities, but even still, it dominated the Pacific. The
+                    P-38 with its iconic twin booms and a central nacelle
+                    containing the cockpit and armament, was nicknamed the
+                    “fork-tailed devil” by the Luftwaffe, and “two planes, one
+                    pilot” by the Japanese. The P-38 had many roles which
+                    included dive bombing, ground-attack, level bombing,
+                    interception, recon, night fighting, evacuation mission,
+                    radar and visual pathfinding for bombers, and long-range
+                    fighting. The P-38 saw most of its success in the Pacific
+                    and China-Burma-India Operations; it was used by the U.S.’
+                    top ace pilots, Charles H. MacDonald (36 victories), Thomas
+                    McGuire (38 victories) and Richard Bong (40 Victories). The
+                    P-38 was the main fighter in the Southwest Pacific Theater,
+                    until a large force of P-51D Mustangs was brought in towards
+                    the end of the war.
+                </p>
+            </div>
+
+            <h3>P-51 Mustang</h3>
+            <div>
+                <p>
+                    The P-51 Mustang Fighter, a North American Aviation, is one
+                    of the most iconic fighter / fighter bombers that is
+                    single-seated, and was used during World War 2. In total
+                    over 15,000 of these were manufactured. The Mustang was
+                    designed originally to be used with the Allison V-1710
+                    engine – making it a very good aircraft. When the B & C
+                    models were made of the P-51, they added a Rolls Royce
+                    Merlin engine, and this completely transformed its
+                    performance at high altitude (15,000+ feet), which meant it
+                    matched or even bettered that of the Luftwaffe’s fighters.
+                    The final version of the P-51 was the P-51D, and this was
+                    powered by yet another engine, the Packard V-1650-7, and was
+                    fully armed with .50 caliber M2 machine guns (6 in total on
+                    each aircraft). From late in 1943, P-51’s were used to
+                    escort bombers in raids over occupied Europe and over
+                    Germany, all the way to Berlin. The P-51’s with the Merlin
+                    engines were also used as fighter-bombers, which made sure
+                    that the Allied ruled supreme in the air in 1944. The P-51
+                    was also used in service with Allied air forces in Italian,
+                    Mediterranean and North African areas of service, and also
+                    saw action in the Pacific War against the Japanese. Within
+                    World War 2, P-51 pilots claim to have shot down 4,950 enemy
+                    aircraft.
+                </p>
+            </div>
+
+            <h3>Messerschmitt Bf 109</h3>
+            <div>
+                <p>
+                    If you look at Aviation history, then you will see that the
+                    109 was one of the best planes of all time. It even rivaled
+                    the British Spitfire, which is an amazing feat. It was
+                    graceful in the air as a dancer, and no other plane could
+                    even touch it in high altitudes. However, when it
+                    accompanied bombers over Great Britain, it usually fought at
+                    low altitudes, which it was not made for. It carried 20mm
+                    cannons, and it would become the most important fighter
+                    plane in the Luftwaffe. The 109 was a German World War II
+                    fighter aircraft designed by two men by the names of Robert
+                    Lusser and Willy Messerschmitt during the 1930s. The 109 was
+                    one of the only true modern planes in the war; it included
+                    features such as a retractable landing gear, all-metal
+                    monocoque construction, and a closed canopy. It was actually
+                    powered by a liquid-cooled, inverted-V12 Aero engine. It was
+                    first used in the Spanish Civil war and even stayed in use
+                    until the dawn of the fighter age near the end of World War
+                    II; it was still the backbone of the Luftwaffe’s Fighter
+                    Force. Slowly but surely it was being replaced by the
+                    superior Focke-Wulf Fw 190. The original plan for the 109
+                    was for it to be an interceptor, but later models were built
+                    for a variety of tasks: fighter-bomber, day-fighter,
+                    night-fighter, all-weather fighter, recon plane,
+                    ground-attack aircraft, and of course a bomber escort. The
+                    109 was the most produced fighter in history. There were
+                    produced a total of 33,984 airframes from 1936-1945.
+                </p>
+            </div>
+
+            <h3>Focke-Wulf Fw-190</h3>
+            <div>
+                <p>
+                    The 190 is literally one of the best fighters of all time,
+                    no Allied plane that fought against it will ever forget what
+                    it could do. It was introduced in 1941; the fighter almost
+                    immediately started to tear through the RAF and was putting
+                    down major punishment of Allied bombers. The 190 was highly
+                    respected by all the Allied pilots and it was a perfect
+                    fighter, fighter-bomber, and anti-tank aircraft.
+                    Oberleutnant Otto Kittel – who was an amazing pilot – scored
+                    almost all of his 267 killed in a 190. The 190 was a
+                    single-engine, single-seat fighter designed by Kurt Tank. It
+                    had a counterpart, the Messerschmitt Bf 109, but the 190
+                    became the backbone of the Luftwaffe’s Jagdwaffe (Fighter
+                    Force). It was powered by a BMW engine and because of this,
+                    it was able to lift larger loads than the 109. It also
+                    allowed it to be used as a night-fighter, day-fighter,
+                    ground-attack aircraft and fighter-bomber.
+                </p>
+            </div>
+        </div>
+
+        <h3>Please, reorder me.</h3>
+
+        <ul id="sortable">
+            <li>Ralph</li>
+
+            <li>Charles</li>
+
+            <li>Paul</li>
+
+            <li>Larry</li>
+        </ul>
+
+        <script type="text/javascript">
+            $("#accordion").accordion();
+
+            $("#sortable").sortable();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,2 @@
+> JSON.parse(localStorage.positions || "{}");
+< {#cdifieldset: {top: 61, left: 620}, #cdcfieldset: {top: 197, left: 503}, #romanfieldset: {top: 331, left: 594}, #containment-wrapper span: {top: 186, left: 252}}

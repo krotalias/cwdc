@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>jQuery: Code Player</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+        <style type="text/css">
+            :root {
+                --hdcolor: #eeeeee;
+                --txtcolor: #f7f7f7; /* grey */
+                --bdcolor: darkgrey; /*#E8F2FF;*/
+            }
+
+            body {
+                font-family: sans-serif;
+                padding: 0;
+                margin: 0;
+            }
+
+            #header {
+                width: 100%;
+                background-color: var(--hdcolor);
+                border: 1px solid grey;
+                padding: 5px;
+                height: 30px;
+            }
+
+            #logo {
+                float: left;
+                font-weight: bold;
+                font-size: 120%;
+                padding: 3px 5px;
+            }
+
+            #screen {
+                float: left;
+                padding: 6px 5px;
+            }
+
+            #buttonContainer {
+                width: 20%;
+                margin: 0 auto;
+            }
+
+            .toggleButton {
+                float: left;
+                border: 1px solid grey;
+                padding: 6px;
+                border-right: none;
+                font-size: 90%;
+            }
+
+            #html {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+
+            #output {
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+                border-right: 1px solid grey;
+            }
+
+            .active {
+                background-color: #e8f2ff;
+            }
+
+            .highlightedButton {
+                background-color: grey;
+            }
+
+            textarea {
+                resize: none;
+                border-top: none;
+                border-left: none;
+                border-color: var(--bdcolor);
+                background-color: var(--txtcolor);
+            }
+
+            textarea:focus {
+                outline: none !important;
+                border-color: var(--bdcolor);
+                box-shadow: 0 0 10px var(--bdcolor);
+            }
+
+            .panel {
+                float: left;
+                width: 50%;
+                border-left: none;
+                border-top: none;
+                padding-left: 5px;
+                text-align: left;
+                font-size: 110%;
+            }
+
+            iframe {
+                border-top: none;
+                border-color: var(--bdcolor);
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            /* an atemppt to make it responsive */
+            @media only screen and (max-width: 1200px) {
+                .panel,
+                .toggleButton,
+                #buttonContainer {
+                    clear: both;
+                    content: "";
+                    margin: 0;
+                    border-right: 1px solid grey;
+                    min-width: 90%;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="http://jsbin.com/?html,css,js,output">CodePlayer</a>
+            </div>
+
+            <div id="screen"></div>
+
+            <div id="buttonContainer">
+                <div class="toggleButton active" id="html">HTML</div>
+
+                <div class="toggleButton" id="css">CSS</div>
+
+                <div class="toggleButton" id="javascript">JavaScript</div>
+
+                <div class="toggleButton active" id="output">Output</div>
+            </div>
+        </div>
+
+        <div id="bodyContainer">
+            <textarea id="htmlPanel" class="panel" autofocus>
+                <p id="paragraph">Hello World!</p>
+                <h1 id="paragraph2">Hello World!</h1>
+                <a href="http://en.wikipedia.org/wiki/The_Three_Stooges">Three Stooges</a>
+                <ol type="I" start=50>
+                    <li> Moe </li>
+                    <li> Larry </li>
+                    <li> Curly </li>
+                </ol>
+                <div class="square"></div>
+                <a href="browser.png"> <img src="browser.png" alt="browser height" width="300"></a>
+            </textarea>
+            <textarea id="cssPanel" class="panel hidden">
+                p {
+                    color: green;
+                    font-size: 140%;
+                }
+                h1 {
+                    color: red;
+                    background-color: yellow;
+                }
+                a::after {
+                    content: " (" attr(href) ")";
+                }
+                a:hover {
+                    text-decoration: underline;
+                }
+                a {
+                    text-decoration: none;
+                }
+                .square {
+                    width: 300px;
+                    height: 300px;
+                    background-color: blue;
+                    border-radius: 50%;
+                }
+            </textarea>
+            <textarea id="javascriptPanel" class="panel hidden">
+                document.getElementById("paragraph").innerHTML = "Hello My World!";
+                document.getElementById("paragraph2").innerHTML = "What a Wonderful World!";
+            </textarea>
+            <iframe id="outputPanel" class="panel"></iframe>
+        </div>
+
+        <script type="text/javascript" src="codeplayer.js"></script>
+    </body>
+</html>

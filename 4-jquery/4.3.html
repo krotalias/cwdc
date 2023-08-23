@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+        <style type="text/css">
+            #circle {
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                background-color: green;
+                margin: 10px;
+                text-align: center;
+                display: table-cell;
+                padding: 1em;
+                vertical-align: middle;
+                font-size: 20px;
+            }
+
+            .square {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+                margin: 10px;
+                text-align: center;
+                padding: 1em;
+                font-size: 20px;
+            }
+
+            #message {
+                font-size: 20px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="circle">id circle (div 0)</div>
+
+        <div class="square">class square 0 (div 1)</div>
+
+        <div class="square">class square 1 (div 2)</div>
+
+        <p id="message">Click on a shape.</p>
+
+        <script type="text/javascript">
+            var pid = document.getElementById("message");
+
+            var CSS = false;
+
+            // select when script is loaded for the first time
+            if (CSS) {
+                // CSS by id
+                document.getElementById("circle").onclick = function () {
+                    // alert("CSS: id circle was clicked!");
+                    console.log(document.getElementById("circle"));
+                    pid.innerHTML = "CSS: id circle was clicked!";
+                };
+                // CSS by class name
+                document.getElementsByClassName("square")[0].onclick =
+                    function () {
+                        // alert("CSS: class square[0] was clicked!");
+                        console.log(
+                            document.getElementsByClassName("square")[0]
+                        );
+                        pid.innerHTML = "CSS: class square[0] was clicked!";
+                    };
+                // CSS by tag name
+                document.getElementsByTagName("div")[2].onclick = function () {
+                    // alert("CSS: tag div[2] was clicked!");
+                    console.log(document.getElementsByTagName("div")[2]);
+                    pid.innerHTML = "CSS: tag div[2] was clicked!";
+                };
+            } else {
+                // JQuery - by id, class or type
+                $("#circle").click(function () {
+                    $("#message").html("JQuery: id circle was clicked!");
+                });
+
+                // JQuery - by class
+                $(".square").click(function () {
+                    $("#message").html("JQuery: class square was clicked!");
+                });
+
+                // JQuery - by tag
+                $("div").click(function () {
+                    $("#message").append(" tag div was also clicked!");
+                });
+            }
+
+            $("#circle").hover(function () {
+                $("#message").html("Circle");
+            });
+
+            $("#circle").mouseleave(function () {
+                $("#message").html("");
+            });
+
+            $(".square").hover(function () {
+                $("#message").html("Square");
+            });
+
+            $(".square").mouseleave(function () {
+                $("#message").html("");
+            });
+
+            // select CSS x JQuery
+            // https://api.jquery.com/off/
+            // https://api.jquery.com/class-selector/
+            // https://css-tricks.com/using-css-to-set-text-inside-a-circle/
+            window.onkeydown = function (event) {
+                if (event.keyCode == 27) {
+                    CSS = !CSS;
+                    if (CSS) {
+                        $(".square").off("click");
+                        $("#circle").off("click");
+                        // CSS by id
+                        document.getElementById("circle").onclick =
+                            function () {
+                                pid.innerHTML = "CSS: id circle was clicked!";
+                            };
+                        // CSS by class name
+                        document.getElementsByClassName("square")[0].onclick =
+                            function () {
+                                pid.innerHTML =
+                                    "CSS: class square[0] was clicked!";
+                            };
+                        document.getElementsByClassName("square")[1].onclick =
+                            function () {
+                                pid.innerHTML =
+                                    "CSS: class square[1] was clicked!";
+                            };
+                        // CSS by tag name
+                        document.getElementsByTagName("div")[2].onclick =
+                            function () {
+                                // alert("CSS: tag div[2] was clicked!");
+                                console.log(
+                                    document.getElementsByTagName("div")[2]
+                                );
+                                pid.innerHTML = "CSS: tag div[2] was clicked!";
+                            };
+                    } else {
+                        // JQuery - by id, class or type
+                        $("#circle").click(function () {
+                            $("#message").html(
+                                "JQuery: id circle was clicked!"
+                            );
+                        });
+
+                        // JQuery - by class
+                        $(".square").click(function () {
+                            $("#message").html(
+                                "JQuery: class square was clicked!"
+                            );
+                        });
+
+                        // JQuery - by tag
+                        $("div").click(function () {
+                            $("#message").append(" tag div was also clicked!");
+                        });
+                    }
+                    pid.innerHTML = CSS ? "CSS" : "JQuery";
+                }
+            };
+        </script>
+    </body>
+</html>

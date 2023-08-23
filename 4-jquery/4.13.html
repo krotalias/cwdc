@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery: Droppable</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+        <link
+            href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css"
+            rel="stylesheet"
+        />
+
+        <style type="text/css">
+            #draggable {
+                width: 100px;
+                height: 100px;
+                background-color: blue;
+                color: whitesmoke;
+            }
+
+            #droppable {
+                width: 300px;
+                height: 300px;
+                background-color: red;
+                color: whitesmoke;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p>Drop the blue box into the red box.</p>
+
+        <div id="draggable">Draggable</div>
+
+        <div id="droppable">Droppable</div>
+
+        <script type="text/javascript">
+            $("#draggable").draggable();
+
+            $("#droppable").droppable({
+                drop: function (event, ui) {
+                    $("#draggable").css("background-color", "yellow");
+                    $("#draggable").css("color", "black");
+                    console.log(event);
+                    // alert ("I'm inside the red box!");
+                },
+
+                out: function (event, ui) {
+                    $("#draggable").css("background-color", "blue");
+                    $("#draggable").css("color", "whitesmoke");
+                    console.log(event);
+                    // alert("Goodbye");
+                },
+
+                over: function (event, ui) {
+                    $("#draggable").css("background-color", "green");
+                    $("#draggable").css("color", "whitesmoke");
+                },
+            });
+        </script>
+    </body>
+</html>

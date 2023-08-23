@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AJAX</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+        <style>
+            p {
+                width: 525px;
+                text-align: justify;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p></p>
+
+        <script type="text/javascript">
+            /*
+               File info.txt must exist.
+               Must be a live web server. Browser "File open" will not work.
+            */
+            $.ajax("info.txt")
+                .done(function (data) {
+                    $("p").html(data);
+                })
+                .fail(function () {
+                    alert("Could not get data");
+                });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,10 @@
+<h2>This is some content in a text file on a server! </h2>
+
+<p>
+Many JavaScript libraries use $ as a function or variable name, just as jQuery does. <br>
+In jQuery's case, $ is just an alias for jQuery, so all functionality is available without using $. <br>
+If you need to use another JavaScript library alongside jQuery, return control of $ back to the other library with a call to <a href="https://api.jquery.com/jquery.noconflict/">$.noConflict()</a>. <br>
+Old references of $ are saved during jQuery initialization; noConflict() simply restores them.
+<p>
+If for some reason two versions of jQuery are loaded (which is not recommended), <br>
+calling $.noConflict( true ) from the second version will return the globally scoped jQuery variables to those of the first version.</p>

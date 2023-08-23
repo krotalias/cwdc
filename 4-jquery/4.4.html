@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+        <style type="text/css">
+            #circle {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background-color: green;
+                margin: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="circle"></div>
+
+        <iframe src="https://www.codestars.com"></iframe>
+
+        <script type="text/javascript">
+            $("#circle").hover(function () {
+                $("iframe").attr("src", "https://orion.lcg.ufrj.br/python");
+            });
+        </script>
+    </body>
+</html>

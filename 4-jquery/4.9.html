@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript: Regular Expressions</title>
+    </head>
+
+    <body>
+        <p>
+            <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions"
+            >
+                MDN
+            </a>
+        </p>
+        <p>
+            <a
+                href="https://blog.bitsrc.io/a-beginners-guide-to-regular-expressions-regex-in-javascript-9c58feb27eb4"
+            >
+                A quick guide
+            </a>
+        </p>
+
+        <script type="text/javascript">
+            var regex = /e/g;
+
+            //            012345678910
+            var string = "Regex is great!";
+
+            // Returns an array containing all of the matches,
+            // including capturing groups, or null if no match is found.
+            var result = string.match(regex);
+
+            document.write(`'Regex is great!'.match(/e/g) = ${result}`);
+            // → [ 'e', 'e', 'e' ]
+
+            console.log(string.match(/e/));
+            // → ["e"]
+            console.log(string.match(/re/gi)); // global and case insensitive
+            // → ["Re", "re"]
+
+            // An object returned from exec has an index property that tells us
+            // where in the string the successful match begins.
+            regex = /re/gi; // global (all matches) and case insensitive
+            console.log(regex.exec(string)); // catch 'Re' at position 0
+            // → ["Re"] or [ 'Re', index: 0, input: 'Regex is great!', groups: undefined ] in node
+            console.log(regex.exec(string)); // catch 're' at position 10
+            // → ["re"] or [ 're', index: 10, input: 'Regex is great!', groups: undefined ]
+
+            /*
+                When the regular expression contains subexpressions grouped with parentheses,
+                the text that matched those groups will also show up in the array.
+                The whole match is always the first element. The next element is the part matched by the first group
+                (the one whose opening parenthesis comes first in the expression), then the second group, and so on.
+            */
+            let myRe = /d(b+)d/g; // any number of 'b's between 'd'
+            console.log(myRe.exec("cdbbdbsbz"));
+            // → ["dbbd", "bb"] or [ 'dbbd', 'bb', index: 1, input: 'cdbbdbsbz', groups: undefined ] in node
+            console.log(myRe.lastIndex);
+            // → 5
+        </script>
+    </body>
+</html>

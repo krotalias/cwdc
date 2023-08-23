@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    </head>
+
+    <body>
+        <script type="text/javascript">
+            // callback function when file is read
+            $.get("jquery.txt", function (data) {
+                document.write(data);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+        <style type="text/css">
+            #hiddenText {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p id="text">This is some text!</p>
+
+        <button id="toggle">Toggle Text</button>
+
+        <script type="text/javascript">
+            var textShowing = true;
+
+            $("#toggle").click(function () {
+                if (textShowing) {
+                    $("#text").fadeOut(function () {
+                        textShowing = false;
+                    });
+                } else {
+                    $("#text").fadeIn(function () {
+                        textShowing = true;
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

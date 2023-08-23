@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+        <style type="text/css">
+            #circle {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background-color: green;
+                background-size: cover;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="circle"></div>
+
+        <script type="text/javascript">
+            $("#circle").click(function () {
+                $(this).animate(
+                    {
+                        width: "600px",
+                        height: "600px",
+                        marginLeft: "100px",
+                        marginTop: "100px",
+                    },
+                    2000,
+                    function () {
+                        // change css property "background-color"
+                        $(this).css("background-image", 'url("Nikita.jpg")');
+                    }
+                );
+            });
+            // reload the circle.
+            window.onkeydown = function (event) {
+                if (event.ctrlKey && event.key === "e") {
+                    $("#circle").css("width", "150px");
+                    $("#circle").css("height", "150px");
+                    $("#circle").css("marginLeft", "0");
+                    $("#circle").css("marginTop", "0");
+                    $("#circle").css("background-image", "");
+                } else if (event.ctrlKey && event.key === "Escape") {
+                    $("#circle").remove();
+                    $('<div id="circle"></div>').appendTo("body");
+                    // need to add click function again
+                    $("#circle").click(function () {
+                        alert("So Long, Farewell");
+                    });
+                }
+            };
+        </script>
+    </body>
+</html>

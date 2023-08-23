@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+        <style type="text/css">
+            #circle {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background-color: green;
+                margin: 10px;
+            }
+
+            .square {
+                width: 150px;
+                height: 150px;
+                background-color: red;
+                margin: 10px;
+            }
+
+            #message {
+                font-size: 20px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="circle"></div>
+
+        <div class="square"></div>
+
+        <div class="square"></div>
+
+        <p id="message">Choose a shape.</p>
+
+        <script type="text/javascript">
+            $("div").click(function () {
+                $("p").html(
+                    "You clicked on a shape with an 'id' " + $(this).attr("id")
+                );
+                $("p").append(" of a 'class' " + $(this).attr("class"));
+            });
+        </script>
+    </body>
+</html>

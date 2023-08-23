@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQueryUI</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+        <link
+            href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                /*background-color: lightblue;*/
+                background-image: url("sea.jpg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
+            #avro {
+                text-align: center;
+                color: #af1964;
+            }
+            h3 {
+                /* h-shadow (position of the horizontal shadow. Negative values are allowed), v-shadow, blur-radius, color */
+                text-shadow: 2px 2px 4px green, -5px -5px 4px yellow;
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="draggable">
+            <a
+                href="https://www.militaryfactory.com/aircraft/detail.asp?aircraft_id=234"
+            >
+                <img
+                    src="Avro Lancaster.png"
+                    title="Avro Lancaster Bomber"
+                    style="width: 50%"
+                />
+            </a>
+            <div id="avro">
+                <h3>
+                    Drag The
+                    <a
+                        href="https://www.cs.mcgill.ca/~rwest/wikispeedia/wpcd/wp/a/Avro_Lancaster.htm"
+                    >
+                        Avro Lancaster
+                    </a>
+                    Bomber (1942 - 450 kmh at 5600m)!
+                </h3>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $("#draggable").draggable();
+        </script>
+    </body>
+</html>

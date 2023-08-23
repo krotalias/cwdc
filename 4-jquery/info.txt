@@ -1,0 +1,22 @@
+<h2>This is some content in a file on a server!</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/Ajax_(programming)">Ajax</a> (also AJAX /ˈeɪdʒæks/; 
+short for "Asynchronous JavaScript and XML") is a set of 
+web development techniques using many web technologies on the client side to create asynchronous web applications. </p>
+<p>
+With Ajax, web applications can send and retrieve data from a server asynchronously (in the background) 
+without interfering with the display and behaviour of the existing page. </p>
+<p>
+By decoupling the data interchange layer from the presentation layer, Ajax allows web pages and, by extension, web applications, 
+to change content dynamically without the need to reload the entire page. </p>
+<p>
+In practice, modern implementations commonly utilize JSON instead of XML. </p>
+
+<p>
+The jQuery <a href="https://api.jquery.com/jquery.ajax/">ajax()</a> method provides core functionality of Ajax in jQuery. 
+It sends asynchronous HTTP requests to the server. </p>
+
+<ol>
+<li> <a href="https://www.tutorialsteacher.com/jquery/jquery-ajax-method">usage example 1</a> </li>
+<li> <a href="https://www.sanwebe.com/2016/07/ajax-form-submit-examples-using-jquery">usage example 2</a> </li>
+</ol>

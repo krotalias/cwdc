@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQueryUI: Draggable</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+        <link
+            href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css"
+            rel="stylesheet"
+        />
+
+        <style type="text/css">
+            #resizable {
+                width: 100px;
+                height: 100px;
+                background-color: blue;
+                color: antiquewhite;
+                text-align: center;
+                text-justify: auto;
+            }
+
+            #also {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                color: antiquewhite;
+                text-align: center;
+            }
+            #containment-wrapper {
+                display: inline-block;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="draggable">Drag me horizontally!</div>
+
+        <div
+            id="containment-wrapper"
+            style="
+                width: 400px;
+                height: 300px;
+                background-color: yellow;
+                border: 2px solid #ccc;
+            "
+        >
+            #containment-wrapper<br />
+            <span>
+                I am stuck<br />
+                <img
+                    src="Nikita.jpg"
+                    title="Nikita"
+                    style="width: 70px"
+                /><br />
+                in the box!
+            </span>
+        </div>
+
+        <div id="resizable">#resizable &le; 400, grid = 50</div>
+
+        <div id="also">#also: localStorage.positions<br /></div>
+
+        <script src="../mainPage/LCG.js"></script>
+
+        <script type="text/javascript">
+            $("#draggable").draggable({ axis: "x" });
+
+            $("#containment-wrapper span").draggable({
+                containment: "#containment-wrapper",
+            });
+            dragAndSave("#containment-wrapper span");
+
+            $("#resizable").resizable({
+                grid: 50,
+                alsoResize: "#also",
+                resize: function (event, ui) {
+                    if ($("#resizable").width() >= 400) {
+                        alert("big enough!");
+                        // lets dump localStorage.positions !
+                        // {#romanfieldset: {top: 332, left: 1008},
+                        //  #cdifieldset: {top: 191, left: 809},
+                        //  #cdcfieldset: {top: 116, left: 755},
+                        //  #containment-wrapper span: {top: 131, left: 224}}
+                        var positions = JSON.parse(
+                            localStorage.positions || "{}"
+                        );
+                        $("#also").html(
+                            "#also: localStorage.positions<br /><br />"
+                        );
+                        $.each(positions, function (id, pos) {
+                            // Object destructuring: pos => {top: -63, left: -43}
+                            const { top, left } = pos;
+                            $("#also").append(
+                                `${id} - {top: ${top}, left: ${left}}<br />`
+                            );
+                        });
+                    }
+                },
+            });
+
+            $("#also").resizable();
+        </script>
+    </body>
+</html>
