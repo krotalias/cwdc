@@ -37,17 +37,22 @@
 }
 
 .footer {
+    /*
     position: absolute;
     padding: 10px 0px 0px 0px;
     margin: 15px;
     text-align: center;
     display: block;
     width: auto;
+    */
     /* Set the fixed height of the footer here */
+    /*
     height: 330px;
     border: solid brown 10px;
     background-color: lightskyblue;
     transition: 1s ease-in-out;
+    */
+    display: none;
 }
 
 .footer:hover {
