@@ -19,12 +19,13 @@
  *  - Ubuntu:
  *     - sudo apt install jsdoc-toolkit
  *  - MacOS:
- *     - sudo port install npm5 (or npm6)
+ *     - sudo port install npm8 (or npm9)
  *     - sudo npm install -g jsdoc
  *  - jsdoc -d doc-codeplayer codeplayer.js
  *  </pre>
  *
- *  @see http://orion.lcg.ufrj.br/cwdc/4-jquery/4.15.html
+ *  @see <a href="/cwdc/4-jquery/4.15.html">link</a>
+ *  @see <a href="/cwdc/4-jquery/codeplayer.js">source</a>
  *  @author Paulo Roma Cavalcanti
  *  @since 20/01/2021
  */
