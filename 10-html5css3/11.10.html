@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML 5 and CSS 3</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <style>
+            #gradient {
+                width: 500px;
+                height: 200px;
+                background-color: blue;
+                /* Start with white at bottom right and go up there to top left */
+                background: linear-gradient(
+                    to top left,
+                    white,
+                    red,
+                    green,
+                    blue
+                );
+                color: antiquewhite;
+            }
+
+            #radialgradient {
+                width: 500px;
+                height: 200px;
+                background-color: blue;
+                background: radial-gradient(white, blue);
+                color: antiquewhite;
+            }
+
+            #challengegradient {
+                width: 500px;
+                height: 200px;
+                background: linear-gradient(to bottom left, green, yellow);
+            }
+
+            h2 {
+                /* h-shadow (position of the horizontal shadow. Negative values are allowed), v-shadow, blur-radius, color */
+                text-shadow: 2px 2px 4px green, -5px -5px 4px yellow;
+                color: white;
+            }
+
+            h3 {
+                text-shadow: 0 0 5px red;
+            }
+
+            #shadow {
+                width: 200px;
+                height: 200px;
+                box-shadow: 12px 12px 6px grey;
+                background-color: antiquewhite;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h2>This text will have two shadows</h2>
+
+        <h3>This text will glow.</h3>
+
+        <div id="shadow"><h4>Box shadow</h4></div>
+
+        <div id="gradient">
+            <h1>
+                This is a linear gradient <br />
+                Bottom right - to top left
+            </h1>
+        </div>
+
+        <div id="radialgradient"><h1>This is a radial gradient</h1></div>
+
+        <div id="challengegradient">
+            <h1>
+                This is a linear gradient <br />
+                Top right - to bottom left
+            </h1>
+        </div>
+    </body>
+</html>

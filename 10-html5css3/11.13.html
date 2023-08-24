@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML 5 and CSS 3</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <style>
+            h2 {
+                -webkit-column-span: all;
+                column-span: all;
+            }
+
+            header {
+                width: 100%;
+                height: 70px;
+                margin: 0;
+                color: aliceblue;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                vertical-align: middle;
+                display: flex;
+                display: -webkit-flex;
+            }
+
+            body {
+                /*background-color: grey;*/
+                background: url("p47.jpg") no-repeat center center fixed;
+                background-size: cover;
+                margin: 0px;
+            }
+
+            #container {
+                width: 100%;
+                /*background-color: navajowhite;*/
+                height: -webkit-calc(100% - 70px);
+                height: calc(100% - 70px);
+                position: absolute;
+            }
+
+            .flexbox-container {
+                display: flex;
+                display: -webkit-flex;
+                width: 100%;
+                height: auto;
+                text-align: justify;
+                text-justify: auto;
+                word-wrap: break-word;
+                /*background-color: aqua;*/
+                flex-wrap: wrap;
+                -webkit-flex-wrap: wrap;
+                /*
+                align-items: center;
+                flex-direction: column;
+                -webkit-flex-direction: column;
+                */
+            }
+
+            .flexbox-item {
+                background-color: bisque;
+                width: 30%;
+                padding: 10px;
+                margin: 10px 5px;
+                box-sizing: border-box;
+                background: #65c2ed;
+                color: #004565;
+                border: 5px solid grey;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <h2>
+                <a href="https://www.youtube.com/watch?v=5DTROkLVpM4">
+                    Variants (1941-1945)
+                </a>
+            </h2>
+        </header>
+
+        <!-- https://brolik.com/blog/when-to-use-flexbox/ -->
+        <div id="container">
+            <h2 style="text-align: center">
+                <a
+                    href="https://www.fab.mil.br/noticias/mostra/33845/AVIAÇÃO%20DE%20CAÇA%20-%20Cerimônia%20marca%20giro%20do%20motor%20de%20aeronave%20da%20Segunda%20Guerra%20Mundial"
+                >
+                    Republic P-47 Thunderbolt
+                </a>
+            </h2>
+            <div class="flexbox-container">
+                <div class="flexbox-item">
+                    <p>P-47B</p>
+                    On June 12, 1940, Kartveli submitted the redesigned AP-10 to
+                    the USAAC. The new aircraft was much larger than the
+                    original, and the inline engine was swapped for a
+                    turbo-supercharged Pratt & Whitney R-2800 Double Wasp
+                    18-cylinder radial engine. Armament was increased to eight
+                    M2 Brownings, four mounted in each wing, making it one of
+                    the heaviest-armed fighter considered by the USAAC at the
+                    time. The expected performance met USAAC requirements,
+                    however, its fuel load fell slightly short. Despite this,
+                    the USAAC ordered a prototype of the improved design as the
+                    XP-47B, on September 6, 1940.
+                </div>
+                <div class="flexbox-item">
+                    <p>P-47C</p>
+                    Several improvements were incorporated into the Thunderbolt
+                    starting with the 172nd production aircraft on September 14,
+                    1942. The resulting P-47C featured a redesigned metal
+                    rudder, as the original fabric-covered unit was prone to
+                    tail flutter which frequently led to crashes.A revised
+                    oxygen system was fitted, as were new SCR-274-N and
+                    SCR-515-A radios. The main external difference between the
+                    P-47B and C was the upright antenna mast, which replaced the
+                    B's forward-swept mast. The C variant was built in four
+                    production blocks totaling 602 aircraft, with production
+                    ending in February 1943 when Republic's Farmingdale, New
+                    York plant switched to the P-47D.
+                </div>
+                <div class="flexbox-item">
+                    <p>
+                        <a
+                            href="https://www.youtube.com/watch?v=t_FhI3vCSh8&t=2160s"
+                        >
+                            P-47D (razorback)
+                        </a>
+                    </p>
+                    On October 14, 1941, the USAAF (successor to the USAAC)
+                    ordered an additional 850 P-47s. Unable to keep up with the
+                    demand with their main plant in Farmingdale, New York,
+                    Republic built a new plant in Evansville, Indiana.
+                    Production of P-47Cs in the new plant were designated
+                    P-47D-RA, with the first aircraft rolling off the production
+                    line in September 1942. The initial production block was
+                    based on the P-47C-2-RE or C-5-RE, but with two additional
+                    cowl flaps (for a total of five) on each side (this was
+                    absent on early aircraft, making them indistinguishable from
+                    P-47Cs). Internal changes included extra cockpit armor and
+                    changes to the turbo-supercharger exhaust system.
+                    Eventually, these changes would be incorporated into the
+                    Farmingdale-built aircraft, these designated P-47D-1-RE. 21
+                    production blocks of the "razorback" P-47D, totaling 9,530
+                    aircraft, would be built by both plants before production
+                    switched to the "bubbletop" D-variant.
+                </div>
+                <div class="flexbox-item">
+                    <p>P-47G</p>
+                    Even with the second plant, Republic was still having
+                    trouble keeping up with the ever increasing orders for
+                    Thunderbolts. Curtiss-Wright, which recently prepared its
+                    Buffalo, New York plant for mass production of its P-60A
+                    before their contract was canceled, was awarded another
+                    contract to produce the P-47 as the P-47G. The first
+                    delivery of a Curtiss-Wright-built P-47G was in December
+                    1942. In all, Curtiss-Wright built 354 P-47Gs in five
+                    production blocks before production ended in March 1944.
+                </div>
+                <div class="flexbox-item">
+                    <p>XP-47H</p>
+                    In an attempt to improve the performance of the Thunderbolt,
+                    Republic began a project to install a 2,300 hp Chrysler
+                    XIV-2220-1 16-cylinder inverted-V engine in two P-47D-15-RE
+                    airframes in August 1943. The resulting XP-47H had a new
+                    streamlined nose with a large intake and was expected to
+                    have a maximum speed of 490 mph. While sources do not agree
+                    whether the aircraft met the speed expectations or fell
+                    short, by the time the aircraft were modified in 1945, the
+                    Jet Age was beginning and the USAAF was losing interest in
+                    piston-engined fighters, and the XP-47H project was
+                    canceled.
+                </div>
+                <div class="flexbox-item">
+                    <p>XP-47J</p>
+                    A similar attempt to improve performance resulted in the
+                    XP-47J. Unlike the XP-47H, the sole XP-47J was a newly built
+                    airframe, with many changes to reduce weight. The aircraft
+                    was fitted with a 2,800 hp R-2800-57C engine with a CH-5
+                    supercharger, housed in a redesigned streamlined cowling.
+                    Armament was reduced to six M2 Brownings.<br />
+
+                    The XP-47J was first flown on November 26, 1943, and on
+                    August 4, 1944, it became the first piston-engined fighter
+                    to exceed 500 mph, with a speed of 504 mph, making it the
+                    fastest Thunderbolt variant. A production version of the
+                    XP-47J was canceled in favor of another Thunderbolt
+                    development, the XP-72, as were plans for installing an
+                    R-2800-61 engine with contra-rotating propellers.
+                </div>
+                <div class="flexbox-item">
+                    <p>P-47D (1941 - 697 kmh)</p>
+                    <a
+                        href="https://www.militaryfactory.com/aircraft/detail.asp?aircraft_id=76"
+                    >
+                        <img
+                            title="P-47D Thunderbolt"
+                            accesskey=""
+                            src="Republic P-47D Thunderbolt - Jacky's Revenge.jpg"
+                            alt="Republic P-47D"
+                            width="90%"
+                        />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

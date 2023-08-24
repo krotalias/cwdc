@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML 5 and CSS 3</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+
+    <body>
+        <form id="myForm" action="processform.php">
+            <p>
+                Placeholder:
+                <input type="text" placeholder="Insert Name Here" />
+            </p>
+
+            <p>Autofocus: <input type="text" autofocus /></p>
+            <!-- force focus to a field -->
+
+            <p>Autocomplete Off: <input type="text" autocomplete="off" /></p>
+            <!-- do not remember credit card numbers, for instance -->
+
+            <p>Required: <input type="text" required /></p>
+            <!-- force field to be filled in -->
+
+            <p>Email: <input type="email" /></p>
+
+            <p>Pattern: <input type="text" pattern="[0-9]*" /></p>
+            <!-- any number of numerical digits (should press submit) -->
+
+            <datalist id="names">
+                <select>
+                    <option value="Ralph">Ralph</option>
+                    <option value="Charles">Charles</option>
+                    <option value="Paul">Paul</option>
+                    <option value="Larry">Larry</option>
+                </select>
+            </datalist>
+
+            <p>Autocomplete: <input type="text" list="names" /></p>
+            <!-- predicts what to be filled in -->
+
+            <p>Multiple file upload: <input type="file" multiple /></p>
+
+            <p>
+                <input
+                    type="submit"
+                    value="Submit to processform2.php"
+                    formaction="processform2.php"
+                    formmethod="post"
+                />
+            </p>
+        </form>
+
+        <p>Code outside form: <input form="myForm" type="text" /></p>
+        <!-- outside but linked to "myForm" -->
+    </body>
+</html>

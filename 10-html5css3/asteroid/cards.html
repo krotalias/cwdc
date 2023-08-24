@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Suits</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="600" height="350" style="border:1px solid black;">
+        <script type="module">
+            import {
+                drawSpades,
+                drawHearts,
+                drawClubs,
+                drawDiamonds,
+                drawArrow
+            } from "./asteroid.js";
+            window.addEventListener("load", (event) =>  {
+                var canvas = document.getElementById("canvas");
+                var context = canvas.getContext("2d");
+                let cw = canvas.width;
+                let ch = canvas.height-100;
+                let w = cw * 0.1;
+                let h = ch / 4;
+                context.fillStyle = "black";
+                context.strokeStyle = "black";
+                context.fillText("Spades", w*2-ch/9.6/2, h);
+                drawSpades  (context, w * 2,         h, w * 2,   2 * h, ch/9.6,  ch/9,  "black");
+                context.fillText("Hearts", w*4-ch/7.6/2, h);
+                drawHearts  (context, w * 4,         h, w * 4,   2 * h, ch/7.6,  ch/9,  "red");
+                context.fillText("Clubs", w*6-ch/9.6/2, h);
+                drawClubs   (context, w * 6,         h, w * 6,   2 * h, ch/9.6,  ch/9,  "black");
+                context.fillText("Diamonds", w*7.5-ch/7.6/2, h);
+                drawDiamonds(context, w * 7.5, 1.5 * h, w * 7.5, 2 * h, ch/7.6,  ch/6,  "red");
+                context.fillText("Arrow", w*8.5-ch/20.6/2-5, h/2-ch/72-10);
+                drawArrow   (context, w * 8.5, 2.2 * h, w * 8.5, h / 2, ch/20.6, ch/72, "black");
+
+                // (fromx,fromy) = (0,0) and (tox,toy) = (h,-h)
+                // translate (cw/2, ch)
+                drawArrow   (context, cw/2,         ch, h+cw/2,  -h+ch, ch/20.6, ch/72, "black");
+                drawArrow   (context, cw/2,         ch,-h+cw/2,  -h+ch, ch/20.6, ch/72, "red");
+                context.strokeStyle = "gray";
+                context.moveTo(cw*1/3, 4*h);
+                context.lineTo(cw*2/3, 4*h);
+                context.stroke();
+                context.fillText("X (reflection)", cw*2/3, 4*h)
+                context.moveTo(cw/2, h+ch);
+                context.lineTo(cw/2, -h+ch);
+                context.stroke();
+                context.fillText("Y", cw/2, -h+ch)
+                drawArrow   (context, cw/2,         ch,  h+cw/2,   h+ch, 3, ch/72, "black");
+                drawArrow   (context, cw/2,         ch, -h+cw/2,   h+ch, 3, ch/72, "red");
+
+                context.lineWidth = 1;
+                context.setLineDash([1, 5]);
+                context.font = "24px Arial";
+                context.fillStyle = "gray";
+                context.strokeStyle = "gray";
+                for (let i = 1; i < 12; ++i) {
+                    context.beginPath();
+                    context.fillText(`${i}h`, 0,i*h)
+                    context.moveTo(0,i*h/2);
+                    context.lineTo(cw,i*h/2);
+                    context.stroke();
+                }
+            });
+        </script>
+    </body>
+</html>

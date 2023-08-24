@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML 5 and CSS 3</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <style>
+            #myCanvas {
+                border: 1px solid grey;
+                background: antiquewhite;
+                margin-right: auto;
+                margin-left: auto;
+                display: block;
+            }
+            .multicolortext {
+                background-image: linear-gradient(
+                    to left,
+                    violet,
+                    indigo,
+                    green,
+                    blue,
+                    yellow,
+                    orange,
+                    red
+                );
+                -webkit-background-clip: text;
+                -moz-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            body {
+                background-color: lightgray;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1 style="text-align: center">
+            <span class="multicolortext">Let’s be creative! </span>
+            <sub style="font-size: small">
+                <a href="/cg/downloads/PDFs/04_LCG_Window-Viewport.pdf">[1]</a>
+                <a href="/python/laboratorios2.html#5c">[2]</a>
+                <a href="/WebGL/videos/EngineerGuy/lcd-engineerguy.mp4">[3]</a>
+                <a
+                    href="/videos/videosCG/EngineerGuy/Repair Hack Explained | How to Fix TV Horizontal Lines - Part 2.mp4"
+                >
+                    [4]</a
+                >
+                <a
+                    href="/videos/videosCG/EngineerGuy/Troca dos leds de tv, quanto custa, como se faz.mp4"
+                >
+                    [5]
+                </a>
+            </sub>
+        </h1>
+
+        <canvas id="myCanvas" width="500" height="400"> </canvas>
+
+        <img id="logo" src="lime-cat.jpg" width="250" hidden />
+        <img id="taz" src="taz.jpg" width="250" hidden />
+
+        <script>
+            /**
+             * <p>Draw sinc(x).</p>
+             *
+             *  Coordinate changes sequence:<br>
+             *  • vc = i → x → y → yc
+             *
+             *  @param {CanvasRenderingContext2D} c canvas context.
+             */
+            function p(c) {
+                var d = [];
+                let w = c.canvas.clientWidth;
+                let h = c.canvas.clientHeight;
+                let vx = w / 5;
+                let vy = h / 4;
+                let tx = w / 2 - vx;
+                let ty = h / 2 - vy;
+                for (let i = -vx; i < vx + 1; ++i) {
+                    // map the range -vx,vx to -15pi,15pi
+                    let x = (15 * Math.PI * i) / vx;
+                    let y = x == 0 ? 1.0 : Math.sin(x) / x;
+                    // map the range 0,1 to 0,-vy
+                    // and translate the origin to the center
+                    // of the window (vx,vy)
+                    d.push([i + vx, Math.floor(-y * vy + vy)]);
+                }
+
+                c.beginPath();
+                c.moveTo(d[0][0] + tx, d[0][1] + ty);
+                for (let i = 1; i < d.length; ++i) {
+                    c.lineTo(d[i][0] + tx, d[i][1] + ty);
+                }
+                c.closePath(); // x axis (connect the last point to the fist point)
+                c.strokeStyle = "blue";
+                c.fillStyle = "blue";
+                c.lineWidth = 1.5;
+                c.stroke();
+
+                c.moveTo(vx + tx, ty); // y axis
+                c.lineTo(vx + tx, vy * 2 + ty);
+                context.fillText(
+                    "   sin(x)/x",
+                    d[d.length - 1][0] + tx,
+                    d[d.length - 1][1] + ty
+                );
+                c.lineWidth = 1;
+                c.stroke(); // attributes are binded when the stroke is called?
+            }
+
+            var myCanvas = document.getElementById("myCanvas");
+            // If your application uses canvas and doesn’t need a transparent backdrop,
+            // set the alpha option to false when creating a drawing context.
+            // This information can be used internally by the browser to optimize rendering.
+            var context = myCanvas.getContext("2d"); // , { alpha: false });
+
+            var gradient = context.createLinearGradient(150, 100, 350, 300);
+
+            gradient.addColorStop(0, "white");
+            gradient.addColorStop(1, "#49C900");
+
+            context.fillStyle = gradient; // fill style
+            context.fillRect(150, 100, 200, 200); // origin, width and height
+
+            context.fillStyle = "red";
+            // red rectangle go under the gradient green rectangle
+            context.globalCompositeOperation = "destination-over";
+            context.fillRect(290, 80, 20, 40);
+            context.globalCompositeOperation = "source-over";
+            // sets the pixels in a rectangular area to transparent black (rgba(0,0,0,0))
+            context.clearRect(290, 100, 20, 20);
+
+            context.beginPath();
+            context.moveTo(150, 100); // first diagonal
+            context.lineTo(350, 300);
+
+            context.moveTo(150, 300); // second diagonal
+            context.lineTo(350, 100);
+
+            context.strokeStyle = "#F42924"; // line color
+            context.stroke(); // draw the line
+
+            p(context); // draw sinc(x)
+
+            context.strokeStyle = "#F42924"; // line color
+            context.beginPath();
+            // center, radius, angles (quarter of the circle)
+            context.arc(100, 100, 50, Math.PI, (2 * Math.PI * 3) / 4);
+            context.stroke(); // draw the arc
+
+            var textGradient = context.createLinearGradient(200, 50, 300, 50); // text with gradient
+
+            textGradient.addColorStop(0, "red"); // on the left
+            textGradient.addColorStop(1, "yellow"); // on the right
+
+            context.fillStyle = textGradient;
+            context.font = "20px Arial";
+            context.fillText("Limecat Canvas", 200, 50); // draw text
+
+            window.onload = (event) => {
+                var img = document.getElementById("logo"); // limecat image reference
+                var img2 = document.getElementById("taz"); // taz image reference
+                context.rotate(0.1);
+                context.drawImage(img, 50, 100, 70, 70);
+                context.fillStyle = textGradient;
+                context.font = "20px Impact";
+                context.fillText("Awesome!", 50, 200);
+
+                // Draw line under text
+                var text = context.measureText("Awesome!");
+                context.strokeStyle = "rgba(0,0,0,0.5)";
+                context.beginPath();
+                context.lineTo(50, 202);
+                context.lineTo(50 + text.width, 202);
+                context.stroke();
+                context.rotate(-0.1);
+                context.drawImage(img2, 30, 250, 70, 70);
+                context.fillText("Taz", 50, 320);
+            };
+        </script>
+    </body>
+</html>

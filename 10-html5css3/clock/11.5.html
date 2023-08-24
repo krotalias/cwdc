@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flu's Clock</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/cwdc/mainPage/LCG.css" />
+        <style>
+            :root {
+                --cgrena: #8b2439;
+                --cgreen: #446127;
+                --corange: orange;
+                --cwhite: white;
+                --cwhite1: #8b2439;
+                --cwhite2: #446127;
+                --cwhite3: #446127;
+            }
+            body {
+                margin: 20px;
+            }
+            #clock,
+            #handles {
+                border: 5px solid #8b2439;
+                padding: 20px;
+                margin: 0px;
+            }
+            #flu {
+                width: 512px;
+                font-family: cursive;
+                text-align: center;
+                font-size: 30px;
+            }
+            #container {
+                position: relative;
+                height: 512px;
+                margin: 0px;
+                margin-bottom: 50px;
+            }
+            canvas {
+                position: absolute;
+            }
+            #handles {
+                z-index: 2;
+            }
+            #clock {
+                background-color: antiquewhite;
+                z-index: 1;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p id="flu">
+            <a href="http://www.fluminense.com.br/site/"
+                >Fluminense Futebol Clube</a
+            >
+            <sub style="font-size: small">
+                <a href="/cg/downloads/PDFs/04_LCG_Window-Viewport.pdf">[1]</a>
+                <a href="/python/laboratorios2.html#8c">[2]</a>
+                <a
+                    href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+                >
+                    [3]
+                </a>
+            </sub>
+        </p>
+
+        <div id="container">
+            <canvas id="clock" width="512" height="512">
+                Please upgrade your browser.
+            </canvas>
+            <canvas id="handles" width="512" height="512">
+                Please upgrade your browser.
+            </canvas>
+        </div>
+        <br />
+        <p>
+            <audio title="Hino do Fluminense" controls loop>
+                <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
+                Please upgrade your browser!
+            </audio>
+
+            <small>
+                Hino do Fluminense FC por
+                <a
+                    href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/"
+                >
+                    Lamartine Babo (1949).
+                </a>
+            </small>
+        </p>
+        <p>
+            <iframe
+                title="O elástico de Rivelino"
+                width="320"
+                height="240"
+                src="https://www.youtube.com/embed/jt7ebGO6ILg"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+            >
+            </iframe>
+            <br />
+            <small id="Rivelino">
+                Elástico de Rivelino
+                <a href="https://www.youtube.com/watch?v=jt7ebGO6ILg">
+                    10/06/1975
+                </a>
+            </small>
+            <br />
+            <small id="Renato">
+                Gol de barriga do Renato
+                <a href="https://www.youtube.com/watch?v=CrIFGVYuq6c">
+                    25/06/1995
+                </a>
+            </small>
+            <br />
+            <small id="Cano">
+                Golaço de Cano do meio de campo
+                <a href="https://www.youtube.com/watch?v=UA-HwS766Hw">
+                    12/02/2023
+                </a>
+            </small>
+        </p>
+
+        <script src="suncalc.js"></script>
+        <script src="clock.js"></script>
+        <script>
+            var date = new Date();
+            var past75 = new Date(1975, 06, 10);
+            var past95 = new Date(1995, 06, 25);
+            var past23 = new Date(2023, 02, 12);
+            var years75 = date.getFullYear() - past75.getFullYear();
+            var years95 = date.getFullYear() - past95.getFullYear();
+            var years23 = date.getFullYear() - past23.getFullYear();
+            document.getElementById(
+                "Rivelino"
+            ).innerHTML += ` (há ${years75} anos atrás)`;
+            document.getElementById(
+                "Renato"
+            ).innerHTML += ` (há ${years95} anos atrás)`;
+            document.getElementById(
+                "Cano"
+            ).innerHTML += ` (há ${years23} anos atrás)`;
+        </script>
+    </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML 5 and CSS 3</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+
+    <body>
+        <video
+            title="Big Buck Bunny"
+            id="video"
+            width="320"
+            height="240"
+            controls
+            autoplay
+            muted
+            loop
+        >
+            <source src="video.mp4" type="video/mp4" />
+            Please upgrade your browser!
+        </video>
+
+        <p><button id="play">Pause</button></p>
+
+        <audio title="Jana Gana Mana" controls>
+            <source src="audio.mp3" type="audio/mpeg" />
+            Please upgrade your browser!
+        </audio>
+
+        <!-- no need of script type -->
+        <script>
+            document.getElementById("play").onclick = function () {
+                if (document.getElementById("video").paused) {
+                    document.getElementById("video").play();
+                    this.innerHTML = "Pause";
+                } else {
+                    document.getElementById("video").pause();
+                    this.innerHTML = "Play";
+                }
+            };
+        </script>
+    </body>
+</html>

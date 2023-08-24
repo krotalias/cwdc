@@ -1,0 +1,185 @@
+{
+    "timeZones": "Time Zones around the world",
+    "cities": [
+        {
+            "city": "Noronha",
+            "region": "America",
+            "offset": -2,
+            "coordinates": {
+                "latitude": -3.853808,
+                "longitude": -32.423786
+            }
+        },
+        {
+            "city": "Sao_Paulo",
+            "region": "America",
+            "offset": -3,
+            "coordinates": {
+                "latitude": -23.618237,
+                "longitude": -46.635197
+            }
+        },
+        {
+            "city": "Manaus",
+            "region": "America",
+            "offset": -4,
+            "coordinates": {
+                "latitude": -3.117034,
+                "longitude": -60.02578
+            }
+        },
+        {
+            "city": "New_York",
+            "region": "America",
+            "offset": -5,
+            "coordinates": {
+                "latitude": 40.73061,
+                "longitude": -73.935242
+            }
+        },
+        {
+            "city": "Chicago",
+            "region": "America",
+            "offset": -6,
+            "coordinates": {
+                "latitude": 41.881832,
+                "longitude": -87.623177
+            }
+        },
+        {
+            "city": "Edmonton",
+            "region": "America",
+            "offset": -7,
+            "coordinates": {
+                "latitude": 53.631611,
+                "longitude": -113.323975
+            }
+        },
+        {
+            "city": "Phoenix",
+            "region": "America",
+            "offset": -7,
+            "coordinates": {
+                "latitude": 33.448376,
+                "longitude": -112.074036
+            }
+        },
+        {
+            "city": "Vancouver",
+            "region": "America",
+            "offset": -8,
+            "coordinates": {
+                "latitude": 49.246292,
+                "longitude": -123.116226
+            }
+        },
+        {
+            "city": "Anchorage",
+            "region": "America",
+            "offset": -9,
+            "coordinates": {
+                "latitude": 61.217381,
+                "longitude": -149.863129
+            }
+        },
+        {
+            "city": "Honolulu",
+            "region": "Pacific",
+            "offset": -10,
+            "coordinates": {
+                "latitude": 21.3069444,
+                "longitude": -157.8583333
+            }
+        },
+        {
+            "city": "Faroe",
+            "region": "Atlantic",
+            "offset": 0,
+            "coordinates": {
+                "latitude": 61.50507,
+                "longitude": -6.76918
+            }
+        },
+        {
+            "city": "Paris",
+            "region": "Europe",
+            "offset": 1,
+            "coordinates": {
+                "latitude": 48.864716,
+                "longitude": 2.349014
+            }
+        },
+        {
+            "city": "Rome",
+            "region": "Europe",
+            "offset": 1,
+            "coordinates": {
+                "latitude": 41.902782,
+                "longitude": 12.496366
+            }
+        },
+        {
+            "city": "Athens",
+            "region": "Europe",
+            "offset": 2,
+            "coordinates": {
+                "latitude": 37.98381,
+                "longitude": 23.727539
+            }
+        },
+        {
+            "city": "Moscow",
+            "region": "Europe",
+            "offset": 3,
+            "coordinates": {
+                "latitude": 55.751244,
+                "longitude": 37.618423
+            }
+        },
+        {
+            "city": "Dubai",
+            "region": "Asia",
+            "offset": 4,
+            "coordinates": {
+                "latitude": 25.199514,
+                "longitude": 55.277397
+            }
+        },
+        {
+            "city": "Kolkata",
+            "region": "Asia",
+            "offset": 5.3,
+            "coordinates": {
+                "latitude": 22.56263,
+                "longitude": 88.36304
+            }
+        },
+        {
+            "city": "Bangkok",
+            "region": "Asia",
+            "offset": 7,
+            "coordinates": {
+                "latitude": 13.736717,
+                "longitude": 100.523186
+            }
+        },
+        {
+            "city": "Shanghai",
+            "region": "Asia",
+            "offset": 8,
+            "coordinates": {
+                "latitude": 31.224361,
+                "longitude": 121.46917
+            }
+        },
+        {
+            "city": "Tokyo",
+            "region": "Asia",
+            "offset": 9,
+            "coordinates": {
+                "latitude": 35.658581,
+                "longitude": 139.745438
+            }
+        }
+    ]
+}

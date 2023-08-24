@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML 5 and CSS 3 - Pseudo Classes</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <style>
+            a:hover {
+                text-decoration: underline;
+            }
+
+            input:focus {
+                background-color: blue;
+            }
+
+            input:checked {
+                background: #7fffd4;
+            }
+
+            /* set a background color for all enabled <input> elements of type="text". */
+            input [type="text"]:enabled {
+                background: #ffff00;
+            }
+
+            input:disabled {
+                background: #dddddd;
+            }
+
+            /* Selects any <p> that is the first element among its siblings */
+            p:first-child {
+                color: aquamarine;
+            }
+
+            /* Selects any <p> that is the last element among its siblings */
+            p:last-child {
+                font-size: 150%;
+            }
+
+            /* Selects each <p>, but only if it is the only child of its parent */
+            p:only-child {
+                font-weight: bold;
+            }
+
+            /* Selects any <p> that is the first element of its type among its siblings */
+            p:first-of-type {
+                text-decoration: underline;
+            }
+
+            /* Any paragraph that is not the first child */
+            p:not(:first-child) {
+                color: darkorange;
+            }
+
+            /*  
+                first letter of a paragraph
+
+                :first-line also allowed 
+                :last-of-type and :only-of-type also allowed 
+            */
+            p:first-letter {
+                font-size: 220%;
+                color: deeppink;
+            }
+
+            /* 
+                Every other row, starting at the first one
+            
+                nth-last-child - count backwards! 
+                nth-of-type - only count a certain type.
+            */
+            tr:nth-child(2n-1) {
+                /* 1, 3, 5, ... */
+                background-color: green;
+            }
+
+            /* select the elements inside a <div> except <p>-elements and tables. */
+            div > :not(p):not(table) {
+                font-family: cursive;
+            }
+
+            div {
+                margin-left: 2em;
+            }
+
+            div:empty {
+                display: none;
+            }
+
+            .green {
+                width: fit-content;
+            }
+
+            /* What appears after a link */
+            a:after {
+                content: " (" attr(href) ")";
+                text-decoration: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>I am an h1 element outside the div</h1>
+
+        &lt;div&gt;
+        <div>
+            <h3>I'm an h3 element (not a paragraph → cursive) in a div</h3>
+            <p class="green">
+                I am the first paragraph (first-of-type → underline) <br />
+                and the second child (not first-child → orange) in the div.
+            </p>
+            <a
+                id="blue"
+                target="_blank"
+                href="https://developer.mozilla.org/en-US/docs/Web/CSS/:not"
+            >
+                I am a link (not a paragraph → cursive) in a div
+            </a>
+            <p>
+                I'm the second paragraph and the last child <br />
+                (not first-child → orange, last-child → 150%) in the div.
+            </p>
+        </div>
+        &lt;/div&gt;
+        <br />
+        <br />
+        &lt;div&gt;
+        <div>
+            <p>
+                I'm first (first-child → aquamarine, first-of-type → underline),
+                <br />
+                only (only-child → bold)
+                <br />
+                and last child (last-child → 150%) in another div
+            </p>
+        </div>
+        &lt;/div&gt;
+
+        <p>I am outside (not first-child → orange) any div</p>
+
+        <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors"
+        >
+            I'm another link
+        </a>
+
+        <p>
+            <input />
+        </p>
+
+        &lt;div&gt;
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <td>I am a table where odd lines are green</td>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>Ralph</td>
+                </tr>
+                <tr>
+                    <td>Charles</td>
+                </tr>
+                <tr>
+                    <td>Paul</td>
+                </tr>
+                <tr>
+                    <td>Larry</td>
+                </tr>
+            </table>
+        </div>
+        &lt;/div&gt;
+    </body>
+</html>

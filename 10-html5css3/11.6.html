@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HTML 5 and CSS 3</title>
+
+        <script>
+            // For working in Internet Explorer.
+            document.createElement("my-container");
+        </script>
+
+        <style>
+            :root {
+                --width: 500px;
+            }
+
+            article {
+                color: green;
+                display: block;
+                margin-left: 40px;
+            }
+
+            /* 
+            Custom elements should consist of at least one '-', such as my-container.
+            All custom elements have a display of inline by default. 
+            */
+            my-container {
+                margin-left: 40px;
+                /*
+                Displays an element as an inline-level block container. 
+                The element itself is formatted as an inline element, 
+                but you can apply height and width values.
+                */
+                display: inline-block;
+                color: red;
+            }
+
+            figure figcaption {
+                border: 0px dotted blue;
+                text-align: center;
+                width: var(--width);
+            }
+
+            #hubble-container {
+                width: var(--width);
+                font-size: 0;
+                border: 1px solid #111;
+                overflow: hidden;
+                margin: 0;
+                object-fit: cover;
+            }
+
+            #hubblepic {
+                width: auto;
+            }
+
+            #zoomer,
+            #value {
+                display: block;
+                width: 200px;
+                text-align: center;
+                margin-left: calc((var(--width) - 200px) / 2 + 40px);
+            }
+        </style>
+    </head>
+
+    <body>
+        <article>
+            <p>I'm an article!</p>
+
+            <p>
+                The Grumman F6F Hellcat achieved fame as a Zero-killer after it
+                was introduced in 1943. <br />
+                But it was its predecessor, the Grumman F4F Wildcat, that held
+                the line during the first campaigns of World War II.
+            </p>
+        </article>
+
+        <my-container>
+            <p>I'm a container (<em>a custom HTML tag</em>)!</p>
+
+            <p>
+                Wildcat pilots had an edge in terms of enemy intelligence thanks
+                to the discovery of the Akutan Zero, <br />
+                a recovered, crashed Zero that gave the US insight into its
+                inner-workings.
+            </p>
+        </my-container>
+
+        <figure>
+            <div id="hubble-container">
+                <a href="https://www.youtube.com/watch?v=4sQDvRkiHM8">
+                    <img
+                        data-description="Hellcat"
+                        id="hubblepic"
+                        src="Grumman F6F-5 Hellcat (USS Randolph).jpg"
+                        width="500"
+                        height="342"
+                        alt="F6F-5 Hellcat"
+                    />
+                </a>
+            </div>
+
+            <figcaption>
+                <p>
+                    <mark>
+                        <a href="https://www.youtube.com/watch?v=UwJa-dIeeHI">
+                            Grumman F6F-5 Hellcat
+                        </a>
+                    </mark>
+                </p>
+            </figcaption>
+        </figure>
+
+        <label for="zoomer" id="value"></label>
+        <input
+            type="range"
+            min="1"
+            max="7"
+            value="1"
+            step="0.1"
+            id="zoomer"
+            name="zoomer"
+            oninput="deepdive()"
+        />
+
+        <!-- Make any content on the website editable by the user. -->
+        <ul contenteditable="true">
+            <li>Editable Content</li>
+            <li>
+                1943 -
+                <a
+                    href="https://www.wearethemighty.com/mighty-history/wildcat-held-line-against-zero/"
+                >
+                    Zero Killer
+                </a>
+            </li>
+        </ul>
+
+        <script>
+            // http://thenewcode.com/750/Crash-Zoom-Into-An-Image-With-A-HTML5-Range-Slider
+            var zoomer = document.getElementById("zoomer"),
+                hubblepic = document.getElementById("hubblepic");
+            document.getElementById("value").innerHTML =
+                "<small>Zoom = </small>1.0";
+            function deepdive() {
+                zoomlevel = zoomer.valueAsNumber;
+                hubblepic.style.webkitTransform = "scale(" + zoomlevel + ")";
+                hubblepic.style.transform = "scale(" + zoomlevel + ")";
+                document.getElementById(
+                    "value"
+                ).innerHTML = `<small>Zoom = </small>
+                    ${zoomlevel.toFixed(1)}`;
+            }
+            //alert(document.getElementById("hubblepic").getAttribute("data-description"));
+        </script>
+    </body>
+</html>

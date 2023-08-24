@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML 5 and CSS 3</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <style>
+            #box {
+                width: 600px;
+                height: auto;
+                background-color: #a6bfe0;
+                border-radius: 10px;
+                transition: 1s ease-in-out;
+                font-family: "Arial";
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 200%;
+            }
+
+            #box:hover {
+                transform: translate(250px, 250px) skew(20deg, 30deg);
+
+                /*
+                transform: rotate(40deg) scale(2, 2) rotateZ(180deg)
+                    translate(-500px, -50px);
+                */
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="box">
+            <figure>
+                <a
+                    href="https://www.militaryfactory.com/aircraft/detail.asp?aircraft_id=125"
+                >
+                    <img
+                        src="Spitfire x Hurricane.jpg"
+                        alt="Spitfire x Hurricane"
+                        width="600"
+                        height="337"
+                    />
+                </a>
+                <figcaption>
+                    <p style="text-align: center">
+                        Supermarine Spitfire (594 kmh)<br />
+                        x <br />Hawker Hurricane (511 kmh)
+                    </p>
+                </figcaption>
+            </figure>
+        </div>
+    </body>
+</html>
