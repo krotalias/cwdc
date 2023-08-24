@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: Explosion</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: Explosion</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>Explosion<span class="signature">(x, y, ty)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>Class for representing an explosion object.</p>
+There are two images used when an <a href="../explode.png">enemy</a>
+or the <a href="../explodeb.png">cannon</a> is hit:
+<ul>
+<li>These images are drawn with an increasing size and a decreasing transparency in each time step.</li>
+<li>The explosion ends when its height is greater than the canvas height.</li>
+</ul></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="Explosion"><span class="type-signature"></span>new Explosion<span class="signature">(x, y, ty)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates an explosion object.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">explosion abscissa.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">explosion ordinate.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ty</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">type: enemy (1) or cannon (2).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="asteroid.js.html">asteroid.js</a>, <a href="asteroid.js.html#line678">line 678</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="t"><span class="type-signature"></span>t<span class="type-signature"> :Number</span></h4>
+
+
+
+
+<div class="description">
+    Explosion (image) height.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="asteroid.js.html">asteroid.js</a>, <a href="asteroid.js.html#line694">line 694</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="ty"><span class="type-signature"></span>ty<span class="type-signature"> :Number</span></h4>
+
+
+
+
+<div class="description">
+    Explosion type: an enemy (1) or the cannon (2).
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="asteroid.js.html">asteroid.js</a>, <a href="asteroid.js.html#line699">line 699</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="x"><span class="type-signature"></span>x<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Abscissa.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="asteroid.js.html">asteroid.js</a>, <a href="asteroid.js.html#line687">line 687</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="y"><span class="type-signature"></span>y<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Ordinate.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="asteroid.js.html">asteroid.js</a>, <a href="asteroid.js.html#line689">line 689</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Bullet.html">Bullet</a></li><li><a href="Enemy.html">Enemy</a></li><li><a href="Explosion.html">Explosion</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_pexcanvas">_pexcanvas</a></li><li><a href="global.html#ai">ai</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#btm">btm</a></li><li><a href="global.html#bullets">bullets</a></li><li><a href="global.html#cannon">cannon</a></li><li><a href="global.html#cold">cold</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createEnemies">createEnemies</a></li><li><a href="global.html#createImages">createImages</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#display">display</a></li><li><a href="global.html#drawArrow">drawArrow</a></li><li><a href="global.html#drawClubs">drawClubs</a></li><li><a href="global.html#drawDiamonds">drawDiamonds</a></li><li><a href="global.html#drawHearts">drawHearts</a></li><li><a href="global.html#drawSpades">drawSpades</a></li><li><a href="global.html#enemies">enemies</a></li><li><a href="global.html#enginestep">enginestep</a></li><li><a href="global.html#explode">explode</a></li><li><a href="global.html#explosions">explosions</a></li><li><a href="global.html#fpscounter">fpscounter</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#mouse">mouse</a></li><li><a href="global.html#pointer">pointer</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#resize">resize</a></li><li><a href="global.html#setListeners">setListeners</a></li><li><a href="global.html#shake">shake</a></li><li><a href="global.html#stage">stage</a></li><li><a href="global.html#symbol">symbol</a></li><li><a href="global.html#toggleFullScreen">toggleFullScreen</a></li><li><a href="global.html#viewport">viewport</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Thu Sep 08 2022 16:44:20 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
