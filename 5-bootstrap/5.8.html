@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+            integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+            crossorigin="anonymous"
+        />
+
+        <title>ScrollSpy</title>
+
+        <style>
+            body {
+                position: relative;
+                margin-left: 10px;
+            }
+
+            #one,
+            #two,
+            #three,
+            #four {
+                margin-top: 50px;
+            }
+
+            pre,
+            code {
+                white-space: pre-line; /* Sequences of whitespace are collapsed. */
+                margin-left: 10px;
+            }
+        </style>
+    </head>
+
+    <body data-spy="scroll" data-target="#navbar-example" data-offset="70">
+        <nav
+            class="
+                navbar navbar-expand-lg navbar-light
+                bg-faded
+                navbar-fixed-top
+            "
+            id="navbar-example"
+        >
+            <a
+                class="navbar-brand"
+                href="https://getbootstrap.com/docs/4.5/components/scrollspy/"
+            >
+                Scrollspy
+            </a>
+
+            <div id="navbar-example">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="#one">One</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#two">Two</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#three">Three</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#four">Four</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <h2 id="one">Wish You Were Here (Pink Floyd)</h2>
+
+        <div>
+            <pre>
+            So, so you think you can tell Heaven from Hell, blue skies from pain.
+            Can you tell a green field from a cold steel rail?
+            A smile from a veil?
+            Do you think you can tell?
+
+            Did they get you to trade your heroes for ghosts?
+            Hot ashes for trees?
+            Hot air for a cool breeze?
+            Cold comfort for change?
+            Did you exchange
+            A walk-on part in the war for a lead role in a cage?
+
+            How I wish, how I wish you were here.
+            We're just two lost souls swimming in a fish bowl, year after year,
+            Running over the same old ground.
+            What have we found?
+            The same old fears.
+            Wish you were here.
+            </pre>
+        </div>
+
+        <h2 id="two">Father And Son (Cat Stevens)</h2>
+
+        <div>
+            <pre>
+            [Father:]
+            It's not time to make a change
+            Just relax, take it easy
+            You're still young, that's your fault
+            There's so much you have to know
+            Find a girl, settle down
+            If you want you can marry
+            Look at me, I am old, but I'm happy
+
+            I was once like you are now, and I know that it's not easy
+            To be calm when you've found something going on
+            But take your time, think a lot
+            Why, think of everything you've got
+            For you will still be here tomorrow, but your dreams may not
+
+            [Son:]
+            How can I try to explain, cause when I do he turns away again
+            It's always been the same, same old story
+            From the moment I could talk I was ordered to listen
+            Now there's a way and I know that I have to go away
+            I know I have to go
+
+            [Father:]
+            It's not time to make a change
+            (Away, away, away)
+            Just sit down, take it slowly
+            You're still young, that's your fault
+            (I know)
+            There's so much you have to go through
+            (I have to make this decision)
+            Find a girl, settle down
+            (Alone)
+            If you want you can marry
+            Look at me, (No) I am old, but I'm happy
+
+            [Son:]
+            All the times that I cried
+            (Decision, decision, decision)
+            Keeping all the things I knew inside
+            It's hard (Why must)
+            But it's harder to ignore it
+            (You go and make this decision)
+            If they were right, I'd agree
+            (Alone?)
+            But it's them they know not me
+            Now there's a way and I know
+            That I have to go away
+            I know I have to go
+            </pre>
+        </div>
+
+        <h2 id="three">American Pie (Don McLean)</h2>
+
+        <div>
+            <pre>
+            [Intro]
+            A long, long time ago
+            I can still remember how that music used to make me smile
+            And I knew if I had my chance
+            That I could make those people dance
+            And maybe they'd be happy for a while
+
+            But February made me shiver
+            With every paper I'd deliver
+            Bad news on the doorstep
+            I couldn't take one more step
+
+            I can't remember if I cried
+            When I read about his widowed bride
+            But something touched me deep inside
+            The day the music died
+
+            [Chorus:]
+            So bye, bye, Miss American Pie
+            Drove my Chevy to the levee but the levee was dry
+            And them good ole boys were drinking whiskey 'n rye
+            Singin' this'll be the day that I die
+            This'll be the day that I die
+
+            [Verse 1]
+            Did you write the book of love
+            And do you have faith in God above
+            If the Bible tells you so?
+            Now do you believe in rock and roll?
+            Can music save your mortal soul?
+            And can you teach me how to dance real slow?
+
+            Well, I know that you're in love with him
+            'Cause I saw you dancin' in the gym
+            You both kicked off your shoes
+            Man, I dig those rhythm and blues
+
+            I was a lonely teenage broncin' buck
+            With a pink carnation and a pickup truck
+            But I knew I was out of luck
+            The day the music died
+
+            [Chorus:]
+            I started singing bye, bye, Miss American Pie
+            Drove my Chevy to the levee but the levee was dry
+            Them good ole boys were drinking whiskey 'n rye
+            Singin' this'll be the day that I die
+            This'll be the day that I die
+
+            [Verse 2]
+            Now for ten years we've been on our own
+            And moss grows fat on a rollin' stone
+            But that's not how it used to be
+            When the jester sang for the king and queen
+            In a coat he borrowed from James Dean
+            And a voice that came from you and me
+
+            Oh, and while the king was looking down
+            The jester stole his thorny crown
+            The courtroom was adjourned
+            No verdict was returned
+
+            And while Lenin read a book on Marx
+            The quartet practiced in the park
+            And we sang dirges in the dark
+            The day the music died
+
+            [Chorus:]
+            We were singing bye, bye, Miss American Pie
+            Drove my Chevy to the levee but the levee was dry
+            Them good ole boys were drinking whiskey 'n rye
+            Singin' this'll be the day that I die
+            This'll be the day that I die
+
+            [Verse 3]
+            Helter skelter in a summer swelter
+            The birds flew off with a fallout shelter
+            Eight miles high and falling fast
+            It landed foul on the grass
+            The players tried for a forward pass
+            With the jester on the sidelines in a cast
+
+            Now the halftime air was sweet perfume
+            While the sergeants played a marching tune
+            We all got up to dance
+            Oh, but we never got the chance
+
+            'Cause the players tried to take the field
+            The marching band refused to yield
+            Do you recall what was revealed
+            The day the music died?
+
+            [Chorus:]
+            We started singing bye, bye, Miss American Pie
+            Drove my Chevy to the levee but the levee was dry
+            Them good ole boys were drinking whiskey 'n rye
+            And singin' this'll be the day that I die
+            This'll be the day that I die
+
+            [Verse 4]
+            Oh, and there we were all in one place
+            A generation lost in space
+            With no time left to start again
+            So come on, Jack be nimble, Jack be quick
+            Jack Flash sat on a candlestick
+            'Cause fire is the devil's only friend
+
+            Oh, and as I watched him on the stage
+            My hands were clenched in fists of rage
+            No angel born in Hell
+            Could break that Satan's spell
+
+            And as the flames climbed high into the night
+            To light the sacrificial rite
+            I saw Satan laughing with delight
+            The day the music died
+
+            [Chorus:]
+            He was singing bye, bye, Miss American Pie
+            Drove my Chevy to the levee but the levee was dry
+            Them good ole boys were drinking whiskey 'n rye
+            And singin' this'll be the day that I die
+            This'll be the day that I die
+
+            [Outro]
+            I met a girl who sang the blues
+            And I asked her for some happy news
+            But she just smiled and turned away
+            I went down to the sacred store
+            Where I'd heard the music years before
+            But the man there said the music wouldn't play
+
+            And in the streets, the children screamed
+            The lovers cried and the poets dreamed
+            But not a word was spoken
+            The church bells all were broken
+
+            And the three men I admire most
+            The Father, Son and the Holy Ghost
+            They caught the last train for the coast
+            The day the music died
+
+            [Chorus:]
+            And they were singing bye, bye, Miss American Pie
+            Drove my Chevy to the levee but the levee was dry
+            And them good ole boys were drinking whiskey 'n rye
+            Singin' this'll be the day that I die
+            This'll be the day that I die
+
+            [Chorus:]
+            They were singing bye, bye, Miss American Pie
+            Drove my Chevy to the levee but the levee was dry
+            Them good ole boys were drinking whiskey 'n rye
+            And singin' this'll be the day that I die
+            </pre>
+        </div>
+
+        <h2 id="four">Time (Alan Parson's Project)</h2>
+
+        <div>
+            <pre>
+            Time
+            Flowing like a river
+            Time
+            Beckoning me
+            Who knows when we shall meet again
+            If ever
+            But time
+            Keeps flowing like a river
+            To the sea
+
+            Goodbye my love
+            Maybe for forever
+            Goodbye my love
+            The tide waits for me
+            Who knows when we shall meet again
+            If ever
+            But time
+            Keeps flowing like a river (on and on)
+            To the sea
+            To the sea
+
+            Till it's gone forever
+            Gone forever
+            Gone forevermore
+
+            Goodbye my friend
+            Maybe for forever
+            Goodbye my friend
+            The stars wait for me
+            Who knows where we shall meet again
+            If ever
+            But time
+            Keeps flowing like a river (on and on)
+            To the sea
+            To the sea
+
+            Till it's gone forever
+            Gone forever
+            Gone forevermore
+
+            Forevermore
+
+            Forevermore
+
+            Forevermore
+
+            Forevermore
+            </pre>
+        </div>
+
+        <!-- Option 2: jQuery, Popper.js, and Bootstrap JS -->
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+            integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+            integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+            crossorigin="anonymous"
+        />
+
+        <title>B-25</title>
+
+        <style>
+            .jumbotron {
+                background-image: url(Apache-Princess.jpg);
+                background-size: cover;
+                text-align: center;
+                color: indianred;
+                margin-top: 50px;
+            }
+
+            #email {
+                width: 300px;
+            }
+
+            #appSummary {
+                text-align: center;
+                margin-top: 50px;
+                margin-bottom: 50px;
+            }
+
+            .card-img-top {
+                width: 100%;
+            }
+
+            #appStoreIcon {
+                width: 200px;
+            }
+
+            #footer {
+                background-color: aqua;
+                padding-top: 150px;
+                margin-top: 50px;
+                text-align: center;
+                padding-bottom: 150px;
+            }
+
+            body {
+                position: relative;
+            }
+        </style>
+    </head>
+
+    <body data-spy="scroll" data-target="#navbar" data-offset="150">
+        <nav
+            class="navbar navbar-expand-lg navbar-light bg-light fixed-top"
+            id="navbar"
+        >
+            <a
+                class="navbar-brand"
+                href="https://fontawesome.com/v4.7/icon/birthday-cake"
+            >
+                B-25
+                <i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="#navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#jumbotron">
+                            Home <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#footer">Download The App</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input
+                        class="form-control mr-sm-2"
+                        type="email"
+                        placeholder="Email"
+                    />
+                    <input
+                        class="form-control mr-sm-2"
+                        type="password"
+                        placeholder="Password"
+                    />
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </nav>
+
+        <div class="jumbotron text-left" id="jumbotron">
+            <h1 class="display-3">B-25 Mitchell Bomber</h1>
+            <p class="lead">
+                Sixteen B-25 Mitchells took off from USS Hornet for the
+                Doolittle Raid!
+            </p>
+            <hr class="m-y-2" />
+            <p>Want to know more? Join our mailing list!</p>
+
+            <form class="form-inline justify-content-left">
+                <div class="form-group">
+                    <label class="sr-only" for="email">Email address</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">@</div>
+                        <input
+                            type="email"
+                            class="form-control mr-sm-2"
+                            id="email"
+                            placeholder="Your email"
+                        />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign up</button>
+            </form>
+        </div>
+
+        <div class="container">
+            <div class="row" id="appSummary">
+                <!-- https://getbootstrap.com/docs/4.0/utilities/spacing/#horizontal-centering -->
+                <div class="mx-auto" style="width: auto; text-align: center">
+                    <h1>Famous for the Doolittle's Raid in 18 April 1942</h1>
+                    <p class="lead">
+                        The North American B-25 Mitchell is a medium bomber that
+                        was introduced in 1941 and named in honor of Major
+                        General William "Billy" Mitchell, a pioneer of U.S.
+                        military aviation. Used by many Allied air forces, the
+                        B-25 served in every theater of World War II, and after
+                        the war ended, many remained in service, operating
+                        across four decades. Produced in numerous variants,
+                        nearly 10,000 B-25s were built. These included a few
+                        limited models such as the F-10 reconnaissance aircraft,
+                        the AT-24 crew trainers, and the United States Marine
+                        Corps' PBJ-1 patrol bomber.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="about">
+            <div class="card-deck-wrapper">
+                <div class="card-deck">
+                    <div class="card">
+                        <img
+                            class="card-img-top"
+                            src="B25 Mitchell Bomber.jpg"
+                            alt="Card image cap"
+                        />
+                        <div class="card-block">
+                            <h4 class="card-title">
+                                <i class="fa fa-anchor"></i> B-25J Sarinah
+                            </h4>
+                            <p class="card-text">
+                                The B-25J-20-NC SN 44-29507 now flying as
+                                "Sarinah" was accepted by the USAAF on September
+                                28, 1944 and delivered on September 30, 1944.
+                                <br />
+                                <br />
+
+                                This content is a little bit longer.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img
+                            class="card-img-top"
+                            src="B25 Mitchell.jpg"
+                            alt="Card image cap"
+                        />
+                        <div class="card-block">
+                            <h4 class="card-title">
+                                <i class="fa fa-bicycle"></i> B-25H
+                            </h4>
+                            <p class="card-text">
+                                An improved version of the B-25G, this version
+                                relocated the manned dorsal turret to a more
+                                forward location on the fuselage just aft of the
+                                flight deck. It also featured two additional
+                                fixed .50 in (12.7 mm) machine guns in the nose
+                                and in the H-5 onward, four in fuselage-mounted
+                                pods. The T13E1 light weight cannon replaced the
+                                heavy M4 cannon 75 mm (2.95 in). Single controls
+                                were installed from the factory with navigator
+                                in the right seat (number made: 1000; two
+                                airworthy as of 2015).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img
+                            class="card-img-top"
+                            src="B25-Mitchell.jpg"
+                            alt="Card image cap"
+                        />
+                        <div class="card-block">
+                            <h4 class="card-title">
+                                <i class="fa fa-birthday-cake"></i> B-25J
+                                Panchito
+                            </h4>
+                            <p class="card-text">
+                                The B-25J, serial number 43-28147, was assigned
+                                to Captain Don Seiler of the 396th Bomb
+                                Squadron, who named his new plane “Panchito”,
+                                after the feisty Mexican rooster from the 1943
+                                animated musical “The Three Caballeros”.
+                                <br /><br />
+
+                                This card has even longer content than the first
+                                to show that equal height action.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="row">
+                <div class="mx-auto" style="width: auto; text-align: center">
+                    <h2>Download the app!</h2>
+                    <p class="lead">Really, why should I download this app??</p>
+                    <p>
+                        <a href="">
+                            <img id="appStoreIcon" src="App-Store-Icon.png" />
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Option 2: jQuery, Popper.js, and Bootstrap JS -->
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+            integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
