@@ -1,0 +1,21 @@
+https://reactjs.org/docs/add-react-to-a-website.html
+
+npm init -y
+
+npm install babel-cli@6 babel-preset-react-app@3
+
+npx babel --watch src --out-dir . --presets react-app/prod &
+
+
+The git push command is used to upload local repository content to a remote repository. 
+Pushing is how you transfer commits from your local repository to a remote repo. i
+It's the counterpart to git fetch, but whereas fetching imports commits to local branches, pushing exports commits to remote branches.
+
+git push 
+
+The git pull command is used to fetch and download content from a remote repository 
+and immediately update the local repository to match that content. 
+Merging remote upstream changes into your local repository is a common task in Git-based collaboration work flows.
+
+git pull
+

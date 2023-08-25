@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <md-block>
+            <!-- prettier-ignore -->
+            # How to deploy to Vercel using vscode and GitHub
+
+            ## Recipe
+
+            1. Create a .gitignore file in the root directory of your project,
+            using the node template:
+
+                [.gitignore] https://github.com/vercel/vercel/blob/main/examples/create-react-app/.gitignore
+
+            2. In vscode, press cmd-shift-P, and choose "Publish to Gihub"
+
+            3. Choose a name for the new repo. I advise using the same name of the
+            root directory of your project.
+
+            4. Link your new repo to Vercel. \
+            Don't forget to "Adjust GitHub App Permissions", and then click "Import":
+
+                [Vercel] https://vercel.com/new/
+
+            5. For using vercel dev:
+
+                MacOS:
+                * sudo port install pnpm
+                * pnpm setup
+
+                ##
+                Ubuntu:
+                * curl -fsSL https://get.pnpm.io/install.sh | sh -
+                ##
+                source ~/.bashrc
+
+                pnpm i -g vercel
+
+                vercel dev
+        </md-block>
+
+        <script
+            type="module"
+            src="https://md-block.verou.me/md-block.js"
+        ></script>
+    </body>
+</html>

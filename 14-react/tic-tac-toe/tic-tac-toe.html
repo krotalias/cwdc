@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>React - Tic-tac-toe</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://unpkg.com/react@17/umd/react.development.js"
+            crossorigin
+        ></script>
+        <script
+            src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+            crossorigin
+        ></script>
+
+        <!-- Don't use this in production: -->
+        <script
+            src="https://unpkg.com/@babel/standalone/babel.min.js"
+            crossorigin
+        ></script>
+
+        <link rel="stylesheet" href="src/tic-tac-toe.css" />
+    </head>
+
+    <body>
+        <!-- We will put our React component inside this div. -->
+        <div id="tic-tac-toe"></div>
+
+        <!-- Either compile on the fly with Babel -->
+        <script type="text/babel" src="src/tic-tac-toe.js"></script>
+
+        <!--
+            or use a pre-compiled version, by running:
+            npx babel --watch src --out-dir . --presets react-app/prod
+
+            and then sourcing the compiled script directly.
+            <script src="tic-tac-toe.js"> </script>
+        -->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"
+        ></script>
+        <script src="/cwdc/mainPage/LCG.js"></script>
+        <script>
+            dragAndSave("#tic-tac-toe");
+        </script>
+    </body>
+</html>

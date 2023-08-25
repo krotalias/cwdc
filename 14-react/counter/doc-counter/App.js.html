@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: App.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: App.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ * Summary.
+ * &lt;p>An interface based on {@link https://getbootstrap.com/docs/5.2/getting-started/introduction/ Bootstrap 5.2}
+ * for counting items implemented with {@link https://codewithmosh.com/p/mastering-react|React}.&lt;/p>
+ *
+ * React is a lightweight library for building fast and interactive user interfaces.
+ * Unlike {@link https://angular.io Angular}, which is a framework (or a complete solution), React is essentially a ‘view library’.
+ * It only takes care of the view or what is rendered in the DOM.
+ * It doesn’t have an opinion about other aspects of an app such as routing, calling HTTP services, etc.
+ * For those concerns, you need to use other libraries.
+ * This means you get the freedom to choose the libraries that you’re familiar with or prefer.
+ *
+ * &lt;p>&lt;b>Important remark&lt;/b>: using React without {@link https://nodejs.dev/en/ nodejs}
+ * is a great way to try React, but it's not suitable for production.&lt;br>
+ * It slowly compiles {@link https://react.dev/learn/javascript-in-jsx-with-curly-braces JSX}
+ * with Babel in the browser, and uses a large development build of React.&lt;/p>
+ *
+ * &lt;ul>
+ *    &lt;li> Read this {@link  https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project section}
+ *    for a production-ready setup with JSX.&lt;/li>
+ *
+ *    &lt;li>In a larger project, you can use an
+ *    {@link https://reactjs.org/docs/create-a-new-react-app.html integrated toolchain}
+ *    that includes JSX instead.&lt;/li>
+ *
+ *    &lt;li>You can also use React {@link https://reactjs.org/docs/react-without-jsx.html without JSX},
+ *    in which case you can remove Babel.&lt;/li>
+ *
+ *    &lt;li>Or even use a {@link https://www.copycat.dev/blog/reactjs-cdn/ CDN} to
+ *    make your life incredibly easier, by avoiding messing around with the React ecosystem.&lt;/li>
+ * &lt;/ul>
+ *
+ * Finally, when an application is ready for the world,
+ * it must be {@link https://create-react-app.dev/docs/deployment/ deployed} somehow.
+ *
+ * &lt;p>Usage: &lt;/p>
+ * &lt;ul>
+ *  &lt;li>To install jsdoc and yarn:&lt;/li>
+ *  &lt;ul>
+ *    &lt;li>sudo npm install --global yarn&lt;/li>
+ *    &lt;li>sudo npm install -g jsdoc&lt;/li>
+ *  &lt;/ul>
+ *  &lt;li>To run react in the browser, then run {@link https://babeljs.io Babel} on the fly,
+ *  and save the "compiled" output when the source has changed:&lt;/li>
+ *  &lt;ul>
+ *    &lt;li>npm init -y&lt;/li>
+ *    &lt;li>npm install babel-cli@6 babel-preset-react-app@3&lt;/li>
+ *    &lt;li>npx babel --watch src --out-dir . --presets react-app/prod &amp;&lt;/li>
+ *  &lt;/ul>
+ *
+ *  &lt;li>To run the version with modules and Node.js version {@link https://nodejs.org/en/blog/release/v16.16.0 16}:&lt;/li>
+ *  &lt;ul>
+ *    &lt;li>cd counter-app&lt;/li>
+ *    &lt;li>{@link https://www.npmjs.com npm} or {@link https://yarnpkg.com yarn} install&lt;/li>
+ *    &lt;li>{@link https://www.npmjs.com/package/react npm} or {@link https://yarnpkg.com/package/react yarn} start&lt;/li>
+ *  &lt;/ul>
+ * &lt;/ul>
+ *
+ * @author {@link https://codewithmosh.com|Mosh Hamedani}
+ * @author Paulo Roma
+ * @since 08/10/2021
+ * @see &lt;a href="../src/App.js">source&lt;/a>
+ * @see &lt;a href="../package.json">package.json&lt;/a>
+ * @see &lt;a href="/cwdc/14-react/counter/counter.html">link&lt;/a>
+ * @see &lt;a href="/cwdc/14-react/counter/counter2.html">link production&lt;/a>
+ * @see &lt;a href="http://localhost:3000">link node&lt;/a>
+ * @see https://reactjs.org/docs/react-dom.html
+ * @see https://reactjs.org/docs/react-api.html#createelement
+ * @see https://learn2torials.com/a/react-state-and-props
+ * @see https://github.com/fishstick22/mastering-react-mosh
+ * @see https://medium.com/swlh/modern-react-development-but-without-200-mb-of-node-modules-69d8ca01eacf
+ * @see https://ustechportal.com/error-error-0308010c-digital-envelope-routines-unsupported/
+ * @see &lt;img src="../counter.png" width="256">
+ */
+
+"use strict";
+
+/**
+ * &lt;p>A single source of truth for our interface.&lt;/p>
+ *
+ * &lt;p>The component that owns a piece of the state, should be the one modifying it.&lt;/p>
+ *
+ * App is the parent of both the NavBar and Counters components,
+ * so the counters array information can be passed as a prop to its children.
+ *
+ * Therefore, the state and the methods modifying it, are kept in the App.
+ * These methods are then passed to its children via props.
+ *
+ * @extends {React.Component}
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields
+ */
+class App extends React.Component {
+  /**
+   * Number of counters.
+   * @type {Number}
+   */
+  ncounters = 4;
+
+  /**
+   * &lt;ul>
+   *    &lt;li>Set up the initial state of the application: a set of four counters&lt;/li>
+   *  &lt;/ul>
+   * &lt;p>Conceptually, components are like JavaScript functions:&lt;/p>
+   * &lt;ul>
+   *    &lt;li>They accept arbitrary inputs (called “props”) and &lt;/li>
+   *    &lt;li>return React elements describing what should appear on the screen.&lt;/li>
+   * &lt;/ul>
+   *
+   * @param {Object} props component input.
+   * @extends {React.Component&lt;Props>}
+   * @see https://reactjs.org/docs/react-component.html
+   * @see https://www.digitalocean.com/community/tutorials/react-constructors-with-react-components
+   */
+  constructor(props) {
+    super(props);
+    console.log("App constructor: props", this.props);
+
+    /**
+     * &lt;p>The state of the application.&lt;/p>
+     * React components have a built-in state object which is private to the component.
+     * &lt;ul>
+     *  &lt;li>State can not be accessed from outside the class.&lt;/li>
+     *  &lt;li>However, it can be passed as an argument to another component.&lt;/li>
+     * &lt;/ul>
+     * @type {Object}
+     * @property {Array&lt;Object&lt;id:Number,value:Number>>} state.counters array of counter objects.
+     * @property {Number} maxId maximum Id value used so far.
+     * @property {state_setter} state.setState setter - change state.
+     */
+    this.state = {
+      counters: Array.from({ length: this.ncounters }, (_, index) => ({
+        id: index + 1,
+        value: 0,
+      })),
+      maxId: this.ncounters,
+    };
+  }
+
+  /**
+   * &lt;p>Update the state property to increment a given counter.&lt;/p>
+   *
+   * Remember that arrow functions do not rebind this keyword, instead they inherit it.&lt;br>
+   * Also to change the state, we must use setState inherited from the base Component,
+   * to update the view, and bring the DOM in sync with the virtual DOM.
+   *
+   * &lt;p>Therefore, this.state.counters[indexOf(counter)].value++ will not work.
+   * It is necessary to create a new object and pass it to setState.&lt;/p>
+   *
+   * The setState will schedule an asynchronous call to the {@link App#render|render} method, which will
+   * return a new react element at some point in the future.
+   *
+   * @param {Object&lt;id:Number,value:Number>} counter selected counter object.
+   * @function
+   */
+  handleIncrement = (counter) => {
+    console.log("Increment", counter);
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    // a copy of the counter object: {id: i , value: v}
+    counters[index] = { ...counter };
+    counters[index].value++;
+
+    /**
+     * &lt;p>Add the new configuration (a new set of counters) to {@link App#state state}.&lt;/p>
+     * &lt;pre>
+     * counters: Array
+     * [
+     *    {id: 1, value: 3},
+     *    {id: 2, value: 0},
+     *    {id: 3, value: 7},
+     *    {id: 4, value: 0}
+     * ] (4) = $2
+     * &lt;/pre>
+     * When you call {@link https://react.dev/reference/react/useState setState} in a component,
+     * React automatically updates the child components inside of it too.
+     * @callback state_setter
+     * @see https://www.geeksforgeeks.org/reactjs-setstate/
+     * @see https://dev.to/johnstonlogan/react-hooks-barney-style-1hk7
+     */
+    this.setState({ counters });
+  };
+
+  /**
+   * &lt;p>Update the state property to decrement a given counter.&lt;/p>
+   *
+   * @param {Object&lt;id:Number,value:Number>} counter selected counter object.
+   * @function
+   */
+  handleDecrement = (counter) => {
+    console.log("Decrement", counter);
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].value--;
+    this.setState({ counters });
+  };
+
+  /**
+   * &lt;p>Update the state property to reset all counters to zero.&lt;/p>
+   *
+   * @param {Object&lt;id:Number,value:Number>} counter selected counter object.
+   * @function
+   */
+  handleReset = () => {
+    const counters = this.state.counters.map((c) => {
+      c.value = 0;
+      return c;
+    });
+    this.setState({ counters });
+  };
+
+  /**
+   * &lt;p>Update the state property to delete a given counter.&lt;/p>
+   *
+   * In fact, we buid a new array without the deleted one and update the state.
+   *
+   * @param {Number} counterId id of the selected counter.
+   * @function
+   */
+  handleDelete = (counterId) => {
+    console.log("Event Handler Called", counterId);
+    const counters = this.state.counters.filter((c) => c.id !== counterId);
+    this.setState({ counters });
+  };
+
+  /**
+   * &lt;p>Update the state property to insert a new counter.&lt;/p>
+   *
+   * In fact, we buid a new array, add another counter, and update the state.
+   *
+   * @function
+   * @see https://legacy.reactjs.org/docs/state-and-lifecycle.html
+   * @see https://www.robinwieruch.de/react-state-array-add-update-remove/
+   */
+  handleInsert = () => {
+    this.setState((state) => ({
+      counters: [...state.counters, { id: state.maxId + 1, value: 0 }],
+      maxId: state.maxId + 1,
+    }));
+  };
+
+  /**
+   * Creates a Navbar to totalize the number of counters being used.
+   *
+   * @returns {React.Fragment} a react fragment with a Navbar and a Counters component.
+   * @see &lt;a href="../doc-counter/Counters.html"> Counters component &lt;/a>
+   * @see &lt;a href="../doc-counter/global.html#NavBar"> NavBar component &lt;/a>
+   * @see https://reactjs.org/docs/fragments.html
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main
+   * @see https://getbootstrap.com/docs/4.0/components/navbar/#placement
+   */
+  render() {
+    return (
+      &lt;React.Fragment>
+        &lt;NavBar
+          totalCounters={this.state.counters.filter((c) => c.value > 0).length}
+        />
+
+        &lt;main role="main" className="container-fluid bg-antique">
+          &lt;div className="counters">
+            &lt;Counters
+              // pass 6 props to Counters (props are read only)
+              counters={this.state.counters}
+              onReset={this.handleReset}
+              onIncrement={this.handleIncrement}
+              onDecrement={this.handleDecrement}
+              onDelete={this.handleDelete}
+              onInsert={this.handleInsert}
+            />
+          &lt;/div>
+        &lt;/main>
+      &lt;/React.Fragment>
+    );
+  }
+}
+
+ReactDOM.render(&lt;App />, document.getElementById("root"));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Counter.html">Counter</a></li><li><a href="Counters.html">Counters</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NavBar">NavBar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sat May 06 2023 08:34:10 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
