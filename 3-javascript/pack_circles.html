@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pack Circles</title>
+
+        <style>
+            :root {
+                --wsize: 1600px; /* world coordinate system for drawing */
+                --hsize: 900px;
+                --bgcolor: rgb(83, 79, 79);
+                --color: #faebd7; /* antiquewhite */
+                --shcolor: #888888;
+            }
+
+            * {
+                /* apply to all elements on the page */
+                padding: 0 auto; /* center elements */
+                margin: 0 auto;
+                box-sizing: border-box; /* padding and border included in the width and height */
+            }
+
+            body {
+                background-color: lightgrey;
+            }
+
+            header {
+                display: flex;
+                flex-direction: row;
+                min-width: var(--wsize);
+                background-color: var(--bgcolor);
+                color: var(--color);
+                justify-content: center;
+                align-items: center;
+                font-family: "Courier New", Courier, monospace;
+                font-size: 30px;
+                text-align: justify;
+                text-justify: auto;
+                word-wrap: break-word;
+            }
+
+            .flexbox-container {
+                display: flex;
+                flex-wrap: wrap;
+                min-width: var(--wsize);
+                height: auto;
+                background-color: var(--bgcolor);
+                justify-content: center; /* alignment along the x axis */
+                align-items: center; /* alignment along the y axis */
+            }
+
+            .flex-item {
+                align-self: center;
+            }
+
+            main {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #canvas {
+                width: var(--wsize); /* size of the world coordinate system */
+                height: var(--hsize);
+                box-shadow: 1px 1px 1px 1px var(--shcolor);
+                background-color: var(--color);
+                position: relative;
+            }
+
+            .ctrl-button {
+                width: auto;
+                height: auto;
+                font-size: 20px;
+                background-color: var(--bgcolor); /* Dark background */
+                color: var(--color); /* White text */
+                border: 2px solid var(--color); /* White border */
+                cursor: pointer; /* Pointer/hand icon */
+                float: left; /* Float the buttons side by side */
+                margin: 10px 10px; /* Some margin to separate buttons */
+                padding: 5px 15px 5px 15px;
+            }
+
+            .ctrl-group {
+                /* buttons side by side */
+                display: flex;
+                box-shadow: 1px 1px 1px 1px var(--shcolor);
+                background-color: var(--bgcolor);
+                width: var(--wsize);
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+
+            /* All but the last child */
+            .ctrl-group button:not(:last-child) {
+                /* Prevent double borders */
+                /* border-right: none; */
+                margin-right: 0px;
+            }
+
+            /* Add a background color on hover */
+            .ctrl-group button:hover,
+            .flex-item button:hover {
+                background-color: #3e8e41;
+            }
+
+            .ctrl-debug {
+                display: flex;
+                width: var(--wsize);
+                flex-direction: column;
+                justify-content: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header><p>Packing Circles</p></header>
+
+        <div class="flexbox-container">
+            <div class="flex-item">
+                <button class="ctrl-button" id="btn" onclick="animation(poll)">
+                    Start
+                </button>
+                <button class="ctrl-button" id="reset" onclick="reset()">
+                    Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- 
+        Specify the main content of the document 
+
+        https://www.w3schools.com/tags/tag_main.asp 
+        https://www.w3schools.com/howto/howto_css_button_group.asp
+        https://flexbox.help 
+        https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items
+        -->
+        <main>
+            <div
+                id="canvas"
+                onclick="getCircleAttr(event)"
+                ondblclick="deleteCircle(event)"
+            ></div>
+            <div class="ctrl-group">
+                <button class="ctrl-button" id="mode" onclick="mode()">
+                    Dark
+                </button>
+                <button class="ctrl-button" id="layout" onclick="layout()">
+                    Portrait
+                </button>
+                <button
+                    class="ctrl-button"
+                    id="download"
+                    onclick="downloadImage()"
+                >
+                    Download
+                </button>
+            </div>
+            <div class="ctrl-debug">
+                <div id="counter">0</div>
+                <p>Double Click to delete a circle</p>
+            </div>
+        </main>
+
+        <script src="./pack_circles.js"></script>
+    </body>
+</html>

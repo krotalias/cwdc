@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cookies</title>
+        <style>
+            body {
+                background-image: url("./cookie.jpg");
+                background-size: cover;
+                background-repeat: scale;
+                color: black;
+                margin-top: 20px;
+            }
+            .square {
+                width: fit-content;
+                height: auto;
+                margin: 0 auto;
+                padding: 50px;
+                border-radius: 20%;
+                background-color: antiquewhite;
+            }
+        </style>
+    </head>
+
+    <body>
+        <script src="./cookies.js"></script>
+        <script>
+            window.onkeydown = function (event) {
+                if (event.ctrlKey && event.key === "Escape") {
+                    deleteCookie("username");
+                    alert("Cookie deleted");
+                    checkCookie("username");
+                }
+            };
+            displayAllCookies();
+            checkCookie("username");
+        </script>
+    </body>
+</html>
