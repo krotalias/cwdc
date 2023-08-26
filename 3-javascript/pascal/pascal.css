@@ -1,1 +1,79 @@
-python/pascal.css
+:root {
+    --wTri: 822px; /* last row dimension */
+    --wCode: 550px;
+}
+
+tab1 {
+    padding-left: 2em;
+}
+tab2 {
+    padding-left: 4em;
+}
+tab3 {
+    padding-left: 8em;
+}
+
+body {
+    font-family: Tahoma, sans-serif, monospace;
+    font-size: 14px;
+    background-color: #f0f0f2;
+    margin: 30px;
+}
+
+#draggable {
+    cursor: n-resize;
+}
+
+#tri,
+#fig,
+#code {
+    cursor: move;
+}
+
+#tri {
+    width: auto;
+    height: auto;
+    display: inline-block;
+    margin-left: 0;
+    background-color: lemonchiffon;
+    border: 5px solid antiquewhite;
+    padding: 30px;
+    white-space: pre;
+    font-family: monospace;
+}
+
+.clear-float {
+    clear: both;
+}
+
+#code {
+    width: auto;
+    margin-top: 30px;
+    float: left;
+    border: 5px solid grey;
+    background-color: lightgrey;
+    padding: 15px;
+}
+
+#fig {
+    width: 260px;
+    float: left;
+    border: 5px solid grey;
+    margin: 30px 0 0 50px;
+    padding: 15px;
+    background-color: lightgrey;
+}
+
+.test {
+    position: absolute;
+    visibility: hidden;
+    background-color: red;
+    height: auto;
+    width: auto;
+    white-space: nowrap; /* Thanks to Herb Caudill comment */
+}
+
+pre {
+    font-family: Arial, sans-serif;
+    color: black;
+}
