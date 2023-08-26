@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bejeweled</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css"
+        />
+        <link rel="stylesheet" href="game.css" />
+        <script type="module" src="game.js"></script>
+    </head>
+
+    <body id="bd">
+        <div id="header">
+            <div id="center"></div>
+        </div>
+
+        <div id="sidebar">
+            <div id="scorebg">
+                <h3 id="score">0</h3>
+            </div>
+            <div id="resetbt"></div>
+        </div>
+
+        <div id="bg"></div>
+
+        <script src="../../mainPage/LCG.js"></script>
+
+        <script>
+            dragAndSave("#bg");
+            dragAndSave("#sidebar");
+        </script>
+    </body>
+</html>

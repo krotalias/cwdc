@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Avatar</title>
+    </head>
+    <body>
+        <a title="The Javascript language" href="https://javascript.info/js">
+            javascript.info
+        </a>
+        <div id="user"></div>
+        <script type="module">
+            import { showAvatar } from "./promise2.js";
+
+            showAvatar().then((githubUser) => {
+                document.getElementById(
+                    "user"
+                ).innerHTML = `<a href="https://github.com/${githubUser.login}">${githubUser.login}</a>`;
+                // print the return value of the Promise object
+                console.log(githubUser);
+            });
+        </script>
+    </body>
+</html>

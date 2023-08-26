@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Avatar</title>
+    </head>
+
+    <body>
+        <a href="https://javascript.info/js">javascript.info</a>
+        <div id="user"></div>
+
+        <script type="module">
+            import { showAvatar } from "./promise.js";
+            // You can only use await inside an async function.
+            (async function () {
+                let githubUser = await showAvatar();
+                console.log(githubUser);
+
+                document.getElementById(
+                    "user"
+                ).innerHTML = `<a href="https://github.com/${githubUser.login}">${githubUser.login}</a>`;
+            })();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bejeweled</title>
+        <meta charset="utf8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css"
+        />
+        <style>
+            :root {
+                --nrow: 8;
+                --ncol: 10;
+                --nico: 7;
+            }
+            #board {
+                width: calc(var(--ncol) * 60px);
+                height: auto;
+                border: 5px solid brown;
+                background-color: rgb(238, 167, 75);
+                cursor: move;
+                font-size: 30px;
+                text-align: center;
+            }
+            body {
+                margin: 50px;
+                background-color: lightgrey;
+            }
+            .container {
+                width: 200px;
+                text-align: center;
+                background-color: antiquewhite;
+                cursor: move;
+                border: 5px solid rgb(212, 160, 17);
+            }
+            #draggable {
+                cursor: n-resize;
+            }
+            #score {
+                background-color: rgb(178, 196, 19);
+            }
+            fieldset {
+                border: 0;
+                background-color: #faebd7;
+                font-size: small;
+            }
+            fieldset:hover {
+                background-color: #fad7eb;
+            }
+            a:visited {
+                color: green;
+            }
+            /* unvisited link */
+            a:link {
+                color: blue;
+            }
+            /* links without underlining */
+            a {
+                text-decoration: none;
+            }
+            /* when mouse passes over a link */
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>
+                <a href="https://bejeweled.fandom.com/wiki/Gem">Bejeweled</a>
+            </h1>
+            <!-- Prevent page reloads and maintain HTML standard. -->
+            <form name="bejeweled" method="post" action="javascript:void(0);">
+                <fieldset>
+                    <p>
+                        <label for="y">Row</label>
+                        <input
+                            type="number"
+                            name="row"
+                            id="y"
+                            min="0"
+                            size="2"
+                            placeholder="0"
+                            pattern="[0-9]*"
+                            required
+                            autofocus
+                        />
+                    </p>
+                    <p>
+                        <label for="x">Col</label>
+                        <input
+                            type="number"
+                            name="col"
+                            id="x"
+                            min="0"
+                            size="2"
+                            placeholder="0"
+                            pattern="[0-9]*"
+                            required
+                        />
+                    </p>
+
+                    <p>
+                        Direction:
+                        <select id="move">
+                            <option>up</option>
+                            <option selected>down</option>
+                            <option>left</option>
+                            <option>right</option>
+                        </select>
+                    </p>
+
+                    <input id="play" type="submit" value="Play!" />
+                </fieldset>
+            </form>
+
+            <p id="score">Score =</p>
+
+            <p id="message">Let the Game Begin</p>
+        </div>
+
+        <pre>
+            <div id="board">Board</div>
+        </pre>
+
+        <script type="module">
+            import { gameLoop, mainGame } from "./cmd-game.js";
+
+            var getUrlParameter = function getUrlParameter(sParam) {
+                var sPageURL = window.location.search.substring(1),
+                    sURLVariables = sPageURL.split("&"),
+                    sParameterName,
+                    i;
+
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split("=");
+
+                    if (sParameterName[0] === sParam) {
+                        return typeof sParameterName[1] === undefined
+                            ? true
+                            : decodeURIComponent(sParameterName[1]);
+                    }
+                }
+                return false;
+            };
+
+            let width = getUrlParameter("width");
+            let height = getUrlParameter("height");
+            let d = getUrlParameter("debug");
+
+            if (width && height) {
+                document.documentElement.style.setProperty("--nrow", height);
+                document.documentElement.style.setProperty("--ncol", width);
+            }
+
+            let nrow = getComputedStyle(
+                document.documentElement
+            ).getPropertyValue("--nrow");
+            let ncol = getComputedStyle(
+                document.documentElement
+            ).getPropertyValue("--ncol");
+            let nico = getComputedStyle(
+                document.documentElement
+            ).getPropertyValue("--nico");
+            document.getElementById("x").max = ncol - 1;
+            document.getElementById("y").max = nrow - 1;
+            var game = mainGame(nrow, ncol, nico, d);
+            document.getElementById("play").onclick = function () {
+                gameLoop(game);
+            };
+        </script>
+
+        <script src="../../mainPage/LCG.js"></script>
+
+        <script>
+            dragAndSave(".container");
+            dragAndSave("#board");
+
+            // Blocks the pop up asking for form resubmission on refresh once the form is submitted.
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+            }
+        </script>
+    </body>
+</html>

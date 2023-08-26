@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Javascript - BigInt</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css"
+        />
+        <link rel="stylesheet" href="/cwdc/mainPage/LCG.css" />
+        <link rel="stylesheet" href="./gcd.css" />
+    </head>
+
+    <body>
+        <div class="container_bi">
+            <p class="centered">
+                Every Number in Javascript is float
+                <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a>
+            </p>
+            <p class="centered">
+                <mark>i</mark> can go beyond 40 (53 bits) by using
+                <a
+                    href="https://www.geeksforgeeks.org/javascript-bigint-complete-reference/?ref=rp"
+                >
+                    BigInt.
+                </a>
+            </p>
+            <p class="centered">
+                The smallest integer divisible by all integers in the range[1,
+                <mark>i</mark>+1=<span id="i1"> </span>) is:
+            </p>
+            <p class="eqnFont">
+                LCM(<mark><span id="i">i</span></mark
+                >) =
+                <span id="prod"></span>
+                <img
+                    src="javascript.png"
+                    width="20"
+                    style="vertical-align: middle"
+                />
+                <br /><br />
+                <label
+                    for="factors"
+                    style="display: block; color: goldenrod; font-weight: bold"
+                >
+                    <a
+                        href="https://www.mathsisfun.com/prime-factorization.html"
+                    >
+                        Prime Factorization
+                    </a>
+                </label>
+                <textarea
+                    id="factors"
+                    name="factors"
+                    rows="4"
+                    style="background-color: orange"
+                >
+                </textarea>
+            </p>
+
+            <form id="form" class="centered" method="post">
+                <label for="n"><mark>i </mark><span id="range"></span></label>
+                <input
+                    type="range"
+                    min="1"
+                    max="2000"
+                    value="40"
+                    step="1"
+                    id="n"
+                    name="n"
+                    style="width: var(--length)"
+                    oninput="getFactors()"
+                />
+                <span style="float: left"> 1 </span>
+                <span style="float: right"> 2000 </span>
+                <br /><br />
+            </form>
+
+            <script src="/cwdc/mainPage/LCG.js"></script>
+            <script src="/cwdc/3-javascript/cookies.js"></script>
+            <script src="./bitset.js"></script>
+            <script type="module">
+                import {
+                    factorization,
+                    bitLength,
+                    decLength,
+                } from "./factorize.js";
+                import { LCM } from "./gcd.js";
+                window.getFactors = getFactors;
+
+                function getFactors() {
+                    let n = $("#n")[0];
+                    let m = $("mark");
+                    if (n) {
+                        // using javascript BigInt code to avoid the 53-bit limit
+                        let lcmValue = LCM(n.valueAsNumber);
+                        let mcolor =
+                            lcmValue > Number.MAX_SAFE_INTEGER
+                                ? "red"
+                                : "green";
+                        let bits = bitLength(lcmValue);
+                        let decs = decLength(lcmValue);
+                        $("#range").html(
+                            `(${bits.toString()} bits or ${decs.toString()} digits)`
+                        );
+                        for (let i of m) {
+                            i.style.color = mcolor;
+                        }
+                        $("#prod").html(`${lcmValue}`);
+                        $("textArea#factors").html(
+                            `${factorization(lcmValue)}`
+                        );
+
+                        $("#i1").html((n.valueAsNumber + 1).toString());
+                        $("#i").html(n.valueAsNumber.toString());
+                    }
+                    setCookie("slider", String(n.value), 365);
+                }
+                dragAndSave(".container_bi");
+                $("#n")[0].value = getCookie("slider");
+                getFactors();
+            </script>
+        </div>
+    </body>
+</html>

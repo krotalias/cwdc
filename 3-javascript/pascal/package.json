@@ -1,0 +1,15 @@
+{
+  "name": "pascal",
+  "version": "1.0.0",
+  "description": "A Pascal triangle generator using yield.",
+  "type": "module",
+  "main": "pascal.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paulo Roma",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}

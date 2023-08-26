@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Closure</title>
+    </head>
+
+    <body>
+        <p>
+            A closure is a feature in JavaScript where an inner function has
+            access to the outer (enclosing) function's variables — a scope
+            chain.
+        </p>
+
+        The closure has three scope chains. It has access:
+        <ul>
+            <li>
+                to its own scope - variables defined between its curly brackets,
+            </li>
+            <li>to the outer function's variables,</li>
+            <li>to the global variables.</li>
+        </ul>
+
+        <div id="output"></div>
+        <script type="module">
+            import { testClosure } from "./closure.js";
+            document.getElementById("output").innerHTML = testClosure();
+        </script>
+    </body>
+</html>

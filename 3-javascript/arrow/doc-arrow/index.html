@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1><div align="center"> <a href="https://blog.kevinchisholm.com/javascript/difference-between-scope-and-context/">SCOPE X CONTEXT</a></div></h1>
+<h2><a href="https://developer.mozilla.org/en-US/docs/Glossary/Scope">Scope</a> in JavaScript</h2>
+<p><a href="https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/README.md">Scope</a>
+has to do with the the visibility of variables.
+In JavaScript, scope is achieved through the use of functions.<br>
+When you use the keyword “var” inside of a function,
+the variable that you are initializing is private to the function,
+and cannot be seen outside of that function.<br>
+But if there are functions inside of this function,
+then those “inner” functions can “see” that variable,
+and that variable is said to be “in-scope”.</p>
+<ul>
+<li>Functions can “see” variables that are declared inside of them.</li>
+<li>They can also “see” any that are declared outside of them,</li>
+<li>but never those declared inside of functions that are nested in that function.</li>
+<li>This is scope in JavaScript.</li>
+</ul>
+<h2><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">Context</a> in JavaScript</h2>
+<p>Context is related to objects. It refers to the object to which a function belongs.<br>
+When you use the JavaScript “this” keyword, it refers to the object to which function belongs.</p>
+<ul>
+<li>If the object “foo” has a method called “bar”, when the JavaScript keyword “this”
+is used inside of “bar”, it refers to “foo”.</li>
+<li>If the function “bar” were executed in the global scope,
+then “this” refers to the window object (except in strict mode).</li>
+</ul>
+<p>In most cases, the value of &quot;this&quot; is determined by how a function is called (runtime binding).<br>
+It can't be set by assignment during execution, and it may be different each time the function is called.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">bind()</a>
+method can set the value of a function's &quot;this&quot; regardless of how it's called.<br>
+On the other hand, <a href="global.html#article">arrow</a> functions don't provide their own &quot;this&quot; binding
+(it retains the &quot;this&quot; value of the enclosing lexical context).</p>
+<p>The keyword &quot;this&quot; is misunderstood in “borrowed methods”:</p>
+<ul>
+<li>when a <a href="global.html#user">variable</a> is set to a method that uses &quot;this&quot;;</li>
+<li>when the function using &quot;this&quot; is a <a href="Person.html">callback</a> function and;</li>
+<li>when &quot;this&quot; is in a <a href="global.html#players">closure</a> (in a internal function).</li>
+</ul>
+<p>It is important to keep in mind that by using the JavaScript
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call">call()</a> or
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply">apply()</a> methods,
+you can alter the context within which a function is executed.</p>
+<ul>
+<li>This, in-turn, changes the meaning of “this” inside of that function when it is executed.</li>
+</ul>
+<h2><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures">Closures</a> in JavaScript</h2>
+<p>A function that references bindings from local scopes around it is called a
+<a href="https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch7.md">closure</a>.<br>
+Closure means that an inner function always has access to the variables and parameters of its outer function,
+even after the outer function has returned.</p>
+<p>The inner function can access the variables of the enclosing function due to closures in JavaScript.<br>
+As a consequence, the inner function preserves the scope chain of the enclosing function at the time
+the enclosing function was executed, and thus can access the enclosing function’s variables.</p>
+<p>In other words, the function defined in the <a href="/cwdc/3-javascript/closure/closure.html">closure</a>
+‘remembers’ the environment in which it was created:</p>
+<ul>
+<li>We must have a nested function (function inside a function).</li>
+<li>The nested function must refer to a value defined in the enclosing function.</li>
+<li>The enclosing function must return the nested function.</li>
+</ul>
+<h2><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes">Prototypes</a> in JavaScript</h2>
+<p><a href="/cs336/examples/javascript/javascript_notes2.pdf#page=6">Prototypes</a>
+are the mechanism by which JavaScript objects inherit features from one another.<br>
+Every object in JavaScript has a built-in property, which is called its prototype.</p>
+<p>The prototype is itself an object, so the prototype will have its own prototype,
+making what's called a prototype chain.<br>
+The chain ends when we reach a prototype that has null for its own prototype.</p>
+<p>When you try to access a property of an object:</p>
+<ul>
+<li>if the property can't be found in the object itself, the prototype is searched for the property.</li>
+<li>If the property still can't be found, then the prototype's prototype is searched,</li>
+<li>and so on until either the property is found, or the end of the chain is reached,
+<ul>
+<li>in which case undefined is returned.</li>
+</ul>
+</li>
+</ul>
+<h2>Usage</h2>
+<p>All the scripts here are meant to be run using <a href="https://nodejs.dev/en/">Node.js</a>:</p>
+<ul>
+<li>node article.js</li>
+<li>node article2.js</li>
+<li>node bob.js</li>
+<li>node controller.js</li>
+<li>node data.js</li>
+<li>node person.js</li>
+<li>node players.js</li>
+<li>node players2.js</li>
+<li>node sumNumber.js</li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>article.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Arrow functions.<p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="article.js.html">article.js</a>, <a href="article.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/arrow/article.js">source</a></li>
+        
+            <li><a href="/cwdc/3-javascript/arrow/data.html">link</a></li>
+        
+            <li><a href="https://imasters.com.br/javascript/descomplicando-call-apply-e-bind-em-javascript">https://imasters.com.br/javascript/descomplicando-call-apply-e-bind-em-javascript</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions</a></li>
+        
+            <li><a href="https://www.javascripttutorial.net/es6/when-you-should-not-use-arrow-functions/">https://www.javascripttutorial.net/es6/when-you-should-not-use-arrow-functions/</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>article2.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Arrow functions.<p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="article2.js.html">article2.js</a>, <a href="article2.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/arrow/article2.js">source</a></li>
+        
+            <li><a href="https://imasters.com.br/javascript/descomplicando-call-apply-e-bind-em-javascript">https://imasters.com.br/javascript/descomplicando-call-apply-e-bind-em-javascript</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions</a></li>
+        
+            <li><a href="https://www.javascripttutorial.net/es6/when-you-should-not-use-arrow-functions/">https://www.javascripttutorial.net/es6/when-you-should-not-use-arrow-functions/</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>bob.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Arrow functions.<p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bob.js.html">bob.js</a>, <a href="bob.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/arrow/bob.js">source</a></li>
+        
+            <li><a href="https://stackoverflow.com/questions/33308121/can-you-bind-this-in-an-arrow-function">https://stackoverflow.com/questions/33308121/can-you-bind-this-in-an-arrow-function</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>controller.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Adjusting "this" when borrowing a method</p>
+
+We have two objects. One of them has a method called avg()
+that the other does not​.<br>
+Therefore, we will borrow the appController.avg() method​.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controller.js.html">controller.js</a>, <a href="controller.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/arrow/controller.js">source</a></li>
+        
+            <li><a href="https://desenvolvimentoparaweb.com/javascript/this-javascript-dominando/">https://desenvolvimentoparaweb.com/javascript/this-javascript-dominando/</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>data.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>Adjusting "this" when a method is assigned to a variable.</p>
+
+In JavaScript, there's always a global object defined.<br>
+In a web browser, when scripts create global variables defined with the var keyword,<br>
+they're created as members of the global object (Window).
+<p>In Node.js this is not the case. The global object is called global.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="data.js.html">data.js</a>, <a href="data.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/arrow/data.js">source</a></li>
+        
+            <li><a href="/cwdc/3-javascript/arrow/data.html">link</a></li>
+        
+            <li><a href="https://desenvolvimentoparaweb.com/javascript/this-javascript-dominando/">https://desenvolvimentoparaweb.com/javascript/this-javascript-dominando/</a></li>
+        
+            <li><a href="https://modernweb.com/understanding-scope-and-context-in-javascript/">https://modernweb.com/understanding-scope-and-context-in-javascript/</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>person.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>Adjusting "this" when a method is used as a callback.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="person.js.html">person.js</a>, <a href="person.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/arrow/person.js">source</a></li>
+        
+            <li><a href="https://javascript.plainenglish.io/this-binding-in-es6-arrow-function-70d80e216238">https://javascript.plainenglish.io/this-binding-in-es6-arrow-function-70d80e216238</a></li>
+        
+            <li><a href="https://blog.kevinchisholm.com/javascript/difference-between-scope-and-context/">https://blog.kevinchisholm.com/javascript/difference-between-scope-and-context/</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>players.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>Adjusting "this" in a closure.</p>
+
+<p>In <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions#nested_functions_and_closures">nested functions and closures</a>,
+"this" can only be accessed by the external function, not by an internal function.</p>
+
+<ul>
+ <li>"this" is not part of the closure scope.<br>
+ It can be thought of as an additional parameter to the function
+ that is bound at the
+ <a href="https://dev.to/kenystev/understanding-how-this-works-in-javascript---the-call-site-3hj3">call site</a>.</li>
+
+ <li>If the method is not called as a method, then the global object is passed as "this".<br>
+ In the browser (not in sctrict mode), the global object is identical to window.</li>
+
+ <li>In Javascript "this" is bound to an object and it depends on, not where the function is declared,
+ but <b>where</b> the function is <b>called</b>.</li>
+</ul>
+
+<pre>
+For example, consider the following function:
+
+   function someFunction() {
+   }
+
+and the following object,
+
+   var obj = { someFunction: someFunction };
+
+If you call the function using method syntax, such as
+
+   obj.someFunction();
+
+then "this" is bound to obj.
+
+If you call someFunction() directly, such as,
+
+   someFunction();
+
+then "this" is bound to the global object, that is window.
+</pre></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="players.js.html">players.js</a>, <a href="players.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/arrow/players.js">source</a></li>
+        
+            <li><a href="/cwdc/3-javascript/arrow/data.html">link</a></li>
+        
+            <li><a href="https://desenvolvimentoparaweb.com/javascript/this-javascript-dominando/">https://desenvolvimentoparaweb.com/javascript/this-javascript-dominando/</a></li>
+        
+            <li><a href="https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/this%20%26%20object%20prototypes/ch2.md">Call-site</a> READ IT!!</li>
+        
+            <li><a href="https://medium.com/@anjalisharma0626/what-is-call-site-of-a-function-8e5d9881c49e">Learn ‘this’</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>sumNumbers.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind">Bind</a>
+is different from methods
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call">call</a>
+and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply">apply</a>,
+in the sense that it returns a new function, instead of executing a function.</p>
+
+The first parameter still is the value assigned to "this",
+plus a given sequence of arguments preceding any provided,
+when the new function is called.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sumNumbers.js.html">sumNumbers.js</a>, <a href="sumNumbers.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/arrow/sumNumbers.js">source</a></li>
+        
+            <li><a href="https://imasters.com.br/javascript/descomplicando-call-apply-e-bind-em-javascript">https://imasters.com.br/javascript/descomplicando-call-apply-e-bind-em-javascript</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Article.html">Article</a></li><li><a href="Person.html">Person</a></li><li><a href="Person2.html">Person2</a></li></ul><h3>Global</h3><ul><li><a href="global.html#appController">appController</a></li><li><a href="global.html#article">article</a></li><li><a href="global.html#bob">bob</a></li><li><a href="global.html#data">data</a></li><li><a href="global.html#gameController">gameController</a></li><li><a href="global.html#players">players</a></li><li><a href="global.html#playersclickArrow">playersclickArrow</a></li><li><a href="global.html#playersclickHandler">playersclickHandler</a></li><li><a href="global.html#playersclickHandler2">playersclickHandler2</a></li><li><a href="global.html#showGuserData">showGuserData</a></li><li><a href="global.html#sumNumbers">sumNumbers</a></li><li><a href="global.html#user">user</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Apr 10 2023 06:51:42 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

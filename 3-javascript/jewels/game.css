@@ -1,0 +1,129 @@
+:root {
+    --nrow: 8;
+    --ncol: 8;
+    --nico: 5;
+}
+
+body {
+    width: 1000px;
+    height: 750px;
+    margin: 0px;
+    padding: 0px;
+    align-content: center;
+    margin: auto;
+    background: rgba(0, 0, 0, 255);
+    /* background-image: url("imgs/space.jpg"); */
+}
+
+#header {
+    margin-top: -05px;
+    padding-top: 30px;
+    height: 90px;
+    width: 100%;
+    font-family: "Oi", cursive;
+    background: rgba(0, 0, 0, 255);
+    background-image: url("imgs/logo.png");
+    background-repeat: no-repeat;
+    background-position-y: 25px;
+    background-position: center;
+    background-size: contain;
+    z-index: 0;
+}
+
+#center {
+    width: 300px;
+    background-image: url("imgs/logo.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#scorebg {
+    position: relative;
+    margin-left: 30px;
+    width: 100%;
+    height: 420px;
+    text-align: center;
+    float: left;
+    background-image: url("imgs/score2.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#resetbt {
+    height: 80px;
+    width: 50%;
+    margin-left: 132px;
+    position: absolute;
+    top: 392px;
+    background-image: url("imgs/reset.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
+#resetbt:hover {
+    background-image: url("imgs/reset-hover.png");
+}
+
+#score {
+    font-family: "unispace", cursive;
+    font-weight: bold;
+    margin-top: 250px;
+    font-size: 50px;
+    color: white;
+}
+
+#header h1,
+#header h3 {
+    margin-bottom: 10px;
+    text-align: center;
+    color: white;
+    margin-top: 5px;
+}
+
+#sidebar {
+    position: relative;
+    height: 100%;
+    width: 30%;
+    text-align: center;
+    float: left;
+    cursor: move;
+    /* color: white;
+    background-image: url("imgs/score2.png");
+    background-repeat: no-repeat;
+    background-size: 100%; */
+}
+
+#sidebarb {
+    height: 100%;
+    width: 30%;
+    text-align: center;
+    float: right;
+}
+
+#bd {
+    overflow: hidden;
+}
+
+#draggable {
+    cursor: n-resize;
+}
+
+#bg {
+    margin: auto;
+    width: calc(var(--ncol) * 50px);
+    height: calc(var(--nrow) * 50px);
+    position: relative;
+    z-index: 0;
+    border-style: groove;
+    border-radius: 3%;
+    border-color: rgb(45, 37, 92);
+    background-image: url("imgs/bg2.png");
+}
+
+.shape {
+    position: absolute;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}

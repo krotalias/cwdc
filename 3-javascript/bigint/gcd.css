@@ -1,0 +1,58 @@
+/* https://codersblock.com/blog/what-can-you-put-in-a-css-variable/ */
+:root {
+    --length: 600px;
+    --bgcolor: antiquewhite;
+}
+@font-face {
+    font-family: "Source Sans Pro";
+    /* https://www.fontsquirrel.com/fonts/source-sans-pro */
+    src: url("source-sans-pro/SourceSansPro-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+}
+.eqnFont {
+    font-family: "Source Sans Pro";
+    font-weight: bold;
+    font-size: small;
+    margin: 2em 0 2em 0;
+    width: var(--length);
+    word-break: break-all;
+    display: inline-block;
+    text-align: left;
+}
+textarea {
+    width: var(--length);
+    resize: vertical;
+}
+mark {
+    background-color: var(--bgcolor);
+    color: green;
+}
+body {
+    background-color: lightgray;
+}
+.container_bi {
+    width: var(--length);
+    border: 4px solid brown;
+    margin: 0 auto;
+    padding: 1em;
+    text-align: justify;
+    background-color: var(--bgcolor);
+    cursor: move;
+}
+.centered {
+    text-align: center;
+}
+label {
+    display: block;
+    text-align: center;
+    width: var(--length);
+}
+span.subsup {
+    position: relative;
+}
+span.subsup sub {
+    position: absolute;
+    left: 0em;
+    bottom: -0.4em;
+}

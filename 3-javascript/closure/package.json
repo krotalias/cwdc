@@ -1,0 +1,12 @@
+{
+  "name": "closure",
+  "version": "1.0.0",
+  "description": "Closures",
+  "type": "module", 
+  "main": "closure.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paulo Roma",
+  "license": "ISC"
+}
