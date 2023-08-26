@@ -1,0 +1,25 @@
+NodeList (7) = $2
+0 #text " "
+1 
+<p id="teams" style="text-align: center; font-family: cursive; font-size: larger; display: block;"><div1> Array teams = [Fluminense, Flamengo]</p>
+2 #text " "
+3 
+<p id="tweets" style="display: block;">
+"Array tweets = "
+<br>
+"0 - Joe Biden got 306 delegates!"
+<br>
+<mark>1 - Donald Trump got 232 delegates!</mark>
+<br>
+"2 - Game over and go back to work!"
+</p>
+4 #text " "
+5 
+<p id="para0" style="border: thick solid red; width: 370px; padding-left: 10px; font-family: "Times New Roman"; background-color: antiquewhite; display: block;">
+"tweets.splice_0 (0,1,'Vice President!', 'Kamala Harris') = 0 - Vice President! 1 - Kamala Harris 2 - Donald Trump got 232 delegates! 3 - Game over and go back to work!"
+</p>
+6 
+<p id="para1" style="border: thick solid red; width: 370px; padding-left: 10px; font-family: "Times New Roman"; background-color: antiquewhite; display: block;">
+"tweets.splice_1 (1,1,'Vice President!', 'Kamala Harris') = 0 - Joe Biden got 306 delegates! 1 - Vice President! 2 - Kamala Harris 3 - Game over and go back to work!"
+</p>
+
