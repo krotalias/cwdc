@@ -1,0 +1,15 @@
+dir.php
+doxygen.err
+Doxyfile
+.DS_Store
+*.bak
+.rsync
+.env*
+.htaccess
+vendor
+.vercel
+composer*
+# Dependency directories
+node_modules/
+*.log
+package-lock.json
