@@ -125,23 +125,17 @@
 
         <script src="suncalc.js"></script>
         <script src="clock.js"></script>
+        <script src="date.js"></script>
         <script>
-            var date = new Date();
-            var past75 = new Date(1975, 06, 10);
-            var past95 = new Date(1995, 06, 25);
-            var past23 = new Date(2023, 02, 12);
-            var years75 = date.getFullYear() - past75.getFullYear();
-            var years95 = date.getFullYear() - past95.getFullYear();
-            var years23 = date.getFullYear() - past23.getFullYear();
-            document.getElementById(
-                "Rivelino"
-            ).innerHTML += ` (há ${years75} anos atrás)`;
-            document.getElementById(
-                "Renato"
-            ).innerHTML += ` (há ${years95} anos atrás)`;
-            document.getElementById(
-                "Cano"
-            ).innerHTML += ` (há ${years23} anos atrás)`;
+            document.querySelector(
+                "#Rivelino"
+            ).innerHTML += `(há ${elapsedYears("1975-06-10")} anos atrás)`;
+            document.querySelector("#Renato").innerHTML += `(há ${elapsedYears(
+                "1995-06-25"
+            )} anos atrás)`;
+            document.querySelector("#Cano").innerHTML += `(há ${elapsedYears(
+                "2023-02-12"
+            )} anos atrás)`;
         </script>
     </body>
 </html>
