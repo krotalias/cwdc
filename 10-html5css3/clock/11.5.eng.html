@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flu's Clock</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/cwdc/mainPage/LCG.css" />
+        <style>
+            :root {
+                --cgrena: #696969;
+                --cgreen: #446127;
+                --corange: orange;
+                --cwhite: white;
+                --cwhite1: white;
+                --cwhite2: white;
+                --cwhite3: #000000;
+            }
+            body {
+                margin: 20px;
+            }
+            #clock,
+            #handles {
+                border: 5px solid #8b2439;
+                padding: 10px;
+                margin: 0px;
+            }
+            #flu {
+                width: 512px;
+                font-family: cursive;
+                text-align: center;
+                font-size: 30px;
+            }
+            #container {
+                position: relative;
+                height: 352px;
+                margin: 0px;
+                margin-bottom: 30px;
+            }
+            canvas {
+                position: absolute;
+            }
+            #handles {
+                z-index: 2;
+            }
+            #clock {
+                background: url("./flag2.jpg");
+                background-size: 512px 512px;
+                background-size: cover;
+                z-index: 1;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p id="flu">
+            <a href="http://www.fluminense.com.br/site/"
+                >Fluminense Futebol Clube</a
+            >
+            <sub style="font-size: small">
+                <a href="/cg/downloads/PDFs/04_LCG_Window-Viewport.pdf">[1]</a>
+                <a href="/python/laboratorios2.html#8c">[2]</a>
+                <a
+                    href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+                    >[3]</a
+                >
+            </sub>
+        </p>
+
+        <div id="container">
+            <canvas id="clock" width="503" height="352">
+                Please upgrade your browser.
+            </canvas>
+            <canvas id="handles" width="503" height="352">
+                Please upgrade your browser.
+            </canvas>
+        </div>
+
+        <br />
+        <p>
+            <audio title="Hino do Fluminense" controls loop>
+                <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
+                Please upgrade your browser!
+            </audio>
+
+            <small>
+                Fluminense FC Anthem by
+                <a
+                    href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/"
+                    >Lamartine Babo.</a
+                >
+            </small>
+        </p>
+        <p>
+            <video
+                title="O elástico de Rivelino"
+                width="320"
+                height="240"
+                controls
+                autoplay
+                loop
+                muted
+            >
+                <source
+                    src="Fluminense 1 x 0 Vasco da Gama - O elastico de Rivelino.mp4"
+                    type="video/mp4"
+                />
+                Please upgrade your browser!
+            </video>
+            <br />
+            <small id="Rivelino">
+                Rivelino's rubberband
+                <a href="https://www.youtube.com/watch?v=jt7ebGO6ILg">
+                    10/06/1975
+                </a>
+            </small>
+            <br />
+            <small id="Renato">
+                Renato's belly goal
+                <a href="https://www.youtube.com/watch?v=CrIFGVYuq6c">
+                    25/06/1995
+                </a>
+            </small>
+            <br />
+            <small id="Cano">
+                Cano's half field goal
+                <a href="https://www.youtube.com/watch?v=UA-HwS766Hw">
+                    12/02/2023
+                </a>
+            </small>
+        </p>
+
+        <script src="suncalc.js"></script>
+        <script src="clock.js"></script>
+        <script src="date.js"></script>
+
+        <script>
+            document.querySelector("#Rivelino").innerHTML += `(${elapsedYears(
+                "1975-06-10"
+            )} years ago)`;
+            document.querySelector("#Renato").innerHTML += `(${elapsedYears(
+                "1995-06-25"
+            )} years ago)`;
+            document.querySelector("#Cano").innerHTML += `(${elapsedYears(
+                "2023-02-12"
+            )} years ago)`;
+        </script>
+    </body>
+</html>
