@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript - Loops</title>
+    </head>
+
+    <body>
+        <div id="tweetDiv"></div>
+
+        <script type="text/javascript">
+            var tweetString = "";
+
+            var tweets = [
+                "Minha terra",
+                "tem palmeiras,",
+                "Onde canta o sábia; :)",
+                "As aves, que aqui gorjeiam,",
+                "Não gorjeiam como lá!",
+            ];
+
+            tweetString += "<h1>Traverse backward</h1>";
+            for (var i = tweets.length - 1; i >= 0; i--) {
+                tweetString += `<p> ${tweets[i]} </p>`;
+            }
+
+            tweetString += "<h1>Traverse forward</h1>";
+            for (let tweet of tweets) {
+                tweetString += `<p> ${tweet} </p>`;
+            }
+
+            // To loop through an array backward using the forEach method, we have to reverse the array.
+            // To avoid modifying the original array, first create a copy of the array, reverse the copy, and then use forEach on it.
+            // The array copy can be done using slicing or ES6 Spread operator.
+            tweetString += "<h1>Traverse backward using forEach</h1>";
+            tweets
+                .slice()
+                .reverse()
+                .forEach(function (tweet) {
+                    tweetString += `<p> ${tweet} </p>`;
+                });
+
+            document.getElementById("tweetDiv").innerHTML = tweetString;
+        </script>
+    </body>
+</html>

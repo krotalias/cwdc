@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript - Click</title>
+    </head>
+
+    <body>
+        <p id="date">Click the button to see the current date.</p>
+
+        <p><button id="dateButton">What day is today?</button></p>
+
+        <ul>
+            <li>
+                <p id="ip">
+                    Click the button to see your IP using an &lt; object &gt;
+                    tag.
+                </p>
+            </li>
+            <li>
+                <p id="ip2">
+                    Click the button to see your IP using an href link.
+                </p>
+            </li>
+        </ul>
+
+        <button id="ipButton">What is my IP?</button>
+
+        <p id="ip3">
+            Click the button to see your IP using
+            <em>window.open (url,"_self")</em>.
+        </p>
+
+        <button id="ip2Button">What is my IP?</button>
+
+        <p id="path">Click the button to see your current path.</p>
+
+        <button id="pathButton">What is my path?</button>
+
+        <script type="text/javascript">
+            // Javasript template string.
+            const url = `${location.protocol}//orion.lcg.ufrj.br/cgi-bin/ipget.cgi`;
+
+            document.getElementById("dateButton").onclick = function () {
+                document.getElementById(
+                    "date"
+                ).innerHTML = `<span><h2> ${Date()} </h2></span>`; // '<span><h2>' + Date() + '</h2></span>'
+            };
+
+            document.getElementById("ipButton").onclick = function () {
+                // An embedded HTML page.
+                document.getElementById(
+                    "ip"
+                ).innerHTML = `IPv4: <object type="text/html" data=${url} height="23"></object>`; // 'IPv4:' + '<object type="text/html" data=' + url + ' height="23"></object>';
+                document.getElementById(
+                    "ip2"
+                ).innerHTML = `<a href=${url}>IPv4 Here</a>`;
+            };
+
+            document.getElementById("ip2Button").onclick = function () {
+                window.open(url, "_self");
+            };
+
+            document.getElementById("pathButton").onclick = function () {
+                document.getElementById("path").innerHTML = location.pathname;
+            };
+        </script>
+    </body>
+</html>

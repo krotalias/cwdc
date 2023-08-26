@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript - How many fingers</title>
+    </head>
+
+    <body>
+        <p>How many fingers am I holding up?</p>
+
+        <p>
+            <input
+                type="number"
+                id="guess"
+                min="0"
+                max="5"
+                value="0"
+                autofocus
+            />
+            <button id="checkGuess">Guess!</button>
+        </p>
+
+        <script type="text/javascript">
+            document.getElementById("checkGuess").onclick = function () {
+                var len = Number(document.getElementById("guess").max) + 1;
+                var randomNumber = Math.floor(len * Math.random());
+                let res =
+                    document.getElementById("guess").value == randomNumber;
+                let answer = [
+                    `Nope! The number was ${randomNumber}`,
+                    "Well done! You got it!",
+                ];
+                // boolean to int: 0 or 1 (res is cast to int to be OR'ed to 0)
+                alert(answer[res | 0]);
+            };
+        </script>
+    </body>
+</html>

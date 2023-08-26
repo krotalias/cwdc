@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript - Change Website</title>
+    </head>
+
+    <body>
+        <p id="text">I want to be...</p>
+
+        <button id="myButton">Change text</button>
+
+        <p id="secondParagraph">Javascript is ...</p>
+
+        <button id="secondButton">Append text</button>
+
+        <p id="emptyParagraph"></p>
+
+        <button id="createParagraph">Create link</button>
+
+        <script type="text/javascript">
+            document.getElementById("myButton").onclick = function () {
+                document.getElementById("text").innerHTML =
+                    "... a Full Stack Web Developer!";
+            };
+
+            document.getElementById("secondButton").onclick = function () {
+                let secondParagraph =
+                    document.getElementById("secondParagraph").innerHTML;
+                document.getElementById(
+                    "secondParagraph"
+                ).innerHTML = `I think ${secondParagraph} awesome!`;
+            };
+
+            document.getElementById("createParagraph").onclick = function () {
+                let url =
+                    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals";
+                document.getElementById(
+                    "emptyParagraph"
+                ).innerHTML = `<h1><a href=${url}>JS Template String</a></h1>`;
+            };
+        </script>
+    </body>
+</html>

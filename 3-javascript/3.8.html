@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript - Variables</title>
+    </head>
+
+    <body>
+        <input type="text" id="textInput" />
+
+        <button id="textChanger">Change the text!</button>
+
+        <p id="text">This is some text</p>
+
+        <script type="text/javascript">
+            document.getElementById("textChanger").onclick = function () {
+                textEntered = document.getElementById("textInput").value;
+
+                document.getElementById("text").innerHTML = textEntered;
+
+                // Hoisting is JavaScript's default behavior of moving all declarations to the top of the current scope
+                // (to the top of the current script or the current function).
+                var textEntered; // In JavaScript, a variable can be declared after it has been used.
+            };
+        </script>
+    </body>
+</html>

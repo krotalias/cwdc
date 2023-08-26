@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript - Statements</title>
+    </head>
+
+    <body>
+        <p>What is the magic word?</p>
+
+        <p><input type="text" id="magicWord" /></p>
+
+        <p><button id="checkMagicWord">Enter</button></p>
+
+        <script type="text/javascript">
+            const magicWord = "abracadabra";
+            document.getElementById("checkMagicWord").onclick = function () {
+                var magicWordEntered =
+                    document.getElementById("magicWord").value;
+
+                // Conditional (ternary) operator
+                alert(
+                    magicWordEntered == magicWord
+                        ? "You got it!"
+                        : "Nope, try again!"
+                );
+            };
+
+            window.onkeydown = function (event) {
+                if (event.ctrlKey && event.key === "Escape") {
+                    alert(`Magic Word = ${magicWord}`);
+                }
+            };
+        </script>
+    </body>
+</html>

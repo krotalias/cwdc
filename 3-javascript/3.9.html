@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Javascript - Arrays</title>
+    </head>
+
+    <body>
+        <p>Click the button to display a String version of some arrays.</p>
+        <ul>
+            <li>Click on a tweet box to make it invisible.</li>
+            <li>Ctrl-Esc make them visible again.</li>
+            <li>
+                Double-Click on the grey background to delete the last tweet.
+            </li>
+        </ul>
+
+        <button onclick="createNodes('div1')">Try it</button>
+
+        <div id="div1">
+            <p
+                id="teams"
+                style="
+                    text-align: center;
+                    font-family: cursive;
+                    font-size: larger;
+                "
+            ></p>
+            <p id="tweets"></p>
+        </div>
+
+        <button
+            type="button"
+            id="svg"
+            style="
+                width: fit-content;
+                height: 35px;
+                font-size: large;
+                text-align: center;
+                margin: 20px 0 20px 0;
+            "
+            onclick="printDOMTree(document.getElementById('div1'));"
+        >
+            Print DOM (div1)
+        </button>
+
+        <script type="text/javascript" src="nodes.js"></script>
+        <script type="text/javascript" src="DOM.js"></script>
+    </body>
+</html>
