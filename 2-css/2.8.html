@@ -10,18 +10,19 @@
             #first-section {
                 background-color: #cef6ce;
                 width: 260px;
-                /* 
+                bottom: 0;
+                right: 0;
+                z-index: 1;
+                /*
                  * An element with position: fixed; is positioned relative to the viewport,
                  * which means it always stays in the same place even if the page is scrolled.
                  * The top, right, bottom, and left properties are used to position the element.
                  * Notice the fixed element in the lower-right corner of the page.
                  */
-                bottom: 0;
-                right: 0;
                 position: fixed;
             }
 
-            /* 
+            /*
              * In most major browsers, the default <body> margin is 8px on all sides.
              * Default <p> margin-top and margin-bottom is 1em.
              *
@@ -37,8 +38,15 @@
                 width: 400px;
                 height: 5000px;
                 padding: 0;
+                top: 70px;
+                left: 20px;
+                /*
+                 * The element is positioned according to the normal flow of the document,
+                 * and then offset relative to itself based on the values of top, right, bottom, and left.
+                 * The offset does not affect the position of any other elements;
+                 * thus, the space given for the element in the page layout is the same as if position were static.
+                 */
                 position: relative;
-                z-index: -1;
             }
         </style>
     </head>
@@ -49,11 +57,12 @@
             <pre class="code">
                 #first-section {
                     <tab1 /> background-color: #CEF6CE;
-                    <tab1 /> width: 260px; 
+                    <tab1 /> width: 260px;
                     <tab1 /> bottom: 0;
                     <tab1 /> right: 0;
-                    <tab1 /> /* (does not scroll) */ 
-                    <tab1 /> <mark>position: fixed;</mark>
+                    <tab1 /> <span style="background-color: pink"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/z-index">zindex</a>: 1;</span>
+                    <tab1 /> /* (does not scroll) */
+                    <tab1 /> <mark>position: <a href="https://nikitahl.com/position-fixed-vs-sticky-css">fixed</a>;</mark>
                 }
             </pre>
             <p class="blue">The quick brown fox jumped over the lazy dog.</p>
@@ -69,9 +78,11 @@
                     <tab1 /> width: 400px;
                     <tab1 /> height: 5000px;
                     <tab1 /> padding: 0;
-                    <tab1 /> <mark>position: relative;</mark>
-                    <tab1 /> <span style="color: red">zindex: -1;</span>
-                } 
+                    <tab1 /> top: 70px;
+                    <tab1 /> left: 20px;
+                    <tab1 /> /* (offset - top.., relative to itself ) */
+                    <tab1 /> <mark>position: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">relative</a>;</mark>
+                }
             </pre>
 
             <p>
@@ -81,8 +92,8 @@
             </p>
 
             <h1 class="red">
-                Because the second-section has a z-index of -1, it will be
-                placed behind the first-section in a mobile device.
+                Because the first-section has a z-index of +1, it will be placed
+                above the second-section in a mobile device.
             </h1>
         </div>
     </body>
