@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="code/chapter/16_game.js"></script>
+        <script src="code/levels.js"></script>
+        <script src="code/chapter/17_canvas.js"></script>
+        <style>
+            .control {
+                background-color: orange;
+                position: fixed;
+                bottom: 0;
+                margin-right: 20px;
+            }
+            body {
+                background-color: lightgray;
+            }
+        </style>
+    </head>
+
+    <body>
+        <script src="/cwdc/3-javascript/cookies.js"></script>
+        <script>
+            /**
+             * A modulo function that returns a positive value.
+             * @returns {number} this mod n.
+             * @see https://en.wikipedia.org/wiki/Modulo_operation
+             * @see https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
+             * @see https://web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
+             */
+            Number.prototype.mod = function (n) {
+                return ((this % n) + n) % n;
+            };
+            function incLevel(val) {
+                let level = getCookie("level");
+                if (level != "") {
+                    level = parseInt(level);
+                    level = (level + val).mod(GAME_LEVELS.length);
+                    setCookie("level", String(level), 365);
+                    location.reload();
+                }
+            }
+            runGame(GAME_LEVELS, CanvasDisplay).then((value) => {
+                console.log(value);
+                document.getElementById("level").innerHTML = value;
+            });
+        </script>
+
+        <div id="level">
+            <button id="level-" class="control" onclick="incLevel(-1)">
+                -
+            </button>
+            <button
+                id="level+"
+                class="control"
+                style="left: 40px"
+                onclick="incLevel(1)"
+            >
+                +
+            </button>
+            <span
+                class="control"
+                style="left: 80px; background-color: transparent"
+            >
+                Change Level
+            </span>
+        </div>
+    </body>
+</html>
