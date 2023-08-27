@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- https://fonts.google.com/specimen/Tangerine -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Tangerine:wght@700&display=swap"
+        />
+        <title>Jack Walker</title>
+        <style>
+            :root {
+                --cwidth: 400px; /* canvas dimension */
+                --cheight: 250px;
+            }
+            body {
+                background-color: #dbf3fa;
+                font-family: "Roboto", sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                font-style: bold;
+            }
+            .legenda {
+                font-family: "Tangerine", cursive;
+                font-size: 18px;
+                font-weight: 700;
+                font-style: bold;
+            }
+            details,
+            p {
+                margin-left: 10px;
+                width: calc(var(--cwidth) * 0.9);
+                text-align: justify;
+            }
+            /*
+             * It is possible to set absolute positioning of a child element relative to the parent container.
+             * For that, you must specify the position property with its “relative” value on the parent element.
+             * If we don’t specify the position of the parent element, the child <div> will be positioned relative to the page.
+             */
+            #container {
+                position: relative;
+                height: var(--cheight);
+                cursor: move;
+            }
+            canvas {
+                position: absolute;
+            }
+            #JackCanvas {
+                z-index: 2;
+            }
+            #JackInterface {
+                cursor: move;
+                padding-top: 5px;
+            }
+            #backgroundCanvas {
+                z-index: 1;
+            }
+            label {
+                margin-right: 40px;
+                font-size: x-large;
+                line-height: 200%;
+            }
+            button {
+                font-size: 140%;
+                margin-right: 0px;
+                padding: 0 10px 0 10px;
+            }
+            .sideBySide {
+                float: left;
+                margin-right: 0px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <img id="jack" src="img/player_big.png" width="480" hidden />
+        <div id="JackContainer">
+            <div id="container">
+                <canvas id="JackCanvas" width="400" height="250"></canvas>
+                <canvas
+                    id="backgroundCanvas"
+                    width="400"
+                    height="250"
+                    style="
+                        background: url('./img/sky.jpg');
+                        background-size: var(--cwidth) var(--cheight);
+                    "
+                ></canvas>
+            </div>
+        </div>
+
+        <div id="JackInterface">
+            <div class="sideBySide">
+                <p>
+                    <label><b>Kinematics:</b></label>
+                </p>
+                <button onclick="speedDown()">←</button>
+                <button onclick="jump()">↑</button>
+                <button onclick="speedUp()">→</button>
+                <button onclick="gUp()">+</button>
+                <button onclick="gDown()">–</button>
+                <button onclick="stop()">⏹</button>
+            </div>
+            <div style="clear: both"></div>
+
+            <p>
+                <span class="legenda">Jack</span> travelled
+                <span id="px">---</span> pixels, and turned
+                <span id="turn">---</span> times, so far.
+            </p>
+            <p>
+                <span class="legenda">Jack</span>'s speed is
+                <span id="speed">---</span> and lap time is
+                <spam id="time">0s</spam>
+            </p>
+            <p>Gravity is <span id="gravity">---</span></p>
+            <br />
+
+            <details>
+                <summary style="font-size: 150%">
+                    Keyboard controls<span id="kbd">:</span>
+                </summary>
+                <ul style="list-style: none">
+                    <li>
+                        Spacebar pause/resume
+                        <span class="legenda">Jack</span>'s strolling, so he can
+                        rest a little bit.
+                    </li>
+                    <li>
+                        Arrows make <span class="legenda">Jack</span> speed up,
+                        slow down or jump.
+                    </li>
+                    <li>
+                        G/g increase/decrease
+                        <span class="legenda">Jack</span>'s gravity.
+                    </li>
+                    <li>
+                        C/c glue/split <span class="legenda">Jack</span>'s
+                        canvases.
+                    </li>
+                </ul>
+            </details>
+
+            <p>FPS: <spam id="fpsCounter">---</spam></p>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"
+        ></script>
+        <script src="/cwdc/mainPage/LCG.js"></script>
+        <script>
+            dragAndSave("#JackContainer");
+            dragAndSave("#JackInterface");
+        </script>
+
+        <script src="./jack.js"></script>
+    </body>
+</html>
