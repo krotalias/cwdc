@@ -23,6 +23,8 @@
 
             .clear-float {
                 clear: both;
+                width: fit-content;
+                background-color: bisque;
             }
         </style>
     </head>
@@ -35,7 +37,7 @@
                 <tab1 /> background-color: #CEF6CE;
                 <tab1 /> width: 260px;
                 <tab1 /> margin: 0;
-                <tab1 /> <mark>float: left;</mark>
+                <tab1 /> <mark><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float">float</a>: left;</mark>
                 }
             </pre>
             <p class="blue">The quick brown fox jumped over the lazy dog.</p>
@@ -50,7 +52,7 @@
                 <tab1 /> background-color: #8AB4F7;
                 <tab1 /> width: 260px;
                 <tab1 /> padding: 0;
-                <tab1 /> <mark>float: right;</mark>
+                <tab1 /> <mark><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float">float</a>: right;</mark>
                 }
             </pre>
 
@@ -64,6 +66,15 @@
 
         <div class="clear-float"></div>
 
-        <p>This paragraph is not floated!</p>
+        <div class="clear-float" class="no-margin">
+            <pre class="code">
+            .clear-float {
+             <tab1 /> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clear">clear</a>: both;
+            }
+        </pre>
+            <br />
+            &lt;div class="clear-float">&lt;/div&gt;
+            <p>This paragraph is not floated!</p>
+        </div>
     </body>
 </html>
