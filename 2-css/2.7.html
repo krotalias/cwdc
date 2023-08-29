@@ -14,17 +14,20 @@
                 float: left;
             }
 
-            #second-section {
+            .second-section {
                 background-color: #8ab4f7;
                 width: 260px;
                 padding: 0;
                 float: right;
             }
 
-            .clear-float {
-                clear: both;
+            .third-section {
                 width: fit-content;
                 background-color: bisque;
+            }
+
+            .clear-float {
+                clear: both;
             }
         </style>
     </head>
@@ -43,7 +46,7 @@
             <p class="blue">The quick brown fox jumped over the lazy dog.</p>
         </div>
 
-        <div id="second-section" class="no-margin">
+        <div class="second-section" class="no-margin">
             <p class="green">
                 These texts are in another &lt;div&gt; pointed by:
             </p>
@@ -64,14 +67,16 @@
             <h1 class="red">CSS Syntax</h1>
         </div>
 
+        <p>This paragraph is floated!</p>
+
         <div class="clear-float"></div>
 
-        <div class="clear-float" class="no-margin">
+        <div class="third-section" class="no-margin">
             <pre class="code">
-            .clear-float {
-             <tab1 /> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clear">clear</a>: both;
-            }
-        </pre>
+                .clear-float {
+                    <tab1 /> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clear">clear</a>: both;
+                }
+            </pre>
             <br />
             &lt;div class="clear-float">&lt;/div&gt;
             <p>This paragraph is not floated!</p>
