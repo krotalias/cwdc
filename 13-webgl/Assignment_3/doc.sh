@@ -1,1 +1,1 @@
-jsdoc -d /Users/roma/html/cwdc/13-webgl/doc-hierarchy-partial Hierarchy.js ../teal_book/cuon-matrix.js ../teal_book/cuon-utils.js ../lib/simple-rotator.js 
+jsdoc -d ../doc-hierarchy-partial Hierarchy.js ../lib/teal_book/cuon-matrix.js ../lib/teal_book/cuon-utils.js ../lib/simple-rotator.js 

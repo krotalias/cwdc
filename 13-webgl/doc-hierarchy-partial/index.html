@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>Assignment_3/Hierarchy.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Hierarchical Robot object using a matrix stack.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>27/09/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Assignment_3_Hierarchy.js.html">Assignment_3/Hierarchy.js</a>, <a href="Assignment_3_Hierarchy.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/Assignment_3/Hierarchy.html">link</a></li>
+        
+            <li><a href="/cwdc/13-webgl/Assignment_3/Hierarchy.js">source</a></li>
+        
+            <li><a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix</a></li>
+        
+            <li><a href="/roma/Computer Graphics (3rd Edition).pdf#page=189">Foley</a></li>
+        
+            <li><a href="https://www.cs.drexel.edu/~david/Classes/ICG/Lectures_new/L-14_HierchModels.pdf">Hierarchical Modeling</a></li>
+        
+            <li><a href="/cwdc/13-webgl/Assignment_3/5.hierarchy.pdf">Hierarchy Tutorial</a></li>
+        
+            <li><img src="/cwdc/13-webgl/Assignment_3/robot3.png" width="256"> <img src="/cwdc/13-webgl/Assignment_3/robot-full.png" width="420"></li>
+        
+            <li><img src="/cwdc/13-webgl/Assignment_3/camera_view_frustum.svg" width="340"> <img src="/cwdc/13-webgl/Assignment_3/side_view_frustum.png" width="340"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/simple-rotator.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>The SimpleRotator class implements an <a href="/cwdc/13-webgl/lib/extras/doc/Arcball.pdf">ArcBall</a> like interface.</p>
+Create by <a href="https://dl.acm.org/profile/81100026146">Ken Shoemake</a> in 1992,
+it is the de facto <a href="/cwdc/13-webgl/lib/extras/doc/shoemake92-arcball.pdf">standard</a>
+for interactive 3D model manipulation and visualization.
+<p>The class defines the following methods for an object of type SimpleRotator:</p>
+<ul>
+   <li><a href="SimpleRotator.html#setView">SimpleRotator#setView</a>(viewDirectionVector, viewUpVector, viewDistance) <br>
+        set up the view, where the parameters are optional and are used in the
+        same way as the corresponding parameters in the constructor;</li>
+   <li><a href="SimpleRotator.html#setViewDistance">SimpleRotator#setViewDistance</a>(viewDistance)  <br>
+       sets the distance of the viewer from the origin without
+       changing the direction of view;</li>
+   <li><a href="SimpleRotator.html#getViewDistance">SimpleRotator#getViewDistance</a>()  <br>
+        returns the viewDistance;</li>
+   <li><a href="SimpleRotator.html#setViewMatrix">SimpleRotator#setViewMatrix</a>(matrix) <br>
+       Sets the view matrix.
+   <li><a href="SimpleRotator.html#getViewMatrix">SimpleRotator#getViewMatrix</a>() <br>
+       returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array">Float32Array</a>
+       representing the viewing transformation matrix for the current view, suitable for use with
+       <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniformMatrix">gl.uniformMatrix4fv</a> <br>
+       or for further transformation with the <a href="https://glmatrix.net/docs/">glmatrix</a> library
+       <a href="https://glmatrix.net/docs/module-mat4.html">mat4</a> class;</li>
+   <li><a href="SimpleRotator.html#getViewMatrixArray">SimpleRotator#getViewMatrixArray</a>() <br>
+        returns the view transformation matrix as a regular JavaScript array,
+        but still represents as a 1D array of 16 elements, in column-major order.</li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>22/01/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>David J. Eck modified by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_simple-rotator.js.html">lib/simple-rotator.js</a>, <a href="lib_simple-rotator.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/simple-rotator.js">source</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html">https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/</a></li>
+        
+            <li><a href="https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball">https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball</a></li>
+        
+            <li><a href="https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/">https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/</a></li>
+        
+            <li><img src="/cwdc/13-webgl/lib/arcball4.png" width="256"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/teal_book/cuon-matrix.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.<p>This is a class for handling 4x4 matrices.</p>It contains functions to create geometric transformations equivalent to OpenGL's:<ul> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glLoadIdentity.xml">glLoadIdentity</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glRotate.xml">glRotate</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glScale.xml">glScale</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glTranslate.xml">glTranslate</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluLookAt.xml">gluLookAt</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluPerspective.xml">gluPerspective</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml">glOrtho</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glFrustum.xml">glFrustum</a></li></ul>This matrix is then right multiplied by one of those transformations.<br></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>28/09/2015</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Kanda and Matsuda (c) 2012</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_teal_book_cuon-matrix.js.html">lib/teal_book/cuon-matrix.js</a>, <a href="lib_teal_book_cuon-matrix.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/teal_book/cuon-utils.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.<p>This is a class for creating shaders.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>25/09/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Kanda and Matsuda (c) 2012</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_teal_book_cuon-utils.js.html">lib/teal_book/cuon-utils.js</a>, <a href="lib_teal_book_cuon-utils.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/teal_book/cuon-utils.js">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Global</h3><ul><li><a href="global.html#anonymous_load">anonymous_load</a></li><li><a href="global.html#armMatrix">armMatrix</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handMatrix">handMatrix</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#headMatrix">headMatrix</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#joint">joint</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#renderCube">renderCube</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#shoulderMatrix">shoulderMatrix</a></li><li><a href="global.html#torsoMatrix">torsoMatrix</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexColorBuffer">vertexColorBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Aug 31 2023 18:35:33 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
