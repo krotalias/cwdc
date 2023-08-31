@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>2D Sierpinski Gasket</title>
+        <style>
+            :root {
+                --bgcolor: #f0f0f0;
+            }
+            body {
+                background: var(--bgcolor);
+            }
+            #interface {
+                width: fit-content;
+                margin: 0 auto;
+                border: solid brown 3px;
+                padding: 20px;
+                font-size: 200%;
+            }
+            canvas {
+                display: block;
+                margin: 0 auto;
+            }
+            button {
+                font-size: 80%;
+                margin: 0 auto;
+                display: block;
+                padding: 0 10px;
+                color: goldenrod;
+                background-color: white;
+            }
+            label {
+                font-size: 100%;
+                line-height: 200%;
+                margin-right: 40px;
+            }
+            input[type="number"] {
+                font-size: 80%;
+            }
+            input[type="button"] {
+                color: goldenrod;
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body onload="init()">
+        <canvas id="gl-canvas" width="512" height="512">
+            Oops ... your browser doesn't support the HTML5 canvas element
+        </canvas>
+
+        <div id="interface">
+            <p>
+                <label id="lblslider" for="slider">Subdivisions: 5</label>
+                <span id="ang" style="margin-left: 50px">Rotation Angle:</span>
+                <br />
+                <input
+                    id="slider"
+                    name="slider"
+                    type="range"
+                    min="0"
+                    max="7"
+                    step="1"
+                    value="5"
+                    style="width: 18em"
+                />
+                <span id="fps" style="margin-left: 88px">FPS:</span>
+            </p>
+
+            <label for="btnDiv" style="margin-right: 75px">
+                Recursion Level
+            </label>
+            <input
+                name="txtboxDiv"
+                id="subdiv"
+                min="0"
+                max="7"
+                step="1"
+                maxlength="1"
+                oninput="this.value = Math.max(Math.min(this.value.replace(/[^0-9]/g,''),7),0)"
+                value="5"
+                style="width: 40px"
+                type="number"
+            />
+            <input
+                name="btnDiv"
+                id="btnDiv"
+                type="button"
+                value="Number of Divisions: [0,7]"
+                onclick="clickCallBack()"
+            />
+
+            <br /><br />
+            <input
+                id="twist"
+                name="twist"
+                type="checkbox"
+                checked
+                required="required"
+                onclick="clickCallBack()"
+            />
+            <label for="twist">Twist</label>
+
+            <input
+                id="fill"
+                name="fill"
+                type="checkbox"
+                required="required"
+                onclick="clickCallBack()"
+            />
+            <label for="fill">Fill</label>
+
+            <input
+                id="gpu"
+                name="gpu"
+                type="checkbox"
+                checked
+                required="required"
+                onclick="clickCallBack()"
+            />
+            <label for="gpu">GPU(Rotate)</label>
+
+            <input
+                id="spin"
+                name="spin"
+                type="checkbox"
+                checked
+                required="required"
+                onclick="clickCallBack()"
+            />
+            <label for="spin">Spin Fast</label>
+
+            <p>
+                <button
+                    onclick="getElementById('demo').innerHTML=Date()+'<br>'+gl.getParameter(gl.SHADING_LANGUAGE_VERSION)+'<br>'+gl.getParameter(gl.VERSION)"
+                >
+                    Get date/time
+                </button>
+            </p>
+            <p id="demo"></p>
+        </div>
+        <br /><br />
+
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 vPosition;
+            uniform mat4 Projection, ModelView;
+            uniform float theta;
+            uniform bool twist;
+            uniform bool gpu;
+            uniform vec2 origin;
+
+            // opengl stores matrices by column.
+            mat4 translate(vec2 delta) {
+                return mat4(
+                    vec4(1.0, 0.0, 0.0, 0.0),
+                    vec4(0.0, 1.0, 0.0, 0.0),
+                    vec4(0.0, 0.0, 1.0, 0.0),
+                    vec4(delta, 0.0, 1.0));
+            }
+
+            mat4 rotate(float ang) {
+                float c = cos(ang);
+                float s = sin(ang);
+                return mat4(
+                    c,   s,   0.0, 0.0,
+                    -s,  c,   0.0, 0.0,
+                    0.0, 0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0, 1.0);
+            }
+
+            void main() {
+                if ( gpu ) {
+                    float angle = radians(theta);
+                    if ( twist ) {
+                        // Swizzling: take only the x and y coordinates
+                        // vec2 pos = vec2(vPosition[0], vPosition[1]);
+                        // https://www.opengl.org/wiki/Data_Type_(GLSL)#Swizzling
+                        angle += length(vPosition.xy-origin);
+                    }
+                    mat4 PM = Projection * translate(origin) * rotate(angle) * translate(-origin);
+                    gl_Position = PM * vPosition;
+                } else {
+                    gl_Position = Projection * vPosition;
+                }
+            }
+        </script>
+
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+            uniform vec4 fColor;
+
+            void main() {
+                gl_FragColor = fColor;
+            }
+        </script>
+
+        <script src="/WebGL/Common/initShaders.js"></script>
+        <script src="/WebGL/Common/MV.js"></script>
+        <script src="twist-MV.js"></script>
+        <script src="https://lcg.ufrj.br/js/ip.php"></script>
+    </body>
+</html>
