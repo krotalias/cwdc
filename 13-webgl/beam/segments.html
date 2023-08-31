@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>Segments</title>
+    </head>
+    <body>
+        <canvas
+            id="theCanvas"
+            width="500"
+            height="500"
+            style="border: 10px solid gray"
+        ></canvas>
+
+        <div
+            id="sliders"
+            style="width: 500px; position: absolute; margin: 0 200px"
+        >
+            <p>
+                <label for="attenuation" id="value">Attenuation Exponent</label
+                ><br />
+                <input
+                    type="range"
+                    min="0"
+                    max="50"
+                    value="5"
+                    step="0.5"
+                    name="attenuation"
+                    id="attenuation"
+                />
+            </p>
+            <p>
+                <label for="light" id="value2">Light Intensity</label><br />
+                <input
+                    type="range"
+                    min="0"
+                    max="5"
+                    value="0.8"
+                    step="0.1"
+                    name="light"
+                    id="light"
+                />
+            </p>
+            <p>
+                <label for="beam" id="value3">Beam Length</label><br />
+                <input
+                    type="range"
+                    min="0"
+                    max="5"
+                    value="1"
+                    step="0.1"
+                    name="beam"
+                    id="beam"
+                />
+            </p>
+        </div>
+        <script
+            language="javascript"
+            src="https://npmcdn.com/regl/dist/regl.js"
+        ></script>
+
+        <script src="https://d3js.org/d3.v7.js"></script>
+
+        <script src="beam.js"></script>
+
+        <script language="javascript">
+            // The drawing canvas
+            let canvas = document.querySelector("#theCanvas");
+
+            palette = d3.schemeAccent.map((c) => {
+                let color = d3.color(c);
+                return [color.r / 255, color.g / 255, color.b / 255, 1];
+            });
+
+            // The regl objects
+            let { regl, drawEdge } = edgeRenderProgram(canvas);
+
+            // Click callback (pause)
+            let run = true;
+            canvas.onmousedown = () => {
+                run = !run;
+            };
+
+            // A set of edge lights
+            let edges = [new edgeLight()];
+            const maxEdges = 40;
+            const minEdges = 4;
+            const createProbability = 0.02;
+            const ae = document.querySelector("#attenuation");
+            const lt = document.querySelector("#light");
+            const beam = document.querySelector("#beam");
+
+            regl.frame(function () {
+                if (!run) return;
+
+                regl.clear({
+                    color: [0, 0, 0, 1],
+                });
+
+                //drawEdge(edges);
+                for (let edge of edges) {
+                    drawEdge({
+                        a: edge.a,
+                        b: edge.b,
+                        color: edge.color,
+                        attenuationExponent: +ae.value,
+                        lightIntensity: +lt.value,
+                        beamLength: +beam.value,
+                    });
+                    edge.animate();
+                }
+                edges = edges.filter((e) => !e.terminated);
+                if (
+                    edges.length < maxEdges &&
+                    (edges.length < minEdges ||
+                        Math.random() < createProbability)
+                )
+                    edges.push(new edgeLight());
+            });
+        </script>
+    </body>
+</html>

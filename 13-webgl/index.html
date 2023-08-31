@@ -1,1 +1,580 @@
-../mainPage/warning.html
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" type="text/css" href="/cwdc/mainPage/LCG.css" />
+        <link rel="stylesheet" type="text/css" href="/cwdc/mainPage/main.css" />
+        <script src="/cwdc/mainPage/main.js"></script>
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+            crossorigin="anonymous"
+        />
+
+        <title>13 - webgl</title>
+    </head>
+    <body>
+        <div w3-include-html="/cwdc/mainPage/navbar.html"></div>
+        <div style="float: right">
+            <video
+                title="Macarena"
+                width="100"
+                id="Macarena"
+                controls
+                autoplay
+                loop
+                muted
+            >
+                <source src="videos/Macarena.mp4" type="video/mp4" />
+                Please upgrade your browser!
+            </video>
+            <video
+                title="Ray Marching"
+                height="100"
+                id="shaderToy"
+                controls
+                autoplay
+                loop
+                muted
+            >
+                <source src="videos/shaderToy.mp4" type="video/mp4" />
+                Please upgrade your browser!
+            </video>
+        </div>
+        <div class="lesson">
+            <h3>
+                <a href="/WebGL">WebGL</a>
+                <a href="https://webglfundamentals.org">(doc)</a>
+                <a href="https://webglreport.com">(report)</a>
+            </h3>
+            <ul
+                style="
+                    list-style-type: lower-greek;
+                    padding-left: 3.5em;
+                    font-size: 20px;
+                "
+            >
+                <li>
+                    <a href="/WebGL/teal_book-examples">(examples)</a>
+                    <a
+                        href="https://uniguld.dk/wp-content/guld/DTU/webgrafik/0321902920_WebGL.pdf"
+                    >
+                        <img
+                            width="34"
+                            style="border: 0; text-align: center"
+                            src="images/teal_book.png"
+                            title="WebGL Programming"
+                        />
+                    </a>
+                    <a href="https://math.hws.edu/graphicsbook/">
+                        <img
+                            width="34"
+                            style="border: 0; text-align: center"
+                            src="images/graphicstext-cover-180x235.png"
+                            title="Introduction to Computer Graphics"
+                        />
+                    </a>
+                    <a href="https://math.hws.edu/graphicsbook/source/webgl/">
+                        (examples)
+                    </a>
+                </li>
+                <li>
+                    <a href="/WebGL/EXAMPLES">(examples)</a>
+                    <a
+                        href="http://csweb.wooster.edu/dbyrnes/cs300/Documents/Interactive%20Computer%20Graphics.pdf"
+                    >
+                        <img
+                            width="34"
+                            style="border: 0; text-align: center"
+                            src="images/angel.jpg"
+                            title="Interactive Computer Graphics"
+                        />
+                    </a>
+                    <a
+                        href="https://canvas.projekti.info/ebooks/Mathematics%20for%203D%20Game%20Programming%20and%20Computer%20Graphics,%20Third%20Edition.pdf"
+                    >
+                        <img
+                            width="34"
+                            style="border: 0; text-align: center"
+                            src="images/cover.png"
+                            title="Mathematics for 3D Game Programming and Computer Graphics"
+                        />
+                    </a>
+                    <a href="https://mathfor3dgameprogramming.com/code/">
+                        (examples)
+                    </a>
+                </li>
+                <li>
+                    <a href="/videos/videosCG/WebGL">(videos cg)</a>
+                    <a href="https://www.youtube.com/watch?v=mjrdywp5nyE">
+                        <img
+                            width="34"
+                            style="border: 0; text-align: center"
+                            src="images/gaga.jpg"
+                            title="Super Bowl LI"
+                        />
+                    </a>
+                    <a href="https://riptutorial.com/ebook/three-js">
+                        <img
+                            width="34"
+                            style="border: 0; text-align: center"
+                            src="images/cover-learning.png"
+                            title="Three.js"
+                        />
+                    </a>
+                    <a href="/WebGL/labs/WebGL/extras/doc">(papers cg)</a>
+                </li>
+                <li>
+                    <a href="/cs336/examples/example123/content">
+                        (Hello Quad)
+                    </a>
+                </li>
+            </ul>
+
+            <ol type="1" start="1">
+                <li>
+                    <a href="/WebGL/labs/WebGL/Assignment_1/twist.html">
+                        Sierpinski Gasket
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/Assignment_1/doc-twist/index.html"
+                    >
+                        (source)
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/Assignment_1/doc-twist-MV/index.html"
+                    >
+                        <sub style="font-size: small">(MV)</sub>
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/Assignment_1/showCode.php?f=twist"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a href="/WebGL/labs/WebGL/Assignment_3/Hierarchy.html">
+                        Robot
+                    </a>
+                    <a href="doc-hierarchy-partial/index.html">(source)</a>
+                    <a href="/WebGL/labs/WebGL/homework/hw3/Hierarchy.html">
+                        <sub style="font-size: small">(full)</sub>
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/Assignment_3/showCode.php?f=Hierarchy"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/hw4/HierarchyWithTree3.html"
+                    >
+                        Robot
+                    </a>
+                    with recursion
+                    <a href="doc-hierarchy/index.html">(source)</a>
+                    <a href="doc-hier3/index.html">(source)</a>
+                    <a href="/WebGL/labs/WebGL/homework/hw4/CS336Object.js">
+                        <sub style="font-size: small">(CS336Object)</sub>
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/hw4/showCode.php?f=HierarchyWithTree3"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/hw4/HierarchyWithTree4.html"
+                    >
+                        Rotor
+                    </a>
+                    with recursion
+                    <a href="doc-hier4/index.html">(source)</a>
+                    <a href="/WebGL/labs/WebGL/homework/hw4/CS336Object.js">
+                        <sub style="font-size: small">(CS336Object)</sub>
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/hw4/showCode.php?f=HierarchyWithTree4"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a href="/WebGL/labs/WebGL/homework/final/blobby.html">
+                        Three Blobbies Dancing The Macarena
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/final/doc-blobby/index.html"
+                    >
+                        (source)
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/final/showCode.php?f=blobby"
+                    >
+                        (html)
+                    </a>
+                    <a href="/WebGL/labs/WebGL/homework/presentation.pdf">
+                        (doc)
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/final/Dancing%20Blobby.html"
+                    >
+                        The Blobby Man
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/Christmas%20tree%20with%20three.js.html"
+                    >
+                        Merry Christmas!
+                    </a>
+                    with
+                    <a href="https://threejs.org">Threejs</a>
+                </li>
+                <li>
+                    <a
+                        href="/WebGL/labs/WebGL/extras/reflectionMapSphere.html?texture=colosseum"
+                    >
+                        Reflection Map
+                    </a>
+                    <a href="/WebGL/labs/WebGL/extras/doc-reflection">
+                        (source)
+                    </a>
+                    <a href="/WebGL/labs/WebGL/lib/tetrahedron-esm.js">
+                        <sub style="font-size: small">(tetrahedron-esm)</sub>
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/extras/showCode.php?f=reflectionMapSphere"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/WebGL/labs/WebGL/extras/skybox-and-env-map.html?m=2"
+                    >
+                        Environment Map
+                    </a>
+                    <a href="/WebGL/labs/WebGL/extras/doc-skybox">(source)</a>
+                    <a href="/WebGL/labs/WebGL/lib/simple-rotator.js">
+                        <sub style="font-size: small">(simple-rotator)</sub>
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/extras/showCode.php?f=skybox-and-env-map"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a href="/cs336/examples/lighting/content/Lighting2c.html">
+                        Lighting
+                    </a>
+                    <a
+                        href="/cs336/examples/lighting/content/doc-lighting2/index.html"
+                    >
+                        (source)
+                    </a>
+                    <a
+                        href="/cs336/examples/lighting/content/showCode.php?f=Lighting2c"
+                    >
+                        (html)
+                    </a>
+                    <a
+                        href="/cs336/examples/lighting/content/doc-lighting2/global.html#viewMatrix"
+                    >
+                        <sub style="font-size: small">view matrix</sub>
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/cs336/examples/texture/content/LightingWithProceduralTexture.html"
+                    >
+                        Procedural Texture
+                    </a>
+                    <a
+                        href="/cs336/examples/texture/content/doc-texture/index.html"
+                    >
+                        (source)
+                    </a>
+                    <a
+                        href="/cs336/examples/texture/content/showCode.php?f=LightingWithProceduralTexture"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a href="/cg/downloads/PDFs/17_LCG_Texturas.pdf">
+                        Phong Shader With Texture
+                    </a>
+                    <a href="/WebGL/labs/WebGL/extras/doc-light/index.html">
+                        (source)
+                    </a>
+                    <a href="/WebGL/labs/WebGL/lib/basic-objects-IFS.js">
+                        <sub style="font-size: small">(basic-objects-IFS)</sub>
+                    </a>
+                </li>
+                <ul>
+                    <li>
+                        <a
+                            href="/WebGL/labs/WebGL/extras/LightingWithTexture.html"
+                        >
+                            <sub style="font-size: small">
+                                Texture coordinates set in the fragment shader:
+                            </sub>
+                        </a>
+                        <a
+                            href="/WebGL/labs/WebGL/extras/images/anti-aliasing.png"
+                        >
+                            <img
+                                width="34"
+                                style="border: 0; text-align: center"
+                                src="/WebGL/labs/WebGL/extras/images/anti-aliasing.png"
+                                title="Texture coordinates by pixel"
+                            />
+                        </a>
+                        <a
+                            href="/WebGL/labs/WebGL/extras/showCode.php?f=LightingWithTexture"
+                            >(html)</a
+                        >
+                        <sub style="font-size: small">
+                            <a
+                                href="https://registry.khronos.org/OpenGL/specs/es/3.0/GLSL_ES_Specification_3.00.pdf"
+                                >glsl 3.0</a
+                            >
+                        </sub>
+                    </li>
+                    <li>
+                        <a
+                            href="/WebGL/labs/WebGL/extras/LightingWithTexture2.html"
+                        >
+                            <sub style="font-size: small">
+                                Texture coordinates from model:
+                            </sub>
+                        </a>
+                        <a
+                            href="/WebGL/labs/WebGL/extras/images/aliasing-no-correction.png"
+                        >
+                            <img
+                                width="34"
+                                style="border: 0; text-align: center"
+                                src="/WebGL/labs/WebGL/extras/images/aliasing-no-correction.png"
+                                title="Parameterization discontinuity"
+                            />
+                        </a>
+                        <a href="/WebGL/labs/WebGL/extras/images/aliasing.png">
+                            <img
+                                width="34"
+                                style="border: 0; text-align: center"
+                                src="/WebGL/labs/WebGL/extras/images/aliasing.png"
+                                title="Texture coordinates by vertex"
+                            />
+                        </a>
+                        <a
+                            href="/WebGL/labs/WebGL/extras/showCode.php?f=LightingWithTexture2"
+                        >
+                            (html)
+                        </a>
+                    </li>
+                </ul>
+                <li>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/hw3/RotatingSquare.html?rpc=2"
+                    >
+                        Rotating Squares
+                    </a>
+                    <a href="doc-rot"> (source) </a>
+                    <a href="/WebGL/labs/WebGL/teal_book/cuon-matrix.js">
+                        <sub style="font-size: small">(cuon-matrix)</sub>
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/hw3/showCode.php?f=RotatingSquare"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/cs336/examples/three/content/RotatingSquare.html?rpc=2"
+                    >
+                        Rotating Squares
+                    </a>
+                    with Three.js
+                    <a href="/cs336/examples/three/content/doc-rot-three">
+                        (source)
+                    </a>
+                    <a
+                        href="/cs336/examples/three/content/showCode.php?f=RotatingSquare"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a href="/cs336/examples/three/content/EulerThreejs.html">
+                        Euler Angles
+                    </a>
+                    with Three.js
+                    <a
+                        href="/cs336/examples/three/content/doc-euler-three/index.html"
+                    >
+                        (source)
+                    </a>
+                    <a
+                        href="/cs336/examples/three/content/showCode.php?f=EulerThreejs"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a href="/WebGL/labs/WebGL/homework/hw2/Reflection.html">
+                        Reflection
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/hw2/doc-reflection/index.html"
+                    >
+                        (source)
+                    </a>
+                    <a
+                        href="/WebGL/labs/WebGL/homework/hw2/showCode.php?f=Reflection"
+                    >
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a href="/WebGL/hws.edu-examples/bumpmap.html">Bump Map</a>
+                    <a href="/WebGL/hws.edu-examples/doc-bump/index.html">
+                        (source)
+                    </a>
+                    <a href="/WebGL/hws.edu-examples/showCode.php?f=bumpmap">
+                        (html)
+                    </a>
+                </li>
+                <li>
+                    <a href="beam/segments.html">Beam Animation</a> with
+                    <a href="https://regl.party">regl</a>
+                    <a href="doc-beam">(source)</a>
+                    <a href="showCode.php?f=beam/segments">(html)</a>
+                </li>
+                <li>
+                    <a
+                        href="sierpinski3/sierpinski3.html?file=sierpinski3.json"
+                    >
+                        Sierpinski 3D
+                    </a>
+                    with
+                    <a href="https://threejs.org">Threejs</a>
+                    <a href="doc-sierpinski3">(source)</a>
+                    <a href="showCode.php?f=sierpinski3/sierpinski3">(html)</a>
+                </li>
+                <li>
+                    <a href="phong-demo/phong-demo.html">
+                        Gouraud/Phong Shader
+                    </a>
+                    <a href="phong-demo/js/renderer.js">(source)</a>
+                    <a href="showCode.php?f=phong-demo/phong-demo">(html)</a>
+                    <a
+                        href="https://www.scratchapixel.com/lessons/3d-basic-rendering/phong-shader-BRDF/phong-illumination-models-brdf.html"
+                    >
+                        <sub style="font-size: small">(BRDF)</sub>
+                    </a>
+                    <a
+                        href="https://www.terathon.com/gdc12_lengyel.pdf#page=48"
+                    >
+                        <sub style="font-size: small"
+                            >(𝑛′=(𝑀<sup>&#8211;1</sup>)<sup>𝑇</sup>⋅𝑛)</sub
+                        >
+                    </a>
+                    <a href="https://www.cs.toronto.edu/~jacobson">
+                        <sub style="font-size: small">(Jacobson)</sub>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.shadertoy.com/view/fdVfDz">
+                        Ray Marching
+                    </a>
+                    with
+                    <a href="https://www.youtube.com/TheArtOfCodeIsCool">
+                        Shader
+                    </a>
+                    <a href="https://michaelwalczyk.com/blog-ray-marching.html">
+                        Toy
+                    </a>
+
+                    <a href="shaderToy/shaderToy.glsl">(source)</a>
+                    <a href="videos/shaderToy.mp4">(video)</a>
+                    <a href="images/shaderToy.png">
+                        <img
+                            width="34"
+                            style="border: 0; text-align: center"
+                            src="images/shaderToy.png"
+                            title="Ray Marching FAAC"
+                        />
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="videos/shaderToy-aac.mp4">
+                                (video)
+                                <sub style="font-size: small">aac - Safari</sub>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="videos/shaderToy-mp3.mp4">
+                                (video)
+                                <sub style="font-size: small">
+                                    mp3 - Firefox, Chrome
+                                </sub>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <hr />
+
+        <footer class="footer">
+            <div class="container-fluid" style="text-align: center">
+                <a
+                    href="https://www.militaryfactory.com/aircraft/detail.asp?aircraft_id=146"
+                >
+                    <img
+                        title="Grumman F6F Hellcat"
+                        alt="1943"
+                        src="Grumman F6F Hellcat.jpg"
+                        height="256"
+                    />
+                </a>
+                <div class="imgtext">Grumman F6F Hellcat (1943 - 611 kmh)</div>
+            </div>
+        </footer>
+
+        <script>
+            includeHTML();
+        </script>
+
+        <!-- Option 2: jQuery, Popper.js, and Bootstrap JS -->
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+            integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>

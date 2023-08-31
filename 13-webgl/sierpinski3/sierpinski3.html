@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Sierpiński 3D</title>
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+        ></script>
+        <!-- Font Awesome CSS -->
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+            crossorigin="anonymous"
+        />
+        <style>
+            #interface {
+                /* display block allows width and height */
+                display: block;
+                width: fit-content;
+                text-align: center;
+                margin: 0 auto;
+                cursor: pointer;
+            }
+            #gasket-container {
+                display: block;
+                cursor: move;
+                text-align: center;
+                color: #8b2439;
+                margin-left: 0%;
+            }
+            input[type="radio"] {
+                margin: 0 30px;
+            }
+            label,
+            p {
+                font-size: 300%;
+                line-height: 200%;
+            }
+            .button {
+                background-color: #4caf50; /* Green */
+                border: none;
+                color: white;
+                padding: 16px 24px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 32px;
+                border-radius: 12px;
+            }
+            .button:active {
+                background-color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="gasket-container">
+            <canvas
+                id="theCanvas"
+                width="800"
+                height="600"
+                style="border: 10px solid gray"
+            ></canvas>
+            <div id="interface">
+                <div class="radiobtn">
+                    <p>Maximum Level</p>
+                    <label for="v1">0</label>
+                    <input type="radio" id="v1" name="mlevel" value="0" />
+                    <label for="v2">1</label>
+                    <input type="radio" id="v2" name="mlevel" value="1" />
+                    <label for="v3">2</label>
+                    <input type="radio" id="v3" name="mlevel" value="2" />
+                    <label for="v4">3</label>
+                    <input
+                        type="radio"
+                        id="v4"
+                        name="mlevel"
+                        value="3"
+                        checked
+                    />
+                    <label for="v5">4</label>
+                    <input type="radio" id="v5" name="mlevel" value="4" />
+                    <label for="v6">5</label>
+                    <input type="radio" id="v6" name="mlevel" value="5" />
+                </div>
+                <div id="radiobtn2">
+                    <p>Color Level</p>
+                </div>
+                <div class="radiobtn">
+                    <p id="animate">Animate</p>
+                    <label for="v7">Off</label>
+                    <input
+                        type="radio"
+                        id="v7"
+                        name="animate"
+                        value="0"
+                        checked
+                    />
+                    <label for="v8">On</label>
+                    <input type="radio" id="v8" name="animate" value="1" />
+                </div>
+                <div class="radiobtn">
+                    <p>
+                        Scene
+                        <button class="button" onclick="nextScene()">
+                            <span class="fa fa-plus"></span>
+                        </button>
+                        <button class="button" onclick="previousScene()">
+                            <span class="fa fa-minus"></span>
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- does not work on safari and IOS -->
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "/WebGL/lib/three/build/three.module.js",
+                    "OrbitControls": "/WebGL/lib/three/examples/jsm/controls/OrbitControls.js"
+                }
+            }
+        </script>
+        <script type="module" src="sierpinski3.js"></script>
+    </body>
+</html>
