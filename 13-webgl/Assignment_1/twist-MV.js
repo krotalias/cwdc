@@ -3,7 +3,7 @@
  *
  * Summary.
  * <p>2D <a href="/python/laboratorios2.html#16">Sierpińsk</a> Gasket with twist and
- * <a href="/WebGL/Common/MV.js">MV</a>.</p>
+ * <a href="/cwdc/13-webgl/lib/Common/MV.js">MV</a>.</p>
  *
  * @author Paulo Roma Cavalcanti
  * @since 07/07/2015
