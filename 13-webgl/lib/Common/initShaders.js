@@ -5,7 +5,7 @@
  *
  * @author Edward Angel
  * @since 20/08/2014
- * @see <a href="/WebGL/Common/initShaders.js">source</a>
+ * @see <a href="/cwdc/13-webgl/lib/Common/initShaders.js">source</a>
  * @see https://scholar.google.com/citations?user=uT_WCZ0AAAAJ&hl=en
  */
 
