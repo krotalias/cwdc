@@ -40,7 +40,7 @@
  *
  * @since 19/11/2022
  * @author David J. Eck and modified by Paulo Roma
- * @see <a href="/cwdc/13-webgl/libhws.edu-examples/trackball-rotator.js">source</a>
+ * @see <a href="/cwdc/13-webgl/hws.edu-examples/trackball-rotator.js">source</a>
  * @see https://math.hws.edu/graphicsbook/source/webgl/cube-with-trackball-rotator.html
  * @see https://math.hws.edu/graphicsbook/source/webgl/trackball-rotator.js
  * @see https://math.hws.edu/graphicsbook/source/webgl/skybox-and-env-map.html
