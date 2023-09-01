@@ -44,7 +44,7 @@
  * @see https://math.hws.edu/graphicsbook/source/webgl/cube-with-trackball-rotator.html
  * @see https://math.hws.edu/graphicsbook/source/webgl/trackball-rotator.js
  * @see https://math.hws.edu/graphicsbook/source/webgl/skybox-and-env-map.html
- * @see <img src="/WebGL/lib/arcball4.png" width="256">
+ * @see <img src="/cwdc/13-webgl/lib/arcball4.png" width="256">
  */
 
 /**
