@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Transformations</title>
+</head>
+
+<body> 
+<canvas id="theCanvas" width="400" height="400">
+Please use a browser that supports "canvas"
+</canvas>
+    
+<!-- Some radio buttons to select intrinsic or extrinsic transformations -->
+<p>
+<input id = "checkExtrinsic" name="inOrEx" type="radio" checked /> Extrinsic (multiply on left)
+<br>
+<input id = "checkIntrinsic" name="inOrEx" type="radio" /> Intrinsic (multiply on right)
+<br>
+<input id = "checkCentroid" name="inOrEx" type="radio" />About centroid (extrinsic)
+<br>
+	
+<p>
+Current transformation matrix:
+<br>
+<div id="displayMatrices" style="background-color:#dddddd">
+I
+</div>	
+<p>
+Keyboard controls:
+<ul style="list-style:none;">
+<li>r -  Rotate 30 degrees (Denoted "R" above)
+<li>R -  Rotate -30 degrees (R')
+<li>t -  Translate .3 along x-axis (T)
+<li>T - Translate -.3 along x-axis (T')
+<li>s - Scale 2x along y-axis (S)
+<li>S - Scale .5x along y-axis (S')
+<li>o - Reset to identity
+<li>
+</ul>
+The notation "A" represents a translation to 
+the figure's <em>current</em> centroid, A' is its inverse.
+<script id="vertexShader" type="x-shader/x-vertex">
+uniform mat4 transform;
+attribute vec4 a_Position;
+void main() 
+{
+  gl_Position = transform * a_Position;
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+precision mediump float;
+uniform vec4 color;
+void main() 
+{
+  gl_FragColor = color;
+}
+</script>
+
+
+		<script src="../../teal_book/webgl-utils.js"></script>
+		<script src="../../teal_book/webgl-debug.js"></script>
+		<script src="../../teal_book/cuon-utils.js"></script>
+		<script src="../../teal_book/cuon-matrix.js"></script>
+		<script src="Transformations2.js"></script>
+		<script>window.onload = main</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!--  Demo of Euler angles. -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Euler angles in Three.js</title>
+        <style>
+            body {
+                background-color: antiquewhite;
+            }
+            #interface {
+                width: fit-content;
+                margin: 0 auto;
+                border: solid gold 3px;
+                padding: 20px;
+            }
+            canvas {
+                display: block;
+                margin: 0 auto;
+            }
+            label {
+                font-size: 200%;
+                line-height: 200%;
+                margin-right: 40px;
+            }
+            button {
+                font-size: 300%;
+                margin-right: 40px;
+                padding: 0 10px 0 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="800" height="600">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <div id="interface">
+            <h1>Twin Ion Engine (TIE) fighter - Red Baron (Pilot)</h1>
+            <p>
+                Current transformation matrix based on Euler angle convention
+                Yaw-Pitch-Roll.
+                <br />
+                This requires setting the <code>rotation.order</code> property
+                of the object to "YXZ". <br />
+            </p>
+
+            <div
+                id="displayMatrices"
+                style="
+                    background-color: #dddddd;
+                    width: fit-content;
+                    font-size: 150%;
+                "
+            >
+                I
+            </div>
+
+            <br />
+
+            <form>
+                <input type="checkbox" id="axes" name="axes" value="axes" />
+                <label for="axes">Axes</label><br />
+                <input type="checkbox" id="light" name="light" value="light" />
+                <label for="light">Switch Lights</label><br />
+                <div id="radio">
+                    <input type="radio" id="pause" name="rot" value=" " />
+                    <label for="pause">Pause</label>
+                    <input type="radio" id="x" name="rot" value="x" />
+                    <label for="x">x</label>
+                    <input type="radio" id="y" name="rot" checked value="y" />
+                    <label for="y">y</label>
+                    <input type="radio" id="z" name="rot" value="z" />
+                    <label for="z">z</label> (<a
+                        href="https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd"
+                        >intrinsic</a
+                    >)
+                </div>
+            </form>
+
+            <div class="sideBySide">
+                <p>
+                    <label><b>Zoom:</b></label>
+                </p>
+                <button onclick="zoomIn()">+</button>
+                <button onclick="zoomOut()">-</button>
+            </div>
+
+            <br />
+
+            <details>
+                <summary style="font-size: 150%">Keyboard controls:</summary>
+
+                <ul style="list-style: none">
+                    <li>h - yaw +15 degrees</li>
+                    <li>Y - yaw -15 degrees</li>
+                    <li>p - pitch +15 degrees</li>
+                    <li>X - pitch -15 degrees</li>
+                    <li>r - roll +15 degrees</li>
+                    <li>Z - roll -15 degrees</li>
+                    <li>l - switch lighting scheme</li>
+                    <li>a - toggle axes visibility</li>
+                    <li>↑,↓ - Zoom out/in</li>
+                    <li>o - Reset to identity</li>
+                    <li>SPACE - toggle auto rotate</li>
+                    <li></li>
+                </ul>
+            </details>
+        </div>
+
+        <!-- does not work on safari and IOS -->
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "/WebGL/lib/three/build/three.module.js",
+                    "TextGeometry": "/WebGL/lib/three/examples/jsm/geometries/TextGeometry.js",
+                    "FontLoader": "/WebGL/lib/three/examples/jsm/loaders/FontLoader.js"
+                }
+            }
+        </script>
+        <script src="EulerThreejs.js" type="module"></script>
+    </body>
+</html>

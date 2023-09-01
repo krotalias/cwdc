@@ -1,0 +1,63 @@
+<!--  Demo of Euler angles. -->		
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Euler angles</title>
+</head>
+
+<body> 
+	<canvas id="theCanvas" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+
+<p>
+Current transformation matrix based on Euler angle convention Head-Pitch-Roll
+<br>
+<div id="displayMatrices" style="background-color:#dddddd">
+I
+</div>	
+<p>
+Keyboard controls:
+<ul style="list-style:none;">
+<li>y - head +15 degrees
+<li>Y - head -15 degrees
+<li>x - pitch +15 degrees
+<li>X - pitch -15 degrees
+<li>z - roll +15 degrees
+<li>Z - roll -15 degrees
+<li>o - Reset to identity
+<li>
+</ul>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+uniform mat4 transform;
+attribute vec4 a_Position;
+attribute vec4 a_Color;
+varying vec4 color;
+void main() 
+{
+  color = a_Color;
+  gl_Position = transform * a_Position;
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+precision mediump float;
+varying vec4 color;
+void main() 
+{
+  gl_FragColor = color;
+}
+</script>
+
+
+		<script src="../../teal_book/webgl-utils.js"></script>
+		<script src="../../teal_book/webgl-debug.js"></script>
+		<script src="../../teal_book/cuon-utils.js"></script>
+		<script src="../../teal_book/cuon-matrix.js"></script>
+		<script src="Euler.js"></script>
+		<script>window.onload = main</script>
+</body>
+</html>

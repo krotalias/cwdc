@@ -29,7 +29,7 @@
 import * as THREE from "https://unpkg.com/three@0.148.0/build/three.module.js?module";
 import { OrbitControls } from "https://unpkg.com/three@0.148.0/examples/jsm/controls/OrbitControls.js?module";
 
-//import * as THREE from "/WebGL/lib/three/build/three.module.js";
+//import * as THREE from "/cwdc/13-webgl/lib/three/build/three.module.js";
 //import { OrbitControls } from "./OrbitControls.js";
 
 /**

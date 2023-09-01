@@ -1,0 +1,68 @@
+<!--  Demo of 3D Rotations. -->		
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>3D Rotations</title>
+</head>
+
+<body> 
+	<canvas id="theCanvas" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+<!-- Some radio buttons to select intrinsic or extrinsic transformations -->
+<p>
+<input id = "checkExtrinsic" name="inOrEx" type="radio" checked /> Extrinsic (multiply on left)
+<br>
+<input id = "checkIntrinsic" name="inOrEx" type="radio" /> Intrinsic (multiply on right)
+<br>
+<p>
+
+Current transformation matrix:
+<br>
+<div id="displayMatrices" style="background-color:#dddddd">
+I
+</div>	
+Keyboard controls:
+<ul style="list-style:none;">
+<li>y - RotateY(15) (denoted "Y")
+<li>Y - RotateY(-15) (denoted "Y'")
+<li>x - RotateX(15) 
+<li>X - RotateX(-15) 
+<li>z - RotateZ(15) 
+<li>Z - RotateZ(-15) 
+<li>o - Reset to identity
+<li>
+</ul>
+
+<script id="vertexShader" type="x-shader/x-vertex">
+uniform mat4 transform;
+attribute vec4 a_Position;
+attribute vec4 a_Color;
+varying vec4 color;
+void main() 
+{
+  color = a_Color;
+  gl_Position = transform * a_Position;
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+precision mediump float;
+varying vec4 color;
+void main() 
+{
+  gl_FragColor = color;
+}
+</script>
+
+
+		<script src="../../teal_book/webgl-utils.js"></script>
+		<script src="../../teal_book/webgl-debug.js"></script>
+		<script src="../../teal_book/cuon-utils.js"></script>
+		<script src="../../teal_book/cuon-matrix.js"></script>
+		<script src="Rotations.js"></script>
+		<script>window.onload = main</script>
+</body>
+</html>
