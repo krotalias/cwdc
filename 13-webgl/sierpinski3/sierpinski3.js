@@ -4,7 +4,7 @@
  * In this script, you can render a 3d IFS
  * (<a href="https://en.wikipedia.org/wiki/Iterated_function_system">Iterated Function System</a>)
  * that was modeled with the Three.js editor, and exported as a scene JSON. <br>
- * One such example is included in <a href="../models/sierpinski3.json">sierpinski3.json</a> file.
+ * One such example is included in <a href="../sierpinski3/models/sierpinski3.json">sierpinski3.json</a> file.
  *
  * <p>The <a href="../sierpinski3/mat.html">transformations</a> corresponding to the
  * <a href="https://larryriddle.agnesscott.org/ifs/siertri/siertri.htm">IFS</a>
