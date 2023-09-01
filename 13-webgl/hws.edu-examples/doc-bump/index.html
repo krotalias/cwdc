@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>hws.edu-examples/basic-object-models-with-tangents-IFS.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>The functions in this file create models in an
+<a href="https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=200">IFS</a>
+(Indexed Face Set) format that can be drawn using
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements">gl.drawElements</a>
+with primitive type <a href="https://webglfundamentals.org/webgl/lessons/webgl-points-lines-triangles.html">gl.TRIANGLES</a>.</p>
+
+Objects have for each vertex:
+ <ul>
+   <li>vertex coordinates, </li>
+   <li>normal vectors, </li>
+   <li>texture coordinates, </li>
+   <li>vertex tangents, </li>
+   <li>plus a list of indices for the element array buffer.</li>
+ </ul>
+
+The return value of each function is an object, model,
+with properties:
+<pre>
+   model.vertexPositions -- the vertex coordinates;
+   model.vertexNormals -- the normal vectors;
+   model.vertexTextureCoords -- the texture coordinates;
+   model.vertexTangents -- the tangent vectors;
+   model.indices -- the face indices.
+</pre>
+The first four properties are of type Float32Array, while
+model.indices is of type Uint16Array.
+
+<ul>
+ <li><a href="global.html#uvCone">cone</a></li>
+ <li><a href="global.html#cube">cube</a></li>
+ <li><a href="global.html#uvCylinder">cylinder</a></li>
+ <li><a href="global.html#uvSphere">sphere</a></li>
+ <li><a href="global.html#uvTorus">torus</a></li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>19/11/2022</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>David J. Eck and modified by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/hws.edu-examples/basic-object-models-with-tangents-IFS.js">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>hws.edu-examples/bumpmap.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Bump Mapping.</p>
+
+A mostly successful attempt to do bumpmapping.<br>
+Grayscale height maps are used to perturb the normals to a surface,
+making the surface look "bumpy". <br>
+
+The implementation requires tangent vectors for the surface.
+
+<p>The three object models used here have tangent vectors that can be passed
+as an attribute to the shader program. </p>
+
+Note: I haven't learned how to make the appropriate tangent vectors in general. <br>
+It took some experimentation for me to get them
+pointed in directions that seem to work.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>19/11/2022</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>David J. Eck and modified by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hws.edu-examples_bumpmap.js.html">hws.edu-examples/bumpmap.js</a>, <a href="hws.edu-examples_bumpmap.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/hws.edu-examples/bumpmap.html">link</a></li>
+        
+            <li><a href="/cwdc/13-webgl/hws.edu-examples/bumpmap.js">source</a></li>
+        
+            <li><a href="https://math.hws.edu/graphicsbook/source/webgl/bumpmap.html">https://math.hws.edu/graphicsbook/source/webgl/bumpmap.html</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=312">https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=312</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>hws.edu-examples/trackball-rotator.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>The TrackballRotator class implements an <a href="/WebGL/labs/WebGL/extras/doc/Arcball.pdf">ArcBall</a> like interface.</p>
+Create by <a href="https://dl.acm.org/profile/81100026146">Ken Shoemake</a> in 1992,
+it is the de facto <a href="/WebGL/labs/WebGL/extras/doc/shoemake92-arcball.pdf">standard</a>
+for interactive 3D model manipulation and visualization.
+<p>The class defines the following methods for an object rotator of type TrackballRotator:</p>
+<ul>
+   <li><a href="TrackballRotator.html#getViewMatrix">TrackballRotator#getViewMatrix</a>() <br>
+       Returns the view transformation matrix as a regular JavaScript
+       array of 16 elements, in <a href="https://en.wikipedia.org/wiki/Row-_and_column-major_order">column-major</a> order,
+       suitable for use with
+       <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniformMatrix">gl.uniformMatrix4fv</a>
+       or for further transformation with the <a href="https://glmatrix.net">glMatrix</a> library mat4 class.</li>
+   <li><a href="TrackballRotator.html#setViewMatrix">TrackballRotator#setViewMatrix</a>(matrix) <br>
+       Sets the view matrix.
+   <li><a href="TrackballRotator.html#setView">TrackballRotator#setView</a>(viewDistance, viewpointDirection, viewUp) <br>
+       Sets up the view, where the
+       parameters are optional and are used in the same way as the corresponding parameters
+       in the constructor.</li>
+   <li><a href="TrackballRotator.html#setViewDistance">TrackballRotator#setViewDistance</a>(viewDistance) <br>
+       Sets the distance of the viewer from the origin without
+       changing the direction of view. <br>
+       The parameter must be a positive number.
+   <li><a href="TrackballRotator.html#getViewDistance">TrackballRotator#getViewDistance</a>() <br>
+       Returns the current value.</li>
+   <li><a href="TrackballRotator.html#setRotationCenter">TrackballRotator#setRotationCenter</a>(vector) <br>
+       Sets the center of rotation. <br>
+       The parameter must be an array of (at least) three numbers.
+       The view is rotated about this point. <br>
+       Usually, you want the rotation center to be the point that
+       appears at the middle of the canvas, but that is not a requirement. <br>
+       The initial value is effectively equal to [0,0,0].</li>
+   <li><a href="TrackballRotator.html#getRotationCenter">TrackballRotator#getRotationCenter</a>() <br>
+       Returns the current value.</li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>19/11/2022</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>David J. Eck and modified by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hws.edu-examples_trackball-rotator.js.html">hws.edu-examples/trackball-rotator.js</a>, <a href="hws.edu-examples_trackball-rotator.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/WebGL/hws.edu-examples/trackball-rotator.js">source</a></li>
+        
+            <li><a href="https://math.hws.edu/graphicsbook/source/webgl/cube-with-trackball-rotator.html">https://math.hws.edu/graphicsbook/source/webgl/cube-with-trackball-rotator.html</a></li>
+        
+            <li><a href="https://math.hws.edu/graphicsbook/source/webgl/trackball-rotator.js">https://math.hws.edu/graphicsbook/source/webgl/trackball-rotator.js</a></li>
+        
+            <li><a href="https://math.hws.edu/graphicsbook/source/webgl/skybox-and-env-map.html">https://math.hws.edu/graphicsbook/source/webgl/skybox-and-env-map.html</a></li>
+        
+            <li><img src="/WebGL/lib/arcball4.png" width="256"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/gl-matrix/dist/esm/common.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>High performance matrix and vector operations.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>3.4.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Brandon Jones</li>
+        
+            <li>Colin MacKenzie IV</li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(c) 2015-2021, Brandon Jones, Colin MacKenzie IV.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_gl-matrix_dist_esm_common.js.html">lib/gl-matrix/dist/esm/common.js</a>, <a href="lib_gl-matrix_dist_esm_common.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/gl-matrix">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="TrackballRotator.html">TrackballRotator</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a_coords_loc">a_coords_loc</a></li><li><a href="global.html#a_normal_loc">a_normal_loc</a></li><li><a href="global.html#a_tangent_loc">a_tangent_loc</a></li><li><a href="global.html#a_texCoords_loc">a_texCoords_loc</a></li><li><a href="global.html#bumpmap">bumpmap</a></li><li><a href="global.html#bumpmapURLs">bumpmapURLs</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initGL">initGL</a></li><li><a href="global.html#loadBumpmap">loadBumpmap</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setDiffuse">setDiffuse</a></li><li><a href="global.html#texture">texture</a></li><li><a href="global.html#u_bumpmap">u_bumpmap</a></li><li><a href="global.html#u_bumpmapSize">u_bumpmapSize</a></li><li><a href="global.html#u_bumpmapStrength">u_bumpmapStrength</a></li><li><a href="global.html#u_lights">u_lights</a></li><li><a href="global.html#u_material">u_material</a></li><li><a href="global.html#u_modelview">u_modelview</a></li><li><a href="global.html#u_normalMatrix">u_normalMatrix</a></li><li><a href="global.html#u_projection">u_projection</a></li><li><a href="global.html#u_texture">u_texture</a></li><li><a href="global.html#u_useTexture">u_useTexture</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Sep 01 2023 09:07:38 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

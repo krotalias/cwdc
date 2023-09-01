@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: hws.edu-examples/basic-object-models-with-tangents-IFS.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: hws.edu-examples/basic-object-models-with-tangents-IFS.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ * Summary.
+ * &lt;p>The functions in this file create models in an
+ * {@link https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=200 IFS}
+ * (Indexed Face Set) format that can be drawn using
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements gl.drawElements}
+ * with primitive type {@link https://webglfundamentals.org/webgl/lessons/webgl-points-lines-triangles.html gl.TRIANGLES}.&lt;/p>
+ *
+ * Objects have for each vertex:
+ *  &lt;ul>
+ *    &lt;li>vertex coordinates, &lt;/li>
+ *    &lt;li>normal vectors, &lt;/li>
+ *    &lt;li>texture coordinates, &lt;/li>
+ *    &lt;li>vertex tangents, &lt;/li>
+ *    &lt;li>plus a list of indices for the element array buffer.&lt;/li>
+ *  &lt;/ul>
+ *
+ * The return value of each function is an object, model,
+ * with properties:
+ * &lt;pre>
+ *    model.vertexPositions -- the vertex coordinates;
+ *    model.vertexNormals -- the normal vectors;
+ *    model.vertexTextureCoords -- the texture coordinates;
+ *    model.vertexTangents -- the tangent vectors;
+ *    model.indices -- the face indices.
+ * &lt;/pre>
+ * The first four properties are of type Float32Array, while
+ * model.indices is of type Uint16Array.
+ *
+ * &lt;ul>
+ *  &lt;li>{@link uvCone cone}&lt;/li>
+ *  &lt;li>{@link cube cube}&lt;/li>
+ *  &lt;li>{@link uvCylinder cylinder}&lt;/li>
+ *  &lt;li>{@link uvSphere sphere}&lt;/li>
+ *  &lt;li>{@link uvTorus torus}&lt;/li>
+ * &lt;/ul>
+ *
+ * @author David J. Eck and modified by Paulo Roma
+ * @since 19/11/2022
+ * @see &lt;a href="/cwdc/13-webgl/hws.edu-examples/basic-object-models-with-tangents-IFS.js">source&lt;/a>
+ *
+ */
+
+"use strict";
+
+/**
+ * Create a model of a cube, centered at the origin.  (This is not
+ * a particularly good format for a cube, since an IFS representation
+ * has a lot of redundancy.)
+ * @param {Number} side the length of a side of the cube.
+ *       If not given, the value will be 1.
+ * @return {Object&lt;{vertexPositions: Float32Array,
+                    vertexNormals: Float32Array,
+                    vertexTextureCoords: Float32Array,
+                    vertexTangents: Float32Array,
+                    indices: Uint16Array}>}
+ */
+function cube(side) {
+    let s = (side || 1) / 2;
+    let coords = [];
+    let normals = [];
+    let tangents = [];
+    let texCoords = [];
+    let indices = [];
+    function face(xyz, nrm, tang) {
+        let start = coords.length / 3;
+        let i;
+        for (i = 0; i &lt; 12; i++) {
+            coords.push(xyz[i]);
+        }
+        for (i = 0; i &lt; 4; i++) {
+            normals.push(nrm[0], nrm[1], nrm[2]);
+        }
+        for (i = 0; i &lt; 4; i++) {
+            tangents.push(tang[0], tang[1], tang[2]);
+        }
+        texCoords.push(0, 0, 1, 0, 1, 1, 0, 1);
+        indices.push(start, start + 1, start + 2, start, start + 2, start + 3);
+    }
+    face([-s, -s, s, s, -s, s, s, s, s, -s, s, s], [0, 0, 1], [1, 0, 0]);
+    face([-s, -s, -s, -s, s, -s, s, s, -s, s, -s, -s], [0, 0, -1], [0, 1, 0]);
+    face([-s, s, -s, -s, s, s, s, s, s, s, s, -s], [0, 1, 0], [0, 0, 1]);
+    face([-s, -s, -s, s, -s, -s, s, -s, s, -s, -s, s], [0, -1, 0], [1, 0, 0]);
+    face([s, -s, -s, s, s, -s, s, s, s, s, -s, s], [1, 0, 0], [0, 1, 0]);
+    face([-s, -s, -s, -s, -s, s, -s, s, s, -s, s, -s], [-1, 0, 0], [0, 0, 1]);
+    return {
+        vertexPositions: new Float32Array(coords),
+        vertexNormals: new Float32Array(normals),
+        vertexTextureCoords: new Float32Array(texCoords),
+        vertexTangents: new Float32Array(tangents),
+        indices: new Uint16Array(indices),
+    };
+}
+
+/**
+ * Create a model of a torus (surface of a doughnut).  The z-axis goes through the doughnut hole,
+ * and the center of the torus is at (0,0,0).
+ * @param {Number} outerRadius the distance from the center to the outside of the tube, 0.5 if not specified.
+ * @param {Number} innerRadius the distance from the center to the inside of the tube, outerRadius/3 if not
+ *    specified.  (This is the radius of the doughnut hole.)
+ * @param {Number} slices the number of lines of longitude, default 32. These are slices parallel to the
+ * z-axis and go around the tube the short way (through the hole).
+ * @param {Number} stacks the number of lines of latitude plus 1, default 16. These lines are perpendicular
+ * to the z-axis and go around the tube the long way (arouind the hole).
+ * @return {Object&lt;{vertexPositions: Float32Array,
+                    vertexNormals: Float32Array,
+                    vertexTextureCoords: Float32Array,
+                    vertexTangents: Float32Array,
+                    indices: Uint16Array}>}
+ * @see &lt;a href="/roma/cg/doc/html/torus_8cpp.html#acf04d1331c5f0cedfaacc30d1d3f46f4">torus&lt;/a>
+ * @see &lt;img src="../torusparams.gif">
+ */
+function uvTorus(outerRadius, innerRadius, slices, stacks) {
+    outerRadius = outerRadius || 0.5;
+    innerRadius = innerRadius || outerRadius / 3;
+    slices = slices || 32;
+    stacks = stacks || 16;
+    let vertexCount = (slices + 1) * (stacks + 1);
+    let vertices = new Float32Array(3 * vertexCount);
+    let normals = new Float32Array(3 * vertexCount);
+    let tangents = new Float32Array(3 * vertexCount);
+    let texCoords = new Float32Array(2 * vertexCount);
+    let indices = new Uint16Array(2 * slices * stacks * 3);
+    let du = (2 * Math.PI) / slices;
+    let dv = (2 * Math.PI) / stacks;
+    let centerRadius = (innerRadius + outerRadius) / 2;
+    let tubeRadius = outerRadius - centerRadius;
+    let i, j, u, v, cx, cy, sin, cos, x, y, z;
+    let indexV = 0;
+    let indexT = 0;
+    for (j = 0; j &lt;= stacks; j++) {
+        v = -Math.PI + j * dv;
+        cos = Math.cos(v);
+        sin = Math.sin(v);
+        for (i = 0; i &lt;= slices; i++) {
+            u = i * du;
+            cx = Math.cos(u);
+            cy = Math.sin(u);
+            x = cx * (centerRadius + tubeRadius * cos);
+            y = cy * (centerRadius + tubeRadius * cos);
+            z = sin * tubeRadius;
+            vertices[indexV] = x;
+            tangents[indexV] = -cy;
+            normals[indexV++] = cx * cos;
+            vertices[indexV] = y;
+            tangents[indexV] = cx;
+            normals[indexV++] = cy * cos;
+            vertices[indexV] = z;
+            tangents[indexV] = 0;
+            normals[indexV++] = sin;
+            texCoords[indexT++] = i / slices;
+            texCoords[indexT++] = j / stacks;
+        }
+    }
+    let k = 0;
+    for (j = 0; j &lt; stacks; j++) {
+        let row1 = j * (slices + 1);
+        let row2 = (j + 1) * (slices + 1);
+        for (i = 0; i &lt; slices; i++) {
+            indices[k++] = row1 + i;
+            indices[k++] = row2 + i + 1;
+            indices[k++] = row2 + i;
+            indices[k++] = row1 + i;
+            indices[k++] = row1 + i + 1;
+            indices[k++] = row2 + i + 1;
+        }
+    }
+    return {
+        vertexPositions: vertices,
+        vertexNormals: normals,
+        vertexTextureCoords: texCoords,
+        vertexTangents: tangents,
+        indices: indices,
+    };
+}
+
+/**
+ * Defines a model of a cylinder.  The axis of the cylinder is the z-axis,
+ * and the center is at (0,0,0).
+ * @param {Number} radius the radius of the cylinder
+ * @param {Number} height the height of the cylinder.  The cylinder extends from -height/2
+ * to height/2 along the z-axis.
+ * @param {Number} slices the number of slices, like the slices of an orange.
+ * @param {Boolean} noTop if missing or false, the cylinder has a top; if set to true,
+ *   the cylinder does not have a top. The top is a disk at the positive end of the cylinder.
+ * @param {Boolean} noBottom if missing or false, the cylinder has a bottom; if set to true,
+ *   the cylinder does not have a bottom. The bottom is a disk at the negtive end of the cylinder.
+ * @return {Object&lt;{vertexPositions: Float32Array,
+                    vertexNormals: Float32Array,
+                    vertexTextureCoords: Float32Array,
+                    vertexTangents: Float32Array,
+                    indices: Uint16Array}>}
+ * @see &lt;a href="/roma/cg/doc/html/torus_8cpp.html#a03c085eb7ef8ae60df19dc9e06c0a173">cylinder&lt;/a>
+ */
+function uvCylinder(radius, height, slices, noTop, noBottom) {
+    radius = radius || 0.5;
+    height = height || 2 * radius;
+    slices = slices || 32;
+    let vertexCount = 2 * (slices + 1);
+    if (!noTop) vertexCount += slices + 2;
+    if (!noBottom) vertexCount += slices + 2;
+    let triangleCount = 2 * slices;
+    if (!noTop) triangleCount += slices;
+    if (!noBottom) triangleCount += slices;
+    let vertices = new Float32Array(vertexCount * 3);
+    let normals = new Float32Array(vertexCount * 3);
+    let tangents = new Float32Array(vertexCount * 3);
+    let texCoords = new Float32Array(vertexCount * 2);
+    let indices = new Uint16Array(triangleCount * 3);
+    let du = (2 * Math.PI) / slices;
+    let kv = 0;
+    let kt = 0;
+    let k = 0;
+    let i, u;
+    for (i = 0; i &lt;= slices; i++) {
+        u = i * du;
+        let c = Math.cos(u);
+        let s = Math.sin(u);
+        vertices[kv] = c * radius;
+        tangents[kv] = -s;
+        normals[kv++] = c;
+        vertices[kv] = s * radius;
+        tangents[kv] = c;
+        normals[kv++] = s;
+        vertices[kv] = -height / 2;
+        tangents[kv] = 0;
+        normals[kv++] = 0;
+        texCoords[kt++] = i / slices;
+        texCoords[kt++] = 0;
+        vertices[kv] = c * radius;
+        tangents[kv] = -s;
+        normals[kv++] = c;
+        vertices[kv] = s * radius;
+        tangents[kv] = c;
+        normals[kv++] = s;
+        vertices[kv] = height / 2;
+        tangents[kv] = 0;
+        normals[kv++] = 0;
+        texCoords[kt++] = i / slices;
+        texCoords[kt++] = 1;
+    }
+    for (i = 0; i &lt; slices; i++) {
+        indices[k++] = 2 * i;
+        indices[k++] = 2 * i + 3;
+        indices[k++] = 2 * i + 1;
+        indices[k++] = 2 * i;
+        indices[k++] = 2 * i + 2;
+        indices[k++] = 2 * i + 3;
+    }
+    let startIndex = kv / 3;
+    if (!noBottom) {
+        vertices[kv] = 0;
+        tangents[kv] = -1;
+        normals[kv++] = 0;
+        vertices[kv] = 0;
+        tangents[kv] = 0;
+        normals[kv++] = 0;
+        vertices[kv] = -height / 2;
+        tangents[kv] = 0;
+        normals[kv++] = -1;
+        texCoords[kt++] = 0.5;
+        texCoords[kt++] = 0.5;
+        for (i = 0; i &lt;= slices; i++) {
+            u = 2 * Math.PI - i * du;
+            let c = Math.cos(u);
+            let s = Math.sin(u);
+            vertices[kv] = c * radius;
+            tangents[kv] = -1;
+            normals[kv++] = 0;
+            vertices[kv] = s * radius;
+            tangents[kv] = 0;
+            normals[kv++] = 0;
+            vertices[kv] = -height / 2;
+            tangents[kv] = 0;
+            normals[kv++] = -1;
+            texCoords[kt++] = 0.5 - 0.5 * c;
+            texCoords[kt++] = 0.5 + 0.5 * s;
+        }
+        for (i = 0; i &lt; slices; i++) {
+            indices[k++] = startIndex;
+            indices[k++] = startIndex + i + 1;
+            indices[k++] = startIndex + i + 2;
+        }
+    }
+    startIndex = kv / 3;
+    if (!noTop) {
+        vertices[kv] = 0;
+        tangents[kv] = 1;
+        normals[kv++] = 0;
+        vertices[kv] = 0;
+        tangents[kv] = 0;
+        normals[kv++] = 0;
+        vertices[kv] = height / 2;
+        tangents[kv] = 0;
+        normals[kv++] = 1;
+        texCoords[kt++] = 0.5;
+        texCoords[kt++] = 0.5;
+        for (i = 0; i &lt;= slices; i++) {
+            u = i * du;
+            let c = Math.cos(u);
+            let s = Math.sin(u);
+            vertices[kv] = c * radius;
+            tangents[kv] = 1;
+            normals[kv++] = 0;
+            vertices[kv] = s * radius;
+            tangents[kv] = 0;
+            normals[kv++] = 0;
+            vertices[kv] = height / 2;
+            tangents[kv] = 0;
+            normals[kv++] = 1;
+            texCoords[kt++] = 0.5 + 0.5 * c;
+            texCoords[kt++] = 0.5 + 0.5 * s;
+        }
+        for (i = 0; i &lt; slices; i++) {
+            indices[k++] = startIndex;
+            indices[k++] = startIndex + i + 1;
+            indices[k++] = startIndex + i + 2;
+        }
+    }
+    return {
+        vertexPositions: vertices,
+        vertexNormals: normals,
+        vertexTangents: tangents,
+        vertexTextureCoords: texCoords,
+        indices: indices,
+    };
+}
+
+/**
+ * &lt;p>Create a model of a sphere.&lt;/p>
+ * The z-axis is the axis of the sphere,
+ * with the north pole on the positive z-axis and the center at (0,0,0).
+ * @param {Number} radius the radius of the sphere, default 0.5 if not specified.
+ * @param {Number} slices the number of lines of longitude, default 32
+ * @param {Number} stacks the number of lines of latitude plus 1, default 16.
+ *   (This is the number of vertical slices, bounded by lines of latitude,
+ *    the north pole and the south pole.)
+ * @return {Object&lt;{vertexPositions:Float32Array,
+ *          vertexNormals:Float32Array,
+ *          vertexTextureCoords:Float32Array,
+ *          vertexTangents: Float32Array,
+ *          indices:Uint16Array}>}
+ * @see &lt;a href="/roma/cg/doc/html/torus_8cpp.html#a6c5b17163125dd32bd7c04a99738d316">sphere&lt;/a>
+ */
+function uvSphere(radius, slices, stacks) {
+    radius = radius || 0.5;
+    slices = slices || 32;
+    stacks = stacks || 16;
+    var vertexCount = (slices + 1) * (stacks + 1);
+    var vertices = new Float32Array(3 * vertexCount);
+    var normals = new Float32Array(3 * vertexCount);
+    let tangents = new Float32Array(3 * vertexCount);
+    var texCoords = new Float32Array(2 * vertexCount);
+    var indices = new Uint16Array(2 * slices * stacks * 3);
+    var du = (2 * Math.PI) / slices;
+    var dv = Math.PI / stacks;
+    var i, j, u, v, x, y, z;
+    var indexV = 0;
+    var indexT = 0;
+    for (i = 0; i &lt;= stacks; i++) {
+        v = -Math.PI / 2 + i * dv;
+        for (j = 0; j &lt;= slices; j++) {
+            u = j * du;
+            x = Math.cos(u) * Math.cos(v);
+            y = Math.sin(u) * Math.cos(v);
+            z = Math.sin(v);
+            vertices[indexV] = radius * x;
+            tangents[indexV] = -y;
+            normals[indexV++] = x;
+            vertices[indexV] = radius * y;
+            tangents[indexV] = x;
+            normals[indexV++] = y;
+            vertices[indexV] = radius * z;
+            tangents[indexV] = 0;
+            normals[indexV++] = z;
+            texCoords[indexT++] = j / slices;
+            texCoords[indexT++] = i / stacks;
+        }
+    }
+    var k = 0;
+    for (j = 0; j &lt; stacks; j++) {
+        var row1 = j * (slices + 1);
+        var row2 = (j + 1) * (slices + 1);
+        for (i = 0; i &lt; slices; i++) {
+            indices[k++] = row1 + i;
+            indices[k++] = row2 + i + 1;
+            indices[k++] = row2 + i;
+            indices[k++] = row1 + i;
+            indices[k++] = row1 + i + 1;
+            indices[k++] = row2 + i + 1;
+        }
+    }
+    return {
+        vertexPositions: vertices,
+        vertexNormals: normals,
+        vertexTangents: tangents,
+        vertexTextureCoords: texCoords,
+        indices: indices,
+    };
+}
+
+/**
+ * Defines a model of a cone.  The axis of the cone is the z-axis,
+ * and the center is at (0,0,0).
+ * @param {Number} radius the radius of the cone.
+ * @param {Number} height the height of the cone. &lt;br>
+ *      The cone extends from -height/2 to height/2 along the z-axis, &lt;br>
+ *      with the tip at (0,0,height/2).
+ * @param {Number} slices the number of slices, like the slices of an orange.
+ * @param {Boolean} noBottom if missing or false, the cone has a bottom;
+ *    if set to true, the cone does not have a bottom. &lt;br>
+ *    The bottom is a disk at the wide end of the cone.
+ * @return {Object&lt;{vertexPositions:Float32Array,
+ *          vertexNormals:Float32Array,
+ *          vertexTextureCoords:Float32Array,
+ *          vertexTangents: Float32Array,
+ *          indices:Uint16Array}>}
+ * @see &lt;a href="/roma/cg/doc/html/torus_8cpp.html#a2106dc9326540a0309d6e8d815e10a0e">cone&lt;/a>
+ */
+function uvCone(radius, height, slices, noBottom) {
+    radius = radius || 0.5;
+    height = height || 2 * radius;
+    slices = slices || 32;
+    var fractions = [0, 0.5, 0.75, 0.875, 0.9375];
+    var vertexCount = fractions.length * (slices + 1) + slices;
+    if (!noBottom) vertexCount += slices + 2;
+    var triangleCount = (fractions.length - 1) * slices * 2 + slices;
+    if (!noBottom) triangleCount += slices;
+    var vertices = new Float32Array(vertexCount * 3);
+    var normals = new Float32Array(vertexCount * 3);
+    var tangents = new Float32Array(vertexCount * 3);
+    var texCoords = new Float32Array(vertexCount * 2);
+    var indices = new Uint16Array(triangleCount * 3);
+    var normallength = Math.sqrt(height * height + radius * radius);
+    var n1 = height / normallength;
+    var n2 = radius / normallength;
+    var du = (2 * Math.PI) / slices;
+    var kv = 0;
+    var kt = 0;
+    var k = 0;
+    var i, j, u;
+    for (j = 0; j &lt; fractions.length; j++) {
+        var uoffset = j % 2 == 0 ? 0 : 0.5;
+        for (i = 0; i &lt;= slices; i++) {
+            var h1 = -height / 2 + fractions[j] * height;
+            u = (i + uoffset) * du;
+            var c = Math.cos(u);
+            var s = Math.sin(u);
+            vertices[kv] = c * radius * (1 - fractions[j]);
+            tangents[kv] = -s * n1;
+            normals[kv++] = c * n1;
+            vertices[kv] = s * radius * (1 - fractions[j]);
+            tangents[kv] = c * n1;
+            normals[kv++] = s * n1;
+            vertices[kv] = h1;
+            tangents[kv] = 0;
+            normals[kv++] = n2;
+            texCoords[kt++] = (i + uoffset) / slices;
+            texCoords[kt++] = fractions[j];
+        }
+    }
+    var k = 0;
+    for (j = 0; j &lt; fractions.length - 1; j++) {
+        var row1 = j * (slices + 1);
+        var row2 = (j + 1) * (slices + 1);
+        for (i = 0; i &lt; slices; i++) {
+            indices[k++] = row1 + i;
+            indices[k++] = row2 + i + 1;
+            indices[k++] = row2 + i;
+            indices[k++] = row1 + i;
+            indices[k++] = row1 + i + 1;
+            indices[k++] = row2 + i + 1;
+        }
+    }
+    var start = kv / 3 - (slices + 1);
+    for (i = 0; i &lt; slices; i++) {
+        // slices points at top, with different normals, texcoords
+        u = (i + 0.5) * du;
+        var c = Math.cos(u);
+        var s = Math.sin(u);
+        vertices[kv] = 0;
+        tangents[kv] = -s * n1;
+        normals[kv++] = c * n1;
+        vertices[kv] = 0;
+        tangents[kv] = c * n1;
+        normals[kv++] = s * n1;
+        vertices[kv] = height / 2;
+        tangents[kv] = 0;
+        normals[kv++] = n2;
+        texCoords[kt++] = (i + 0.5) / slices;
+        texCoords[kt++] = 1;
+    }
+    for (i = 0; i &lt; slices; i++) {
+        indices[k++] = start + i;
+        indices[k++] = start + i + 1;
+        indices[k++] = start + (slices + 1) + i;
+    }
+    if (!noBottom) {
+        var startIndex = kv / 3;
+        vertices[kv] = 0;
+        tangents[kv] = -1;
+        normals[kv++] = 0;
+        vertices[kv] = 0;
+        tangents[kv] = 0;
+        normals[kv++] = 0;
+        vertices[kv] = -height / 2;
+        tangents[kv] = 0;
+        normals[kv++] = -1;
+        texCoords[kt++] = 0.5;
+        texCoords[kt++] = 0.5;
+        for (i = 0; i &lt;= slices; i++) {
+            u = 2 * Math.PI - i * du;
+            var c = Math.cos(u);
+            var s = Math.sin(u);
+            vertices[kv] = c * radius;
+            tangents[kv] = -1;
+            normals[kv++] = 0;
+            vertices[kv] = s * radius;
+            tangents[kv] = 0;
+            normals[kv++] = 0;
+            vertices[kv] = -height / 2;
+            tangents[kv] = 0;
+            normals[kv++] = -1;
+            texCoords[kt++] = 0.5 - 0.5 * c;
+            texCoords[kt++] = 0.5 + 0.5 * s;
+        }
+        for (i = 0; i &lt; slices; i++) {
+            indices[k++] = startIndex;
+            indices[k++] = startIndex + i + 1;
+            indices[k++] = startIndex + i + 2;
+        }
+    }
+    return {
+        vertexPositions: vertices,
+        vertexNormals: normals,
+        vertexTangents: tangents,
+        vertexTextureCoords: texCoords,
+        indices: indices,
+    };
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="TrackballRotator.html">TrackballRotator</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a_coords_loc">a_coords_loc</a></li><li><a href="global.html#a_normal_loc">a_normal_loc</a></li><li><a href="global.html#a_tangent_loc">a_tangent_loc</a></li><li><a href="global.html#a_texCoords_loc">a_texCoords_loc</a></li><li><a href="global.html#bumpmap">bumpmap</a></li><li><a href="global.html#bumpmapURLs">bumpmapURLs</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initGL">initGL</a></li><li><a href="global.html#loadBumpmap">loadBumpmap</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setDiffuse">setDiffuse</a></li><li><a href="global.html#texture">texture</a></li><li><a href="global.html#u_bumpmap">u_bumpmap</a></li><li><a href="global.html#u_bumpmapSize">u_bumpmapSize</a></li><li><a href="global.html#u_bumpmapStrength">u_bumpmapStrength</a></li><li><a href="global.html#u_lights">u_lights</a></li><li><a href="global.html#u_material">u_material</a></li><li><a href="global.html#u_modelview">u_modelview</a></li><li><a href="global.html#u_normalMatrix">u_normalMatrix</a></li><li><a href="global.html#u_projection">u_projection</a></li><li><a href="global.html#u_texture">u_texture</a></li><li><a href="global.html#u_useTexture">u_useTexture</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Sep 01 2023 09:07:38 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

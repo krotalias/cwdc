@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<html>
+    <head>
+        <title>WebGL Example: Bumpmap</title>
+        <style>
+            body {
+                background-color: #eeeeee;
+                text-align: center;
+                width: fit-content;
+            }
+            #interface {
+                border: medium solid black;
+                background-color: white;
+                padding: 8px;
+                font-size: 200%;
+                width: fit-content;
+                float: left;
+            }
+            #canvas-holder {
+                margin: 0 30px 30px 0;
+                float: left;
+            }
+            #webglcanvas {
+                background-color: red;
+                border: 3px solid goldenrod;
+            }
+            button {
+                font-size: 100%;
+                padding: 0 5px;
+            }
+            label {
+                white-space: pre;
+            }
+            select {
+                display: block;
+                margin: 13px auto;
+                font-size: 100%;
+            }
+            img {
+                display: block;
+                margin: 12px 10px 0 10px;
+                border: thin solid black;
+                width: fit-content;
+            }
+        </style>
+    </head>
+    <body>
+        <noscript
+            ><hr />
+            <h3>
+                This page requires Javascript and a web browser that supports
+                WebGL
+            </h3>
+            <hr
+        /></noscript>
+
+        <div id="canvas-holder">
+            <canvas id="webglcanvas" width="512" height="512"></canvas>
+        </div>
+
+        <div id="interface">
+            <h3>
+                <a href="https://en.wikipedia.org/wiki/Bump_mapping">Bumpmap</a>
+            </h3>
+            <p>
+                <label><b>Image:</b></label>
+                <select id="bumpmap">
+                    <option value="0">Dimples</option>
+                    <option value="1">Marble</option>
+                    <option value="2">Brick</option>
+                    <option value="4">Noise</option>
+                    <option value="3">Metal</option>
+                </select>
+            </p>
+
+            <p>
+                <label><b>Bump Strength:</b></label>
+                <select id="strength">
+                    <option>5</option>
+                    <option>4</option>
+                    <option>3</option>
+                    <option>2</option>
+                    <option>1</option>
+                    <option>0</option>
+                    <option>-1</option>
+                    <option>-2</option>
+                    <option>-3</option>
+                    <option>-4</option>
+                    <option>-5</option>
+                </select>
+            </p>
+
+            <p><button id="reset">Reset Rotation</button></p>
+
+            <p>
+                <label><b>Object:</b></label>
+                <select id="object">
+                    <option value="0">Cone</option>
+                    <option value="1">Cube</option>
+                    <option value="2">Cylinder</option>
+                    <option value="3">Torus</option>
+                    <option value="4">Sphere</option>
+                </select>
+            </p>
+
+            <p>
+                <label><b>Diffuse Color:</b></label>
+                <select id="color">
+                    <option value="0">White</option>
+                    <option value="1">Pink</option>
+                    <option value="2">Yellow</option>
+                    <option value="3">Green</option>
+                    <option value="4">Blue</option>
+                </select>
+            </p>
+
+            <p>
+                <label><b>Heightmap:</b></label>
+                <img id="bumpimage" src="textures/dimples-height-map.png" />
+            </p>
+
+            <p id="message" style="font-size: 60%">
+                Drag on the object to rotate it.
+            </p>
+        </div>
+
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec3 a_coords;
+            attribute vec3 a_normal;
+            attribute vec3 a_tangent;
+            attribute vec2 a_texCoords;
+            uniform mat4 modelview;
+            uniform mat4 projection;
+            varying vec3 v_normal;
+            varying vec3 v_tangent;
+            varying vec3 v_eyeCoords;
+            varying vec2 v_texCoords;
+            void main() {
+                vec4 coords = vec4(a_coords,1.0);
+                vec4 eyeCoords = modelview * coords;
+                gl_Position = projection * eyeCoords;
+                v_normal = normalize(a_normal);
+                v_tangent = normalize(a_tangent);
+                v_eyeCoords = eyeCoords.xyz/eyeCoords.w;
+                v_texCoords = a_texCoords;
+            }
+        </script>
+
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            #ifdef GL_FRAGMENT_PRECISION_HIGH
+               precision highp float;
+            #else
+               precision mediump float;
+            #endif
+            struct MaterialProperties {
+                vec3 diffuseColor;
+                vec3 specularColor;
+                float specularExponent;
+            };
+            struct LightProperties {
+                bool enabled;
+                vec4 position;
+                vec3 color;
+            };
+            uniform MaterialProperties material;
+            uniform LightProperties lights[3];
+            uniform mat3 normalMatrix;
+            uniform sampler2D texture;
+            uniform bool useTexture;
+            uniform sampler2D bumpmap;
+            uniform vec2 bumpmapSize;
+            uniform float bumpmapStrength;
+            varying vec3 v_normal;
+            varying vec3 v_tangent;
+            varying vec3 v_eyeCoords;
+            varying vec2 v_texCoords;
+            vec3 lightingEquation( LightProperties light, vec3 diffuse, vec3 specular, float specularColor,
+                                    vec3 eyeCoords, vec3 N, vec3 V ) {
+                // N is normal vector, V is direction to viewer.
+                vec3 L, R; // Light direction and reflected light direction.
+                if ( light.position.w == 0.0 ) {
+                    L = normalize( light.position.xyz );
+                }
+                else {
+                    L = normalize( light.position.xyz/light.position.w - v_eyeCoords );
+                }
+                if (dot(L,N) <= 0.0) {
+                    return vec3(0.0);
+                }
+                vec3 reflection = dot(L,N) * light.color * diffuse;
+                R = -reflect(L,N);
+                if (dot(R,V) > 0.0) {
+                    float factor = pow(dot(R,V),material.specularExponent);
+                    reflection += factor * specular * light.color;
+                }
+                return reflection;
+            }
+            void main() {
+                vec3 normal = normalize( v_normal );
+                vec3 tangent = normalize( v_tangent );
+                vec3 binormal = cross(normal,tangent);
+                float bm0 = texture2D( bumpmap, v_texCoords ).r;
+                float bmUp = texture2D( bumpmap, v_texCoords + vec2(0.0, 1.0/bumpmapSize.y) ).r;
+                float bmRight = texture2D( bumpmap, v_texCoords + vec2(1.0/bumpmapSize.x, 0.0) ).r;
+                vec3 bumpVector = (bmRight - bm0)*tangent + (bmUp - bm0)*binormal;
+                normal += bumpmapStrength*bumpVector;
+                normal = normalize( normalMatrix*normal );
+                vec3 viewDirection = normalize( -v_eyeCoords);  // (Assumes a perspective projection.)
+                vec3 diffuse;
+                if (useTexture) {
+                    diffuse = texture2D( texture, v_texCoords ).rgb;
+                }
+                else {
+                    diffuse = material.diffuseColor;
+                }
+                vec3 color = vec3(0.0);
+                for (int i = 0; i < 3; i++) {
+                    if (lights[i].enabled) {
+                        color += lightingEquation( lights[i], diffuse, material.specularColor, material.specularExponent,
+                                                    v_eyeCoords, normal, viewDirection);
+                    }
+                }
+                gl_FragColor = vec4(color,1.0);
+            }
+        </script>
+        <script src="/WebGL/lib/gl-matrix/dist/gl-matrix-min.js"></script>
+        <script src="trackball-rotator.js"></script>
+        <script src="basic-object-models-with-tangents-IFS.js"></script>
+        <script src="bumpmap.js"></script>
+    </body>
+</html>

@@ -9,7 +9,7 @@
  * @version 3.4.0
  *
  * @copyright (c) 2015-2021, Brandon Jones, Colin MacKenzie IV.
- * @see <a href="/cwdc/13-webgl/lib/gl-matrix/dist/esm">source</a>
+ * @see <a href="/cwdc/13-webgl/lib/gl-matrix">source</a>
  */
 
 /**
