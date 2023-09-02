@@ -1,0 +1,158 @@
+<!--  Demo of diffuse lighting.
+Same as Lighting.html except uses the Lighting2.js code, which
+includes a sphere model.
+
+This code is dependent on three.js as well as on the teal book utilities,
+see below.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Gouraud shading</title>
+        <style>
+            #interface {
+                width: 900px;
+                margin-left: 50px;
+            }
+            #models,
+            label {
+                font-size: x-large;
+                line-height: 200%;
+            }
+            #models {
+                font-size: 200%;
+            }
+            #opts {
+                list-style: none;
+            }
+            label {
+                margin-right: 40px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="600" height="400">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <div id="interface">
+            <p>
+                <label id="object"><b>Object:</b></label>
+            </p>
+            <select name="models" id="models" onchange="selectModel()">
+                <option value="5" selected="selected">Sphere</option>
+                <option value="6">Teapot</option>
+                <option value="8">Torus Knot</option>
+            </select>
+        </div>
+
+        <br />
+
+        <details>
+            <summary style="font-size: 150%">Keyboard controls:</summary>
+
+            <ul style="list-style: none">
+                <li>SPACE - pause rotation</li>
+                <li>a - toggle axes visible/invisible</li>
+                <li>k - toggle texture on/off</li>
+                <li>l - toggle lines visible/invisible</li>
+                <li>x - rotate about x axis</li>
+                <li>y - rotate about y axis</li>
+                <li>z - rotate about z axis</li>
+                <li>p - teapot</li>
+                <li>s - sphere</li>
+                <li>T - torus knot</li>
+                <li>o - Reset to initial state</li>
+                <li></li>
+            </ul>
+        </details>
+
+        <script id="vertexLightingShader" type="x-shader/x-vertex">
+            uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+            uniform mat3 normalMatrix;
+            uniform vec4 lightPosition;
+            uniform vec4 diffuseColor;
+
+            attribute vec4 a_Position;
+            attribute vec3 a_Normal;
+
+            varying vec4 fColor;
+
+            void main()
+            {
+              // hard-coded surface color
+              // vec4 diffuseColor = vec4(1.0, 0.8, 0.0, 1.0);
+
+              // ambient term based on surface color
+              vec4 ambient = 0.2 * diffuseColor;
+
+              // convert position to eye coords
+              vec4 positionEye = view * model * a_Position;
+
+              // convert light position to eye coords
+              vec4 lightEye = view * lightPosition;
+
+              // vector from vertex position toward light
+              vec3 L = normalize((lightEye - positionEye).xyz);
+
+              // transform normal vector into eye coords
+              vec3 N = normalize(normalMatrix * a_Normal);
+
+              // alternative, if there is no non-uniform scaling
+              //vec3 N = (view * model * vec4(a_Normal, 0.0)).xyz;
+
+              // Lambert's law, clamp negative values to zero
+              float diffuseFactor = clamp(dot(L, N),0.0,1.0);
+
+              // scale color by above factor
+              fColor = diffuseColor * diffuseFactor + ambient;
+
+              // restore alpha to fully opaque
+              fColor.a = 1.0;
+
+              // don't forget to compute the vertex position!
+              gl_Position = projection * view * model * a_Position;
+            }
+        </script>
+
+        <script id="fragmentLightingShader" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 fColor;
+            void main()
+            {
+              gl_FragColor = fColor;
+            }
+        </script>
+
+        <script id="vertexColorShader" type="x-shader/x-vertex">
+            uniform mat4 transform;
+            attribute vec4 a_Position;
+            attribute vec4 a_Color;
+            varying vec4 color;
+            void main()
+            {
+              color = a_Color;
+              gl_Position = transform * a_Position;
+            }
+        </script>
+
+        <script id="fragmentColorShader" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 color;
+            void main()
+            {
+              gl_FragColor = color;
+            }
+        </script>
+
+        <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
+        <script src="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js"></script>
+        <script src="/cwdc/13-webgl/lib/simple-rotator.js"></script>
+        <script type="module" src="Lighting2.js"></script>
+    </body>
+</html>
