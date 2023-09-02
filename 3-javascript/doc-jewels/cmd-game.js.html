@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: cmd-game.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: cmd-game.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  @file
+ *
+ *  Summary.
+ *  &lt;p>Bejeweled - A damn cool and awesome game.&lt;/p>
+ *
+ *  Description.
+ *  &lt;p> Bejeweled is a tile-matching puzzle video game by PopCap Games,
+ *  developed for browsers in 2001. &lt;/p>
+ *
+ *  &lt;p>The goal is to clear gems of the same color, potentially causing a chain reaction. &lt;/p>
+ *
+ *  &lt;p>The game sold over 10 million copies and has been downloaded more than 150 million times. &lt;/p>
+ *
+ *  &lt;pre>
+ *  Usage:
+ *  - npm init
+ *  - npm install readline-sync
+ *  - node cmd-game.mjs [nrow] [ncol] [nico] [debug]
+ *  &lt;/pre>
+ *
+ *  @author Paulo Roma
+ *  @since 10/03/2021
+ *
+ *  @see &lt;a href="/cwdc/3-javascript/jewels/cmd.html?height=7&amp;width=10&amp;debug">link&lt;/a>
+ *  @see &lt;a href="/cwdc/3-javascript/jewels/cmd-game.js">source&lt;/a>
+ *  @see &lt;a href="../jewels/cmd-game.mjs">cmd-game in node&lt;/a>
+ *  @see &lt;img src="../jewels/cmd-game.png" width="512">
+ */
+import { GameImpl } from "./GameImpl.js";
+import { BasicGenerator } from "./BasicGenerator.js";
+import { cell } from "./Cell.js";
+
+/** Display the board and the score.
+ *
+ *  @param {GameImpl} game the object to work with.
+ */
+function displayBoard(game) {
+  if (typeof document === "undefined") {
+    console.log("Score = " + game.getScore());
+    console.log(game.repr().replace(/\n/g, "\n"));
+  } else {
+    document.getElementById("score").innerHTML = "Score = " + game.getScore();
+    document.getElementById("board").innerHTML = game
+      .repr()
+      .replace(/\n/g, "&lt;br />");
+  }
+}
+
+/** Display a message to the user.
+ *
+ *  @param {String} message feedback string.
+ */
+function message(message) {
+  if (typeof document === "undefined") {
+    console.log(message);
+  } else {
+    document.getElementById("message").innerHTML = message;
+  }
+}
+
+/** Keep processing movements.
+ *
+ *  @param {GameImpl} game the object to work with.
+ *  @param {number} row row index.
+ *  @param {number} col column index.
+ *  @param {boolean} move movement.
+ */
+export function gameLoop(game, i, j, pos) {
+  let w = game.getWidth();
+  let h = game.getHeight();
+
+  displayBoard(game);
+
+  if (typeof document !== "undefined") {
+    var bform = document.forms["bejeweled"];
+    var i = document.getElementById("y").value; // row
+    var j = document.getElementById("x").value; // column
+    var pos = document.getElementById("move").value;
+  }
+  let k = 0;
+  let l = 0;
+
+  i = Math.min(Math.max(0, i), h - 1);
+  j = Math.min(Math.max(0, j), w - 1);
+  if (pos == "left" &amp;&amp; j > 0) {
+    l = j - 1;
+    k = i;
+  } else if (pos == "up" &amp;&amp; i > 0) {
+    k = i - 1;
+    l = j;
+  } else if (pos == "down" &amp;&amp; i &lt; h - 1) {
+    k = i + 1;
+    l = j;
+  } else if (pos == "right" &amp;&amp; j &lt; w - 1) {
+    l = j + 1;
+    k = i;
+  } else {
+    message("Invalid Direction");
+  }
+
+  if (
+    game.select(
+      new Array(
+        new cell(i, j, game.getIcon(i, j)),
+        new cell(k, l, game.getIcon(k, l))
+      )
+    )
+  ) {
+    do {
+      game.removeAllRuns();
+    } while (game.findRuns(false).length > 0);
+
+    message("Movement Executed");
+  } else {
+    message("Invalid Movement");
+  }
+
+  displayBoard(game);
+}
+
+/** Main function for triggering the game in text mode.
+ *  &lt;br>
+ *  Creates an object BasicGenerator and an object game.
+ *  Also prints the initial board.
+ *
+ *  @param {Number} nrows number of rows.
+ *  @param {Number} ncols number of columns.
+ *  @param {Number} nicons number of icons.
+ *  @param {Boolean} debug debugging state.
+ *  @return {GameImpl} the object game.
+ */
+export function mainGame(nrows, ncols, nicons, debug) {
+  let gen = new BasicGenerator(nicons); // nicons different types
+  const game = new GameImpl(ncols, nrows, gen);
+  game.setDebug(debug);
+  displayBoard(game);
+  return game;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicGenerator.html">BasicGenerator</a></li><li><a href="BasicIcon.html">BasicIcon</a></li><li><a href="GameImpl.html">GameImpl</a></li><li><a href="cell.html">cell</a></li></ul><h3>Interfaces</h3><ul><li><a href="IGame.html">IGame</a></li><li><a href="IGenerator.html">IGenerator</a></li><li><a href="Icon.html">Icon</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bd">bd</a></li><li><a href="global.html#cellPos">cellPos</a></li><li><a href="global.html#cells">cells</a></li><li><a href="global.html#clicked">clicked</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createSquare">createSquare</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#displayBoard">displayBoard</a></li><li><a href="global.html#drop">drop</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#game">game</a></li><li><a href="global.html#gameLoop">gameLoop</a></li><li><a href="global.html#gamePanel">gamePanel</a></li><li><a href="global.html#gen">gen</a></li><li><a href="global.html#getUrlParameter">getUrlParameter</a></li><li><a href="global.html#grid">grid</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#img">img</a></li><li><a href="global.html#mainGame">mainGame</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#move_swp">move_swp</a></li><li><a href="global.html#nico">nico</a></li><li><a href="global.html#refresh">refresh</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#swap">swap</a></li><li><a href="global.html#swap_pos">swap_pos</a></li><li><a href="global.html#width">width</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 02 2023 08:45:02 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

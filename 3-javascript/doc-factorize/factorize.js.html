@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: factorize.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: factorize.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ * Summary.
+ * &lt;p>A faster factorization algorithm.&lt;/p>
+ *
+ * &lt;p>The fundamental theorem of arithmetic states that every positive integer
+ * (except the number 1) can be represented in exactly one way, apart from
+ * rearrangement, as a product of one or more primes
+ * &lt;a href="https://blngcc.files.wordpress.com/2008/11/hardy-wright-theory_of_numbers.pdf">
+ * (Hardy and Wright 1979, pp 2-3)&lt;/a>.&lt;/p>
+ *
+ * &lt;p>This is a "fast" algorithm, which can factorize large numbers in a
+ * reasonably small time.&lt;/p>
+ *
+ * @author Paulo Roma
+ * @since 27/12/2021
+ * @see &lt;a href="/cwdc/3-javascript/bigint/gcd.html">link&lt;/a>
+ * @see &lt;a href="/cwdc/3-javascript/bigint/factorize.js">source&lt;/a>
+ * @see https://mathworld.wolfram.com/PrimeFactorizationAlgorithms.html
+ * @see https://academickids.com/encyclopedia/index.php/Prime_factorization_algorithm
+ * @see https://en.wikipedia.org/wiki/Integer_factorization
+ * @see https://javascript.info/modules-dynamic-imports
+ * @see https://www.scriptol.com/javascript/include.php
+ * @see &lt;a href="../doc-factorize-node">factorize in node&lt;/a>
+ * @see &lt;a href="../doc-factorize-ui-node">factorize UI in node&lt;/a>
+ * @see &lt;img src="../bigint/bigint.png" width="512">
+ */
+
+"use strict";
+
+/**
+ * Load bitset for node.
+ * @name Call load bitset
+ * @description &lt;p>Load bitset.js for node. &lt;/p>
+ * @global
+ * @see &lt;a href="/cwdc/3-javascript/doc-factorize/global.html#loadScript">loadScript&lt;/a>
+ */
+await loadScript("bitset.js");
+
+/**
+ * A cache array with the first 15 primes to speed up factorization.
+ * @type {Array&lt;Number>}
+ */
+const cachedPrimes = sieve(47);
+
+/**
+ * &lt;p>Load a script for running nodejs.&lt;/p>
+ *
+ * Export and import statements are static.
+ * &lt;ul>
+ * &lt;li>The import(module) expression loads the module and returns a promise&lt;br>
+ * that resolves into a module object, which contains all its exports.&lt;/li>
+ * &lt;li>It can be called from any place in the code.&lt;/li>
+ * &lt;/ul>
+ *
+ * &lt;p>We can use it dynamically in any place of the code, for instance, to load
+ * bitset.js when using nodejs:&lt;/p>
+ * &lt;ul>
+ *   &lt;li>vm.runInThisContext() compiles code, runs it within the context of the current
+ *   global and returns the result.&lt;/li>
+ *   &lt;li>Running code does not have access to local scope, but does have access to
+ *   the current global object.&lt;/li>
+ * &lt;/ul>
+ *
+ * @param {String} jscript script file name.
+ * @return {Promise&lt;void>}
+ * @see https://javascript.info/modules-dynamic-imports
+ * @see https://nodejs.org/api/vm.html#vmruninthiscontextcode-options
+ */
+export async function loadScript(jscript) {
+  if (typeof window === "undefined") {
+    let fs = await import("fs");
+    let vm = await import("vm");
+    try {
+      vm.runInThisContext(fs.readFileSync(jscript));
+    } catch (err) {
+      if (err) {
+        if (err.code !== "ENOENT") throw err;
+
+        console.log(`Script not found: ${jscript}`);
+        process.exit(1);
+      }
+    }
+  }
+}
+
+/**
+ * A closure to map a decimal digit to its utf8 subscript or superscript equivalent.
+ * @function
+ *
+ * @returns {map_typography} callback for mapping subscript and superscript digits.
+ * @see https://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts
+ */
+export const translate = (function () {
+  let superscript = [];
+  let subscript = [];
+
+  const zip = (a, b) => a.map((k, i) => [k, b[i]]);
+
+  for (let t of zip("0123456789".split(""), "⁰¹²³⁴⁵⁶⁷⁸⁹".split(""))) {
+    superscript[t[0]] = t[1];
+  }
+
+  for (let t of zip("0123456789".split(""), "₀₁₂₃₄₅₆₇₈₉".split(""))) {
+    subscript[t[0]] = t[1];
+  }
+
+  /**
+   * Map a decimal digit to its utf8 subscript or superscript equivalent.
+   * @param {String} c digit.
+   * @returns {Object&lt;{sub:String, sup:String}>} subscript and superscript digits.
+   * @callback map_typography
+   * @see https://en.wikipedia.org/wiki/Subscript_and_superscript
+   */
+  return (c) => {
+    return {
+      sub: subscript[c],
+      sup: superscript[c],
+    };
+  };
+})();
+
+/**
+ * &lt;p>JavaScript is a prototype based language.
+ * Therefore, whenever we create a function,
+ * JavaScript engine adds a prototype property inside that function.&lt;/p>
+ *
+ * &lt;p>The prototype property is basically an object (also known as Prototype object),
+ * where methods and properties can be attached,
+ * thus enabling all of the other derived objects to inherit them.&lt;/p>
+ *
+ * However, it is not advisable to change the prototype of an object
+ * that we do not control, such as:
+ * &lt;ul>
+ *  &lt;li>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean&lt;/a>,&lt;/li>
+ *  &lt;li>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number&lt;/a>,&lt;/li>
+ *  &lt;li>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt">BigInt&lt;/a>,&lt;/li>
+ *  &lt;li>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String&lt;/a>,&lt;/li>
+ *  &lt;li>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbol&lt;/a>,&lt;/li>
+ *  &lt;li>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object&lt;/a>,&lt;/li>
+ *  &lt;li>&lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array&lt;/a>.&lt;/li>
+ * &lt;/ul>
+ *
+ * Nonetheless, here, the temptation was stronger...
+ * &lt;hr />
+ * &lt;p>Add a new method to BigInt's prototype to calculate
+ * the integer part of its square root.&lt;/p>
+ *
+ * &lt;p>It is applied the Newton method for solving: x² - this = 0,
+ * using only integer divisions.&lt;/p>
+ *
+ * Although sqrt(n) is irrational for many n, the sequence
+ * {x&lt;sub>k&lt;/sub>} contains only rational terms when x&lt;sub>0&lt;/sub> is rational.
+ *
+ * &lt;p>Thus, with this method it is unnecessary to exit the field of rational numbers,
+ * in order to calculate isqrt(n), a fact which has some theoretical advantages.&lt;/p>
+ *
+ * &lt;ul>
+ * &lt;li>r&lt;sub>new&lt;/sub> = r - f(r)/f'(r) = r - (r² - this)/2r ≊ ⌊(r + ⌊this/r⌋)/2⌋ = ⌊(r + this/r)/2⌋, r&lt;sub>0&lt;/sub> > 0, r&lt;sub>0&lt;/sub> ∈ ℤ.&lt;/li>
+ * &lt;li>initial estimate should be greater than the real root, such as the number itself or
+ * the smallest power of 2 that exceed its isqrt:&lt;/li>
+ *  &lt;ul>
+ *    &lt;li>r&lt;sub>0&lt;/sub> = this or&lt;/li>
+ *    &lt;li>r&lt;sub>0&lt;/sub> = 1n &lt;&lt; (BigInt(bitLength(this) + 1) >> 1n)&lt;/li>
+ *  &lt;/ul>
+ * &lt;/ul>
+ *
+ * @function
+ * @global
+ * @return {BigInt} int(sqrt(this)).
+ * @see https://www.freecodecamp.org/news/all-you-need-to-know-to-understand-javascripts-prototype-a2bff2d28f03/
+ * @see https://en.wikipedia.org/wiki/Newton's_method
+ * @see http://en.wikipedia.org/wiki/Integer_square_root
+ * @see https://stackoverflow.com/questions/15390807/integer-square-root-in-python
+ * @see https://stackoverflow.com/questions/15390807/integer-square-root-in-python/31224469#31224469
+ * @see https://www.mathsisfun.com/algebra/quadratic-equation-graph.html
+ * @see &lt;a href="/python/labs/doc/html/namespace__04b__intsqrt.html">intsqrt&lt;/a>
+ */
+BigInt.prototype.isqrt = function () {
+  if (this &lt; 0) return NaN;
+  else if (this &lt; 2) return this;
+  // smallest power of 2 that exceed the square root
+  let r = 1n &lt;&lt; (BigInt(bitLength(this) + 1) >> 1n);
+  while (true) {
+    var rnew = (r + this / r) >> 1n; // integer division
+    if (rnew >= r) return r;
+    r = rnew;
+  }
+};
+
+/**
+ * &lt;p>Add a new method to Number's prototype to calculate
+ * the integer part of its square root.&lt;/p>
+ *
+ * &lt;p>It is applied the Newton method for solving: x² - this = 0&lt;/p>
+ *
+ * &lt;ul>
+ * &lt;li>r&lt;sub>new&lt;/sub> = r - f(r)/f'(r) = r - (r² - this)/2r ≊ ⌊(r + ⌊this/r⌋)/2⌋ = ⌊(r + this/r)/2⌋, r&lt;sub>0&lt;/sub> > 0, r&lt;sub>0&lt;/sub> ∈ ℤ.&lt;/li>
+ * &lt;li>initial estimate should be greater than the real root, such as:&lt;/li>
+ *  &lt;ul>
+ *    &lt;li>r&lt;sub>0&lt;/sub> = this or&lt;/li>
+ *    &lt;li>r&lt;sub>0&lt;/sub> = 2 ** Math.floor((bitLength(this) + 1) / 2)&lt;/li>
+ *  &lt;/ul>
+ * &lt;/ul>
+ *
+ * @function
+ * @global
+ * @return {Number} int(sqrt(this)).
+ * @see https://www.freecodecamp.org/news/all-you-need-to-know-to-understand-javascripts-prototype-a2bff2d28f03/
+ * @see https://en.wikipedia.org/wiki/Newton's_method
+ * @see http://en.wikipedia.org/wiki/Integer_square_root
+ * @see https://stackoverflow.com/questions/15390807/integer-square-root-in-python
+ * @see https://www.mathsisfun.com/algebra/quadratic-equation-graph.html
+ * @see &lt;a href="/python/labs/doc/html/namespace__04b__intsqrt.html">intsqrt&lt;/a>
+ */
+Number.prototype.isqrt = function () {
+  if (this &lt; 0) return NaN;
+  else if (this &lt; 2) return this;
+  // all bitwise operations are performed on 32 bits binary numbers.
+  // two to the power of the number of bits of its isqrt.
+  let r = 2 ** Math.floor((bitLength(this) + 1) / 2);
+  while (true) {
+    var rnew = (r + this / r) / 2;
+    rnew = Math.trunc(rnew); // integer division
+    if (rnew >= r) return r;
+    r = rnew;
+  }
+};
+
+/**
+ * Type casts a variable to the type of another variable.
+ *
+ * @param {Number | BigInt} x given variable.
+ * @param {Number | BigInt} n the other variable.
+ * @returns {Number | BigInt} cast variable.
+ */
+export function typeCast(x, n) {
+  return typeof n == "bigint" ? BigInt(x) : x;
+}
+
+/**
+ * Return the amount of bits of a whole number.
+ *
+ * @param {Number | BigInt} x given number.
+ * @returns {Number} amount of bits.
+ * @see https://en.wikipedia.org/wiki/Bit-length
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString
+ */
+export function bitLength(x) {
+  return typeof x == "bigint"
+    ? x.toString(2).length
+    : Math.ceil(Math.log2(Math.abs(x) + 1));
+}
+
+/**
+ * Return the amount of decimal digits of a whole number.
+ *
+ * @param {Number | BigInt} x given number.
+ * @returns {Number} amount of digits.
+ * @see https://en.wikipedia.org/wiki/Bit-length
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString
+ */
+export function decLength(x) {
+  return typeof x == "bigint"
+    ? x.toString(10).length
+    : Math.ceil(Math.log10(Math.abs(x) + 1));
+}
+
+/**
+ * Returns whether a given string represents a numerical value.
+ *
+ * @param {String} d given string.
+ * @returns {Boolean} true if d can be converted to a number, and false otherwise.
+ * @see https://stackoverflow.com/questions/8935632/check-if-character-is-number
+ */
+export function isDigit(d) {
+  return +d == d;
+}
+
+/**
+ * &lt;p>Stringify a condensed array of factors of a given whole number.&lt;p>
+ *
+ * &lt;p>Each factor is separated by an '×' symbol:&lt;/p>
+ *
+ * 345
+ * &lt;ul>
+ *   &lt;li>3 × 5 × 23&lt;/li>
+ * &lt;/ul>
+ *
+ * 173248246132375748867198458668657948626531982421875
+ * &lt;ul>
+ *   &lt;li>3²⁴ × 5¹⁴ × 7³³ × 13&lt;/li>
+ * &lt;/ul>
+ *
+ * @param {Number | BigInt} n a given whole number.
+ * @returns {String} string of factors of n.
+ */
+export function factorization(n) {
+  return condense(factorize(n)).join(" × ");
+}
+
+/**
+ * &lt;p>Returns an array with all primes up to n.&lt;/p>
+ * &lt;p>We're iterating through n numbers. Whenever we reach a prime p,
+ * we start iterating through the multiples of p up to n.&lt;/p>
+ *
+ * &lt;p>For each prime, this takes n/p operations.&lt;/p>
+ *
+ * n ∑&lt;sub>p&lt;sub>prime&lt;/sub> ≤ n&lt;/sub> 1/p = n (ln(ln(n)) + M)
+ *
+ * &lt;p>So we end up with the prime harmonic series up to n, which actually evaluates out to log(log(n)).
+ * The total complexity is then: O(n log(log(n)).&lt;/p>
+ *
+ * @param {Number | BigInt} n a given positive whole number.
+ * @return {Array&lt;Number>} array holding the primes up to n.
+ * @see https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+ * @see &lt;a href="/python/laboratorios.html#sieve">sieve&lt;/a>
+ */
+export function sieve(n) {
+  if (n &lt; 2 || n > 4294967295) return [];
+  if (n > 1000) return sieve2(n, n &lt;= 1000);
+  n = Number(n);
+
+  // For an Array the maximum length is 4GB-1 (2^32-1 = 4294967295).
+  // This is a waste of space, because we need just n bits.
+  let l = Array.from({ length: n + 1 }, (_, index) => index);
+  l[0] = l[1] = null;
+  for (let i of l) // in fact, this loop ends when i == int(sqrt(n)) - see below
+    if (i != null) {
+      // it's enough to eliminate multiples starting at
+      // the square of the number, because all factors
+      // until (i-1) have been already tested.
+      let j = i * i;
+      if (j > n) break; // or i > sqrt(n)
+      while (j &lt;= n) {
+        l[j] = null;
+        j += i;
+      }
+    }
+  return l.filter((value) => value != null);
+}
+
+/**
+ * &lt;p>Memory efficient version using bitset.&lt;/p>
+ *
+ * I do not know the real limit of this function in node:
+ * &lt;ul>
+ * &lt;li>FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory&lt;/li>
+ * &lt;ul>
+ * &lt;li>node -e 'console.log(v8.getHeapStatistics().heap_size_limit/(1024*1024))'&lt;/li>
+ * &lt;li>export NODE_OPTIONS="--max-old-space-size=8192"&lt;/li>
+ * &lt;/ul>
+ * &lt;/ul>
+ *
+ * @param {Number | BigInt} n a given positive whole number.
+ * @param {Boolean} arr whether to return an array with primes or just the bitset.
+ * @return {Array&lt;Number> | BitSet} array of primes, or a bitarray indicating the primes up to n.
+ *
+ * @see https://www.xarg.org/2014/03/javascript-bit-array/
+ * @see &lt;a href="/python/labs/doc/html/__04d__sieve_8py.html">sieve&lt;/a>
+ */
+export function sieve2(n, arr = false) {
+  if (n &lt; 2 || n > Number.MAX_SAFE_INTEGER) return [];
+  n = Number(n);
+
+  var bs = new BitSet();
+  // set size to n and all bits ∈ [2,n] to 1
+  // "111111111111111111111111111111100"
+  bs.flip(2, n);
+
+  var j,
+    i = 2;
+  while ((j = i * i) &lt;= n) {
+    // in fact, this loop ends when i > n.isqrt() - see below
+    if (bs.get(i)) {
+      // it's enough to eliminate multiples starting at
+      // the square of the number, because all factors
+      // until (i-1) have been already tested.
+      while (j &lt;= n) {
+        bs.clear(j);
+        j += i;
+      }
+    }
+    i += i &lt; 3 ? 1 : 2;
+  }
+  // maximum array size is 2**32-1
+  // "10100000100010100010100010101100"
+  // [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+  return arr ? bs.toArray() : bs;
+}
+
+/**
+ * &lt;p>Checks if a given whole number is prime.&lt;/p>
+ *
+ * &lt;p>A prime number (or a prime) is a natural number
+ * which has exactly two distinct natural number divisors:
+ * 1 and itself.&lt;/p>
+ *
+ * Only divisors up to ⌊√n⌋ (where ⌊x⌋ is the floor function) need to be tested.
+ * This is true since if all integers less than this had been tried, then
+ * n / (⌊√n⌋+1) &lt; √n.
+ * In other words, all possible factors have had their cofactors already tested.
+ * Given a factor a of a number n=ab, the cofactor of a is b=n/a.
+ *
+ * &lt;p>Trial division, used here, is hopeless for finding any but small prime numbers.
+ * Mathematica versions 2.2 and later have implemented the multiple
+ * Rabin-Miller test combined with a Lucas pseudoprime test.&lt;/p>
+ *
+ * @param {Number | BigInt} n given whole number.
+ * @returns {Boolean} true if n is a prime, and false otherwise.
+ * @see &lt;a href="/python/laboratorios.html#prime">prime&lt;/a>
+ * @see https://literateprograms.org/miller-rabin_primality_test__python_.html
+ *
+ */
+export function isPrime(n) {
+  if (n &lt;= 1) return false;
+  const high = n.isqrt();
+  for (let x of cachedPrimes) {
+    if (x > high) {
+      return true;
+    }
+    if (n % typeCast(x, n) == 0) {
+      return false;
+    }
+  }
+  // the last prime in the cachedPrimes
+  let maxprimeinlist = cachedPrimes[cachedPrimes.length - 1];
+  let bigX = typeCast(maxprimeinlist + 2, n);
+  const two = typeCast(2, n);
+  while (bigX &lt;= high) {
+    if (n % bigX == 0) return false;
+    bigX += two;
+  }
+  return true;
+}
+
+/**
+ * &lt;p>Factorizes a whole number.&lt;/p>
+ *
+ * In number theory, integer factorization is the decomposition of a composite number
+ * into a product of smaller integers.&lt;br />
+ * If these factors are further restricted to prime numbers,
+ * the process is called prime factorization.
+ *
+ * &lt;p>Essentially, to factor a negative number, find all of its positive factors,
+ * then duplicate them and write a negative sign in front of the duplicates.&lt;/p>
+ *
+ * &lt;p>Prime factorization or integer factorization of a number is breaking a number
+ * down into the set of prime numbers, which multiply together to result in the original number.
+ * This is also known as prime decomposition.&lt;/p>
+ *
+ * &lt;p>If we know that one of the prime factors of x is p,
+ * then all the prime factors of x are p plus the decomposition of x/p.&lt;/p>
+ *
+ * &lt;p>Number x cannot have more than log x prime factors, because every prime factor is ≥ 2.
+ * Factorization by the above method works in O(log x) time complexity.&lt;/p>
+ *
+ * Note that consecutive factors will be presented in non-decreasing order.
+ * The amount of memory needed for large numbers is prohibitive.
+ *
+ * &lt;pre>
+ *  For x = 20,         F[20] = 2 → [2]
+ *      x = 20/2 = 10,  F[10] = 2 → [2,2]
+ *      x = 10/2 = 5,   F[5]  = 0 → [2,2,5]
+ * &lt;/pre>
+ *
+ * E.g.:
+ * &lt;ul>
+ *  &lt;li>factorize(12) → [2, 2, 3]&lt;/li>
+ *  &lt;li>factorize(-12) → [2, 2, 3, -1]&lt;/li>
+ * &lt;/ul>
+ *
+ * @param {Number | BigInt} n given whole number.
+ * @returns {Array&lt;Number|BigInt>} an array with the prime factors of n.
+ * @see https://sciencing.com/factor-negative-numbers-8170436.html
+ * @see https://en.wikipedia.org/wiki/Integer_factorization
+ * @see https://betterprogramming.pub/the-downsides-of-bigints-in-javascript-6350fd807d
+ */
+export function factorize(n) {
+  let primes = [];
+  let index = 0;
+  let candidate = cachedPrimes[index];
+  let neg = n &lt; 0;
+
+  if (n == 0 || n == 1) return [n];
+
+  // BigInt operations are carried out in software (slower than Number)
+  if (n &lt;= Number.MAX_SAFE_INTEGER) n = Number(n);
+
+  if (neg) n = -n;
+
+  let high = n.isqrt();
+
+  if (isPrime(n)) {
+    primes = [n];
+    if (neg) primes.push(-1);
+    return primes;
+  }
+
+  while (candidate &lt;= high) {
+    let bigCandidate = typeCast(candidate, n);
+    if (n % bigCandidate == 0) {
+      // All factors of "n", lesser than "candidate", have been found before.
+      // Therefore, "candidate" cannot be composite.
+      n /= bigCandidate;
+      primes.push(candidate);
+      primes = primes.concat(factorize(n)); // recursive call
+      break;
+    }
+    index++;
+    if (index &lt; cachedPrimes.length) {
+      candidate = cachedPrimes[index];
+    } else {
+      candidate += 2;
+    }
+  }
+  if (neg) {
+    // primes = primes.concat(primes.map((p) => -p));
+    primes.push(-1);
+  }
+  return primes;
+}
+
+/**
+ * Return a superscript in unicode (e.g.: 12 → ¹²), or an HTML &amp;lt;sup&amp;gt;12&amp;lt;/sup&amp;gt;,
+ * for the given digits.
+ *
+ * &lt;p>If type is false, and no translate function is available, it is returned '^12'&lt;/p>
+ *
+ * @param {String} val a sequence of decimal digits.
+ * @param {Boolean} type select the superscript method.
+ * @returns {String} superscript digits.
+ */
+function exponent(val, type = false) {
+  if (type) {
+    return `&lt;sup>${val}&lt;/sup>`;
+  } else if (typeof translate !== "undefined") {
+    return val
+      .split("")
+      .map((c) => {
+        return translate(c).sup;
+      })
+      .join("");
+  } else {
+    return `^${val}`;
+  }
+}
+
+/**
+ * &lt;p>Condenses the array of prime factors of a whole number,
+ * so that each factor appears just once,
+ * in the format prime&lt;sup>nth&lt;sub>power&lt;/sub>&lt;/sup>.&lt;/p>
+ *
+ * e.g., node factorize.mjs 173248246132375748867198458668657948626531982421875
+ * &lt;ul>
+ *   &lt;li>['3²⁴', '5¹⁴', '7³³', '13'] (unicode translation table)&lt;/li>
+ *   &lt;li>['3&lt;sup>24&lt;/sup>', '5&lt;sup>14&lt;/sup>', '7&lt;sup>33&lt;/sup>', '13'] (html)&lt;/li>
+ *   &lt;li>['3^24', '5^14', '7^33', '13'] (None)&lt;/li>
+ * &lt;/ul>
+ *
+ * @param {Array&lt;Number|BigInt>} lst an array with the prime factors of a whole number.
+ * @returns {String[]} a condensed array.
+ */
+function condense(lst) {
+  let prime = null;
+  let count = 0;
+  let list = [];
+  let neg = false;
+
+  for (let x of lst) {
+    if (x &lt; 0) {
+      // skip negative factors
+      neg = true;
+      continue;
+    }
+    if (x == prime) {
+      count += 1;
+    } else {
+      if (prime) {
+        list.push(prime.toString());
+        if (count > 1) {
+          list[list.length - 1] += exponent(count.toString());
+        }
+      }
+      prime = x;
+      count = 1;
+    }
+  }
+  if (count) list.push(prime.toString());
+  if (count > 1) {
+    list[list.length - 1] += exponent(count.toString());
+  }
+  if (neg) list.unshift(-1);
+  return list;
+}
+
+/**
+ * Print on the console the returned value of some functions.
+ */
+export function test() {
+  console.log(
+    `BigInt(2305843009213693951).isqrt() = ${BigInt(
+      2305843009213693951
+    ).isqrt()}`
+  );
+  console.log(
+    `factorization(BigInt(2305843009213693951)) = ${factorization(
+      BigInt(2305843009213693951)
+    )}`
+  );
+  console.log(`sieve(BigInt(256)) = ${sieve(BigInt(256))}`);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-gcd.html">gcd</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Callloadbitset">Call load bitset</a></li><li><a href="global.html#bitLength">bitLength</a></li><li><a href="global.html#cachedPrimes">cachedPrimes</a></li><li><a href="global.html#condense">condense</a></li><li><a href="global.html#decLength">decLength</a></li><li><a href="global.html#exponent">exponent</a></li><li><a href="global.html#factorization">factorization</a></li><li><a href="global.html#factorize">factorize</a></li><li><a href="global.html#isDigit">isDigit</a></li><li><a href="global.html#isPrime">isPrime</a></li><li><a href="global.html#isqrt">isqrt</a></li><li><a href="global.html#loadScript">loadScript</a></li><li><a href="global.html#sieve">sieve</a></li><li><a href="global.html#sieve2">sieve2</a></li><li><a href="global.html#test">test</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#typeCast">typeCast</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 02 2023 08:45:03 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

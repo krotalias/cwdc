@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-roman-storage.html">roman-storage</a>~</span>roman-storage.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Remember the values of the last conversion.</p>
+
+ <p>After submitting the form, all of the local javascript data is gone, and
+ the page is reloaded, which may cause some flicker.</p>
+
+ <p>Therefore, the data has to be to stored some way, with either PHP, Local Storage, or Cookies.
+ The advantages of using forms are their properties, such as error handling.</p>
+
+ <p>localStorage is similar to sessionStorage, except that while localStorage data has no expiration time,
+ sessionStorage data gets cleared when the page session ends — that is, when the page is closed.</p>
+
+ <p>localStorage data for a document loaded in a "private browsing" or "incognito" session
+ is cleared when the last "private" tab is closed.</p>
+
+ <p>If there IS a submit button, it will be clicked when one presses Enter in a text field.</p>
+
+ <p>Since there is no server here, there is nothing to submit,
+ and of course, there would be no need of a local storage, other than remembering the
+ state for the next execution.</p>
+
+ <p>In this case, we could either have used:</p>
+ <pre>
+     document.getElementById("roman_button").addEventListener("click", function(event){
+         event.preventDefault();
+         ...
+      });
+
+     or (one of the two buttons could have type="button", in this case).
+     document.getElementById("romanform").onsubmit=function(e) {
+         e.preventDefault();
+         ...
+     }
+ </pre></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="roman-storage.js.html">roman-storage.js</a>, <a href="roman-storage.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer">https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer</a></li>
+        
+            <li><a href="https://stackoverflow.com/questions/8634058/where-the-sessionstorage-and-localstorage-stored">https://stackoverflow.com/questions/8634058/where-the-sessionstorage-and-localstorage-stored</a></li>
+        
+            <li><a href="../roman/roman-storage.js">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-roman.html">roman</a>~</span>roman.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Converting decimal numbers to roman numerals and vice versa.</p>
+
+ <p>Roman numerals, the numeric system in ancient Rome, uses combinations of letters
+ from the Latin alphabet to signify values. </p>
+
+<p>The numbers 1 to 10, 50, 100, 500 e 1000
+can be expressed in Roman numerals as follows: </p>
+   - I, II, III, IV, V, VI, VII, VIII, IX, X, L, C, D, and M. <br>
+
+ <p>In the Middle Ages, a horizontal line was used above a particular numeral,
+    or parentheses placed around it, to represent one thousand times that numeral. </p>
+   - <span style="text-decoration:overline">I</span> or (I) for one thousand. <br>
+   - <span style="text-decoration:overline">V</span> or (V) for five thousand. <br>
+
+ <pre>
+ Documentation:
+ - Ubuntu:
+    - sudo apt install jsdoc-toolkit
+ - MacOS:
+    - sudo port install npm8 (or npm9)
+    - sudo npm install -g jsdoc
+ - jsdoc -d doc-roman roman.js
+
+ Usage:
+ - npm init
+ - npm install readline-sync
+ - node roman.mjs [number|string]
+ </pre></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>04/05/2021</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="roman.js.html">roman.js</a>, <a href="roman.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Roman_numerals">https://en.wikipedia.org/wiki/Roman_numerals</a></li>
+        
+            <li><a href="/cwdc/3-javascript/roman/roman.js">source</a></li>
+        
+            <li><a href="../doc-roman-node">roman in node</a></li>
+        
+            <li><img src="../roman/roman.png" width="340"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-roman.html">roman</a></li><li><a href="module-roman-storage.html">roman-storage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#decimalbuttonclick">decimal button click</a></li><li><a href="global.html#decimalstringtyped">decimal string typed</a></li><li><a href="global.html#romanbuttonclick">roman button click</a></li><li><a href="global.html#romanstringtyped">roman string typed</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 02 2023 08:45:04 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

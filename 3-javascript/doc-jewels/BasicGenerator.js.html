@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: BasicGenerator.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: BasicGenerator.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  @file
+ *
+ *  Summary.
+ *  &lt;p>Bejeweled - A damn cool and awesome game.&lt;/p>
+ *
+ *  Description.
+ *  &lt;p> Bejeweled is a tile-matching puzzle video game by PopCap Games,
+ *  developed for browsers in 2001. &lt;/p>
+ *
+ *  &lt;p>The goal is to clear gems of the same color, potentially causing a chain reaction. &lt;/p>
+ *
+ *  &lt;p>The game sold over 10 million copies and has been downloaded more than 150 million times. &lt;/p>
+ *
+ *  @author Paulo Roma
+ *  @see &lt;a href="/cwdc/3-javascript/jewels/BasicGenerator.js">source&lt;/a>
+ *  @since 10/03/2021
+ */
+
+import { BasicIcon } from "./BasicIcon.js";
+import { IGenerator } from "./IGenerator.js";
+
+/**
+ * Class for generating the game Bejeweled.
+ * @implements {IGenerator}
+ */
+export class BasicGenerator extends IGenerator {
+  /** Constructs a BasicGenerator that will create random icons with
+   *  types 0 through numtypes - 1, by calling generate().
+   *
+   *  @param {Number} numtypes number of different gems (jewel types).
+   *  @param {Number} seed initial seed to the random number generator.
+   */
+  constructor(numtypes, seed = null) {
+    super();
+    /**
+     * Number of different jewel types.
+     * @type {Number}
+     */
+    this.__numtypes = numtypes;
+  }
+
+  /** Return the number of jewel types.
+   *
+   *  @return {Number} number of different jewels.
+   */
+  getJewelTypes() {
+    return this.__numtypes;
+  }
+
+  /** Returns a randow icon.
+   *
+   *  @return {Icon} random icon.
+   */
+  generate() {
+    return new BasicIcon(Math.floor(Math.random() * this.__numtypes));
+  }
+
+  /** Initializes a given 2D array of Icons with new values.
+   *  Any existing values in the array are overwritten.
+   *  &lt;br>
+   *  The grid is filled with alternating icons of types
+   *  0 to numtypes-1.
+   *
+   *  @param {Array&lt;Array&lt;Icon>>} grid matrix of icons.
+   *  @param {Boolean} randIcons whether generate random icons or use a predefined pattern.
+   */
+  initialize(grid, randIcons = true) {
+    let pattern = false;
+    let icon1 = 0;
+    let icon2 = 1;
+    for (var i = 0; i &lt; grid.length; i++) {
+      pattern = !pattern;
+
+      // this pattern locks the game!
+      if (false) {
+        icon1 += 1;
+        let n = this.getJewelTypes();
+        icon1 = icon1 % n;
+        if (icon1 == icon2) icon1 = (icon2 + 1) % n;
+        icon2 = (icon1 + 1) % n;
+        if (icon1 == icon2) icon2 = (icon1 + 1) % n;
+      }
+
+      for (var j = 0; j &lt; grid[0].length; j++) {
+        if (!randIcons) {
+          grid[i][j] = new BasicIcon(pattern ? icon1 : icon2);
+        } else {
+          grid[i][j] = this.generate();
+        }
+        pattern = !pattern;
+      }
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicGenerator.html">BasicGenerator</a></li><li><a href="BasicIcon.html">BasicIcon</a></li><li><a href="GameImpl.html">GameImpl</a></li><li><a href="cell.html">cell</a></li></ul><h3>Interfaces</h3><ul><li><a href="IGame.html">IGame</a></li><li><a href="IGenerator.html">IGenerator</a></li><li><a href="Icon.html">Icon</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bd">bd</a></li><li><a href="global.html#cellPos">cellPos</a></li><li><a href="global.html#cells">cells</a></li><li><a href="global.html#clicked">clicked</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createSquare">createSquare</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#displayBoard">displayBoard</a></li><li><a href="global.html#drop">drop</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#game">game</a></li><li><a href="global.html#gameLoop">gameLoop</a></li><li><a href="global.html#gamePanel">gamePanel</a></li><li><a href="global.html#gen">gen</a></li><li><a href="global.html#getUrlParameter">getUrlParameter</a></li><li><a href="global.html#grid">grid</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#img">img</a></li><li><a href="global.html#mainGame">mainGame</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#move_swp">move_swp</a></li><li><a href="global.html#nico">nico</a></li><li><a href="global.html#refresh">refresh</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#swap">swap</a></li><li><a href="global.html#swap_pos">swap_pos</a></li><li><a href="global.html#width">width</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 02 2023 08:45:02 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

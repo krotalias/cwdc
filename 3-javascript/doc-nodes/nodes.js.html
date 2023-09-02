@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: nodes.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: nodes.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  @file
+ *
+ *  &lt;p>Creates some arrays and and some nodes using the DOM API.&lt;/p>
+ *
+ *  &lt;pre>
+ *  Documentation:
+ *  - Ubuntu:
+ *     - sudo apt install jsdoc-toolkit
+ *  - MacOS:
+ *     - sudo port install npm6 (or npm7)
+ *     - sudo npm install -g jsdoc
+ *  - jsdoc -d doc-nodes nodes.js
+ *
+ *  Usage:
+ *  - npm init
+ *  - npm install readline-sync
+ *  - node nodes.mjs [number|string]
+ *  &lt;/pre>
+ *
+ *  @author Paulo Roma
+ *  @since 08/12/2021
+ *  @see &lt;a href="/cwdc/3-javascript/3.9.html">link&lt;/a>
+ *  @see &lt;a href="/cwdc/3-javascript/nodes.js">source&lt;/a>
+ */
+"use strict";
+
+/** Interleaves two arrays.
+ *
+ *  @param {Array&lt;number>} arr1 an array of integers.
+ *  @param {Array&lt;string>} arr2 an array of strings.
+ *  @returns {Array&lt;string>} a new array.
+ *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+ *  @see https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
+ *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+ *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+ *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys
+ */
+function interleave(arr1, arr2) {
+  return arr1.reduce((accumulator, currentValue, currentIndex) => {
+    return arr2[currentIndex] == undefined
+      ? accumulator // arr2 is over.
+      : accumulator.concat(
+          `${currentValue.toString()} - ${arr2[currentIndex]}`
+        );
+  }, []);
+}
+
+/**
+ *  Removes the element with a given id.
+ *  @param {string} id element id.
+ */
+function del(id) {
+  let elem = document.getElementById(id);
+  if (elem != null) elem.remove();
+}
+
+/**
+ *  Returns all descendants of a given node.
+ *  Performs a shallow traverse.
+ *
+ *  @param {HTMLElement} element given node.
+ *  @return {Object&lt;Array&lt;HTMLElement>,string>} object of elements.
+ *  @see https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+ *  @see https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes
+ *  @see https://developer.mozilla.org/en-US/docs/Web/API/Element/children
+ *  @see https://www.oreilly.com/library/view/dom-enlightenment/9781449344498/ch01.html
+ */
+function getDescendants(element) {
+  var text = [];
+  var nodes = [];
+  for (var i = 0, n = element.childNodes.length; i &lt; n; i++) {
+    var child = element.childNodes[i];
+    if (
+      // An Element node like &lt;p> or &lt;div> - 1.
+      child.nodeType === Node.ELEMENT_NODE &amp;&amp;
+      child.tagName.toLowerCase() !== "script"
+    )
+      nodes.push(child);
+    else if (child.nodeType === Node.TEXT_NODE) {
+      // The actual Text inside an Element or Attr,
+      // including empty lines - 3.
+      text.push(child.data);
+    }
+  }
+  return { "element node": nodes, "text node": text.join("") };
+}
+
+/**
+ * Creates some nodes using the DOM API.
+ *
+ * In JavaScript, functions are first-class objects,
+ * because they can have properties and methods, just like any other object.
+ * What distinguishes them from other objects is that functions can be called.
+ * In brief, they are Function objects.
+ *
+ * @param {string} divp the ID of the parent element.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model
+ */
+function createNodes(divp) {
+  var indices = [...Array(10).keys()]; // spread operator
+
+  var teams = new Array();
+
+  teams[0] = "Fluminense";
+
+  teams[1] = "Flamengo";
+
+  if (typeof createNodes.counter == "undefined") {
+    // No counter yet? ... perform the initialization
+    createNodes.counter = 0;
+  } else {
+    ++createNodes.counter;
+  }
+
+  var x = teams.join(", ").toString();
+
+  document.getElementById(
+    "teams"
+  ).innerHTML = `&amp;lt;${divp}&amp;gt;\n\nArray teams = [${x}]`;
+
+  var tweets = [
+    "Joe Biden got 306 delegates!",
+    "Donald Trump got 232 delegates!",
+  ];
+
+  tweets.push("Game over and go back to work!");
+
+  let i = createNodes.counter % tweets.length;
+
+  // ["0 - Joe Biden got 306 delegates!", "1 - Donald Trump got 232 delegates!", "2 - Game over and go back to work!"]
+  var result = interleave(indices, tweets);
+  result[i] = `&lt;mark>${result[i]}&lt;/mark>`;
+
+  // "Array tweets = &lt;br>&lt;mark>0 - Joe Biden got 306 delegates!&lt;/mark>&lt;br>1 - Donald Trump got 232 delegates!&lt;br>2 - Game over and go back to work!"
+  document.getElementById("tweets").innerHTML = `Array tweets = &lt;br>${result
+    .join("&lt;br>")
+    .toString()}`;
+
+  // replace 1 element starting at i
+  tweets.splice(i, 1, "Vice President!", "Kamala Harris");
+
+  console.log(tweets);
+
+  result = interleave(indices, tweets);
+
+  // ----- create paragraph nodes with javascript -----
+
+  var para = document.createElement("p"); // Create a &lt;p> element
+
+  // Create a text node
+  var textnode = document.createTextNode(
+    `tweets.splice_${
+      createNodes.counter
+    } (${i},1,'Vice President!', 'Kamala Harris') =\n${result
+      .join("\n")
+      .toString()}`
+  );
+
+  para.appendChild(textnode); // Append node to &lt;p>
+  var element = document.getElementById(divp);
+  element.appendChild(para); // Append &lt;p> to &lt;div id=divp>
+
+  element.style.whiteSpace = "pre";
+  element.style.background = "lightgray";
+  element.style.border = "thick solid #0000FF";
+  element.style.width = "400px";
+  element.style.paddingLeft = "10px";
+
+  // set a unique id
+  let paraid = `para${createNodes.counter.toString()}`;
+  para.setAttribute("id", paraid);
+
+  para.style.border = "thick solid red";
+  para.style.width = "370px";
+  para.style.paddingLeft = "10px";
+  para.style.fontFamily = "Times New Roman";
+  para.style.background = "antiquewhite";
+
+  // check that the new id has "been created
+  console.assert(document.getElementById(paraid) === para);
+
+  // hide the clicked paragraph
+  para.onclick = function () {
+    para.style.display = "none";
+  };
+
+  // delete the last paragraph
+  element.ondblclick = function () {
+    del(element.lastChild.id);
+  };
+
+  window.onkeydown = function (event) {
+    if (event.ctrlKey &amp;&amp; event.key === "Escape") {
+      var div = document.getElementById(divp);
+      // make all divp's paragraph children visible again.
+      getDescendants(div)["element node"].forEach((elem) => {
+        if (elem.tagName.toLowerCase() === "p") {
+          if (elem.style.display == "none") {
+            elem.style.borderStyle = "dashed";
+            elem.style.display = "block";
+          }
+        }
+      });
+    }
+  };
+}
+
+document.writeln(
+  "&lt;br />A new &lt;span style='color: red'>Node&lt;/span> will be created... \
+  &lt;br />each time the button is clicked, \
+  &lt;br />to hold the spliced output."
+);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#DOMTreeToString">DOMTreeToString</a></li><li><a href="global.html#createNodes">createNodes</a></li><li><a href="global.html#dash">dash</a></li><li><a href="global.html#del">del</a></li><li><a href="global.html#getAllAttributes">getAllAttributes</a></li><li><a href="global.html#getDescendants">getDescendants</a></li><li><a href="global.html#interleave">interleave</a></li><li><a href="global.html#linefeed">linefeed</a></li><li><a href="global.html#printDOMTree">printDOMTree</a></li><li><a href="global.html#space">space</a></li><li><a href="global.html#traverseDOMTree">traverseDOMTree</a></li><li><a href="global.html#verticalbar">verticalbar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 02 2023 08:45:08 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "source": {
+    "include": ["jewels"],
+    "exclude": ["jewels/private", "jewels/node_modules"],
+    "includePattern": ".js",
+    "excludePattern": "package*|node_modules"
+  },
+  "sourceType": "script",
+  "opts": {
+     "destination": "./doc-jewels",
+     "recurse": true
+  }
+}

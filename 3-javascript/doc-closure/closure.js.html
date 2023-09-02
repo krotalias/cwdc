@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: closure.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: closure.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ * A function that references bindings from local scopes around it is called a closure.
+ * &lt;p>
+ * Closure means that an inner function always has access to the vars and parameters of
+ * its outer function, even after the outer function has returned.
+ * &lt;/p>&lt;p>
+ * The inner function can access the variables of the enclosing function due to closures
+ * in JavaScript. In other words, the inner function preserves the scope chain of
+ * the enclosing function at the time the enclosing function was executed,
+ * and thus can access the enclosing function’s variables.
+ * &lt;/p>
+ * In other words, the function defined in the closure ‘remembers’ the environment
+ * in which it was created:
+ * &lt;ul>
+ *  &lt;li> We must have a nested function (function inside a function).&lt;/li>
+ *  &lt;li> The nested function must refer to a value defined in the enclosing function.&lt;/li>
+ *  &lt;li> The enclosing function must return the nested function.&lt;/li>
+ * &lt;/ul>
+ *
+ * &lt;pre>
+ * Usage:
+ *    node closure.mjs
+ * &lt;/pre>
+ *
+ * @author Paulo Roma
+ * @since 07/05/2021
+ * @see https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=59
+ * @see &lt;a href="/cwdc/3-javascript/closure/closure.html">link&lt;/a>
+ * @see &lt;a href="/cwdc/3-javascript/closure/closure.js">source&lt;/a>
+ * @see &lt;a href="../../../eloquentJavascript/game/doc-game/global.html#trackKeys">game keys&lt;/a>
+ * @see &lt;a href="../closure/closure.mjs">closure in node&lt;/a>
+ */
+
+/**
+ * A closure that multiply by an arbitrary amount.
+ * &lt;p>
+ * Creates an environment in which the factor parameter is bound to its value
+ * when the function was defined.
+ * &lt;/p>
+ * @param {Number} factor amount to multiply by (multiplier).
+ * @returns {mult} a callback for multiplying by factor.
+ *
+ */
+function multiplier(factor) {
+  /**
+   * Multiplies a value by the multiplier in the scope.
+   * @param {Number} value multiplicand.
+   * @return {Number} factor * value.
+   * @callback mult
+   */
+  return (value) => value * factor;
+}
+
+/**
+ * &lt;p>A closure for checking against a secret password.&lt;/p>
+ * It gives the enclosed function guessPassword exclusive access to the password variable,
+ * while making it impossible to access the password from the outside.
+ * @return {guessObj}
+ * @see https://www.freecodecamp.org/news/lets-learn-javascript-closures-66feb44f6a44/
+ */
+function secretPassword() {
+  var password = "xh38sk";
+  /**
+   * &lt;p>Object for checking passwords.&lt;/p>
+   * @return {Object&lt;guessPassword:guessPass>} object for checking whether the password was guessed.
+   * @callback guessObj
+   */
+  return {
+    guessPassword:
+      /**
+       * &lt;p>Cheks a given string against the stored password.&lt;/p>
+       * @param {String} guess a password.
+       * @returns {Boolean} whether the password was guessed.
+       * @callback guessPass
+       */
+      (guess) => guess === password,
+  };
+}
+
+/**
+ *  A closure which is an IIFE (immediately invoked function expression).
+ *  @function
+ *  @returns {inc} a callback for incrementing a counter.
+ */
+var incr = (function () {
+  var i = 1;
+  /**
+   * Returns the counter and then increments it.
+   * @return {Number}
+   * @callback inc
+   */
+  return () => i++;
+})();
+
+/** Creates two multipliers, by 2 and 3, and a game password checker.
+ *  @function
+ *  @returns {String} a template literal that interpolates an html string,
+ *         whose placeholders are replaced for: &lt;br> "15, 10, false, true, 1, 2"
+ *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+ */
+export var testClosure = () => {
+  let twice = multiplier(2);
+  let thrice = multiplier(3);
+  let gamePassword = secretPassword().guessPassword;
+
+  // 15, 10, false, true, 1, 2
+  return `\
+    &lt;p>&lt;a href="../doc-closure/global.html#testClosure">Some&lt;/a> \
+    &lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures">closures:&lt;/a>&lt;/p>
+
+    let twice = &lt;a href="../doc-closure/global.html#multiplier">multiplier(2)&lt;/a>; &lt;br>
+    let thrice = multiplier(3); &lt;br>
+    let gamePassword = &lt;a href="../doc-closure/global.html#secretPassword">secretPassword()&lt;/a>.guessPassword; &lt;br>
+
+    &lt;ul>
+      &lt;li>
+        thrice(5) = ${thrice(5)}
+      &lt;/li>
+      &lt;li>
+        twice(5) = ${twice(5)}
+      &lt;/li>
+      &lt;li>
+        gamePassword("heyisthisit?"): ${gamePassword("heyisthisit?")}
+      &lt;/li>
+      &lt;li>
+        gamePassword("xh38sk"): ${gamePassword("xh38sk")}
+      &lt;/li>
+      &lt;li>
+        incr(): ${incr()}
+      &lt;/li>
+      &lt;li>
+        &lt;a href="../doc-closure/global.html#incr">incr():&lt;/a> ${incr()}
+      &lt;/li>
+      &lt;li>
+        incr(): ${incr()}
+      &lt;/li>
+    &lt;/ul>`;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#incr">incr</a></li><li><a href="global.html#multiplier">multiplier</a></li><li><a href="global.html#secretPassword">secretPassword</a></li><li><a href="global.html#testClosure">testClosure</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 02 2023 08:45:07 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

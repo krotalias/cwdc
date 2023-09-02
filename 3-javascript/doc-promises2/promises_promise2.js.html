@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: promises/promise2.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: promises/promise2.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ *  &lt;p>Retrieves a user avatar from github,
+ *  and draws it for 3 seconds.&lt;/p>
+ *
+ *  &lt;p>The user is read from a user.json file in the current directory,
+ *  using the {@link https://dmitripavlutin.com/fetch-with-json/ fetch} API. &lt;br />
+ *  All of the DOM nodes are created using javascript.&lt;/p>
+ *
+ *  @author Paulo Roma.
+ *  @since 24/12/2021
+ *  @see &lt;a href="/cwdc/3-javascript/promises/promise2.html">link&lt;/a>
+ *  @see &lt;a href="/cwdc/3-javascript/promises/promise2.js">source&lt;/a>
+ *  @see &lt;a href="/nodejs/books/javascript-beginner-handbook.pdf#page=60">Book&lt;/a>
+ *  @see https://javascript.info/promise-basics
+ *  @see https://javascript.info/async-await
+ *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+ *  @see https://gomakethings.com/promises-in-javascript/
+ *  @see https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
+ *  @see https://eloquentjavascript.net/11_async.html
+ *  @see https://www.techiediaries.com/convert-promise-async-await-vscode/
+ *  @see https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation/createDocument
+ *  @see https://developer.mozilla.org/en-US/docs/Web/API/Document/body
+ *  @see https://dev.to/kylejb/a-key-difference-between-then-and-async-await-in-javascript-53e9
+ *  @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ *
+ */
+"use strict";
+
+/**
+ * &lt;p>Module creates a scope to avoid name collisions.&lt;/p>
+ * Either expose your function to window object or use addEventListener to bind handler.
+ * @function window_showAvatar
+ * @global
+ */
+window.showAvatar = showAvatar;
+window.setDOM = setDOM;
+
+// body is empty?
+if (document.body.children.length === 0) {
+  document.body.setAttribute("id", "avaBody");
+  // either way works fine
+  if (typeof window.setDOM !== "undefined")
+    document.body.setAttribute("onload", "setDOM()");
+  else
+    addEventListener("load", (event) => {
+      setDOM();
+    });
+  console.log(document.getElementById("avaBody")); //
+}
+
+/**
+ * &lt;p>Sets up the DOM for this script.&lt;/p>
+ * The head gets executed before the dom is loaded.
+ * Therefore, nodes should be created in an onload function in the body tag,&lt;br />
+ * since it cannot find document.getElementsByTagName("body") when the Document isn't ready,
+ * because it is simply not there yet.
+ */
+export function setDOM() {
+  // Create the text node for anchor element.
+  var a = document.createElement("a");
+  var tnode = document.createTextNode("youtube");
+
+  // Append the text node to anchor element.
+  a.appendChild(tnode);
+
+  // Set the title.
+  a.title = "Chaining Fetch Requests";
+
+  // Set the href property.
+  a.href = "https://www.youtube.com/watch?v=4A1cUp2wK2c";
+
+  document.body.appendChild(a);
+  console.log(
+    "anchor has been created:",
+    document.getElementsByTagName("a")[0]
+  );
+
+  // create the div
+  var div = document.createElement("div");
+  div.setAttribute("id", "user");
+  document.body.appendChild(div);
+  console.log("div has been created:", document.getElementById("user"));
+
+  // create a script to call showAvatar()
+  var script = document.createElement("script");
+  script.type = "text/javascript"; // "module";
+  script.onload = function () {
+    console.log("Script loaded and ready");
+    console.log("script has been created:", document.getElementById("avatar"));
+  };
+  script.setAttribute("id", "avatar");
+
+  var code = `showAvatar().then((githubUser) => {
+    document.getElementById("user").innerHTML =
+    \`&lt;a href="https://github.com/\${githubUser.login}">\${githubUser.login}&lt;/a>\`;
+    console.log(githubUser);
+  });`;
+
+  try {
+    script.appendChild(document.createTextNode(code));
+  } catch (e) {
+    script.text = code;
+  } finally {
+    document.body.appendChild(script);
+    if (typeof printDOMTree === "function") {
+      printDOMTree(document.querySelector("body"));
+    }
+  }
+}
+
+/**
+ * &lt;p>When we run fetch with a web address, it returns a Promise object.
+ * Promise is a basic Data Type in JavaScript. &lt;br />
+ * When you see a Promise being returned,
+ * you can use the “await” operator in front of it to get to the actual return value.&lt;/p>
+ *
+ * &lt;p>However, awaiting on fetch, we end up receiving a Response object,
+ * which has a class member method called text().&lt;/p>
+ *
+ * &lt;p>When we call text(), we receive yet another Promise.
+ * No problem, let’s use another “await” on the whole thing. &lt;br />
+ * A string is then returned containing the JSON Data we care about.&lt;/p>
+ *
+ * &lt;p>We can try to convert the JSON, in string form, into JSON objects (in this case an Array). &lt;br />
+ * This is usually done with the built-in JSON.parse() function.&lt;/p>
+ *
+ * &lt;p>Nonetheless, it turns out that response has another convenience method called json(), &lt;br />
+ * which returns a Promise that resolves to a JavaScript object (an array, a string, a number, ...):&lt;/p>
+ *
+ *  &lt;pre>
+ *    fetch('http://example.com/movies.json')
+ *        .then(response => response.json())
+ *        .then(data => console.log(data));
+ *  &lt;/pre>
+ *
+ * &lt;p>First, we call fetch(‘http://example.com/movies.json') to get a Promise.
+ * Next, we call .then() on the Promise object. This member function takes in a callback.&lt;/p>
+ *
+ * &lt;p>Promise and the then() function takes a callback, and when it is ready to give you the result,
+ * it will pass that as input into the callback.&lt;/p>
+ *
+ * Note: returning an Array in line (A) does not work, because the .then() callback
+ * would receive an Array with a Promise and a normal value.&lt;br />
+ * Promise.all() uses Promise.resolve() to ensure that all Array elements are Promises
+ * and fulfills its result with an Array of their fulfillment values (if none of the Promises is rejected).
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/text
+ * @see https://2ality.com/2017/08/promise-callback-data-flow.html
+ * @see https://medium.com/teamzerolabs/start-here-zero-to-javascript-callback-fetching-data-working-with-json-4f68e48668ce
+ */
+export function showAvatar() {
+  return fetch("./user.json") // read the JSON file
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("No user json file found.");
+      }
+    })
+    .catch((error) => {
+      alert(`${error}`);
+      // don't return anything => execution goes the normal way
+    })
+    .then((user) => {
+      // read github user
+      return fetch(`https://api.github.com/users/${user.name}`);
+    })
+    .then((githubResponse) => {
+      return githubResponse.json();
+    })
+    .then((githubUser) => {
+      // show the avatar
+      let img = document.createElement("img");
+      img.src = githubUser.avatar_url;
+      img.className = "promise-avatar-example";
+      document.body.append(img);
+      return { user: githubUser, avatar: img, sec: 10000 };
+    })
+    .then((data) => {
+      // wait data.sec seconds
+      let p = new Promise((resolve, reject) => {
+        setTimeout(resolve, data.sec);
+      });
+      return Promise.all([p, data.user, data.avatar]); // (A)
+    })
+    .then(([result, user, img]) => {
+      // remove the image
+      img.remove();
+      return user;
+    });
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#DOMTreeToString">DOMTreeToString</a></li><li><a href="global.html#dash">dash</a></li><li><a href="global.html#getAllAttributes">getAllAttributes</a></li><li><a href="global.html#linefeed">linefeed</a></li><li><a href="global.html#printDOMTree">printDOMTree</a></li><li><a href="global.html#setDOM">setDOM</a></li><li><a href="global.html#showAvatar">showAvatar</a></li><li><a href="global.html#space">space</a></li><li><a href="global.html#traverseDOMTree">traverseDOMTree</a></li><li><a href="global.html#verticalbar">verticalbar</a></li><li><a href="global.html#window_showAvatar">window_showAvatar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 02 2023 08:45:08 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
