@@ -1,0 +1,189 @@
+<!--  Demo of Phong reflection model using Phong shading
+(color is calculated per-fragment).
+Same as Lighting2a.html but adds the specular term in the fragment
+shader. Also uses Lighting2.js code.
+
+This code is dependent on three.js as well as on the teal book utilities,
+see below.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Phong shading</title>
+        <style>
+            #interface {
+                width: 900px;
+                margin-left: 50px;
+            }
+            #models,
+            label {
+                font-size: x-large;
+                line-height: 200%;
+            }
+            #models {
+                font-size: 200%;
+            }
+            #opts {
+                list-style: none;
+            }
+            label {
+                margin-right: 40px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="900" height="600">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <div id="interface">
+            <p>
+                <label id="object"><b>Object:</b></label>
+            </p>
+            <select name="models" id="models" onchange="selectModel()">
+                <option value="5">Sphere</option>
+                <option value="6" selected="selected">Teapot</option>
+                <option value="8">Torus Knot</option>
+            </select>
+        </div>
+
+        <br />
+
+        <details>
+            <summary style="font-size: 150%">Keyboard controls:</summary>
+
+            <ul style="list-style: none">
+                <li>SPACE - pause rotation</li>
+                <li>a - toggle axes visible/invisible</li>
+                <li>k - toggle texture on/off</li>
+                <li>l - toggle lines visible/invisible</li>
+                <li>x - rotate about x axis</li>
+                <li>y - rotate about y axis</li>
+                <li>z - rotate about z axis</li>
+                <li>p - teapot</li>
+                <li>s - sphere</li>
+                <li>T - torus knot</li>
+                <li>o - Reset to initial state</li>
+                <li></li>
+            </ul>
+        </details>
+
+        <!-- prettier-ignore -->
+        <script id="vertexLightingShader" type="x-shader/x-vertex">#version 300 es
+            uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+            uniform mat3 normalMatrix;
+            uniform vec4 lightPosition;
+
+            in vec4 a_Position;
+            in vec3 a_Normal;
+
+            out vec3 fL;
+            out vec3 fN;
+            out vec3 fV;
+            void main() {
+                // convert position to eye coords
+                vec4 positionEye = view * model * a_Position;
+
+                // convert light position to eye coords
+                vec4 lightEye = view * lightPosition;
+
+                // vector to light
+                fL = (lightEye - positionEye).xyz;
+
+                // transform normal matrix into eye coords
+                fN = normalMatrix * a_Normal;
+
+                // vector from vertex position toward view point
+                fV = normalize(-(positionEye).xyz);
+
+                gl_Position = projection * view * model * a_Position;
+            }
+        </script>
+
+        <!-- prettier-ignore -->
+        <script id="fragmentLightingShader" type="x-shader/x-fragment">#version 300 es
+            precision mediump float;
+
+            in vec3 fL;
+            in vec3 fN;
+            in vec3 fV;
+            uniform vec4 diffuseColor;
+            out vec4 fragColor;
+            void main() {
+                // normalize after interpolating
+                vec3 N = normalize(fN);
+                vec3 L = normalize(fL);
+                vec3 V = normalize(fV);
+
+                // reflected vector
+                vec3 R = reflect(-L, N);
+
+                // remaining code cut and pasted from the Lighting2b.html vertex shader
+
+                // hard-coded surface color
+                // vec4 diffuseColor = vec4(1.0, 0.8, 0.0, 1.0);
+
+                // ambient term based on surface color
+                vec4 ambient = 0.2 * diffuseColor;
+
+                // specular reflection based on light color (presumed white)
+                vec4 specularColor = 0.8 * vec4(1.0, 1.0, 1.0, 1.0);
+
+                // specular exponent controls the "shininess"
+                float exponent = 30.0	;
+
+                // Lambert's law, clamp negative values to zero
+                float diffuseFactor = clamp(dot(L, N), 0.0, 1.0);
+
+                // specular factor from Phong reflection model
+                float specularFactor = pow(clamp(dot(V, R), 0.0, 1.0), exponent);
+
+                // add the components together
+                fragColor = specularColor * specularFactor + diffuseColor * diffuseFactor + ambient;
+                fragColor.a = 1.0;
+            }
+        </script>
+
+        <!-- prettier-ignore -->
+        <script id="vertexColorShader" type="x-shader/x-vertex">#version 300 es
+            uniform mat4 transform;
+            // data pulled from buffers
+            in vec4 a_Position;
+            in vec4 a_Color;
+            // data passed to the fragment shader to be interpolated
+            out vec4 color;
+            void main() {
+                color = a_Color;
+                gl_Position = transform * a_Position;
+            }
+        </script>
+
+        <!-- prettier-ignore -->
+        <script id="fragmentColorShader" type="x-shader/x-fragment">#version 300 es
+            precision mediump float;
+            in vec4 color;
+            out vec4 fragColor;
+            void main() {
+                fragColor = color;
+            }
+        </script>
+        <!-- does not work on safari and IOS -->
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "/WebGL/lib/three/build/three.module.js",
+                    "TeapotGeometry": "/WebGL/lib/three/examples/jsm/geometries/TeapotGeometry.js"
+                }
+            }
+        </script>
+        <script src="/WebGL/teal_book/cuon-utils.js"></script>
+        <script src="/WebGL/teal_book/cuon-matrix.js"></script>
+        <script src="/WebGL/lib/simple-rotator.js"></script>
+        <script type="module" src="Lighting2.js"></script>
+    </body>
+</html>

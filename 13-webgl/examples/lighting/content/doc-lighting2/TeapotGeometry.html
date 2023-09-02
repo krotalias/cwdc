@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: TeapotGeometry</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: TeapotGeometry</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>TeapotGeometry<span class="signature">(size, segments, bottom, lid, body, fitLid, blinn)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>Tessellates the famous Utah teapot database, by Martin Newell, into triangles.</p>
+<pre>
+Parameters:
+  size = 50,
+  segments = 10,
+  bottom = true,
+  lid = true,
+  body = true,
+  fitLid = false,
+  blinn = true
+</pre>
+
+Go to <a href="https://en.wikipedia.org/wiki/Utah_teapot">Wikipedia</a> for the original real-world teapot.
+
+<p>Note that the bottom (the last four patches) is not flat - blame Frank Crow, not me.</p>
+
+<p>The teapot should normally be rendered as a double sided object, since for some
+patches both sides can be seen, <br>
+e.g., the gap around the lid and inside the spout.</p>
+
+<p>Segments 'n' determines the number of triangles output.</p>
+[degenerates at the top and bottom cusps are deleted]
+<pre>
+  Total triangles = 32*2*n*n - 8*n
+
+  size_factor   # triangles
+      1          56
+      2         240
+      3         552
+      4         992
+
+     10        6320
+     20       25440
+     30       57360
+</pre>
+
+Code converted from my ancient <a href="https://tog.acm.org/resources/SPD/">SPD software</a>.<br>
+Created for the Udacity course  <a href="https://bit.ly/ericity">"Interactive Rendering"</a>.<br>
+YouTube video on teapot history: <a href="https://www.youtube.com/watch?v=DxMfblPzFNc">https://www.youtube.com/watch?v=DxMfblPzFNc</a></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="TeapotGeometry"><span class="type-signature"></span>new TeapotGeometry<span class="signature">(size, segments, bottom, lid, body, fitLid, blinn)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>size</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">is a relative scale: I've scaled the teapot to fit vertically between -1 and 1. <br>
+   Think of it as a "radius".</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>segments</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number of line segments to subdivide each patch edge; <br>
+   1 is possible but gives degenerates, so two is the real minimum.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bottom</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">boolean, if true (default) then the bottom patches are added. <br>
+   Some consider adding the bottom heresy, so set this to "false" to adhere to the One True Way.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to remove the lid and look inside, set to true.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to remove the body and leave the lid, set this and "bottom" to false.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fitLid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the lid is a tad small in the original. <br>
+   This stretches it a bit, so you can't see the teapot's insides through the gap.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blinn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Jim Blinn scaled the original data vertically by dividing by about 1.3 to look nicer. <br>
+   If you want to see the original teapot, similar to the real-world model, set
+   this to false. <br>
+   True by default.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples_lighting_content_TeapotGeometry.js.html">examples/lighting/content/TeapotGeometry.js</a>, <a href="examples_lighting_content_TeapotGeometry.js.html#line89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawSurface">drawSurface</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeCube">makeCube</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 02 2023 03:30:48 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
