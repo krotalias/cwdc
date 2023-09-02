@@ -1,0 +1,166 @@
+<!--
+    Hierarchical transformation demo.
+    Vertex shader does basic Lambert shading.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Blobby Man</title>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="512" height="512">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <div id="fps-counter">
+            <div>FPS: <span id="fps">--</span></div>
+            <div><span id="timeBoxDiv"> 0 </span> ms/cycle</div>
+        </div>
+
+        <audio id="audio1" controls autoplay muted>
+            <source src="macarena.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+        </audio>
+
+        <input
+            name="btnDance"
+            type="button"
+            value="Dance"
+            autofocus
+            onclick="danceCallBack()"
+        />
+
+        <input
+            name="btnSway"
+            type="button"
+            value="Sway"
+            onclick="swayCallBack()"
+        />
+
+        <input
+            name="btnStop"
+            type="button"
+            value="Stop"
+            onclick="stopCallBack()"
+        />
+
+        <input
+            name="timeBoxDiv"
+            id="div"
+            value="0"
+            style="width: 40px"
+            type="text"
+        />
+        ms/cycle
+
+        <p>Keyboard controls:</p>
+
+        <ul style="list-style: none">
+            <li>b, B - body rotation</li>
+            <li>t, T - torso rotation</li>
+            <li>s, S - shoulder rotation</li>
+            <li>a, A - arm rotation</li>
+            <li>h, H - head rotation</li>
+            <li>l, L - leg rotation</li>
+            <li>f, F - hand rotation</li>
+            <li>w, W - sway</li>
+            <li>j, J - jump</li>
+            <li>m, M - Macarena</li>
+        </ul>
+
+        <script id="vertexLightingShader" type="x-shader/x-vertex">
+            uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+            uniform vec4 u_Color;
+            uniform mat3 normalMatrix;
+            uniform vec4 lightPosition;
+
+            attribute vec4 a_Position;
+            attribute vec3 a_Normal;
+
+            varying vec4 color;
+            void main()
+            {
+              float ambientFactor = 0.3;
+              vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
+              //vec3 normal = (view * model * vec4(a_Normal, 0.0)).xyz;
+              vec3 normal = normalize(normalMatrix * a_Normal);
+              float diffuseFactor = 0.8*max(0.0, dot(lightDirection, normal));
+              color = u_Color * diffuseFactor + u_Color * ambientFactor;
+              color.a = 1.0;
+              gl_Position = projection * view * model * a_Position;
+            }
+        </script>
+
+        <script id="vertexTexturedShader" type="x-shader/x-vertex">
+            uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+            uniform vec4 u_Color;
+            uniform mat3 normalMatrix;
+            uniform vec4 lightPosition;
+
+            attribute vec4 a_Position;
+            attribute vec3 a_Normal;
+            attribute vec2 vTexCoord;
+
+            varying vec2 fTexCoord;
+            varying vec4 color;
+            void main()
+            {
+              float ambientFactor = 0.3;
+              vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
+              //vec3 normal = (view * model * vec4(a_Normal, 0.0)).xyz;
+              vec3 normal = normalize(normalMatrix * a_Normal);
+              float diffuseFactor = max(0.0, dot(lightDirection, normal));
+              color = u_Color * diffuseFactor + u_Color * ambientFactor;
+              color.a = 1.0;
+              fTexCoord = vTexCoord;
+              gl_Position = projection * view * model * a_Position;
+            }
+        </script>
+
+        <script id="fragmentLightingShader" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 color;
+            void main()
+            {
+              gl_FragColor = color;
+            }
+        </script>
+
+        <script id="fragmentTexturedShader" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 color;
+            varying vec2 fTexCoord;
+            uniform sampler2D texture;
+            void main()
+            {
+              gl_FragColor = color * texture2D( texture, fTexCoord );
+            }
+        </script>
+
+        <script src="../../lib/teal_book/webgl-utils.js"></script>
+        <script src="../../lib/teal_book/webgl-debug.js"></script>
+        <script src="../../lib/teal_book/cuon-utils.js"></script>
+        <script src="../../lib/teal_book/cuon-matrix.js"></script>
+        <script src="blobby.js"></script>
+
+        <script src="https://threejs.org/build/three.js"></script>
+        <script>
+            window.onload = dance;
+            // document.addEventListener("DOMContentLoaded", dance);
+            function dance() {
+                mainEntrance();
+                danceCallBack();
+            }
+        </script>
+
+        <img id="texImage" src="../../examples/images/isuflag2.jpg" hidden />
+    </body>
+</html>
