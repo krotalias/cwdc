@@ -31,15 +31,15 @@
 "use strict";
 
 // CDN always works
-//import * as THREE from "https://unpkg.com/three@0.148.0/build/three.module.js?module";
-//import { TeapotGeometry } from "https://unpkg.com/three@0.148.0/examples/jsm/geometries/TeapotGeometry.js?module";
+import * as THREE from "https://unpkg.com/three@0.148.0/build/three.module.js?module";
+import { TeapotGeometry } from "https://unpkg.com/three@0.148.0/examples/jsm/geometries/TeapotGeometry.js?module";
 
 // importmap does not work on safari and IOS
 //import * as THREE from "three";
 //import { TeapotGeometry } from "TeapotGeometry";
 
-import * as THREE from "/cwdc/13-webgl/lib/three/build/three.module.js";
-import { TeapotGeometry } from "./TeapotGeometry.js";
+//import * as THREE from "/cwdc/13-webgl/lib/three/build/three.module.js";
+//import { TeapotGeometry } from "./TeapotGeometry.js";
 
 /**
  * Axes coordinates.
