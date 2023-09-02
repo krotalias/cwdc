@@ -43,11 +43,11 @@ const mat3 = glMatrix.mat3;
  * @type {Array<String>}
  */
 var imageFilename = [
-    "/cwdc/13-webgl/examples/images/check64.png",
-    "/cwdc/13-webgl/examples/images/check64border.png",
-    "/cwdc/13-webgl/examples/images/clover.jpg",
-    "/cwdc/13-webgl/examples/images/brick.png",
-    "/cwdc/13-webgl/examples/images/steve.png",
+    "check64.png",
+    "check64border.png",
+    "clover.jpg",
+    "brick.png",
+    "steve.png",
 ];
 
 /**
@@ -897,7 +897,9 @@ function mainEntrance() {
     };
 
     // starts loading the image asynchronously
-    image.src = imageFilename[1];
+    image.src =
+        "/cwdc/13-webgl/examples/images/" +
+        imageFilename[Math.floor(Math.random() * imageFilename.length)];
 }
 
 /**
