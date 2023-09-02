@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>examples/texture/content/LightingWithTexture.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Lighting combined with a procedural texture.</p>
+
+Same as <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2">Lighting2.js</a> except we define
+a 3x3 matrix for <a href="https://learnopengl.com/Lighting/Materials">material properties</a>
+and a 3x3 matrix for <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL">light properties</a>
+that are passed to the fragment shader as <a href="https://www.khronos.org/opengl/wiki/Uniform_(GLSL)">uniforms</a>.<br>
+Instead of sampling from an image, we use the texture coordinates to compute a color value out
+of thin air.
+
+<p>The procedural texture in the <a href="/cwdc/13-webgl/examples/texture/content/showCode.php?f=LightingWithProceduralTexture">fragment shader</a>
+covers the sphere with blue and golden stripes, which is very simple indeed:</p>
+<ol>
+  <li> multiply the "t" texture coordinate by the number of stripes of a given color (say 10),<br>
+       so the coordinates will be in the range [0.0, 10.0].
+  <li> consider that 0.0 to 0.5 is blue, 0.5 to 1.0 is yellow, 1.0 to 1.5 is blue, 1.5 to 2.0 is yellow, and so on...
+  <li> take the fractional part of the scaled "t" coordinate
+       and test if it is less or greater than 0.5
+</ol>
+
+<p>One can edit the light/material matrices in the global variables to experiment,
+or edit <a href="global.html#startForReal">startForReal</a> to choose a model and select
+<a href="https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals">face or vertex normals</a>.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>26/09/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Steve Kautz modified by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples_texture_content_LightingWithTexture.js.html">examples/texture/content/LightingWithTexture.js</a>, <a href="examples_texture_content_LightingWithTexture.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/examples/texture/content/LightingWithProceduralTexture.html">Procedural texture</a></li>
+        
+            <li><a href="/cwdc/13-webgl/examples/texture/content/LightingWithTexture.html">Image texture</a></li>
+        
+            <li><a href="/cwdc/13-webgl/examples/texture/content/LightingWithTexture.js">source</a></li>
+        
+            <li><img src="../striped-sphere.png" width="512"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>hws.edu-examples/teapot-model-IFS.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Defines teapotModel to be an IFS of the famous teapot, about 20 units big.</p>
+Properties of the model are:</div>
+        
+
+        
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>teapotModel</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vertexPositions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float32Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the vertex coordinates;</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vertexNormals</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float32Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the normal vectors;</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vertexTextureCoords</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float32Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the texture coordinates;</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>indices</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Uint16Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the face indices.
+<p>The first three properties are of type Float32Array, <br>
+while teapotModel.indices is of type Uint16Array.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hws.edu-examples_teapot-model-IFS.js.html">hws.edu-examples/teapot-model-IFS.js</a>, <a href="hws.edu-examples_teapot-model-IFS.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/gl-matrix/dist/esm/common.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>High performance matrix and vector operations.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>3.4.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Brandon Jones</li>
+        
+            <li>Colin MacKenzie IV</li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(c) 2015-2021, Brandon Jones, Colin MacKenzie IV.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_gl-matrix_dist_esm_common.js.html">lib/gl-matrix/dist/esm/common.js</a>, <a href="lib_gl-matrix_dist_esm_common.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/gl-matrix">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/simple-rotator.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>The SimpleRotator class implements an <a href="/cwdc/13-webgl/extras/doc/Arcball.pdf">ArcBall</a> like interface.</p>
+Create by <a href="https://dl.acm.org/profile/81100026146">Ken Shoemake</a> in 1992,
+it is the de facto <a href="/cwdc/13-webgl/extras/doc/shoemake92-arcball.pdf">standard</a>
+for interactive 3D model manipulation and visualization.
+<p>The class defines the following methods for an object of type SimpleRotator:</p>
+<ul>
+   <li><a href="SimpleRotator.html#setView">SimpleRotator#setView</a>(viewDirectionVector, viewUpVector, viewDistance) <br>
+        set up the view, where the parameters are optional and are used in the
+        same way as the corresponding parameters in the constructor;</li>
+   <li><a href="SimpleRotator.html#setViewDistance">SimpleRotator#setViewDistance</a>(viewDistance)  <br>
+       sets the distance of the viewer from the origin without
+       changing the direction of view;</li>
+   <li><a href="SimpleRotator.html#getViewDistance">SimpleRotator#getViewDistance</a>()  <br>
+        returns the viewDistance;</li>
+   <li><a href="SimpleRotator.html#setViewMatrix">SimpleRotator#setViewMatrix</a>(matrix) <br>
+       Sets the view matrix.
+   <li><a href="SimpleRotator.html#getViewMatrix">SimpleRotator#getViewMatrix</a>() <br>
+       returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array">Float32Array</a>
+       representing the viewing transformation matrix for the current view, suitable for use with
+       <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniformMatrix">gl.uniformMatrix4fv</a> <br>
+       or for further transformation with the <a href="https://glmatrix.net/docs/">glmatrix</a> library
+       <a href="https://glmatrix.net/docs/module-mat4.html">mat4</a> class;</li>
+   <li><a href="SimpleRotator.html#getViewMatrixArray">SimpleRotator#getViewMatrixArray</a>() <br>
+        returns the view transformation matrix as a regular JavaScript array,
+        but still represents as a 1D array of 16 elements, in column-major order.</li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>22/01/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>David J. Eck modified by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_simple-rotator.js.html">lib/simple-rotator.js</a>, <a href="lib_simple-rotator.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/simple-rotator.js">source</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html">https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/</a></li>
+        
+            <li><a href="https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball">https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball</a></li>
+        
+            <li><a href="https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/">https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/</a></li>
+        
+            <li><img src="/cwdc/13-webgl/lib/arcball4.png" width="256"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/teal_book/cuon-utils.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.<p>This is a class for creating shaders.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>25/09/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Kanda and Matsuda (c) 2012</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_teal_book_cuon-utils.js.html">lib/teal_book/cuon-utils.js</a>, <a href="lib_teal_book_cuon-utils.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/teal_book/cuon-utils.js">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#vMatrix">vMatrix</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 02 2023 10:58:16 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

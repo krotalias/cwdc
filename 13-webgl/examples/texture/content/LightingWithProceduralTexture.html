@@ -1,0 +1,294 @@
+<!--
+Lighting combined with a procedural texture.  Instead of sampling from
+an image, we use the texture coordinate to compute a color value out
+of thin air.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Texture with lighting</title>
+        <style>
+            #interface {
+                width: 900px;
+                margin-left: 50px;
+            }
+            #models,
+            label {
+                font-size: x-large;
+                line-height: 200%;
+            }
+            #models {
+                font-size: 200%;
+            }
+            #opts {
+                list-style: none;
+            }
+            label {
+                margin-right: 40px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="900" height="600">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <div id="interface">
+            <p>
+                <label id="object"><b>Object:</b></label>
+            </p>
+            <select name="models" id="models" onchange="selectModel()">
+                <option value="0">Capsule</option>
+                <option value="1">Cone</option>
+                <option value="2">Cube</option>
+                <option value="3">Cylinder</option>
+                <option value="4">Ring</option>
+                <option value="5">Sphere</option>
+                <option value="6" selected="selected">Teapot</option>
+                <option value="7">Torus</option>
+                <option value="8">Torus Knot</option>
+                <option value="9">Dodecahedron</option>
+                <option value="10">Icosahedron</option>
+                <option value="11">Octahedron</option>
+                <option value="12">Tetrahedron</option>
+            </select>
+
+            <p>
+                <label><b>Status:</b></label>
+            </p>
+            <form>
+                <input type="checkbox" id="mesh" name="mesh" value="mesh" />
+                <label for="mesh">Mesh</label><br />
+                <input
+                    type="checkbox"
+                    id="texture"
+                    name="texture"
+                    checked
+                    value="texture"
+                />
+                <label for="texture">Texture</label><br />
+                <input
+                    type="checkbox"
+                    id="axes"
+                    name="axes"
+                    checked
+                    value="axes"
+                />
+                <label for="axes">Axes</label><br />
+
+                <div class="radio">
+                    <input
+                        type="radio"
+                        id="pause"
+                        name="rot"
+                        checked
+                        value=" "
+                    />
+                    <label for="pause">Pause</label>
+                    <input type="radio" id="x" name="rot" value="x" />
+                    <label for="x">x</label>
+                    <input type="radio" id="y" name="rot" value="y" />
+                    <label for="y">y</label>
+                    <input type="radio" id="z" name="rot" value="z" />
+                    <label for="z">z</label> (<a
+                        href="https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd"
+                        >intrinsic x extrinsic</a
+                    >)
+                </div>
+
+                <div class="radio">
+                    <input type="radio" id="E" name="euler" checked value="E" />
+                    <label for="E">Intrinsic</label>
+                    <input type="radio" id="e" name="euler" value="e" />
+                    <label for="e">Extrinsic</label>
+                </div>
+            </form>
+        </div>
+
+        <br />
+        <details>
+            <summary style="font-size: 150%">Keyboard controls:</summary>
+
+            <ul id="opts">
+                <li>SPACE - pause rotation</li>
+                <li>a - toggle axes visible/invisible</li>
+                <li>k - toggle texture on/off</li>
+                <li>l - toggle lines visible/invisible</li>
+                <li>x,y,z - intrinsic rotation about a local axis</li>
+                <li>c,C - cylinder/cone</li>
+                <li>d - dodecahedron</li>
+                <li>e - extrinsic/intrinsic</li>
+                <li>i - icosahedron</li>
+                <li>o - octahedron</li>
+                <li>w - tetrahedron</li>
+                <li>p - teapot</li>
+                <li>r - ring</li>
+                <li>v - cube</li>
+                <li>s - sphere</li>
+                <li>t,T - torus/torus knot</li>
+                <li>u - capsule</li>
+                <li>O - Reset to initial state</li>
+                <li>↑,↓ - Zoom out/in</li>
+                <li></li>
+            </ul>
+        </details>
+
+        <script id="vertexLightingShader" type="x-shader/x-vertex">
+            precision mediump float;
+
+            uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+            uniform mat3 normalMatrix;
+            uniform vec4 lightPosition;
+
+            attribute vec4 a_Position;
+            attribute vec3 a_Normal;
+            attribute vec2 a_TexCoord;
+
+            varying vec3 fL;
+            varying vec3 fN;
+            varying vec3 fV;
+            varying vec2 fTexCoord;
+            void main() {
+                // convert position to eye coords
+                vec4 positionEye = view * model * a_Position;
+
+                // convert light position to eye coords
+                vec4 lightEye = view * lightPosition;
+                // fL = (lightEye - positionEye).xyz;
+
+                // vector to light (light follow viewer)
+                fL = (-positionEye).xyz;
+
+                // transform normal matrix into eye coords
+                fN = normalMatrix * a_Normal;
+
+                // vector from vertex position toward view point
+                fV = normalize(-(positionEye).xyz);
+
+                fTexCoord = a_TexCoord;
+
+                gl_Position = projection * view * model * a_Position;
+            }
+        </script>
+
+        <script id="fragmentLightingShader" type="x-shader/x-fragment">
+            precision mediump float;
+
+            uniform mat3 materialProperties;
+            uniform mat3 lightProperties;
+            uniform float shininess;
+            uniform sampler2D sampler;
+
+            varying vec3 fL;
+            varying vec3 fN;
+            varying vec3 fV;
+            varying vec2 fTexCoord;
+
+            void main() {
+                // normalize after interpolating
+                vec3 N = normalize(fN);
+                vec3 L = normalize(fL);
+                vec3 V = normalize(fV);
+
+                // reflected vector
+                vec3 R = reflect(-L, N);
+
+                // get the columns out of the light and material properties.
+                // We keep the surface properties separate,
+                // so we can mess with them using the sampled texture value
+                vec4 ambientSurface = vec4(materialProperties[0], 1.0);
+                vec4 diffuseSurface = vec4(materialProperties[1], 1.0);
+                vec4 specularSurface = vec4(materialProperties[2], 1.0);
+
+                vec4 ambientLight = vec4(lightProperties[0], 1.0);
+                vec4 diffuseLight = vec4(lightProperties[1], 1.0);
+                vec4 specularLight = vec4(lightProperties[2], 1.0);
+
+                // procedural texture - blue with yellow stripes
+                float scale = 10.0;
+                float fuzz = 0.02;
+
+                // blue, yellow
+                vec4 backcolor = vec4(0.0, 0.0, 1.0, 1.0);
+                vec4 frontcolor = vec4(1.0, 1.0, 0.0, 1.0);
+
+                // Scale the t-coordinate of texture, then take fractional part
+                // only to get stripes (like a mod function)
+                float scaledT = fract(fTexCoord.t * scale);
+            #if 1
+                // without antialiasing
+
+                // yellow on the first half of interval, blue on second half
+                diffuseSurface = (scaledT < 0.5) ? frontcolor : backcolor;
+            #else
+                // m is zero for scaledT < 0.5 and 1 for scaledT > 0.5,
+                // where smoothstep is used for the transitions at 0, .5,
+                // and 1 of +/- fuzz
+                float m;
+                if (scaledT < .25) {
+                    m = 1.0 - smoothstep(-fuzz, fuzz, scaledT);
+                } else if (scaledT > .75) {
+                    m = 1.0 - smoothstep(1.0 - fuzz, 1.0 + fuzz, scaledT);
+                } else {
+                    m = smoothstep(0.5 - fuzz, 0.5 + fuzz, scaledT);
+                }
+                diffuseSurface = mix(frontcolor, backcolor, m);
+            #endif
+
+                // lighting factors as usual
+
+                // Lambert's law, clamp negative values to zero
+                float diffuseFactor = clamp(dot(L, N), 0.0, 1.0);
+
+                // specular factor from Phong reflection model
+                float specularFactor = pow(clamp(dot(V, R), 0.0, 1.0), shininess);
+
+                // add the components together
+                // note that vec4 * vec4 is componentwise multiplication,
+                // not a dot product
+                vec4 ambient = ambientLight * ambientSurface;
+                vec4 diffuse = diffuseFactor * diffuseLight * diffuseSurface;
+                vec4 specular = specularFactor * specularLight * specularSurface;
+                gl_FragColor = ambient + diffuse + specular;
+                gl_FragColor.a = 1.0;
+            }
+        </script>
+
+        <script id="vertexColorShader" type="x-shader/x-vertex">
+            uniform mat4 transform;
+            attribute vec4 a_Position;
+            attribute vec4 a_Color;
+            varying vec4 color;
+            void main() {
+                color = a_Color;
+                gl_Position = transform * a_Position;
+            }
+        </script>
+
+        <script id="fragmentColorShader" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 color;
+            void main() {
+                gl_FragColor = color;
+            }
+        </script>
+
+        <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
+        <script src="/cwdc/13-webgl/lib/gl-matrix-3.4.0.js"></script>
+        <script src="/cwdc/13-webgl/lib/simple-rotator.js"></script>
+        <script src="/cwdc/13-webgl/hws.edu-examples/teapot-model-IFS.js"></script>
+
+        <!-- Use three.js if you have it locally, for easier debugging -->
+        <script src="/WebGL/lib/three.js"></script>
+
+        <!--  otherwise, load the minified version from the www -->
+        <!-- script src="https://threejs.org/build/three.min.js"></script> -->
+
+        <script src="LightingWithTexture.js"></script>
+    </body>
+</html>
