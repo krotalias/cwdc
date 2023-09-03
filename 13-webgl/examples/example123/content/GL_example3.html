@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Transforming Vertices - Scaling</title>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="400" height="400">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <script id="vertexShader" type="x-shader/x-vertex">
+            uniform float u_scale;
+            attribute vec4 a_Position;
+            void main() {
+                // adjust the x and y coordinates by the scale factor
+                gl_Position = vec4(u_scale * a_Position.xy, 0.0, 1.0);
+            }
+        </script>
+
+        <script id="fragmentShader" type="x-shader/x-fragment">
+            precision mediump float;
+            // only allowed uniform or varying variables
+            uniform vec4 u_color;
+            void main() {
+                gl_FragColor = u_color;
+            }
+        </script>
+
+        <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
+        <script src="GL_example3.js"></script>
+        <script>
+            window.onload = mainEntrance;
+        </script>
+    </body>
+</html>

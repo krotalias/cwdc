@@ -1,0 +1,42 @@
+<!--
+Same as GL_example1 but the shader source is in script
+tags in this file, rather than in the .js file as JavaScript string
+literals.
+
+Although it makes no logical sense for the shader
+source to be in the html file, it saves having to put quotation
+marks, and newlines in, manually.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Shader Source In &lt;script&gt; Tags</title>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="400" height="400">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <script id="vertexShader" type="x-shader/x-vertex">
+            attribute vec4 a_Position;
+            void main() {
+                gl_Position = a_Position;
+            }
+        </script>
+
+        <script id="fragmentShader" type="x-shader/x-fragment">
+            void main() {
+                 gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+            }
+        </script>
+
+        <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
+        <script src="GL_example1b.js"></script>
+        <script>
+            window.onload = mainEntrance;
+        </script>
+    </body>
+</html>
