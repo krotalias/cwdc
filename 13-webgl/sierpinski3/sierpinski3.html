@@ -115,12 +115,12 @@
             </div>
         </div>
 
-        <!-- does not work on safari and IOS -->
+        <!-- does not work on safari < 16.4 -->
         <script type="importmap">
             {
                 "imports": {
-                    "three": "/WebGL/lib/three/build/three.module.js",
-                    "OrbitControls": "/WebGL/lib/three/examples/jsm/controls/OrbitControls.js"
+                    "three": "https://unpkg.com/three@0.148.0/build/three.module.js?module",
+                    "OrbitControls": "https://unpkg.com/three@0.148.0/examples/jsm/controls/OrbitControls.js?module"
                 }
             }
         </script>
