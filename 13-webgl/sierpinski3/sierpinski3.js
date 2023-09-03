@@ -130,7 +130,7 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   var readFileNames = new Promise((resolve, reject) => {
     $.ajax({
       type: "GET",
-      url: "/cwdc/6-php/readFiles.php",
+      url: "/cwdc/6-php/readFiles_.php",
       data: {
         dir: "/cwdc/13-webgl/sierpinski3/models",
       },
