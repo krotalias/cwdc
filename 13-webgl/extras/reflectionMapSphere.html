@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="/cwdc/mainPage/LCG.css" />
+        <title>Environment Map</title>
+        <style>
+            body {
+                margin-top: 10px;
+                margin-left: 0;
+                margin-right: 0;
+                margin-bottom: 0;
+                padding: 0;
+            }
+            summary {
+                font-size: 200%;
+                font-weight: bold;
+                text-align: center;
+                padding-bottom: 20px;
+            }
+            #skybox {
+                border: 3px solid black;
+                width: fit-content;
+                padding: 20px 20px 0 20px;
+                background-color: antiquewhite;
+            }
+            #btns {
+                cursor: move;
+                text-align: center;
+                border: 2px solid goldenrod;
+                line-height: 3;
+                margin: 0 auto;
+                width: fit-content;
+            }
+            #euler {
+                display: none;
+                margin: 0 auto;
+                text-align: center;
+                width: fit-content;
+            }
+            h1 {
+                text-align: center;
+            }
+            button {
+                font-size: 150%;
+                margin: 20px;
+                color: black;
+                background-color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="skybox">
+            <canvas id="gl-canvas" width="600" height="600">
+                Oops ... your browser doesn't support the HTML5 canvas element
+            </canvas>
+
+            <details>
+                <summary>
+                    <a href="https://en.wikipedia.org/wiki/Cube_mapping">
+                        Cube Mapping
+                    </a>
+                </summary>
+                <div id="btns">
+                    <button id="ButtonT">Euler</button>
+                    <button id="ButtonM">Toggle Model</button>
+                    <div id="euler">
+                        <button id="ButtonX">Rotate X</button>
+                        <button id="ButtonY">Rotate Y</button>
+                        <button id="ButtonZ">Rotate Z</button>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            uniform mat4 modelViewMatrix;
+            uniform mat4 projectionMatrix;
+            uniform mat3 normalMatrix;
+            attribute vec3 vPosition;
+            attribute vec3 vNormal;
+            varying vec3 eyePos;
+            varying vec3 normal;
+
+            void main()
+            {
+                vec4 eyeCoords = modelViewMatrix * vec4(vPosition,1.0);
+                gl_Position = projectionMatrix*eyeCoords;
+
+                eyePos = eyeCoords.xyz;
+                normal = normalMatrix * vNormal;
+            }
+        </script>
+
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+
+            varying vec3 normal;
+            varying vec3 eyePos;
+            uniform samplerCube texMap;
+
+            void main()
+            {
+                vec3 R = reflect(eyePos,normal);
+                vec4 texColor = textureCube(texMap, R);
+
+                gl_FragColor = texColor;
+            }
+        </script>
+
+        <script type="text/javascript" src="/WebGL/lib/jsHandler.js"></script>
+        <script
+            type="text/javascript"
+            src="/WebGL/Common/initShaders.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="/WebGL/lib/simple-rotator.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="/WebGL/lib/basic-objects-IFS.js"
+        ></script>
+        <script type="module" src="reflectionMapSphere.js"></script>
+
+        <script type="text/javascript" src="/cwdc/mainPage/LCG.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            dragAndSave("#skybox");
+            $("#skybox").draggable("option", "handle", "#btns");
+        </script>
+    </body>
+</html>
