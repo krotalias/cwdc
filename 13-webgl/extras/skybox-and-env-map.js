@@ -486,20 +486,18 @@ async function init(m) {
      */
     texDir = await readDirectoryNames
       .then((arr) => {
-        return arr.length > 0
-          ? arr
-          : [
-              "ForbiddenCity",
-              "LancellottiChapel",
-              "Yokohama3",
-              "colosseum",
-              "park",
-              "skybox",
-            ];
+        return arr.length > 0 ? arr : ["skybox"];
       })
       .catch((error) => {
         alert(`${error}`);
-        // don't return anything => execution goes the normal way
+        return [
+          "ForbiddenCity",
+          "LancellottiChapel",
+          "Yokohama3",
+          "colosseum",
+          "park",
+          "skybox",
+        ];
       });
 
     // we need gl already defined
