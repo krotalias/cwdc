@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>extras/skybox-and-env-map.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>This example combines a skybox with a fully reflective object.</p>
+The skybox and teapot can be rotated independently.
+The teapot seems to be reflecting its environment, <br>
+but it's really just that the teapot and skybox use the same cubemap texture.
+
+<p>To get this to work, I use two shader programs,
+one for the skybox and one for the teapot.</p>
+
+<p>To get the reflection map to work with a rotatable skybox,
+the reflected ray in the teapot shader is transformed <br>
+by the inverse of the view transform rotation matrix.<br>
+(The view transform is applied to both the skybox and the teapot).</p>
+
+<p>The teapot is rotated by an additional modeling transformation.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>01/01/2019</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="extras_skybox-and-env-map.js.html">extras/skybox-and-env-map.js</a>, <a href="extras_skybox-and-env-map.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=0">teapot</a></li>
+        
+            <li><a href="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=1">cube</a></li>
+        
+            <li><a href="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=2">sphere</a></li>
+        
+            <li><a href="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=3">torus</a></li>
+        
+            <li><a href="/cwdc/13-webgl/extras/skybox-and-env-map.js">source</a></li>
+        
+            <li><a href="/cwdc/13-webgl/lib/simple-rotator.js">simple-rotator</a></li>
+        
+            <li><a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">basic-objects-IFS.js</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/19_GLSL.html">https://math.hws.edu/eck/cs424/notes2013/19_GLSL.html</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/</a></li>
+        
+            <li><a href="https://cdnjs.com/libraries/gl-matrix/2.2.0/">https://cdnjs.com/libraries/gl-matrix/2.2.0/</a></li>
+        
+            <li><a href="https://glmatrix.net/docs/index.html">glmatrix</a></li>
+        
+            <li><iframe width="512" height="512" src="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=0"></iframe></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/basic-objects-IFS.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>The functions in this file create models in an
+<a href="https://math.hws.edu/graphicsbook/c3/s4.html">IFS</a>
+(Indexed Face Set) format that can be drawn using gl.drawElements
+with primitive type gl.TRIANGLES.</p>
+
+<p>Objects have vertex coordinates, normal vectors, and texture
+coordinates for each vertex, plus a list of indices
+for the element array buffer. </p>
+
+The return value of each function is an object, model, with properties:
+<ul>
+<li>model.vertexPositions -- the vertex coordinates; </li>
+<li>model.vertexNormals -- the normal vectors; </li>
+<li>model.vertexTextureCoords -- the texture coordinates; </li>
+<li>model.indices -- the face indices. </li>
+</ul>
+
+The first three properties are of type Float32Array,
+while model.indices is of type Uint16Array.
+
+<p>This file also defines a variable (not a function) teapotIFS,
+which is a model of the OpenGL teapot in the same format.</p>
+<ul>
+<li><a href="global.html#uvCone">cone</a></li>
+<li><a href="global.html#cube">cube</a></li>
+<li><a href="global.html#uvCylinder">cylinder</a></li>
+<li><a href="global.html#ring">ring</a></li>
+<li><a href="global.html#uvSphere">sphere</a></li>
+<li><a href="global.html#teapotModel">teapot</a></li>
+<li><a href="global.html#uvTorus">torus</a></li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>08/01/2014</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">source</a></li>
+        
+            <li><a href="https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js">https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/gl-matrix/dist/esm/common.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>High performance matrix and vector operations.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>3.4.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Brandon Jones</li>
+        
+            <li>Colin MacKenzie IV</li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(c) 2015-2021, Brandon Jones, Colin MacKenzie IV.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_gl-matrix_dist_esm_common.js.html">lib/gl-matrix/dist/esm/common.js</a>, <a href="lib_gl-matrix_dist_esm_common.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/gl-matrix">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/simple-rotator.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>The SimpleRotator class implements an <a href="/cwdc/13-webgl/extras/doc/Arcball.pdf">ArcBall</a> like interface.</p>
+Create by <a href="https://dl.acm.org/profile/81100026146">Ken Shoemake</a> in 1992,
+it is the de facto <a href="/cwdc/13-webgl/extras/doc/shoemake92-arcball.pdf">standard</a>
+for interactive 3D model manipulation and visualization.
+<p>The class defines the following methods for an object of type SimpleRotator:</p>
+<ul>
+   <li><a href="SimpleRotator.html#setView">SimpleRotator#setView</a>(viewDirectionVector, viewUpVector, viewDistance) <br>
+        set up the view, where the parameters are optional and are used in the
+        same way as the corresponding parameters in the constructor;</li>
+   <li><a href="SimpleRotator.html#setViewDistance">SimpleRotator#setViewDistance</a>(viewDistance)  <br>
+       sets the distance of the viewer from the origin without
+       changing the direction of view;</li>
+   <li><a href="SimpleRotator.html#getViewDistance">SimpleRotator#getViewDistance</a>()  <br>
+        returns the viewDistance;</li>
+   <li><a href="SimpleRotator.html#setViewMatrix">SimpleRotator#setViewMatrix</a>(matrix) <br>
+       Sets the view matrix.
+   <li><a href="SimpleRotator.html#getViewMatrix">SimpleRotator#getViewMatrix</a>() <br>
+       returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array">Float32Array</a>
+       representing the viewing transformation matrix for the current view, suitable for use with
+       <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniformMatrix">gl.uniformMatrix4fv</a> <br>
+       or for further transformation with the <a href="https://glmatrix.net/docs/">glmatrix</a> library
+       <a href="https://glmatrix.net/docs/module-mat4.html">mat4</a> class;</li>
+   <li><a href="SimpleRotator.html#getViewMatrixArray">SimpleRotator#getViewMatrixArray</a>() <br>
+        returns the view transformation matrix as a regular JavaScript array,
+        but still represents as a 1D array of 16 elements, in column-major order.</li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>22/01/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>David J. Eck modified by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_simple-rotator.js.html">lib/simple-rotator.js</a>, <a href="lib_simple-rotator.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/simple-rotator.js">source</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html">https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/</a></li>
+        
+            <li><a href="https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball">https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball</a></li>
+        
+            <li><a href="https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/">https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/</a></li>
+        
+            <li><img src="/cwdc/13-webgl/lib/arcball4.png" width="256"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li></ul><h3>Global</h3><ul><li><a href="global.html#.onclick">.onclick</a></li><li><a href="global.html#_loadTextureCube">_loadTextureCube</a></li><li><a href="global.html#aCoords">aCoords</a></li><li><a href="global.html#aCoords_SB">aCoords_SB</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createModelSB">createModelSB</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeSB">cubeSB</a></li><li><a href="global.html#doKey">doKey</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getTextContent">getTextContent</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#invVT">invVT</a></li><li><a href="global.html#loadTextureCube">loadTextureCube</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readDirectoryNames">readDirectoryNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotX">rotX</a></li><li><a href="global.html#rotY">rotY</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#teapot">teapot</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCnt">texCnt</a></li><li><a href="global.html#texDir">texDir</a></li><li><a href="global.html#texID">texID</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Sep 05 2023 03:48:54 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

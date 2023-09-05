@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>WebGL Reflection Mapping With Skybox</title>
+        <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+        ></script>
+        <style>
+            summary {
+                font-size: 200%;
+                font-weight: bold;
+                text-align: center;
+                width: fit-content;
+            }
+        </style>
+    </head>
+    <body style="background-color: #ddd">
+        <noscript
+            ><hr />
+            <h3>
+                This page requires Javascript and a web browser that supports
+                WebGL
+            </h3>
+            <hr
+        /></noscript>
+
+        <div>
+            <canvas
+                width="600"
+                height="600"
+                id="glcanvas"
+                style="background-color: blue"
+            ></canvas>
+        </div>
+
+        <details>
+            <summary>WebGL Reflection Map With Skybox</summary>
+            <ul style="list-style: none; font-size: 200%">
+                <li>Drag your mouse on the canvas to rotate the view.</li>
+                <li>
+                    Use ← ↑ ↓ → keys to rotate the
+                    <span id="model">teapot</span>.
+                </li>
+                <li>Press Esc to load the next skybox texture.</li>
+                <li>Pass a different model as a URL parameter: m = [0,3].</li>
+            </ul>
+            <p>
+                <button id="reset" style="margin-left: 40px; font-size: 200%">
+                    Reset View
+                </button>
+                <button id="next" style="margin-left: 40px; font-size: 200%">
+                    Next Texture
+                </button>
+            </p>
+        </details>
+
+        <!-- This example combines a skybox with a fully reflective teapot.
+            The skybox and teapot can be rotated independently. The teapot
+            seems to be reflecting its environment, but it's really just that
+            the teapot and skybox use the same cubemap texture.  To get this
+            to work, I use two shader programs, one for the skybox and one for the
+            teapot.  To get the reflection map to work with a rotatable skybox,
+            the reflected ray in the teapot shader is transformed by the
+            inverse of the view transform rotation matrix.  (The view transform
+            is applied to both the skybox and the teapot.  The teapot is
+            rotated by an additional modeling transform. -->
+
+        <script type="x-shader/x-vertex" id="vshaderSB">
+            uniform mat4 projection;
+            uniform mat4 modelview;
+            attribute vec3 coords;
+            varying vec3 vCoords;
+            void main() {
+               vec4 eyeCoords = modelview * vec4(coords,1.0);
+               gl_Position = projection * eyeCoords;
+               vCoords = coords;//gl_Position.xyz;
+            }
+        </script>
+        <script type="x-shader/x-fragment" id="fshaderSB">
+            precision mediump float;
+            varying vec3 vCoords;
+            uniform samplerCube skybox;
+            void main() {
+                 gl_FragColor = textureCube(skybox, vCoords);
+            }
+        </script>
+
+        <script type="x-shader/x-vertex" id="vshader">
+            uniform mat4 projection;
+            uniform mat4 modelview;
+            attribute vec3 coords;
+            attribute vec3 normal;
+            varying vec3 viewCoords;
+            varying vec3 vNormal;
+            void main() {
+               vec4 eyeCoords = modelview * vec4(coords,1.0);
+               gl_Position = projection * eyeCoords;
+               viewCoords = eyeCoords.xyz;
+               vNormal = normal;
+            }
+        </script>
+        <script type="x-shader/x-fragment" id="fshader">
+            precision mediump float;
+            varying vec3 vCoords;
+            varying vec3 vNormal;
+            varying vec3 viewCoords;
+            uniform samplerCube skybox;
+            uniform mat3 normalMatrix;
+            uniform mat3 inverseViewTransform;
+            void main() {
+                 vec3 N = normalMatrix * vNormal;
+                 vec3 V = -viewCoords;
+                 vec3 R = -reflect(V,N);
+                 // This is how to compute R without the reflect() function.
+                 /// vec3 R = 2.0 * dot(V,N) * N - V;
+                 // Transform by inverse of view transform, which was applied to the skybox
+                 R = inverseViewTransform * R;
+                 gl_FragColor = textureCube(skybox, R);
+            }
+        </script>
+
+        <script
+            type="text/javascript"
+            src="../lib/simple-rotator.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="../lib/basic-objects-IFS.js"
+        ></script>
+        <script type="module" src="skybox-and-env-map.js"></script>
+    </body>
+</html>
