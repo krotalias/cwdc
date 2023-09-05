@@ -486,7 +486,16 @@ async function init(m) {
      */
     texDir = await readDirectoryNames
       .then((arr) => {
-        return arr.length > 0 ? arr : ["skybox"];
+        return arr.length > 0
+          ? arr
+          : [
+              "ForbiddenCity",
+              "LancellottiChapel",
+              "Yokohama3",
+              "colosseum",
+              "park",
+              "skybox",
+            ];
       })
       .catch((error) => {
         alert(`${error}`);
