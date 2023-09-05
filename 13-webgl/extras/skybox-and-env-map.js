@@ -441,7 +441,7 @@ function getTextContent(elementID) {
 var readDirectoryNames = new Promise((resolve, reject) => {
   $.ajax({
     type: "GET",
-    url: "/cwdc/6-php/readDirectories.php",
+    url: "/cwdc/6-php/readDirectories_.php",
     data: {
       dir: "/cwdc/13-webgl/examples/cubemaps",
     },
