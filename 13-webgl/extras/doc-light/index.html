@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>extras/LightingWithTexture.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Lighting, combined with texture mapping.</p>
+Same as <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
+except we define a 3x3 matrix for <a href="https://learnopengl.com/Lighting/Materials">material properties</a>
+and a 3x3 matrix for <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL">light properties</a>
+that are passed to the fragment shader as
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniform">uniforms</a>.
+
+<p>Edit the <a href="global.html#lightPropElements">light</a>/<a href="global.html#matPropElements">material</a> matrices in the global variables to experiment.
+Edit <a href="global.html#startForReal">startForReal</a> to choose a model and select
+<a href="https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals">face or vertex normals</a>.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>30/01/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a></li>
+        
+            <li><a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a></li>
+        
+            <li><a href="/cwdc/13-webgl/examples/texture/content/Texture.html">Chessboard Texture<a/></li>
+        
+            <li><a href="https://en.wikipedia.org/wiki/Utah_teapot">https://en.wikipedia.org/wiki/Utah_teapot</a></li>
+        
+            <li><a href="/cwdc/13-webgl/extras/textures">textures</a></li>
+        
+            <li><a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a></li>
+        
+            <li><a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">basic-objects-IFS</a></li>
+        
+            <li><img src="../images/teapot.png" width="512" title="Utah teapot">
+     <img src="../images/tex.png" title="64x64 texture" width="310"></li>
+        
+            <li><img src="../images/sphere.png" width="512" title="texture in fragment shader">
+     <img src="../images/anti-aliasing.png" height="340" title="sampling by pixel"></li>
+        
+            <li><img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
+     <img src="../images/aliasing.png" height="340" title="texture coordinates fixed">
+     <img src="../images/snake.png" height="340" title="rattle snake"></li>
+        
+            <li><img src="../textures/earth-nasa.jpg" height="340" title="earth from nasa">
+     <img src="../images/Milla.png" height="340" title="Milla Jovovich"></li>
+        
+            <li><img src="../images/sphere-earth.png" height="340" title="texture in fragment shader">
+     <img src="../images/teapot-earth.png" height="340" title="teapot points projected onto a sphere"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/basic-objects-IFS.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>The functions in this file create models in an
+<a href="https://math.hws.edu/graphicsbook/c3/s4.html">IFS</a>
+(Indexed Face Set) format that can be drawn using gl.drawElements
+with primitive type gl.TRIANGLES.</p>
+
+<p>Objects have vertex coordinates, normal vectors, and texture
+coordinates for each vertex, plus a list of indices
+for the element array buffer. </p>
+
+The return value of each function is an object, model, with properties:
+<ul>
+<li>model.vertexPositions -- the vertex coordinates; </li>
+<li>model.vertexNormals -- the normal vectors; </li>
+<li>model.vertexTextureCoords -- the texture coordinates; </li>
+<li>model.indices -- the face indices. </li>
+</ul>
+
+The first three properties are of type Float32Array,
+while model.indices is of type Uint16Array.
+
+<p>This file also defines a variable (not a function) teapotIFS,
+which is a model of the OpenGL teapot in the same format.</p>
+<ul>
+<li><a href="global.html#uvCone">cone</a></li>
+<li><a href="global.html#cube">cube</a></li>
+<li><a href="global.html#uvCylinder">cylinder</a></li>
+<li><a href="global.html#ring">ring</a></li>
+<li><a href="global.html#uvSphere">sphere</a></li>
+<li><a href="global.html#teapotModel">teapot</a></li>
+<li><a href="global.html#uvTorus">torus</a></li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>08/01/2014</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">source</a></li>
+        
+            <li><a href="https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js">https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/gl-matrix/dist/esm/common.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>High performance matrix and vector operations.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>3.4.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Brandon Jones</li>
+        
+            <li>Colin MacKenzie IV</li>
+        </ul>
+    </dd>
+    
+
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>(c) 2015-2021, Brandon Jones, Colin MacKenzie IV.</li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_gl-matrix_dist_esm_common.js.html">lib/gl-matrix/dist/esm/common.js</a>, <a href="lib_gl-matrix_dist_esm_common.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/gl-matrix">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/simple-rotator.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>The SimpleRotator class implements an <a href="/cwdc/13-webgl/extras/doc/Arcball.pdf">ArcBall</a> like interface.</p>
+Create by <a href="https://dl.acm.org/profile/81100026146">Ken Shoemake</a> in 1992,
+it is the de facto <a href="/cwdc/13-webgl/extras/doc/shoemake92-arcball.pdf">standard</a>
+for interactive 3D model manipulation and visualization.
+<p>The class defines the following methods for an object of type SimpleRotator:</p>
+<ul>
+   <li><a href="SimpleRotator.html#setView">SimpleRotator#setView</a>(viewDirectionVector, viewUpVector, viewDistance) <br>
+        set up the view, where the parameters are optional and are used in the
+        same way as the corresponding parameters in the constructor;</li>
+   <li><a href="SimpleRotator.html#setViewDistance">SimpleRotator#setViewDistance</a>(viewDistance)  <br>
+       sets the distance of the viewer from the origin without
+       changing the direction of view;</li>
+   <li><a href="SimpleRotator.html#getViewDistance">SimpleRotator#getViewDistance</a>()  <br>
+        returns the viewDistance;</li>
+   <li><a href="SimpleRotator.html#setViewMatrix">SimpleRotator#setViewMatrix</a>(matrix) <br>
+       Sets the view matrix.
+   <li><a href="SimpleRotator.html#getViewMatrix">SimpleRotator#getViewMatrix</a>() <br>
+       returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array">Float32Array</a>
+       representing the viewing transformation matrix for the current view, suitable for use with
+       <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniformMatrix">gl.uniformMatrix4fv</a> <br>
+       or for further transformation with the <a href="https://glmatrix.net/docs/">glmatrix</a> library
+       <a href="https://glmatrix.net/docs/module-mat4.html">mat4</a> class;</li>
+   <li><a href="SimpleRotator.html#getViewMatrixArray">SimpleRotator#getViewMatrixArray</a>() <br>
+        returns the view transformation matrix as a regular JavaScript array,
+        but still represents as a 1D array of 16 elements, in column-major order.</li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>22/01/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>David J. Eck modified by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_simple-rotator.js.html">lib/simple-rotator.js</a>, <a href="lib_simple-rotator.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/simple-rotator.js">source</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html">https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/</a></li>
+        
+            <li><a href="https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball">https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball</a></li>
+        
+            <li><a href="https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/">https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/</a></li>
+        
+            <li><img src="/cwdc/13-webgl/lib/arcball4.png" width="256"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/teal_book/cuon-utils.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.<p>This is a class for creating shaders.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>25/09/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Kanda and Matsuda (c) 2012</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_teal_book_cuon-utils.js.html">lib/teal_book/cuon-utils.js</a>, <a href="lib_teal_book_cuon-utils.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/teal_book/cuon-utils.js">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/tetrahedron.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>Creates the model of a sphere by continuously subdividing
+an initial tetrahedron or octahedron.</p>
+
+The algorithm starts with just four/six points, corresponding
+to a tetrahedron/octahedron inscribed in the unit sphere, <br>
+and recursively subdivides each triangle by inserting a new vertex
+at the midpoint of its three edges, <br>
+which is then projected onto the surface of the sphere.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>21/11/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Paulo Roma Cavalcanti on 17/01/2016.</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06">https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06</a></li>
+        
+            <li><a href="http://glmatrix.net">http://glmatrix.net</a></li>
+        
+            <li><a href="/cwdc/13-webgl/lib/tetrahedron.js">source</a></li>
+        
+            <li><img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256"></li>
+        
+            <li><img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256"></li>
+        
+            <li><img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256"></li>
+        
+            <li><img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 07 2023 05:12:58 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

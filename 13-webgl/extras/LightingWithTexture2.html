@@ -1,0 +1,328 @@
+<!--
+Lighting combined with texture mapping.
+See the fragment shader code "modulate" (1), (2), (3)
+for some options for using the sampled texture value.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Texture with lighting</title>
+        <style>
+            #interface {
+                width: 900px;
+                margin-left: 50px;
+            }
+            #models,
+            label {
+                font-size: x-large;
+                line-height: 200%;
+            }
+            #models {
+                font-size: 200%;
+            }
+            #legenda {
+                float: right;
+                width: fit-content;
+                margin-right: 50px;
+            }
+            .sideBySide {
+                float: left;
+                margin-right: 80px;
+            }
+            button {
+                font-size: 300%;
+                margin-right: 40px;
+                padding: 0 10px 0 10px;
+            }
+            label {
+                margin-right: 40px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="900" height="600">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <div id="interface">
+            <div id="legenda">
+                <div id="size"></div>
+                <img id="textimg" src="" width="256" />
+                <div id="options"></div>
+            </div>
+
+            <p>
+                <label id="object"><b>Object:</b></label>
+            </p>
+            <select name="models" id="models" onchange="selectModel()">
+                <option value="0">Capsule</option>
+                <option value="1">Cone</option>
+                <option value="2">Cube</option>
+                <option value="3">Cylinder</option>
+                <option value="4">Ring</option>
+                <option value="5" selected="selected">Sphere</option>
+                <option value="6">Teapot</option>
+                <option value="7">Torus</option>
+                <option value="8">Torus Knot</option>
+                <option value="9">Dodecahedron</option>
+                <option value="10">Icosahedron</option>
+                <option value="11">Octahedron</option>
+                <option value="12">Tetrahedron</option>
+            </select>
+
+            <p>
+                <label><b>Status:</b></label>
+            </p>
+            <form>
+                <input type="checkbox" id="mesh" name="mesh" value="mesh" />
+                <label for="mesh">Mesh</label><br />
+                <input
+                    type="checkbox"
+                    id="texture"
+                    name="texture"
+                    checked
+                    value="texture"
+                />
+                <label for="texture">Texture</label><br />
+                <input
+                    type="checkbox"
+                    id="axes"
+                    name="axes"
+                    checked
+                    value="axes"
+                />
+                <label for="axes">Axes</label><br />
+
+                <div id="radio">
+                    <input type="radio" id="pause" name="rot" value=" " />
+                    <label for="pause">Pause</label>
+                    <input type="radio" id="x" name="rot" checked value="x" />
+                    <label for="x">x</label>
+                    <input type="radio" id="y" name="rot" value="y" />
+                    <label for="y">y</label>
+                    <input type="radio" id="z" name="rot" value="z" />
+                    <label for="z">z</label> (<a
+                        href="https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd"
+                        >extrinsic</a
+                    >)
+                </div>
+
+                <input type="checkbox" id="fixuv" name="fixuv" value="fixuv" />
+                <label for="fixuv">Fix uv</label><br />
+                <input
+                    type="checkbox"
+                    id="culling"
+                    name="culling"
+                    checked
+                    value="culling"
+                />
+                <label for="culling">Back Face Culling</label><br />
+            </form>
+
+            <div class="sideBySide">
+                <p>
+                    <label><b>Texture:</b></label>
+                </p>
+                <button onclick="nextTexture()">+</button>
+                <button onclick="previousTexture()">-</button>
+            </div>
+
+            <div class="sideBySide">
+                <p>
+                    <label><b>Subdivisions:</b></label>
+                </p>
+                <button onclick="nextLevel()">+</button>
+                <button onclick="previousLevel()">-</button>
+            </div>
+
+            <div class="sideBySide">
+                <p>
+                    <label><b>Zoom:</b></label>
+                </p>
+                <button onclick="zoomIn()">+</button>
+                <button onclick="zoomOut()">-</button>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+        <br />
+        <details>
+            <summary style="font-size: 150%">
+                Keyboard controls<span id="kbd">:</span>
+            </summary>
+
+            <ul style="list-style: none">
+                <li>c/C - cylinder/cone</li>
+                <li>d - dodecahedron</li>
+                <li>i - icosahedron</li>
+                <li>o - octahedron</li>
+                <li>w - tetrahedron</li>
+                <li>p - teapot</li>
+                <li>r - ring</li>
+                <li>s,S - threejs/sphere</li>
+                <li>t,T - torus/Torus Knot Geometry (threejs)</li>
+                <li>u - capsule (threejs)</li>
+                <li>v - cube</li>
+                <li>a - toggle axes visible/invisible</li>
+                <li>b - toggle back face culling on/off</li>
+                <li>f - toggle fixuv on/off (sphere by subdivision)</li>
+                <li>k - toggle texture on/off</li>
+                <li>l - toggle lines visible/invisible</li>
+                <li>n,N - next/previous texture</li>
+                <li>m,M - increase/decrease number of subdivisions</li>
+                <li>O - reset rotation</li>
+                <li>x,y,z - extrinsic rotation about a global axis</li>
+                <li>SPACE - toggle arcball/rotation</li>
+                <li>↑,↓ - Zoom out/in</li>
+            </ul>
+        </details>
+
+        <script id="vertexLightingShader" type="x-shader/x-vertex">
+            precision mediump float;
+
+            uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+            uniform mat3 normalMatrix;
+            uniform vec4 lightPosition;
+
+            attribute vec4 a_Position;
+            attribute vec3 a_Normal;
+            attribute vec2 a_TexCoord;
+
+            varying vec3 fL;
+            varying vec3 fN;
+            varying vec3 fV;
+            varying vec2 fTexCoord;
+            void main()
+            {
+              // convert position to eye coords: eye = (0,0,0,1)
+              vec4 positionEye = view * model * a_Position;
+
+              // convert light position to eye coords
+              vec4 lightEye = view * lightPosition;
+
+              // vector to light
+              fL = (lightEye - positionEye).xyz;
+
+              // transform normal into eye coords
+              fN = normalMatrix * a_Normal;
+
+              // vector from vertex position toward view point (eye)
+              fV = normalize(-(positionEye).xyz);
+
+              fTexCoord = a_TexCoord;
+
+              gl_Position = projection * view * model * a_Position;
+            }
+        </script>
+
+        <script id="fragmentLightingShader" type="x-shader/x-fragment">
+            precision mediump float;
+
+            uniform mat3 materialProperties;
+            uniform mat3 lightProperties;
+            uniform float shininess;
+            uniform sampler2D sampler;
+
+            varying vec3 fL;
+            varying vec3 fN;
+            varying vec3 fV;
+            varying vec2 fTexCoord;
+
+            void main()
+            {
+              // normalize after interpolating
+              vec3 N = normalize(fN);
+              vec3 L = normalize(fL);
+              vec3 V = normalize(fV);
+
+              // reflected vector
+              vec3 R = reflect(-L, N);
+
+              // get the columns out of the light and material properties. We keep the surface
+              // properties separate, so we can mess with them using the sampled texture value
+              vec4 ambientSurface = vec4(materialProperties[0], 1.0);
+              vec4 diffuseSurface = vec4(materialProperties[1], 1.0);
+              vec4 specularSurface = vec4(materialProperties[2], 1.0);
+
+              vec4 ambientLight = vec4(lightProperties[0], 1.0);
+              vec4 diffuseLight = vec4(lightProperties[1], 1.0);
+              vec4 specularLight = vec4(lightProperties[2], 1.0);
+
+              // sample from the texture at interpolated texture coordinate
+              vec4 color = texture2D(sampler, fTexCoord);
+
+              const int modulate = 1;
+              if (modulate == 1) {
+                // (1) use the value directly as the surface color and ignore the material properties
+                ambientSurface = color;
+                diffuseSurface = color;
+              } else if (modulate == 2) {
+                // (2) modulate intensity of surface color (or of any component)
+                float m = (color.r + color.g + color.b) / 3.0;
+                ambientSurface *= m;
+                diffuseSurface *= m;
+                specularSurface *= m;
+              } else {
+                // (3) blend texture using its alpha value (try this with "steve.png")
+                float m = color.a;
+                ambientSurface = (1.0 - m) * ambientSurface + m * color;
+                diffuseSurface = (1.0 - m) * diffuseSurface + m * color;
+                specularSurface = (1.0 - m) * specularSurface + m * color;
+              }
+
+              // lighting factors as usual
+
+              // Lambert's law, clamp negative values to zero
+              float diffuseFactor = max(0.0, dot(L, N));
+
+              // specular factor from Phong reflection model
+              float specularFactor = pow(max(0.0, dot(V, R)), shininess);
+
+              // add the components together, note that vec4 * vec4 is componentwise multiplication,
+              // not a dot product
+              vec4 ambient = ambientLight * ambientSurface;
+              vec4 diffuse = diffuseFactor * diffuseLight * diffuseSurface;
+              vec4 specular = specularFactor * specularLight * specularSurface;
+              gl_FragColor = ambient + diffuse + specular;
+              gl_FragColor.a = 1.0;
+            }
+        </script>
+
+        <script id="vertexColorShader" type="x-shader/x-vertex">
+            // values that stay the same during for all vertices of a single draw call
+            uniform mat4 transform;
+            // data pulled from buffers
+            attribute vec4 a_Position;
+            attribute vec4 a_Color;
+            // data passed to the fragment shader to be interpolated
+            varying vec4 color;
+            void main() {
+                gl_PointSize = 8.0;
+                color = a_Color;
+                gl_Position = transform * a_Position;
+            }
+        </script>
+
+        <script id="fragmentColorShader" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 color;
+            void main() {
+                gl_FragColor = color;
+            }
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://unpkg.com/gl-matrix@3.4.3/gl-matrix.js"></script>
+        <script src="https://threejs.org/build/three.min.js"></script>
+        <script src="../lib/teal_book/cuon-utils.js"></script>
+        <script src="../lib/tetrahedron.js"></script>
+        <script src="../lib/simple-rotator.js"></script>
+        <script src="../lib/basic-objects-IFS.js"></script>
+        <script src="LightingWithTexture.js"></script>
+    </body>
+</html>
