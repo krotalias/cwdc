@@ -1023,7 +1023,7 @@ window.addEventListener("load", (event) => {
         .catch((error) => {
           alert(`${error}`);
           // don't need to return anything => execution goes the normal way
-          return [
+          imageFilename = [
             "BigEarth.jpg",
             "Earth-1024x512.jpg",
             "Ghost Busters.jpg",
@@ -1037,6 +1037,7 @@ window.addEventListener("load", (event) => {
             "lion.jpg",
             "rattle_snake.jpg",
           ];
+          startForReal(image);
         });
     } else {
       newTexture(image);
