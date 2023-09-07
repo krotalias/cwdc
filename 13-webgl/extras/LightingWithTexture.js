@@ -354,7 +354,7 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
 var readFileNames = new Promise((resolve, reject) => {
   $.ajax({
     type: "GET",
-    url: "/cwdc/6-php/readFiles.php",
+    url: "/cwdc/6-php/readFiles_.php",
     data: {
       dir: "/cwdc/13-webgl/extras/textures",
     },
@@ -1022,7 +1022,21 @@ window.addEventListener("load", (event) => {
         })
         .catch((error) => {
           alert(`${error}`);
-          // don't return anything => execution goes the normal way
+          // don't need to return anything => execution goes the normal way
+          return [
+            "BigEarth.jpg",
+            "Earth-1024x512.jpg",
+            "Ghost Busters.jpg",
+            "Mila-1200x1200.jpg",
+            "NDVI_84.jpg",
+            "bricks.png",
+            "check64border.png",
+            "citrus-fruit-skin.png",
+            "earth-nasa.jpg",
+            "earth-nasa.png",
+            "lion.jpg",
+            "rattle_snake.jpg",
+          ];
         });
     } else {
       newTexture(image);
