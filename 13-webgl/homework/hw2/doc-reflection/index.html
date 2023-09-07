@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>homework/hw2/Reflection.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Demo of matrix transformations.</p>
+
+<p>An output area in the html page
+shows the matrices that were multiplied together to get the
+current transformation being applied to the triangle.</p>
+
+The drawing and shader code is the same as
+<a href="/cwdc/13-webgl/examples/transformations/content/Transformations.js">Transformations.js</a><br>
+What's been added are the html controls for selecting the
+transformation and the corresponding event handling code
+to update the transformation matrix.
+
+<p>Note also that instead of explicitly listing 16 numbers to represent a matrix,
+this uses the type <a href="Matrix4.html">Matrix4</a> (and <a href="Vector4.html">Vector4</a>) from
+the <a href="https://uniguld.dk/wp-content/guld/DTU/webgrafik/0321902920_WebGL.pdf">teal book</a>
+utilities in cuon-matrix.js, for example:</p>
+<pre>
+  var m = new Matrix4();                   // identity matrix
+  m.setTranslate(0.3, 0.0, 0.0);           // make it into a translation matrix
+  var m2 = new Matrix4();
+  m2.setRotate(90, 0, 0, 1);               // rotate 90 degrees in x-y plane
+  m.multiply(m2);                          // multiply m on right by m2, i.e., m = m * m2;
+  var theRealData = m.elements;            // get the underlying Float32Array
+  var projection = new Matrix4().ortho(-1, 1, -1, 1, -1, 1); // default projection
+</pre></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>27/09/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Steve Kautz</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="homework_hw2_Reflection.js.html">homework/hw2/Reflection.js</a>, <a href="homework_hw2_Reflection.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwd/13-webgl/homework/hw2/Reflection.html">link</a></li>
+        
+            <li><a href="/cwd/13-webgl/homework/hw2/Reflection.js">source</a></li>
+        
+            <li><a href="/cwd/13-webgl/homework/hw2/hw2b.pdf">doc</a></li>
+        
+            <li><a href="https://www.mauriciopoppe.com/notes/computer-graphics/transformation-matrices/rotation/euler-angles/">Euler Angles</a></li>
+        
+            <li><a href="https://www.alamo.edu/contentassets/ab5b70d70f264cec9097745e8f30ca0a/graphing/math0303-equations-of-a-line.pdf">Slope-Intercept</a></li>
+        
+            <li><img src="../clip_space_graph.svg" width="512"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/teal_book/cuon-matrix.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.<p>This is a class for handling 4x4 matrices.</p>It contains functions to create geometric transformations equivalent to OpenGL's:<ul> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glLoadIdentity.xml">glLoadIdentity</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glRotate.xml">glRotate</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glScale.xml">glScale</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glTranslate.xml">glTranslate</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluLookAt.xml">gluLookAt</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluPerspective.xml">gluPerspective</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml">glOrtho</a></li> <li><a href="https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glFrustum.xml">glFrustum</a></li></ul>This matrix is then right multiplied by one of those transformations.<br></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>28/09/2015</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Kanda and Matsuda (c) 2012</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_teal_book_cuon-matrix.js.html">lib/teal_book/cuon-matrix.js</a>, <a href="lib_teal_book_cuon-matrix.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>lib/teal_book/cuon-utils.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.<p>This is a class for creating shaders.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>25/09/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Kanda and Matsuda (c) 2012</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_teal_book_cuon-utils.js.html">lib/teal_book/cuon-utils.js</a>, <a href="lib_teal_book_cuon-utils.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/teal_book/cuon-utils.js">source</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Global</h3><ul><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#axisbuffer">axisbuffer</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#dblclick">dblclick</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getTranslationToCentroid">getTranslationToCentroid</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#numAxisPoints">numAxisPoints</a></li><li><a href="global.html#numPoints">numPoints</a></li><li><a href="global.html#previousModelMatrix">previousModelMatrix</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#transformations">transformations</a></li><li><a href="global.html#vertexbuffer">vertexbuffer</a></li><li><a href="global.html#vertices">vertices</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 07 2023 07:52:58 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

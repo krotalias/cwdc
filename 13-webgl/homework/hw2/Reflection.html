@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Reflection</title>
+        <style>
+            :root {
+                --font-size: 150%;
+            }
+            #displayMatrices {
+                background-color: #dddddd;
+                width: fit-content;
+                font-size: var(--font-size);
+            }
+            label {
+                font-size: var(--font-size);
+                line-height: 200%;
+                margin-right: 10px;
+            }
+            details {
+                font-size: var(--font-size);
+            }
+            input {
+                font-size: var(--font-size);
+            }
+            p {
+                font-size: var(--font-size);
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="700" height="700">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <!-- Some radio buttons to select intrinsic or extrinsic transformations -->
+        <p>
+            <a
+                href="https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd"
+            >
+                Extrinsic and intrinsic</a
+            >
+            <a href="https://en.wikipedia.org/wiki/Euler_angles">
+                Euler angles:
+            </a>
+        </p>
+        <ul style="list-style: none">
+            <li>
+                <input id="checkExtrinsic" name="inOrEx" type="radio" checked />
+                <label for="checkExtrinsic">
+                    Extrinsic (global: multiply on the left)
+                </label>
+            </li>
+            <li>
+                <input id="checkIntrinsic" name="inOrEx" type="radio" />
+                <label for="checkIntrinsic">
+                    Intrinsic (local: multiply on the right)
+                </label>
+            </li>
+            <li>
+                <input id="checkCentroid" name="inOrEx" type="radio" />
+                <label for="checkCentroid"> About centroid (extrinsic) </label>
+            </li>
+        </ul>
+
+        <div>
+            <label for="slopeBox">Slope (m)</label>
+            <input id="slopeBox" type="text" value="0" size="4" />
+
+            <label for="interceptBox">y-intercept (b)</label>
+            <input id="interceptBox" type="text" value="0" size="4" />
+            <br />
+            <input id="checkDrawLine" type="checkbox" checked />
+            <label for="checkDrawLine">
+                Draw line <em>y = mx + b</em> on canvas
+            </label>
+        </div>
+
+        <p>Current transformation matrix:</p>
+
+        <div id="displayMatrices">I</div>
+
+        <br /><br />
+        <details>
+            <summary>Keyboard controls:</summary>
+
+            <ul style="list-style: none">
+                <li>r - Rotate 30 degrees (Denoted "R" above)</li>
+                <li>R - Rotate -30 degrees (R')</li>
+                <li>t - Translate .3 along x-axis (T)</li>
+                <li>T - Translate -.3 along x-axis (T')</li>
+                <li>s - Scale 2x along y-axis (S)</li>
+                <li>S - Scale .5x along y-axis (S')</li>
+                <li>x - Reflect across x axis</li>
+                <li>l - Reflect across line y = mx + b (BXB')</li>
+                <li>o - Reset to identity</li>
+                <li>two mouse left clicks - define reflection line</li>
+                <li>mouse double click - show world position</li>
+            </ul>
+        </details>
+
+        <br /><br />
+        <details>
+            <summary>Notes:</summary>
+
+            <ul style="list-style: none">
+                <li>
+                    "A" represents a translation to the figure's
+                    <em>current</em> centroid.<br />
+                    A' is its inverse.
+                </li>
+
+                <li>
+                    "B" represents a transformation that aligns the line<br />
+                    &nbsp; &nbsp; y = mx + b with the x-axis. <br />
+                    B' is its inverse.
+                </li>
+            </ul>
+        </details>
+
+        <script id="vertexShader" type="x-shader/x-vertex">
+            uniform mat4 transform;
+            attribute vec4 a_Position;
+            void main()
+            {
+              gl_Position = transform * a_Position;
+            }
+        </script>
+
+        <script id="fragmentShader" type="x-shader/x-fragment">
+            precision mediump float;
+            uniform vec4 color;
+            void main()
+            {
+              gl_FragColor = color;
+            }
+        </script>
+
+        <script src="../../lib/teal_book/cuon-utils.js"></script>
+        <script src="../../lib/teal_book/cuon-matrix.js"></script>
+        <script src="Reflection.js"></script>
+    </body>
+</html>
