@@ -1,0 +1,15 @@
+shaftDummy
+
+    shaft - green, setScale(2, 25, 2), setPosition(0, -5, 0)
+    base  - green, setScale(6, 0.5, 6), setPosition(0, -17.5, 0)
+
+    generatorDummy
+
+        generator - magenta, setScale(4, 3, 6), setPosition(0, 8, 0)
+            generatorBlob - yellow, setScale(0.5, 0.3, 0.8), setPosition(0, 0.5, 0)
+
+        rotorDummy, setPosition(0, 8, 3)
+
+            rotor - red, setScale (1.5, 1.5, 1.5), setPosition(0, 0, 0.3)
+                rotorBlob - blue, setScale(0.5, 0.5, 0.5), setPosition(0, 0, 0.5)
+                blade     - green, setScale(1, 20, 0.3), setPosition(0, 0, 0.5)
