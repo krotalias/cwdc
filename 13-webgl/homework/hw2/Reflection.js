@@ -29,9 +29,9 @@
  * </pre>
  * @author Steve Kautz
  * @since 27/09/2016
- * @see <a href="/cwd/13-webgl/homework/hw2/Reflection.html">link</a>
- * @see <a href="/cwd/13-webgl/homework/hw2/Reflection.js">source</a>
- * @see <a href="/cwd/13-webgl/homework/hw2/hw2b.pdf">doc</a>
+ * @see <a href="/cwdc/13-webgl/homework/hw2/Reflection.html">link</a>
+ * @see <a href="/cwdc/13-webgl/homework/hw2/Reflection.js">source</a>
+ * @see <a href="/cwdc/13-webgl/homework/hw2/hw2b.pdf">doc</a>
  * @see <a href="https://www.mauriciopoppe.com/notes/computer-graphics/transformation-matrices/rotation/euler-angles/">Euler Angles</a>
  * @see <a href="https://www.alamo.edu/contentassets/ab5b70d70f264cec9097745e8f30ca0a/graphing/math0303-equations-of-a-line.pdf">Slope-Intercept</a>
  * @see <img src="../clip_space_graph.svg" width="512">
