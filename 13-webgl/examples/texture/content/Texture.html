@@ -1,0 +1,46 @@
+<!-- Basic example of texture mapping, no lighting. -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Basic texture</title>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="600" height="600">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <script id="vertexShader" type="x-shader/x-vertex">
+            attribute vec4 a_Position;
+            attribute vec2 a_TexCoord;
+            varying vec2 fTexCoord;
+            void main()
+            {
+              // pass through so the value gets interpolated
+              fTexCoord = a_TexCoord;
+              gl_Position = a_Position;
+            }
+        </script>
+
+        <script id="fragmentShader" type="x-shader/x-fragment">
+            precision mediump float;
+            uniform sampler2D sampler;
+            varying vec2 fTexCoord;
+            void main()
+            {
+              // sample from the texture at the interpolated texture coordinate,
+              // and use the value directly as the surface color
+              vec4 color = texture2D(sampler, fTexCoord);
+              gl_FragColor = color;
+            }
+        </script>
+
+        <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
+        <script src="Texture.js"></script>
+        <script>
+            window.onload = main;
+        </script>
+    </body>
+</html>
