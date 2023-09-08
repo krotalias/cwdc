@@ -1,13 +1,41 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: suncalc.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: suncalc.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file
  *
  * Summary.
- * <p>SunCalc is a JavaScript library for calculating sun/moon position and light phases.</p>
+ * &lt;p>SunCalc is a JavaScript library for calculating sun/moon position and light phases.&lt;/p>
  *
  * @author {@link https://agafonkin.com Vladimir Agafonkin}
  *         {@link https://github.com/mourner (@mourner)}
  * @copyright © 2011-2015, Vladimir Agafonkin
- * @see <a href="/cwdc/10-html5css3/clock/suncalc.js">source</a>
+ * @see &lt;a href="/cwdc/10-html5css3/clock/suncalc.js">source&lt;/a>
  * @see https://github.com/mourner/suncalc
  */
 
@@ -66,7 +94,7 @@
   }
 
   function astroRefraction(h) {
-    if (h < 0)
+    if (h &lt; 0)
       // the following formula works for positive altitudes only.
       h = 0; // if h = -0.08901179 a div/0 would occur.
 
@@ -189,7 +217,7 @@
       nadir: fromJulian(Jnoon - 0.5),
     };
 
-    for (i = 0, len = times.length; i < len; i += 1) {
+    for (i = 0, len = times.length; i &lt; len; i += 1) {
       time = times[i];
       h0 = (time[0] + dh) * rad;
 
@@ -262,7 +290,7 @@
 
     return {
       fraction: (1 + cos(inc)) / 2,
-      phase: 0.5 + (0.5 * inc * (angle < 0 ? -1 : 1)) / Math.PI,
+      phase: 0.5 + (0.5 * inc * (angle &lt; 0 ? -1 : 1)) / Math.PI,
       angle: angle,
     };
   };
@@ -295,7 +323,7 @@
       dx;
 
     // go in 2-hour chunks, each time seeing if a 3-point quadratic curve crosses zero (which means rise or set)
-    for (var i = 1; i <= 24; i += 2) {
+    for (var i = 1; i &lt;= 24; i += 2) {
       h1 = SunCalc.getMoonPosition(hoursLater(t, i), lat, lng).altitude - hc;
       h2 =
         SunCalc.getMoonPosition(hoursLater(t, i + 1), lat, lng).altitude - hc;
@@ -311,20 +339,20 @@
         dx = Math.sqrt(d) / (Math.abs(a) * 2);
         x1 = xe - dx;
         x2 = xe + dx;
-        if (Math.abs(x1) <= 1) roots++;
-        if (Math.abs(x2) <= 1) roots++;
-        if (x1 < -1) x1 = x2;
+        if (Math.abs(x1) &lt;= 1) roots++;
+        if (Math.abs(x2) &lt;= 1) roots++;
+        if (x1 &lt; -1) x1 = x2;
       }
 
       if (roots === 1) {
-        if (h0 < 0) rise = i + x1;
+        if (h0 &lt; 0) rise = i + x1;
         else set = i + x1;
       } else if (roots === 2) {
-        rise = i + (ye < 0 ? x2 : x1);
-        set = i + (ye < 0 ? x1 : x2);
+        rise = i + (ye &lt; 0 ? x2 : x1);
+        set = i + (ye &lt; 0 ? x1 : x2);
       }
 
-      if (rise && set) break;
+      if (rise &amp;&amp; set) break;
 
       h0 = h2;
     }
@@ -334,14 +362,37 @@
     if (rise) result.rise = hoursLater(t, rise);
     if (set) result.set = hoursLater(t, set);
 
-    if (!rise && !set) result[ye > 0 ? "alwaysUp" : "alwaysDown"] = true;
+    if (!rise &amp;&amp; !set) result[ye > 0 ? "alwaysUp" : "alwaysDown"] = true;
 
     return result;
   };
 
   // export as Node module / AMD module / browser variable
-  if (typeof exports === "object" && typeof module !== "undefined")
+  if (typeof exports === "object" &amp;&amp; typeof module !== "undefined")
     module.exports = SunCalc;
-  else if (typeof define === "function" && define.amd) define(SunCalc);
+  else if (typeof define === "function" &amp;&amp; define.amd) define(SunCalc);
   else window.SunCalc = SunCalc;
 })();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#decimal">decimal</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#roman">roman</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Sep 08 2023 06:40:22 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

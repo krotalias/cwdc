@@ -1,3 +1,13 @@
+/**
+ * @file
+ *
+ * Summary.
+ * <p>Calculates the elapsed number of years since a given date.</p>
+ * @author Paulo Roma Cavalcanti
+ * @since 26/08/2023
+ * @see <a href="/cwdc/10-html5css3/clock/date.js">source</a>
+ */
+
 "use strict";
 
 /**

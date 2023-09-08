@@ -35,6 +35,7 @@
  *  @see <a href="/cwdc/10-html5css3/clock/11.5.php?timeZone=America/Edmonton">Edmonton</a>
  *  @see <a href="/cwdc/10-html5css3/clock/clock.js">source</a>
  *  @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+ *  @see https://github.com/mourner/suncalc
  *  @see <a href="../clock/localtime.json">json file</a>
  *  @see <img src="../clock/clock.png">
  *  @see <img src="../clock/clock2.png">
@@ -443,11 +444,11 @@ drawClock.decimals[6].c = white3;
 drawClock.decimals[18].c = white3;
 
 /**
- * A closure to redraw the clock handles.
+ * A closure to run the animation.
  *
  * @function
+ * @return {drawHandles}
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
  * @see https://javascript.plainenglish.io/better-understanding-of-timers-in-javascript-settimeout-vs-requestanimationframe-bf7f99b9ff9b
  * @see https://attacomsian.com/blog/javascript-current-timezone
  */
@@ -468,9 +469,16 @@ var runAnimation = (() => {
   var tz = urlParams.get("timeZone") || timezone;
   var city = tz.split("/")[1];
 
-  function drawHandles() {
+  drawClock(city);
+
+  /**
+   * <p>A callback to redraw the four handles of the clock.</p>
+   * @callback drawHandles
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
+   */
+  return () => {
     // '06/02/2022, 08:20:50'
-    //                         (0-23)  (0-59)  (0-59)
+    //              (0-23)  (0-59)  (0-59)
     while (true) {
       try {
         var today = new Date();
@@ -542,10 +550,10 @@ var runAnimation = (() => {
       ctx.lineWidth = handle.width;
       ctx.stroke();
     });
-    cancelAnimationFrame(timer);
-    timer = requestAnimationFrame(drawHandles);
-  }
-  drawClock(city);
-  timer = requestAnimationFrame(drawHandles);
-  return drawHandles;
+    if (timer) cancelAnimationFrame(timer);
+    timer = requestAnimationFrame(runAnimation);
+  };
 })();
+
+// triggers the animation.
+runAnimation();
