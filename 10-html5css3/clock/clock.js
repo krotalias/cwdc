@@ -32,7 +32,7 @@
  *  @since 14/11/2020
  *
  *  @see <a href="/cwdc/10-html5css3/clock/11.5.html?timeZone=America/New_York">link</a>
- *  @see <a href="/cwdc/10-html5css3/clock/11.5.php?timeZone=America/Edmonton">Edmonton</a>
+ *  @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton</a>
  *  @see <a href="/cwdc/10-html5css3/clock/clock.js">source</a>
  *  @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
  *  @see https://github.com/mourner/suncalc
