@@ -2,43 +2,57 @@
  * @file
  *
  * Summary.
- * <p>Draw a clock using the canvas API from HTML5.</p>
+ * <p>Draw an analog {@link https://www.timeanddate.com/worldclock/personal.html world clock}
+ * using the HTML5
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API canvas API}.
+ * </p>
  *
- *  Description.
- *  <p>A simple method consists in mapping hours, minutes and seconds into angles,
- *   and then map polar coordinates to cartesian coordinates, considering 0°
- *   at three o'clock.
- *  </p>
+ * Description.
+ * <p>Here, it has been used two canvases: one for the clock's background
+ * and the other for its four handles.
  *
- *  <p>If the browser allows querying the current position (sometimes only when using a secure connection - https),
- *  the time of the clock is the local time from the browser. <br/ >
- *  Otherwise, a series of locations is read from a localtime.json file, and the time of each location can
- *  be used by pressing the "n" or "N" keys, which cicles forward or backward between them.
- *  </p>
+ * A simple method for drawing a handle consists in mapping
+ * hours, minutes and seconds from the computer into angles,
+ * and then mapping {@link https://en.wikipedia.org/wiki/Polar_coordinate_system polar coordinates}
+ * to {@link https://en.wikipedia.org/wiki/Cartesian_coordinate_system cartesian coordinates},
+ * considering 0° at three o'clock.
+ * </p>
  *
- *  <p>The day light hours are indicated by means of a bright curve drawn on top of the clock's circular border.</p>
+ * <p>If the browser allows querying the
+ * {@link https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting current geographic location}
+ * (sometimes only when using a secure connection - https),
+ * the {@link https://www.timeanddate.com/time/map/ time zone} of the clock is the local time
+ * from the browser.
+ * Otherwise, a series of locations is read from a
+ * <a href="../clock/localtime.json">localtime.json</a> file,
+ * and the time of each location can
+ * be set by pressing the "n" or "N" keys, which cycles forward or backward between them.
+ * </p>
  *
- *  <pre>
- *  Documentation:
- *  - Ubuntu:
- *     - sudo apt install jsdoc-toolkit
- *  - MacOS:
- *     - sudo port install npm7 (or npm8)
- *     - sudo npm install -g jsdoc
- *  - jsdoc -d docjs clock.js
- *  </pre>
+ * <p>The day light hours are indicated by means of a bright curve drawn
+ * on top of the clock's circular border.</p>
  *
- *  @author Paulo Roma Cavalcanti
- *  @since 14/11/2020
+ * <pre>
+ * Documentation:
+ * - Ubuntu:
+ *    - sudo apt install jsdoc-toolkit
+ * - MacOS:
+ *    - sudo port install npm8 (or npm9)
+ *    - sudo npm install -g jsdoc
+ * - jsdoc -d docjs clock/clock.js clock/suncalc.js clock/date.js
+ * </pre>
  *
- *  @see <a href="/cwdc/10-html5css3/clock/11.5.html?timeZone=America/New_York">link</a>
- *  @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton</a>
- *  @see <a href="/cwdc/10-html5css3/clock/clock.js">source</a>
- *  @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
- *  @see https://github.com/mourner/suncalc
- *  @see <a href="../clock/localtime.json">json file</a>
- *  @see <img src="../clock/clock.png">
- *  @see <img src="../clock/clock2.png">
+ * @author Paulo Roma Cavalcanti
+ * @since 14/11/2020
+ *
+ * @see <a href="/cwdc/10-html5css3/clock/11.5.html">Local Time</a>
+ * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton</a>
+ * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/New_York">New York</a>
+ * @see <a href="/cwdc/10-html5css3/clock/clock.js">source</a>
+ * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+ * @see https://github.com/mourner/suncalc
+ * @see <img src="../clock/clock.png">
+ * @see <img src="../clock/clock2.png">
  */
 
 "use strict";
@@ -362,7 +376,7 @@ function drawClock(place) {
     let today = new Date();
     let times = SunCalc.getTimes(today, loc.latitude, loc.longitude);
 
-    // your local timezone offset in minutes (eg -180).
+    // your local timezone offset in minutes (e.g. -180).
     // NOT the timezone offset of the date object.
     let offset;
     let timezoneOffset = today.getTimezoneOffset() / 60;
