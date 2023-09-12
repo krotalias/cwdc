@@ -77,6 +77,7 @@ getData()
 /**
  * An async function can wait for a promise to be resolved.
  *
+ * @async
  * @returns {Promise<Number>} returned value 3 wrapped as a promise.
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
  */
@@ -125,6 +126,63 @@ doSomething().then((value) => {
 });
 
 /**
+ * addAsync() immediately invokes the Promise constructor.
+ * The actual implementation of that function resides in the callback
+ * that is passed to that constructor (line A).
+ * That callback is provided with two functions:
+ *
+ * <ul>
+ *  <li>resolve is used for delivering a result (in case of success).</li>
+ *  <li>reject is used for delivering an error (in case of failure).</li>
+ * </ul>
+ * @see https://exploringjs.com/impatient-js/ch_promises.html#the-basics-of-using-promises
+ */
+function addAsync(x, y) {
+  return new Promise((resolve, reject) => {
+    // (A)
+    if (x === undefined || y === undefined) {
+      reject(new Error("Must provide two parameters"));
+    } else {
+      resolve(x + y);
+    }
+  });
+}
+
+/**
+ * <p>Calls addAsync.</p>
+ * Promises are similar to the event pattern:
+ * There is an object (a Promise), where we register callbacks:
+ *
+ * <ul>
+ *  <li>Method .then() registers callbacks that handle results.</li>
+ *  <li>Method .catch() registers callbacks that handle errors.</li>
+ * </ul>
+ *
+ * <pre>
+ *    sum = 5
+ *    Error: Must provide two parameters
+ * </pre>
+ * @function call_addAsync
+ * @global
+ */
+addAsync(3, 2)
+  .then((result) => {
+    console.log(`sum = ${result}`);
+  })
+  .catch((err) => {
+    console.error(`Error: ${err.message}`);
+  });
+
+addAsync(2).then(
+  (result) => {
+    console.log(`sum = ${result}`);
+  },
+  (err) => {
+    console.error(`Error: ${err.message}`);
+  }
+);
+
+/**
  *  <p>Retrieves a user avatar from github,
  *  and draws it for 3 seconds.</p>
  *
@@ -148,6 +206,7 @@ doSomething().then((value) => {
  *
  *  All the processing is asynchronous.
  *
+ *  @async
  *  @return {Object} a github user.
  *
  *  <pre>
