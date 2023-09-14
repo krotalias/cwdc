@@ -297,6 +297,11 @@ async function findCity(name) {
  * Draw the clock: a logo, a circle, {@link drawArc sun light arc}, and the ticks.
  *
  * @param {String} place a location name.
+ * @property {function} drawClock
+ * @property {function} drawClock.location Increment/decrement the clock location.
+ * @property {Array<tz>} drawClock.tz time zone array.
+ * @property {Array<{txt: String, c: color}>} drawClock.romans Clock roman x color.
+ * @property {Array<{txt: String, c: color}>} drawClock.decimals Clock number x color.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images
@@ -339,8 +344,6 @@ function drawClock(place) {
   context.lineWidth = 3;
   circle(center, clockRadius - 8, false);
 
-  let tz;
-
   navigator.geolocation.getCurrentPosition(
     (position) => {
       // this is an asynchronous callback
@@ -352,7 +355,7 @@ function drawClock(place) {
     async () => {
       // safari blocks geolocation unless using a secure connection
       let city;
-      [tz, city] = await findCity(place);
+      [drawClock.tz, city] = await findCity(place);
       if (city) {
         let lat = city.coordinates.latitude;
         let lng = city.coordinates.longitude;
@@ -376,22 +379,12 @@ function drawClock(place) {
    *  <li>B: back to 10-html5css3</li>
    *  <li>⌘-esc or ⌘-e: clear local storage</li>
    * </ul>
-   * @async
    * @global
    * @param {KeyboardEvent} event keyboard event.
    */
-  window.onkeydown = async function (event) {
+  window.onkeydown = function (event) {
     if (event.key === "n" || event.key === "N") {
-      if (tz == undefined) {
-        tz = await readZones();
-      }
-      let index = localStorage.getItem("placeIndex") || 0;
-      index = (+index + (event.key === "n" ? 1 : -1)).mod(tz.cities.length);
-      localStorage.setItem("placeIndex", String(index));
-      let city = tz.cities[index];
-      window.location.href =
-        window.location.href.split("?")[0] +
-        `?timeZone=${city.region}/${city.city}`;
+      drawClock.location(event.key);
     } else if (event.key === "Escape" || event.key === "e") {
       if (event.metaKey || event.ctrlKey) {
         localStorage.clear();
@@ -488,6 +481,7 @@ function drawClock(place) {
  * <p>Clock roman x color.</p>
  * Each roman number may have a different color, so it does not
  * interfere with the background color.
+ * @memberof {drawClock}
  * @member {Array<{txt: String, c: color}>} roman clock numbers.
  */
 drawClock.romans = [
@@ -509,6 +503,7 @@ drawClock.romans = [
  * <p>Clock number x color.</p>
  * Each number may have a different color, so it does not
  * interfere with the background color.
+ * @memberof {drawClock}
  * @member {Array<{txt: String, c: color}>} decimal clock numbers.
  */
 drawClock.decimals = Array.from(Array(24), (_, i) => {
@@ -517,6 +512,40 @@ drawClock.decimals = Array.from(Array(24), (_, i) => {
 drawClock.decimals[0].txt = "24";
 drawClock.decimals[6].c = white3;
 drawClock.decimals[18].c = white3;
+
+/**
+ * Increment/decrement the clock location.
+ * @async
+ * @memberof {drawClock}
+ * @global
+ * @param {String} key "n" for next or "N" for previous.
+ */
+drawClock.location = async (key) => {
+  if (drawClock.tz == undefined) {
+    drawClock.tz = await readZones();
+  }
+  let index = localStorage.getItem("placeIndex") || 0;
+  index = (+index + (key === "n" ? 1 : -1)).mod(drawClock.tz.cities.length);
+  localStorage.setItem("placeIndex", String(index));
+  let city = drawClock.tz.cities[index];
+  window.location.href =
+    window.location.href.split("?")[0] +
+    `?timeZone=${city.region}/${city.city}`;
+};
+
+/**
+ * Select next location.
+ */
+function nextLocation() {
+  drawClock.location("n");
+}
+
+/**
+ * Select previous location.
+ */
+function previousLocation() {
+  drawClock.location("N");
+}
 
 /**
  * A closure to run the animation.

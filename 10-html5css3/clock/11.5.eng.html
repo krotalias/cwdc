@@ -3,7 +3,7 @@
     <head>
         <title>Flu's Clock</title>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width" />
         <link rel="stylesheet" href="/cwdc/mainPage/LCG.css" />
         <style>
             :root {
@@ -47,6 +47,12 @@
                 background-size: cover;
                 z-index: 1;
             }
+            button {
+                font-size: 200%;
+                margin-right: 40px;
+                margin-left: 40px;
+                padding: 0 10px 0 10px;
+            }
         </style>
     </head>
 
@@ -81,6 +87,7 @@
                 Please upgrade your browser!
             </audio>
 
+            <p>
             <small>
                 Fluminense FC Anthem by
                 <a
@@ -88,7 +95,17 @@
                     >Lamartine Babo.</a
                 >
             </small>
+            </p>
         </p>
+
+        <br />
+
+        <div class="sideBySide">
+            <label><b>Location:</b></label>
+            <button onclick="nextLocation()">+</button>
+            <button onclick="previousLocation()">-</button>
+        </div>
+
         <p>
             <iframe
                 title="Rivelino's rubberband"

@@ -325,6 +325,11 @@ async function findCity(name) {
  * Draw the clock: a logo, a circle, {@link drawArc sun light arc}, and the ticks.
  *
  * @param {String} place a location name.
+ * @property {function} drawClock
+ * @property {function} drawClock.location Increment/decrement the clock location.
+ * @property {Array&lt;tz>} drawClock.tz time zone array.
+ * @property {Array&lt;{txt: String, c: color}>} drawClock.romans Clock roman x color.
+ * @property {Array&lt;{txt: String, c: color}>} drawClock.decimals Clock number x color.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images
@@ -367,8 +372,6 @@ function drawClock(place) {
   context.lineWidth = 3;
   circle(center, clockRadius - 8, false);
 
-  let tz;
-
   navigator.geolocation.getCurrentPosition(
     (position) => {
       // this is an asynchronous callback
@@ -380,7 +383,7 @@ function drawClock(place) {
     async () => {
       // safari blocks geolocation unless using a secure connection
       let city;
-      [tz, city] = await findCity(place);
+      [drawClock.tz, city] = await findCity(place);
       if (city) {
         let lat = city.coordinates.latitude;
         let lng = city.coordinates.longitude;
@@ -404,22 +407,12 @@ function drawClock(place) {
    *  &lt;li>B: back to 10-html5css3&lt;/li>
    *  &lt;li>⌘-esc or ⌘-e: clear local storage&lt;/li>
    * &lt;/ul>
-   * @async
    * @global
    * @param {KeyboardEvent} event keyboard event.
    */
-  window.onkeydown = async function (event) {
+  window.onkeydown = function (event) {
     if (event.key === "n" || event.key === "N") {
-      if (tz == undefined) {
-        tz = await readZones();
-      }
-      let index = localStorage.getItem("placeIndex") || 0;
-      index = (+index + (event.key === "n" ? 1 : -1)).mod(tz.cities.length);
-      localStorage.setItem("placeIndex", String(index));
-      let city = tz.cities[index];
-      window.location.href =
-        window.location.href.split("?")[0] +
-        `?timeZone=${city.region}/${city.city}`;
+      drawClock.location(event.key);
     } else if (event.key === "Escape" || event.key === "e") {
       if (event.metaKey || event.ctrlKey) {
         localStorage.clear();
@@ -516,6 +509,7 @@ function drawClock(place) {
  * &lt;p>Clock roman x color.&lt;/p>
  * Each roman number may have a different color, so it does not
  * interfere with the background color.
+ * @memberof {drawClock}
  * @member {Array&lt;{txt: String, c: color}>} roman clock numbers.
  */
 drawClock.romans = [
@@ -537,6 +531,7 @@ drawClock.romans = [
  * &lt;p>Clock number x color.&lt;/p>
  * Each number may have a different color, so it does not
  * interfere with the background color.
+ * @memberof {drawClock}
  * @member {Array&lt;{txt: String, c: color}>} decimal clock numbers.
  */
 drawClock.decimals = Array.from(Array(24), (_, i) => {
@@ -545,6 +540,40 @@ drawClock.decimals = Array.from(Array(24), (_, i) => {
 drawClock.decimals[0].txt = "24";
 drawClock.decimals[6].c = white3;
 drawClock.decimals[18].c = white3;
+
+/**
+ * Increment/decrement the clock location.
+ * @async
+ * @memberof {drawClock}
+ * @global
+ * @param {String} key "n" for next or "N" for previous.
+ */
+drawClock.location = async (key) => {
+  if (drawClock.tz == undefined) {
+    drawClock.tz = await readZones();
+  }
+  let index = localStorage.getItem("placeIndex") || 0;
+  index = (+index + (key === "n" ? 1 : -1)).mod(drawClock.tz.cities.length);
+  localStorage.setItem("placeIndex", String(index));
+  let city = drawClock.tz.cities[index];
+  window.location.href =
+    window.location.href.split("?")[0] +
+    `?timeZone=${city.region}/${city.city}`;
+};
+
+/**
+ * Select next location.
+ */
+function nextLocation() {
+  drawClock.location("n");
+}
+
+/**
+ * Select previous location.
+ */
+function previousLocation() {
+  drawClock.location("N");
+}
 
 /**
  * A closure to run the animation.
@@ -673,13 +702,13 @@ runAnimation();
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#decimal">decimal</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#onkeydown">onkeydown</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#roman">roman</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#onkeydown">onkeydown</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 14 2023 06:00:23 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 14 2023 09:51:54 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
