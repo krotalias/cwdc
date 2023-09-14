@@ -151,6 +151,19 @@ function setFont(size) {
  */
 
 /**
+ * A time zone geographic descriptor.
+ *
+ * @typedef {Object} tz
+ * @property {String} tz.city - name.
+ * @property {String} tz.region - TZ identifier.
+ * @property {Number} tz.offset - UTC offset.
+ * @property {Object} tz.geodetic
+ * @property {Number} tz.geodetic.latitude - latitude.
+ * @property {Number} tz.geodetic.longitude - longitude.
+ * @see https://en.wikipedia.org/wiki/Geographic_coordinate_system
+ */
+
+/**
  * Convert from polar to cartesian coordinates.
  * <ul>
  * <li>Note that 0° is at three o'clock.</li>
@@ -240,9 +253,11 @@ function arc(center, radius, t1, t2, fill = true) {
 }
 
 /**
- * Read the coordinates of a set of locations from a json file.
+ * Read the time zone descriptors of a set of locations from a
+ * <a href="../clock/localtime.json">json file</a>.
  *
- * @returns {Object} array of city coordinates.
+ * @async
+ * @returns {Promise<Array<tz>>} array of time zones.
  */
 async function readZones() {
   const requestURL = `${location.protocol}/cwdc/10-html5css3/clock/localtime.json`;
@@ -256,7 +271,30 @@ async function readZones() {
 }
 
 /**
- * Draw the clock: a logo, a circle, and the ticks.
+ * <p>Returns a time zone geographic descriptor given a location name.</p>
+ * The {@link readZones json file} is read and searched for.
+ *
+ * @async
+ * @param {String} name TZ identifier.
+ * @returns {Promise<Array<tz>, tz>} a time zone descriptor.
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+ */
+async function findCity(name) {
+  const tz = await readZones();
+  let city;
+  if (false) {
+    let index = localStorage.getItem("placeIndex") || place;
+    city = tz.cities[index];
+  } else {
+    city = tz.cities.filter(function (c) {
+      return c.city == name;
+    })[0];
+  }
+  return [tz, city];
+}
+
+/**
+ * Draw the clock: a logo, a circle, {@link drawArc sun light arc}, and the ticks.
  *
  * @param {String} place a location name.
  *
@@ -264,6 +302,7 @@ async function readZones() {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images
  * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
+ * @see https://en.wikipedia.org/wiki/Solar_time
  */
 function drawClock(place) {
   // Browsers first loads a compressed version of image, then decodes it, finally paints it.
@@ -300,6 +339,8 @@ function drawClock(place) {
   context.lineWidth = 3;
   circle(center, clockRadius - 8, false);
 
+  let tz;
+
   navigator.geolocation.getCurrentPosition(
     (position) => {
       // this is an asynchronous callback
@@ -308,46 +349,61 @@ function drawClock(place) {
         longitude: position.coords.longitude,
       });
     },
-    () => {
+    async () => {
       // safari blocks geolocation unless using a secure connection
-      (async () => {
-        let tz = await readZones();
-        //let index = localStorage.getItem("placeIndex") || place;
-        //let city = tz.cities[index];
-        let city = tz.cities.filter(function (c) {
-          return c.city == place;
-        })[0];
-        if (city) {
-          let lat = city.coordinates.latitude;
-          let lng = city.coordinates.longitude;
-          drawArc({ latitude: lat, longitude: lng }, city.offset);
-        }
-        window.onkeydown = function (event) {
-          if (event.key === "n" || event.key === "N") {
-            let index = localStorage.getItem("placeIndex") || 0;
-            index = (+index + (event.key === "n" ? 1 : -1)).mod(
-              tz.cities.length
-            );
-            localStorage.setItem("placeIndex", String(index));
-            city = tz.cities[index];
-            window.location.href =
-              window.location.href.split("?")[0] +
-              `?timeZone=${city.region}/${city.city}`;
-          } else if (event.key === "Escape" || event.key === "e") {
-            if (event.metaKey || event.ctrlKey) {
-              localStorage.clear();
-              alert("Local storage has been cleared");
-            }
-          } else if (event.key == "b") {
-            window.location.href = "/cwdc";
-          } else if (event.key == "B") {
-            let path = window.location.pathname;
-            window.location.href = path.split("/", 3).join("/");
-          }
-        };
-      })();
+      let city;
+      [tz, city] = await findCity(place);
+      if (city) {
+        let lat = city.coordinates.latitude;
+        let lng = city.coordinates.longitude;
+        drawArc({ latitude: lat, longitude: lng }, city.offset);
+      }
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
     }
   );
+
+  /**
+   * <p>Callback for key pressed.</p>
+   * Valid keys:
+   * <ul>
+   *  <li>n: next city.</li>
+   *  <li>N: previous city.</li>
+   *  <li>b: back to cwdc</li>
+   *  <li>B: back to 10-html5css3</li>
+   *  <li>⌘-esc or ⌘-e: clear local storage</li>
+   * </ul>
+   * @async
+   * @global
+   * @param {KeyboardEvent} event keyboard event.
+   */
+  window.onkeydown = async function (event) {
+    if (event.key === "n" || event.key === "N") {
+      if (tz == undefined) {
+        tz = await readZones();
+      }
+      let index = localStorage.getItem("placeIndex") || 0;
+      index = (+index + (event.key === "n" ? 1 : -1)).mod(tz.cities.length);
+      localStorage.setItem("placeIndex", String(index));
+      let city = tz.cities[index];
+      window.location.href =
+        window.location.href.split("?")[0] +
+        `?timeZone=${city.region}/${city.city}`;
+    } else if (event.key === "Escape" || event.key === "e") {
+      if (event.metaKey || event.ctrlKey) {
+        localStorage.clear();
+        alert("Local storage has been cleared");
+      }
+    } else if (event.key == "b") {
+      window.location.href = "/cwdc";
+    } else if (event.key == "B") {
+      let path = window.location.pathname;
+      window.location.href = path.split("/", 3).join("/");
+    }
+  };
 
   /**
    * <p>A modulo function that works for negative numbers.</p>
@@ -368,6 +424,7 @@ function drawClock(place) {
   /**
    * Draw the sun light arc.
    *
+   * @global
    * @param {Object<{latitude, longitude}>} loc location.
    * @param {Number} utcoff UTC offset.
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset
@@ -428,7 +485,9 @@ function drawClock(place) {
 }
 
 /**
- * Clock roman x color.
+ * <p>Clock roman x color.</p>
+ * Each roman number may have a different color, so it does not
+ * interfere with the background color.
  * @member {Array<{txt: String, c: color}>} roman clock numbers.
  */
 drawClock.romans = [
@@ -447,7 +506,9 @@ drawClock.romans = [
 ];
 
 /**
- * Clock number x color.
+ * <p>Clock number x color.</p>
+ * Each number may have a different color, so it does not
+ * interfere with the background color.
  * @member {Array<{txt: String, c: color}>} decimal clock numbers.
  */
 drawClock.decimals = Array.from(Array(24), (_, i) => {
@@ -489,6 +550,7 @@ var runAnimation = (() => {
    * <p>A callback to redraw the four handles of the clock.</p>
    * @callback drawHandles
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/measureText
    */
   return () => {
     // '06/02/2022, 08:20:50'
@@ -522,26 +584,28 @@ var runAnimation = (() => {
     // Clear screen.
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw date.
-    let date = `${day} / ${month} / ${year}`;
-    let utc = `UTC ${cityOffset}`;
-    let [region, city] = tz.split("/");
-    let [tcity, tregion, tlen, tutc] = [city, region, date, utc].map((p) =>
-      ctx.measureText(p)
-    );
-    let theight = clockRadius / 15;
+    let theight = canvas.width / 45;
     ctx.font = setFont(theight);
     ctx.fillStyle = white1;
+
+    // Draw the legend: UTC, Region, City, Date.
+    let date = `${day} / ${month} / ${year}`;
+    let utc = `UTC ${cityOffset}`;
+    let [region, lcity] = tz.split("/");
+    let [tcity, tregion, tlen, tutc] = [lcity, region, date, utc].map((p) =>
+      ctx.measureText(p)
+    );
+
     [
       [date, tlen],
-      [city, tcity],
+      [lcity, tcity],
       [region, tregion],
       [utc, tutc],
     ].map((p, i) => {
       ctx.fillText(
         p[0],
-        2 * center[0] - p[1].width,
-        2 * center[1] - i * theight
+        canvas.width - p[1].width,
+        canvas.height - i * theight * 1.5
       );
     });
 
