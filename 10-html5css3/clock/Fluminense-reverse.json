@@ -1,0 +1,32 @@
+{
+    "place_id": 248629792,
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+    "osm_type": "way",
+    "osm_id": 718032637,
+    "lat": "-22.9373977",
+    "lon": "-43.185333177667644",
+    "class": "club",
+    "type": "sport",
+    "place_rank": 30,
+    "importance": 9.99999999995449e-6,
+    "addresstype": "club",
+    "name": "Fluminense Football Club",
+    "display_name": "Fluminense Football Club, Calçada Compartilhada Rua Pinheiro Machado, Laranjeiras, Zona Sul do Rio de Janeiro, Rio de Janeiro, Região Geográfica Imediata do Rio de Janeiro, Região Metropolitana do Rio de Janeiro, Região Geográfica Intermediária do Rio de Janeiro, Rio de Janeiro, Southeast Region, 22231-220, Brazil",
+    "address": {
+        "club": "Fluminense Football Club",
+        "road": "Calçada Compartilhada Rua Pinheiro Machado",
+        "suburb": "Laranjeiras",
+        "city_district": "Zona Sul do Rio de Janeiro",
+        "city": "Rio de Janeiro",
+        "municipality": "Região Geográfica Imediata do Rio de Janeiro",
+        "county": "Região Metropolitana do Rio de Janeiro",
+        "state_district": "Região Geográfica Intermediária do Rio de Janeiro",
+        "state": "Rio de Janeiro",
+        "ISO3166-2-lvl4": "BR-RJ",
+        "region": "Southeast Region",
+        "postcode": "22231-220",
+        "country": "Brazil",
+        "country_code": "br"
+    },
+    "boundingbox": ["-22.9386777", "-22.9359071", "-43.1870420", "-43.1838404"]
+}

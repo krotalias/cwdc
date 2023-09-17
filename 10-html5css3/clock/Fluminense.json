@@ -1,0 +1,44 @@
+[
+    {
+        "place_id": 248629792,
+        "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "way",
+        "osm_id": 718032637,
+        "lat": "-22.9373977",
+        "lon": "-43.185333177667644",
+        "class": "club",
+        "type": "sport",
+        "place_rank": 30,
+        "importance": 9.99999999995449e-6,
+        "addresstype": "club",
+        "name": "Fluminense Football Club",
+        "display_name": "Fluminense Football Club, Calçada Compartilhada Rua Pinheiro Machado, Laranjeiras, Zona Sul do Rio de Janeiro, Rio de Janeiro, Região Geográfica Imediata do Rio de Janeiro, Região Metropolitana do Rio de Janeiro, Região Geográfica Intermediária do Rio de Janeiro, Rio de Janeiro, Southeast Region, 22231-220, Brazil",
+        "boundingbox": [
+            "-22.9386777",
+            "-22.9359071",
+            "-43.1870420",
+            "-43.1838404"
+        ]
+    },
+    {
+        "place_id": 3392836,
+        "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "node",
+        "osm_id": 454457392,
+        "lat": "-22.9363279",
+        "lon": "-43.1847488",
+        "class": "leisure",
+        "type": "stadium",
+        "place_rank": 30,
+        "importance": 9.99999999995449e-6,
+        "addresstype": "leisure",
+        "name": "Fluminense Football Club",
+        "display_name": "Fluminense Football Club, 41, Rua Álvaro Chaves, Laranjeiras, Zona Sul do Rio de Janeiro, Rio de Janeiro, Região Geográfica Imediata do Rio de Janeiro, Região Metropolitana do Rio de Janeiro, Região Geográfica Intermediária do Rio de Janeiro, Rio de Janeiro, Southeast Region, 22231-220, Brazil",
+        "boundingbox": [
+            "-22.9363779",
+            "-22.9362779",
+            "-43.1847988",
+            "-43.1846988"
+        ]
+    }
+]
