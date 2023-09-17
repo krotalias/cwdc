@@ -46,8 +46,8 @@ import { TeapotGeometry } from "https://unpkg.com/three@0.148.0/examples/jsm/geo
  * @type {Float32Array}
  */
 var axisVertices = new Float32Array([
-    0.0, 0.0, 0.0, 1.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.5, 0.0, 0.0, 0.0, 0.0,
-    0.0, 0.0, 1.5,
+  0.0, 0.0, 0.0, 1.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.5, 0.0, 0.0, 0.0, 0.0,
+  0.0, 0.0, 1.5,
 ]);
 
 /**
@@ -55,8 +55,8 @@ var axisVertices = new Float32Array([
  * @type {Float32Array}
  */
 var axisColors = new Float32Array([
-    1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
-    1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0,
+  1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
+  1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0,
 ]);
 
 // A few global variables...
@@ -148,10 +148,10 @@ var mscale = 1;
  * @type {Object<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean}>}
  */
 var selector = {
-    lines: false,
-    texture: true,
-    axes: false,
-    paused: true,
+  lines: false,
+  texture: true,
+  axes: false,
+  paused: true,
 };
 
 /**
@@ -164,7 +164,7 @@ var rotator;
  * <p>View matrix.</p>
  * One strategy is to identify a transformation to our
  * <a href="https://cglearn.codelight.eu/pub/computer-graphics/frames-of-reference-and-projection">camera</a>
- * <a href="/cg/downloads/Computer%20Graphics%20-%20CMSC%20427.pdf#page=31">frame</a>
+ * <a href="/cwdc/downloads/Computer%20Graphics%20-%20CMSC%20427.pdf#page=31">frame</a>
  * then invert it.  <br>
  * Therefore, the camera transformation takes (0,0,0) to the <span style="color:red">camera position.</span>
  * <pre>
@@ -204,17 +204,17 @@ var rotator;
  *    viewMatrix = mat4.lookAt([], [<span style="color:red">1.77, 3.54, 3.06</span>], [0, 0, 0], [0, 1, 0]);
  * </pre>
  * @type {Matrix4}
- * @see <a href="/compgraf1/downloads/apostila.pdf#page=109">View matrix</a>
- * @see <a href="/cg/downloads/PDFs/06_LCG_Transformacoes.pdf">Mudança de Base</a>
+ * @see <a href="/cwdc/downloads/apostila.pdf#page=109">View matrix</a>
+ * @see <a href="/cwdc/downloads/PDFs/06_LCG_Transformacoes.pdf">Mudança de Base</a>
  * @see <a href="https://en.wikipedia.org/wiki/Change_of_basis">Change of Basis</a>
  * @see <a href="/cwdc/10-html5css3/hw2/doc-hw2">node</a>
  * @see https://learn.microsoft.com/en-us/windows/win32/direct3d9/view-transform
  * @see <img src="../projection.png" width="256"> <img src="../projection2.png" width="256">
  */
 var viewMatrix = new Matrix4()
-    .translate(0, 0, -5)
-    .rotate(45, 1, 0, 0)
-    .rotate(-30, 0, 1, 0);
+  .translate(0, 0, -5)
+  .rotate(45, 1, 0, 0)
+  .rotate(-30, 0, 1, 0);
 
 /**
  * Alternatively use the LookAt function, specifying the view (eye) point,
@@ -289,12 +289,12 @@ window.addEventListener("load", (event) => mainEntrance());
  * @see <a href="https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry">TorusKnotGeometry</a>
  */
 function getModelData(geom) {
-    return {
-        vertices: geom.getAttribute("position").array,
-        normals: geom.getAttribute("normal").array,
-        texCoords: geom.getAttribute("uv").array,
-        indices: geom.index.array,
-    };
+  return {
+    vertices: geom.getAttribute("position").array,
+    normals: geom.getAttribute("normal").array,
+    texCoords: geom.getAttribute("uv").array,
+    indices: geom.index.array,
+  };
 }
 
 /**
@@ -310,14 +310,14 @@ function getModelData(geom) {
  * @see https://threejs.org/docs/#api/en/core/BufferGeometry
  */
 function makeCube() {
-    // vertices of cube
-    var rawVertices = new Float32Array([
-        -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5,
-        -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5,
-    ]);
+  // vertices of cube
+  var rawVertices = new Float32Array([
+    -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5,
+    -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5,
+  ]);
 
-    // prettier-ignore
-    var rawColors = new Float32Array([
+  // prettier-ignore
+  var rawColors = new Float32Array([
       1.0, 0.0, 0.0, 1.0,  // red
       0.0, 1.0, 0.0, 1.0,  // green
       0.0, 0.0, 1.0, 1.0,  // blue
@@ -326,12 +326,12 @@ function makeCube() {
       0.0, 1.0, 1.0, 1.0,  // cyan
     ]);
 
-    var rawNormals = new Float32Array([
-        0, 0, 1, 1, 0, 0, 0, 0, -1, -1, 0, 0, 0, 1, 0, 0, -1, 0,
-    ]);
+  var rawNormals = new Float32Array([
+    0, 0, 1, 1, 0, 0, 0, 0, -1, -1, 0, 0, 0, 1, 0, 0, -1, 0,
+  ]);
 
-    // prettier-ignore
-    var indices = new Uint16Array([
+  // prettier-ignore
+  var indices = new Uint16Array([
       0, 1, 2, 0, 2, 3,  // +z face
       1, 5, 6, 1, 6, 2,  // +x face
       5, 4, 7, 5, 7, 6,  // -z face
@@ -340,36 +340,36 @@ function makeCube() {
       4, 5, 1, 4, 1, 0   // -y face
     ]);
 
-    var verticesArray = [];
-    var colorsArray = [];
-    var normalsArray = [];
-    for (var i = 0; i < 36; ++i) {
-        // for each of the 36 vertices...
-        var face = Math.floor(i / 6);
-        var index = indices[i];
+  var verticesArray = [];
+  var colorsArray = [];
+  var normalsArray = [];
+  for (var i = 0; i < 36; ++i) {
+    // for each of the 36 vertices...
+    var face = Math.floor(i / 6);
+    var index = indices[i];
 
-        // (x, y, z): three numbers for each point
-        for (var j = 0; j < 3; ++j) {
-            verticesArray.push(rawVertices[3 * index + j]);
-        }
-
-        // (r, g, b, a): four numbers for each point
-        for (var j = 0; j < 4; ++j) {
-            colorsArray.push(rawColors[4 * face + j]);
-        }
-
-        // three numbers for each point
-        for (var j = 0; j < 3; ++j) {
-            normalsArray.push(rawNormals[3 * face + j]);
-        }
+    // (x, y, z): three numbers for each point
+    for (var j = 0; j < 3; ++j) {
+      verticesArray.push(rawVertices[3 * index + j]);
     }
 
-    return {
-        numVertices: 36,
-        vertices: new Float32Array(verticesArray),
-        colors: new Float32Array(colorsArray),
-        normals: new Float32Array(normalsArray),
-    };
+    // (r, g, b, a): four numbers for each point
+    for (var j = 0; j < 4; ++j) {
+      colorsArray.push(rawColors[4 * face + j]);
+    }
+
+    // three numbers for each point
+    for (var j = 0; j < 3; ++j) {
+      normalsArray.push(rawNormals[3 * face + j]);
+    }
+  }
+
+  return {
+    numVertices: 36,
+    vertices: new Float32Array(verticesArray),
+    colors: new Float32Array(colorsArray),
+    normals: new Float32Array(normalsArray),
+  };
 }
 
 /**
@@ -382,12 +382,12 @@ function makeCube() {
  * @see <a href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48">𝑛′=(𝑀<sup>&#8211;1</sup>)<sup>𝑇</sup>⋅𝑛</a>
  */
 function makeNormalMatrixElements(model, view) {
-    var n = new Matrix4(view).multiply(model);
-    n.transpose();
-    n.invert();
-    n = n.elements;
-    // prettier-ignore
-    return new Float32Array([
+  var n = new Matrix4(view).multiply(model);
+  n.transpose();
+  n.invert();
+  n = n.elements;
+  // prettier-ignore
+  return new Float32Array([
         n[0], n[1], n[2],
         n[4], n[5], n[6],
         n[8], n[9], n[10],
@@ -401,13 +401,13 @@ function makeNormalMatrixElements(model, view) {
  * @see https://javascript.info/tutorial/keyboard-events
  */
 function getChar(event) {
-    if (event.which == null) {
-        return String.fromCharCode(event.keyCode); // IE
-    } else if (event.which != 0 && event.charCode != 0) {
-        return String.fromCharCode(event.which); // the rest
-    } else {
-        return null; // special key
-    }
+  if (event.which == null) {
+    return String.fromCharCode(event.keyCode); // IE
+  } else if (event.which != 0 && event.charCode != 0) {
+    return String.fromCharCode(event.which); // the rest
+  } else {
+    return null; // special key
+  }
 }
 
 /**
@@ -416,64 +416,60 @@ function getChar(event) {
  * @param {KeyboardEvent} event key pressed.
  */
 function handleKeyPress(event) {
-    var ch = getChar(event);
-    switch (ch) {
-        case " ":
-            selector.paused = !selector.paused;
-            animate();
-            break;
-        case "x":
-        case "y":
-        case "z":
-            axis = ch;
-            break;
-        case "o":
-            modelMatrix.setIdentity();
-            rotator.setViewMatrix(modelMatrix.elements);
-            axis = "x";
-            break;
-        case "l":
-            selector.lines = !selector.lines;
-            if (!selector.lines) selector.texture = true;
-            break;
-        case "k":
-            selector.texture = !selector.texture;
-            if (!selector.texture) selector.lines = true;
-            break;
-        case "a":
-            selector.axes = !selector.axes;
-            break;
-        case "s":
-            // sphere with more faces
-            mscale = 1;
-            document.getElementById("models").value = "5";
-            theModel = createModel(
-                getModelData(new THREE.SphereGeometry(1, 48, 24))
-            );
-            break;
-        case "T":
-            // torus knot
-            mscale = 1;
-            document.getElementById("models").value = "8";
-            theModel = createModel(
-                getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16))
-            );
-            break;
-        case "p":
-            // teapot
-            mscale = 0.8;
-            document.getElementById("models").value = "6";
-            theModel = createModel(
-                getModelData(
-                    new TeapotGeometry(1, 10, true, true, true, true, true)
-                ),
-                null
-            );
-            break;
-        default:
-            return;
-    }
-    if (selector.paused) draw();
+  var ch = getChar(event);
+  switch (ch) {
+    case " ":
+      selector.paused = !selector.paused;
+      animate();
+      break;
+    case "x":
+    case "y":
+    case "z":
+      axis = ch;
+      break;
+    case "o":
+      modelMatrix.setIdentity();
+      rotator.setViewMatrix(modelMatrix.elements);
+      axis = "x";
+      break;
+    case "l":
+      selector.lines = !selector.lines;
+      if (!selector.lines) selector.texture = true;
+      break;
+    case "k":
+      selector.texture = !selector.texture;
+      if (!selector.texture) selector.lines = true;
+      break;
+    case "a":
+      selector.axes = !selector.axes;
+      break;
+    case "s":
+      // sphere with more faces
+      mscale = 1;
+      document.getElementById("models").value = "5";
+      theModel = createModel(getModelData(new THREE.SphereGeometry(1, 48, 24)));
+      break;
+    case "T":
+      // torus knot
+      mscale = 1;
+      document.getElementById("models").value = "8";
+      theModel = createModel(
+        getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16))
+      );
+      break;
+    case "p":
+      // teapot
+      mscale = 0.8;
+      document.getElementById("models").value = "6";
+      theModel = createModel(
+        getModelData(new TeapotGeometry(1, 10, true, true, true, true, true)),
+        null
+      );
+      break;
+    default:
+      return;
+  }
+  if (selector.paused) draw();
 }
 
 /**
@@ -483,26 +479,26 @@ function handleKeyPress(event) {
  * @function
  */
 var createEvent = (key) => {
-    let code = key.charCodeAt();
-    return new KeyboardEvent("keydown", {
-        key: key,
-        which: code,
-        charCode: code,
-        keyCode: code,
-    });
+  let code = key.charCodeAt();
+  return new KeyboardEvent("keydown", {
+    key: key,
+    which: code,
+    charCode: code,
+    keyCode: code,
+  });
 };
 
 /**
  * Selects a model from a menu.
  */
 function selectModel() {
-    let val = document.getElementById("models").value;
-    let key = {
-        5: "s", // sphere
-        6: "p", // teapot
-        8: "T", // knot
-    };
-    handleKeyPress(createEvent(key[val]));
+  let val = document.getElementById("models").value;
+  let key = {
+    5: "s", // sphere
+    6: "p", // teapot
+    8: "T", // knot
+  };
+  handleKeyPress(createEvent(key[val]));
 }
 
 window.selectModel = selectModel;
@@ -512,12 +508,12 @@ window.selectModel = selectModel;
  * Draw {@link drawAxes axes}, {@link drawSurface surface}, and {@link drawLines lines}.
  */
 function draw() {
-    // clear the framebuffer
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  // clear the framebuffer
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    if (selector.axes) drawAxes();
-    if (selector.texture) drawSurface();
-    if (selector.lines) drawLines();
+  if (selector.axes) drawAxes();
+  if (selector.texture) drawSurface();
+  if (selector.lines) drawLines();
 }
 
 /**
@@ -525,11 +521,11 @@ function draw() {
  * @returns {Matrix4} model matrix.
  */
 function getModelMatrix() {
-    var m = modelMatrix;
-    if (mscale != 1) {
-        m = new Matrix4(modelMatrix).scale(mscale, mscale, mscale);
-    }
-    return m;
+  var m = modelMatrix;
+  if (mscale != 1) {
+    m = new Matrix4(modelMatrix).scale(mscale, mscale, mscale);
+  }
+  return m;
 }
 
 /**
@@ -537,67 +533,67 @@ function getModelMatrix() {
  * Uses the colorShader.
  */
 function drawSurface() {
-    // bind the shader
-    gl.useProgram(lightingShader);
+  // bind the shader
+  gl.useProgram(lightingShader);
 
-    // get the index for the a_Position attribute defined in the vertex shader
-    var positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
-    if (positionIndex < 0) {
-        console.log("Failed to get the storage location of a_Position");
-        return;
-    }
+  // get the index for the a_Position attribute defined in the vertex shader
+  var positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
+  if (positionIndex < 0) {
+    console.log("Failed to get the storage location of a_Position");
+    return;
+  }
 
-    var normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
-    if (normalIndex < 0) {
-        console.log("Failed to get the storage location of a_Normal");
-        return;
-    }
+  var normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
+  if (normalIndex < 0) {
+    console.log("Failed to get the storage location of a_Normal");
+    return;
+  }
 
-    // "enable" the a_position attribute
-    gl.enableVertexAttribArray(positionIndex);
-    gl.enableVertexAttribArray(normalIndex);
+  // "enable" the a_position attribute
+  gl.enableVertexAttribArray(positionIndex);
+  gl.enableVertexAttribArray(normalIndex);
 
-    // bind buffers for points
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
-    gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
+  // bind buffers for points
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
+  gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
 
-    // set uniform in shader for projection * view * model transformation
-    var loc = gl.getUniformLocation(lightingShader, "model");
-    gl.uniformMatrix4fv(loc, false, getModelMatrix().elements);
-    loc = gl.getUniformLocation(lightingShader, "view");
-    gl.uniformMatrix4fv(loc, false, viewMatrix.elements);
-    loc = gl.getUniformLocation(lightingShader, "projection");
-    gl.uniformMatrix4fv(loc, false, projection.elements);
-    loc = gl.getUniformLocation(lightingShader, "normalMatrix");
-    gl.uniformMatrix3fv(
-        loc,
-        false,
-        makeNormalMatrixElements(modelMatrix, viewMatrix)
-    );
+  // set uniform in shader for projection * view * model transformation
+  var loc = gl.getUniformLocation(lightingShader, "model");
+  gl.uniformMatrix4fv(loc, false, getModelMatrix().elements);
+  loc = gl.getUniformLocation(lightingShader, "view");
+  gl.uniformMatrix4fv(loc, false, viewMatrix.elements);
+  loc = gl.getUniformLocation(lightingShader, "projection");
+  gl.uniformMatrix4fv(loc, false, projection.elements);
+  loc = gl.getUniformLocation(lightingShader, "normalMatrix");
+  gl.uniformMatrix3fv(
+    loc,
+    false,
+    makeNormalMatrixElements(modelMatrix, viewMatrix)
+  );
 
-    loc = gl.getUniformLocation(lightingShader, "lightPosition");
-    gl.uniform4f(loc, 2.0, 4.0, 2.0, 1.0);
+  loc = gl.getUniformLocation(lightingShader, "lightPosition");
+  gl.uniform4f(loc, 2.0, 4.0, 2.0, 1.0);
 
-    gl.uniform4f(
-        gl.getUniformLocation(lightingShader, "diffuseColor"),
-        0.0,
-        0.8,
-        0.8,
-        1.0
-    );
-    gl.drawElements(
-        gl.TRIANGLES,
-        theModel.indices.length,
-        mscale == 0.8 ? gl.UNSIGNED_INT : gl.UNSIGNED_SHORT,
-        0
-    );
+  gl.uniform4f(
+    gl.getUniformLocation(lightingShader, "diffuseColor"),
+    0.0,
+    0.8,
+    0.8,
+    1.0
+  );
+  gl.drawElements(
+    gl.TRIANGLES,
+    theModel.indices.length,
+    mscale == 0.8 ? gl.UNSIGNED_INT : gl.UNSIGNED_SHORT,
+    0
+  );
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-    gl.disableVertexAttribArray(positionIndex);
-    gl.disableVertexAttribArray(normalIndex);
-    gl.useProgram(null);
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  gl.disableVertexAttribArray(positionIndex);
+  gl.disableVertexAttribArray(normalIndex);
+  gl.useProgram(null);
 }
 
 /**
@@ -605,46 +601,46 @@ function drawSurface() {
  * Uses the colorShader.
  */
 function drawAxes() {
-    // bind the shader
-    gl.useProgram(colorShader);
+  // bind the shader
+  gl.useProgram(colorShader);
 
-    // get the index for the a_Position attribute defined in the vertex shader
-    var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
-    if (positionIndex < 0) {
-        console.log("Failed to get the storage location of a_Position");
-        return;
-    }
+  // get the index for the a_Position attribute defined in the vertex shader
+  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  if (positionIndex < 0) {
+    console.log("Failed to get the storage location of a_Position");
+    return;
+  }
 
-    var colorIndex = gl.getAttribLocation(colorShader, "a_Color");
-    if (colorIndex < 0) {
-        console.log("Failed to get the storage location of a_Color");
-        return;
-    }
+  var colorIndex = gl.getAttribLocation(colorShader, "a_Color");
+  if (colorIndex < 0) {
+    console.log("Failed to get the storage location of a_Color");
+    return;
+  }
 
-    // "enable" the a_position attribute
-    gl.enableVertexAttribArray(positionIndex);
-    gl.enableVertexAttribArray(colorIndex);
+  // "enable" the a_position attribute
+  gl.enableVertexAttribArray(positionIndex);
+  gl.enableVertexAttribArray(colorIndex);
 
-    // draw axes (not transformed by model transformation)
-    gl.bindBuffer(gl.ARRAY_BUFFER, axisBuffer);
-    gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
-    gl.vertexAttribPointer(colorIndex, 4, gl.FLOAT, false, 0, 0);
+  // draw axes (not transformed by model transformation)
+  gl.bindBuffer(gl.ARRAY_BUFFER, axisBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
+  gl.vertexAttribPointer(colorIndex, 4, gl.FLOAT, false, 0, 0);
 
-    // set transformation to projection * view only
-    var loc = gl.getUniformLocation(colorShader, "transform");
-    var transform = new Matrix4().multiply(projection).multiply(viewMatrix);
-    gl.uniformMatrix4fv(loc, false, transform.elements);
+  // set transformation to projection * view only
+  var loc = gl.getUniformLocation(colorShader, "transform");
+  var transform = new Matrix4().multiply(projection).multiply(viewMatrix);
+  gl.uniformMatrix4fv(loc, false, transform.elements);
 
-    // draw axes
-    gl.drawArrays(gl.LINES, 0, 6);
+  // draw axes
+  gl.drawArrays(gl.LINES, 0, 6);
 
-    // unbind shader and "disable" the attribute indices
-    // (not really necessary when there is only one shader)
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-    gl.disableVertexAttribArray(positionIndex);
-    gl.disableVertexAttribArray(colorIndex);
-    gl.useProgram(null);
+  // unbind shader and "disable" the attribute indices
+  // (not really necessary when there is only one shader)
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  gl.disableVertexAttribArray(positionIndex);
+  gl.disableVertexAttribArray(colorIndex);
+  gl.useProgram(null);
 }
 
 /**
@@ -652,63 +648,63 @@ function drawAxes() {
  * Uses the colorShader.
  */
 function drawLines() {
-    // bind the shader
-    gl.useProgram(colorShader);
-    var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
-    if (positionIndex < 0) {
-        console.log("Failed to get the storage location of a_Position");
-        return;
-    }
+  // bind the shader
+  gl.useProgram(colorShader);
+  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  if (positionIndex < 0) {
+    console.log("Failed to get the storage location of a_Position");
+    return;
+  }
 
-    var a_color = gl.getAttribLocation(colorShader, "a_Color");
-    if (a_color < 0) {
-        console.log("Failed to get the storage location of a_Color");
-        return;
-    }
-    gl.vertexAttrib4f(a_color, 1.0, 1.0, 0.0, 1.0);
+  var a_color = gl.getAttribLocation(colorShader, "a_Color");
+  if (a_color < 0) {
+    console.log("Failed to get the storage location of a_Color");
+    return;
+  }
+  gl.vertexAttrib4f(a_color, 1.0, 1.0, 0.0, 1.0);
 
-    // "enable" the a_position attribute
-    gl.enableVertexAttribArray(positionIndex);
-    //  ------------ draw triangle borders
-    // set transformation to projection * view * model
-    var loc = gl.getUniformLocation(colorShader, "transform");
-    var transform = new Matrix4()
-        .multiply(projection)
-        .multiply(viewMatrix)
-        .multiply(getModelMatrix());
-    gl.uniformMatrix4fv(loc, false, transform.elements);
+  // "enable" the a_position attribute
+  gl.enableVertexAttribArray(positionIndex);
+  //  ------------ draw triangle borders
+  // set transformation to projection * view * model
+  var loc = gl.getUniformLocation(colorShader, "transform");
+  var transform = new Matrix4()
+    .multiply(projection)
+    .multiply(viewMatrix)
+    .multiply(getModelMatrix());
+  gl.uniformMatrix4fv(loc, false, transform.elements);
 
-    // draw edges
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    // takes too long on mobile
-    /*
+  // draw edges
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+  // takes too long on mobile
+  /*
     for (var i = 0; i < theModel.indices.length; i += 3) {
         // offset - two bytes per index (UNSIGNED_SHORT)
         gl.drawElements(gl.LINE_LOOP, 3, gl.UNSIGNED_SHORT, i * 2);
     }
     */
 
-    // draw edges
-    if (theModel.indices) {
-        gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
-        gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-        gl.drawArrays(gl.LINES, 0, 2 * theModel.indices.length);
-    } else {
-        for (var i = 0; i < theModel.vertices.length; i += 3) {
-            gl.drawArrays(gl.LINE_LOOP, i, 3);
-        }
-    }
-
-    // draw normals
-    gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+  // draw edges
+  if (theModel.indices) {
+    gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
     gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-    gl.drawArrays(gl.LINES, 0, 2 * theModel.vertices.length);
+    gl.drawArrays(gl.LINES, 0, 2 * theModel.indices.length);
+  } else {
+    for (var i = 0; i < theModel.vertices.length; i += 3) {
+      gl.drawArrays(gl.LINE_LOOP, i, 3);
+    }
+  }
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-    gl.disableVertexAttribArray(positionIndex);
-    gl.useProgram(null);
+  // draw normals
+  gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.drawArrays(gl.LINES, 0, 2 * theModel.vertices.length);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  gl.disableVertexAttribArray(positionIndex);
+  gl.useProgram(null);
 }
 
 /**
@@ -739,67 +735,66 @@ function drawLines() {
  * @see https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole
  */
 function createModel(shape, chi = 2) {
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, shape.vertices, gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, shape.vertices, gl.STATIC_DRAW);
 
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, shape.indices, gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, shape.indices, gl.STATIC_DRAW);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, shape.normals, gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, shape.normals, gl.STATIC_DRAW);
 
-    let nv = shape.vertices.length;
-    normal = new Float32Array(6 * nv);
-    for (var i = 0, k = 0; i < nv; i += 3, k += 6) {
-        for (var j = 0; j < 3; j++) {
-            normal[j + k] = shape.vertices[i + j];
-            normal[j + k + 3] =
-                normal[j + k] + (0.1 / mscale) * shape.normals[i + j];
-        }
+  let nv = shape.vertices.length;
+  normal = new Float32Array(6 * nv);
+  for (var i = 0, k = 0; i < nv; i += 3, k += 6) {
+    for (var j = 0; j < 3; j++) {
+      normal[j + k] = shape.vertices[i + j];
+      normal[j + k + 3] = normal[j + k] + (0.1 / mscale) * shape.normals[i + j];
+    }
+  }
+
+  // number of faces: ni / 3
+  // number of edges: ni
+  // number of endpoints: ni * 6
+  if (shape.indices) {
+    let ni = shape.indices.length;
+    lines = new Float32Array(18 * ni);
+    for (i = 0, k = 0; i < ni; i += 3, k += 18) {
+      for (j = 0; j < 3; j++) {
+        let v1 = shape.vertices[shape.indices[i] * 3 + j];
+        let v2 = shape.vertices[shape.indices[i + 1] * 3 + j];
+        let v3 = shape.vertices[shape.indices[i + 2] * 3 + j];
+
+        lines[j + k] = v1;
+        lines[j + k + 3] = v2;
+
+        lines[j + k + 6] = v2;
+        lines[j + k + 9] = v3;
+
+        lines[j + k + 12] = v3;
+        lines[j + k + 15] = v1;
+      }
     }
 
-    // number of faces: ni / 3
-    // number of edges: ni
-    // number of endpoints: ni * 6
-    if (shape.indices) {
-        let ni = shape.indices.length;
-        lines = new Float32Array(18 * ni);
-        for (i = 0, k = 0; i < ni; i += 3, k += 18) {
-            for (j = 0; j < 3; j++) {
-                let v1 = shape.vertices[shape.indices[i] * 3 + j];
-                let v2 = shape.vertices[shape.indices[i + 1] * 3 + j];
-                let v3 = shape.vertices[shape.indices[i + 2] * 3 + j];
+    gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, lines, gl.STATIC_DRAW);
+  }
 
-                lines[j + k] = v1;
-                lines[j + k + 3] = v2;
+  gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, normal, gl.STATIC_DRAW);
 
-                lines[j + k + 6] = v2;
-                lines[j + k + 9] = v3;
+  let obj = document.getElementById("object");
+  obj.innerHTML = "<b>Object:</b>";
+  if (chi !== null) {
+    let faces = shape.indices
+      ? shape.indices.length / 3
+      : shape.vertices.length / 9;
+    let edges = (faces * 3) / 2;
+    let vertices = faces / 2 + chi;
+    obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
+  }
 
-                lines[j + k + 12] = v3;
-                lines[j + k + 15] = v1;
-            }
-        }
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, lines, gl.STATIC_DRAW);
-    }
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, normal, gl.STATIC_DRAW);
-
-    let obj = document.getElementById("object");
-    obj.innerHTML = "<b>Object:</b>";
-    if (chi !== null) {
-        let faces = shape.indices
-            ? shape.indices.length / 3
-            : shape.vertices.length / 9;
-        let edges = (faces * 3) / 2;
-        let vertices = faces / 2 + chi;
-        obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
-    }
-
-    return shape;
+  return shape;
 }
 
 /**
@@ -808,99 +803,98 @@ function createModel(shape, chi = 2) {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData
  */
 function mainEntrance() {
-    // retrieve <canvas> element
-    var canvas = document.getElementById("theCanvas");
+  // retrieve <canvas> element
+  var canvas = document.getElementById("theCanvas");
 
-    // key handler
-    window.onkeypress = handleKeyPress;
+  // key handler
+  window.onkeypress = handleKeyPress;
 
-    // get the rendering context for WebGL
-    gl = canvas.getContext("webgl2");
-    if (!gl) {
-        console.log("Failed to get the rendering context for WebGL");
-        return;
-    }
+  // get the rendering context for WebGL
+  gl = canvas.getContext("webgl2");
+  if (!gl) {
+    console.log("Failed to get the rendering context for WebGL");
+    return;
+  }
 
-    // load and compile the shader pair, using utility from the teal book
-    var vshaderSource =
-        document.getElementById("vertexColorShader").textContent;
-    var fshaderSource = document.getElementById(
-        "fragmentColorShader"
-    ).textContent;
-    if (!initShaders(gl, vshaderSource, fshaderSource)) {
-        console.log("Failed to initialize shaders.");
-        return;
-    }
-    colorShader = gl.program;
-    gl.useProgram(null);
+  // load and compile the shader pair, using utility from the teal book
+  var vshaderSource = document.getElementById("vertexColorShader").textContent;
+  var fshaderSource = document.getElementById(
+    "fragmentColorShader"
+  ).textContent;
+  if (!initShaders(gl, vshaderSource, fshaderSource)) {
+    console.log("Failed to initialize shaders.");
+    return;
+  }
+  colorShader = gl.program;
+  gl.useProgram(null);
 
-    // load and compile the shader pair, using utility from the teal book
-    var vshaderSource = document.getElementById(
-        "vertexLightingShader"
-    ).textContent;
-    var fshaderSource = document.getElementById(
-        "fragmentLightingShader"
-    ).textContent;
-    if (!initShaders(gl, vshaderSource, fshaderSource)) {
-        console.log("Failed to initialize shaders.");
-        return;
-    }
-    lightingShader = gl.program;
-    gl.useProgram(null);
+  // load and compile the shader pair, using utility from the teal book
+  var vshaderSource = document.getElementById(
+    "vertexLightingShader"
+  ).textContent;
+  var fshaderSource = document.getElementById(
+    "fragmentLightingShader"
+  ).textContent;
+  if (!initShaders(gl, vshaderSource, fshaderSource)) {
+    console.log("Failed to initialize shaders.");
+    return;
+  }
+  lightingShader = gl.program;
+  gl.useProgram(null);
 
-    // buffer for vertex positions for triangles
-    vertexBuffer = gl.createBuffer();
-    indexBuffer = gl.createBuffer();
-    if (!vertexBuffer) {
-        console.log("Failed to create the buffer object");
-        return;
-    }
+  // buffer for vertex positions for triangles
+  vertexBuffer = gl.createBuffer();
+  indexBuffer = gl.createBuffer();
+  if (!vertexBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
 
-    // buffer for vertex normals
-    vertexNormalBuffer = gl.createBuffer();
-    if (!vertexNormalBuffer) {
-        console.log("Failed to create the buffer object");
-        return;
-    }
+  // buffer for vertex normals
+  vertexNormalBuffer = gl.createBuffer();
+  if (!vertexNormalBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
 
-    // axes
-    axisBuffer = gl.createBuffer();
-    normalBuffer = gl.createBuffer();
-    lineBuffer = gl.createBuffer();
-    if (!axisBuffer) {
-        console.log("Failed to create the buffer object");
-        return;
-    }
-    gl.bindBuffer(gl.ARRAY_BUFFER, axisBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, axisVertices, gl.STATIC_DRAW);
+  // axes
+  axisBuffer = gl.createBuffer();
+  normalBuffer = gl.createBuffer();
+  lineBuffer = gl.createBuffer();
+  if (!axisBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, axisBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, axisVertices, gl.STATIC_DRAW);
 
-    // buffer for axis colors
-    axisColorBuffer = gl.createBuffer();
-    if (!axisColorBuffer) {
-        console.log("Failed to create the buffer object");
-        return;
-    }
-    gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, axisColors, gl.STATIC_DRAW);
+  // buffer for axis colors
+  axisColorBuffer = gl.createBuffer();
+  if (!axisColorBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, axisColors, gl.STATIC_DRAW);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
-    // specify a fill color for clearing the framebuffer
-    gl.clearColor(0.0, 0.2, 0.2, 1.0);
+  // specify a fill color for clearing the framebuffer
+  gl.clearColor(0.0, 0.2, 0.2, 1.0);
 
-    gl.enable(gl.DEPTH_TEST);
+  gl.enable(gl.DEPTH_TEST);
 
-    gl.enable(gl.CULL_FACE);
+  gl.enable(gl.CULL_FACE);
 
-    rotator = new SimpleRotator(canvas, animate);
-    rotator.setViewMatrix(modelMatrix.elements);
-    rotator.setViewDistance(0);
+  rotator = new SimpleRotator(canvas, animate);
+  rotator.setViewMatrix(modelMatrix.elements);
+  rotator.setViewDistance(0);
 
-    // initial model
-    selectModel();
+  // initial model
+  selectModel();
 
-    // start drawing!
-    animate();
+  // start drawing!
+  animate();
 }
 
 /**
@@ -909,37 +903,37 @@ function mainEntrance() {
  * @function
  */
 var animate = (() => {
-    // increase the rotation by some amount, depending on the axis chosen
-    var increment = 0.5;
-    /** @type {Number} */
-    var requestID = 0;
-    const axes = {
-        x: [1, 0, 0],
-        y: [0, 1, 0],
-        z: [0, 0, 1],
-    };
+  // increase the rotation by some amount, depending on the axis chosen
+  var increment = 0.5;
+  /** @type {Number} */
+  var requestID = 0;
+  const axes = {
+    x: [1, 0, 0],
+    y: [0, 1, 0],
+    z: [0, 0, 1],
+  };
 
-    /**
-     * Callback to keep drawing frames.
-     * @callback loop
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
-     */
-    return () => {
-        draw();
-        if (requestID != 0) {
-            cancelAnimationFrame(requestID);
-            requestID = 0;
-        }
-        if (!selector.paused) {
-            modelMatrix = new Matrix4()
-                .setRotate(increment, ...axes[axis])
-                .multiply(modelMatrix);
-            rotator.setViewMatrix(modelMatrix.elements);
-            // request that the browser calls animate() again "as soon as it can"
-            requestID = requestAnimationFrame(animate);
-        } else {
-            modelMatrix.elements = rotator.getViewMatrix();
-        }
-    };
+  /**
+   * Callback to keep drawing frames.
+   * @callback loop
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
+   */
+  return () => {
+    draw();
+    if (requestID != 0) {
+      cancelAnimationFrame(requestID);
+      requestID = 0;
+    }
+    if (!selector.paused) {
+      modelMatrix = new Matrix4()
+        .setRotate(increment, ...axes[axis])
+        .multiply(modelMatrix);
+      rotator.setViewMatrix(modelMatrix.elements);
+      // request that the browser calls animate() again "as soon as it can"
+      requestID = requestAnimationFrame(animate);
+    } else {
+      modelMatrix.elements = rotator.getViewMatrix();
+    }
+  };
 })();

@@ -43,11 +43,11 @@ const mat3 = glMatrix.mat3;
  * @type {Array<String>}
  */
 var imageFilename = [
-    "check64.png",
-    "check64border.png",
-    "clover.jpg",
-    "brick.png",
-    "steve.png",
+  "check64.png",
+  "check64border.png",
+  "clover.jpg",
+  "brick.png",
+  "steve.png",
 ];
 
 /**
@@ -87,7 +87,7 @@ var axisColors = new Float32Array([
  * @type {Float32Array}
  */
 var lightPropElements = new Float32Array([
-    0.2, 0.2, 0.2, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7,
+  0.2, 0.2, 0.2, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7,
 ]);
 
 /**
@@ -95,7 +95,7 @@ var lightPropElements = new Float32Array([
  * @type {Float32Array}
  */
 var matPropElements = new Float32Array([
-    0.33, 0.22, 0.03, 0.78, 0.57, 0.11, 0.99, 0.91, 0.81,
+  0.33, 0.22, 0.03, 0.78, 0.57, 0.11, 0.99, 0.91, 0.81,
 ]);
 
 /**
@@ -233,11 +233,11 @@ var mscale = 1;
  * @type {OBject<{lines:Boolean, texture:Boolean, axes:Boolean, paused: Boolean, intrinsic: Boolean}>}
  */
 var selector = {
-    lines: document.getElementById("mesh").checked,
-    texture: document.getElementById("texture").checked,
-    axes: document.getElementById("axes").checked,
-    paused: document.getElementById("pause").checked,
-    intrinsic: true,
+  lines: document.getElementById("mesh").checked,
+  texture: document.getElementById("texture").checked,
+  axes: document.getElementById("axes").checked,
+  paused: document.getElementById("pause").checked,
+  intrinsic: true,
 };
 
 /**
@@ -267,7 +267,7 @@ const vMatrix = mat4.lookAt(
 /**
  * View matrix.
  * @type {mat4}
- * @see <a href="/compgraf1/downloads/apostila.pdf#page=109">View matrix</a>
+ * @see <a href="/cwdc/downloads/apostila.pdf#page=109">View matrix</a>
  */
 var viewMatrix = mat4.copy([], vMatrix);
 
@@ -284,7 +284,7 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
  * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
  */
 var vecLen = (v) =>
-    Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
+  Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
 
 /**
  * View distance.
@@ -339,12 +339,12 @@ var viewDistance = vecLen(eye);
  * @see <a href="https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry">TetrahedronGeometry</a>
  */
 function getModelData(geom) {
-    return {
-        vertices: geom.getAttribute("position").array,
-        normals: geom.getAttribute("normal").array,
-        texCoords: geom.getAttribute("uv").array,
-        indices: geom.index ? geom.index.array : null,
-    };
+  return {
+    vertices: geom.getAttribute("position").array,
+    normals: geom.getAttribute("normal").array,
+    texCoords: geom.getAttribute("uv").array,
+    indices: geom.index ? geom.index.array : null,
+  };
 }
 
 /**
@@ -357,8 +357,8 @@ function getModelData(geom) {
  * @see <a href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48">𝑛′=(𝑀<sup>&#8211;1</sup>)<sup>𝑇</sup>⋅𝑛</a>
  */
 function makeNormalMatrixElements(model, view) {
-    var modelview = mat4.multiply([], view, model);
-    return mat3.normalFromMat4([], modelview);
+  var modelview = mat4.multiply([], view, model);
+  return mat3.normalFromMat4([], modelview);
 }
 
 /**
@@ -368,9 +368,9 @@ function makeNormalMatrixElements(model, view) {
  * @see https://javascript.info/tutorial/keyboard-events
  */
 function getChar(event) {
-    event = event || window.event;
-    let charCode = event.key || String.fromCharCode(event.which);
-    return charCode;
+  event = event || window.event;
+  let charCode = event.key || String.fromCharCode(event.which);
+  return charCode;
 }
 
 /**
@@ -379,194 +379,177 @@ function getChar(event) {
  * @param {KeyboardEvent} event keyboard event.
  */
 function handleKeyPress(event) {
-    var ch = getChar(event);
-    var d;
-    switch (ch) {
-        case " ":
-            selector.paused = !selector.paused;
-            document.getElementById("pause").checked = selector.paused;
-            if (!selector.paused) document.getElementById(axis).checked = true;
-            animate();
-            return;
-        case "x":
-        case "y":
-        case "z":
-            axis = ch;
-            selector.paused = false;
-            document.getElementById(axis).checked = true;
-            animate();
-            return;
-        case "O":
-            mat4.identity(modelMatrix);
-            mat4.copy(viewMatrix, vMatrix);
-            if (selector.intrinsic) {
-                rotator.setViewMatrix(viewMatrix);
-                rotator.setViewDistance(viewDistance);
-            } else {
-                rotator.setViewMatrix(modelMatrix);
-                rotator.setViewDistance(0);
-            }
-            break;
-        case "C":
-            mscale = 1;
-            document.getElementById("models").value = "1";
-            theModel = createModel(
-                getModelData(new THREE.ConeGeometry(0.8, 1.5, 48, 24))
-            );
-            break;
-        case "c":
-            mscale = 1;
-            document.getElementById("models").value = "3";
-            theModel = createModel(
-                getModelData(new THREE.CylinderGeometry(0.5, 0.5, 1.5, 24, 5))
-            );
-            break;
-        case "r":
-            mscale = 1;
-            document.getElementById("models").value = "4";
-            theModel = createModel(
-                getModelData(
-                    new THREE.RingGeometry(
-                        0.3,
-                        1.0,
-                        30,
-                        30,
-                        0,
-                        6.283185307179586
-                    )
-                ),
-                0
-            );
-            break;
-        case "u":
-            mscale = 1;
-            document.getElementById("models").value = "0";
-            theModel = createModel(
-                getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20))
-            );
-            break;
-        case "v":
-            mscale = 1;
-            document.getElementById("models").value = "2";
-            theModel = createModel(
-                getModelData(new THREE.BoxGeometry(1, 1, 1))
-            );
-            break;
-        case "s":
-            mscale = 1;
-            document.getElementById("models").value = "5";
-            theModel = createModel(
-                getModelData(new THREE.SphereGeometry(1, 48, 24))
-            );
-            break;
-        case "T":
-            mscale = 1;
-            document.getElementById("models").value = "8";
-            theModel = createModel(
-                getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16))
-            );
-            break;
-        case "t":
-            mscale = 1;
-            document.getElementById("models").value = "7";
-            theModel = createModel(
-                getModelData(new THREE.TorusGeometry(0.6, 0.24, 16, 128)),
-                0
-            );
-            break;
-        case "d":
-            mscale = 1;
-            document.getElementById("models").value = "9";
-            theModel = createModel(
-                getModelData(new THREE.DodecahedronGeometry(1, 0))
-            );
-            break;
-        case "i":
-            mscale = 1;
-            document.getElementById("models").value = "10";
-            theModel = createModel(
-                getModelData(new THREE.IcosahedronGeometry(1, 0))
-            );
-            break;
-        case "o":
-            mscale = 1;
-            document.getElementById("models").value = "11";
-            theModel = createModel(
-                getModelData(new THREE.OctahedronGeometry(1, 0))
-            );
-            break;
-        case "e":
-        case "E":
-            selector.intrinsic = !selector.intrinsic;
-            document.getElementById("e").checked = !selector.intrinsic;
-            document.getElementById("E").checked = selector.intrinsic;
-            if (selector.intrinsic) {
-                rotator.setViewMatrix(viewMatrix);
-                rotator.setViewDistance(viewDistance);
-            } else {
-                mat4.targetTo(modelMatrix, eye, [0, 0, 0], [0, 1, 0]);
-                rotator.setViewMatrix(modelMatrix);
-                rotator.setViewDistance(0);
-                mat4.copy(viewMatrix, vMatrix);
-            }
-            draw();
-            return;
-        case "w":
-            mscale = 1;
-            document.getElementById("models").value = "12";
-            theModel = createModel(
-                getModelData(new THREE.TetrahedronGeometry(1, 0))
-            );
-            break;
-        case "p":
-            mscale = 0.1;
-            document.getElementById("models").value = "6";
-            theModel = createModel(
-                {
-                    vertices: teapotModel.vertexPositions,
-                    normals: teapotModel.vertexNormals,
-                    texCoords: teapotModel.vertexTextureCoords,
-                    indices: teapotModel.indices,
-                },
-                null
-            );
-            break;
-        case "l":
-            selector.lines = !selector.lines;
-            if (!selector.lines) selector.texture = true;
-            document.getElementById("mesh").checked = selector.lines;
-            document.getElementById("texture").checked = selector.texture;
-            break;
-        case "k":
-            selector.texture = !selector.texture;
-            if (!selector.texture) selector.lines = true;
-            document.getElementById("texture").checked = selector.texture;
-            document.getElementById("mesh").checked = selector.lines;
-            break;
-        case "a":
-            selector.axes = !selector.axes;
-            document.getElementById("axes").checked = selector.axes;
-            break;
-        case "ArrowUp":
-            // Up pressed
-            if (selector.intrinsic) {
-                d = rotator.getViewDistance();
-                d = Math.min(d + 0.1, 10);
-                rotator.setViewDistance(d);
-            }
-            break;
-        case "ArrowDown":
-            // Down pressed
-            if (selector.intrinsic) {
-                d = rotator.getViewDistance();
-                d = Math.max(d - 0.1, 3);
-                rotator.setViewDistance(d);
-            }
-            break;
-        default:
-            return;
-    }
-    if (selector.paused) draw();
+  var ch = getChar(event);
+  var d;
+  switch (ch) {
+    case " ":
+      selector.paused = !selector.paused;
+      document.getElementById("pause").checked = selector.paused;
+      if (!selector.paused) document.getElementById(axis).checked = true;
+      animate();
+      return;
+    case "x":
+    case "y":
+    case "z":
+      axis = ch;
+      selector.paused = false;
+      document.getElementById(axis).checked = true;
+      animate();
+      return;
+    case "O":
+      mat4.identity(modelMatrix);
+      mat4.copy(viewMatrix, vMatrix);
+      if (selector.intrinsic) {
+        rotator.setViewMatrix(viewMatrix);
+        rotator.setViewDistance(viewDistance);
+      } else {
+        rotator.setViewMatrix(modelMatrix);
+        rotator.setViewDistance(0);
+      }
+      break;
+    case "C":
+      mscale = 1;
+      document.getElementById("models").value = "1";
+      theModel = createModel(
+        getModelData(new THREE.ConeGeometry(0.8, 1.5, 48, 24))
+      );
+      break;
+    case "c":
+      mscale = 1;
+      document.getElementById("models").value = "3";
+      theModel = createModel(
+        getModelData(new THREE.CylinderGeometry(0.5, 0.5, 1.5, 24, 5))
+      );
+      break;
+    case "r":
+      mscale = 1;
+      document.getElementById("models").value = "4";
+      theModel = createModel(
+        getModelData(
+          new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586)
+        ),
+        0
+      );
+      break;
+    case "u":
+      mscale = 1;
+      document.getElementById("models").value = "0";
+      theModel = createModel(
+        getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20))
+      );
+      break;
+    case "v":
+      mscale = 1;
+      document.getElementById("models").value = "2";
+      theModel = createModel(getModelData(new THREE.BoxGeometry(1, 1, 1)));
+      break;
+    case "s":
+      mscale = 1;
+      document.getElementById("models").value = "5";
+      theModel = createModel(getModelData(new THREE.SphereGeometry(1, 48, 24)));
+      break;
+    case "T":
+      mscale = 1;
+      document.getElementById("models").value = "8";
+      theModel = createModel(
+        getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16))
+      );
+      break;
+    case "t":
+      mscale = 1;
+      document.getElementById("models").value = "7";
+      theModel = createModel(
+        getModelData(new THREE.TorusGeometry(0.6, 0.24, 16, 128)),
+        0
+      );
+      break;
+    case "d":
+      mscale = 1;
+      document.getElementById("models").value = "9";
+      theModel = createModel(
+        getModelData(new THREE.DodecahedronGeometry(1, 0))
+      );
+      break;
+    case "i":
+      mscale = 1;
+      document.getElementById("models").value = "10";
+      theModel = createModel(getModelData(new THREE.IcosahedronGeometry(1, 0)));
+      break;
+    case "o":
+      mscale = 1;
+      document.getElementById("models").value = "11";
+      theModel = createModel(getModelData(new THREE.OctahedronGeometry(1, 0)));
+      break;
+    case "e":
+    case "E":
+      selector.intrinsic = !selector.intrinsic;
+      document.getElementById("e").checked = !selector.intrinsic;
+      document.getElementById("E").checked = selector.intrinsic;
+      if (selector.intrinsic) {
+        rotator.setViewMatrix(viewMatrix);
+        rotator.setViewDistance(viewDistance);
+      } else {
+        mat4.targetTo(modelMatrix, eye, [0, 0, 0], [0, 1, 0]);
+        rotator.setViewMatrix(modelMatrix);
+        rotator.setViewDistance(0);
+        mat4.copy(viewMatrix, vMatrix);
+      }
+      draw();
+      return;
+    case "w":
+      mscale = 1;
+      document.getElementById("models").value = "12";
+      theModel = createModel(getModelData(new THREE.TetrahedronGeometry(1, 0)));
+      break;
+    case "p":
+      mscale = 0.1;
+      document.getElementById("models").value = "6";
+      theModel = createModel(
+        {
+          vertices: teapotModel.vertexPositions,
+          normals: teapotModel.vertexNormals,
+          texCoords: teapotModel.vertexTextureCoords,
+          indices: teapotModel.indices,
+        },
+        null
+      );
+      break;
+    case "l":
+      selector.lines = !selector.lines;
+      if (!selector.lines) selector.texture = true;
+      document.getElementById("mesh").checked = selector.lines;
+      document.getElementById("texture").checked = selector.texture;
+      break;
+    case "k":
+      selector.texture = !selector.texture;
+      if (!selector.texture) selector.lines = true;
+      document.getElementById("texture").checked = selector.texture;
+      document.getElementById("mesh").checked = selector.lines;
+      break;
+    case "a":
+      selector.axes = !selector.axes;
+      document.getElementById("axes").checked = selector.axes;
+      break;
+    case "ArrowUp":
+      // Up pressed
+      if (selector.intrinsic) {
+        d = rotator.getViewDistance();
+        d = Math.min(d + 0.1, 10);
+        rotator.setViewDistance(d);
+      }
+      break;
+    case "ArrowDown":
+      // Down pressed
+      if (selector.intrinsic) {
+        d = rotator.getViewDistance();
+        d = Math.max(d - 0.1, 3);
+        rotator.setViewDistance(d);
+      }
+      break;
+    default:
+      return;
+  }
+  if (selector.paused) draw();
 }
 
 /**
@@ -576,36 +559,36 @@ function handleKeyPress(event) {
  * @function
  */
 var createEvent = (key) => {
-    let code = key.charCodeAt();
-    return new KeyboardEvent("keydown", {
-        key: key,
-        which: code,
-        charCode: code,
-        keyCode: code,
-    });
+  let code = key.charCodeAt();
+  return new KeyboardEvent("keydown", {
+    key: key,
+    which: code,
+    charCode: code,
+    keyCode: code,
+  });
 };
 
 /**
  * Selects a model from a menu.
  */
 function selectModel() {
-    let val = document.getElementById("models").value;
-    let key = {
-        0: "u", // capsule
-        1: "C", // cone
-        2: "v", // cube
-        3: "c", // cylinder
-        4: "r", // ring
-        5: "s", // sphere
-        6: "p", // teapot
-        7: "t", // torus
-        8: "T", // knot
-        9: "d", // dodecahedron
-        10: "i", // icosahedron
-        11: "o", // octahedron
-        12: "w", // tetrahedron
-    };
-    handleKeyPress(createEvent(key[val]));
+  let val = document.getElementById("models").value;
+  let key = {
+    0: "u", // capsule
+    1: "C", // cone
+    2: "v", // cube
+    3: "c", // cylinder
+    4: "r", // ring
+    5: "s", // sphere
+    6: "p", // teapot
+    7: "t", // torus
+    8: "T", // knot
+    9: "d", // dodecahedron
+    10: "i", // icosahedron
+    11: "o", // octahedron
+    12: "w", // tetrahedron
+  };
+  handleKeyPress(createEvent(key[val]));
 }
 
 const mesh = document.getElementById("mesh");
@@ -618,21 +601,21 @@ const axes = document.getElementById("axes");
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
 if (document.querySelector('input[name="rot"]')) {
-    document.querySelectorAll('input[name="rot"]').forEach((elem) => {
-        elem.addEventListener("change", function (event) {
-            var item = event.target.value;
-            handleKeyPress(createEvent(item));
-        });
+  document.querySelectorAll('input[name="rot"]').forEach((elem) => {
+    elem.addEventListener("change", function (event) {
+      var item = event.target.value;
+      handleKeyPress(createEvent(item));
     });
+  });
 }
 
 if (document.querySelector('input[name="euler"]')) {
-    document.querySelectorAll('input[name="euler"]').forEach((elem) => {
-        elem.addEventListener("change", function (event) {
-            var item = event.target.value;
-            handleKeyPress(createEvent(item));
-        });
+  document.querySelectorAll('input[name="euler"]').forEach((elem) => {
+    elem.addEventListener("change", function (event) {
+      var item = event.target.value;
+      handleKeyPress(createEvent(item));
     });
+  });
 }
 
 window.addEventListener("load", (event) => mainEntrance());
@@ -642,22 +625,22 @@ window.addEventListener("load", (event) => mainEntrance());
  * Draw {@link drawAxes axes}, {@link drawTexture texture}, and {@link drawLines lines}.
  */
 function draw() {
-    // clear the framebuffer
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  // clear the framebuffer
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    if (theModel === undefined) return;
+  if (theModel === undefined) return;
 
-    // the test here, instead in animate, allows using arcball
-    // during automatic rotation
-    if (!selector.intrinsic) {
-        mat4.copy(modelMatrix, rotator.getViewMatrix());
-    } else {
-        mat4.copy(viewMatrix, rotator.getViewMatrix());
-    }
+  // the test here, instead in animate, allows using arcball
+  // during automatic rotation
+  if (!selector.intrinsic) {
+    mat4.copy(modelMatrix, rotator.getViewMatrix());
+  } else {
+    mat4.copy(viewMatrix, rotator.getViewMatrix());
+  }
 
-    if (selector.axes) drawAxes();
-    if (selector.texture) drawTexture();
-    if (selector.lines) drawLines();
+  if (selector.axes) drawAxes();
+  if (selector.texture) drawTexture();
+  if (selector.lines) drawLines();
 }
 
 /**
@@ -665,15 +648,15 @@ function draw() {
  * @returns {mat4} model matrix.
  */
 function getModelMatrix() {
-    var m = modelMatrix;
-    if (mscale != 1) {
-        m = mat4.multiply(
-            [],
-            modelMatrix,
-            mat4.fromScaling([], [mscale, mscale, mscale])
-        );
-    }
-    return m;
+  var m = modelMatrix;
+  if (mscale != 1) {
+    m = mat4.multiply(
+      [],
+      modelMatrix,
+      mat4.fromScaling([], [mscale, mscale, mscale])
+    );
+  }
+  return m;
 }
 
 /**
@@ -685,88 +668,88 @@ function getModelMatrix() {
  * in the fragment shader.</p>
  */
 function drawTexture() {
-    // bind the shader
-    gl.useProgram(lightingShader);
+  // bind the shader
+  gl.useProgram(lightingShader);
 
-    // get the index for the a_Position attribute defined in the vertex shader
-    var positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
-    if (positionIndex < 0) {
-        console.log("Failed to get the storage location of a_Position");
-        return;
-    }
+  // get the index for the a_Position attribute defined in the vertex shader
+  var positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
+  if (positionIndex < 0) {
+    console.log("Failed to get the storage location of a_Position");
+    return;
+  }
 
-    var normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
-    if (normalIndex < 0) {
-        console.log("Failed to get the storage location of a_Normal");
-        return;
-    }
+  var normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
+  if (normalIndex < 0) {
+    console.log("Failed to get the storage location of a_Normal");
+    return;
+  }
 
-    var texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
-    if (texCoordIndex < 0) {
-        console.log("Failed to get the storage location of a_TexCoord");
-        return;
-    }
+  var texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
+  if (texCoordIndex < 0) {
+    console.log("Failed to get the storage location of a_TexCoord");
+    return;
+  }
 
-    // "enable" the a_position attribute
-    gl.enableVertexAttribArray(positionIndex);
-    gl.enableVertexAttribArray(normalIndex);
-    gl.enableVertexAttribArray(texCoordIndex);
+  // "enable" the a_position attribute
+  gl.enableVertexAttribArray(positionIndex);
+  gl.enableVertexAttribArray(normalIndex);
+  gl.enableVertexAttribArray(texCoordIndex);
 
-    // bind buffers for points
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
-    gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-    gl.vertexAttribPointer(texCoordIndex, 2, gl.FLOAT, false, 0, 0);
-    //gl.bindBuffer(gl.ARRAY_BUFFER, null); <---
+  // bind buffers for points
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
+  gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+  gl.vertexAttribPointer(texCoordIndex, 2, gl.FLOAT, false, 0, 0);
+  //gl.bindBuffer(gl.ARRAY_BUFFER, null); <---
 
-    // set uniform in shader for projection * view * model transformation
-    var loc = gl.getUniformLocation(lightingShader, "model");
-    gl.uniformMatrix4fv(loc, false, getModelMatrix());
-    loc = gl.getUniformLocation(lightingShader, "view");
-    gl.uniformMatrix4fv(loc, false, viewMatrix);
-    loc = gl.getUniformLocation(lightingShader, "projection");
-    gl.uniformMatrix4fv(loc, false, projection);
-    loc = gl.getUniformLocation(lightingShader, "normalMatrix");
-    gl.uniformMatrix3fv(
-        loc,
-        false,
-        makeNormalMatrixElements(modelMatrix, viewMatrix)
+  // set uniform in shader for projection * view * model transformation
+  var loc = gl.getUniformLocation(lightingShader, "model");
+  gl.uniformMatrix4fv(loc, false, getModelMatrix());
+  loc = gl.getUniformLocation(lightingShader, "view");
+  gl.uniformMatrix4fv(loc, false, viewMatrix);
+  loc = gl.getUniformLocation(lightingShader, "projection");
+  gl.uniformMatrix4fv(loc, false, projection);
+  loc = gl.getUniformLocation(lightingShader, "normalMatrix");
+  gl.uniformMatrix3fv(
+    loc,
+    false,
+    makeNormalMatrixElements(modelMatrix, viewMatrix)
+  );
+
+  loc = gl.getUniformLocation(lightingShader, "lightPosition");
+  gl.uniform4f(loc, 2.0, 4.0, 2.0, 1.0);
+
+  // light and material properties
+  loc = gl.getUniformLocation(lightingShader, "lightProperties");
+  gl.uniformMatrix3fv(loc, false, lightPropElements);
+  loc = gl.getUniformLocation(lightingShader, "materialProperties");
+  gl.uniformMatrix3fv(loc, false, matPropElements);
+  loc = gl.getUniformLocation(lightingShader, "shininess");
+  gl.uniform1f(loc, shininess);
+
+  // need to choose a texture unit, then bind the texture to TEXTURE_2D for that unit
+  var textureUnit = 1;
+  gl.activeTexture(gl.TEXTURE0 + textureUnit);
+  gl.bindTexture(gl.TEXTURE_2D, textureHandle);
+  loc = gl.getUniformLocation(lightingShader, "sampler");
+  gl.uniform1i(loc, textureUnit);
+
+  if (theModel.indices) {
+    gl.drawElements(
+      gl.TRIANGLES,
+      theModel.indices.length,
+      gl.UNSIGNED_SHORT,
+      0
     );
+  } else {
+    gl.drawArrays(gl.TRIANGLES, 0, theModel.vertices.length / 3);
+  }
 
-    loc = gl.getUniformLocation(lightingShader, "lightPosition");
-    gl.uniform4f(loc, 2.0, 4.0, 2.0, 1.0);
-
-    // light and material properties
-    loc = gl.getUniformLocation(lightingShader, "lightProperties");
-    gl.uniformMatrix3fv(loc, false, lightPropElements);
-    loc = gl.getUniformLocation(lightingShader, "materialProperties");
-    gl.uniformMatrix3fv(loc, false, matPropElements);
-    loc = gl.getUniformLocation(lightingShader, "shininess");
-    gl.uniform1f(loc, shininess);
-
-    // need to choose a texture unit, then bind the texture to TEXTURE_2D for that unit
-    var textureUnit = 1;
-    gl.activeTexture(gl.TEXTURE0 + textureUnit);
-    gl.bindTexture(gl.TEXTURE_2D, textureHandle);
-    loc = gl.getUniformLocation(lightingShader, "sampler");
-    gl.uniform1i(loc, textureUnit);
-
-    if (theModel.indices) {
-        gl.drawElements(
-            gl.TRIANGLES,
-            theModel.indices.length,
-            gl.UNSIGNED_SHORT,
-            0
-        );
-    } else {
-        gl.drawArrays(gl.TRIANGLES, 0, theModel.vertices.length / 3);
-    }
-
-    gl.disableVertexAttribArray(positionIndex);
-    gl.disableVertexAttribArray(normalIndex);
+  gl.disableVertexAttribArray(positionIndex);
+  gl.disableVertexAttribArray(normalIndex);
 }
 
 /**
@@ -774,51 +757,51 @@ function drawTexture() {
  * Uses the colorShader.
  */
 function drawAxes() {
-    // bind the shader
-    gl.useProgram(colorShader);
+  // bind the shader
+  gl.useProgram(colorShader);
 
-    // get the index for the a_Position attribute defined in the vertex shader
-    var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
-    if (positionIndex < 0) {
-        console.log("Failed to get the storage location of a_Position");
-        return;
-    }
+  // get the index for the a_Position attribute defined in the vertex shader
+  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  if (positionIndex < 0) {
+    console.log("Failed to get the storage location of a_Position");
+    return;
+  }
 
-    var colorIndex = gl.getAttribLocation(colorShader, "a_Color");
-    if (colorIndex < 0) {
-        console.log("Failed to get the storage location of a_Color");
-        return;
-    }
+  var colorIndex = gl.getAttribLocation(colorShader, "a_Color");
+  if (colorIndex < 0) {
+    console.log("Failed to get the storage location of a_Color");
+    return;
+  }
 
-    // "enable" the a_position attribute
-    gl.enableVertexAttribArray(positionIndex);
-    gl.enableVertexAttribArray(colorIndex);
+  // "enable" the a_position attribute
+  gl.enableVertexAttribArray(positionIndex);
+  gl.enableVertexAttribArray(colorIndex);
 
-    // draw axes
-    gl.bindBuffer(gl.ARRAY_BUFFER, axisBuffer);
-    gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
-    gl.vertexAttribPointer(colorIndex, 4, gl.FLOAT, false, 0, 0);
-    //gl.bindBuffer(gl.ARRAY_BUFFER, null); <----
+  // draw axes
+  gl.bindBuffer(gl.ARRAY_BUFFER, axisBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
+  gl.vertexAttribPointer(colorIndex, 4, gl.FLOAT, false, 0, 0);
+  //gl.bindBuffer(gl.ARRAY_BUFFER, null); <----
 
-    // set transformation to projection * view * model for intrinsic
-    // or only projection * view for extrinsic
-    var loc = gl.getUniformLocation(colorShader, "transform");
-    var transform = mat4.multiply([], projection, viewMatrix);
-    if (selector.intrinsic) {
-        mat4.multiply(transform, transform, modelMatrix);
-    }
+  // set transformation to projection * view * model for intrinsic
+  // or only projection * view for extrinsic
+  var loc = gl.getUniformLocation(colorShader, "transform");
+  var transform = mat4.multiply([], projection, viewMatrix);
+  if (selector.intrinsic) {
+    mat4.multiply(transform, transform, modelMatrix);
+  }
 
-    gl.uniformMatrix4fv(loc, false, transform);
+  gl.uniformMatrix4fv(loc, false, transform);
 
-    // draw axes
-    gl.drawArrays(gl.LINES, 0, 6);
+  // draw axes
+  gl.drawArrays(gl.LINES, 0, 6);
 
-    // unbind shader and "disable" the attribute indices
-    // (not really necessary when there is only one shader)
-    gl.disableVertexAttribArray(positionIndex);
-    gl.disableVertexAttribArray(colorIndex);
-    gl.useProgram(null);
+  // unbind shader and "disable" the attribute indices
+  // (not really necessary when there is only one shader)
+  gl.disableVertexAttribArray(positionIndex);
+  gl.disableVertexAttribArray(colorIndex);
+  gl.useProgram(null);
 }
 
 /**
@@ -826,63 +809,63 @@ function drawAxes() {
  * Uses the colorShader.
  */
 function drawLines() {
-    // bind the shader
-    gl.useProgram(colorShader);
-    var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
-    if (positionIndex < 0) {
-        console.log("Failed to get the storage location of a_Position");
-        return;
-    }
+  // bind the shader
+  gl.useProgram(colorShader);
+  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  if (positionIndex < 0) {
+    console.log("Failed to get the storage location of a_Position");
+    return;
+  }
 
-    var a_color = gl.getAttribLocation(colorShader, "a_Color");
-    if (a_color < 0) {
-        console.log("Failed to get the storage location of a_Color");
-        return;
-    }
-    gl.vertexAttrib4f(a_color, 1.0, 1.0, 0.0, 1.0);
+  var a_color = gl.getAttribLocation(colorShader, "a_Color");
+  if (a_color < 0) {
+    console.log("Failed to get the storage location of a_Color");
+    return;
+  }
+  gl.vertexAttrib4f(a_color, 1.0, 1.0, 0.0, 1.0);
 
-    // "enable" the a_position attribute
-    gl.enableVertexAttribArray(positionIndex);
-    //  ------------ draw triangle borders
-    // set transformation to projection * view * model
-    var loc = gl.getUniformLocation(colorShader, "transform");
-    var transform = mat4.multiply(
-        [],
-        projection,
-        mat4.multiply([], viewMatrix, getModelMatrix())
-    );
-    gl.uniformMatrix4fv(loc, false, transform);
+  // "enable" the a_position attribute
+  gl.enableVertexAttribArray(positionIndex);
+  //  ------------ draw triangle borders
+  // set transformation to projection * view * model
+  var loc = gl.getUniformLocation(colorShader, "transform");
+  var transform = mat4.multiply(
+    [],
+    projection,
+    mat4.multiply([], viewMatrix, getModelMatrix())
+  );
+  gl.uniformMatrix4fv(loc, false, transform);
 
-    // draw edges
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    // takes too long on mobile
-    /*
+  // draw edges
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+  // takes too long on mobile
+  /*
     for (var i = 0; i < theModel.indices.length; i += 3) {
         // offset - two bytes per index (UNSIGNED_SHORT)
         gl.drawElements(gl.LINE_LOOP, 3, gl.UNSIGNED_SHORT, i * 2);
     }
     */
 
-    // draw edges
-    if (theModel.indices) {
-        gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
-        gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-        gl.drawArrays(gl.LINES, 0, 2 * theModel.indices.length);
-    } else {
-        for (var i = 0; i < theModel.vertices.length; i += 3) {
-            gl.drawArrays(gl.LINE_LOOP, i, 3);
-        }
-    }
-
-    // draw normals
-    gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+  // draw edges
+  if (theModel.indices) {
+    gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
     gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-    gl.drawArrays(gl.LINES, 0, 2 * theModel.vertices.length);
+    gl.drawArrays(gl.LINES, 0, 2 * theModel.indices.length);
+  } else {
+    for (var i = 0; i < theModel.vertices.length; i += 3) {
+      gl.drawArrays(gl.LINE_LOOP, i, 3);
+    }
+  }
 
-    gl.disableVertexAttribArray(positionIndex);
-    gl.useProgram(null);
+  // draw normals
+  gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.drawArrays(gl.LINES, 0, 2 * theModel.vertices.length);
+
+  gl.disableVertexAttribArray(positionIndex);
+  gl.useProgram(null);
 }
 
 /**
@@ -890,16 +873,16 @@ function drawLines() {
  * Wait for image to load before proceeding.
  */
 function mainEntrance() {
-    var image = new Image();
-    image.onload = function () {
-        // chain the next function
-        startForReal(image);
-    };
+  var image = new Image();
+  image.onload = function () {
+    // chain the next function
+    startForReal(image);
+  };
 
-    // starts loading the image asynchronously
-    image.src =
-        "/cwdc/13-webgl/examples/images/" +
-        imageFilename[Math.floor(Math.random() * imageFilename.length)];
+  // starts loading the image asynchronously
+  image.src =
+    "/cwdc/13-webgl/examples/images/" +
+    imageFilename[Math.floor(Math.random() * imageFilename.length)];
 }
 
 /**
@@ -910,136 +893,131 @@ function mainEntrance() {
  * @param {HTMLImageElement} image texture image.
  */
 function startForReal(image) {
-    // retrieve <canvas> element
-    var canvas = document.getElementById("theCanvas");
+  // retrieve <canvas> element
+  var canvas = document.getElementById("theCanvas");
 
-    // key handler
-    window.addEventListener("keydown", (event) => {
-        if (
-            [
-                "Space",
-                "ArrowUp",
-                "ArrowDown",
-                "ArrowLeft",
-                "ArrowRight",
-            ].indexOf(event.code) > -1
-        ) {
-            event.preventDefault();
-        }
-        handleKeyPress(event);
-    });
-
-    // get the rendering context for WebGL
-    gl = canvas.getContext("webgl");
-    if (!gl) {
-        console.log("Failed to get the rendering context for WebGL");
-        return;
+  // key handler
+  window.addEventListener("keydown", (event) => {
+    if (
+      ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
+        event.code
+      ) > -1
+    ) {
+      event.preventDefault();
     }
+    handleKeyPress(event);
+  });
 
-    // load and compile the shader pair, using utility from the teal book
-    var vshaderSource =
-        document.getElementById("vertexColorShader").textContent;
-    var fshaderSource = document.getElementById(
-        "fragmentColorShader"
-    ).textContent;
-    if (!initShaders(gl, vshaderSource, fshaderSource)) {
-        console.log("Failed to initialize shaders.");
-        return;
-    }
-    colorShader = gl.program;
-    gl.useProgram(null);
+  // get the rendering context for WebGL
+  gl = canvas.getContext("webgl");
+  if (!gl) {
+    console.log("Failed to get the rendering context for WebGL");
+    return;
+  }
 
-    // load and compile the shader pair, using utility from the teal book
-    var vshaderSource = document.getElementById(
-        "vertexLightingShader"
-    ).textContent;
-    var fshaderSource = document.getElementById(
-        "fragmentLightingShader"
-    ).textContent;
-    if (!initShaders(gl, vshaderSource, fshaderSource)) {
-        console.log("Failed to initialize shaders.");
-        return;
-    }
-    lightingShader = gl.program;
-    gl.useProgram(null);
+  // load and compile the shader pair, using utility from the teal book
+  var vshaderSource = document.getElementById("vertexColorShader").textContent;
+  var fshaderSource = document.getElementById(
+    "fragmentColorShader"
+  ).textContent;
+  if (!initShaders(gl, vshaderSource, fshaderSource)) {
+    console.log("Failed to initialize shaders.");
+    return;
+  }
+  colorShader = gl.program;
+  gl.useProgram(null);
 
-    // buffer for vertex positions for triangles
-    vertexBuffer = gl.createBuffer();
-    indexBuffer = gl.createBuffer();
-    if (!vertexBuffer) {
-        console.log("Failed to create the buffer object");
-        return;
-    }
+  // load and compile the shader pair, using utility from the teal book
+  var vshaderSource = document.getElementById(
+    "vertexLightingShader"
+  ).textContent;
+  var fshaderSource = document.getElementById(
+    "fragmentLightingShader"
+  ).textContent;
+  if (!initShaders(gl, vshaderSource, fshaderSource)) {
+    console.log("Failed to initialize shaders.");
+    return;
+  }
+  lightingShader = gl.program;
+  gl.useProgram(null);
 
-    // buffer for vertex normals
-    vertexNormalBuffer = gl.createBuffer();
-    if (!vertexNormalBuffer) {
-        console.log("Failed to create the buffer object");
-        return;
-    }
+  // buffer for vertex positions for triangles
+  vertexBuffer = gl.createBuffer();
+  indexBuffer = gl.createBuffer();
+  if (!vertexBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
 
-    // buffer for tex coords
-    texCoordBuffer = gl.createBuffer();
-    if (!texCoordBuffer) {
-        console.log("Failed to create the buffer object");
-        return;
-    }
+  // buffer for vertex normals
+  vertexNormalBuffer = gl.createBuffer();
+  if (!vertexNormalBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
 
-    // ask the GPU to create a texture object
-    textureHandle = gl.createTexture();
+  // buffer for tex coords
+  texCoordBuffer = gl.createBuffer();
+  if (!texCoordBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
 
-    // choose a texture unit to use during setup, defaults to zero
-    // (can use a different one when drawing)
-    // max value is MAX_COMBINED_TEXTURE_IMAGE_UNITS
-    gl.activeTexture(gl.TEXTURE0);
+  // ask the GPU to create a texture object
+  textureHandle = gl.createTexture();
 
-    // bind the texture
-    gl.bindTexture(gl.TEXTURE_2D, textureHandle);
+  // choose a texture unit to use during setup, defaults to zero
+  // (can use a different one when drawing)
+  // max value is MAX_COMBINED_TEXTURE_IMAGE_UNITS
+  gl.activeTexture(gl.TEXTURE0);
 
-    // load the image bytes to the currently bound texture, flipping the vertical
-    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+  // bind the texture
+  gl.bindTexture(gl.TEXTURE_2D, textureHandle);
 
-    // texture parameters are stored with the texture
-    gl.generateMipmap(gl.TEXTURE_2D);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);  // default is REPEAT
+  // load the image bytes to the currently bound texture, flipping the vertical
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
 
-    // axes
-    axisBuffer = gl.createBuffer();
-    normalBuffer = gl.createBuffer();
-    lineBuffer = gl.createBuffer();
-    if (!axisBuffer) {
-        console.log("Failed to create the buffer object");
-        return;
-    }
-    gl.bindBuffer(gl.ARRAY_BUFFER, axisBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, axisVertices, gl.STATIC_DRAW);
+  // texture parameters are stored with the texture
+  gl.generateMipmap(gl.TEXTURE_2D);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);  // default is REPEAT
 
-    // buffer for axis colors
-    axisColorBuffer = gl.createBuffer();
-    if (!axisColorBuffer) {
-        console.log("Failed to create the buffer object");
-        return;
-    }
-    gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, axisColors, gl.STATIC_DRAW);
+  // axes
+  axisBuffer = gl.createBuffer();
+  normalBuffer = gl.createBuffer();
+  lineBuffer = gl.createBuffer();
+  if (!axisBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, axisBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, axisVertices, gl.STATIC_DRAW);
 
-    //gl.bindBuffer(gl.ARRAY_BUFFER, null); <----
+  // buffer for axis colors
+  axisColorBuffer = gl.createBuffer();
+  if (!axisColorBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, axisColors, gl.STATIC_DRAW);
 
-    // specify a fill color for clearing the framebuffer
-    gl.clearColor(0.0, 0.4, 0.4, 1.0);
+  //gl.bindBuffer(gl.ARRAY_BUFFER, null); <----
 
-    gl.enable(gl.DEPTH_TEST);
+  // specify a fill color for clearing the framebuffer
+  gl.clearColor(0.0, 0.4, 0.4, 1.0);
 
-    rotator = new SimpleRotator(canvas, draw);
-    handleKeyPress(createEvent("O"));
+  gl.enable(gl.DEPTH_TEST);
 
-    selectModel();
+  rotator = new SimpleRotator(canvas, draw);
+  handleKeyPress(createEvent("O"));
 
-    // start drawing!
-    animate();
+  selectModel();
+
+  // start drawing!
+  animate();
 }
 
 /**
@@ -1072,73 +1050,72 @@ function startForReal(image) {
  *
  */
 function createModel(shape, chi = 2) {
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, shape.vertices, gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, shape.vertices, gl.STATIC_DRAW);
 
-    if (shape.indices) {
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, shape.indices, gl.STATIC_DRAW);
+  if (shape.indices) {
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, shape.indices, gl.STATIC_DRAW);
+  }
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
+
+  gl.bufferData(gl.ARRAY_BUFFER, shape.normals, gl.STATIC_DRAW);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, shape.texCoords, gl.STATIC_DRAW);
+
+  let nv = shape.vertices.length;
+  normal = new Float32Array(6 * nv);
+  for (var i = 0, k = 0; i < nv; i += 3, k += 6) {
+    for (var j = 0; j < 3; j++) {
+      normal[j + k] = shape.vertices[i + j];
+      normal[j + k + 3] = normal[j + k] + (0.1 / mscale) * shape.normals[i + j];
+    }
+  }
+
+  // number of faces: ni / 3
+  // number of edges: ni
+  // number of endpoints: ni * 6
+  if (shape.indices) {
+    let ni = shape.indices.length;
+    lines = new Float32Array(18 * ni);
+    for (i = 0, k = 0; i < ni; i += 3, k += 18) {
+      for (j = 0; j < 3; j++) {
+        let v1 = shape.vertices[shape.indices[i] * 3 + j];
+        let v2 = shape.vertices[shape.indices[i + 1] * 3 + j];
+        let v3 = shape.vertices[shape.indices[i + 2] * 3 + j];
+
+        lines[j + k] = v1;
+        lines[j + k + 3] = v2;
+
+        lines[j + k + 6] = v2;
+        lines[j + k + 9] = v3;
+
+        lines[j + k + 12] = v3;
+        lines[j + k + 15] = v1;
+      }
     }
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, lines, gl.STATIC_DRAW);
+  }
 
-    gl.bufferData(gl.ARRAY_BUFFER, shape.normals, gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, normal, gl.STATIC_DRAW);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, shape.texCoords, gl.STATIC_DRAW);
+  let obj = document.getElementById("object");
+  obj.innerHTML = "<b>Object:</b>";
+  if (chi !== null) {
+    let faces = shape.indices
+      ? shape.indices.length / 3
+      : shape.vertices.length / 9;
+    let edges = (faces * 3) / 2;
+    let vertices = faces / 2 + chi;
+    obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
+  }
 
-    let nv = shape.vertices.length;
-    normal = new Float32Array(6 * nv);
-    for (var i = 0, k = 0; i < nv; i += 3, k += 6) {
-        for (var j = 0; j < 3; j++) {
-            normal[j + k] = shape.vertices[i + j];
-            normal[j + k + 3] =
-                normal[j + k] + (0.1 / mscale) * shape.normals[i + j];
-        }
-    }
-
-    // number of faces: ni / 3
-    // number of edges: ni
-    // number of endpoints: ni * 6
-    if (shape.indices) {
-        let ni = shape.indices.length;
-        lines = new Float32Array(18 * ni);
-        for (i = 0, k = 0; i < ni; i += 3, k += 18) {
-            for (j = 0; j < 3; j++) {
-                let v1 = shape.vertices[shape.indices[i] * 3 + j];
-                let v2 = shape.vertices[shape.indices[i + 1] * 3 + j];
-                let v3 = shape.vertices[shape.indices[i + 2] * 3 + j];
-
-                lines[j + k] = v1;
-                lines[j + k + 3] = v2;
-
-                lines[j + k + 6] = v2;
-                lines[j + k + 9] = v3;
-
-                lines[j + k + 12] = v3;
-                lines[j + k + 15] = v1;
-            }
-        }
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, lines, gl.STATIC_DRAW);
-    }
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, normal, gl.STATIC_DRAW);
-
-    let obj = document.getElementById("object");
-    obj.innerHTML = "<b>Object:</b>";
-    if (chi !== null) {
-        let faces = shape.indices
-            ? shape.indices.length / 3
-            : shape.vertices.length / 9;
-        let edges = (faces * 3) / 2;
-        let vertices = faces / 2 + chi;
-        obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
-    }
-
-    return shape;
+  return shape;
 }
 
 /**
@@ -1148,41 +1125,41 @@ function createModel(shape, chi = 2) {
  * @see https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd
  */
 var animate = (() => {
-    // increase the rotation by some amount (30°/s), depending on the axis chosen
-    const increment = (0.5 * Math.PI) / 180;
-    /** @type {Number} */
-    var requestID = 0;
-    const axes = {
-        x: [1, 0, 0],
-        y: [0, 1, 0],
-        z: [0, 0, 1],
-    };
+  // increase the rotation by some amount (30°/s), depending on the axis chosen
+  const increment = (0.5 * Math.PI) / 180;
+  /** @type {Number} */
+  var requestID = 0;
+  const axes = {
+    x: [1, 0, 0],
+    y: [0, 1, 0],
+    z: [0, 0, 1],
+  };
 
-    /**
-     * Callback to keep drawing frames.
-     * @callback frame
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
-     */
-    return () => {
-        // to avoid speed up
-        if (requestID != 0) {
-            cancelAnimationFrame(requestID);
-            requestID = 0;
-        }
-        if (!selector.paused) {
-            let rotMatrix = mat4.fromRotation([], increment, axes[axis]);
-            if (selector.intrinsic) {
-                // intrinsic rotation (multiply on the right)
-                mat4.multiply(modelMatrix, modelMatrix, rotMatrix);
-            } else {
-                // extrinsic rotation (multiply on the left)
-                mat4.multiply(modelMatrix, rotMatrix, modelMatrix);
-                rotator.setViewMatrix(modelMatrix);
-            }
-            draw();
-            // request that the browser calls animate() again "as soon as it can"
-            requestID = requestAnimationFrame(animate);
-        }
-    };
+  /**
+   * Callback to keep drawing frames.
+   * @callback frame
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
+   */
+  return () => {
+    // to avoid speed up
+    if (requestID != 0) {
+      cancelAnimationFrame(requestID);
+      requestID = 0;
+    }
+    if (!selector.paused) {
+      let rotMatrix = mat4.fromRotation([], increment, axes[axis]);
+      if (selector.intrinsic) {
+        // intrinsic rotation (multiply on the right)
+        mat4.multiply(modelMatrix, modelMatrix, rotMatrix);
+      } else {
+        // extrinsic rotation (multiply on the left)
+        mat4.multiply(modelMatrix, rotMatrix, modelMatrix);
+        rotator.setViewMatrix(modelMatrix);
+      }
+      draw();
+      // request that the browser calls animate() again "as soon as it can"
+      requestID = requestAnimationFrame(animate);
+    }
+  };
 })();

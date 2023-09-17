@@ -312,8 +312,8 @@ var eye = vec3.fromValues(1.77, 3.54, 3.0);
 /**
  * View matrix.
  * @type {mat4}
- * @see <a href="/compgraf1/downloads/apostila.pdf#page=109">View matrix</a>
- * @see <a href="/cg/downloads/PDFs/06_LCG_Transformacoes.pdf">Mudança de Base</a>
+ * @see <a href="/cwdc/downloads/apostila.pdf#page=109">View matrix</a>
+ * @see <a href="/cwdc/downloads/PDFs/06_LCG_Transformacoes.pdf">Mudança de Base</a>
  * @see <a href="https://en.wikipedia.org/wiki/Change_of_basis">Change of Basis</a>
  * @see https://learn.microsoft.com/en-us/windows/win32/direct3d9/view-transform
  */
