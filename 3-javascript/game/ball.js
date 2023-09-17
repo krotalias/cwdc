@@ -22,7 +22,7 @@
  * When the ball gets too close to a vertical wall, invert the x component in its speed.
  * Likewise, invert the y component when it hits a horizontal wall.</p>
  *
- * To <a href="/compgraf1/downloads/apostila.pdf#page=161">reflect</a>
+ * To <a href="/cwdc/downloads/apostila.pdf#page=161">reflect</a>
  * the velocity vector against the wall normal vector:
  * <ul>
  *  <li>vertical wall <br>
