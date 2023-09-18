@@ -2,12 +2,30 @@
     "timeZones": "Time Zones around the world",
     "cities": [
         {
+            "city": "Azores",
+            "region": "Atlantic",
+            "offset": -1,
+            "coordinates": {
+                "latitude": 37.741249,
+                "longitude": -25.675594
+            }
+        },
+        {
             "city": "Noronha",
             "region": "America",
             "offset": -2,
             "coordinates": {
                 "latitude": -3.853808,
                 "longitude": -32.423786
+            }
+        },
+        {
+            "city": "Rio_de_Janeiro",
+            "region": "Brazil",
+            "offset": -3,
+            "coordinates": {
+                "latitude": -22.936320621090374,
+                "longitude": -43.18484486868511
             }
         },
         {
@@ -98,6 +116,15 @@
             "coordinates": {
                 "latitude": 61.50507,
                 "longitude": -6.76918
+            }
+        },
+        {
+            "city": "London",
+            "region": "Europe",
+            "offset": 0,
+            "coordinates": {
+                "latitude": 51.5073509,
+                "longitude": -0.1277583
             }
         },
         {
