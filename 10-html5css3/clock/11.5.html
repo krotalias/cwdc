@@ -42,6 +42,9 @@
             #handles {
                 z-index: 2;
             }
+            #legend {
+                z-index: 1;
+            }
             #clock {
                 background-color: antiquewhite;
                 z-index: 1;
@@ -51,6 +54,12 @@
                 margin-right: 40px;
                 margin-left: 40px;
                 padding: 0 10px 0 10px;
+            }
+            #address {
+                margin-left: 0;
+                text-align: justify;
+                width: 512px;
+                font-size: small;
             }
         </style>
     </head>
@@ -80,7 +89,12 @@
             <canvas id="handles" width="512" height="512">
                 Please upgrade your browser.
             </canvas>
+            <canvas id="legend" width="512" height="512">
+                Please upgrade your browser.
+            </canvas>
         </div>
+        <br />
+        <div id="address"></div>
         <br />
         <p>
             <audio title="Hino do Fluminense" controls loop>

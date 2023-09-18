@@ -73,6 +73,11 @@ var context = canvas.getContext("2d");
  */
 var ctx = document.getElementById("handles").getContext("2d");
 
+/**
+ * @var {CanvasRenderingContext2D} lctx Legend canvas context.
+ */
+var lctx = document.getElementById("legend").getContext("2d");
+
 /** π */
 const pi = Math.PI;
 
@@ -271,6 +276,71 @@ async function readZones() {
 }
 
 /**
+ * Get the address using
+ * {@link https://wiki.openstreetmap.org/wiki/Main_Page OpenStreetMap}
+ * given a geodetic location.
+ *
+ *
+ * @param {Number} lat latitude.
+ * @param {Number} long longitude.
+ * @async
+ * @returns {Promise<Array<String>>} <a href="../clock/Fluminense-reverse.json">address array</a>: [house_number, road, city, city_district, country].
+ * @see https://operations.osmfoundation.org/policies/nominatim/
+ * @see https://nominatim.openstreetmap.org/reverse?format=json&lat=-22.9369&lon=-43.1857&zoom=18&addressdetails=1
+ * @see <iframe width="512" height="350"
+ * src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-22.93755445951262%2C-43.18112701177598%2C-22.934424772219046&amp;layer=mapnik" style="border: 1px solid black"></iframe>
+ * <br/><small>
+ * <a href="https://www.openstreetmap.org/#map=19/-22.93599/-43.18456">View Larger Map</a>
+ * </small>
+ */
+async function reverseGeoCoding(lat, long) {
+  const requestURL =
+    "https://nominatim.openstreetmap.org/reverse?format=json&lat=" +
+    lat +
+    "&lon=" +
+    long +
+    "&zoom=18&addressdetails=1";
+  const request = new Request(requestURL);
+
+  const response = await fetch(request);
+  const positionText = await response.text();
+  const position = JSON.parse(positionText);
+
+  // console.log(position);
+  // Object Destructuring
+  const { house_number, road, city, suburb, country } = position.address;
+  return [house_number, road, city, suburb, country];
+}
+
+/**
+ * Get the latitude and longitude using
+ * {@link https://wiki.openstreetmap.org/wiki/Main_Page OpenStreetMap}
+ * given an address, e.g. "sao_paulo,brazil" or "london,england".
+ *
+ * @param {String} address location.
+ * @async
+ * @returns {Promise<Array<Number>>} <a href="../clock/Fluminense.json">geodetic array</a>: [latitude, longitude].
+ * @see https://operations.osmfoundation.org/policies/nominatim/
+ * @see https://nominatim.openstreetmap.org/search?format=json&q="Fluminense Football Club"
+ * @see https://leafletjs.com
+ * @see <a href="../clock/Flusao.png"><img src="../clock/Flusao-512.png"></a>
+ * @see <a href="../clock/Fluminense.html">Laranjeiras</a>
+ */
+async function geoCoding(address) {
+  const requestURL = `https://nominatim.openstreetmap.org/search?format=json&q=${address}`;
+  const request = new Request(requestURL);
+
+  const response = await fetch(request);
+  const geoCodingText = await response.text();
+  const geoCoding = JSON.parse(geoCodingText);
+
+  // console.log(geoCoding);
+  // Object Destructuring
+  const { lat, lon } = geoCoding[0];
+  return [lat, lon];
+}
+
+/**
  * <p>Returns a time zone geographic descriptor given a location name.</p>
  * The {@link readZones json file} is read and searched for.
  *
@@ -310,6 +380,8 @@ async function findCity(name) {
  * @see https://en.wikipedia.org/wiki/Solar_time
  */
 function drawClock(place) {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
   // Browsers first loads a compressed version of image, then decodes it, finally paints it.
   // Draw the logo.
   const img = new Image();
@@ -360,6 +432,15 @@ function drawClock(place) {
         let lat = city.coordinates.latitude;
         let lng = city.coordinates.longitude;
         drawArc({ latitude: lat, longitude: lng }, city.offset);
+        let pos = await reverseGeoCoding(lat, lng);
+        let geocode = await geoCoding(`${city.city},${city.region}`);
+        let tag = document.querySelector("#address");
+        tag.innerHTML = `${pos
+          .filter((str) => str !== undefined)
+          .join(", ")} <br> Latitude: ${Number(geocode[0]).toFixed(
+          5
+        )}, Longitude: ${Number(geocode[1]).toFixed(5)}
+        `;
       }
     },
     {
@@ -379,7 +460,7 @@ function drawClock(place) {
    *  <li>B: back to 10-html5css3</li>
    *  <li>⌘-esc or ⌘-e: clear local storage</li>
    * </ul>
-   * @global
+   * @event KeyboardEvent
    * @param {KeyboardEvent} event keyboard event.
    */
   window.onkeydown = function (event) {
@@ -399,14 +480,17 @@ function drawClock(place) {
   };
 
   /**
-   * <p>A modulo function that works for negative numbers.</p>
+   * <p>A modulo function, added to Number's
+   * {@link https://www.freecodecamp.org/news/a-beginners-guide-to-javascripts-prototype/ prototype},
+   * that works for negative numbers.</p>
    * The modulo is calculated from remainder using the modular property:<br/>
    * • (a + b) mod c = (a mod c + b mod c) mod c.
    *
    * @function
-   * @global
    * @param {Number} b divisor.
    * @returns {Number} this modulo b.
+   * @memberof Number
+   * @global
    * @see https://en.wikipedia.org/wiki/Modulo_operation
    * @see https://www.geeksforgeeks.org/how-to-get-negative-result-using-modulo-operator-in-javascript/
    */
@@ -421,6 +505,7 @@ function drawClock(place) {
    * @param {Object<{latitude, longitude}>} loc location.
    * @param {Number} utcoff UTC offset.
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset
+   * @see https://wtfjs.com/wtfs/2010-02-15-undefined-is-mutable
    */
   function drawArc(loc, utcoff) {
     let today = new Date();
@@ -493,7 +578,7 @@ drawClock.romans = [
   { txt: "V", c: white1 },
   { txt: "VI", c: white1 },
   { txt: "VII", c: white1 },
-  { txt: " VIII", c: white1 },
+  { txt: "  VIII  ", c: white1 },
   { txt: "IX", c: grena },
   { txt: "X", c: white1 },
   { txt: "XI", c: white1 },
@@ -570,8 +655,11 @@ var runAnimation = (() => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  var tz = urlParams.get("timeZone") || timezone;
-  var city = tz.split("/")[1];
+  let tz = urlParams.get("timeZone") || timezone;
+  let city = tz.split("/")[1];
+  // lets make a copy in case this is an invalid time zone,
+  // so we can keep using the original string
+  let tz2 = tz;
 
   drawClock(city);
 
@@ -594,6 +682,8 @@ var runAnimation = (() => {
         break;
       } catch (e) {
         if (e instanceof RangeError) {
+          // RangeError: invalid time zone
+          // e.g. no Rio de Janeiro ...
           tz = timezone;
         } else {
           console.log(e);
@@ -611,18 +701,18 @@ var runAnimation = (() => {
     clock_handles[3].time2Angle = fiveMin * (+hours + minutes / 60) * 0.5;
 
     // Clear screen.
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    lctx.clearRect(0, 0, canvas.width, canvas.height);
 
     let theight = canvas.width / 45;
-    ctx.font = setFont(theight);
-    ctx.fillStyle = white1;
+    lctx.font = setFont(theight);
+    lctx.fillStyle = white1;
 
     // Draw the legend: UTC, Region, City, Date.
     let date = `${day} / ${month} / ${year}`;
     let utc = `UTC ${cityOffset}`;
-    let [region, lcity] = tz.split("/");
+    let [region, lcity] = tz2.split("/");
     let [tcity, tregion, tlen, tutc] = [lcity, region, date, utc].map((p) =>
-      ctx.measureText(p)
+      lctx.measureText(p)
     );
 
     [
@@ -631,14 +721,17 @@ var runAnimation = (() => {
       [region, tregion],
       [utc, tutc],
     ].map((p, i) => {
-      ctx.fillText(
+      lctx.fillText(
         p[0],
         canvas.width - p[1].width,
         canvas.height - i * theight * 1.5
       );
     });
 
-    ctx.lineCap = "round";
+    lctx.lineCap = "round";
+
+    // Clear screen.
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw the handles.
     clock_handles.map((handle) => {
@@ -662,5 +755,10 @@ var runAnimation = (() => {
   };
 })();
 
-// triggers the animation.
-runAnimation();
+/**
+ * Triggers the {@link runAnimation animation}.
+ *
+ * @event load - run the animation.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
+window.addEventListener("load", (event) => runAnimation());
