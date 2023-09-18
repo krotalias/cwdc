@@ -284,7 +284,7 @@ async function readZones() {
  * @param {Number} lat latitude.
  * @param {Number} long longitude.
  * @async
- * @returns {Promise<Array<String>>} <a href="../clock/Fluminense-reverse.json">address array</a>: [house_number, road, city, city_district, country].
+ * @returns {Promise<Array<String>>} <a href="../clock/Fluminense-reverse.json">address array</a>: [house_number, road, city, suburb, country].
  * @see https://operations.osmfoundation.org/policies/nominatim/
  * @see https://nominatim.openstreetmap.org/reverse?format=json&lat=-22.9369&lon=-43.1857&zoom=18&addressdetails=1
  * @see <iframe width="512" height="350"
