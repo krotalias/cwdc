@@ -182,6 +182,15 @@
             }
         },
         {
+            "city": "Almaty",
+            "region": "Asia",
+            "offset": 6,
+            "coordinates": {
+                "latitude": 43.238949,
+                "longitude": 76.889709
+            }
+        },
+        {
             "city": "Bangkok",
             "region": "Asia",
             "offset": 7,
@@ -206,6 +215,15 @@
             "coordinates": {
                 "latitude": 35.658581,
                 "longitude": 139.745438
+            }
+        },
+        {
+            "city": "Melbourne",
+            "region": "Australia",
+            "offset": 10,
+            "coordinates": {
+                "latitude": -37.840935,
+                "longitude": 144.946457
             }
         }
     ]

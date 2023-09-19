@@ -364,6 +364,40 @@ async function findCity(name) {
 }
 
 /**
+ * Display a time zone location in an element identified by #address
+ * <ul>
+ *  <li> house number, </li>
+ *  <li> road, </li>
+ *  <li> city, </li>
+ *  <li> suburb, </li>
+ *  <li> country </li>
+ * </ul>
+ * e.g.:
+ * <pre>
+ *    2, North Central Avenue, Phoenix, United States
+ *    Latitude: 33.44844, Longitude: -112.07414
+ * </pre>
+ * @param {Number} latitude a coordinate that specifies the north–south position of a point on the surface.
+ * @param {Number} longitude measures distance east or west of the prime meridian.
+ * @param {String} city name of a city.
+ * @param {String} region Africa | America | Asia | Atlantic | Australia | Europe | Indian | Pacific
+ */
+async function displayLocation(latitude, longitude, city, region) {
+  let pos = await reverseGeoCoding(latitude, longitude);
+  let geocode =
+    city !== undefined && region !== undefined
+      ? await geoCoding(`${city},${region}`)
+      : [latitude, longitude];
+  let tag = document.querySelector("#address");
+  tag.innerHTML = `${pos
+    .filter((str) => str !== undefined)
+    .join(", ")} <br> Latitude: ${Number(geocode[0]).toFixed(
+    5
+  )}, Longitude: ${Number(geocode[1]).toFixed(5)}
+        `;
+}
+
+/**
  * Draw the clock: a logo, a circle, {@link drawArc sun light arc}, and the ticks.
  *
  * @param {String} place a location name.
@@ -419,10 +453,13 @@ function drawClock(place) {
   navigator.geolocation.getCurrentPosition(
     (position) => {
       // this is an asynchronous callback
+      let lat = position.coords.latitude;
+      let lng = position.coords.longitude;
       drawArc({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
+        latitude: lat,
+        longitude: lng,
       });
+      displayLocation(lat, lng);
     },
     async () => {
       // safari blocks geolocation unless using a secure connection
@@ -432,15 +469,7 @@ function drawClock(place) {
         let lat = city.coordinates.latitude;
         let lng = city.coordinates.longitude;
         drawArc({ latitude: lat, longitude: lng }, city.offset);
-        let pos = await reverseGeoCoding(lat, lng);
-        let geocode = await geoCoding(`${city.city},${city.region}`);
-        let tag = document.querySelector("#address");
-        tag.innerHTML = `${pos
-          .filter((str) => str !== undefined)
-          .join(", ")} <br> Latitude: ${Number(geocode[0]).toFixed(
-          5
-        )}, Longitude: ${Number(geocode[1]).toFixed(5)}
-        `;
+        displayLocation(lat, lng, city.city, city.region);
       }
     },
     {

@@ -392,6 +392,40 @@ async function findCity(name) {
 }
 
 /**
+ * Display a time zone location in an element identified by #address
+ * &lt;ul>
+ *  &lt;li> house number, &lt;/li>
+ *  &lt;li> road, &lt;/li>
+ *  &lt;li> city, &lt;/li>
+ *  &lt;li> suburb, &lt;/li>
+ *  &lt;li> country &lt;/li>
+ * &lt;/ul>
+ * e.g.:
+ * &lt;pre>
+ *    2, North Central Avenue, Phoenix, United States
+ *    Latitude: 33.44844, Longitude: -112.07414
+ * &lt;/pre>
+ * @param {Number} latitude a coordinate that specifies the north–south position of a point on the surface.
+ * @param {Number} longitude measures distance east or west of the prime meridian.
+ * @param {String} city name of a city.
+ * @param {String} region Africa | America | Asia | Atlantic | Australia | Europe | Indian | Pacific
+ */
+async function displayLocation(latitude, longitude, city, region) {
+  let pos = await reverseGeoCoding(latitude, longitude);
+  let geocode =
+    city !== undefined &amp;&amp; region !== undefined
+      ? await geoCoding(`${city},${region}`)
+      : [latitude, longitude];
+  let tag = document.querySelector("#address");
+  tag.innerHTML = `${pos
+    .filter((str) => str !== undefined)
+    .join(", ")} &lt;br> Latitude: ${Number(geocode[0]).toFixed(
+    5
+  )}, Longitude: ${Number(geocode[1]).toFixed(5)}
+        `;
+}
+
+/**
  * Draw the clock: a logo, a circle, {@link drawArc sun light arc}, and the ticks.
  *
  * @param {String} place a location name.
@@ -447,10 +481,13 @@ function drawClock(place) {
   navigator.geolocation.getCurrentPosition(
     (position) => {
       // this is an asynchronous callback
+      let lat = position.coords.latitude;
+      let lng = position.coords.longitude;
       drawArc({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
+        latitude: lat,
+        longitude: lng,
       });
+      displayLocation(lat, lng);
     },
     async () => {
       // safari blocks geolocation unless using a secure connection
@@ -460,15 +497,7 @@ function drawClock(place) {
         let lat = city.coordinates.latitude;
         let lng = city.coordinates.longitude;
         drawArc({ latitude: lat, longitude: lng }, city.offset);
-        let pos = await reverseGeoCoding(lat, lng);
-        let geocode = await geoCoding(`${city.city},${city.region}`);
-        let tag = document.querySelector("#address");
-        tag.innerHTML = `${pos
-          .filter((str) => str !== undefined)
-          .join(", ")} &lt;br> Latitude: ${Number(geocode[0]).toFixed(
-          5
-        )}, Longitude: ${Number(geocode[1]).toFixed(5)}
-        `;
+        displayLocation(lat, lng, city.city, city.region);
       }
     },
     {
@@ -800,13 +829,13 @@ window.addEventListener("load", (event) => runAnimation());
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Sep 18 2023 05:11:21 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Sep 19 2023 07:24:27 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
