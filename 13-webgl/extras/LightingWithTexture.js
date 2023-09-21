@@ -354,7 +354,7 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
 var readFileNames = new Promise((resolve, reject) => {
   $.ajax({
     type: "GET",
-    url: "/cwdc/6-php/readFiles_.php",
+    url: "/cwdc/6-php/readFiles.php",
     data: {
       dir: "/cwdc/13-webgl/extras/textures",
     },
@@ -452,7 +452,7 @@ function getChar(event) {
  * When a new texture is selected, triggers callback {@link image} load event.
  * @param {KeyboardEvent} event keyboard event.
  * @return {key_event}
- * @function
+ * @callback KeyboardEvent
  */
 var handleKeyPress = ((event) => {
   let kbd = document.getElementById("kbd");
@@ -654,7 +654,7 @@ var handleKeyPress = ((event) => {
  * Returns a new keyboard event.
  * @param {String} key char code.
  * @returns {KeyboardEvent} a keyboard event.
- * @function
+ * @event KeyboardEvent
  */
 var createEvent = (key) => {
   let code = key.charCodeAt();
@@ -667,7 +667,7 @@ var createEvent = (key) => {
 };
 
 /**
- * Selects a model from a menu.
+ * Selects a model from a menu and creates an {@link KeyboardEvent event} for it.
  */
 function selectModel() {
   let val = document.getElementById("models").value;
@@ -690,55 +690,81 @@ function selectModel() {
 }
 
 /**
- * Select next texture.
+ * Select next texture and creates an {@link KeyboardEvent event} "n" for it.
  */
 function nextTexture() {
   handleKeyPress(createEvent("n"));
 }
 
 /**
- * Select previous texture.
+ * Select previous texture and creates an {@link KeyboardEvent event} "N" for it.
  */
 function previousTexture() {
   handleKeyPress(createEvent("N"));
 }
 
 /**
- * Select next subdivision level.
+ * Select next subdivision level and creates an {@link KeyboardEvent event} "m" for it.
  */
 function nextLevel() {
   handleKeyPress(createEvent("m"));
 }
 
 /**
- * Select previous subdivision level.
+ * Select previous subdivision level and creates an {@link KeyboardEvent event} "M" for it.
  */
 function previousLevel() {
   handleKeyPress(createEvent("M"));
 }
 
 /**
- * Increase zoom level.
+ * Increase zoom level and creates an {@link KeyboardEvent event} ↓ for it.
  */
 function zoomIn() {
   handleKeyPress(createEvent("ArrowDown"));
 }
 
 /**
- * Decrease zoom level.
+ * Decrease zoom level and creates an {@link KeyboardEvent event} ↑ for it.
  */
 function zoomOut() {
   handleKeyPress(createEvent("ArrowUp"));
 }
 
 const mesh = document.getElementById("mesh");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the mesh checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 mesh.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 
 const axes = document.getElementById("axes");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the axes checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
+    /**
+     * <p>Appends an event listener for events whose type attribute value is change.
+     * The callback argument sets the callback that will be invoked when
+     * the event is dispatched.</p>
+     *
+     * @event change - executed when the rot input radio is checked (but not when unchecked).
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     */
     elem.addEventListener("change", function (event) {
       var item = event.target.value;
       handleKeyPress(createEvent(item));
@@ -747,12 +773,39 @@ if (document.querySelector('input[name="rot"]')) {
 }
 
 const fix_uv = document.getElementById("fixuv");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the fix_uv checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 fix_uv.addEventListener("change", (event) => handleKeyPress(createEvent("f")));
 
 const cull = document.getElementById("culling");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the cull checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 cull.addEventListener("change", (event) => handleKeyPress(createEvent("b")));
 
 const texture = document.getElementById("texture");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the texture checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 texture.addEventListener("change", (event) => handleKeyPress(createEvent("k")));
 
 /**
@@ -1002,6 +1055,7 @@ function drawAxes() {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
  * @see https://sites.google.com/site/csc8820/educational/how-to-implement-texture-mapping
  * @see https://www.evl.uic.edu/pape/data/Earth/
+ * @event load
  */
 window.addEventListener("load", (event) => {
   image = new Image();
@@ -1022,7 +1076,8 @@ window.addEventListener("load", (event) => {
         })
         .catch((error) => {
           alert(`${error}`);
-          // don't need to return anything => execution goes the normal way
+          // don't return anything => execution goes the normal way
+          // in case server does not run php
           imageFilename = [
             "BigEarth.jpg",
             "Earth-1024x512.jpg",
@@ -1178,7 +1233,13 @@ function startForReal(image) {
   // retrieve <canvas> element
   var canvas = document.getElementById("theCanvas");
 
-  // key handler
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.
+   * The callback argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event keydown
+   */
   window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(

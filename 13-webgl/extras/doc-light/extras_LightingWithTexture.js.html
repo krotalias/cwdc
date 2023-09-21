@@ -382,7 +382,7 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
 var readFileNames = new Promise((resolve, reject) => {
   $.ajax({
     type: "GET",
-    url: "/cwdc/6-php/readFiles_.php",
+    url: "/cwdc/6-php/readFiles.php",
     data: {
       dir: "/cwdc/13-webgl/extras/textures",
     },
@@ -480,7 +480,7 @@ function getChar(event) {
  * When a new texture is selected, triggers callback {@link image} load event.
  * @param {KeyboardEvent} event keyboard event.
  * @return {key_event}
- * @function
+ * @callback KeyboardEvent
  */
 var handleKeyPress = ((event) => {
   let kbd = document.getElementById("kbd");
@@ -682,7 +682,7 @@ var handleKeyPress = ((event) => {
  * Returns a new keyboard event.
  * @param {String} key char code.
  * @returns {KeyboardEvent} a keyboard event.
- * @function
+ * @event KeyboardEvent
  */
 var createEvent = (key) => {
   let code = key.charCodeAt();
@@ -695,7 +695,7 @@ var createEvent = (key) => {
 };
 
 /**
- * Selects a model from a menu.
+ * Selects a model from a menu and creates an {@link KeyboardEvent event} for it.
  */
 function selectModel() {
   let val = document.getElementById("models").value;
@@ -718,55 +718,81 @@ function selectModel() {
 }
 
 /**
- * Select next texture.
+ * Select next texture and creates an {@link KeyboardEvent event} "n" for it.
  */
 function nextTexture() {
   handleKeyPress(createEvent("n"));
 }
 
 /**
- * Select previous texture.
+ * Select previous texture and creates an {@link KeyboardEvent event} "N" for it.
  */
 function previousTexture() {
   handleKeyPress(createEvent("N"));
 }
 
 /**
- * Select next subdivision level.
+ * Select next subdivision level and creates an {@link KeyboardEvent event} "m" for it.
  */
 function nextLevel() {
   handleKeyPress(createEvent("m"));
 }
 
 /**
- * Select previous subdivision level.
+ * Select previous subdivision level and creates an {@link KeyboardEvent event} "M" for it.
  */
 function previousLevel() {
   handleKeyPress(createEvent("M"));
 }
 
 /**
- * Increase zoom level.
+ * Increase zoom level and creates an {@link KeyboardEvent event} ↓ for it.
  */
 function zoomIn() {
   handleKeyPress(createEvent("ArrowDown"));
 }
 
 /**
- * Decrease zoom level.
+ * Decrease zoom level and creates an {@link KeyboardEvent event} ↑ for it.
  */
 function zoomOut() {
   handleKeyPress(createEvent("ArrowUp"));
 }
 
 const mesh = document.getElementById("mesh");
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event change - executed when the mesh checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 mesh.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 
 const axes = document.getElementById("axes");
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event change - executed when the axes checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
+    /**
+     * &lt;p>Appends an event listener for events whose type attribute value is change.
+     * The callback argument sets the callback that will be invoked when
+     * the event is dispatched.&lt;/p>
+     *
+     * @event change - executed when the rot input radio is checked (but not when unchecked).
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     */
     elem.addEventListener("change", function (event) {
       var item = event.target.value;
       handleKeyPress(createEvent(item));
@@ -775,12 +801,39 @@ if (document.querySelector('input[name="rot"]')) {
 }
 
 const fix_uv = document.getElementById("fixuv");
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event change - executed when the fix_uv checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 fix_uv.addEventListener("change", (event) => handleKeyPress(createEvent("f")));
 
 const cull = document.getElementById("culling");
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event change - executed when the cull checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 cull.addEventListener("change", (event) => handleKeyPress(createEvent("b")));
 
 const texture = document.getElementById("texture");
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event change - executed when the texture checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 texture.addEventListener("change", (event) => handleKeyPress(createEvent("k")));
 
 /**
@@ -1030,6 +1083,7 @@ function drawAxes() {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
  * @see https://sites.google.com/site/csc8820/educational/how-to-implement-texture-mapping
  * @see https://www.evl.uic.edu/pape/data/Earth/
+ * @event load
  */
 window.addEventListener("load", (event) => {
   image = new Image();
@@ -1050,7 +1104,8 @@ window.addEventListener("load", (event) => {
         })
         .catch((error) => {
           alert(`${error}`);
-          // don't need to return anything => execution goes the normal way
+          // don't return anything => execution goes the normal way
+          // in case server does not run php
           imageFilename = [
             "BigEarth.jpg",
             "Earth-1024x512.jpg",
@@ -1206,7 +1261,13 @@ function startForReal(image) {
   // retrieve &lt;canvas> element
   var canvas = document.getElementById("theCanvas");
 
-  // key handler
+  /**
+   * &lt;p>Appends an event listener for events whose type attribute value is keydown.
+   * The callback argument sets the callback that will be invoked when
+   * the event is dispatched.&lt;/p>
+   *
+   * @event keydown
+   */
   window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
@@ -1448,13 +1509,13 @@ var animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 17 2023 17:01:17 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 21 2023 07:56:38 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
