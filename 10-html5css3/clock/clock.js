@@ -398,7 +398,40 @@ async function displayLocation(latitude, longitude, city, region) {
 }
 
 /**
- * Draw the clock: a logo, a circle, {@link drawArc sun light arc}, and the ticks.
+ * <p>Preloads a set of images.</p>
+ * Browsers first load a compressed version of an image,
+ * then decode it, and finally paint it.
+ *
+ * @param {String[]} urls array of Image URLs.
+ * @returns {Promise<HTMLImageElement[]>} promise that resolves when all images are loaded, or rejects if any image fails to load.
+ * @see https://www.freecodecamp.org/portuguese/news/tudo-o-que-voce-precisa-saber-sobre-promise-all/
+ * @see https://dev.to/alejandroakbal/how-to-preload-images-for-canvas-in-javascript-251c
+ */
+function preloadImages(urls) {
+  const promises = urls.map((url) => {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+
+      image.src = url;
+
+      image.decode().then(() => resolve(image));
+      image.onerror = () => reject(`Image failed to load: ${url}`);
+    });
+  });
+
+  // Promise.all keeps the order of the promises.
+  return Promise.all(promises);
+}
+
+/**
+ * Draw the clock background:
+ * <ul>
+ *  <li>a <a href="../clock/rolex_bezel.png">bezel</a> image,</li>
+ *  <li>a <a href="../clock/fluminense.png">team</a> logo,</li>
+ *  <li>a {@link circle}, </li>
+ *  <li>the {@link drawArc sun light arc}, </li>
+ *  <li>and the ticks.</li>
+ * </ul>
  *
  * @param {String} place a location name.
  * @property {function} drawClock
@@ -416,32 +449,34 @@ async function displayLocation(latitude, longitude, city, region) {
 function drawClock(place) {
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Browsers first loads a compressed version of image, then decodes it, finally paints it.
-  // Draw the logo.
-  const img = new Image();
-  img.src = "./rolex_bezel.png";
-  img.decode().then(() => {
-    // Translate the center of the logo
-    // to the center of the canvas.
-    let size = imgSize(img.width, img.height, 1.8 * clockRadius);
-    var coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
-    context.drawImage(img, coord.x, coord.y, size[0], size[1]);
+  const urls = ["./rolex_bezel.png", "./fluminense.png"];
 
-    const logo = new Image();
-    logo.src = "./fluminense.png";
-    logo.decode().then(() => {
-      // Translate the center of the logo
+  preloadImages(urls)
+    .then((image) => {
+      let bezel = image[0];
+      // Translate the center of the bezel
       // to the center of the canvas.
-      let size = imgSize(logo.width, logo.height, 0.9 * clockRadius);
+      let size = imgSize(bezel.width, bezel.height, 1.8 * clockRadius);
       var coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
-      context.drawImage(logo, coord.x, coord.y, size[0], size[1]);
+      context.rotate = pi;
+      context.drawImage(bezel, coord.x, coord.y, size[0], size[1]);
+      context.setTransform(1, 0, 0, 1, 0, 0);
+
+      let flu = image[1];
+      // Translate the center of the flu logo
+      // to the center of the canvas.
+      size = imgSize(flu.width, flu.height, 0.9 * clockRadius);
+      coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
+      context.drawImage(flu, coord.x, coord.y, size[0], size[1]);
       // Handle origin.
       context.strokeStyle = grena;
       context.fillStyle = white;
       circle(center, 10);
       circle(center, 10, false);
+    })
+    .catch((error) => {
+      console.log(`Could not load iamge: ${error}`);
     });
-  });
 
   // context.globalAlpha = 0.3; // set global alpha
 
@@ -449,6 +484,8 @@ function drawClock(place) {
   context.strokeStyle = grena;
   context.lineWidth = 3;
   circle(center, clockRadius - 8, false);
+
+  if (place !== undefined) drawClock.place = place;
 
   navigator.geolocation.getCurrentPosition(
     (position) => {
@@ -464,7 +501,7 @@ function drawClock(place) {
     async () => {
       // safari blocks geolocation unless using a secure connection
       let city;
-      [drawClock.tz, city] = await findCity(place);
+      [drawClock.tz, city] = await findCity(drawClock.place);
       if (city) {
         let lat = city.coordinates.latitude;
         let lng = city.coordinates.longitude;

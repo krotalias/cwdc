@@ -1551,7 +1551,7 @@ e.g.:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line539">line 539</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line576">line 576</a>
     </li></ul></dd>
     
 
@@ -1604,7 +1604,14 @@ e.g.:
 
 
 <div class="description">
-    Draw the clock: a logo, a circle, <a href="global.html#drawArc">sun light arc</a>, and the ticks.
+    Draw the clock background:
+<ul>
+ <li>a <a href="../clock/rolex_bezel.png">bezel</a> image,</li>
+ <li>a <a href="../clock/fluminense.png">team</a> logo,</li>
+ <li>a <a href="global.html#circle">circle</a>, </li>
+ <li>the <a href="global.html#drawArc">sun light arc</a>, </li>
+ <li>and the ticks.</li>
+</ul>
 </div>
 
 
@@ -1866,7 +1873,7 @@ e.g.:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line416">line 416</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line449">line 449</a>
     </li></ul></dd>
     
 
@@ -2732,7 +2739,7 @@ given an address, e.g. "sao_paulo,brazil" or "london,england".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line637">line 637</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line674">line 674</a>
     </li></ul></dd>
     
 
@@ -2873,7 +2880,7 @@ The modulo is calculated from remainder using the modular property:<br/>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line526">line 526</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line563">line 563</a>
     </li></ul></dd>
     
 
@@ -2992,7 +2999,7 @@ The modulo is calculated from remainder using the modular property:<br/>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line653">line 653</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line690">line 690</a>
     </li></ul></dd>
     
 
@@ -3214,6 +3221,176 @@ The modulo is calculated from remainder using the modular property:<br/>
     
 
     
+    <h4 class="name" id="preloadImages"><span class="type-signature"></span>preloadImages<span class="signature">(urls)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;HTMLImageElement>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Preloads a set of images.</p>
+Browsers first load a compressed version of an image,
+then decode it, and finally paint it.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>urls</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array of Image URLs.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line410">line 410</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://www.freecodecamp.org/portuguese/news/tudo-o-que-voce-precisa-saber-sobre-promise-all/">https://www.freecodecamp.org/portuguese/news/tudo-o-que-voce-precisa-saber-sobre-promise-all/</a></li>
+        
+            <li><a href="https://dev.to/alejandroakbal/how-to-preload-images-for-canvas-in-javascript-251c">https://dev.to/alejandroakbal/how-to-preload-images-for-canvas-in-javascript-251c</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    promise that resolves when all images are loaded, or rejects if any image fails to load.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;HTMLImageElement>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="previousLocation"><span class="type-signature"></span>previousLocation<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -3266,7 +3443,7 @@ The modulo is calculated from remainder using the modular property:<br/>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line660">line 660</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line697">line 697</a>
     </li></ul></dd>
     
 
@@ -3664,7 +3841,7 @@ src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-2
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line673">line 673</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line710">line 710</a>
     </li></ul></dd>
     
 
@@ -4310,7 +4487,7 @@ src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-2
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line695">line 695</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line732">line 732</a>
     </li></ul></dd>
     
 
@@ -4888,7 +5065,7 @@ Valid keys:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line482">line 482</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line519">line 519</a>
     </li></ul></dd>
     
 
@@ -4976,7 +5153,7 @@ Valid keys:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line787">line 787</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line824">line 824</a>
     </li></ul></dd>
     
 
@@ -5025,13 +5202,13 @@ Valid keys:
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Sep 19 2023 07:24:27 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 21 2023 20:59:54 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
