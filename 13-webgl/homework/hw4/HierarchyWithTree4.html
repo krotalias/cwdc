@@ -1,0 +1,76 @@
+<!--  Hierarchical transformation demo.
+Vertex shader does basic Lambert shading. -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rotor Hierarchy</title>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="380" height="480">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <br />
+        <details>
+            <summary style="font-size: 120%">
+                Keyboard controls (drag on the object to rotate it):
+            </summary>
+
+            <ul style="list-style: none">
+                <li>space - pause/resume animation</li>
+                <li>t, T - rotate turbine</li>
+                <li>g, G - rotate generator</li>
+                <li>r, R - rotor direction (clockwise/counter-clockwise)</li>
+                <li>b, B - blade pitch (affects rotor rotation speed)</li>
+                <li>o - reset rotation</li>
+                <li>↑,↓ - Zoom out/in</li>
+            </ul>
+        </details>
+
+        <script id="vertexLightingShader" type="x-shader/x-vertex">
+            uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+            uniform vec4 u_Color;
+            uniform mat3 normalMatrix;
+            uniform vec4 lightPosition;
+
+            attribute vec4 a_Position;
+            attribute vec3 a_Normal;
+            attribute vec4 a_Color;
+
+            varying vec4 color;
+            void main() {
+                float ambientFactor = 0.1;
+                float kd = 0.7;
+                // light at the viewer
+                vec3 lightDirection = normalize((-view * model * a_Position).xyz);
+                // light at a fixed position.
+                // vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
+                vec3 normal = normalize(normalMatrix * a_Normal);
+                float diffuseFactor = max(0.0, dot(lightDirection, normal));
+                color = a_Color * kd * diffuseFactor + a_Color * ambientFactor;
+                color.a = 1.0;
+                gl_Position = projection * view * model * a_Position;
+            }
+        </script>
+
+        <script id="fragmentLightingShader" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 color;
+            void main()
+            {
+              gl_FragColor = color;
+            }
+        </script>
+
+        <script src="../../lib/teal_book/cuon-utils.js"></script>
+        <script src="../../lib/teal_book/cuon-matrix.js"></script>
+        <script src="../../lib/simple-rotator.js"></script>
+        <script type="module" src="HierarchyWithTree4.js"></script>
+    </body>
+</html>

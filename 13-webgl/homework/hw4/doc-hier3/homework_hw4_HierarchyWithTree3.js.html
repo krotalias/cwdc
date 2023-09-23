@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: homework/hw4/HierarchyWithTree3.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: homework/hw4/HierarchyWithTree3.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ * Summary.
+ * &lt;p>Hierarchical Robot object using recursion.&lt;/p>
+ *
+ * @author Paulo Roma
+ * @since 27/09/2016
+ * @see &lt;a href="/cwdc/13-webgl/homework/hw4/HierarchyWithTree3.html">link&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/homework/hw4/HierarchyWithTree3.js">source&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/homework/hw3/Hierarchy.html">link&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/homework/hw3/Hierarchy.js">source&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/homework/hw4/CS336Object.js">CS336Object&lt;/a>
+ * @see &lt;img src="/cwdc/13-webgl/homework/hw4/robot2.png" width="512">
+ */
+
+import { CS336Object } from "./CS336Object.js";
+
+/**
+ * &lt;p>Module creates a scope to avoid name collisions.&lt;/p>
+ * Either expose your function to the global window object or use addEventListener to bind handler.
+ * @memberof Window
+ * @function
+ * @global
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
+window.onload = mainEntrance;
+
+// A few global variables...
+
+/**
+ * The OpenGL context.
+ * @type {WebGL2RenderingContext}
+ */
+var gl;
+
+/**
+ * Handle to a buffer on the GPU.
+ * @type {WebGLBuffer}
+ */
+var vertexBuffer;
+
+/**
+ * Handle to a buffer on the GPU.
+ * @type {WebGLBuffer}
+ */
+var vertexNormalBuffer;
+
+/**
+ * Handle to a buffer on the GPU.
+ * @type {WebGLBuffer}
+ */
+var vertexColorBuffer;
+
+/**
+ * Handle to the compiled shader program on the GPU.
+ * @type {WebGLProgram}
+ */
+var lightingShader;
+
+// create the objects
+
+var torso = new CS336Object(drawCube);
+
+/**
+ * Object to enable rotation by mouse dragging (arcball).
+ * @type {SimpleRotator}
+ */
+var rotator;
+
+// scale is applied only to the torso
+torso.setScale(10, 10, 5);
+
+var shoulder = new CS336Object(drawCube);
+shoulder.setPosition(0, -2, 0);
+shoulder.setScale(3, 5, 2);
+
+var arm = new CS336Object(drawCube);
+arm.setPosition(0, -2.5, -1.0);
+arm.setScale(3, 5, 2);
+
+var hand = new CS336Object(drawCube);
+hand.setPosition(0, -6.5, -1.0);
+hand.setScale(1, 3, 3);
+
+var head = new CS336Object(drawCube);
+head.setPosition(0, 7, 0);
+head.setScale(4, 4, 4);
+
+var leg = new CS336Object(drawCube);
+leg.setPosition(0, -10, 0);
+leg.setScale(3, 11, 2);
+
+var foot = new CS336Object(drawCube);
+foot.setPosition(0, -15.5, 0);
+foot.setScale(6, 0.5, 6);
+
+/**
+ * This will hold transformations to be
+ * applied to everything connected to the arm.
+ * @type {CS336Object}
+ */
+var armDummy = new CS336Object();
+armDummy.setPosition(0, -4.5, 1.0);
+armDummy.addChild(arm);
+armDummy.addChild(hand);
+
+/**
+ * This will hold transformations to be
+ * applied to everything connected to the left shoulder.
+ * @type {CS336Object}
+ */
+var LshoulderDummy = new CS336Object();
+LshoulderDummy.setPosition(6.5, 4, 0);
+LshoulderDummy.addChild(shoulder);
+LshoulderDummy.addChild(armDummy);
+
+/**
+ * This will hold transformations to be
+ * applied to everything connected to the right shoulder.
+ * @type {CS336Object}
+ */
+var RshoulderDummy = new CS336Object();
+RshoulderDummy.setPosition(-6.5, 4, 0);
+RshoulderDummy.addChild(shoulder);
+RshoulderDummy.addChild(armDummy);
+
+/**
+ * This will hold transformations to be
+ * applied to everything connected to the torso.
+ * @type {CS336Object}
+ */
+var torsoDummy = new CS336Object();
+torsoDummy.addChild(torso);
+torsoDummy.addChild(head);
+torsoDummy.addChild(LshoulderDummy);
+torsoDummy.addChild(RshoulderDummy);
+
+/**
+ * Dummys' purpose is to factor out the scale
+ * they pass rotation and translation, only, to its children.
+ * &lt;p>Body is torso plus leg and foot.&lt;/p>
+ * @type {CS336Object}
+ */
+var bodyDummy = new CS336Object();
+bodyDummy.addChild(torsoDummy);
+bodyDummy.addChild(leg);
+bodyDummy.addChild(foot);
+
+/**
+ * Camera position.
+ * @type {Array&lt;Number>}
+ */
+var eye = [20, 10, 40];
+
+/**
+ * View matrix.
+ * @type {Matrix4}
+ */
+// prettier-ignore
+var viewMatrix = new Matrix4().setLookAt(
+  ...eye,   // eye
+  0, 0, 0,  // at - looking at the origin
+  0, 1, 0   // up vector - y axis
+);
+
+/**
+ * Model matrix.
+ * @type {Matrix4}
+ */
+var modelMatrix = new Matrix4();
+
+/**
+ * Returns the magnitude (length) of a vector.
+ * @param {Array&lt;Number>} v n-D vector.
+ * @returns {Number} vector length.
+ * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+ */
+var vecLen = (v) =>
+  Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
+
+/**
+ * View distance.
+ * @type {Number}
+ */
+var viewDistance = vecLen(eye);
+
+/**
+ * &lt;p>Projection matrix.&lt;/p>
+ * Here use aspect ratio 3/2 corresponding to canvas size 600 x 400
+ * @type {Matrix4}
+ */
+var projection = new Matrix4().setPerspective(45, 1.5, 0.1, 1000);
+
+/**
+ * &lt;p>A cube model.&lt;/p>
+ *
+ * Creates data (numVertices, vertices, colors, and normal vectors)
+ * for a unit cube.
+ *
+ * @type {cube_data}
+ */
+var cube = (() => {
+  // vertices of cube
+  // prettier-ignore
+  var rawVertices = new Float32Array([
+    -0.5, -0.5, 0.5,
+    0.5, -0.5, 0.5,
+    0.5, 0.5, 0.5,
+    -0.5, 0.5, 0.5,
+    -0.5, -0.5, -0.5,
+    0.5, -0.5, -0.5,
+    0.5, 0.5, -0.5,
+    -0.5, 0.5, -0.5
+  ]);
+
+  // prettier-ignore
+  var rawColors = new Float32Array([
+    1.0, 0.0, 0.0, 1.0,  // red
+    0.0, 1.0, 0.0, 1.0,  // green
+    0.0, 0.0, 1.0, 1.0,  // blue
+    1.0, 1.0, 0.0, 1.0,  // yellow
+    1.0, 0.0, 1.0, 1.0,  // magenta
+    0.0, 1.0, 1.0, 1.0,  // cyan
+  ]);
+
+  // prettier-ignore
+  var rawNormals = new Float32Array([
+    0, 0, 1,
+    1, 0, 0,
+    0, 0, -1,
+    -1, 0, 0,
+    0, 1, 0,
+    0, -1, 0
+  ]);
+
+  // prettier-ignore
+  var indices = new Uint16Array([
+    0, 1, 2, 0, 2, 3,  // +z face
+    1, 5, 6, 1, 6, 2,  // +x face
+    5, 4, 7, 5, 7, 6,  // -z face
+    4, 0, 3, 4, 3, 7,  // -x face
+    3, 2, 6, 3, 6, 7,  // +y face
+    4, 5, 1, 4, 1, 0   // -y face
+  ]);
+
+  var verticesArray = [];
+  var colorsArray = [];
+  var normalsArray = [];
+  for (var i = 0; i &lt; 36; ++i) {
+    // for each of the 36 vertices...
+    var face = Math.floor(i / 6);
+    var index = indices[i];
+
+    // (x, y, z): three numbers for each point
+    for (var j = 0; j &lt; 3; ++j) {
+      verticesArray.push(rawVertices[3 * index + j]);
+    }
+
+    // (r, g, b, a): four numbers for each point
+    for (var j = 0; j &lt; 4; ++j) {
+      colorsArray.push(rawColors[4 * face + j]);
+    }
+
+    // three numbers for each point
+    for (var j = 0; j &lt; 3; ++j) {
+      normalsArray.push(rawNormals[3 * face + j]);
+    }
+  }
+
+  /**
+   * Returned value is an object with four attributes:
+   * numVertices, vertices, colors, and normals.
+   *
+   * @return {Object&lt;{numVertices: Number,
+   *                  vertices: Float32Array,
+   *                  colors: Float32Array,
+   *                  normals: Float32Array,
+   *                  indices: Uint16Array}>}
+   * cube associated attributes.
+   * @callback cube_data
+   */
+  return {
+    numVertices: 36, // number of indices
+    vertices: new Float32Array(verticesArray), // 36 * 3 = 108
+    colors: new Float32Array(colorsArray), // 36 * 4 = 144
+    normals: new Float32Array(normalsArray), // 36 * 3 = 108
+    indices: indices,
+  };
+})();
+
+/**
+ * Return a matrix to transform normals, so they stay
+ * perpendicular to surfaces after a linear transformation.
+ * @param {Matrix4} model model matrix.
+ * @param {Matrix4} view view matrix.
+ * @returns {Float32Array} elements of the transposed inverse of the modelview matrix.
+ */
+function makeNormalMatrixElements(model, view) {
+  var n = new Matrix4(view).multiply(model);
+  n.invert();
+  n.transpose();
+
+  // take just the upper-left 3x3 submatrix
+  n = n.elements;
+  // prettier-ignore
+  return new Float32Array([
+    n[0], n[1], n[2],
+    n[4], n[5], n[6],
+    n[8], n[9], n[10]
+  ]);
+}
+
+/**
+ * Translate keydown events to strings.
+ * @param {KeyboardEvent} event keyboard event.
+ * @return {String | null}
+ * @see http://javascript.info/tutorial/keyboard-events
+ */
+function getChar(event) {
+  event = event || window.event;
+  let charCode = event.key || String.fromCharCode(event.which);
+  return charCode;
+}
+
+/**
+ * Handler for keydown events.
+ * Adjusts object rotations.
+ * @param {KeyboardEvent} event keyboard event.
+ */
+function handleKeyPress(event) {
+  var ch = getChar(event);
+  switch (ch) {
+    case "b":
+      bodyDummy.rotateY(15);
+      break;
+    case "B":
+      bodyDummy.rotateY(-15);
+      break;
+    case "t":
+      torsoDummy.rotateY(15);
+      break;
+    case "T":
+      torsoDummy.rotateY(-15);
+      break;
+    case "s":
+      LshoulderDummy.rotateX(-15);
+      RshoulderDummy.rotateX(-15);
+      break;
+    case "S":
+      LshoulderDummy.rotateX(15);
+      RshoulderDummy.rotateX(15);
+      break;
+    case "a":
+      armDummy.rotateX(-15);
+      break;
+    case "A":
+      armDummy.rotateX(15);
+      break;
+    case "h":
+      hand.rotateY(15);
+      break;
+    case "H":
+      hand.rotateY(-15);
+      break;
+    case "l":
+      head.rotateY(15);
+      break;
+    case "L":
+      head.rotateY(-15);
+      break;
+    default:
+      return;
+  }
+  draw();
+}
+
+/**
+ * Helper function renders the cube based on the given model transformation.
+ * @param {Matrix4} matrix local transformation.
+ */
+function drawCube(matrix) {
+  // bind the shader
+  gl.useProgram(lightingShader);
+
+  // get the index for the a_Position attribute defined in the vertex shader
+  var positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
+  if (positionIndex &lt; 0) {
+    console.log("Failed to get the storage location of a_Position");
+    return;
+  }
+
+  var normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
+  if (normalIndex &lt; 0) {
+    console.log("Failed to get the storage location of a_Normal");
+    return;
+  }
+
+  var colorIndex = gl.getAttribLocation(lightingShader, "a_Color");
+  if (colorIndex &lt; 0) {
+    console.log("Failed to get the storage location of a_Color");
+    return;
+  }
+
+  // "enable" the a_position attribute
+  gl.enableVertexAttribArray(positionIndex);
+  gl.enableVertexAttribArray(normalIndex);
+  gl.enableVertexAttribArray(colorIndex);
+
+  // bind data for points and normals
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
+  gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBuffer);
+  gl.vertexAttribPointer(colorIndex, 4, gl.FLOAT, false, 0, 0);
+
+  var loc = gl.getUniformLocation(lightingShader, "view");
+  gl.uniformMatrix4fv(loc, false, viewMatrix.elements);
+  loc = gl.getUniformLocation(lightingShader, "projection");
+  gl.uniformMatrix4fv(loc, false, projection.elements);
+  loc = gl.getUniformLocation(lightingShader, "u_Color");
+  gl.uniform4f(loc, 0.0, 1.0, 0.0, 1.0);
+  var loc = gl.getUniformLocation(lightingShader, "lightPosition");
+  gl.uniform4f(loc, 5.0, 10.0, 5.0, 1.0);
+
+  var modelMatrixloc = gl.getUniformLocation(lightingShader, "model");
+  var normalMatrixLoc = gl.getUniformLocation(lightingShader, "normalMatrix");
+
+  var current = new Matrix4(modelMatrix).multiply(matrix);
+  gl.uniformMatrix4fv(modelMatrixloc, false, current.elements);
+  gl.uniformMatrix3fv(
+    normalMatrixLoc,
+    false,
+    makeNormalMatrixElements(current, viewMatrix)
+  );
+
+  gl.drawArrays(gl.TRIANGLES, 0, cube.numVertices);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  gl.useProgram(null);
+}
+
+/**
+ * &lt;p>Code to actually render our geometry.&lt;/p>
+ * @param {Boolean} useRotator whether a {@link SimpleRotator} should be used.
+ */
+function draw(useRotator = true) {
+  // clear the framebuffer
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+  if (useRotator) viewMatrix.elements = rotator.getViewMatrix();
+
+  // recursively render everything in the hierarchy
+  bodyDummy.render(new Matrix4());
+}
+
+/**
+ * &lt;p>Entry point when page is loaded.&lt;/p>
+ *
+ * Starts an {@link animate animation} loop.
+ *
+ * &lt;p>Basically this function does setup that "should" only have to be done once,&lt;br>
+ * while draw() does things that have to be repeated each time the canvas is
+ * redrawn.&lt;/p>
+ */
+function mainEntrance() {
+  // retrieve &lt;canvas> element
+  var canvas = document.getElementById("theCanvas");
+
+  // key handler
+  window.addEventListener("keydown", (event) => {
+    if (
+      ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
+        event.code
+      ) > -1
+    ) {
+      event.preventDefault();
+    }
+    handleKeyPress(event);
+  });
+
+  // get the rendering context for WebGL
+  gl = canvas.getContext("webgl2");
+  if (!gl) {
+    console.log("Failed to get the rendering context for WebGL2");
+    return;
+  }
+
+  // load and compile the shader pair, using utility from the teal book
+  var vshaderSource = document.getElementById(
+    "vertexLightingShader"
+  ).textContent;
+  var fshaderSource = document.getElementById(
+    "fragmentLightingShader"
+  ).textContent;
+  if (!initShaders(gl, vshaderSource, fshaderSource)) {
+    console.log("Failed to initialize shaders.");
+    return;
+  }
+  lightingShader = gl.program;
+  gl.useProgram(null);
+
+  // buffer for vertex positions for triangles
+  vertexBuffer = gl.createBuffer();
+  if (!vertexBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, cube.vertices, gl.STATIC_DRAW);
+
+  // buffer for vertex normals
+  vertexNormalBuffer = gl.createBuffer();
+  if (!vertexNormalBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, cube.normals, gl.STATIC_DRAW);
+
+  // buffer for vertex colors
+  vertexColorBuffer = gl.createBuffer();
+  if (!vertexColorBuffer) {
+    console.log("Failed to create the buffer object");
+    return;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, cube.colors, gl.STATIC_DRAW);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+  // specify a fill color for clearing the framebuffer
+  gl.clearColor(0.9, 0.9, 0.9, 1.0);
+
+  gl.enable(gl.DEPTH_TEST);
+
+  // fix aspect ratio
+  projection = new Matrix4().setPerspective(
+    45,
+    canvas.width / canvas.height,
+    0.1,
+    1000
+  );
+
+  // create new rotator object
+  rotator = new SimpleRotator(canvas, draw);
+  rotator.setViewMatrix(viewMatrix.elements);
+  rotator.setViewDistance(viewDistance);
+
+  /**
+   * &lt;p>Define an animation loop.&lt;/p>
+   * Start drawing!
+   * @callback animate
+   */
+  (function animate() {
+    draw();
+    // requestAnimationFrame(animate);
+  })();
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CS336Object.html">CS336Object</a></li><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LshoulderDummy">LshoulderDummy</a></li><li><a href="global.html#RshoulderDummy">RshoulderDummy</a></li><li><a href="global.html#armDummy">armDummy</a></li><li><a href="global.html#bodyDummy">bodyDummy</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawCube">drawCube</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#onload">onload</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#torsoDummy">torsoDummy</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexColorBuffer">vertexColorBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 23 2023 04:57:33 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
