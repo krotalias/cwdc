@@ -132,7 +132,7 @@
 
             <p>
                 <button
-                    onclick="getElementById('demo').innerHTML=Date()+'<br>'+gl.getParameter(gl.SHADING_LANGUAGE_VERSION)+'<br>'+gl.getParameter(gl.VERSION)"
+                    onclick="getElementById('demo').innerHTML+=Date()+'<br>'+gl.getParameter(gl.SHADING_LANGUAGE_VERSION)+'<br>'+gl.getParameter(gl.VERSION)"
                 >
                     Get date/time
                 </button>
@@ -197,6 +197,14 @@
         <script src="../lib/Common/initShaders.js"></script>
         <script src="../lib/gl-matrix-3.4.0.js"></script>
         <script src="twist.js"></script>
-        <script src="https://lcg.ufrj.br/js/ip.php"></script>
+        <script>
+            let demo = document.querySelector("#demo");
+            fetch("https://ipv4.seeip.org/jsonip?")
+                .then((response) => response.json())
+                .then(
+                    (json) =>
+                        (demo.innerHTML += `Your IP address is: ${json.ip} <br />`)
+                );
+        </script>
     </body>
 </html>
