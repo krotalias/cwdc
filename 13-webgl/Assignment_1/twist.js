@@ -147,6 +147,37 @@ var fColor;
 var centroid;
 
 /**
+ * Display IP address and set button click action.
+ */
+function infoBtn() {
+  let demo = document.querySelector("#demo");
+  let url = {
+    api: "http://ip-api.com/json/?fields=query",
+    ipify: "https://api.ipify.org?format=json",
+    seeip: "https://api.seeip.org/jsonip?",
+    myip: "https://api.myip.com",
+  };
+  let size = Object.keys(url).length - 1;
+  let randomKey = Object.keys(url)[~~(Math.random() * size)];
+  fetch(url[randomKey])
+    .then((response) => response.json())
+    .then(
+      (json) =>
+        (demo.innerHTML += `Your IP address is (${randomKey}): ${
+          json[Object.keys(json).at(0)]
+        } <br />`)
+    );
+
+  let btn = document.querySelector("button");
+  btn.onclick = () => {
+    demo.innerHTML += `${Date()}<br />${gl.getParameter(
+      gl.SHADING_LANGUAGE_VERSION
+    )}<br />${gl.getParameter(gl.VERSION)}<br />`;
+    btn.disabled = true;
+  };
+}
+
+/**
  * <p>Where to start execution when all code is loaded.</p>
  * Triggers the animation.
  */
@@ -175,6 +206,7 @@ function init() {
 
   setUpShaders();
   clickCallBack();
+  infoBtn();
   animation();
 }
 
