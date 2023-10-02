@@ -240,17 +240,21 @@ function circle(center, radius, fill = true) {
  * @param {String} t1 time of start of the arc.
  * @param {String} t2 time of end of the arc.
  * @param {Boolean} fill draws a solid or hollow arc.
+ * @param {Boolean} reflect whether angles should be reflected.
  * @see https://riptutorial.com/html5-canvas/example/11126/beginpath--a-path-command-
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/closePath
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
  */
-function arc(center, radius, t1, t2, fill = true) {
+function arc(center, radius, t1, t2, fill = true, reflect = false) {
   let [arcInit, arcEnd] = [t1, t2].map((t) => {
     let [hour, minutes] = t.split(":").map((q) => Number(q));
     return 0.5 * (fiveMin * (hour + minutes / 60) - pi);
   });
 
+  if (reflect) {
+    [arcInit, arcEnd] = [pi - arcEnd, pi - arcInit];
+  }
   context.beginPath();
   context.arc(center[0], center[1], radius, arcInit, arcEnd);
   if (fill) context.fill();
@@ -564,6 +568,8 @@ function drawClock(place) {
     return ((this % b) + b) % b;
   };
 
+  let invertedClock = style.getPropertyValue("--inverted-clock") == "true";
+
   /**
    * Draw the sun light arc.
    *
@@ -599,7 +605,8 @@ function drawClock(place) {
 
     console.log(sunriseStr, sunsetStr);
     context.strokeStyle = orange;
-    arc(center, clockRadius - 8, sunriseStr, sunsetStr, false);
+
+    arc(center, clockRadius - 8, sunriseStr, sunsetStr, false, invertedClock);
   }
 
   // Draw the tick numbers.
@@ -611,6 +618,7 @@ function drawClock(place) {
   drawClock.romans.map((n, i) => {
     context.fillStyle = n.c;
     var coord = polar2Cartesian(0.85 * clockRadius, i * fiveMin);
+    if (invertedClock) coord.x *= -1;
     // translate to the center of the canvas
     coord = translate(coord, center);
     context.fillText(n.txt, coord.x, coord.y);
@@ -622,6 +630,7 @@ function drawClock(place) {
     context.fillStyle = n.c;
     // runs at half the speed
     var coord = polar2Cartesian(1.01 * clockRadius, i * fiveMin * 0.5);
+    if (invertedClock) coord.x *= -1;
     // translate to the center of the canvas
     coord = translate(coord, center);
     context.fillText(n.txt, coord.x, coord.y);
@@ -683,6 +692,45 @@ drawClock.location = async (key) => {
     window.location.href.split("?")[0] +
     `?timeZone=${city.region}/${city.city}`;
 };
+
+/**
+ * @var {HTMLElement} handles canvas holding the handles.
+ * @listens mouseenter
+ * @listens mouseleave
+ */
+const handles = document.querySelector("#handles");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is mouseenter.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event mouseenter - executed only once when the cursor moves over the canvas.
+ */
+handles.addEventListener(
+  "mouseenter",
+  (event) => {
+    document.documentElement.style.setProperty("--inverted-clock", "true");
+    drawClock();
+  },
+  false
+);
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is mouseenter.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event mouseleave - executed only once when the cursor leaves the canvas.
+ */
+handles.addEventListener(
+  "mouseleave",
+  (event) => {
+    document.documentElement.style.setProperty("--inverted-clock", "false");
+    drawClock();
+  },
+  false
+);
 
 /**
  * Select next location.

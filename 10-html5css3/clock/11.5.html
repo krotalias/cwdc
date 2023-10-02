@@ -14,6 +14,7 @@
                 --cwhite1: #8b2439;
                 --cwhite2: #446127;
                 --cwhite3: #446127;
+                --inverted-clock: false;
             }
             body {
                 margin: 20px;
@@ -49,6 +50,10 @@
                 background-color: antiquewhite;
                 z-index: 1;
             }
+            #handles:hover {
+                transform: scaleX(-1);
+                --inverted-clock: true;
+            }
             button {
                 font-size: 200%;
                 margin-right: 40px;
@@ -73,7 +78,7 @@
                 <a href="/cwdc/downloads/PDFs/04_LCG_Window-Viewport.pdf"
                     >[1]</a
                 >
-                <a href="/cwdc/downloads/cederj/AD1_2022-1.pdf">[2]</a>
+                <a href="/python/laboratorios2.html#8c">[2]</a>
                 <a
                     href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
                 >
