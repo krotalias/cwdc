@@ -110,12 +110,12 @@
             }
         },
         {
-            "city": "Faroe",
-            "region": "Atlantic",
+            "city": "Føroyar",
+            "region": "Eysturoy",
             "offset": 0,
             "coordinates": {
-                "latitude": 61.50507,
-                "longitude": -6.76918
+                "latitude": 62.19889095,
+                "longitude": -6.817807405781713
             }
         },
         {

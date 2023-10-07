@@ -74,9 +74,11 @@
  * @since 14/11/2020
  *
  * @see &lt;a href="/cwdc/10-html5css3/clock/11.5.html">Local Time&lt;/a>
+ * @see &lt;a href="/cwdc/10-html5css3/clock/11.5-then.html">Local Time (then)&lt;/a>
  * @see &lt;a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton&lt;/a>
  * @see &lt;a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/New_York">New York&lt;/a>
  * @see &lt;a href="/cwdc/10-html5css3/clock/clock.js">source&lt;/a>
+ * @see &lt;a href="/cwdc/10-html5css3/clock/clock-then.js">source (then)&lt;/a>
  * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
  * @see https://github.com/mourner/suncalc
  * @see &lt;img src="../clock/clock.png">
@@ -268,17 +270,21 @@ function circle(center, radius, fill = true) {
  * @param {String} t1 time of start of the arc.
  * @param {String} t2 time of end of the arc.
  * @param {Boolean} fill draws a solid or hollow arc.
+ * @param {Boolean} reflect whether angles should be reflected.
  * @see https://riptutorial.com/html5-canvas/example/11126/beginpath--a-path-command-
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/closePath
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
  */
-function arc(center, radius, t1, t2, fill = true) {
+function arc(center, radius, t1, t2, fill = true, reflect = false) {
   let [arcInit, arcEnd] = [t1, t2].map((t) => {
     let [hour, minutes] = t.split(":").map((q) => Number(q));
     return 0.5 * (fiveMin * (hour + minutes / 60) - pi);
   });
 
+  if (reflect) {
+    [arcInit, arcEnd] = [pi - arcEnd, pi - arcInit];
+  }
   context.beginPath();
   context.arc(center[0], center[1], radius, arcInit, arcEnd);
   if (fill) context.fill();
@@ -374,21 +380,24 @@ async function geoCoding(address) {
  *
  * @async
  * @param {String} name TZ identifier.
- * @returns {Promise&lt;Array&lt;tz>, tz>} a time zone descriptor.
+ * @returns {Promise&lt;tz>} promise for getting a time zone descriptor.
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
  */
 async function findCity(name) {
-  const tz = await readZones();
+  if (drawClock.tz === undefined) {
+    drawClock.tz = await readZones();
+  }
   let city;
   if (false) {
     let index = localStorage.getItem("placeIndex") || place;
-    city = tz.cities[index];
+    city = drawClock.tz.cities[index];
   } else {
-    city = tz.cities.filter(function (c) {
+    city = drawClock.tz.cities.filter(function (c) {
       return c.city == name;
     })[0];
   }
-  return [tz, city];
+  return city;
 }
 
 /**
@@ -405,6 +414,7 @@ async function findCity(name) {
  *    2, North Central Avenue, Phoenix, United States
  *    Latitude: 33.44844, Longitude: -112.07414
  * &lt;/pre>
+ * @async
  * @param {Number} latitude a coordinate that specifies the north–south position of a point on the surface.
  * @param {Number} longitude measures distance east or west of the prime meridian.
  * @param {String} city name of a city.
@@ -421,8 +431,7 @@ async function displayLocation(latitude, longitude, city, region) {
     .filter((str) => str !== undefined)
     .join(", ")} &lt;br> Latitude: ${Number(geocode[0]).toFixed(
     5
-  )}, Longitude: ${Number(geocode[1]).toFixed(5)}
-        `;
+  )}, Longitude: ${Number(geocode[1]).toFixed(5)}`;
 }
 
 /**
@@ -464,6 +473,7 @@ function preloadImages(urls) {
  * @param {String} place a location name.
  * @property {function} drawClock
  * @property {function} drawClock.location Increment/decrement the clock location.
+ * @property {function} drawClock.storage update local storage with the clock location.
  * @property {Array&lt;tz>} drawClock.tz time zone array.
  * @property {Array&lt;{txt: String, c: color}>} drawClock.romans Clock roman x color.
  * @property {Array&lt;{txt: String, c: color}>} drawClock.decimals Clock number x color.
@@ -528,8 +538,7 @@ function drawClock(place) {
     },
     async () => {
       // safari blocks geolocation unless using a secure connection
-      let city;
-      [drawClock.tz, city] = await findCity(drawClock.place);
+      let city = await findCity(drawClock.place);
       if (city) {
         let lat = city.coordinates.latitude;
         let lng = city.coordinates.longitude;
@@ -592,6 +601,8 @@ function drawClock(place) {
     return ((this % b) + b) % b;
   };
 
+  let invertedClock = style.getPropertyValue("--inverted-clock") == "true";
+
   /**
    * Draw the sun light arc.
    *
@@ -627,7 +638,8 @@ function drawClock(place) {
 
     console.log(sunriseStr, sunsetStr);
     context.strokeStyle = orange;
-    arc(center, clockRadius - 8, sunriseStr, sunsetStr, false);
+
+    arc(center, clockRadius - 8, sunriseStr, sunsetStr, false, invertedClock);
   }
 
   // Draw the tick numbers.
@@ -639,6 +651,7 @@ function drawClock(place) {
   drawClock.romans.map((n, i) => {
     context.fillStyle = n.c;
     var coord = polar2Cartesian(0.85 * clockRadius, i * fiveMin);
+    if (invertedClock) coord.x *= -1;
     // translate to the center of the canvas
     coord = translate(coord, center);
     context.fillText(n.txt, coord.x, coord.y);
@@ -650,6 +663,7 @@ function drawClock(place) {
     context.fillStyle = n.c;
     // runs at half the speed
     var coord = polar2Cartesian(1.01 * clockRadius, i * fiveMin * 0.5);
+    if (invertedClock) coord.x *= -1;
     // translate to the center of the canvas
     coord = translate(coord, center);
     context.fillText(n.txt, coord.x, coord.y);
@@ -693,6 +707,22 @@ drawClock.decimals[6].c = white3;
 drawClock.decimals[18].c = white3;
 
 /**
+ * Get the current place in local storage, increment or decrement it,
+ * and redirects to the new location.
+ * @param {String} key key "n" for next or "N" for previous.
+ */
+drawClock.storage = (key) => {
+  let index = localStorage.getItem("placeIndex") || 0;
+  index = (+index + (key === "n" ? 1 : -1)).mod(drawClock.tz.cities.length);
+  localStorage.setItem("placeIndex", String(index));
+  let city = drawClock.tz.cities[index];
+  // reload everything
+  window.location.href =
+    window.location.href.split("?")[0] +
+    `?timeZone=${city.region}/${city.city}`;
+};
+
+/**
  * Increment/decrement the clock location.
  * @async
  * @memberof {drawClock}
@@ -703,14 +733,47 @@ drawClock.location = async (key) => {
   if (drawClock.tz == undefined) {
     drawClock.tz = await readZones();
   }
-  let index = localStorage.getItem("placeIndex") || 0;
-  index = (+index + (key === "n" ? 1 : -1)).mod(drawClock.tz.cities.length);
-  localStorage.setItem("placeIndex", String(index));
-  let city = drawClock.tz.cities[index];
-  window.location.href =
-    window.location.href.split("?")[0] +
-    `?timeZone=${city.region}/${city.city}`;
+  drawClock.storage(key);
 };
+
+/**
+ * @var {HTMLElement} handles canvas holding the handles.
+ * @listens mouseenter
+ * @listens mouseleave
+ */
+const handles = document.querySelector("#handles");
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is mouseenter.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event mouseenter - executed only once when the cursor moves over the canvas.
+ */
+handles.addEventListener(
+  "mouseenter",
+  (event) => {
+    document.documentElement.style.setProperty("--inverted-clock", "true");
+    drawClock();
+  },
+  false
+);
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is mouseenter.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event mouseleave - executed only once when the cursor leaves the canvas.
+ */
+handles.addEventListener(
+  "mouseleave",
+  (event) => {
+    document.documentElement.style.setProperty("--inverted-clock", "false");
+    drawClock();
+  },
+  false
+);
 
 /**
  * Select next location.
@@ -795,6 +858,27 @@ var runAnimation = (() => {
     clock_handles[3].time2Angle = fiveMin * (+hours + minutes / 60) * 0.5;
 
     // Clear screen.
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the handles.
+    clock_handles.map((handle) => {
+      ctx.strokeStyle = handle.c;
+      ctx.beginPath();
+      coord = polar2Cartesian(0.057 * clockRadius, handle.time2Angle);
+      coord = translate(coord, center);
+      ctx.moveTo(coord.x, coord.y);
+
+      var coord = polar2Cartesian(
+        handle.length * clockRadius,
+        handle.time2Angle
+      );
+      coord = translate(coord, center);
+      ctx.lineTo(coord.x, coord.y);
+      ctx.lineWidth = handle.width;
+      ctx.stroke();
+    });
+
+    // Clear screen.
     lctx.clearRect(0, 0, canvas.width, canvas.height);
 
     let theight = canvas.width / 45;
@@ -824,26 +908,6 @@ var runAnimation = (() => {
 
     lctx.lineCap = "round";
 
-    // Clear screen.
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw the handles.
-    clock_handles.map((handle) => {
-      ctx.strokeStyle = handle.c;
-      ctx.beginPath();
-      coord = polar2Cartesian(0.057 * clockRadius, handle.time2Angle);
-      coord = translate(coord, center);
-      ctx.moveTo(coord.x, coord.y);
-
-      var coord = polar2Cartesian(
-        handle.length * clockRadius,
-        handle.time2Angle
-      );
-      coord = translate(coord, center);
-      ctx.lineTo(coord.x, coord.y);
-      ctx.lineWidth = handle.width;
-      ctx.stroke();
-    });
     if (timer) cancelAnimationFrame(timer);
     timer = requestAnimationFrame(runAnimation);
   };
@@ -866,13 +930,13 @@ window.addEventListener("load", (event) => runAnimation());
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li><li><a href="global.html#event:mouseenter-executedonlyoncewhenthecursormovesoverthecanvas.">mouseenter - executed only once when the cursor moves over the canvas.</a></li><li><a href="global.html#event:mouseleave-executedonlyoncewhenthecursorleavesthecanvas.">mouseleave - executed only once when the cursor leaves the canvas.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Sep 22 2023 18:57:02 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Oct 07 2023 05:44:21 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

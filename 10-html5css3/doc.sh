@@ -1,4 +1,5 @@
 jsdoc -d docjs clock/clock.js clock/suncalc.js clock/date.js
+jsdoc -d doc-clock clock/clock-then.js clock/suncalc.js clock/date.js
 jsdoc -d docrectangles rectangles/rectangles.js
 #jsdoc -c jsdoc.json -d docsquares squares/squares.js
 jsdoc -d docsquares squares/squares.js

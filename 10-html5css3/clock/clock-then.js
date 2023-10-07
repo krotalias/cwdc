@@ -39,18 +39,16 @@
  * - MacOS:
  *    - sudo port install npm8 (or npm9)
  *    - sudo npm install -g jsdoc
- * - jsdoc -d docjs clock/clock.js clock/suncalc.js clock/date.js
+ * - jsdoc -d doc-clock clock/clock-then.js clock/suncalc.js clock/date.js
  * </pre>
  *
  * @author Paulo Roma Cavalcanti
  * @since 14/11/2020
  *
  * @see <a href="/cwdc/10-html5css3/clock/11.5.html">Local Time</a>
- * @see <a href="/cwdc/10-html5css3/clock/11.5-then.html">Local Time (then)</a>
  * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton</a>
  * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/New_York">New York</a>
- * @see <a href="/cwdc/10-html5css3/clock/clock.js">source</a>
- * @see <a href="/cwdc/10-html5css3/clock/clock-then.js">source (then)</a>
+ * @see <a href="/cwdc/10-html5css3/clock/clock-then.js">source</a>
  * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
  * @see https://github.com/mourner/suncalc
  * @see <img src="../clock/clock.png">
@@ -267,18 +265,21 @@ function arc(center, radius, t1, t2, fill = true, reflect = false) {
  * Read the time zone descriptors of a set of locations from a
  * <a href="../clock/localtime.json">json file</a>.
  *
- * @async
  * @returns {Promise<Array<tz>>} array of time zones.
  */
-async function readZones() {
+function readZones() {
   const requestURL = `${location.protocol}/cwdc/10-html5css3/clock/localtime.json`;
-  const request = new Request(requestURL);
 
-  const response = await fetch(request);
-  const timeZonesText = await response.text();
-  const timeZones = JSON.parse(timeZonesText);
-
-  return timeZones;
+  return fetch(requestURL).then((response) => {
+    return response
+      .json()
+      .then((timeZones) => {
+        return timeZones;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 }
 
 /**
@@ -286,10 +287,8 @@ async function readZones() {
  * {@link https://wiki.openstreetmap.org/wiki/Main_Page OpenStreetMap}
  * given a geodetic location.
  *
- *
  * @param {Number} lat latitude.
  * @param {Number} long longitude.
- * @async
  * @returns {Promise<Array<String>>} <a href="../clock/Fluminense-reverse.json">address array</a>: [house_number, road, city, suburb, country].
  * @see https://operations.osmfoundation.org/policies/nominatim/
  * @see https://nominatim.openstreetmap.org/reverse?format=json&lat=-22.9369&lon=-43.1857&zoom=18&addressdetails=1
@@ -299,23 +298,27 @@ async function readZones() {
  * <a href="https://www.openstreetmap.org/#map=19/-22.93599/-43.18456">View Larger Map</a>
  * </small>
  */
-async function reverseGeoCoding(lat, long) {
+function reverseGeoCoding(lat, long) {
   const requestURL =
     "https://nominatim.openstreetmap.org/reverse?format=json&lat=" +
     lat +
     "&lon=" +
     long +
     "&zoom=18&addressdetails=1";
-  const request = new Request(requestURL);
 
-  const response = await fetch(request);
-  const positionText = await response.text();
-  const position = JSON.parse(positionText);
-
-  // console.log(position);
-  // Object Destructuring
-  const { house_number, road, city, suburb, country } = position.address;
-  return [house_number, road, city, suburb, country];
+  return fetch(requestURL).then((response) => {
+    return response
+      .json()
+      .then((position) => {
+        // console.log(position);
+        // Object Destructuring
+        const { house_number, road, city, suburb, country } = position.address;
+        return Promise.all([house_number, road, city, suburb, country]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 }
 
 /**
@@ -324,7 +327,6 @@ async function reverseGeoCoding(lat, long) {
  * given an address, e.g. "sao_paulo,brazil" or "london,england".
  *
  * @param {String} address location.
- * @async
  * @returns {Promise<Array<Number>>} <a href="../clock/Fluminense.json">geodetic array</a>: [latitude, longitude].
  * @see https://operations.osmfoundation.org/policies/nominatim/
  * @see https://nominatim.openstreetmap.org/search?format=json&q="Fluminense Football Club"
@@ -332,44 +334,46 @@ async function reverseGeoCoding(lat, long) {
  * @see <a href="../clock/Flusao.png"><img src="../clock/Flusao-512.png"></a>
  * @see <a href="../clock/Fluminense.html">Laranjeiras</a>
  */
-async function geoCoding(address) {
+function geoCoding(address) {
   const requestURL = `https://nominatim.openstreetmap.org/search?format=json&q=${address}`;
-  const request = new Request(requestURL);
 
-  const response = await fetch(request);
-  const geoCodingText = await response.text();
-  const geoCoding = JSON.parse(geoCodingText);
-
-  // console.log(geoCoding);
-  // Object Destructuring
-  const { lat, lon } = geoCoding[0];
-  return [lat, lon];
+  return fetch(requestURL).then((response) => {
+    return response
+      .json()
+      .then((geoCoding) => {
+        // console.log(geoCoding);
+        // Object Destructuring
+        const { lat, lon } = geoCoding[0];
+        return Promise.all([lat, lon]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 }
 
 /**
  * <p>Returns a time zone geographic descriptor given a location name.</p>
  * The {@link readZones json file} is read and searched for.
  *
- * @async
  * @param {String} name TZ identifier.
  * @returns {Promise<tz>} promise for getting a time zone descriptor.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
  */
-async function findCity(name) {
-  if (drawClock.tz === undefined) {
-    drawClock.tz = await readZones();
-  }
-  let city;
-  if (false) {
-    let index = localStorage.getItem("placeIndex") || place;
-    city = drawClock.tz.cities[index];
-  } else {
-    city = drawClock.tz.cities.filter(function (c) {
-      return c.city == name;
-    })[0];
-  }
-  return city;
+function findCity(name) {
+  return readZones().then((tz) => {
+    let city;
+    if (false) {
+      let index = localStorage.getItem("placeIndex") || place;
+      city = tz.cities[index];
+    } else {
+      city = tz.cities.filter(function (c) {
+        return c.city == name;
+      })[0];
+    }
+    drawClock.tz = tz;
+    return city;
+  });
 }
 
 /**
@@ -386,24 +390,31 @@ async function findCity(name) {
  *    2, North Central Avenue, Phoenix, United States
  *    Latitude: 33.44844, Longitude: -112.07414
  * </pre>
- * @async
  * @param {Number} latitude a coordinate that specifies the north–south position of a point on the surface.
  * @param {Number} longitude measures distance east or west of the prime meridian.
  * @param {String} city name of a city.
  * @param {String} region Africa | America | Asia | Atlantic | Australia | Europe | Indian | Pacific
  */
-async function displayLocation(latitude, longitude, city, region) {
-  let pos = await reverseGeoCoding(latitude, longitude);
-  let geocode =
-    city !== undefined && region !== undefined
-      ? await geoCoding(`${city},${region}`)
-      : [latitude, longitude];
+function displayLocation(latitude, longitude, city, region) {
   let tag = document.querySelector("#address");
-  tag.innerHTML = `${pos
-    .filter((str) => str !== undefined)
-    .join(", ")} <br> Latitude: ${Number(geocode[0]).toFixed(
-    5
-  )}, Longitude: ${Number(geocode[1]).toFixed(5)}`;
+  reverseGeoCoding(latitude, longitude).then((pos) => {
+    if (city !== undefined && region !== undefined) {
+      geoCoding(`${city},${region}`).then((geocode) => {
+        tag.innerHTML = `${pos
+          .filter((str) => str !== undefined)
+          .join(", ")} <br> Latitude: ${Number(geocode[0]).toFixed(
+          5
+        )}, Longitude: ${Number(geocode[1]).toFixed(5)}`;
+      });
+    } else {
+      let geocode = [latitude, longitude];
+      tag.innerHTML = `${pos
+        .filter((str) => str !== undefined)
+        .join(", ")} <br> Latitude: ${Number(geocode[0]).toFixed(
+        5
+      )}, Longitude: ${Number(geocode[1]).toFixed(5)}`;
+    }
+  });
 }
 
 /**
@@ -508,15 +519,16 @@ function drawClock(place) {
       });
       displayLocation(lat, lng);
     },
-    async () => {
+    () => {
       // safari blocks geolocation unless using a secure connection
-      let city = await findCity(drawClock.place);
-      if (city) {
-        let lat = city.coordinates.latitude;
-        let lng = city.coordinates.longitude;
-        drawArc({ latitude: lat, longitude: lng }, city.offset);
-        displayLocation(lat, lng, city.city, city.region);
-      }
+      findCity(drawClock.place).then((city) => {
+        if (city) {
+          let lat = city.coordinates.latitude;
+          let lng = city.coordinates.longitude;
+          drawArc({ latitude: lat, longitude: lng }, city.offset);
+          displayLocation(lat, lng, city.city, city.region);
+        }
+      });
     },
     {
       enableHighAccuracy: true,
@@ -696,16 +708,19 @@ drawClock.storage = (key) => {
 
 /**
  * Increment/decrement the clock location.
- * @async
  * @memberof {drawClock}
  * @global
  * @param {String} key "n" for next or "N" for previous.
  */
-drawClock.location = async (key) => {
+drawClock.location = (key) => {
   if (drawClock.tz == undefined) {
-    drawClock.tz = await readZones();
+    readZones().then((tz) => {
+      drawClock.tz = tz;
+      drawClock.storage(key);
+    });
+  } else {
+    drawClock.storage(key);
   }
-  drawClock.storage(key);
 };
 
 /**

@@ -1,14 +1,42 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: clock-then.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: clock-then.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file
  *
  * Summary.
- * <p>Draw an analog {@link https://www.timeanddate.com/worldclock/personal.html world clock}
+ * &lt;p>Draw an analog {@link https://www.timeanddate.com/worldclock/personal.html world clock}
  * using the HTML5
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API canvas API}.
- * </p>
+ * &lt;/p>
  *
  * Description.
- * <p>Here, it has been used two canvases: one for the clock's background
+ * &lt;p>Here, it has been used two canvases: one for the clock's background
  * and the other for its four handles.
  *
  * A simple method for drawing a handle consists in mapping
@@ -16,45 +44,43 @@
  * and then mapping {@link https://en.wikipedia.org/wiki/Polar_coordinate_system polar coordinates}
  * to {@link https://en.wikipedia.org/wiki/Cartesian_coordinate_system cartesian coordinates},
  * considering 0° at three o'clock.
- * </p>
+ * &lt;/p>
  *
- * <p>If the browser allows querying the
+ * &lt;p>If the browser allows querying the
  * {@link https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting current geographic location}
  * (sometimes only when using a secure connection - https),
  * the {@link https://www.timeanddate.com/time/map/ time zone} of the clock is the local time
  * from the browser.
  * Otherwise, a series of locations is read from a
- * <a href="../clock/localtime.json">localtime.json</a> file,
+ * &lt;a href="../clock/localtime.json">localtime.json&lt;/a> file,
  * and the time of each location can
  * be set by pressing the "n" or "N" keys, which cycles forward or backward between them.
- * </p>
+ * &lt;/p>
  *
- * <p>The day light hours are indicated by means of a bright curve drawn
- * on top of the clock's circular border.</p>
+ * &lt;p>The day light hours are indicated by means of a bright curve drawn
+ * on top of the clock's circular border.&lt;/p>
  *
- * <pre>
+ * &lt;pre>
  * Documentation:
  * - Ubuntu:
  *    - sudo apt install jsdoc-toolkit
  * - MacOS:
  *    - sudo port install npm8 (or npm9)
  *    - sudo npm install -g jsdoc
- * - jsdoc -d docjs clock/clock.js clock/suncalc.js clock/date.js
- * </pre>
+ * - jsdoc -d doc-clock clock/clock-then.js clock/suncalc.js clock/date.js
+ * &lt;/pre>
  *
  * @author Paulo Roma Cavalcanti
  * @since 14/11/2020
  *
- * @see <a href="/cwdc/10-html5css3/clock/11.5.html">Local Time</a>
- * @see <a href="/cwdc/10-html5css3/clock/11.5-then.html">Local Time (then)</a>
- * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton</a>
- * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/New_York">New York</a>
- * @see <a href="/cwdc/10-html5css3/clock/clock.js">source</a>
- * @see <a href="/cwdc/10-html5css3/clock/clock-then.js">source (then)</a>
+ * @see &lt;a href="/cwdc/10-html5css3/clock/11.5.html">Local Time&lt;/a>
+ * @see &lt;a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton&lt;/a>
+ * @see &lt;a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/New_York">New York&lt;/a>
+ * @see &lt;a href="/cwdc/10-html5css3/clock/clock-then.js">source&lt;/a>
  * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
  * @see https://github.com/mourner/suncalc
- * @see <img src="../clock/clock.png">
- * @see <img src="../clock/clock2.png">
+ * @see &lt;img src="../clock/clock.png">
+ * @see &lt;img src="../clock/clock2.png">
  */
 
 "use strict";
@@ -172,10 +198,10 @@ function setFont(size) {
 
 /**
  * Convert from polar to cartesian coordinates.
- * <ul>
- * <li>Note that 0° is at three o'clock.</li>
- * <li>For the clock, however, 0° is at twelve o'clock.</li>
- * </ul>
+ * &lt;ul>
+ * &lt;li>Note that 0° is at three o'clock.&lt;/li>
+ * &lt;li>For the clock, however, 0° is at twelve o'clock.&lt;/li>
+ * &lt;/ul>
  *
  * @param {Number} radius vector length.
  * @param {Number} angle vector angle.
@@ -265,20 +291,23 @@ function arc(center, radius, t1, t2, fill = true, reflect = false) {
 
 /**
  * Read the time zone descriptors of a set of locations from a
- * <a href="../clock/localtime.json">json file</a>.
+ * &lt;a href="../clock/localtime.json">json file&lt;/a>.
  *
- * @async
- * @returns {Promise<Array<tz>>} array of time zones.
+ * @returns {Promise&lt;Array&lt;tz>>} array of time zones.
  */
-async function readZones() {
+function readZones() {
   const requestURL = `${location.protocol}/cwdc/10-html5css3/clock/localtime.json`;
-  const request = new Request(requestURL);
 
-  const response = await fetch(request);
-  const timeZonesText = await response.text();
-  const timeZones = JSON.parse(timeZonesText);
-
-  return timeZones;
+  return fetch(requestURL).then((response) => {
+    return response
+      .json()
+      .then((timeZones) => {
+        return timeZones;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 }
 
 /**
@@ -286,36 +315,38 @@ async function readZones() {
  * {@link https://wiki.openstreetmap.org/wiki/Main_Page OpenStreetMap}
  * given a geodetic location.
  *
- *
  * @param {Number} lat latitude.
  * @param {Number} long longitude.
- * @async
- * @returns {Promise<Array<String>>} <a href="../clock/Fluminense-reverse.json">address array</a>: [house_number, road, city, suburb, country].
+ * @returns {Promise&lt;Array&lt;String>>} &lt;a href="../clock/Fluminense-reverse.json">address array&lt;/a>: [house_number, road, city, suburb, country].
  * @see https://operations.osmfoundation.org/policies/nominatim/
- * @see https://nominatim.openstreetmap.org/reverse?format=json&lat=-22.9369&lon=-43.1857&zoom=18&addressdetails=1
- * @see <iframe width="512" height="350"
- * src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-22.93755445951262%2C-43.18112701177598%2C-22.934424772219046&amp;layer=mapnik" style="border: 1px solid black"></iframe>
- * <br/><small>
- * <a href="https://www.openstreetmap.org/#map=19/-22.93599/-43.18456">View Larger Map</a>
- * </small>
+ * @see https://nominatim.openstreetmap.org/reverse?format=json&amp;lat=-22.9369&amp;lon=-43.1857&amp;zoom=18&amp;addressdetails=1
+ * @see &lt;iframe width="512" height="350"
+ * src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-22.93755445951262%2C-43.18112701177598%2C-22.934424772219046&amp;amp;layer=mapnik" style="border: 1px solid black">&lt;/iframe>
+ * &lt;br/>&lt;small>
+ * &lt;a href="https://www.openstreetmap.org/#map=19/-22.93599/-43.18456">View Larger Map&lt;/a>
+ * &lt;/small>
  */
-async function reverseGeoCoding(lat, long) {
+function reverseGeoCoding(lat, long) {
   const requestURL =
-    "https://nominatim.openstreetmap.org/reverse?format=json&lat=" +
+    "https://nominatim.openstreetmap.org/reverse?format=json&amp;lat=" +
     lat +
-    "&lon=" +
+    "&amp;lon=" +
     long +
-    "&zoom=18&addressdetails=1";
-  const request = new Request(requestURL);
+    "&amp;zoom=18&amp;addressdetails=1";
 
-  const response = await fetch(request);
-  const positionText = await response.text();
-  const position = JSON.parse(positionText);
-
-  // console.log(position);
-  // Object Destructuring
-  const { house_number, road, city, suburb, country } = position.address;
-  return [house_number, road, city, suburb, country];
+  return fetch(requestURL).then((response) => {
+    return response
+      .json()
+      .then((position) => {
+        // console.log(position);
+        // Object Destructuring
+        const { house_number, road, city, suburb, country } = position.address;
+        return Promise.all([house_number, road, city, suburb, country]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 }
 
 /**
@@ -324,95 +355,103 @@ async function reverseGeoCoding(lat, long) {
  * given an address, e.g. "sao_paulo,brazil" or "london,england".
  *
  * @param {String} address location.
- * @async
- * @returns {Promise<Array<Number>>} <a href="../clock/Fluminense.json">geodetic array</a>: [latitude, longitude].
+ * @returns {Promise&lt;Array&lt;Number>>} &lt;a href="../clock/Fluminense.json">geodetic array&lt;/a>: [latitude, longitude].
  * @see https://operations.osmfoundation.org/policies/nominatim/
- * @see https://nominatim.openstreetmap.org/search?format=json&q="Fluminense Football Club"
+ * @see https://nominatim.openstreetmap.org/search?format=json&amp;q="Fluminense Football Club"
  * @see https://leafletjs.com
- * @see <a href="../clock/Flusao.png"><img src="../clock/Flusao-512.png"></a>
- * @see <a href="../clock/Fluminense.html">Laranjeiras</a>
+ * @see &lt;a href="../clock/Flusao.png">&lt;img src="../clock/Flusao-512.png">&lt;/a>
+ * @see &lt;a href="../clock/Fluminense.html">Laranjeiras&lt;/a>
  */
-async function geoCoding(address) {
-  const requestURL = `https://nominatim.openstreetmap.org/search?format=json&q=${address}`;
-  const request = new Request(requestURL);
+function geoCoding(address) {
+  const requestURL = `https://nominatim.openstreetmap.org/search?format=json&amp;q=${address}`;
 
-  const response = await fetch(request);
-  const geoCodingText = await response.text();
-  const geoCoding = JSON.parse(geoCodingText);
-
-  // console.log(geoCoding);
-  // Object Destructuring
-  const { lat, lon } = geoCoding[0];
-  return [lat, lon];
+  return fetch(requestURL).then((response) => {
+    return response
+      .json()
+      .then((geoCoding) => {
+        // console.log(geoCoding);
+        // Object Destructuring
+        const { lat, lon } = geoCoding[0];
+        return Promise.all([lat, lon]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 }
 
 /**
- * <p>Returns a time zone geographic descriptor given a location name.</p>
+ * &lt;p>Returns a time zone geographic descriptor given a location name.&lt;/p>
  * The {@link readZones json file} is read and searched for.
  *
- * @async
  * @param {String} name TZ identifier.
- * @returns {Promise<tz>} promise for getting a time zone descriptor.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+ * @returns {Promise&lt;tz>} promise for getting a time zone descriptor.
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
  */
-async function findCity(name) {
-  if (drawClock.tz === undefined) {
-    drawClock.tz = await readZones();
-  }
-  let city;
-  if (false) {
-    let index = localStorage.getItem("placeIndex") || place;
-    city = drawClock.tz.cities[index];
-  } else {
-    city = drawClock.tz.cities.filter(function (c) {
-      return c.city == name;
-    })[0];
-  }
-  return city;
+function findCity(name) {
+  return readZones().then((tz) => {
+    let city;
+    if (false) {
+      let index = localStorage.getItem("placeIndex") || place;
+      city = tz.cities[index];
+    } else {
+      city = tz.cities.filter(function (c) {
+        return c.city == name;
+      })[0];
+    }
+    drawClock.tz = tz;
+    return city;
+  });
 }
 
 /**
  * Display a time zone location in an element identified by #address
- * <ul>
- *  <li> house number, </li>
- *  <li> road, </li>
- *  <li> city, </li>
- *  <li> suburb, </li>
- *  <li> country </li>
- * </ul>
+ * &lt;ul>
+ *  &lt;li> house number, &lt;/li>
+ *  &lt;li> road, &lt;/li>
+ *  &lt;li> city, &lt;/li>
+ *  &lt;li> suburb, &lt;/li>
+ *  &lt;li> country &lt;/li>
+ * &lt;/ul>
  * e.g.:
- * <pre>
+ * &lt;pre>
  *    2, North Central Avenue, Phoenix, United States
  *    Latitude: 33.44844, Longitude: -112.07414
- * </pre>
- * @async
+ * &lt;/pre>
  * @param {Number} latitude a coordinate that specifies the north–south position of a point on the surface.
  * @param {Number} longitude measures distance east or west of the prime meridian.
  * @param {String} city name of a city.
  * @param {String} region Africa | America | Asia | Atlantic | Australia | Europe | Indian | Pacific
  */
-async function displayLocation(latitude, longitude, city, region) {
-  let pos = await reverseGeoCoding(latitude, longitude);
-  let geocode =
-    city !== undefined && region !== undefined
-      ? await geoCoding(`${city},${region}`)
-      : [latitude, longitude];
+function displayLocation(latitude, longitude, city, region) {
   let tag = document.querySelector("#address");
-  tag.innerHTML = `${pos
-    .filter((str) => str !== undefined)
-    .join(", ")} <br> Latitude: ${Number(geocode[0]).toFixed(
-    5
-  )}, Longitude: ${Number(geocode[1]).toFixed(5)}`;
+  reverseGeoCoding(latitude, longitude).then((pos) => {
+    if (city !== undefined &amp;&amp; region !== undefined) {
+      geoCoding(`${city},${region}`).then((geocode) => {
+        tag.innerHTML = `${pos
+          .filter((str) => str !== undefined)
+          .join(", ")} &lt;br> Latitude: ${Number(geocode[0]).toFixed(
+          5
+        )}, Longitude: ${Number(geocode[1]).toFixed(5)}`;
+      });
+    } else {
+      let geocode = [latitude, longitude];
+      tag.innerHTML = `${pos
+        .filter((str) => str !== undefined)
+        .join(", ")} &lt;br> Latitude: ${Number(geocode[0]).toFixed(
+        5
+      )}, Longitude: ${Number(geocode[1]).toFixed(5)}`;
+    }
+  });
 }
 
 /**
- * <p>Preloads a set of images.</p>
+ * &lt;p>Preloads a set of images.&lt;/p>
  * Browsers first load a compressed version of an image,
  * then decode it, and finally paint it.
  *
  * @param {String[]} urls array of Image URLs.
- * @returns {Promise<HTMLImageElement[]>} promise that resolves when all images are loaded, or rejects if any image fails to load.
+ * @returns {Promise&lt;HTMLImageElement[]>} promise that resolves when all images are loaded, or rejects if any image fails to load.
  * @see https://www.freecodecamp.org/portuguese/news/tudo-o-que-voce-precisa-saber-sobre-promise-all/
  * @see https://dev.to/alejandroakbal/how-to-preload-images-for-canvas-in-javascript-251c
  */
@@ -434,21 +473,21 @@ function preloadImages(urls) {
 
 /**
  * Draw the clock background:
- * <ul>
- *  <li>a <a href="../clock/rolex_bezel.png">bezel</a> image,</li>
- *  <li>a <a href="../clock/fluminense.png">team</a> logo,</li>
- *  <li>a {@link circle}, </li>
- *  <li>the {@link drawArc sun light arc}, </li>
- *  <li>and the ticks.</li>
- * </ul>
+ * &lt;ul>
+ *  &lt;li>a &lt;a href="../clock/rolex_bezel.png">bezel&lt;/a> image,&lt;/li>
+ *  &lt;li>a &lt;a href="../clock/fluminense.png">team&lt;/a> logo,&lt;/li>
+ *  &lt;li>a {@link circle}, &lt;/li>
+ *  &lt;li>the {@link drawArc sun light arc}, &lt;/li>
+ *  &lt;li>and the ticks.&lt;/li>
+ * &lt;/ul>
  *
  * @param {String} place a location name.
  * @property {function} drawClock
  * @property {function} drawClock.location Increment/decrement the clock location.
  * @property {function} drawClock.storage update local storage with the clock location.
- * @property {Array<tz>} drawClock.tz time zone array.
- * @property {Array<{txt: String, c: color}>} drawClock.romans Clock roman x color.
- * @property {Array<{txt: String, c: color}>} drawClock.decimals Clock number x color.
+ * @property {Array&lt;tz>} drawClock.tz time zone array.
+ * @property {Array&lt;{txt: String, c: color}>} drawClock.romans Clock roman x color.
+ * @property {Array&lt;{txt: String, c: color}>} drawClock.decimals Clock number x color.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images
@@ -508,15 +547,16 @@ function drawClock(place) {
       });
       displayLocation(lat, lng);
     },
-    async () => {
+    () => {
       // safari blocks geolocation unless using a secure connection
-      let city = await findCity(drawClock.place);
-      if (city) {
-        let lat = city.coordinates.latitude;
-        let lng = city.coordinates.longitude;
-        drawArc({ latitude: lat, longitude: lng }, city.offset);
-        displayLocation(lat, lng, city.city, city.region);
-      }
+      findCity(drawClock.place).then((city) => {
+        if (city) {
+          let lat = city.coordinates.latitude;
+          let lng = city.coordinates.longitude;
+          drawArc({ latitude: lat, longitude: lng }, city.offset);
+          displayLocation(lat, lng, city.city, city.region);
+        }
+      });
     },
     {
       enableHighAccuracy: true,
@@ -526,15 +566,15 @@ function drawClock(place) {
   );
 
   /**
-   * <p>Callback for key pressed.</p>
+   * &lt;p>Callback for key pressed.&lt;/p>
    * Valid keys:
-   * <ul>
-   *  <li>n: next city.</li>
-   *  <li>N: previous city.</li>
-   *  <li>b: back to cwdc</li>
-   *  <li>B: back to 10-html5css3</li>
-   *  <li>⌘-esc or ⌘-e: clear local storage</li>
-   * </ul>
+   * &lt;ul>
+   *  &lt;li>n: next city.&lt;/li>
+   *  &lt;li>N: previous city.&lt;/li>
+   *  &lt;li>b: back to cwdc&lt;/li>
+   *  &lt;li>B: back to 10-html5css3&lt;/li>
+   *  &lt;li>⌘-esc or ⌘-e: clear local storage&lt;/li>
+   * &lt;/ul>
    * @event KeyboardEvent
    * @param {KeyboardEvent} event keyboard event.
    */
@@ -555,10 +595,10 @@ function drawClock(place) {
   };
 
   /**
-   * <p>A modulo function, added to Number's
+   * &lt;p>A modulo function, added to Number's
    * {@link https://www.freecodecamp.org/news/a-beginners-guide-to-javascripts-prototype/ prototype},
-   * that works for negative numbers.</p>
-   * The modulo is calculated from remainder using the modular property:<br/>
+   * that works for negative numbers.&lt;/p>
+   * The modulo is calculated from remainder using the modular property:&lt;br/>
    * • (a + b) mod c = (a mod c + b mod c) mod c.
    *
    * @function
@@ -579,7 +619,7 @@ function drawClock(place) {
    * Draw the sun light arc.
    *
    * @global
-   * @param {Object<{latitude, longitude}>} loc location.
+   * @param {Object&lt;{latitude, longitude}>} loc location.
    * @param {Number} utcoff UTC offset.
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset
    * @see https://wtfjs.com/wtfs/2010-02-15-undefined-is-mutable
@@ -643,11 +683,11 @@ function drawClock(place) {
 }
 
 /**
- * <p>Clock roman x color.</p>
+ * &lt;p>Clock roman x color.&lt;/p>
  * Each roman number may have a different color, so it does not
  * interfere with the background color.
  * @memberof {drawClock}
- * @member {Array<{txt: String, c: color}>} roman clock numbers.
+ * @member {Array&lt;{txt: String, c: color}>} roman clock numbers.
  */
 drawClock.romans = [
   { txt: "XII", c: white1 },
@@ -665,11 +705,11 @@ drawClock.romans = [
 ];
 
 /**
- * <p>Clock number x color.</p>
+ * &lt;p>Clock number x color.&lt;/p>
  * Each number may have a different color, so it does not
  * interfere with the background color.
  * @memberof {drawClock}
- * @member {Array<{txt: String, c: color}>} decimal clock numbers.
+ * @member {Array&lt;{txt: String, c: color}>} decimal clock numbers.
  */
 drawClock.decimals = Array.from(Array(24), (_, i) => {
   return { txt: String(i), c: white2 };
@@ -696,16 +736,19 @@ drawClock.storage = (key) => {
 
 /**
  * Increment/decrement the clock location.
- * @async
  * @memberof {drawClock}
  * @global
  * @param {String} key "n" for next or "N" for previous.
  */
-drawClock.location = async (key) => {
+drawClock.location = (key) => {
   if (drawClock.tz == undefined) {
-    drawClock.tz = await readZones();
+    readZones().then((tz) => {
+      drawClock.tz = tz;
+      drawClock.storage(key);
+    });
+  } else {
+    drawClock.storage(key);
   }
-  drawClock.storage(key);
 };
 
 /**
@@ -716,9 +759,9 @@ drawClock.location = async (key) => {
 const handles = document.querySelector("#handles");
 
 /**
- * <p>Appends an event listener for events whose type attribute value is mouseenter.
+ * &lt;p>Appends an event listener for events whose type attribute value is mouseenter.
  * The callback argument sets the callback that will be invoked when
- * the event is dispatched.</p>
+ * the event is dispatched.&lt;/p>
  *
  * @event mouseenter - executed only once when the cursor moves over the canvas.
  */
@@ -732,9 +775,9 @@ handles.addEventListener(
 );
 
 /**
- * <p>Appends an event listener for events whose type attribute value is mouseenter.
+ * &lt;p>Appends an event listener for events whose type attribute value is mouseenter.
  * The callback argument sets the callback that will be invoked when
- * the event is dispatched.</p>
+ * the event is dispatched.&lt;/p>
  *
  * @event mouseleave - executed only once when the cursor leaves the canvas.
  */
@@ -793,7 +836,7 @@ var runAnimation = (() => {
   drawClock(city);
 
   /**
-   * <p>A callback to redraw the four handles of the clock.</p>
+   * &lt;p>A callback to redraw the four handles of the clock.&lt;/p>
    * @callback drawHandles
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
    * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/measureText
@@ -892,3 +935,26 @@ var runAnimation = (() => {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
  */
 window.addEventListener("load", (event) => runAnimation());
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li><li><a href="global.html#event:mouseenter-executedonlyoncewhenthecursormovesoverthecanvas.">mouseenter - executed only once when the cursor moves over the canvas.</a></li><li><a href="global.html#event:mouseleave-executedonlyoncewhenthecursorleavesthecanvas.">mouseleave - executed only once when the cursor leaves the canvas.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Oct 07 2023 05:39:53 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
