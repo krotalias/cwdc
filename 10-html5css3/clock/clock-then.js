@@ -397,22 +397,22 @@ function findCity(name) {
  */
 function displayLocation(latitude, longitude, city, region) {
   let tag = document.querySelector("#address");
+  const geopos = (pos, lat, lng) =>
+    `${pos.filter((str) => str !== undefined).join(", ")}<br>
+      Latitude: ${Number(lat).toFixed(5)},
+      Longitude: ${Number(lng).toFixed(5)}`;
   reverseGeoCoding(latitude, longitude).then((pos) => {
     if (city !== undefined && region !== undefined) {
-      geoCoding(`${city},${region}`).then((geocode) => {
-        tag.innerHTML = `${pos
-          .filter((str) => str !== undefined)
-          .join(", ")} <br> Latitude: ${Number(geocode[0]).toFixed(
-          5
-        )}, Longitude: ${Number(geocode[1]).toFixed(5)}`;
-      });
+      geoCoding(`${city},${region}`)
+        .then((geocode) => {
+          tag.innerHTML = geopos(pos, geocode[0], geocode[1]);
+        })
+        .catch((err) => {
+          console.log(err);
+          tag.innerHTML = geopos(pos, latitude, longitude);
+        });
     } else {
-      let geocode = [latitude, longitude];
-      tag.innerHTML = `${pos
-        .filter((str) => str !== undefined)
-        .join(", ")} <br> Latitude: ${Number(geocode[0]).toFixed(
-        5
-      )}, Longitude: ${Number(geocode[1]).toFixed(5)}`;
+      tag.innerHTML = geopos(pos, latitude, longitude);
     }
   });
 }

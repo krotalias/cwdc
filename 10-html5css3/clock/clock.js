@@ -399,11 +399,9 @@ async function displayLocation(latitude, longitude, city, region) {
       ? await geoCoding(`${city},${region}`)
       : [latitude, longitude];
   let tag = document.querySelector("#address");
-  tag.innerHTML = `${pos
-    .filter((str) => str !== undefined)
-    .join(", ")} <br> Latitude: ${Number(geocode[0]).toFixed(
-    5
-  )}, Longitude: ${Number(geocode[1]).toFixed(5)}`;
+  tag.innerHTML = `${pos.filter((str) => str !== undefined).join(", ")} <br>
+                      Latitude: ${Number(geocode[0]).toFixed(5)},
+                      Longitude: ${Number(geocode[1]).toFixed(5)}`;
 }
 
 /**
