@@ -421,15 +421,62 @@ async function findCity(name) {
  * @param {String} region Africa | America | Asia | Atlantic | Australia | Europe | Indian | Pacific
  */
 async function displayLocation(latitude, longitude, city, region) {
-  let pos = await reverseGeoCoding(latitude, longitude);
-  let geocode =
-    city !== undefined &amp;&amp; region !== undefined
-      ? await geoCoding(`${city},${region}`)
-      : [latitude, longitude];
   let tag = document.querySelector("#address");
-  tag.innerHTML = `${pos.filter((str) => str !== undefined).join(", ")} &lt;br>
-                      Latitude: ${Number(geocode[0]).toFixed(5)},
-                      Longitude: ${Number(geocode[1]).toFixed(5)}`;
+  const geopos = (pos, lat, lng) =>
+    `${pos.filter((str) => str !== undefined).join(", ")}&lt;br>
+      Latitude: ${Number(lat).toFixed(5)},
+      Longitude: ${Number(lng).toFixed(5)}`;
+
+  let pos = await reverseGeoCoding(latitude, longitude);
+
+  if (city !== undefined &amp;&amp; region !== undefined) {
+    try {
+      let geocode = await geoCoding(`${city},${region}`);
+      tag.innerHTML = geopos(pos, geocode[0], geocode[1]);
+    } catch (e) {
+      console.error(e);
+      console.error(`${city},${region}: not found`);
+      tag.innerHTML = geopos(pos, latitude, longitude);
+    }
+  } else {
+    tag.innerHTML = geopos(pos, latitude, longitude);
+  }
+
+  let [h, m, s] = longitude2UTC(longitude);
+  console.log(`UTC: ${h}h, ${m}m and ${s}s`);
+}
+
+/**
+ * Gets UTC offset from longitude, by converting degrees (angle) to hours (time).&lt;br />
+ * Negative values are west to Greenwich prime meridian and positive values, east.
+ *
+ * &lt;ul>
+ * &lt;li>360 deg = 24 hours&lt;/li>
+ * &lt;li>15 deg = 1 hour&lt;/li>
+ * &lt;li>15 deg = 60 arcminutes&lt;/li>
+ * &lt;li>1 deg = 4 arcminutes&lt;/li>
+ * &lt;li>1/4 deg = 1 arcminute&lt;/li>
+ * &lt;li>1/4 deg = 60 arcseconds&lt;/li>
+ * &lt;li>1/4 * 1/60 deg = 1 arcsecond&lt;/li>
+ * &lt;li>0.004167 deg = 1 arcsecond&lt;/li>
+ * &lt;li>1 deg = 240 arcsecond&lt;/li>
+ * &lt;/ul>
+ * @param {Number} lng longitude in degrees.
+ * @return {Array&lt;Number>} [hr, min, sec]
+ * @see http://cs4fn.org/mobile/owntimezone.php
+ * @see https://en.wikipedia.org/wiki/Time_in_France
+ * @see https://www.excelbanter.com/excel-programming/378044-decimalising-ra-dec-values.html
+ * @see https://astro.unl.edu/naap/motion1/tc_units.html
+ * @see https://dayspedia.com/time-zone-map/
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc
+ */
+function longitude2UTC(lng) {
+  let sec = lng * 240;
+  let hr = Math.trunc(sec / 3600);
+  let remainder = sec % 3600;
+  let min = Math.trunc(remainder / 60);
+  sec = remainder - min * 60;
+  return [hr, min, sec];
 }
 
 /**
@@ -542,6 +589,8 @@ function drawClock(place) {
         let lng = city.coordinates.longitude;
         drawArc({ latitude: lat, longitude: lng }, city.offset);
         displayLocation(lat, lng, city.city, city.region);
+      } else {
+        console.error(`${drawClock.place} not in localtime.json`);
       }
     },
     {
@@ -928,13 +977,13 @@ window.addEventListener("load", (event) => runAnimation());
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li><li><a href="global.html#event:mouseenter-executedonlyoncewhenthecursormovesoverthecanvas.">mouseenter - executed only once when the cursor moves over the canvas.</a></li><li><a href="global.html#event:mouseleave-executedonlyoncewhenthecursorleavesthecanvas.">mouseleave - executed only once when the cursor leaves the canvas.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li><li><a href="global.html#event:mouseenter-executedonlyoncewhenthecursormovesoverthecanvas.">mouseenter - executed only once when the cursor moves over the canvas.</a></li><li><a href="global.html#event:mouseleave-executedonlyoncewhenthecursorleavesthecanvas.">mouseleave - executed only once when the cursor leaves the canvas.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Oct 07 2023 08:56:30 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Oct 08 2023 11:45:42 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

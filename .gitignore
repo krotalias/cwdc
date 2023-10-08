@@ -13,4 +13,12 @@ composer*
 node_modules/
 *.log
 package-lock.json
+*.pyc
+*.err
+__pycache__
+CVS
+downloads/python/labs/doc
+downloads/python/labs2/doc
+downloads/python/labs2/Interfaces
+downloads/python/labs2/ISU/**/doc
 downloads/python
