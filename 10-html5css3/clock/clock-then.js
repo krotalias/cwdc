@@ -415,6 +415,42 @@ function displayLocation(latitude, longitude, city, region) {
       tag.innerHTML = geopos(pos, latitude, longitude);
     }
   });
+
+  let [h, m, s] = longitude2UTC(longitude);
+  console.log(`UTC: ${h}h, ${m}m and ${s}s`);
+}
+
+/**
+ * Gets UTC offset from longitude, by converting degrees (angle) to hours (time).<br />
+ * Negative values are west to Greenwich prime meridian and positive values, east.
+ *
+ * <ul>
+ * <li>360 deg = 24 hours</li>
+ * <li>15 deg = 1 hour</li>
+ * <li>15 deg = 60 arcminutes</li>
+ * <li>1 deg = 4 arcminutes</li>
+ * <li>1/4 deg = 1 arcminute</li>
+ * <li>1/4 deg = 60 arcseconds</li>
+ * <li>1/4 * 1/60 deg = 1 arcsecond</li>
+ * <li>0.004167 deg = 1 arcsecond</li>
+ * <li>1 deg = 240 arcsecond</li>
+ * </ul>
+ * @param {Number} lng longitude in degrees.
+ * @return {Array<Number>} [hr, min, sec]
+ * @see http://cs4fn.org/mobile/owntimezone.php
+ * @see https://en.wikipedia.org/wiki/Time_in_France
+ * @see https://www.excelbanter.com/excel-programming/378044-decimalising-ra-dec-values.html
+ * @see https://astro.unl.edu/naap/motion1/tc_units.html
+ * @see https://dayspedia.com/time-zone-map/
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc
+ */
+function longitude2UTC(lng) {
+  let sec = lng * 240;
+  let hr = Math.trunc(sec / 3600);
+  let remainder = sec % 3600;
+  let min = Math.trunc(remainder / 60);
+  sec = remainder - min * 60;
+  return [hr, min, sec];
 }
 
 /**
