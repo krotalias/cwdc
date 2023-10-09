@@ -399,10 +399,13 @@ async function findCity(name) {
  */
 async function displayLocation(latitude, longitude, city, region) {
   let tag = document.querySelector("#address");
-  const geopos = (pos, lat, lng) =>
-    `${pos.filter((str) => str !== undefined).join(", ")}<br>
+  const geopos = (pos, lat, lng) => {
+    let [h, m, s] = longitude2UTC(longitude);
+    return `${pos.filter((str) => str !== undefined).join(", ")}<br>
       Latitude: ${Number(lat).toFixed(5)},
-      Longitude: ${Number(lng).toFixed(5)}`;
+      Longitude: ${Number(lng).toFixed(5)}<br>
+      UTC offset: ${h}h, ${m}m and ${Number(s).toFixed(3)}s`;
+  };
 
   let pos = await reverseGeoCoding(latitude, longitude);
 
@@ -418,9 +421,6 @@ async function displayLocation(latitude, longitude, city, region) {
   } else {
     tag.innerHTML = geopos(pos, latitude, longitude);
   }
-
-  let [h, m, s] = longitude2UTC(longitude);
-  console.log(`UTC: ${h}h, ${m}m and ${s}s`);
 }
 
 /**

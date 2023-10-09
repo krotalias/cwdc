@@ -407,10 +407,13 @@ function findCity(name) {
  */
 function displayLocation(latitude, longitude, city, region) {
   let tag = document.querySelector("#address");
-  const geopos = (pos, lat, lng) =>
-    `${pos.filter((str) => str !== undefined).join(", ")}<br>
+  const geopos = (pos, lat, lng) => {
+    let [h, m, s] = longitude2UTC(longitude);
+    return `${pos.filter((str) => str !== undefined).join(", ")}<br>
       Latitude: ${Number(lat).toFixed(5)},
-      Longitude: ${Number(lng).toFixed(5)}`;
+      Longitude: ${Number(lng).toFixed(5)}<br>
+      UTC offset: ${h}h, ${m}m and ${Number(s).toFixed(3)}s`;
+  };
   reverseGeoCoding(latitude, longitude).then((pos) => {
     if (city !== undefined && region !== undefined) {
       geoCoding(`${city},${region}`)
@@ -428,7 +431,6 @@ function displayLocation(latitude, longitude, city, region) {
 
   let [h, m, s] = longitude2UTC(longitude);
   realOffset = h;
-  console.log(`UTC: ${h}h, ${m}m and ${s}s`);
 }
 
 /**
