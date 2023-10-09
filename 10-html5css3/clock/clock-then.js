@@ -45,7 +45,7 @@
  * @author Paulo Roma Cavalcanti
  * @since 14/11/2020
  *
- * @see <a href="/cwdc/10-html5css3/clock/11.5.html">Local Time</a>
+ * @see <a href="/cwdc/10-html5css3/clock/11.5-then.html">Local Time</a>
  * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton</a>
  * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/New_York">New York</a>
  * @see <a href="/cwdc/10-html5css3/clock/clock-then.js">source</a>
@@ -61,6 +61,11 @@
  * @var {HTMLElement} canvas HTML Canvas.
  */
 var canvas = document.getElementById("clock");
+
+/**
+ * @var {HTMLElement} legend HTML Canvas.
+ */
+let legend = document.getElementById("legend");
 
 /**
  * @var {CanvasRenderingContext2D} context Clock canvas context.
@@ -123,6 +128,11 @@ var center = [canvas.width / 2, canvas.height / 2];
  * Clock location UTC offset.
  */
 var cityOffset = null;
+
+/**
+ * Clock location UTC real offset.
+ */
+let realOffset = null;
 
 /**
  * Get the image scale.
@@ -417,6 +427,7 @@ function displayLocation(latitude, longitude, city, region) {
   });
 
   let [h, m, s] = longitude2UTC(longitude);
+  realOffset = h;
   console.log(`UTC: ${h}h, ${m}m and ${s}s`);
 }
 
@@ -902,15 +913,15 @@ var runAnimation = (() => {
     });
 
     // Clear screen.
-    lctx.clearRect(0, 0, canvas.width, canvas.height);
+    lctx.clearRect(0, 0, legend.width + 32, legend.height);
 
-    let theight = canvas.width / 45;
+    let theight = legend.width / 45;
     lctx.font = setFont(theight);
     lctx.fillStyle = white1;
 
     // Draw the legend: UTC, Region, City, Date.
     let date = `${day} / ${month} / ${year}`;
-    let utc = `UTC ${cityOffset}`;
+    let utc = `UTC ${cityOffset} (${realOffset})`;
     let [region, lcity] = tz2.split("/");
     let [tcity, tregion, tlen, tutc] = [lcity, region, date, utc].map((p) =>
       lctx.measureText(p)
@@ -924,8 +935,8 @@ var runAnimation = (() => {
     ].map((p, i) => {
       lctx.fillText(
         p[0],
-        canvas.width - p[1].width,
-        canvas.height - i * theight * 1.5
+        legend.width - p[1].width,
+        legend.height - i * theight * 1.5
       );
     });
 

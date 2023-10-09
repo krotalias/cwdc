@@ -65,6 +65,11 @@
 var canvas = document.getElementById("clock");
 
 /**
+ * @var {HTMLElement} legend HTML Canvas.
+ */
+let legend = document.getElementById("legend");
+
+/**
  * @var {CanvasRenderingContext2D} context Clock canvas context.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
  */
@@ -898,9 +903,9 @@ var runAnimation = (() => {
     });
 
     // Clear screen.
-    lctx.clearRect(0, 0, canvas.width, canvas.height);
+    lctx.clearRect(0, 0, legend.width, legend.height);
 
-    let theight = canvas.width / 45;
+    let theight = legend.width / 45;
     lctx.font = setFont(theight);
     lctx.fillStyle = white1;
 
@@ -920,8 +925,8 @@ var runAnimation = (() => {
     ].map((p, i) => {
       lctx.fillText(
         p[0],
-        canvas.width - p[1].width,
-        canvas.height - i * theight * 1.5
+        legend.width - p[1].width,
+        legend.height - i * theight * 1.5
       );
     });
 

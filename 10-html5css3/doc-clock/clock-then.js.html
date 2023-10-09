@@ -73,7 +73,7 @@
  * @author Paulo Roma Cavalcanti
  * @since 14/11/2020
  *
- * @see &lt;a href="/cwdc/10-html5css3/clock/11.5.html">Local Time&lt;/a>
+ * @see &lt;a href="/cwdc/10-html5css3/clock/11.5-then.html">Local Time&lt;/a>
  * @see &lt;a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton&lt;/a>
  * @see &lt;a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/New_York">New York&lt;/a>
  * @see &lt;a href="/cwdc/10-html5css3/clock/clock-then.js">source&lt;/a>
@@ -89,6 +89,11 @@
  * @var {HTMLElement} canvas HTML Canvas.
  */
 var canvas = document.getElementById("clock");
+
+/**
+ * @var {HTMLElement} legend HTML Canvas.
+ */
+let legend = document.getElementById("legend");
 
 /**
  * @var {CanvasRenderingContext2D} context Clock canvas context.
@@ -151,6 +156,11 @@ var center = [canvas.width / 2, canvas.height / 2];
  * Clock location UTC offset.
  */
 var cityOffset = null;
+
+/**
+ * Clock location UTC real offset.
+ */
+let realOffset = null;
 
 /**
  * Get the image scale.
@@ -445,6 +455,7 @@ function displayLocation(latitude, longitude, city, region) {
   });
 
   let [h, m, s] = longitude2UTC(longitude);
+  realOffset = h;
   console.log(`UTC: ${h}h, ${m}m and ${s}s`);
 }
 
@@ -930,15 +941,15 @@ var runAnimation = (() => {
     });
 
     // Clear screen.
-    lctx.clearRect(0, 0, canvas.width, canvas.height);
+    lctx.clearRect(0, 0, legend.width + 32, legend.height);
 
-    let theight = canvas.width / 45;
+    let theight = legend.width / 45;
     lctx.font = setFont(theight);
     lctx.fillStyle = white1;
 
     // Draw the legend: UTC, Region, City, Date.
     let date = `${day} / ${month} / ${year}`;
-    let utc = `UTC ${cityOffset}`;
+    let utc = `UTC ${cityOffset} (${realOffset})`;
     let [region, lcity] = tz2.split("/");
     let [tcity, tregion, tlen, tutc] = [lcity, region, date, utc].map((p) =>
       lctx.measureText(p)
@@ -952,8 +963,8 @@ var runAnimation = (() => {
     ].map((p, i) => {
       lctx.fillText(
         p[0],
-        canvas.width - p[1].width,
-        canvas.height - i * theight * 1.5
+        legend.width - p[1].width,
+        legend.height - i * theight * 1.5
       );
     });
 
@@ -981,13 +992,13 @@ window.addEventListener("load", (event) => runAnimation());
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li><li><a href="global.html#event:mouseenter-executedonlyoncewhenthecursormovesoverthecanvas.">mouseenter - executed only once when the cursor moves over the canvas.</a></li><li><a href="global.html#event:mouseleave-executedonlyoncewhenthecursorleavesthecanvas.">mouseleave - executed only once when the cursor leaves the canvas.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li><li><a href="global.html#event:mouseenter-executedonlyoncewhenthecursormovesoverthecanvas.">mouseenter - executed only once when the cursor moves over the canvas.</a></li><li><a href="global.html#event:mouseleave-executedonlyoncewhenthecursorleavesthecanvas.">mouseleave - executed only once when the cursor leaves the canvas.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#realOffset">realOffset</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Oct 08 2023 17:52:08 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 09 2023 05:46:05 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
