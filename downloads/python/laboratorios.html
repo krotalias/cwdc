@@ -1,0 +1,2099 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt" lang="pt">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LCG - Curso de Python</title>
+        <link rel="stylesheet" type="text/css" href="laboratorios.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="laboratorios.js"></script>
+    </head>
+
+    <body>
+        <button onclick="topFunction()" id="topBtn" title="Go to top">
+            Top
+        </button>
+
+        <div style="text-align: center">
+            <h2>Curso de <a href="http://www.python.org">Python</a></h2>
+            <button class="roundButton" onclick="toggleList('.extra')">
+                Show Extras
+            </button>
+        </div>
+
+        <!--=========================================================================-->
+        <a name="PythonI"></a>
+        <hr />
+        <h3>Laboratórios</h3>
+
+        <div class="extra">
+            <p>
+                Para aqueles que foram apresentados ao Reeborg, faça-o resolver
+                os problemas propostos nesta <a href="Reeborg.pdf">lista</a>.
+            </p>
+
+            <ol type="a">
+                <li><a href="funcoes01.txt">Exercícios</a> com funções.</li>
+                <li><a href="funcoes02.txt">Exercícios</a> com funções.</li>
+                <li><a href="funcoes04.txt">Exercícios</a> com ifs.</li>
+                <li><a href="funcoes05.txt">Exercícios</a> com 1 loop.</li>
+                <li><a href="funcoes06.txt">Exercícios</a> com 2 loops.</li>
+                <li>
+                    <a href="../roma/cg/python/idle/doc/html">Exercícios</a>
+                    Turtle Graphics.
+                </li>
+            </ol>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://rur-ple.sourceforge.net/en/rur.htm">
+                        RUR-PLE
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+        </div>
+
+        <p class="shouldDo">
+            1a) Escreva um programa que liste os primeiros "n" elementos da
+            sequência de Fibonacci.
+        </p>
+
+        <b>Exemplo:</b> para n = 9: 0 1 1 2 3 5 8 13 21 ...
+        <h5>Links úteis:</h5>
+
+        <ul>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/Fibonacci_number">
+                    Wikipedia
+                </a>
+            </li>
+            <li><a href="videos/fibo.mp4">Animação</a></li>
+        </ul>
+
+        <div class="extra">
+            <p>
+                1b) Escreva um programa para resolver equações do segundo grau.
+            </p>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://en.wikipedia.org/wiki/Quadratic_equation">
+                        Wikipedia
+                    </a>
+                </li>
+            </ul>
+
+            <p>
+                1c) Escreva um programa para converter strings com dígitos
+                decimais para inteiros. <br />
+                Em C, esta poderia ser a implementação da função
+                <a href="http://www.cplusplus.com/reference/cstdlib/atoi/">
+                    atoi </a
+                >("1234") &#8594; 1234 e em Python int("1234") &#8594; 1234.
+            </p>
+
+            <p>
+                1d) Execute o programa abaixo para imprimir a tabela
+                <a href="../../cwdc/11-python/12.4.py?344+PAULO%20ROMA">
+                    ASCII
+                </a>
+                no intervalo [32,126]:
+            </p>
+
+            <pre>
+    ----------------------------------------------------------------------  # python
+    for i in range(32, 127, 16):
+        for c in range(i, i+16):
+            print(f"{c:3} = {chr(c):&lt;4}", end="")
+        print()
+
+    ----------------------------------------------------------------------  // C
+    for ( int x = 32; x &lt; 127; ++x )
+        printf ("%d = %c\n", x, (char) x);                                
+
+    ----------------------------------------------------------------------  // Java
+    for ( int x = 32; x &lt; 127; ++x )
+        System.out.println (String.format("%03d = %c ", x, (char) x));
+
+    ----------------------------------------------------------------------  // Javascript 
+    for ( let i = 32; i &lt; 127; i += 8 ) {
+       var row = "";
+       for ( let c = i; c &lt; i+8; ++c ) {
+          row = row.concat(`${c.toString().padEnd(3," ")} = ${String.fromCharCode(c).padEnd(4," ")} `);
+       }
+       console.log ( `${row}` );   
+    }
+            </pre>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://pt.wikipedia.org/wiki/ASCII">
+                        Tabela ASCII
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3/Revenge_of_the_Strings"
+                    >
+                        Vingança das Strings
+                    </a>
+                </li>
+            </ul>
+
+            <p>
+                1d) Escreva um programa para converter inteiros ou reais (ponto
+                flutuante) para strings binárias ou hexadecimais e vice-versa.
+            </p>
+
+            <p>
+                <b>Exemplos: </b>
+            </p>
+            <pre>
+    2009 = 11111011001 em binário e 2009 = 7D9 em hexadecimal.
+    -9.125 = -1001.001 = -1.001001 &times; 2<sup>3</sup> em binário = 1 10000010 00100100000000000000000 em ponto flutuante 
+
+        1 bit de sinal = negativo = 1
+        8 bits de expoente [-127,127] mapeado em [0,255) = 127+3 = 130 = 10000010
+        23 bits de mantissa = 001001 = 00100100000000000000000
+        um número desnormalizado (expoente 0) é, por definição, da forma 0.MANTISSA * 2<sup>-126</sup>
+
+    -9.125 = C1120000 em hexadecimal.
+            </pre>
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a
+                        href="http://en.wikipedia.org/wiki/Binary_numeral_system"
+                    >
+                        Wikipedia
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.mathsisfun.com/binary-decimal-hexadecimal-converter.html"
+                    >
+                        Binary to Decimal to Hexadecimal Converter
+                    </a>
+                </li>
+                <li><a href="http://baseconvert.com/">Base Converter</a></li>
+                <li>
+                    <a href="http://www.h-schmidt.net/FloatConverter/">
+                        IEEE 754 Converter
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.cs.duke.edu/~raw/cps104/TWFNotes/floating.html#dec2hex"
+                    >
+                        Floating Point
+                    </a>
+                </li>
+            </ul>
+
+            1e) Escreva um programa para multiplicar dois inteiros positivos
+            usando apenas adição e deslocamento (multiplicação por 2).
+
+            <p><b>Dica:</b> pense em binário:</p>
+
+            <pre>
+        1011 X         11
+        1101           13
+        ----     --------
+        1011 +   1*1*1011  1011 &lt;&lt; 0
+       00000     0*2*1011  0000 &lt;&lt; 1
+      101100     1*4*1011  1011 &lt;&lt; 2
+     1011000     1*8*1011  1011 &lt;&lt; 3
+     -------     --------
+    10001111          143
+            </pre>
+
+            <hr />
+            <p>
+                2a) Escreva uma função para somar os primeiros "n" elementos de
+                uma progressão aritmética, <br />
+                dados o primeiro elemento "a1" e a diferença "d" entre os
+                elementos.
+            </p>
+
+            <p><b>Exemplo:</b> 1 + 4 + 7 + 10 + 13 + 16 + 19 = 70</p>
+
+            <p>
+                <b>Dica</b>: S<sub>(n,a<sub>1</sub>,d)</sub> = n &frasl; 2
+                (2a<sub>1</sub> + (n-1)d).
+            </p>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://en.wikipedia.org/wiki/Arithmetic_series">
+                        Wikipedia
+                    </a>
+                </li>
+            </ul>
+
+            <p>
+                2b) Escreva uma função para somar os primeiros "n" elementos de
+                uma progressão geométrica, <br />
+                dados o primeiro elemento "a" e a razão "r" entre os elementos.
+            </p>
+
+            <p><b>Exemplo:</b> 1 + 3 + 9 + 27 + 81 + 243 + 729 = 1093</p>
+
+            <h4>Dica:</h4>
+            <dl>
+                <dd>
+                    S<sub>(n,a,r)</sub> = a(1 - r<sup>n</sup>) &frasl; (1-r).
+                </dd>
+                <br />
+                <dd>
+                    Se <b>|r| &lt; 1</b>, então &sum;<sub>i=0</sub
+                    ><sup style="position: relative; left: -1.3em">&infin;</sup
+                    >a<sub>i</sub> = a &frasl; (1-r).
+                </dd>
+            </dl>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a
+                        href="http://en.wikipedia.org/wiki/Geometric_progression"
+                    >
+                        Wikipedia
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <p class="shouldDo" id="roman">
+            2c) Escreva um programa para converter números inteiros, menores do
+            que 4000 e escritos em algarismos arábicos, para romanos.
+        </p>
+
+        <b>Obs:</b> evite escrever mais do que <b>nove</b> "if"s.
+
+        <h4>Dicas:</h4>
+
+        <dl>
+            <dd>
+                - A ideia é usar um comando while para analisar cada casa
+                decimal <br />
+                e gerar os caracteres romanos diferentemente para cada iteração.
+            </dd>
+            <br />
+            <dd>
+                - Use uma string para armazenar as letras correspondentes a cada
+                casa decimal.
+            </dd>
+        </dl>
+
+        <b>Exemplo:</b> 1666 corresponde a string "MDCLXVI", onde:
+        <ul>
+            <li>as letras nas posições 5 e 6 correspondem às unidades (VI),</li>
+            <li>as letras nas posições 3 e 4 correspondem às dezenas (LX),</li>
+            <li>as letras nas posições 1 e 2 correspondem às centenas (DC),</li>
+            <li>a letra na posição 0 corresponde aos milhares (M).</li>
+        </ul>
+
+        <h5>Links úteis:</h5>
+        <ul>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/Roman_numerals">
+                    Algarismos Romanos
+                </a>
+            </li>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/Arabic_numerals">
+                    Algarismos Arábicos
+                </a>
+            </li>
+            <li><a href="http://www.romannumerals.org">Roman Numerals</a></li>
+        </ul>
+
+        <div class="extra">
+            2d) Escreva uma função que dados:
+            <ol type="I">
+                <li>o capital inicial "c",</li>
+                <li>a taxa de juros "t" e</li>
+                <li>o número de períodos "n",</li>
+            </ol>
+
+            retorne o valor da dívida corrigida, ao final de um certo número de
+            períodos, <br />
+            utilizando juros compostos e juros continuamente compostos.
+
+            <p>
+                <b>Exemplo:</b> c+ct = c(1+t), c(1+t)+c(1+t)t =
+                c(1+t)<sup>2</sup>, c(1+t)<sup>2</sup>+c(1+t)<sup>2</sup>t =
+                c(1+t)<sup>3</sup>,...
+            </p>
+
+            <dl>
+                <dt><b>Dicas</b>:</dt>
+                <dt></dt>
+                <dd>
+                    - Juros compostos: J<sub>(n,c,t)</sub> = c(1 +
+                    t)<sup>n</sup>.
+                </dd>
+                <dd>
+                    - Juros continuamente compostos: J<sub>(n,c,r)</sub> =
+                    ce<sup>rn</sup>.
+                </dd>
+            </dl>
+
+            <p>
+                <b>Nota</b>: t = e<sup>r</sup>-1 ou r = ln(1+t), onde r é taxa
+                de juros continuamente composta.
+            </p>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://en.wikipedia.org/wiki/Compound_interest">
+                        Wikipedia
+                    </a>
+                </li>
+            </ul>
+
+            <p>2e) Escreva uma função que dados:</p>
+
+            <ol>
+                <li>o capital inicial "c",</li>
+                <li>o número de períodos "n", e</li>
+                <li>o capital final f,</li>
+            </ol>
+
+            retorne o valor dos juros aplicados.
+
+            <dl>
+                <dt><b>Dicas</b>:</dt>
+                <dd>
+                    - Juros compostos: ln(f &frasl; c) &frasl; n = ln(1 + t) ou
+                    t = e<sup>ln(f &frasl; c) &frasl; n</sup> - 1 = (f &frasl;
+                    c) <sup>1 &frasl; n</sup> - 1.
+                </dd>
+                <dd>
+                    - Juros continuamente compostos: r = ln(f &frasl; c) &frasl;
+                    n.
+                </dd>
+            </dl>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://pt.wikipedia.org/wiki/Juro">Wikipedia</a>
+                </li>
+            </ul>
+
+            2f) Suponha que:
+
+            <ol>
+                <li>
+                    o preço de uma mercadoria a prazo é "x" reais e que o preço
+                    à vista é "y" reais.
+                </li>
+                <li>
+                    o valor é pago em "p" prestações mensais iguais a R = (x/p)
+                    reais, com uma de entrada (1+(p-1))
+                </li>
+                <li>
+                    que o mercado esteja adotando uma remuneração bancária fixa
+                    de "t"% ao mês (taxa).
+                </li>
+            </ol>
+
+            <p>
+                Faça um programa para determinar se vale a pena comprar a prazo
+                ou não, <br />
+                ou seja, descobrir o quanto o comerciante ou a financeira estão
+                cobrando a mais.
+            </p>
+
+            <p>
+                A fórmula para atualizar o preço no instante da compra, levando
+                em conta a remuneração aplicada a cada prestação, é:
+            </p>
+
+            <pre>
+    x<sub>atualizado</sub> = A = (x&frasl;p) * [(1+t)<sup>p</sup>-1] &frasl; [t(1+t)<sup>(p-1)</sup>] = x * (1+t) &frasl; (p * CF)
+    R = (x&frasl;p) = A * CF &frasl; (1+t), ou, se não houver entrada, simplesmente: R = A * <mark>CF(p,t)</mark>. 
+            </pre>
+
+            <p>O seu programa deve aceitar três opções:</p>
+
+            <ul>
+                <li>
+                    Opção 1: Imprimir o preço atualizado e o percentual ((A-y)
+                    &frasl; A*100) pago a mais, ou seja, o custo real do
+                    financiamento.
+                    <ul>
+                        <li>
+                            Em geral, a taxa t é muito maior do que a taxa da
+                            poupança, <br />
+                            mas às vezes vale mais a pena aplicar o dinheiro no
+                            mercado financeiro e pagar à vista mais tarde.
+                        </li>
+                        <li>
+                            Se o preço à vista oferecido for maior do que o
+                            preço corrigido, vale mais a pena comprar a prazo,
+                            nesse caso.
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    Opção 2: Classificar a adequação do parcelamento da seguinte
+                    forma.
+                    <ul>
+                        <li>
+                            Se o percentual pago a mais estiver entre 0 e 1%,
+                            imprima VALOR ACEITÁVEL.
+                        </li>
+                        <li>Se estiver entre 3 e 5%, imprima ESTÁ CARO.</li>
+                        <li>
+                            Se estiver acima de 5%, imprima VOCÊ ESTÁ SENDO
+                            ROUBADO.
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    Opção 3: Imprimir qual deveria ser o preço total a prazo (ou
+                    seja, que iguala o preço à vista, quando atualizado)
+                    <br />para ninguém sair ganhando
+                    <ul>
+                        e o fator (f) a ser aplicado (caso você quisesse levar
+                        para as lojas por exemplo, para ter uma base de
+                        comparação).
+                    </ul>
+                </li>
+            </ul>
+
+            <p>
+                <b>Dica:</b> Este programa implementa o que o mercado financeiro
+                chama de
+            </p>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/matfin.png">
+                    <img src="figuras/matfin.png" width="333" />
+                </a>
+                <h3>
+                    <figcaption>
+                        <i>
+                            <a href="ADs/AD1_2021-2.pdf">
+                                Desconto Racional por Dentro.
+                            </a>
+                        </i>
+                    </figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/na.ponta.do.lapis.jpg">
+                    <img src="figuras/na.ponta.do.lapis.jpg" height="333" />
+                </a>
+                <h3>
+                    <figcaption><i>Na Ponta do Lápis.</i></figcaption>
+                </h3>
+            </figure>
+
+            <div style="clear: both"></div>
+
+            <pre>
+    O preço atualizado A, voltando cada parcela para o tempo inicial <b>0</b>, 
+    é a soma de uma P.G. de razão q = 1&frasl;(1+t) e cujo primeiro termo é q:
+
+               A = R[(1+t)<sup>-1</sup>+(1+t)<sup>-2</sup>+...+(1+t)<sup>-n</sup>]
+                     
+               A = R q(1-q<sup>n</sup>)&frasl;(1-q), onde R = x&frasl;p é o valor de cada parcela.
+
+    Como, neste exercício, a primeira parcela é paga no ato da compra,
+    na realidade, n = p-1 e deve-se somar x&frasl;p (a entrada):
+
+               A = (x&frasl;p) (<b>1 + q(1-q<sup>(p-1)</sup>)&frasl;(1-q)</b>).
+
+    Fazendo-se as substituições necessárias, chega-se a fórmula
+    usada no programa:
+
+               q(1 - 1&frasl;(1+t)<sup>(p-1)</sup>) &frasl; (1-1&frasl;(1+t)) = q((1+t)<sup>(p-1)</sup> - 1)⁄(1+t)<sup>(p-1)</sup> &frasl; (t⁄(1+t)) = 
+               (1&frasl;(1+t)) ((1+t)<sup>(p-1)</sup> - 1) (1+t) &frasl; t(1+t)<sup>(p-1)</sup> = <b>((1+t)<sup>(p-1)</sup> - 1) &frasl; t(1+t)<sup>(p-1)</sup></b>
+
+               1 + ((1+t)<sup>(p-1)</sup> - 1) &frasl; t(1+t)<sup>(p-1)</sup> = (t(1+t)<sup>(p-1)</sup> + (1+t)<sup>(p-1)</sup> - 1) &frasl; t(1+t)<sup>(p-1)</sup>
+               ((t+1)(1+t)<sup>(p-1)</sup> - 1) &frasl; t(1+t)<sup>(p-1)</sup> = <b>((1+t)<sup>p</sup> - 1) &frasl; t(1+t)<sup>(p-1)</sup></b> =
+
+               R (1+t)(1 - (1+t)<sup>-p</sup>) &frasl; t = R (1+t) &frasl; CF
+
+               onde <mark>CF(p,t)</mark> é o coeficiente de financiamento: t &frasl; (1 - (1+t)<sup>-p</sup>)
+            </pre>
+
+            <p>
+                A função CF pode ser usada para descobrir o valor das prestações
+                (fixas), no sistema de amortização francês (CDC no Brasil),
+                <br />
+                dados o valor do empréstimo, o número desejado de parcelas e a
+                taxa de juros:
+            </p>
+
+            <pre>
+        R = valor * CF(p,t) (divida por (1+t) se houve entrada com (p-1) parcelas).
+            </pre>
+
+            <b>Nota:</b>
+            Achar a taxa "t" que produz o preço à vista "y" requer o método de
+            Newton:
+            <pre>
+              <b> x<sub>n+1</sub> = x<sub>n</sub> - f(x<sub>n</sub>)&frasl;f'(x<sub>n</sub>) </b>
+
+        com entrada:
+        y     = (x&frasl;p) (c-1) / tb,         onde a = (1+t)<sup>(p-2)</sup>, b = (1+t)<sup>(p-1)</sup>, c = (1+t)<sup>p</sup>
+        f(t)  = ytb - (x&frasl;p) (c-1)         o problema é equivalente a encontrar um zero da função f
+        f'(t) = y (b + t (p-1) a) - xb    derivando f
+
+        sem entrada:
+        y     = (x&frasl;p) (1-a) / t,         onde a = (1+t)<sup>(-p)</sup>, b = (1+t)<sup>(-p-1)</sup>
+        f(t)  = yt - (x&frasl;p) (1-a)         o problema é equivalente a encontrar um zero da função f
+        f'(t) = y - xb                   derivando f
+
+               <b>t<sub>n+1</sub> = t<sub>n</sub> - f(t)&frasl;f'(t)</b>, t<sub>o</sub> = x&frasl;y
+            </pre>
+
+            <p>
+                A função é decrescente e converge para t quando n&rarr;&infin;
+            </p>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/brastemp.png">
+                    <img src="figuras/brastemp.png" width="384" />
+                </a>
+                <h3>
+                    <figcaption><i>Lavadora Brastemp.</i></figcaption>
+                </h3>
+            </figure>
+
+            <div style="clear: both"></div>
+
+            <p>
+                Exemplo: preço à vista = $1889.10, e a prazo = $2099.00, quando
+                parcelado em 12 vezes sem juros.<br />
+                Nesse caso, o juros real é de 1.66% ao mês (contra 0.12% da
+                poupança), e não zero, como sugerido. <br />
+                Por outro lado, o desconto à vista é realmente de 10% em um ano
+                (contra 1.40% da poupança).
+            </p>
+            <pre>
+        Usage ./_02f_rational.py -n [nº parcelas] -t [taxa] -x [valor a prazo] -y [valor à vista] -e [entrada] -v [modo verboso]
+
+        _02f_rational.py -n12 -t0 -x2099 -y1889.10
+        Taxa = 1.6594 % - 7 iterações
+
+        O preço à vista é igual ao preço total corrigido.
+        Taxa Real = 1.6594%, Iterações = 7, Fator = 0.9000
+        Preço à vista + juros de 1.66% ao mês = $2099.00
+        Preço a prazo - juros de 1.66% ao mês = $1889.10
+        Juros Embutidos = ($2099.00 - $1889.10) / $1889.10 * 100 = 11.11%
+        Desconto = ($2099.00 - $1889.10) / $2099.00 * 100 = 10.00%
+        Excesso = $1889.10 - $1889.10 = $-0.00
+        Excesso = ($2099.00 - $2099.00) * 0.9000 = $-0.00
+        Percentual pago a mais = -0.00%
+
+        Coeficiente de Financiamento: 0.092593
+        Prestação: $174.92
+            </pre>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a
+                        href="https://www.todamateria.com.br/progressao-geometrica/"
+                    >
+                        Progressão Geométrica
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.gecompany.com.br/categoria/educacional/matematica-financeira/"
+                    >
+                        Curso de Matemática Financeira
+                    </a>
+                </li>
+                <li>
+                    <a href="https://pt.wikipedia.org/wiki/Tabela_Price">
+                        Tabela Price
+                    </a>
+                </li>
+                <li>
+                    <a href="html/cdc.html">Crédito Direto ao Consumidor</a>
+                </li>
+                <li>
+                    <a href="ADs/AD1_2021-2.pdf">
+                        Avaliação à Distância do Cederj 1
+                    </a>
+                </li>
+                <li>
+                    <a href="ADs/AD2_2021-2.pdf">
+                        Avaliação à Distância do Cederj 2
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+        </div>
+
+        <p class="shouldDo">
+            3a) Escreva um programa para converter números escritos em
+            algarismos romanos para arábicos.
+        </p>
+
+        <b>Obs:</b> não esqueça de tratar os símbolos entre parêntesis, que
+        devem ser multiplicados por 1000.
+
+        <p>
+            <b>Exemplos:</b>
+        </p>
+
+        CMXLVIII = -100 + 1000 - 10 + 50 + 5 + 1 + 1 + 1 = 948.<br />
+        (DXXXIV)CMXLVIII = (534)*1000 + 948 = 534948.
+
+        <h4>Dicas:</h4>
+
+        <p>
+            - Quando o próximo caracter romano corresponder a um decimal
+            maior/menor (dependendo do sentido de percurso), <br />
+            o valor decimal deve ser subtraído ao invés de ser adicionado.
+        </p>
+
+        <p>
+            - Use uma lista ou um dicionário, para mapear os caracteres romanos
+            em decimais.
+        </p>
+
+        - A lista deve ter pelo menos 90 posições para não haver problema de
+        indexação, pois ord("X") = 88,<br />
+
+        <pre>
+    l = [0]*ord('Z')
+    l[ord("M")] = 1000
+    l[ord("D")] = 500
+    l[ord("C")] = 100
+    l[ord("L")] = 50
+    l[ord("X")] = 10
+    l[ord("V")] = 5
+    l[ord("I")] = 1
+        </pre>
+
+        - O dicionário é mais simples: <br />
+
+        <pre>
+    l = {"M":1000, 
+        "D":500, 
+        "C":100, 
+        "L":50, 
+        "X":10, 
+        "V":5, 
+        "I":1}
+        </pre>
+
+        <p class="shouldDo">
+            3b) Repita o exercício <a href="#roman">2c</a> mas agora usando duas
+            listas para mapear os dígitos decimais em símbolos romanos:
+        </p>
+
+        <pre>
+    symbols  = ["M",  "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"] 
+    decimals = [1000,  900, 500,  400, 100,   90,  50,   40,  10,    9,   5,    4,   1]
+        </pre>
+
+        <p class="shouldDo">
+            3c) Repita o exercício <a href="#roman">2c</a> mas agora usando uma
+            tabela para mapear os dígitos decimais em símbolos romanos:
+        </p>
+
+        <pre>
+    symbols = [
+        ["",  "I",   "II",   "III",   "IV",   "V",   "VI",   "VII",   "VIII",   "IX" ],  # units
+        ["",  "X",   "XX",   "XXX",   "XL",   "L",   "LX",   "LXX",   "LXXX",   "XC" ],  # tens
+        ["",  "C",   "CC",   "CCC",   "CD",   "D",   "DC",   "DCC",   "DCCC",   "CM" ],  # hundreds
+        ["",  "M",   "MM",   "MMM",  "(IV)", "(V)", "(VI)", "(VII)", "(VIII)", "(IX)"],  # thousands
+        ["", "(X)", "(XX)", "(XXX)", "(XL)", "(L)", "(LX)", "(LXX)", "(LXXX)", "(XC)"],  # ten thousands
+        ["", "(C)", "(CC)", "(CCC)", "(CD)", "(D)", "(DC)", "(DCC)", "(DCCC)", "(CM)"],  # hundred thousands
+        ["", "(M)", "(MM)", "(MMM)",     "",    "",     "",      "",       "",     ""]   # millions
+    ]
+        </pre>
+
+        <h5>Links úteis:</h5>
+
+        <ul>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/Roman_numerals">
+                    Wikipedia
+                </a>
+            </li>
+            <li>
+                <a href="http://www.romannumerals.org/converter">Converter</a>
+            </li>
+            <li>
+                <a href="/cwdc/3-javascript/roman.html">
+                    Decimal &harr; Roman
+                </a>
+            </li>
+        </ul>
+
+        <p class="shouldDo" id="pascal">
+            3d) Escreva um programa para imprimir o triângulo de Pascal entre
+            dois níveis dados.
+        </p>
+
+        <p>
+            O seu programa deve ser capaz de imprimir a expansão, em série de
+            potências, da expressão (x+y)<sup>n</sup>, para qualquer n.<br />
+            Por fim, implemente a função de distribuição cumulativa CDF, e em
+            particular a probabilidade de em n lançamentos <br />
+            de uma moeda, obterem-se no máximo n/3 coroas.
+        </p>
+
+        <h4>Dicas:</h4>
+
+        <p>
+            - O número de espaços em branco no início de cada linha é
+            (last_level-len(row)+2).
+        </p>
+
+        <pre>
+    0 ------ 1          ← first_level (0)                               C(0,0)
+    1 ----- 1 1                                                     C(1,0)  C(1,1)
+    2 ---- 1 2 1        ← level (2) = len(row) - 1              C(2,0)  C(2,1)  C(2,2)
+    3 --- 1 3 3 1                                            C(3,0)  C(3,1)  C(3,2)  C(3,3)
+<span style="color:red">    4 -- 1 4 6 4 1                                        C(4,0)  C(4,1)  C(4,2)  C(4,3)  C(4,4) </span>
+    5 - 1 5 10 10 5 1   ← last_level (5)             C(5,0)  C(5,1)  C(5,2)  C(5,3)  C(5,4)  C(5,5)
+        </pre>
+
+        Uma forma melhor, de centrar o triângulo, é calculando o comprimento da
+        <mark>última linha</mark> e usando o método <b>center</b> da classe
+        string:
+        <pre>
+   # transforma uma lista de inteiros numa string e calcula número de caracteres
+   lenmax = len(' '.join(map(str,last_line)))
+   
+   for line in pascal_triangle:
+       print (' '.join(map(str,line)).<b>center</b>(lenmax))
+
+                                                          1                                                          
+                                                         1 1                                                         
+                                                        1 2 1                                                        
+                                                       1 3 3 1                                                       
+                                                     <span style="color:red"> 1 4 6 4 1 </span>
+                                                    1 5 10 10 5 1                                                    
+                                                   1 6 15 20 15 6 1                                                  
+                                                 1 7 21 35 35 21 7 1                                                 
+                                                1 8 28 56 70 56 28 8 1                                               
+                                             1 9 36 84 126 126 84 36 9 1                                             
+                                         1 10 45 120 210 252 210 120 45 10 1                                         
+                                       1 11 55 165 330 462 462 330 165 55 11 1                                       
+                                     1 12 66 220 495 792 924 792 495 220 66 12 1                                     
+                                 1 13 78 286 715 1287 1716 1716 1287 715 286 78 13 1                                 
+                              1 14 91 364 1001 2002 3003 3432 3003 2002 1001 364 91 14 1                             
+                          1 15 105 455 1365 3003 5005 6435 6435 5005 3003 1365 455 105 15 1                          
+                      1 16 120 560 1820 4368 8008 11440 12870 11440 8008 4368 1820 560 120 16 1                      
+                  1 17 136 680 2380 6188 12376 19448 24310 24310 19448 12376 6188 2380 680 136 17 1                  
+               1 18 153 816 3060 8568 18564 31824 43758 48620 43758 31824 18564 8568 3060 816 153 18 1               
+           1 19 171 969 3876 11628 27132 50388 75582 92378 92378 75582 50388 27132 11628 3876 969 171 19 1           
+    1 20 190 1140 4845 15504 38760 77520 125970 167960 184756 167960 125970 77520 38760 15504 4845 1140 190 20 1    
+<mark>1 21 210 1330 5985 20349 54264 116280 203490 293930 352716 352716 293930 203490 116280 54264 20349 5985 1330 210 21 1</mark>
+
+        </pre>
+
+        - É importante perceber a relação do triângulo de Pascal com o binômio
+        de Newton:
+
+        <pre>
+    (x+y)<sup>0</sup> = 1
+    (x+y)<sup>1</sup> = x + y
+    (x+y)<sup>2</sup> = x<sup>2</sup> + 2xy + y<sup>2</sup>
+    (x+y)<sup>3</sup> = x<sup>3</sup> + 3x<sup>2</sup>y + 3xy<sup>2</sup> + y<sup>3</sup>
+    <span style="color:red">(x+y)<sup>4</sup> = x<sup>4</sup> + 4x<sup>3</sup>y + 6x<sup>2</sup>y<sup>2</sup> + 4xy<sup>3</sup> + y<sup>4</sup></span>
+    (x+y)<sup>5</sup> = x<sup>5</sup> + 5x<sup>4</sup>y + 10x<sup>3</sup>y<sup>2</sup> + 10x<sup>2</sup>y<sup>3</sup> + 5xy<sup>4</sup> + y<sup>5</sup>
+</pre>
+
+        Na área de probabilidade, uma distribuiçcão de <b>Bernoulli</b> é a
+        distribuição discreta de espaço amostral {0, 1}, que tem:
+        <ul>
+            <li>
+                valor 1, com probabilidade de sucesso <b>p</b> &isin; [0,1], e
+            </li>
+            <li>valor 0, com probabilidade de falha <b>q=1-p</b>.</li>
+        </ul>
+
+        <p>
+            - A probabilidade de em n experimentos de Bernoulli, consecutivos e
+            independentes, obterem-se <b>k</b> sucessos, em qualquer ordem, é
+            dada por:
+        </p>
+        <pre>
+    P(X=k) = C(n,k) p<sup>k</sup> q<sup>n-k</sup> = (n! &frasl; (k!(n-k)!)) p<sup>k</sup> q<sup>n-k</sup>.
+        </pre>
+        <p>
+            - Consequentemente, a <b>CDF</b>, que é a probabilidade de
+            obterem-se no máximo k sucessos, em n experimentos, é dada por:
+        </p>
+
+        <code>
+            <div class="expression" style="margin-left: 2.5em">
+                P(X≤k) = &sum;
+                <span class="supsub">
+                    <sup class="superscript">k</sup>
+                    <sub class="subscript">i=0</sub>
+                </span>
+                &nbsp;C(n,i) <span>p<sup>i</sup> q<sup>n-i</sup></span
+                >.
+            </div>
+        </code>
+
+        - Por exemplo, (p+q)<sup>4</sup> =
+        <pre>
+    <span style="color:red">1</span> p(0 sucessos) p(4 fracassos) +   (no máximo 0 sucessos)
+    <span style="color:red">4</span> p(1 sucesso)  p(3 fracassos) +   (no máximo 1 sucesso)
+    <span style="color:red">6</span> p(2 sucessos) p(2 fracassos) +   (no máximo 2 sucessos) 
+    <span style="color:red">4</span> p(3 sucessos) p(1 fracasso)  +   (no máximo 3 sucessos) 
+    <span style="color:red">1</span> p(4 sucessos) p(0 fracassos) = 1 (no máximo 4 sucessos)
+        </pre>
+
+        - Tabela da distribuição
+        <a
+            href="https://mat.iitm.ac.in/home/vetri/public_html/statistics/binomial.pdf"
+        >
+            binomial cumulativa.
+        </a>
+
+        <p>- O somatório dos termos da linha n é 2<sup>n</sup>.</p>
+
+        <p>- O somatório dos k primeiros termos da coluna n é:</p>
+
+        <pre>
+    C(n, n) + C(n+1, n) +... + C(n+k, n) = C(n+k+1, n+1).
+        </pre>
+
+        - Uma linha pode ser determinada conhecendo-se o conteúdo da linha
+        anterior:
+        <pre>
+   linha<sub>i</sub>[0] = linha<sub>i</sub>[i] = 1  
+   linha<sub>i</sub>[j] = linha<sub>i-1</sub>[j-1] + linha<sub>i-1</sub>[j], 1 &lt; j &lt; i.
+        </pre>
+
+        <p>
+            - Implemente uma função getNextRow ( curr_row ), que devolve a linha
+            que sucede "curr_row"
+        </p>
+
+        <p>
+            - Implemente uma função printRow ( last_level, r ), que imprime a
+            linha "r".
+        </p>
+
+        <pre>
+    row = [1]                                # Top of Pascal triangle
+    for l in range (0, last_level+1):
+        if l >= first_level:                 # l is now in the range [first_level, last_level]. 
+           <b>printRow</b> ( last_level, row )
+        row = <b>getNextRow</b> ( row )             # new row 
+        </pre>
+
+        <h4><a href="../cwdc/11-python/pascal.py?20">Dicas:</a></h4>
+
+        <pre>
+    >>> line=[1,3,3,1]
+    >>> [0] + line
+    [0, 1, 3, 3, 1]
+    >>> line + [0]
+    [1, 3, 3, 1, 0]
+    >>> list(zip([0] + line, line + [0]))
+    [(0, 1), (1, 3), (3, 3), (3, 1), (1, 0)]
+    >>> list(map(sum, zip([0] + line, line + [0])))
+    [1, 4, 6, 4, 1]
+        </pre>
+
+        <h5>Links úteis:</h5>
+
+        <ul>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/Pascal_triangle">
+                    Wikipedia
+                </a>
+            </li>
+            <li>
+                <a href="http://www.mathsisfun.com/pascals-triangle.html">
+                    Math is Fun
+                </a>
+            </li>
+            <li>
+                <a href="http://docs.python.org/library/functions.html#map">
+                    Map Function
+                </a>
+                (aplica uma função a cada item de uma sequência iterável)
+            </li>
+            <li>
+                <a
+                    href="https://docs.python.org/3.3/library/functions.html#zip"
+                >
+                    Zip Function
+                </a>
+                (intercala sequências iteráveis)
+            </li>
+            <li>
+                <a
+                    href="https://www.pythonlikeyoumeanit.com/Module2_EssentialsOfPython/Iterables.html"
+                >
+                    Iterable
+                </a>
+            </li>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/Binomial_theorem">
+                    Binomial Theorem
+                </a>
+            </li>
+            <li>
+                <a href="https://en.wikipedia.org/wiki/Binomial_distribution">
+                    Binomial Distribution
+                </a>
+            </li>
+            <li>
+                <a href="../cwdc/11-python/pascal2.py?0+20">HTML</a>
+                <a href="../cwdc/11-python/showcode.php?f=pascal2">
+                    (source)
+                </a>
+            </li>
+        </ul>
+
+        <p class="shouldDo" id="lambda">
+            3e) Escreva um programa para multiplicar duas matrizes.
+        </p>
+
+        <h4>Dicas:</h4>
+
+        <p>
+            - Use a função zip(*M) para percorrer as colunas de uma matriz "M" e
+            sum(L), para somar os elementos de uma lista "L".
+        </p>
+
+        - Use três "for" aninhados:
+        <ul>
+            <li>
+                o primeiro para percorrer as linhas "row" da primeira matriz;
+            </li>
+
+            <li>
+                o segundo para percorrer as colunas "col" da segunda matriz e
+            </li>
+            <li>
+                o terceiro para executar o produto escalar de uma linha por uma
+                coluna: &sum; (i*j), (i,j) &isin; zip(row,col).
+            </li>
+        </ul>
+
+        - Entenda porque o seguinte código funciona: <br />
+        <pre>
+    matMultiply = lambda m1, m2: <b>[[sum(i*j for i, j in zip(row, col)) for col in zip(*m2)] for row in m1]</b>
+        </pre>
+
+        <h5>Links úteis:</h5>
+
+        <ul>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/Matrix_multiplication">
+                    Wikipedia
+                </a>
+            </li>
+            <li>
+                <a href="https://matrix.reshish.com/multiplication.php">
+                    Online Matrix Multiplication
+                </a>
+            </li>
+            <li>
+                <a href="http://docs.python.org/library/functions.html#zip">
+                    zip function
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://codeyarns.com/2012/04/26/unpack-operator-in-python/"
+                >
+                    splat or unpack operator
+                </a>
+            </li>
+            <li>
+                <a
+                    href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions"
+                >
+                    List Comprehensions
+                </a>
+            </li>
+        </ul>
+
+        <div class="extra">
+            <p>3f) Escreva um programa para intercalar listas.</p>
+
+            <hr />
+        </div>
+
+        <p class="shouldDo" id="prime">
+            4a) Escreva um programa que dado um número natural "n" diga se ele é
+            primo ou composto.
+        </p>
+
+        <p>
+            <b>Obs:</b> o seu programa deve ser capaz de lidar com entradas
+            grandes.
+        </p>
+
+        <p><b>Exemplo:</b> 2<sup>61</sup>-1 é primo (2305843009213693951).</p>
+
+        <h4>Dicas:</h4>
+
+        <p>
+            Números primos são os números naturais que têm apenas dois divisores
+            diferentes: o 1 e ele mesmo.
+        </p>
+
+        <p>Por definição, 1 não é primo.</p>
+
+        <p>
+            Lema de Euclides: se um número primo p dividir o produto de dois
+            inteiros ab, então p divide a ou p divide b.
+        </p>
+
+        <pre>
+    Se p divide ab e MDC ( a, p ) = 1 então p divide b.
+        </pre>
+
+        <p>
+            No algoritmo de divisões sucessivas, só é necessário testar até
+            &radic;<span style="text-decoration: overline">&nbsp;n&nbsp;</span>.
+        </p>
+
+        <pre>
+    Se n = ab (a e b inteiros > 1), então apenas um fator pode ser maior do &radic;<span style="text-decoration:overline;">&nbsp;n&nbsp;</span>. 
+    Caso contrário, ab > n, o que é um absurdo. Logo, se um fator a é maior do que &radic;<span style="text-decoration:overline;">&nbsp;n&nbsp;</span>,
+    o seu cofator b = n/a deve ser menor do que &radic;<span style="text-decoration:overline;">&nbsp;n&nbsp;</span>.
+        </pre>
+
+        <p>
+            Teorema de Fermat: seja p um primo que não divide o inteiro a,
+            então: a<sup>p-1</sup> = 1 (mod p) ou a<sup>p-1</sup> % p = 1.
+        </p>
+
+        <b>Tempos:</b>
+
+        <p>
+            Assumindo que 2<sup>61</sup>-1 (2305843009213693951 =
+            1FFFFFFFFFFFFFFF em hexadecimal) é primo,
+            <br />
+            o algoritmo executa cerca de 2<sup>60</sup> divisões (dividindo só
+            pelos ímpares e não usando o limite de &radic;<span
+                style="text-decoration: overline"
+            >
+                &nbsp;n&nbsp;).
+            </span>
+        </p>
+
+        <p>
+            Esse número possui 61 bits e requer uma palavra de 64 bits para
+            poder ser armazenado como um inteiro simples.
+        </p>
+
+        <p>
+            Supondo que o computador pode executar 10<sup>9</sup> divisões por
+            seg (1 gigaflop), então os cálculos levarão aproximadamente 36 anos.
+        </p>
+
+        <pre>
+       2305843009213693951 / (2 * 10<sup>9</sup>/s * 31536000 s/ano) = 36.558901085 anos
+        </pre>
+
+        Usando o limite de &radic;<span style="text-decoration: overline">
+            &nbsp;n&nbsp;</span
+        >, isto cai para
+        <pre>
+       &radic;<span style="text-decoration:overline;">&nbsp;2305843009213693951&nbsp;</span> / (2 * 10<sup>9</sup>/s) = (1518500249) / (2*1000000000) = 0.759s
+        </pre>
+
+        <p>
+            Em um Intel Core(TM)2 Quad CPU Q6600 @ 2.40GHz (64 bits): <br />
+            - o programa escrito em Python gastou 100s.<br />
+            - o mesmo programa, escrito em C, gastou 17s. <br />
+        </p>
+
+        <p>
+            Em um Intel Core(TM) i7-3770 CPU @ 3.40GHz (64 bits): <br />
+            - o programa escrito em Python gastou 32.40s <br />
+            - o mesmo programa, escrito em C, gastou 6.21s. <br />
+        </p>
+
+        <p>Portanto, o programa C é quase 6 vezes mais rápido.</p>
+
+        <p>
+            Em um Intel Pentium 4 @ 2.60GHz (32 bits): <br />
+            - o mesmo programa em Pyhton gastou 1295.3035109s (21.5 min).
+        </p>
+
+        <h5>Links úteis:</h5>
+
+        <ul>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/FLOPS">Wikipedia</a>
+            </li>
+            <li>
+                <a href="http://www.somatematica.com.br/fundam/primos.php">
+                    Números primos
+                </a>
+            </li>
+            <li>
+                <a
+                    href="http://pt.wikipedia.org/wiki/Teorema_fundamental_da_aritm%C3%A9tica"
+                >
+                    Teorema Fundamental da Aritmética
+                </a>
+            </li>
+            <li>
+                <a
+                    href="http://www.mundovestibular.com.br/articles/465/1/NUMEROS-PRIMOS/Paacutegina1.html"
+                >
+                    Propriedades
+                </a>
+            </li>
+            <li>
+                <a href="http://primes.utm.edu/howmany.shtml">Quantos são?</a>
+            </li>
+            <li>
+                <a href="http://www.easycalculation.com/prime-number-chart.php">
+                    Tabela de primos
+                </a>
+            </li>
+            <li><a href="http://www.eff.org/awards/coop/">Prêmios</a></li>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/Prime95">Prime95</a>
+            </li>
+            <li>
+                <a
+                    href="https://primes.utm.edu/notes/proofs/FermatsLittleTheorem.html"
+                >
+                    The Prime Pages
+                </a>
+            </li>
+        </ul>
+
+        <div class="extra">
+            <p>
+                4b) Implemente uma função que retorne a raiz quadrada inteira de
+                um número natural "n" para ser usada no exercício 4a).
+            </p>
+
+            <h4>Dicas:</h4>
+
+            <dl>
+                <dt>- Aplique o método de Newton:</dt>
+                <br />
+                <dd>
+                    x<sub>n+1</sub> = x<sub>n</sub> -
+                    f(x<sub>n</sub>)/f'(x<sub>n</sub>)
+                </dd>
+                <br />
+                <dt>- Considere f(x) = x<sup>2</sup> − n = 0. Logo:</dt>
+                <br />
+                <dd>
+                    x<sub>k+1</sub> = 1/2 (x<sub>k</sub> + n/x<sub>k</sub>), k
+                    &ge; 0, x<sub>0</sub> > 0.
+                </dd>
+                <br />
+                <dt>- Faça x<sub>0</sub> = n, e pare a iteração quando:</dt>
+                <dd>| x<sub>k+1</sub> − x<sub>k</sub> | &lt; 1.</dd>
+            </dl>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://en.wikipedia.org/wiki/Integer_square_root">
+                        Wikipedia
+                    </a>
+                </li>
+                <li>
+                    <a href="http://en.wikipedia.org/wiki/Newton's_method">
+                        Método de Newton
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="https://www.interviewbit.com/courses/programming/topics/binary-search/"
+                    >
+                        Busca Binária
+                    </a>
+                </li>
+            </ul>
+
+            <p>
+                4c) Escreva um programa que leia um número e diga se ele é
+                perfeito.
+            </p>
+
+            <p>
+                <b>Obs:</b> um número perfeito é aquele que é igual a soma dos
+                seus divisores.
+            </p>
+
+            <b>Exemplo:</b> 28 = 14 + 7 + 4 + 2 + 1. <br />
+
+            <pre>
+   Euclides (300 AC) provou que sempre que n é primo E 2<sup>n</sup>-1 também é primo (chamado primo de Mersenne), 
+   então 2<sup>(n−1)</sup>(2<sup>n</sup>-1) é perfeito, e Euler (1707-1783) mostrou que todos os números perfeitos pares são da forma, 
+   2<sup>(n-1)</sup>(2<sup>n</sup>-1). Um número perfeito ímpar nunca foi encontrado. Foram descobertos, até hoje, apenas 51 primos de Mersenne.
+   
+   # A lista dos 51 primos "p" conhecidos para os quais M(p) = 2<sup>p</sup>-1 é um primo de Mersenne.
+   # Pode haver outros entre 43° e o 51° ainda não encontrados.
+   # M(2) = 3,     M(3) = 7,   M4   = 15,   M(5) = 31,   M6   = 63,   M(7)  = 127,
+   # M8   = 255,   M9   = 511, M10  = 1023, M11  = 2047, M12  = 4095, M(13) = 8191
+
+   mprimes = [
+             2,        3,       5,         7,       13,       17,       19,
+            31,       61,      89,       107,      127,      521,      607,
+          1279,     2203,     2281,     3217,     4253,     4423,     9689,
+          9941,    11213,    19937,    21701,    23209,    44497,    86243,
+        110503,   132049,   216091,   756839,   859433,  1257787,  1398269,
+       2976221,  3021377,  6972593, 13466917, 20996011, 24036583, 25964951, 
+      30402457, 32582657, 37156667, 42643801, 43112609, 57885161, 74207281, 
+      77232917, 82589933 ← gera um primo de 24.862.048 dígitos que corresponde a um n° perfeito de 49.724.095 dígitos.
+   ]  
+
+   Dickson: Introduction to The Theory of Numbers, página 5, ex. 8
+   E.g., 6 = 2 * 3, 28 = 4 * 7, 496 = 16 * 31, 8128 = 64 * 127
+
+   Números primos gigantes são importantes na criptografia (ex. 5d).
+   Há um prêmio de $150.000 dólares a primeira pessoa ou grupo que
+   descobrir um primo de 100 milhões de dígitos!
+            </pre>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a href="http://en.wikipedia.org/wiki/Perfect_number">
+                        Wikipedia
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mathworld.wolfram.com/PerfectNumber.html">
+                        Números Perfeitos
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://ia600506.us.archive.org/23/items/lecture12090/lecture12090_256kb.mp4"
+                    >
+                        Irving Kaplansky: Some Thoughts from Seven Decades
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.mersenne.org/">Primos de Mersenne</a>
+                </li>
+            </ul>
+        </div>
+
+        <p class="shouldDo" id="sieve">
+            4d) Escreva uma função que receba um número natural "n" e retorne
+            uma lista com todos os primos menores do que "n".
+        </p>
+
+        <p>
+            <b>Obs:</b> a sua função <mark>não</mark> pode usar as operações de
+            divisão (/) ou resto (%), mas apenas adição.
+        </p>
+
+        <h4>Dicas:</h4>
+
+        <dl>
+            <dt>Utilize o crivo de Eratóstenes (276-194 AC).</dt>
+            <br />
+            <dd>
+                - É suficiente eliminar os múltiplos de um número i ≤
+                &radic;<span style="text-decoration: overline">
+                    &nbsp;n&nbsp;</span
+                >, a partir de i<sup>2</sup>. <br />
+                De fato, i*(i-1), i*(i-2), ... i*2 já foram marcados no
+                processamento dos números <br />
+                menores do que i: 2*i, 3*i, ..., (i-1)*i
+            </dd>
+            <br />
+            <dd>
+                - Use uma lista L = list(range(n)) = [None, None, 2, 3, ...,
+                n-1], onde L[i] = i, para marcar os números compostos como None.
+                <br />
+                Ao final, basta retornar: list(filter(None,L))
+            </dd>
+            <br />
+            <dd>
+                - [lua:~/html/python/labs] _04d_sieve.py 144 <br />
+                Run time: 5.79357e-05s <br />
+                The list of primes lesser than 144 is: <br />
+                [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
+                61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127,
+                131, 137, 139]
+            </dd>
+        </dl>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/crivo.jpg">
+                <img src="figuras/crivo.jpg" width="310" height="274" />
+            </a>
+            <h3><figcaption>Crivo</figcaption></h3>
+        </figure>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/Crivo.png">
+                <img src="figuras/Crivo.png" width="280" height="274" />
+            </a>
+            <h3>
+                <figcaption><a href="videos/crivo.mp4">Animação</a></figcaption>
+            </h3>
+        </figure>
+
+        <div style="clear: both"></div>
+
+        <h5>Links úteis:</h5>
+
+        <ul>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">
+                    Wikipedia
+                </a>
+                <!-- <a href="http://www.projetozk.ufjf.br/base_p/ensaios/ensaio3/ant_crivo.htm">-->
+            </li>
+
+            <li><a href="videos/crivo.mp4">Animação</a></li>
+            <li><a href="../cwdc/3-javascript/crivo.html">HTML</a></li>
+            <li>
+                <a href="http://www.educ.fc.ul.pt/icm/icm2001/icm31/crivo.htm">
+                    Crivo de Eratóstenes
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://pt.khanacademy.org/computing/computer-science/cryptography/comp-number-theory/v/sieve-of-eratosthenes-prime-adventure-part-4"
+                >
+                    Khan academy
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://www.khanacademy.org/partner-content/big-history-project/solar-system-and-earth/knowing-solar-system-earth/a/eratosthenes-of-cyrene"
+                >
+                    Eratosthenes of Cyrene
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://cp-algorithms.com/algebra/prime-sieve-linear.html"
+                >
+                    Linear Sieve
+                </a>
+            </li>
+        </ul>
+
+        <div class="extra">
+            <p>
+                4e) Ordene uma lista com 20 elementos, gerados de forma
+                aleatória, pelo método da <i>bolha</i>.
+            </p>
+
+            <p>
+                A ordenação por bolha (<i>bubble sort</i>) é um algoritmo
+                simples de ordenação que funciona iterando sobre a lista a ser
+                ordenada, <br />
+                comparando cada par de elementos adjacentes e trocando as suas
+                posições se estiverem na ordem errada.
+            </p>
+
+            <p>
+                - Varreduras sucessivas da lista são executadas, até que nenhuma
+                troca seja necessária, o que indica que a lista está ordenada.
+            </p>
+
+            <p>
+                - O nome do algoritmo advém do modo como os elementos maiores
+                “borbulham” para o final da lista.
+            </p>
+
+            <b>Algoritmo</b>
+            <pre>
+    1) Itere sobre todos os elementos da lista, começando com os 2 primeiros elementos.
+    2) Se o elemento à esquerda for maior do que o elemento à direita, troque as posições.
+    3) Repita os passos #1 e #2 até não haver mais trocas.
+            </pre>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://pt.wikipedia.org/wiki/Bubble_sort">
+                        Wikipedia
+                    </a>
+                </li>
+                <li><a href="videos/bubble_sort.mp4">Animação</a></li>
+                <li>
+                    <a href="http://docs.python.org/library/random.html">
+                        Random
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <hr />
+        <p class="shouldDo" id="gcd">
+            5a) Escreva uma função para encontrar o máximo divisor comum e o
+            mínimo múltiplo comum de dois inteiros positivos n<sub>1</sub> e
+            n<sub>2</sub>.
+        </p>
+
+        <p><b>Exemplo:</b> MDC (35, 1134) = 7 e MMC (35, 1134) = 5670.</p>
+
+        <h4>Dicas:</h4>
+
+        <p>
+            - O mínimo múltiplo comum é o menor natural que é divisível por
+            n<sub>1</sub> e n<sub>2</sub>.
+        </p>
+
+        <p>
+            - O máximo divisor comum de dois números n<sub>1</sub> e n<sub
+                >2</sub
+            >
+            é o produto dos seus fatores primos comuns.
+        </p>
+
+        <p>- O mesmo fator pode ser usado várias vezes. Por exemplo,</p>
+
+        <pre>
+       1386             = 2 × 3 × 3 × 7 × 11
+       3213             = 3 × 3 × 3 × 7 × 17
+       MDC (1386, 3213) =     3 × 3 × 7 = 63
+        </pre>
+
+        <p>- Se dois números não possuem fatores comuns, o MDC é 1</p>
+
+        <p>- Se a é divisível por b então MDC (a, b) = b</p>
+
+        <p>
+            - Se a = bt + r, para dois inteiros positivos t (quociente) e r
+            (resto), então MDC (a, b) = MDC (b, r).
+        </p>
+
+        <pre>
+       De fato, todo divisor comum de a e b também divide r. Logo, MDC (a, b) divide r.
+       Como MDC (a,b) divide b, temos que MDC (a, b) ≤ MDC (b, r).
+       Como todo divisor de b e r também divide a, temos que MDC (b, r) ≤ MDC (a, b).
+       Logo, MDC (a, b) = MDC (b, r). 
+
+       Portanto, como b &lt; a e r &lt; b, fazendo a = b e b = r = a % b,
+       e repetindo este processo enquanto b != 0, irá encontrar o MDC rapidamente:
+
+       def MDC (a,b):  # Euclid's algorithm
+           while b:
+               (a,b) = (b,a%b)
+           return a
+        </pre>
+
+        <p>
+            - O MDC entre três ou mais números é igual ao produto dos fatores
+            primos comuns de todos os números:
+        </p>
+
+        <pre>
+       MDC(a, b, c) = MDC(a, MDC(b, c)) = MDC(MDC(a, b), c) = MDC(MDC(a, c), b)
+        </pre>
+
+        <p>
+            - MMC (n<sub>1</sub>,n<sub>2</sub>) * MDC
+            (n<sub>1</sub>,n<sub>2</sub>) = n<sub>1</sub> * n<sub>2</sub>.
+        </p>
+
+        <h5>Links úteis:</h5>
+
+        <ul>
+            <li>
+                <a href="http://www.cut-the-knot.org/blue/Euclid.shtml">
+                    Cut the Knot
+                </a>
+            </li>
+            <li>
+                <a href="http://en.wikipedia.org/wiki/Euclidean_algorithm">
+                    Wikipedia
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm"
+                >
+                    Khanacademy
+                </a>
+            </li>
+        </ul>
+
+        <p class="shouldDo">
+            5b) Escreva um programa para validar CPFs ou CNPJs.
+        </p>
+
+        <h5>Links úteis:</h5>
+
+        <ul>
+            <li><a href="http://www.geradorcpf.com/">Gerador de CPF</a></li>
+            <li><a href="http://www.geradorcnpj.com/">Gerador de CNPJ</a></li>
+            <li>
+                <a
+                    href="http://www.receita.fazenda.gov.br/aplicacoes/atcta/cpf/consultapublica.asp"
+                >
+                    Comprovante de Situação Cadastral no CPF
+                </a>
+            </li>
+            <li><a href="../../cwdc/6-php/7.9.php">Testador de CPF</a></li>
+            <li><a href="../../cwdc/6-php/7.9.1.php">Testador de CNPJ</a></li>
+        </ul>
+
+        <div class="extra">
+            <p>
+                5c) Escreva em uma linha, como calcular o menor inteiro que
+                possui como fatores (divisível por) todos os inteiros no
+                intervalo [1,n], <br />ou seja, o mínimo múltiplo comum dos
+                números de 1 a n.
+            </p>
+
+            <b>Dica:</b> use a função reduce e o LCM do ítem 5a).
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a
+                        href="http://www.secnetix.de/olli/Python/lambda_functions.hawk"
+                    >
+                        Lambda Functions
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="https://docs.python.org/3/library/functools.html?highlight=reduce#functools.reduce"
+                    >
+                        Reduce Function
+                    </a>
+                </li>
+                <li><a href="../../cwdc/3-javascript/gcd.html">LCM</a></li>
+            </ul>
+
+            <p>
+                5d) Escreva um programa para criptografar e descriptografar
+                números pelo método RSA.
+            </p>
+
+            <b>Dica:</b> use o método de Euclides estendido para calcular o
+            máximo divisor comum.
+
+            <pre>
+     O algoritmo de Euclides estendido é uma extensão do algoritmo de Euclides. 
+     Além de encontrar o Máximo Divisor Comum dos inteiros a e b, como o algoritmo de Euclides 
+     faz, ele também encontra dois inteiros x e y (um deles tipicamente negativo) 
+     que satisfaz a identidade de Bézout: ax + by = MDC(a,b). 
+
+     Este método computa expressões da forma r<sub>i</sub> = ax<sub>i</sub> + by<sub>i</sub> 
+     para o resto em cada passo i do algoritmo de Euclides. 
+
+     r<sub>i</sub> = r<sub>i-2</sub> - q<sub>i</sub>r<sub>i-1</sub>
+
+     r<sub>i</sub> = (ax<sub>i-2</sub> + by<sub>i-2</sub>) - q<sub>i</sub>(ax<sub>i-1</sub> + by<sub>i-1</sub>), que pode ser escrito como
+
+     r<sub>i</sub> = a(x<sub>i-2</sub> - q<sub>i</sub>x<sub>i-1</sub>) + b(y<sub>i-2</sub> - q<sub>i</sub>y<sub>i-1</sub>), que é da forma ax<sub>i</sub> + by<sub>i</sub>
+
+     Os dois valores iniciais são os argumentos iniciais do algoritmo:
+
+     r<sub>1</sub> = a = a*1 + b*0
+     r<sub>2</sub> = b = a*0 + b*1
+
+     Então os coeficientes começam como x<sub>1</sub> = 1, y<sub>1</sub> = 0, x<sub>2</sub> = 0, e y<sub>2</sub> = 1, e os outros são dados por
+
+     <b>x<sub>i</sub> = x<sub>i-2</sub> - q<sub>i</sub>*x<sub>i-1</sub></b>
+     <b>y<sub>i</sub> = y<sub>i-2</sub> - q<sub>i</sub>*y<sub>i-1</sub></b>
+
+     A expressão para o último resto não nulo fornece os resultados, 
+     visto que este método computa cada resto em função de a e b, como desejado.
+            </pre>
+
+            <b>Exemplo</b>: Compute o MDC de 120 e 23.
+
+            <pre>
+             a  b    q       r = a%b
+     (1)    120÷23 = 5 resto 5
+     (2)     23÷5  = 4 resto 3  a = b e b = r = a%b
+     (3)      5÷3  = 1 resto 2
+     (4)      3÷2  = 1 resto 1
+     (5)      2÷<b>1</b>  = 2 resto 0 
+
+     quando r = 0, em (5), tem−se que b = MDC(120,23) = 1
+
+     Levando-se em conta apenas os restos encontrados, pode-se dizer que:
+
+     (1)     5 = 1*120 - 5*23
+     (2)     3 = 1*23 - 4*5   Substituindo o 5 temos
+             3 = 1*23 - 4*(1*120 - 5*23)
+             3 = -4*120 + 21*23
+     (3)     2 = 1*5 - 1*3    Substituindo o valor de 5 e 3 temos
+             2 = 1(1*120 - 5*23) - 1(-4*120 + 21*23)
+             2 = 5*120 - 26*23
+     (4)     1 = 1*3 - 1*2    Novamente substituindo 3 e 2
+             1 = 1(-4*120 + 21*23) - 1(5*120 - 26*23)
+             1 = -9*120 + 47*23
+
+     portanto, x = -9 e y = 47 e temos: MDC(120,23) = 120 * (-9) + 47 * 23
+            </pre>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://pt.wikipedia.org/wiki/RSA">Wikipedia</a>
+                </li>
+                <li>
+                    <a href="http://www.di-mgt.com.au/rsa_alg.html">
+                        RSA Algorithm
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://en.wikipedia.org/wiki/Extended_Euclidean_algorithm"
+                    >
+                        Extended Euclidean algorithm
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://pt.wikipedia.org/wiki/Algoritmo_de_Euclides_estendido"
+                    >
+                        Algoritmo de Euclides estendido
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://en.wikibooks.org/wiki/Algorithm_Implementation/Mathematics/Extended_Euclidean_algorithm"
+                    >
+                        Algorithm Implementation
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.dreamincode.net/code/snippet5649.htm">
+                        Extended Euclidean Algorithm
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.numaboa.com.br/escolinha/ferramentas-matematicas/90-Euclides-estendido"
+                    >
+                        Algoritmo de Euclides estendido
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.braghetto.eti.br/files/Trabalho%20Oficial%20Final%20RSA.pdf"
+                    >
+                        RSA Criptografia Assimétrica e Assinatura Digital
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+            <p>
+                6a) Escreva um programa que leia uma palavra e diga se é um
+                palíndromo. <br />
+                Uma palavra é um palíndromo se é idêntica quando soletrada da
+                direita para a esquerda.
+            </p>
+
+            <p><b>Exemplo:</b> "reler" é um palíndromo.</p>
+
+            <p>
+                6b) Escreva um programa que leia duas palavras e responda se são
+                palíndromos mútuos. <br />
+                Duas palavras são palíndromos mútuos se são idênticas, quando
+                uma delas é soletrada da direita para a esquerda.
+            </p>
+
+            <p><b>Exemplo:</b> "roma" e "amor" são palíndromos mútuos.</p>
+
+            <p>
+                6c) Repita os exercícios acima, mas agora considerando frases
+                anacíclicas (que formam palíndromos). <br />
+                A única dificuldade adicional deste exercício reside em
+                desconsiderar os espaços em branco, acentos e pontuação.
+            </p>
+
+            <p>
+                <b>Exemplo:</b> a frase "LUZA ROCELINA, A NAMORADA DO MANUEL,
+                LEU NA MODA DA ROMANA: ANIL É COR AZUL" é anacíclica.
+            </p>
+
+            <p>
+                6d) Repita os exercícios acima, mas agora testando se palavras e
+                frases são anagramas. <br />
+                Um anagrama de uma palavra é outra palavra escrita com os mesmos
+                caracteres.
+            </p>
+
+            <p><b>Exemplo:</b> "porta" e "tropa" são anagramas.</p>
+
+            <p><b>Obs:</b> todos os palíndromos são também anagramas.</p>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://pt.wikipedia.org/wiki/Pal%C3%ADndromo">
+                        Wikipedia
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.icaltefl.com/index.php/resources-2/linguistics/802-palindromes"
+                    >
+                        Palíndromos
+                    </a>
+                </li>
+                <li>
+                    <a href="http://adilet.org/blog/palindromic-tree/">
+                        Palindromic Tree
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://en.wikipedia.org/w/index.php?title=Palindrome&oldid=495928663#Semordnilap"
+                    >
+                        Semordnilap
+                    </a>
+                </li>
+                <li><a href="palindromas.txt">Lista de palíndromos</a></li>
+                <li>
+                    <a href="http://wiki.python.org/moin/HowTo/Sorting/">
+                        Como ordenar
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+        </div>
+
+        <p class="shouldDo" id="alarme">
+            7) Escreva um alarme que toque um arquivo MP3 em um hora
+            pré-determinada do dia.
+        </p>
+
+        <h4>Dicas:</h4>
+
+        - Utilize o módulo time:
+        <pre>
+    >>> import time
+    >>> t=list(time.localtime())
+    >>> t
+    [2012, 2, 22, 6, 46, 46, 2, 53, 1]
+    >>> ano = t[0]
+    >>> mes = t[1]
+    >>> dia = t[2]
+    >>> hora = t[3]
+    >>> minutos = t[4]
+    >>> segundos = t[5]
+
+    O programa deve testar continuamente se a hora corrente é igual a hora
+    do disparo do alarme. Para controlar a periodicidade deste teste,
+    a chamada <b>time.sleep(0.1)</b> suspende a execução do programa por 0.1 segundos.
+        </pre>
+
+        - Utilize o player <a href="http://www.mpg123.de/">mpg123</a>, ou o
+        próprio Windows Media Player:
+        <pre>
+    # na versão em português está em "Arquivos de Programas"
+    player = "C:\\Program Files\\Windows Media Player\\wmplayer.exe" 
+
+    player = "/usr/bin/mpg123"                                       # Linux
+
+    player = "/opt/local/bin/mpg123"                                 # MacOS
+        </pre>
+
+        - Salve uma música qualquer, em C:\temp e use no programa da seguinte
+        forma:
+        <pre>
+    musica = "\"C:\\temp\\01 - Minha Musica.mp3\""                   # Windows
+
+    musica = "/tmp/01 - Minha Musica.mp3"                            # Linux
+        </pre>
+
+        ou use diretamente o link da música e toque via protocolo http
+        (streaming):
+
+        <pre>
+    musica = "\"http://dl.lcg.ufrj.br/python/videos/01 - Minha Musica.mp3\""    # Windows
+
+    musica = <a href="../python/videos/01 - Minha Musica.mp3">"http://dl.lcg.ufrj.br/python/videos/01 - Minha Musica.mp3"</a>        # Linux
+        </pre>
+
+        - Execute o player com o método spawnv do módulo os:
+
+        <pre>
+    os.spawnv (os.P_WAIT, player, ["mpg123", musica])
+
+    O argumento <b>os.P_WAIT</b> faz com que o programa continue apenas quando a música acabar. 
+        </pre>
+
+        <h5>Links úteis:</h5>
+
+        <ul>
+            <li>
+                <a
+                    href="http://docs.python.org/library/time.html#time.localtime"
+                >
+                    Módulo time
+                </a>
+            </li>
+            <li>
+                <a href="http://docs.python.org/library/os.html#os.spawnv">
+                    Interfaces variadas com o Sistema Operacional
+                </a>
+            </li>
+            <li>
+                <a href="external-programs/mpg123-1.14.2-static-x86.zip">
+                    Player mpg123 versão 1.14.2
+                </a>
+            </li>
+            <li><a href="videos/01 - Minha Musica.mp3">Arquivo MP3</a></li>
+        </ul>
+
+        <hr />
+
+        <div class="extra">
+            <p>
+                8a) Escreva um programa que leia um texto, linha a linha, e o
+                imprima emoldurado por asteriscos.
+            </p>
+
+            <p>
+                <b>Dica:</b> termine a entrada do texto quando for digitada uma
+                linha vazia.
+            </p>
+
+            <p><b>Exemplo:</b> para a entrada</p>
+
+            <pre>
+    Digite linhas de texto (linha nula termina)
+    Python enables programs
+    to be written
+    compactly and readably
+
+            </pre>
+            o programa imprime:
+            <pre>
+ 
+    **************************
+    *Python enables programs *
+    *to be written           *
+    *compactly and readably  *
+    **************************
+            </pre>
+        </div>
+
+        <p class="shouldDo">
+            8b) Considere a seguinte sessão com o interpretador Python:
+        </p>
+
+        <pre>
+    >>> help(xis)
+    Help on function xis in module __main__:
+
+    xis(n)
+    Gera uma string que, se impressa, corresponde a uma letra xis
+    maiúscula escrita com asteriscos. A matriz de asteriscos tem
+    tamanho (2n + 1) &times; (2n + 1)
+
+    >>> xis(2)
+    '*   *\n * *\n  *\n * *\n*   *\n'
+    >>> print xis(2)
+    *   *
+     * *
+      *
+     * *
+    *   *
+
+    >>> print xis(3)
+    *     *
+     *   *
+      * *
+       *
+      * *
+     *   *
+    *     *
+        </pre>
+        Pede-se: escreva a função xis(n).
+
+        <div class="extra">
+            <p>
+                8c) Implemente uma função que receba como entrada um número n e
+                imprima o triângulo reto com comprimento <br />
+                de dois de seus lados iguais a n, usando os símbolos + e =, em
+                suas quatro possíveis orientações.
+            </p>
+
+            Por exemplo, se n=5, a saída deverá ser:
+            <pre>
+    +====  +++++  ====+  +++++
+    ++===  ++++=  ===++  =++++
+    +++==  +++==  ==+++  ==+++
+    ++++=  ++===  =++++  ===++
+    +++++  +====  +++++  ====+
+            </pre>
+
+            Pede-se: escreva as funções rightTriangle(n, orientation) e
+            getAllTriangles(n).
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="../../cwdc/11-python/triGenerator.py?10+4">
+                        Right Triangle Generator
+                    </a>
+                </li>
+                <li>
+                    <a href="../../cwdc/11-python/confederate.py?10+1">
+                        Flag Generator
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+
+            <p>
+                - A primeira retorna uma string com a representação do triângulo
+                em uma das quatro possíveis orientações e
+            </p>
+
+            <p>
+                - a segunda intercala as quatro strings para imprimir os quatro
+                triângulos.
+            </p>
+
+            <hr />
+            <p>9) Implemente o jogo conhecido como "Torres de Hanoi".</p>
+
+            <!--
+<center>
+	<applet code=hanoi codebase="classes" 
+		archive="CTKUtility.zip,hanoi.zip,pvEdits.jar" width=500 height=300>
+		<param name="fcolor" value="000000">
+		<param name="bcolor" value="ffffe8">
+	</applet>
+</center>
+            -->
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi">
+                        Wikipedia
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.cut-the-knot.org/recurrence/hanoi.shtml"
+                    >
+                        Java Applet
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+
+            <p>
+                10) Escreva um programa para decompor números naturais em
+                fatores primos.
+            </p>
+
+            <b>Exemplo:</b> 173248246132375748867198458668657948626531982421875
+            = ['3^24', '5^14', '7^33', '13^1'] = 3²⁴ × 5¹⁴ × 7³³ × 13
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a
+                        href="http://mathworld.wolfram.com/PrimeFactorizationAlgorithms.html"
+                    >
+                        Mathworld
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="https://www.geeksforgeeks.org/pollards-rho-algorithm-prime-factorization/"
+                    >
+                        Algoritmo de Pollard Rho
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+
+            <p>11) <b>Desafio:</b></p>
+
+            <p>
+                Considere alguma sequência de elementos (difere de um mero
+                conjunto de elementos por definir uma ordem entre os seus
+                membros). <br />
+
+                Enumere, então, todas as subsequências não-contínuas de uma dada
+                sequência.
+            </p>
+
+            <h4>Dicas:</h4>
+
+            <p>
+                - Uma subsequência sempre contém algum subconjunto de elementos
+                da sequência, na mesma ordem.
+            </p>
+
+            <p>
+                - Uma subsequência contínua é aquela em que nenhum elemento está
+                faltando, entre o primeiro e o último elemento da subsequência.
+            </p>
+
+            <b>Exemplo:</b> (1,2,3,4) &#8594; [[1, 2, 4], [1, 3, 4], [1, 3], [1,
+            4], [2, 4]]
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a
+                        href="http://rosettacode.org/wiki/Non_Continuous_Subsequences"
+                    >
+                        Subsequências não-contínuas
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+        </div>
+
+        <p>/Paulo Roma.</p>
+    </body>
+</html>

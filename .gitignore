@@ -21,4 +21,4 @@ downloads/python/labs/doc
 downloads/python/labs2/doc
 downloads/python/labs2/Interfaces
 downloads/python/labs2/ISU/**/doc
-downloads/python
+*.py

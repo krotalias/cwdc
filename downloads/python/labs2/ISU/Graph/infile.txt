@@ -1,0 +1,4 @@
+add "James" "Larry" 4
+add "James" "Paul" 3
+add "James" "John" 1
+showFriends "James"

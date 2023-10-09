@@ -1,0 +1,59 @@
+01 - fibo.py                    (noção de indução)
+     fibo_list.py
+     fibo_rec.py
+     eqn2.py                    (operações aritméticas/números complexos)
+     str2int.py                 (representação de caracteres/inteiros)
+     dec2bin.py
+     multbin.py                 (bitwise operators)
+     getDigit.py
+02 - matrix.py                  (numpy)
+     Arithmetic.Progression.py  (comandos básicos) 
+     Geometric.Progression.py
+     int2roman.py
+     interest.py
+     interest.py
+     rational.py
+03 - roman2int.py               (while e listas)
+     roman2int_dict.py          (dicionários)
+     int2roman.py
+     int2roman_dict.py
+     int2roman.py
+     pascal.py                  (matrizes, listas, impressão, zip)
+     pascal_rec.py              (recursão)
+     pascal_zip.py              (zip, map, reduce)
+     multiply.py                (matrizes)
+     intercala.py               (listas)
+     intercala_zip.py           (listas + zip)
+     interleave.py
+04 - prime.py                   (algoritmos e complexidade)
+     intsqrt.py                 (método numérico)
+     xx_eq_sinx.py              
+     perfect.py                 (tabela-lista)
+     sieve.py                   (listas)
+     bubble.py
+05 - gcd.py                     (tratamento de erros) 
+     cpf.py
+     cnpj.py
+     rsa.py
+06 - palindroma.py              (manipulação de listas e strings)
+     palindromas_mutuas.py
+     frase_palindroma.py
+     anagrama.py
+07 - alarme_windows.py          (manipulação de tempo)
+     alarme.py
+08 - emoldura.py                (formatos de impressão)
+     xis.py
+     xis_rec.py
+     rightTriangle.py
+09 - hanoi.py                   (recursão - exemplo clássico)
+10 - factorize.py               (recursão - list comprehensions)
+     factorize2.py              (recursão - dicionário)
+11 - ncsub.py
+     ncsub_rec.py
+12 - perm.py                    (recursão mais difícil) 
+     perm2.py
+    
+São 54 programas pequenos em ordem crescente de dificuldade.
+Note-se que não haverá tempo suficiente para resolvê-los todos nos laboratórios. 
+A intenção é que o excesso fique como tarefa complementar a ser finalizada em casa.
+

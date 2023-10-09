@@ -1,0 +1,72 @@
+add James Larry 1
+addEdge: (True) - 1 edges, 2 vertices
+
+add James Larry 2
+addEdge: (True) - 1 edges, 2 vertices
+
+add James Jim 2
+addEdge: (True) - 2 edges, 3 vertices
+
+add James Liam 1
+addEdge: (True) - 3 edges, 4 vertices
+
+add Liam Kaith 3
+addEdge: (True) - 4 edges, 5 vertices
+
+add Liam Keith 1
+addEdge: (True) - 5 edges, 6 vertices
+
+add Liam Jim 1
+addEdge: (True) - 6 edges, 6 vertices
+
+add Jim Keith 1
+addEdge: (True) - 7 edges, 6 vertices
+
+add Keith Jim 1
+addEdge: (True) - 8 edges, 6 vertices
+
+add Larry Kaith 1
+addEdge: (True) - 9 edges, 6 vertices
+
+add Pie Kaith 5
+addEdge: (True) - 10 edges, 7 vertices
+
+add Liam Paul 2
+addEdge: (True) - 11 edges, 8 vertices
+
+add Paul Pie 2
+addEdge: (True) - 12 edges, 8 vertices
+
+showFriends James
+{<Jim, 2>, <Liam, 1>, <Larry, 2>}
+showFriends Larry
+{<Kaith, 1>}
+showFriends Liam
+{<Kaith, 3>, <Keith, 1>, <Jim, 1>, <Paul, 2>}
+showFriends Jim
+{<Keith, 1>}
+showFriends Keith
+{<Jim, 1>}
+showFriends Kaith
+set()
+recommendFriends James dist 2
+[<Keith, 2>, <Kaith, 3>, <Paul, 3>]
+recommendFriends James weightedDist 5
+[<Keith, 20>, <Kaith, 27>, <Paul, 33>, <Pie, 55>]
+recommendFriends Keith dist 5
+[]
+recommendFriends Liam dist 5
+[<Pie, 4>]
+shortestPath James Paul
+[<James, 0>, <Liam, 1>, <Paul, 3>]
+shortestPath James Kaith
+[<James, 0>, <Larry, 2>, <Kaith, 3>]
+shortestPath James Pie
+[<James, 0>, <Liam, 1>, <Paul, 3>, <Pie, 5>]
+remove Jim
+remove: (True) - 8 edges, 7 vertices
+
+showFriends Liam
+{<Kaith, 3>, <Keith, 1>, <Paul, 2>}
+showFriends James
+{<Liam, 1>, <Larry, 2>}

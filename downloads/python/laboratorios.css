@@ -1,0 +1,128 @@
+table, td, th {  
+    border: 0px solid #ddd;
+    text-align: center;
+}
+table {
+    border-collapse: collapse;
+    border-style: none;
+    width: auto;
+}
+/* table header and data */
+th, td {
+    padding: 45px;
+    text-align: center;
+}
+.shouldDo{
+    color: black;
+    border: #005CB9 solid;
+    width: 800px;
+    height: auto;
+    background-color: #F0F8FF;
+    display:block;
+    text-align:justify;
+    padding:5px;
+}
+
+.underline{
+    text-decoration: underline;
+    font-style: italic;
+    font-size: 80%;
+}
+
+.P1{
+    outline-style: dotted;
+    width: 1280px;
+    padding-left: 10px;
+    text-align: justify;
+/*
+    background-color: #ffffff;
+    opacity: 0.5; 
+*/
+}
+
+/* color for clicked links */
+a:active {
+    background-color: red;
+}
+a:visited {
+    color: green;
+}
+/* unvisited link */
+a:link {
+    color: blue;
+}
+/* links without underlining */
+a {
+    text-decoration: none;
+}
+/* when mouse passes over a link */
+a:hover {
+    text-decoration: underline;
+}
+
+.extra {
+    display: none;
+}
+
+.roundButton {
+    background-color: #CBD687;
+    border: none;
+    color: red;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.roundButton:hover {
+    background-color: #F0F8FF;
+    border: #005CB9 solid;
+}
+
+#topBtn {
+    display: none;
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+#topBtn:hover {
+    background-color: #555;
+}
+
+body {
+    background-color: white;
+    background-image: url("../IMAGEM/stone/yell_roc.jpg");
+    text-decoration-color: black;
+}
+
+.expression{
+    display:flex;
+    align-items: center;
+}
+.supsub {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2px;
+}
+.subscript {
+    color: black; 
+    display:flex;
+}
+.superscript {
+    color: black;
+    display:flex; 
+}

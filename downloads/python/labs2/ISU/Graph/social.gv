@@ -1,0 +1,12 @@
+digraph Social_Graph {
+	James -> Jim [label=2]
+	James -> Liam [label=1]
+	James -> Larry [label=2]
+	Larry -> Kaith [label=1]
+	Jim -> Keith [label=1]
+	Liam -> Kaith [label=3]
+	Liam -> Jim [label=1]
+	Liam -> Keith [label=1]
+	Keith -> Jim [label=1]
+	Pie -> Kaith [label=5]
+}

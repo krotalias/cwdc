@@ -1,0 +1,4 @@
+NumDiseases=2
+Locations=200,200;400,480
+DiseasesGrowth=10.0,15.0,2.0;10.0,13.0,3.0
+Temperature=12;20;15;100

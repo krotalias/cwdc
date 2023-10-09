@@ -1,0 +1,22 @@
+showFriends James
+[<Liam, 1>, <Jim, 2>, <Larry, 2>]
+showFriends Larry
+[<Kaith, 1>]
+showFriends Liam
+[<Jim, 1>, <Keith, 1>, <Kaith, 3>]
+showFriends Jim
+[<Keith, 1>]
+showFriends Keith
+[<Jim, 1>]
+showFriends Kaith
+[]
+recommendFriends James dist 1
+<Keith, 2>
+recommendFriends James weightedDist 5
+<Keith, 16>
+<Kaith, 21>
+remove Jim
+showFriends Liam
+[<Keith, 1>, <Kaith, 3>]
+showFriends James
+[<Liam, 1>, <Larry, 2>]

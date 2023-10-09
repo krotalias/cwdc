@@ -1,0 +1,11 @@
+wc -- word, line, character, and byte count
+
+echo 'á' | wc -c
+       3
+
+roma: ~/html/python/labs2$ wc GettysburgAddress.txt 
+      23     276    1496 GettysburgAddress.txt
+
+23 lines
+276 words
+1496 characters

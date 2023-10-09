@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ "$(uname)" == "Darwin" ]; then
+   sudo cp -f cdi.cgi /Library/WebServer/CGI-Executables
+   sudo cp -f cdc.cgi /Library/WebServer/CGI-Executables
+   echo "macOS"
+else
+   if [[ `lsb_release -i` == *"Ubuntu"* ]]; then
+      sudo cp -f cdi.cgi /usr/lib/cgi-bin
+      sudo cp -f cdc.cgi /usr/lib/cgi-bin
+      echo "Ubuntu"
+   else
+      sudo cp -f cdi.cgi /var/www/cgi-bin
+      sudo cp -f cdc.cgi /var/www/cgi-bin
+
+      sudo chown apache.apache /var/www/cgi-bin/*.cgi
+      sudo chcon -t httpd_sys_script_exec_t /var/www/cgi-bin/*.cgi
+      echo "Fedora"
+   fi
+fi

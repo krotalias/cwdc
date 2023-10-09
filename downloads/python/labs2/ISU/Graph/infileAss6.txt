@@ -1,0 +1,29 @@
+add James Larry 1
+add James Larry 2
+add James Jim 2
+add James Liam 1
+add Liam Kaith 3
+add Liam Keith 1
+add Liam Jim 1
+add Jim Keith 1
+add Keith Jim 1
+add Larry Kaith 1
+add Pie Kaith 5
+add Liam Paul 2
+add Paul Pie 2
+showFriends James
+showFriends Larry
+showFriends Liam
+showFriends Jim
+showFriends Keith
+showFriends Kaith
+recommendFriends James dist 2
+recommendFriends James weightedDist 5
+recommendFriends Keith dist 5
+recommendFriends Liam dist 5
+shortestPath James Paul
+shortestPath James Kaith
+shortestPath James Pie
+remove Jim
+showFriends Liam
+showFriends James

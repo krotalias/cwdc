@@ -1,0 +1,2742 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt" lang="pt">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LCG - Curso de Python</title>
+        <link rel="stylesheet" type="text/css" href="laboratorios.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <button onclick="topFunction()" id="topBtn" title="Go to top">
+            Top
+        </button>
+
+        <div style="text-align: center">
+            <h2>Curso de <a href="http://www.python.org">Python</a> II</h2>
+            <button class="roundButton" onclick="toggleList('.extra')">
+                Show Extras
+            </button>
+        </div>
+
+        <!--=========================================================================-->
+        <a name="PythonII"></a>
+        <hr />
+        <h3>
+            Laboratórios
+            <span class="underline">
+                (A matéria da P<sub>1</sub> está na caixa pontilhada)
+            </span>
+        </h3>
+
+        <div class="P1">
+            <p class="shouldDo" id="1a">
+                1a) Escreva uma classe para manipular objetos
+                <a href="public/skeleton/_01a_fracao.py">Fração</a> (números
+                racionais da forma n/d).
+            </p>
+
+            <ul>
+                <li>
+                    A sua classe deve fazer a sobrecarga dos operadores, +, +=,
+                    *, -, /, //, ==, e print.
+                </li>
+                <li>
+                    O operador de igualdade deve simplificar as frações antes de
+                    compará-las (use o MDC).
+                </li>
+                <li>
+                    Levante uma exceção se algum operador for aplicado a um tipo
+                    inválido, ou se for construída uma fração com denominador
+                    nulo.
+                </li>
+                <li>
+                    Implemente os operadores __radd__, __rsub__, __rmul__,
+                    __rdiv__, __rtruediv__ e __rfloordiv__,<br />
+                    para inverter os operadores quando um inteiro estiver à
+                    esquerda do operador: e.g., 2 + Fraction(2,3).
+                </li>
+                <ul>
+                    <li>u+v, é traduzido para u.__add__(v)</li>
+                    <li>
+                        Se u for um int ou float, nesse caso, é gerada uma
+                        exceção <b>NotImplemented</b>, e o Python a traduz para
+                        type(v).__radd__(v,u)
+                    </li>
+                    <li>def __radd__(self, f): return self + f</li>
+                </ul>
+            </ul>
+
+            <p>
+                <b>Nota:</b> os operadores aritméticos <mark>não</mark> imprimem
+                coisa alguma, mas apenas <mark>retornam</mark> objetos
+                <mark>Fracao</mark> (que não são listas!!).
+            </p>
+
+            <p class="shouldDo" id="1b">
+                1b) Escreva uma classe
+                <a href="public/skeleton/_01b_Agenda.py"><b>Agenda</b></a> para
+                criar objetos do tipo livro de endereços.
+            </p>
+
+            <ul>
+                <li>
+                    Utilize um dicionário para associar o nome de um contato a
+                    sua lista de telefones.
+                </li>
+                <li>
+                    Assuma que cada contato possa ter mais de um telefone, e
+                    crie os seguintes métodos:
+                    <ul>
+                        <li>def __init__(self):</li>
+                        <li>def putPhone(self, name, lista):</li>
+                        <li>def getPhone(self, name, index):</li>
+                        <li>def remContact(self, name):</li>
+                        <li>def __eq__(self, other):</li>
+                        <li>def __<b>str</b>__(self):</li>
+                        <li>def __<b>repr</b>__(self):</li>
+                        <li>def main ():</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p>
+                <b>Nota:</b> tanto repr() como str() <mark>não</mark> imprimem
+                coisa alguma, mas apenas <mark>retornam</mark> uma representação
+                na forma de uma <mark>string</mark>.
+            </p>
+            <ul>
+                <li>
+                    <b>repr</b>() &rarr; formato "<b>%r</b>" &rarr; retorna a
+                    representação "oficial" de um objeto <br />
+                    (a representação com a informação completa sobre o objeto):
+                </li>
+                <ul>
+                    <li>
+                        "<mark>\n</mark>Chris Evans:
+                        2111-0000<mark>\n</mark>Eva:
+                        9087-1234<mark>\n</mark>Tony Stark: 2274-4635 |
+                        9876-1234<mark>\n</mark>"
+                    </li>
+                </ul>
+                <li>
+                    <b>str</b>() &rarr; formato "<b>%s</b>" &rarr; retorna a
+                    representação “informal” de um objeto <br />
+                    (a representação usada para imprimir o objeto):
+                </li>
+                <ul>
+                    <li>
+                        "Chris Evans: 2111-0000<mark>\n</mark>Eva:
+                        9087-1234<mark>\n</mark>Tony Stark: 2274-4635 \
+                        9876-1234<mark>\n</mark>"
+                    </li>
+                </ul>
+                <li>
+                    Em ambos os casos, a string retornada deve estar ordenada
+                    por nome, e quando impressa deve produzir:
+                </li>
+                <pre>
+                    Agenda(str):
+                    Chris Evans: 2111-0000
+                    Eva: 9087-1234
+                    Tony Stark: 2274-4635 \ 9876-1234
+                </pre>
+            </ul>
+
+            <div class="extra" id="1c">
+                <p>
+                    1c) Escreva uma classe para criar objetos do tipo vetor 3D.
+                    Defina as operações pertinentes e sobrecarregue o operador
+                    de indexação.
+                </p>
+            </div>
+
+            <p class="shouldDo" id="1d">
+                1d) Inclua na agenda do exercício <a href="#1b">1b</a>, o
+                endereço do contato.
+            </p>
+
+            <ul>
+                <li>
+                    Para tal, crie uma classe
+                    <a href="public/skeleton/_01d_Agenda.py"></a>
+                    <b>personalData,</b>
+                    que conterá todos os dados de um contato.
+                </li>
+
+                <li>
+                    Portanto, o dicionário, da classe <b>Agenda</b>, armazenará
+                    não mais uma lista de telefones, <br />
+                    mas um objeto do tipo personalData, com a seguinte API:
+                    <ul>
+                        <li>def __init__(self, listOfPhones=None, addr=''):</li>
+                        <li>def setlPhone(self, listOfPhones):</li>
+                        <li>def getlPhone(self):</li>
+                        <li>def setAddress(self, addr):</li>
+                        <li>def getAddress(self):</li>
+                        <li>def __eq__(self, other):</li>
+                        <li>def __<b>str</b>__(self):</li>
+                        <li>def __<b>repr</b>__(self):</li>
+                    </ul>
+                </li>
+
+                <li>
+                    A classe Agenda permanece a mesma, apenas o método putPhone
+                    recebe agora o endereço também:<br />
+                    <ul>
+                        <li>def putPhone(self, nome, phones=[], addr=''):</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p>
+                <b>Nota:</b> tanto repr() como str() <mark>não</mark> imprimem
+                coisa alguma, mas apenas <mark>retornam</mark> uma representação
+                na forma de uma <mark>string</mark>.
+            </p>
+            <ul>
+                <li>
+                    <b>repr</b>() &rarr; formato "<b>%r</b>" &rarr; retorna a
+                    representação "oficial" de um objeto <br />
+                    (a representação com a informação completa sobre o objeto):
+                </li>
+                <ul>
+                    <li>
+                        "<mark>\n</mark>Chris Evans: Endereço: Ilha do
+                        Governador, Tel: 2111-0000<mark>\n</mark>Eva:
+                        Endereço:UFRJ, Tel: 9087-1234 | 2267-6767<mark>\n</mark>
+                        \<br />Steve Rogers: Endereço: CCMN, Tel: 3568-8799
+                        <mark>\n</mark>Tony Stark: Endereço:Leblon, Tel:
+                        2274-4635 | 9876-1234<mark>\n</mark>"
+                    </li>
+                </ul>
+                <li>
+                    <b>str</b>() &rarr; formato "<b>%s</b>" &rarr; retorna a
+                    representação “informal” de um objeto <br />
+                    (a representação usada para imprimir o objeto):
+                </li>
+                <ul>
+                    <li>
+                        "Chris Evans:<mark>\n</mark>Endereço: Ilha do
+                        Governador<mark>\n</mark>2111-0000<mark>\n</mark>Eva:
+                        <mark>\n</mark>Endereço: UFRJ<mark>\n</mark>9087-1234 |
+                        2267-6767<mark>\n</mark> \<br />
+                        Steve Rogers:<mark>\n</mark>Endereço:
+                        CCMN<mark>\n</mark>3568-8799<mark>\n</mark>Tony Stark:
+                        <mark>\n</mark>Endereço: Leblon<mark>\n</mark>2274-4635
+                        | 9876-1234<mark>\n</mark>"
+                    </li>
+                </ul>
+                <li>
+                    Em ambos os casos, a string retornada deve estar ordenada
+                    por nome, e quando impressa deve produzir:
+                </li>
+                <pre>
+                    Agenda(repr):
+                    Chris Evans: Endereço: Ilha do Governador, Tel: 2111-0000
+                    Eva: Endereço: UFRJ, Tel: 9087-1234 | 2267-6767
+                    Steve Rogers: Endereço: CCMN, Tel: 3568-8799
+                    Tony Stark: Endereço: Leblon, Tel: 2274-4635 | 9876-1234
+                </pre>
+            </ul>
+
+            <p class="shouldDo" id="1e">
+                1e) Escreva um programa para ler uma série de
+                <a href="public/skeleton/_01e_fracoes.py">frações</a> de um
+                arquivo e imprimir a sua soma e produto.
+            </p>
+            <ul>
+                <li>Faça a sobrecarga do operador [ ]:</li>
+                <ul>
+                    <li>__getitem__ (self, i) para leitura</li>
+                    <li>__setitem__(self, i, f) para escrita</li>
+                </ul>
+            </ul>
+
+            <pre>
+        Arquivo de Entrada:
+
+        2 3
+        5 7
+        1 4
+        8 3
+        2 4
+        1 7
+        3 8
+
+        Saída do programa:
+
+        Fracao 0: 2/3
+        Fracao 1: 5/7
+        Fracao 2: 1/4
+        Fracao 3: 8/3
+        Fracao 4: 1/2
+        Fracao 5: 1/7
+        Fracao 6: 3/8
+
+        Soma: 893/168
+        Produto: 5/588
+            </pre>
+
+            <h5>Nota:</h5>
+            Todos os programas acima deverão passar nos testes correspondentes
+            confeccionados com o
+            <a href="https://docs.python.org/3/library/unittest.html">
+                unittest
+            </a>
+            e estar formatados pelo
+            <a href="https://pypi.org/project/autopep8/">autopep8</a>.
+            <p>Por exemplo:</p>
+
+            <pre>
+	roma: ~/skeleton$ _01b_AgendaTest.py
+	..........
+	----------------------------------------------------------------------
+	Ran 10 tests in 0.001s
+
+	OK
+            </pre>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a href="public/skeleton/_01a_fracao.py">Skeleton Fracao</a>
+                </li>
+                <li>
+                    <a href="public/skeleton/_01a_fracaoTest.py">Test Fracao</a>
+                </li>
+                <li>
+                    <a href="public/skeleton/_01b_Agenda.py">Skeleton Agenda</a>
+                </li>
+                <li>
+                    <a href="public/skeleton/_01b_AgendaTest.py">Test Agenda</a>
+                </li>
+                <li>
+                    <a href="public/skeleton/_01d_Agenda.py">
+                        Skeleton Personal Data
+                    </a>
+                </li>
+                <li>
+                    <a href="public/skeleton/_01d_AgendaTest.py">
+                        Test Personal Data
+                    </a>
+                </li>
+                <li>
+                    <a href="public/skeleton/_01e_fracoes.py">
+                        Skeleton Fracoes
+                    </a>
+                </li>
+                <li>
+                    <a href="public/skeleton/_01e_fracoesTest.py">
+                        Test Fracoes
+                    </a>
+                </li>
+                <li><a href="public/skeleton/fracoes.txt">fracoes.txt </a></li>
+                <li>
+                    <a href="http://docs.python.org/library/fractions.html">
+                        Classe Fraction
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://docs.python.org/reference/datamodel.html#emulating-numeric-types"
+                    >
+                        Sobrecarga de Operadores
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.learningpython.com/2008/06/21/operator-overload-learn-how-to-change-the-behavior-of-equality-operators/"
+                    >
+                        Como mudar o comportamento do operador de igualdade
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <hr />
+
+        <div class="extra">
+            <p>2a) Resolva o sistema linear abaixo.</p>
+            <p>
+                2b) Transponha, inverta e encontre a diagonal principal da
+                matriz do sistema:
+            </p>
+
+            <pre>
+                  x +  2y +  3z = 1
+                11x + 12y + 13z = 2          
+                21x + 22y + 23z = 3
+            </pre>
+
+            <p>
+                2c) Encontre as raízes, integre, eleve ao quadrado e derive,
+                simbolicamente, o seguinte polinômio:
+            </p>
+
+            <pre>
+                p(x) = 3x<sup>2</sup> + 4x + 5
+            </pre>
+
+            <p>2d) Avalie o polinômio nos pontos x = 4 e x = 5.</p>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li><a href="http://numpy.scipy.org/">numpy</a></li>
+                <li>
+                    <a href="http://docs.scipy.org/doc/scipy/reference/">
+                        SciPy Tutorial
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.matrix.html"
+                    >
+                        numpy.matrix
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://doc.astro-wise.org/numpy.lib.polynomial.html"
+                    >
+                        numpy.lib.polynomial
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+
+            <p>
+                3) Faça um programa usando a matplotlib para desenhar a função
+                f(x) = e<sup>-x</sup> * cos(2&pi;x):
+            </p>
+
+            <table>
+                <tr>
+                    <td>
+                        <a href="figuras/pyplot_two_subplots.png">
+                            <img
+                                src="figuras/pyplot_two_subplots.png"
+                                width="400"
+                                height="300"
+                            />
+                        </a>
+                        <h3>e<sup>-x</sup> * cos(2&pi;x)</h3>
+                    </td>
+                </tr>
+            </table>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://matplotlib.sourceforge.net/contents.html">
+                        matplotlib
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://matplotlib.sourceforge.net/users/pyplot_tutorial.html"
+                    >
+                        pyplot
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.exp.html"
+                    >
+                        numpy.exp
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arange.html"
+                    >
+                        numpy.arange
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.uncg.edu/phy/hellen/Python_Instructions.html"
+                    >
+                        Hellen's Python Notes
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+
+            <p>
+                4a) Faça um programa usando a matplotlib para desenhar o
+                diagrama de barras apresentado abaixo:
+            </p>
+
+            <table>
+                <tr>
+                    <td>
+                        <a href="figuras/barchart.png">
+                            <img
+                                src="figuras/barchart.png"
+                                width="325"
+                                height="272"
+                            />
+                        </a>
+                        <h3>Diagrama de barras</h3>
+                    </td>
+                </tr>
+            </table>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a href="http://matplotlib.sourceforge.net/contents.html">
+                        matplotlib
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://matplotlib.sourceforge.net/examples/pylab_examples/"
+                    >
+                        pylab
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="P1">
+            <p class="shouldDo" id="4b">
+                4b) Escreva um programa que leia um arquivo texto e diga quantas
+                linhas, letras, bytes, frases, sentenças e palavras existem no
+                texto. Assuma que sentenças são terminadas pelos caracteres '.',
+                '?' ou '!'.
+            </p>
+
+            <p class="shouldDo" id="4c">
+                4c) Inclua no programa anterior, uma lista de parágrafos
+                (strings). Ao final, ordene esta lista e imprima os parágrafos
+                em ordem lexicográfica.
+            </p>
+
+            <pre>
+	       Arquivo: "Gettysburg Address.txt"
+	--------------------------------------------------
+	Lines      : 23
+	Characters : 1496
+	Bytes      : 1496
+	Blank lines: 2
+	Sentences  : 10
+	Words      : 276
+	Paragraphs : 3
+	--------------------------------------------------
+            </pre>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a
+                        href="https://dzone.com/articles/count-lines-sentences-and"
+                    >
+                        DZone code
+                    </a>
+                </li>
+                <li>
+                    <a href="videos/GettysburgAddress.txt">
+                        Arquivo texto (Gettysburg Address.txt)
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <hr />
+        <p class="shouldDo" id="5">
+            5) Implemente uma interface gráfica para converter uma representação
+            de números decimais para romanos e vice-versa.
+        </p>
+
+        <p>
+            <b>Obs: </b> a interface deve aceitar valores até 4.000.000 e tratar
+            os principais tipos de erro, como: valores não numéricos ou muito
+            grandes.
+        </p>
+
+        <p>
+            <b>Dicas: </b>
+        </p>
+
+        <p>
+            - Use os módulos
+            <a href="public/_03a_roman2int.py">_03a_roman2int.py</a> e
+            <a href="public/_03c_int2roman.py">_03c_int2roman.py</a> de Python 1
+        </p>
+
+        - Adicione uma imagem à sua interface na forma de um label.
+
+        <pre>
+       global soldier # segura a imagem na memória
+       soldier = PhotoImage(file='Roman_Soldier.gif')
+       soldier = soldier.subsample(4, 4) # reduza a imagem por um fator 4
+       label = Label(master,image=soldier)
+        </pre>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/romanForm.png">
+                <img src="figuras/romanForm2.png" />
+            </a>
+        </figure>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/Roman.png">
+                <img src="figuras/Roman.png" width="251" height="140" />
+            </a>
+            <h3>
+                <figcaption>Conversão romano ↔ decimal.</figcaption>
+            </h3>
+        </figure>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/roman-iphone.png">
+                <img src="figuras/roman-iphone.png" width="198" height="372" />
+            </a>
+            <h3>
+                <figcaption>Conversão no iphone.</figcaption>
+            </h3>
+        </figure>
+
+        <div style="clear: both"></div>
+
+        <div class="extra" id="dns">
+            <p>
+                5b) Faça um programa para executar o dns reverso de um dado IP.
+            </p>
+
+            <p>
+                <b>Dicas:</b>
+            </p>
+
+            <ol>
+                <li>Instale o módulo dnspython.</li>
+                <li>Crie uma interface Tk adequada.</li>
+                <li>
+                    Trate a exceção gerada caso a "query" não consiga determinar
+                    o nome do computador corretamente.
+                </li>
+            </ol>
+
+            <pre>
+    >>> import dns.resolver
+    >>> import dns.reversename
+    >>> for a in dns.resolver.query(dns.reversename.from_address('81.200.68.204'), 'PTR'):
+    ...   print a
+    ...
+    www.nominum.com.
+            </pre>
+            <table>
+                <tr>
+                    <td>
+                        <a href="figuras/DNS.png">
+                            <img src="figuras/DNS2.png" />
+                        </a>
+                        <h3>DNS Reverso</h3>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <p class="shouldDo" id="5c">
+            5c) Faça um programa para desenhar a função sinc(x) =
+            <sup>sin(x)</sup>&frasl;<sub>x</sub> , usando o componente Canvas do
+            Tkinter.
+        </p>
+
+        <b>Dicas:</b> por L'Hôpital:
+        <pre>
+    lim  <sup>sin(x)</sup>&frasl;<sub>x</sub> = 1.
+   x &#8594; 0 
+        </pre>
+
+        Use um canvas [2v<sub>x</sub> &times; 2v<sub>y</sub>] = [512 &times;
+        256]: c = Canvas(top, width=2*vx, height=2*vy); c.pack(expand=True,
+        fill="both")
+
+        <ul>
+            <li>
+                Mapeie o espaço de coordenadas do canvas x<sub>c</sub> ∈
+                [-v<sub>x</sub>,v<sub>x</sub>], no espaço de coordenadas da
+                função x ∈ [-15&pi;,15&pi;], <br />
+                através de uma simples regra de três:
+                <ul>
+                    <li>
+                        (x<sub>c</sub> + v<sub>x</sub> ) / 2v<sub>x</sub> = (x +
+                        15&pi;) / 30&pi;
+                    </li>
+                    <li>
+                        x = 15&pi; * x<sub>c</sub> &frasl; v<sub>x</sub> , x
+                        <sub>c</sub>
+                        ∈ [-v<sub>x</sub>,v<sub>x</sub>] (1)
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                Mapeie o espaço de coordenadas da função y ∈ [0,1] no espaço de
+                coordenadas do canvas y<sub>c</sub> ∈ [v<sub>y</sub>,0] <br />
+                (lembre-se que o eixo y<sub>c</sub> cresce para baixo):
+                <ul>
+                    <li>
+                        (y<sub>c</sub> - v<sub>y</sub>) / -v<sub>y</sub> = (y -
+                        0) / 1 = <sup>sin(x)</sup>&frasl;<sub>x</sub>
+                    </li>
+                    <li>
+                        y<sub>c</sub> = int (-<sup>sin(x)</sup>&frasl;
+                        <sub> x </sub>
+                        * v<sub>y</sub> + v<sub>y</sub>) (2)
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                Note que, para centrar a janela, devemos:
+                <ul>
+                    <li>
+                        aplicar uma translação v<sub>x</sub> às coordenadas
+                        x<sub>c</sub>: x<sub>c</sub>+v<sub>x</sub>
+                    </li>
+                    <li>ou mapear diretamente para o intervalo [0,30&pi;].</li>
+                </ul>
+            </li>
+
+            <li>
+                Conecte pares de coordenadas
+                (x<sub>c</sub>+v<sub>x</sub>,y<sub>c</sub>) adjacentes, usando o
+                método <b>create_line</b> do objeto canvas:
+                <ul>
+                    <li>
+                        Para cada pixel (x<sub>c</sub>,0) na linha de
+                        (-v<sub>x</sub>,0) até (v<sub>x</sub>,0), calcule a
+                        coordenada <mark>x</mark> correspondente usando a eq.
+                        (1), <br />
+                        e obtenha a coordenada y<sub>c</sub> correspondente, a
+                        partir da avaliação da funçao
+                        <mark>sin(x)/x</mark> aplicada à eq. (2).
+                    </li>
+                    <li>
+                        Coloque então os pares de coordenadas criadas, numa
+                        lista de pontos: pts +=
+                        [x<sub>c</sub>+v<sub>x</sub>,y<sub>c</sub>]
+                    </li>
+                    <li>
+                        Chame
+                        <strong>c.create_line(*pts, fill="red", width=3)</strong
+                        >, onde pts é a lista com as coordenadas dos pontos do
+                        gráfico.
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                Para redimensionar o desenho em função das dimensões da janela,
+                use os métodos canvas.winfo_width() e <br />
+                canvas.winfo_height(), para obter o tamanho da janela do canvas.
+            </li>
+            <ul>
+                <li>
+                    Em seguida, associe um método ao evento de redimensionamento
+                    da janela do canvas:
+                    <pre>
+             def resize(e): 
+                 canvas.delete(ALL) # apaga todos os elementos do canvas
+                 vx = canvas.winfo_width() // 2
+                 vy = canvas.winfo_heigh() // 2
+                 .....         # redesenha o gráfico com os novos tamanhos da janela
+
+             ....
+             canvas = Canvas(top, width=vx*2, height=vy*2)
+             canvas.pack(side='left', expand=YES, fill=BOTH)
+             canvas.bind("&lang;Configure&rang;", resize)
+                    </pre>
+                </li>
+            </ul>
+        </ul>
+
+        <table>
+            <tr>
+                <td>
+                    <a href="figuras/sinx-x.png">
+                        <img
+                            src="figuras/sinx-x.png"
+                            width="298"
+                            height="142"
+                        />
+                    </a>
+                    <h3>sinc(x) com 15 cristas para cada lado</h3>
+                </td>
+            </tr>
+        </table>
+
+        <h5>Links úteis:</h5>
+        <ul>
+            <li><a href="http://www.iphowto.com/">IPHowTo</a></li>
+            <li>
+                <a href="http://www.dnspython.org/">A DNS toolkit for Python</a>
+                <a href="external-programs/dnspython-1.8.0.win32.exe">
+                    dnspython 1.8.0
+                </a>
+                <a href="https://www.dnspython.org/kits">site </a>
+            </li>
+
+            <li>
+                <a href="http://effbot.org/tkinterbook/entry.htm">
+                    Entry Widget
+                </a>
+            </li>
+            <li>
+                <a href="http://effbot.org/tkinterbook/text.htm">Text Widget</a>
+            </li>
+            <li>
+                <a href="http://effbot.org/tkinterbook/scrollbar.htm">
+                    Scrollbar Widget
+                </a>
+            </li>
+            <li>
+                <a href="http://effbot.org/tkinterbook/canvas.htm">
+                    Canvas Widget
+                </a>
+            </li>
+            <li>
+                <a href="http://www.pythonware.com/products/pil/">
+                    Python Imaging Library (PIL)
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://freepythontips.wordpress.com/2013/08/04/args-and-kwargs-in-python-explained/"
+                >
+                    *args and **kwargs in python explained
+                </a>
+            </li>
+            <li>
+                <a href="../cg/downloads/PDFs/04_LCG_Window-Viewport.pdf">
+                    Mapeamento de Coordenadas
+                </a>
+            </li>
+            <li>
+                <a href="./exemplos/Interfaces/clica.py">
+                    Coordenadas do canvas
+                </a>
+            </li>
+            <li><a href="figuras/flulogo.gif">Fluminense Logo</a></li>
+            <li><a href="figuras/Roman_Soldier.gif">Soldier Logo</a></li>
+            <li>
+                <a href="../cwdc/11-python/romanConversion.py?I+0">Converter</a>
+            </li>
+            <li><a href="../cwdc/10-html5css3/11.4.html">Canvas</a></li>
+        </ul>
+
+        <div class="extra">
+            <p>
+                5d) Implemente uma interface gráfica para verificar se um dado
+                número é primo.
+            </p>
+
+            <b>Dicas:</b>
+
+            <p>
+                - Use os módulos
+                <a href="public/_04a_prime.py">_04a_prime.py</a> e
+                <a href="public/_04b_intsqrt.py">_04b_intsqrt.py</a> de Python 1
+            </p>
+
+            <pre>
+- Adicione uma imagem à sua interface na forma de um label.
+    global soldier # segura a imagem na memória
+    soldier = PhotoImage(file='Optimus.gif')
+    soldier = soldier.subsample(8, 8) # reduza a imagem por um fator 8
+    label = Label(master,image=soldier)
+            </pre>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/isPrime1.png">
+                    <img src="figuras/isPrime1.png" width="198" height="372" />
+                </a>
+                <h3>
+                    <figcaption>Indica o primeiro divisor.</figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/isPrime2.png">
+                    <img src="figuras/isPrime2.png" width="198" height="372" />
+                </a>
+                <h3>
+                    <figcaption>Se for primo,</figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/isPrime3.png">
+                    <img src="figuras/isPrime3.png" width="198" height="372" />
+                </a>
+                <h3>
+                    <figcaption>exiba uma imagem.</figcaption>
+                </h3>
+            </figure>
+
+            <div style="clear: both"></div>
+
+            <figure style="text-align: center; float: left">
+                <a href="labs2/images/isPrime4.png">
+                    <img
+                        src="labs2/images/isPrime4.png"
+                        width="344"
+                        height="131"
+                    />
+                </a>
+                <h3>
+                    <figcaption>Versão Python.</figcaption>
+                </h3>
+            </figure>
+
+            <div style="clear: both"></div>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li><a href="labs2/images/Optimus.gif">Optimus Prime</a></li>
+            </ul>
+
+            <p>
+                5e) Implemente uma interface gráfica para converter números
+                decimais reais para o formato binário em ponto flutuante
+                utilizado pelas CPUs modernas - IEEE 754 (32 bits).
+            </p>
+
+            <ul>
+                <li>
+                    A conversão de um número numa base qualquer para decimal é
+                    feita considerando-se o valor posicional de cada dígito do
+                    número, por exemplo:
+                    <pre>
+                 1          0          0          1          1       um número binário inteiro
+                 2⁴         2³         2²         2¹         2⁰      valores posicionais
+              (1 * 2⁴) + (0 * 2³) + (0 * 2²) + (1 * 2¹) + (1 * 2⁰)
+            =    16    +    0     +    0     +    2     +    1
+            =    19
+
+                -1          0          0          1.         0          0          1          um número binário fracionário
+             -(1 * 2³) + (0 * 2²) + (0 * 2¹) + (1 * 2⁰) + (0 * 2⁻¹) + (0 * 2⁻²) + (1 * 2⁻³)   valores posicionais
+            =   -8     +    0     +    0     +    1     +    0      +   0       +  0.125
+            =   -9.125
+                    </pre>
+                </li>
+
+                <li>
+                    A conversão de decimal para um número numa base qualquer,
+                    pode ser feita por divisões sucessivas pela base e
+                    tomando-se os restos de trás para diante.
+                    <ul>
+                        <li>
+                            <a
+                                href="http://www.wikihow.com/Convert-from-Decimal-to-Binary"
+                            >
+                                Como converter de decimal para binário
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>No padrão IEEE 754, o sinal é armazenado no bit 32.</li>
+                <li>
+                    O expoente é calculado a partir dos bits 24-31 subtraindo-se
+                    127 (bias).
+                    <ul>
+                        <li>
+                            os expoentes devem estar no intervalo [-127, 128]
+                            que é mapeado para o intervalo [0, 255].
+                        </li>
+                        <li>
+                            números válidos possuem expoentes no intervalo
+                            [-126, 127].
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    A mantissa (também conhecida como significando ou fração)
+                    está armazenada nos bits 1-23.
+                </li>
+                <li>
+                    Um bit invisível (ou seja, não armazenado explicitamente)
+                    com valor 1(.0) é "imaginado" à frente da mantissa.
+                </li>
+                <li>
+                    Logo, o bit 23 vale 1/2 (0.1 em binário), bit 22 vale 1/4
+                    (0.01 em binário), etc.
+                    <ul>
+                        <li>
+                            Assim, a mantissa possui um valor entre 0.0 e 1.0
+                            desnormalizada ou entre 1.0 e 2.0, normalizada
+                            (considerando-se o bit invisível).
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    Se o exponente for menor ou igual a -126 (mapeado em
+                    00000000), o bit 1 (invisível) não é mais usado para
+                    possibilitar um underflow gradual.
+                </li>
+                <li>
+                    Infinito é representado por um expoente igual a 128 e
+                    mantissa nula.
+                </li>
+                <li>
+                    Qualquer coisa com expoente igual a 128 e mantissa não nula,
+                    não é um número (NaN).
+                </li>
+            </ul>
+
+            <b>Exemplos:</b>
+            <ul>
+                <li>
+                    1.00000000000000000000001E-127 = 5.87747245476067E-39 deve
+                    ser escrito como:
+                    <ul>
+                        <li>
+                            0.10000000000000000000000E-126. Neste caso, diz-se
+                            que o número está <b>desnormalizado</b>.
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    Assim, o menor número representável é:
+                    <ul>
+                        <li>
+                            0.00000000000000000000001E-126 = 1.0E-149 (em
+                            binário) = 1.40129846432482E-45 (em decimal)
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    -9.125 = -1001.001 = -1.<b>001001</b> &times; 2³ em binário
+                    = 1 10000010 <b>001001</b>00000000000000000 em ponto
+                    flutuante IEEE 754
+                    <ul>
+                        <li>1 bit de sinal = negativo = 1</li>
+                        <li>
+                            8 bits de expoente [-127,128] mapeado em [0,255] =
+                            127+3 = 130 = 10000010
+                        </li>
+                        <li>
+                            23 bits de mantissa = <b>001001</b> =
+                            <b>001001</b>00000000000000000
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    329.390625 = 101001001.011001 = 1.<b>01001001011001</b>
+                    &times; 2&#x2078; em binário = 0 10000111
+                    <b>01001001011001</b>000000000 em ponto flutuante IEEE 754
+                    <ul>
+                        <li>1 bit de sinal = positivo = 0</li>
+                        <li>
+                            8 bits de expoente [-127,128] mapeado em [0,255] =
+                            127+8 = 135 = 10000111
+                        </li>
+                        <li>
+                            23 bits de mantissa = <b>01001001011001</b> =
+                            <b>01001001011001</b>000000000
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    4.4081038E-39 = 1.1 &times; 2⁻¹²⁸ = 0.<b>011</b> &times;
+                    2⁻¹²⁶ em binário = 0 00000000 <b>011</b>0000000000000000000
+                    em ponto flutuante IEEE 754
+                    <ul>
+                        <li>1 bit de sinal = positivo = 0</li>
+                        <li>
+                            8 bits de expoente [-127,128] mapeado em [0,255] =
+                            00000000 (-128 &lt; -126 ⇒ desnormalizado)
+                        </li>
+                        <li>
+                            23 bits de mantissa = <b>011</b> =
+                            <b>011</b>0000000000000000000
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <b>Obs: Erros de arrendondamento</b>
+            <p>
+                - Nem todo número decimal pode ser expresso exatamente como um
+                número em ponto flutuante. <br />
+                - Isto pode ser visto considerando-se o número "0.1" e
+                examinando-se a sua representação binária, <br />
+                que pode ser tanto ligeiramente menor ou maior, dependendo do
+                último bit.
+            </p>
+
+            <p>
+                <b>Dicas:</b>
+            </p>
+
+            - A implementação não deve mover nunca um número em ponto flutuante
+            para um inteiro, porque haverá perda de precisão. <br />
+            - Use uma função <b>mod</b> (resto) que aceite argumentos em ponto
+            flutuante e retorne um valor em ponto flutuante, <br />
+            que neste caso, será um resto de 1 dígito e poderá ser transformado
+            em inteiro sem problema. <br />
+
+            <ul>
+                <li>
+                    em C, é a função
+                    <a href="http://www.cplusplus.com/reference/cmath/fmod/">
+                        fmod,
+                    </a>
+                    e em Java, o operador <b>%</b> já aceita argumentos
+                    float/double.
+                </li>
+            </ul>
+
+            - Use funções que retornem a parte inteira e fracionária de um
+            número em ponto flutuante, na forma de números em ponto flutuante.
+            <ul>
+                <li>
+                    em C, é a função
+                    <a href="http://www.cplusplus.com/reference/cmath/modf/">
+                        modf,
+                    </a>
+                    em Pascal, as funções
+                    <a
+                        href="http://www.freepascal.org/docs-html/rtl/system/int.html"
+                    >
+                        int
+                    </a>
+                    e
+                    <a
+                        href="http://www.freepascal.org/docs-html/rtl/system/frac.html"
+                    >
+                        frac
+                    </a>
+                    e em Java a função
+                    <a
+                        href="http://www.tutorialspoint.com/java/number_ceil.htm"
+                    >
+                        floor/ceil.
+                    </a>
+                </li>
+            </ul>
+
+            <table>
+                <tr>
+                    <td>
+                        <a href="figuras/ieee754.png">
+                            <img
+                                src="figuras/ieee754.png"
+                                width="438"
+                                height="231"
+                            />
+                        </a>
+                        <h3>
+                            O menor real de 32 bits representável no formato
+                            IEEE 754.
+                        </h3>
+                    </td>
+                </tr>
+            </table>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a href="http://pt.wikipedia.org/wiki/IEEE_754">
+                        Wikipedia
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://twins.ee.nctu.edu.tw/~tjlin/courses/co01/IEEE754.pdf"
+                    >
+                        IEEE Standard for Binary Floating-Point Arithmetic
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.h-schmidt.net/FloatConverter/IEEE754.html"
+                    >
+                        Conversor em JavaScript
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://steve.hollasch.net/cgindex/coding/ieeefloat.html"
+                    >
+                        IEEE Standard 754 Floating Point Numbers
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.cs.duke.edu/~raw/cps104/TWFNotes/floating.html#dec2hex"
+                    >
+                        Floating Point
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.raymundodeoliveira.eng.br/binario.html">
+                        Curso de Cálculo Numérico
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Data/float.html"
+                    >
+                        Floating Point 2
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.cs.cornell.edu/~tomf/notes/cps104/twoscomp.html"
+                    >
+                        Two's Complement
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+            <p>
+                6) Faça um programa para testar o estado de um grupo de
+                computadores, dados por um intervalo de IPs.
+            </p>
+
+            <p>
+                <b>Dicas:</b>
+            </p>
+
+            <ol>
+                <li>Crie uma interface Tk para a entrada/saída dos dados.</li>
+                <li>Crie uma thread para pingar cada um dos IPs fornecidos.</li>
+                <li>
+                    Use "ping /?" para obter uma lista de parâmetros em windows.
+                </li>
+            </ol>
+
+            <table>
+                <tr>
+                    <td>
+                        <a href="figuras/Ping.png">
+                            <img
+                                src="figuras/Ping.png"
+                                width="193"
+                                height="206"
+                            />
+                        </a>
+                        <h3>Pingador</h3>
+                    </td>
+                </tr>
+            </table>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a href="http://docs.python.org/3/library/concurrency.html">
+                        Threads
+                    </a>
+                </li>
+                <li>
+                    <a href="http://docs.python.org/library/re.html">
+                        Regular Expressions
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.wellho.net/solutions/python-python-threads-a-first-example.html"
+                    >
+                        Well House Consultants
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+
+            <p>
+                7) Crie uma interface Tk para implementar um alarme que permita:
+            </p>
+
+            <ul>
+                <li>escolher uma hora de ativação</li>
+                <li>selecionar um arquivo mp3 para ser tocado</li>
+                <li>selecionar o player de mp3.</li>
+            </ul>
+
+            <b>Obs:</b>
+
+            <p>
+                a música selecionada deve poder ser tocada e parada a qualquer
+                instante, pelas opções "Play" e "Stop".
+            </p>
+
+            <p>
+                <b>Dicas:</b>
+            </p>
+
+            <ul>
+                <li>Utilize uma "thread" para disparar o alarme.</li>
+                <li>
+                    Utilize o módulo pickle para salvar e restaurar o estado da
+                    aplicação:
+                </li>
+                <ul>
+                    <li>
+                        volume, ligado/desligado, player, hora de ativação e
+                        posição da janela.
+                    </li>
+                </ul>
+            </ul>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/Alarme.png">
+                    <img src="figuras/Alarme2.png" />
+                </a>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/Alarme3.png">
+                    <img src="figuras/Alarme3.png" />
+                </a>
+                <h3>
+                    <figcaption>Alarme</figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/clock.png">
+                    <img src="figuras/clock.png" />
+                </a>
+            </figure>
+
+            <div style="clear: both"></div>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://docs.python.org/3/library/concurrency.html">
+                        Threads
+                    </a>
+                </li>
+                <li>
+                    <a href="http://effbot.org/tkinterbook/scale.htm">
+                        Scale Widget
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.pythonware.com/library/tkinter/introduction/events-and-bindings.htm"
+                    >
+                        Eventos e bindings
+                    </a>
+                </li>
+                <li>
+                    <a href="http://docs.python.org/library/pickle.html">
+                        pickle - Serialização de objetos Python
+                    </a>
+                </li>
+                <li>
+                    <a href="external-programs/mpg123-1.26.3-static-x86.zip">
+                        mpg123 player versão 1.26.3
+                    </a>
+                    <a href="http://www.mpg123.de">site</a>
+                </li>
+                <li>
+                    <a
+                        href="external-programs/quintessential-media-player-5.0.121.exe"
+                    >
+                        Quintessential player versão 5.0.121
+                    </a>
+                    <a
+                        href="https://quintessential-media-player.en.uptodown.com/windows"
+                    >
+                        site
+                    </a>
+                </li>
+                <li>
+                    <a href="external-programs/mpc98me6490.zip">
+                        Media Player Classic v 98
+                    </a>
+                </li>
+                <li>
+                    <a href="external-programs/vlc-3.0.11-win32.exe">
+                        vlc 3.0.11
+                    </a>
+                    <a href="https://www.videolan.org">site</a>
+                </li>
+                <li><a href="videos/01 - Minha Musica.mp3">Arquivo MP3</a></li>
+            </ul>
+
+            <hr />
+        </div>
+
+        <p class="shouldDo" id="8a">
+            8a) Escreva uma classe que implemente um relógio digital. A classe
+            possui três métodos a saber:
+        </p>
+
+        <table>
+            <tr>
+                <td>
+                    <a href="figuras/Clock-2.png">
+                        <img src="figuras/Clock-2.png" />
+                    </a>
+                    <br />
+                    <a href="figuras/Clock-3.png">
+                        <img src="figuras/Clock-3.png" />
+                    </a>
+                    <h3>Relógio Digital e Cronógrafo</h3>
+                </td>
+            </tr>
+        </table>
+
+        <pre>
+
+from tkinter import *
+from threading import Thread
+import time
+
+class digitalClock:
+    # 
+    # Constructor.
+    #
+    # @param clock a label to display the time.
+    # @param secs number of seconds for time regressive counting.
+    # @param time string for initializing the time. Just leave the default.
+    #
+    # 
+    def __init__(self, clock, secs=0, time=''): 
+        ...
+
+    # 
+    # Updates the clock display.
+    #
+    def tick(self):
+        ...
+        ...
+        # calls itself every 1000 milliseconds
+        # to update the time display as needed
+        self.clock.after(1000, self.tick)
+
+    # 
+    # Starts a count down from the number of seconds set to zero.
+    #
+    def tickDown(self): 
+        ...
+
+
+## Creates a new thread.
+class makeThread (Thread):
+    ## Constructor.
+    #
+    #  @param func function to be executed in this thread.
+    #
+    def __init__(self, func):
+        Thread.__init__(self)
+        self.__action = func
+        self.debug = False
+
+    ## Obejct destructor.
+    #  In Python, destructors are needed much less, because Python has
+    #  a garbage collector that handles memory management.
+    #  However, there are other resources to be dealt with, such as:        
+    #  sockets and database connections to be closed, 
+    #  files, buffers and caches to be flushed.
+    #
+    def __del__(self):
+        if (self.debug):
+            print ("Thread end")
+
+    ## Method representing the thread's activity.
+    #  This method may be overriden in a subclass.
+    #
+    def run(self):
+        if (self.debug):
+            print ("Thread begin")
+        self.__action()
+        </pre>
+
+        <b>Dicas: </b>
+        <ul>
+            <li>
+                Use a função <b>strftime</b>('%H:%M:%S') do módulo
+                <a
+                    href="http://www.tutorialspoint.com/python/time_strftime.htm"
+                >
+                    time
+                </a>
+                para obter a hora atual.
+            </li>
+            <li>
+                Use o método <b>after</b>, presente em todo widget do tkinter,
+                para atualizar o tempo corrente a cada 1000 ms.
+            </li>
+            <li>
+                Para poder usar o relógio em uma outra aplicação, dispare uma
+                <b>thread</b> para executar o relógio. <br>
+                Essa thread deve rodar na thread principal, aquela que contém o mainloop.
+                <pre>
+        root = Tk()
+        aLabel = Label(root, font=('times 28', 20, 'bold'), bg='green')
+        aLabel.pack(fill=BOTH, expand=1)
+        d = digitalClock(aLabel)
+        t = makeThread(d.tick)
+        t.start()
+        mainloop()
+                </pre>
+            </li>
+
+            <li>
+                Adicione o relógio à interface do exercício 5c), que desenha a
+                função sinc(x).
+            </li>
+        </ul>
+
+        <div class="extra">
+            <p>
+                8b) Escreva um programa usando o componente Canvas do TkInter,
+                para desenhar um relógio, cujos ponteiros podem ser quatro tipos
+                de curvas.
+            </p>
+
+            <p>
+                <b>Obs:</b> clicando-se o botão esquerdo do mouse sobre o
+                relógio deve permitir alterar a forma dos ponteiros e o botão do
+                meio, a largura.<br />
+                Isto requer o uso de uma thread separada para atualizar o
+                relógio.
+            </p>
+
+            <p>
+                <b>Dicas: </b>
+            </p>
+
+            <ul>
+                <li>
+                    Tkinter não é seguro em relação a threads.
+                    <ul>
+                        <li>
+                            Todas as ações que interagem com widgets devem ser
+                            executadas dentro da mesma thread, e esta thread
+                            deve ser a thread principal.
+                        </li>
+
+                        <li>
+                            Logo, não é uma boa ideia usar um widget fora da
+                            thread que criou o objeto TK (que roda o mainloop).
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    A melhor alternativa é usar o
+                    <a href="public/mtTkinter.py">mtTkinter</a>.
+                </li>
+                <li>
+                    O TCL pode ser compilado com a opção --enable-threads, que
+                    costuma atenuar o problema.
+                </li>
+            </ul>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/clock-bezier.png">
+                    <img src="figuras/clock-bezier.png" />
+                </a>
+                <h3>
+                    <figcaption><i>Relógio Bezier</i></figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/clock-angle.png">
+                    <img src="figuras/clock-angle.png" />
+                </a>
+                <h3>
+                    <figcaption><i>Relógio Angulado</i></figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/clock-curve.png">
+                    <img src="figuras/clock-curve.png" />
+                </a>
+                <h3>
+                    <figcaption><i>Relógio Curvo</i></figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/clock-normal.png">
+                    <img src="figuras/clock-normal.png" />
+                </a>
+                <h3>
+                    <figcaption><i>Relógio Normal</i></figcaption>
+                </h3>
+            </figure>
+
+            <div style="clear: both"></div>
+        </div>
+
+        <p class="shouldDo" id="8c">
+            8c) Escreva uma classe para desenhar um relógio analógico.
+        </p>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/clock2.png">
+                <img src="figuras/clock2.png" width="243" height="253" />
+            </a>
+            <h3>
+                <figcaption><i>Relógio Analógico.</i></figcaption>
+            </h3>
+        </figure>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/clock4.png">
+                <img src="figuras/clock4.png" width="243" height="253" />
+            </a>
+            <h3>
+                <figcaption><i>Relógio Tricolor.</i></figcaption>
+            </h3>
+        </figure>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/clock6.png">
+                <img src="figuras/clock6.png" width="243" height="253" />
+            </a>
+            <h3>
+                <figcaption><i>Relógio nascer / por do sol.</i></figcaption>
+            </h3>
+        </figure>
+
+        <div style="clear: both"></div>
+
+        <b>Dicas:</b>
+        <ul>
+            <li>
+                Use o método <b>timetuple</b> da classe datetime do módulo
+                <a href="https://docs.python.org/2/library/datetime.html">
+                    datetime
+                </a>
+                para obter a hora atual:
+                <ul>
+                    <li>from datetime import datetime, timedelta <br /></li>
+                    <li>
+                        datetime.timetuple(datetime.utcnow()+timedelta(hours =
+                        delta))
+                        <ul>
+                            <li>
+                                O método <b>utcnow</b> retorna a data e o tempo
+                                UTC
+                                <a
+                                    href="http://en.wikipedia.org/wiki/Coordinated_Universal_Time"
+                                >
+                                    (Coordinated Universal Time)
+                                </a>
+                                correntes.
+                            </li>
+                            <li>
+                                Para a zona de tempo do Rio de Janeiro, o delta
+                                vale -3 (três horas para trás ou duas, no
+                                horário de verão).
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                Use o método <b>after</b>, presente em todo widget do tkinter,
+                para atualizar o tempo corrente a cada 200 ms.
+                <pre>
+        ## Movimenta o relógio, redesenhando os ponteiros/dígitos após um certo intervalo de de tempo. 
+        #
+        def poll():
+            global root
+            delta = -3
+            t = datetime.timetuple(datetime.utcnow()+timedelta(hours = delta))[3:6]
+            print("{:02d}:{:02d}:{:02d}".format(*t,’02’),end=’\r’)
+            root.after(200, poll)
+                </pre>
+            </li>
+
+            <li>
+                Mapeie horas, minutos e segundos em ângulos a partir das 12hs
+                (&pi;/2). <br />
+                Lembre-se que o eixo Y cresce para baixo.
+                <ul>
+                    <li>
+                        angle_h = &pi;/2 - &pi;/6 * (h + m/60.0) : [0, -12]
+                        &#8594; [&pi;/2, 5&pi;/2]
+                    </li>
+                    <li>
+                        angle_m = &pi;/2 - &pi;/30 * (m + s/60.0) : [0, -60]
+                        &#8594; [&pi;/2, 5&pi;/2]
+                    </li>
+                    <li>
+                        angle_s = &pi;/2 - &pi;/30 * s : [0, -60] &#8594;
+                        [&pi;/2, 5&pi;/2]
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                Mapeie o retângulo [-1, 1] &times; [-1, 1] (window) no retângulo
+                [0, 400] &times; [0, 400] (viewport), <br />
+                para transformar as coordenadas do mundo para coordenadas de
+                tela:
+                <ul>
+                    <li><a href="public/mapper.py">Class mapper.</a></li>
+                </ul>
+            </li>
+
+            <li>
+                Atribua o tag 'handles' aos ponteiros do relógio, de modo que a
+                animação dos ponteiros possa ser feita <br />
+                sem ter de redesenhar o canvas completamente.
+            </li>
+
+            <li>
+                Desenhe as marcações de 5 min usando <b>ovals</b> do componente
+                canvas.
+            </li>
+            <li>O título da janela deve exibir a hora no formato digital.</li>
+        </ul>
+
+        <h5>Links úteis:</h5>
+        <ul>
+            <li>
+                <a href="http://www.tcl.tk/software/plugin/bclock.html">
+                    Tcl Developer Xchange
+                </a>
+            </li>
+            <li>
+                <a href="http://tkinter.unpythonic.net/wiki/mtTkinter">
+                    mtTkinter
+                </a>
+            </li>
+            <li>
+                <a href="http://effbot.org/tkinterbook/widget.htm">
+                    Basic Widget Methods
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://code.activestate.com/recipes/578875-analog-clock/?in=user-4189949"
+                >
+                    ActiveState Code
+                </a>
+            </li>
+            <li><a href="../cwdc/10-html5css3/11.5.html">HTML Clock</a></li>
+            <li><a href="figuras/fluminense.png">Fluminense Logo</a></li>
+            <li><a href="ADs/AD1_2022-1.pdf">AD</a></li>
+        </ul>
+
+        <hr />
+
+        <div class="extra">
+            <p>
+                9) Implemente, graficamente, o jogo das Torres de Hanoi,
+                utilizando ovais do componente canvas para representar os
+                discos.
+            </p>
+
+            <p>
+                <b>Obs:</b> forneça opções para executar a animação passo a
+                passo e para selecionar o número de discos.
+            </p>
+
+            <p>
+                <b>Dica:</b> para a animação passo a passo funcionar, o cursor
+                do mouse deve estar fora da janela da interface.
+            </p>
+
+            <table>
+                <tr>
+                    <td>
+                        <a href="figuras/Towers_of_Hanoi.png">
+                            <img
+                                src="figuras/Towers_of_Hanoi2.png"
+                                width="354"
+                                height="180"
+                            />
+                        </a>
+                        <h3>Torres de Hanoi.</h3>
+                    </td>
+                </tr>
+            </table>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi">
+                        Wikipedia
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://docstore.mik.ua/orelly/perl3/tk/appc_12.htm"
+                    >
+                        Mastering Perl/Tk
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.java2s.com/Code/Python/GUI-Tk/CascadeMenu.htm"
+                    >
+                        Cascade Menu
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+
+            <p>
+                10) Implemente um "frontend" (interface gráfica), suportando
+                skins, para o mpg123.
+            </p>
+
+            <p>
+                <b>Obs: </b> skins são imagens mapeadas sobre um Canvas, para
+                dar uma aparência sofisticada ao player.
+            </p>
+
+            <p>
+                <b>Dicas:</b>
+            </p>
+
+            <p>
+                - O player deve guardar as músicas selecionadas em uma Listbox,
+                de modo a oferecer a funcionalidade de "playlists".
+            </p>
+
+            <p>
+                - Utilize uma skin composta por quatro
+                <a href="public/images">imagens</a>:
+            </p>
+
+            <ul>
+                <li>
+                    o corpo do player, sobre o qual deve ser colocada a Listbox,
+                </li>
+                <li>
+                    dois botões, para play e pause, que são alternados toda vez
+                    que se clica sobre um deles,
+                </li>
+                <li>
+                    e "browse" para permitir incluir um novo arquivo na
+                    playlist.
+                </li>
+            </ul>
+
+            - Salve a playlist num arquivo temporário (diferente para cada
+            usuário):
+            <ul>
+                <li>no diretório público <i>/tmp</i> em Linux, <br /></li>
+                <li>
+                    ou usando a variável de ambiente <i>TEMP</i> no Windows XP.
+                </li>
+            </ul>
+
+            - Use o <b>getstatusoutput</b> do módulo commands, para determinar
+            qual usuário está executando o player:
+            <pre>
+    (code,user) = <b>getstatusoutput</b>('whoami') # executa o comando "whoami" do linux
+            </pre>
+
+            <p>- Processe a playlist com o comando:</p>
+
+            <pre>
+    <b>mpg123 -@</b> <i>/tmp/tkmpg123-user.m3u</i>
+            </pre>
+
+            <p>
+                - Permita a inclusão de URLs na playlist (no menu "File"),
+                abrindo uma janela de diálogo.
+            </p>
+
+            <p>- Adicione uma opção para limpar a playlist, no menu "Edit".</p>
+
+            <p>- Utilize teclas de atalho para as principais opções.</p>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/tkmpg123.png">
+                    <img src="figuras/tkmpg1232.png" />
+                </a>
+                <h3>
+                    <figcaption>tkmpg123</figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/URL.png">
+                    <img src="figuras/URL.png" />
+                </a>
+                <h3>
+                    <figcaption>Janela de diálogo - URL</figcaption>
+                </h3>
+            </figure>
+
+            <div style="clear: both"></div>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a
+                        href="http://docstore.mik.ua/orelly/perl3/tk/appc_05.htm"
+                    >
+                        Mastering Perl/Tk
+                    </a>
+                </li>
+                <li>
+                    <a href="http://effbot.org/tkinterbook/listbox.htm">
+                        Listbox Widget
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://python.org/doc/2.5.2/lib/module-commands.html"
+                    >
+                        Módulo commands
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://www.pythonware.com/library/tkinter/introduction/dialog-windows.htm"
+                    >
+                        Dialog Windows
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://sourceforge.net/projects/freevo/files/kaa-metadata/"
+                    >
+                        Kaa-Metadata
+                    </a>
+                </li>
+                <li>
+                    <a href="http://tkinter.unpythonic.net/wiki/tkFileDialog">
+                        tkFileDialog
+                    </a>
+                </li>
+            </ul>
+
+            <hr />
+
+            <p id="radio">
+                11) Implemente um "frontend" (interface gráfica) para controlar
+                rádios FM.
+            </p>
+
+            <p>
+                <b>Obs:</b>
+            </p>
+
+            <p>
+                - O direcionamento da fonte de captura da placa de som de volta
+                como áudio PCM, é conhecido como loopback. <br /><br />
+                - Não costuma mais estar disponível por hardware em algumas
+                placas onboard.
+            </p>
+
+            <p>
+                <b>Dicas:</b>
+            </p>
+
+            <p>
+                - Utilize o <a href="http://benpfaff.org/fmtools/">fmtools</a>,
+                para controlar o rádio FM da placa de captura.
+            </p>
+
+            <p>
+                - Há três comandos básicos: fm on, fm off, fm freq (liga,
+                desliga e sintoniza na frequência dada).
+            </p>
+
+            <p>- Controle o volume pelo comando do</p>
+
+            <a href="http://www.alsa-project.org/main/index.php/Main_Page">
+                alsa-utils:
+            </a>
+            <pre>
+    <b>amixer</b> <i>-q -c 0 set PCM vol%</i>, 
+            </pre>
+            ou, em windows, do
+            <a href="http://www.nirsoft.net/utils/nircmd.html">NirSoft</a>:
+            <pre>
+    <b>nircmd.exe</b> <i>setsysvolume 65535*vol/100</i> # vol está no intervalo [0,100]. 
+            </pre>
+
+            <p>
+                - As estações devem ser lidas de um arquivo chamado
+                <a href="public/radiostations">.radiostations</a>, na raiz do
+                diretório do usuário.
+            </p>
+
+            <p>
+                - Este arquivo contém pares de nome de estação e sua frequência,
+                um par por linha, e opcionalmente a URL da estação na web.
+            </p>
+
+            <p>
+                - Aceite comandos via controle remoto, usando para isto o
+                <a href="http://pylirc.mccabe.nu/">python-lirc</a>.
+            </p>
+
+            <p>
+                - Implemente o loopback com os seguintes comandos do
+                pulseaudio-utils:
+            </p>
+
+            <pre>
+    <b>parec | paplay</b>
+            </pre>
+
+            <p>
+                - Utilize o <b>oggenc</b> do vorbis-tools, para gravar a
+                programação da estação corrente no formato ogg:
+            </p>
+
+            <pre>
+ 
+     <b>parec</b> -D default -d 0 -f cd - | <b>oggenc</b> - -Q -o "nome_do_arquivo.ogg"
+            </pre>
+
+            <p>
+                - Utilize o
+                <a href="http://www.galago-project.org/downloads.php">
+                    notify-python,
+                </a>
+                para exibir mensagens para o usuário, por exemplo, o arquivo de
+                gravação.
+            </p>
+
+            <p>
+                - Utilize o
+                <a href="http://docs.python.org/library/tix.html">Tix</a>, uma
+                extensão do Tk, para implementar dicas de uso, na forma de
+                <a href="http://en.wikipedia.org/wiki/Balloon_help">
+                    Balloon Help,
+                </a>
+                para os componentes
+                <a href="http://en.wikipedia.org/wiki/GUI_widget">
+                    (widgets)
+                </a>
+                do tkradio.
+            </p>
+
+            <p>
+                - Se não houver uma placa de captura disponível, utilize o
+                mplayer ou o gstreamer para reproduzir a <i>stream</i> da rádio,
+                <br />
+                haja vista que quase todas estão disponíveis
+                <a href="http://www.radios.com.br/">online</a>.
+            </p>
+
+            <pre>
+    # escolha um dos players abaixo, adequado ao seu ambiente de desenvolvimento:
+
+    PLAYER = "/usr/bin/vlc"                                     # Linux
+    PLAYER = "/usr/bin/mplayer"                                 # Linux
+    PLAYER = "/usr/bin/gst-launch-1.0"                          # Linux
+    PLAYER = "/Applications/VLC.app/Contents/MacOS/VLC"         # MacOS
+    PLAYER = "/opt/local/bin/mplayer"                           # MacOs
+    PLAYER = "/opt/local/bin/gst-launch-1.0"                    # MacOs
+    PLAYER = "C:\\Arquiv~1\\SMPlayer\\mplayer\\mplayer.exe"     # Windows
+    # vlc
+    param = ["vlc", "-Idummy", "http://playerservices.streamtheworld.com/api/livestream-redirect/SULAMERICA"] 
+    # mplayer    
+    param = ["mplayer", "-quiet", "http://playerservices.streamtheworld.com/api/livestream-redirect/SULAMERICA"]           
+    # gstreamer
+    param = ["gst-launch-1.0", "playbin", "uri=http://playerservices.streamtheworld.com/api/livestream-redirect/SULAMERICA"]
+
+    mpid = os.spawnv ( os.P_NOWAIT, PLAYER, param )
+
+            </pre>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/tkradio.png">
+                    <img src="figuras/tkradio.png" />
+                </a>
+                <h3>
+                    <figcaption>Analogic Radio</figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/tkradio2.png">
+                    <img src="figuras/tkradio2.png" />
+                </a>
+                <h3>
+                    <figcaption>Internet Radio</figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/notify-python.png">
+                    <img src="figuras/notify-python.png" />
+                </a>
+                <h3>
+                    <figcaption>notify-python</figcaption>
+                </h3>
+            </figure>
+
+            <div style="clear: both"></div>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a href="http://effbot.org/tkinterbook/radiobutton.htm">
+                        Radio Button
+                    </a>
+                </li>
+                <li><a href="http://tix.sourceforge.net/">Tix</a></li>
+                <li><a href="http://smplayer.sourceforge.net/">SMPlayer</a></li>
+                <li>
+                    <a href="http://gstreamer.freedesktop.org/">gstreamer</a>
+                </li>
+                <li><a href="http://tunein.com/">TuneIn</a></li>
+                <li>
+                    <a href="http://fiddler2.com/fiddler2/">
+                        Fiddler Http Proxy Debugger
+                    </a>
+                </li>
+                <li><a href="http://www.xiph.org/">xiph.org (Vorbis)</a></li>
+            </ul>
+
+            <hr />
+
+            <p>
+                11b) Com poucas modificações, pode-se controlar uma TV
+                utilizando o código da interface do rádio:
+            </p>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/tktv.png">
+                    <img src="figuras/tktv.png" />
+                </a>
+                <h3>
+                    <figcaption>tktv</figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/tvtime-output-06:46:45_PM.png">
+                    <img
+                        src="figuras/tvtime-output-06:46:45_PM.png"
+                        width="311"
+                        height="240"
+                    />
+                </a>
+                <h3>
+                    <figcaption>Valência X Real Madri</figcaption>
+                </h3>
+            </figure>
+
+            <div style="clear: both"></div>
+
+            <p>
+                <b>Dica: </b> utilize o mplayer para a captura de vídeo, o xawtv
+                para mudar os canais e o mencoder para gravar a programação.
+            </p>
+
+            <h5>Links úteis:</h5>
+
+            <ul>
+                <li>
+                    <a href="http://www.mplayerhq.hu/design7/news.html">
+                        mplayer
+                    </a>
+                </li>
+                <li><a href="http://linux.bytesex.org/xawtv/">xawtv</a></li>
+            </ul>
+
+            <hr />
+        </div>
+
+        <p class="shouldDo" id="tet">
+            12) Usando o componente Canvas do tkInter, escreva um programa que
+            desenhe, e permita rodar com o mouse, um tetraedro.
+        </p>
+
+        <p>
+            <b>Dicas:</b>
+        </p>
+
+        <ul>
+            <li>Utilize uma janela width &times; height = 400 &times; 400.</li>
+            <li>
+                Ao desenhar o tetraedro, aplique um vetor de translação
+                (width/2, height/2) a cada um dos seus vértices.
+            </li>
+            <li>
+                As coordenadas dos vértices do tetraedro são as colunas da
+                seguinte matriz:
+
+                <pre>
+        vértices    0    1   2    3 
+
+                |   0  -100 100   0  |
+          tet = | -100  100 100   0  |
+                |   0    0   0   200 |
+
+
+        Matrizes de rotação ao redor dos eixos x, y e z:
+
+                |   1     0      0   |
+        R<sub>x</sub>(&#945;) = |   0 cos(&#945;) -sin(&#945;) |
+                |   0 sin(&#945;)  cos(&#945;) |
+
+                | cos(&#946;)  0   sin(&#946;) |
+        R<sub>y</sub>(&#946;) = |   0     1      0   |
+                |-sin(&#946;)  0   cos(&#946;) |
+
+                | cos(&#947;) -sin(&#947;)  0 |
+        R<sub>z</sub>(&#947;) = | sin(&#947;)  cos(&#947;)  0 |
+                |   0      0      1 |
+
+                </pre>
+            </li>
+
+            <li>
+                As seis arestas do tetraedro correspondem aos pares de vértices:
+                0,1 - 0,2 - 0,3 - 1,2 - 1,3 - 2,3
+            </li>
+            <li>
+                As quatro faces do tetraedro, no sentido anti-horário vistas de
+                fora, correspondem às triplas de vértices: 0,1,2 - 0,2,3 - 0,3,1
+                - 2,1,3
+            </li>
+            <li>
+                Projetar um vértice na tela (espaço 2D) é simplesmente ignorar a
+                coordenada Z.
+            </li>
+            <li>
+                Mapeie deslocamentos de mouse na direção X em rotações ao redor
+                do eixo Y.
+            </li>
+            <li>
+                Mapeie deslocamentos de mouse na direção Y em rotações ao redor
+                do eixo X.
+            </li>
+            <li>
+                Rotação do tetraedro ao redor do eixo x é executada
+                multiplicando-se duas matrizes: tet = R<sub>x</sub>(&#945;)
+                &times; tet
+                <pre>
+          def cbMottion(event):
+              """Map mouse displacements in Y direction to rotations about X axis,
+                 and mouse displacements in X direction to rotations about Y axis.""" 
+
+              global tet
+
+              dx = -(event.y - lastY)
+              dy =  (event.x - lastX)
+
+              tet = matMul(ROT_X(EPS(dx)), tet) # EPS is a function of dx, such as dx*&pi;/(0.75*height)
+              tet = matMul(ROT_Y(EPS(dy)), tet)
+
+              drawTet(tet,tetColor)
+              lastX = event.x
+              lastY = event.y
+                </pre>
+            </li>
+
+            <li>
+                Mapeie deslocamentos da rodinha do mouse em rotações ao redor do
+                eixo Z.
+                <pre>
+          # windows: event.delta > 0 -> scroll up
+          canvas.bind_all('&#60;MouseWheel&#62;', wheel)
+          # X11 (linux)
+          canvas.bind('&#60;Button-4&#62;', wheelUp)
+          canvas.bind('&#60;Button-5&#62;', wheelDown)
+                </pre>
+            </li>
+
+            <li>
+                Elimine o tetraedro para apagá-lo, aplique uma matrix de
+                rotação, e desenhe novamente o tetraedro com a cor preta. <br />
+                <pre>
+          def drawTet(tet,col):
+              canvas.delete(ALL)
+              ...
+                </pre>
+            </li>
+
+            <li>
+                Cadastre um callback para ser notificado do redimensionamento da
+                janela pelo usuário.
+                <pre>
+          def resize(event):
+              drawTet(tet, 'black')
+
+          canvas.bind('&#60;Configure&#62;', resize)
+                </pre>
+            </li>
+
+            <li>
+                As normais de todas as faces devem ser orientadas
+                consistentemente, todas apontando para fora ou para dentro do
+                sólido. <br />
+                Como os sólidos platônicos são convexos:
+                <ul>
+                    <li>
+                        basta executar o produto escalar entre o vetor normal da
+                        face e o vetor que liga o centróide da face ao centróide
+                        do sódido.
+                    </li>
+
+                    <li>
+                        se o produto for > 0, inverta a direção do vetor normal.
+                        Assim, todas as normais apontarão para fora do sólido.
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                Apenas no máximo três, das quatro faces do tetraedro, são
+                visíveis. Um teste simples conhecido como
+                <a
+                    href="http://glasnost.itcarlow.ie/~powerk/GeneralGraphicsNotes/HSR/backfaceculling.html"
+                >
+                    back face culling
+                </a>
+                <br />
+                é suficiente para determinar as faces visíveis de sólidos
+                convexos.
+                <ul>
+                    <li>
+                        A direção de visão da câmera é paralela ao eixo Z: (0,
+                        0, -1).
+                    </li>
+                    <li>
+                        Portanto, o produto escalar da normal (apontando para
+                        fora) de uma face, com a direção de visão, deve ser
+                        negativo (ângulo &gt; 90&deg;).
+                    </li>
+                    <li>
+                        Logo, basta que a componente Z da normal de uma face
+                        seja positiva: N<sub>z</sub> > 0 ⇒ face é visível.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/tet.png">
+                <img src="figuras/tet.png" width="206" height="214" />
+            </a>
+            <h3>
+                <figcaption>Tetraedro.</figcaption>
+            </h3>
+        </figure>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/tetc.png">
+                <img src="figuras/tetc.png" width="206" height="214" />
+            </a>
+            <h3>
+                <figcaption>Tetraedro.</figcaption>
+            </h3>
+        </figure>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/dod.png">
+                <img src="figuras/dod.png" width="206" height="214" />
+            </a>
+            <h3>
+                <figcaption>Dodecaedro.</figcaption>
+            </h3>
+        </figure>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/octa.png">
+                <img src="figuras/octa.png" width="206" height="214" />
+            </a>
+            <h3>
+                <figcaption>Octaedro.</figcaption>
+            </h3>
+        </figure>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/ico.png">
+                <img src="figuras/ico.png" width="206" height="214" />
+            </a>
+            <h3>
+                <figcaption>Icosaedro.</figcaption>
+            </h3>
+        </figure>
+
+        <div style="clear: both"></div>
+
+        <h5>Links úteis:</h5>
+        <ul>
+            <li>
+                <a
+                    href="http://effbot.org/tkinterbook/tkinter-events-and-bindings.htm"
+                >
+                    Events and Bindings
+                </a>
+            </li>
+            <li>
+                <a href="http://mathworld.wolfram.com/RotationMatrix.html">
+                    Rotation Matrix
+                </a>
+            </li>
+            <li>
+                <a
+                    href="http://dl.acm.org/citation.cfm?id=325242&dl=ACM&coll=portal"
+                >
+                    Animating rotation with quaternion curves
+                </a>
+            </li>
+            <li>
+                <a
+                    href="http://webserver2.tecgraf.puc-rio.br/~mgattass/LivroCG/06_Transformacoes_Geometricas_e_Quaternios.pdf"
+                >
+                    ArcBall
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://code.activestate.com/recipes/578876-rotatable-tetrahedron/"
+                >
+                    ActiveState Code
+                </a>
+            </li>
+            <li>
+                <a href="https://en.wikipedia.org/wiki/Platonic_solid">
+                    Platonic Solids
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://www.khronos.org/opengl/wiki/Calculating_a_Surface_Normal"
+                >
+                    Calculating a Surface Normal
+                </a>
+            </li>
+        </ul>
+
+        <hr />
+
+        <div class="extra">
+            <p>
+                13) Usando o PyOpenGL, escreva um programa que desenhe um cubo e
+                um tetredro, que fiquem girando na tela. <br />
+                As faces do cubo devem ter cores diferentes e as faces do
+                tetraedro devem ser coloridas a partir da interpolação das cores
+                dos seus vértices: vermelho, verde e azul.
+            </p>
+
+            <table>
+                <tr>
+                    <td>
+                        <a href="figuras/cubo.png">
+                            <img
+                                src="figuras/cubo.png"
+                                width="325"
+                                height="253"
+                            />
+                        </a>
+                        <h3>Spinning Cube</h3>
+                    </td>
+                </tr>
+            </table>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li><a href="http://pyopengl.sourceforge.net/">PyOpenGL</a></li>
+            </ul>
+
+            <hr />
+
+            <p id="cgal">
+                14) Usando o cgal-python e o PyOpenGL, escreva um programa que
+                desenhe o Diagrama de Voronoi, <br />
+                e a triangulação de Delaunay, a partir de pontos fornecidos com
+                o mouse.
+            </p>
+
+            <table>
+                <tr>
+                    <td>
+                        <a href="figuras/Voronoi.png">
+                            <img
+                                src="figuras/Voronoi.png"
+                                width="261"
+                                height="269"
+                            />
+                        </a>
+                        <h3>Voronoi</h3>
+                    </td>
+                </tr>
+            </table>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a href="http://cgal-python.gforge.inria.fr/">
+                        cgal-python
+                    </a>
+                </li>
+                <li><a href="http://pyopengl.sourceforge.net/">PyOpenGL</a></li>
+                <li><a href="videos/Voronoi.mp4">Animação</a></li>
+            </ul>
+
+            <hr />
+
+            <p>
+                15) Usando o PyOpenGL, escreva um programa para desenhar
+                fractais conhecidas como conjuntos de Julia.
+            </p>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/julia.png">
+                    <img src="figuras/julia.png" width="256" height="256" />
+                </a>
+                <h3>
+                    <figcaption>
+                        <a
+                            href="https://marksmath.org/visualization/julia_sets/"
+                        >
+                            Conjuntos de Julia
+                        </a>
+                    </figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/julia2.png">
+                    <img src="figuras/julia2.png" width="256" height="256" />
+                </a>
+                <h3>
+                    <figcaption>
+                        <a href="https://www.karlsims.com/julia.html">
+                            Julia and Mandelbtot Sets
+                        </a>
+                    </figcaption>
+                </h3>
+            </figure>
+
+            <div style="clear: both"></div>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a href="http://www.cygnus-software.com/">
+                        Fractal EXtreme
+                    </a>
+                </li>
+                <li>
+                    <a href="http://paulbourke.net/fractals/juliaset/">
+                        Julia Sets
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="http://users.math.yale.edu/public_html/People/frame/Fractals/"
+                    >
+                        Fractal Geometry
+                    </a>
+                </li>
+                <li><a href="http://pyopengl.sourceforge.net/">PyOpenGL</a></li>
+            </ul>
+
+            <hr />
+        </div>
+
+        <p class="shouldDo" id="16">
+            16) Desenhe uma fractal conhecida como Sierpinski Gasket. A maneira
+            mais fácil é ir dividindo ao meio, recursivamente, as arestas de um
+            triângulo inicial. Use uma escala para variar o número de
+            subdivisões <i>n</i>, gradativamente, e dois labels, para indicar o
+            número de triângulos vermelhos (3<sup> <i>n</i> </sup>) e brancos
+            (3<sup> <i>n</i> </sup>-1)/2.
+        </p>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/Sierpinski.png">
+                <img src="figuras/Sierpinski.png" width="256" height="256" />
+            </a>
+            <h3>
+                <figcaption>Sierpinski Gasket.</figcaption>
+            </h3>
+        </figure>
+
+        <figure style="text-align: center; float: left">
+            <a href="figuras/sierpinski.gif">
+                <img src="figuras/sierpinski.gif" width="511" height="281" />
+            </a>
+            <h3>
+                <figcaption>Subdivision Process.</figcaption>
+            </h3>
+        </figure>
+
+        <div style="clear: both"></div>
+
+        <h5>Links úteis:</h5>
+        <ul>
+            <li>
+                <a href="http://paulbourke.net/fractals/polyhedral/">
+                    Sierpinski Gasket
+                </a>
+            </li>
+            <li>
+                <a href="https://en.wikipedia.org/wiki/Sierpinski_triangle">
+                    Wikipedia
+                </a>
+            </li>
+            <li>
+                <a
+                    href="http://ecademy.agnesscott.edu/~lriddle/ifs/siertri/siertri.htm"
+                >
+                    Classic Iterated Function Systems
+                </a>
+            </li>
+            <li>
+                <a href="http://www.oftenpaper.net/sierpinski.htm">
+                    Constructing the Sierpinski Triangle
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://code.activestate.com/recipes/580614-sierpinski-gasket"
+                >
+                    ActiveState Code
+                </a>
+            </li>
+            <li>
+                <a href="/WebGL/labs/WebGL/Assignment_1/twist.html">
+                    WebGL Code
+                </a>
+            </li>
+        </ul>
+
+        <hr />
+
+        <div class="extra">
+            <p>
+                17) O programa
+                <a href="public/mplayertv.py">mplayertv.py</a> foi implementado
+                segundo o paradigma "procedural" de programação. <br />
+                Altere-o usando OO (orientação a objetos), criando uma classe
+                mplayerTV.
+            </p>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/mplayer.png">
+                    <img src="figuras/mplayer.png" width="322" height="139" />
+                </a>
+                <h3>
+                    <figcaption>mplayer</figcaption>
+                </h3>
+            </figure>
+
+            <figure style="text-align: center; float: left">
+                <a href="figuras/ghost_rider.png">
+                    <img
+                        src="figuras/ghost_rider.png"
+                        width="213"
+                        height="136"
+                    />
+                </a>
+                <h3>
+                    <figcaption>Ghost Rider</figcaption>
+                </h3>
+            </figure>
+
+            <div style="clear: both"></div>
+
+            <hr />
+
+            <p id="dvd">
+                18) <b>Desafio Linux</b>: escreva um programa python para
+                "tocar" qualquer arquivo multimedia a partir de qualquer unidade
+                de CD/DVD do computador.
+            </p>
+
+            <p>
+                <b>Dicas:</b>
+            </p>
+
+            <p>
+                - O programa mplayertv.py é capaz de "tocar" quase todos os
+                tipos de arquivos multimedia.
+            </p>
+
+            <p>
+                - Arquivos em CD ("iso9660") ou DVD ("udf") , em linux,
+                normalmente, são montados no diretório "/media/volume do CD" ou
+                "/run/media/user/volume do CD".
+            </p>
+
+            <p>
+                - A informação de todos os pontos de montagem em uso está
+                armazenada no arquivo "/etc/mtab".
+            </p>
+
+            <p>
+                - Use o módulo <a href="public/getcdmp.py">getcdmp.py</a>, para
+                descobrir qual o leitor de CD/DVD, o ponto de montagem e o
+                sistema de arquivos.
+            </p>
+
+            <p>
+                <b>Exemplo:</b>
+            </p>
+
+            <pre>
+    [cascavel:~/bin] getcdmp.py
+    ('/dev/sr1', '/media/BLADE_RUNNER_16X9', 'udf')
+
+    [cascavel:~] mplayerdvd.py
+    Python Version:  2.5.4 - Language = en_US, Charcode = UTF8
+    Device = /dev/sr1 , Chapter = None , Mount Point = /media/BLADE_RUNNER_16X9 , File system = udf
+    The Monitor Aspect Ratio is None
+    [cascavel:~] libdvdread: Using libdvdcss version 1.2.10 for DVD access
+            </pre>
+
+            <table>
+                <tr>
+                    <td>
+                        <a href="figuras/Blade Runner.png">
+                            <img
+                                src="figuras/Blade Runner.png"
+                                width="395"
+                                height="170"
+                            />
+                        </a>
+                        <h3>Blade Runner</h3>
+                    </td>
+                </tr>
+            </table>
+
+            <h5>Links úteis:</h5>
+            <ul>
+                <li>
+                    <a href="http://docs.python.org/library/glob.html">
+                        Unix style pathname pattern expansion
+                    </a>
+                </li>
+                <li><a href="videos/Eragon.mp4">Animação</a></li>
+            </ul>
+
+            <hr />
+        </div>
+
+        <p>/Paulo Roma.</p>
+
+        <script src="laboratorios2.js"></script>
+    </body>
+</html>

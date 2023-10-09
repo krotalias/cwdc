@@ -1,0 +1,11 @@
+add "James" "Larry" 4
+addEdge: (True) - 1 edges, 2 vertices
+
+add "James" "Paul" 3
+addEdge: (True) - 2 edges, 3 vertices
+
+add "James" "John" 1
+addEdge: (True) - 3 edges, 4 vertices
+
+showFriends "James"
+{<"Paul", 3>, <"John", 1>, <"Larry", 4>}

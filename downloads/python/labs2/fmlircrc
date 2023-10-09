@@ -1,0 +1,126 @@
+# File: .fmlircrc
+# Remote Control: Pixelview PlayTV MPEG2 PV-M4900 FM.RC
+# Author: Paulo Roma on 28/12/2009
+# Configuration file for fmtools-tkradio.
+#
+begin
+    prog   = tkradio
+    button = power
+    config = quit
+end
+
+begin
+    prog   = tkradio
+    button = ch+
+    config = next
+end
+
+begin
+    prog   = tkradio
+    button = ch-
+    config = previous
+end
+
+begin
+    prog   = tkradio
+    button = mute
+    config = off
+end
+
+begin
+    prog   = tkradio
+    button = rec
+    config = rec
+end
+
+begin
+    prog   = tkradio
+    button = stop
+    config = stop
+end
+
+begin
+    prog   = tkradio
+    button = play
+    config = on
+end
+
+begin
+    prog   = tkradio
+    button = loop
+    config = loop
+end
+
+begin
+    prog   = tkradio
+    button = vol+
+    config = volup
+end
+
+begin
+    prog   = tkradio
+    button = vol-
+    config = voldown
+end
+
+begin
+    prog   = tkradio
+    button = 1
+    config = 1
+end
+
+begin
+    prog   = tkradio
+    button = 2
+    config = 2
+end
+
+begin
+    prog   = tkradio
+    button = 3
+    config = 3
+end
+
+begin
+    prog   = tkradio
+    button = 4
+    config = 4
+end
+
+begin
+    prog   = tkradio
+    button = 5
+    config = 5
+end
+
+begin
+    prog   = tkradio
+    button = 6
+    config = 6
+end
+
+begin
+    prog   = tkradio
+    button = 7
+    config = 7
+end
+
+begin
+    prog   = tkradio
+    button = 8
+    config = 8
+end
+
+begin
+    prog   = tkradio
+    button = 9
+    config = 9
+end
+
+begin
+    prog   = tkradio
+    button = 0
+    config = 0
+end
+
+
