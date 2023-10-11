@@ -1,0 +1,60 @@
+:root {
+    --cgrena: #8b2439;
+    --cgreen: #446127;
+    --corange: orange;
+    --cwhite: white;
+    --cwhite1: #8b2439;
+    --cwhite2: #446127;
+    --cwhite3: #446127;
+    --inverted-clock: false;
+}
+body {
+    margin: 20px;
+}
+#clock,
+#handles {
+    border: 5px solid #8b2439;
+    padding: 20px;
+    margin: 0px;
+}
+#flu {
+    width: 512px;
+    font-family: cursive;
+    text-align: center;
+    font-size: 30px;
+}
+#container {
+    position: relative;
+    height: 512px;
+    margin: 0px;
+    margin-bottom: 50px;
+}
+canvas {
+    position: absolute;
+}
+#handles {
+    z-index: 2;
+}
+#legend {
+    z-index: 1;
+}
+#clock {
+    background-color: antiquewhite;
+    z-index: 1;
+}
+#handles:hover {
+    transform: scaleX(-1);
+    --inverted-clock: true;
+}
+button {
+    font-size: 200%;
+    margin-right: 40px;
+    margin-left: 40px;
+    padding: 0 10px 0 10px;
+}
+#address {
+    margin-left: 0;
+    text-align: justify;
+    width: 512px;
+    font-size: small;
+}

@@ -1,0 +1,61 @@
+:root {
+    --cgrena: #696969;
+    --cgreen: #446127;
+    --corange: orange;
+    --cwhite: white;
+    --cwhite1: white;
+    --cwhite2: white;
+    --cwhite3: #000000;
+    --inverted-clock: false;
+}
+body {
+    margin: 20px;
+}
+#clock,
+#handles {
+    border: 5px solid #8b2439;
+    padding: 10px;
+    margin: 0px;
+}
+#flu {
+    width: 512px;
+    font-family: cursive;
+    text-align: center;
+    font-size: 30px;
+}
+#container {
+    position: relative;
+    height: 352px;
+    margin: 0px;
+    margin-bottom: 30px;
+}
+canvas {
+    position: absolute;
+}
+#handles {
+    z-index: 2;
+}
+#legend {
+    z-index: 1;
+}
+#clock {
+    background: url("./flag2.jpg");
+    background-size: cover;
+    z-index: 1;
+}
+#handles:hover {
+    transform: scaleX(-1);
+    --inverted-clock: true;
+}
+button {
+    font-size: 200%;
+    margin-right: 40px;
+    margin-left: 40px;
+    padding: 0 10px 0 10px;
+}
+#address {
+    margin-left: 0;
+    text-align: justify;
+    width: 503px;
+    font-size: small;
+}
