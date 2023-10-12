@@ -57,6 +57,9 @@ audio {
     margin-left: -20px;
     background-color: #95b9c7;
 }
+#player {
+    background-image: url("/cwdc/mainPage/IMAGEM/stone/yell_roc.jpg");
+}
 #address {
     margin-left: 0;
     text-align: justify;
