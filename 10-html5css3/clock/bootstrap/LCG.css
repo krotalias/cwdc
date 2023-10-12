@@ -76,7 +76,7 @@ a:active {
 
 body {
     background-color: white;
-    background-image: url("/IMAGEM/stone/yell_roc.jpg");
+    background-image: url("/cwdc/mainPage/IMAGEM/stone/yell_roc.jpg");
     text-decoration-color: black;
 }
 
@@ -90,10 +90,10 @@ body {
 }
 
 .lst-group {
-    background-image: url("/IMAGEM/stone/yell_roc.jpg");
+    background-image: url("/cwdc/mainPage/IMAGEM/stone/yell_roc.jpg");
 }
 
 #player {
     width: 128px;
-    background-image: url("/IMAGEM/stone/yell_roc.jpg");
+    background-image: url("/cwdc/mainPage/IMAGEM/stone/yell_roc.jpg");
 }
