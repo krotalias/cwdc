@@ -1,0 +1,99 @@
+table,
+td,
+th {
+    border: 0px solid #ddd;
+    text-align: center;
+}
+table {
+    border-collapse: collapse;
+    border-style: none;
+    width: 50%;
+}
+/* table header and data */
+th,
+td {
+    text-align: center;
+    padding: 45px;
+}
+/* break paragraphs */
+.psmall {
+    width: 70%;
+}
+/* links without underlining */
+a {
+    text-decoration: none;
+    display: inline-block;
+}
+/* unvisited link */
+a:link {
+    color: blue;
+}
+/* color for visited links */
+a:visited {
+    color: #fa5f55;
+}
+#flu a:visited {
+    color: brown;
+}
+/* when mouse passes over a link */
+a:hover {
+    text-decoration: underline;
+}
+/* color for clicked links */
+a:active {
+    background-color: red;
+}
+.button {
+    background-color: #9aafb2;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sideBySide button {
+    font-size: 100%;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding: 0 10px 0 10px;
+}
+
+.sideBySide audio {
+    margin-left: 0px;
+    background-color: pink;
+}
+
+.button:hover {
+    background-color: #f0f8ff;
+    border: #005cb9 solid;
+    border-radius: 50%;
+    margin: 4px 2px;
+    padding: 10px;
+}
+
+body {
+    background-color: white;
+    background-image: url("/IMAGEM/stone/yell_roc.jpg");
+    text-decoration-color: black;
+}
+
+.wrap-content > iframe,
+.wrap-content > small,
+.wrap-content > .lst-group,
+.wrap-content > h3 {
+    width: auto;
+    text-align: justify;
+    margin-left: 20px;
+}
+
+.lst-group {
+    background-image: url("/IMAGEM/stone/yell_roc.jpg");
+}
+
+#player {
+    width: 128px;
+    background-image: url("/IMAGEM/stone/yell_roc.jpg");
+}
