@@ -52,9 +52,14 @@ button {
     margin-left: 40px;
     padding: 0 10px 0 10px;
 }
+audio {
+    margin-left: -20px;
+    background-color: #95b9c7;
+}
 #address {
     margin-left: 0;
     text-align: justify;
     width: 512px;
     font-size: small;
+    height: 4em;
 }
