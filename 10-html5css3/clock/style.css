@@ -54,7 +54,6 @@ button {
 }
 audio {
     margin-left: -20px;
-    background-color: #95b9c7;
 }
 #player {
     background-image: url("/cwdc/mainPage/IMAGEM/stone/yell_roc.jpg");
@@ -65,4 +64,10 @@ audio {
     width: 512px;
     font-size: small;
     height: 4em;
+}
+.sideBySide button {
+    font-size: 100%;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding: 10px 10px;
 }
