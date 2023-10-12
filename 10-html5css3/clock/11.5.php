@@ -32,26 +32,27 @@
 
         <br />
         <div id="address"></div>
-        <p>
-            <div class="sideBySide">
-                <audio title="Hino do Fluminense" controls loop>
-                    <source src="hino-fluminense-fc.mp3" type="audio/mpeg">
-                        Please upgrade your browser!
-                </audio>
+        <br />
+        <div class="sideBySide">
+            <audio title="Hino do Fluminense" controls loop>
+                <source src="hino-fluminense-fc.mp3" type="audio/mpeg">
+                    Please upgrade your browser!
+            </audio>
 
-                <button onclick="nextLocation()">+</button>
-                <label><b>Location</b></label>
-                <button onclick="previousLocation()">-</button>
-            </div>
-            <small>
-                <p>
-                    Fluminense FC Anthem by
-                    <a href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/">
-                        Lamartine Babo.
-                    </a>
-                </p>
-            </small>
-        </p>
+            <button onclick="nextLocation()">+</button>
+            <label><b>Location</b></label>
+            <button onclick="previousLocation()">-</button>
+        </div>
+
+        <small>
+            <p>
+                Fluminense FC Anthem by
+                <a href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/">
+                    Lamartine Babo.
+                </a>
+            </p>
+        </small>
+
         <p>
             <video title="O elástico de Rivelino" width="320" height="240" controls autoplay loop muted>
                 <source src="Fluminense 1 x 0 Vasco da Gama - O elastico de Rivelino.mp4" type="video/mp4">
