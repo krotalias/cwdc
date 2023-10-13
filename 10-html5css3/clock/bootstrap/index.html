@@ -18,27 +18,27 @@
     <body>
         <div w3-include-html="navbar.html"></div>
 
-        <div class="wrap-content">
-            <p id="flu">
-                <a href="https://www.fluminense.com.br/site/"
-                    >Fluminense Football Club</a
-                >
+        <div class="wrap-content ms-1">
+            <div id="flu" class="mb-2">
+                <a href="https://www.fluminense.com.br/site/">
+                    Fluminense Football Club
+                </a>
                 <sub style="font-size: small">
-                    <a href="/cwdc/downloads/PDFs/04_LCG_Window-Viewport.pdf"
-                        >[1]</a
-                    >
-                    <a href="/cwdc/downloads/python/laboratorios2.html#8c"
-                        >[2]</a
-                    >
+                    <a href="/cwdc/downloads/PDFs/04_LCG_Window-Viewport.pdf">
+                        [1]
+                    </a>
+                    <a href="/cwdc/downloads/python/laboratorios2.html#8c">
+                        [2]
+                    </a>
                     <a
                         href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
                     >
                         [3]
                     </a>
                 </sub>
-            </p>
+            </div>
 
-            <div id="container">
+            <div class="position-relative mb-4" style="height: 544px">
                 <canvas id="clock" width="512" height="512">
                     Please upgrade your browser.
                 </canvas>
@@ -49,32 +49,32 @@
                     Please upgrade your browser.
                 </canvas>
             </div>
-            <br />
-            <div id="address"></div>
 
-            <br />
-            <div class="sideBySide">
+            <div
+                id="address"
+                class="mb-4"
+                style="width: 512px; text-align: center"
+            ></div>
+
+            <div class="m-4" style="font-size: 100%">
                 <audio id="player" title="Hino do Fluminense" controls loop>
                     <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
                     Please upgrade your browser!
                 </audio>
 
                 <button onclick="nextLocation()">+</button>
-                <label><b>Time Zone</b></label>
+                <label class="mx-3"><b>Time Zone</b></label>
                 <button onclick="previousLocation()">-</button>
             </div>
 
-            <small>
-                <p>
-                    Hino do Fluminense FC por
-                    <a
-                        href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/"
-                    >
-                        Lamartine Babo (1949).
-                    </a>
-                </p>
-            </small>
-            <br />
+            <div class="my-4" style="font-size: small">
+                Hino do Fluminense FC por
+                <a
+                    href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/"
+                >
+                    Lamartine Babo (1949).
+                </a>
+            </div>
         </div>
 
         <script>

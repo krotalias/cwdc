@@ -18,8 +18,8 @@
     <body>
         <div w3-include-html="navbar.html"></div>
 
-        <div class="wrap-content">
-            <p id="flu">
+        <div class="wrap-content ms-1">
+            <div id="flu" class="mb-2">
                 <a href="https://www.fluminense.com.br/site/">
                     Fluminense Football Club
                 </a>
@@ -36,9 +36,9 @@
                         [3]
                     </a>
                 </sub>
-            </p>
+            </div>
 
-            <div id="container">
+            <div class="position-relative mb-5" style="height: 352px">
                 <canvas id="clock" width="503" height="352">
                     Please upgrade your browser.
                 </canvas>
@@ -49,32 +49,32 @@
                     Please upgrade your browser.
                 </canvas>
             </div>
-            <br />
-            <div id="address"></div>
 
-            <br />
-            <div class="sideBySide">
+            <div
+                id="address"
+                class="mb-4"
+                style="width: 503; text-align: center"
+            ></div>
+
+            <div class="m-4" style="font-size: 100%">
                 <audio id="player" title="Hino do Fluminense" controls loop>
                     <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
                     Please upgrade your browser!
                 </audio>
 
                 <button onclick="nextLocation()">+</button>
-                <label><b>Time Zone</b></label>
+                <label class="mx-3"><b>Time Zone</b></label>
                 <button onclick="previousLocation()">-</button>
             </div>
 
-            <small>
-                <p>
-                    Fluminense FC Anthem by
-                    <a
-                        href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/"
-                    >
-                        Lamartine Babo.
-                    </a>
-                </p>
-            </small>
-            <br />
+            <div class="my-4" style="font-size: small">
+                Fluminense FC Anthem by
+                <a
+                    href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/"
+                >
+                    Lamartine Babo.
+                </a>
+            </div>
         </div>
 
         <script>
