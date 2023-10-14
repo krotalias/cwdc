@@ -373,9 +373,9 @@ function geoCoding(address) {
 function findCity(name) {
   return readZones().then((tz) => {
     let city;
-    if (false) {
-      let index = localStorage.getItem("placeIndex") || place;
-      city = tz.cities[index];
+    if (name === undefined) {
+      let index = localStorage.getItem("placeIndex");
+      if (index !== null) city = tz.cities[index];
     } else {
       city = tz.cities.filter(function (c) {
         return c.city == name;
@@ -850,11 +850,23 @@ var runAnimation = (() => {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   let tz = urlParams.get("timeZone") || timezone;
   let city = tz.split("/")[1];
-  // lets make a copy in case this is an invalid time zone,
-  // so we can keep using the original string
   let tz2 = tz;
-
-  drawClock(city);
+  findCity()
+    .then((ct) => {
+      if (ct) {
+        tz = `${ct.region}/${ct.city}`;
+        city = ct.city;
+        // lets make a copy in case this is an invalid time zone,
+        // so we can keep using the original string
+        tz2 = tz;
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      drawClock(city);
+    });
 
   /**
    * <p>A callback to redraw the four handles of the clock.</p>
