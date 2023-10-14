@@ -72,3 +72,14 @@ audio {
     margin-left: 20px;
     padding: 10px 10px;
 }
+iframe,
+.video,
+video {
+    width: auto;
+    text-align: justify;
+    margin-left: -20px;
+}
+div > iframe,
+div > video {
+    margin-top: 2em;
+}

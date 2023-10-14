@@ -81,7 +81,7 @@ body {
 }
 
 .wrap-content > iframe,
-.wrap-content > small,
+.wrap-content > .video,
 .wrap-content > .lst-group,
 .wrap-content > h3 {
     width: auto;

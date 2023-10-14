@@ -61,13 +61,13 @@
             </a>
         </div>
 
-        <p>
+        <div style="font-size: small">
             <video title="O elástico de Rivelino" width="320" height="240" controls autoplay loop muted>
                 <source src="Fluminense 1 x 0 Vasco da Gama - O elastico de Rivelino.mp4" type="video/mp4">
                     Please upgrade your browser!
             </video>
-            <br />
-            <small id="Rivelino">
+
+            <div class="video" id="Rivelino">
                 Rivelino's rubberband
                 <a href="https://www.youtube.com/watch?v=jt7ebGO6ILg">10/06/1975</a>
                 <?php
@@ -75,9 +75,9 @@
                 include "date.php";
                 print $year;
                 ?>
-            </small>
-            <br />
-            <small id="Renato">
+            </div>
+
+            <div class="video" id="Renato">
                 Renato's belly goal
                 <a href="https://www.youtube.com/watch?v=CrIFGVYuq6c">25/06/1995</a>
                 <?php
@@ -85,8 +85,9 @@
                 include "date.php";
                 print $year;
                 ?>
-            </small><br />
-            <small id="Cano">
+            </div>
+
+            <div class="video" id="Cano">
                 Cano's half field goal
                 <a href="https://www.youtube.com/watch?v=UA-HwS766Hw">12/02/2023</a>
                 <?php
@@ -94,8 +95,9 @@
                 include "date.php";
                 print $year;
                 ?>
-            </small>
-        </p>
+            </div>
+        </div>
+
         <script src="suncalc.js"></script>
         <script src="clock.js"> </script>
     </body>
