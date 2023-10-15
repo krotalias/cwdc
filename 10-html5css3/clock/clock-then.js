@@ -32,6 +32,9 @@
  * <p>The day light hours are indicated by means of a bright curve drawn
  * on top of the clock's circular border.</p>
  *
+ * <p>Whenever the mouse cursor is in the canvas, a reversed clock
+ * <a href="../clock/Backwards-Clock.jpg">running backwards</a> is dwawn.</p>
+ *
  * <pre>
  * Documentation:
  * - Ubuntu:
@@ -51,8 +54,8 @@
  * @see <a href="/cwdc/10-html5css3/clock/clock-then.js">source</a>
  * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
  * @see https://github.com/mourner/suncalc
- * @see <img src="../clock/clock.png">
- * @see <img src="../clock/clock2.png">
+ * @see <img src="../clock/clock.png" width="256"> <img src="../clock/reversed-clock.png" width="256">
+ * @see <img src="../clock/clock2.png" width="512">
  */
 
 "use strict";
@@ -930,7 +933,7 @@ var runAnimation = (() => {
     });
 
     // Clear screen.
-    lctx.clearRect(0, 0, legend.width + 32, legend.height);
+    lctx.clearRect(0, 0, legend.width, legend.height);
 
     let theight = legend.width / 45;
     lctx.font = setFont(theight);
