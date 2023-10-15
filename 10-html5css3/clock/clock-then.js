@@ -371,6 +371,9 @@ function geoCoding(address) {
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
  */
 function findCity(name) {
+  if (typeof name !== "string" && typeof name !== "undefined") {
+    return Promise.resolve(name);
+  }
   return readZones().then((tz) => {
     let city;
     if (name === undefined) {
@@ -855,7 +858,7 @@ var runAnimation = (() => {
     .then((ct) => {
       if (ct) {
         tz = `${ct.region}/${ct.city}`;
-        city = ct.city;
+        city = ct; // ct.city;
         // lets make a copy in case this is an invalid time zone,
         // so we can keep using the original string
         tz2 = tz;

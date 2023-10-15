@@ -362,6 +362,9 @@ async function geoCoding(address) {
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
  */
 async function findCity(name) {
+  if (typeof name !== "string" && typeof name !== "undefined") {
+    return name;
+  }
   if (drawClock.tz === undefined) {
     drawClock.tz = await readZones();
   }
@@ -847,7 +850,7 @@ var runAnimation = (() => {
         // lets make a copy in case this is an invalid time zone,
         // so we can keep using the original string
         tz2 = tz;
-        city = ct.city;
+        city = ct; // ct.city;
       }
     } catch (e) {
       console.error(e);
