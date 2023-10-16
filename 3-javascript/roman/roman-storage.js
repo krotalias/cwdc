@@ -38,19 +38,16 @@
  *  </pre>
  * @see https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer
  * @see https://stackoverflow.com/questions/8634058/where-the-sessionstorage-and-localstorage-stored
+ * @see <a href="../roman/roman.html">link</a>
  * @see <a href="../roman/roman-storage.js">source</a>
  */
 
 import { int2roman, int2romanFast, roman2int, validateRoman } from "./roman.js";
 
-// Module creates a scope to avoid name collisions.
-// Either expose your function to window object or use addEventListener to bind handler.
-window.restoreValues = restoreValues;
-window.storeValues = storeValues;
-
-/** Accesses the current domain's local Storage object and reads a data item from it using Storage.getItem().
+/**
+ * Accesses the current domain's local Storage object and reads a data item from it using Storage.getItem().
  *
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
  */
 function restoreValues() {
   if (localStorage.getItem("decimal-value") !== null)
@@ -59,9 +56,10 @@ function restoreValues() {
     roman.value = localStorage.getItem("roman-value");
 }
 
-/** Accesses the current domain's local Storage object and adds a data item to it using Storage.setItem().
+/**
+ * Accesses the current domain's local Storage object and adds a data item to it using Storage.setItem().
  *
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
  */
 function storeValues() {
   if (typeof Storage !== "undefined") {
@@ -73,8 +71,7 @@ function storeValues() {
 /**
  * Convert from integer to roman.
  * @param {MouseEvent} e button click event.
- * @function decimal button click
- * @global
+ * @event onclick - when roman button is clicked.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
  * @see <a href="/cwdc/3-javascript/doc-roman/module-roman.html#int2romanFast">int2romanFast</a>
  */
@@ -87,9 +84,9 @@ roman_button.onclick = function (e) {
 /**
  * Convert from integer to roman.
  * @param {InputEvent} e oninput event.
- * @function decimal string typed
- * @global
+ * @event on - change or keyup when typing in decimal input.
  * @see <a href="/cwdc/3-javascript/doc-roman/module-roman.html#int2romanFast">int2romanFast</a>
+ * @see https://api.jquery.com/keyup/#on1
  */
 $('[name="decimal"]').on("change keyup", function () {
   let value = $(this).val();
@@ -99,8 +96,7 @@ $('[name="decimal"]').on("change keyup", function () {
 /**
  * Convert from roman to integer.
  * @param {InputEvent} e oninput event.
- * @function roman string typed
- * @global
+ * @event oninput - when typing in roman input.
  * @see <a href="/cwdc/3-javascript/doc-roman/module-roman.html#roman2int">roman2int</a>
  */
 roman.oninput = function () {
@@ -111,8 +107,7 @@ roman.oninput = function () {
 /**
  * Convert from roman to integer.
  * @param {MouseEvent} e button click event.
- * @function roman button click
- * @global
+ * @event onclick - when decimal button is clicked.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
  * @see <a href="/cwdc/3-javascript/doc-roman/module-roman.html#roman2int">roman2int</a>
  */
@@ -126,3 +121,11 @@ decimal_button.onclick = function (e) {
     storeValues();
   }
 };
+
+/**
+ * Triggers the <a href="/cwdc/3-javascript/doc-roman/module-roman-storage.html#restoreValues">restore from local storage</a>
+ *
+ * @event load - restore values.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
+window.addEventListener("load", (event) => restoreValues());
