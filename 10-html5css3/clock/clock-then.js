@@ -839,6 +839,7 @@ function previousLocation() {
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
  * @see https://javascript.plainenglish.io/better-understanding-of-timers-in-javascript-settimeout-vs-requestanimationframe-bf7f99b9ff9b
  * @see https://attacomsian.com/blog/javascript-current-timezone
+ * @see https://www.iana.org/time-zones
  */
 var runAnimation = (() => {
   // clock handles width x length X color
@@ -850,6 +851,7 @@ var runAnimation = (() => {
   ];
   const oneMin = pi / 30; // 6 degrees
   let timer = null;
+  let delta = 0;
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -894,8 +896,12 @@ var runAnimation = (() => {
       } catch (e) {
         if (e instanceof RangeError) {
           // RangeError: invalid time zone
-          // e.g. no Rio de Janeiro ...
-          tz = timezone;
+          // e.g.,Rio de Janeiro ...
+          // I can use the local timezone
+          //      tz = timezone;
+          // or apply the offset to the hour of the 0° meridian
+          tz = "Europe/London";
+          delta = +city.offset;
         } else {
           console.log(e);
           throw new Error("By, bye. See you later, alligator.");
@@ -904,7 +910,7 @@ var runAnimation = (() => {
     }
 
     // 12 hours format: AM / PM
-    let hours12 = hours % 12 || 12;
+    let hours12 = (+hours + delta) % 12 || 12;
 
     clock_handles[0].time2Angle = fiveMin * (+hours12 + minutes / 60);
     clock_handles[1].time2Angle = oneMin * (+minutes + seconds / 60);

@@ -22,7 +22,7 @@
         {
             "city": "Rio_de_Janeiro",
             "region": "Brazil",
-            "offset": -3,
+            "offset": -4,
             "coordinates": {
                 "latitude": -22.936320621090374,
                 "longitude": -43.18484486868511
@@ -116,6 +116,15 @@
             "coordinates": {
                 "latitude": 21.3069444,
                 "longitude": -157.8583333
+            }
+        },
+        {
+            "city": "Niue",
+            "region": "Pacific",
+            "offset": -11,
+            "coordinates": {
+                "latitude": -19.054445,
+                "longitude": -169.867233
             }
         },
         {
@@ -233,6 +242,24 @@
             "coordinates": {
                 "latitude": -37.840935,
                 "longitude": 144.946457
+            }
+        },
+        {
+            "city": "Bougainville",
+            "region": "Pacific",
+            "offset": 11,
+            "coordinates": {
+                "latitude": -6.375392,
+                "longitude": 155.38071
+            }
+        },
+        {
+            "city": "Fiji",
+            "region": "Pacific",
+            "offset": 12,
+            "coordinates": {
+                "latitude": -17.713371,
+                "longitude": 178.065033
             }
         }
     ]
