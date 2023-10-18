@@ -845,7 +845,7 @@ var runAnimation = (() => {
   let tz = urlParams.get("timeZone") || timezone;
   let city = tz.split("/")[1];
   let tz2 = tz;
-  (async (tz) => {
+  (async () => {
     try {
       let ct = await findCity();
       if (ct !== undefined) {
