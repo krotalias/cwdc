@@ -83,6 +83,15 @@
             }
         },
         {
+            "city": "Los_Angeles",
+            "region": "America",
+            "offset": -7,
+            "coordinates": {
+                "latitude": 34.052235,
+                "longitude": -118.243683
+            }
+        },
+        {
             "city": "Vancouver",
             "region": "America",
             "offset": -8,
@@ -137,7 +146,7 @@
             }
         },
         {
-            "city": "Roma",
+            "city": "Rome",
             "region": "Europe",
             "offset": 1,
             "coordinates": {
