@@ -37,7 +37,7 @@
             </canvas>
         </div>
 
-        <div id="address" style="margin: 4em 0 2em 0; width: 503px; text-align: center"></div>
+        <div id="address" style="margin: 5em 0 2em 0; width: 503px; text-align: center"></div>
 
         <div class="sideBySide">
             <audio id="player"  title="Hino do Fluminense" controls loop>
