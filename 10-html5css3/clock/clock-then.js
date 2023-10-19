@@ -408,17 +408,19 @@ function findCity(name) {
  * </pre>
  * @param {Number} latitude a coordinate that specifies the north–south position of a point on the surface.
  * @param {Number} longitude measures distance east or west of the prime meridian.
+ * @param {String} dayLight sunrise - sunset string.
  * @param {String} city name of a city.
  * @param {String} region Africa | America | Asia | Atlantic | Australia | Europe | Indian | Pacific
  */
-function displayLocation(latitude, longitude, city, region) {
+function displayLocation(latitude, longitude, dayLight, city, region) {
   let tag = document.querySelector("#address");
   const geopos = (pos, lat, lng) => {
     let [h, m, s] = longitude2UTC(longitude);
     return `${pos.filter((str) => str !== undefined).join(", ")}<br>
       Latitude: ${Number(lat).toFixed(5)},
       Longitude: ${Number(lng).toFixed(5)}<br>
-      UTC offset: ${h}h, ${m}m and ${Number(s).toFixed(3)}s`;
+      UTC offset: ${h}h, ${m}m and ${Number(s).toFixed(3)}s<br>
+      ${dayLight}`;
   };
   reverseGeoCoding(latitude, longitude).then((pos) => {
     if (city !== undefined && region !== undefined) {
@@ -568,11 +570,11 @@ function drawClock(place) {
       // this is an asynchronous callback
       let lat = position.coords.latitude;
       let lng = position.coords.longitude;
-      drawArc({
+      let srss = drawArc({
         latitude: lat,
         longitude: lng,
       });
-      displayLocation(lat, lng);
+      displayLocation(lat, lng, srss);
     },
     () => {
       // safari blocks geolocation unless using a secure connection
@@ -580,8 +582,8 @@ function drawClock(place) {
         if (city) {
           let lat = city.coordinates.latitude;
           let lng = city.coordinates.longitude;
-          drawArc({ latitude: lat, longitude: lng }, city.offset);
-          displayLocation(lat, lng, city.city, city.region);
+          let srss = drawArc({ latitude: lat, longitude: lng }, city);
+          displayLocation(lat, lng, srss, city.city, city.region);
         }
       });
     },
@@ -643,42 +645,66 @@ function drawClock(place) {
   let invertedClock = style.getPropertyValue("--inverted-clock") == "true";
 
   /**
-   * Draw the sun light arc.
+   * <p>Draw the sun light arc.</p>
+   *
+   * Apparently, suncalc returns the sunset and sunrise hours using
+   * the local time from the browser. To get them in the time of the given city,
+   * we have to calculate the time difference between the city and the browser,
+   * and add it to the hours returned.
    *
    * @global
    * @param {Object<{latitude, longitude}>} loc location.
-   * @param {Number} utcoff UTC offset.
+   * @param {tz} city time zone.
+   * @return {String} Sunrise - Sunset hours.
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset
    * @see https://wtfjs.com/wtfs/2010-02-15-undefined-is-mutable
+   * @see https://www.timeanddate.com/sun/usa/new-york
+   * @see https://time.is/Paris
    */
-  function drawArc(loc, utcoff) {
+  function drawArc(loc, city) {
     let today = new Date();
-    let times = SunCalc.getTimes(today, loc.latitude, loc.longitude);
+    let h0 = today.getUTCHours(); // STD time
+    let offset;
+    try {
+      let d1 = getLocaleDate(`${city.region}/${city.city}`);
+      // this is the real city offset with or without DST (Daylight Saving Time)
+      offset = +d1[3] - h0;
+    } catch (e) {
+      // in case the city is not in javascript database, there is no way
+      // but using the offset in our localtime.json
+      offset = city.offset;
+    }
 
     // your local timezone offset in minutes (e.g. -180).
     // NOT the timezone offset of the date object.
-    let offset;
     let timezoneOffset = today.getTimezoneOffset() / 60;
-    if (typeof utcoff === "undefined") {
+    if (typeof city === "undefined") {
       offset = 0;
       cityOffset = -timezoneOffset;
     } else {
-      offset = timezoneOffset + utcoff;
-      cityOffset = utcoff;
+      cityOffset = offset;
+      // diff between the city time and local time from the browser
+      offset += timezoneOffset;
     }
 
+    let times = SunCalc.getTimes(today, loc.latitude, loc.longitude);
     // format sunrise time from the Date object
     let sunriseStr =
-      times.sunrise.getHours() + offset + ":" + times.sunrise.getMinutes();
+      ((times.sunrise.getHours() + offset) % 24) +
+      ":" +
+      times.sunrise.getMinutes();
 
     // format sunset time from the Date object
     let sunsetStr =
-      times.sunset.getHours() + offset + ":" + times.sunset.getMinutes();
+      (times.sunset.getHours() + offset).mod(24) +
+      ":" +
+      times.sunset.getMinutes();
 
-    console.log(sunriseStr, sunsetStr);
     context.strokeStyle = orange;
 
     arc(center, clockRadius - 8, sunriseStr, sunsetStr, false, invertedClock);
+
+    return `Sunrise: ${sunriseStr} - Sunset: ${sunsetStr}`;
   }
 
   // Draw the tick numbers.
@@ -832,6 +858,20 @@ function previousLocation() {
 }
 
 /**
+ * Return the date in a given time zone.
+ * @param {String} tz identifier, e.g., 'America/Sao_Paulo'.
+ * @returns {Array<Number>} [day, month, year, hours, minutes, seconds]
+ */
+function getLocaleDate(tz) {
+  let today = new Date();
+  let [day, month, year, hours, minutes, seconds] = today
+    .toLocaleString("en-GB", { timeZone: tz })
+    .slice()
+    .split(/:|\/|,/);
+  return [day, month, year, hours, minutes, seconds];
+}
+
+/**
  * A closure to run the animation.
  *
  * @function
@@ -883,15 +923,11 @@ var runAnimation = (() => {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/measureText
    */
   return () => {
-    // '06/02/2022, 08:20:50'
-    //              (0-23)  (0-59)  (0-59)
+    // '06/02/2022, 08:20:50 AM'
+    //              (0-23)(0-59)(0-59)
     while (true) {
       try {
-        var today = new Date();
-        var [day, month, year, hours, minutes, seconds] = today
-          .toLocaleString("en-GB", { timeZone: tz })
-          .slice()
-          .split(/:|\/|,/);
+        var [day, month, year, hours, minutes, seconds] = getLocaleDate(tz);
         break;
       } catch (e) {
         if (e instanceof RangeError) {
@@ -915,7 +951,7 @@ var runAnimation = (() => {
     clock_handles[0].time2Angle = fiveMin * (+hours12 + minutes / 60);
     clock_handles[1].time2Angle = oneMin * (+minutes + seconds / 60);
     clock_handles[2].time2Angle = oneMin * seconds;
-    clock_handles[3].time2Angle = fiveMin * (+hours + minutes / 60) * 0.5;
+    clock_handles[3].time2Angle = clock_handles[0].time2Angle * 0.5;
 
     // Clear screen.
     ctx.clearRect(0, 0, canvas.width, canvas.height);
