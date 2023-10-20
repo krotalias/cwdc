@@ -164,6 +164,15 @@
             }
         },
         {
+            "city": "Berlin",
+            "region": "Europe",
+            "offset": 1,
+            "coordinates": {
+                "latitude": 52.531677,
+                "longitude": 13.381777
+            }
+        },
+        {
             "city": "Athens",
             "region": "Europe",
             "offset": 2,
@@ -179,6 +188,15 @@
             "coordinates": {
                 "latitude": 55.751244,
                 "longitude": 37.618423
+            }
+        },
+        {
+            "city": "Istanbul",
+            "region": "Asia",
+            "offset": 3,
+            "coordinates": {
+                "latitude": 41.015137,
+                "longitude": 28.979530
             }
         },
         {

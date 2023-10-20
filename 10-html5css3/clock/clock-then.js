@@ -950,10 +950,13 @@ var runAnimation = (() => {
     // 12 hours format: AM / PM
     let hours12 = (+hours + delta) % 12 || 12;
 
+    // 24 hours format: AM / PM
+    let hours24 = (+hours + delta) % 24 || 24;
+
     clock_handles[0].time2Angle = fiveMin * (+hours12 + minutes / 60);
     clock_handles[1].time2Angle = oneMin * (+minutes + seconds / 60);
     clock_handles[2].time2Angle = oneMin * seconds;
-    clock_handles[3].time2Angle = clock_handles[0].time2Angle * 0.5;
+    clock_handles[3].time2Angle = fiveMin * (+hours24 + minutes / 60) * 0.5;
 
     // Clear screen.
     ctx.clearRect(0, 0, canvas.width, canvas.height);
