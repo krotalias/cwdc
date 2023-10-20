@@ -666,9 +666,9 @@ function drawClock(place) {
     let h0 = today.getUTCHours(); // STD time
     let offset = 0;
     try {
-      let d1 = getLocaleDate(`${city.region}/${city.city}`);
+      let { 3: h1 } = getLocaleDate(`${city.region}/${city.city}`);
       // this is the real city offset with or without DST (Daylight Saving Time)
-      offset = +d1[3] - h0;
+      offset = +h1 - h0;
     } catch (e) {
       // in case the city is not in javascript database, there is no way
       // but using the offset in our localtime.json
