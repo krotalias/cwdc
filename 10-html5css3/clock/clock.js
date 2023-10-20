@@ -926,7 +926,7 @@ var runAnimation = (() => {
           // I can use the local timezone
           //      tz = timezone;
           // or apply the offset to the hour of the 0° meridian
-          tz = "Europe/London";
+          tz = "UTC";
           delta = +city.offset;
         } else {
           console.log(e);
