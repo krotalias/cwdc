@@ -683,6 +683,8 @@ function drawClock(place) {
       cityOffset = -timezoneOffset;
     } else {
       cityOffset = offset;
+      if (cityOffset > 12) cityOffset -= 24;
+      else if (cityOffset < -12) cityOffset += 24;
       // diff between the city time and local time from the browser
       offset += timezoneOffset;
     }
@@ -690,7 +692,7 @@ function drawClock(place) {
     let times = SunCalc.getTimes(today, loc.latitude, loc.longitude);
     // format sunrise time from the Date object
     let sunriseStr =
-      ((times.sunrise.getHours() + offset) % 24) +
+      (times.sunrise.getHours() + offset).mod(12) +
       ":" +
       times.sunrise.getMinutes();
 
