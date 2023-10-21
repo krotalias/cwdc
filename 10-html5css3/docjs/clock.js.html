@@ -36,8 +36,8 @@
  * &lt;/p>
  *
  * Description.
- * &lt;p>Here, it has been used two canvases: one for the clock's background
- * and the other for its four handles.
+ * &lt;p>Here, it has been used three canvases: one for the clock's background,
+ * another for the legend and the other for its four handles.
  *
  * A simple method for drawing a handle consists in mapping
  * hours, minutes and seconds from the computer into angles,
@@ -61,7 +61,7 @@
  * on top of the clock's circular border.&lt;/p>
  *
  * &lt;p>Whenever the mouse cursor is in the canvas, a reversed clock
- * &lt;a href="../clock/Backwards-Clock.jpg">running backwards&lt;/a> is dwawn.&lt;/p>
+ * &lt;a href="../clock/Backwards-Clock.jpg">running backwards&lt;/a> is drawn.&lt;/p>
  *
  * &lt;pre>
  * Documentation:
@@ -122,28 +122,30 @@ const pi = Math.PI;
 /** Each 5 min is 30 degrees. */
 const fiveMin = pi / 6;
 
+/** Document's head. */
 var style = getComputedStyle(document.head);
 
-// Handle's origin border, III and IX, and clock border color.
-const grena = style.getPropertyValue("--cgrena");
-
-// Unused.
-const green = style.getPropertyValue("--cgreen");
-
-// Handles and day light arc color.
-const orange = style.getPropertyValue("--corange");
-
-// Handle's origin fill color.
-const white = style.getPropertyValue("--cwhite");
-
-// Roman numbers and date color.
-const white1 = style.getPropertyValue("--cwhite1");
-
-// Decimal numbers color.
-const white2 = style.getPropertyValue("--cwhite2");
-
-// 6 and 18 and 24h handle color.
-const white3 = style.getPropertyValue("--cwhite3");
+/**
+ * Color table.
+ * @property {Object} color - colors for the clock's components.
+ * @property {hex-color} color.grena - Handle's origin border, III and IX, and clock border color.
+ * @property {hex-color} color.green - Unused.
+ * @property {hex-color} color.orange - Handles and day light arc color.
+ * @property {hex-color} color.white - Handle's origin fill color.
+ * @property {hex-color} color.white1 - Roman numbers and date color.
+ * @property {hex-color} color.white2 - Decimal numbers color.
+ * @property {hex-color} color.white3 - 6, 18 and 24h handle color.
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color
+ */
+const color = {
+  grena: style.getPropertyValue("--cgrena"),
+  green: style.getPropertyValue("--cgreen"),
+  orange: style.getPropertyValue("--corange"),
+  white: style.getPropertyValue("--cwhite"),
+  white1: style.getPropertyValue("--cwhite1"),
+  white2: style.getPropertyValue("--cwhite2"),
+  white3: style.getPropertyValue("--cwhite3"),
+};
 
 /**
  * Clock radius.
@@ -533,8 +535,8 @@ function preloadImages(urls) {
  * @property {function} drawClock.location Increment/decrement the clock location.
  * @property {function} drawClock.storage update local storage with the clock location.
  * @property {Array&lt;tz>} drawClock.tz time zone array.
- * @property {Array&lt;{txt: String, c: color}>} drawClock.romans Clock roman x color.
- * @property {Array&lt;{txt: String, c: color}>} drawClock.decimals Clock number x color.
+ * @property {Array&lt;{txt: String, c: hex-color}>} drawClock.romans Clock roman x color.
+ * @property {Array&lt;{txt: String, c: hex-color}>} drawClock.decimals Clock number x color.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images
@@ -565,8 +567,8 @@ function drawClock(place) {
       coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
       context.drawImage(flu, coord.x, coord.y, size[0], size[1]);
       // Handle origin.
-      context.strokeStyle = grena;
-      context.fillStyle = white;
+      context.strokeStyle = color.grena;
+      context.fillStyle = color.white;
       circle(center, 10);
       circle(center, 10, false);
     })
@@ -577,7 +579,7 @@ function drawClock(place) {
   // context.globalAlpha = 0.3; // set global alpha
 
   // Draw clock border.
-  context.strokeStyle = grena;
+  context.strokeStyle = color.grena;
   context.lineWidth = 3;
   circle(center, clockRadius - 8, false);
 
@@ -721,7 +723,7 @@ function drawClock(place) {
       ":" +
       times.sunset.getMinutes();
 
-    context.strokeStyle = orange;
+    context.strokeStyle = color.orange;
 
     arc(center, clockRadius - 8, sunriseStr, sunsetStr, false, invertedClock);
 
@@ -761,21 +763,21 @@ function drawClock(place) {
  * Each roman number may have a different color, so it does not
  * interfere with the background color.
  * @memberof {drawClock}
- * @member {Array&lt;{txt: String, c: color}>} roman clock numbers.
+ * @member {Array&lt;{txt: String, c: hex-color}>} roman clock numbers.
  */
 drawClock.romans = [
-  { txt: "XII", c: white1 },
-  { txt: "I", c: white1 },
-  { txt: "II", c: white1 },
-  { txt: "III", c: grena },
-  { txt: "IV", c: white1 },
-  { txt: "V", c: white1 },
-  { txt: "VI", c: white1 },
-  { txt: "VII", c: white1 },
-  { txt: "  VIII  ", c: white1 },
-  { txt: "IX", c: grena },
-  { txt: "X", c: white1 },
-  { txt: "XI", c: white1 },
+  { txt: "XII", c: color.white1 },
+  { txt: "I", c: color.white1 },
+  { txt: "II", c: color.white1 },
+  { txt: "III", c: color.grena },
+  { txt: "IV", c: color.white1 },
+  { txt: "V", c: color.white1 },
+  { txt: "VI", c: color.white1 },
+  { txt: "VII", c: color.white1 },
+  { txt: "  VIII  ", c: color.white1 },
+  { txt: "IX", c: color.grena },
+  { txt: "X", c: color.white1 },
+  { txt: "XI", c: color.white1 },
 ];
 
 /**
@@ -783,14 +785,14 @@ drawClock.romans = [
  * Each number may have a different color, so it does not
  * interfere with the background color.
  * @memberof {drawClock}
- * @member {Array&lt;{txt: String, c: color}>} decimal clock numbers.
+ * @member {Array&lt;{txt: String, c: hex-color}>} decimal clock numbers.
  */
 drawClock.decimals = Array.from(Array(24), (_, i) => {
-  return { txt: String(i), c: white2 };
+  return { txt: String(i), c: color.white2 };
 });
 drawClock.decimals[0].txt = "24";
-drawClock.decimals[6].c = white3;
-drawClock.decimals[18].c = white3;
+drawClock.decimals[6].c = color.white3;
+drawClock.decimals[18].c = color.white3;
 
 /**
  * Get the current place in local storage, increment or decrement it,
@@ -876,9 +878,18 @@ function previousLocation() {
 }
 
 /**
- * Return the date in a given time zone.
+ * Return the date and time in a given time zone.
+ * &lt;ul>
+ *   &lt;li> today = new Date() &lt;/li>
+ *   &lt;li> 2023-10-20T23:55:24.118Z →  node &lt;/li>
+ *   &lt;li> today.toString() &lt;/li>
+ *   &lt;li> 'Fri Oct 20 2023 20:55:52 GMT-0300 (Brasilia Standard Time)'&lt;/li>
+ *   &lt;li> today.toLocaleString("en-GB", { timeZone: tz })&lt;/li>
+ *   &lt;li> "21/10/2023, 05:01:30"  →  (0-23) (0-59) (0-59)&lt;/li>
+ *   &lt;li> ["21", "10", "2023", " 05", "01", "30"] &lt;/li>
+ * &lt;/ul>
  * @param {String} tz identifier, e.g., 'America/Sao_Paulo'.
- * @returns {Array&lt;Number>} [day, month, year, hours, minutes, seconds]
+ * @returns {Array&lt;String>} [day, month, year, hours, minutes, seconds]
  */
 function getLocaleDate(tz) {
   let today = new Date();
@@ -901,10 +912,10 @@ function getLocaleDate(tz) {
 var runAnimation = (() => {
   // clock handles width x length X color
   const clock_handles = [
-    { width: 8, length: 0.5, c: orange },
-    { width: 8, length: 0.8, c: orange },
-    { width: 2, length: 0.9, c: orange },
-    { width: 1, length: 0.95, c: white3 },
+    { width: 8, length: 0.5, c: color.orange },
+    { width: 8, length: 0.8, c: color.orange },
+    { width: 2, length: 0.9, c: color.orange },
+    { width: 1, length: 0.95, c: color.white3 },
   ];
   const oneMin = pi / 30; // 6 degrees
   let timer = null;
@@ -934,15 +945,13 @@ var runAnimation = (() => {
   })();
 
   /**
-   * &lt;p>A callback to redraw the four handles of the clock.&lt;/p>
+   * &lt;p>A callback to redraw the four handles and the legend of the clock.&lt;/p>
    * @callback drawHandles
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
    * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/measureText
    * @see https://www.iana.org/time-zones
    */
   return () => {
-    // '06/02/2022, 08:20:50'
-    //              (0-23)(0-59)(0-59)
     while (true) {
       try {
         var [day, month, year, hours, minutes, seconds] = getLocaleDate(tz);
@@ -1000,7 +1009,7 @@ var runAnimation = (() => {
 
     let theight = legend.width / 45;
     lctx.font = setFont(theight);
-    lctx.fillStyle = white1;
+    lctx.fillStyle = color.white1;
 
     // Draw the legend: UTC, Region, City, Date.
     let date = `${day} / ${month} / ${year}`;
@@ -1047,13 +1056,13 @@ window.addEventListener("load", (event) => runAnimation());
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li><li><a href="global.html#event:mouseenter-executedonlyoncewhenthecursormovesoverthecanvas.">mouseenter - executed only once when the cursor moves over the canvas.</a></li><li><a href="global.html#event:mouseleave-executedonlyoncewhenthecursorleavesthecanvas.">mouseleave - executed only once when the cursor leaves the canvas.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#translate">translate</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li><li><a href="global.html#event:mouseenter-executedonlyoncewhenthecursormovesoverthecanvas.">mouseenter - executed only once when the cursor moves over the canvas.</a></li><li><a href="global.html#event:mouseleave-executedonlyoncewhenthecursorleavesthecanvas.">mouseleave - executed only once when the cursor leaves the canvas.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Oct 20 2023 18:31:45 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Oct 21 2023 06:45:22 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

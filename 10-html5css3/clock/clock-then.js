@@ -8,8 +8,8 @@
  * </p>
  *
  * Description.
- * <p>Here, it has been used two canvases: one for the clock's background
- * and the other for its four handles.
+ * <p>Here, it has been used three canvases: one for the clock's background
+ * another for the legend and the other for its four handles.
  *
  * A simple method for drawing a handle consists in mapping
  * hours, minutes and seconds from the computer into angles,
@@ -33,7 +33,7 @@
  * on top of the clock's circular border.</p>
  *
  * <p>Whenever the mouse cursor is in the canvas, a reversed clock
- * <a href="../clock/Backwards-Clock.jpg">running backwards</a> is dwawn.</p>
+ * <a href="../clock/Backwards-Clock.jpg">running backwards</a> is drawn.</p>
  *
  * <pre>
  * Documentation:
@@ -92,28 +92,30 @@ const pi = Math.PI;
 /** Each 5 min is 30 degrees. */
 const fiveMin = pi / 6;
 
+/** Document's head. */
 var style = getComputedStyle(document.head);
 
-// Handle's origin border, III and IX, and clock border color.
-const grena = style.getPropertyValue("--cgrena");
-
-// Unused.
-const green = style.getPropertyValue("--cgreen");
-
-// Handles and day light arc color.
-const orange = style.getPropertyValue("--corange");
-
-// Handle's origin fill color.
-const white = style.getPropertyValue("--cwhite");
-
-// Roman numbers and date color.
-const white1 = style.getPropertyValue("--cwhite1");
-
-// Decimal numbers color.
-const white2 = style.getPropertyValue("--cwhite2");
-
-// 6 and 18 and 24h handle color.
-const white3 = style.getPropertyValue("--cwhite3");
+/**
+ * Color table.
+ * @property {Object} color - colors for the clock's components.
+ * @property {hex-color} color.grena - Handle's origin border, III and IX, and clock border color.
+ * @property {hex-color} color.green - Unused.
+ * @property {hex-color} color.orange - Handles and day light arc color.
+ * @property {hex-color} color.white - Handle's origin fill color.
+ * @property {hex-color} color.white1 - Roman numbers and date color.
+ * @property {hex-color} color.white2 - Decimal numbers color.
+ * @property {hex-color} color.white3 - 6, 18 and 24h handle color.
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color
+ */
+const color = {
+  grena: style.getPropertyValue("--cgrena"),
+  green: style.getPropertyValue("--cgreen"),
+  orange: style.getPropertyValue("--corange"),
+  white: style.getPropertyValue("--cwhite"),
+  white1: style.getPropertyValue("--cwhite1"),
+  white2: style.getPropertyValue("--cwhite2"),
+  white3: style.getPropertyValue("--cwhite3"),
+};
 
 /**
  * Clock radius.
@@ -515,8 +517,8 @@ function preloadImages(urls) {
  * @property {function} drawClock.location Increment/decrement the clock location.
  * @property {function} drawClock.storage update local storage with the clock location.
  * @property {Array<tz>} drawClock.tz time zone array.
- * @property {Array<{txt: String, c: color}>} drawClock.romans Clock roman x color.
- * @property {Array<{txt: String, c: color}>} drawClock.decimals Clock number x color.
+ * @property {Array<{txt: String, c: hex-color}>} drawClock.romans Clock roman x color.
+ * @property {Array<{txt: String, c: hex-color}>} drawClock.decimals Clock number x color.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images
@@ -547,8 +549,8 @@ function drawClock(place) {
       coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
       context.drawImage(flu, coord.x, coord.y, size[0], size[1]);
       // Handle origin.
-      context.strokeStyle = grena;
-      context.fillStyle = white;
+      context.strokeStyle = color.grena;
+      context.fillStyle = color.white;
       circle(center, 10);
       circle(center, 10, false);
     })
@@ -559,7 +561,7 @@ function drawClock(place) {
   // context.globalAlpha = 0.3; // set global alpha
 
   // Draw clock border.
-  context.strokeStyle = grena;
+  context.strokeStyle = color.grena;
   context.lineWidth = 3;
   circle(center, clockRadius - 8, false);
 
@@ -702,7 +704,7 @@ function drawClock(place) {
       ":" +
       times.sunset.getMinutes();
 
-    context.strokeStyle = orange;
+    context.strokeStyle = color.orange;
 
     arc(center, clockRadius - 8, sunriseStr, sunsetStr, false, invertedClock);
 
@@ -742,21 +744,21 @@ function drawClock(place) {
  * Each roman number may have a different color, so it does not
  * interfere with the background color.
  * @memberof {drawClock}
- * @member {Array<{txt: String, c: color}>} roman clock numbers.
+ * @member {Array<{txt: String, c: hex-color}>} roman clock numbers.
  */
 drawClock.romans = [
-  { txt: "XII", c: white1 },
-  { txt: "I", c: white1 },
-  { txt: "II", c: white1 },
-  { txt: "III", c: grena },
-  { txt: "IV", c: white1 },
-  { txt: "V", c: white1 },
-  { txt: "VI", c: white1 },
-  { txt: "VII", c: white1 },
-  { txt: "  VIII  ", c: white1 },
-  { txt: "IX", c: grena },
-  { txt: "X", c: white1 },
-  { txt: "XI", c: white1 },
+  { txt: "XII", c: color.white1 },
+  { txt: "I", c: color.white1 },
+  { txt: "II", c: color.white1 },
+  { txt: "III", c: color.grena },
+  { txt: "IV", c: color.white1 },
+  { txt: "V", c: color.white1 },
+  { txt: "VI", c: color.white1 },
+  { txt: "VII", c: color.white1 },
+  { txt: "  VIII  ", c: color.white1 },
+  { txt: "IX", c: color.grena },
+  { txt: "X", c: color.white1 },
+  { txt: "XI", c: color.white1 },
 ];
 
 /**
@@ -764,14 +766,14 @@ drawClock.romans = [
  * Each number may have a different color, so it does not
  * interfere with the background color.
  * @memberof {drawClock}
- * @member {Array<{txt: String, c: color}>} decimal clock numbers.
+ * @member {Array<{txt: String, c: hex-color}>} decimal clock numbers.
  */
 drawClock.decimals = Array.from(Array(24), (_, i) => {
-  return { txt: String(i), c: white2 };
+  return { txt: String(i), c: color.white2 };
 });
 drawClock.decimals[0].txt = "24";
-drawClock.decimals[6].c = white3;
-drawClock.decimals[18].c = white3;
+drawClock.decimals[6].c = color.white3;
+drawClock.decimals[18].c = color.white3;
 
 /**
  * Get the current place in local storage, increment or decrement it,
@@ -860,9 +862,18 @@ function previousLocation() {
 }
 
 /**
- * Return the date in a given time zone.
+ * Return the date and time in a given time zone.
+ * <ul>
+ *   <li> today = new Date() </li>
+ *   <li> 2023-10-20T23:55:24.118Z  →  node </li>
+ *   <li> today.toString() </li>
+ *   <li> 'Fri Oct 20 2023 20:55:52 GMT-0300 (Brasilia Standard Time)'</li>
+ *   <li> today.toLocaleString("en-GB", { timeZone: tz })</li>
+ *   <li> "21/10/2023, 05:01:30"  →  (0-23) (0-59) (0-59)</li>
+ *   <li> ["21", "10", "2023", " 05", "01", "30"] </li>
+ * </ul>
  * @param {String} tz identifier, e.g., 'America/Sao_Paulo'.
- * @returns {Array<Number>} [day, month, year, hours, minutes, seconds]
+ * @returns {Array<String>} [day, month, year, hours, minutes, seconds]
  */
 function getLocaleDate(tz) {
   let today = new Date();
@@ -886,10 +897,10 @@ function getLocaleDate(tz) {
 var runAnimation = (() => {
   // clock handles width x length X color
   const clock_handles = [
-    { width: 8, length: 0.5, c: orange },
-    { width: 8, length: 0.8, c: orange },
-    { width: 2, length: 0.9, c: orange },
-    { width: 1, length: 0.95, c: white3 },
+    { width: 8, length: 0.5, c: color.orange },
+    { width: 8, length: 0.8, c: color.orange },
+    { width: 2, length: 0.9, c: color.orange },
+    { width: 1, length: 0.95, c: color.white3 },
   ];
   const oneMin = pi / 30; // 6 degrees
   let timer = null;
@@ -919,14 +930,12 @@ var runAnimation = (() => {
     });
 
   /**
-   * <p>A callback to redraw the four handles of the clock.</p>
+   * <p>A callback to redraw the four handles and the legend of the clock.</p>
    * @callback drawHandles
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
    * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/measureText
    */
   return () => {
-    // '06/02/2022, 08:20:50 AM'
-    //              (0-23)(0-59)(0-59)
     while (true) {
       try {
         var [day, month, year, hours, minutes, seconds] = getLocaleDate(tz);
@@ -950,7 +959,7 @@ var runAnimation = (() => {
     // 12 hours format: AM / PM
     let hours12 = (+hours + delta) % 12 || 12;
 
-    // 24 hours format: AM / PM
+    // 24 hours format.
     let hours24 = (+hours + delta) % 24 || 24;
 
     clock_handles[0].time2Angle = fiveMin * (+hours12 + minutes / 60);
@@ -984,7 +993,7 @@ var runAnimation = (() => {
 
     let theight = legend.width / 45;
     lctx.font = setFont(theight);
-    lctx.fillStyle = white1;
+    lctx.fillStyle = color.white1;
 
     // Draw the legend: UTC, Region, City, Date.
     let date = `${day} / ${month} / ${year}`;
