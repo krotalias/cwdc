@@ -22,6 +22,7 @@
                 <a href="/cwdc/downloads/PDFs/04_LCG_Window-Viewport.pdf">[1]</a>
                 <a href="/cwdc/downloads/python/laboratorios2.html#8c">[2]</a>
                 <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">[3]</a>
+                <a href="https://www.latlong.net/place/prime-meridian-greenwich-30835.html">[4]</a>
             </sub>
         </p>
 
@@ -57,8 +58,9 @@
         <div style="font-size: small; margin: 1em 0 0 0">
             Fluminense FC Anthem by
             <a href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/">
-                Lamartine Babo.
+                Lamartine Babo
             </a>
+            (1949).
         </div>
 
         <div style="font-size: small">
