@@ -218,6 +218,15 @@
             }
         },
         {
+            "city": "Colombo",
+            "region": "Asia",
+            "offset": 5.3,
+            "coordinates": {
+                "latitude": 6.927079,
+                "longitude": 79.861244
+            }
+        },
+        {
             "city": "Almaty",
             "region": "Asia",
             "offset": 6,

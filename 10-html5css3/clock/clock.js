@@ -640,10 +640,21 @@ function drawClock(place) {
   /**
    * <p>Draw the sun light arc.</p>
    *
-   * Apparently, suncalc returns the sunset and sunrise hours using
-   * the local time from the browser. To get them in the time of the given city,
+   * <p>Apparently, suncalc returns the sunset and sunrise hours using
+   * the local time from the browser. <br>
+   * To get them in the time of the given city,
    * we have to calculate the time difference between the city and the browser,
-   * and add it to the hours returned.
+   * and add it to the hours returned.</p>
+   *
+   * <pre>
+   * The Indian problem - UTC offset 5:30:
+   *    India     UTC            India     UTC
+   *    16:18     10:48          16:32     11:02
+   *    978m      648m           992m      662m
+   *    330m = 5.5h              330m = 5.5h
+   *    16 - 10 = 6h             16 - 11 = 5h
+   *    48m ≥ 30m → -1h
+   * </pre>
    *
    * @global
    * @param {Object<{latitude, longitude}>} loc location.
@@ -657,11 +668,16 @@ function drawClock(place) {
   function drawArc(loc, city) {
     let today = new Date();
     let h0 = today.getUTCHours(); // STD time
+    let m0 = today.getUTCMinutes(); // STD time
     let offset = 0;
+    let moffset = 0;
     try {
-      let { 3: h1 } = getLocaleDate(`${city.region}/${city.city}`);
+      let { 3: h1, 4: m1 } = getLocaleDate(`${city.region}/${city.city}`);
       // this is the real city offset with or without Daylight Saving Time (DST)
       offset = +h1 - h0;
+      // India
+      moffset = Math.abs(+m1 - m0);
+      if (moffset && m0 >= 30) offset -= 1;
     } catch (e) {
       // in case the city is not in javascript database, there is no way
       // but using the offset in our localtime.json
@@ -680,20 +696,30 @@ function drawClock(place) {
       else if (cityOffset < -12) cityOffset += 24;
       // diff between the city time and local time from the browser
       offset += timezoneOffset;
+      if (moffset != 0) cityOffset += 0.5;
     }
 
     let times = SunCalc.getTimes(today, loc.latitude, loc.longitude);
+
     // format sunrise time from the Date object
-    let sunriseStr =
-      (times.sunrise.getHours() + offset).mod(12) +
-      ":" +
-      times.sunrise.getMinutes();
+    let m = times.sunrise.getMinutes();
+    let h = times.sunrise.getHours();
+    if (moffset != 0) {
+      if (m >= 30) h += 1;
+      m += moffset;
+      m = m.mod(60);
+    }
+    let sunriseStr = (h + offset).mod(12) + ":" + m;
 
     // format sunset time from the Date object
-    let sunsetStr =
-      (times.sunset.getHours() + offset).mod(24) +
-      ":" +
-      times.sunset.getMinutes();
+    m = times.sunset.getMinutes();
+    h = times.sunset.getHours();
+    if (moffset != 0) {
+      if (m >= 30) h += 1;
+      m += moffset;
+      m = m.mod(60);
+    }
+    let sunsetStr = (h + offset).mod(24) + ":" + m;
 
     context.strokeStyle = color.orange;
 

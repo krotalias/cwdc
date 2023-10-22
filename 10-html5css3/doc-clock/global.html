@@ -950,7 +950,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line811">line 811</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line837">line 837</a>
     </li></ul></dd>
     
 
@@ -2064,10 +2064,21 @@ e.g.:
 <div class="description">
     <p>Draw the sun light arc.</p>
 
-Apparently, suncalc returns the sunset and sunrise hours using
-the local time from the browser. To get them in the time of the given city,
+<p>Apparently, suncalc returns the sunset and sunrise hours using
+the local time from the browser. <br>
+To get them in the time of the given city,
 we have to calculate the time difference between the city and the browser,
-and add it to the hours returned.
+and add it to the hours returned.</p>
+
+<pre>
+The Indian problem - UTC offset 5:30:
+   India     UTC            India     UTC
+   16:18     10:48          16:32     11:02
+   978m      648m           992m      662m
+   330m = 5.5h              330m = 5.5h
+   16 - 10 = 6h             16 - 11 = 5h
+   48m ≥ 30m → -1h
+</pre>
 </div>
 
 
@@ -2183,7 +2194,7 @@ and add it to the hours returned.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line666">line 666</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line677">line 677</a>
     </li></ul></dd>
     
 
@@ -3224,7 +3235,7 @@ given an address, e.g. "sao_paulo,brazil" or "london,england".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line878">line 878</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line904">line 904</a>
     </li></ul></dd>
     
 
@@ -3588,7 +3599,7 @@ given an address, e.g. "sao_paulo,brazil" or "london,england".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line800">line 800</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line826">line 826</a>
     </li></ul></dd>
     
 
@@ -4037,7 +4048,7 @@ The modulo is calculated from remainder using the modular property:<br/>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line853">line 853</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line879">line 879</a>
     </li></ul></dd>
     
 
@@ -4481,7 +4492,7 @@ then decode it, and finally paint it.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line860">line 860</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line886">line 886</a>
     </li></ul></dd>
     
 
@@ -4879,7 +4890,7 @@ src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-2
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line897">line 897</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line923">line 923</a>
     </li></ul></dd>
     
 
@@ -5527,7 +5538,7 @@ src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-2
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line932">line 932</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line958">line 958</a>
     </li></ul></dd>
     
 
@@ -6193,7 +6204,7 @@ Valid keys:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line1026">line 1026</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line1052">line 1052</a>
     </li></ul></dd>
     
 
@@ -6290,7 +6301,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line818">line 818</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line844">line 844</a>
     </li></ul></dd>
     
 
@@ -6380,7 +6391,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line834">line 834</a>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line860">line 860</a>
     </li></ul></dd>
     
 
@@ -6428,7 +6439,7 @@ the event is dispatched.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Oct 21 2023 06:45:18 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Oct 22 2023 08:56:22 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
