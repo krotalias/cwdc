@@ -94,6 +94,19 @@
 var canvas = document.getElementById("clock");
 
 /**
+ * @var {Boolean} _USE_LOCAL_TIME_ sets the use of local time.
+ */
+var _USE_LOCAL_TIME_ = true;
+
+/**
+ * @var {Object&lt;{city: String, country: String}>} localRegion holds local city and country.
+ */
+var localRegion = {
+  city: "unknown",
+  country: "unknown",
+};
+
+/**
  * @var {HTMLElement} legend HTML Canvas.
  */
 let legend = document.getElementById("legend");
@@ -452,7 +465,10 @@ function displayLocation(latitude, longitude, dayLight, city, region) {
       UTC offset: ${h}h, ${m}m and ${Number(s).toFixed(3)}s&lt;br>
       ${dayLight}`;
   };
+
   reverseGeoCoding(latitude, longitude).then((pos) => {
+    localRegion.city = pos[2];
+    localRegion.country = pos[4];
     if (city !== undefined &amp;&amp; region !== undefined) {
       geoCoding(`${city},${region}`)
         .then((geocode) => {
@@ -605,9 +621,11 @@ function drawClock(place) {
         longitude: lng,
       });
       displayLocation(lat, lng, srss);
+      _USE_LOCAL_TIME_ = true;
     },
     () => {
       // safari blocks geolocation unless using a secure connection
+      _USE_LOCAL_TIME_ = false;
       findCity(drawClock.place).then((city) => {
         if (city) {
           let lat = city.coordinates.latitude;
@@ -939,6 +957,23 @@ function getLocaleDate(tz) {
 }
 
 /**
+ * Gets the local date and time.
+ *
+ * @returns {Array&lt;Number>} the local date and time of the browser.
+ */
+function getLocalDateAndTime() {
+  let today = new Date();
+
+  let day = today.getDate();
+  let month = today.getMonth() + 1;
+  let year = today.getFullYear();
+  let hours = today.getHours();
+  let minutes = today.getMinutes();
+  let seconds = today.getSeconds();
+  return [day, month, year, hours, minutes, seconds];
+}
+
+/**
  * A closure to run the animation.
  *
  * @function
@@ -992,7 +1027,9 @@ var runAnimation = (() => {
   return () => {
     while (true) {
       try {
-        var [day, month, year, hours, minutes, seconds] = getLocaleDate(tz);
+        var [day, month, year, hours, minutes, seconds] = _USE_LOCAL_TIME_
+          ? getLocalDateAndTime()
+          : getLocaleDate(tz);
         break;
       } catch (e) {
         if (e instanceof RangeError) {
@@ -1052,7 +1089,9 @@ var runAnimation = (() => {
     // Draw the legend: UTC, Region, City, Date.
     let date = `${day} / ${month} / ${year}`;
     let utc = `UTC ${cityOffset} (${realOffset})`;
-    let [region, lcity] = tz2.split("/");
+    let [region, lcity] = _USE_LOCAL_TIME_
+      ? [localRegion.country, localRegion.city]
+      : tz2.split("/");
     let [tcity, tregion, tlen, tutc] = [lcity, region, date, utc].map((p) =>
       lctx.measureText(p)
     );
@@ -1094,13 +1133,13 @@ window.addEventListener("load", (event) => runAnimation());
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li><li><a href="global.html#event:mouseenter-executedonlyoncewhenthecursormovesoverthecanvas.">mouseenter - executed only once when the cursor moves over the canvas.</a></li><li><a href="global.html#event:mouseleave-executedonlyoncewhenthecursorleavesthecanvas.">mouseleave - executed only once when the cursor leaves the canvas.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#realOffset">realOffset</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li><li><a href="global.html#event:mouseenter-executedonlyoncewhenthecursormovesoverthecanvas.">mouseenter - executed only once when the cursor moves over the canvas.</a></li><li><a href="global.html#event:mouseleave-executedonlyoncewhenthecursorleavesthecanvas.">mouseleave - executed only once when the cursor leaves the canvas.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_USE_LOCAL_TIME_">_USE_LOCAL_TIME_</a></li><li><a href="global.html#arc">arc</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawClock">drawClock</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocalDateAndTime">getLocalDateAndTime</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#localRegion">localRegion</a></li><li><a href="global.html#location">location</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#realOffset">realOffset</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Oct 22 2023 08:56:22 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sun Oct 22 2023 14:25:04 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

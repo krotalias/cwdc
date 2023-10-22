@@ -66,6 +66,19 @@
 var canvas = document.getElementById("clock");
 
 /**
+ * @var {Boolean} _USE_LOCAL_TIME_ sets the use of local time.
+ */
+var _USE_LOCAL_TIME_ = true;
+
+/**
+ * @var {Object<{city: String, country: String}>} localRegion holds local city and country.
+ */
+var localRegion = {
+  city: "unknown",
+  country: "unknown",
+};
+
+/**
  * @var {HTMLElement} legend HTML Canvas.
  */
 let legend = document.getElementById("legend");
@@ -424,7 +437,10 @@ function displayLocation(latitude, longitude, dayLight, city, region) {
       UTC offset: ${h}h, ${m}m and ${Number(s).toFixed(3)}s<br>
       ${dayLight}`;
   };
+
   reverseGeoCoding(latitude, longitude).then((pos) => {
+    localRegion.city = pos[2];
+    localRegion.country = pos[4];
     if (city !== undefined && region !== undefined) {
       geoCoding(`${city},${region}`)
         .then((geocode) => {
@@ -577,9 +593,11 @@ function drawClock(place) {
         longitude: lng,
       });
       displayLocation(lat, lng, srss);
+      _USE_LOCAL_TIME_ = true;
     },
     () => {
       // safari blocks geolocation unless using a secure connection
+      _USE_LOCAL_TIME_ = false;
       findCity(drawClock.place).then((city) => {
         if (city) {
           let lat = city.coordinates.latitude;
@@ -911,6 +929,23 @@ function getLocaleDate(tz) {
 }
 
 /**
+ * Gets the local date and time.
+ *
+ * @returns {Array<Number>} the local date and time of the browser.
+ */
+function getLocalDateAndTime() {
+  let today = new Date();
+
+  let day = today.getDate();
+  let month = today.getMonth() + 1;
+  let year = today.getFullYear();
+  let hours = today.getHours();
+  let minutes = today.getMinutes();
+  let seconds = today.getSeconds();
+  return [day, month, year, hours, minutes, seconds];
+}
+
+/**
  * A closure to run the animation.
  *
  * @function
@@ -964,7 +999,9 @@ var runAnimation = (() => {
   return () => {
     while (true) {
       try {
-        var [day, month, year, hours, minutes, seconds] = getLocaleDate(tz);
+        var [day, month, year, hours, minutes, seconds] = _USE_LOCAL_TIME_
+          ? getLocalDateAndTime()
+          : getLocaleDate(tz);
         break;
       } catch (e) {
         if (e instanceof RangeError) {
@@ -1024,7 +1061,9 @@ var runAnimation = (() => {
     // Draw the legend: UTC, Region, City, Date.
     let date = `${day} / ${month} / ${year}`;
     let utc = `UTC ${cityOffset} (${realOffset})`;
-    let [region, lcity] = tz2.split("/");
+    let [region, lcity] = _USE_LOCAL_TIME_
+      ? [localRegion.country, localRegion.city]
+      : tz2.split("/");
     let [tcity, tregion, tlen, tutc] = [lcity, region, date, utc].map((p) =>
       lctx.measureText(p)
     );
