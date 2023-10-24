@@ -1,0 +1,44 @@
+<!--  Demo of using a transformation matrix in a vertex shader. -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Transformations</title>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="800" height="380">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <script id="vertexShader" type="x-shader/x-vertex">
+            uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+            uniform mat4 normalMatrix;
+            attribute vec4 a_Position;
+            attribute vec4 a_Color;
+            varying vec4 color;
+            void main()
+            {
+              color = a_Color;
+              gl_Position = projection * view * model * a_Position;
+            }
+        </script>
+
+        <script id="fragmentShader" type="x-shader/x-fragment">
+            precision mediump float;
+            varying vec4 color;
+            void main()
+            {
+              gl_FragColor = color;
+            }
+        </script>
+
+        <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
+        <script src="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js"></script>
+
+        <script src="test.js"></script>
+    </body>
+</html>
