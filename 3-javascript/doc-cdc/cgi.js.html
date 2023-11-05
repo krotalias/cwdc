@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: cgi.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: cgi.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ * &lt;p>Simple output for CDC &lt;a href="../cdc/PDFs/CDC.pdf">calculations&lt;/a>.&lt;/p>
+ *
+ * Data supplied as URL parameters (query strings) and output into two &amp;lt;div&amp;gt; elements:
+ * &lt;ul>
+ *  &lt;li>#rational (result and &lt;a href="/cwdc/3-javascript/doc-cdc/global.html#htmlPriceTable">HTML Price table&lt;/a>)&lt;/li>
+ *  &lt;li>#result (&lt;a href="/cwdc/3-javascript/doc-cdc/global.html#rational_discount">discount&lt;/a> and
+ *               &lt;a href="/cwdc/3-javascript/doc-cdc/global.html#nodePriceTable">node Price table&lt;/a>)&lt;/li>
+ * &lt;/ul>
+ *
+ * &lt;p>Usage: &lt;/p>
+ * &lt;ul>
+ *  &lt;li>np: número de parcelas&lt;/li>
+ *  &lt;li>pv: preço à vista&lt;/li>
+ *  &lt;li>pp: preço a prazo&lt;/li>
+ *  &lt;li>pb: valor a voltar&lt;/li>
+ *  &lt;li>nb: meses a voltar&lt;/li>
+ *  &lt;li>e: entrada&lt;/li>
+ *  &lt;li>prt: impressão&lt;/li>
+ *  &lt;li>v: verbose&lt;/li>
+ *  &lt;li>&lt;a href="/cwdc/3-javascript/cdc/src/result.html?np=12&amp;tax=4.55&amp;pv=23000&amp;pp=30354.50&amp;pb=1000&amp;e=0&amp;prt=0&amp;v=1">result.html?np=12&amp;tax=4.55&amp;pv=23000&amp;pp=30354.50&amp;pb=1000&amp;e=0&amp;prt=0&amp;v=1&lt;/a>&lt;/li>
+ * &lt;/ul>
+ * @author Paulo Roma
+ * @date 25/10/2023
+ * @see &lt;a href="/cwdc/3-javascript/cdc/src/cgi.js">source&lt;/a>
+ * @see &lt;a href="/cwdc/3-javascript/cdc/src/result.html?np=10&amp;tax=1&amp;pv=450&amp;pp=500">link&lt;/a>
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code
+ */
+
+"use strict";
+
+/**
+ * Displays the CDC calculation in the div with id #result.
+ *
+ * @returns {String} error message.
+ */
+function cdcCGI() {
+  let errmsg = "";
+  let np, t, pp, pv, pb, nb, dp, prt, verbose;
+
+  const result = document.querySelector("#result");
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  // Get data from URL parameters (query strings)
+  try {
+    np = +urlParams.get("np");
+    t = (+urlParams.get("tax") || 0) / 100;
+    pp = +urlParams.get("pp");
+    pv = +urlParams.get("pv");
+    pb = +urlParams.get("pb") || 0;
+    nb = +urlParams.get("nb") || 0;
+    dp = +urlParams.get("e") || false;
+    verbose = +urlParams.get("v") || false;
+    prt = +urlParams.get("prt") || false;
+    if (dp) setDownPayment(dp);
+    if (
+      isNaN(np) ||
+      isNaN(t) ||
+      isNaN(pp) ||
+      isNaN(pv) ||
+      np &lt;= 2 ||
+      (pv &lt;= 0 &amp;&amp; pp &lt;= 0) ||
+      (t &lt;= 0 &amp;&amp; pp &lt;= 0) ||
+      (t &lt;= 0 &amp;&amp; pv &lt;= 0) ||
+      nb > np
+    ) {
+      throw new Error("A parameter is invalid (not a Number?).");
+    }
+  } catch (err) {
+    errmsg = `&lt;mark>Invalid URL Parameters: ${err.message}&lt;/mark>`;
+    result.innerHTML = errmsg;
+    return errmsg;
+  }
+
+  result.innerHTML += `&lt;h4>Parcelas: ${dp ? "1+" : ""}${dp ? np - 1 : np}&lt;/h4>
+    &lt;h4>Taxa: ${(100 * t).toFixed(2)}%&lt;/h4>
+    &lt;h4>Preço a Prazo: \$${pp.toFixed(2)}&lt;/h4>
+    &lt;h4>Preço à Vista: \$${pv.toFixed(2)}&lt;/h4>
+    &lt;h4>Valor a Voltar: \$${pb.toFixed(2)}&lt;/h4>
+    &lt;h4>Meses a voltar: ${nb}&lt;/h4>`;
+
+  setDownPayment(dp); // com ou sem entrada
+
+  let [ti, i] = getInterest(pp, pv, np);
+  if (t &lt;= 0) {
+    t = ti * 0.01;
+  }
+  let cf = CF(t, np);
+  let pmt = pv * cf;
+  if (getDownPayment()) {
+    pmt /= 1 + t;
+    np -= 1; // uma prestação a menos
+    pv -= pmt; // preço à vista menos a entrada
+    result.innerHTML += `&lt;h4>Valor financiado = \$${(pv + pmt).toFixed(
+      2
+    )} - \$${pmt.toFixed(2)} = \$${pv.toFixed(2)}&lt;/h4>`;
+  }
+
+  result.innerHTML += `&lt;h4>Coeficiente de Financiamento: ${cf.toFixed(6)}&lt;/h4>
+    &lt;h4>Prestação: ${cf.toFixed(6)} * \$${pv.toFixed(2)} = \$${pmt.toFixed(
+    2
+  )} ao mês&lt;/h4>`;
+
+  let ptb = priceTable(np, pv, t, pmt);
+
+  let val = getDownPayment()
+    ? ` + \$${pmt.toFixed(2)} = \$${(ptb.slice(-1)[0][1] + pmt).toFixed(2)}`
+    : "";
+
+  result.innerHTML += `&lt;h4>Valor Pago: \$${ptb
+    .slice(-1)[0][1]
+    .toFixed(2)} ${val}&lt;/h4>
+        &lt;h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês&lt;/h4>
+        &lt;h4>Valor Corrigido: \$${
+          nb > 0 &amp;&amp; pb > 0 ? presentValue(pb, nb, t)[1].toFixed(2) : 0
+        }&lt;/h4>`;
+
+  result.innerHTML += htmlPriceTable(ptb);
+
+  if (verbose) {
+    rational_discount(np, t, pp, pv, true);
+    log(crlf);
+    log(nodePriceTable(ptb));
+  }
+
+  if (prt) {
+    window.print();
+  }
+  return errmsg;
+}
+
+if (typeof document === "object") cdcCGI();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-rational.html">rational</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:onclick-whensubmitbuttonisclicked.">onclick - when submit button is clicked.</a></li><li><a href="global.html#event:onclick-whenthegreenboxrectangleisclicked.">onclick - when the green box rectangle is clicked.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cdcCGI">cdcCGI</a></li><li><a href="global.html#cdcCLI6">cdcCLI6</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Nov 05 2023 18:49:26 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

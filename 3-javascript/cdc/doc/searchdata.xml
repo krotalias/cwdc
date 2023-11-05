@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<add>
+  <doc>
+    <field name="type">file</field>
+    <field name="name">cdc.c</field>
+    <field name="url">cdc_8c.html</field>
+    <field name="keywords">cdc.c</field>
+    <field name="text">Desconto Racional por Dentro A fórmula para atualizar o preço no instante da compra levando em conta a remuneração aplicada a cada prestação é O preço atualizado voltando cada parcela para o tempo inicial é a soma de uma P.G de razão q e cujo primeiro termo é q onde é o valor de cada parcela Como neste exercício a primeira parcela é paga no ato da compra na realidade e deve-se somar a entrada Fazendo-se as substituições necessárias chega-se a fórmula usada no programa Nota Achar a taxa que produz o preço à vista requer o método de Newton onde e o problema é equivalente a encontrar um zero da função f A função é decrescente e converge para t quando n Paulo Roma 2 4</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">cdc.c</field>
+    <field name="url">cdc_8c_source.html#l00001</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">file</field>
+    <field name="name">graph_legend.dox</field>
+    <field name="url">graph__legend_8dox.html</field>
+    <field name="keywords"></field>
+    <field name="text">Invisible Truncated Invisible Undocumented PublicBase Truncated Templ ProtectedBase PrivateBase Used Inherited PublicBase ProtectedBase PrivateBase Undocumented Templ Used m_usedClass</field>
+  </doc>
+</add>

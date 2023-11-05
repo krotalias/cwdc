@@ -1,0 +1,67 @@
+\doxysection{cdc.\+c File Reference}
+\hypertarget{cdc_8c}{}\label{cdc_8c}\index{cdc.c@{cdc.c}}
+
+
+Desconto Racional por Dentro.  
+
+
+
+
+\doxysubsection{Detailed Description}
+Desconto Racional por Dentro. 
+
+A fórmula para atualizar o preço no instante da compra, levando em conta a remuneração aplicada a cada prestação, $R = \frac{x}{p}$, é\+:  \[x_{atualizado} = A = \frac{x}{p} \frac{(1+t)^{p}-1}{t(1+t)^{(p-1)}} = x
+\times \frac{(1+t)}{(p*CF)},\ CF = \frac{t}{1-(1+t)^{-p}}.\]
+
+O preço atualizado, $A$, voltando cada parcela, $R$, para o tempo inicial, é a soma de uma P.\+G. de razão q = $\frac {1}{(1+t)}$ e cujo primeiro termo é q\+:
+
+\begin{eqnarray*}
+       A &=& R[(1+t)^{-1}+(1+t)^{-2}+...+(1+t)^{-n}] \\
+       A &=& R q\frac{(1-q^{n})}{1-q},
+ \end{eqnarray*}
+
+\begin{eqnarray*}
+       A &=& R q\frac{(1 - \frac{1}{(1+t)^{n}})} {(1-\frac{1}{(1+t)})} \\ &=&
+R q\frac{((1+t)^{n} - 1)}{(1+t)^{n}} \frac{(1+t)}{t} \\
+       A &=& R \frac{(1+t)^{n} - 1} {t(1+t)^{n}}                       \\ &=&
+R \frac {(1-(1+t)^{-n})}{t} \Rightarrow \\
+       R &=& A \frac {t} {(1-(1+t)^{-n})}                              \\ &=&
+A \times CF \\ A &=& R \frac {1}{CF}
+ \end{eqnarray*} onde $R = \frac{x}{p}$ é o valor de cada parcela.
+
+Como, neste exercício, a primeira parcela é paga no ato da compra, na realidade, $n = p-1$ e deve-\/se somar $R = \frac{x}{p}$ (a entrada)\+:
+
+\[A = R (1 + \frac{q(1-q^{(p-1)})}{(1-q)}).\]
+
+Fazendo-\/se as substituições necessárias, chega-\/se a fórmula usada no programa\+:  \begin{eqnarray*}
+     q\frac{(1 - \frac{1}{(1+t)^{(p-1)}})} {(1-\frac{1}{(1+t)})} &=&
+q\frac{((1+t)^{(p-1)} - 1)}{(1+t)^{(p-1)}} \frac{(1+t)}{t} \\
+ \frac{1}{(1+t)}((1+t)^{(p-1)} - 1) \frac{(1+t)}{t(1+t)^{(p-1)}} &=&
+\frac{(1+t)^{(p-1)} - 1} {t(1+t)^{(p-1)}} \Rightarrow (somando\ 1) \\
+                     1+\frac{(1+t)^{(p-1)} - 1} {t(1+t)^{(p-1)}} &=&
+\frac{t(1+t)^{(p-1)} + (1+t)^{(p-1)} - 1}{t(1+t)^{(p-1)}} \\
+                  \frac{(t+1)(1+t)^{(p-1)} - 1} {t(1+t)^{(p-1)}} &=&
+\frac{(1+t)^{p} - 1}{t(1+t)^{(p-1)}} = \frac{(1+t)-(1+t)^{-(p-1)}}{t}
+\Rightarrow (recolocando\ R) \\ R (1+t) \frac {(1-(1+t)^{-p})}{t} &=& R \frac
+{(1+t)}{CF}
+ \end{eqnarray*}
+
+Nota\+: Achar a taxa \"{}t\"{} que produz o preço à vista \"{}y\"{} requer o método de Newton\+:  \begin{eqnarray*}
+    x_{n+1} &=& x_n - \frac{f(x_n)}{f\textnormal{\textquotesingle}(x_n)} \\
+      y     &=& \frac{x}{p} \frac{(c-1)}{tb}, \\
+      f(t)  &=& ytb - \frac{x}{p} (c-1)       \\
+      f\textnormal{\textquotesingle}(t) &=& y (b + t (p-1) a) - xb
+    \end{eqnarray*} onde $a = (1+t)^{(p-2)}, b = (1+t)^{(p-1)}, c = (1+t)^{p}$ e o problema é equivalente a encontrar um zero da função f \[t_{n+1} = t_n - \frac{f(t)}{f\textnormal{\textquotesingle}(t)}, t_o = \frac{x}{y}\]
+
+A função é decrescente e converge para t quando n{$\rightarrow$}{$\infty$}.
+
+\begin{DoxyAuthor}{Author}
+Paulo Roma 
+\end{DoxyAuthor}
+\begin{DoxySince}{Since}
+24/10/2023 
+\end{DoxySince}
+
+
+Definition in file \mbox{\hyperlink{cdc_8c_source}{cdc.\+c}}.
+

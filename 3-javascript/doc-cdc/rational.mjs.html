@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: rational.mjs</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: rational.mjs</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ * Summary.
+ * &lt;p>Command Line Interface for CDC.&lt;/p>
+ *
+ * Coded following {@link https://nodejs.org/api/esm.html ECMAScript} module syntax,
+ * which is the standard used by browsers and other JavaScript runtimes.
+ *
+ * @author Paulo Roma
+ * @since 04/11/2023
+ * @see &lt;a href="../cdc/src/rational.mjs">source&lt;/a>
+ * @see &lt;a href="../cdc/src/cdc.html">link&lt;/a>
+ */
+
+import * as rational from "./rational.js";
+import * as readlineSync from "readline-sync";
+import * as mod_getopt from "posix-getopt";
+
+/**
+ * &lt;p>Command Line Interface for CDC &lt;a href="https://nodejs.org/en/docs/es6">ES6&lt;/a> syntax.&lt;/p>
+ *
+ * Command Line Arguments:
+ * &lt;pre>
+ * - h help
+ * - n número de parcelas.
+ * - t taxa mensal.
+ * - x valor da compra a prazo.
+ * - y valor da compra à vista.
+ * - e indica uma entrada.
+ * - v verbose mode
+ *
+ *  Module requirements:
+ *  - npm install posix-getopt
+ *  - npm install readline-sync
+ *
+ *  Usage:
+ *  - node rational.mjs -n10 -t1 -x500 -y450 -e
+ *  - node rational.mjs -n18 -t0 -x3297.60 -y1999
+ *  - node rational.mjs -n10 -t0 -x1190 -y1094.80
+ *  - node rational.mjs -n 88 -t 4.55 -x 111064.80 -y 23000
+ *  - node rational.mjs -n 96 -t 0 -x 134788.8 -y 63816.24
+ *  - node rational.mjs -n 4 -t 3.0 -x 1076.11  -y 1000
+ *  - node rational.mjs --parcelas=88 --taxa=4.55 --valorP=111064.80 --valorV=23000 -v
+ *  - node rational.mjs --help
+ * &lt;/pre>
+ *
+ * @param {Array&lt;String>} argv command line arguments.
+ *
+ * @see https://www.npmjs.com/package/posix-getopt
+ * @see https://www.npmjs.com/package/readline-sync
+ */
+function cdcCLI6(argv = process.argv) {
+    // number of payments.
+    let np = 0;
+    // interest rate
+    let t = 0;
+    // initial price
+    let pv = 0;
+    // final price
+    let pp = 0;
+    // debugging state.
+    let debug = false;
+    // holds the existence of a down payment.
+    rational.setDownPayment(false);
+
+    let parser, option;
+    const parse = (str) => str.substring(str.lastIndexOf("/") + 1, str.length);
+
+    try {
+        try {
+            // options that require an argument should be followed by a colon (:)
+            parser = new mod_getopt.BasicParser(
+                "h(help)n:(parcelas)t:(taxa)x:(valorP)y:(valorV)v(verbose)e(entrada)",
+                argv
+            );
+        } catch (msg) {
+            throw msg;
+        }
+
+        while ((option = parser.getopt()) !== undefined) {
+            switch (option.option) {
+                case "h":
+                    rational.log(
+                        `Usage ${parse(argv[0])} ${parse(
+                            argv[1]
+                        )} -n &lt;nº parcelas> -t &lt;taxa> -x &lt;valor a prazo> -y &lt;valor à vista> -e -v`
+                    );
+                    return 1;
+                case "n":
+                    np = +option.optarg;
+                    break;
+                case "t":
+                    t = Number(option.optarg) / 100.0;
+                    break;
+                case "x":
+                    pp = Number(option.optarg);
+                    break;
+                case "y":
+                    pv = Number(option.optarg);
+                    break;
+                case "v":
+                    debug = true;
+                    break;
+                case "e":
+                    rational.setDownPayment();
+                    break;
+            }
+        }
+    } catch (err) {
+        rational.log(
+            `${err.message}\nFor help, type: ${parse(argv[0])} ${parse(
+                argv[1]
+            )} --help`
+        );
+        return 2;
+    }
+
+    while (
+        np &lt;= 2 ||
+        (pv &lt;= 0 &amp;&amp; pp &lt;= 0) ||
+        (t &lt;= 0 &amp;&amp; pp &lt;= 0) ||
+        (t &lt;= 0 &amp;&amp; pv &lt;= 0) ||
+        pp &lt; pv
+    ) {
+        try {
+            np = +readlineSync.question("Forneça o número de parcelas: ");
+            t = +readlineSync.question("Forneça a taxa de juros: ") / 100.0;
+            pp = +readlineSync.question("Forneça o preço a prazo: ");
+            pv = +readlineSync.question("Forneça o preço à vista: ");
+            if (isNaN(np) || isNaN(t) || isNaN(pp) || isNaN(pv)) {
+                throw new Error("Value is not a Number");
+            }
+        } catch (err) {
+            rational.log(err.message);
+            rational.rational_discount(10, 0.01, 500, 450, debug);
+            return;
+        }
+    }
+
+    if (t > 0) {
+        if (pp &lt;= 0) {
+            let factor;
+            [factor, pp] = rational.futureValue(pv, np, t);
+        }
+        rational.rational_discount(np, t, pp, pv, debug);
+    } else {
+        let ni;
+        [t, ni] = rational.getInterest(pp, pv, np);
+        rational.log(
+            `Taxa = ${t.toFixed(4)}% - ${ni} iterações${rational.crlf}`
+        );
+        t *= 0.01;
+        rational.rational_discount(np, t, pp, pv, debug);
+    }
+
+    let cf = rational.CF(t, np);
+    let pmt = pv * cf;
+    rational.log(
+        `${rational.crlf}Coeficiente de Financiamento: ${cf.toFixed(6)}`
+    );
+
+    if (rational.getDownPayment()) {
+        pmt /= 1 + t;
+        np -= 1; // uma prestação a menos
+        pv -= pmt; // preço à vista menos a entrada
+        rational.log(
+            `Valor financiado = \$${(pv + pmt).toFixed(2)} - \$${pmt.toFixed(
+                2
+            )} = \$${pv.toFixed(2)}`
+        );
+    }
+
+    rational.log(`Prestação: \$${pmt.toFixed(2)}`);
+
+    // Tabela Price
+    if (debug) {
+        rational.log(
+            rational.nodePriceTable(rational.priceTable(np, pv, t, pmt))
+        );
+    }
+}
+
+if (typeof process === "object") cdcCLI6();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-rational.html">rational</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:onclick-whensubmitbuttonisclicked.">onclick - when submit button is clicked.</a></li><li><a href="global.html#event:onclick-whenthegreenboxrectangleisclicked.">onclick - when the green box rectangle is clicked.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cdcCGI">cdcCGI</a></li><li><a href="global.html#cdcCLI6">cdcCLI6</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Nov 05 2023 18:49:26 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

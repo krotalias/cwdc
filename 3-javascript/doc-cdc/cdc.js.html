@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: cdc.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: cdc.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ * &lt;p>Callback for for CDC &lt;a href="../cdc/PDFs/CDC2.pdf">calculations&lt;/a>.&lt;/p>
+ *
+ * Coded following {@link https://nodejs.org/api/esm.html ECMAScript} module syntax,
+ * which is the standard used by browsers and other JavaScript runtimes.
+ *
+ * &lt;p>Data supplied through a form and output into three &amp;lt;div&amp;gt; elements:&lt;/p>
+ * &lt;ul>
+ *  &lt;li>#greenBox (input data)&lt;/li>
+ *  &lt;li>#blueBox (result)&lt;/li>
+ *  &lt;li>#redBox (&lt;a href="/cwdc/3-javascript/doc-cdc/global.html#htmlPriceTable">HTML Price table&lt;/a>)&lt;/li>
+ * &lt;/ul>
+ *
+ * &lt;p>Usage: &lt;/p>
+ * &lt;ul>
+ *  &lt;li>&lt;a href="/cwdc/3-javascript/cdc/src/cdc.html">cdc.html&lt;/a>&lt;/li>
+ * &lt;/ul>
+ *
+ * @author Paulo Roma
+ * @date 25/10/2023
+ * @see &lt;a href="/cwdc/3-javascript/cdc/src/cdc.js">source&lt;/a>
+ * @see &lt;a href="/cwdc/3-javascript/cdc/src/cdc.html">link&lt;/a>
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code
+ */
+
+import {
+  htmlPriceTable,
+  priceTable,
+  CF,
+  presentValue,
+  getInterest,
+  getDownPayment,
+  setDownPayment,
+} from "./rational.js";
+
+/**
+ * Executes the CDC calculation.
+ *
+ * @event onclick - when submit button is clicked.
+ * @see https://api.jquery.com/click/
+ * @see https://api.jquery.com/event.preventDefault/
+ */
+$("#submitButton").on("click", function (event) {
+  var errorMessage = "";
+  if ($("#parc").val() &lt;= 2) {
+    errorMessage += "&lt;p>Número de parcelas deve ser maior do que 1.&lt;/p>";
+  }
+  if ($("#itax").val() &lt;= 0 &amp;&amp; $("#ipp").val() &lt;= 0) {
+    errorMessage +=
+      "&lt;p>Taxa de juros e valor final não podem ser ambos nulos.&lt;/p>";
+  }
+  if ($("#itax").val() &lt;= 0 &amp;&amp; $("#ipv").val() &lt;= 0) {
+    errorMessage +=
+      "&lt;p>Taxa de juros e valor financiado não podem ser ambos nulos.&lt;/p>";
+  }
+  if ($("#ipv").val() &lt;= 0 &amp;&amp; $("#ipp").val() &lt;= 0) {
+    errorMessage +=
+      "&lt;p>Valor financiado e valor final não podem ser ambos nulos.&lt;/p>";
+  }
+  if ($("#inb").val() &lt; 0 || +$("#inb").val() > $("#parc").val()) {
+    errorMessage +=
+      "&lt;p>Meses a voltar deve ser positivo e menor ou igual ao número de parcelas.&lt;/p>";
+  }
+  event.preventDefault();
+  if (errorMessage != "") {
+    $("#errorMessage").html(errorMessage);
+    $("#errorMessage").show();
+    $("#successMessage").hide();
+    return;
+  } else {
+    $("#successMessage").show();
+    $("#errorMessage").hide();
+  }
+
+  //  Get data from fields
+  let np = Number(parc.value);
+  let t = Number(itax.value) / 100;
+  let pp = Number(ipp.value);
+  let pv = Number(ipv.value);
+  let pb = Number(ipb.value);
+  let nb = Number(inb.value);
+  let dp = idp.checked;
+  let prt = iprt.checked;
+  setDownPayment(dp);
+
+  if (pv == 0) {
+    pv = presentValue(pp, np, t)[1];
+  }
+
+  let [ti, i] = getInterest(pp, pv, np);
+
+  $("#greenBox").show();
+  $("#blueBox").show();
+  $("#redBox").show();
+  $("#cdcfieldset").hide();
+
+  $("#greenBox").html(
+    `&lt;h4>Parcelamento: ${np} meses&lt;/h4>
+    &lt;h4>Taxa: ${(100 * t).toFixed(2)}% ao mês = ${(
+      ((1 + t) ** 12 - 1) *
+      100.0
+    ).toFixed(2)}% ao ano&lt;/h4>
+    &lt;h4>Valor Financiado: \$${pv.toFixed(2)}&lt;/h4>
+    &lt;h4>Valor Final: \$${pp.toFixed(2)}&lt;/h4>
+    &lt;h4>Valor a Voltar: \$${pb.toFixed(2)}&lt;/h4>
+    &lt;h4>Meses a Voltar: ${nb}&lt;/h4>
+    &lt;h4>Entrada: ${getDownPayment()}&lt;/h4>`
+  );
+
+  if (t == 0) {
+    t = 0.01 * ti;
+  }
+
+  try {
+    var cf = CF(t, np);
+    var pmt = pv * cf;
+    if (getDownPayment()) {
+      pmt /= 1 + t;
+      np -= 1; // uma prestação a menos
+      pv -= pmt; // preço à vista menos a entrada
+    }
+  } catch (e) {
+    $("#blueBox").html(
+      `&lt;h4>${e.message}&lt;/h4>
+      &lt;h4>Juros e Valor Final não podem ser ambos 0&lt;/h4>`
+    );
+    return;
+  }
+
+  let ptb = priceTable(np, pv, t, pmt);
+
+  let val = getDownPayment()
+    ? ` + \$${pmt.toFixed(2)} = \$${(ptb.slice(-1)[0][1] + pmt).toFixed(2)}`
+    : "";
+
+  $("#blueBox").html(
+    `&lt;h4>Coeficiente de Financiamento: ${cf.toFixed(6)}&lt;/h4>
+    &lt;h4>Prestação: ${cf.toFixed(6)} * \$${pv.toFixed(2)} = \$${pmt.toFixed(
+      2
+    )} ao mês&lt;/h4>
+    &lt;h4>Valor Pago com Juros: \$${ptb.slice(-1)[0][1].toFixed(2)} ${val}&lt;/h4>
+    &lt;h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês&lt;/h4>
+    &lt;h4>Valor Corrigido: \$${
+      pb > 0 &amp;&amp; nb > 0 ? presentValue(pb, nb, t)[1].toFixed(2) : 0
+    }&lt;/h4>`
+  );
+
+  $("#redBox").html(htmlPriceTable(ptb));
+
+  if (prt) {
+    window.print();
+  }
+});
+
+/**
+ * Go back to the form.
+ *
+ * @event onclick - when the green box rectangle is clicked.
+ * @see https://api.jquery.com/click/
+ * @see https://api.jquery.com/event.preventDefault/
+ */
+$("#greenBox").on("click", function (event) {
+  $("#greenBox").hide();
+  $("#blueBox").hide();
+  $("#redBox").hide();
+  $("#cdcfieldset").show();
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-rational.html">rational</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:onclick-whensubmitbuttonisclicked.">onclick - when submit button is clicked.</a></li><li><a href="global.html#event:onclick-whenthegreenboxrectangleisclicked.">onclick - when the green box rectangle is clicked.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cdcCGI">cdcCGI</a></li><li><a href="global.html#cdcCLI6">cdcCLI6</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Nov 05 2023 18:49:26 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
