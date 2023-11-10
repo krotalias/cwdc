@@ -27,7 +27,7 @@
 /**
  * @var {HTMLElement} result &lt;div&gt; element.
  */
-let result;
+let result = "";
 
 /**
  * @var {function} log output to node or browser.
@@ -40,12 +40,20 @@ let log = typeof process === "object" ? console.log : appendToDiv;
  * @param {String} id given id.
  */
 function appendToDiv(str, id = "#rational") {
-    if (result === undefined) {
+    if (typeof result === "string") {
         result = document.querySelector(id);
         result.innerHTML += `${str}${crlf}`;
     } else {
         result.innerHTML += `${str}${crlf}`;
     }
+}
+
+/**
+ * Appends a string to another (result) string.
+ * @param {String} str a string.
+ */
+function appendToString(str) {
+    result = result.concat(str, crlf);
 }
 
 /**
@@ -226,11 +234,18 @@ function CF(i, n) {
  * @param {Number} x preço a prazo.
  * @param {Number} y preço à vista.
  * @param {Boolean} option seleciona o que será impresso.
+ * @return {String} answer as a raw string or in HTML format.
  */
 function rational_discount(p, t, x, y, option = true) {
+    result = "";
     if (y >= x) {
         log("Preço à vista deve ser menor do que o preço total:");
     } else {
+        let [interest, niter] = getInterest(x, y, p);
+        if (t == 0) {
+            t = 0.01 * interest;
+        }
+
         let [fx, ux] = presentValue(x, p, t);
         if (y <= 0) {
             y = ux;
@@ -249,8 +264,6 @@ function rational_discount(p, t, x, y, option = true) {
         }
         let delta_p = ux - y;
         let prct = (delta_p / ux) * 100.0;
-
-        let [interest, niter] = getInterest(x, y, p);
 
         log(
             `Taxa Real = ${interest.toFixed(
@@ -298,6 +311,7 @@ function rational_discount(p, t, x, y, option = true) {
             }
         }
     }
+    return result;
 }
 
 /**

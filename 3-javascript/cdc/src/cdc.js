@@ -39,6 +39,7 @@ import {
  * Executes the CDC calculation.
  *
  * @event onclick - when submit button is clicked.
+ * @requires module:rational
  * @see https://api.jquery.com/click/
  * @see https://api.jquery.com/event.preventDefault/
  */
