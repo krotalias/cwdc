@@ -78,14 +78,23 @@ const pt = {
 const crlf = typeof process === "object" ? "\n" : "<br>";
 
 /**
- * Seleciona pagamento mensal com ou sem entrada (down payment).
- * @param {Boolean} dp down payment.
+ * Create and initialize the "static" variable.
+ * Function declarations are processed before code is executed, so
+ * we really can do this assignment before the function declaration.
  */
-function setDownPayment(dp = true) {
+setDownPayment.downP = false;
+
+/**
+ * <p>Seleciona pagamento mensal com ou sem entrada (down payment).</p>
+ * Holds a "static" property of itself to keep track
+ * of the last value set.
+ * @param {Boolean} dp down payment.
+ * @property {Boolean} downP whether there is a down payment or not.
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
+ */
+export function setDownPayment(dp = true) {
     setDownPayment.downP = dp;
 }
-
-setDownPayment.downP = false;
 
 /**
  * Retorna o tipo de pagamento mensal (down payment).
