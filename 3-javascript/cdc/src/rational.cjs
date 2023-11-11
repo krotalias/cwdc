@@ -92,7 +92,7 @@ setDownPayment.downP = false;
  * @property {Boolean} downP whether there is a down payment or not.
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
  */
-export function setDownPayment(dp = true) {
+function setDownPayment(dp = true) {
     setDownPayment.downP = dp;
 }
 
