@@ -359,11 +359,11 @@ export function priceTable(np, pv, t, pmt) {
   let dataTable = [
     ["Mês", "Prestação", "Juros", "Amortização", "Saldo Devedor"],
   ];
-  let pt = 0;
+  let pt = getDownPayment() ? pmt : 0;
   let jt = 0;
   let at = 0;
   dataTable.push(["n", "R = pmt", "J = SD * t", "U = pmt - J", "SD = PV - U"]);
-  dataTable.push([0, getDownPayment() ? pmt : 0, `(${t.toFixed(4)})`, 0, pv]);
+  dataTable.push([0, pt, `(${t.toFixed(4)})`, 0, pv]);
   for (let i = 0; i < np; ++i) {
     let juros = pv * t;
     let amortizacao = pmt - juros;

@@ -132,16 +132,12 @@ $("#submitButton").on("click", function (event) {
 
   let ptb = priceTable(np, pv, t, pmt);
 
-  let val = getDownPayment()
-    ? ` + \$${pmt.toFixed(2)} = \$${(ptb.slice(-1)[0][1] + pmt).toFixed(2)}`
-    : "";
-
   $("#blueBox").html(
     `<h4>Coeficiente de Financiamento: ${cf.toFixed(6)}</h4>
     <h4>Prestação: ${cf.toFixed(6)} * \$${pv.toFixed(2)} = \$${pmt.toFixed(
       2
     )} ao mês</h4>
-    <h4>Valor Pago com Juros: \$${ptb.slice(-1)[0][1].toFixed(2)} ${val}</h4>
+    <h4>Valor Pago com Juros: \$${ptb.slice(-1)[0][1].toFixed(2)}</h4>
     <h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês</h4>
     <h4>Valor Corrigido: \$${
       pb > 0 && nb > 0 ? presentValue(pb, nb, t)[1].toFixed(2) : 0
