@@ -46,6 +46,14 @@ function appendToDiv(str, id = "#rational") {
 }
 
 /**
+ * Appends a string to another (result) string.
+ * @param {String} str a string.
+ */
+function appendToString(str) {
+  result = result.concat(str, crlf);
+}
+
+/**
  * @property {object} pt - data for formatting a table.
  * @property {number} pt.lenNum - length of a float number.
  * @property {number} pt.lenMes - length of an integer.
