@@ -22,7 +22,7 @@
  */
 
 /**
- * @var {HTMLElement} result &lt;div&gt; element.
+ * @var {HTMLElement|String} result &lt;div&gt; element.
  */
 let result = "";
 
@@ -180,11 +180,12 @@ function getInterest2(x, y, p) {
  * @param {Number} x preço a prazo.
  * @param {Number} p número de parcelas.
  * @param {Number} t taxa.
+ * @param {Number} fix whether to take into account a down payment.
  * @return {Array<Number,Number>} [factor, x * factor]
  */
-export function presentValue(x, p, t) {
+export function presentValue(x, p, t, fix = true) {
   let factor = 1.0 / (p * CF(t, p));
-  if (getDownPayment()) {
+  if (fix && getDownPayment()) {
     factor *= 1.0 + t;
   }
   return [factor, x * factor];
@@ -196,11 +197,12 @@ export function presentValue(x, p, t) {
  * @param {Number} y preço à vista.
  * @param {Number} p número de parcelas.
  * @param {Number} t taxa.
+ * @param {Number} fix whether to take into account a down payment.
  * @return {Array<Number,Number>} [factor, y * factor]
  */
-export function futureValue(y, p, t) {
+export function futureValue(y, p, t, fix = true) {
   let factor = CF(t, p) * p;
-  if (getDownPayment()) {
+  if (fix && getDownPayment()) {
     factor /= 1.0 + t;
   }
   return [factor, y * factor];

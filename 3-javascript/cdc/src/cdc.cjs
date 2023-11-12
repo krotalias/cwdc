@@ -87,8 +87,8 @@ $("#submitButton").on("click", function (event) {
     try {
         var cf = CF(t, np);
         var pmt = pv * cf;
-        if (getDownPayment()) {
-            pmt /= 1 + t;
+        if (dp) {
+            pmt /= 1 + t; // diminui a prestação
             np -= 1; // uma prestação a menos
             pv -= pmt; // preço à vista menos a entrada
         }
@@ -128,7 +128,7 @@ $("#submitButton").on("click", function (event) {
     <h4>Valor Pago com Juros: \$${ptb.slice(-1)[0][1].toFixed(2)}</h4>
     <h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês</h4>
     <h4>Valor Corrigido: \$${
-        pb > 0 && nb > 0 ? presentValue(pb, nb, t)[1].toFixed(2) : 0
+        pb > 0 && nb > 0 ? presentValue(pb, nb, t, false)[1].toFixed(2) : 0
     }</h4>`
     );
 

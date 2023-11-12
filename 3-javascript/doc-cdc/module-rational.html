@@ -494,7 +494,7 @@
 
         
             
-<h4 class="name" id="~result"><span class="type-signature">(inner) </span>result<span class="type-signature"> :HTMLElement</span></h4>
+<h4 class="name" id="~result"><span class="type-signature">(inner) </span>result<span class="type-signature"> :HTMLElement|String</span></h4>
 
 
 
@@ -510,6 +510,9 @@
         <li>
             
 <span class="param-type">HTMLElement</span>
+|
+
+<span class="param-type">String</span>
 
 
         </li>
@@ -713,7 +716,7 @@ deve pagar $0,05 de prestação para cada $1,00 de dívida.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line231">line 231</a>
+        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line233">line 233</a>
     </li></ul></dd>
     
 
@@ -780,7 +783,7 @@ deve pagar $0,05 de prestação para cada $1,00 de dívida.
     
 
     
-    <h4 class="name" id=".futureValue"><span class="type-signature">(static) </span>futureValue<span class="signature">(y, p, t)</span><span class="type-signature"> &rarr; {Array.&lt;Number, Number>}</span></h4>
+    <h4 class="name" id=".futureValue"><span class="type-signature">(static) </span>futureValue<span class="signature">(y, p, t, fix)</span><span class="type-signature"> &rarr; {Array.&lt;Number, Number>}</span></h4>
     
 
     
@@ -890,6 +893,29 @@ deve pagar $0,05 de prestação para cada $1,00 de dívida.
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>fix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">whether to take into account a down payment.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -927,7 +953,7 @@ deve pagar $0,05 de prestação para cada $1,00 de dívida.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line201">line 201</a>
+        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line203">line 203</a>
     </li></ul></dd>
     
 
@@ -1410,7 +1436,7 @@ Nota: se não houve entrada, retorna getInterest2(x, y, p)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line441">line 441</a>
+        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line443">line 443</a>
     </li></ul></dd>
     
 
@@ -1569,7 +1595,7 @@ Nota: se não houve entrada, retorna getInterest2(x, y, p)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line410">line 410</a>
+        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line412">line 412</a>
     </li></ul></dd>
     
 
@@ -1627,7 +1653,7 @@ Nota: se não houve entrada, retorna getInterest2(x, y, p)
     
 
     
-    <h4 class="name" id=".presentValue"><span class="type-signature">(static) </span>presentValue<span class="signature">(x, p, t)</span><span class="type-signature"> &rarr; {Array.&lt;Number, Number>}</span></h4>
+    <h4 class="name" id=".presentValue"><span class="type-signature">(static) </span>presentValue<span class="signature">(x, p, t, fix)</span><span class="type-signature"> &rarr; {Array.&lt;Number, Number>}</span></h4>
     
 
     
@@ -1737,6 +1763,29 @@ Nota: se não houve entrada, retorna getInterest2(x, y, p)
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>fix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">whether to take into account a down payment.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -1774,7 +1823,7 @@ Nota: se não houve entrada, retorna getInterest2(x, y, p)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line185">line 185</a>
+        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line186">line 186</a>
     </li></ul></dd>
     
 
@@ -2015,7 +2064,7 @@ Esse é o tal "desconto racional", quando se antecipam parcelas.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line358">line 358</a>
+        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line360">line 360</a>
     </li></ul></dd>
     
 
@@ -2274,7 +2323,7 @@ Esse é o tal "desconto racional", quando se antecipam parcelas.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line245">line 245</a>
+        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line247">line 247</a>
     </li></ul></dd>
     
 
@@ -2963,7 +3012,7 @@ of the last value set.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line328">line 328</a>
+        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line330">line 330</a>
     </li></ul></dd>
     
 
@@ -3122,7 +3171,7 @@ of the last value set.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line387">line 387</a>
+        <a href="rational.js.html">rational.js</a>, <a href="rational.js.html#line389">line 389</a>
     </li></ul></dd>
     
 
@@ -3410,7 +3459,7 @@ Nota: assume-se que não houve entrada.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Nov 11 2023 21:22:58 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Nov 12 2023 08:18:12 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

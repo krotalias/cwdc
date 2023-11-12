@@ -492,7 +492,7 @@
 
         
             
-<h4 class="name" id="result"><span class="type-signature"></span>result<span class="type-signature"> :HTMLElement</span></h4>
+<h4 class="name" id="result"><span class="type-signature"></span>result<span class="type-signature"> :HTMLElement|String</span></h4>
 
 
 
@@ -508,6 +508,9 @@
         <li>
             
 <span class="param-type">HTMLElement</span>
+|
+
+<span class="param-type">String</span>
 
 
         </li>
@@ -711,7 +714,7 @@ deve pagar $0,05 de prestação para cada $1,00 de dívida.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line234">line 234</a>
+        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line236">line 236</a>
     </li></ul></dd>
     
 
@@ -1323,7 +1326,7 @@ Command Line Arguments:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line509">line 509</a>
+        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line511">line 511</a>
     </li></ul></dd>
     
 
@@ -1672,7 +1675,7 @@ Command Line Arguments:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line333">line 333</a>
+        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line335">line 335</a>
     </li></ul></dd>
     
 
@@ -1831,7 +1834,7 @@ Command Line Arguments:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line398">line 398</a>
+        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line400">line 400</a>
     </li></ul></dd>
     
 
@@ -1889,7 +1892,7 @@ Command Line Arguments:
     
 
     
-    <h4 class="name" id="futureValue"><span class="type-signature"></span>futureValue<span class="signature">(y, p, t)</span><span class="type-signature"> &rarr; {Array.&lt;Number, Number>}</span></h4>
+    <h4 class="name" id="futureValue"><span class="type-signature"></span>futureValue<span class="signature">(y, p, t, fix)</span><span class="type-signature"> &rarr; {Array.&lt;Number, Number>}</span></h4>
     
 
     
@@ -1923,6 +1926,8 @@ Command Line Arguments:
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -1948,6 +1953,10 @@ Command Line Arguments:
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">preço à vista.</td>
         </tr>
@@ -1970,6 +1979,10 @@ Command Line Arguments:
 
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">número de parcelas.</td>
@@ -1994,8 +2007,41 @@ Command Line Arguments:
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">taxa.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">whether to take into account a down payment.</td>
         </tr>
 
     
@@ -2036,7 +2082,7 @@ Command Line Arguments:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line204">line 204</a>
+        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line206">line 206</a>
     </li></ul></dd>
     
 
@@ -2733,7 +2779,7 @@ Nota: assume-se que não houve entrada.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line453">line 453</a>
+        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line455">line 455</a>
     </li></ul></dd>
     
 
@@ -2892,7 +2938,7 @@ Nota: assume-se que não houve entrada.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line421">line 421</a>
+        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line423">line 423</a>
     </li></ul></dd>
     
 
@@ -2950,7 +2996,7 @@ Nota: assume-se que não houve entrada.
     
 
     
-    <h4 class="name" id="presentValue"><span class="type-signature"></span>presentValue<span class="signature">(x, p, t)</span><span class="type-signature"> &rarr; {Array.&lt;Number, Number>}</span></h4>
+    <h4 class="name" id="presentValue"><span class="type-signature"></span>presentValue<span class="signature">(x, p, t, fix)</span><span class="type-signature"> &rarr; {Array.&lt;Number, Number>}</span></h4>
     
 
     
@@ -2984,6 +3030,8 @@ Nota: assume-se que não houve entrada.
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -3009,6 +3057,10 @@ Nota: assume-se que não houve entrada.
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">preço a prazo.</td>
         </tr>
@@ -3031,6 +3083,10 @@ Nota: assume-se que não houve entrada.
 
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">número de parcelas.</td>
@@ -3055,8 +3111,41 @@ Nota: assume-se que não houve entrada.
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">taxa.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">whether to take into account a down payment.</td>
         </tr>
 
     
@@ -3097,7 +3186,7 @@ Nota: assume-se que não houve entrada.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line188">line 188</a>
+        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line189">line 189</a>
     </li></ul></dd>
     
 
@@ -3338,7 +3427,7 @@ Esse é o tal "desconto racional", quando se antecipam parcelas.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line363">line 363</a>
+        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line365">line 365</a>
     </li></ul></dd>
     
 
@@ -3621,7 +3710,7 @@ Esse é o tal "desconto racional", quando se antecipam parcelas.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line248">line 248</a>
+        <a href="rational.cjs.html">rational.cjs</a>, <a href="rational.cjs.html#line250">line 250</a>
     </li></ul></dd>
     
 
@@ -4298,7 +4387,7 @@ of the last value set.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Nov 11 2023 21:22:58 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Nov 12 2023 08:18:12 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
