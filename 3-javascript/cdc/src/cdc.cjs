@@ -80,6 +80,28 @@ $("#submitButton").on("click", function (event) {
 
     let [ti, i] = getInterest(pp, pv, np);
 
+    if (t == 0) {
+        t = 0.01 * ti;
+    }
+
+    try {
+        var cf = CF(t, np);
+        var pmt = pv * cf;
+        if (getDownPayment()) {
+            pmt /= 1 + t;
+            np -= 1; // uma prestação a menos
+            pv -= pmt; // preço à vista menos a entrada
+        }
+    } catch (e) {
+        $("#blueBox").html(
+            `<h4>${e.message}</h4>
+    <h4>Juros e Valor Final não podem ser ambos 0</h4>`
+        );
+        return;
+    }
+
+    let ptb = priceTable(np, pv, t, pmt);
+
     $("#greenBox").show();
     $("#blueBox").show();
     $("#redBox").show();
@@ -97,28 +119,6 @@ $("#submitButton").on("click", function (event) {
     <h4>Meses a Voltar: ${nb}</h4>
     <h4>Entrada: ${getDownPayment()}</h4>`
     );
-
-    if (t == 0) {
-        t = 0.01 * ti;
-    }
-
-    try {
-        var cf = CF(t, np);
-        var pmt = pv * cf;
-        if (getDownPayment()) {
-            pmt /= 1 + t;
-            np -= 1; // uma prestação a menos
-            pv -= pmt; // preço à vista menos a entrada
-        }
-    } catch (e) {
-        $("#blueBox").html(
-            `<h4>${e.message}</h4>
-      <h4>Juros e Valor Final não podem ser ambos 0</h4>`
-        );
-        return;
-    }
-
-    let ptb = priceTable(np, pv, t, pmt);
 
     $("#blueBox").html(
         `<h4>Coeficiente de Financiamento: ${cf.toFixed(6)}</h4>

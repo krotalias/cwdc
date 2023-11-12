@@ -92,24 +92,6 @@ $("#submitButton").on("click", function (event) {
 
   let [ti, i] = getInterest(pp, pv, np);
 
-  $("#greenBox").show();
-  $("#blueBox").show();
-  $("#redBox").show();
-  $("#cdcfieldset").hide();
-
-  $("#greenBox").html(
-    `<h4>Parcelamento: ${np} meses</h4>
-    <h4>Taxa: ${(100 * t).toFixed(2)}% ao mês = ${(
-      ((1 + t) ** 12 - 1) *
-      100.0
-    ).toFixed(2)}% ao ano</h4>
-    <h4>Valor Financiado: \$${pv.toFixed(2)}</h4>
-    <h4>Valor Final: \$${pp.toFixed(2)}</h4>
-    <h4>Valor a Voltar: \$${pb.toFixed(2)}</h4>
-    <h4>Meses a Voltar: ${nb}</h4>
-    <h4>Entrada: ${getDownPayment()}</h4>`
-  );
-
   if (t == 0) {
     t = 0.01 * ti;
   }
@@ -131,6 +113,24 @@ $("#submitButton").on("click", function (event) {
   }
 
   let ptb = priceTable(np, pv, t, pmt);
+
+  $("#greenBox").show();
+  $("#blueBox").show();
+  $("#redBox").show();
+  $("#cdcfieldset").hide();
+
+  $("#greenBox").html(
+    `<h4>Parcelamento: ${np} meses</h4>
+    <h4>Taxa: ${(100 * t).toFixed(2)}% ao mês = ${(
+      ((1 + t) ** 12 - 1) *
+      100.0
+    ).toFixed(2)}% ao ano</h4>
+    <h4>Valor Financiado: \$${pv.toFixed(2)}</h4>
+    <h4>Valor Final: \$${pp.toFixed(2)}</h4>
+    <h4>Valor a Voltar: \$${pb.toFixed(2)}</h4>
+    <h4>Meses a Voltar: ${nb}</h4>
+    <h4>Entrada: ${getDownPayment()}</h4>`
+  );
 
   $("#blueBox").html(
     `<h4>Coeficiente de Financiamento: ${cf.toFixed(6)}</h4>
