@@ -183,7 +183,7 @@ function getInterest2(x, y, p) {
  * @param {Number} x preço a prazo.
  * @param {Number} p número de parcelas.
  * @param {Number} t taxa.
- * @param {Number} fix whether to take into account a down payment.
+ * @param {Boolean} fix whether to take into account a down payment.
  * @return {Array<Number,Number>} [factor, x * factor]
  */
 function presentValue(x, p, t, fix = true) {
@@ -200,7 +200,7 @@ function presentValue(x, p, t, fix = true) {
  * @param {Number} y preço à vista.
  * @param {Number} p número de parcelas.
  * @param {Number} t taxa.
- * @param {Number} fix whether to take into account a down payment.
+ * @param {Boolean} fix whether to take into account a down payment.
  * @return {Array<Number,Number>} [factor, y * factor]
  */
 function futureValue(y, p, t, fix = true) {
