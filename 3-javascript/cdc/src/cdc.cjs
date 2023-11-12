@@ -108,7 +108,7 @@ $("#submitButton").on("click", function (event) {
     $("#cdcfieldset").hide();
 
     $("#greenBox").html(
-        `<h4>Parcelamento: ${np} meses</h4>
+        `<h4>Parcelamento: ${dp ? "1+" : ""}${np} meses</h4>
     <h4>Taxa: ${(100 * t).toFixed(2)}% ao mês = ${(
             ((1 + t) ** 12 - 1) *
             100.0
