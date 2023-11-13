@@ -103,6 +103,7 @@ $("#submitButton").on("click", function (event) {
       pmt /= 1 + t; // diminui a prestação
       np -= 1; // uma prestação a menos
       pv -= pmt; // preço à vista menos a entrada
+      cf = pmt / pv; // recalculate cf
     }
   } catch (e) {
     $("#blueBox").html(
