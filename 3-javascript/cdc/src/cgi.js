@@ -90,7 +90,7 @@ function cdcCGI() {
   }
   let cf = CF(t, np);
   let pmt = pv * cf;
-  if (getDownPayment()) {
+  if (dp) {
     pmt /= 1 + t;
     np -= 1; // uma prestação a menos
     pv -= pmt; // preço à vista menos a entrada
@@ -116,6 +116,10 @@ function cdcCGI() {
   result.innerHTML += htmlPriceTable(ptb);
 
   if (verbose) {
+    if (dp) {
+      np += 1;
+      pv += pmt;
+    }
     rational_discount(np, t, pp, pv, true);
     log(crlf);
     log(nodePriceTable(ptb));

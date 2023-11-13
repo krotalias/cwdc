@@ -61,6 +61,15 @@
  *
  *  A função é decrescente e converge para t quando n&rarr;&infin;.
  *
+ *  Para o caso de não haver entrada:
+ *  @f{eqnarray*}{
+ *     x_{n+1} &=& x_n - \frac{f(x_n)}{f'(x_n)} \\
+ *       y     &=& \frac{x}{p} \frac{(1-a)}{t}, \\
+ *       f(t)  &=& yt - \frac{x}{p} (1-a)       \\
+ *       f'(t) &=& y - x b
+ *     @f}
+ *  onde @f$a = (1+t)^{-p}, b = \frac{a}{1+t}@f$
+ *
  *  @author Paulo Roma
  *  @since 24/10/2023
  */

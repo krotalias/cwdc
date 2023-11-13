@@ -55,6 +55,13 @@ Nota\+: Achar a taxa \"{}t\"{} que produz o preço à vista \"{}y\"{} requer o m
 
 A função é decrescente e converge para t quando n{$\rightarrow$}{$\infty$}.
 
+Para o caso de não haver entrada\+:  \begin{eqnarray*}
+    x_{n+1} &=& x_n - \frac{f(x_n)}{f\textnormal{\textquotesingle}(x_n)} \\
+      y     &=& \frac{x}{p} \frac{(1-a)}{t}, \\
+      f(t)  &=& yt - \frac{x}{p} (1-a)       \\
+      f\textnormal{\textquotesingle}(t) &=& y - x b
+    \end{eqnarray*} onde $a = (1+t)^{-p}, b = \frac{a}{1+t}$
+
 \begin{DoxyAuthor}{Author}
 Paulo Roma 
 \end{DoxyAuthor}
