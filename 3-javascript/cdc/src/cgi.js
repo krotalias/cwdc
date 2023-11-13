@@ -109,7 +109,7 @@ function cdcCGI() {
   result.innerHTML += `<h4>Valor Pago: \$${ptb.slice(-1)[0][1].toFixed(2)}</h4>
         <h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês</h4>
         <h4>Valor Corrigido: \$${
-          nb > 0 && pb > 0 ? presentValue(pb, nb, t)[1].toFixed(2) : 0
+          nb > 0 && pb > 0 ? presentValue(pb, nb, t, false)[1].toFixed(2) : 0
         }</h4>`;
 
   result.innerHTML += htmlPriceTable(ptb);
