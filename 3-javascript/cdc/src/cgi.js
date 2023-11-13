@@ -94,6 +94,7 @@ function cdcCGI() {
     pmt /= 1 + t;
     np -= 1; // uma prestação a menos
     pv -= pmt; // preço à vista menos a entrada
+    cf = pmt / pv; // recalculate cf
     result.innerHTML += `<h4>Valor financiado = \$${(pv + pmt).toFixed(
       2
     )} - \$${pmt.toFixed(2)} = \$${pv.toFixed(2)}</h4>`;
