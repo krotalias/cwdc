@@ -116,6 +116,10 @@ $("#submitButton").on("click", function (event) {
 
   let ptb = priceTable(np, pv, t, pmt);
 
+  if (pb == 0 && nb > 0) {
+    pb = pmt * nb;
+  }
+
   $("#greenBox").show();
   $("#blueBox").show();
   $("#redBox").show();
@@ -142,7 +146,7 @@ $("#submitButton").on("click", function (event) {
     <h4>Valor Pago com Juros: \$${ptb.slice(-1)[0][1].toFixed(2)}</h4>
     <h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês</h4>
     <h4>Valor Corrigido: \$${
-      pb > 0 && nb > 0 ? presentValue(pb, nb, t, false)[1].toFixed(2) : 0
+      nb > 0 ? presentValue(pb, nb, t, false)[1].toFixed(2) : 0
     }</h4>`
   );
 
