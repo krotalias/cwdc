@@ -84,21 +84,36 @@ function cdcCGI() {
 
   setDownPayment(dp); // com ou sem entrada
 
-  let [ti, i] = getInterest(pp, pv, np);
-  if (t <= 0) {
-    t = ti * 0.01;
+  let pmt = 0;
+  let cf = 0;
+  let i = 0;
+  let ti = 0;
+  try {
+    if (t <= 0) {
+      [ti, i] = getInterest(pp, pv, np);
+      t = ti * 0.01;
+    }
+    cf = CF(t, np);
+    pmt = pv * cf;
+  } catch (e) {
+    errmsg += e.message;
+  } finally {
+    if (dp) {
+      pmt /= 1 + t;
+      np -= 1; // uma prestação a menos
+      pv -= pmt; // preço à vista menos a entrada
+      cf = pmt / pv; // recalculate cf
+    }
   }
-  let cf = CF(t, np);
-  let pmt = pv * cf;
-  if (dp) {
-    pmt /= 1 + t;
-    np -= 1; // uma prestação a menos
-    pv -= pmt; // preço à vista menos a entrada
-    cf = pmt / pv; // recalculate cf
-    result.innerHTML += `<h4>Valor financiado = \$${(pv + pmt).toFixed(
-      2
-    )} - \$${pmt.toFixed(2)} = \$${pv.toFixed(2)}</h4>`;
+
+  if (errmsg) {
+    result.innerHTML += `<h2><mark>${errmsg}</mark></h2>`;
+    return errmsg;
   }
+
+  result.innerHTML += `<h4>Valor financiado = \$${(pv + pmt).toFixed(
+    2
+  )} - \$${pmt.toFixed(2)} = \$${pv.toFixed(2)}</h4>`;
 
   result.innerHTML += `<h4>Coeficiente de Financiamento: ${cf.toFixed(6)}</h4>
     <h4>Prestação: ${cf.toFixed(6)} * \$${pv.toFixed(2)} = \$${pmt.toFixed(

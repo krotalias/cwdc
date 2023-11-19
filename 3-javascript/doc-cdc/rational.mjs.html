@@ -82,134 +82,130 @@ import * as mod_getopt from "posix-getopt";
  * @see https://www.npmjs.com/package/readline-sync
  */
 function cdcCLI6(argv = process.argv) {
-    // number of payments.
-    let np = 0;
-    // interest rate
-    let t = 0;
-    // initial price
-    let pv = 0;
-    // final price
-    let pp = 0;
-    // debugging state.
-    let debug = false;
-    // holds the existence of a down payment.
-    rational.setDownPayment(false);
+  // number of payments.
+  let np = 0;
+  // interest rate
+  let t = 0;
+  // initial price
+  let pv = 0;
+  // final price
+  let pp = 0;
+  // debugging state.
+  let debug = false;
+  // holds the existence of a down payment.
+  rational.setDownPayment(false);
 
-    let parser, option;
-    const parse = (str) => str.substring(str.lastIndexOf("/") + 1, str.length);
+  let parser, option;
+  const parse = (str) => str.substring(str.lastIndexOf("/") + 1, str.length);
 
+  try {
     try {
-        try {
-            // options that require an argument should be followed by a colon (:)
-            parser = new mod_getopt.BasicParser(
-                "h(help)n:(parcelas)t:(taxa)x:(valorP)y:(valorV)v(verbose)e(entrada)",
-                argv
-            );
-        } catch (msg) {
-            throw msg;
-        }
-
-        while ((option = parser.getopt()) !== undefined) {
-            switch (option.option) {
-                case "h":
-                    rational.log(
-                        `Usage ${parse(argv[0])} ${parse(
-                            argv[1]
-                        )} -n &lt;nº parcelas> -t &lt;taxa> -x &lt;valor a prazo> -y &lt;valor à vista> -e -v`
-                    );
-                    return 1;
-                case "n":
-                    np = +option.optarg;
-                    break;
-                case "t":
-                    t = Number(option.optarg) / 100.0;
-                    break;
-                case "x":
-                    pp = Number(option.optarg);
-                    break;
-                case "y":
-                    pv = Number(option.optarg);
-                    break;
-                case "v":
-                    debug = true;
-                    break;
-                case "e":
-                    rational.setDownPayment();
-                    break;
-            }
-        }
-    } catch (err) {
-        rational.log(
-            `${err.message}\nFor help, type: ${parse(argv[0])} ${parse(
-                argv[1]
-            )} --help`
-        );
-        return 2;
+      // options that require an argument should be followed by a colon (:)
+      parser = new mod_getopt.BasicParser(
+        "h(help)n:(parcelas)t:(taxa)x:(valorP)y:(valorV)v(verbose)e(entrada)",
+        argv
+      );
+    } catch (msg) {
+      throw msg;
     }
 
-    while (
-        np &lt;= 2 ||
-        (pv &lt;= 0 &amp;&amp; pp &lt;= 0) ||
-        (t &lt;= 0 &amp;&amp; pp &lt;= 0) ||
-        (t &lt;= 0 &amp;&amp; pv &lt;= 0) ||
-        pp &lt; pv
-    ) {
-        try {
-            np = +readlineSync.question("Forneça o número de parcelas: ");
-            t = +readlineSync.question("Forneça a taxa de juros: ") / 100.0;
-            pp = +readlineSync.question("Forneça o preço a prazo: ");
-            pv = +readlineSync.question("Forneça o preço à vista: ");
-            if (isNaN(np) || isNaN(t) || isNaN(pp) || isNaN(pv)) {
-                throw new Error("Value is not a Number");
-            }
-        } catch (err) {
-            rational.log(err.message);
-            rational.rational_discount(10, 0.01, 500, 450, debug);
-            return;
-        }
+    while ((option = parser.getopt()) !== undefined) {
+      switch (option.option) {
+        case "h":
+          rational.log(
+            `Usage ${parse(argv[0])} ${parse(
+              argv[1]
+            )} -n &lt;nº parcelas> -t &lt;taxa> -x &lt;valor a prazo> -y &lt;valor à vista> -e -v`
+          );
+          return 1;
+        case "n":
+          np = +option.optarg;
+          break;
+        case "t":
+          t = Number(option.optarg) / 100.0;
+          break;
+        case "x":
+          pp = Number(option.optarg);
+          break;
+        case "y":
+          pv = Number(option.optarg);
+          break;
+        case "v":
+          debug = true;
+          break;
+        case "e":
+          rational.setDownPayment();
+          break;
+      }
     }
-
-    if (t > 0) {
-        if (pp &lt;= 0) {
-            let factor;
-            [factor, pp] = rational.futureValue(pv, np, t);
-        }
-        rational.rational_discount(np, t, pp, pv, debug);
-    } else {
-        let ni;
-        [t, ni] = rational.getInterest(pp, pv, np);
-        rational.log(
-            `Taxa = ${t.toFixed(4)}% - ${ni} iterações${rational.crlf}`
-        );
-        t *= 0.01;
-        rational.rational_discount(np, t, pp, pv, debug);
-    }
-
-    let cf = rational.CF(t, np);
-    let pmt = pv * cf;
+  } catch (err) {
     rational.log(
-        `${rational.crlf}Coeficiente de Financiamento: ${cf.toFixed(6)}`
+      `${err.message}\nFor help, type: ${parse(argv[0])} ${parse(
+        argv[1]
+      )} --help`
     );
+    return 2;
+  }
 
-    if (rational.getDownPayment()) {
-        pmt /= 1 + t;
-        np -= 1; // uma prestação a menos
-        pv -= pmt; // preço à vista menos a entrada
-        rational.log(
-            `Valor financiado = \$${(pv + pmt).toFixed(2)} - \$${pmt.toFixed(
-                2
-            )} = \$${pv.toFixed(2)}`
-        );
+  while (
+    np &lt;= 2 ||
+    (pv &lt;= 0 &amp;&amp; pp &lt;= 0) ||
+    (t &lt;= 0 &amp;&amp; pp &lt;= 0) ||
+    (t &lt;= 0 &amp;&amp; pv &lt;= 0) ||
+    pp &lt; pv
+  ) {
+    try {
+      np = +readlineSync.question("Forneça o número de parcelas: ");
+      t = +readlineSync.question("Forneça a taxa de juros: ") / 100.0;
+      pp = +readlineSync.question("Forneça o preço a prazo: ");
+      pv = +readlineSync.question("Forneça o preço à vista: ");
+      if (isNaN(np) || isNaN(t) || isNaN(pp) || isNaN(pv)) {
+        throw new Error("Value is not a Number");
+      }
+    } catch (err) {
+      rational.log(err.message);
+      rational.rational_discount(10, 0.01, 500, 450, debug);
+      return;
     }
+  }
 
-    rational.log(`Prestação: \$${pmt.toFixed(2)}`);
-
-    // Tabela Price
-    if (debug) {
-        rational.log(
-            rational.nodePriceTable(rational.priceTable(np, pv, t, pmt))
-        );
+  if (t > 0) {
+    if (pp &lt;= 0) {
+      let factor;
+      [factor, pp] = rational.futureValue(pv, np, t);
     }
+    rational.rational_discount(np, t, pp, pv, debug);
+  } else {
+    let ni;
+    [t, ni] = rational.getInterest(pp, pv, np);
+    rational.log(`Taxa = ${t.toFixed(4)}% - ${ni} iterações${rational.crlf}`);
+    t *= 0.01;
+    rational.rational_discount(np, t, pp, pv, debug);
+  }
+
+  let cf = rational.CF(t, np);
+  let pmt = pv * cf;
+  rational.log(
+    `${rational.crlf}Coeficiente de Financiamento: ${cf.toFixed(6)}`
+  );
+
+  if (rational.getDownPayment()) {
+    pmt /= 1 + t;
+    np -= 1; // uma prestação a menos
+    pv -= pmt; // preço à vista menos a entrada
+    rational.log(
+      `Valor financiado = \$${(pv + pmt).toFixed(2)} - \$${pmt.toFixed(
+        2
+      )} = \$${pv.toFixed(2)}`
+    );
+  }
+
+  rational.log(`Prestação: \$${pmt.toFixed(2)}`);
+
+  // Tabela Price
+  if (debug) {
+    rational.log(rational.nodePriceTable(rational.priceTable(np, pv, t, pmt)));
+  }
 }
 
 if (typeof process === "object") cdcCLI6();
@@ -223,13 +219,13 @@ if (typeof process === "object") cdcCLI6();
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-rational.html">rational</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:onclick-whensubmitbuttonisclicked.">onclick - when submit button is clicked.</a></li><li><a href="global.html#event:onclick-whenthegreenboxrectangleisclicked.">onclick - when the green box rectangle is clicked.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CF">CF</a></li><li><a href="global.html#appendToDiv">appendToDiv</a></li><li><a href="global.html#appendToString">appendToString</a></li><li><a href="global.html#cdcCGI">cdcCGI</a></li><li><a href="global.html#cdcCLI">cdcCLI</a></li><li><a href="global.html#cdcCLI6">cdcCLI6</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#crlf">crlf</a></li><li><a href="global.html#formatRow">formatRow</a></li><li><a href="global.html#futureValue">futureValue</a></li><li><a href="global.html#getDownPayment">getDownPayment</a></li><li><a href="global.html#getInterest">getInterest</a></li><li><a href="global.html#getInterest2">getInterest2</a></li><li><a href="global.html#htmlPriceTable">htmlPriceTable</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#nodePriceTable">nodePriceTable</a></li><li><a href="global.html#presentValue">presentValue</a></li><li><a href="global.html#priceTable">priceTable</a></li><li><a href="global.html#pt">pt</a></li><li><a href="global.html#rational_discount">rational_discount</a></li><li><a href="global.html#result">result</a></li><li><a href="global.html#setDownPayment">setDownPayment</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-rational.html">rational</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:onclick-whensubmitbuttonisclicked.">onclick - when submit button is clicked.</a></li><li><a href="global.html#event:onclick-whenthegreenboxrectangleisclicked.">onclick - when the green box rectangle is clicked.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CF">CF</a></li><li><a href="global.html#appendToDiv">appendToDiv</a></li><li><a href="global.html#appendToString">appendToString</a></li><li><a href="global.html#cdcCGI">cdcCGI</a></li><li><a href="global.html#cdcCLI">cdcCLI</a></li><li><a href="global.html#cdcCLI6">cdcCLI6</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#crlf">crlf</a></li><li><a href="global.html#formatRow">formatRow</a></li><li><a href="global.html#futureValue">futureValue</a></li><li><a href="global.html#getDownPayment">getDownPayment</a></li><li><a href="global.html#getInterest">getInterest</a></li><li><a href="global.html#getInterest2">getInterest2</a></li><li><a href="global.html#htmlPriceTable">htmlPriceTable</a></li><li><a href="global.html#isZero">isZero</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#nodePriceTable">nodePriceTable</a></li><li><a href="global.html#presentValue">presentValue</a></li><li><a href="global.html#priceTable">priceTable</a></li><li><a href="global.html#pt">pt</a></li><li><a href="global.html#rational_discount">rational_discount</a></li><li><a href="global.html#result">result</a></li><li><a href="global.html#setDownPayment">setDownPayment</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Nov 13 2023 15:29:08 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Nov 19 2023 05:52:15 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

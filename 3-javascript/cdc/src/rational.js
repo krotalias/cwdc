@@ -102,6 +102,33 @@ export function getDownPayment() {
 }
 
 /**
+ * Checks whether a number is close to zero given a tolerance interval.
+ * @param {Number} n number.
+ * @param {Number} tol tolerance.
+ * @returns {Boolean} whether n is close to zero.
+ */
+function isZero(n, tol = 1.0e-8) {
+  return Math.abs(n) < tol;
+}
+
+/**
+ * Testing for -0 in JavaScript.
+ * @param {Number} x a number.
+ * @returns {Boolean} true if -0, and false otherwise.
+ * @see https://wirfs-brock.com/allen/posts/128
+ */
+function isNegative0(x) {
+  if (x !== 0) return false;
+  var obj = Object.freeze({ z: -0 });
+  try {
+    Object.defineProperty(obj, "z", { value: x });
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+
+/**
  * Acha a taxa que produz o preço à vista, com ou sem entrada,
  * pelo método de {@link https://en.wikipedia.org/wiki/Newton's_method Newton}:
  *
@@ -117,16 +144,21 @@ export function getDownPayment() {
  * @param {Number} y preço à vista.
  * @param {Number} p número de parcelas.
  * @return {Array<Number,Number>} [taxa, número de iterações].
+ * @see https://www.whitman.edu/documents/Academics/Mathematics/burton.pdf
+ * @see https://math.unm.edu/~motamed/Teaching/OLD/Fall20/HPSC/newton.html
+ * @see <img src="../cdc/newton_fig.png" alt="Newton Method">
  */
 export function getInterest(x, y, p) {
   if (!getDownPayment()) {
     return getInterest2(x, y, p);
   }
 
+  if (x == 0 || y == 0 || p == 0) return [0, 0];
   let t2 = x / y;
   let t = 0;
   let n = 0;
-  while (Math.abs(t2 - t) > 1.0e-4) {
+  while (!isZero(t2 - t)) {
+    if (n > 120) throw new Error("Newton is not converging!");
     t = t2;
     n += 1;
     let tPlusOne = 1.0 + t;
@@ -137,6 +169,8 @@ export function getInterest(x, y, p) {
     let dt = y * (b + t * (p - 1) * a) - x * b; // f'(t_n)
     t2 = t - d / dt;
   }
+  if (isZero(t2, 1.0e-10)) throw new Error("Newton did not converge!");
+  if (t2 > 1) throw new Error("Newton interest rate > 100%");
   return [t2 * 100.0, n];
 }
 
@@ -156,12 +190,15 @@ export function getInterest(x, y, p) {
  * @param {Number} y preço à vista.
  * @param {Number} p número de parcelas.
  * @return {Array<Number,Number>} [taxa, número de iterações].
+ * @see https://www.whitman.edu/documents/Academics/Mathematics/burton.pdf
  */
 function getInterest2(x, y, p) {
+  if (x == 0 || y == 0 || p == 0) return [0, 0];
   let t2 = x / y;
   let t = 0;
   let n = 0;
-  while (Math.abs(t2 - t) > 1.0e-4) {
+  while (!isZero(t2 - t)) {
+    if (n > 120) throw new Error("Newton is not converging!");
     t = t2;
     n += 1;
     let tPlusOne = 1.0 + t;
@@ -171,6 +208,8 @@ function getInterest2(x, y, p) {
     let dt = y - x * b; // f'(t_n)
     t2 = t - d / dt;
   }
+  if (isZero(t2, 1.0e-10)) throw new Error("Newton did not converge!");
+  if (t2 > 1) throw new Error("Newton interest rate > 100%");
   return [t2 * 100.0, n];
 }
 
@@ -374,7 +413,7 @@ export function priceTable(np, pv, t, pmt) {
     pt += pmt;
     jt += juros;
     at += amortizacao;
-    dataTable.push([i + 1, pmt, juros, amortizacao, saldo]);
+    dataTable.push([i + 1, pmt, juros, amortizacao, isZero(saldo) ? 0 : saldo]);
   }
   dataTable.push(["Total", pt, jt, at, 0]);
   return dataTable;
@@ -410,13 +449,15 @@ function formatRow(r) {
  * @return {String} price table.
  */
 export function nodePriceTable(ptb) {
+  // Number of float columns
+  const nfloat = ptb[0].length - 1;
   // Length of a row.
-  let lenTable = pt.lenMes + (pt.lenNum + pt.eol.length) * (ptb[0].length - 1);
+  let lenTable = pt.lenMes + (pt.lenNum + pt.eol.length) * nfloat;
 
   // Line separator.
   let line = `${pt.eol}${"_".repeat(pt.lenMes)}${pt.eol}${(
     "_".repeat(pt.lenNum) + pt.eol
-  ).repeat(4)}`;
+  ).repeat(nfloat)}`;
   let line2 = ` ${"_".repeat(lenTable)}`;
 
   let table = [];

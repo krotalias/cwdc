@@ -60,112 +60,114 @@
  * @see https://api.jquery.com/event.preventDefault/
  */
 $("#submitButton").on("click", function (event) {
-    var errorMessage = "";
-    if ($("#parc").val() &lt;= 2) {
-        errorMessage += "&lt;p>Número de parcelas deve ser maior do que 1.&lt;/p>";
-    }
-    if ($("#itax").val() &lt;= 0 &amp;&amp; $("#ipp").val() &lt;= 0) {
-        errorMessage +=
-            "&lt;p>Taxa de juros e valor final não podem ser ambos nulos.&lt;/p>";
-    }
-    if ($("#itax").val() &lt;= 0 &amp;&amp; $("#ipv").val() &lt;= 0) {
-        errorMessage +=
-            "&lt;p>Taxa de juros e valor financiado não podem ser ambos nulos.&lt;/p>";
-    }
-    if ($("#ipv").val() &lt;= 0 &amp;&amp; $("#ipp").val() &lt;= 0) {
-        errorMessage +=
-            "&lt;p>Valor financiado e valor final não podem ser ambos nulos.&lt;/p>";
-    }
-    if ($("#inb").val() &lt; 0 || +$("#inb").val() > $("#parc").val()) {
-        errorMessage +=
-            "&lt;p>Meses a voltar deve ser positivo e menor ou igual ao número de parcelas.&lt;/p>";
-    }
-    event.preventDefault();
-    if (errorMessage != "") {
-        $("#errorMessage").html(errorMessage);
-        $("#errorMessage").show();
-        $("#successMessage").hide();
-        return;
-    } else {
-        $("#successMessage").show();
-        $("#errorMessage").hide();
-    }
+  var errorMessage = "";
+  if ($("#parc").val() &lt;= 2) {
+    errorMessage += "&lt;p>Número de parcelas deve ser maior do que 1.&lt;/p>";
+  }
+  if ($("#itax").val() &lt;= 0 &amp;&amp; $("#ipp").val() &lt;= 0) {
+    errorMessage +=
+      "&lt;p>Taxa de juros e valor final não podem ser ambos nulos.&lt;/p>";
+  }
+  if ($("#itax").val() &lt;= 0 &amp;&amp; $("#ipv").val() &lt;= 0) {
+    errorMessage +=
+      "&lt;p>Taxa de juros e valor financiado não podem ser ambos nulos.&lt;/p>";
+  }
+  if ($("#ipv").val() &lt;= 0 &amp;&amp; $("#ipp").val() &lt;= 0) {
+    errorMessage +=
+      "&lt;p>Valor financiado e valor final não podem ser ambos nulos.&lt;/p>";
+  }
+  if ($("#inb").val() &lt; 0 || +$("#inb").val() > $("#parc").val()) {
+    errorMessage +=
+      "&lt;p>Meses a voltar deve ser positivo e menor ou igual ao número de parcelas.&lt;/p>";
+  }
+  event.preventDefault();
+  if (errorMessage != "") {
+    $("#errorMessage").html(errorMessage);
+    $("#errorMessage").show();
+    $("#successMessage").hide();
+    return;
+  } else {
+    $("#successMessage").show();
+    $("#errorMessage").hide();
+  }
 
-    //  Get data from fields
-    let np = Number(parc.value);
-    let t = Number(itax.value) / 100;
-    let pp = Number(ipp.value);
-    let pv = Number(ipv.value);
-    let pb = Number(ipb.value);
-    let nb = Number(inb.value);
-    let dp = idp.checked;
-    let prt = iprt.checked;
-    setDownPayment(dp);
+  //  Get data from fields
+  let np = Number(parc.value);
+  let t = Number(itax.value) / 100;
+  let pp = Number(ipp.value);
+  let pv = Number(ipv.value);
+  let pb = Number(ipb.value);
+  let nb = Number(inb.value);
+  let dp = idp.checked;
+  let prt = iprt.checked;
+  setDownPayment(dp);
 
-    if (pv == 0) {
-        pv = presentValue(pp, np, t)[1];
-    }
+  if (pv == 0) {
+    pv = presentValue(pp, np, t)[1];
+  }
 
-    let [ti, i] = getInterest(pp, pv, np);
-
+  let pmt = 0;
+  let cf = 0;
+  let i = 0;
+  let ti = 0;
+  try {
     if (t == 0) {
-        t = 0.01 * ti;
+      [ti, i] = getInterest(pp, pv, np);
+      t = 0.01 * ti;
     }
 
-    try {
-        var cf = CF(t, np);
-        var pmt = pv * cf;
-        if (dp) {
-            pmt /= 1 + t; // diminui a prestação
-            np -= 1; // uma prestação a menos
-            pv -= pmt; // preço à vista menos a entrada
-            cf = pmt / pv; // recalculate cf
-        }
-    } catch (e) {
-        $("#blueBox").html(
-            `&lt;h4>${e.message}&lt;/h4>
-    &lt;h4>Juros e Valor Final não podem ser ambos 0&lt;/h4>`
-        );
-        return;
+    cf = CF(t, np);
+    pmt = pv * cf;
+    if (dp) {
+      pmt /= 1 + t; // diminui a prestação
+      np -= 1; // uma prestação a menos
+      pv -= pmt; // preço à vista menos a entrada
+      cf = pmt / pv; // recalculate cf
     }
+  } catch (e) {
+    $("#errorMessage").html(`&lt;h4>${e.message}&lt;/h4>`);
+    $("#errorMessage").show();
+    $("#successMessage").hide();
+    return;
+  }
 
-    let ptb = priceTable(np, pv, t, pmt);
+  let ptb = priceTable(np, pv, t, pmt);
 
-    $("#greenBox").show();
-    $("#blueBox").show();
-    $("#redBox").show();
-    $("#cdcfieldset").hide();
+  $("#greenBox").show();
+  $("#blueBox").show();
+  $("#redBox").show();
+  $("#cdcfieldset").hide();
 
-    $("#greenBox").html(
-        `&lt;h4>Parcelamento: ${dp ? "1+" : ""}${np} meses&lt;/h4>
-    &lt;h4>Taxa: ${(100 * t).toFixed(2)}% ao mês = ${(
-            ((1 + t) ** 12 - 1) *
-            100.0
-        ).toFixed(2)}% ao ano&lt;/h4>
-    &lt;h4>Valor Financiado: \$${pv.toFixed(2)}&lt;/h4>
-    &lt;h4>Valor Final: \$${pp.toFixed(2)}&lt;/h4>
-    &lt;h4>Valor a Voltar: \$${pb.toFixed(2)}&lt;/h4>
-    &lt;h4>Meses a Voltar: ${nb}&lt;/h4>
-    &lt;h4>Entrada: ${getDownPayment()}&lt;/h4>`
-    );
+  $("#greenBox").html(
+    `&lt;h4>Parcelamento: ${dp ? "1+" : ""}${np} meses&lt;/h4>
+        &lt;h4>Taxa: ${(100 * t).toFixed(2)}% ao mês = ${(
+      ((1 + t) ** 12 - 1) *
+      100.0
+    ).toFixed(2)}% ao ano&lt;/h4>
+        &lt;h4>Valor Financiado: \$${pv.toFixed(2)}&lt;/h4>
+        &lt;h4>Valor Final: \$${pp.toFixed(2)}&lt;/h4>
+        &lt;h4>Valor a Voltar: \$${pb.toFixed(2)}&lt;/h4>
+        &lt;h4>Meses a Voltar: ${nb}&lt;/h4>
+        &lt;h4>Entrada: ${getDownPayment()}&lt;/h4>`
+  );
 
-    $("#blueBox").html(
-        `&lt;h4>Coeficiente de Financiamento: ${cf.toFixed(6)}&lt;/h4>
-    &lt;h4>Prestação: ${cf.toFixed(6)} * \$${pv.toFixed(2)} = \$${pmt.toFixed(
-            2
-        )} ao mês&lt;/h4>
-    &lt;h4>Valor Pago com Juros: \$${ptb.slice(-1)[0][1].toFixed(2)}&lt;/h4>
-    &lt;h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês&lt;/h4>
-    &lt;h4>Valor Corrigido: \$${
-        pb > 0 &amp;&amp; nb > 0 ? presentValue(pb, nb, t, false)[1].toFixed(2) : 0
-    }&lt;/h4>`
-    );
+  $("#blueBox").html(
+    `&lt;h4>Coeficiente de Financiamento: ${cf.toFixed(6)}&lt;/h4>
+        &lt;h4>Prestação: ${cf.toFixed(6)} * \$${pv.toFixed(2)} = \$${pmt.toFixed(
+      2
+    )} ao mês&lt;/h4>
+        &lt;h4>Valor Pago com Juros: \$${ptb.slice(-1)[0][1].toFixed(2)}&lt;/h4>
+        &lt;h4>Taxa Real (${i} iterações): ${ti.toFixed(4)}% ao mês&lt;/h4>
+        &lt;h4>Valor Corrigido: \$${
+          pb > 0 &amp;&amp; nb > 0 ? presentValue(pb, nb, t, false)[1].toFixed(2) : 0
+        }&lt;/h4>`
+  );
 
-    $("#redBox").html(htmlPriceTable(ptb));
+  $("#redBox").html(htmlPriceTable(ptb));
 
-    if (prt) {
-        window.print();
-    }
+  if (prt) {
+    window.print();
+  }
 });
 
 /**
@@ -176,10 +178,10 @@ $("#submitButton").on("click", function (event) {
  * @see https://api.jquery.com/event.preventDefault/
  */
 $("#greenBox").on("click", function (event) {
-    $("#greenBox").hide();
-    $("#blueBox").hide();
-    $("#redBox").hide();
-    $("#cdcfieldset").show();
+  $("#greenBox").hide();
+  $("#blueBox").hide();
+  $("#redBox").hide();
+  $("#cdcfieldset").show();
 });
 </code></pre>
         </article>
@@ -191,13 +193,13 @@ $("#greenBox").on("click", function (event) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-rational.html">rational</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:onclick-whensubmitbuttonisclicked.">onclick - when submit button is clicked.</a></li><li><a href="global.html#event:onclick-whenthegreenboxrectangleisclicked.">onclick - when the green box rectangle is clicked.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CF">CF</a></li><li><a href="global.html#appendToDiv">appendToDiv</a></li><li><a href="global.html#appendToString">appendToString</a></li><li><a href="global.html#cdcCGI">cdcCGI</a></li><li><a href="global.html#cdcCLI">cdcCLI</a></li><li><a href="global.html#cdcCLI6">cdcCLI6</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#crlf">crlf</a></li><li><a href="global.html#formatRow">formatRow</a></li><li><a href="global.html#futureValue">futureValue</a></li><li><a href="global.html#getDownPayment">getDownPayment</a></li><li><a href="global.html#getInterest">getInterest</a></li><li><a href="global.html#getInterest2">getInterest2</a></li><li><a href="global.html#htmlPriceTable">htmlPriceTable</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#nodePriceTable">nodePriceTable</a></li><li><a href="global.html#presentValue">presentValue</a></li><li><a href="global.html#priceTable">priceTable</a></li><li><a href="global.html#pt">pt</a></li><li><a href="global.html#rational_discount">rational_discount</a></li><li><a href="global.html#result">result</a></li><li><a href="global.html#setDownPayment">setDownPayment</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-rational.html">rational</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:onclick-whensubmitbuttonisclicked.">onclick - when submit button is clicked.</a></li><li><a href="global.html#event:onclick-whenthegreenboxrectangleisclicked.">onclick - when the green box rectangle is clicked.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CF">CF</a></li><li><a href="global.html#appendToDiv">appendToDiv</a></li><li><a href="global.html#appendToString">appendToString</a></li><li><a href="global.html#cdcCGI">cdcCGI</a></li><li><a href="global.html#cdcCLI">cdcCLI</a></li><li><a href="global.html#cdcCLI6">cdcCLI6</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#crlf">crlf</a></li><li><a href="global.html#formatRow">formatRow</a></li><li><a href="global.html#futureValue">futureValue</a></li><li><a href="global.html#getDownPayment">getDownPayment</a></li><li><a href="global.html#getInterest">getInterest</a></li><li><a href="global.html#getInterest2">getInterest2</a></li><li><a href="global.html#htmlPriceTable">htmlPriceTable</a></li><li><a href="global.html#isZero">isZero</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#nodePriceTable">nodePriceTable</a></li><li><a href="global.html#presentValue">presentValue</a></li><li><a href="global.html#priceTable">priceTable</a></li><li><a href="global.html#pt">pt</a></li><li><a href="global.html#rational_discount">rational_discount</a></li><li><a href="global.html#result">result</a></li><li><a href="global.html#setDownPayment">setDownPayment</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Nov 13 2023 15:29:08 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Nov 19 2023 05:52:15 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

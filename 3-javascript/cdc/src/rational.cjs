@@ -40,12 +40,12 @@ let log = typeof process === "object" ? console.log : appendToDiv;
  * @param {String} id given id.
  */
 function appendToDiv(str, id = "#rational") {
-    if (typeof result === "string") {
-        result = document.querySelector(id);
-        result.innerHTML += `${str}${crlf}`;
-    } else {
-        result.innerHTML += `${str}${crlf}`;
-    }
+  if (typeof result === "string") {
+    result = document.querySelector(id);
+    result.innerHTML += `${str}${crlf}`;
+  } else {
+    result.innerHTML += `${str}${crlf}`;
+  }
 }
 
 /**
@@ -53,7 +53,7 @@ function appendToDiv(str, id = "#rational") {
  * @param {String} str a string.
  */
 function appendToString(str) {
-    result = result.concat(str, crlf);
+  result = result.concat(str, crlf);
 }
 
 /**
@@ -65,11 +65,11 @@ function appendToString(str) {
  * @property {string} pt.filler - character for padding.
  */
 const pt = {
-    lenNum: 13,
-    lenMes: 6,
-    precision: 2,
-    eol: "|",
-    filler: " ",
+  lenNum: 13,
+  lenMes: 6,
+  precision: 2,
+  eol: "|",
+  filler: " ",
 };
 
 /**
@@ -93,7 +93,7 @@ setDownPayment.downP = false;
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
  */
 function setDownPayment(dp = true) {
-    setDownPayment.downP = dp;
+  setDownPayment.downP = dp;
 }
 
 /**
@@ -101,7 +101,17 @@ function setDownPayment(dp = true) {
  * @return {Boolean} whether there is a down payment.
  */
 function getDownPayment() {
-    return setDownPayment.downP;
+  return setDownPayment.downP;
+}
+
+/**
+ * Checks whether a number is close to zero given a tolerance interval.
+ * @param {Number} n number.
+ * @param {Number} tol tolerance.
+ * @returns {Boolean} whether n is close to zero.
+ */
+function isZero(n, tol = 1.0e-8) {
+  return Math.abs(n) < tol;
 }
 
 /**
@@ -120,27 +130,34 @@ function getDownPayment() {
  * @param {Number} y preço à vista.
  * @param {Number} p número de parcelas.
  * @return {Array<Number,Number>} [taxa, número de iterações].
+ * @see https://www.whitman.edu/documents/Academics/Mathematics/burton.pdf
+ * @see https://math.unm.edu/~motamed/Teaching/OLD/Fall20/HPSC/newton.html
+ * @see <img src="../cdc/newton_fig.png" alt="Newton Method">
  */
 function getInterest(x, y, p) {
-    if (!getDownPayment()) {
-        return getInterest2(x, y, p);
-    }
+  if (!getDownPayment()) {
+    return getInterest2(x, y, p);
+  }
 
-    let t2 = x / y;
-    let t = 0;
-    let n = 0;
-    while (Math.abs(t2 - t) > 1.0e-4) {
-        t = t2;
-        n += 1;
-        let tPlusOne = 1.0 + t;
-        let a = tPlusOne ** (p - 2); // (1.0+t)**(p-2)
-        let b = a * tPlusOne; // (1.0+t)**(p-1)
-        let c = b * tPlusOne; // (1.0+t)**p
-        let d = y * t * b - (x / p) * (c - 1); // f(t_n)
-        let dt = y * (b + t * (p - 1) * a) - x * b; // f'(t_n)
-        t2 = t - d / dt;
-    }
-    return [t2 * 100.0, n];
+  if (x == 0 || y == 0 || p == 0) return [0, 0];
+  let t2 = x / y;
+  let t = 0;
+  let n = 0;
+  while (!isZero(t2 - t)) {
+    if (n > 120) throw new Error("Newton is not converging!");
+    t = t2;
+    n += 1;
+    let tPlusOne = 1.0 + t;
+    let a = tPlusOne ** (p - 2); // (1.0+t)**(p-2)
+    let b = a * tPlusOne; // (1.0+t)**(p-1)
+    let c = b * tPlusOne; // (1.0+t)**p
+    let d = y * t * b - (x / p) * (c - 1); // f(t_n)
+    let dt = y * (b + t * (p - 1) * a) - x * b; // f'(t_n)
+    t2 = t - d / dt;
+  }
+  if (isZero(t2, 1.0e-10)) throw new Error("Newton did not converge!");
+  if (t2 > 1) throw new Error("Newton interest rate > 100%");
+  return [t2 * 100.0, n];
 }
 
 /**
@@ -161,20 +178,24 @@ function getInterest(x, y, p) {
  * @return {Array<Number,Number>} [taxa, número de iterações].
  */
 function getInterest2(x, y, p) {
-    let t2 = x / y;
-    let t = 0;
-    let n = 0;
-    while (Math.abs(t2 - t) > 1.0e-4) {
-        t = t2;
-        n += 1;
-        let tPlusOne = 1.0 + t;
-        let a = tPlusOne ** -p; // (1.0+t)**(-p)
-        let b = a / tPlusOne; // (1.0+t)**(-p-1)
-        let d = y * t - (x / p) * (1 - a); // f(t_n)
-        let dt = y - x * b; // f'(t_n)
-        t2 = t - d / dt;
-    }
-    return [t2 * 100.0, n];
+  if (x == 0 || y == 0 || p == 0) return [0, 0];
+  let t2 = x / y;
+  let t = 0;
+  let n = 0;
+  while (!isZero(t2 - t)) {
+    if (n > 120) throw new Error("Newton is not converging!");
+    t = t2;
+    n += 1;
+    let tPlusOne = 1.0 + t;
+    let a = tPlusOne ** -p; // (1.0+t)**(-p)
+    let b = a / tPlusOne; // (1.0+t)**(-p-1)
+    let d = y * t - (x / p) * (1 - a); // f(t_n)
+    let dt = y - x * b; // f'(t_n)
+    t2 = t - d / dt;
+  }
+  if (isZero(t2, 1.0e-10)) throw new Error("Newton did not converge!");
+  if (t2 > 1) throw new Error("Newton interest rate > 100%");
+  return [t2 * 100.0, n];
 }
 
 /**
@@ -187,11 +208,11 @@ function getInterest2(x, y, p) {
  * @return {Array<Number,Number>} [factor, x * factor]
  */
 function presentValue(x, p, t, fix = true) {
-    let factor = 1.0 / (p * CF(t, p));
-    if (fix && getDownPayment()) {
-        factor *= 1.0 + t;
-    }
-    return [factor, x * factor];
+  let factor = 1.0 / (p * CF(t, p));
+  if (fix && getDownPayment()) {
+    factor *= 1.0 + t;
+  }
+  return [factor, x * factor];
 }
 
 /**
@@ -204,11 +225,11 @@ function presentValue(x, p, t, fix = true) {
  * @return {Array<Number,Number>} [factor, y * factor]
  */
 function futureValue(y, p, t, fix = true) {
-    let factor = CF(t, p) * p;
-    if (fix && getDownPayment()) {
-        factor /= 1.0 + t;
-    }
-    return [factor, y * factor];
+  let factor = CF(t, p) * p;
+  if (fix && getDownPayment()) {
+    factor /= 1.0 + t;
+  }
+  return [factor, y * factor];
 }
 
 /**
@@ -234,7 +255,7 @@ function futureValue(y, p, t, fix = true) {
  * @see <img src="../cdc/PDFs/coeficiente-de-financiamento.png" width="256">
  */
 function CF(i, n) {
-    return i / (1 - (1 + i) ** -n);
+  return i / (1 - (1 + i) ** -n);
 }
 
 /**
@@ -248,81 +269,79 @@ function CF(i, n) {
  * @return {String} answer as a raw string or in HTML format.
  */
 function rational_discount(p, t, x, y, option = true) {
-    result = "";
-    if (y >= x) {
-        log("Preço à vista deve ser menor do que o preço total:");
-    } else {
-        let [interest, niter] = getInterest(x, y, p);
-        if (t == 0) {
-            t = 0.01 * interest;
-        }
-
-        let [fx, ux] = presentValue(x, p, t);
-        if (y <= 0) {
-            y = ux;
-        }
-        let [fy, uy] = futureValue(y, p, t);
-        if (Math.abs(y - ux) < 0.01) {
-            log("O preço à vista é igual ao preço total corrigido.");
-        } else if (y > ux) {
-            log(
-                "O preço à vista é maior do que preço total corrigido ⇒ melhor comprar a prazo."
-            );
-        } else {
-            log(
-                "O preço à vista é menor ou igual do que preço total corrigido."
-            );
-        }
-        let delta_p = ux - y;
-        let prct = (delta_p / ux) * 100.0;
-
-        log(
-            `Taxa Real = ${interest.toFixed(
-                4
-            )}%, Iterações = ${niter}, Fator = ${fx.toFixed(4)}`
-        );
-        log(
-            `Preço à vista + juros de ${(t * 100).toFixed(
-                2
-            )}% ao mês = \$${uy.toFixed(2)}`
-        );
-        log(
-            `Preço a prazo - juros de ${(t * 100).toFixed(
-                2
-            )}% ao mês = \$${ux.toFixed(2)}`
-        );
-        log(
-            `Juros Embutidos = (\$${x.toFixed(2)} - \$${y.toFixed(
-                2
-            )}) / \$${y.toFixed(2)} = ${(((x - y) / y) * 100).toFixed(2)}%`
-        );
-        log(
-            `Desconto = (\$${x.toFixed(2)} - \$${y.toFixed(2)}) / \$${x.toFixed(
-                2
-            )} = ${(((x - y) / x) * 100).toFixed(2)}%`
-        );
-        log(
-            `Excesso = \$${ux.toFixed(2)} - \$${y.toFixed(
-                2
-            )} = \$${delta_p.toFixed(2)}`
-        );
-        log(
-            `Excesso = (\$${x.toFixed(2)} - \$${uy.toFixed(2)}) * ${fx.toFixed(
-                4
-            )} = \$${((x - uy) * fx).toFixed(2)}`
-        );
-        log(`Percentual pago a mais = ${prct.toFixed(2)}%`);
-        if (option) {
-            if (0.0 <= prct && prct <= 1.0) {
-                log("Valor aceitável.");
-            } else if (1.0 < prct && prct <= 3.0) {
-                log("O preço está caro.");
-            } else if (3.0 < prct) {
-                log("Você está sendo roubado.");
-            }
-        }
+  result = "";
+  if (y >= x) {
+    log("Preço à vista deve ser menor do que o preço total:");
+  } else {
+    let [interest, niter] = getInterest(x, y, p);
+    if (t == 0) {
+      t = 0.01 * interest;
     }
-    return result;
+
+    let [fx, ux] = presentValue(x, p, t);
+    if (y <= 0) {
+      y = ux;
+    }
+    let [fy, uy] = futureValue(y, p, t);
+    if (Math.abs(y - ux) < 0.01) {
+      log("O preço à vista é igual ao preço total corrigido.");
+    } else if (y > ux) {
+      log(
+        "O preço à vista é maior do que preço total corrigido ⇒ melhor comprar a prazo."
+      );
+    } else {
+      log("O preço à vista é menor ou igual do que preço total corrigido.");
+    }
+    let delta_p = ux - y;
+    let prct = (delta_p / ux) * 100.0;
+
+    log(
+      `Taxa Real = ${interest.toFixed(
+        4
+      )}%, Iterações = ${niter}, Fator = ${fx.toFixed(4)}`
+    );
+    log(
+      `Preço à vista + juros de ${(t * 100).toFixed(
+        2
+      )}% ao mês = \$${uy.toFixed(2)}`
+    );
+    log(
+      `Preço a prazo - juros de ${(t * 100).toFixed(
+        2
+      )}% ao mês = \$${ux.toFixed(2)}`
+    );
+    log(
+      `Juros Embutidos = (\$${x.toFixed(2)} - \$${y.toFixed(
+        2
+      )}) / \$${y.toFixed(2)} = ${(((x - y) / y) * 100).toFixed(2)}%`
+    );
+    log(
+      `Desconto = (\$${x.toFixed(2)} - \$${y.toFixed(2)}) / \$${x.toFixed(
+        2
+      )} = ${(((x - y) / x) * 100).toFixed(2)}%`
+    );
+    log(
+      `Excesso = \$${ux.toFixed(2)} - \$${y.toFixed(2)} = \$${delta_p.toFixed(
+        2
+      )}`
+    );
+    log(
+      `Excesso = (\$${x.toFixed(2)} - \$${uy.toFixed(2)}) * ${fx.toFixed(
+        4
+      )} = \$${((x - uy) * fx).toFixed(2)}`
+    );
+    log(`Percentual pago a mais = ${prct.toFixed(2)}%`);
+    if (option) {
+      if (0.0 <= prct && prct <= 1.0) {
+        log("Valor aceitável.");
+      } else if (1.0 < prct && prct <= 3.0) {
+        log("O preço está caro.");
+      } else if (3.0 < prct) {
+        log("Você está sendo roubado.");
+      }
+    }
+  }
+  return result;
 }
 
 /**
@@ -333,9 +352,9 @@ function rational_discount(p, t, x, y, option = true) {
  * @return {string} a string padded with spaces to fit in the given length.
  */
 const center = (str, len) =>
-    str
-        .padStart(str.length + Math.floor((len - str.length) / 2), pt.filler)
-        .padEnd(len, pt.filler);
+  str
+    .padStart(str.length + Math.floor((len - str.length) / 2), pt.filler)
+    .padEnd(len, pt.filler);
 
 /**
  * <p>Retorna a Tabela Price, também chamada de sistema francês de amortização.</p>
@@ -363,32 +382,26 @@ const center = (str, len) =>
  * @see https://pt.wikipedia.org/wiki/Tabela_Price
  */
 function priceTable(np, pv, t, pmt) {
-    let dataTable = [
-        ["Mês", "Prestação", "Juros", "Amortização", "Saldo Devedor"],
-    ];
-    let pt = getDownPayment() ? pmt : 0;
-    let jt = 0;
-    let at = 0;
-    dataTable.push([
-        "n",
-        "R = pmt",
-        "J = SD * t",
-        "U = pmt - J",
-        "SD = PV - U",
-    ]);
-    dataTable.push([0, pt, `(${t.toFixed(4)})`, 0, pv]);
-    for (let i = 0; i < np; ++i) {
-        let juros = pv * t;
-        let amortizacao = pmt - juros;
-        let saldo = pv - amortizacao;
-        pv = saldo;
-        pt += pmt;
-        jt += juros;
-        at += amortizacao;
-        dataTable.push([i + 1, pmt, juros, amortizacao, saldo]);
-    }
-    dataTable.push(["Total", pt, jt, at, 0]);
-    return dataTable;
+  let dataTable = [
+    ["Mês", "Prestação", "Juros", "Amortização", "Saldo Devedor"],
+  ];
+  let pt = getDownPayment() ? pmt : 0;
+  let jt = 0;
+  let at = 0;
+  dataTable.push(["n", "R = pmt", "J = SD * t", "U = pmt - J", "SD = PV - U"]);
+  dataTable.push([0, pt, `(${t.toFixed(4)})`, 0, pv]);
+  for (let i = 0; i < np; ++i) {
+    let juros = pv * t;
+    let amortizacao = pmt - juros;
+    let saldo = pv - amortizacao;
+    pv = saldo;
+    pt += pmt;
+    jt += juros;
+    at += amortizacao;
+    dataTable.push([i + 1, pmt, juros, amortizacao, isZero(saldo) ? 0 : saldo]);
+  }
+  dataTable.push(["Total", pt, jt, at, 0]);
+  return dataTable;
 }
 
 /**
@@ -398,21 +411,21 @@ function priceTable(np, pv, t, pmt) {
  * @return {String} row formatted.
  */
 function formatRow(r) {
-    let row = "";
-    let val;
+  let row = "";
+  let val;
 
-    r.forEach((col, index) => {
-        if (index == 0) {
-            val = center(col.toString(), pt.lenMes);
-            row += `${pt.eol}${val}${pt.eol}`;
-        } else if (typeof col === "number") {
-            val = Number(col).toFixed(pt.precision);
-            row += center(val.toString(), pt.lenNum) + pt.eol;
-        } else {
-            row += center(col, pt.lenNum) + pt.eol;
-        }
-    });
-    return row;
+  r.forEach((col, index) => {
+    if (index == 0) {
+      val = center(col.toString(), pt.lenMes);
+      row += `${pt.eol}${val}${pt.eol}`;
+    } else if (typeof col === "number") {
+      val = Number(col).toFixed(pt.precision);
+      row += center(val.toString(), pt.lenNum) + pt.eol;
+    } else {
+      row += center(col, pt.lenNum) + pt.eol;
+    }
+  });
+  return row;
 }
 
 /**
@@ -421,29 +434,30 @@ function formatRow(r) {
  * @return {String} price table.
  */
 function nodePriceTable(ptb) {
-    // Length of a row.
-    let lenTable =
-        pt.lenMes + (pt.lenNum + pt.eol.length) * (ptb[0].length - 1);
+  // Number of float columns
+  const nfloat = ptb[0].length - 1;
+  // Length of a row.
+  let lenTable = pt.lenMes + (pt.lenNum + pt.eol.length) * nfloat;
 
-    // Line separator.
-    let line = `${pt.eol}${"_".repeat(pt.lenMes)}${pt.eol}${(
-        "_".repeat(pt.lenNum) + pt.eol
-    ).repeat(4)}`;
-    let line2 = ` ${"_".repeat(lenTable)}`;
+  // Line separator.
+  let line = `${pt.eol}${"_".repeat(pt.lenMes)}${pt.eol}${(
+    "_".repeat(pt.lenNum) + pt.eol
+  ).repeat(nfloat)}`;
+  let line2 = ` ${"_".repeat(lenTable)}`;
 
-    let table = [];
+  let table = [];
 
-    table.push(center("Tabela Price", lenTable));
-    table.push(line2);
-    ptb.forEach((row, index) => {
-        table.push(formatRow(row));
-        if (index == 0 || index == ptb.length - 2) {
-            table.push(line);
-        }
-    });
-    table.push(line);
+  table.push(center("Tabela Price", lenTable));
+  table.push(line2);
+  ptb.forEach((row, index) => {
+    table.push(formatRow(row));
+    if (index == 0 || index == ptb.length - 2) {
+      table.push(line);
+    }
+  });
+  table.push(line);
 
-    return table.join(crlf);
+  return table.join(crlf);
 }
 
 /**
@@ -453,26 +467,25 @@ function nodePriceTable(ptb) {
  * @returns {String} Price table in html format.
  */
 function htmlPriceTable(ptb) {
-    let table = `<table border=1>
+  let table = `<table border=1>
       <caption style='font-weight: bold; font-size:200%;'>
         Tabela Price
       </caption>
       <tbody style='text-align:center;'>
     `;
-    ptb.forEach((row, i) => {
-        table += "<tr>";
-        row.forEach((col, j) => {
-            if (typeof col === "number") {
-                if (j > 0)
-                    col = col.toFixed(j == 2 ? pt.precision + 1 : pt.precision);
-            }
-            table += i > 0 ? `<td>${col}</td>` : `<th>${col}</th>`;
-        });
-        table += "</tr>";
+  ptb.forEach((row, i) => {
+    table += "<tr>";
+    row.forEach((col, j) => {
+      if (typeof col === "number") {
+        if (j > 0) col = col.toFixed(j == 2 ? pt.precision + 1 : pt.precision);
+      }
+      table += i > 0 ? `<td>${col}</td>` : `<th>${col}</th>`;
     });
-    table += "</tbody></table>";
+    table += "</tr>";
+  });
+  table += "</tbody></table>";
 
-    return table;
+  return table;
 }
 
 /**
@@ -509,130 +522,130 @@ function htmlPriceTable(ptb) {
  * @see https://www.npmjs.com/package/readline-sync
  */
 function cdcCLI(argv = process.argv) {
-    // number of payments.
-    let np = 0;
-    // interest rate
-    let t = 0;
-    // initial price
-    let pv = 0;
-    // final price
-    let pp = 0;
-    // debugging state.
-    let debug = false;
-    // holds the existence of a down payment.
-    setDownPayment(false);
+  // number of payments.
+  let np = 0;
+  // interest rate
+  let t = 0;
+  // initial price
+  let pv = 0;
+  // final price
+  let pp = 0;
+  // debugging state.
+  let debug = false;
+  // holds the existence of a down payment.
+  setDownPayment(false);
 
-    const mod_getopt = require("posix-getopt");
-    const readlineSync = require("readline-sync");
-    const parse = (str) => str.substring(str.lastIndexOf("/") + 1, str.length);
-    let parser, option;
+  const mod_getopt = require("posix-getopt");
+  const readlineSync = require("readline-sync");
+  const parse = (str) => str.substring(str.lastIndexOf("/") + 1, str.length);
+  let parser, option;
 
+  try {
     try {
-        try {
-            // options that require an argument should be followed by a colon (:)
-            parser = new mod_getopt.BasicParser(
-                "h(help)n:(parcelas)t:(taxa)x:(valorP)y:(valorV)v(verbose)e(entrada)",
-                argv
-            );
-        } catch (msg) {
-            throw msg;
-        }
+      // options that require an argument should be followed by a colon (:)
+      parser = new mod_getopt.BasicParser(
+        "h(help)n:(parcelas)t:(taxa)x:(valorP)y:(valorV)v(verbose)e(entrada)",
+        argv
+      );
+    } catch (msg) {
+      throw msg;
+    }
 
-        while ((option = parser.getopt()) !== undefined) {
-            switch (option.option) {
-                case "h":
-                    log(
-                        `Usage ${parse(argv[0])} ${parse(
-                            argv[1]
-                        )} -n <nº parcelas> -t <taxa> -x <valor a prazo> -y <valor à vista> -e -v`
-                    );
-                    return 1;
-                case "n":
-                    np = +option.optarg;
-                    break;
-                case "t":
-                    t = Number(option.optarg) / 100.0;
-                    break;
-                case "x":
-                    pp = Number(option.optarg);
-                    break;
-                case "y":
-                    pv = Number(option.optarg);
-                    break;
-                case "v":
-                    debug = true;
-                    break;
-                case "e":
-                    setDownPayment();
-                    break;
-            }
-        }
+    while ((option = parser.getopt()) !== undefined) {
+      switch (option.option) {
+        case "h":
+          log(
+            `Usage ${parse(argv[0])} ${parse(
+              argv[1]
+            )} -n <nº parcelas> -t <taxa> -x <valor a prazo> -y <valor à vista> -e -v`
+          );
+          return 1;
+        case "n":
+          np = +option.optarg;
+          break;
+        case "t":
+          t = Number(option.optarg) / 100.0;
+          break;
+        case "x":
+          pp = Number(option.optarg);
+          break;
+        case "y":
+          pv = Number(option.optarg);
+          break;
+        case "v":
+          debug = true;
+          break;
+        case "e":
+          setDownPayment();
+          break;
+      }
+    }
+  } catch (err) {
+    log(
+      `${err.message}\nFor help, type: ${parse(argv[0])} ${parse(
+        argv[1]
+      )} --help`
+    );
+    return 2;
+  }
+
+  while (
+    np <= 2 ||
+    (pv <= 0 && pp <= 0) ||
+    (t <= 0 && pp <= 0) ||
+    (t <= 0 && pv <= 0) ||
+    pp < pv
+  ) {
+    try {
+      np = +readlineSync.question("Forneça o número de parcelas: ");
+      t = +readlineSync.question("Forneça a taxa de juros: ") / 100.0;
+      pp = +readlineSync.question("Forneça o preço a prazo: ");
+      pv = +readlineSync.question("Forneça o preço à vista: ");
+      if (isNaN(np) || isNaN(t) || isNaN(pp) || isNaN(pv)) {
+        throw new Error("Value is not a Number");
+      }
     } catch (err) {
-        log(
-            `${err.message}\nFor help, type: ${parse(argv[0])} ${parse(
-                argv[1]
-            )} --help`
-        );
-        return 2;
+      log(err.message);
+      rational_discount(10, 0.01, 500, 450, debug);
+      return;
     }
+  }
 
-    while (
-        np <= 2 ||
-        (pv <= 0 && pp <= 0) ||
-        (t <= 0 && pp <= 0) ||
-        (t <= 0 && pv <= 0) ||
-        pp < pv
-    ) {
-        try {
-            np = +readlineSync.question("Forneça o número de parcelas: ");
-            t = +readlineSync.question("Forneça a taxa de juros: ") / 100.0;
-            pp = +readlineSync.question("Forneça o preço a prazo: ");
-            pv = +readlineSync.question("Forneça o preço à vista: ");
-            if (isNaN(np) || isNaN(t) || isNaN(pp) || isNaN(pv)) {
-                throw new Error("Value is not a Number");
-            }
-        } catch (err) {
-            log(err.message);
-            rational_discount(10, 0.01, 500, 450, debug);
-            return;
-        }
+  if (t > 0) {
+    if (pp <= 0) {
+      let factor;
+      [factor, pp] = futureValue(pv, np, t);
     }
+    rational_discount(np, t, pp, pv, debug);
+  } else {
+    let ni;
+    [t, ni] = getInterest(pp, pv, np);
+    log(`Taxa = ${t.toFixed(4)}% - ${ni} iterações${crlf}`);
+    t *= 0.01;
+    rational_discount(np, t, pp, pv, debug);
+  }
 
-    if (t > 0) {
-        if (pp <= 0) {
-            let factor;
-            [factor, pp] = futureValue(pv, np, t);
-        }
-        rational_discount(np, t, pp, pv, debug);
-    } else {
-        let ni;
-        [t, ni] = getInterest(pp, pv, np);
-        log(`Taxa = ${t.toFixed(4)}% - ${ni} iterações${crlf}`);
-        t *= 0.01;
-        rational_discount(np, t, pp, pv, debug);
-    }
+  let cf = CF(t, np);
+  let pmt = pv * cf;
+  log(`${crlf}Coeficiente de Financiamento: ${cf.toFixed(6)}`);
 
-    let cf = CF(t, np);
-    let pmt = pv * cf;
-    log(`${crlf}Coeficiente de Financiamento: ${cf.toFixed(6)}`);
+  if (getDownPayment()) {
+    pmt /= 1 + t;
+    np -= 1; // uma prestação a menos
+    pv -= pmt; // preço à vista menos a entrada
+    log(
+      `Valor financiado = \$${(pv + pmt).toFixed(2)} - \$${pmt.toFixed(
+        2
+      )} = \$${pv.toFixed(2)}`
+    );
+  }
 
-    if (getDownPayment()) {
-        pmt /= 1 + t;
-        np -= 1; // uma prestação a menos
-        pv -= pmt; // preço à vista menos a entrada
-        log(
-            `Valor financiado = \$${(pv + pmt).toFixed(2)} - \$${pmt.toFixed(
-                2
-            )} = \$${pv.toFixed(2)}`
-        );
-    }
+  log(`Prestação: \$${pmt.toFixed(2)}`);
 
-    log(`Prestação: \$${pmt.toFixed(2)}`);
-
-    // Tabela Price
-    if (debug) {
-        log(nodePriceTable(priceTable(np, pv, t, pmt)));
-    }
+  // Tabela Price
+  if (debug) {
+    log(nodePriceTable(priceTable(np, pv, t, pmt)));
+  }
 }
 
 if (typeof process === "object") cdcCLI();

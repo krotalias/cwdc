@@ -31,7 +31,6 @@ import {
   CF,
   presentValue,
   getInterest,
-  getDownPayment,
   setDownPayment,
 } from "./rational.js";
 
@@ -90,15 +89,18 @@ $("#submitButton").on("click", function (event) {
     pv = presentValue(pp, np, t)[1];
   }
 
-  let [ti, i] = getInterest(pp, pv, np);
-
-  if (t == 0) {
-    t = 0.01 * ti;
-  }
-
+  let pmt = 0;
+  let cf = 0;
+  let i = 0;
+  let ti = 0;
   try {
-    var cf = CF(t, np);
-    var pmt = pv * cf;
+    if (t == 0) {
+      [ti, i] = getInterest(pp, pv, np);
+      t = 0.01 * ti;
+    }
+
+    cf = CF(t, np);
+    pmt = pv * cf;
     if (dp) {
       pmt /= 1 + t; // diminui a prestação
       np -= 1; // uma prestação a menos
@@ -106,10 +108,9 @@ $("#submitButton").on("click", function (event) {
       cf = pmt / pv; // recalculate cf
     }
   } catch (e) {
-    $("#blueBox").html(
-      `<h4>${e.message}</h4>
-      <h4>Juros e Valor Final não podem ser ambos 0</h4>`
-    );
+    $("#errorMessage").html(`<h4>${e.message}</h4>`);
+    $("#errorMessage").show();
+    $("#successMessage").hide();
     return;
   }
 
