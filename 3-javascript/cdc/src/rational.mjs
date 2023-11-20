@@ -49,7 +49,6 @@ import * as mod_getopt from "posix-getopt";
  * @requires module:rational
  * @requires posix-getopt
  * @requires readline-sync
- *
  * @see https://www.npmjs.com/package/posix-getopt
  * @see https://www.npmjs.com/package/readline-sync
  */

@@ -101,6 +101,12 @@ $("#submitButton").on("click", function (event) {
 
     cf = CF(t, np);
     pmt = pv * cf;
+    // there is no sense in a montly payment greater than the loan...
+    if (pmt >= pv) {
+      throw new Error(
+        `Prestação (\$${pmt.toFixed(2)}) é maior do que o empréstimo`
+      );
+    }
     if (dp) {
       pmt /= 1 + t; // diminui a prestação
       np -= 1; // uma prestação a menos
