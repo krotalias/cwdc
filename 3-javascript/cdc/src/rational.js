@@ -149,30 +149,34 @@ function isNegative0(x) {
  * @see <img src="../cdc/newton_fig.png" alt="Newton Method">
  */
 export function getInterest(x, y, p) {
+  if (x == 0 || y == 0 || p == 0) return [0, 0];
+  let R = x / p; // prestação
+
   if (!getDownPayment()) {
     return getInterest2(x, y, p);
+  } else if (true) {
+    return getInterest2(x - R, y - R, p - 1);
+  } else {
+    let t2 = x / y;
+    let t = 0;
+    let n = 0;
+    while (!isZero(t2 - t)) {
+      if (n > 150) throw new Error("Newton is not converging!");
+      t = t2;
+      n += 1;
+      let tPlusOne = 1.0 + t;
+      let a = tPlusOne ** (p - 2); // (1.0+t)**(p-2)
+      let b = a * tPlusOne; // (1.0+t)**(p-1)
+      let c = b * tPlusOne; // (1.0+t)**p
+      let d = y * t * b - R * (c - 1); // f(t_n)
+      let dt = y * (b + t * (p - 1) * a) - x * b; // f'(t_n)
+      t2 = t - d / dt;
+    }
+    if (isZero(t2, 1.0e-10)) throw new Error("Newton did not converge!");
+    // there is no sense in a montly payment greater than the loan...
+    if (t2 > 1) throw new Error("Newton interest rate > 100%");
+    return [t2 * 100.0, n];
   }
-
-  if (x == 0 || y == 0 || p == 0) return [0, 0];
-  let t2 = x / y;
-  let t = 0;
-  let n = 0;
-  while (!isZero(t2 - t)) {
-    if (n > 120) throw new Error("Newton is not converging!");
-    t = t2;
-    n += 1;
-    let tPlusOne = 1.0 + t;
-    let a = tPlusOne ** (p - 2); // (1.0+t)**(p-2)
-    let b = a * tPlusOne; // (1.0+t)**(p-1)
-    let c = b * tPlusOne; // (1.0+t)**p
-    let d = y * t * b - (x / p) * (c - 1); // f(t_n)
-    let dt = y * (b + t * (p - 1) * a) - x * b; // f'(t_n)
-    t2 = t - d / dt;
-  }
-  if (isZero(t2, 1.0e-10)) throw new Error("Newton did not converge!");
-  // there is no sense in a montly payment greater than the loan...
-  if (t2 > 1) throw new Error("Newton interest rate > 100%");
-  return [t2 * 100.0, n];
 }
 
 /**
@@ -199,7 +203,7 @@ function getInterest2(x, y, p) {
   let t = 0;
   let n = 0;
   while (!isZero(t2 - t)) {
-    if (n > 120) throw new Error("Newton is not converging!");
+    if (n > 150) throw new Error("Newton is not converging!");
     t = t2;
     n += 1;
     let tPlusOne = 1.0 + t;
@@ -405,6 +409,7 @@ export function priceTable(np, pv, t, pmt) {
   let at = 0;
   dataTable.push(["n", "R = pmt", "J = SD * t", "U = pmt - J", "SD = PV - U"]);
   dataTable.push([0, pt, `(${t.toFixed(4)})`, 0, pv]);
+  if (t <= 0) return dataTable;
   for (let i = 0; i < np; ++i) {
     let juros = pv * t;
     let amortizacao = pmt - juros;

@@ -84,6 +84,11 @@ $("#submitButton").on("click", function (event) {
   let ti = 0;
   try {
     if (t == 0) {
+      if (pp / np >= pv) {
+        throw new Error(
+          `Prestação (\$${pmt.toFixed(2)}) é maior do que o empréstimo`
+        );
+      }
       [ti, i] = getInterest(pp, pv, np);
       t = 0.01 * ti;
     }
