@@ -64,18 +64,19 @@
                 <a href="https://en.wikipedia.org/wiki/Bump_mapping">Bumpmap</a>
             </h3>
             <p>
-                <label><b>Image:</b></label>
+                <label for="bumpmap"><b>Image:</b></label>
                 <select id="bumpmap">
                     <option value="0">Dimples</option>
                     <option value="1">Marble</option>
                     <option value="2">Brick</option>
-                    <option value="4">Noise</option>
                     <option value="3">Metal</option>
+                    <option value="4">Noise</option>
+                    <option value="5">2D Bump</option>
                 </select>
             </p>
 
             <p>
-                <label><b>Bump Strength:</b></label>
+                <label for="strength"><b>Bump Strength:</b></label>
                 <select id="strength">
                     <option>5</option>
                     <option>4</option>
@@ -94,7 +95,7 @@
             <p><button id="reset">Reset Rotation</button></p>
 
             <p>
-                <label><b>Object:</b></label>
+                <label for="object"><b>Object:</b></label>
                 <select id="object">
                     <option value="0">Cone</option>
                     <option value="1">Cube</option>
@@ -105,7 +106,7 @@
             </p>
 
             <p>
-                <label><b>Diffuse Color:</b></label>
+                <label for="color"><b>Diffuse Color:</b></label>
                 <select id="color">
                     <option value="0">White</option>
                     <option value="1">Pink</option>
@@ -116,7 +117,7 @@
             </p>
 
             <p>
-                <label><b>Heightmap:</b></label>
+                <label for="bumpimage"><b>Heightmap:</b></label>
                 <img id="bumpimage" src="textures/dimples-height-map.png" />
             </p>
 
