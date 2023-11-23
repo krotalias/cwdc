@@ -196,7 +196,7 @@ const bumpmapURLs = [
   "textures/brick-height-map.jpg",
   "textures/metal-height-map.png",
   "textures/random-height-map.png",
-  "textures/2D-Bump-flip.png",
+  "textures/2D-Bump.png",
 ];
 
 /**
@@ -298,6 +298,13 @@ function loadBumpmap() {
     gl.activeTexture(gl.TEXTURE1);
     gl.bindTexture(gl.TEXTURE_2D, bumpmap);
     try {
+      /*
+       * (0,0) in the image coordinate system is the top left corner,
+       * and the (0,0) in the texture coordinate system is bottom left.
+       * Threfore, load the image bytes to the currently bound texture,
+       * flipping the vertical.
+       */
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
       gl.texImage2D(
         gl.TEXTURE_2D,
         0,
