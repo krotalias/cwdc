@@ -110,13 +110,13 @@ q\frac{((1+t)^{(p-1)} - 1)}{(1+t)^{(p-1)}} \frac{(1+t)}{t} \\
 </p>
 <p>Nota: Achar a taxa "t" que produz o preço à vista "y" requer o método de Newton:  </p><p class="formulaDsp">
 \begin{eqnarray*}
-    x_{n+1} &amp;=&amp; x_n - \frac{f(x_n)}{f&#39;(x_n)} \\
-      y     &amp;=&amp; \frac{x}{p} \frac{(c-1)}{tb}, \\
-      f(t)  &amp;=&amp; ytb - \frac{x}{p} (c-1)       \\
-      f&#39;(t) &amp;=&amp; y (b + t (p-1) a) - xb
+    x_{n+1} &amp;=&amp; x_n - \frac{f(x_n)}{f&#39;(x_n)}   \\
+      y     &amp;=&amp; \frac{x}{p} \frac{(1-a)}{t} (1+t), \\
+      f(t)  &amp;=&amp; yt - \frac{x}{p} (1-a)(1+t)    \\
+      f&#39;(t) &amp;=&amp; y - \frac{x}{p} (1-a(1-p))
     \end{eqnarray*}
 </p>
-<p> onde \(a = (1+t)^{(p-2)}, b = (1+t)^{(p-1)}, c = (1+t)^{p}\) e o problema é equivalente a encontrar um zero da função f </p><p class="formulaDsp">
+<p> onde \(a = (1+t)^{-p}\) e o problema é equivalente a encontrar um zero da função f </p><p class="formulaDsp">
 \[t_{n+1} = t_n - \frac{f(t)}{f&#39;(t)}, t_o = \frac{x}{y}\]
 </p>
 <p>A função é decrescente e converge para t quando n&rarr;&infin;.</p>

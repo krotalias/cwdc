@@ -1,8 +1,8 @@
 \@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
-\contentsline {chapter}{\numberline {1}File Index}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}File List}{1}{section.1.1}%
-\contentsline {chapter}{\numberline {2}File Documentation}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}cdc.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}c File Reference}{3}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Detailed Description}{3}{subsection.2.1.1}%
-\contentsline {section}{\numberline {2.2}cdc.\discretionary {\mbox {\scriptsize $\DOTSB \leftarrow \joinrel \rhook $}}{}{}c}{5}{section.2.2}%
-\contentsline {chapter}{Index}{7}{section*.1}%
+\contentsline {chapter}{\numberline {1}File Index}{1}{chapter.1}% 
+\contentsline {section}{\numberline {1.1}File List}{1}{section.1.1}% 
+\contentsline {chapter}{\numberline {2}File Documentation}{3}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}cdc.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\DOTSB \leftarrow \joinrel \rhook $}}{}{}c File Reference}{3}{section.2.1}% 
+\contentsline {subsection}{\numberline {2.1.1}Detailed Description}{3}{subsection.2.1.1}% 
+\contentsline {section}{\numberline {2.2}cdc.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\DOTSB \leftarrow \joinrel \rhook $}}{}{}c}{5}{section.2.2}% 
+\contentsline {chapter}{Index}{7}{section*.1}% 

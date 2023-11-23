@@ -50,12 +50,12 @@
  *  Nota:
  *  Achar a taxa "t" que produz o preço à vista "y" requer o método de Newton:
  *     @f{eqnarray*}{
- *     x_{n+1} &=& x_n - \frac{f(x_n)}{f'(x_n)} \\
- *       y     &=& \frac{x}{p} \frac{(c-1)}{tb}, \\
- *       f(t)  &=& ytb - \frac{x}{p} (c-1)       \\
- *       f'(t) &=& y (b + t (p-1) a) - xb
+ *     x_{n+1} &=& x_n - \frac{f(x_n)}{f'(x_n)}   \\
+ *       y     &=& \frac{x}{p} \frac{(1-a)}{t} (1+t), \\
+ *       f(t)  &=& yt - \frac{x}{p} (1-a)(1+t)    \\
+ *       f'(t) &=& y - \frac{x}{p} (1-a(1-p))
  *     @f}
- *  onde @f$a = (1+t)^{(p-2)}, b = (1+t)^{(p-1)}, c = (1+t)^{p}@f$ e
+ *  onde @f$a = (1+t)^{-p}@f$ e
  *  o problema é equivalente a encontrar um zero da função f
  *             @f[t_{n+1} = t_n - \frac{f(t)}{f'(t)}, t_o = \frac{x}{y}@f]
  *

@@ -154,7 +154,7 @@ export function getInterest(x, y, p) {
 
   if (!getDownPayment()) {
     return getInterest2(x, y, p);
-  } else if (true) {
+  } else if (false) {
     return getInterest2(x - R, y - R, p - 1);
   } else {
     let t2 = x / y;
@@ -165,16 +165,13 @@ export function getInterest(x, y, p) {
       t = t2;
       n += 1;
       let tPlusOne = 1.0 + t;
-      let a = tPlusOne ** (p - 2); // (1.0+t)**(p-2)
-      let b = a * tPlusOne; // (1.0+t)**(p-1)
-      let c = b * tPlusOne; // (1.0+t)**p
-      let d = y * t * b - R * (c - 1); // f(t_n)
-      let dt = y * (b + t * (p - 1) * a) - x * b; // f'(t_n)
+      let a = tPlusOne ** -p; // (1.0+t)**(-p)
+      let d = y * t - R * (1 - a) * tPlusOne; // f(t_n)
+      let dt = y - R * (1 - a * (1 - p)); // f'(t_n)
       t2 = t - d / dt;
     }
     if (isZero(t2, 1.0e-10)) throw new Error("Newton did not converge!");
-    // there is no sense in a montly payment greater than the loan...
-    if (t2 > 1) throw new Error("Newton interest rate > 100%");
+
     return [t2 * 100.0, n];
   }
 }
