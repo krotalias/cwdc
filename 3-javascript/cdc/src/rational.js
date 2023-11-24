@@ -299,7 +299,7 @@ export function rational_discount(p, t, x, y, option = true) {
       y = ux;
     }
     let [fy, uy] = futureValue(y, p, t);
-    if (Math.abs(y - ux) < 0.01) {
+    if (isZero(y - ux, 0.01)) {
       log("O preço à vista é igual ao preço total corrigido.");
     } else if (y > ux) {
       log(
@@ -309,6 +309,7 @@ export function rational_discount(p, t, x, y, option = true) {
       log("O preço à vista é menor ou igual do que preço total corrigido.");
     }
     let delta_p = ux - y;
+    if (isZero(delta_p)) delta_p = 0;
     let prct = (delta_p / ux) * 100.0;
 
     log(

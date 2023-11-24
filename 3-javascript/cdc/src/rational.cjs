@@ -287,7 +287,7 @@ function rational_discount(p, t, x, y, option = true) {
       y = ux;
     }
     let [fy, uy] = futureValue(y, p, t);
-    if (Math.abs(y - ux) < 0.01) {
+    if (isZero(y - ux, 0.01)) {
       log("O preço à vista é igual ao preço total corrigido.");
     } else if (y > ux) {
       log(
@@ -297,6 +297,7 @@ function rational_discount(p, t, x, y, option = true) {
       log("O preço à vista é menor ou igual do que preço total corrigido.");
     }
     let delta_p = ux - y;
+    if (isZero(delta_p)) delta_p = 0;
     let prct = (delta_p / ux) * 100.0;
 
     log(
@@ -621,34 +622,57 @@ function cdcCLI(argv = process.argv) {
       let factor;
       [factor, pp] = futureValue(pv, np, t);
     }
-    rational_discount(np, t, pp, pv, debug);
   } else {
     let ni;
-    [t, ni] = getInterest(pp, pv, np);
+    let pmt = pp / np;
+    try {
+      if (pmt >= pv) {
+        throw new Error(
+          `Prestação (\$${pmt.toFixed(2)}) é maior do que o empréstimo`
+        );
+      }
+      // getInterest takes in considerarion any down payment
+      [t, ni] = getInterest(pp, pv, np);
+    } catch (e) {
+      log(`${e.message}`);
+      return;
+    }
     log(`Taxa = ${t.toFixed(4)}% - ${ni} iterações${crlf}`);
     t *= 0.01;
-    rational_discount(np, t, pp, pv, debug);
   }
 
+  // with or without any down payment
   let cf = CF(t, np);
   let pmt = pv * cf;
-  log(`${crlf}Coeficiente de Financiamento: ${cf.toFixed(6)}`);
+  if (pmt >= pv) {
+    rational.log(`Prestação (\$${pmt.toFixed(2)}) é maior do que o empréstimo`);
+  }
+  log(`Coeficiente de Financiamento: ${cf.toFixed(6)}`);
 
-  if (getDownPayment()) {
+  let dp = getDownPayment();
+  if (dp) {
     pmt /= 1 + t;
     np -= 1; // uma prestação a menos
     pv -= pmt; // preço à vista menos a entrada
+    pp -= pmt; // preço a prazo menos a entrada
+    log(`Entrada: ${pmt.toFixed(2)}`);
     log(
       `Valor financiado = \$${(pv + pmt).toFixed(2)} - \$${pmt.toFixed(
         2
       )} = \$${pv.toFixed(2)}`
     );
+    // the values were set here to work without down payment
+    // otherwise, rational_discount will produce a misleading interest rate
+    setDownPayment(false);
   }
 
-  log(`Prestação: \$${pmt.toFixed(2)}`);
+  log(`Prestação: \$${pmt.toFixed(2)}${crlf}`);
+
+  rational_discount(np, t, pp, pv, debug);
 
   // Tabela Price
   if (debug) {
+    setDownPayment(dp);
     log(nodePriceTable(priceTable(np, pv, t, pmt)));
   }
 }
