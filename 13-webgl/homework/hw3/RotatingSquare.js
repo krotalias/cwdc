@@ -508,3 +508,28 @@ function mainEntrance(r) {
   // draw!
   runAnimation();
 }
+
+/**
+ * Loads the {@link mainEntrance application}.</p>
+ * @param {Event} event an object has loaded.
+ * @param {callback} function function to run when the event occurs.
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
+addEventListener("load", (event) => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  // complete revolutions about the center per cycle
+  var rpc = urlParams.get("rpc") || "2";
+
+  let ndigits = getFractionalPart(rpc).ndigits;
+  let negative = rpc < 0;
+  rpc = rpc >= 0 ? +rpc : -1 / rpc;
+  if (negative && ndigits == 0) ndigits = 2;
+  if (ndigits > 0) {
+    // maximum of 3 digits, to avoid overdraw
+    rpc = roundNumber(rpc, Math.min(3, ndigits));
+  }
+  document.getElementById("rpc").innerHTML = rpc == 0 ? "∞" : rpc;
+  mainEntrance(rpc);
+});
