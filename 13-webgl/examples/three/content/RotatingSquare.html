@@ -13,7 +13,9 @@
 
         <div style="padding-left: 30px">
             <p>
-                <a href="/roma/livros/teal_book.pdf#page=103"> Canvas + three.js </a>
+                <a href="/roma/livros/teal_book.pdf#page=103">
+                    Canvas + three.js
+                </a>
                 with <span id="rpc"></span> revolutions per cycle
             </p>
             <p>Set revolutions per cycle in the URL: rpc=n or rpc=-n (1/n)</p>
@@ -21,27 +23,14 @@
             <p>Angle = <span id="ang"></span></p>
         </div>
 
-        <script src="https://threejs.org/build/three.min.js"></script>
-        <!-- script src="/WebGL/lib/three.js"></script-->
-
-        <script src="RotatingSquare.js"></script>
-        <script>
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            // complete revolutions about the center per cycle
-            var rpc = urlParams.get("rpc") || "2";
-            window.onload = () => {
-                let ndigits = getFractionalPart(rpc).ndigits;
-                let negative = rpc < 0;
-                rpc = rpc >= 0 ? +rpc : -1 / rpc;
-                if (negative && ndigits == 0) ndigits = 2;
-                if (ndigits > 0) {
-                    // maximum of 3 digits, to avoid overdraw
-                    rpc = roundNumber(+rpc, Math.min(3, ndigits));
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "/WebGL/lib/three/build/three.module.js"
                 }
-                document.getElementById("rpc").innerHTML = rpc == 0 ? "∞" : rpc;
-                mainEntrance(rpc);
-            };
+            }
         </script>
+
+        <script src="RotatingSquare.js" type="module"></script>
     </body>
 </html>
