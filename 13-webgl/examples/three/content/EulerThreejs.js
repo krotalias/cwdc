@@ -30,10 +30,7 @@
 
 "use strict";
 
-import * as THREE from "https://unpkg.com/three@0.148.0/build/three.module.js?module";
-import { TextGeometry } from "https://unpkg.com/three@0.148.0/examples/jsm/geometries/TextGeometry.js?module";
-import { FontLoader } from "https://unpkg.com/three@0.148.0/examples/jsm/loaders/FontLoader.js?module";
-import * as BufferGeometryUtils from "https://unpkg.com/three@0.148.0/examples/jsm/utils/BufferGeometryUtils.js?module";
+let THREE, TextGeometry, FontLoader;
 
 /**
  * Keep track of the Euler angles.
@@ -130,10 +127,71 @@ var deg2rad = (deg) => THREE.MathUtils.degToRad(deg);
  */
 var rad2deg = (rad) => THREE.MathUtils.radToDeg(rad);
 
-window.addEventListener("load", (event) => mainEntrance());
+/**
+ * <p>Loads the theejs module and the {@link mainEntrance application}.</p>
+ * Unfortunately, importmap is only supported by Safari version 16.4 and later.<br>
+ * Since I still use macOS Catalina, my Safari version is 15.6.1, which obliges me
+ * to conditionally and dynamically load the threejs module.
+ *
+ * @param {Event} event an object has loaded.
+ * @param {callback} function function to run when the event occurs.
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
+ */
+window.addEventListener("load", (event) => {
+  const { userAgent } = navigator;
+  if (userAgent.includes("Safari/")) {
+    let version = userAgent.split("Version/")[1];
+    version = version.split("Safari")[0];
+    console.log(`Safari v${version}`);
+    if (version < "16.4") {
+      import("https://threejs.org/build/three.module.js?module").then(
+        (module) => {
+          THREE = module;
+          import(
+            "https://unpkg.com/three@0.148.0/examples/jsm/geometries/TextGeometry.js?module"
+          ).then((module) => {
+            ({ TextGeometry } = module);
+            import(
+              "https://unpkg.com/three@0.148.0/examples/jsm/loaders/FontLoader.js?module"
+            ).then((module) => {
+              ({ FontLoader } = module);
+              mainEntrance();
+              return;
+            });
+          });
+        }
+      );
+    }
+  }
+
+  // use imortmap from html for local scripts
+  // any other case use importmap
+  import("three").then((module) => {
+    THREE = module;
+    import("TextGeometry").then((module) => {
+      ({ TextGeometry } = module);
+      import("FontLoader").then((module) => {
+        ({ FontLoader } = module);
+        mainEntrance();
+      });
+    });
+  });
+});
 
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
+    /**
+     * <p>Appends an event listener for events whose type attribute value is change.
+     * The callback argument sets the callback that will be invoked when
+     * the event is dispatched.</p>
+     *
+     * @event change - executed when any
+     * {@link handleKeyPress rot} &lt;radio&gt;'s checkbox is checked or unchecked.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     */
     elem.addEventListener("change", function (event) {
       var item = event.target.value;
       handleKeyPress(createEvent(item));
@@ -289,7 +347,7 @@ function handleKeyPress(event) {
  * Returns a new keyboard event.
  * @param {String} key char code.
  * @returns {KeyboardEvent} a keyboard event.
- * @function
+ * @event KeyboardEvent - creates a keyboard keydown event.
  */
 var createEvent = (key) => {
   let code = key.charCodeAt();
@@ -302,9 +360,25 @@ var createEvent = (key) => {
 };
 
 const axes = document.getElementById("axes");
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the axes checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
 const light = document.getElementById("light");
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the light checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 light.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 
 window.zoomIn = zoomIn;
@@ -1056,7 +1130,18 @@ function createLights2(scene, target) {
  * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer.toneMapping
  */
 function start(font) {
-  // key handler
+  /**
+   * <p>Key handler.</p>
+   * Calls {@link handleKeyPress} whenever any of these keys is pressed:
+   * <ul>
+   *  <li>Space</li>
+   *  <li>ArrowUp</li>
+   *  <li>ArrowDown</li>
+   *  <li>ArrowLeft</li>
+   *  <li>ArrowRight</li>
+   * </ul>
+   * @event keydown
+   */
   addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
@@ -1104,7 +1189,10 @@ function start(font) {
   let holder = objects.holder;
 
   /**
-   * Screen events.
+   * <p>Fires when the document view (window) has been resized.</p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
    */
   function handleWindowResize() {
     let h = window.innerHeight;
@@ -1119,6 +1207,15 @@ function start(font) {
     objects.camera.updateProjectionMatrix();
   }
 
+  /**
+   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * <p>The {@link handleWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @param {Event} event the document view is resized.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize - executed when the window is resized.
+   */
   window.addEventListener("resize", handleWindowResize, false);
 
   // geometry for the global coordinate axes

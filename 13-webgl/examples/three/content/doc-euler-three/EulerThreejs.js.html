@@ -58,10 +58,7 @@
 
 "use strict";
 
-import * as THREE from "https://unpkg.com/three@0.148.0/build/three.module.js?module";
-import { TextGeometry } from "https://unpkg.com/three@0.148.0/examples/jsm/geometries/TextGeometry.js?module";
-import { FontLoader } from "https://unpkg.com/three@0.148.0/examples/jsm/loaders/FontLoader.js?module";
-import * as BufferGeometryUtils from "https://unpkg.com/three@0.148.0/examples/jsm/utils/BufferGeometryUtils.js?module";
+let THREE, TextGeometry, FontLoader;
 
 /**
  * Keep track of the Euler angles.
@@ -158,10 +155,71 @@ var deg2rad = (deg) => THREE.MathUtils.degToRad(deg);
  */
 var rad2deg = (rad) => THREE.MathUtils.radToDeg(rad);
 
-window.addEventListener("load", (event) => mainEntrance());
+/**
+ * &lt;p>Loads the theejs module and the {@link mainEntrance application}.&lt;/p>
+ * Unfortunately, importmap is only supported by Safari version 16.4 and later.&lt;br>
+ * Since I still use macOS Catalina, my Safari version is 15.6.1, which obliges me
+ * to conditionally and dynamically load the threejs module.
+ *
+ * @param {Event} event an object has loaded.
+ * @param {callback} function function to run when the event occurs.
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
+ */
+window.addEventListener("load", (event) => {
+  const { userAgent } = navigator;
+  if (userAgent.includes("Safari/")) {
+    let version = userAgent.split("Version/")[1];
+    version = version.split("Safari")[0];
+    console.log(`Safari v${version}`);
+    if (version &lt; "16.4") {
+      import("https://threejs.org/build/three.module.js?module").then(
+        (module) => {
+          THREE = module;
+          import(
+            "https://unpkg.com/three@0.148.0/examples/jsm/geometries/TextGeometry.js?module"
+          ).then((module) => {
+            ({ TextGeometry } = module);
+            import(
+              "https://unpkg.com/three@0.148.0/examples/jsm/loaders/FontLoader.js?module"
+            ).then((module) => {
+              ({ FontLoader } = module);
+              mainEntrance();
+              return;
+            });
+          });
+        }
+      );
+    }
+  }
+
+  // use imortmap from html for local scripts
+  // any other case use importmap
+  import("three").then((module) => {
+    THREE = module;
+    import("TextGeometry").then((module) => {
+      ({ TextGeometry } = module);
+      import("FontLoader").then((module) => {
+        ({ FontLoader } = module);
+        mainEntrance();
+      });
+    });
+  });
+});
 
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
+    /**
+     * &lt;p>Appends an event listener for events whose type attribute value is change.
+     * The callback argument sets the callback that will be invoked when
+     * the event is dispatched.&lt;/p>
+     *
+     * @event change - executed when any
+     * {@link handleKeyPress rot} &amp;lt;radio&amp;gt;'s checkbox is checked or unchecked.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     */
     elem.addEventListener("change", function (event) {
       var item = event.target.value;
       handleKeyPress(createEvent(item));
@@ -317,7 +375,7 @@ function handleKeyPress(event) {
  * Returns a new keyboard event.
  * @param {String} key char code.
  * @returns {KeyboardEvent} a keyboard event.
- * @function
+ * @event KeyboardEvent - creates a keyboard keydown event.
  */
 var createEvent = (key) => {
   let code = key.charCodeAt();
@@ -330,9 +388,25 @@ var createEvent = (key) => {
 };
 
 const axes = document.getElementById("axes");
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event change - executed when the axes checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
 const light = document.getElementById("light");
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event change - executed when the light checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 light.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 
 window.zoomIn = zoomIn;
@@ -1084,7 +1158,18 @@ function createLights2(scene, target) {
  * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer.toneMapping
  */
 function start(font) {
-  // key handler
+  /**
+   * &lt;p>Key handler.&lt;/p>
+   * Calls {@link handleKeyPress} whenever any of these keys is pressed:
+   * &lt;ul>
+   *  &lt;li>Space&lt;/li>
+   *  &lt;li>ArrowUp&lt;/li>
+   *  &lt;li>ArrowDown&lt;/li>
+   *  &lt;li>ArrowLeft&lt;/li>
+   *  &lt;li>ArrowRight&lt;/li>
+   * &lt;/ul>
+   * @event keydown
+   */
   addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
@@ -1132,7 +1217,10 @@ function start(font) {
   let holder = objects.holder;
 
   /**
-   * Screen events.
+   * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
    */
   function handleWindowResize() {
     let h = window.innerHeight;
@@ -1147,6 +1235,15 @@ function start(font) {
     objects.camera.updateProjectionMatrix();
   }
 
+  /**
+   * &lt;p>Appends an event listener for events whose type attribute value is resize.&lt;/p>
+   * &lt;p>The {@link handleWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.&lt;/p>
+   * @param {Event} event the document view is resized.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize - executed when the window is resized.
+   */
   window.addEventListener("resize", handleWindowResize, false);
 
   // geometry for the global coordinate axes
@@ -1258,13 +1355,14 @@ function start(font) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AirPlane.html">AirPlane</a></li><li><a href="Pilot.html">Pilot</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Colors">Colors</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#changeBox">changeBox</a></li><li><a href="global.html#createAirPlane">createAirPlane</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createLights">createLights</a></li><li><a href="global.html#createLights2">createLights2</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#displayAngles">displayAngles</a></li><li><a href="global.html#drawGlobalAxes">drawGlobalAxes</a></li><li><a href="global.html#drawLocalAxes">drawLocalAxes</a></li><li><a href="global.html#drawTwoOctagons">drawTwoOctagons</a></li><li><a href="global.html#drawTwoTriangles">drawTwoTriangles</a></li><li><a href="global.html#euler">euler</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#hemisphereLight">hemisphereLight</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AirPlane.html">AirPlane</a></li><li><a href="Pilot.html">Pilot</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenany%257B@linkhandleKeyPressrot%257D&lt;radio&gt;'scheckboxischeckedorunchecked.">change - executed when any
+{@link handleKeyPress rot} &lt;radio&gt;'s checkbox is checked or unchecked.</a></li><li><a href="global.html#event:KeyboardEvent-createsakeyboardkeydownevent.">KeyboardEvent - creates a keyboard keydown event.</a></li><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthelightcheckboxischeckedorunchecked.">change - executed when the light checkbox is checked or unchecked.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Colors">Colors</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#changeBox">changeBox</a></li><li><a href="global.html#createAirPlane">createAirPlane</a></li><li><a href="global.html#createLights">createLights</a></li><li><a href="global.html#createLights2">createLights2</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#displayAngles">displayAngles</a></li><li><a href="global.html#drawGlobalAxes">drawGlobalAxes</a></li><li><a href="global.html#drawLocalAxes">drawLocalAxes</a></li><li><a href="global.html#drawTwoOctagons">drawTwoOctagons</a></li><li><a href="global.html#drawTwoTriangles">drawTwoTriangles</a></li><li><a href="global.html#euler">euler</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#hemisphereLight">hemisphereLight</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Sep 01 2023 19:51:08 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Nov 26 2023 09:57:30 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -26,9 +26,10 @@
 
 "use strict";
 
-import * as THREE from "https://threejs.org/build/three.module.js?module";
-
-// import * as THREE from "three";
+/**
+ * @type {loadThreejs}
+ */
+let THREE;
 
 /**
  * Returns a number fractional part and its number of digits.
@@ -280,13 +281,27 @@ function mainEntrance(rpc = 2) {
 }
 
 /**
- * Loads the {@link mainEntrance application}.</p>
+ * <p>Loads the theejs module and the {@link mainEntrance application}.</p>
+ * Unfortunately, importmap is only supported by Safari version 16.4 and later.<br>
+ * Since I still use macOS Catalina, my Safari version is 15.6.1, which obliges me
+ * to conditionally and dynamically load the threejs module.
+ *
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
  * @event load
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
  */
 addEventListener("load", (event) => {
+  /**
+   * <p>Self invoking function to load threejs module dynamically based on safari version.</p>
+   * @function loadThreejs
+   * @async
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
+   */
+
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   // complete revolutions about the center per cycle
@@ -301,5 +316,26 @@ addEventListener("load", (event) => {
     rpc = roundNumber(+rpc, Math.min(3, ndigits));
   }
   document.getElementById("rpc").innerHTML = rpc == 0 ? "∞" : rpc;
-  mainEntrance(rpc);
+
+  const { userAgent } = navigator;
+  if (userAgent.includes("Safari/")) {
+    let version = userAgent.split("Version/")[1];
+    version = version.split("Safari")[0];
+    console.log(`Safari v${version}`);
+    if (version < "16.4") {
+      import("https://threejs.org/build/three.module.js?module").then(
+        (module) => {
+          THREE = module;
+          mainEntrance(rpc);
+          return;
+        }
+      );
+    }
+  }
+
+  // any other case use importmap
+  import("three").then((module) => {
+    THREE = module;
+    mainEntrance(rpc);
+  });
 });
