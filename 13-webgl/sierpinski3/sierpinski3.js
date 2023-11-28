@@ -163,7 +163,13 @@ async function mainEntrance() {
     })
     .catch((error) => {
       alert(`${error}`);
-      // don't return anything => execution goes the normal way
+      // don't need to return anything => execution goes the normal way
+      return [
+        "crystal.json",
+        "Pentagonal_de_Durer.json",
+        "sierpinski3.json",
+        "tree.json",
+      ];
     });
 
   let response = await fetch(`./models/${jfile}`);
