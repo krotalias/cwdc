@@ -318,11 +318,13 @@ addEventListener("load", (event) => {
   document.getElementById("rpc").innerHTML = rpc == 0 ? "∞" : rpc;
 
   const { userAgent } = navigator;
-  if (userAgent.includes("Safari/")) {
+  let oldSafari = false;
+  if (userAgent.includes("Safari/") && !userAgent.includes("Chrome/")) {
     let version = userAgent.split("Version/")[1];
     version = version.split("Safari")[0];
     console.log(`Safari v${version}`);
     if (version < "16.4") {
+      oldSafari = true;
       import("https://threejs.org/build/three.module.js?module").then(
         (module) => {
           THREE = module;
@@ -334,8 +336,10 @@ addEventListener("load", (event) => {
   }
 
   // any other case use importmap
-  import("three").then((module) => {
-    THREE = module;
-    mainEntrance(rpc);
-  });
+  if (!oldSafari) {
+    import("three").then((module) => {
+      THREE = module;
+      mainEntrance(rpc);
+    });
+  }
 });

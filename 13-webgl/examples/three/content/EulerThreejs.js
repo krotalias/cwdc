@@ -142,11 +142,13 @@ var rad2deg = (rad) => THREE.MathUtils.radToDeg(rad);
  */
 window.addEventListener("load", (event) => {
   const { userAgent } = navigator;
-  if (userAgent.includes("Safari/")) {
+  let oldSafari = false;
+  if (userAgent.includes("Safari/") && !userAgent.includes("Chrome/")) {
     let version = userAgent.split("Version/")[1];
     version = version.split("Safari")[0];
     console.log(`Safari v${version}`);
     if (version < "16.4") {
+      oldSafari = true;
       import("https://threejs.org/build/three.module.js?module").then(
         (module) => {
           THREE = module;
@@ -167,18 +169,19 @@ window.addEventListener("load", (event) => {
     }
   }
 
-  // use imortmap from html for local scripts
   // any other case use importmap
-  import("three").then((module) => {
-    THREE = module;
-    import("TextGeometry").then((module) => {
-      ({ TextGeometry } = module);
-      import("FontLoader").then((module) => {
-        ({ FontLoader } = module);
-        mainEntrance();
+  if (!oldSafari) {
+    import("three").then((module) => {
+      THREE = module;
+      import("TextGeometry").then((module) => {
+        ({ TextGeometry } = module);
+        import("FontLoader").then((module) => {
+          ({ FontLoader } = module);
+          mainEntrance();
+        });
       });
     });
-  });
+  }
 });
 
 if (document.querySelector('input[name="rot"]')) {
