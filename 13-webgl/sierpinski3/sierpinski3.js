@@ -26,11 +26,7 @@
  * @see https://dplatz.de/blog/2019/es6-bare-imports.html
  */
 
-import * as THREE from "https://unpkg.com/three@0.148.0/build/three.module.js?module";
-import { OrbitControls } from "https://unpkg.com/three@0.148.0/examples/jsm/controls/OrbitControls.js?module";
-
-//import * as THREE from "three";
-//import { OrbitControls } from "OrbitControls";
+let THREE, OrbitControls;
 
 /**
  * Creates a Sierpiński gasket given a json object with
@@ -106,15 +102,15 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
 };
 
 /**
- * Self invoked asynchronous anonymous function for reading a json file,
+ * Function for reading a json file,
  * created by the Three.js editor, and rendering a 3D Sierpinski gasket.
  *
- * @function {@link anonymous_async_function}
+ * @async
  * @see https://threejs.org/docs/#examples/en/controls/OrbitControls
  * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
  * @see https://en.threejs-university.com
  */
-(async function () {
+async function mainEntrance() {
   const canvas = document.querySelector("#theCanvas");
 
   /**
@@ -130,7 +126,7 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   var readFileNames = new Promise((resolve, reject) => {
     $.ajax({
       type: "GET",
-      url: "/cwdc/6-php/readFiles_.php",
+      url: "/cwdc/6-php/readFiles.php",
       data: {
         dir: "/cwdc/13-webgl/sierpinski3/models",
       },
@@ -167,13 +163,7 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
     })
     .catch((error) => {
       alert(`${error}`);
-      // don't need to return anything => execution goes the normal way
-      return [
-        "crystal.json",
-        "Pentagonal_de_Durer.json",
-        "sierpinski3.json",
-        "tree.json",
-      ];
+      // don't return anything => execution goes the normal way
     });
 
   let response = await fetch(`./models/${jfile}`);
@@ -227,7 +217,10 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   window.previousScene = previousScene;
 
   /**
-   * Screen events.
+   * <p>Fires when the document view (window) has been resized.</p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
    */
   function handleWindowResize() {
     let h = window.innerHeight;
@@ -242,6 +235,15 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
     camera.updateProjectionMatrix();
   }
 
+  /**
+   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * <p>The {@link handleWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @param {Event} event the document view is resized.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize - executed when the window is resized.
+   */
   window.addEventListener("resize", handleWindowResize, false);
 
   /**
@@ -304,7 +306,16 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
     // listen to events on every checkbox of the radio buttons
     matches = document.querySelectorAll(`input[name=${name}]`);
     matches.forEach((elem) => {
-      elem.addEventListener("click", (event) => {
+      /**
+       * <p>Appends an event listener for events whose type attribute value is change.
+       * The callback argument sets the callback that will be invoked when
+       * the event is dispatched.</p>
+       *
+       * @event change - executed when any
+       * {@link renderScene clevel} &lt;radio&gt;'s checkbox is checked or unchecked.
+       * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+       */
+      elem.addEventListener("change", (event) => {
         // global variable to receive the clicked button
         clevel = +event.target.value;
         if (cbfunc) {
@@ -362,7 +373,16 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   // listen to events on every checkbox of the radio buttons
   var matches = document.querySelectorAll('input[name="mlevel"]');
   matches.forEach((elem) => {
-    elem.addEventListener("click", (event) => {
+    /**
+     * <p>Appends an event listener for events whose type attribute value is change.
+     * The callback argument sets the callback that will be invoked when
+     * the event is dispatched.</p>
+     *
+     * @event change - executed when any
+     * {@link renderScene mlevel} &lt;radio&gt;'s checkbox is checked or unchecked.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     */
+    elem.addEventListener("change", (event) => {
       mlevel = +event.target.value;
       clevel = createRadioBtns({
         nbtn: mlevel,
@@ -376,7 +396,16 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   // listen to events on every checkbox of the radio buttons
   matches = document.querySelectorAll('input[name="animate"]');
   matches.forEach((elem) => {
-    elem.addEventListener("click", (event) => {
+    /**
+     * <p>Appends an event listener for events whose type attribute value is change.
+     * The callback argument sets the callback that will be invoked when
+     * the event is dispatched.</p>
+     *
+     * @event change - executed when any
+     * {@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate} &lt;radio&gt;'s checkbox is checked or unchecked.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     */
+    elem.addEventListener("change", (event) => {
       controls.autoRotate = !!+event.target.value;
     });
   });
@@ -396,8 +425,15 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   controls.minDistance = 2.0;
   controls.maxDistance = 15.0;
   controls.listenToKeyEvents(window);
+  /**
+   * <p>Appends an event listener for events whose type attribute value is change.
+   * The callback argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event change - fires when the camera has been transformed by the controls.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   */
   controls.addEventListener("change", () => {
-    // Fires when the camera has been transformed by the controls.
     if (!controls.autoRotate) renderer.render(scene, camera);
   });
 
@@ -424,4 +460,53 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
       renderer.render(scene, camera);
     }
   });
-})();
+}
+
+/**
+ * <p>Loads the theejs module and the {@link mainEntrance application}.</p>
+ * Unfortunately, importmap is only supported by Safari version 16.4 and later.<br>
+ * Since I still use macOS Catalina, my Safari version is 15.6.1, which obliges me
+ * to conditionally and dynamically load the threejs module.
+ *
+ * @param {Event} event an object has loaded.
+ * @param {callback} function function to run when the event occurs.
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
+ */
+window.addEventListener("load", (event) => {
+  const { userAgent } = navigator;
+  let oldSafari = false;
+  if (userAgent.includes("Safari/")) {
+    let version = userAgent.split("Version/")[1];
+    version = version.split("Safari")[0];
+    console.log(`Safari v${version}`);
+    if (version < "16.4") {
+      oldSafari = true;
+      import(
+        "https://unpkg.com/three@0.148.0/build/three.module.js?module"
+      ).then((module) => {
+        THREE = module;
+        import(
+          "https://unpkg.com/three@0.148.0/examples/jsm/controls/OrbitControls.js?module"
+        ).then((module) => {
+          ({ OrbitControls } = module);
+          mainEntrance();
+          return;
+        });
+      });
+    }
+  }
+
+  // any other case use importmap
+  if (!oldSafari) {
+    import("three").then((module) => {
+      THREE = module;
+      import("OrbitControls").then((module) => {
+        ({ OrbitControls } = module);
+        mainEntrance();
+      });
+    });
+  }
+});
