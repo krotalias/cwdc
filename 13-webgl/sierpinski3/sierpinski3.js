@@ -484,7 +484,7 @@ async function mainEntrance() {
 window.addEventListener("load", (event) => {
   const { userAgent } = navigator;
   let oldSafari = false;
-  if (userAgent.includes("Safari/")) {
+  if (userAgent.includes("Safari/") && !userAgent.includes("Chrome/")) {
     let version = userAgent.split("Version/")[1];
     version = version.split("Safari")[0];
     console.log(`Safari v${version}`);
