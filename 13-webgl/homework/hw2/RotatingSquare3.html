@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>WebGL + Canvas</title>
+        <style>
+            #interface {
+                width: 900px;
+                margin-left: 50px;
+            }
+            label {
+                margin-right: 40px;
+                font-size: x-large;
+                line-height: 200%;
+            }
+            button {
+                font-size: 300%;
+                margin-right: 40px;
+                padding: 0 10px 0 10px;
+            }
+            .sideBySide {
+                float: left;
+                margin-right: 80px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="theCanvas" width="450" height="750">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <canvas id="theCanvas2" width="450" height="750">
+            Please use a browser that supports "canvas"
+        </canvas>
+
+        <div id="interface">
+            <div id="radio">
+                <input
+                    type="radio"
+                    id="pause"
+                    name="corner"
+                    checked
+                    value=" "
+                />
+                <label for="pause">Pause</label>
+                <input type="radio" id="r" name="corner" checked value="r" />
+                <label for="r">R</label>
+                <input type="radio" id="g" name="corner" value="g" />
+                <label for="g">G</label>
+                <input type="radio" id="b" name="corner" value="b" />
+                <label for="b">B</label>
+                <input type="radio" id="w" name="corner" value="w" />
+                <label for="w">W</label>
+            </div>
+
+            <div class="sideBySide">
+                <p>
+                    <label><b>Zoom:</b></label>
+                </p>
+                <button onclick="zoomIn()">+</button>
+                <button onclick="zoomOut()">-</button>
+            </div>
+            <div style="clear: both"></div>
+
+            <br />
+            <details>
+                <summary style="font-size: 150%">
+                    Keyboard controls<span id="kbd">:</span>
+                </summary>
+
+                <ul style="list-style: none">
+                    <li>"r", "g", "b", "w" - switch pivot point</li>
+                    <li>"m" - print modelMatrix on the console</li>
+                    <li>SPACE - toggle rotation</li>
+                    <li>↑,↓ - Zoom out/in</li>
+                </ul>
+            </details>
+        </div>
+
+        <script id="vertexShader" type="x-shader/x-vertex">
+            uniform mat4 transform;
+            uniform mat4 projection;
+            attribute vec4 a_Position;
+            attribute vec4 a_Color;
+            attribute vec2 a_TexCoord;
+            varying vec4 color;
+            varying vec2 textCoords;
+            void main()
+            {
+              color = a_Color;
+              gl_PointSize = 8.0;
+
+              textCoords = a_TexCoord;
+
+              gl_Position = projection * transform * a_Position;
+            }
+        </script>
+
+        <script id="fragmentShader" type="x-shader/x-fragment">
+            // In a webgl fragment shader, float precision has to be specified before
+            // any other variable declarations (in this case, "medium" precision)
+            precision mediump float;
+            varying vec4 color;
+            uniform float border_width;
+            uniform vec4 border_color;
+            varying vec2 textCoords;
+            void main()
+            {
+              // float border_width = 0.08;
+              float maxX = 1.0 - border_width;
+              float minX = border_width;
+              float maxY = maxX;
+              float minY = minX;
+              if ((textCoords.x < maxX) && (textCoords.x > minX) &&
+                  (textCoords.y < maxY) && (textCoords.y > minY)) {
+                  gl_FragColor = color;
+              } else {
+                 gl_FragColor = border_color;
+              }
+            }
+        </script>
+        <script src="../../lib/teal_book/cuon-utils.js"></script>
+        <script src="../../lib/teal_book/cuon-matrix.js"></script>
+        <script src="RotatingSquare3.js"></script>
+    </body>
+</html>
