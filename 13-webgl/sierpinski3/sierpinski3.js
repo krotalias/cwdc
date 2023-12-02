@@ -1,7 +1,7 @@
 /**
  * @file
  *
- * In this script, you can render a 3d IFS
+ * In this script, you can render a 3D IFS
  * (<a href="https://en.wikipedia.org/wiki/Iterated_function_system">Iterated Function System</a>)
  * that was modeled with the Three.js editor, and exported as a scene JSON. <br>
  * One such example is included in <a href="../sierpinski3/models/sierpinski3.json">sierpinski3.json</a> file.
@@ -9,7 +9,8 @@
  * <p>The <a href="../sierpinski3/mat.html">transformations</a> corresponding to the
  * <a href="https://larryriddle.agnesscott.org/ifs/siertri/siertri.htm">IFS</a>
  * correspond to those objects that have a name starting with "copy". <br>
- * In the example included, there are 4 of these, named "copy1" ... "copy4".</p>
+ * In the 3D {@link https://en.wikipedia.org/wiki/Sierpiński_triangle Sierpiński Gasket}
+ * example (included), there are 4 of these, named "copy1" ... "copy4".</p>
  *
  * <p>Selecting a "Max Level" bigger than 0 in the interface will create recursive
  * copies of these objects, up to the given level, <br>
@@ -52,14 +53,14 @@ let THREE, OrbitControls;
 var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   let scene = loadedScene.clone();
 
-  // create an array with the four initial copies
+  // create an array with the n initial copies
   let copies = scene.children.filter(
     (child) => child.name.slice(0, 4) == "copy"
   );
-  // remove all four copies from the scene
+  // remove all n copies from the scene
   scene.remove(...copies);
 
-  // initial level with only four copies
+  // initial level with only n copies
   let currentLevel = copies.map((copy) => {
     let obj = copy.clone();
     obj.matrixAutoUpdate = false;
@@ -70,14 +71,14 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
     let nextLevel = [];
     // create a next level with 4 * currentLevel.length tets
     for (let copy of copies) {
-      // for each obj in this level generate four more
+      // for each obj in this level generate n more,
       // using either its matrix or its original's copy matrix
       // for coloring objs
       nextLevel = nextLevel.concat(
         currentLevel.map((obj) => {
           let newObj;
           if (level == colorLevel) {
-            // last color level -> copy color (4**(colorLevel) tets)
+            // last color level -> copy color (n**(colorLevel) tets)
             newObj = copy.clone();
             // obj.matrix * newObj.matrix
             newObj.matrix.premultiply(obj.matrix);
@@ -318,7 +319,7 @@ async function mainEntrance() {
        * the event is dispatched.</p>
        *
        * @event change - executed when any
-       * {@link renderScene clevel} &lt;radio&gt;'s checkbox is checked or unchecked.
+       * {@link renderScene clevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
        * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
        */
       elem.addEventListener("change", (event) => {
@@ -385,7 +386,7 @@ async function mainEntrance() {
      * the event is dispatched.</p>
      *
      * @event change - executed when any
-     * {@link renderScene mlevel} &lt;radio&gt;'s checkbox is checked or unchecked.
+     * {@link renderScene mlevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
      * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
      */
     elem.addEventListener("change", (event) => {
@@ -408,7 +409,8 @@ async function mainEntrance() {
      * the event is dispatched.</p>
      *
      * @event change - executed when any
-     * {@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate} &lt;radio&gt;'s checkbox is checked or unchecked.
+     * {@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate}
+     * &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
      * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
      */
     elem.addEventListener("change", (event) => {
@@ -474,12 +476,21 @@ async function mainEntrance() {
  * Since I still use macOS Catalina, my Safari version is 15.6.1, which obliges me
  * to conditionally and dynamically load the threejs module.
  *
+ * <p>userAgent for Safari, Firefox, Chrome and Opera:</p>
+ * <ul>
+ * <li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15" </li>
+ * <li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:120.0) Gecko/20100101 Firefox/120.0"</li>
+ * <li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"</li>
+ * <li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 OPR/105.0.0.0"</li>
+ * </ul>
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
  * @event load
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
  */
 window.addEventListener("load", (event) => {
   const { userAgent } = navigator;

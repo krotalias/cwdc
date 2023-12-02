@@ -29,7 +29,7 @@
             <pre class="prettyprint source linenums"><code>/**
  * @file
  *
- * In this script, you can render a 3d IFS
+ * In this script, you can render a 3D IFS
  * (&lt;a href="https://en.wikipedia.org/wiki/Iterated_function_system">Iterated Function System&lt;/a>)
  * that was modeled with the Three.js editor, and exported as a scene JSON. &lt;br>
  * One such example is included in &lt;a href="../sierpinski3/models/sierpinski3.json">sierpinski3.json&lt;/a> file.
@@ -37,7 +37,8 @@
  * &lt;p>The &lt;a href="../sierpinski3/mat.html">transformations&lt;/a> corresponding to the
  * &lt;a href="https://larryriddle.agnesscott.org/ifs/siertri/siertri.htm">IFS&lt;/a>
  * correspond to those objects that have a name starting with "copy". &lt;br>
- * In the example included, there are 4 of these, named "copy1" ... "copy4".&lt;/p>
+ * In the 3D {@link https://en.wikipedia.org/wiki/Sierpiński_triangle Sierpiński Gasket}
+ * example (included), there are 4 of these, named "copy1" ... "copy4".&lt;/p>
  *
  * &lt;p>Selecting a "Max Level" bigger than 0 in the interface will create recursive
  * copies of these objects, up to the given level, &lt;br>
@@ -80,14 +81,14 @@ let THREE, OrbitControls;
 var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   let scene = loadedScene.clone();
 
-  // create an array with the four initial copies
+  // create an array with the n initial copies
   let copies = scene.children.filter(
     (child) => child.name.slice(0, 4) == "copy"
   );
-  // remove all four copies from the scene
+  // remove all n copies from the scene
   scene.remove(...copies);
 
-  // initial level with only four copies
+  // initial level with only n copies
   let currentLevel = copies.map((copy) => {
     let obj = copy.clone();
     obj.matrixAutoUpdate = false;
@@ -98,14 +99,14 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
     let nextLevel = [];
     // create a next level with 4 * currentLevel.length tets
     for (let copy of copies) {
-      // for each obj in this level generate four more
+      // for each obj in this level generate n more,
       // using either its matrix or its original's copy matrix
       // for coloring objs
       nextLevel = nextLevel.concat(
         currentLevel.map((obj) => {
           let newObj;
           if (level == colorLevel) {
-            // last color level -> copy color (4**(colorLevel) tets)
+            // last color level -> copy color (n**(colorLevel) tets)
             newObj = copy.clone();
             // obj.matrix * newObj.matrix
             newObj.matrix.premultiply(obj.matrix);
@@ -346,7 +347,7 @@ async function mainEntrance() {
        * the event is dispatched.&lt;/p>
        *
        * @event change - executed when any
-       * {@link renderScene clevel} &amp;lt;radio&amp;gt;'s checkbox is checked or unchecked.
+       * {@link renderScene clevel} &amp;lt;input radio&amp;gt;'s checkbox is checked (but not when unchecked).
        * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
        */
       elem.addEventListener("change", (event) => {
@@ -413,7 +414,7 @@ async function mainEntrance() {
      * the event is dispatched.&lt;/p>
      *
      * @event change - executed when any
-     * {@link renderScene mlevel} &amp;lt;radio&amp;gt;'s checkbox is checked or unchecked.
+     * {@link renderScene mlevel} &amp;lt;input radio&amp;gt;'s checkbox is checked (but not when unchecked).
      * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
      */
     elem.addEventListener("change", (event) => {
@@ -436,7 +437,8 @@ async function mainEntrance() {
      * the event is dispatched.&lt;/p>
      *
      * @event change - executed when any
-     * {@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate} &amp;lt;radio&amp;gt;'s checkbox is checked or unchecked.
+     * {@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate}
+     * &amp;lt;input radio&amp;gt;'s checkbox is checked (but not when unchecked).
      * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
      */
     elem.addEventListener("change", (event) => {
@@ -502,12 +504,21 @@ async function mainEntrance() {
  * Since I still use macOS Catalina, my Safari version is 15.6.1, which obliges me
  * to conditionally and dynamically load the threejs module.
  *
+ * &lt;p>userAgent for Safari, Firefox, Chrome and Opera:&lt;/p>
+ * &lt;ul>
+ * &lt;li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15" &lt;/li>
+ * &lt;li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:120.0) Gecko/20100101 Firefox/120.0"&lt;/li>
+ * &lt;li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"&lt;/li>
+ * &lt;li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 OPR/105.0.0.0"&lt;/li>
+ * &lt;/ul>
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
  * @event load
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
  */
 window.addEventListener("load", (event) => {
   const { userAgent } = navigator;
@@ -554,16 +565,17 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="OrbitControls.html">OrbitControls</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenany%257B@linkhttps://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotateanimate%257D&lt;radio&gt;'scheckboxischeckedorunchecked.">change - executed when any
-{@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate} &lt;radio&gt;'s checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenany%257B@linkrenderSceneclevel%257D&lt;radio&gt;'scheckboxischeckedorunchecked.">change - executed when any
-{@link renderScene clevel} &lt;radio&gt;'s checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenany%257B@linkrenderScenemlevel%257D&lt;radio&gt;'scheckboxischeckedorunchecked.">change - executed when any
-{@link renderScene mlevel} &lt;radio&gt;'s checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-fireswhenthecamerahasbeentransformedbythecontrols.">change - fires when the camera has been transformed by the controls.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#clevel">clevel</a></li><li><a href="global.html#createRadioBtns">createRadioBtns</a></li><li><a href="global.html#fractalScene">fractalScene</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#mlevel">mlevel</a></li><li><a href="global.html#renderScene">renderScene</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="OrbitControls.html">OrbitControls</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenany%257B@linkhttps://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotateanimate%257D&lt;inputradio&gt;'scheckboxischecked(butnotwhenunchecked).">change - executed when any
+{@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate}
+&lt;input radio&gt;'s checkbox is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenany%257B@linkrenderSceneclevel%257D&lt;inputradio&gt;'scheckboxischecked(butnotwhenunchecked).">change - executed when any
+{@link renderScene clevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenany%257B@linkrenderScenemlevel%257D&lt;inputradio&gt;'scheckboxischecked(butnotwhenunchecked).">change - executed when any
+{@link renderScene mlevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-fireswhenthecamerahasbeentransformedbythecontrols.">change - fires when the camera has been transformed by the controls.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#clevel">clevel</a></li><li><a href="global.html#createRadioBtns">createRadioBtns</a></li><li><a href="global.html#fractalScene">fractalScene</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#mlevel">mlevel</a></li><li><a href="global.html#renderScene">renderScene</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Tue Nov 28 2023 17:35:38 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Dec 02 2023 08:44:30 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
