@@ -27,14 +27,28 @@
  * @see https://dplatz.de/blog/2019/es6-bare-imports.html
  */
 
-let THREE, OrbitControls;
+/**
+ * Three.js module.
+ * @external THREE
+ * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ */
+let THREE;
 
 /**
- * Creates a Sierpiński gasket given a json object with
- * four <a href="https://www.qfbox.info/4d/tetrahedron">tetrahedra</a>.
+ * OrbitControls module.
+ * @external OrbitControls
+ * @see https://threejs.org/docs/#examples/en/controls/OrbitControls
+ */
+let OrbitControls;
+
+/**
+ * Creates an IFS (Iterated Function System) fractal given a json object with
+ * n objects (called copy1 ... copyn).
  *
- * <p>The gasket will have 4<sup>mlevel+1</sup> tetrahedra.</p>
+ * <p>The fractal will have n<sup>mlevel+1</sup>objects.</p>
  *
+ * E.g., for a Sierpiński gastket, the objects are just
+ * <a href="https://www.qfbox.info/4d/tetrahedron">tetrahedra</a>.
  * <ul>
  *  <li>4**0 copy1 4**0 copy2 4**0 copy3 4**0 copy4 ... 16 blocks (color level 0)</li>
  *  <li>4**1 copy1 4**1 copy2 4**1 copy3 4**1 copy4 ... 08 blocks (color level 1)</li>
@@ -45,12 +59,12 @@ let THREE, OrbitControls;
  * @param {THREE.Object3D} loadedScene json object.
  * @param {Number} maxLevel maximum recursion level.
  * @param {Number} colorLevel all objects of level colorLevel will have the same color.
- * @returns {THREE.Object3D} a new scene with a gasket of the given level.
+ * @returns {THREE.Object3D} a new scene with a fractal at the given level.
  * @see https://en.wikipedia.org/wiki/Sierpiński_triangle
  * @see https://threejs.org/docs/#api/en/core/Object3D
  * @see https://www.codingem.com/javascript-clone-object/
  */
-var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
+const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   let scene = loadedScene.clone();
 
   // create an array with the n initial copies
@@ -69,7 +83,7 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
 
   for (let level = 1; level <= maxLevel; level++) {
     let nextLevel = [];
-    // create a next level with 4 * currentLevel.length tets
+    // create a next level with n * currentLevel.length objects
     for (let copy of copies) {
       // for each obj in this level generate n more,
       // using either its matrix or its original's copy matrix
@@ -78,7 +92,7 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
         currentLevel.map((obj) => {
           let newObj;
           if (level == colorLevel) {
-            // last color level -> copy color (n**(colorLevel) tets)
+            // last color level -> copy color (n**(colorLevel) objects)
             newObj = copy.clone();
             // obj.matrix * newObj.matrix
             newObj.matrix.premultiply(obj.matrix);
@@ -104,7 +118,7 @@ var fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
 
 /**
  * Function for reading a json file,
- * created by the Three.js editor, and rendering a 3D Sierpinski gasket.
+ * created by the Three.js editor, and rendering a 3D IFS fractal.
  *
  * @async
  * @see https://threejs.org/docs/#examples/en/controls/OrbitControls
@@ -115,16 +129,18 @@ async function mainEntrance() {
   const canvas = document.querySelector("#theCanvas");
 
   /**
-   * <p>Promise for returning an array with all file names in directory './models'.</p>
+   * <p>Promise for returning an array with all file names in directory './models' on the server.</p>
    *
    * <p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
    * Please, note that php runs on the server, and javascript on the browser.
-   * @type {Promise<Array<String>>}
+   * @return {Promise<Array<String>>}
+   * @global
+   * @function
    * @see <a href="/cwdc/6-php/readFiles.php">files</a>
    * @see https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript
    * @see https://api.jquery.com/jquery.ajax/
    */
-  var readFileNames = new Promise((resolve, reject) => {
+  let readFileNames = new Promise((resolve, reject) => {
     $.ajax({
       type: "GET",
       url: "/cwdc/6-php/readFiles_.php",
@@ -148,6 +164,18 @@ async function mainEntrance() {
       });
   });
 
+  /**
+   * A loader for loading a JSON resource in the JSON Object/Scene format.
+   * @class ObjectLoader
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/#api/en/loaders/ObjectLoader
+   */
+
+  /**
+   * ObjectLoader object.
+   * @var {external:THREE.ObjectLoader}
+   * @global
+   */
   const loader = new THREE.ObjectLoader();
 
   const queryString = window.location.search;
@@ -156,7 +184,8 @@ async function mainEntrance() {
 
   /**
    * Array holding model file names to create scenes.
-   * @type {Array<String>}
+   * @var {Array<String>} modelFileName
+   * @global
    */
   let modelFileName = await readFileNames
     .then((arr) => {
@@ -174,30 +203,74 @@ async function mainEntrance() {
     });
 
   let response = await fetch(`./models/${jfile}`);
+
+  /**
+   * Javascript object holding the current loaded model ready to be parsed.
+   * @var {Object}
+   * @global
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+   */
   let model = await response.json();
 
-  var loadedScene = loader.parse(model);
+  /**
+   * Current loaded model parsed from a json file.
+   * @var {Object3D}
+   * @global
+   * @see https://threejs.org/docs/#api/en/loaders/ObjectLoader.parse
+   */
+  let loadedScene = loader.parse(model);
 
-  var aspect = canvas.clientWidth / canvas.clientHeight;
+  /**
+   * Canvas aspect ratio.
+   * @var {Number}
+   * @global
+   */
+  let aspect = canvas.clientWidth / canvas.clientHeight;
 
-  // The WebGL renderer displays your beautifully crafted scenes using WebGL.
+  /**
+   * The WebGL renderer displays your beautifully crafted scenes using WebGL.
+   * @class WebGLRenderer
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
+   */
+
+  /**
+   * WebGLRenderer object.
+   * @var {external:THREE.WebGLRenderer}
+   * @global
+   */
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true,
   });
   renderer.shadowMap.enabled = true;
 
+  /**
+   * Camera that uses perspective projection.
+   * @class PerspectiveCamera
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
+   */
+
+  /**
+   * PerspectiveCamera object.
+   * @var {external:THREE.PerspectiveCamera}
+   * @global
+   */
   const camera = new THREE.PerspectiveCamera(45, aspect, 1, 10000);
   handleWindowResize();
 
   /**
-   * Current texture index.
-   * @type {Number}
+   * Current scene index.
+   * @var {Number}
+   * @global
    */
-  var sceneCnt = 0;
+  let sceneCnt = 0;
 
   /**
    * Select next scene.
+   * @async
+   * @global
    */
   async function nextScene() {
     sceneCnt = (sceneCnt + 1) % modelFileName.length;
@@ -211,6 +284,8 @@ async function mainEntrance() {
 
   /**
    * Select previous scene.
+   * @async
+   * @global
    */
   async function previousScene() {
     --sceneCnt;
@@ -311,7 +386,7 @@ async function mainEntrance() {
     }
 
     // listen to events on every checkbox of the radio buttons
-    matches = document.querySelectorAll(`input[name=${name}]`);
+    let matches = document.querySelectorAll(`input[name=${name}]`);
     matches.forEach((elem) => {
       /**
        * <p>Appends an event listener for events whose type attribute value is change.
@@ -344,7 +419,7 @@ async function mainEntrance() {
    * @global
    * @function
    */
-  var renderScene = () => {
+  const renderScene = () => {
     // global variables and arguments
     scene = fractalScene(loadedScene, mlevel, clevel);
     renderer.render(scene, camera);
@@ -357,7 +432,7 @@ async function mainEntrance() {
    * @global
    * @var
    */
-  var mlevel = +$("input[type='radio'][name='mlevel']:checked").val();
+  let mlevel = +$("input[type='radio'][name='mlevel']:checked").val();
 
   /**
    * Color level being used, which has the same range as the selected maximum level.
@@ -365,20 +440,20 @@ async function mainEntrance() {
    * @global
    * @var
    */
-  var clevel = createRadioBtns({ nbtn: mlevel, cbfunc: renderScene });
+  let clevel = createRadioBtns({ nbtn: mlevel, cbfunc: renderScene });
 
   /**
-   * Current scene with the Sierpinski gasket at the current maximum level.
+   * Current scene with the fractal at the current maximum level.
    *
    * @global
    * @var
    */
-  var scene = fractalScene(loadedScene, mlevel, clevel);
+  let scene = fractalScene(loadedScene, mlevel, clevel);
 
   $("#animate").html(`Animate (${scene.children.length - 4})`);
 
   // listen to events on every checkbox of the radio buttons
-  var matches = document.querySelectorAll('input[name="mlevel"]');
+  let matches = document.querySelectorAll('input[name="mlevel"]');
   matches.forEach((elem) => {
     /**
      * <p>Appends an event listener for events whose type attribute value is change.
@@ -418,7 +493,18 @@ async function mainEntrance() {
     });
   });
 
-  // Orbit controls allow the camera to orbit around a target.
+  /**
+   * Orbit controls allow the camera to orbit around a target.
+   * @class OrbitControls
+   * @memberof external:OrbitControls
+   * @see https://threejs.org/docs/#examples/en/controls/OrbitControls
+   */
+
+  /**
+   * OrbitControls object.
+   * @var {external:OrbitControls.OrbitControls}
+   * @global
+   */
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.screenSpacePanning = true;
   controls.autoRotate = !!+$(
