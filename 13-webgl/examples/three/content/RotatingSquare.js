@@ -5,20 +5,14 @@
  * <a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html">problem 3</a>, done in {@link https://threejs.org Three.js}</p>
  *
  * <p>Here we are setting the objects' scale, rotation, and position
- * properties, with matrixAutoUpdate set to true (default).</p>
+ * properties, with {@link https://threejs.org/docs/#api/en/core/Object3D.matrixAutoUpdate matrixAutoUpdate}
+ * set to true (default).</p>
  *
  * Internally, Three.js uses these values to set the object's model matrix to
  * Translate * Rotate * Scale based on these properties.
  *
  * @author Paulo Roma
  * @since 10/11/2014
- * @see https://threejs.org/docs/?q=scene#manual/en/introduction/Creating-a-scene
- * @see https://threejs.org/docs/#api/en/geometries/PlaneGeometry
- * @see https://threejs.org/docs/#api/en/materials/MeshBasicMaterial
- * @see https://threejs.org/docs/?q=mesh#api/en/objects/Mesh
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
- * @see https://threejs.org/docs/#api/en/core/Object3D
- * @see https://threejs.org/docs/#api/en/math/MathUtils.degToRad
  * @see <a href="/cwdc/13-webgl/examples/three/content/RotatingSquare.html?rpc=2">link</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/RotatingSquare.js">source</a>
  * @see <iframe width="420" height="650" src="/cwdc/13-webgl/examples/three/content/RotatingSquare.html?rpc=4"></iframe>
@@ -61,6 +55,8 @@ function roundNumber(n, dig) {
  * <p>Entry point when page is loaded.</p>
  * @param {Number} rpc revolutions per cycle.
  * @see <img src="../cross-4.png" width="256">
+ * @see https://threejs.org/docs/#api/en/geometries/PlaneGeometry
+ * @see https://threejs.org/docs/#api/en/materials/MeshBasicMaterial
  */
 function mainEntrance(rpc = 2) {
   /**
@@ -80,7 +76,7 @@ function mainEntrance(rpc = 2) {
   const scene = new THREE.Scene();
 
   /**
-   * Camera that uses orthographic projection.
+   * <p>Camera that uses orthographic projection.</p>
    *
    * In this projection mode, an object's size in the rendered image stays constant
    * regardless of its distance from the camera.
@@ -124,19 +120,19 @@ function mainEntrance(rpc = 2) {
   renderer.setClearColor(0x00cccc);
 
   // create a red square
-  var geometry = new THREE.PlaneGeometry(1, 1);
-  var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+  const geometry = new THREE.PlaneGeometry(1, 1);
+  const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 
   // vertical rectangle
-  var rect1 = new THREE.Mesh(geometry, material);
+  const rect1 = new THREE.Mesh(geometry, material);
   rect1.scale.set(0.15, 0.4, 1.0);
 
   // horizontal rectangle
-  var rect2 = new THREE.Mesh(geometry, material);
+  const rect2 = new THREE.Mesh(geometry, material);
   rect2.scale.set(0.4, 0.15, 1.0);
 
   // little square is a child of vertical rectangle
-  var rect3 = new THREE.Mesh(geometry, material);
+  const rect3 = new THREE.Mesh(geometry, material);
   rect1.add(rect3);
   // in fact this is 0.4, because the scale of rect1
   // affects the translation (shrinks the space)
@@ -240,9 +236,9 @@ function mainEntrance(rpc = 2) {
    * <p>A built in function that can be used instead of
    * {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}.</p>
    * The {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.setAnimationLoop renderer.setAnimationLoop}
-   * parameter is a {@link render callback,} which
+   * parameter is a {@link render callback}, which
    * will be called every available frame.<br>
-   * If null is passed it will stop any already ongoing animation.
+   * If null is passed, it will stop any already ongoing animation.
    * @param {function} loop callback.
    * @function
    * @name setAnimationLoop
@@ -259,7 +255,7 @@ function mainEntrance(rpc = 2) {
    * @function
    * @global
    */
-  var runAnimation = (() => {
+  const runAnimation = (() => {
     let angle = 0.0;
     let increment = 1.0;
 
@@ -281,20 +277,20 @@ function mainEntrance(rpc = 2) {
       }
     }
 
-    var totalAngle = rpc == 0 ? 360 : 360 * rpc * cycles;
+    let totalAngle = rpc == 0 ? 360 : 360 * rpc * cycles;
 
     // holds the curve points. Could be used positions buffer, instead.
-    var points = [];
+    const points = [];
     // complete curve has already been created
-    var added = false;
+    let added = false;
     // curve has been finished
-    var finished = false;
+    let finished = false;
     // trying to set a reasonable speed
     increment *= rpc != 0 ? (rpc > 1 ? rpc : rpc * 3) : 2;
     // maximum number of points to close the curve
-    var npoints = Math.ceil(totalAngle / increment);
+    let npoints = Math.ceil(totalAngle / increment);
     // number of vertices (points) so far in the curve
-    var drawCount = 0;
+    let drawCount = 0;
     const material = new THREE.LineBasicMaterial({
       color: "orange",
       linewidth: 3,
@@ -309,11 +305,11 @@ function mainEntrance(rpc = 2) {
     bgeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
     // line
-    var line = new THREE.Line(bgeometry, material);
+    const line = new THREE.Line(bgeometry, material);
     scene.add(line);
 
-    var ang = document.getElementById("ang");
-    var tang = document.getElementById("tang");
+    const ang = document.getElementById("ang");
+    const tang = document.getElementById("tang");
     tang.innerHTML = `${Number(totalAngle.toFixed(2))}° = ${Number(
       (rpc * cycles).toFixed(2)
     )} revolutions = ${Number(cycles)} cycles`;
@@ -324,13 +320,14 @@ function mainEntrance(rpc = 2) {
      * @callback render
      * @see https://threejs.org/docs/#manual/en/introduction/How-to-update-things
      * @see https://threejs.org/docs/#api/en/materials/LineBasicMaterial.linewidth
+     * @see https://threejs.org/docs/#api/en/math/MathUtils.degToRad
      */
     return () => {
-      var angr = rpc == 0 ? 0 : THREE.MathUtils.degToRad(angle / rpc);
-      var angs = THREE.MathUtils.degToRad(angle);
-      var tx = 0.65 * Math.cos(angr);
-      var ty = 0.65 * Math.sin(angr);
-      var d = 0.4;
+      let angr = rpc == 0 ? 0 : THREE.MathUtils.degToRad(angle / rpc);
+      let angs = THREE.MathUtils.degToRad(angle);
+      let tx = 0.65 * Math.cos(angr);
+      let ty = 0.65 * Math.sin(angr);
+      let d = 0.4;
 
       // vertical
       rect1.position.set(tx, ty, 0.0);
@@ -341,8 +338,8 @@ function mainEntrance(rpc = 2) {
 
       ang.innerHTML = `${angle.toFixed(0)}°`;
 
-      var x = d * Math.cos(angs + Math.PI / 2) + tx;
-      var y = d * Math.sin(angs + Math.PI / 2) + ty;
+      let x = d * Math.cos(angs + Math.PI / 2) + tx;
+      let y = d * Math.sin(angs + Math.PI / 2) + ty;
 
       if (points.length < npoints) {
         points.push(new THREE.Vector2(x, y));
@@ -406,7 +403,7 @@ addEventListener("load", (event) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   // complete revolutions about the center per cycle
-  var rpc = urlParams.get("rpc") || "2";
+  let rpc = urlParams.get("rpc") || "2";
 
   let ndigits = getFractionalPart(rpc).ndigits;
   let negative = rpc < 0;
