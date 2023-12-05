@@ -2,7 +2,7 @@
  * @file
  *
  * <p>Sample solution for homework 3,
- * <a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html">problem 3</a>, done in Three.js</p>
+ * <a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html">problem 3</a>, done in {@link https://threejs.org Three.js}</p>
  *
  * <p>Here we are setting the objects' scale, rotation, and position
  * properties, with matrixAutoUpdate set to true (default).</p>
@@ -21,13 +21,15 @@
  * @see https://threejs.org/docs/#api/en/math/MathUtils.degToRad
  * @see <a href="/cwdc/13-webgl/examples/three/content/RotatingSquare.html?rpc=2">link</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/RotatingSquare.js">source</a>
- * @see <img src="../cross-4.png" width="256">
+ * @see <iframe width="420" height="650" src="/cwdc/13-webgl/examples/three/content/RotatingSquare.html?rpc=4"></iframe>
  */
 
 "use strict";
 
 /**
- * @type {loadThreejs}
+ * Three.js module.
+ * @external THREE
+ * @see https://threejs.org/docs/#manual/en/introduction/Installation
  */
 let THREE;
 
@@ -58,20 +60,64 @@ function roundNumber(n, dig) {
 /**
  * <p>Entry point when page is loaded.</p>
  * @param {Number} rpc revolutions per cycle.
+ * @see <img src="../cross-4.png" width="256">
  */
 function mainEntrance(rpc = 2) {
-  var scene = new THREE.Scene();
+  /**
+   * To actually be able to display anything with three.js,
+   * we need three things: scene, camera and renderer,
+   * so that we can render the scene with camera.
+   * @class Scene
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene
+   */
 
-  // ortho args are left, right, top, bottom (backwards!), near, far
-  var camera = new THREE.OrthographicCamera(-1.2, 1.2, 1.2, -1.2, -1, 1);
+  /**
+   * <p>A scene.</p>
+   * @var {external:THREE.Scene}
+   * @global
+   */
+  const scene = new THREE.Scene();
+
+  /**
+   * Camera that uses orthographic projection.
+   *
+   * In this projection mode, an object's size in the rendered image stays constant
+   * regardless of its distance from the camera.
+   *
+   * This can be useful for rendering 2D scenes and UI elements, amongst other things.
+   * @class OrthographicCamera
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/#api/en/cameras/OrthographicCamera
+   */
+
+  /**
+   * <p>An orthographic camera.</p>
+   * Ortho args are: left, right, top, bottom (backwards!), near, far.
+   * @var {external:THREE.PerspectiveCamera}
+   * @global
+   */
+  const camera = new THREE.OrthographicCamera(-1.2, 1.2, 1.2, -1.2, -1, 1);
 
   camera.position.x = 0;
   camera.position.y = 0;
   camera.position.z = 1;
 
-  var ourCanvas = document.getElementById("theCanvas");
+  const ourCanvas = document.getElementById("theCanvas");
 
-  var renderer = new THREE.WebGLRenderer({
+  /**
+   * The WebGL renderer displays your beautifully crafted scenes using WebGL.
+   * @class WebGLRenderer
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
+   */
+
+  /**
+   * <p>A renderer.</p>
+   * @var {external:THREE.WebGLRenderer}
+   * @global
+   */
+  const renderer = new THREE.WebGLRenderer({
     canvas: ourCanvas,
     antialias: true,
   });
@@ -97,28 +143,83 @@ function mainEntrance(rpc = 2) {
   rect3.translateY(1); // 0.2 + 0.125 + 0.075
   rect3.scale.set(1, 0.15 / 0.4, 1);
 
-  /* this is a filled (solid) circle
-    geometry = new THREE.CircleGeometry(1, 32);
-    const circle = new THREE.Mesh(geometry, material);
-    circle.scale.set(0.65, 0.65, 1.0);
-    scene.add(circle);
-    */
+  /**
+   * This is a filled (solid) circle.
+   * @class CircleGeometry
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/#api/en/geometries/CircleGeometry
+   */
 
-  // create circle
-  let g = new THREE.BufferGeometry().setFromPoints(
+  /**
+   * <p>A circle geometry.</p>
+   * @var {external:THREE.CircleGeometry}
+   * @global
+   */
+  const sCircleGeom = new THREE.CircleGeometry(1, 32);
+
+  /**
+   * <p>Class representing triangular polygon mesh based objects.</p>
+   * Also serves as a base for other classes such as
+   * {@link https://threejs.org/docs/#api/en/objects/SkinnedMesh SkinnedMesh}.
+   * @class Mesh
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/#api/en/objects/Mesh
+   */
+
+  /**
+   * <p>A solid circle.</p>
+   * @var {external:THREE.Mesh}
+   * @global
+   */
+  const sCircle = new THREE.Mesh(sCircleGeom, material);
+  sCircle.scale.set(0.65, 0.65, 1.0);
+  // scene.add(sCircle);
+
+  /**
+   * <p>A representation of mesh, line, or point geometry.</p>
+   * Includes vertex positions, face indices, normals, colors, UVs,
+   * and custom attributes within buffers, reducing the cost of
+   * passing all this data to the GPU.
+   * @class BufferGeometry
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+   */
+
+  /**
+   * <p>A hollow circle geometry.</p>
+   * @var {external:THREE.BufferGeometry}
+   * @global
+   */
+  const hCircleGeom = new THREE.BufferGeometry().setFromPoints(
     new THREE.Path().absarc(0, 0, 1, 0, Math.PI * 2).getSpacedPoints(50)
   );
-  let m = new THREE.LineBasicMaterial({ color: "aqua", linewidth: 3 });
-  let c = new THREE.Line(g, m);
-  c.scale.set(0.65, 0.65, 1.0);
-  scene.add(c);
+  const m = new THREE.LineBasicMaterial({ color: "aqua", linewidth: 3 });
+
+  /**
+   * <p>A continuous line.</p>
+   *
+   * This is nearly the same as LineSegments;
+   * the only difference is that it is rendered using gl.LINE_STRIP instead of gl.LINES
+   * @class Line
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/#api/en/objects/Line
+   */
+
+  /**
+   * <p>A hollow circle.</p>
+   * @var {external:THREE.Line}
+   * @global
+   */
+  const hCircle = new THREE.Line(hCircleGeom, m);
+  hCircle.scale.set(0.65, 0.65, 1.0);
+  scene.add(hCircle);
 
   scene.add(rect1);
   scene.add(rect2);
 
   /**
    * <p>Add a new point to the position attribute of the BufferGeometry.</p>
-   * @param {THREE.Line} line a line object.
+   * @param {external:THREE.Line} line a line object.
    * @param {Number} x point abscissa.
    * @param {Number} y point ordinate.
    * @function
@@ -159,10 +260,10 @@ function mainEntrance(rpc = 2) {
    * @global
    */
   var runAnimation = (() => {
-    var angle = 0.0;
-    var increment = 1.0;
+    let angle = 0.0;
+    let increment = 1.0;
 
-    var cycles = 1;
+    let cycles = 1;
     let { fractional, ndigits } = getFractionalPart(rpc);
     if (!Number.isInteger(rpc)) {
       const limit = 10 ** ndigits;
