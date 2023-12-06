@@ -6,24 +6,44 @@
 
     <body>
         <form>
-            <p>Username: <input type="text" placeholder="your username" /></p>
-
-            <p>Stay logged in: <input type="checkbox" checked /></p>
-
-            <p>Under 18: <input type="radio" name="age" value="u18" /></p>
-
-            <p>Over 18: <input type="radio" name="age" value="o18" /></p>
+            <p>
+                <label for="username">Username:</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="your username"
+                />
+            </p>
 
             <p>
-                Gender:
-                <select>
+                <label for="login">Stay logged in:</label>
+                <input type="checkbox" id="login" name="login" checked />
+            </p>
+
+            <p>
+                <label for="u18">Under 18:</label>
+                <input type="radio" id="u18" name="age" value="u18" />
+                <label for="o18">Over 18:</label>
+                <input type="radio" id="o18" name="age" value="o18" />
+            </p>
+
+            <p>
+                <label for="gender">Gender:</label>
+                <select id="gender">
                     <option>Male</option>
                     <option selected>Female</option>
                     <option>Undisclosed</option>
                 </select>
             </p>
 
-            <p><input type="submit" value="Click me!" /></p>
+            <p>
+                <input
+                    type="submit"
+                    value="Click me!"
+                    onclick="alert('Fluminense Champion of Libertadores Cup 2023!')"
+                />
+            </p>
         </form>
     </body>
 </html>
