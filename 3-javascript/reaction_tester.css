@@ -10,6 +10,10 @@ body {
     position: relative;
 }
 
-.bold {
+p {
+    font-size: 150%;
+}
+
+p.bold {
     font-weight: bold;
 }
