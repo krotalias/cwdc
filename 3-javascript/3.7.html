@@ -46,14 +46,16 @@
             };
 
             // make all circles visible again.
-            window.onkeydown = function (event) {
+            ondblclick = (event) => {
+                document.getElementById("red-circle").style.display = "block";
+                document.getElementById("yellow-circle").style.display =
+                    "block";
+                document.getElementById("blue-circle").style.display = "block";
+            };
+
+            window.onkeydown = (event) => {
                 if (event.ctrlKey && event.key === "Escape") {
-                    document.getElementById("red-circle").style.display =
-                        "block";
-                    document.getElementById("yellow-circle").style.display =
-                        "block";
-                    document.getElementById("blue-circle").style.display =
-                        "block";
+                    ondblclick(event);
                 }
             };
         </script>
