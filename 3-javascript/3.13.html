@@ -36,6 +36,8 @@
             <button id="romanButton">&larr; to decimal</button>
         </p>
 
+        <p id="answer" style="font-size: 300%"></p>
+
         <script type="module">
             import {
                 int2roman,
@@ -44,24 +46,28 @@
                 validateRoman,
             } from "./roman/roman.js";
 
+            let blink = document.getElementById("answer");
+            let decimal = document.getElementById("decimal");
+            let roman = document.getElementById("roman");
             document.getElementById("decimalButton").onclick = function () {
-                var decimal = document.getElementById("decimal").value;
-                var r = int2roman(decimal);
-                document.getElementById("answer").innerHTML = r;
-                document.getElementById("roman").value = r;
+                let r = int2roman(decimal.value);
+                blink.innerHTML = r;
+                roman.value = r;
             };
             document.getElementById("romanButton").onclick = function () {
-                var roman = document.getElementById("roman").value;
-                var val = validateRoman(roman);
-                var d;
+                let val = validateRoman(roman.value);
+                let d;
                 if (val.length > 0) {
-                    d = `Exception ${val} : Invalid roman "${roman}"`;
+                    d = `Exception ${val} : Invalid roman "${roman.value}"`;
                 } else {
-                    d = roman2int(roman);
+                    d = roman2int(roman.value);
                 }
-                document.getElementById("answer").innerHTML = d;
-                document.getElementById("decimal").value = d;
+                blink.innerHTML = d;
+                decimal.value = d;
             };
+            setInterval(() => {
+                blink.style.opacity ^= 1;
+            }, 1000);
         </script>
     </body>
 </html>
