@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * @file
  *
@@ -14,15 +12,7 @@
  * or vertical row is the winner.
  * It is a solved game with a forced draw assuming best play from both players.
  *
- * <p>To run {@link https://babeljs.io Babel} on the fly,
- * and save the "compiled" output when the source has changed:</p>
- * <ul>
- *    <li>npm init -y</li>
- *    <li>npm install babel-cli@6 babel-preset-react-app@3</li>
- *    <li>npx babel --watch src --out-dir . --presets react-app/prod &</li>
- * </ul>
- *
- * Note: using React without {@link https://nodejs.dev/en/ nodejs}
+ * <p><b>Important remark</b>: using React without {@link https://nodejs.dev/en/ nodejs}
  * is a great way to try React, but it's not suitable for production.<br>
  * It slowly compiles {@link https://react.dev/learn/javascript-in-jsx-with-curly-braces JSX}
  * with Babel in the browser, and uses a large development build of React.
@@ -42,6 +32,30 @@
  * Finally, when an application is ready for the world,
  * it must be {@link https://create-react-app.dev/docs/deployment/ deployed} somehow.
  *
+ * <p>Usage: </p>
+ * <ul>
+ *  <li>To install jsdoc and yarn:</li>
+ *  <ul>
+ *    <li>sudo npm install --global yarn</li>
+ *    <li>sudo npm install -g jsdoc</li>
+ *  </ul>
+ *  <li>To run react in the browser, then run {@link https://babeljs.io Babel} on the fly,
+ *  and save the "compiled" output when the source has changed:</li>
+ *  <ul>
+ *    <li>npm init -y</li>
+ *    <li>npm install babel-cli@6 babel-preset-react-app@3</li>
+ *    <li>npx babel --watch src --out-dir . --presets react-app/prod &</li>
+ *  </ul>
+ *
+ *  <li>To run the version with modules and Node.js version {@link https://nodejs.org/en/blog/release/v16.16.0 16}
+ *  or {@link https://nodejs.org/en/blog/release/v18.16.0 18}:</li>
+ *  <ul>
+ *    <li>cd counter-app</li>
+ *    <li>{@link https://www.npmjs.com npm} or {@link https://yarnpkg.com yarn} install</li>
+ *    <li>{@link https://www.npmjs.com/package/react npm} or {@link https://yarnpkg.com/package/react yarn} start</li>
+ *  </ul>
+ * </ul>
+ *
  * @author Paulo Roma based on {@link https://opensource.fb.com|Facebook Open Source}
  * @since 17/09/2021
  * @see <a href="../src/tic-tac-toe.js">source</a>
@@ -55,6 +69,43 @@
  * @see https://reactjs.org/docs/add-react-to-a-website.html
  * @see https://legacy.reactjs.org/docs/faq-build.html
  * @see <img src="../tic-tac-toe.png">
+ */
+
+"use strict";
+
+/**
+ * React module.
+ * @external react
+ * @see https://legacy.reactjs.org/docs/react-api.html
+ */
+
+/**
+ * React DOM module.
+ * @external react-dom
+ * @see https://legacy.reactjs.org/docs/react-dom.html
+ */
+
+/**
+ * Create React App is a comfortable environment for learning React,
+ * and is the best way to start building a new single-page application in React.
+ * It sets up your development environment so that you can use the latest JavaScript features,
+ * provides a nice developer experience, and optimizes your app for production.
+ * @class React
+ * @memberof external:react
+ * @see https://legacy.reactjs.org/docs/create-a-new-react-app.html
+ */
+
+/**
+ * React lets you define components as classes or functions.
+ * Components defined as classes currently provide more features which are described in detail on this page.
+ * To define a React component class, you need to extend React.Component.
+ *
+ * <p>The only method you must define in a React.Component subclass is called render().
+ * All the other methods described on this page are optional.</p>
+ * @class React.Component
+ * @memberof React
+ * @see https://legacy.reactjs.org/docs/react-component.html
+ * @see https://react.dev/reference/react/Component
  */
 
 /**
@@ -164,6 +215,8 @@ var Board = function (_React$Component) {
      * Renders the 9 squares of the board.
      * @returns {HTMLDivElement} a &lt;div&gt; tag with a 3 × 3 grid layout, with 3
      * buttons per row, each of which with value 'X', 'O' or null.
+     * @memberof React.Component
+     * @see https://legacy.reactjs.org/docs/react-component.html#render
      */
 
   }, {
@@ -372,6 +425,8 @@ var Game = function (_React$Component2) {
      *
      * @returns {HTMLDivElement} a tag &lt;game&gt;, with the 3 × 3 {@link Board} grid layout and
      * an ordered list of buttons for the time travel.
+     * @memberof React.Component
+     * @see https://legacy.reactjs.org/docs/react-component.html#render
      * @see https://www.w3schools.com/react/react_props.asp
      */
 
@@ -472,11 +527,25 @@ var Game = function (_React$Component2) {
 /**
  * Render a React element into the DOM in the supplied container and
  * return a reference to the component (or returns null for stateless components).
+ * <p>Deprecated.</p>
+ * @method render
+ * @memberof external:react-dom
  * @see https://reactjs.org/docs/react-dom.html#render
+ * @see https://react.dev/reference/react-dom/render
+ */
+// ReactDOM.render(<Game />, document.getElementById("tic-tac-toe"));
+
+/**
+ * Create a root to display React components inside a browser DOM node.
+ * After you’ve created a root, you need to call root.render to display a React component inside of it.
+ * @method createRoot
+ * @memberof external:react-dom
+ * @see https://react.dev/reference/react-dom/client/createRoot
  */
 
 
-ReactDOM.render(React.createElement(Game, null), document.getElementById("tic-tac-toe"));
+var root = ReactDOM.createRoot(document.getElementById("tic-tac-toe"));
+root.render(React.createElement(Game, null));
 
 /**
  * Given an array of 9 squares, this function will check

@@ -74,6 +74,41 @@
 "use strict";
 
 /**
+ * React module.
+ * @external react
+ * @see https://legacy.reactjs.org/docs/react-api.html
+ */
+
+/**
+ * React DOM module.
+ * @external react-dom
+ * @see https://legacy.reactjs.org/docs/react-dom.html
+ */
+
+/**
+ * Create React App is a comfortable environment for learning React,
+ * and is the best way to start building a new single-page application in React.
+ * It sets up your development environment so that you can use the latest JavaScript features,
+ * provides a nice developer experience, and optimizes your app for production.
+ * @class React
+ * @memberof external:react
+ * @see https://legacy.reactjs.org/docs/create-a-new-react-app.html
+ */
+
+/**
+ * React lets you define components as classes or functions.
+ * Components defined as classes currently provide more features which are described in detail on this page.
+ * To define a React component class, you need to extend React.Component.
+ *
+ * <p>The only method you must define in a React.Component subclass is called render().
+ * All the other methods described on this page are optional.</p>
+ * @class React.Component
+ * @memberof React
+ * @see https://legacy.reactjs.org/docs/react-component.html
+ * @see https://react.dev/reference/react/Component
+ */
+
+/**
  * <p>A function component.</p>
  * <p>In React, {@link https://legacy.reactjs.org/docs/components-and-props.html function components}
  * are a simpler way to write components that
@@ -150,6 +185,8 @@ class Board extends React.Component {
    * Renders the 9 squares of the board.
    * @returns {HTMLDivElement} a &lt;div&gt; tag with a 3 × 3 grid layout, with 3
    * buttons per row, each of which with value 'X', 'O' or null.
+   * @memberof React.Component
+   * @see https://legacy.reactjs.org/docs/react-component.html#render
    */
   render() {
     return (
@@ -333,6 +370,8 @@ class Game extends React.Component {
    *
    * @returns {HTMLDivElement} a tag &lt;game&gt;, with the 3 × 3 {@link Board} grid layout and
    * an ordered list of buttons for the time travel.
+   * @memberof React.Component
+   * @see https://legacy.reactjs.org/docs/react-component.html#render
    * @see https://www.w3schools.com/react/react_props.asp
    */
   render() {
@@ -399,9 +438,23 @@ class Game extends React.Component {
 /**
  * Render a React element into the DOM in the supplied container and
  * return a reference to the component (or returns null for stateless components).
+ * <p>Deprecated.</p>
+ * @method render
+ * @memberof external:react-dom
  * @see https://reactjs.org/docs/react-dom.html#render
+ * @see https://react.dev/reference/react-dom/render
  */
-ReactDOM.render(<Game />, document.getElementById("tic-tac-toe"));
+// ReactDOM.render(<Game />, document.getElementById("tic-tac-toe"));
+
+/**
+ * Create a root to display React components inside a browser DOM node.
+ * After you’ve created a root, you need to call root.render to display a React component inside of it.
+ * @method createRoot
+ * @memberof external:react-dom
+ * @see https://react.dev/reference/react-dom/client/createRoot
+ */
+const root = ReactDOM.createRoot(document.getElementById("tic-tac-toe"));
+root.render(<Game />);
 
 /**
  * Given an array of 9 squares, this function will check
