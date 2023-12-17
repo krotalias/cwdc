@@ -64,7 +64,7 @@ var Counters = function (_React$Component) {
      *
      * This is useful when using dialog boxes to allow the consumer of that component
      * to pass content to be rendered on the dialog box.
-     *
+     * @memberof React.Component
      * @return {HTMLDivElement} a reset button plus a number of Counter components.
      */
 

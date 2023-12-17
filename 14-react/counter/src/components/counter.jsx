@@ -72,7 +72,7 @@ class Counter extends React.Component {
     /**
      * Use bootstrap's <a href="/cwdc/5-bootstrap/5.3.html">grid system</a>
      * to build layouts: one row and two columns.
-     *
+     * @memberof React.Component
      * @return {HTMLDivElement} a badge, plus an increment, a decrement, and a delete button.
      * @see https://getbootstrap.com/docs/4.6/layout/grid/
      * @see https://getbootstrap.com/docs/4.6/utilities/spacing/
