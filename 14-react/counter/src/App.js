@@ -126,19 +126,12 @@
  * @extends {React.Component}
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields
  */
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var App = function (_React$Component) {
-  _inherits(App, _React$Component);
+class App extends React.Component {
+  /**
+   * Number of counters.
+   * @type {Number}
+   */
+  ncounters = 4;
 
   /**
    * <ul>
@@ -155,76 +148,9 @@ var App = function (_React$Component) {
    * @see https://reactjs.org/docs/react-component.html
    * @see https://www.digitalocean.com/community/tutorials/react-constructors-with-react-components
    */
-  function App(props) {
-    _classCallCheck(this, App);
-
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-
-    _this.ncounters = 4;
-
-    _this.handleIncrement = function (counter) {
-      console.log("Increment", counter);
-      var counters = [].concat(_toConsumableArray(_this.state.counters));
-      var index = counters.indexOf(counter);
-      // a copy of the counter object: {id: i , value: v}
-      counters[index] = Object.assign({}, counter);
-      counters[index].value++;
-
-      /**
-       * <p>Add the new configuration (a new set of counters) to {@link App#state state}.</p>
-       * <pre>
-       * counters: Array
-       * [
-       *    {id: 1, value: 3},
-       *    {id: 2, value: 0},
-       *    {id: 3, value: 7},
-       *    {id: 4, value: 0}
-       * ] (4) = $2
-       * </pre>
-       * When you call {@link https://react.dev/reference/react/useState setState} in a component,
-       * React automatically updates the child components inside of it too.
-       * @callback state_setter
-       * @see https://www.geeksforgeeks.org/reactjs-setstate/
-       * @see https://dev.to/johnstonlogan/react-hooks-barney-style-1hk7
-       */
-      _this.setState({ counters: counters });
-    };
-
-    _this.handleDecrement = function (counter) {
-      console.log("Decrement", counter);
-      var counters = [].concat(_toConsumableArray(_this.state.counters));
-      var index = counters.indexOf(counter);
-      counters[index] = Object.assign({}, counter);
-      counters[index].value--;
-      _this.setState({ counters: counters });
-    };
-
-    _this.handleReset = function () {
-      var counters = _this.state.counters.map(function (c) {
-        c.value = 0;
-        return c;
-      });
-      _this.setState({ counters: counters });
-    };
-
-    _this.handleDelete = function (counterId) {
-      console.log("Event Handler Called", counterId);
-      var counters = _this.state.counters.filter(function (c) {
-        return c.id !== counterId;
-      });
-      _this.setState({ counters: counters });
-    };
-
-    _this.handleInsert = function () {
-      _this.setState(function (state) {
-        return {
-          counters: [].concat(_toConsumableArray(state.counters), [{ id: state.maxId + 1, value: 0 }]),
-          maxId: state.maxId + 1
-        };
-      });
-    };
-
-    console.log("App constructor: props", _this.props);
+  constructor(props) {
+    super(props);
+    console.log("App constructor: props", this.props);
 
     /**
      * <p>The state of the application.</p>
@@ -238,16 +164,13 @@ var App = function (_React$Component) {
      * @property {Number} maxId maximum Id value used so far.
      * @property {state_setter} state.setState setter - change state.
      */
-    _this.state = {
-      counters: Array.from({ length: _this.ncounters }, function (_, index) {
-        return {
-          id: index + 1,
-          value: 0
-        };
-      }),
-      maxId: _this.ncounters
+    this.state = {
+      counters: Array.from({ length: this.ncounters }, (_, index) => ({
+        id: index + 1,
+        value: 0,
+      })),
+      maxId: this.ncounters,
     };
-    return _this;
   }
 
   /**
@@ -266,12 +189,33 @@ var App = function (_React$Component) {
    * @param {Object<id:Number,value:Number>} counter selected counter object.
    * @function
    */
+  handleIncrement = (counter) => {
+    console.log("Increment", counter);
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    // a copy of the counter object: {id: i , value: v}
+    counters[index] = { ...counter };
+    counters[index].value++;
 
-  /**
-   * Number of counters.
-   * @type {Number}
-   */
-
+    /**
+     * <p>Add the new configuration (a new set of counters) to {@link App#state state}.</p>
+     * <pre>
+     * counters: Array
+     * [
+     *    {id: 1, value: 3},
+     *    {id: 2, value: 0},
+     *    {id: 3, value: 7},
+     *    {id: 4, value: 0}
+     * ] (4) = $2
+     * </pre>
+     * When you call {@link https://react.dev/reference/react/useState setState} in a component,
+     * React automatically updates the child components inside of it too.
+     * @callback state_setter
+     * @see https://www.geeksforgeeks.org/reactjs-setstate/
+     * @see https://dev.to/johnstonlogan/react-hooks-barney-style-1hk7
+     */
+    this.setState({ counters });
+  };
 
   /**
    * <p>Update the state property to decrement a given counter.</p>
@@ -279,7 +223,14 @@ var App = function (_React$Component) {
    * @param {Object<id:Number,value:Number>} counter selected counter object.
    * @function
    */
-
+  handleDecrement = (counter) => {
+    console.log("Decrement", counter);
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].value--;
+    this.setState({ counters });
+  };
 
   /**
    * <p>Update the state property to reset all counters to zero.</p>
@@ -287,7 +238,13 @@ var App = function (_React$Component) {
    * @param {Object<id:Number,value:Number>} counter selected counter object.
    * @function
    */
-
+  handleReset = () => {
+    const counters = this.state.counters.map((c) => {
+      c.value = 0;
+      return c;
+    });
+    this.setState({ counters });
+  };
 
   /**
    * <p>Update the state property to delete a given counter.</p>
@@ -297,7 +254,11 @@ var App = function (_React$Component) {
    * @param {Number} counterId id of the selected counter.
    * @function
    */
-
+  handleDelete = (counterId) => {
+    console.log("Event Handler Called", counterId);
+    const counters = this.state.counters.filter((c) => c.id !== counterId);
+    this.setState({ counters });
+  };
 
   /**
    * <p>Update the state property to insert a new counter.</p>
@@ -308,54 +269,47 @@ var App = function (_React$Component) {
    * @see https://legacy.reactjs.org/docs/state-and-lifecycle.html
    * @see https://www.robinwieruch.de/react-state-array-add-update-remove/
    */
+  handleInsert = () => {
+    this.setState((state) => ({
+      counters: [...state.counters, { id: state.maxId + 1, value: 0 }],
+      maxId: state.maxId + 1,
+    }));
+  };
 
+  /**
+   * Creates a Navbar to totalize the number of counters being used.
+   * @memberof React.Component
+   * @returns {React.Fragment} a react fragment with a Navbar and a Counters component.
+   * @see <a href="../doc-counter/Counters.html"> Counters component </a>
+   * @see <a href="../doc-counter/global.html#NavBar"> NavBar component </a>
+   * @see https://reactjs.org/docs/fragments.html
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main
+   * @see https://getbootstrap.com/docs/4.0/components/navbar/#placement
+   */
+  render() {
+    return (
+      <React.Fragment>
+        <NavBar
+          totalCounters={this.state.counters.filter((c) => c.value > 0).length}
+        />
 
-  _createClass(App, [{
-    key: "render",
-
-
-    /**
-     * Creates a Navbar to totalize the number of counters being used.
-     * @memberof React.Component
-     * @returns {React.Fragment} a react fragment with a Navbar and a Counters component.
-     * @see <a href="../doc-counter/Counters.html"> Counters component </a>
-     * @see <a href="../doc-counter/global.html#NavBar"> NavBar component </a>
-     * @see https://reactjs.org/docs/fragments.html
-     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main
-     * @see https://getbootstrap.com/docs/4.0/components/navbar/#placement
-     */
-    value: function render() {
-      return React.createElement(
-        React.Fragment,
-        null,
-        React.createElement(NavBar, {
-          totalCounters: this.state.counters.filter(function (c) {
-            return c.value > 0;
-          }).length
-        }),
-        React.createElement(
-          "main",
-          { role: "main", className: "container-fluid bg-antique" },
-          React.createElement(
-            "div",
-            { className: "counters" },
-            React.createElement(Counters
-            // pass 6 props to Counters (props are read only)
-            , { counters: this.state.counters,
-              onReset: this.handleReset,
-              onIncrement: this.handleIncrement,
-              onDecrement: this.handleDecrement,
-              onDelete: this.handleDelete,
-              onInsert: this.handleInsert
-            })
-          )
-        )
-      );
-    }
-  }]);
-
-  return App;
-}(React.Component);
+        <main role="main" className="container-fluid bg-antique">
+          <div className="counters">
+            <Counters
+              // pass 6 props to Counters (props are read only)
+              counters={this.state.counters}
+              onReset={this.handleReset}
+              onIncrement={this.handleIncrement}
+              onDecrement={this.handleDecrement}
+              onDelete={this.handleDelete}
+              onInsert={this.handleInsert}
+            />
+          </div>
+        </main>
+      </React.Fragment>
+    );
+  }
+}
 
 /**
  * Create a root to display React components inside a browser DOM node.
@@ -364,7 +318,5 @@ var App = function (_React$Component) {
  * @memberof external:react-dom
  * @see https://react.dev/reference/react-dom/client/createRoot
  */
-
-
-var root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(React.createElement(App, null));
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
