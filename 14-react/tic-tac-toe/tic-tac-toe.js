@@ -68,7 +68,7 @@
  * @see https://reactjs.org/docs/react-api.html#createelement
  * @see https://reactjs.org/docs/add-react-to-a-website.html
  * @see https://legacy.reactjs.org/docs/faq-build.html
- * @see <img src="../tic-tac-toe.png">
+ * @see  <iframe width="400" height=320" src="/cwdc/14-react/tic-tac-toe/tic-tac-toe.html"></iframe>
  */
 
 "use strict";
@@ -482,6 +482,19 @@ var Game = function (_React$Component2) {
       return React.createElement(
         "div",
         { className: "game" },
+        React.createElement(
+          "div",
+          { className: "game-logo" },
+          React.createElement(
+            "a",
+            { href: "https://github.com/krotalias/cwdc/tree/main/14-react/tic-tac-toe" },
+            React.createElement("img", {
+              src: "./src/github.png",
+              style: { height: "32px" },
+              alt: "github"
+            })
+          )
+        ),
         React.createElement(
           "div",
           { className: "game-board" },

@@ -417,7 +417,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-logo">
-          <a href="https://github.com/krotalias/tic-tac-toe-app">
+          <a href="https://github.com/krotalias/cwdc/tree/main/14-react/tic-tac-toe">
             <img
               src="./src/github.png"
               style={{ height: "32px" }}
