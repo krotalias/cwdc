@@ -2,9 +2,9 @@ https://reactjs.org/docs/add-react-to-a-website.html
 
 npm init -y
 
-npm install babel-cli@6 babel-preset-react-app@3
+npm install --save-dev @babel/core @babel/cli @babel/preset-react
 
-npx babel --watch src --out-dir . --presets react-app/prod &
+npx babel --watch src --out-dir . --presets @babel/preset-react &
 
 
 The git push command is used to upload local repository content to a remote repository. 
