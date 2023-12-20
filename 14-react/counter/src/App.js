@@ -62,7 +62,6 @@
  * @author Paulo Roma
  * @since 08/10/2021
  * @see <a href="../src/App.js">source</a>
- * @see <a href="../package.json">package.json</a>
  * @see <a href="/cwdc/14-react/counter/counter.html">link</a>
  * @see <a href="/cwdc/14-react/counter/counter2.html">link production</a>
  * @see <a href="http://localhost:3000">link node</a>

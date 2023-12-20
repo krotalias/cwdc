@@ -60,7 +60,6 @@
  * @since 17/09/2021
  * @see <a href="../src/tic-tac-toe.js">source</a>
  * @see <a href="../tic-tac-toe.js">source compiled (Babel)</a>
- * @see <a href="../package.json">package.json</a>
  * @see <a href="/cwdc/14-react/tic-tac-toe/tic-tac-toe.html">link</a>
  * @see https://reactjs.org/tutorial/tutorial.html#overview
  * @see https://flarnie.github.io/react/tutorial/tutorial.html
