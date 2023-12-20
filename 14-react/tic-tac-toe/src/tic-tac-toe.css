@@ -51,6 +51,7 @@ button {
 .game {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     border: 3px solid goldenrod;
     width: fit-content;
     padding: 10px;
@@ -60,4 +61,8 @@ button {
 .game-info {
     margin-left: 20px;
     color: black;
+}
+
+.game-logo {
+    margin-left: 50%;
 }

@@ -68,7 +68,7 @@
  * @see https://reactjs.org/docs/react-api.html#createelement
  * @see https://reactjs.org/docs/add-react-to-a-website.html
  * @see https://legacy.reactjs.org/docs/faq-build.html
- * @see <img src="../tic-tac-toe.png">
+ * @see <iframe width="400" height=320" src="/cwdc/14-react/tic-tac-toe/tic-tac-toe.html"></iframe>
  */
 
 "use strict";
@@ -302,6 +302,7 @@ class Game extends React.Component {
    * @param {Number} i an index ∈ [0..8] corresponding to the button clicked.
    * @see https://reactjs.org/docs/react-component.html#setstate
    * @see https://www.codecademy.com/resources/docs/javascript/arrays/slice
+   * @see <img src="../tic-tac-toe.png">
    */
   handleClick(i) {
     // a copy of the current history up to stepNumber.
@@ -415,6 +416,15 @@ class Game extends React.Component {
      */
     return (
       <div className="game">
+        <div className="game-logo">
+          <a href="https://github.com/krotalias/tic-tac-toe-app">
+            <img
+              src="./src/github.png"
+              style={{ height: "32px" }}
+              alt="github"
+            />
+          </a>
+        </div>
         <div className="game-board">
           <div>
             <p style={{ textAlign: "center" }}>{status}</p>
