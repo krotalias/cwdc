@@ -37,6 +37,7 @@ const NavBar = ({
   }, totalCounters)), /*#__PURE__*/React.createElement("a", {
     href: "https://react.dev"
   }, /*#__PURE__*/React.createElement("img", {
+    className: "App-logo",
     src: "/cwdc/14-react/counter/src/logo.svg",
     style: {
       height: "48px"

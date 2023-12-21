@@ -34,6 +34,7 @@ const NavBar = ({ totalCounters }) => {
             </div>
             <a href="https://react.dev">
                 <img
+                    className="App-logo"
                     src="/cwdc/14-react/counter/src/logo.svg"
                     style={{ height: "48px" }}
                     alt="logo"
