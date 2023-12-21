@@ -39,6 +39,13 @@ const NavBar = ({ totalCounters }) => {
                     alt="logo"
                 />
             </a>
+            <a href="https://github.com/krotalias/cwdc/tree/main/14-react">
+                <img
+                    src="src/github.png"
+                    style={{ height: "48px" }}
+                    alt="github"
+                />
+            </a>
             <a href="https://getbootstrap.com/docs/5.2/getting-started/introduction/">
                 <img
                     src="/cwdc/14-react/counter/src/Bootstrap_logo.svg"

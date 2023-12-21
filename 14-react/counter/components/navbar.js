@@ -43,6 +43,14 @@ const NavBar = ({
     },
     alt: "logo"
   })), /*#__PURE__*/React.createElement("a", {
+    href: "https://github.com/krotalias/cwdc/tree/main/14-react"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "src/github.png",
+    style: {
+      height: "48px"
+    },
+    alt: "github"
+  })), /*#__PURE__*/React.createElement("a", {
     href: "https://getbootstrap.com/docs/5.2/getting-started/introduction/"
   }, /*#__PURE__*/React.createElement("img", {
     src: "/cwdc/14-react/counter/src/Bootstrap_logo.svg",
