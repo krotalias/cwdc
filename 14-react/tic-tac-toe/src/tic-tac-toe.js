@@ -47,8 +47,8 @@
  *    <li>npx babel --watch src --out-dir . --presets @babel/preset-react &</li>
  *  </ul>
  *
- *  <li>To run the version with modules and Node.js version {@link https://nodejs.org/en/blog/release/v16.16.0 16}
- *  or {@link https://nodejs.org/en/blog/release/v18.16.0 18}:</li>
+ *  <li>To run the version with modules and Node.js version {@link https://nodejs.org/en/blog/release/v16.20.2 16}
+ *  or {@link https://nodejs.org/en/blog/release/v18.19.0 18}:</li>
  *  <ul>
  *    <li>cd tic-tac-toe</li>
  *    <li>{@link https://www.npmjs.com npm} or {@link https://yarnpkg.com yarn} install</li>
@@ -453,7 +453,6 @@ class Game extends React.Component {
  * @see https://reactjs.org/docs/react-dom.html#render
  * @see https://react.dev/reference/react-dom/render
  */
-// ReactDOM.render(<Game />, document.getElementById("tic-tac-toe"));
 
 /**
  * Create a root to display React components inside a browser DOM node.
@@ -462,8 +461,14 @@ class Game extends React.Component {
  * @memberof external:react-dom
  * @see https://react.dev/reference/react-dom/client/createRoot
  */
-const root = ReactDOM.createRoot(document.getElementById("tic-tac-toe"));
-root.render(<Game />);
+if (React.version < "18") {
+  ReactDOM.render(<Game />, document.getElementById("tic-tac-toe"));
+  console.log(`Using ReactDOM.render: ${React.version}`);
+} else {
+  const root = ReactDOM.createRoot(document.getElementById("tic-tac-toe"));
+  root.render(<Game />);
+  console.log(`Using ReactDOM.createRoot: ${React.version}`);
+}
 
 /**
  * Given an array of 9 squares, this function will check
