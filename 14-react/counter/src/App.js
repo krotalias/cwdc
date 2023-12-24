@@ -52,7 +52,7 @@
  *
  *  <li>To run the version with modules and Node.js version {@link https://nodejs.org/en/blog/release/v18.19.0 18}:</li>
  *  <ul>
- *    <li>cd counter-app</li>
+ *    <li>cd counter</li>
  *    <li>{@link https://www.npmjs.com npm} or {@link https://yarnpkg.com yarn} install</li>
  *    <li>{@link https://www.npmjs.com/package/react npm} or {@link https://yarnpkg.com/package/react yarn} start</li>
  *  </ul>
