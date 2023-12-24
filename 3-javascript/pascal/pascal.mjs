@@ -22,7 +22,7 @@ import * as readlineSync from "readline-sync";
 
 import * as pascal from "./pascal.js";
 
-const argv = process.argv;
+let argv = process.argv;
 (function main() {
     let level;
     if (argv.length > 2) {
