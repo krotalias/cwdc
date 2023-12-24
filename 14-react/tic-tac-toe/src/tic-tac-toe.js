@@ -49,7 +49,6 @@
  *  </ul>
  *
  *  <li>To run the version with modules and Node.js version
- *     {@link https://nodejs.org/en/blog/release/v16.20.2 16}
  *     {@link https://nodejs.org/en/blog/release/v18.19.0 18} or
  *     {@link https://nodejs.org/en/blog/release/v20.10.0 20}:</li>
  *  <ul>
