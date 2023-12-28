@@ -22,6 +22,10 @@
         <title>B-25</title>
 
         <style>
+            html {
+                scroll-padding-top: 350px; /* height of sticky header */
+            }
+
             .jumbotron {
                 background-image: url(Apache-Princess.jpg);
                 background-size: cover;
@@ -50,10 +54,10 @@
 
             #footer {
                 background-color: aqua;
-                padding-top: 150px;
+                padding-top: 100px;
                 margin-top: 50px;
                 text-align: center;
-                padding-bottom: 150px;
+                padding-bottom: 100px;
             }
 
             body {
@@ -128,18 +132,23 @@
             <p>Want to know more? Join our mailing list!</p>
 
             <form class="form-inline justify-content-left">
-                <div class="form-group">
-                    <label for="email">Email address</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">@</div>
-                        <input
-                            type="email"
-                            class="form-control mr-sm-2"
-                            id="email"
-                            placeholder="Your email"
-                        />
+                <label for="email">Email address&nbsp;</label>
+                <div class="input-group mb-0">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                            @
+                        </span>
                     </div>
+                    <input
+                        type="email"
+                        class="form-control mr-sm-2"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        id="email"
+                        placeholder="Your email"
+                    />
                 </div>
+
                 <button type="submit" class="btn btn-primary">Sign up</button>
             </form>
         </div>
