@@ -40,10 +40,19 @@ a:hover {
 a:active {
     background-color: red;
 }
-div {
-    width: 800px;
+div:not(#add_dropdown):not(.dropdown-menu) {
+    width: fit-content;
     text-align: justify;
     margin-left: 20px;
+}
+
+.dropdown-menu.lcg-menu {
+    padding: 0;
+    background: transparent;
+    border: none;
+    background-color: #CED989;
+    color: green;
+    width: fit-content;
 }
 
 .button {

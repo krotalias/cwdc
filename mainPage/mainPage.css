@@ -25,8 +25,16 @@ a {
 a:hover {
     text-decoration: underline;
 }
-div {
+div:not(#add_dropdown):not(.dropdown-menu) {
     margin-left: 20px;
+}
+.dropdown-menu.lcg-menu {
+    padding: 0;
+    background: transparent;
+    border: none;
+    background-color: #829ec1;
+    color: #03dac5;
+    width: fit-content;
 }
 body {
     background-image: url("background.jpg");

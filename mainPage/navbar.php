@@ -1,3 +1,10 @@
+<?php
+
+// only get in from localhost, claro-net or vivo
+set_include_path(".:/usr/share/pear:/usr/share/php':/Users/roma/html/cwdc/6-php/");
+require "blockIPs.php";
+?>
+
 <nav class="navbar fixed-top navbar-expand-lg navbar-custom">
     <a class="navbar-brand" href="https://www.lcg.ufrj.br">
         <img src="/cwdc/mainPage/logo.png" style="height:48px;" alt="logo">
@@ -31,7 +38,36 @@
                 <a class="nav-link" href="/cwdc/4-jquery/index.php">jquery</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/cwdc/5-bootstrap/index.php">bootstrap</a>
+                <div class="dropdown mt-2 p-0" id="add_dropdown">
+                    <button
+                        type="button"
+                        class="btn border-0 dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        style="padding: 0; color: lightgray"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        bootstrap
+                    </button>
+                    <div
+                        class="dropdown-menu lcg-menu"
+                        aria-labelledby="add_dropdown"
+                    >
+                        <a
+                            class="dropdown-item"
+                            href="/cwdc/5-bootstrap4/index.php"
+                        >
+                            Bootstrap 4
+                        </a>
+                        <a
+                            class="dropdown-item"
+                            href="/cwdc/5-bootstrap/index.php"
+                        >
+                            Bootstrap 5
+                        </a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/cwdc/6-php/index.php">php</a>
@@ -39,12 +75,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="/cwdc/7-mysql/index.php">mysql</a>
             </li>
+            <!--
             <li class="nav-item">
                 <a class="nav-link" href="/cwdc/8-apis/index.php">apis</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/cwdc/9-mobileapps/index.php">mobileapps</a>
             </li>
+            -->
             <li class="nav-item">
                 <a class="nav-link" href="/cwdc/10-html5css3/index.php">html5css3</a>
             </li>
