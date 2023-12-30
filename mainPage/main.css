@@ -1,3 +1,8 @@
+:root {
+    --airplane-image: block;
+    --airplane-height: 220px;
+}
+
 .lesson {
     margin-top: 120px;
     font-size: 150%;
@@ -36,6 +41,10 @@
     padding: 10px 10px 0px 20px;
 }
 
+.pimg {
+    height: var(--airplane-height);
+}
+
 figcaption {
     color: black;
     font-weight: normal;
@@ -49,13 +58,13 @@ figcaption {
     padding: 10px 20px 0px 0px;
     margin: 15px;
     text-align: center;
-    display: block;
     width: auto;
     /* Set the fixed height of the footer here */
-    height: 330px;
+    height: calc(var(--airplane-height) * 1.3px);
     border: solid brown 10px;
     background-color: lightskyblue;
     transition: 1s ease-in-out;
+    display: var(--airplane-image);
 }
 
 .footer:hover {
