@@ -31,28 +31,31 @@
     text-align: center;
     width: auto;
     font-weight: normal;
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-family: Trattatello, fantasy, Arial;
-    padding: 10px 10px 0px 0px;
+    padding: 10px 10px 0px 20px;
+}
+
+figcaption {
+    color: black;
+    font-weight: normal;
+    font-size: 1.2em;
+    font-family: Trattatello, fantasy, Arial;
+    padding-top: 10px;
 }
 
 .footer {
-    /*
     position: absolute;
-    padding: 10px 0px 0px 0px;
+    padding: 10px 20px 0px 0px;
     margin: 15px;
     text-align: center;
     display: block;
     width: auto;
-    */
     /* Set the fixed height of the footer here */
-    /*
     height: 330px;
     border: solid brown 10px;
     background-color: lightskyblue;
     transition: 1s ease-in-out;
-    */
-    display: none;
 }
 
 .footer:hover {
