@@ -9,6 +9,10 @@ function Gsitesearch(curobj) {
   curobj.q.value = "site:" + domainroot + " " + curobj.qfront.value;
 }
 
+/**
+ * <p>Show/Hide footer.</p>
+ * Use localStorage to remember the choice.
+ */
 function togglePlanes() {
   let style = getComputedStyle(document.body);
   let dsp = style.getPropertyValue("--airplane-image");
