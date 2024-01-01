@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -21,15 +21,15 @@
                 margin-left: 40px;
             }
 
-            /* 
+            /*
             Custom elements should consist of at least one '-', such as my-container.
-            All custom elements have a display of inline by default. 
+            All custom elements have a display of inline by default.
             */
             my-container {
                 margin-left: 40px;
                 /*
-                Displays an element as an inline-level block container. 
-                The element itself is formatted as an inline element, 
+                Displays an element as an inline-level block container.
+                The element itself is formatted as an inline element,
                 but you can apply height and width values.
                 */
                 display: inline-block;
@@ -126,7 +126,7 @@
         />
 
         <!-- Make any content on the website editable by the user. -->
-        <ul contenteditable="true">
+        <ul contenteditable="true" style="width: fit-content">
             <li>Editable Content</li>
             <li>
                 1943 -
@@ -148,9 +148,8 @@
                 zoomlevel = zoomer.valueAsNumber;
                 hubblepic.style.webkitTransform = "scale(" + zoomlevel + ")";
                 hubblepic.style.transform = "scale(" + zoomlevel + ")";
-                document.getElementById(
-                    "value"
-                ).innerHTML = `<small>Zoom = </small>
+                document.getElementById("value").innerHTML =
+                    `<small>Zoom = </small>
                     ${zoomlevel.toFixed(1)}`;
             }
             //alert(document.getElementById("hubblepic").getAttribute("data-description"));

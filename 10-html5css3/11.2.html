@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <title>HTML 5 and CSS 3</title>
@@ -7,38 +7,55 @@
 
     <body>
         <form id="myForm" action="processform.php">
+            <label for="holder">Placeholder:</label>
+            <input type="text" id="holder" placeholder="Insert Name Here" />
+
             <p>
-                Placeholder:
-                <input type="text" placeholder="Insert Name Here" />
+                <label for="focus">Autofocus:</label>
+                <input type="text" id="focus" autofocus />
+                <!-- force focus to a field -->
             </p>
 
-            <p>Autofocus: <input type="text" autofocus /></p>
-            <!-- force focus to a field -->
+            <p>
+                <label for="complete">Autocomplete Off:</label>
+                <input type="text" id="complete" autocomplete="off" />
+                <!-- do not remember credit card numbers, for instance -->
+            </p>
 
-            <p>Autocomplete Off: <input type="text" autocomplete="off" /></p>
-            <!-- do not remember credit card numbers, for instance -->
+            <p>
+                <label for="required">Required:</label>
+                <input type="text" id="required" required />
+                <!-- force field to be filled in -->
+            </p>
 
-            <p>Required: <input type="text" required /></p>
-            <!-- force field to be filled in -->
+            <p>
+                <label for="email">Email:</label>
+                <input type="email" id="email" />
+            </p>
 
-            <p>Email: <input type="email" /></p>
-
-            <p>Pattern: <input type="text" pattern="[0-9]*" /></p>
-            <!-- any number of numerical digits (should press submit) -->
+            <p>
+                <label for="pattern">Pattern:</label>
+                <input type="text" id="pattern" pattern="[0-9]*" />
+                <!-- any number of numerical digits (should press submit) -->
+            </p>
 
             <datalist id="names">
-                <select>
-                    <option value="Ralph">Ralph</option>
-                    <option value="Charles">Charles</option>
-                    <option value="Paul">Paul</option>
-                    <option value="Larry">Larry</option>
-                </select>
+                <option value="Ralph">Ralph</option>
+                <option value="Charles">Charles</option>
+                <option value="Paul">Paul</option>
+                <option value="Larry">Larry</option>
             </datalist>
 
-            <p>Autocomplete: <input type="text" list="names" /></p>
-            <!-- predicts what to be filled in -->
+            <p>
+                <label for="floaters">Autocomplete:</label>
+                <input type="text" id="floaters" list="names" />
+                <!-- predicts what to be filled in -->
+            </p>
 
-            <p>Multiple file upload: <input type="file" multiple /></p>
+            <p>
+                <label for="file">Multiple file upload:</label>
+                <input type="file" id="file" multiple />
+            </p>
 
             <p>
                 <input
@@ -50,7 +67,10 @@
             </p>
         </form>
 
-        <p>Code outside form: <input form="myForm" type="text" /></p>
-        <!-- outside but linked to "myForm" -->
+        <p>
+            <label for="form">Code outside form:</label>
+            <input form="myForm" type="text" id="form" />
+            <!-- outside but linked to "myForm" -->
+        </p>
     </body>
 </html>
