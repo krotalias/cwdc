@@ -40,7 +40,7 @@ a:hover {
 a:active {
     background-color: red;
 }
-div:not(#add_dropdown):not(.dropdown-menu) {
+div:not(#add_dropdown):not(.dropdown-menu):not(.container-fluid) {
     width: fit-content;
     text-align: justify;
     margin-left: 20px;
@@ -50,7 +50,7 @@ div:not(#add_dropdown):not(.dropdown-menu) {
     padding: 0;
     background: transparent;
     border: none;
-    background-color: #CED989;
+    background-color: #ced989;
     color: green;
     width: fit-content;
 }
