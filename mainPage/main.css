@@ -60,7 +60,7 @@ figcaption {
     text-align: center;
     width: auto;
     /* Set the fixed height of the footer here */
-    height: calc(var(--airplane-height) * 1.3px);
+    height: calc(var(--airplane-height) * 1.3);
     border: solid brown 10px;
     background-color: lightskyblue;
     transition: 1s ease-in-out;
