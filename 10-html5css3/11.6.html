@@ -5,20 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>HTML 5 and CSS 3</title>
 
-        <script>
-            // For working in Internet Explorer.
-            document.createElement("my-container");
-        </script>
-
         <style>
             :root {
-                --width: 500px;
+                /* container width */
+                --width: 400px;
+                /* marging left */
+                --ml: 10px;
+                /* zoomer length */
+                --zl: 200px;
+                /* image aspect ratio */
+                --aspect: calc(1000 / 684);
             }
 
             article {
                 color: green;
                 display: block;
-                margin-left: 40px;
+                margin-left: var(--ml);
             }
 
             /*
@@ -26,7 +28,7 @@
             All custom elements have a display of inline by default.
             */
             my-container {
-                margin-left: 40px;
+                margin-left: var(--ml);
                 /*
                 Displays an element as an inline-level block container.
                 The element itself is formatted as an inline element,
@@ -36,10 +38,14 @@
                 color: red;
             }
 
-            figure figcaption {
+            figure {
                 border: 0px dotted blue;
                 text-align: center;
                 width: var(--width);
+                margin-left: var(--ml);
+            }
+
+            figcaption {
                 padding-top: 1em;
             }
 
@@ -59,14 +65,23 @@
             #zoomer,
             #value {
                 display: block;
-                width: 200px;
+                width: var(--zl);
                 text-align: center;
-                margin-left: calc((var(--width) - 200px) / 2 + 40px);
+                margin-left: calc((var(--width) - var(--zl)) / 2 + var(--ml));
             }
 
             p {
                 width: var(--width);
                 text-align: justify;
+            }
+
+            img {
+                height: calc(var(--width) / var(--aspect));
+            }
+
+            ul {
+                width: fit-content;
+                color: black;
             }
         </style>
     </head>
@@ -91,6 +106,18 @@
                 to the discovery of the Akutan Zero, a recovered, crashed Zero
                 that gave the US insight into its inner-workings.
             </p>
+
+            <!-- Make any content on the website editable by the user. -->
+            <ul contenteditable="true">
+                <li>Editable Content</li>
+                <li>
+                    1943 -
+                    <a
+                        href="https://www.wearethemighty.com/mighty-history/wildcat-held-line-against-zero/"
+                        >Zero Killer</a
+                    >
+                </li>
+            </ul>
         </my-container>
 
         <figure>
@@ -100,8 +127,6 @@
                         data-description="Hellcat"
                         id="hubblepic"
                         src="Grumman F6F-5 Hellcat (USS Randolph).jpg"
-                        width="500"
-                        height="342"
                         alt="F6F-5 Hellcat"
                     />
                 </a>
@@ -128,31 +153,19 @@
             oninput="deepdive()"
         />
 
-        <!-- Make any content on the website editable by the user. -->
-        <ul contenteditable="true" style="width: fit-content">
-            <li>Editable Content</li>
-            <li>
-                1943 -
-                <a
-                    href="https://www.wearethemighty.com/mighty-history/wildcat-held-line-against-zero/"
-                    >Zero Killer</a
-                >
-            </li>
-        </ul>
-
         <script>
-            // http://thenewcode.com/750/Crash-Zoom-Into-An-Image-With-A-HTML5-Range-Slider
-            var zoomer = document.getElementById("zoomer"),
-                hubblepic = document.getElementById("hubblepic");
-            document.getElementById("value").innerHTML =
-                "<small>Zoom = </small>1.0";
+            // https://codepen.io/dudleystorey/pen/waxZGv
+            const zoomer = document.getElementById("zoomer");
+            const hubblepic = document.getElementById("hubblepic");
+            const value = document.getElementById("value");
+            value.innerHTML = "<small>Zoom = </small>1.0";
             function deepdive() {
-                zoomlevel = zoomer.valueAsNumber;
-                hubblepic.style.webkitTransform = "scale(" + zoomlevel + ")";
-                hubblepic.style.transform = "scale(" + zoomlevel + ")";
-                document.getElementById("value").innerHTML =
-                    `<small>Zoom = </small>
-                    ${zoomlevel.toFixed(1)}`;
+                let zoomlevel = zoomer.valueAsNumber;
+                hubblepic.style.webkitTransform = `scale(${zoomlevel})`;
+                hubblepic.style.transform = `scale(${zoomlevel})`;
+                value.innerHTML = `<small>Zoom = </small>${zoomlevel.toFixed(
+                    1,
+                )}`;
             }
             //alert(document.getElementById("hubblepic").getAttribute("data-description"));
         </script>
