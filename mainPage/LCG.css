@@ -40,7 +40,8 @@ a:hover {
 a:active {
     background-color: red;
 }
-div:not(#add_dropdown):not(.dropdown-menu):not(.container-fluid) {
+
+div.lesson {
     width: fit-content;
     text-align: justify;
     margin-left: 20px;
