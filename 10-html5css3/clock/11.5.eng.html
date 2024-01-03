@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <title>Flu's Clock</title>
@@ -55,7 +55,7 @@
             style="margin: 5em 0 2em 0; width: 503px; text-align: center"
         ></div>
 
-        <div class="sideBySide">
+        <div class="sideBySide lesson">
             <audio id="player" title="Hino do Fluminense" controls loop>
                 <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
                 Please upgrade your browser!
@@ -80,7 +80,7 @@
             (1949).
         </div>
 
-        <div style="font-size: small">
+        <div class="lesson" style="font-size: small">
             <iframe
                 title="Rivelino's rubberband"
                 width="320"
@@ -120,13 +120,13 @@
 
         <script>
             document.querySelector("#Rivelino").innerHTML += `(${elapsedYears(
-                "1975-06-10"
+                "1975-06-10",
             )} years ago)`;
             document.querySelector("#Renato").innerHTML += `(${elapsedYears(
-                "1995-06-25"
+                "1995-06-25",
             )} years ago)`;
             document.querySelector("#Cano").innerHTML += `(${elapsedYears(
-                "2023-02-12"
+                "2023-02-12",
             )} years ago)`;
         </script>
     </body>

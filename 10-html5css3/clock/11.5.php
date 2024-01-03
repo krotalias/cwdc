@@ -40,7 +40,7 @@
 
         <div id="address" style="margin: 5em 0 2em 0; width: 503px; text-align: center"></div>
 
-        <div class="sideBySide">
+        <div class="sideBySide lesson">
             <audio id="player"  title="Hino do Fluminense" controls loop>
                 <source src="hino-fluminense-fc.mp3" type="audio/mpeg">
                     Please upgrade your browser!
@@ -63,7 +63,7 @@
             (1949).
         </div>
 
-        <div style="font-size: small">
+        <div class="lesson" style="font-size: small">
             <video title="O elástico de Rivelino" width="320" height="240" controls autoplay loop muted>
                 <source src="Fluminense 1 x 0 Vasco da Gama - O elastico de Rivelino.mp4" type="video/mp4">
                     Please upgrade your browser!
@@ -94,6 +94,16 @@
                 <a href="https://www.youtube.com/watch?v=UA-HwS766Hw">12/02/2023</a>
                 <?php
                 $date = date_create("2023-02-12");
+                include "date.php";
+                print $year;
+                ?>
+            </div>
+
+            <div class="video" id="Libertadores">
+                Libertadores Cup 2023
+                <a href="taca-libertadores.mp4 ">04/11/2023</a>
+                <?php
+                $date = date_create("2023-11-04");
                 include "date.php";
                 print $year;
                 ?>

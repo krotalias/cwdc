@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <title>Flu's Clock</title>
@@ -55,7 +55,7 @@
             style="margin-bottom: 2em; width: 512px; text-align: center"
         ></div>
 
-        <div class="sideBySide">
+        <div class="sideBySide lesson">
             <audio id="player" title="Hino do Fluminense" controls loop>
                 <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
                 Please upgrade your browser!
@@ -80,7 +80,7 @@
             (1949).
         </div>
 
-        <div style="font-size: small">
+        <div class="lesson" style="font-size: small">
             <iframe
                 title="O elástico de Rivelino"
                 width="320"
@@ -118,14 +118,13 @@
         <script src="clock-then.js"></script>
         <script src="date.js"></script>
         <script>
-            document.querySelector(
-                "#Rivelino"
-            ).innerHTML += `(há ${elapsedYears("1975-06-10")} anos atrás)`;
+            document.querySelector("#Rivelino").innerHTML +=
+                `(há ${elapsedYears("1975-06-10")} anos atrás)`;
             document.querySelector("#Renato").innerHTML += `(há ${elapsedYears(
-                "1995-06-25"
+                "1995-06-25",
             )} anos atrás)`;
             document.querySelector("#Cano").innerHTML += `(há ${elapsedYears(
-                "2023-02-12"
+                "2023-02-12",
             )} anos atrás)`;
         </script>
     </body>
