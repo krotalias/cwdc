@@ -76,7 +76,6 @@ div.lesson {
 }
 
 body {
-    background-color: white;
-    background-image: url("./IMAGEM/stone/yell_roc.jpg");
+    background: url("./IMAGEM/stone/yell_roc.jpg"), white;
     text-decoration-color: black;
 }

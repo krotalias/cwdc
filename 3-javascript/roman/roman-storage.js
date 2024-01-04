@@ -45,26 +45,31 @@
 import { int2roman, int2romanFast, roman2int, validateRoman } from "./roman.js";
 
 /**
- * Accesses the current domain's local Storage object and reads a data item from it using Storage.getItem().
+ * Accesses the current domain's local Storage object and reads a data item
+ * from it using {@link https://developer.mozilla.org/en-US/docs/Web/API/Storage/getItem Storage.getItem()}.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
  */
 function restoreValues() {
-  if (localStorage.getItem("decimal-value") !== null)
-    decimal.value = localStorage.getItem("decimal-value");
-  if (localStorage.getItem("roman-value") !== null)
-    roman.value = localStorage.getItem("roman-value");
+  const { decimal_value, roman_value } =
+    JSON.parse(localStorage.getItem("roman_converter")) || {};
+  decimal.value = decimal_value;
+  roman.value = roman_value;
 }
 
 /**
- * Accesses the current domain's local Storage object and adds a data item to it using Storage.setItem().
+ * Accesses the current domain's local Storage object and adds a data item
+ * to it using {@link https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem Storage.setItem()}.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
  */
 function storeValues() {
   if (typeof Storage !== "undefined") {
-    localStorage.setItem("decimal-value", decimal.value);
-    localStorage.setItem("roman-value", roman.value);
+    const value = {
+      decimal_value: decimal.value,
+      roman_value: roman.value,
+    };
+    localStorage.setItem("roman_converter", JSON.stringify(value));
   }
 }
 
@@ -123,7 +128,7 @@ decimal_button.onclick = function (e) {
 };
 
 /**
- * Triggers the <a href="/cwdc/3-javascript/doc-roman/module-roman-storage.html#restoreValues">restore from local storage</a>
+ * Triggers the {@link module:roman-storage~restoreValues restore} from local storage</a>
  *
  * @event load - restore values.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
