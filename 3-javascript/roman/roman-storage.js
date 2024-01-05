@@ -3,7 +3,10 @@
 /**
  *  @file
  *
- *  <p>Remember the values of the last conversion.</p>
+ *  <p>Remember the values of the last conversion saving them to localStorage:</p>
+ *  <ul>
+ *    <li>roman_converter	{"decimal_value":"2024","roman_value":"MMXXIV"}</li>
+ *  </ul>
  *
  *  <p>After submitting the form, all of the local javascript data is gone, and
  *  the page is reloaded, which may cause some flicker.</p>
@@ -40,6 +43,7 @@
  * @see https://stackoverflow.com/questions/8634058/where-the-sessionstorage-and-localstorage-stored
  * @see <a href="../roman/roman.html">link</a>
  * @see <a href="../roman/roman-storage.js">source</a>
+ * @see <iframe width="400" height="300" src="/cwdc/3-javascript/roman/roman.html"></iframe>
  */
 
 import { int2roman, int2romanFast, roman2int, validateRoman } from "./roman.js";
@@ -74,49 +78,52 @@ function storeValues() {
 }
 
 /**
- * Convert from integer to roman.
+ * Convert from {@link module:roman.int2romanFast integer to roman}
+ * and save the values to {@link module:roman-storage~storeValues localStorage}.
  * @param {MouseEvent} e button click event.
  * @event onclick - when roman button is clicked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
- * @see <a href="/cwdc/3-javascript/doc-roman/module-roman.html#int2romanFast">int2romanFast</a>
  */
-roman_button.onclick = function (e) {
+roman_button.onclick = (e) => {
   e.preventDefault(); // there is no server - nothing to submit
   roman.value = int2romanFast(decimal.value);
   storeValues();
 };
 
 /**
- * Convert from integer to roman.
- * @param {InputEvent} e oninput event.
+ * Convert from {@link module:roman.int2romanFast integer to roman}.
+ * @param {InputEvent} e an input event via keyboard.
  * @event on - change or keyup when typing in decimal input.
- * @see <a href="/cwdc/3-javascript/doc-roman/module-roman.html#int2romanFast">int2romanFast</a>
  * @see https://api.jquery.com/keyup/#on1
  */
-$('[name="decimal"]').on("change keyup", function () {
+$('[name="decimal"]').on("change keyup", function (e) {
   let value = $(this).val();
   $('[name="roman"]').val(int2romanFast(value));
 });
 
 /**
- * Convert from roman to integer.
- * @param {InputEvent} e oninput event.
+ * <p>Convert from {@link module:roman.roman2int roman to integer}.</p>
+ * The input is also {@link module:roman.validateRoman validated}.
+ * @param {InputEvent} e an input event via keyboard.
  * @event oninput - when typing in roman input.
- * @see <a href="/cwdc/3-javascript/doc-roman/module-roman.html#roman2int">roman2int</a>
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event
  */
-roman.oninput = function () {
+roman.oninput = (e) => {
   decimal.value =
     validateRoman(roman.value).length == 0 ? roman2int(roman.value) : 0;
 };
 
 /**
- * Convert from roman to integer.
+ * <p>Convert from {@link module:roman.roman2int roman to integer}
+ * and save the values to {@link module:roman-storage~storeValues localStorage}.</p>
+ * The input is also {@link module:roman.validateRoman validated}.
  * @param {MouseEvent} e button click event.
  * @event onclick - when decimal button is clicked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
- * @see <a href="/cwdc/3-javascript/doc-roman/module-roman.html#roman2int">roman2int</a>
  */
-decimal_button.onclick = function (e) {
+decimal_button.onclick = (e) => {
   e.preventDefault(); // there is no server - nothing to submit
   var val = validateRoman(roman.value);
   decimal.value = val.length == 0 ? roman2int(roman.value) : 0;

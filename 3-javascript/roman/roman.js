@@ -10,12 +10,17 @@
  *
  * <p>The numbers 1 to 10, 50, 100, 500 e 1000
  * can be expressed in Roman numerals as follows: </p>
- *    - I, II, III, IV, V, VI, VII, VIII, IX, X, L, C, D, and M. <br>
+ * <ul>
+ *    <li> I, II, III, IV, V, VI, VII, VIII, IX, X, L, C, D, and M. </li>
+ * </ul>
  *
  *  <p>In the Middle Ages, a horizontal line was used above a particular numeral,
  *     or parentheses placed around it, to represent one thousand times that numeral. </p>
- *    - <span style="text-decoration:overline">I</span> or (I) for one thousand. <br>
- *    - <span style="text-decoration:overline">V</span> or (V) for five thousand. <br>
+ *  <ul>
+ *    <li> <span style="text-decoration:overline">I</span> or (I) for one thousand. </li>
+ *    <li> <span style="text-decoration:overline">V</span> or (V) for five thousand. </li>
+ *    <li> <span style="text-decoration:overline">M</span> or (M) for a million. </li>
+ *  </ul>
  *
  *  <pre>
  *  Documentation:
