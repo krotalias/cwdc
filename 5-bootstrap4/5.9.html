@@ -26,6 +26,10 @@
                 scroll-padding-top: 350px; /* height of sticky header */
             }
 
+            body {
+                position: relative;
+            }
+
             .jumbotron {
                 background-image: url(Apache-Princess.jpg);
                 background-size: cover;
@@ -38,30 +42,8 @@
                 width: 300px;
             }
 
-            #appSummary {
-                text-align: center;
-                margin-top: 50px;
-                margin-bottom: 50px;
-            }
-
-            .card-img-top {
-                width: 100%;
-            }
-
             #appStoreIcon {
                 width: 200px;
-            }
-
-            #footer {
-                background-color: aqua;
-                padding-top: 100px;
-                margin-top: 50px;
-                text-align: center;
-                padding-bottom: 100px;
-            }
-
-            body {
-                position: relative;
             }
         </style>
     </head>
@@ -160,7 +142,7 @@
         </div>
 
         <div class="container">
-            <div class="row" id="appSummary">
+            <div class="row text-center my-5" id="appSummary">
                 <!-- https://getbootstrap.com/docs/4.0/utilities/spacing/#horizontal-centering -->
                 <div class="mx-auto" style="width: auto; text-align: center">
                     <h1>Famous for the Doolittle's Raid in 18 April 1942</h1>
@@ -184,13 +166,13 @@
         <div class="container" id="about">
             <div class="card-deck-wrapper">
                 <div class="card-deck">
-                    <div class="card">
+                    <div class="card border-0 text-dark bg-warning">
                         <img
                             class="card-img-top"
                             src="B25 Mitchell Bomber.jpg"
                             alt="Card image cap"
                         />
-                        <div class="card-block">
+                        <div class="card-body">
                             <h4 class="card-title">
                                 <i class="fa fa-anchor"></i> B-25J Sarinah
                             </h4>
@@ -201,17 +183,19 @@
                                 <br />
                                 <br />
 
-                                This content is a little bit longer.
+                                This content is a little bit shorter.
                             </p>
                         </div>
                     </div>
-                    <div class="card">
+                    <div
+                        class="card border-0 border-primary text-white bg-primary"
+                    >
                         <img
                             class="card-img-top"
                             src="B25 Mitchell.jpg"
                             alt="Card image cap"
                         />
-                        <div class="card-block">
+                        <div class="card-body">
                             <h4 class="card-title">
                                 <i class="fa fa-bicycle"></i> B-25H
                             </h4>
@@ -230,13 +214,13 @@
                             </p>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card border-0 border-light text-dark bg-light">
                         <img
                             class="card-img-top"
                             src="B25-Mitchell.jpg"
                             alt="Card image cap"
                         />
-                        <div class="card-block">
+                        <div class="card-body">
                             <h4 class="card-title">
                                 <i class="fa fa-birthday-cake"></i> B-25J
                                 Panchito
@@ -258,9 +242,9 @@
             </div>
         </div>
 
-        <div id="footer">
+        <div id="footer" class="mt-5 py-5 bg-info">
             <div class="row">
-                <div class="mx-auto" style="width: auto; text-align: center">
+                <div class="mx-auto w-auto text-center">
                     <h2>Download the app!</h2>
                     <p class="lead">Really, why should I download this app??</p>
                     <p>
