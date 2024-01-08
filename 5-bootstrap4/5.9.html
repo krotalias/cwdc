@@ -23,7 +23,7 @@
 
         <style>
             html {
-                scroll-padding-top: 364px; /* height of sticky header */
+                scroll-padding-top: 3rem; /* height of sticky header */
             }
 
             body {
@@ -33,9 +33,15 @@
             .jumbotron {
                 background-image: url(Apache-Princess.jpg);
                 background-size: cover;
-                text-align: center;
                 color: indianred;
-                margin-top: 50px;
+                margin-top: 3rem;
+            }
+
+            #appSummary,
+            #about,
+            #footer {
+                padding-top: 3rem;
+                padding-bottom: 0;
             }
 
             #email {
@@ -48,7 +54,7 @@
         </style>
     </head>
 
-    <body data-spy="scroll" data-target="#navbar" data-offset="150">
+    <body data-spy="scroll" data-target="#navbar" data-offset="0">
         <nav
             class="navbar navbar-expand-lg navbar-light bg-light fixed-top"
             id="navbar"
@@ -78,6 +84,9 @@
                         <a class="nav-link" href="#jumbotron">
                             Home <span class="sr-only">(current)</span>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#appSummary">Summary</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#about">About</a>
@@ -142,7 +151,7 @@
         </div>
 
         <div class="container">
-            <div class="row text-center my-5" id="appSummary">
+            <div class="row text-center" id="appSummary">
                 <!-- https://getbootstrap.com/docs/4.0/utilities/spacing/#horizontal-centering -->
                 <div class="mx-auto" style="width: auto; text-align: center">
                     <h1>Famous for the Doolittle's Raid in 18 April 1942</h1>
