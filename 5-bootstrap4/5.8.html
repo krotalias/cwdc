@@ -17,58 +17,58 @@
         <title>ScrollSpy</title>
 
         <style>
-            html {
-                scroll-padding-top: 6rem; /* height of sticky header */
-            }
-
             body {
                 position: relative;
-                margin-left: 30px;
+                margin-left: 20px;
             }
 
             #one,
             #two,
             #three,
             #four {
-                margin-top: 6rem;
+                padding-top: 6rem;
+                padding-bottom: 0;
             }
 
             pre,
             code {
                 white-space: pre-line; /* Sequences of whitespace are collapsed. */
-                margin-left: 50px;
+                margin-left: 20px;
             }
         </style>
     </head>
 
-    <body data-spy="scroll" data-target="#navbar-example" data-offset="70">
+    <body data-spy="scroll" data-target="#navbar-example" data-offset="0">
         <nav id="navbar-example" class="navbar fixed-top navbar-light bg-light">
-            <a
-                class="navbar-brand"
-                href="https://getbootstrap.com/docs/4.5/components/scrollspy/"
-            >
-                Scrollspy
-            </a>
+            <div class="container-fluid">
+                <a
+                    class="navbar-brand"
+                    href="https://getbootstrap.com/docs/4.6/components/scrollspy/"
+                >
+                    Scrollspy
+                </a>
 
-            <ul class="nav nav-pills nav-fill nav-justified">
-                <li class="nav-item active">
-                    <a class="nav-link active" href="#one">One</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#two">Two</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#three">Three</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#four">Four</a>
-                </li>
-            </ul>
+                <ul class="nav nav-pills nav-fill nav-justified">
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="#one">One</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#two">Two</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#three">Three</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#four">Four</a>
+                    </li>
+                </ul>
+            </div>
         </nav>
 
-        <h2 id="one">Wish You Were Here (Pink Floyd)</h2>
+        <div id="one" class="container-fluid text-dark">
+            <h2>Wish You Were Here (Pink Floyd)</h2>
 
-        <pre>
+            <pre>
             So, so you think you can tell Heaven from Hell, blue skies from pain.
             Can you tell a green field from a cold steel rail?
             A smile from a veil?
@@ -87,12 +87,15 @@
             What have we found?
             The same old fears.
             Wish you were here.
-        </pre>
+            </pre>
+        </div>
 
         <hr />
-        <h2 id="two">Father And Son (Cat Stevens)</h2>
 
-        <pre>
+        <div id="two" class="container-fluid text-dark">
+            <h2>Father And Son (Cat Stevens)</h2>
+
+            <pre>
             [Father:]
             It's not time to make a change
             Just relax, take it easy
@@ -141,12 +144,15 @@
             Now there's a way and I know
             That I have to go away
             I know I have to go
-        </pre>
+            </pre>
+        </div>
 
         <hr />
-        <h2 id="three">American Pie (Don McLean)</h2>
 
-        <pre>
+        <div id="three" class="container-fluid text-dark">
+            <h2>American Pie (Don McLean)</h2>
+
+            <pre>
             [Intro]
             A long, long time ago
             I can still remember how that music used to make me smile
@@ -301,12 +307,15 @@
             Drove my Chevy to the levee but the levee was dry
             Them good ole boys were drinking whiskey 'n rye
             And singin' this'll be the day that I die
-        </pre>
+            </pre>
+        </div>
 
         <hr />
-        <h2 id="four">Time (Alan Parson's Project)</h2>
 
-        <pre>
+        <div id="four" class="container-fluid text-dark">
+            <h2>Time (Alan Parson's Project)</h2>
+
+            <pre>
             Time
             Flowing like a river
             Time
@@ -354,7 +363,8 @@
             Forevermore
 
             Forevermore
-        </pre>
+            </pre>
+        </div>
 
         <hr />
 
