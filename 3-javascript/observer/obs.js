@@ -41,6 +41,20 @@ const cards = document.querySelectorAll(".card");
 const scrollRoot = document.querySelector(".scroller");
 
 /**
+ * <p>The deck of cards.</p>
+ * It is the first (and only) element within the document that is of class ".card-container"
+ * (matches the specified
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector selector}).
+ */
+const cardContainer = document.querySelector(".card-container");
+
+/**
+ * Number of new cards created so far.
+ * @type {Number}
+ */
+let ncard = 1;
+
+/**
  * An intersection observer object that shows/hides a card, by applying an animation:
  * <ul>
  *  <li> card changes from invisible to visible (opacity 0 → 1) </li>
@@ -87,36 +101,59 @@ const lastCardObserver = new IntersectionObserver(
   { root: scrollRoot, threshold: 0, rootMargin: "100px" },
 );
 
-lastCardObserver.observe(document.querySelector(".card:last-child"));
-
-cards.forEach((card) => {
-  observer.observe(card);
-});
-
 /**
- * <p>The deck of cards.</p>
- * It is the first (and only) element within the document that is of class ".card-container"
- * (matches the specified
- * {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector selector}).
- */
-const cardContainer = document.querySelector(".card-container");
-let ncard = 1;
-
-/**
- * <p>Appends 10 new &lt;div&gt;, each one containing a new card,
- * to the {@link cardContainer}.</p>
+ * <p>Appends n new &lt;div&gt; elements, each one containing a new card,
+ * to the deck {@link cardContainer}.</p>
  *
- * The 10 new cards are observed by the {@link observer}.
+ * The n new cards are observed by the {@link observer}.
+ *
+ * @param {Number} n number of new cards.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
  */
-function loadNewCards() {
-  for (let i = 0; i < 10; ++i) {
+function loadNewCards(n = 10) {
+  for (let i = 0; i < n; ++i) {
     const card = document.createElement("div");
     card.textContent = `New Card ${ncard}`;
     card.classList.add("card");
     observer.observe(card);
     cardContainer.append(card);
+    card.style.color = "brown";
     ncard++;
   }
 }
+
+/**
+ * <p>Inserts n &lt;div&gt; elements, each one containing a new card,
+ * to the deck {@link cardContainer}.</p>
+ *
+ * The inserted cards are observed by the {@link observer}.
+ *
+ * @param {Number} n number of cards to be inserted.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+ */
+function insertCards(n = 25) {
+  for (let i = 0; i < n; ++i) {
+    const card = document.createElement("div");
+    if (i == 0 || i == n - 1) {
+      card.textContent = `This is the ${i == 0 ? "first" : "last"} card`;
+      card.style.backgroundColor = "antiquewhite";
+    } else {
+      card.textContent = `This is Card ${i + 1}`;
+    }
+    card.classList.add("card");
+    observer.observe(card);
+    cardContainer.append(card);
+    card.style.color = "black";
+  }
+}
+
+// If there is any card in the html file.
+cards.forEach((card) => {
+  observer.observe(card);
+});
+
+insertCards();
+
+lastCardObserver.observe(document.querySelector(".card:last-child"));
