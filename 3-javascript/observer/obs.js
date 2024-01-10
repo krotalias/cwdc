@@ -25,6 +25,7 @@
  * A {@link https://developer.mozilla.org/en-US/docs/Web/API/NodeList NodeList},
  * that is, an array with all
  * document's elements of class ".card"
+ * @type {NodeList}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll
  */
 const cards = document.querySelectorAll(".card");
@@ -37,6 +38,7 @@ const cards = document.querySelectorAll(".card");
  * bounding box of the viewport for the element which is the observer's target.</p>
  *
  * If the root is null, then the bounds of the actual document viewport are used.
+ * @type {HTMLElement}
  */
 const scrollRoot = document.querySelector(".scroller");
 
@@ -45,6 +47,7 @@ const scrollRoot = document.querySelector(".scroller");
  * It is the first (and only) element within the document that is of class ".card-container"
  * (matches the specified
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector selector}).
+ * @type {HTMLElement}
  */
 const cardContainer = document.querySelector(".card-container");
 
@@ -60,6 +63,7 @@ let ncard = 1;
  *  <li> card changes from invisible to visible (opacity 0 → 1) </li>
  *  <li> card moves from left to right (translation 100 → 0) </li>
  * </ul>
+ * @type {IntersectionObserver}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
  */
 const observer = new IntersectionObserver(
@@ -87,6 +91,7 @@ observer.root.style.border = "2px solid #44aa44";
  * <p>This way, the deck of cards is infinite, because
  * there will be an endless number of cards appearing from
  * the bottom of the viewport.</p>
+ * @type {IntersectionObserver}
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
  */
