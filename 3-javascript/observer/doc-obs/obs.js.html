@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: obs.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: obs.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ * Summary.
+ * &lt;p>Your First {@link https://blog.webdevsimplified.com/2022-01/intersection-observer/ Intersection Observer}.&lt;/p>
+ *
+ * @author {@link https://javascriptsimplified.com Kyle Cook}
+ * @author Paulo Roma
+ * @since 08/01/2024
+ *
+ * @see &lt;a href="/cwdc/3-javascript/observer/obs.js">source&lt;/a>
+ * @see &lt;a href="/cwdc/3-javascript/observer/style.css">css&lt;/a>
+ * @see &lt;a href="/cwdc/3-javascript/showCode.php?f=observer/obs">html&lt;/a>
+ * @see &lt;a href="/cwdc/3-javascript/observer/obs.html">link&lt;/a>
+ * @see https://youtu.be/2IbRtjez6ag
+ * @see https://www.smashingmagazine.com/2021/07/dynamic-header-intersection-observer/
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/root
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/rootMargin
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/thresholds
+ * @see &lt;iframe width="600" height="512" src="/cwdc/3-javascript/observer/obs.html">&lt;/iframe>
+ * @see &lt;img src="../1-dynamic-header-intersection-observer.png" width="512">
+ */
+
+/**
+ * A {@link https://developer.mozilla.org/en-US/docs/Web/API/NodeList NodeList},
+ * that is, an array with all
+ * document's elements of class ".card"
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll
+ */
+const cards = document.querySelectorAll(".card");
+
+/**
+ * &lt;p>The scroller
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/root root} element.&lt;/p>
+ *
+ * &lt;p>Identifies the Element or Document whose bounds are treated as the
+ * bounding box of the viewport for the element which is the observer's target.&lt;/p>
+ *
+ * If the root is null, then the bounds of the actual document viewport are used.
+ */
+const scrollRoot = document.querySelector(".scroller");
+
+/**
+ * An intersection observer object that shows/hides a card, by applying an animation:
+ * &lt;ul>
+ *  &lt;li> card changes from invisible to visible (opacity 0 → 1) &lt;/li>
+ *  &lt;li> card moves from left to right (translation 100 → 0) &lt;/li>
+ * &lt;/ul>
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+ */
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("show", entry.isIntersecting);
+      // if (entry.isIntersecting) observer.unobserve(entry.target);
+    });
+  },
+  {
+    root: scrollRoot,
+    threshold: 1,
+    rootMargin: "0px 0px -15% 0px",
+  },
+);
+
+observer.root.style.border = "2px solid #44aa44";
+
+/**
+ * &lt;p>An observer object to track the last card.&lt;/p>
+ * If the last card is outside the viewport, does nothing.
+ * Otherwise, creates 10 new cards, and updates the last card
+ * to be the last card created.
+ *
+ * &lt;p>This way, the deck of cards is infinite, because
+ * there will be an endless number of cards appearing from
+ * the bottom of the viewport.&lt;/p>
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+ */
+const lastCardObserver = new IntersectionObserver(
+  (entries) => {
+    lastCard = entries[0];
+    if (!lastCard.isIntersecting) return;
+    loadNewCards();
+    lastCardObserver.unobserve(lastCard.target);
+    lastCardObserver.observe(document.querySelector(".card:last-child"));
+  },
+  { root: scrollRoot, threshold: 0, rootMargin: "100px" },
+);
+
+lastCardObserver.observe(document.querySelector(".card:last-child"));
+
+cards.forEach((card) => {
+  observer.observe(card);
+});
+
+/**
+ * &lt;p>The deck of cards.&lt;/p>
+ * It is the first (and only) element within the document that is of class ".card-container"
+ * (matches the specified
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector selector}).
+ */
+const cardContainer = document.querySelector(".card-container");
+let ncard = 1;
+
+/**
+ * &lt;p>Appends 10 new &amp;lt;div&amp;gt;, each one containing a new card,
+ * to the {@link cardContainer}.&lt;/p>
+ *
+ * The 10 new cards are observed by the {@link observer}.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+ */
+function loadNewCards() {
+  for (let i = 0; i &lt; 10; ++i) {
+    const card = document.createElement("div");
+    card.textContent = `New Card ${ncard}`;
+    card.classList.add("card");
+    observer.observe(card);
+    cardContainer.append(card);
+    ncard++;
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#cardContainer">cardContainer</a></li><li><a href="global.html#cards">cards</a></li><li><a href="global.html#lastCardObserver">lastCardObserver</a></li><li><a href="global.html#loadNewCards">loadNewCards</a></li><li><a href="global.html#observer">observer</a></li><li><a href="global.html#scrollRoot">scrollRoot</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jan 10 2024 07:38:56 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
