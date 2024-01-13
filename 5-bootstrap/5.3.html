@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+
+        <title>Grid System</title>
+
+        <style>
+            body {
+                background-image: url("sky.jpg");
+                background-size: cover;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="my-container" class="container">
+            <!--
+            m - for classes that set margin
+            t - for classes that set margin-top or padding-top
+            3 - (by default) for classes that set the margin or padding to $spacer
+            → margin-top: ($spacer) !important;
+            -->
+            <div class="row mt-3">
+                <div class="col-md-12 bg-success text-white">
+                    <h1 class="text-center">Responsive Web Design</h1>
+                    <ul>
+                        <li>
+                            Bootstrap’s grid system uses a series of containers,
+                            rows, and columns to layout and align content.
+                        </li>
+                        <li>
+                            It’s built with flexbox and is fully responsive.
+                        </li>
+                        <li>
+                            Its grid system allows up to 12 columns across the
+                            page, which can be grouped together to create wider
+                            columns.
+                        </li>
+                        <li>
+                            Grid columns should add up to twelve for a row. More
+                            than that, columns will stack no matter the
+                            viewport.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row mt-4 bg-info">
+                <!-- break at 768 px with two columns (9 and 3 grid columns) -->
+                <div class="col-md-9 text-dark">
+                    <h2 class="text-center">Usage</h2>
+                    <p>
+                        Column classes indicate the number of columns you’d like
+                        to use out of the possible 12 per row. Therefore, for
+                        three equal-width columns across, just use .col-4, or
+                        .col-md-4 to stack columns at
+                        <em>md (768 px)</em> breakpoint.
+                    </p>
+
+                    <div class="row justify-content-center mt-4 bg-info">
+                        <!-- break at 768 px with three columns (4 grid columns) -->
+                        <div class="col-md-4 bg-info">
+                            <img
+                                title="P-47D Thunderbolt"
+                                src="P47.jpg "
+                                width="100%"
+                            />
+                        </div>
+                        <div class="col-md-4 bg-info">
+                            <nav>
+                                <ul>
+                                    <li>
+                                        <a
+                                            class="link-dark link-body-emphasis link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                            href="https://getbootstrap.com/docs/5.3/getting-started/introduction/#starter-template"
+                                        >
+                                            Template
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="link-dark link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                            href="https://getbootstrap.com/docs/5.3/layout/overview/#responsive-breakpoints"
+                                        >
+                                            Responsive Breakpoints
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="link-dark link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                            href="https://getbootstrap.com/docs/5.3/layout/grid/#grid-options"
+                                        >
+                                            Grid Options
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="link-dark link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                            href="https://www.w3schools.com/bootstrap5/bootstrap_grid_examples.php"
+                                        >
+                                            Grid Examples
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="link-dark link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                            href="https://getbootstrap.com/docs/5.3/layout/grid/#vertical-alignment"
+                                        >
+                                            Vertical Alignment
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="link-dark link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                            href="https://getbootstrap.com/docs/5.3/utilities/spacing/"
+                                        >
+                                            Spacing
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="link-dark link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                            href="https://www.w3schools.com/css/css_rwd_viewport.asp"
+                                        >
+                                            Viewport
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="link-dark link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                            href="https://www.quirksmode.org/mobile/viewports.html"
+                                        >
+                                            Viewport Size
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="link-dark link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag"
+                                        >
+                                            Viewport meta tag
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="link-dark link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                                            href="https://medium.com/afosto/bootstrap-v4-explained-the-grid-and-how-to-use-it-82a4de58604e"
+                                        >
+                                            B Explained
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-md-4 bg-info">
+                            <img
+                                title="Mustang P-51"
+                                src="P51.jpg"
+                                width="95%"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div id="viewp" class="col-md-3 bg-warning">
+                    <h2 class="text-center">Viewport Size</h2>
+                    <div id="screen" class="text-danger"></div>
+                    <p>Breaks: 1200, 992, 768, 576 px.</p>
+                    <p>
+                        Below there is an example and an in-depth look at how
+                        the grid comes together.
+                    </p>
+                    <p>Note the embedding of images!</p>
+
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="row-alignment"
+                            id="inlineRadio1"
+                            value="option1"
+                            onClick="verticalAlignment()"
+                            checked
+                        />
+                        <label class="form-check-label" for="inlineRadio1">
+                            Start
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="row-alignment"
+                            id="inlineRadio2"
+                            value="option2"
+                            onClick="verticalAlignment()"
+                        />
+                        <label class="form-check-label" for="inlineRadio2">
+                            Center
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="row-alignment"
+                            id="inlineRadio3"
+                            value="option3"
+                            onClick="verticalAlignment()"
+                        />
+                        <label class="form-check-label" for="inlineRadio3">
+                            End
+                        </label>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button
+                            id="btn"
+                            type="button"
+                            class="btn btn-primary btn-sm"
+                            data-toggle="button"
+                            aria-pressed="true"
+                            onclick="toggleContainer()"
+                            autocomplete="off"
+                        >
+                            container-fluid
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="article-row" class="row align-items-start mt-5">
+                <!-- break at 768 px with two columns (6 grid columns) -->
+                <div class="col-md-6">
+                    <h2 class="text-center">Allies!</h2>
+                    <p>
+                        Supermarine
+                        <a
+                            href="http://www.spitfireperformance.com/spitfire-V.html"
+                        >
+                            Spitfire Mk VB
+                        </a>
+                        BM590
+                        <a
+                            href="http://www.americanairmuseum.com/aircraft/19816"
+                        >
+                            AV-R “Olga”
+                        </a>
+                        of No.
+                        <a
+                            href="https://en.wikipedia.org/wiki/No._121_Squadron_RAF"
+                        >
+                            121 Squadron
+                        </a>
+                        RAF - American Voluntieers, Southend, P/O
+                        <a href="http://www.americanairmuseum.com/person/81110">
+                            Gilbert Halsey,
+                        </a>
+                        Jul 1942 (594 km/h) at 6000 m
+                    </p>
+                    <p>
+                        Hawker
+                        <a
+                            href="https://www.asisbiz.com/il2/Hurricane/RAF-87Sqn-LK/pages/Hurricane-IIc-RAF-87Sqn-LK-Question-Nightingale-PO-Frank-Mitchell-HL864-England-1941-01.html"
+                        >
+                            Hurricane Mark IIC
+                        </a>
+                        LK Question Nightingale, P/O Frank Mitchell, No. 87
+                        Squadron RAF at Charmy Down, Somerset (UK) ("Special
+                        Night" color scheme - one of the first RAF night fighter
+                        squadrons) - Sep 1942 (528 km/h) at 6705 m
+                    </p>
+                    <p>
+                        Curtiss
+                        <a
+                            href="https://sofrep.com/specialoperations/december-20-1941-avg-flying-tigers-flies-combat-first-time/"
+                        >
+                            P-40
+                        </a>
+                        B/C Warhawk P-8143 (British Tomahawk), 2nd Sqn ("Panda
+                        Bears") in China, the Flying Tigers (American Volunteer
+                        Group), P/O
+                        <a
+                            href="https://www.lonestarflight.org/david-lee-“tex”-hill"
+                        >
+                            David Lee "Tex" Hill
+                        </a>
+                        - Nov 1941 (566 km/h) at 4572 m
+                    </p>
+                    <p>
+                        Chance Vought
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:F4U-1D_of_VF-84_takes_off_from_USS_Bunker_Hill_(CV-17)_in_February_1944.jpg"
+                        >
+                            F4U-1D Corsair
+                        </a>
+                        "Hog", VF-84 "Wolf Gang", USS Bunker Hill - 1945 (676
+                        km/h) at 6100 m
+                    </p>
+                    <p>
+                        Republic
+                        <a
+                            href="https://en.wikipedia.org/wiki/Gilbert_O._Wymond_Jr."
+                        >
+                            P-47D Thunderbolt
+                        </a>
+                        "Jug" Hun Hunter XVI, 65th Fighter Squadron, P/O Gilbert
+                        O. Wymond Jr. - 1943 (686 km/h) at 9100 m
+                    </p>
+                    <p>
+                        Douglas
+                        <a
+                            href="https://www.pearlharboraviationmuseum.org/blog/douglas-sbd-dauntless-scout-dive-bomber/"
+                        >
+                            SBD-3 Dauntless,
+                        </a>
+                        P/O Richard Halsey Best VB-6, USS Enterprise - 1942 (410
+                        km/h) at 4300 m
+                    </p>
+                    <p>
+                        Grumman
+                        <a
+                            href="https://www.historynet.com/grumman-f4f-wildcat-us-navy-fighter-in-world-war-ii.htm"
+                        >
+                            F4F-4 Wildcat
+                        </a>
+                        Marine Fighter Squadron 223, VMF-223, (hand-cranked
+                        1930s landing gears), P/O John Lucian Smith, United
+                        States Marine Corps - Aug 1942 (512 km/h) at 5900 m
+                    </p>
+                    <p>
+                        Grumman
+                        <a
+                            href="https://www.historynet.com/goldilocks-fighter-f6f-hellcat.htm"
+                        >
+                            F6F-5 Hellcat
+                        </a>
+                        VF-6, P/O
+                        <a
+                            href="https://en.wikipedia.org/wiki/Alexander_Vraciu"
+                        >
+                            Alexander Vraciu,
+                        </a>
+                        USS Intrepid - 1944 (611 km/h) at 7010 m
+                    </p>
+                    <img
+                        title="Hawker Hurricane"
+                        src="Hawker Hurricane.jpg"
+                        width="95%"
+                    />
+                </div>
+
+                <div class="col-md-6">
+                    <h2 class="text-center">Axis powers!</h2>
+                    <p>
+                        Messerschmitt
+                        <a
+                            href="https://www.nationalmuseum.af.mil/Visit/Museum-Exhibits/Fact-Sheets/Display/Article/196264/messerschmitt-bf-109g-10/"
+                        >
+                            Bf 109G-6/R3
+                        </a>
+                        "Gustav" II./JG300 (Long Range Reconnaissance Fighter,
+                        II Gruppe Jagdgeschwader Fighter Wing 300), Red 2 Rita
+                        WNr 490642, P/O Feldwebel Eberhard Gzik, Brandenburg -
+                        Dec 1944 (623 km/h) at 7400 m
+                    </p>
+                    <p>
+                        Focke-Wulf
+                        <a
+                            href="https://en.wikipedia.org/wiki/Jagdgeschwader_54"
+                        >
+                            Fw 190A-6
+                        </a>
+                        I./JG 54 (Jagdgeschwader 54), P/O
+                        <a href="https://en.wikipedia.org/wiki/Walter_Nowotny">
+                            Hauptmann Waiter Nowotny
+                        </a>
+                        - 1943 (670 kmh) at 6250 m
+                    </p>
+                    <p>
+                        Mitsubishi Reisen
+                        <a
+                            href="https://en.wikipedia.org/wiki/Mitsubishi_A6M_Zero"
+                        >
+                            Zero
+                        </a>
+                        (or Zeke) A6M5C (零式艦上戦闘機 or Navy Type 0 carrier
+                        fighter) of the Tsukuba Kokutai naval air corps Imperial
+                        Japanese navy air force, from Oita air base, Japan - Jul
+                        1945 (565 km/h) at 6000 m
+                    </p>
+                    <p>
+                        Nakajima
+                        <a
+                            href="https://military.wikia.org/wiki/Nakajima_B5N_Kate"
+                        >
+                            B5N2
+                        </a>
+                        "Kate" Type 97-3 Carrier Attack Aircraft (中島 B5N) was
+                        the standard carrier-based torpedo bomber of the
+                        Imperial Japanese Navy - Jan 1937 (378 km/h) at 3600 m
+                    </p>
+                    <p>
+                        Fiat
+                        <a
+                            href="https://www.militaryfactory.com/aircraft/detail.asp?aircraft_id=812"
+                        >
+                            G.55 Centauro,
+                        </a>
+                        372<sup>a</sup> Squadriglia of 153° Gruppo in
+                        Torino-Mirafiori, Regia Aeronautica - Sep 1943 (623
+                        km/h) at 7000 m
+                    </p>
+                    <img
+                        title="Focke-Wulf Fw 190"
+                        src="focke-wulf-fw-190.png"
+                        width="95%"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const containerElement = document.getElementById("my-container");
+            const btn = document.getElementById("btn");
+            const row = document.getElementById("article-row");
+
+            function toggleContainer() {
+                const newClass =
+                    containerElement.className == "container"
+                        ? "container-fluid"
+                        : "container";
+                $("#btn").html(containerElement.className);
+                containerElement.className = newClass;
+            }
+
+            function verticalAlignment() {
+                if (document.getElementById("inlineRadio1").checked) {
+                    row.className = "row align-items-start mt-5";
+                } else if (document.getElementById("inlineRadio2").checked) {
+                    row.className = "row align-items-center mt-5";
+                } else {
+                    row.className = "row align-items-end mt-5";
+                }
+            }
+
+            function getDevicePixelRatio() {
+                var ratio = 1;
+                let ua = navigator.userAgent.toLowerCase();
+                // To account for zoom, change to use deviceXDPI instead of systemXDPI
+                if (
+                    window.screen.systemXDPI !== undefined &&
+                    window.screen.logicalXDPI !== undefined &&
+                    window.screen.systemXDPI > window.screen.logicalXDPI
+                ) {
+                    // Only allow for values > 1
+                    ratio =
+                        window.screen.systemXDPI / window.screen.logicalXDPI; // IE, ios
+                } // ~-1 = 0 same as != -1
+                else if (~ua.indexOf("safari")) {
+                    ratio = window.outerWidth / window.innerWidth; // safari
+                } else if (window.devicePixelRatio !== undefined) {
+                    ratio = window.devicePixelRatio; // firefox, chrome
+                }
+                return ratio;
+            }
+
+            var zoom = (getDevicePixelRatio() * 100).toFixed(0);
+            var didZoom = false;
+
+            (function () {
+                // The resize event fires after the window has been resized.
+                window.onresize = displayWindowSize;
+
+                // The load event fires when a given resource has loaded.
+                window.onload = displayWindowSize;
+
+                // Keeping track of zoom in and zoom out
+                window.onkeydown = function (event) {
+                    let meta =
+                        window.navigator.platform.indexOf("Mac") !== -1
+                            ? event.metaKey
+                            : event.ctrlKey;
+                    if (meta && (event.key === "=" || event.key === "-")) {
+                        didZoom = true;
+                        //alert("Zoom");
+                    }
+                };
+
+                // In Firefox (even in macOS), Opera and Chrome, 'meta key + scroll mousewheel' also zooms in and out
+                window.addEventListener("wheel", function (event) {
+                    let meta =
+                        window.navigator.platform.indexOf("Mac") !== -1
+                            ? event.metaKey
+                            : event.ctrlKey;
+                    if (meta) {
+                        didZoom = true;
+                    }
+                });
+
+                window.addEventListener("gesturestart", function (event) {
+                    didZoom = true;
+                    displayWindowSize(); // is not being called, and if called here, the actual resize did not occur yet!
+                    // console.log("didZoom: start");
+                });
+
+                window.addEventListener("gesturechange", function (event) {
+                    didZoom = true;
+                    displayWindowSize();
+                    // console.log("didZoom: change");
+                });
+
+                window.addEventListener("gestureend", function (event) {
+                    didZoom = true;
+                    displayWindowSize();
+                    // console.log("didZoom: change");
+                });
+
+                const viewp = document.getElementById("viewp");
+
+                function displayWindowSize() {
+                    let iWidth = window.innerWidth; // this is css pixels
+                    let iHeight = window.innerHeight;
+                    let oWidth = window.outerWidth;
+                    let oHeight = window.outerHeight; // menu bar height is 22 px in MacOS (oHeight = sHeight - 22)
+                    let sWidth = screen.width;
+                    let sHeight = screen.height;
+
+                    // in Firefox, screen.width * window.devicePixelRatio always gives the number of physical device pixels.
+                    let ua = navigator.userAgent.toLowerCase();
+                    if (~ua.indexOf("firefox")) {
+                        sWidth *= window.devicePixelRatio;
+                        sHeight *= window.devicePixelRatio;
+                        sWidth = sWidth.toFixed(0);
+                        sHeight = sHeight.toFixed(0);
+                    }
+
+                    if (didZoom) {
+                        zoom = (getDevicePixelRatio() * 100).toFixed(0);
+                        didZoom = false;
+                    }
+                    if (iWidth >= 1200) {
+                        // .col-xl-
+                        viewp.className = "col-md-3 bg-warning";
+                        $("#screen").css("color", "red"); // text color
+                    } else if (iWidth >= 992) {
+                        viewp.className = "col-md-3 bg-primary"; // .col-lg-
+                        $("#screen").css("color", "white");
+                    } else if (iWidth >= 768) {
+                        viewp.className = "col-md-3 bg-secondary"; // .col-md-
+                        $("#screen").css("color", "white");
+                    } else if (iWidth >= 576) {
+                        viewp.className = "col-md-3 bg-danger"; // .col-sm-
+                        $("#screen").css("color", "white");
+                    } else {
+                        viewp.className = "col-md-3 bg-light"; // .col-
+                        $("#screen").css("color", "red");
+                    }
+                    $("#screen")
+                        .html(`inner: (${iWidth} &times; ${iHeight}) css px<br>
+                                    outer: (${oWidth} &times; ${oHeight}) px<br>
+                                    screen: (${sWidth} &times; ${sHeight}) px<br>
+                                    zoom: (${zoom} %)`);
+                }
+            })();
+        </script>
+
+        <script
+            src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+            integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>

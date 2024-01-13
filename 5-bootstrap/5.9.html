@@ -1,0 +1,334 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+
+        <title>B-25</title>
+
+        <style>
+            body {
+                position: relative;
+            }
+
+            .jumbotron {
+                background-image: url(Apache-Princess.png);
+                background-size: cover;
+                background-position: 0% 60%;
+                background-repeat: no-repeat;
+                color: indianred;
+                margin-top: 3rem;
+                scroll-margin-top: 3rem; /* height of fixed header (navbar) */
+            }
+
+            /*
+             *  Since the navbar fixed-top is fixed, it requires the body
+             *  to have padding-top so that it doesn't overlay page content.
+             *  On the other hand, navbar sticky-top does not need any padding.
+             */
+            #appSummary,
+            #about,
+            #footer {
+                padding-top: 3rem;
+                padding-bottom: 0;
+            }
+
+            #email {
+                width: 300px;
+            }
+
+            #appStoreIcon {
+                width: 200px;
+            }
+
+            /* Medium devices (tablets, 768px and up)*/
+            @media (min-width: 768px) {
+                .w-md-100 {
+                    width: 100% !important;
+                }
+                .w-md-75 {
+                    width: 75% !important;
+                }
+                .w-md-50 {
+                    width: 50% !important;
+                }
+                .w-md-25 {
+                    width: 25% !important;
+                }
+            }
+        </style>
+    </head>
+
+    <!--
+        This only affects the scroll spy (mainly using nav-pills)
+        and seems to work well only with a 100% zoom.
+        The idea is using a viewport rectangle with a 15% height
+        (margin -85% from the bottom), so when a section crosses
+        its bottom edge, it is then detected.
+    -->
+    <body
+        data-bs-spy="scroll"
+        data-bs-target="#navbar"
+        data-bs-root-margin="0px 0px -85%"
+        data-bs-threshold="[0.0,0.5,1.0]"
+        data-bs-smooth-scroll="true"
+    >
+        <nav
+            class="navbar fixed-top navbar-expand-lg navbar-dark text-warning"
+            style="background-color: #99acc6"
+            id="navbar"
+        >
+            <div class="container-fluid">
+                <a
+                    class="navbar-brand"
+                    href="https://fontawesome.com/v4.7/icon/birthday-cake"
+                >
+                    B-25
+                    <i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                </a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="nav nav-pills me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#jumbotron">
+                                Home <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#appSummary">Summary</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#footer">Download</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="email">
+                        <input
+                            class="form-control me-2"
+                            type="email"
+                            placeholder="Email"
+                        />
+                        <input
+                            class="form-control me-2"
+                            type="password"
+                            placeholder="Password"
+                        />
+                        <button class="btn btn-success" type="submit">
+                            Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <div
+            class="jumbotron row p-5 bg-primary text-left rounded"
+            id="jumbotron"
+        >
+            <h1 class="display-3">
+                B-25 Mitchell Bomber
+                <span class="text-secondary" style="font-size: 25%"
+                    >(1941 - 438 kmh)</span
+                >
+            </h1>
+            <p class="lead">
+                Sixteen
+                <a
+                    href="https://www.militaryfactory.com/aircraft/detail.asp?aircraft_id=81"
+                    class="alert-link"
+                    >B-25 Mitchells</a
+                >
+                took off from <br />USS Hornet for the Doolittle Raid!
+            </p>
+            <hr class="m-y-2" />
+            <p>Want to know more? Join our mailing list!</p>
+
+            <form class="d-md-flex" role="form">
+                <label for="email">Email address</label>
+                <div class="input-group flex-nowrap me-3 w-md-25">
+                    <span class="input-group-text ms-2" id="basic-addon1"
+                        >@</span
+                    >
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        placeholder="Your email"
+                        aria-label="Your email"
+                        aria-describedby="basic-addon1"
+                    />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign up</button>
+            </form>
+        </div>
+
+        <div class="container">
+            <div class="row text-center" id="appSummary">
+                <!-- https://getbootstrap.com/docs/5.3/utilities/spacing/#horizontal-centering -->
+                <div class="mx-auto w-auto text-center">
+                    <h1>Famous for the Doolittle's Raid in 18 April 1942</h1>
+                    <p class="lead">
+                        The North American B-25 Mitchell is a medium bomber that
+                        was introduced in 1941 and named in honor of Major
+                        General William "Billy" Mitchell, a pioneer of U.S.
+                        military aviation. Used by many Allied air forces, the
+                        B-25 served in every theater of World War II, and after
+                        the war ended, many remained in service, operating
+                        across four decades. Produced in numerous variants,
+                        nearly 10,000 B-25s were built. These included a few
+                        limited models such as the F-10 reconnaissance aircraft,
+                        the AT-24 crew trainers, and the United States Marine
+                        Corps' PBJ-1 patrol bomber.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="about">
+            <div class="row">
+                <div class="col-lg-4 mb-3">
+                    <div class="card h-100 border-3 text-dark bg-warning">
+                        <img
+                            class="card-img-top"
+                            src="B25 Mitchell Bomber.jpg"
+                            alt="Card image cap"
+                        />
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fa fa-anchor"></i> B-25J Sarinah
+                            </h4>
+                            <p class="card-text">
+                                The B-25J-20-NC SN 44-29507 now flying as
+                                "Sarinah" was accepted by the USAAF on September
+                                28, 1944 and delivered on September 30, 1944.
+                                <br />
+                                <br />
+
+                                This content is a little bit shorter.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-3">
+                    <div
+                        class="card h-100 border-3 border-primary text-white bg-primary"
+                    >
+                        <img
+                            class="card-img-top"
+                            src="B25 Mitchell.jpg"
+                            alt="Card image cap"
+                        />
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fa fa-bicycle"></i> B-25H
+                            </h4>
+                            <p class="card-text">
+                                An improved version of the B-25G, this version
+                                relocated the manned dorsal turret to a more
+                                forward location on the fuselage just aft of the
+                                flight deck. It also featured two additional
+                                fixed .50 in (12.7 mm) machine guns in the nose
+                                and in the H-5 onward, four in fuselage-mounted
+                                pods. The T13E1 light weight cannon replaced the
+                                heavy M4 cannon 75 mm (2.95 in). Single controls
+                                were installed from the factory with navigator
+                                in the right seat (number made: 1000; two
+                                airworthy as of 2015).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-3">
+                    <div
+                        class="card h-100 border-0 border-light text-dark bg-light"
+                    >
+                        <img
+                            class="card-img-top"
+                            src="B25-Mitchell.jpg"
+                            alt="Card image cap"
+                        />
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fa fa-birthday-cake"></i> B-25J
+                                Panchito
+                            </h4>
+                            <p class="card-text">
+                                The B-25J, serial number 43-28147, was assigned
+                                to Captain Don Seiler of the 396th Bomb
+                                Squadron, who named his new plane “Panchito”,
+                                after the feisty Mexican rooster from the 1943
+                                animated musical “The Three Caballeros”.
+                                <br /><br />
+
+                                This card has even longer content than the first
+                                to show that equal height action (h-100).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer" class="mt-5 py-5 bg-info">
+            <div class="row">
+                <div class="mx-auto w-auto text-center">
+                    <h2>Download the app!</h2>
+                    <p class="lead">Really, why should I download this app??</p>
+                    <p>
+                        <a href="">
+                            <img id="appStoreIcon" src="App-Store-Icon.png" />
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div
+            id="rectangle"
+            class="row"
+            style="height: 1000px; background: white"
+        >
+            <div class="text-center display-6 p-5">
+                © 2021-2024 LCG. All rights reserved.
+            </div>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>

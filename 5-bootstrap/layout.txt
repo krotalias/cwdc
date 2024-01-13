@@ -1,0 +1,16 @@
+
+3 rows
+
+margin-top 3
+first row (green) - 1 col (12)
+
+margin-top 4
+second row - col (9) (teal)                        col (3) (yellow)
+   row - text                                      radio, buuton 
+         margin-top 4
+         col (4)    col (4)   col (4)        
+         p-47       text      p-51
+
+margin-top 5
+third row - col (6)        col(6)
+            Allies         Axis
