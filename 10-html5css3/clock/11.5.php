@@ -40,27 +40,32 @@
 
         <div id="address" style="margin: 5em 0 2em 0; width: 503px; text-align: center"></div>
 
+        <div
+            class="sideBySide"
+            style="width: 503px; text-align: center; margin-bottom: 2em"
+        >
+            <button onclick="nextLocation()">
+                    <span class="fa fa-plus"></span>
+                </button>
+                <label><b>Time Zone</b></label>
+                <button onclick="previousLocation()">
+                    <span class="fa fa-minus"></span>
+                </button>
+        </div>
+
+        <label for="player" style="font-size: small">
+            Fluminense FC Anthem by
+            <a href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/">
+                Lamartine Babo
+            </a>
+            (1949):
+        </label>
+
         <div class="sideBySide lesson">
             <audio id="player"  title="Hino do Fluminense" controls loop>
                 <source src="hino-fluminense-fc.mp3" type="audio/mpeg">
                     Please upgrade your browser!
             </audio>
-
-            <button onclick="nextLocation()">
-                <span class="fa fa-plus"></span>
-            </button>
-            <label><b>Location</b></label>
-            <button onclick="previousLocation()">
-                <span class="fa fa-minus"></span>
-            </button>
-        </div>
-
-        <div style="font-size: small; margin: 1em 0 0 0">
-            Fluminense FC Anthem by
-            <a href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/">
-                Lamartine Babo
-            </a>
-            (1949).
         </div>
 
         <div class="lesson" style="font-size: small">
