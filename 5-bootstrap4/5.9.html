@@ -22,21 +22,24 @@
         <title>B-25</title>
 
         <style>
-            html {
-                scroll-padding-top: 3rem; /* height of sticky header */
-            }
-
             body {
                 position: relative;
             }
 
             .jumbotron {
-                background-image: url(Apache-Princess.jpg);
+                background-image: url(Apache-Princess.png);
                 background-size: cover;
+                background-position: 0% 60%;
+                background-repeat: no-repeat;
                 color: indianred;
-                margin-top: 3rem;
+                scroll-margin-top: 3rem; /* height of sticky header */
             }
 
+            /*
+                     *  Since the navbar fixed-top is fixed, it requires the body
+                     *  to have padding-top so that it doesn't overlay page content.
+                     *  On the other hand, sticky-top does not need any padding.
+                     */
             #appSummary,
             #about,
             #footer {
@@ -114,7 +117,12 @@
         </nav>
 
         <div class="jumbotron text-left" id="jumbotron">
-            <h1 class="display-3">B-25 Mitchell Bomber</h1>
+            <h1 class="display-3">
+                B-25 Mitchell Bomber
+                <span class="text-secondary" style="font-size: 25%"
+                    >(1941 - 438 kmh)</span
+                >
+            </h1>
             <p class="lead">
                 Sixteen
                 <a
@@ -123,7 +131,7 @@
                     class="alert-link"
                     >B-25 Mitchells</a
                 >
-                took off from USS Hornet for the Doolittle Raid!
+                took off from <br />USS Hornet for the Doolittle Raid!
             </p>
             <hr class="m-y-2" />
             <p>Want to know more? Join our mailing list!</p>
