@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <title>Flu's Clock</title>
@@ -39,30 +39,36 @@
 
             <div
                 id="address"
-                class="mb-4"
-                style="width: 512px; text-align: center"
+                class="mb-4 text-center"
+                style="width: 512px"
             ></div>
 
-            <div class="m-4" style="font-size: 100%">
-                <audio id="player" title="Hino do Fluminense" controls loop>
-                    <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
-                    Please upgrade your browser!
-                </audio>
-
+            <div class="text-center" style="width: 512px">
                 <button onclick="nextLocation()">+</button>
                 <label class="mx-3"><b>Time Zone</b></label>
                 <button onclick="previousLocation()">-</button>
             </div>
 
-            <div class="my-4" style="font-size: small">
+            <label for="player" class="mt-5 fs-6">
                 Hino do Fluminense FC por
                 <a
                     href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/"
                 >
                     Lamartine Babo
                 </a>
-                (1949).
-            </div>
+                (1949):
+            </label>
+
+            <audio
+                id="player"
+                class="ms-2"
+                title="Hino do Fluminense"
+                controls
+                loop
+            >
+                <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
+                Please upgrade your browser!
+            </audio>
         </div>
 
         <script>
