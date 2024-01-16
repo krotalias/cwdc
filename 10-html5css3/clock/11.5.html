@@ -16,106 +16,92 @@
     </head>
 
     <body>
-        <p id="flu">
-            <a href="http://www.fluminense.com.br/site/"
-                >Fluminense Football Club</a
-            >
-            <sub style="font-size: small">
-                <a href="/cwdc/downloads/PDFs/04_LCG_Window-Viewport.pdf">
-                    [1]
-                </a>
-                <a href="/cwdc/downloads/python/laboratorios2.html#8c">[2]</a>
-                <a
-                    href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
+        <div class="wrap-content" style="margin-left: 20px">
+            <p id="flu">
+                <a href="http://www.fluminense.com.br/site/"
+                    >Fluminense Football Club</a
                 >
-                    [3]
-                </a>
-                <a
-                    href="https://www.latlong.net/place/prime-meridian-greenwich-30835.html"
-                >
-                    [4]
-                </a>
-            </sub>
-        </p>
+            </p>
 
-        <div id="container">
-            <canvas id="clock" width="480" height="480">
-                Please upgrade your browser.
-            </canvas>
-            <canvas id="handles" width="480" height="480">
-                Please upgrade your browser.
-            </canvas>
-            <canvas id="legend" width="512" height="512">
-                Please upgrade your browser.
-            </canvas>
-        </div>
-
-        <div
-            id="address"
-            style="margin-bottom: 2em; width: 512px; text-align: center"
-        ></div>
-
-        <div
-            class="sideBySide"
-            style="width: 512px; text-align: center; margin-bottom: 2em"
-        >
-            <button onclick="nextLocation()">
-                <span class="fa fa-plus"></span>
-            </button>
-            <label><b>Time Zone</b></label>
-            <button onclick="previousLocation()">
-                <span class="fa fa-minus"></span>
-            </button>
-        </div>
-
-        <label for="player" style="font-size: small">
-            Hino do Fluminense FC por
-            <a
-                href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/"
-            >
-                Lamartine Babo
-            </a>
-            (1949):
-        </label>
-
-        <div class="sideBySide lesson">
-            <audio id="player" title="Hino do Fluminense" controls loop>
-                <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
-                Please upgrade your browser!
-            </audio>
-        </div>
-
-        <div class="lesson" style="font-size: small">
-            <iframe
-                title="O elástico de Rivelino"
-                width="320"
-                height="240"
-                src="https://www.youtube.com/embed/jt7ebGO6ILg"
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-            >
-            </iframe>
-
-            <div class="video" id="Rivelino">
-                Elástico de Rivelino
-                <a href="https://www.youtube.com/watch?v=jt7ebGO6ILg">
-                    10/06/1975
-                </a>
+            <div class="clock-container">
+                <canvas id="clock" width="330" height="330">
+                    Please upgrade your browser.
+                </canvas>
+                <canvas id="handles" width="330" height="330">
+                    Please upgrade your browser.
+                </canvas>
+                <canvas id="legend" width="352" height="352">
+                    Please upgrade your browser.
+                </canvas>
             </div>
 
-            <div class="video" id="Renato">
-                Gol de barriga do Renato
-                <a href="https://www.youtube.com/watch?v=CrIFGVYuq6c">
-                    25/06/1995
-                </a>
+            <div id="address"></div>
+
+            <div class="sideBySide tzone">
+                <button onclick="nextLocation()">
+                    <span class="fa fa-plus"></span>
+                </button>
+                <label><b>Time Zone</b></label>
+                <button onclick="previousLocation()">
+                    <span class="fa fa-minus"></span>
+                </button>
             </div>
 
-            <div class="video" id="Cano">
-                Golaço de Cano do meio de campo
-                <a href="https://www.youtube.com/watch?v=UA-HwS766Hw">
-                    12/02/2023
+            <label for="player" style="font-size: small">
+                Hino do Fluminense FC por
+                <a
+                    href="https://vejario.abril.com.br/cidade/curiosidades-hinos-times-cariocas/"
+                >
+                    Lamartine Babo
                 </a>
+                (1949):
+            </label>
+
+            <div class="sideBySide lesson">
+                <audio
+                    id="player"
+                    class="player"
+                    title="Hino do Fluminense"
+                    controls
+                    loop
+                >
+                    <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
+                    Please upgrade your browser!
+                </audio>
+            </div>
+
+            <div class="lesson" style="font-size: small">
+                <iframe
+                    title="O elástico de Rivelino"
+                    width="320"
+                    height="240"
+                    src="https://www.youtube.com/embed/jt7ebGO6ILg"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                >
+                </iframe>
+
+                <div class="video" id="Rivelino">
+                    Elástico de Rivelino
+                    <a href="https://www.youtube.com/watch?v=jt7ebGO6ILg">
+                        10/06/1975
+                    </a>
+                </div>
+
+                <div class="video" id="Renato">
+                    Gol de barriga do Renato
+                    <a href="https://www.youtube.com/watch?v=CrIFGVYuq6c">
+                        25/06/1995
+                    </a>
+                </div>
+
+                <div class="video" id="Cano">
+                    Golaço de Cano do meio de campo
+                    <a href="https://www.youtube.com/watch?v=UA-HwS766Hw">
+                        12/02/2023
+                    </a>
+                </div>
             </div>
         </div>
 

@@ -7,9 +7,8 @@
     --cwhite2: white;
     --cwhite3: #000000;
     --inverted-clock: false;
-}
-body {
-    margin: 20px;
+    --width: 330px;
+    --height: 231px;
 }
 #clock,
 #handles {
@@ -17,17 +16,18 @@ body {
     padding: 10px;
     margin: 0px;
 }
+.clock-container {
+    height: var(--height);
+    position: relative;
+    margin-bottom: 50px;
+}
 #flu {
-    width: 503px;
+    width: var(--width);
     font-family: cursive;
     text-align: center;
     font-size: 30px;
-}
-#container {
-    position: relative;
-    height: 352px;
-    margin: 0px;
-    margin-bottom: 30px;
+    margin-left: 20px;
+    margin-bottom: 0px;
 }
 canvas {
     position: absolute;
@@ -49,28 +49,30 @@ canvas {
 }
 button {
     font-size: 200%;
-    margin-right: 40px;
-    margin-left: 40px;
-    padding: 0 10px 0 10px;
-}
-audio {
-    margin-left: -20px;
+    padding: 0 10px;
 }
 #player {
     background-image: url("/cwdc/mainPage/IMAGEM/stone/yell_roc.jpg");
 }
 #address {
-    margin-left: 0;
-    text-align: justify;
-    width: 503px;
+    width: var(--width);
+    margin-bottom: 3em;
+    text-align: center;
     font-size: small;
     height: 5em;
 }
 .sideBySide button {
     font-size: 100%;
-    margin-right: 20px;
-    margin-left: 20px;
+    margin: 0px 20px 40px 20px;
     padding: 10px 10px;
+}
+.tzone {
+    width: var(--width);
+    text-align: center;
+}
+
+.player {
+    margin-left: -20px;
 }
 iframe,
 .video,
@@ -79,6 +81,7 @@ video {
     text-align: justify;
     margin-left: -20px;
 }
+
 div > iframe,
 div > video {
     margin-top: 2em;
