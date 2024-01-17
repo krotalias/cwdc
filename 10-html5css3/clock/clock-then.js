@@ -84,6 +84,11 @@ var localRegion = {
 let legend = document.getElementById("legend");
 
 /**
+ * @var {HTMLElement} tzonesList HTML &lt;select&gt; element.
+ */
+let tzonesList = document.getElementById("tzones");
+
+/**
  * @var {CanvasRenderingContext2D} context Clock canvas context.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
  */
@@ -396,7 +401,10 @@ function findCity(name) {
     let city;
     if (name === undefined) {
       let index = localStorage.getItem("placeIndex");
-      if (index !== null) city = tz.cities[index];
+      if (index !== null) {
+        tzonesList.value = index;
+        city = tz.cities[index];
+      }
     } else {
       city = tz.cities.filter(function (c) {
         return c.city == name;
@@ -611,7 +619,7 @@ function drawClock(place) {
       enableHighAccuracy: true,
       timeout: 5000,
       maximumAge: 0,
-    }
+    },
   );
 
   /**
@@ -826,7 +834,9 @@ drawClock.decimals[18].c = color.white3;
  */
 drawClock.storage = (key) => {
   let index = localStorage.getItem("placeIndex") || 0;
-  index = (+index + (key === "n" ? 1 : -1)).mod(drawClock.tz.cities.length);
+  if (!isNaN(key)) index = +key;
+  else
+    index = (+index + (key === "n" ? 1 : -1)).mod(drawClock.tz.cities.length);
   localStorage.setItem("placeIndex", String(index));
   let city = drawClock.tz.cities[index];
   // reload everything
@@ -872,7 +882,7 @@ handles.addEventListener(
     document.documentElement.style.setProperty("--inverted-clock", "true");
     drawClock();
   },
-  false
+  false,
 );
 
 /**
@@ -888,7 +898,22 @@ handles.addEventListener(
     document.documentElement.style.setProperty("--inverted-clock", "false");
     drawClock();
   },
-  false
+  false,
+);
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed only once when the tzonesList selection is changed.
+ */
+tzonesList.addEventListener(
+  "change",
+  (event) => {
+    drawClock.storage(tzonesList.value);
+  },
+  false,
 );
 
 /**
@@ -1043,7 +1068,7 @@ var runAnimation = (() => {
 
       var coord = polar2Cartesian(
         handle.length * clockRadius,
-        handle.time2Angle
+        handle.time2Angle,
       );
       coord = translate(coord, center);
       ctx.lineTo(coord.x, coord.y);
@@ -1065,7 +1090,7 @@ var runAnimation = (() => {
       ? [localRegion.country, localRegion.city]
       : tz2.split("/");
     let [tcity, tregion, tlen, tutc] = [lcity, region, date, utc].map((p) =>
-      lctx.measureText(p)
+      lctx.measureText(p),
     );
 
     [
@@ -1077,7 +1102,7 @@ var runAnimation = (() => {
       lctx.fillText(
         p[0],
         legend.width - p[1].width,
-        legend.height - i * theight * 1.5
+        legend.height - i * theight * 1.5,
       );
     });
 

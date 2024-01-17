@@ -41,17 +41,54 @@
 
             <div class="tzone">
                 <button onclick="nextLocation()">+</button>
-                <button
-                    type="button"
-                    class="btn mx-3 text-dark fw-bold"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    data-bs-html="true"
-                    data-bs-title="Either use the unencrypted<br><em>http protocol</em> <br>or deny access<br><em>to your current location</em>"
-                    id="myTooltip"
-                >
-                    Time Zone
-                </button>
+                <div style="display: inline-block">
+                    <button
+                        type="button"
+                        class="btn mx-3 text-dark fw-bold"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        data-bs-html="true"
+                        data-bs-title="Either use the unencrypted<br><em>http protocol</em> <br>or deny access<br><em>to your current location</em>"
+                        id="myTooltip"
+                    >
+                        Time Zone
+                    </button>
+                    <br />
+                    <select id="tzones" name="select">
+                        <option value="0">Azores</option>
+                        <option value="1">Noronha</option>
+                        <option value="2" selected>Rio de Janeiro</option>
+                        <option value="3">São Paulo</option>
+                        <option value="4">Manaus</option>
+                        <option value="5">New York</option>
+                        <option value="6">Chicago</option>
+                        <option value="7">Edmonton</option>
+                        <option value="8">Phoenix</option>
+                        <option value="9">Los Angeles</option>
+                        <option value="10">Vancouver</option>
+                        <option value="11">Anchorage</option>
+                        <option value="12">Honolulu</option>
+                        <option value="13">Niue</option>
+                        <option value="14">Faroe</option>
+                        <option value="15">London</option>
+                        <option value="16">Paris</option>
+                        <option value="17">Roma</option>
+                        <option value="18">Berlin</option>
+                        <option value="19">Athens</option>
+                        <option value="20">Moscow</option>
+                        <option value="21">Istanbul</option>
+                        <option value="22">Dubai</option>
+                        <option value="23">Kolkata</option>
+                        <option value="24">Colombo</option>
+                        <option value="25">Almaty</option>
+                        <option value="26">Bangkok</option>
+                        <option value="27">Shanghai</option>
+                        <option value="28">Tokyo</option>
+                        <option value="29">Melbourne</option>
+                        <option value="30">Bougainville</option>
+                        <option value="31">Fiji</option>
+                    </select>
+                </div>
                 <button onclick="previousLocation()">-</button>
             </div>
 
