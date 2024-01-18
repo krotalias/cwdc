@@ -4,7 +4,7 @@
  * Summary.
  * <p>Encapsulation of key attributes of a 3D object.</p>
  *
- * @author Steve Kautz
+ * @author {@link https://stevekautz.com/cs336f22/cs336f22_archived.html Steve Kautz}
  * @since 30/10/2015
  * @see <a href="/cwdc/13-webgl/homework/hw4/CS336Object.js">source</a>
  */
