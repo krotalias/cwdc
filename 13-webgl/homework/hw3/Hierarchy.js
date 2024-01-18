@@ -8,7 +8,7 @@
  * @since 27/09/2016
  * @see <a href="/cwdc/13-webgl/homework/hw3/Hierarchy.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/hw3/Hierarchy.js">source</a>
- * @see <a href="/roma/Computer Graphics (3rd Edition).pdf#page=189">Foley</a>
+ * @see <a href="/roma/books/Computer Graphics/Computer Graphics (3rd Edition).pdf#page=189">Foley</a>
  * @see <a href="https://www.cs.drexel.edu/~david/Classes/ICG/Lectures_new/L-14_HierchModels.pdf">Hierarchical Modeling</a>
  * @see <img src="/cwdc/13-webgl/homework/hw3/robot-full.png" width="256" title="Danger, Will Robson!!"> <img src="/cwdc/13-webgl/homework/hw3/robot-lis.png" width="256" title="Danger, Will Robson!!">
  */
@@ -597,7 +597,7 @@ function renderCube(matrixStack, matrixLocal, c = color.green) {
   gl.uniformMatrix3fv(
     normalMatrixLoc,
     false,
-    makeNormalMatrixElements(current, viewMatrix)
+    makeNormalMatrixElements(current, viewMatrix),
   );
 
   gl.drawArrays(gl.TRIANGLES, 0, cube.numVertices);
@@ -690,7 +690,7 @@ function mainEntrance() {
   window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-        event.code
+        event.code,
       ) > -1
     ) {
       event.preventDefault();
@@ -707,10 +707,10 @@ function mainEntrance() {
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
-    "vertexLightingShader"
+    "vertexLightingShader",
   ).textContent;
   var fshaderSource = document.getElementById(
-    "fragmentLightingShader"
+    "fragmentLightingShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
@@ -749,7 +749,7 @@ function mainEntrance() {
     45,
     canvas.width / canvas.height,
     0.1,
-    1000
+    1000,
   );
 
   // create new rotator object
