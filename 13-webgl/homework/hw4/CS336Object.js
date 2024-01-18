@@ -4,7 +4,7 @@
  * Summary.
  * <p>Encapsulation of key attributes of a 3D object.</p>
  *
- * @author Paulo Roma
+ * @author Steve Kautz
  * @since 30/10/2015
  * @see <a href="/cwdc/13-webgl/homework/hw4/CS336Object.js">source</a>
  */
@@ -286,7 +286,7 @@ export class CS336Object {
    */
   rotateOnAxis(degrees, x, y, z) {
     this.rotation = new Matrix4.setRotate(degrees, x, y, z).multiply(
-      this.rotation
+      this.rotation,
     );
     this.matrixNeedsUpdate = true;
   }
