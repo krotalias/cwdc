@@ -9,11 +9,12 @@
     --inverted-clock: false;
     --width: 352px;
     --height: 246px;
+    --cpadd: 10px;
 }
 #clock,
 #handles {
     border: 5px solid #8b2439;
-    padding: 10px;
+    padding: var(--cpadd);
     margin: 0px;
 }
 .clock-container {

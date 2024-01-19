@@ -998,6 +998,12 @@ var runAnimation = (() => {
   let tz = urlParams.get("timeZone") || timezone;
   let city = tz.split("/")[1];
   let tz2 = tz;
+
+  // add the padding from #clock and #handles
+  let cpadd = +style.getPropertyValue("--cpadd").replace("px", "");
+  legend.width += cpadd;
+  legend.height += cpadd;
+
   findCity()
     .then((ct) => {
       if (ct) {
