@@ -119,6 +119,11 @@ const fiveMin = pi / 6;
 var style = getComputedStyle(document.head);
 
 /**
+ * @var {Number} cpadd padding added to the clock.
+ */
+let cpadd = +style.getPropertyValue("--cpadd").replace("px", "");
+
+/**
  * Color table.
  * @property {Object} color - colors for the clock's components.
  * @property {hex-color} color.grena - Handle's origin border, III and IX, and clock border color.
@@ -1003,8 +1008,8 @@ var runAnimation = (() => {
   let tz = urlParams.get("timeZone") || timezone;
   let city = tz.split("/")[1];
   let tz2 = tz;
+
   // add the padding from #clock and #handles
-  let cpadd = +style.getPropertyValue("--cpadd").replace("px", "");
   legend.width += cpadd;
   legend.height += cpadd;
 
@@ -1135,8 +1140,8 @@ window.addEventListener("load", (event) => runAnimation());
  * Resize the canvases according to the size of the browser's window.
  */
 function handleWindowResize() {
-  let h = window.innerHeight;
-  let w = window.innerWidth;
+  let h = window.innerHeight - 2 * cpadd;
+  let w = window.innerWidth - 2 * cpadd;
   if (h > w) {
     h = w / aspect; // aspect < 1
   } else {
