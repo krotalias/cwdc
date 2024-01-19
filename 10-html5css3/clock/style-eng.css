@@ -7,8 +7,8 @@
     --cwhite2: white;
     --cwhite3: #000000;
     --inverted-clock: false;
-    --width: 352px;
-    --height: 246px;
+    --width: 503px;
+    --height: 352px;
     --cpadd: 10px;
 }
 #clock,
@@ -59,7 +59,7 @@ button {
     width: var(--width);
     margin-bottom: 3em;
     text-align: center;
-    font-size: small;
+    font-size: 100%;
     height: 5em;
 }
 .sideBySide button {

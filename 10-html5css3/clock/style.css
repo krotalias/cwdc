@@ -7,8 +7,8 @@
     --cwhite2: #446127;
     --cwhite3: #446127;
     --inverted-clock: false;
-    --width: 352px;
-    --height: 352px;
+    --width: 480px;
+    --height: 480px;
     --cpadd: 20px;
 }
 #clock,
@@ -20,7 +20,7 @@
 .clock-container {
     height: var(--height);
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 #flu {
     width: var(--width);
@@ -58,7 +58,7 @@ button {
     width: var(--width);
     margin-bottom: 3em;
     text-align: center;
-    font-size: small;
+    font-size: 100%;
     height: 5em;
 }
 .sideBySide button {

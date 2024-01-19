@@ -84,6 +84,11 @@ var localRegion = {
 let legend = document.getElementById("legend");
 
 /**
+ * @var {Number} aspect canvas apsct ratio.
+ */
+let aspect = canvas.width / canvas.height;
+
+/**
  * @var {HTMLElement} tzonesList HTML &lt;select&gt; element.
  */
 let tzonesList = document.getElementById("tzones");
@@ -998,7 +1003,6 @@ var runAnimation = (() => {
   let tz = urlParams.get("timeZone") || timezone;
   let city = tz.split("/")[1];
   let tz2 = tz;
-
   // add the padding from #clock and #handles
   let cpadd = +style.getPropertyValue("--cpadd").replace("px", "");
   legend.width += cpadd;
@@ -1126,3 +1130,42 @@ var runAnimation = (() => {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
  */
 window.addEventListener("load", (event) => runAnimation());
+
+/**
+ * Resize the canvases according to the size of the browser's window.
+ */
+function handleWindowResize() {
+  let h = window.innerHeight;
+  let w = window.innerWidth;
+  if (h > w) {
+    h = w / aspect; // aspect < 1
+  } else {
+    w = h * aspect; // aspect > 1
+  }
+  canvas.width = w;
+  canvas.height = h;
+  handles.width = w;
+  handles.height = h;
+  legend.width = w;
+  legend.height = h;
+
+  clockRadius = Math.min(canvas.width, canvas.height) / 3.1;
+  center = [canvas.width / 2, canvas.height / 2];
+
+  document.documentElement.style.setProperty("--width", `${w}px`);
+  document.documentElement.style.setProperty("--height", `${h}px`);
+  drawClock();
+}
+
+// mobile devices
+if (screen.width <= 800) {
+  /**
+   * Triggers the {@link handleWindowResize resize event}.
+   * <p>The resize event fires when the document view (window) has been resized.</p>
+   *
+   * @event resize - resize the application.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   */
+  window.addEventListener("resize", handleWindowResize, false);
+  handleWindowResize();
+}
