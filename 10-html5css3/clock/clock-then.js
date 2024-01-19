@@ -1146,8 +1146,8 @@ function handleWindowResize() {
   canvas.height = h;
   handles.width = w;
   handles.height = h;
-  legend.width = w;
-  legend.height = h;
+  legend.width = w + cpadd;
+  legend.height = h + cpadd;
 
   clockRadius = Math.min(canvas.width, canvas.height) / 3.1;
   center = [canvas.width / 2, canvas.height / 2];
