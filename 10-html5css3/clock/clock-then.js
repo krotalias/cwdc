@@ -981,6 +981,25 @@ function getLocalDateAndTime() {
 }
 
 /**
+ * Adds options to the &lt;select&gt; element with id #tzones, for all of the cities.
+ *
+ * @param {String} city city to be selected.
+ */
+function createSelect(city) {
+  const sel = document.querySelector("#tzones");
+
+  if (sel.options.length === 0) {
+    const options = drawClock.tz.cities.map((c, i) => {
+      return `<option value="${i}" ${city == c ? "selected" : ""}>${
+        c.city
+      }</option>`;
+    });
+
+    sel.innerHTML = options;
+  }
+}
+
+/**
  * A closure to run the animation.
  *
  * @function
@@ -1028,6 +1047,7 @@ var runAnimation = (() => {
     })
     .finally(() => {
       drawClock(city);
+      createSelect(city);
     });
 
   /**
