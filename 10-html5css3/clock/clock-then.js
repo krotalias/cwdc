@@ -1160,8 +1160,8 @@ window.addEventListener("load", (event) => runAnimation());
  * Resize the canvases according to the size of the browser's window.
  */
 function handleWindowResize() {
-  let h = window.innerHeight - 2 * cpadd;
-  let w = window.innerWidth - 2 * cpadd;
+  let h = window.innerHeight - 2 * cpadd - 16;
+  let w = window.innerWidth - 2 * cpadd - 16;
   if (h > w) {
     h = w / aspect; // aspect < 1
   } else {
