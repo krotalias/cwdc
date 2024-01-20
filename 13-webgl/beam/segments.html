@@ -1,59 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>Segments</title>
+        <style>
+            .wrap-container {
+                text-align: center;
+            }
+            #slider {
+                width: 360px;
+                margin: 0 auto;
+            }
+            body {
+                margin: 10px 0;
+                padding: 0;
+            }
+        </style>
     </head>
     <body>
-        <canvas
-            id="theCanvas"
-            width="500"
-            height="500"
-            style="border: 10px solid gray"
-        ></canvas>
+        <div class="wrap-container">
+            <canvas
+                id="theCanvas"
+                width="360"
+                height="360"
+                style="border: 10px solid gray"
+            ></canvas>
 
-        <div
-            id="sliders"
-            style="width: 500px; position: absolute; margin: 0 200px"
-        >
-            <p>
-                <label for="attenuation" id="value">Attenuation Exponent</label
-                ><br />
-                <input
-                    type="range"
-                    min="0"
-                    max="50"
-                    value="5"
-                    step="0.5"
-                    name="attenuation"
-                    id="attenuation"
-                />
-            </p>
-            <p>
-                <label for="light" id="value2">Light Intensity</label><br />
-                <input
-                    type="range"
-                    min="0"
-                    max="5"
-                    value="0.8"
-                    step="0.1"
-                    name="light"
-                    id="light"
-                />
-            </p>
-            <p>
-                <label for="beam" id="value3">Beam Length</label><br />
-                <input
-                    type="range"
-                    min="0"
-                    max="5"
-                    value="1"
-                    step="0.1"
-                    name="beam"
-                    id="beam"
-                />
-            </p>
+            <div id="sliders">
+                <p>
+                    <label for="attenuation">Attenuation Exponent</label><br />
+                    <input
+                        type="range"
+                        min="0"
+                        max="50"
+                        value="5"
+                        step="0.5"
+                        name="attenuation"
+                        id="attenuation"
+                    />
+                </p>
+                <p>
+                    <label for="light">Light Intensity</label><br />
+                    <input
+                        type="range"
+                        min="0"
+                        max="5"
+                        value="0.8"
+                        step="0.1"
+                        name="light"
+                        id="light"
+                    />
+                </p>
+                <p>
+                    <label for="beam">Beam Length</label><br />
+                    <input
+                        type="range"
+                        min="0"
+                        max="5"
+                        value="1"
+                        step="0.1"
+                        name="beam"
+                        id="beam"
+                    />
+                </p>
+            </div>
         </div>
         <script
             language="javascript"
