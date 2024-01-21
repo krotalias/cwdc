@@ -4,7 +4,7 @@ an image, we use the texture coordinate to compute a color value out
 of thin air.
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -13,6 +13,7 @@ of thin air.
             #interface {
                 width: 900px;
                 margin-left: 50px;
+                text-align: left;
             }
             #models,
             label {
@@ -21,6 +22,8 @@ of thin air.
             }
             #models {
                 font-size: 200%;
+                border: 0px;
+                outline: 0px;
             }
             #opts {
                 list-style: none;
@@ -28,113 +31,133 @@ of thin air.
             label {
                 margin-right: 40px;
             }
+            .wrap-container {
+                padding: 0;
+                margin: 50px auto;
+                display: block;
+                width: 900px;
+                text-align: center;
+            }
+            details {
+                margin-top: 50px;
+                text-align: left;
+            }
         </style>
     </head>
 
     <body>
-        <canvas id="theCanvas" width="900" height="600">
-            Please use a browser that supports "canvas"
-        </canvas>
+        <div class="wrap-container">
+            <h1>Procedural Texture - Phong Shading</h1>
+            <canvas id="theCanvas" width="900" height="600">
+                Please use a browser that supports "canvas"
+            </canvas>
 
-        <div id="interface">
-            <p>
-                <label id="object"><b>Object:</b></label>
-            </p>
-            <select name="models" id="models" onchange="selectModel()">
-                <option value="0">Capsule</option>
-                <option value="1">Cone</option>
-                <option value="2">Cube</option>
-                <option value="3">Cylinder</option>
-                <option value="4">Ring</option>
-                <option value="5">Sphere</option>
-                <option value="6" selected="selected">Teapot</option>
-                <option value="7">Torus</option>
-                <option value="8">Torus Knot</option>
-                <option value="9">Dodecahedron</option>
-                <option value="10">Icosahedron</option>
-                <option value="11">Octahedron</option>
-                <option value="12">Tetrahedron</option>
-            </select>
+            <div id="interface">
+                <p>
+                    <label id="object"><b>Object:</b></label>
+                </p>
+                <select name="models" id="models" onchange="selectModel()">
+                    <option value="0">Capsule</option>
+                    <option value="1">Cone</option>
+                    <option value="2">Cube</option>
+                    <option value="3">Cylinder</option>
+                    <option value="4">Ring</option>
+                    <option value="5">Sphere</option>
+                    <option value="6" selected="selected">Teapot</option>
+                    <option value="7">Torus</option>
+                    <option value="8">Torus Knot</option>
+                    <option value="9">Dodecahedron</option>
+                    <option value="10">Icosahedron</option>
+                    <option value="11">Octahedron</option>
+                    <option value="12">Tetrahedron</option>
+                </select>
 
-            <p>
-                <label><b>Status:</b></label>
-            </p>
-            <form>
-                <input type="checkbox" id="mesh" name="mesh" value="mesh" />
-                <label for="mesh">Mesh</label><br />
-                <input
-                    type="checkbox"
-                    id="texture"
-                    name="texture"
-                    checked
-                    value="texture"
-                />
-                <label for="texture">Texture</label><br />
-                <input
-                    type="checkbox"
-                    id="axes"
-                    name="axes"
-                    checked
-                    value="axes"
-                />
-                <label for="axes">Axes</label><br />
-
-                <div class="radio">
+                <p>
+                    <label><b>Status:</b></label>
+                </p>
+                <form>
+                    <input type="checkbox" id="mesh" name="mesh" value="mesh" />
+                    <label for="mesh">Mesh</label><br />
                     <input
-                        type="radio"
-                        id="pause"
-                        name="rot"
+                        type="checkbox"
+                        id="texture"
+                        name="texture"
                         checked
-                        value=" "
+                        value="texture"
                     />
-                    <label for="pause">Pause</label>
-                    <input type="radio" id="x" name="rot" value="x" />
-                    <label for="x">x</label>
-                    <input type="radio" id="y" name="rot" value="y" />
-                    <label for="y">y</label>
-                    <input type="radio" id="z" name="rot" value="z" />
-                    <label for="z">z</label> (<a
-                        href="https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd"
-                        >intrinsic x extrinsic</a
-                    >)
-                </div>
+                    <label for="texture">Texture</label><br />
+                    <input
+                        type="checkbox"
+                        id="axes"
+                        name="axes"
+                        checked
+                        value="axes"
+                    />
+                    <label for="axes">Axes</label><br />
 
-                <div class="radio">
-                    <input type="radio" id="E" name="euler" checked value="E" />
-                    <label for="E">Intrinsic</label>
-                    <input type="radio" id="e" name="euler" value="e" />
-                    <label for="e">Extrinsic</label>
-                </div>
-            </form>
+                    <div class="radio">
+                        <input
+                            type="radio"
+                            id="pause"
+                            name="rot"
+                            checked
+                            value=" "
+                        />
+                        <label for="pause">Pause</label>
+                        <input type="radio" id="x" name="rot" value="x" />
+                        <label for="x">x</label>
+                        <input type="radio" id="y" name="rot" value="y" />
+                        <label for="y">y</label>
+                        <input type="radio" id="z" name="rot" value="z" />
+                        <label for="z">z</label> (<a
+                            href="https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd"
+                            >intrinsic x extrinsic</a
+                        >)
+                    </div>
+
+                    <div class="radio">
+                        <input
+                            type="radio"
+                            id="E"
+                            name="euler"
+                            checked
+                            value="E"
+                        />
+                        <label for="E">Intrinsic</label>
+                        <input type="radio" id="e" name="euler" value="e" />
+                        <label for="e">Extrinsic</label>
+                    </div>
+                </form>
+            </div>
+
+            <br />
+            <details>
+                <summary style="font-size: 150%">Keyboard controls:</summary>
+
+                <ul id="opts">
+                    <li>SPACE - pause rotation</li>
+                    <li>a - toggle axes visible/invisible</li>
+                    <li>k - toggle texture on/off</li>
+                    <li>l - toggle lines visible/invisible</li>
+                    <li>x,y,z - intrinsic rotation about a local axis</li>
+                    <li>c,C - cylinder/cone</li>
+                    <li>d - dodecahedron</li>
+                    <li>e - extrinsic/intrinsic</li>
+                    <li>i - icosahedron</li>
+                    <li>o - octahedron</li>
+                    <li>w - tetrahedron</li>
+                    <li>p - teapot</li>
+                    <li>r - ring</li>
+                    <li>v - cube</li>
+                    <li>s - sphere</li>
+                    <li>t,T - torus/torus knot</li>
+                    <li>u - capsule</li>
+                    <li>O - Reset to initial state</li>
+                    <li>↑,↓ - Zoom out/in</li>
+                    <li></li>
+                </ul>
+            </details>
         </div>
-
-        <br />
-        <details>
-            <summary style="font-size: 150%">Keyboard controls:</summary>
-
-            <ul id="opts">
-                <li>SPACE - pause rotation</li>
-                <li>a - toggle axes visible/invisible</li>
-                <li>k - toggle texture on/off</li>
-                <li>l - toggle lines visible/invisible</li>
-                <li>x,y,z - intrinsic rotation about a local axis</li>
-                <li>c,C - cylinder/cone</li>
-                <li>d - dodecahedron</li>
-                <li>e - extrinsic/intrinsic</li>
-                <li>i - icosahedron</li>
-                <li>o - octahedron</li>
-                <li>w - tetrahedron</li>
-                <li>p - teapot</li>
-                <li>r - ring</li>
-                <li>v - cube</li>
-                <li>s - sphere</li>
-                <li>t,T - torus/torus knot</li>
-                <li>u - capsule</li>
-                <li>O - Reset to initial state</li>
-                <li>↑,↓ - Zoom out/in</li>
-                <li></li>
-            </ul>
-        </details>
 
         <script id="vertexLightingShader" type="x-shader/x-vertex">
             precision mediump float;
@@ -284,10 +307,10 @@ of thin air.
         <script src="/cwdc/13-webgl/hws.edu-examples/teapot-model-IFS.js"></script>
 
         <!-- Use three.js if you have it locally, for easier debugging -->
-        <!-- <script src="/WebGL/lib/three.js"></script> -->
+        <script src="/WebGL/lib/three.js"></script>
 
         <!--  otherwise, load the minified version from the www -->
-        <script src="https://threejs.org/build/three.min.js"></script>
+        <!-- script src="https://threejs.org/build/three.min.js"></script> -->
 
         <script src="LightingWithTexture.js"></script>
     </body>
