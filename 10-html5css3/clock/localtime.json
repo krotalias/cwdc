@@ -65,6 +65,15 @@
             }
         },
         {
+            "city": "Phoenix",
+            "region": "America",
+            "offset": -7,
+            "coordinates": {
+                "latitude": 33.448376,
+                "longitude": -112.074036
+            }
+        },
+        {
             "city": "Edmonton",
             "region": "Canada",
             "offset": -7,
@@ -74,12 +83,12 @@
             }
         },
         {
-            "city": "Phoenix",
-            "region": "America",
+            "city": "Calgary",
+            "region": "Canada",
             "offset": -7,
             "coordinates": {
-                "latitude": 33.448376,
-                "longitude": -112.074036
+                "latitude": 51.049999,
+                "longitude": -114.066666
             }
         },
         {
@@ -182,12 +191,12 @@
             }
         },
         {
-            "city": "Moscow",
-            "region": "Europe",
-            "offset": 3,
+            "city": "Tel Aviv",
+            "region": "Israel",
+            "offset": 2,
             "coordinates": {
-                "latitude": 55.751244,
-                "longitude": 37.618423
+                "latitude": 32.08088,
+                "longitude": 34.78057
             }
         },
         {
@@ -196,7 +205,16 @@
             "offset": 3,
             "coordinates": {
                 "latitude": 41.015137,
-                "longitude": 28.979530
+                "longitude": 28.97953
+            }
+        },
+        {
+            "city": "Moscow",
+            "region": "Europe",
+            "offset": 3,
+            "coordinates": {
+                "latitude": 55.751244,
+                "longitude": 37.618423
             }
         },
         {
@@ -209,12 +227,12 @@
             }
         },
         {
-            "city": "Kolkata",
+            "city": "Almaty",
             "region": "Asia",
-            "offset": 5.3,
+            "offset": 6,
             "coordinates": {
-                "latitude": 22.56263,
-                "longitude": 88.36304
+                "latitude": 43.238949,
+                "longitude": 76.889709
             }
         },
         {
@@ -227,12 +245,12 @@
             }
         },
         {
-            "city": "Almaty",
+            "city": "Kolkata",
             "region": "Asia",
-            "offset": 6,
+            "offset": 5.3,
             "coordinates": {
-                "latitude": 43.238949,
-                "longitude": 76.889709
+                "latitude": 22.56263,
+                "longitude": 88.36304
             }
         },
         {
@@ -242,6 +260,24 @@
             "coordinates": {
                 "latitude": 13.736717,
                 "longitude": 100.523186
+            }
+        },
+        {
+            "city": "Kuala_Lumpur",
+            "region": "Malaysia",
+            "offset": 8,
+            "coordinates": {
+                "latitude": 3.140853,
+                "longitude": 101.693207
+            }
+        },
+        {
+            "city": "Beijing",
+            "region": "China",
+            "offset": 8,
+            "coordinates": {
+                "latitude": 39.916668,
+                "longitude": 116.383331
             }
         },
         {
