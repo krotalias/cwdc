@@ -66,11 +66,11 @@
         },
         {
             "city": "Edmonton",
-            "region": "America",
+            "region": "Canada",
             "offset": -7,
             "coordinates": {
-                "latitude": 53.631611,
-                "longitude": -113.323975
+                "latitude": ,53.545883
+                "longitude": -113.490112
             }
         },
         {

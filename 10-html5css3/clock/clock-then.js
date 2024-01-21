@@ -990,9 +990,9 @@ function createSelect(city) {
 
   if (sel.options.length === 0) {
     const options = drawClock.tz.cities.map((c, i) => {
-      return `<option value="${i}" ${city == c ? "selected" : ""}>${
-        c.city
-      }</option>`;
+      return `<option value="${i}" ${
+        city == c ? "selected" : ""
+      }>${c.city.replaceAll("_", " ")}</option>`;
     });
 
     sel.innerHTML = options;
@@ -1124,6 +1124,7 @@ var runAnimation = (() => {
     let [region, lcity] = _USE_LOCAL_TIME_
       ? [localRegion.country, localRegion.city]
       : tz2.split("/");
+    lcity = lcity.replaceAll("_", " ");
     let [tcity, tregion, tlen, tutc] = [lcity, region, date, utc].map((p) =>
       lctx.measureText(p),
     );
