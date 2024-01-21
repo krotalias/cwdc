@@ -31,15 +31,15 @@
 "use strict";
 
 // CDN always works
-import * as THREE from "https://unpkg.com/three@0.148.0/build/three.module.js?module";
-import { TeapotGeometry } from "https://unpkg.com/three@0.148.0/examples/jsm/geometries/TeapotGeometry.js?module";
+//import * as THREE from "https://unpkg.com/three@0.148.0/build/three.module.js?module";
+//import { TeapotGeometry } from "https://unpkg.com/three@0.148.0/examples/jsm/geometries/TeapotGeometry.js?module";
 
 // importmap does not work on safari and IOS
 //import * as THREE from "three";
 //import { TeapotGeometry } from "TeapotGeometry";
 
-//import * as THREE from "/cwdc/13-webgl/lib/three/build/three.module.js";
-//import { TeapotGeometry } from "./TeapotGeometry.js";
+import * as THREE from "/cwdc/13-webgl/lib/three/build/three.module.js";
+import { TeapotGeometry } from "./TeapotGeometry.js";
 
 /**
  * Axes coordinates.
@@ -262,7 +262,29 @@ var projection = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);
  *                   indices: Uint16Array}>} modelData
  */
 
+/**
+ * Loads the {@link mainEntrance application}.
+ * @event load
+ */
 window.addEventListener("load", (event) => mainEntrance());
+
+/**
+ * Draws the mesh and vertex normals, by generating an "l" {@link handleKeyPress event},
+ * whenever the Mesh button is clicked.
+ * @event click
+ */
+document
+  .querySelector("#btnMesh")
+  .addEventListener("click", (event) => handleKeyPress(createEvent("l")));
+
+/**
+ * Animates the object, by generating an " " {@link handleKeyPress event},
+ * whenever the Rotate button is clicked.
+ * @event click
+ */
+document
+  .querySelector("#btnRot")
+  .addEventListener("click", (event) => handleKeyPress(createEvent(" ")));
 
 /**
  * Given an instance of
@@ -401,13 +423,9 @@ function makeNormalMatrixElements(model, view) {
  * @see https://javascript.info/tutorial/keyboard-events
  */
 function getChar(event) {
-  if (event.which == null) {
-    return String.fromCharCode(event.keyCode); // IE
-  } else if (event.which != 0 && event.charCode != 0) {
-    return String.fromCharCode(event.which); // the rest
-  } else {
-    return null; // special key
-  }
+  event = event || window.event;
+  let charCode = event.key || String.fromCharCode(event.which);
+  return charCode;
 }
 
 /**
@@ -454,7 +472,7 @@ function handleKeyPress(event) {
       mscale = 1;
       document.getElementById("models").value = "8";
       theModel = createModel(
-        getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16))
+        getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16)),
       );
       break;
     case "p":
@@ -463,7 +481,7 @@ function handleKeyPress(event) {
       document.getElementById("models").value = "6";
       theModel = createModel(
         getModelData(new TeapotGeometry(1, 10, true, true, true, true, true)),
-        null
+        null,
       );
       break;
     default:
@@ -570,7 +588,7 @@ function drawSurface() {
   gl.uniformMatrix3fv(
     loc,
     false,
-    makeNormalMatrixElements(modelMatrix, viewMatrix)
+    makeNormalMatrixElements(modelMatrix, viewMatrix),
   );
 
   loc = gl.getUniformLocation(lightingShader, "lightPosition");
@@ -581,13 +599,13 @@ function drawSurface() {
     0.0,
     0.8,
     0.8,
-    1.0
+    1.0,
   );
   gl.drawElements(
     gl.TRIANGLES,
     theModel.indices.length,
     mscale == 0.8 ? gl.UNSIGNED_INT : gl.UNSIGNED_SHORT,
-    0
+    0,
   );
 
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
@@ -806,8 +824,21 @@ function mainEntrance() {
   // retrieve <canvas> element
   var canvas = document.getElementById("theCanvas");
 
-  // key handler
-  window.onkeypress = handleKeyPress;
+  /**
+   * <p>Key handler.</p>
+   * Calls {@link handleKeyPress} whenever any of these keys is pressed:
+   * <ul>
+   *  <li>Space</li>
+   *  <li>x, y, z</li>
+   *  <li>p, s, T, o</li>
+   *  <li>a, k, l</li>
+   * </ul>
+   *
+   * @event keydown
+   */
+  addEventListener("keydown", (event) => {
+    handleKeyPress();
+  });
 
   // get the rendering context for WebGL
   gl = canvas.getContext("webgl2");
@@ -819,7 +850,7 @@ function mainEntrance() {
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById("vertexColorShader").textContent;
   var fshaderSource = document.getElementById(
-    "fragmentColorShader"
+    "fragmentColorShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
@@ -830,10 +861,10 @@ function mainEntrance() {
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
-    "vertexLightingShader"
+    "vertexLightingShader",
   ).textContent;
   var fshaderSource = document.getElementById(
-    "fragmentLightingShader"
+    "fragmentLightingShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
