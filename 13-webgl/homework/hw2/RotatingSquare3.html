@@ -1,69 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
         <title>WebGL + Canvas</title>
         <style>
             #interface {
-                width: 900px;
-                margin-left: 50px;
+                width: fit-content;
+                margin: 50px auto;
+            }
+            .wrap-container {
+                display: block;
+                width: fit-content;
+                text-align: center;
+                background-color: antiquewhite;
+                margin: 0 auto;
+                padding: 0;
+                border: 5px solid steelblue;
+            }
+            .twoCanvas {
+                margin: 0;
+                padding: 0;
             }
             label {
-                margin-right: 40px;
-                font-size: x-large;
+                font-size: 300%;
                 line-height: 200%;
+                padding-right: 30px;
             }
             button {
-                font-size: 300%;
-                margin-right: 40px;
-                padding: 0 10px 0 10px;
+                font-size: 400%;
+                font-family: "Courier New", Courier, monospace;
+                background-color: steelblue;
+                color: white;
+                margin: 40px 40px 0 40px;
+                padding: 0 10px;
             }
             .sideBySide {
-                float: left;
-                margin-right: 80px;
+                padding: 0px;
+            }
+            details {
+                text-align: left;
+                width: fit-content;
             }
         </style>
     </head>
 
     <body>
-        <canvas id="theCanvas" width="450" height="750">
-            Please use a browser that supports "canvas"
-        </canvas>
+        <div class="wrap-container">
+            <h1>Rotation about Fixed Point</h1>
+            <div class="twoCanvas">
+                <canvas id="theCanvas" width="450" height="850">
+                    Please use a browser that supports "canvas"
+                </canvas>
 
-        <canvas id="theCanvas2" width="450" height="750">
-            Please use a browser that supports "canvas"
-        </canvas>
-
-        <div id="interface">
-            <div id="radio">
-                <input
-                    type="radio"
-                    id="pause"
-                    name="corner"
-                    checked
-                    value=" "
-                />
-                <label for="pause">Pause</label>
-                <input type="radio" id="r" name="corner" checked value="r" />
-                <label for="r">R</label>
-                <input type="radio" id="g" name="corner" value="g" />
-                <label for="g">G</label>
-                <input type="radio" id="b" name="corner" value="b" />
-                <label for="b">B</label>
-                <input type="radio" id="w" name="corner" value="w" />
-                <label for="w">W</label>
+                <canvas id="theCanvas2" width="450" height="850">
+                    Please use a browser that supports "canvas"
+                </canvas>
             </div>
 
-            <div class="sideBySide">
-                <p>
-                    <label><b>Zoom:</b></label>
-                </p>
-                <button onclick="zoomIn()">+</button>
-                <button onclick="zoomOut()">-</button>
-            </div>
-            <div style="clear: both"></div>
+            <div id="interface">
+                <div id="radio">
+                    <input
+                        type="radio"
+                        id="pause"
+                        name="corner"
+                        checked
+                        value=" "
+                    />
+                    <label for="pause">Pause</label>
+                    <input
+                        type="radio"
+                        id="r"
+                        name="corner"
+                        checked
+                        value="r"
+                    />
+                    <label for="r">R</label>
+                    <input type="radio" id="g" name="corner" value="g" />
+                    <label for="g">G</label>
+                    <input type="radio" id="b" name="corner" value="b" />
+                    <label for="b">B</label>
+                    <input type="radio" id="w" name="corner" value="w" />
+                    <label for="w">W</label>
+                </div>
 
-            <br />
+                <div class="sideBySide">
+                    <button onclick="zoomIn()">+</button>
+                    <label style="padding-right: 0"><b>Zoom</b></label>
+                    <button onclick="zoomOut()">-</button>
+                </div>
+            </div>
+
             <details>
                 <summary style="font-size: 150%">
                     Keyboard controls<span id="kbd">:</span>
