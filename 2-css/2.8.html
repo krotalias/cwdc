@@ -51,6 +51,22 @@
                 position: relative;
             }
 
+            #fourth-section {
+                background-color: steelblue;
+                width: 320px;
+                padding: 0;
+                top: 70px;
+                left: 580px;
+                /*
+                 * The element is removed from the normal document flow,
+                 * and no space is created for the element in the page layout.
+                 * The element is positioned relative to its closest positioned ancestor
+                 * (if any) or to the initial containing block.
+                 * Its final position is determined by the values of top, right, bottom, and left.
+                 */
+                position: absolute;
+            }
+
             #third-section {
                 background-color: #faebd7;
                 width: 260px;
@@ -107,6 +123,26 @@
                 }
             </pre>
             <p class="blue">The quick brown fox jumped over the lazy dog.</p>
+        </div>
+
+        <div id="fourth-section" class="no-margin">
+            <p class="white">
+                These texts are in another &lt;div&gt; pointed by:
+            </p>
+            <pre class="code">
+                #fourth-section {
+                    <tab1 /> background-color: #8AB4F7;
+                    <tab1 /> width: 320px;
+                    <tab1 /> padding: 0;
+                    <tab1 /> top: 70px;
+                    <tab1 /> left: 580px;
+                    <tab1 /> /*
+                    <tab1 />  &nbsp;* (offset - top..,
+                    <tab1 />  &nbsp;* relative to closest ancestor )
+                    <tab1 />  &nbsp;*/
+                    <tab1 /> <mark>position: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">absolute</a>;</mark>
+                }
+            </pre>
         </div>
 
         <div id="second-section" class="no-margin">

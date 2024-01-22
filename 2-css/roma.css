@@ -14,6 +14,10 @@
     color: green;
 }
 
+.white {
+    color: white;
+}
+
 .underlined {
     text-decoration: underline;
 }
@@ -32,8 +36,8 @@
     padding: 5px 10px 15px 20px;
 }
 
-/* 
- * Beware - Specificity: (1, 1, 1) 
+/*
+ * Beware - Specificity: (1, 1, 1)
  * id + div + pseudo-class
  */
 div#second-section:not(.no-margin) {
@@ -53,10 +57,10 @@ div#second-section:not(.no-margin) {
 
 pre {
     line-height: 125%;
-    /* 
-     * Sequences of white space are collapsed. 
-     * Lines are broken at newline characters, at <br>, 
-     * and as necessary to fill line boxes. 
+    /*
+     * Sequences of white space are collapsed.
+     * Lines are broken at newline characters, at <br>,
+     * and as necessary to fill line boxes.
      * @see https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
      */
     white-space: pre-line;
@@ -65,4 +69,8 @@ pre {
 
 tab1 {
     padding-left: 2em;
+}
+
+tab3 {
+    padding-left: 3em;
 }
