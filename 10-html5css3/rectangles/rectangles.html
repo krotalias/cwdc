@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Pack Rectangles</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="/cwdc/mainPage/LCG.css" />
+        <style>
+            #ncircles,
+            #value {
+                display: block;
+                text-align: center;
+                font-size: 200%;
+            }
+            #value {
+                margin-top: 10rem;
+            }
+            #pack_rect_container {
+                cursor: move;
+                text-align: center;
+                color: #8b2439;
+                margin: 0 auto;
+                font-size: 200%;
+            }
+            input[type="range"] {
+                margin-top: 3rem;
+                height: 2rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="pack_rect_container">
+            <h2 id="dimension"></h2>
+            <canvas id="rect" width="640" height="480">
+                Please upgrade your browser.
+            </canvas>
+
+            <label for="ncircles" id="value"></label>
+            <input
+                type="range"
+                min="1"
+                max="100"
+                value="1"
+                step="1"
+                name="ncircles"
+                id="ncircles"
+            />
+            <!-- oninput="drawRects(this.value,canvas)" -->
+            <h5 style="text-align: right">
+                <a href="https://observablehq.com/d/600df2eb8038e879">
+                    (Observable)
+                </a>
+            </h5>
+        </div>
+
+        <script nomodule src="/cwdc/3-javascript/cookies.js"></script>
+        <script nomodule>
+            window.onload = () => {
+                setSlider(getCookie, setCookie);
+            };
+        </script>
+
+        <script type="module">
+            import {
+                getCookie,
+                setCookie,
+            } from "/cwdc/3-javascript/cookies.mjs";
+            window.onload = () => {
+                setSlider(getCookie, setCookie);
+            };
+        </script>
+
+        <script src="./rectangles.js"></script>
+
+        <script>
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const x = urlParams.get("w") || "640";
+            const y = urlParams.get("h") || "480";
+
+            document.getElementById("ncircles").style.width = `${x}px`;
+            document.getElementById("value").style.width = `${x}px`;
+            document.getElementById("pack_rect_container").style.width =
+                `${x}px`;
+
+            let canvas = document.getElementById("rect");
+            canvas.width = x;
+            canvas.height = y;
+            document.getElementById("dimension").innerHTML =
+                `Canvas: (${x}×${y})<br /> Aspect ratio = ${(x / y).toFixed(
+                    2,
+                )}`;
+        </script>
+
+        <script type="text/javascript" src="/cwdc/mainPage/LCG.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            dragAndSave("#pack_rect_container");
+        </script>
+    </body>
+</html>
