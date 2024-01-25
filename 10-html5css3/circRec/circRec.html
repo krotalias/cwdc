@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Intersect Rectangles</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="/cwdc/mainPage/LCG.css" />
+        <style>
+            #circ_rect_container {
+                width: fit-content;
+                margin: 50px auto;
+                padding: 0;
+            }
+            h2 {
+                cursor: move;
+                text-align: center;
+                font-size: 250%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="circ_rect_container">
+            <canvas id="theCanvas2" width="800" height="800">
+                Please upgrade your browser.
+            </canvas>
+            <h2>Circle ∩ Rectangle ∩ Triangle (Drag me)</h2>
+        </div>
+
+        <script type="module" src="circRec.js"></script>
+
+        <script type="text/javascript" src="/cwdc/mainPage/LCG.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+        <script type="text/javascript">
+            dragAndSave("#circ_rect_container");
+            $("#circ_rect_container").draggable("option", "handle", "h2");
+        </script>
+
+        <script>
+            let w, h;
+
+            // mobile devices
+            if (screen.width <= 800) {
+                w = Min(window.innerHeight, window.innerWidth);
+                h = w;
+            } else {
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                w = urlParams.get("w") || "800";
+                h = urlParams.get("h") || "800";
+            }
+
+            canvas = document.querySelector("#theCanvas2");
+            canvas.width = w;
+            canvas.height = h;
+        </script>
+    </body>
+</html>

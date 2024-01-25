@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Intersect Rectangles</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="/cwdc/mainPage/LCG.css" />
+        <style>
+            #rect_rect_container,
+            #tri_tri_container,
+            #circ_rect_container {
+                width: fit-content;
+                margin: 0 auto;
+                padding: 0;
+            }
+            h2 {
+                cursor: move;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="circ_rect_container">
+            <canvas id="theCanvas2" width="500" height="500">
+                Please upgrade your browser.
+            </canvas>
+            <h2>Circle ∩ Rectangle ∩ Triangle (Drag me)</h2>
+        </div>
+        <div id="rect_rect_container">
+            <canvas id="theCanvas1" width="500" height="500">
+                Please upgrade your browser.
+            </canvas>
+            <h2>Rectangle ∩ Rectangle (Drag me)</h2>
+        </div>
+        <div id="tri_tri_container">
+            <canvas id="theCanvas3" width="500" height="500">
+                Please upgrade your browser.
+            </canvas>
+            <h2>Triangle ∩ Triangle (Drag me)</h2>
+        </div>
+
+        <script type="module" src="circRec.js"></script>
+
+        <script type="text/javascript" src="/cwdc/mainPage/LCG.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+        <script type="text/javascript">
+            dragAndSave("#rect_rect_container");
+            dragAndSave("#circ_rect_container");
+            dragAndSave("#tri_tri_container");
+            $("#circ_rect_container").draggable("option", "handle", "h2");
+            $("#rect_rect_container").draggable("option", "handle", "h2");
+            $("#tri_tri_container").draggable("option", "handle", "h2");
+        </script>
+
+        <script>
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const x = urlParams.get("w") || "500";
+            const y = urlParams.get("h") || "500";
+
+            let canvas = document.getElementById("theCanvas1");
+            canvas.width = x;
+            canvas.height = y;
+
+            canvas = document.getElementById("theCanvas2");
+            canvas.width = x;
+            canvas.height = y;
+
+            canvas = document.getElementById("theCanvas3");
+            canvas.width = x;
+            canvas.height = y;
+        </script>
+    </body>
+</html>
