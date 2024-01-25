@@ -1,0 +1,15 @@
+{
+  "name": "frame-hw2",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "frame-hw2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paulo Roma",
+  "license": "ISC",
+  "dependencies": {
+    "gl-matrix": "^3.4.3"
+  }
+}
