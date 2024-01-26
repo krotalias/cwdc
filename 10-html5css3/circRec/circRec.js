@@ -27,7 +27,7 @@
  *  @see https://glmatrix.net
  *  @see https://dens.website/tutorials/webgl/gl-matrix
  *  @see https://stackoverflow.com/questions/56716154/how-to-properly-import-from-gl-matrix-js
- *  @see <img src="../circRec/circRec/rect-circle.png" width="768">
+ *  @see <img src="../circRec/rect-circle.png" width="768">
  */
 
 "use strict";
