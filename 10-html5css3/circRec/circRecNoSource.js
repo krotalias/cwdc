@@ -26,7 +26,7 @@
  *  @see https://glmatrix.net
  *  @see https://dens.website/tutorials/webgl/gl-matrix
  *  @see https://stackoverflow.com/questions/56716154/how-to-properly-import-from-gl-matrix-js
- *  @see <img src="../rect-circle.png" width="768">
+ *  @see <img src="../circRec/rect-circle.png" width="768">
  */
 
 "use strict";
@@ -54,7 +54,7 @@ let vec2d = (function () {
    * @returns {Number} orientation.
    * @see https://en.wikipedia.org/wiki/Cross_product
    * @see http://www.cs.tufts.edu/comp/163/OrientationTests.pdf
-   * @see <img src="../orient.png" width="320">
+   * @see <img src="../circRec/orient.png" width="320">
    * @global
    * @function
    */
@@ -137,7 +137,7 @@ function fillCanvas(ctx, w, h) {
  * @param {Array<Number,Number>} p point.
  * @param {Array<Array<Number,Number>>} poly polygon.
  * @returns {Array<Number,Number>} closest point.
- * @see <img src="../closest.jpg" width="384">
+ * @see <img src="../circRec/closest.jpg" width="384">
  */
 function closestPolyPoint(p, poly) {}
 
@@ -177,7 +177,7 @@ function convexPolyCircleIntersect(poly, center, radius) {}
  * @param {Number} radius2 second circle radius.
  * @returns {Boolean} intersect or not.
  * @see https://milania.de/blog/Intersection_area_of_two_circles_with_implementation_in_C%2B%2B
- * @see <img src="../IntersectingCirclesArea_CircularSegmentsSmallAngle.png" width="320">
+ * @see <img src="../circRec/IntersectingCirclesArea_CircularSegmentsSmallAngle.png" width="320">
  */
 function circleCircleIntersect(center1, radius1, center2, radius2) {}
 
@@ -194,7 +194,7 @@ function circleCircleIntersect(center1, radius1, center2, radius2) {}
  * @param {Array<Number,Number>} u orientation vector.
  * @param {Number} size side size.
  * @returns {Array<Array<Number,Number>>} a rectangle (a polygon).
- * @see <img src="../cRv2l.png" width="320">
+ * @see <img src="../circRec/cRv2l.png" width="320">
  */
 function makeRectangle(center, u, size) {}
 
@@ -317,7 +317,7 @@ function midPoints(poly) {}
  * @return {Array<Array<Number,Number>, Array<Number,Number>, Array<Number,Number>>}
  * an isosceles triangle (a convex polygon).
  * @see https://en.wikipedia.org/wiki/Isosceles_triangle
- * @see <img src="../Isosceles-Triangle.png" width="256">
+ * @see <img src="../circRec/Isosceles-Triangle.png" width="256">
  */
 function isosceles({ basePoint, oppositeVertex }) {
   const u = vec2d.sub([], basePoint, oppositeVertex);
