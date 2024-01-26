@@ -1,17 +1,35 @@
 <!--  Demo of using a transformation matrix in a vertex shader. -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" />
-        <title>Transformations</title>
+        <title>Basic Animation</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: lightcyan;
+            }
+            .container {
+                width: fit-content;
+                margin: 50px auto;
+                text-align: center;
+            }
+            #theCanvas {
+                border: 5px solid brown;
+            }
+        </style>
     </head>
 
     <body>
-        <canvas id="theCanvas" width="800" height="350">
-            Please use a browser that supports "canvas"
-        </canvas>
+        <div class="container">
+            <h1>A Cube in a circular orbit with a Satellite</h1>
+            <canvas id="theCanvas" width="800" height="350">
+                Please use a browser that supports "canvas"
+            </canvas>
+        </div>
 
         <script id="vertexShader" type="x-shader/x-vertex">
             uniform mat4 model;
