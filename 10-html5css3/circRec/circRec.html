@@ -20,6 +20,11 @@
             body {
                 overscroll-behavior: none;
             }
+            /* prevent copy, share, translate ... */
+            *:not(input):not(textarea) {
+                user-select: none;
+                -webkit-user-select: none; /* Safari */
+            }
         </style>
     </head>
 
@@ -28,7 +33,7 @@
             <canvas id="theCanvas2" width="800" height="800">
                 Please upgrade your browser.
             </canvas>
-            <h2>Circle ∩ Rectangle ∩ Triangle (Drag me)</h2>
+            <h2>Circle ∩ Rectangle ∩ Triangle (Drag the handles •)</h2>
         </div>
 
         <script type="module" src="circRec.js"></script>
