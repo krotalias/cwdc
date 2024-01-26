@@ -624,6 +624,7 @@ function isosceles({ basePoint, oppositeVertex }) {
   makePts();
   let sel = null;
   let prevMouse = null;
+  let tol = 20;
 
   const update = () => {
     fillCanvas(ctx, w, h);
@@ -698,17 +699,16 @@ function isosceles({ basePoint, oppositeVertex }) {
     }
   };
 
-  demo.onmouseup = () => {
+  const motchend = (e) => {
     sel = null;
   };
 
-  demo.onmousedown = (e) => {
+  const motchstart = (mouse) => {
     sel = null;
-    const mouse = [e.offsetX, e.offsetY];
 
     for (let r of rects) {
       for (let [ianchor, p] of r.anchors.entries()) {
-        if (util2d.dist(mouse, p) &lt;= 5) {
+        if (util2d.dist(mouse, p) &lt;= tol) {
           let size =
             ianchor == 4
               ? r.size
@@ -721,7 +721,7 @@ function isosceles({ basePoint, oppositeVertex }) {
 
     for (let c of circles) {
       for (let p of c.anchors) {
-        if (util2d.dist(mouse, p) &lt;= 5) {
+        if (util2d.dist(mouse, p) &lt;= tol) {
           sel = [c, p];
           break;
         }
@@ -730,7 +730,7 @@ function isosceles({ basePoint, oppositeVertex }) {
 
     for (let tri of iso) {
       for (let [ianchor, p] of tri.anchors.entries()) {
-        if (vec2d.distance(mouse, p) &lt;= 5) {
+        if (vec2d.distance(mouse, p) &lt;= tol) {
           sel = [tri, ianchor, 0, 0];
         }
       }
@@ -738,8 +738,7 @@ function isosceles({ basePoint, oppositeVertex }) {
     prevMouse = mouse;
   };
 
-  demo.onmousemove = (e) => {
-    const mouse = [e.offsetX, e.offsetY];
+  const motchmove = (mouse) => {
     if (sel) {
       if (sel.length == 3) {
         // Rectangle
@@ -774,6 +773,68 @@ function isosceles({ basePoint, oppositeVertex }) {
       update();
     }
   };
+
+  /**
+   * Set event listeners.
+   *
+   * @name setListeners
+   * @function
+   */
+  (function setListeners() {
+    window.addEventListener(
+      "mousedown",
+      (e) => {
+        const mouse = [e.offsetX, e.offsetY];
+        motchstart(mouse);
+      },
+      false,
+    );
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        const mouse = [e.offsetX, e.offsetY];
+        motchmove(mouse);
+      },
+      false,
+    );
+    window.addEventListener(
+      "mouseup",
+      (e) => {
+        motchend(e);
+      },
+      false,
+    );
+    window.addEventListener(
+      "touchstart",
+      (e) => {
+        e.preventDefault();
+        const r = demo.getBoundingClientRect();
+        const mouse = [e.touches[0].pageX - r.left, e.touches[0].pageY - r.top];
+
+        motchstart(mouse);
+      },
+      false,
+    );
+    window.addEventListener(
+      "touchmove",
+      (e) => {
+        e.preventDefault();
+        const r = demo.getBoundingClientRect();
+        const mouse = [e.touches[0].pageX - r.left, e.touches[0].pageY - r.top];
+        motchmove(mouse);
+      },
+      false,
+    );
+    window.addEventListener(
+      "touchend",
+      (e) => {
+        e.preventDefault();
+        motchend(e.touches[0]);
+      },
+      false,
+    );
+  })();
+
   update();
 })();
 </code></pre>
@@ -786,13 +847,13 @@ function isosceles({ basePoint, oppositeVertex }) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Global</h3><ul><li><a href="global.html#barycentric">barycentric</a></li><li><a href="global.html#circleCircleIntersect">circleCircleIntersect</a></li><li><a href="global.html#closestPolyPoint">closestPolyPoint</a></li><li><a href="global.html#convexPolyCircleIntersect">convexPolyCircleIntersect</a></li><li><a href="global.html#convexPolysIntersect">convexPolysIntersect</a></li><li><a href="global.html#dist">dist</a></li><li><a href="global.html#distToLine">distToLine</a></li><li><a href="global.html#distToSegment">distToSegment</a></li><li><a href="global.html#fillCanvas">fillCanvas</a></li><li><a href="global.html#glvec2">glvec2</a></li><li><a href="global.html#glvec2lineIntersection">glvec2lineIntersection</a></li><li><a href="global.html#glvec2orient">glvec2orient</a></li><li><a href="global.html#glvec2segmentsIntersect">glvec2segmentsIntersect</a></li><li><a href="global.html#isosceles">isosceles</a></li><li><a href="global.html#isoscelesDemo">isoscelesDemo</a></li><li><a href="global.html#lineLineIntersection">lineLineIntersection</a></li><li><a href="global.html#makeRectangle">makeRectangle</a></li><li><a href="global.html#midPoints">midPoints</a></li><li><a href="global.html#orient">orient</a></li><li><a href="global.html#pointInConvexPoly">pointInConvexPoly</a></li><li><a href="global.html#pointInPoly">pointInPoly</a></li><li><a href="global.html#polygonArea">polygonArea</a></li><li><a href="global.html#rectCircleIntersectDemo">rectCircleIntersectDemo</a></li><li><a href="global.html#rectRectIntersectDemo">rectRectIntersectDemo</a></li><li><a href="global.html#segmentsIntersect">segmentsIntersect</a></li><li><a href="global.html#segmentsIntersectProper">segmentsIntersectProper</a></li><li><a href="global.html#vec2d">vec2d</a></li><li><a href="global.html#vectorProj">vectorProj</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Global</h3><ul><li><a href="global.html#barycentric">barycentric</a></li><li><a href="global.html#circleCircleIntersect">circleCircleIntersect</a></li><li><a href="global.html#closestPolyPoint">closestPolyPoint</a></li><li><a href="global.html#convexPolyCircleIntersect">convexPolyCircleIntersect</a></li><li><a href="global.html#convexPolysIntersect">convexPolysIntersect</a></li><li><a href="global.html#dist">dist</a></li><li><a href="global.html#distToLine">distToLine</a></li><li><a href="global.html#distToSegment">distToSegment</a></li><li><a href="global.html#fillCanvas">fillCanvas</a></li><li><a href="global.html#glvec2">glvec2</a></li><li><a href="global.html#glvec2lineIntersection">glvec2lineIntersection</a></li><li><a href="global.html#glvec2orient">glvec2orient</a></li><li><a href="global.html#glvec2segmentsIntersect">glvec2segmentsIntersect</a></li><li><a href="global.html#isosceles">isosceles</a></li><li><a href="global.html#isoscelesDemo">isoscelesDemo</a></li><li><a href="global.html#lineLineIntersection">lineLineIntersection</a></li><li><a href="global.html#makeRectangle">makeRectangle</a></li><li><a href="global.html#midPoints">midPoints</a></li><li><a href="global.html#orient">orient</a></li><li><a href="global.html#pointInConvexPoly">pointInConvexPoly</a></li><li><a href="global.html#pointInPoly">pointInPoly</a></li><li><a href="global.html#polygonArea">polygonArea</a></li><li><a href="global.html#rectCircleIntersectDemo">rectCircleIntersectDemo</a></li><li><a href="global.html#rectRectIntersectDemo">rectRectIntersectDemo</a></li><li><a href="global.html#segmentsIntersect">segmentsIntersect</a></li><li><a href="global.html#segmentsIntersectProper">segmentsIntersectProper</a></li><li><a href="global.html#setListeners">setListeners</a></li><li><a href="global.html#vec2d">vec2d</a></li><li><a href="global.html#vectorProj">vectorProj</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jan 25 2024 09:21:44 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Jan 26 2024 09:11:35 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

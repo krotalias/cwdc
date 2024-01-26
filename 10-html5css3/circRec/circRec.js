@@ -596,6 +596,7 @@ function isosceles({ basePoint, oppositeVertex }) {
   makePts();
   let sel = null;
   let prevMouse = null;
+  let tol = 20;
 
   const update = () => {
     fillCanvas(ctx, w, h);
@@ -670,17 +671,16 @@ function isosceles({ basePoint, oppositeVertex }) {
     }
   };
 
-  demo.onmouseup = () => {
+  const motchend = (e) => {
     sel = null;
   };
 
-  demo.onmousedown = (e) => {
+  const motchstart = (mouse) => {
     sel = null;
-    const mouse = [e.offsetX, e.offsetY];
 
     for (let r of rects) {
       for (let [ianchor, p] of r.anchors.entries()) {
-        if (util2d.dist(mouse, p) <= 5) {
+        if (util2d.dist(mouse, p) <= tol) {
           let size =
             ianchor == 4
               ? r.size
@@ -693,7 +693,7 @@ function isosceles({ basePoint, oppositeVertex }) {
 
     for (let c of circles) {
       for (let p of c.anchors) {
-        if (util2d.dist(mouse, p) <= 5) {
+        if (util2d.dist(mouse, p) <= tol) {
           sel = [c, p];
           break;
         }
@@ -702,7 +702,7 @@ function isosceles({ basePoint, oppositeVertex }) {
 
     for (let tri of iso) {
       for (let [ianchor, p] of tri.anchors.entries()) {
-        if (vec2d.distance(mouse, p) <= 5) {
+        if (vec2d.distance(mouse, p) <= tol) {
           sel = [tri, ianchor, 0, 0];
         }
       }
@@ -710,8 +710,7 @@ function isosceles({ basePoint, oppositeVertex }) {
     prevMouse = mouse;
   };
 
-  demo.onmousemove = (e) => {
-    const mouse = [e.offsetX, e.offsetY];
+  const motchmove = (mouse) => {
     if (sel) {
       if (sel.length == 3) {
         // Rectangle
@@ -746,5 +745,67 @@ function isosceles({ basePoint, oppositeVertex }) {
       update();
     }
   };
+
+  /**
+   * Set event listeners.
+   *
+   * @name setListeners
+   * @function
+   */
+  (function setListeners() {
+    window.addEventListener(
+      "mousedown",
+      (e) => {
+        const mouse = [e.offsetX, e.offsetY];
+        motchstart(mouse);
+      },
+      false,
+    );
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        const mouse = [e.offsetX, e.offsetY];
+        motchmove(mouse);
+      },
+      false,
+    );
+    window.addEventListener(
+      "mouseup",
+      (e) => {
+        motchend(e);
+      },
+      false,
+    );
+    window.addEventListener(
+      "touchstart",
+      (e) => {
+        e.preventDefault();
+        const r = demo.getBoundingClientRect();
+        const mouse = [e.touches[0].pageX - r.left, e.touches[0].pageY - r.top];
+
+        motchstart(mouse);
+      },
+      false,
+    );
+    window.addEventListener(
+      "touchmove",
+      (e) => {
+        e.preventDefault();
+        const r = demo.getBoundingClientRect();
+        const mouse = [e.touches[0].pageX - r.left, e.touches[0].pageY - r.top];
+        motchmove(mouse);
+      },
+      false,
+    );
+    window.addEventListener(
+      "touchend",
+      (e) => {
+        e.preventDefault();
+        motchend(e.touches[0]);
+      },
+      false,
+    );
+  })();
+
   update();
 })();

@@ -7,13 +7,18 @@
         <style>
             #circ_rect_container {
                 width: fit-content;
-                margin: 50px auto;
+                margin: 50px auto 0 auto;
                 padding: 0;
             }
             h2 {
                 cursor: move;
                 text-align: center;
                 font-size: 250%;
+            }
+            html,
+            /*  prevent the pull to refresh: */
+            body {
+                overscroll-behavior: none;
             }
         </style>
     </head>
@@ -32,23 +37,21 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 
-        <script type="text/javascript">
-            dragAndSave("#circ_rect_container");
-            $("#circ_rect_container").draggable("option", "handle", "h2");
-        </script>
-
         <script>
             let w, h;
 
             // mobile devices
             if (screen.width <= 800) {
-                w = Min(window.innerHeight, window.innerWidth);
+                w = Math.min(window.innerHeight - 16, window.innerWidth - 16);
                 h = w;
             } else {
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
                 w = urlParams.get("w") || "800";
                 h = urlParams.get("h") || "800";
+
+                dragAndSave("#circ_rect_container");
+                $("#circ_rect_container").draggable("option", "handle", "h2");
             }
 
             canvas = document.querySelector("#theCanvas2");
