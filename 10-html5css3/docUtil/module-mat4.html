@@ -69,7 +69,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line2">line 2</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line2">line 2</a>
     </li></ul></dd>
     
 
@@ -255,7 +255,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1741">line 1741</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1818">line 1818</a>
     </li></ul></dd>
     
 
@@ -437,7 +437,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line322">line 322</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line322">line 322</a>
     </li></ul></dd>
     
 
@@ -596,7 +596,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line44">line 44</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -778,7 +778,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line72">line 72</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -888,7 +888,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line13">line 13</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -929,6 +929,235 @@
     <dd>
         
 <span class="param-type">mat4</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".decompose"><span class="type-signature">(static) </span>decompose<span class="signature">(out_r, out_t, out_s, mat)</span><span class="type-signature"> &rarr; {quat}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Decomposes a transformation matrix into its rotation, translation
+and scale components. Returns only the rotation component
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>out_r</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">quat</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Quaternion to receive the rotation component</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>out_t</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">vec3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Vector to receive the translation vector</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>out_s</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">vec3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Vector to receive the scaling factor</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ReadonlyMat4</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Matrix to be decomposed (input)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1172">line 1172</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    out_r
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">quat</span>
 
 
     </dd>
@@ -1047,7 +1276,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line364">line 364</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line376">line 376</a>
     </li></ul></dd>
     
 
@@ -1229,7 +1458,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1864">line 1864</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1941">line 1941</a>
     </li></ul></dd>
     
 
@@ -1411,7 +1640,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1853">line 1853</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1930">line 1930</a>
     </li></ul></dd>
     
 
@@ -1570,7 +1799,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1729">line 1729</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1806">line 1806</a>
     </li></ul></dd>
     
 
@@ -1752,7 +1981,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1290">line 1290</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1369">line 1369</a>
     </li></ul></dd>
     
 
@@ -1934,7 +2163,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1029">line 1029</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1039">line 1039</a>
     </li></ul></dd>
     
 
@@ -2143,7 +2372,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line830">line 830</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line840">line 840</a>
     </li></ul></dd>
     
 
@@ -2355,7 +2584,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line985">line 985</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line995">line 995</a>
     </li></ul></dd>
     
 
@@ -2591,7 +2820,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1170">line 1170</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1249">line 1249</a>
     </li></ul></dd>
     
 
@@ -2852,7 +3081,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1230">line 1230</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1309">line 1309</a>
     </li></ul></dd>
     
 
@@ -3038,7 +3267,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line798">line 798</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line808">line 808</a>
     </li></ul></dd>
     
 
@@ -3224,7 +3453,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line767">line 767</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line777">line 777</a>
     </li></ul></dd>
     
 
@@ -3728,7 +3957,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line113">line 113</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line113">line 113</a>
     </li></ul></dd>
     
 
@@ -3914,7 +4143,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line879">line 879</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line889">line 889</a>
     </li></ul></dd>
     
 
@@ -4100,7 +4329,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line913">line 913</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line923">line 923</a>
     </li></ul></dd>
     
 
@@ -4286,7 +4515,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line947">line 947</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line957">line 957</a>
     </li></ul></dd>
     
 
@@ -4583,7 +4812,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1338">line 1338</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1417">line 1417</a>
     </li></ul></dd>
     
 
@@ -4768,7 +4997,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1106">line 1106</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1116">line 1116</a>
     </li></ul></dd>
     
 
@@ -4954,7 +5183,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1081">line 1081</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1091">line 1091</a>
     </li></ul></dd>
     
 
@@ -5139,7 +5368,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1064">line 1064</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1074">line 1074</a>
     </li></ul></dd>
     
 
@@ -5298,7 +5527,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line182">line 182</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line182">line 182</a>
     </li></ul></dd>
     
 
@@ -5480,7 +5709,7 @@ This is equivalent to (but much faster than):
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line259">line 259</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line259">line 259</a>
     </li></ul></dd>
     
 
@@ -5709,7 +5938,7 @@ If you want a matrix that actually makes an object look at another object, you s
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1580">line 1580</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1657">line 1657</a>
     </li></ul></dd>
     
 
@@ -5819,7 +6048,7 @@ If you want a matrix that actually makes an object look at another object, you s
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1904">line 1904</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1981">line 1981</a>
     </li></ul></dd>
     
 
@@ -6002,7 +6231,7 @@ If you want a matrix that actually makes an object look at another object, you s
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line405">line 405</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line415">line 415</a>
     </li></ul></dd>
     
 
@@ -6207,7 +6436,7 @@ If you want a matrix that actually makes an object look at another object, you s
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1797">line 1797</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1874">line 1874</a>
     </li></ul></dd>
     
 
@@ -6435,7 +6664,7 @@ If you want a matrix that actually makes an object look at another object, you s
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1826">line 1826</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1903">line 1903</a>
     </li></ul></dd>
     
 
@@ -6545,7 +6774,7 @@ If you want a matrix that actually makes an object look at another object, you s
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1531">line 1531</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1608">line 1608</a>
     </li></ul></dd>
     
 
@@ -6822,7 +7051,7 @@ which matches WebGL/OpenGL's clip volume.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1504">line 1504</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1581">line 1581</a>
     </li></ul></dd>
     
 
@@ -7121,7 +7350,7 @@ which matches WebGPU/Vulkan/DirectX/Metal's clip volume.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1547">line 1547</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1624">line 1624</a>
     </li></ul></dd>
     
 
@@ -7231,7 +7460,7 @@ which matches WebGPU/Vulkan/DirectX/Metal's clip volume.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1408">line 1408</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1486">line 1486</a>
     </li></ul></dd>
     
 
@@ -7439,7 +7668,7 @@ with the still experiemental WebVR API.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1464">line 1464</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1541">line 1541</a>
     </li></ul></dd>
     
 
@@ -7693,7 +7922,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1374">line 1374</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1453">line 1453</a>
     </li></ul></dd>
     
 
@@ -7947,7 +8176,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1423">line 1423</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1501">line 1501</a>
     </li></ul></dd>
     
 
@@ -8175,7 +8404,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line553">line 553</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line563">line 563</a>
     </li></ul></dd>
     
 
@@ -8380,7 +8609,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line632">line 632</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line642">line 642</a>
     </li></ul></dd>
     
 
@@ -8585,7 +8814,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line676">line 676</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line686">line 686</a>
     </li></ul></dd>
     
 
@@ -8790,7 +9019,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line720">line 720</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line730">line 730</a>
     </li></ul></dd>
     
 
@@ -8995,7 +9224,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line521">line 521</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line531">line 531</a>
     </li></ul></dd>
     
 
@@ -9522,7 +9751,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line156">line 156</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line156">line 156</a>
     </li></ul></dd>
     
 
@@ -9681,7 +9910,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1719">line 1719</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1796">line 1796</a>
     </li></ul></dd>
     
 
@@ -9791,7 +10020,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1910">line 1910</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1987">line 1987</a>
     </li></ul></dd>
     
 
@@ -9974,7 +10203,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1769">line 1769</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1846">line 1846</a>
     </li></ul></dd>
     
 
@@ -10202,7 +10431,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line1663">line 1663</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line1740">line 1740</a>
     </li></ul></dd>
     
 
@@ -10407,7 +10636,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line466">line 466</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line476">line 476</a>
     </li></ul></dd>
     
 
@@ -10589,7 +10818,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="node_modules_gl-matrix_esm_mat4.js.html">node_modules/gl-matrix/esm/mat4.js</a>, <a href="node_modules_gl-matrix_esm_mat4.js.html#line209">line 209</a>
+        <a href="lib_gl-matrix_dist_esm_mat4.js.html">lib/gl-matrix/dist/esm/mat4.js</a>, <a href="lib_gl-matrix_dist_esm_mat4.js.html#line209">line 209</a>
     </li></ul></dd>
     
 
@@ -10663,7 +10892,7 @@ Passing null/undefined/no value for far will generate infinite projection matrix
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jan 25 2024 09:28:09 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Jan 26 2024 09:22:01 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
