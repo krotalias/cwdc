@@ -12,11 +12,12 @@ include "mainPage/header2.php";
     </p>
     <hr class="m-y-2">
     <p style="color:red">Want to know more? <a style="color:#F5D58C" href="https://meet.google.com/syb-ngwg-xqs">Join us for our Weekly Meeting!</a></p>
+    <p class="lead text-warning">All code runs on mobile!!</p>
 </div>
 </a>
 
 <?php include "mainPage/navbar.php"; ?>
-    
+
 <script src="mainPage/main.js"></script>
 
 <?php include "mainPage/footer.php"; ?>
