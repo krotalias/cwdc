@@ -63,12 +63,15 @@ button {
 }
 .sideBySide button {
     font-size: 100%;
-    margin: 0px 20px 40px 20px;
+    margin: 0px 10px 40px 10px;
     padding: 10px 10px;
 }
 .tzone {
     width: var(--width);
     text-align: center;
+}
+.sideBySide.tzone {
+    margin: 0;
 }
 
 .player {
