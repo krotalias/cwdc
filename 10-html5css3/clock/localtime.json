@@ -75,7 +75,7 @@
         },
         {
             "city": "Edmonton",
-            "region": "Canada",
+            "region": "America",
             "offset": -7,
             "coordinates": {
                 "latitude": 53.545883,
@@ -264,7 +264,7 @@
         },
         {
             "city": "Kuala_Lumpur",
-            "region": "Malaysia",
+            "region": "Asia",
             "offset": 8,
             "coordinates": {
                 "latitude": 3.140853,
