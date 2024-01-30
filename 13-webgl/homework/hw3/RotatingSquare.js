@@ -5,7 +5,7 @@
  * <p>Applies a transformation using a matrix in the vertex shader.</p>
  * (The only modified code is in the {@link draw} function and in the vertex shader.)
  *
- * <p>Uses the type Matrix4 from the {@link https://uniguld.dk/wp-content/guld/DTU/webgrafik/0321902920_WebGL.pdf teal book}
+ * <p>Uses the type Matrix4 from the {@link https://www.rose-hulman.edu/class/csse/csse351/reference/0321902920_WebGL.pdf teal book}
  * utilities in cuon-matrix.js</p>
  *
  * <pre>
@@ -384,7 +384,7 @@ function mainEntrance(r) {
 
     // display the total angle.
     tAngle.innerHTML = `${Number(totalAng.toFixed(2))}° = ${Number(
-      (rpc * cycles).toFixed(2)
+      (rpc * cycles).toFixed(2),
     )} revolutions = ${cycles} cycles`;
 
     gl.lineWidth(3);
@@ -436,7 +436,7 @@ function mainEntrance(r) {
             points.curve,
             gl.DYNAMIC_DRAW,
             0,
-            drawCount.curve
+            drawCount.curve,
           );
 
         // "enable" the a_position attribute
@@ -475,7 +475,7 @@ function mainEntrance(r) {
             points.circle,
             gl.DYNAMIC_DRAW,
             0,
-            drawCount.circle
+            drawCount.circle,
           );
 
         // "enable" the a_position attribute
