@@ -3,7 +3,7 @@
     Vertex shader does basic Lambert shading.
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -16,6 +16,7 @@
                 border: solid brown 3px;
                 padding: 20px;
                 font-size: 100%;
+                background-color: antiquewhite;
             }
             canvas {
                 display: block;
@@ -26,8 +27,16 @@
                 justify-content: space-between;
             }
             button {
-                font-size: 100%;
-                padding: 0 5px;
+                background-color: #0096ff;
+                color: white;
+                border: 2px solid white;
+                padding: 5px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 16px;
             }
         </style>
     </head>
@@ -43,11 +52,6 @@
                 <div>FPS: <span id="fps">--</span></div>
                 <div><span id="timeBoxDiv"> 0 </span> ms/cycle</div>
             </div>
-
-            <audio id="audio1">
-                <source src="macarena.mp3" type="audio/mpeg" />
-                Your browser does not support the audio element.
-            </audio>
 
             <br />
             <button type="button" autofocus onclick="danceCallBack()">
@@ -72,6 +76,12 @@
                 checked
             />
 
+            <br />
+            <audio id="audio1" title="Macarena" controls style="width: 220px">
+                <source src="macarena.mp3" type="audio/mpeg" />
+                Your browser does not support the audio element.
+            </audio>
+
             <!--
         <br /><br />
         (refresh page to see the effect)<br />(untick me to enable again)
@@ -80,7 +90,7 @@
 
             <br /><br />
             <details>
-                <summary style="font-size: 120%">Keyboard controls:</summary>
+                <summary style="font-size: 100%">Keyboard controls:</summary>
 
                 <ul style="list-style: none">
                     <li>b, B - body rotation</li>
@@ -112,7 +122,8 @@
             void main()
             {
               float ambientFactor = 0.3;
-              vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
+              vec3 lightDirection = normalize((- view * model * a_Position).xyz);
+              // vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
               //vec3 normal = (view * model * vec4(a_Normal, 0.0)).xyz;
               vec3 normal = normalize(normalMatrix * a_Normal);
               float diffuseFactor = 0.8*max(0.0, dot(lightDirection, normal));
@@ -172,20 +183,11 @@
 
         <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
         <script src="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js"></script>
+        <script src="/cwdc/13-webgl/lib/simple-rotator.js"></script>
         <script src="blobby.js"></script>
 
-        <script src="https://threejs.org/build/three.js"></script>
+        <script src="/cwdc/13-webgl/lib/three.js"></script>
         <script src="AutoPlay.js"></script>
-        <script>
-            window.onload = dance;
-            //document.addEventListener("DOMContentLoaded", dance);
-            function dance() {
-                mainEntrance();
-                if (disableAutoplay === "no") {
-                    danceCallBack();
-                }
-            }
-        </script>
 
         <img
             id="texImage"

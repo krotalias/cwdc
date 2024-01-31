@@ -29,6 +29,22 @@
 "use strict";
 
 /**
+ * Three.js module.
+ * @external THREE
+ * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ */
+
+/**
+ * <p>A representation of mesh, line, or point geometry.</p>
+ * Includes vertex positions, face indices, normals, colors, UVs,
+ * and custom attributes within buffers, reducing the cost of
+ * passing all this data to the GPU.
+ * @class BufferGeometry
+ * @memberof external:THREE
+ * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ */
+
+/**
  * @class
  * A very basic stack class.
  */
@@ -94,14 +110,12 @@ class Stack {
 
 /**
  * Given an instance of
- * <ul>
- * <li><a href="https://threejs.org/build/three.js">THREE.BufferGeometry</a></li>
- * </ul>
+ * {@link external:THREE.BufferGeometry THREE.BufferGeometry},
  * returns an object containing raw data for
  * vertices, indices, texture coordinates, and normal vectors.
- * @param {THREE.BufferGeometry} geom THREE.SphereGeometry, THREE.PlaneGeometry.
+ * @param {external:THREE.BufferGeometry} geom {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry}, <br>
+ *                                             {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry}.
  * @return {Object<{vertices: Float32Array, normals: Float32Array, texCoords: Float32Array, indices: Uint16Array}>}
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
  */
 function getModelData(geom) {
   return {
@@ -125,7 +139,7 @@ function configureTexture(image) {
   gl.texParameteri(
     gl.TEXTURE_2D,
     gl.TEXTURE_MIN_FILTER,
-    gl.NEAREST_MIPMAP_LINEAR
+    gl.NEAREST_MIPMAP_LINEAR,
   );
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
@@ -166,6 +180,15 @@ function makeNormalMatrixElements(model, view) {
     n[8], n[9], n[10],
   ]);
 }
+
+/**
+ * Returns the magnitude (length) of a vector.
+ * @param {Array<Number>} v n-D vector.
+ * @returns {Number} vector length.
+ * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+ */
+var vecLen = (v) =>
+  Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
 
 // A few global variables...
 
@@ -227,9 +250,9 @@ var glColor = white;
 var FOV = 45.0,
   ZN = 1.17,
   ZF = 20.7;
-var XSCR = -0.1,
-  YSCR = 1.6,
-  ZSCR = 7.9;
+var XSCR = 0,
+  YSCR = 1.65,
+  ZSCR = 0;
 var XM = 0.0,
   YM = 0.0,
   ZM = 1.75;
@@ -330,15 +353,27 @@ var texturedShader;
 var bodyMatrix = new Matrix4();
 
 /**
+ * Camera position.
+ * @type {Array<Number>}
+ */
+var eye = [0.1, -1.6, -7.5];
+
+/**
  * View matrix.
  * @type {Matrix4}
  */
 // prettier-ignore
 var view = new Matrix4().setLookAt(
-  0, 0, 0, // eye
-  0, 0, 1, // at - looking at the origin
-  0, -1, 0 // up vector - y axis
+  ...eye,    // eye
+  0.1, -1.6, -6.5,   // at - looking at the origin
+  0, -1, 0   // up vector - y axis
 );
+
+/**
+ * View distance.
+ * @type {Number}
+ */
+var viewDistance = vecLen(eye);
 
 /**
  * <p>Projection matrix.</p>
@@ -346,6 +381,12 @@ var view = new Matrix4().setLookAt(
  * @type {Matrix4}
  */
 var projection = new Matrix4().setPerspective(FOV, 1.0, ZN, ZF);
+
+/**
+ * Object to enable rotation by mouse dragging (arcball).
+ * @type {SimpleRotator}
+ */
+var rotator;
 
 /**
  * Translate keypress events to strings.
@@ -370,10 +411,13 @@ function getChar(event) {
 function applyMoveAndSway(t, move1, move, sign) {
   for (var i = 0; i < 4; ++i) {
     callBackArray.push(
-      setTimeout(function () {
-        move1();
-        move(sign);
-      }, (t += delay))
+      setTimeout(
+        function () {
+          move1();
+          move(sign);
+        },
+        (t += delay),
+      ),
     );
   }
   return t;
@@ -388,9 +432,12 @@ function applyMoveAndSway(t, move1, move, sign) {
 function applyMove(t, move) {
   for (var i = 0; i < 8; ++i) {
     callBackArray.push(
-      setTimeout(function () {
-        move();
-      }, (t += delay2))
+      setTimeout(
+        function () {
+          move();
+        },
+        (t += delay2),
+      ),
     );
   }
   return t;
@@ -598,7 +645,7 @@ function renderSphere(color) {
   gl.uniformMatrix3fv(
     normalMatrixLoc,
     false,
-    makeNormalMatrixElements(current, view)
+    makeNormalMatrixElements(current, view),
   );
 
   gl.drawElements(gl.TRIANGLES, sphere.indices.length, gl.UNSIGNED_SHORT, 0);
@@ -761,7 +808,7 @@ function body() {
     EXTEN,
     XAXIS[0],
     XAXIS[1],
-    XAXIS[2]
+    XAXIS[2],
   ); /* the shoulder rotates twice */
   t.rotate(BTWIS, YAXIS[0], YAXIS[1], YAXIS[2]);
   t.rotate(ROT, ZAXIS[0], ZAXIS[1], ZAXIS[2]);
@@ -944,7 +991,7 @@ function GPlane() {
   gl.uniformMatrix3fv(
     normalMatrixLoc,
     false,
-    makeNormalMatrixElements(current, view)
+    makeNormalMatrixElements(current, view),
   );
 
   // draw
@@ -952,7 +999,7 @@ function GPlane() {
     gl.TRIANGLES,
     planeModel.indices.length,
     gl.UNSIGNED_SHORT,
-    0
+    0,
   );
 
   gl.useProgram(null);
@@ -988,6 +1035,8 @@ function draw() {
   // clear the framebuffer
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
+  view.elements = rotator.getViewMatrix();
+
   bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
   bodyMatrix
     .rotate(BACK, XAXIS[0], XAXIS[1], XAXIS[2])
@@ -1015,7 +1064,10 @@ function draw() {
  */
 function mainEntrance() {
   /**
-   * Screen events.
+   * <p>Fires when the document view (window) has been resized.</p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
    */
   function handleWindowResize() {
     let h = window.innerHeight;
@@ -1031,6 +1083,15 @@ function mainEntrance() {
     // projection = new Matrix4().setPerspective(FOV, aspect, ZN, ZF);
   }
 
+  /**
+   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * <p>The {@link handleWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @param {Event} event the document view is resized.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize - executed when the window is resized.
+   */
   window.addEventListener("resize", handleWindowResize, false);
 
   // retrieve <canvas> element
@@ -1038,7 +1099,13 @@ function mainEntrance() {
   // player = document.getElementsByTagName("audio")[0];
   player = document.getElementById("audio1");
 
-  // key handler
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.</p>
+   * The callback argument sets the callback that will be invoked when
+   * the event is dispatched.
+   *
+   * @event keydown
+   */
   window.addEventListener("keydown", (event) => {
     handleKeyPress(event);
   });
@@ -1054,16 +1121,16 @@ function mainEntrance() {
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
-    "vertexLightingShader"
+    "vertexLightingShader",
   ).textContent;
   var fshaderSource = document.getElementById(
-    "fragmentLightingShader"
+    "fragmentLightingShader",
   ).textContent;
   var vshaderTextured = document.getElementById(
-    "vertexTexturedShader"
+    "vertexTexturedShader",
   ).textContent;
   var fshaderTextured = document.getElementById(
-    "fragmentTexturedShader"
+    "fragmentTexturedShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
@@ -1163,6 +1230,11 @@ function mainEntrance() {
 
   configureTexture(image);
 
+  // create new rotator object
+  rotator = new SimpleRotator(canvas, draw);
+  rotator.setViewMatrix(view.elements);
+  rotator.setViewDistance(viewDistance);
+
   /**
    * A closure to render the application and display the fps.
    *
@@ -1171,7 +1243,7 @@ function mainEntrance() {
    * @global
    * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
    */
-  var animate = (function () {
+  const animate = (() => {
     // time in milliseconds
     let previousTimeStamp = Date.now();
     let numberOfFramesForFPS = 0;
@@ -1437,7 +1509,7 @@ function macarena(loop, tinit) {
         RATWIS -= 22;
       },
       lsway,
-      +1
+      +1,
     ); // 22*4=88
     t = applyMoveAndSway(
       t,
@@ -1445,7 +1517,7 @@ function macarena(loop, tinit) {
         RATWIS -= 22;
       },
       lsway,
-      -1
+      -1,
     ); // 22*4=88 (176 degrees)
     t = applyMoveAndSway(
       t,
@@ -1453,7 +1525,7 @@ function macarena(loop, tinit) {
         LATWIS += 22;
       },
       rsway,
-      +1
+      +1,
     );
     t = applyMoveAndSway(
       t,
@@ -1461,7 +1533,7 @@ function macarena(loop, tinit) {
         LATWIS += 22;
       },
       rsway,
-      -1
+      -1,
     );
 
     // bend the arms (put hands on the chest): 60*4*4=960ms
@@ -1472,7 +1544,7 @@ function macarena(loop, tinit) {
         RELBO -= 12;
       },
       lsway,
-      +1
+      +1,
     ); // undo the rotation above
     t = applyMoveAndSway(
       t,
@@ -1481,7 +1553,7 @@ function macarena(loop, tinit) {
         RELBO -= 12;
       },
       lsway,
-      -1
+      -1,
     ); // and bend the arms
     t = applyMoveAndSway(
       t,
@@ -1490,7 +1562,7 @@ function macarena(loop, tinit) {
         LELBO += 12;
       },
       rsway,
-      +1
+      +1,
     ); // at the same time
     t = applyMoveAndSway(
       t,
@@ -1499,7 +1571,7 @@ function macarena(loop, tinit) {
         LELBO += 12;
       },
       rsway,
-      -1
+      -1,
     ); // hands facing down again
 
     // hands on the head: 60*4*4=960ms
@@ -1535,3 +1607,18 @@ function macarena(loop, tinit) {
   if (loop) callBackArray.push(setTimeout(macarena, t, loop));
   return t;
 }
+
+/**
+ * <p>Loads the {@link mainEntrance application}.</p>
+ * If Autoplay is not disabled, start dancing right away.
+ * @param {Event} event an object has loaded.
+ * @param {callback} function function to run when the event occurs.
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
+addEventListener("load", (event) => {
+  mainEntrance();
+  if (disableAutoplay === "no") {
+    danceCallBack();
+  }
+});

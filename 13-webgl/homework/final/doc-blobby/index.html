@@ -306,6 +306,155 @@ which is scaled, rotated and translated for each joint in the
 
 <header>
     
+        <h2>lib/simple-rotator.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+
+<p>The SimpleRotator class implements an <a href="/cwdc/13-webgl/extras/doc/Arcball.pdf">ArcBall</a> like interface.</p>
+Create by <a href="https://dl.acm.org/profile/81100026146">Ken Shoemake</a> in 1992,
+it is the de facto <a href="/cwdc/13-webgl/extras/doc/shoemake92-arcball.pdf">standard</a>
+for interactive 3D model manipulation and visualization.
+<p>The class defines the following methods for an object of type SimpleRotator:</p>
+<ul>
+   <li><a href="SimpleRotator.html#setView">SimpleRotator#setView</a>(viewDirectionVector, viewUpVector, viewDistance) <br>
+        set up the view, where the parameters are optional and are used in the
+        same way as the corresponding parameters in the constructor;</li>
+   <li><a href="SimpleRotator.html#setViewDistance">SimpleRotator#setViewDistance</a>(viewDistance)  <br>
+       sets the distance of the viewer from the origin without
+       changing the direction of view;</li>
+   <li><a href="SimpleRotator.html#getViewDistance">SimpleRotator#getViewDistance</a>()  <br>
+        returns the viewDistance;</li>
+   <li><a href="SimpleRotator.html#setViewMatrix">SimpleRotator#setViewMatrix</a>(matrix) <br>
+       Sets the view matrix.
+   <li><a href="SimpleRotator.html#getViewMatrix">SimpleRotator#getViewMatrix</a>() <br>
+       returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array">Float32Array</a>
+       representing the viewing transformation matrix for the current view, suitable for use with
+       <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniformMatrix">gl.uniformMatrix4fv</a> <br>
+       or for further transformation with the <a href="https://glmatrix.net/docs/">glmatrix</a> library
+       <a href="https://glmatrix.net/docs/module-mat4.html">mat4</a> class;</li>
+   <li><a href="SimpleRotator.html#getViewMatrixArray">SimpleRotator#getViewMatrixArray</a>() <br>
+        returns the view transformation matrix as a regular JavaScript array,
+        but still represents as a 1D array of 16 elements, in column-major order.</li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>22/01/2016</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>David J. Eck modified by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_simple-rotator.js.html">lib/simple-rotator.js</a>, <a href="lib_simple-rotator.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/13-webgl/lib/simple-rotator.js">source</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html">https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js</a></li>
+        
+            <li><a href="https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/">https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/</a></li>
+        
+            <li><a href="https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball">https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Arcball</a></li>
+        
+            <li><a href="https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/">https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/</a></li>
+        
+            <li><img src="/cwdc/13-webgl/lib/arcball4.png" width="256"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
         <h2>lib/teal_book/cuon-matrix.js</h2>
         
     
@@ -522,13 +671,13 @@ which is scaled, rotated and translated for each joint in the
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#check">check</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#player">player</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#check">check</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#player">player</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#viewDistance">viewDistance</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Sep 02 2023 19:59:14 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jan 31 2024 08:16:43 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

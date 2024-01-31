@@ -3,7 +3,7 @@
     Vertex shader does basic Lambert shading.
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -21,10 +21,7 @@
             <div><span id="timeBoxDiv"> 0 </span> ms/cycle</div>
         </div>
 
-        <audio id="audio1" controls autoplay muted>
-            <source src="macarena.mp3" type="audio/mpeg" />
-            Your browser does not support the audio element.
-        </audio>
+        <br />
 
         <input
             name="btnDance"
@@ -57,20 +54,29 @@
         />
         ms/cycle
 
-        <p>Keyboard controls:</p>
+        <br /><br />
+        <audio id="audio1" title="Macarena" controls autoplay muted>
+            <source src="macarena.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+        </audio>
 
-        <ul style="list-style: none">
-            <li>b, B - body rotation</li>
-            <li>t, T - torso rotation</li>
-            <li>s, S - shoulder rotation</li>
-            <li>a, A - arm rotation</li>
-            <li>h, H - head rotation</li>
-            <li>l, L - leg rotation</li>
-            <li>f, F - hand rotation</li>
-            <li>w, W - sway</li>
-            <li>j, J - jump</li>
-            <li>m, M - Macarena</li>
-        </ul>
+        <br /><br />
+        <details>
+            <summary style="font-size: 120%">Keyboard controls:</summary>
+
+            <ul style="list-style: none">
+                <li>b, B - body rotation</li>
+                <li>t, T - torso rotation</li>
+                <li>s, S - shoulder rotation</li>
+                <li>a, A - arm rotation</li>
+                <li>h, H - head rotation</li>
+                <li>l, L - leg rotation</li>
+                <li>f, F - hand rotation</li>
+                <li>w, W - sway</li>
+                <li>j, J - jump</li>
+                <li>m, M - Macarena</li>
+            </ul>
+        </details>
 
         <script id="vertexLightingShader" type="x-shader/x-vertex">
             uniform mat4 model;
@@ -87,7 +93,8 @@
             void main()
             {
               float ambientFactor = 0.3;
-              vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
+              vec3 lightDirection = normalize((- view * model * a_Position).xyz);
+              //vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
               //vec3 normal = (view * model * vec4(a_Normal, 0.0)).xyz;
               vec3 normal = normalize(normalMatrix * a_Normal);
               float diffuseFactor = 0.8*max(0.0, dot(lightDirection, normal));
@@ -149,17 +156,10 @@
         <script src="../../lib/teal_book/webgl-debug.js"></script>
         <script src="../../lib/teal_book/cuon-utils.js"></script>
         <script src="../../lib/teal_book/cuon-matrix.js"></script>
+        <script src="/cwdc/13-webgl/lib/simple-rotator.js"></script>
         <script src="blobby.js"></script>
 
-        <script src="https://threejs.org/build/three.js"></script>
-        <script>
-            window.onload = dance;
-            // document.addEventListener("DOMContentLoaded", dance);
-            function dance() {
-                mainEntrance();
-                danceCallBack();
-            }
-        </script>
+        <script src="/cwdc/13-webgl/lib/three.js"></script>
 
         <img id="texImage" src="../../examples/images/isuflag2.jpg" hidden />
     </body>
