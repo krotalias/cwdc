@@ -187,7 +187,7 @@ function mainEntrance(rpc = 2) {
    * @global
    */
   const hCircleGeom = new THREE.BufferGeometry().setFromPoints(
-    new THREE.Path().absarc(0, 0, 1, 0, Math.PI * 2).getSpacedPoints(50)
+    new THREE.Path().absarc(0, 0, 1, 0, Math.PI * 2).getSpacedPoints(50),
   );
   const m = new THREE.LineBasicMaterial({ color: "aqua", linewidth: 3 });
 
@@ -257,7 +257,7 @@ function mainEntrance(rpc = 2) {
    */
   const runAnimation = (() => {
     let angle = 0.0;
-    let increment = 1.0;
+    let increment = rpc > 1 ? 2 : 1;
 
     let cycles = 1;
     let { fractional, ndigits } = getFractionalPart(rpc);
@@ -311,7 +311,7 @@ function mainEntrance(rpc = 2) {
     const ang = document.getElementById("ang");
     const tang = document.getElementById("tang");
     tang.innerHTML = `${Number(totalAngle.toFixed(2))}° = ${Number(
-      (rpc * cycles).toFixed(2)
+      (rpc * cycles).toFixed(2),
     )} revolutions = ${Number(cycles)} cycles`;
 
     /**
@@ -428,7 +428,7 @@ addEventListener("load", (event) => {
           THREE = module;
           mainEntrance(rpc);
           return;
-        }
+        },
       );
     }
   }
