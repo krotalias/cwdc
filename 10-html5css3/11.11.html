@@ -1,14 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
-        <title>HTML 5 and CSS 3</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CSS Transform</title>
 
         <style>
+            :root {
+                --width: 800px;
+            }
+            img {
+                width: var(--width);
+            }
             #box {
-                width: 600px;
+                width: var(--width);
                 height: auto;
-                background-color: #a6bfe0;
+                background-color: #9bbde3;
                 border-radius: 10px;
                 transition: 1s ease-in-out;
                 font-family: "Arial";
@@ -16,6 +21,7 @@
                 align-items: center;
                 justify-content: center;
                 font-size: 200%;
+                margin: 0 auto;
             }
 
             #box:hover {
@@ -29,19 +35,14 @@
         </style>
     </head>
 
-    <body>
-        <div id="box">
+    <body tabindex="0">
+        <div id="box" tabindex="0">
             <figure>
-                <a
-                    href="https://www.militaryfactory.com/aircraft/detail.asp?aircraft_id=125"
-                >
-                    <img
-                        src="Spitfire x Hurricane.jpg"
-                        alt="Spitfire x Hurricane"
-                        width="600"
-                        height="337"
-                    />
-                </a>
+                <img
+                    src="Spitfire x Hurricane.jpg"
+                    alt="Spitfire x Hurricane"
+                />
+
                 <figcaption>
                     <p style="text-align: center">
                         Supermarine Spitfire (594 kmh)<br />
