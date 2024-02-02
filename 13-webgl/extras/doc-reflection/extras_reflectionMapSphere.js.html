@@ -171,6 +171,7 @@ function configureTexture(targets, images) {
  * &lt;p>Loads the texture image array when the page is loaded.&lt;/p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
+ * @event load
  */
 window.addEventListener("load", (event) => {
   const queryString = window.location.search;
@@ -233,7 +234,10 @@ function init(cubeMapArr) {
   let aspect = canvas.width / canvas.height;
 
   /**
-   * Screen events.
+   * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
    */
   function handleWindowResize() {
     let h = window.innerHeight;
@@ -250,6 +254,15 @@ function init(cubeMapArr) {
 
   // mobile devices
   if (screen.width &lt;= 800) {
+    /**
+     * &lt;p>Appends an event listener for events whose type attribute value is resize.&lt;/p>
+     * &lt;p>The {@link handleWindowResize callback} argument sets the callback
+     * that will be invoked when the event is dispatched.&lt;/p>
+     * @param {Event} event the document view is resized.
+     * @param {callback} function function to run when the event occurs.
+     * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+     * @event resize - executed when the window is resized.
+     */
     window.addEventListener("resize", handleWindowResize, false);
     handleWindowResize();
   }
@@ -272,18 +285,37 @@ function init(cubeMapArr) {
   gl.uniformMatrix4fv(
     gl.getUniformLocation(program, "projectionMatrix"),
     false,
-    projectionMatrix
+    projectionMatrix,
   );
 
+  /**
+   * Rotate aboux the x {@link rotAxis axis}.
+   * @event click
+   */
   document.getElementById("ButtonX").onclick = function () {
     rotAxis = axis.x;
   };
+
+  /**
+   * Rotate aboux the y {@link rotAxis axis}.
+   * @event click
+   */
   document.getElementById("ButtonY").onclick = function () {
     rotAxis = axis.y;
   };
+
+  /**
+   * Rotate aboux the z {@link rotAxis axis}.
+   * @event click
+   */
   document.getElementById("ButtonZ").onclick = function () {
     rotAxis = axis.z;
   };
+
+  /**
+   * Toggle {@link arcBall} rotation.
+   * @event click
+   */
   document.getElementById("ButtonT").onclick = function () {
     arcBall = !arcBall;
     if (!arcBall) {
@@ -295,6 +327,11 @@ function init(cubeMapArr) {
       document.getElementById("euler").style.display = "none";
     }
   };
+
+  /**
+   * Increment the model.
+   * @event click
+   */
   document.getElementById("ButtonM").onclick = function () {
     m = (m + 1) % lmodel.length;
     model = lmodel[m][0];
@@ -437,7 +474,7 @@ function draw() {
  * A closure to render the animation and set {@link requestId}.
  * @return {loop}
  */
-var animation = (function () {
+const animation = (() => {
   let requestId = 0;
 
   /**
@@ -511,13 +548,13 @@ function createModel(modelData) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-lib_tetrahedron-esm.html">lib/tetrahedron-esm</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="module-lib_tetrahedron-esm.polyhedron.html">polyhedron</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#arcBall">arcBall</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeMap">cubeMap</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadTexture">loadTexture</a></li><li><a href="global.html#model">model</a></li><li><a href="global.html#modelViewMatrix">modelViewMatrix</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#program">program</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotAxis">rotAxis</a></li><li><a href="global.html#rotating">rotating</a></li><li><a href="global.html#rotationMatrixToEulerAngles">rotationMatrixToEulerAngles</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-lib_tetrahedron-esm.html">lib/tetrahedron-esm</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="module-lib_tetrahedron-esm.polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#arcBall">arcBall</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeMap">cubeMap</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadTexture">loadTexture</a></li><li><a href="global.html#model">model</a></li><li><a href="global.html#modelViewMatrix">modelViewMatrix</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#program">program</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotAxis">rotAxis</a></li><li><a href="global.html#rotating">rotating</a></li><li><a href="global.html#rotationMatrixToEulerAngles">rotationMatrixToEulerAngles</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Sep 04 2023 20:47:32 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Feb 02 2024 07:31:57 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
