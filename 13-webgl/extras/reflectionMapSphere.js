@@ -143,6 +143,7 @@ function configureTexture(targets, images) {
  * <p>Loads the texture image array when the page is loaded.</p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
+ * @event load
  */
 window.addEventListener("load", (event) => {
   const queryString = window.location.search;
@@ -205,7 +206,10 @@ function init(cubeMapArr) {
   let aspect = canvas.width / canvas.height;
 
   /**
-   * Screen events.
+   * <p>Fires when the document view (window) has been resized.</p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
    */
   function handleWindowResize() {
     let h = window.innerHeight;
@@ -222,6 +226,15 @@ function init(cubeMapArr) {
 
   // mobile devices
   if (screen.width <= 800) {
+    /**
+     * <p>Appends an event listener for events whose type attribute value is resize.</p>
+     * <p>The {@link handleWindowResize callback} argument sets the callback
+     * that will be invoked when the event is dispatched.</p>
+     * @param {Event} event the document view is resized.
+     * @param {callback} function function to run when the event occurs.
+     * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+     * @event resize - executed when the window is resized.
+     */
     window.addEventListener("resize", handleWindowResize, false);
     handleWindowResize();
   }
@@ -244,18 +257,37 @@ function init(cubeMapArr) {
   gl.uniformMatrix4fv(
     gl.getUniformLocation(program, "projectionMatrix"),
     false,
-    projectionMatrix
+    projectionMatrix,
   );
 
+  /**
+   * Rotate aboux the x {@link rotAxis axis}.
+   * @event click
+   */
   document.getElementById("ButtonX").onclick = function () {
     rotAxis = axis.x;
   };
+
+  /**
+   * Rotate aboux the y {@link rotAxis axis}.
+   * @event click
+   */
   document.getElementById("ButtonY").onclick = function () {
     rotAxis = axis.y;
   };
+
+  /**
+   * Rotate aboux the z {@link rotAxis axis}.
+   * @event click
+   */
   document.getElementById("ButtonZ").onclick = function () {
     rotAxis = axis.z;
   };
+
+  /**
+   * Toggle {@link arcBall} rotation.
+   * @event click
+   */
   document.getElementById("ButtonT").onclick = function () {
     arcBall = !arcBall;
     if (!arcBall) {
@@ -267,6 +299,11 @@ function init(cubeMapArr) {
       document.getElementById("euler").style.display = "none";
     }
   };
+
+  /**
+   * Increment the model.
+   * @event click
+   */
   document.getElementById("ButtonM").onclick = function () {
     m = (m + 1) % lmodel.length;
     model = lmodel[m][0];
@@ -409,7 +446,7 @@ function draw() {
  * A closure to render the animation and set {@link requestId}.
  * @return {loop}
  */
-var animation = (function () {
+const animation = (() => {
   let requestId = 0;
 
   /**

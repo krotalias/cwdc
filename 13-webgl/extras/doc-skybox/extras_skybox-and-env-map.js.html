@@ -267,17 +267,17 @@ function _loadTextureCube() {
               gl.RGBA,
               gl.RGBA,
               gl.UNSIGNED_BYTE,
-              img[j]
+              img[j],
             );
             gl.texParameteri(
               gl.TEXTURE_CUBE_MAP,
               gl.TEXTURE_WRAP_S,
-              gl.CLAMP_TO_EDGE
+              gl.CLAMP_TO_EDGE,
             );
             gl.texParameteri(
               gl.TEXTURE_CUBE_MAP,
               gl.TEXTURE_WRAP_T,
-              gl.CLAMP_TO_EDGE
+              gl.CLAMP_TO_EDGE,
             );
           }
           gl.generateMipmap(gl.TEXTURE_CUBE_MAP);
@@ -469,7 +469,7 @@ function getTextContent(elementID) {
 var readDirectoryNames = new Promise((resolve, reject) => {
   $.ajax({
     type: "GET",
-    url: "/cwdc/6-php/readDirectories.php",
+    url: "/cwdc/6-php/readDirectories_.php",
     data: {
       dir: "/cwdc/13-webgl/examples/cubemaps",
     },
@@ -482,8 +482,8 @@ var readDirectoryNames = new Promise((resolve, reject) => {
         `[jqResponse: ${JSON.stringify(
           jqXHR,
           null,
-          4
-        )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`
+          4,
+        )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`,
       );
       console.log("Could not get data");
       reject("Could not get data");
@@ -518,14 +518,24 @@ async function init(m) {
       })
       .catch((error) => {
         alert(`${error}`);
-        // don't return anything => execution goes the normal way
+        return [
+          "ForbiddenCity",
+          "LancellottiChapel",
+          "Yokohama3",
+          "colosseum",
+          "park",
+          "skybox",
+        ];
       });
 
     // we need gl already defined
     loadTextureCube = _loadTextureCube();
 
     /**
-     * Screen events.
+     * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
+     * Also resizes the canvas and viewport.
+     * @callback handleWindowResize
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
      */
     function handleWindowResize() {
       let h = window.innerHeight;
@@ -540,6 +550,15 @@ async function init(m) {
       gl.viewport(0, 0, w, h);
     }
 
+    /**
+     * &lt;p>Appends an event listener for events whose type attribute value is resize.&lt;/p>
+     * &lt;p>The {@link handleWindowResize callback} argument sets the callback
+     * that will be invoked when the event is dispatched.&lt;/p>
+     * @param {Event} event the document view is resized.
+     * @param {callback} function function to run when the event occurs.
+     * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+     * @event resize - executed when the window is resized.
+     */
     window.addEventListener("resize", handleWindowResize, false);
 
     handleWindowResize();
@@ -584,12 +603,28 @@ async function init(m) {
     return;
   }
   loadTextureCube();
+
+  /**
+   * &lt;p>Key handler.&lt;/p>
+   * Calls {@link doKey} whenever any of these keys is pressed:
+   * &lt;ul>
+   *  &lt;li>Escape&lt;/li>
+   *  &lt;li>Home&lt;/li>
+   *  &lt;li>Enter&lt;/li>
+   *  &lt;li>ArrowUp&lt;/li>
+   *  &lt;li>ArrowDown&lt;/li>
+   *  &lt;li>ArrowLeft&lt;/li>
+   *  &lt;li>ArrowRight&lt;/li>
+   * &lt;/ul>
+   * @event keydown
+   */
   document.addEventListener("keydown", doKey, false);
   draw();
 }
 
 /**
  * Reset the model to its initial position.
+ * @event click
  */
 document.getElementById("reset").onclick = function () {
   rotX = rotY = 0;
@@ -599,6 +634,7 @@ document.getElementById("reset").onclick = function () {
 
 /**
  * Move to the next texture.
+ * @event click
  */
 document.getElementById("next").onclick = function () {
   texCnt = (texCnt + 1) % texDir.length;
@@ -610,6 +646,7 @@ document.getElementById("next").onclick = function () {
  * &lt;p>Loads the {@link init inital model} when the page is loaded.&lt;/p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
+ * @event load
  */
 window.addEventListener("load", (event) => {
   const mname = ["teapot", "cube", "sphere", "torus"];
@@ -629,13 +666,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li></ul><h3>Global</h3><ul><li><a href="global.html#.onclick">.onclick</a></li><li><a href="global.html#_loadTextureCube">_loadTextureCube</a></li><li><a href="global.html#aCoords">aCoords</a></li><li><a href="global.html#aCoords_SB">aCoords_SB</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createModelSB">createModelSB</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeSB">cubeSB</a></li><li><a href="global.html#doKey">doKey</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getTextContent">getTextContent</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#invVT">invVT</a></li><li><a href="global.html#loadTextureCube">loadTextureCube</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readDirectoryNames">readDirectoryNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotX">rotX</a></li><li><a href="global.html#rotY">rotY</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#teapot">teapot</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCnt">texCnt</a></li><li><a href="global.html#texDir">texDir</a></li><li><a href="global.html#texID">texID</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_loadTextureCube">_loadTextureCube</a></li><li><a href="global.html#aCoords">aCoords</a></li><li><a href="global.html#aCoords_SB">aCoords_SB</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createModelSB">createModelSB</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeSB">cubeSB</a></li><li><a href="global.html#doKey">doKey</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getTextContent">getTextContent</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#invVT">invVT</a></li><li><a href="global.html#loadTextureCube">loadTextureCube</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readDirectoryNames">readDirectoryNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotX">rotX</a></li><li><a href="global.html#rotY">rotY</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#teapot">teapot</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCnt">texCnt</a></li><li><a href="global.html#texDir">texDir</a></li><li><a href="global.html#texID">texID</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Sep 05 2023 03:48:54 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Feb 02 2024 07:21:55 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

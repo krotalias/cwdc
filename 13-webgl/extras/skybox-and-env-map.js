@@ -239,17 +239,17 @@ function _loadTextureCube() {
               gl.RGBA,
               gl.RGBA,
               gl.UNSIGNED_BYTE,
-              img[j]
+              img[j],
             );
             gl.texParameteri(
               gl.TEXTURE_CUBE_MAP,
               gl.TEXTURE_WRAP_S,
-              gl.CLAMP_TO_EDGE
+              gl.CLAMP_TO_EDGE,
             );
             gl.texParameteri(
               gl.TEXTURE_CUBE_MAP,
               gl.TEXTURE_WRAP_T,
-              gl.CLAMP_TO_EDGE
+              gl.CLAMP_TO_EDGE,
             );
           }
           gl.generateMipmap(gl.TEXTURE_CUBE_MAP);
@@ -454,8 +454,8 @@ var readDirectoryNames = new Promise((resolve, reject) => {
         `[jqResponse: ${JSON.stringify(
           jqXHR,
           null,
-          4
-        )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`
+          4,
+        )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`,
       );
       console.log("Could not get data");
       reject("Could not get data");
@@ -504,7 +504,10 @@ async function init(m) {
     loadTextureCube = _loadTextureCube();
 
     /**
-     * Screen events.
+     * <p>Fires when the document view (window) has been resized.</p>
+     * Also resizes the canvas and viewport.
+     * @callback handleWindowResize
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
      */
     function handleWindowResize() {
       let h = window.innerHeight;
@@ -519,6 +522,15 @@ async function init(m) {
       gl.viewport(0, 0, w, h);
     }
 
+    /**
+     * <p>Appends an event listener for events whose type attribute value is resize.</p>
+     * <p>The {@link handleWindowResize callback} argument sets the callback
+     * that will be invoked when the event is dispatched.</p>
+     * @param {Event} event the document view is resized.
+     * @param {callback} function function to run when the event occurs.
+     * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+     * @event resize - executed when the window is resized.
+     */
     window.addEventListener("resize", handleWindowResize, false);
 
     handleWindowResize();
@@ -563,12 +575,28 @@ async function init(m) {
     return;
   }
   loadTextureCube();
+
+  /**
+   * <p>Key handler.</p>
+   * Calls {@link doKey} whenever any of these keys is pressed:
+   * <ul>
+   *  <li>Escape</li>
+   *  <li>Home</li>
+   *  <li>Enter</li>
+   *  <li>ArrowUp</li>
+   *  <li>ArrowDown</li>
+   *  <li>ArrowLeft</li>
+   *  <li>ArrowRight</li>
+   * </ul>
+   * @event keydown
+   */
   document.addEventListener("keydown", doKey, false);
   draw();
 }
 
 /**
  * Reset the model to its initial position.
+ * @event click
  */
 document.getElementById("reset").onclick = function () {
   rotX = rotY = 0;
@@ -578,6 +606,7 @@ document.getElementById("reset").onclick = function () {
 
 /**
  * Move to the next texture.
+ * @event click
  */
 document.getElementById("next").onclick = function () {
   texCnt = (texCnt + 1) % texDir.length;
@@ -589,6 +618,7 @@ document.getElementById("next").onclick = function () {
  * <p>Loads the {@link init inital model} when the page is loaded.</p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
+ * @event load
  */
 window.addEventListener("load", (event) => {
   const mname = ["teapot", "cube", "sphere", "torus"];
