@@ -1,16 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <title>HTML 5 and CSS 3</title>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <style>
+            :root {
+                --width: 1000px;
+                --height: 800px;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            img {
+                width: calc(var(--width) / 2);
+            }
             #myCanvas {
                 border: 1px solid grey;
                 background: antiquewhite;
-                margin-right: auto;
-                margin-left: auto;
+                margin: 0 auto;
                 display: block;
             }
             .multicolortext {
@@ -39,20 +48,28 @@
         <h1 style="text-align: center">
             <span class="multicolortext">Let’s be creative! </span>
             <sub style="font-size: small">
-                <a href="/cwdc/downloads/PDFs/04_LCG_Window-Viewport.pdf">
-                    [1]
-                </a>
+                <a href="/cwdc/downloads/PDFs/04_LCG_Window-Viewport.pdf"
+                    >[1]</a
+                >
                 <a href="/python/laboratorios2.html#5c">[2]</a>
-                <a href="https://www.youtube.com/watch?v=jiejNAUwcQ8">[3]</a>
-                <a href="https://www.youtube.com/watch?v=SbGAkRgaZhs">[4]</a>
-                <a href="https://www.youtube.com/watch?v=kyYzhRR4Vvg">[5] </a>
+                <a href="/WebGL/videos/EngineerGuy/lcd-engineerguy.mp4">[3]</a>
+                <a
+                    href="/videos/videosCG/EngineerGuy/Repair Hack Explained | How to Fix TV Horizontal Lines - Part 2.mp4"
+                >
+                    [4]</a
+                >
+                <a
+                    href="/videos/videosCG/EngineerGuy/Troca dos leds de tv, quanto custa, como se faz.mp4"
+                >
+                    [5]
+                </a>
             </sub>
         </h1>
 
         <canvas id="myCanvas" width="500" height="400"> </canvas>
 
-        <img id="logo" src="lime-cat.jpg" width="250" hidden />
-        <img id="taz" src="taz.jpg" width="250" hidden />
+        <img id="logo" src="lime-cat.jpg" hidden />
+        <img id="taz" src="taz.jpg" hidden />
 
         <script>
             /**
@@ -63,8 +80,8 @@
              *
              *  @param {CanvasRenderingContext2D} c canvas context.
              */
-            function p(c) {
-                var d = [];
+            function sinc(c) {
+                const d = [];
                 let w = c.canvas.clientWidth;
                 let h = c.canvas.clientHeight;
                 let vx = w / 5;
@@ -97,45 +114,64 @@
                 context.fillText(
                     "   sin(x)/x",
                     d[d.length - 1][0] + tx,
-                    d[d.length - 1][1] + ty
+                    d[d.length - 1][1] + ty,
                 );
                 c.lineWidth = 1;
                 c.stroke(); // attributes are binded when the stroke is called?
+
+                return [2 * vx, 2 * vy, tx, ty];
             }
 
-            var myCanvas = document.getElementById("myCanvas");
+            const myCanvas = document.getElementById("myCanvas");
+            let w = +getComputedStyle(document.documentElement)
+                .getPropertyValue("--width")
+                .replace("px", "");
+            let h = +getComputedStyle(document.documentElement)
+                .getPropertyValue("--height")
+                .replace("px", "");
+
+            myCanvas.width = w;
+            myCanvas.height = h;
+
             // If your application uses canvas and doesn’t need a transparent backdrop,
             // set the alpha option to false when creating a drawing context.
             // This information can be used internally by the browser to optimize rendering.
-            var context = myCanvas.getContext("2d"); // , { alpha: false });
+            const context = myCanvas.getContext("2d"); // , { alpha: false });
 
-            var gradient = context.createLinearGradient(150, 100, 350, 300);
+            context.globalCompositeOperation = "destination-over";
+
+            let [vx, vy, tx, ty] = sinc(context); // draw sinc(x)
+
+            const gradient = context.createLinearGradient(
+                tx,
+                ty,
+                tx + vx,
+                ty + vy,
+            );
 
             gradient.addColorStop(0, "white");
             gradient.addColorStop(1, "#49C900");
 
             context.fillStyle = gradient; // fill style
-            context.fillRect(150, 100, 200, 200); // origin, width and height
+            context.fillRect(tx, ty, vx, vy); // origin, width and height
 
             context.fillStyle = "red";
             // red rectangle go under the gradient green rectangle
             context.globalCompositeOperation = "destination-over";
-            context.fillRect(290, 80, 20, 40);
+            context.fillRect(tx + (3 * vx) / 4, ty - 20, 20, 40);
             context.globalCompositeOperation = "source-over";
             // sets the pixels in a rectangular area to transparent black (rgba(0,0,0,0))
-            context.clearRect(290, 100, 20, 20);
+            context.clearRect(tx + (3 * vx) / 4, ty, 20, 20);
 
             context.beginPath();
-            context.moveTo(150, 100); // first diagonal
-            context.lineTo(350, 300);
+            context.moveTo(tx, ty); // first diagonal
+            context.lineTo(tx + vx, ty + vy);
 
-            context.moveTo(150, 300); // second diagonal
-            context.lineTo(350, 100);
+            context.moveTo(tx + vx, ty); // second diagonal
+            context.lineTo(tx, ty + vy);
 
             context.strokeStyle = "#F42924"; // line color
             context.stroke(); // draw the line
-
-            p(context); // draw sinc(x)
 
             context.strokeStyle = "#F42924"; // line color
             context.beginPath();
@@ -143,34 +179,49 @@
             context.arc(100, 100, 50, Math.PI, (2 * Math.PI * 3) / 4);
             context.stroke(); // draw the arc
 
-            var textGradient = context.createLinearGradient(200, 50, 300, 50); // text with gradient
+            context.font = `${w / 20}px Arial`;
+            const limecat = context.measureText("Limecat Canvas");
+            const lch = w / 8;
+
+            let lcw = (w - limecat.width) / 2;
+            const textGradient = context.createLinearGradient(
+                lcw,
+                lch,
+                lcw + limecat.width,
+                lch,
+            ); // text with gradient
 
             textGradient.addColorStop(0, "red"); // on the left
             textGradient.addColorStop(1, "yellow"); // on the right
 
             context.fillStyle = textGradient;
-            context.font = "20px Arial";
-            context.fillText("Limecat Canvas", 200, 50); // draw text
+            context.fillText("Limecat Canvas", lcw, lch); // draw text
 
             window.onload = (event) => {
-                var img = document.getElementById("logo"); // limecat image reference
-                var img2 = document.getElementById("taz"); // taz image reference
+                const img = document.getElementById("logo"); // limecat image reference
+                const img2 = document.getElementById("taz"); // taz image reference
+                const len = w / 7;
                 context.rotate(0.1);
-                context.drawImage(img, 50, 100, 70, 70);
+                context.drawImage(img, 50, 100, len, len);
                 context.fillStyle = textGradient;
                 context.font = "20px Impact";
-                context.fillText("Awesome!", 50, 200);
+                context.fillText("Awesome!", 50, 120 + len);
 
                 // Draw line under text
-                var text = context.measureText("Awesome!");
+                const text = context.measureText("Awesome!");
                 context.strokeStyle = "rgba(0,0,0,0.5)";
                 context.beginPath();
-                context.lineTo(50, 202);
-                context.lineTo(50 + text.width, 202);
+                context.lineTo(50, 122 + len);
+                context.lineTo(50 + text.width, 122 + len);
                 context.stroke();
                 context.rotate(-0.1);
-                context.drawImage(img2, 30, 250, 70, 70);
-                context.fillText("Taz", 50, 320);
+                context.drawImage(img2, 30, ty + (2 * vy) / 3, len, len);
+                const taz = context.measureText("Taz");
+                context.fillText(
+                    "Taz",
+                    30 + (len - taz.width) / 2,
+                    ty + (2 * vy) / 3 + len,
+                );
             };
         </script>
     </body>
