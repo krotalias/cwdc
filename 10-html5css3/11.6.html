@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width" />
         <title>HTML 5 and CSS 3</title>
 
         <style>
@@ -17,10 +17,16 @@
                 --aspect: calc(1000 / 684);
             }
 
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: cornsilk;
+            }
+
             article {
                 color: green;
                 display: block;
-                margin-left: var(--ml);
+                margin: 0 var(--ml);
             }
 
             /*
@@ -28,7 +34,7 @@
             All custom elements have a display of inline by default.
             */
             my-container {
-                margin-left: var(--ml);
+                margin: 0 var(--ml);
                 /*
                 Displays an element as an inline-level block container.
                 The element itself is formatted as an inline element,
@@ -52,7 +58,6 @@
             #hubble-container {
                 width: var(--width);
                 font-size: 0;
-                border: 1px solid #111;
                 overflow: hidden;
                 margin: 0;
                 object-fit: cover;
@@ -83,12 +88,17 @@
                 width: fit-content;
                 color: black;
             }
+
+            .center {
+                text-align: center;
+                font-style: oblique;
+            }
         </style>
     </head>
 
     <body>
         <article>
-            <p>I'm an article!</p>
+            <p class="center">I'm an article!</p>
 
             <p>
                 The Grumman F6F Hellcat achieved fame as a Zero-killer after it
@@ -99,7 +109,7 @@
         </article>
 
         <my-container>
-            <p>I'm a container (<em>a custom HTML tag</em>)!</p>
+            <p class="center">I'm a container (<em>a custom HTML tag</em>)!</p>
 
             <p>
                 Wildcat pilots had an edge in terms of enemy intelligence thanks
