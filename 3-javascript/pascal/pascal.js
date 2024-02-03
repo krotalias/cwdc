@@ -33,7 +33,7 @@
  *  @see <a href="/cwdc/3-javascript/pascal/pascal.js">source</a>
  *  @see https://en.wikipedia.org/wiki/Generator_(computer_science)
  *  @see https://eloquentjavascript.net/11_async.html
- *  @see <a href="\.\./\.\./python/labs/doc/html/__03d__pascal__zip_8py.html">pascal</a>
+ *  @see <a href="/cwdc/downloads/python/labs/doc/html/__03d__pascal__zip_8py.html">pascal</a>
  *  @see <a href="../pascal/pascal3.js">js code</a>
  *  @see <a href="../pascal/pascal.mjs">pascal in node</a>
  *  @see <img src="../pascal/pascal.png" width="512">
