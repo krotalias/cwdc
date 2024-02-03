@@ -1,8 +1,7 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Javascript - BigInt</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script
@@ -96,6 +95,13 @@
                 window.getFactors = getFactors;
 
                 function getFactors() {
+                    // mobiles
+                    if (screen.width <= 800) {
+                        var r = document.querySelector(":root");
+                        let w = window.innerWidth - 64;
+                        r.style.setProperty("--length", `${w}px`);
+                    }
+
                     let n = $("#n")[0];
                     let m = $("mark");
                     if (n) {
@@ -108,14 +114,14 @@
                         let bits = bitLength(lcmValue);
                         let decs = decLength(lcmValue);
                         $("#range").html(
-                            `(${bits.toString()} bits or ${decs.toString()} digits)`
+                            `(${bits.toString()} bits or ${decs.toString()} digits)`,
                         );
                         for (let i of m) {
                             i.style.color = mcolor;
                         }
                         $("#prod").html(`${lcmValue}`);
                         $("textArea#factors").html(
-                            `${factorization(lcmValue)}`
+                            `${factorization(lcmValue)}`,
                         );
 
                         $("#i1").html((n.valueAsNumber + 1).toString());

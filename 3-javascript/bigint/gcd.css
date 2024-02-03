@@ -30,6 +30,8 @@ mark {
 }
 body {
     background-color: lightgray;
+    margin: 50px 8px;
+    padding: 0;
 }
 .container_bi {
     width: var(--length);
