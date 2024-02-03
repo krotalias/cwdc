@@ -210,7 +210,7 @@ function distance2Circles(p, l, inTest = false) {
     let d = Math.sqrt(
       zip(p, c)
         .map((a) => (a[0] - a[1]) ** 2)
-        .reduce((a, b) => a + b)
+        .reduce((a, b) => a + b),
     );
 
     let r = c[2];
@@ -420,7 +420,7 @@ function layout() {
   }
   document.documentElement.style.setProperty(
     "--wsize",
-    wsize.toString() + "px"
+    wsize.toString() + "px",
   );
   reset();
 }
@@ -435,12 +435,12 @@ layout.landscape = true;
  */
 function downloadImage() {
   // Create a canvas element - without drawing it.
-  var canvas = document.createElement("canvas");
+  const canvas = document.createElement("canvas");
   canvas.width = wsize;
   canvas.height = hsize;
 
   // Get the drawing context
-  var ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d");
 
   ctx.fillStyle = color;
   ctx.strokeStyle = swcolor;
@@ -469,12 +469,11 @@ function downloadImage() {
     }
   }
 
-  var image = canvas.toDataURL();
+  let image = canvas.toDataURL();
 
   // The image will be downloaded.
-  var aLink = document.createElement("a");
-  var evt = document.createEvent("HTMLEvents");
-  evt.initEvent("click");
+  const aLink = document.createElement("a");
+  const evt = new Event("click", { bubbles: true, cancelable: false });
   aLink.download = "pack_circles.png";
   aLink.href = image;
   aLink.dispatchEvent(evt);

@@ -17,3 +17,4 @@ jsdoc -d doc-promises promises/promise.js
 jsdoc -d doc-promises2 promises/promise2.js DOM.js
 jsdoc -d doc-nodes nodes.js DOM.js
 jsdoc -c jsdoc.conf -d doc-cdc cdc/src/rational.cjs cdc/src/rational.js cdc/src/cdc.js cdc/src/cdc.cjs cdc/src/cgi.js cdc/src/rational.mjs
+jsdoc -d doc-pack pack_circles.js
