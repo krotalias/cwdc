@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <link
@@ -40,44 +39,28 @@
             <div id="code"></div>
         </pre>
 
-        <div id="fig">
+        <figure id="fig">
             <img src="PascalTriangleAnimated2.gif" />
-        </div>
+        </figure>
 
         <div class="clear-float"></div>
 
         <div id="tri"></div>
 
         <!-- hidden: to calculate triangle box width -->
-        <div class="test"></div>
+        <div id="testTri"></div>
 
         <!-- hidden: to calculate code box width -->
-        <div class="test">
-            const center = (str,len) => str.padStart(str.length +
-            Math.floor((len - str.length) / 2), ' ').padEnd(len, ' ');
-        </div>
+        <div id="testCode"></div>
 
         <script src="pascal3.js"></script>
-
-        <script type="module">
-            import { display } from "./pascal.js";
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const level = urlParams.get("level");
-            let mrow = display(parseInt(level) || 10);
-            var test = document.getElementsByClassName("test");
-            test[0].innerHTML = mrow.join(" ");
-
-            // the toString() method returns a string representing the source code of the function.
-            let code = displayCode.toString();
-            // we need to remove the wrapping function at the first line
-            document.getElementById("code").innerHTML = code.slice(
-                code.indexOf("\n"),
-                -1,
-            );
-        </script>
+        <script type="module" src="pascal2.js"></script>
 
         <script src="/cwdc/mainPage/LCG.js"></script>
-        <script type="text/javascript" src="pascal2.js"></script>
+        <script>
+            dragAndSave("#fig");
+            dragAndSave("#tri");
+            dragAndSave("#code");
+        </script>
     </body>
 </html>
