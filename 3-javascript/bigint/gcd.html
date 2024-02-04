@@ -32,7 +32,8 @@
                 </a>
             </p>
             <p class="centered">
-                The smallest integer divisible by all integers in the range[1,
+                The smallest integer divisible by all integers <br />
+                in the range[1,
                 <mark>i</mark>+1=<span id="i1"> </span>) is:
             </p>
             <p class="eqnFont">
@@ -98,8 +99,9 @@
                     // mobiles
                     if (screen.width <= 800) {
                         var r = document.querySelector(":root");
-                        let w = window.innerWidth - 64;
+                        let w = window.innerWidth - 96;
                         r.style.setProperty("--length", `${w}px`);
+                        r.style.setProperty("--fsize", "150%");
                     }
 
                     let n = $("#n")[0];

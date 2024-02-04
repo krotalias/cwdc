@@ -2,6 +2,7 @@
 :root {
     --length: 600px;
     --bgcolor: antiquewhite;
+    --fsize: 120%;
 }
 @font-face {
     font-family: "Source Sans Pro";
@@ -13,7 +14,7 @@
 .eqnFont {
     font-family: "Source Sans Pro";
     font-weight: bold;
-    font-size: small;
+    font-size: large;
     margin: 2em 0 2em 0;
     width: var(--length);
     word-break: break-all;
@@ -28,6 +29,9 @@ mark {
     background-color: var(--bgcolor);
     color: green;
 }
+html {
+    overscroll-behavior: none;
+}
 body {
     background-color: lightgray;
     margin: 50px 8px;
@@ -41,9 +45,11 @@ body {
     text-align: justify;
     background-color: var(--bgcolor);
     cursor: move;
+    font-size: var(--fsize);
 }
 .centered {
     text-align: center;
+    font-size: var(--fsize);
 }
 label {
     display: block;
