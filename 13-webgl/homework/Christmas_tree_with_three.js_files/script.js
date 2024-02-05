@@ -1036,7 +1036,7 @@ function makeGreeting() {
   info.setAttribute("id", "info");
   greeting.setAttribute("id", "greeting");
   greeting.style.position = "absolute";
-  greeting.style.top = "100px";
+  greeting.style.top = "50px";
   greeting.style.width = "100%";
   greeting.style.textAlign = "center";
   greeting.style.color = "white";
