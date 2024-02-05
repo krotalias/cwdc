@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8" />
+        <meta name="author" content="Script Tutorials" />
+        <title>Christmas tree with three.js</title>
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+        <link
+            href="Christmas_tree_with_three.js_files/style.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="Christmas_tree_with_three.js_files/css_002.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="Christmas_tree_with_three.js_files/css.css"
+            rel="stylesheet"
+            type="text/css"
+        />
+    </head>
+    <body style="background-color: black">
+        <!-- add scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/64/three.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="Christmas_tree_with_three.js_files/OBJLoader.js"></script>
+        <script src="Christmas_tree_with_three.js_files/script.js"></script>
+        <div
+            style="
+                position: absolute;
+                top: 10px;
+                width: 100%;
+                text-align: center;
+                color: white;
+            "
+            id="greeting"
+        >
+            <br />
+            <b>MERRY CHRISTMAS!</b>
+            <div id="info">
+                DRAG TO SPIN<br />
+                Have your volume ON for the full experience <br />
+                Press <b>h</b> for more information<br /><br />
+                If the animation starts to lag, try reducing your browser window
+                size.
+            </div>
+        </div>
+        <audio controls autoplay>
+            <source
+                src="Christmas_tree_with_three.js_files/Sugar_Plum_Fairy.mp3"
+                type="audio/mpeg"
+            />
+            Your browser does not support the audio element.
+        </audio>
+        <canvas id="canvas">
+            Please use a browser that supports "canvas"
+        </canvas>
+    </body>
+</html>

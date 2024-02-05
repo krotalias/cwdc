@@ -1,0 +1,20 @@
+@font-face {
+    font-family: "Titillium Web";
+    font-style: normal;
+    font-weight: 400;
+    src:
+        local("Titillium Web"),
+        local("TitilliumWeb-Regular"),
+        url(https://fonts.gstatic.com/s/titilliumweb/v4/7XUFZ5tgS-tD6QamInJTcZSnX671uNZIV63UdXh3Mg0.woff2)
+            format("woff2");
+}
+@font-face {
+    font-family: "Titillium Web";
+    font-style: italic;
+    font-weight: 400;
+    src:
+        local("Titillium WebItalic"),
+        local("TitilliumWeb-Italic"),
+        url(https://fonts.gstatic.com/s/titilliumweb/v4/r9OmwyQxrgzUAhaLET_KO6qVnG43xFTRN40gwdrG-aE.woff2)
+            format("woff2");
+}

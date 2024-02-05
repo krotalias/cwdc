@@ -1,0 +1,10 @@
+@font-face {
+    font-family: "Mountains of Christmas";
+    font-style: normal;
+    font-weight: 400;
+    src:
+        local("Mountains of Christmas"),
+        local("MountainsofChristmas-Regular"),
+        url(https://fonts.gstatic.com/s/mountainsofchristmas/v8/dVGBFPwd6G44IWDbQtPewze0PfZQnrxvUtG3BXt8d7I.woff2)
+            format("woff2");
+}
