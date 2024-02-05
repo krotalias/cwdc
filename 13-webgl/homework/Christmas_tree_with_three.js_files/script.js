@@ -4,7 +4,7 @@
  * Summary.
  * <p>Renders a christmas scene - Merry (Early) Christmas.</p>
  *
- * @author: Flavia Cavalcanti
+ * @author Flavia Cavalcanti
  * @since 24/11/2015
  *
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
@@ -151,10 +151,6 @@ var imageNames2 = [
   path + "wrappingPaper2.jpg",
   path + "wrappingPaper2.jpg",
 ];
-
-// initialize and start animation
-init();
-animate();
 
 /**
  * <p>Resizes the scene according to the screen size.</p>
@@ -373,11 +369,14 @@ function handleKeyPress(event) {
       help = !help;
       if (help) {
         document.getElementById("info").innerHTML =
-          `<b>(Press h to hide)</b><br>DRAG TO SPIN <br><br>
-          <b>Keyboard controls</b>:<br><b>w, a, s, d</b> - move forward, left, back, right <br>
+          `<b>(Press h to hide)</b><br>
+          DRAG TO SPIN <br><br>
+          <b>Keyboard controls</b>:<br>
+          <b>w, a, s, d</b> - move forward, left, back, right <br>
           <b>r, f</b> - move up, down <br>
-          <b> I, J, K, L</b> - orbit down, right, up, left <br>
-          <b>W</b> - decrease fov <br> <b>S</b> - increase fov <br>
+          <b>I, J, K, L</b> - orbit down, right, up, left <br>
+          <b>W</b> - decrease fov <br>
+          <b>S</b> - increase fov <br>
           <b>Space</b> - pause animation <br>
           <b>n</b> - camera will rotate around the tree/camera will rotate<br>
           around the tree while moving closer/farther away.`;
@@ -1022,7 +1021,9 @@ function addLight(scene) {
   scene.add(directionalLight);
 }
 
-//Display a greeting and information at the top of the page
+/**
+ * Display a greeting and information at the top of the page.
+ */
 function makeGreeting() {
   // prepare the container
   container = document.createElement("div");
@@ -1030,17 +1031,19 @@ function makeGreeting() {
   // display Info
   var greeting = document.createElement("div");
   greeting.setAttribute("id", "greeting");
-  greeting.innerHTML = "<b><br> MERRY CHRISTMAS!</b>";
+  greeting.innerHTML = "<b>MERRY CHRISTMAS!</b><br>";
   var info = document.createElement("div");
   info.setAttribute("id", "info");
   greeting.setAttribute("id", "greeting");
   greeting.style.position = "absolute";
-  greeting.style.top = "10px";
+  greeting.style.top = "100px";
   greeting.style.width = "100%";
   greeting.style.textAlign = "center";
   greeting.style.color = "white";
-  info.innerHTML =
-    "DRAG TO SPIN<br> Have your volume ON for the full experience <br>Press <b>h</b> for more information<br><br>If the animation starts to lag, try reducing your browser window size.";
+  info.innerHTML = `DRAG TO SPIN<br>
+    Have your volume ON for the full experience <br>
+    Press <b>h</b> for more information<br><br>
+    If the animation starts to lag, try reducing your browser window size.`;
 
   greeting.appendChild(info);
   container.appendChild(greeting);
@@ -1104,6 +1107,16 @@ function init() {
   document.addEventListener("mousedown", onDocumentMouseDown, false);
   document.addEventListener("touchstart", onDocumentTouchStart, false);
   document.addEventListener("touchmove", onDocumentTouchMove, false);
+
+  /**
+   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * <p>The {@link onWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @param {Event} event the document view is resized.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize - executed when the window is resized.
+   */
   window.addEventListener("resize", onWindowResize, false);
 }
 
@@ -1148,3 +1161,14 @@ function render() {
 
   renderer.render(scene, camera);
 }
+
+/**
+ * <p>Load the applicarion.</p>
+ * {@link init Initialize} and start {@link animate animation}.
+ * @param {Event} event an object has loaded.
+ * @event load
+ */
+window.addEventListener("load", (event) => {
+  init();
+  animate();
+});
