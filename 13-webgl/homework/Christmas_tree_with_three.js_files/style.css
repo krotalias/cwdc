@@ -1,10 +1,13 @@
-html {
-    /*  prevent the pull to refresh: */
+html,
+body {
+    /* prevent the pull to refresh: */
     overscroll-behavior: none;
 }
 
 body {
     background-color: black;
+    margin: 0;
+    padding: 0;
 }
 
 #greeting {
