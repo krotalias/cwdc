@@ -26,10 +26,6 @@ body {
     font-size: 15px;
 }
 
-canvas {
-    position: absolute;
-}
-
 audio {
     position: absolute;
     z-index: 2;
