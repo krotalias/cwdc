@@ -753,7 +753,8 @@ function isosceles({ basePoint, oppositeVertex }) {
    * @function
    */
   (function setListeners() {
-    window.addEventListener(
+    const canvas = document.querySelector("#theCanvas2");
+    canvas.addEventListener(
       "mousedown",
       (e) => {
         const mouse = [e.offsetX, e.offsetY];
@@ -761,7 +762,7 @@ function isosceles({ basePoint, oppositeVertex }) {
       },
       false,
     );
-    window.addEventListener(
+    canvas.addEventListener(
       "mousemove",
       (e) => {
         const mouse = [e.offsetX, e.offsetY];
@@ -769,14 +770,14 @@ function isosceles({ basePoint, oppositeVertex }) {
       },
       false,
     );
-    window.addEventListener(
+    canvas.addEventListener(
       "mouseup",
       (e) => {
         motchend(e);
       },
       false,
     );
-    window.addEventListener(
+    canvas.addEventListener(
       "touchstart",
       (e) => {
         e.preventDefault();
@@ -787,7 +788,7 @@ function isosceles({ basePoint, oppositeVertex }) {
       },
       false,
     );
-    window.addEventListener(
+    canvas.addEventListener(
       "touchmove",
       (e) => {
         e.preventDefault();
@@ -797,7 +798,7 @@ function isosceles({ basePoint, oppositeVertex }) {
       },
       false,
     );
-    window.addEventListener(
+    canvas.addEventListener(
       "touchend",
       (e) => {
         e.preventDefault();

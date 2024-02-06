@@ -368,23 +368,21 @@ function handleKeyPress(event) {
     case "h":
       help = !help;
       if (help) {
-        document.getElementById("info").innerHTML =
-          `<b>(Press h to hide)</b><br>
-          DRAG TO SPIN <br><br>
-          <b>Keyboard controls</b>:<br>
-          <b>w, a, s, d</b> - move forward, left, back, right <br>
-          <b>r, f</b> - move up, down <br>
-          <b>I, J, K, L</b> - orbit down, right, up, left <br>
-          <b>W</b> - decrease fov <br>
-          <b>S</b> - increase fov <br>
-          <b>Space</b> - pause animation <br>
-          <b>n</b> - camera will rotate around the tree/camera will rotate<br>
-          around the tree while moving closer/farther away.`;
+        document.getElementById("info").innerHTML = `DRAG TO SPIN <br><br>
+        <b>Keyboard controls</b>:<br>
+        <b>h - to hide</b><br>
+        <b>w, a, s, d</b> - move forward, left, back, right <br>
+        <b>r, f</b> - move up, down <br>
+        <b>I, J, K, L</b> - orbit down, right, up, left <br>
+        <b>W</b> - decrease fov <br>
+        <b>S</b> - increase fov <br>
+        <b>Space</b> - pause animation <br>
+        <b>n</b> - camera will rotate around the tree/camera will rotate<br>
+        around the tree while moving closer/farther away.`;
       } else
         document.getElementById("info").innerHTML = `DRAG TO SPIN<br>
-          Have your volume ON for the full experience <br>
-          Press <b>h</b> for more information. <br><br>
-          If the animation starts to lag, try reducing your browser window size.`;
+        Have your volume ON for the full experience <br>
+        Press <b>h</b> for more information.`;
       break;
     default:
       return;
@@ -1041,9 +1039,8 @@ function makeGreeting() {
   greeting.style.textAlign = "center";
   greeting.style.color = "white";
   info.innerHTML = `DRAG TO SPIN<br>
-    Have your volume ON for the full experience <br>
-    Press <b>h</b> for more information<br><br>
-    If the animation starts to lag, try reducing your browser window size.`;
+  Have your volume ON for the full experience<br>
+  Press <b>h</b> for more information`;
 
   greeting.appendChild(info);
   container.appendChild(greeting);
@@ -1104,9 +1101,13 @@ function init() {
   renderer.physicallyBasedShading = true;
 
   // add events handlers -- thanks script tutorials
-  document.addEventListener("mousedown", onDocumentMouseDown, false);
-  document.addEventListener("touchstart", onDocumentTouchStart, false);
-  document.addEventListener("touchmove", onDocumentTouchMove, false);
+  renderer.domElement.addEventListener("mousedown", onDocumentMouseDown, false);
+  renderer.domElement.addEventListener(
+    "touchstart",
+    onDocumentTouchStart,
+    false,
+  );
+  renderer.domElement.addEventListener("touchmove", onDocumentTouchMove, false);
 
   /**
    * <p>Appends an event listener for events whose type attribute value is resize.</p>

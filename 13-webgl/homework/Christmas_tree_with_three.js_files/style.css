@@ -13,7 +13,6 @@ body {
 #greeting {
     font-family: "Mountains of Christmas", cursive;
     font-size: 27px;
-    z-index: 2;
 }
 
 .greeting {
