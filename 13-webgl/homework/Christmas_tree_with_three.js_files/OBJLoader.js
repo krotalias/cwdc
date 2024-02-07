@@ -6,6 +6,7 @@
  * <p>Object Loader.</p>
  *
  * @author {@link http://mrdoob.com/ mrdoob}
+ * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_files/OBJLoader.js">source</a>
  */
 
 /**
