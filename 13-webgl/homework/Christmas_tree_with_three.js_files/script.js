@@ -98,12 +98,47 @@ let camera;
  */
 let renderer;
 
+/**
+ * A container holding the geeting and the canvas.
+ * @type {HTMLDivElement}
+ */
 var container;
+
+/**
+ * Rotation about the "Y" axis, applied by the renderer to the scene,
+ * based on mouse displacement.
+ * @type {Number}
+ */
 var targetRotation = 0;
+
+/**
+ * Target rotation when the mouse is clicked.
+ * @type {Number}
+ */
 var targetRotationOnMouseDown = 0;
+
+/**
+ * An event (clientX - windowHalfX).
+ * @type {Number}
+ */
 var mouseX = 0;
+
+/**
+ * An event (clientX - windowHalfX) when a movement starts.
+ * @type {Number}
+ */
 var mouseXOnMouseDown = 0;
+
+/**
+ * Half of the window {@link https://developer.mozilla.org/en-US/docs/Web/API/window/innerWidth innerWidth} property.
+ * @type {Number}
+ */
 var windowHalfX = window.innerWidth / 2;
+
+/**
+ * Half of the window {@link https://developer.mozilla.org/en-US/docs/Web/API/window/innerHeight innerHeight} property.
+ * @type {Number}
+ */
 var windowHalfY = window.innerHeight / 2;
 
 /**
@@ -124,6 +159,10 @@ var inAndOutCamera = true;
  */
 var help = false;
 
+/**
+ * Image directory.
+ * @type {String}
+ */
 var path = "img/";
 
 /**
@@ -167,6 +206,15 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth - 20, window.innerHeight - 20);
 }
 
+/**
+ * The mousedown event is fired at an Element when a pointing device button
+ * is pressed while the pointer is inside the element.
+ *
+ * <p>Add listeners for "mousemove", "mouseup", and "mouseout".
+ * @param {MouseEvent} event mouse event.
+ * @event
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event
+ */
 function onDocumentMouseDown(event) {
   event.preventDefault();
 
@@ -178,24 +226,57 @@ function onDocumentMouseDown(event) {
   targetRotationOnMouseDown = targetRotation;
 }
 
+/**
+ * The mousemove event is fired at an element when a pointing device
+ * (usually a mouse) is moved while the cursor's hotspot is inside it.
+ * @param {MouseEvent} event mouse event.
+ * @event
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event
+ */
 function onDocumentMouseMove(event) {
   mouseX = event.clientX - windowHalfX;
   targetRotation =
     targetRotationOnMouseDown + (mouseX - mouseXOnMouseDown) * 0.02;
 }
 
+/**
+ * The mouseup event is fired at an Element when a button on a pointing device
+ * (such as a mouse or trackpad) is released while the pointer is located inside it.
+ *
+ * <p>Remove listeners for "mousemove", "mouseup", and "mouseout".
+ * @param {MouseEvent} event mouse event.
+ * @event
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
+ */
 function onDocumentMouseUp(event) {
   document.removeEventListener("mousemove", onDocumentMouseMove, false);
   document.removeEventListener("mouseup", onDocumentMouseUp, false);
   document.removeEventListener("mouseout", onDocumentMouseOut, false);
 }
 
+/**
+ * The mouseout event is fired at an Element when a
+ * pointing device (usually a mouse) is used to move the cursor
+ * so that it is no longer contained within the element or one of its children.
+ *
+ * <p>Removes the listeners for "mousemove", "mouseup", and "mouseout".
+ * @param {MouseEvent} event mouse event.
+ * @event
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseout_event
+ */
 function onDocumentMouseOut(event) {
   document.removeEventListener("mousemove", onDocumentMouseMove, false);
   document.removeEventListener("mouseup", onDocumentMouseUp, false);
   document.removeEventListener("mouseout", onDocumentMouseOut, false);
 }
 
+/**
+ * The touchstart event is fired when one or more touch points
+ * are placed on the touch surface.
+ * @param {TouchEvent} event touch event.
+ * @event
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/touchstart_event
+ */
 function onDocumentTouchStart(event) {
   if (event.touches.length == 1) {
     event.preventDefault();
@@ -205,6 +286,13 @@ function onDocumentTouchStart(event) {
   }
 }
 
+/**
+ * The touchmove event is fired when one or more touch points
+ * are moved along the touch surface.
+ * @param {TouchEvent} event touch event.
+ * @event
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/touchmove_event
+ */
 function onDocumentTouchMove(event) {
   if (event.touches.length == 1) {
     event.preventDefault();
@@ -1048,6 +1136,16 @@ function makeGreeting() {
 
 /**
  * Initialize our scene's components.
+ *
+ * <p>Add listeners for {@link event:onDocumentMouseDown "mousedown"},
+ * {@link event:onDocumentTouchStart "touchstart"}, and
+ * {@link event:onDocumentTouchMove "touchmove"}.</p>
+ *
+ * The listeners are added to the canvas element
+ * ({@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.domElement renderer.domElement}),
+ * so to prevent
+ * {@link https://usefulangle.com/post/278/html-disable-pull-to-refresh-with-css "the pull to refresh"}
+ * on a swipe-down.
  */
 function init() {
   makeGreeting();
