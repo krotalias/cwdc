@@ -747,14 +747,18 @@ function isosceles({ basePoint, oppositeVertex }) {
   };
 
   /**
-   * Set event listeners.
+   * <p>Set event listeners.</p>
+   *
+   * The listeners are added to the canvas element (demo),
+   * so to prevent
+   * {@link https://usefulangle.com/post/278/html-disable-pull-to-refresh-with-css "the pull to refresh"}
+   * on a swipe-down.
    *
    * @name setListeners
    * @function
    */
   (function setListeners() {
-    const canvas = document.querySelector("#theCanvas2");
-    canvas.addEventListener(
+    demo.addEventListener(
       "mousedown",
       (e) => {
         const mouse = [e.offsetX, e.offsetY];
@@ -762,7 +766,7 @@ function isosceles({ basePoint, oppositeVertex }) {
       },
       false,
     );
-    canvas.addEventListener(
+    demo.addEventListener(
       "mousemove",
       (e) => {
         const mouse = [e.offsetX, e.offsetY];
@@ -770,14 +774,14 @@ function isosceles({ basePoint, oppositeVertex }) {
       },
       false,
     );
-    canvas.addEventListener(
+    demo.addEventListener(
       "mouseup",
       (e) => {
         motchend(e);
       },
       false,
     );
-    canvas.addEventListener(
+    demo.addEventListener(
       "touchstart",
       (e) => {
         e.preventDefault();
@@ -788,7 +792,7 @@ function isosceles({ basePoint, oppositeVertex }) {
       },
       false,
     );
-    canvas.addEventListener(
+    demo.addEventListener(
       "touchmove",
       (e) => {
         e.preventDefault();
@@ -798,7 +802,7 @@ function isosceles({ basePoint, oppositeVertex }) {
       },
       false,
     );
-    canvas.addEventListener(
+    demo.addEventListener(
       "touchend",
       (e) => {
         e.preventDefault();
