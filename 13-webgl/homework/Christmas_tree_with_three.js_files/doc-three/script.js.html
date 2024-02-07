@@ -382,10 +382,10 @@ function cameraControl(c, ch) {
     case "d":
       c.translateX(3);
       return true;
-    case "r":
+    case "ArrowUp":
       c.translateY(3);
       return true;
-    case "f":
+    case "ArrowDown":
       c.translateY(-3);
       return true;
     case "j":
@@ -416,11 +416,11 @@ function cameraControl(c, ch) {
     case "O":
       c.lookAt(new THREE.Vector3(0, 0, 0));
       return true;
-    case "S":
+    case "-":
       c.fov = Math.min(80, c.fov + 5);
       c.updateProjectionMatrix();
       return true;
-    case "W":
+    case "+":
       c.fov = Math.max(5, c.fov - 5);
       c.updateProjectionMatrix();
       return true;
@@ -466,8 +466,7 @@ function cameraControl(c, ch) {
 
 /**
  * Handler for key press events.
- * @param {KeyboardEvent} event keyboard event.
- * @event
+ * @param {KeyboardEvent} event keydown event.
  */
 function handleKeyPress(event) {
   var ch = getChar(event);
@@ -487,14 +486,14 @@ function handleKeyPress(event) {
         document.getElementById("info").innerHTML = `DRAG TO SPIN &lt;br>&lt;br>
         &lt;b>Keyboard controls&lt;/b>:&lt;br>
         &lt;b>h - to hide&lt;/b>&lt;br>
-        &lt;b>w, a, s, d&lt;/b> - move forward, left, back, right &lt;br>
-        &lt;b>r, f&lt;/b> - move up, down &lt;br>
-        &lt;b>I, J, K, L&lt;/b> - orbit down, right, up, left &lt;br>
-        &lt;b>W&lt;/b> - decrease fov &lt;br>
-        &lt;b>S&lt;/b> - increase fov &lt;br>
+        &lt;b>w, s, a, d&lt;/b> - move forward, backward, left, right &lt;br>
+        &lt;b>↑, ↓&lt;/b> - move up, down &lt;br>
+        &lt;b>I, K, J, L&lt;/b> - orbit down, up, right, left &lt;br>
+        &lt;b>+&lt;/b> - decrease fov &lt;br>
+        &lt;b>-&lt;/b> - increase fov &lt;br>
         &lt;b>Space&lt;/b> - pause animation &lt;br>
-        &lt;b>n&lt;/b> - camera will rotate around the tree/camera will rotate&lt;br>
-        around the tree while moving closer/farther away.`;
+        &lt;b>n&lt;/b> - camera will rotate around the tree,&lt;br>
+        while moving closer/farther away, or not.`;
       } else
         document.getElementById("info").innerHTML = `DRAG TO SPIN&lt;br>
         Have your volume ON for the full experience &lt;br>
@@ -1248,10 +1247,25 @@ function init() {
 }
 
 /**
- * Triggers the animation by calling {@link render}.
+ * Triggers the animation by calling {@link render} and binds
+ * the {@link event:keydown} event.
  */
 function animate() {
-  window.onkeydown = handleKeyPress;
+  /**
+   * &lt;p>Key handler.&lt;/p>
+   * Calls {@link handleKeyPress} when pressing assigned keys:
+   * &lt;ul>
+   *  &lt;li>Space - pause&lt;/li>
+   *  &lt;li>h - help&lt;/li>
+   *  &lt;li>w, s, a, d - forward, backward, left, right&lt;/li>
+   *  &lt;li>I, K, J, L - orbit down, up, left, right&lt;/li>
+   *  &lt;li>+, - - field of view (zoom)&lt;/li>
+   *  &lt;li>↑, ↓- up, down&lt;/li>
+   *  &lt;li>n - move camera close/farther away wile rotating, or not&lt;/li>
+   * &lt;/ul>
+   * @event keydown
+   */
+  document.addEventListener("keydown", handleKeyPress, false);
 
   requestAnimationFrame(animate);
 
@@ -1309,13 +1323,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Camera.html">Camera</a></li><li><a href="external-THREE.Material.html">Material</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:handleKeyPress">handleKeyPress</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onDocumentMouseDown">onDocumentMouseDown</a></li><li><a href="global.html#event:onDocumentMouseMove">onDocumentMouseMove</a></li><li><a href="global.html#event:onDocumentMouseOut">onDocumentMouseOut</a></li><li><a href="global.html#event:onDocumentMouseUp">onDocumentMouseUp</a></li><li><a href="global.html#event:onDocumentTouchMove">onDocumentTouchMove</a></li><li><a href="global.html#event:onDocumentTouchStart">onDocumentTouchStart</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBaubles">addBaubles</a></li><li><a href="global.html#addGround">addGround</a></li><li><a href="global.html#addLight">addLight</a></li><li><a href="global.html#addObject">addObject</a></li><li><a href="global.html#addPresent">addPresent</a></li><li><a href="global.html#addSnowflakes">addSnowflakes</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#cameraControl">cameraControl</a></li><li><a href="global.html#container">container</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#group">group</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#imageNames">imageNames</a></li><li><a href="global.html#imageNames2">imageNames2</a></li><li><a href="global.html#inAndOutCamera">inAndOutCamera</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#makeCamera">makeCamera</a></li><li><a href="global.html#makeGreeting">makeGreeting</a></li><li><a href="global.html#makeTree">makeTree</a></li><li><a href="global.html#mouseX">mouseX</a></li><li><a href="global.html#mouseXOnMouseDown">mouseXOnMouseDown</a></li><li><a href="global.html#oLoader">oLoader</a></li><li><a href="global.html#onWindowResize">onWindowResize</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#prepareMaterials">prepareMaterials</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#targetRotation">targetRotation</a></li><li><a href="global.html#targetRotationOnMouseDown">targetRotationOnMouseDown</a></li><li><a href="global.html#teaPotGroup">teaPotGroup</a></li><li><a href="global.html#windowHalfX">windowHalfX</a></li><li><a href="global.html#windowHalfY">windowHalfY</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Camera.html">Camera</a></li><li><a href="external-THREE.Material.html">Material</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onDocumentMouseDown">onDocumentMouseDown</a></li><li><a href="global.html#event:onDocumentMouseMove">onDocumentMouseMove</a></li><li><a href="global.html#event:onDocumentMouseOut">onDocumentMouseOut</a></li><li><a href="global.html#event:onDocumentMouseUp">onDocumentMouseUp</a></li><li><a href="global.html#event:onDocumentTouchMove">onDocumentTouchMove</a></li><li><a href="global.html#event:onDocumentTouchStart">onDocumentTouchStart</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBaubles">addBaubles</a></li><li><a href="global.html#addGround">addGround</a></li><li><a href="global.html#addLight">addLight</a></li><li><a href="global.html#addObject">addObject</a></li><li><a href="global.html#addPresent">addPresent</a></li><li><a href="global.html#addSnowflakes">addSnowflakes</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#cameraControl">cameraControl</a></li><li><a href="global.html#container">container</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#group">group</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#imageNames">imageNames</a></li><li><a href="global.html#imageNames2">imageNames2</a></li><li><a href="global.html#inAndOutCamera">inAndOutCamera</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#makeCamera">makeCamera</a></li><li><a href="global.html#makeGreeting">makeGreeting</a></li><li><a href="global.html#makeTree">makeTree</a></li><li><a href="global.html#mouseX">mouseX</a></li><li><a href="global.html#mouseXOnMouseDown">mouseXOnMouseDown</a></li><li><a href="global.html#oLoader">oLoader</a></li><li><a href="global.html#onWindowResize">onWindowResize</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#prepareMaterials">prepareMaterials</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#targetRotation">targetRotation</a></li><li><a href="global.html#targetRotationOnMouseDown">targetRotationOnMouseDown</a></li><li><a href="global.html#teaPotGroup">teaPotGroup</a></li><li><a href="global.html#windowHalfX">windowHalfX</a></li><li><a href="global.html#windowHalfY">windowHalfY</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Feb 07 2024 08:08:50 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Feb 07 2024 19:05:16 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

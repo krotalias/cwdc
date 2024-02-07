@@ -354,10 +354,10 @@ function cameraControl(c, ch) {
     case "d":
       c.translateX(3);
       return true;
-    case "r":
+    case "ArrowUp":
       c.translateY(3);
       return true;
-    case "f":
+    case "ArrowDown":
       c.translateY(-3);
       return true;
     case "j":
@@ -388,11 +388,11 @@ function cameraControl(c, ch) {
     case "O":
       c.lookAt(new THREE.Vector3(0, 0, 0));
       return true;
-    case "S":
+    case "-":
       c.fov = Math.min(80, c.fov + 5);
       c.updateProjectionMatrix();
       return true;
-    case "W":
+    case "+":
       c.fov = Math.max(5, c.fov - 5);
       c.updateProjectionMatrix();
       return true;
@@ -438,8 +438,7 @@ function cameraControl(c, ch) {
 
 /**
  * Handler for key press events.
- * @param {KeyboardEvent} event keyboard event.
- * @event
+ * @param {KeyboardEvent} event keydown event.
  */
 function handleKeyPress(event) {
   var ch = getChar(event);
@@ -459,14 +458,14 @@ function handleKeyPress(event) {
         document.getElementById("info").innerHTML = `DRAG TO SPIN <br><br>
         <b>Keyboard controls</b>:<br>
         <b>h - to hide</b><br>
-        <b>w, a, s, d</b> - move forward, left, back, right <br>
-        <b>r, f</b> - move up, down <br>
-        <b>I, J, K, L</b> - orbit down, right, up, left <br>
-        <b>W</b> - decrease fov <br>
-        <b>S</b> - increase fov <br>
+        <b>w, s, a, d</b> - move forward, backward, left, right <br>
+        <b>↑, ↓</b> - move up, down <br>
+        <b>I, K, J, L</b> - orbit down, up, right, left <br>
+        <b>+</b> - decrease fov <br>
+        <b>-</b> - increase fov <br>
         <b>Space</b> - pause animation <br>
-        <b>n</b> - camera will rotate around the tree/camera will rotate<br>
-        around the tree while moving closer/farther away.`;
+        <b>n</b> - camera will rotate around the tree,<br>
+        while moving closer/farther away, or not.`;
       } else
         document.getElementById("info").innerHTML = `DRAG TO SPIN<br>
         Have your volume ON for the full experience <br>
@@ -1220,10 +1219,25 @@ function init() {
 }
 
 /**
- * Triggers the animation by calling {@link render}.
+ * Triggers the animation by calling {@link render} and binds
+ * the {@link event:keydown} event.
  */
 function animate() {
-  window.onkeydown = handleKeyPress;
+  /**
+   * <p>Key handler.</p>
+   * Calls {@link handleKeyPress} when pressing assigned keys:
+   * <ul>
+   *  <li>Space - pause</li>
+   *  <li>h - help</li>
+   *  <li>w, s, a, d - forward, backward, left, right</li>
+   *  <li>I, K, J, L - orbit down, up, left, right</li>
+   *  <li>+, - - field of view (zoom)</li>
+   *  <li>↑, ↓- up, down</li>
+   *  <li>n - move camera close/farther away wile rotating, or not</li>
+   * </ul>
+   * @event keydown
+   */
+  document.addEventListener("keydown", handleKeyPress, false);
 
   requestAnimationFrame(animate);
 
