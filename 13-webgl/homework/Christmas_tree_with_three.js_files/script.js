@@ -218,9 +218,9 @@ function onWindowResize() {
 function onDocumentMouseDown(event) {
   event.preventDefault();
 
-  document.addEventListener("mousemove", onDocumentMouseMove, false);
-  document.addEventListener("mouseup", onDocumentMouseUp, false);
-  document.addEventListener("mouseout", onDocumentMouseOut, false);
+  renderer.domElement.addEventListener("mousemove", onDocumentMouseMove, false);
+  renderer.domElement.addEventListener("mouseup", onDocumentMouseUp, false);
+  renderer.domElement.addEventListener("mouseout", onDocumentMouseOut, false);
 
   mouseXOnMouseDown = event.clientX - windowHalfX;
   targetRotationOnMouseDown = targetRotation;
@@ -249,9 +249,17 @@ function onDocumentMouseMove(event) {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
  */
 function onDocumentMouseUp(event) {
-  document.removeEventListener("mousemove", onDocumentMouseMove, false);
-  document.removeEventListener("mouseup", onDocumentMouseUp, false);
-  document.removeEventListener("mouseout", onDocumentMouseOut, false);
+  renderer.domElement.removeEventListener(
+    "mousemove",
+    onDocumentMouseMove,
+    false,
+  );
+  renderer.domElement.removeEventListener("mouseup", onDocumentMouseUp, false);
+  renderer.domElement.removeEventListener(
+    "mouseout",
+    onDocumentMouseOut,
+    false,
+  );
 }
 
 /**
@@ -265,9 +273,17 @@ function onDocumentMouseUp(event) {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseout_event
  */
 function onDocumentMouseOut(event) {
-  document.removeEventListener("mousemove", onDocumentMouseMove, false);
-  document.removeEventListener("mouseup", onDocumentMouseUp, false);
-  document.removeEventListener("mouseout", onDocumentMouseOut, false);
+  renderer.domElement.removeEventListener(
+    "mousemove",
+    onDocumentMouseMove,
+    false,
+  );
+  renderer.domElement.removeEventListener("mouseup", onDocumentMouseUp, false);
+  renderer.domElement.removeEventListener(
+    "mouseout",
+    onDocumentMouseOut,
+    false,
+  );
 }
 
 /**
@@ -481,160 +497,76 @@ function handleKeyPress(event) {
  * @param {external:THREE.Object3D} group the given group.
  */
 function prepareMaterials(group) {
-  var leafTexture = THREE.ImageUtils.loadTexture("img/pine.jpg");
-  leafTexture.repeat.set(1, 1);
-  leafTexture.wrapS = leafTexture.wrapT = THREE.RepeatWrapping;
-  leafTexture.anisotropy = 16;
-  leafTexture.needsUpdate = true;
+  // prettier-ignore
+  const imgs = [  // materials []
+    "pine.jpg",   // 0, 1, [2], 3
+    "wood.jpg",   // [4]
+    "red.jpg",    // [5]
+    "blue.jpg",   // [6]
+    "green.jpg",  // [7]
+    "yellow.jpg", // [8]
+    "moon.jpg",   // 9
+  ];
 
-  var woodTexture = THREE.ImageUtils.loadTexture("img/wood2.jpg");
-  woodTexture.repeat.set(1, 1);
-  woodTexture.wrapS = woodTexture.wrapT = THREE.RepeatWrapping;
-  woodTexture.anisotropy = 16;
-  woodTexture.needsUpdate = true;
+  const shininess = 50;
+  const specular = 0x333333;
+  const bumpScale = 1;
+  const shading = THREE.SmoothShading;
+  const materials = [];
 
-  var redBauble = THREE.ImageUtils.loadTexture("img/red.jpg");
-  redBauble.repeat.set(1, 1);
-  redBauble.wrapS = woodTexture.wrapT = THREE.RepeatWrapping;
-  redBauble.anisotropy = 16;
-  redBauble.needsUpdate = true;
+  imgs.forEach((img, index) => {
+    let texture = THREE.ImageUtils.loadTexture(path + img);
+    texture.repeat.set(1, 1);
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    texture.anisotropy = 16;
+    texture.needsUpdate = true;
 
-  var blueBauble = THREE.ImageUtils.loadTexture("img/blue.jpg");
-  blueBauble.repeat.set(1, 1);
-  blueBauble.wrapS = woodTexture.wrapT = THREE.RepeatWrapping;
-  blueBauble.anisotropy = 16;
-  blueBauble.needsUpdate = true;
+    if (index == 0) {
+      materials.push(
+        new THREE.MeshPhongMaterial({
+          map: texture,
+          bumpMap: texture,
+          bumpScale: bumpScale,
+          color: 0xff0000,
+          ambient: 0xffffff,
+          specular: specular,
+          shininess: shininess,
+          shading: shading,
+        }),
+      );
+      materials.push(
+        new THREE.MeshPhongMaterial({
+          map: texture,
+          color: 0x008800,
+          ambient: 0xffffff,
+          specular: specular,
+          shininess: shininess,
+          shading: shading,
+        }),
+      );
+    }
 
-  var greenBauble = THREE.ImageUtils.loadTexture("img/green.jpg");
-  greenBauble.repeat.set(1, 1);
-  greenBauble.wrapS = woodTexture.wrapT = THREE.RepeatWrapping;
-  greenBauble.anisotropy = 16;
-  greenBauble.needsUpdate = true;
+    // this is what is really used
+    materials.push(
+      new THREE.MeshPhongMaterial({
+        map: texture,
+        color: 0x584000,
+        ambient: 0xffffff,
+        shading: shading,
+      }),
+    );
 
-  var yellowBauble = THREE.ImageUtils.loadTexture("img/yellow.jpg");
-  yellowBauble.repeat.set(1, 1);
-  yellowBauble.wrapS = woodTexture.wrapT = THREE.RepeatWrapping;
-  yellowBauble.anisotropy = 16;
-  yellowBauble.needsUpdate = true;
-
-  var fur = THREE.ImageUtils.loadTexture("img/fur.jpg");
-  fur.repeat.set(1, 1);
-  fur.wrapS = woodTexture.wrapT = THREE.RepeatWrapping;
-  fur.anisotropy = 16;
-  fur.needsUpdate = true;
-
-  var fur2 = THREE.ImageUtils.loadTexture("img/fur2.jpg");
-  fur2.repeat.set(1, 1);
-  fur2.wrapS = woodTexture.wrapT = THREE.RepeatWrapping;
-  fur2.anisotropy = 16;
-  fur2.needsUpdate = true;
-
-  var moon = THREE.ImageUtils.loadTexture("img/moon.jpg");
-  moon.repeat.set(1, 1);
-  moon.wrapS = woodTexture.wrapT = THREE.RepeatWrapping;
-  moon.anisotropy = 16;
-  moon.needsUpdate = true;
-
-  var shininess = 50,
-    specular = 0x333333,
-    bumpScale = 1,
-    shading = THREE.SmoothShading;
-
-  var materials = [];
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: leafTexture,
-      bumpMap: leafTexture,
-      bumpScale: bumpScale,
-      color: 0xff0000,
-      ambient: 0xffffff,
-      specular: specular,
-      shininess: shininess,
-      shading: shading,
-    }),
-  );
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: leafTexture,
-      color: 0x008800,
-      ambient: 0xffffff,
-      specular: specular,
-      shininess: shininess,
-      shading: shading,
-    }),
-  );
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: leafTexture,
-      color: 0x584000,
-      ambient: 0xffffff,
-      shading: shading,
-    }),
-  );
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: leafTexture,
-      color: 0xff0000,
-      ambient: 0xffffff,
-      shading: shading,
-    }),
-  );
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: woodTexture,
-      color: 0x584000,
-      ambient: 0xffffff,
-      shading: shading,
-    }),
-  );
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: redBauble,
-      color: 0x584000,
-      ambient: 0xffffff,
-      shading: shading,
-    }),
-  );
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: blueBauble,
-      color: 0x584000,
-      ambient: 0xffffff,
-      shading: shading,
-    }),
-  );
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: greenBauble,
-      color: 0x584000,
-      ambient: 0xffffff,
-      shading: shading,
-    }),
-  );
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: yellowBauble,
-      color: 0x584000,
-      ambient: 0xffffff,
-      shading: shading,
-    }),
-  );
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: fur,
-      color: 0x584000,
-      ambient: 0xffffff,
-      shading: shading,
-    }),
-  );
-  materials.push(
-    new THREE.MeshPhongMaterial({
-      map: fur2,
-      color: 0x584000,
-      ambient: 0xffffff,
-      shading: shading,
-    }),
-  );
+    if (index == 0) {
+      materials.push(
+        new THREE.MeshPhongMaterial({
+          map: texture,
+          color: 0xff0000,
+          ambient: 0xffffff,
+          shading: shading,
+        }),
+      );
+    }
+  });
 
   makeTree(materials, group);
 }
