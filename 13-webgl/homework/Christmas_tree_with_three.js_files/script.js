@@ -614,7 +614,7 @@ function addGround(group) {
   });
 
   var groundTexture = THREE.ImageUtils.loadTexture(
-    "img/ground.jpg",
+    path + "ground.jpg",
     undefined,
     function () {
       groundMaterial.map = groundTexture;
@@ -642,8 +642,8 @@ function addGround(group) {
 function addSnowflakes(group) {
   var sfGeometry = new THREE.Geometry();
   var sfMats = [];
-  var sfTexture = THREE.ImageUtils.loadTexture("img/snowflake.png");
-  var sfTexture2 = THREE.ImageUtils.loadTexture("img/snowflake2.png");
+  var sfTexture = THREE.ImageUtils.loadTexture(path + "snowflake.png");
+  var sfTexture2 = THREE.ImageUtils.loadTexture(path + "snowflake2.png");
   var textToUse = sfTexture;
 
   for (let i = 0; i < 3700; i++) {
@@ -761,7 +761,7 @@ function makeTree(materials, group) {
  * <p>Yeah hardcoded... no I'm not proud</p>
  * But this was the most straightforward way to add trinkets
  * to the tree that actually looked like they were on the tree.
- * @param {Object<String,external:THREE.Material>} materials - the given materials object.
+ * @param {Object<String,external:THREE.Material>} materials - the given material object.
  * @param {external:THREE.Object3D} group - the given group to add the baubles to.
  */
 function addBaubles(group, materials) {
