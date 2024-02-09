@@ -512,7 +512,7 @@ function prepareMaterials(group) {
   const specular = 0x333333;
   const bumpScale = 1;
   const shading = THREE.SmoothShading;
-  const materials = [];
+  const mats = {};
 
   imgs.forEach((img, index) => {
     let texture = THREE.ImageUtils.loadTexture(path + img);
@@ -521,54 +521,45 @@ function prepareMaterials(group) {
     texture.anisotropy = 16;
     texture.needsUpdate = true;
 
+    let key = img.split(".")[0];
+
     if (index == 0) {
-      materials.push(
-        new THREE.MeshPhongMaterial({
-          map: texture,
-          bumpMap: texture,
-          bumpScale: bumpScale,
-          color: 0xff0000,
-          ambient: 0xffffff,
-          specular: specular,
-          shininess: shininess,
-          shading: shading,
-        }),
-      );
-      materials.push(
-        new THREE.MeshPhongMaterial({
-          map: texture,
-          color: 0x008800,
-          ambient: 0xffffff,
-          specular: specular,
-          shininess: shininess,
-          shading: shading,
-        }),
-      );
+      mats[`${key}0`] = new THREE.MeshPhongMaterial({
+        map: texture,
+        bumpMap: texture,
+        bumpScale: bumpScale,
+        color: 0xff0000,
+        ambient: 0xffffff,
+        specular: specular,
+        shininess: shininess,
+        shading: shading,
+      });
+      mats[`${key}1`] = new THREE.MeshPhongMaterial({
+        map: texture,
+        color: 0x008800,
+        ambient: 0xffffff,
+        specular: specular,
+        shininess: shininess,
+        shading: shading,
+      });
+      mats[`${key}3`] = new THREE.MeshPhongMaterial({
+        map: texture,
+        color: 0xff0000,
+        ambient: 0xffffff,
+        shading: shading,
+      });
     }
 
     // this is what is really used
-    materials.push(
-      new THREE.MeshPhongMaterial({
-        map: texture,
-        color: 0x584000,
-        ambient: 0xffffff,
-        shading: shading,
-      }),
-    );
-
-    if (index == 0) {
-      materials.push(
-        new THREE.MeshPhongMaterial({
-          map: texture,
-          color: 0xff0000,
-          ambient: 0xffffff,
-          shading: shading,
-        }),
-      );
-    }
+    mats[key] = new THREE.MeshPhongMaterial({
+      map: texture,
+      color: 0x584000,
+      ambient: 0xffffff,
+      shading: shading,
+    });
   });
 
-  makeTree(materials, group);
+  makeTree(mats, group);
 }
 
 /**
@@ -708,42 +699,42 @@ function addSnowflakes(group) {
 
 /**
  * Make the christmas tree.
- * @param {Array<external:THREE.Material>} materials the given materials array.
+ * @param {Object<String,external:THREE.Material>} materials the given material object.
  * @param {external:THREE.Object3D} group the given group to add the tree to.
  */
 function makeTree(materials, group) {
   var treeTop = new THREE.Mesh(
     new THREE.CylinderGeometry(1, 30, 50, 30, 1, false),
-    materials[2],
+    materials.pine,
   );
   var treeTop1 = new THREE.Mesh(
     new THREE.CylinderGeometry(1, 40, 70, 30, 1, false),
-    materials[2],
+    materials.pine,
   );
   var treeTop2 = new THREE.Mesh(
     new THREE.CylinderGeometry(1, 50, 80, 30, 1, false),
-    materials[2],
+    materials.pine,
   );
   var treeMid = new THREE.Mesh(
     new THREE.CylinderGeometry(1, 60, 90, 30, 1, false),
-    materials[2],
+    materials.pine,
   );
   var treeMid2 = new THREE.Mesh(
     new THREE.CylinderGeometry(1, 70, 80, 30, 1, false),
-    materials[2],
+    materials.pine,
   );
   var treeMid3 = new THREE.Mesh(
     new THREE.CylinderGeometry(1, 80, 90, 30, 1, false),
-    materials[2],
+    materials.pine,
   );
   var treeBase = new THREE.Mesh(
     new THREE.CylinderGeometry(1, 95, 95, 30, 1, false),
-    materials[2],
+    materials.pine,
   );
 
   var trunk = new THREE.Mesh(
     new THREE.CylinderGeometry(2, 20, 300, 30, 1, false),
-    materials[4],
+    materials.wood,
   );
 
   treeTop.position.set(0, 130, 0);
@@ -770,22 +761,25 @@ function makeTree(materials, group) {
  * <p>Yeah hardcoded... no I'm not proud</p>
  * But this was the most straightforward way to add trinkets
  * to the tree that actually looked like they were on the tree.
- * @param {Array<external:THREE.Material>} materials - the given materials array.
+ * @param {Object<String,external:THREE.Material>} materials - the given materials object.
  * @param {external:THREE.Object3D} group - the given group to add the baubles to.
  */
 function addBaubles(group, materials) {
-  var bauble = new THREE.Mesh(new THREE.SphereGeometry(5, 15, 5), materials[5]);
+  var bauble = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.red,
+  );
   var bauble1 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[8],
+    materials.yellow,
   );
   var bauble2 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[8],
+    materials.red,
   );
   var bauble3 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[5],
+    materials.yellow,
   );
 
   bauble.position.set(15, 135, 5);
@@ -800,19 +794,19 @@ function addBaubles(group, materials) {
 
   var bauble4 = new THREE.Mesh(
     new THREE.SphereGeometry(6, 15, 5),
-    materials[6],
+    materials.blue,
   );
   var bauble5 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[5],
+    materials.red,
   );
   var bauble6 = new THREE.Mesh(
     new THREE.SphereGeometry(6, 15, 5),
-    materials[6],
+    materials.blue,
   );
   var bauble7 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[5],
+    materials.red,
   );
 
   bauble4.position.set(35, 90, 5);
@@ -827,19 +821,19 @@ function addBaubles(group, materials) {
 
   var bauble8 = new THREE.Mesh(
     new THREE.SphereGeometry(7, 15, 5),
-    materials[7],
+    materials.green,
   );
   var bauble9 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[8],
+    materials.yellow,
   );
   var bauble10 = new THREE.Mesh(
     new THREE.SphereGeometry(7, 15, 5),
-    materials[7],
+    materials.green,
   );
   var bauble11 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[8],
+    materials.yellow,
   );
 
   bauble8.position.set(35, 60, 25);
@@ -854,19 +848,19 @@ function addBaubles(group, materials) {
 
   var bauble12 = new THREE.Mesh(
     new THREE.SphereGeometry(8, 15, 5),
-    materials[5],
+    materials.red,
   );
   var bauble13 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[6],
+    materials.blue,
   );
   var bauble14 = new THREE.Mesh(
     new THREE.SphereGeometry(8, 15, 5),
-    materials[5],
+    materials.red,
   );
   var bauble15 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[6],
+    materials.blue,
   );
 
   bauble12.position.set(48, 35, 25);
@@ -881,19 +875,19 @@ function addBaubles(group, materials) {
 
   var bauble16 = new THREE.Mesh(
     new THREE.SphereGeometry(6, 15, 5),
-    materials[8],
+    materials.yellow,
   );
   var bauble17 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[7],
+    materials.green,
   );
   var bauble18 = new THREE.Mesh(
     new THREE.SphereGeometry(6, 15, 5),
-    materials[8],
+    materials.yellow,
   );
   var bauble19 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[7],
+    materials.green,
   );
 
   bauble16.position.set(-52, 7, 25);
@@ -908,19 +902,19 @@ function addBaubles(group, materials) {
 
   var bauble20 = new THREE.Mesh(
     new THREE.SphereGeometry(7, 15, 5),
-    materials[6],
+    materials.blue,
   );
   var bauble21 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[5],
+    materials.red,
   );
   var bauble22 = new THREE.Mesh(
     new THREE.SphereGeometry(7, 15, 5),
-    materials[6],
+    materials.blue,
   );
   var bauble23 = new THREE.Mesh(
     new THREE.SphereGeometry(5, 15, 5),
-    materials[5],
+    materials.red,
   );
 
   bauble20.position.set(65, -25, 25);
@@ -935,19 +929,19 @@ function addBaubles(group, materials) {
 
   var bauble24 = new THREE.Mesh(
     new THREE.SphereGeometry(8, 15, 5),
-    materials[5],
+    materials.red,
   );
   var bauble25 = new THREE.Mesh(
     new THREE.SphereGeometry(6, 15, 5),
-    materials[8],
+    materials.yellow,
   );
   var bauble26 = new THREE.Mesh(
     new THREE.SphereGeometry(8, 15, 5),
-    materials[5],
+    materials.red,
   );
   var bauble27 = new THREE.Mesh(
     new THREE.SphereGeometry(6, 15, 5),
-    materials[8],
+    materials.yellow,
   );
 
   bauble24.position.set(80, -50, 25);
