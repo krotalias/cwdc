@@ -166,6 +166,28 @@ var help = false;
 var path = "img/";
 
 /**
+ * Light helpers switch.
+ * @type {Boolean}
+ */
+let showHelpers = false;
+
+/**
+ * Light helpers.
+ * @property {Object} lightHelpers - container for light helpers.
+ * @property {external:THREE.DirectionalLightHelper} lightHelpers.dhelper -
+ *    {@link https://threejs.org/docs/#api/en/helpers/DirectionalLightHelper directional light} helper.
+ * @property {external:THREE.SpotLightHelper} lightHelpers.shelper -
+ *    {@link https://threejs.org/docs/#api/en/helpers/SpotLightHelper spot light} helper.
+ * @property {external:THREE.PointlLightHelper} lightHelpers.phelper -
+ *    {@link https://threejs.org/docs/#api/en/helpers/PointLightHelper point light} helper.
+ */
+const lightHelpers = {
+  dhelper: null,
+  shelper: null,
+  phelper: null,
+};
+
+/**
  * Not the best for a skybox, but the effect is quite psychadelic.
  * @type {Array<String>}
  */
@@ -474,7 +496,8 @@ function handleKeyPress(event) {
         document.getElementById("info").innerHTML = `DRAG TO SPIN <br><br>
         <b>Keyboard controls</b>:<br>
         <b>h - to hide</b><br>
-        <b>w, s, a, d</b> - move forward, backward, left, right <br>
+        <b>l</b> - toggle light helpers<br>
+        <b>w, s, a, d</b> - move forward, backward, left, right<br>
         <b>↑, ↓</b> - move up, down <br>
         <b>I, K, J, L</b> - orbit down, up, right, left <br>
         <b>+</b> - decrease fov <br>
@@ -486,6 +509,10 @@ function handleKeyPress(event) {
         document.getElementById("info").innerHTML = `DRAG TO SPIN<br>
         Have your volume ON for the full experience <br>
         Press <b>h</b> for more information.`;
+      break;
+    case "l":
+      showHelpers = !showHelpers;
+      displayHelpers();
       break;
     default:
       return;
@@ -1001,6 +1028,21 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
 }
 
 /**
+ * Add or remove light {@link showHelpers helpers}.
+ */
+function displayHelpers() {
+  if (showHelpers) {
+    scene.add(lightHelpers.phelper);
+    scene.add(lightHelpers.shelper);
+    scene.add(lightHelpers.dhelper);
+  } else {
+    scene.remove(lightHelpers.phelper);
+    scene.remove(lightHelpers.shelper);
+    scene.remove(lightHelpers.dhelper);
+  }
+}
+
+/**
  * Lights galore - includes point lights, spot lights,
  * and a directional light because why not?
  * @param {external:THREE.Scene} scene - the given scene.
@@ -1009,11 +1051,13 @@ function addLight(scene) {
   scene.add(new THREE.AmbientLight(0x222222));
 
   const pointLight = new THREE.PointLight(0x00ccff, -1.3, 1000);
+  pointLight.position.set(200, 100, 0);
   group.add(pointLight);
-  pointLight.position.set(15, -1, 1).normalize();
+
+  lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
 
   var spotLight = new THREE.SpotLight(0xffffff);
-  spotLight.position.set(200, 200, 200).normalize;
+  spotLight.position.set(200, 200, 200);
 
   spotLight.castShadow = true;
 
@@ -1026,10 +1070,18 @@ function addLight(scene) {
 
   scene.add(spotLight);
 
+  lightHelpers.shelper = new THREE.SpotLightHelper(spotLight, 0xffffff);
+
   // add directional light
   var directionalLight = new THREE.DirectionalLight(0x000099, 2);
-  directionalLight.position.set(15, 1, 1).normalize();
+  directionalLight.position.set(400, 1, 200);
   scene.add(directionalLight);
+
+  lightHelpers.dhelper = new THREE.DirectionalLightHelper(
+    directionalLight,
+    15,
+    0xffffff,
+  );
 }
 
 /**
@@ -1155,6 +1207,7 @@ function animate() {
    * <ul>
    *  <li>Space - pause</li>
    *  <li>h - help</li>
+   *  <li>l - light helpers</li>
    *  <li>w, s, a, d - forward, backward, left, right</li>
    *  <li>I, K, J, L - orbit down, up, left, right</li>
    *  <li>+, - - field of view (zoom)</li>

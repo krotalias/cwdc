@@ -194,6 +194,28 @@ var help = false;
 var path = "img/";
 
 /**
+ * Light helpers switch.
+ * @type {Boolean}
+ */
+let showHelpers = false;
+
+/**
+ * Light helpers.
+ * @property {Object} lightHelpers - container for light helpers.
+ * @property {external:THREE.DirectionalLightHelper} lightHelpers.dhelper -
+ *    {@link https://threejs.org/docs/#api/en/helpers/DirectionalLightHelper directional light} helper.
+ * @property {external:THREE.SpotLightHelper} lightHelpers.shelper -
+ *    {@link https://threejs.org/docs/#api/en/helpers/SpotLightHelper spot light} helper.
+ * @property {external:THREE.PointlLightHelper} lightHelpers.phelper -
+ *    {@link https://threejs.org/docs/#api/en/helpers/PointLightHelper point light} helper.
+ */
+const lightHelpers = {
+  dhelper: null,
+  shelper: null,
+  phelper: null,
+};
+
+/**
  * Not the best for a skybox, but the effect is quite psychadelic.
  * @type {Array&lt;String>}
  */
@@ -502,7 +524,8 @@ function handleKeyPress(event) {
         document.getElementById("info").innerHTML = `DRAG TO SPIN &lt;br>&lt;br>
         &lt;b>Keyboard controls&lt;/b>:&lt;br>
         &lt;b>h - to hide&lt;/b>&lt;br>
-        &lt;b>w, s, a, d&lt;/b> - move forward, backward, left, right &lt;br>
+        &lt;b>l&lt;/b> - toggle light helpers&lt;br>
+        &lt;b>w, s, a, d&lt;/b> - move forward, backward, left, right&lt;br>
         &lt;b>↑, ↓&lt;/b> - move up, down &lt;br>
         &lt;b>I, K, J, L&lt;/b> - orbit down, up, right, left &lt;br>
         &lt;b>+&lt;/b> - decrease fov &lt;br>
@@ -514,6 +537,10 @@ function handleKeyPress(event) {
         document.getElementById("info").innerHTML = `DRAG TO SPIN&lt;br>
         Have your volume ON for the full experience &lt;br>
         Press &lt;b>h&lt;/b> for more information.`;
+      break;
+    case "l":
+      showHelpers = !showHelpers;
+      displayHelpers();
       break;
     default:
       return;
@@ -1029,6 +1056,21 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
 }
 
 /**
+ * Add or remove light {@link showHelpers helpers}.
+ */
+function displayHelpers() {
+  if (showHelpers) {
+    scene.add(lightHelpers.phelper);
+    scene.add(lightHelpers.shelper);
+    scene.add(lightHelpers.dhelper);
+  } else {
+    scene.remove(lightHelpers.phelper);
+    scene.remove(lightHelpers.shelper);
+    scene.remove(lightHelpers.dhelper);
+  }
+}
+
+/**
  * Lights galore - includes point lights, spot lights,
  * and a directional light because why not?
  * @param {external:THREE.Scene} scene - the given scene.
@@ -1037,11 +1079,13 @@ function addLight(scene) {
   scene.add(new THREE.AmbientLight(0x222222));
 
   const pointLight = new THREE.PointLight(0x00ccff, -1.3, 1000);
+  pointLight.position.set(200, 100, 0);
   group.add(pointLight);
-  pointLight.position.set(15, -1, 1).normalize();
+
+  lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
 
   var spotLight = new THREE.SpotLight(0xffffff);
-  spotLight.position.set(200, 200, 200).normalize;
+  spotLight.position.set(200, 200, 200);
 
   spotLight.castShadow = true;
 
@@ -1054,10 +1098,18 @@ function addLight(scene) {
 
   scene.add(spotLight);
 
+  lightHelpers.shelper = new THREE.SpotLightHelper(spotLight, 0xffffff);
+
   // add directional light
   var directionalLight = new THREE.DirectionalLight(0x000099, 2);
-  directionalLight.position.set(15, 1, 1).normalize();
+  directionalLight.position.set(400, 1, 200);
   scene.add(directionalLight);
+
+  lightHelpers.dhelper = new THREE.DirectionalLightHelper(
+    directionalLight,
+    15,
+    0xffffff,
+  );
 }
 
 /**
@@ -1183,6 +1235,7 @@ function animate() {
    * &lt;ul>
    *  &lt;li>Space - pause&lt;/li>
    *  &lt;li>h - help&lt;/li>
+   *  &lt;li>l - light helpers&lt;/li>
    *  &lt;li>w, s, a, d - forward, backward, left, right&lt;/li>
    *  &lt;li>I, K, J, L - orbit down, up, left, right&lt;/li>
    *  &lt;li>+, - - field of view (zoom)&lt;/li>
@@ -1249,13 +1302,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Camera.html">Camera</a></li><li><a href="external-THREE.Material.html">Material</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onDocumentMouseDown">onDocumentMouseDown</a></li><li><a href="global.html#event:onDocumentMouseMove">onDocumentMouseMove</a></li><li><a href="global.html#event:onDocumentMouseOut">onDocumentMouseOut</a></li><li><a href="global.html#event:onDocumentMouseUp">onDocumentMouseUp</a></li><li><a href="global.html#event:onDocumentTouchMove">onDocumentTouchMove</a></li><li><a href="global.html#event:onDocumentTouchStart">onDocumentTouchStart</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBaubles">addBaubles</a></li><li><a href="global.html#addGround">addGround</a></li><li><a href="global.html#addLight">addLight</a></li><li><a href="global.html#addObject">addObject</a></li><li><a href="global.html#addPresent">addPresent</a></li><li><a href="global.html#addSnowflakes">addSnowflakes</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#cameraControl">cameraControl</a></li><li><a href="global.html#container">container</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#group">group</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#imageNames">imageNames</a></li><li><a href="global.html#imageNames2">imageNames2</a></li><li><a href="global.html#inAndOutCamera">inAndOutCamera</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#makeCamera">makeCamera</a></li><li><a href="global.html#makeGreeting">makeGreeting</a></li><li><a href="global.html#makeTree">makeTree</a></li><li><a href="global.html#mouseX">mouseX</a></li><li><a href="global.html#mouseXOnMouseDown">mouseXOnMouseDown</a></li><li><a href="global.html#oLoader">oLoader</a></li><li><a href="global.html#onWindowResize">onWindowResize</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#prepareMaterials">prepareMaterials</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#targetRotation">targetRotation</a></li><li><a href="global.html#targetRotationOnMouseDown">targetRotationOnMouseDown</a></li><li><a href="global.html#teaPotGroup">teaPotGroup</a></li><li><a href="global.html#windowHalfX">windowHalfX</a></li><li><a href="global.html#windowHalfY">windowHalfY</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Camera.html">Camera</a></li><li><a href="external-THREE.Material.html">Material</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onDocumentMouseDown">onDocumentMouseDown</a></li><li><a href="global.html#event:onDocumentMouseMove">onDocumentMouseMove</a></li><li><a href="global.html#event:onDocumentMouseOut">onDocumentMouseOut</a></li><li><a href="global.html#event:onDocumentMouseUp">onDocumentMouseUp</a></li><li><a href="global.html#event:onDocumentTouchMove">onDocumentTouchMove</a></li><li><a href="global.html#event:onDocumentTouchStart">onDocumentTouchStart</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBaubles">addBaubles</a></li><li><a href="global.html#addGround">addGround</a></li><li><a href="global.html#addLight">addLight</a></li><li><a href="global.html#addObject">addObject</a></li><li><a href="global.html#addPresent">addPresent</a></li><li><a href="global.html#addSnowflakes">addSnowflakes</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#cameraControl">cameraControl</a></li><li><a href="global.html#container">container</a></li><li><a href="global.html#displayHelpers">displayHelpers</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#group">group</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#imageNames">imageNames</a></li><li><a href="global.html#imageNames2">imageNames2</a></li><li><a href="global.html#inAndOutCamera">inAndOutCamera</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#lightHelpers">lightHelpers</a></li><li><a href="global.html#makeCamera">makeCamera</a></li><li><a href="global.html#makeGreeting">makeGreeting</a></li><li><a href="global.html#makeTree">makeTree</a></li><li><a href="global.html#mouseX">mouseX</a></li><li><a href="global.html#mouseXOnMouseDown">mouseXOnMouseDown</a></li><li><a href="global.html#oLoader">oLoader</a></li><li><a href="global.html#onWindowResize">onWindowResize</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#prepareMaterials">prepareMaterials</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#showHelpers">showHelpers</a></li><li><a href="global.html#targetRotation">targetRotation</a></li><li><a href="global.html#targetRotationOnMouseDown">targetRotationOnMouseDown</a></li><li><a href="global.html#teaPotGroup">teaPotGroup</a></li><li><a href="global.html#windowHalfX">windowHalfX</a></li><li><a href="global.html#windowHalfY">windowHalfY</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Feb 09 2024 08:52:39 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Feb 11 2024 09:45:21 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
