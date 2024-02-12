@@ -633,14 +633,14 @@ function addPresent(group, size, x, y, z, images) {
  */
 function addGround(group) {
   var groundColor = new THREE.Color(0xd2ddef);
-  var groundTexture = THREE.ImageUtils.generateDataTexture(1, 1, groundColor);
-  var groundMaterial = new THREE.MeshPhongMaterial({
+  var groundTexture2 = THREE.ImageUtils.generateDataTexture(1, 1, groundColor);
+  const groundMaterial = new THREE.MeshPhongMaterial({
     color: 0xffffff,
     specular: 0x111111,
-    map: groundTexture,
+    map: groundTexture2,
   });
 
-  var groundTexture = THREE.ImageUtils.loadTexture(
+  const groundTexture = THREE.ImageUtils.loadTexture(
     path + "ground.jpg",
     undefined,
     function () {
@@ -651,7 +651,7 @@ function addGround(group) {
   groundTexture.repeat.set(25, 25);
   groundTexture.anisotropy = 16;
 
-  var groundMesh = new THREE.Mesh(
+  const groundMesh = new THREE.Mesh(
     new THREE.PlaneGeometry(20000, 20000),
     groundMaterial,
   );
@@ -667,11 +667,10 @@ function addGround(group) {
  * @param {external:THREE.Object3D} group - the given group to add the snowflakes to.
  */
 function addSnowflakes(group) {
-  var sfGeometry = new THREE.Geometry();
-  var sfMats = [];
-  var sfTexture = THREE.ImageUtils.loadTexture(path + "snowflake.png");
-  var sfTexture2 = THREE.ImageUtils.loadTexture(path + "snowflake2.png");
-  var textToUse = sfTexture;
+  const sfGeometry = new THREE.Geometry();
+  const sfMats = [];
+  const sfTexture = THREE.ImageUtils.loadTexture(path + "snowflake.png");
+  const sfTexture2 = THREE.ImageUtils.loadTexture(path + "snowflake2.png");
 
   for (let i = 0; i < 3700; i++) {
     var vertex = new THREE.Vector3();
@@ -682,46 +681,36 @@ function addSnowflakes(group) {
     sfGeometry.vertices.push(vertex);
   }
 
-  var states = [
-    [[1.0, 0.2, 0.9], sfTexture, 10],
-    [[0.9, 0.1, 0.5], sfTexture, 8],
-    [[0.8, 0.05, 0.5], sfTexture, 5],
-    [[1.0, 0.2, 0.9], sfTexture2, 10],
-    [[0.9, 0.1, 0.5], sfTexture2, 8],
-    [[0.8, 0.05, 0.5], sfTexture2, 5],
+  const states = [
+    { color: [1.0, 0.2, 0.9], sprite: sfTexture, size: 10 },
+    { color: [0.9, 0.1, 0.5], sprite: sfTexture, size: 8 },
+    { color: [0.8, 0.05, 0.5], sprite: sfTexture, size: 5 },
+    { color: [1.0, 0.2, 0.9], sprite: sfTexture2, size: 10 },
+    { color: [0.9, 0.1, 0.5], sprite: sfTexture2, size: 8 },
+    { color: [0.8, 0.05, 0.5], sprite: sfTexture2, size: 5 },
   ];
 
-  let color, sprite, size;
+  states.forEach((state) => {
+    let i = sfMats.push(
+      new THREE.ParticleSystemMaterial({
+        size: state.size,
+        map: state.sprite,
+        blending: THREE.AdditiveBlending,
+        depthTest: false,
+        transparent: true,
+      }),
+    );
 
-  for (let i = 0; i < states.length; i++) {
-    //vary between snowflake textures -- white/blue
-    if (i % 2 == 0) {
-      color = states[i][0];
-      sprite = states[i][1];
-      size = states[i][2];
-    } else {
-      color = states[i][0];
-      sprite = states[i][1];
-      size = states[i][2];
-    }
+    sfMats[i - 1].color.setHSL(...state.color);
 
-    sfMats[i] = new THREE.ParticleSystemMaterial({
-      size: size,
-      map: sprite,
-      blending: THREE.AdditiveBlending,
-      depthTest: false,
-      transparent: true,
-    });
-    sfMats[i].color.setHSL(color[0], color[1], color[2]);
-
-    const particles = new THREE.ParticleSystem(sfGeometry, sfMats[i]);
+    const particles = new THREE.ParticleSystem(sfGeometry, sfMats[i - 1]);
 
     particles.rotation.x = Math.random() * 15;
     particles.rotation.y = Math.random() * 10;
     particles.rotation.z = Math.random() * 17;
 
     group.add(particles);
-  }
+  });
 }
 
 /**
@@ -999,7 +988,7 @@ function addBaubles(group, materials) {
  */
 function addObject(group, objectFile, x, y, z, size, rotate, color) {
   /**
-   * ObjectLoader object.
+   * OBJLoader object.
    * @var {OBJLoader}
    * @global
    */
@@ -1050,13 +1039,13 @@ function displayHelpers() {
 function addLight(scene) {
   scene.add(new THREE.AmbientLight(0x222222));
 
-  const pointLight = new THREE.PointLight(0x00ccff, -1.3, 1000);
+  const pointLight = new THREE.PointLight(0x00ccff, 1.3, 1000);
   pointLight.position.set(200, 100, 0);
-  group.add(pointLight);
+  scene.add(pointLight);
 
   lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
 
-  var spotLight = new THREE.SpotLight(0xffffff);
+  const spotLight = new THREE.SpotLight(0xffffff);
   spotLight.position.set(200, 200, 200);
 
   spotLight.castShadow = true;
@@ -1073,7 +1062,7 @@ function addLight(scene) {
   lightHelpers.shelper = new THREE.SpotLightHelper(spotLight, 0xffffff);
 
   // add directional light
-  var directionalLight = new THREE.DirectionalLight(0x000099, 2);
+  const directionalLight = new THREE.DirectionalLight(0x000099, 2);
   directionalLight.position.set(400, 1, 200);
   scene.add(directionalLight);
 
