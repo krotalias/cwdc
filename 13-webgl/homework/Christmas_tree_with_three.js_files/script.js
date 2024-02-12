@@ -99,7 +99,7 @@ let camera;
 let renderer;
 
 /**
- * A container holding the geeting and the canvas.
+ * A container holding the greeting and the canvas.
  * @type {HTMLDivElement}
  */
 var container;
@@ -399,8 +399,8 @@ function cameraControl(c, ch) {
       c.translateY(-3);
       return true;
     case "j":
-      // need to do extrinsic rotation about world y axis, so multiply camera's quaternion
-      // on left
+      // need to do extrinsic rotation about world y axis,
+      // so multiply camera's quaternion on the left
       q = new THREE.Quaternion().setFromAxisAngle(
         new THREE.Vector3(0, 1, 0),
         (5 * Math.PI) / 180,
@@ -448,7 +448,7 @@ function cameraControl(c, ch) {
       c.translateZ(distance);
       return true;
     case "L":
-      //this.orbitRight(5, distance)
+      // this.orbitRight(5, distance)
       c.translateZ(-distance);
       q = new THREE.Quaternion().setFromAxisAngle(
         new THREE.Vector3(0, 1, 0),
@@ -459,13 +459,13 @@ function cameraControl(c, ch) {
       c.translateZ(distance);
       return true;
     case "I":
-      //this.orbitUp(5, distance)
+      // this.orbitUp(5, distance)
       c.translateZ(-distance);
       c.rotateX((-5 * Math.PI) / 180);
       c.translateZ(distance);
       return true;
     case "K":
-      //this.orbitDown(5, distance)
+      // this.orbitDown(5, distance)
       c.translateZ(-distance);
       c.rotateX((5 * Math.PI) / 180);
       c.translateZ(distance);
@@ -629,7 +629,7 @@ function addPresent(group, size, x, y, z, images) {
 
 /**
  * Add ground to scene.
- * @param {external:THREE.Object3D} group the given group to add the ground to.
+ * @param {external:THREE.Object3D} group - the given group to add the ground to.
  */
 function addGround(group) {
   var groundColor = new THREE.Color(0xd2ddef);
@@ -715,8 +715,8 @@ function addSnowflakes(group) {
 
 /**
  * Make the christmas tree.
- * @param {Object<String,external:THREE.Material>} materials the given material object.
- * @param {external:THREE.Object3D} group the given group to add the tree to.
+ * @param {Object<String,external:THREE.Material>} materials - the given material object.
+ * @param {external:THREE.Object3D} group - the given group to add the tree to.
  */
 function makeTree(materials, group) {
   var treeTop = new THREE.Mesh(
@@ -993,7 +993,7 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
    * @global
    */
   var oLoader = new THREE.OBJLoader();
-  oLoader.load(objectFile, function (object, materials) {
+  oLoader.load(objectFile, function (object) {
     var material2 = new THREE.MeshLambertMaterial({ color: color });
 
     object.traverse(function (child) {
@@ -1133,15 +1133,15 @@ function init() {
 
   prepareMaterials(group);
 
-  //add 3 skyboxes
+  // add 3 skyboxes
   addPresent(group, 50, 20, -125, 60, imageNames2);
   addPresent(group, 30, -20, -135, -60, imageNames);
   addPresent(group, 20, -20, -140, 100, imageNames);
 
-  //add our star tea pot
+  // add our star teapot
   addObject(teaPotGroup, "teapot.obj", 0, 155, 0, 0.3, 0, 0xffff00);
 
-  //bunnies for days
+  // bunnies for days
   addObject(group, "bunny.obj", 80, -130, 0, 20, 0, 0x995500);
   addObject(group, "bunny.obj", -50, -140, 0, 10, -90, 0xcc6600);
   addObject(group, "bunny.obj", 100, -135, 60, 15, 40, 0xfffff6);
@@ -1217,15 +1217,15 @@ function animate() {
  * calls the {@link renderer renderer.render} method.
  */
 function render() {
-  var timer = Date.now() * 0.00035;
-  var x = camera.position.x,
-    y = camera.position.y,
-    z = camera.position.z;
-  var rotSpeed = 0.004;
+  let timer = Date.now() * 0.00035;
+  let { x, y, z } = camera.position;
+  const rotSpeed = 0.004;
 
-  group.rotation.y += (targetRotation - group.rotation.y) * 0.01; //mouse click and drag
+  // mouse click and drag
+  group.rotation.y += (targetRotation - group.rotation.y) * 0.01;
 
-  teaPotGroup.rotation.y += 0.03; //spinning tea pot -- its a nice star
+  // spinning teapot -- its a nice star
+  teaPotGroup.rotation.y += 0.03;
 
   if (!paused && inAndOutCamera) {
     camera.position.x = Math.cos(timer) * 1000;
@@ -1233,7 +1233,7 @@ function render() {
   }
 
   if (!paused && !inAndOutCamera) {
-    //rotate camera around tree
+    // rotate camera around tree
     camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
     camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
   }
