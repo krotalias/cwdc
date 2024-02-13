@@ -973,9 +973,9 @@ function addBaubles(group, materials) {
 
 /**
  * <p>Loads an object to the scene.</p>
- * Used to add the tea pot and the bunnies.
+ * Used to add the teapot and the bunnies.
  * Frigging bunnies all around, everyone loves bunnies.
- * Tea pot is our new christmas tree star.
+ * Teapot is our new christmas tree star.
  *
  * @param {external:THREE.Object3D} group - the given group to add the object to.
  * @param {String} objectFile - the object file to be read.
@@ -1088,13 +1088,15 @@ function makeGreeting() {
   info.setAttribute("id", "info");
   greeting.setAttribute("id", "greeting");
   greeting.style.position = "absolute";
-  greeting.style.top = "50px";
+  greeting.style.top = "30px";
   greeting.style.width = "100%";
   greeting.style.textAlign = "center";
   greeting.style.color = "white";
-  info.innerHTML = `DRAG TO SPIN<br>
+  info.innerHTML = `<details>
+  <summary>DRAG TO SPIN</summary>
   Have your volume ON for the full experience<br>
-  Press <b>h</b> for more information`;
+  Press <em>h</em> for more information
+  </details>`;
 
   greeting.appendChild(info);
   container.appendChild(greeting);

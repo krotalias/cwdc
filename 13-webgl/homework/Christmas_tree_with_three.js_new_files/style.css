@@ -1,0 +1,34 @@
+html,
+body {
+    /* prevent the pull to refresh: */
+    overscroll-behavior: none;
+}
+
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+#greeting {
+    font-family: "Mountains of Christmas", cursive;
+    font-size: 27px;
+}
+
+.greeting {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+#info {
+    font-family: "Titillium Web", sans-serif;
+    font-size: 15px;
+}
+
+audio {
+    position: absolute;
+    z-index: 2;
+}

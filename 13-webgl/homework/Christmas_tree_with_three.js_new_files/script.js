@@ -1,52 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: script.js</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
-
-<body>
-
-<div id="main">
-
-    <h1 class="page-title">Source: script.js</h1>
-
-    
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
+/**
  * @file
  *
  * Summary.
- * &lt;p>Renders a christmas scene - Merry (Early) Christmas.&lt;/p>
+ * <p>Renders a christmas scene - Merry (Early) Christmas.</p>
  *
  * @author Flavia Cavalcanti
  * @since 24/11/2015
  *
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  *
- * @see &lt;a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_files/script.js">source&lt;/a>
- * @see &lt;a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js.html">link&lt;/a>
+ * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_files/script.js">source</a>
+ * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js.html">link</a>
  */
 
 "use strict";
+
+import * as THREE from "three";
+import { VertexNormalsHelper } from "three/addons/helpers/VertexNormalsHelper.js";
+import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 
 /**
  * Three.js module.
  * @external THREE
  * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ */
+
+/**
+ * <p>loader for loading a .obj resource.</p>
+ * The OBJ file format is a simple data-format that represents 3D geometry in a human readable format
+ * as the position of each vertex, the UV position of each texture coordinate vertex, vertex normals,
+ * and the faces that make each polygon defined as a list of vertices, and texture vertices.
+ *
+ * @class OBJLoader
+ * @memberof external:THREE
+ * @see https://threejs.org/docs/#examples/en/loaders/OBJLoader
  */
 
 /**
@@ -56,6 +43,15 @@
  * @class Object3D
  * @memberof external:THREE
  * @see https://threejs.org/docs/#api/en/core/Object3D
+ */
+
+/**
+ * <p>This is almost identical to an Object3D.</p>
+ * Its purpose is to make working with groups of objects syntactically clearer.
+ *
+ * @class Group
+ * @memberof external:THREE
+ * @see https://threejs.org/docs/#api/en/objects/Group
  */
 
 /**
@@ -98,13 +94,13 @@
 
 /**
  * Three.js group.
- * @type {external:THREE.Object3D}
+ * @type {external:THREE.Group}
  */
 let group;
 
 /**
  * Three.js group.
- * @type {external:THREE.Object3D}
+ * @type {external:THREE.Group}
  */
 let teaPotGroup;
 
@@ -217,32 +213,32 @@ const lightHelpers = {
 
 /**
  * Not the best for a skybox, but the effect is quite psychadelic.
- * @type {Array&lt;String>}
+ * @type {Array<String>}
  */
 var imageNames = [
-  path + "wrappingPaper.jpg",
-  path + "wrappingPaper.jpg",
-  path + "wrappingPaper.jpg",
-  path + "wrappingPaper.jpg",
-  path + "wrappingPaper.jpg",
-  path + "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
 ];
 
 /**
  * Not the best for a skybox, but the effect is quite psychadelic.
- * @type {Array&lt;String>}
+ * @type {Array<String>}
  */
 var imageNames2 = [
-  path + "wrappingPaper2.jpg",
-  path + "wrappingPaper2.jpg",
-  path + "wrappingPaper2.jpg",
-  path + "wrappingPaper2.jpg",
-  path + "wrappingPaper2.jpg",
-  path + "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
 ];
 
 /**
- * &lt;p>Resizes the scene according to the screen size.&lt;/p>
+ * <p>Resizes the scene according to the screen size.</p>
  *
  * {@link http://benchung.com/smooth-mouse-rotation-three-js/ Many thanks}.
  */
@@ -260,7 +256,7 @@ function onWindowResize() {
  * The mousedown event is fired at an Element when a pointing device button
  * is pressed while the pointer is inside the element.
  *
- * &lt;p>Add listeners for "mousemove", "mouseup", and "mouseout".
+ * <p>Add listeners for "mousemove", "mouseup", and "mouseout".
  * @param {MouseEvent} event mouse event.
  * @event
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event
@@ -293,7 +289,7 @@ function onDocumentMouseMove(event) {
  * The mouseup event is fired at an Element when a button on a pointing device
  * (such as a mouse or trackpad) is released while the pointer is located inside it.
  *
- * &lt;p>Remove listeners for "mousemove", "mouseup", and "mouseout".
+ * <p>Remove listeners for "mousemove", "mouseup", and "mouseout".
  * @param {MouseEvent} event mouse event.
  * @event
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
@@ -317,7 +313,7 @@ function onDocumentMouseUp(event) {
  * pointing device (usually a mouse) is used to move the cursor
  * so that it is no longer contained within the element or one of its children.
  *
- * &lt;p>Removes the listeners for "mousemove", "mouseup", and "mouseout".
+ * <p>Removes the listeners for "mousemove", "mouseup", and "mouseout".
  * @param {MouseEvent} event mouse event.
  * @event
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseout_event
@@ -427,8 +423,8 @@ function cameraControl(c, ch) {
       c.translateY(-3);
       return true;
     case "j":
-      // need to do extrinsic rotation about world y axis,
-      // so multiply camera's quaternion on the left
+      // need to do extrinsic rotation about world y axis, so multiply camera's quaternion
+      // on left
       q = new THREE.Quaternion().setFromAxisAngle(
         new THREE.Vector3(0, 1, 0),
         (5 * Math.PI) / 180,
@@ -476,7 +472,7 @@ function cameraControl(c, ch) {
       c.translateZ(distance);
       return true;
     case "L":
-      // this.orbitRight(5, distance)
+      //this.orbitRight(5, distance)
       c.translateZ(-distance);
       q = new THREE.Quaternion().setFromAxisAngle(
         new THREE.Vector3(0, 1, 0),
@@ -487,13 +483,13 @@ function cameraControl(c, ch) {
       c.translateZ(distance);
       return true;
     case "I":
-      // this.orbitUp(5, distance)
+      //this.orbitUp(5, distance)
       c.translateZ(-distance);
       c.rotateX((-5 * Math.PI) / 180);
       c.translateZ(distance);
       return true;
     case "K":
-      // this.orbitDown(5, distance)
+      //this.orbitDown(5, distance)
       c.translateZ(-distance);
       c.rotateX((5 * Math.PI) / 180);
       c.translateZ(distance);
@@ -521,22 +517,22 @@ function handleKeyPress(event) {
     case "h":
       help = !help;
       if (help) {
-        document.getElementById("info").innerHTML = `DRAG TO SPIN &lt;br>&lt;br>
-        &lt;b>Keyboard controls&lt;/b>:&lt;br>
-        &lt;b>h - to hide&lt;/b>&lt;br>
-        &lt;b>l&lt;/b> - toggle light helpers&lt;br>
-        &lt;b>w, s, a, d&lt;/b> - move forward, backward, left, right&lt;br>
-        &lt;b>↑, ↓&lt;/b> - move up, down &lt;br>
-        &lt;b>I, K, J, L&lt;/b> - orbit down, up, right, left &lt;br>
-        &lt;b>+&lt;/b> - decrease fov &lt;br>
-        &lt;b>-&lt;/b> - increase fov &lt;br>
-        &lt;b>Space&lt;/b> - pause animation &lt;br>
-        &lt;b>n&lt;/b> - camera will rotate around the tree,&lt;br>
+        document.getElementById("info").innerHTML = `DRAG TO SPIN <br><br>
+        <b>Keyboard controls</b>:<br>
+        <b>h - to hide</b><br>
+        <b>l</b> - toggle light helpers<br>
+        <b>w, s, a, d</b> - move forward, backward, left, right <br>
+        <b>↑, ↓</b> - move up, down <br>
+        <b>I, K, J, L</b> - orbit down, up, right, left <br>
+        <b>+</b> - decrease fov <br>
+        <b>-</b> - increase fov <br>
+        <b>Space</b> - pause animation <br>
+        <b>n</b> - camera will rotate around the tree,<br>
         while moving closer/farther away, or not.`;
       } else
-        document.getElementById("info").innerHTML = `DRAG TO SPIN&lt;br>
-        Have your volume ON for the full experience &lt;br>
-        Press &lt;b>h&lt;/b> for more information.`;
+        document.getElementById("info").innerHTML = `DRAG TO SPIN<br>
+        Have your volume ON for the full experience <br>
+        Press <b>h</b> for more information.`;
       break;
     case "l":
       showHelpers = !showHelpers;
@@ -549,7 +545,7 @@ function handleKeyPress(event) {
 
 /**
  * Prepare materials and add it to the given group scene.
- * @param {external:THREE.Object3D} group the given group.
+ * @param {external:THREE.Group} group - the given group.
  */
 function prepareMaterials(group) {
   // prettier-ignore
@@ -566,15 +562,15 @@ function prepareMaterials(group) {
   const shininess = 50;
   const specular = 0x333333;
   const bumpScale = 1;
-  const shading = THREE.SmoothShading;
+  const shading = false;
   const mats = {};
+  const tLoader = new THREE.TextureLoader();
 
   imgs.forEach((img, index) => {
-    let texture = THREE.ImageUtils.loadTexture(path + img);
+    let texture = tLoader.load(path + img);
     texture.repeat.set(1, 1);
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.anisotropy = 16;
-    texture.needsUpdate = true;
 
     let key = img.split(".")[0];
 
@@ -584,24 +580,21 @@ function prepareMaterials(group) {
         bumpMap: texture,
         bumpScale: bumpScale,
         color: 0xff0000,
-        ambient: 0xffffff,
+        flatShading: shading,
         specular: specular,
         shininess: shininess,
-        shading: shading,
       });
       mats[`${key}1`] = new THREE.MeshPhongMaterial({
         map: texture,
         color: 0x008800,
-        ambient: 0xffffff,
+        flatShading: shading,
         specular: specular,
         shininess: shininess,
-        shading: shading,
       });
       mats[`${key}3`] = new THREE.MeshPhongMaterial({
         map: texture,
         color: 0xff0000,
-        ambient: 0xffffff,
-        shading: shading,
+        flatShading: shading,
       });
     }
 
@@ -609,8 +602,7 @@ function prepareMaterials(group) {
     mats[key] = new THREE.MeshPhongMaterial({
       map: texture,
       color: 0x584000,
-      ambient: 0xffffff,
-      shading: shading,
+      flatShading: shading,
     });
   });
 
@@ -618,59 +610,61 @@ function prepareMaterials(group) {
 }
 
 /**
- * &lt;p>I developed a certain dislike for skyboxes or at least for the clunky ones,
- * as such the PRESENTS are going to be skyboxes.&lt;/p>
+ * <p>I developed a certain dislike for skyboxes or at least for the clunky ones,
+ * as such the PRESENTS are going to be skyboxes.</p>
  *
  * Why not, am I right? No specification were given saying that the
  * skyboxes had to be used as the 'environment'.
- * @param {external:THREE.Object3D} group - the given group to add the presents to.
+ * @param {external:THREE.Group} group - the given group to add the presents to.
  * @param {Number} size - the size of the cube -- will correspond to width, length, and height.
  * @param {Number} x - position x
  * @param {Number} y - position y
  * @param {Number} z - position z
- * @param {Array&lt;String>} images - image array to use.
+ * @param {Array<String>} images - image array to use.
  */
 function addPresent(group, size, x, y, z, images) {
   // load the six images
-  var ourCubeMap = new THREE.ImageUtils.loadTextureCube(images);
+  const textureMap = new THREE.CubeTextureLoader()
+    //.setPath("textures/cube/pisa/")
+    //.load(["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]);
+    .setPath(path)
+    .load(images);
 
-  // Use a built-in Three.js shader for cube maps
-  var cubeMapShader = THREE.ShaderLib["cube"];
-
-  // point it to our texture
-  cubeMapShader.uniforms["tCube"].value = ourCubeMap;
-
-  // make a ShaderMaterial using this shader's properties
-  var material = new THREE.ShaderMaterial({
-    fragmentShader: cubeMapShader.fragmentShader,
-    vertexShader: cubeMapShader.vertexShader,
-    uniforms: cubeMapShader.uniforms,
-    side: THREE.DoubleSide, // make sure we can see it from outside or inside
+  const boxMaterial = new THREE.MeshPhongMaterial({
+    envMap: textureMap,
+    color: 0xffffff,
+    side: THREE.FrontSide,
+    reflectivity: 1,
+    combine: THREE.MixOperation,
   });
 
   // Create a mesh for the object, using the cube shader as the material
-  var cube = new THREE.Mesh(new THREE.CubeGeometry(size, size, size), material);
+  const cube = new THREE.Mesh(
+    new THREE.BoxGeometry(size, size, size),
+    boxMaterial,
+  );
+  cube.position.set(x, y, z);
+  cube.name = "Present";
+
   // add it to the scene
   group.add(cube);
-  cube.position.set(x, y, z);
 }
 
 /**
  * Add ground to scene.
- * @param {external:THREE.Object3D} group - the given group to add the ground to.
+ * @param {external:THREE.Group} group - the given group to add the ground to.
  */
 function addGround(group) {
   var groundColor = new THREE.Color(0xd2ddef);
-  var groundTexture2 = THREE.ImageUtils.generateDataTexture(1, 1, groundColor);
+  var groundTexture2 = new THREE.DataTexture(groundColor, 1, 1);
   const groundMaterial = new THREE.MeshPhongMaterial({
     color: 0xffffff,
     specular: 0x111111,
     map: groundTexture2,
   });
 
-  const groundTexture = THREE.ImageUtils.loadTexture(
+  const groundTexture = new THREE.TextureLoader().load(
     path + "ground.jpg",
-    undefined,
     function () {
       groundMaterial.map = groundTexture;
     },
@@ -689,25 +683,31 @@ function addGround(group) {
 }
 
 /**
- * &lt;p>Christmas needs frigging snowflakes.&lt;/p>
+ * <p>Christmas needs frigging snowflakes.</p>
  * Except christmas in Brazil, then its just palm trees...
  * Based on a tutorial found on {@link ScriptsTutorial.com huzzah}
- * @param {external:THREE.Object3D} group - the given group to add the snowflakes to.
+ * @param {external:THREE.Group} group - the given group to add the snowflakes to.
  */
 function addSnowflakes(group) {
-  const sfGeometry = new THREE.Geometry();
+  const sfGeometry = new THREE.BufferGeometry();
   const sfMats = [];
-  const sfTexture = THREE.ImageUtils.loadTexture(path + "snowflake.png");
-  const sfTexture2 = THREE.ImageUtils.loadTexture(path + "snowflake2.png");
+  const tLoader = new THREE.TextureLoader();
+  const sfTexture = tLoader.load(path + "snowflake.png");
+  const sfTexture2 = tLoader.load(path + "snowflake2.png");
 
-  for (let i = 0; i &lt; 3700; i++) {
+  const vertices = [];
+  for (let i = 0; i < 3700; i++) {
     var vertex = new THREE.Vector3();
     vertex.x = Math.random() * 2000 - 1000;
     vertex.y = Math.random() * 2000 - 1000;
     vertex.z = Math.random() * 2000 - 1000;
-
-    sfGeometry.vertices.push(vertex);
+    vertices.push(vertex.x, vertex.y, vertex.z);
   }
+
+  sfGeometry.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(vertices, 3),
+  );
 
   const states = [
     { color: [1.0, 0.2, 0.9], sprite: sfTexture, size: 10 },
@@ -720,7 +720,7 @@ function addSnowflakes(group) {
 
   states.forEach((state) => {
     let i = sfMats.push(
-      new THREE.ParticleSystemMaterial({
+      new THREE.PointsMaterial({
         size: state.size,
         map: state.sprite,
         blending: THREE.AdditiveBlending,
@@ -729,9 +729,17 @@ function addSnowflakes(group) {
       }),
     );
 
+    sfMats[i - 1] = new THREE.PointsMaterial({
+      size: state.size,
+      map: state.sprite,
+      blending: THREE.AdditiveBlending,
+      depthTest: false,
+      transparent: true,
+    });
+
     sfMats[i - 1].color.setHSL(...state.color);
 
-    const particles = new THREE.ParticleSystem(sfGeometry, sfMats[i - 1]);
+    const particles = new THREE.Points(sfGeometry, sfMats[i - 1]);
 
     particles.rotation.x = Math.random() * 15;
     particles.rotation.y = Math.random() * 10;
@@ -743,7 +751,7 @@ function addSnowflakes(group) {
 
 /**
  * Make the christmas tree.
- * @param {Object&lt;String,external:THREE.Material>} materials - the given material object.
+ * @param {Object<String,external:THREE.Material>} materials - the given material object.
  * @param {external:THREE.Object3D} group - the given group to add the tree to.
  */
 function makeTree(materials, group) {
@@ -799,14 +807,17 @@ function makeTree(materials, group) {
   group.add(treeBase);
 
   addBaubles(group, materials);
+
+  const helper = new VertexNormalsHelper(treeBase, 5, 0xffffff);
+  // scene.add(helper);
 }
 
 /**
- * &lt;p>Yeah hardcoded... no I'm not proud&lt;/p>
+ * <p>Yeah hardcoded... no I'm not proud</p>
  * But this was the most straightforward way to add trinkets
  * to the tree that actually looked like they were on the tree.
- * @param {Object&lt;String,external:THREE.Material>} materials - the given material object.
- * @param {external:THREE.Object3D} group - the given group to add the baubles to.
+ * @param {external:THREE.Group} group - the given group to add the baubles to.
+ * @param {Object<String,external:THREE.Material>} materials - the given material object.
  */
 function addBaubles(group, materials) {
   var bauble = new THREE.Mesh(
@@ -1000,12 +1011,12 @@ function addBaubles(group, materials) {
 }
 
 /**
- * &lt;p>Loads an object to the scene.&lt;/p>
+ * <p>Loads an object to the scene.</p>
  * Used to add the teapot and the bunnies.
  * Frigging bunnies all around, everyone loves bunnies.
  * Teapot is our new christmas tree star.
  *
- * @param {external:THREE.Object3D} group - the given group to add the object to.
+ * @param {external:THREE.Group} group - the given group to add the object to.
  * @param {String} objectFile - the object file to be read.
  * @param {Number} x - position x
  * @param {Number} y - position y
@@ -1016,11 +1027,11 @@ function addBaubles(group, materials) {
  */
 function addObject(group, objectFile, x, y, z, size, rotate, color) {
   /**
-   * OBJLoader object.
-   * @var {OBJLoader}
+   * ObjectLoader object.
+   * @var {external:THREE.OBJLoader}
    * @global
    */
-  var oLoader = new THREE.OBJLoader();
+  var oLoader = new OBJLoader();
   oLoader.load(objectFile, function (object) {
     var material2 = new THREE.MeshLambertMaterial({ color: color });
 
@@ -1065,7 +1076,7 @@ function displayHelpers() {
  * @param {external:THREE.Scene} scene - the given scene.
  */
 function addLight(scene) {
-  scene.add(new THREE.AmbientLight(0x222222));
+  scene.add(new THREE.AmbientLight(0x222222, 1));
 
   const pointLight = new THREE.PointLight(0x00ccff, 1.3, 1000);
   pointLight.position.set(200, 100, 0);
@@ -1073,8 +1084,9 @@ function addLight(scene) {
 
   lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
 
-  const spotLight = new THREE.SpotLight(0xffffff);
+  var spotLight = new THREE.SpotLight(0xffffff, 0.1);
   spotLight.position.set(200, 200, 200);
+  spotLight.angle = (2 * Math.PI) / 3;
 
   spotLight.castShadow = true;
 
@@ -1087,18 +1099,14 @@ function addLight(scene) {
 
   scene.add(spotLight);
 
-  lightHelpers.shelper = new THREE.SpotLightHelper(spotLight, 0xffffff);
+  lightHelpers.shelper = new THREE.SpotLightHelper(spotLight);
 
-  // add directional light
-  const directionalLight = new THREE.DirectionalLight(0x000099, 2);
+  // colored directional light at double intensity shining from the top.
+  var directionalLight = new THREE.DirectionalLight(0xffcc00);
   directionalLight.position.set(400, 1, 200);
   scene.add(directionalLight);
 
-  lightHelpers.dhelper = new THREE.DirectionalLightHelper(
-    directionalLight,
-    15,
-    0xffffff,
-  );
+  lightHelpers.dhelper = new THREE.DirectionalLightHelper(directionalLight, 15);
 }
 
 /**
@@ -1111,7 +1119,7 @@ function makeGreeting() {
   // display Info
   var greeting = document.createElement("div");
   greeting.setAttribute("id", "greeting");
-  greeting.innerHTML = "&lt;b>MERRY CHRISTMAS!&lt;/b>&lt;br>";
+  greeting.innerHTML = "<b>MERRY CHRISTMAS!</b><br>";
   var info = document.createElement("div");
   info.setAttribute("id", "info");
   greeting.setAttribute("id", "greeting");
@@ -1120,11 +1128,11 @@ function makeGreeting() {
   greeting.style.width = "100%";
   greeting.style.textAlign = "center";
   greeting.style.color = "white";
-  info.innerHTML = `&lt;details>
-  &lt;summary>DRAG TO SPIN&lt;/summary>
-  Have your volume ON for the full experience&lt;br>
-  Press &lt;em>h&lt;/em> for more information
-  &lt;/details>`;
+  info.innerHTML = `<details>
+  <summary>DRAG TO SPIN</summary>
+  Have your volume ON for the full experience<br>
+  Press <em>h</em> for more information
+  </details>`;
 
   greeting.appendChild(info);
   container.appendChild(greeting);
@@ -1133,9 +1141,9 @@ function makeGreeting() {
 /**
  * Initialize our scene's components.
  *
- * &lt;p>Add listeners for {@link event:onDocumentMouseDown "mousedown"},
+ * <p>Add listeners for {@link event:onDocumentMouseDown "mousedown"},
  * {@link event:onDocumentTouchStart "touchstart"}, and
- * {@link event:onDocumentTouchMove "touchmove"}.&lt;/p>
+ * {@link event:onDocumentTouchMove "touchmove"}.</p>
  *
  * The listeners are added to the canvas element
  * ({@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.domElement renderer.domElement}),
@@ -1155,8 +1163,8 @@ function init() {
   makeCamera(scene);
 
   // create the empty scene groups
-  group = new THREE.Object3D();
-  teaPotGroup = new THREE.Object3D();
+  group = new THREE.Group();
+  teaPotGroup = new THREE.Group();
 
   scene.add(group);
   group.add(teaPotGroup);
@@ -1190,9 +1198,8 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   container.appendChild(renderer.domElement);
 
-  renderer.gammaInput = true;
-  renderer.gammaOutput = true;
-  renderer.physicallyBasedShading = true;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   // add events handlers -- thanks script tutorials
   renderer.domElement.addEventListener("mousedown", onDocumentMouseDown, false);
@@ -1204,9 +1211,9 @@ function init() {
   renderer.domElement.addEventListener("touchmove", onDocumentTouchMove, false);
 
   /**
-   * &lt;p>Appends an event listener for events whose type attribute value is resize.&lt;/p>
-   * &lt;p>The {@link onWindowResize callback} argument sets the callback
-   * that will be invoked when the event is dispatched.&lt;/p>
+   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * <p>The {@link onWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
    * @param {Event} event the document view is resized.
    * @param {callback} function function to run when the event occurs.
    * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
@@ -1221,18 +1228,18 @@ function init() {
  */
 function animate() {
   /**
-   * &lt;p>Key handler.&lt;/p>
+   * <p>Key handler.</p>
    * Calls {@link handleKeyPress} when pressing assigned keys:
-   * &lt;ul>
-   *  &lt;li>Space - pause&lt;/li>
-   *  &lt;li>h - help&lt;/li>
-   *  &lt;li>l - light helpers&lt;/li>
-   *  &lt;li>w, s, a, d - forward, backward, left, right&lt;/li>
-   *  &lt;li>I, K, J, L - orbit down, up, left, right&lt;/li>
-   *  &lt;li>+, - - field of view (zoom)&lt;/li>
-   *  &lt;li>↑, ↓- up, down&lt;/li>
-   *  &lt;li>n - move camera close/farther away wile rotating, or not&lt;/li>
-   * &lt;/ul>
+   * <ul>
+   *  <li>Space - pause</li>
+   *  <li>h - help</li>
+   *  <li>l - light helpers</li>
+   *  <li>w, s, a, d - forward, backward, left, right</li>
+   *  <li>I, K, J, L - orbit down, up, left, right</li>
+   *  <li>+, - - field of view (zoom)</li>
+   *  <li>↑, ↓- up, down</li>
+   *  <li>n - move camera close/farther away wile rotating, or not</li>
+   * </ul>
    * @event keydown
    */
   document.addEventListener("keydown", handleKeyPress, false);
@@ -1257,12 +1264,12 @@ function render() {
   // spinning teapot -- its a nice star
   teaPotGroup.rotation.y += 0.03;
 
-  if (!paused &amp;&amp; inAndOutCamera) {
+  if (!paused && inAndOutCamera) {
     camera.position.x = Math.cos(timer) * 1000;
     camera.position.z = Math.sin(timer) * 500;
   }
 
-  if (!paused &amp;&amp; !inAndOutCamera) {
+  if (!paused && !inAndOutCamera) {
     // rotate camera around tree
     camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
     camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
@@ -1274,7 +1281,7 @@ function render() {
 }
 
 /**
- * &lt;p>Load the applicarion.&lt;/p>
+ * <p>Load the applicarion.</p>
  * {@link init Initialize} and start {@link animate animation}.
  * @param {Event} event an object has loaded.
  * @event load
@@ -1283,26 +1290,3 @@ window.addEventListener("load", (event) => {
   init();
   animate();
 });
-</code></pre>
-        </article>
-    </section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Camera.html">Camera</a></li><li><a href="external-THREE.Material.html">Material</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onDocumentMouseDown">onDocumentMouseDown</a></li><li><a href="global.html#event:onDocumentMouseMove">onDocumentMouseMove</a></li><li><a href="global.html#event:onDocumentMouseOut">onDocumentMouseOut</a></li><li><a href="global.html#event:onDocumentMouseUp">onDocumentMouseUp</a></li><li><a href="global.html#event:onDocumentTouchMove">onDocumentTouchMove</a></li><li><a href="global.html#event:onDocumentTouchStart">onDocumentTouchStart</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBaubles">addBaubles</a></li><li><a href="global.html#addGround">addGround</a></li><li><a href="global.html#addLight">addLight</a></li><li><a href="global.html#addObject">addObject</a></li><li><a href="global.html#addPresent">addPresent</a></li><li><a href="global.html#addSnowflakes">addSnowflakes</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#cameraControl">cameraControl</a></li><li><a href="global.html#container">container</a></li><li><a href="global.html#displayHelpers">displayHelpers</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#group">group</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#imageNames">imageNames</a></li><li><a href="global.html#imageNames2">imageNames2</a></li><li><a href="global.html#inAndOutCamera">inAndOutCamera</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#lightHelpers">lightHelpers</a></li><li><a href="global.html#makeCamera">makeCamera</a></li><li><a href="global.html#makeGreeting">makeGreeting</a></li><li><a href="global.html#makeTree">makeTree</a></li><li><a href="global.html#mouseX">mouseX</a></li><li><a href="global.html#mouseXOnMouseDown">mouseXOnMouseDown</a></li><li><a href="global.html#oLoader">oLoader</a></li><li><a href="global.html#onWindowResize">onWindowResize</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#prepareMaterials">prepareMaterials</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#showHelpers">showHelpers</a></li><li><a href="global.html#targetRotation">targetRotation</a></li><li><a href="global.html#targetRotationOnMouseDown">targetRotationOnMouseDown</a></li><li><a href="global.html#teaPotGroup">teaPotGroup</a></li><li><a href="global.html#windowHalfX">windowHalfX</a></li><li><a href="global.html#windowHalfY">windowHalfY</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Feb 13 2024 16:34:25 GMT-0300 (Brasilia Standard Time)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
-</body>
-</html>

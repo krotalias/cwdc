@@ -8,17 +8,17 @@
         <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
         <link
-            href="Christmas_tree_with_three.js_files/style.css"
+            href="Christmas_tree_with_three.js_new_files/style.css"
             rel="stylesheet"
             type="text/css"
         />
         <link
-            href="Christmas_tree_with_three.js_files/css_002.css"
+            href="Christmas_tree_with_three.js_new_files/css_002.css"
             rel="stylesheet"
             type="text/css"
         />
         <link
-            href="Christmas_tree_with_three.js_files/css.css"
+            href="Christmas_tree_with_three.js_new_files/css.css"
             rel="stylesheet"
             type="text/css"
         />
@@ -29,9 +29,17 @@
             Your browser does not support the audio element.
         </audio>
 
-        <!-- add scripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/64/three.min.js"></script>
-        <script src="Christmas_tree_with_three.js_files/OBJLoader.js"></script>
-        <script src="Christmas_tree_with_three.js_files/script.js"></script>
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://unpkg.com/three@0.148.0/build/three.module.js",
+                    "three/addons/": "https://unpkg.com/three@0.148.0/examples/jsm/"
+                }
+            }
+        </script>
+        <script
+            src="Christmas_tree_with_three.js_new_files/script.js"
+            type="module"
+        ></script>
     </body>
 </html>
