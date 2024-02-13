@@ -9,8 +9,8 @@
  *
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  *
- * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_files/script.js">source</a>
- * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js.html">link</a>
+ * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_new_files/script.js">source</a>
+ * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_new.html">link</a>
  */
 
 "use strict";
