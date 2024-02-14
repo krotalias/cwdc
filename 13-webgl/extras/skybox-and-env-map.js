@@ -489,7 +489,7 @@ async function init(m) {
         return arr.length > 0 ? arr : ["skybox"];
       })
       .catch((error) => {
-        alert(`${error}`);
+        console.log(`${error}`);
         return [
           "ForbiddenCity",
           "LancellottiChapel",
@@ -497,6 +497,7 @@ async function init(m) {
           "colosseum",
           "park",
           "skybox",
+          "pisa",
         ];
       });
 
