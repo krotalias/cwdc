@@ -367,8 +367,8 @@ var readFileNames = new Promise((resolve, reject) => {
         `[jqResponse: ${JSON.stringify(
           jqXHR,
           null,
-          4
-        )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`
+          4,
+        )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`,
       );
       console.log("Could not get data");
       reject("Could not get data");
@@ -519,7 +519,7 @@ var handleKeyPress = ((event) => {
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
         theModel = createModel(
-          getModelData(new THREE.SphereGeometry(1, 48, 24))
+          getModelData(new THREE.SphereGeometry(1, 48, 24)),
         );
         break;
       case "S":
@@ -532,7 +532,7 @@ var handleKeyPress = ((event) => {
         gscale = mscale = 0.6;
         document.getElementById("models").value = "8";
         theModel = createModel(
-          getModelData(new THREE.TorusKnotGeometry(1, 0.4, 128, 16))
+          getModelData(new THREE.TorusKnotGeometry(1, 0.4, 128, 16)),
         );
         break;
       case "t":
@@ -545,7 +545,7 @@ var handleKeyPress = ((event) => {
         gscale = mscale = 1.2;
         document.getElementById("models").value = "0";
         theModel = createModel(
-          getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20))
+          getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
         );
         break;
       case "c":
@@ -572,28 +572,28 @@ var handleKeyPress = ((event) => {
         gscale = mscale = 1;
         document.getElementById("models").value = "9";
         theModel = createModel(
-          getModelData(new THREE.DodecahedronGeometry(1, 0))
+          getModelData(new THREE.DodecahedronGeometry(1, 0)),
         );
         break;
       case "i":
         gscale = mscale = 1;
         document.getElementById("models").value = "10";
         theModel = createModel(
-          getModelData(new THREE.IcosahedronGeometry(1, 0))
+          getModelData(new THREE.IcosahedronGeometry(1, 0)),
         );
         break;
       case "o":
         gscale = mscale = 1;
         document.getElementById("models").value = "11";
         theModel = createModel(
-          getModelData(new THREE.OctahedronGeometry(1, 0))
+          getModelData(new THREE.OctahedronGeometry(1, 0)),
         );
         break;
       case "w":
         gscale = mscale = 1;
         document.getElementById("models").value = "12";
         theModel = createModel(
-          getModelData(new THREE.TetrahedronGeometry(1, 0))
+          getModelData(new THREE.TetrahedronGeometry(1, 0)),
         );
         break;
       case "r":
@@ -601,9 +601,9 @@ var handleKeyPress = ((event) => {
         document.getElementById("models").value = "4";
         theModel = createModel(
           getModelData(
-            new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586)
+            new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586),
           ),
-          0
+          0,
         );
         break;
       case "O":
@@ -644,7 +644,7 @@ var handleKeyPress = ((event) => {
         return;
     }
     opt.innerHTML = `<br>${gl.getParameter(
-      gl.SHADING_LANGUAGE_VERSION
+      gl.SHADING_LANGUAGE_VERSION,
     )}<br>${gl.getParameter(gl.VERSION)}`;
     if (selector.paused) draw();
   };
@@ -831,7 +831,7 @@ function getModelMatrix() {
     m = mat4.multiply(
       [],
       modelMatrix,
-      mat4.fromScaling([], vec3.fromValues(mscale, mscale, mscale))
+      mat4.fromScaling([], vec3.fromValues(mscale, mscale, mscale)),
     );
   }
   return m;
@@ -895,7 +895,7 @@ function drawTexture() {
   gl.uniformMatrix3fv(
     loc,
     false,
-    makeNormalMatrixElements(modelMatrix, viewMatrix)
+    makeNormalMatrixElements(modelMatrix, viewMatrix),
   );
 
   loc = gl.getUniformLocation(lightingShader, "lightPosition");
@@ -922,7 +922,7 @@ function drawTexture() {
       gl.TRIANGLES,
       theModel.indices.length,
       gl.UNSIGNED_SHORT,
-      0
+      0,
     );
   } else {
     gl.drawArrays(gl.TRIANGLES, 0, theModel.vertexPositions.length / 3);
@@ -967,7 +967,7 @@ function drawLines() {
   var transform = mat4.multiply(
     [],
     projection,
-    mat4.multiply([], viewMatrix, getModelMatrix())
+    mat4.multiply([], viewMatrix, getModelMatrix()),
   );
   gl.uniformMatrix4fv(loc, false, transform);
 
@@ -1075,7 +1075,7 @@ window.addEventListener("load", (event) => {
           startForReal(image);
         })
         .catch((error) => {
-          alert(`${error}`);
+          console.log(`${error}`);
           // don't return anything => execution goes the normal way
           // in case server does not run php
           imageFilename = [
@@ -1243,7 +1243,7 @@ function startForReal(image) {
   window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-        event.code
+        event.code,
       ) > -1
     ) {
       event.preventDefault();
@@ -1264,7 +1264,7 @@ function startForReal(image) {
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById("vertexColorShader").textContent;
   var fshaderSource = document.getElementById(
-    "fragmentColorShader"
+    "fragmentColorShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
@@ -1275,10 +1275,10 @@ function startForReal(image) {
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
-    "vertexLightingShader"
+    "vertexLightingShader",
   ).textContent;
   var fshaderSource = document.getElementById(
-    "fragmentLightingShader"
+    "fragmentLightingShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
@@ -1404,7 +1404,7 @@ function newTexture(image) {
     gl.texParameteri(
       gl.TEXTURE_2D,
       gl.TEXTURE_MIN_FILTER,
-      gl.NEAREST_MIPMAP_LINEAR
+      gl.NEAREST_MIPMAP_LINEAR,
     );
 
     // wrapping function for texture coordinate s
@@ -1420,7 +1420,7 @@ function newTexture(image) {
     gl.texParameteri(
       gl.TEXTURE_2D,
       gl.TEXTURE_MIN_FILTER,
-      gl.LINEAR // default is gl.NEAREST_MIPMAP_LINEAR
+      gl.LINEAR, // default is gl.NEAREST_MIPMAP_LINEAR
     );
 
     // wrapping function for texture coordinate s (default is gl.REPEAT)
