@@ -1,48 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: script.js</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
-
-<body>
-
-<div id="main">
-
-    <h1 class="page-title">Source: script.js</h1>
-
-    
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
+/**
  * @file
  *
  * Summary.
- * &lt;p>Renders a christmas scene - Merry (Early) Christmas.&lt;/p>
+ * <p>Renders a christmas scene - Merry (Early) Christmas.</p>
  *
- * @author Paulo Roma
  * @author Flavia Cavalcanti
- * @since 10/02/2024
+ * @since 24/11/2015
  *
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  *
- * @see &lt;a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_new_files/script.js">source&lt;/a>
- * @see &lt;a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_new.html">link&lt;/a>
- * @see &lt;a href="/cwdc/13-webgl/homework/img">images&lt;/a>
- * @see &lt;a href="/cwdc/13-webgl/homework/textures/cube">cube textures&lt;/a>
- * @see &lt;a href="../../img/tree.png">&lt;img src="../../img/tree.png" width="512">&lt;/a>
+ * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_new_files/script.js">source</a>
+ * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_new.html">link</a>
  */
 
 "use strict";
@@ -58,7 +26,7 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
  */
 
 /**
- * &lt;p>loader for loading a .obj resource.&lt;/p>
+ * <p>loader for loading a .obj resource.</p>
  * The OBJ file format is a simple data-format that represents 3D geometry in a human readable format
  * as the position of each vertex, the UV position of each texture coordinate vertex, vertex normals,
  * and the faces that make each polygon defined as a list of vertices, and texture vertices.
@@ -78,7 +46,7 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
  */
 
 /**
- * &lt;p>This is almost identical to an Object3D.&lt;/p>
+ * <p>This is almost identical to an Object3D.</p>
  * Its purpose is to make working with groups of objects syntactically clearer.
  *
  * @class Group
@@ -102,17 +70,6 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
  * @class Camera
  * @memberof external:THREE
  * @see https://threejs.org/docs/#api/en/cameras/Camera
- */
-
-/**
- * &lt;p>Class representing a color.&lt;/p>
- *
- * Iterating through a Color instance will yield its components (r, g, b)
- * in the corresponding order.
- *
- * @class Color
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/math/Color
  */
 
 /**
@@ -239,30 +196,6 @@ var path = "img/";
 let showHelpers = false;
 
 /**
- * Color table.
- * @type {Object&lt;String,external:THREE.Color>}
- */
-let colorTable = {
-  white: new THREE.Color(0xffffff),
-  red: new THREE.Color(0xff0000),
-  green: new THREE.Color(0x008800),
-  blue: new THREE.Color(0x0000ff),
-  lightBlue: new THREE.Color(0x00ccff),
-  veryLightBlue: new THREE.Color(0xd2ddef),
-  black: new THREE.Color(0x222222),
-  black2: new THREE.Color(0x111111),
-  blackSRGB: new THREE.Color(0x333333).convertLinearToSRGB(),
-  orange: new THREE.Color(0xffcc00),
-  yellow: new THREE.Color(0xffff00),
-  brown: new THREE.Color(0x995500),
-  lightBrown: new THREE.Color(0xcc6600),
-  darkBrown: new THREE.Color(0x584000).convertLinearToSRGB(),
-  white2: new THREE.Color(0xfffff6),
-  amber: new THREE.Color(0xffae00),
-  purple: new THREE.Color(0x590fa3).convertLinearToSRGB(),
-};
-
-/**
  * Light helpers.
  * @property {Object} lightHelpers - container for light helpers.
  * @property {external:THREE.DirectionalLightHelper} lightHelpers.dhelper -
@@ -280,30 +213,32 @@ const lightHelpers = {
 
 /**
  * Not the best for a skybox, but the effect is quite psychadelic.
- * @type {Object&lt;Symbol, Array&lt;String>>}
+ * @type {Array<String>}
  */
-const imageNames = {
-  img1: [
-    "wrappingPaper.jpg",
-    "wrappingPaper.jpg",
-    "wrappingPaper.jpg",
-    "wrappingPaper.jpg",
-    "wrappingPaper.jpg",
-    "wrappingPaper.jpg",
-  ],
-  img2: [
-    "wrappingPaper2.jpg",
-    "wrappingPaper2.jpg",
-    "wrappingPaper2.jpg",
-    "wrappingPaper2.jpg",
-    "wrappingPaper2.jpg",
-    "wrappingPaper2.jpg",
-  ],
-  img3: ["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"],
-};
+var imageNames = [
+  "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
+  "wrappingPaper.jpg",
+];
 
 /**
- * &lt;p>Resizes the scene according to the screen size.&lt;/p>
+ * Not the best for a skybox, but the effect is quite psychadelic.
+ * @type {Array<String>}
+ */
+var imageNames2 = [
+  "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
+  "wrappingPaper2.jpg",
+];
+
+/**
+ * <p>Resizes the scene according to the screen size.</p>
  *
  * {@link http://benchung.com/smooth-mouse-rotation-three-js/ Many thanks}.
  */
@@ -321,7 +256,7 @@ function onWindowResize() {
  * The mousedown event is fired at an Element when a pointing device button
  * is pressed while the pointer is inside the element.
  *
- * &lt;p>Add listeners for "mousemove", "mouseup", and "mouseout".
+ * <p>Add listeners for "mousemove", "mouseup", and "mouseout".
  * @param {MouseEvent} event mouse event.
  * @event
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event
@@ -354,7 +289,7 @@ function onDocumentMouseMove(event) {
  * The mouseup event is fired at an Element when a button on a pointing device
  * (such as a mouse or trackpad) is released while the pointer is located inside it.
  *
- * &lt;p>Remove listeners for "mousemove", "mouseup", and "mouseout".
+ * <p>Remove listeners for "mousemove", "mouseup", and "mouseout".
  * @param {MouseEvent} event mouse event.
  * @event
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
@@ -378,7 +313,7 @@ function onDocumentMouseUp(event) {
  * pointing device (usually a mouse) is used to move the cursor
  * so that it is no longer contained within the element or one of its children.
  *
- * &lt;p>Removes the listeners for "mousemove", "mouseup", and "mouseout".
+ * <p>Removes the listeners for "mousemove", "mouseup", and "mouseout".
  * @param {MouseEvent} event mouse event.
  * @event
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseout_event
@@ -582,24 +517,25 @@ function handleKeyPress(event) {
     case "h":
       help = !help;
       if (help) {
-        document.getElementById("info").innerHTML = `DRAG TO SPIN &lt;br>&lt;br>
-        &lt;b>Keyboard controls&lt;/b>:&lt;br>
-        &lt;b>h - to hide&lt;/b>&lt;br>
-        &lt;b>l&lt;/b> - toggle light helpers&lt;br>
-        &lt;b>w, s, a, d&lt;/b> - move forward, backward, left, right &lt;br>
-        &lt;b>↑, ↓&lt;/b> - move up, down &lt;br>
-        &lt;b>I, K, J, L&lt;/b> - orbit down, up, right, left &lt;br>
-        &lt;b>+&lt;/b> - decrease fov &lt;br>
-        &lt;b>-&lt;/b> - increase fov &lt;br>
-        &lt;b>Space&lt;/b> - pause animation &lt;br>
-        &lt;b>n&lt;/b> - camera will rotate around the tree,&lt;br>
+        document.getElementById("info").innerHTML = `DRAG TO SPIN <br><br>
+        <b>Keyboard controls</b>:<br>
+        <b>h - to hide</b><br>
+        <b>l</b> - toggle light helpers<br>
+        <b>w, s, a, d</b> - move forward, backward, left, right <br>
+        <b>↑, ↓</b> - move up, down <br>
+        <b>I, K, J, L</b> - orbit down, up, right, left <br>
+        <b>+</b> - decrease fov <br>
+        <b>-</b> - increase fov <br>
+        <b>Space</b> - pause animation <br>
+        <b>n</b> - camera will rotate around the tree,<br>
         while moving closer/farther away, or not.`;
       } else
-        document.getElementById("info").innerHTML = `DRAG TO SPIN&lt;br>
-        Have your volume ON for the full experience &lt;br>
-        Press &lt;b>h&lt;/b> for more information.`;
+        document.getElementById("info").innerHTML = `DRAG TO SPIN<br>
+        Have your volume ON for the full experience <br>
+        Press <b>h</b> for more information.`;
       break;
     case "l":
+      showHelpers = !showHelpers;
       displayHelpers();
       break;
     default:
@@ -624,7 +560,7 @@ function prepareMaterials(group) {
   ];
 
   const shininess = 50;
-  const specular = colorTable.blackSRGB;
+  const specular = 0x333333;
   const bumpScale = 1;
   const shading = false;
   const mats = {};
@@ -635,7 +571,6 @@ function prepareMaterials(group) {
     texture.repeat.set(1, 1);
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.anisotropy = 16;
-    texture.colorSpace = THREE.SRGBColorSpace;
 
     let key = img.split(".")[0];
 
@@ -644,21 +579,21 @@ function prepareMaterials(group) {
         map: texture,
         bumpMap: texture,
         bumpScale: bumpScale,
-        color: colorTable.red,
+        color: 0xff0000,
         flatShading: shading,
         specular: specular,
         shininess: shininess,
       });
       mats[`${key}1`] = new THREE.MeshPhongMaterial({
         map: texture,
-        color: colorTable.green,
+        color: 0x008800,
         flatShading: shading,
         specular: specular,
         shininess: shininess,
       });
       mats[`${key}3`] = new THREE.MeshPhongMaterial({
         map: texture,
-        color: colorTable.red,
+        color: 0xff0000,
         flatShading: shading,
       });
     }
@@ -666,17 +601,17 @@ function prepareMaterials(group) {
     // this is what is really used
     mats[key] = new THREE.MeshPhongMaterial({
       map: texture,
-      color: colorTable.darkBrown,
+      color: 0x584000,
       flatShading: shading,
     });
   });
 
-  makeTree(group, mats);
+  makeTree(mats, group);
 }
 
 /**
- * &lt;p>I developed a certain dislike for skyboxes or at least for the clunky ones,
- * as such the PRESENTS are going to be skyboxes.&lt;/p>
+ * <p>I developed a certain dislike for skyboxes or at least for the clunky ones,
+ * as such the PRESENTS are going to be skyboxes.</p>
  *
  * Why not, am I right? No specification were given saying that the
  * skyboxes had to be used as the 'environment'.
@@ -685,89 +620,47 @@ function prepareMaterials(group) {
  * @param {Number} x - position x
  * @param {Number} y - position y
  * @param {Number} z - position z
- * @param {Array&lt;String>} images - image array to use.
- * @param {String} imgpath - path to the image array.
- * @see https://threejs.org/examples/?q=cube#webgpu_cubemap_adjustments
- * @see https://threejs.org/docs/#api/en/materials/MeshStandardMaterial
+ * @param {Array<String>} images - image array to use.
  */
-function addPresent(group, size, x, y, z, images, imgpath = path) {
+function addPresent(group, size, x, y, z, images) {
   // load the six images
   const textureMap = new THREE.CubeTextureLoader()
-    .setPath(imgpath)
+    //.setPath("textures/cube/pisa/")
+    //.load(["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]);
+    .setPath(path)
     .load(images);
 
-  textureMap.colorSpace = THREE.SRGBColorSpace;
-  textureMap.generateMipmaps = true;
-  textureMap.minFilter = THREE.LinearMipmapLinearFilter;
-  textureMap.magFilter = THREE.LinearFilter;
-
-  const boxMaterial = new THREE.MeshLambertMaterial({
+  const boxMaterial = new THREE.MeshPhongMaterial({
     envMap: textureMap,
-    color: colorTable.white,
+    color: 0xffffff,
     side: THREE.FrontSide,
     reflectivity: 1,
     combine: THREE.MixOperation,
   });
 
-  let cube;
-  if (imgpath != path) {
-    //scene.environment = textureMap;
-    //scene.background = textureMap;
-    const sphereMaterial = new THREE.MeshStandardMaterial({
-      roughness: 0,
-      metalness: 1,
-      envMap: textureMap,
-    });
-    cube = new THREE.Mesh(
-      new THREE.SphereGeometry(size, 32, 16),
-      sphereMaterial,
-    );
-  } else {
-    // Create a mesh for the object, using the cube shader as the material
-    cube = new THREE.Mesh(new THREE.BoxGeometry(size, size, size), boxMaterial);
-  }
-
+  // Create a mesh for the object, using the cube shader as the material
+  const cube = new THREE.Mesh(
+    new THREE.BoxGeometry(size, size, size),
+    boxMaterial,
+  );
   cube.position.set(x, y, z);
-  cube.castShadow = true;
   cube.name = "Present";
 
   // add it to the scene
   group.add(cube);
-
-  if (typeof addPresent.counter == "undefined") {
-    addPresent.counter = 0;
-  }
-
-  lightHelpers[`p${++addPresent.counter}helper`] = new VertexNormalsHelper(
-    cube,
-    5,
-    colorTable.white,
-  );
-  lightHelpers[`p${addPresent.counter}helper`].name = "Present";
 }
 
 /**
- * &lt;p>Add ground to scene.&lt;/p>
- *
- * The average user doesn't have a calibrated monitor and has never heard of gamma correction;
- * therefore, many visual materials are precorrected for them.
- * For example, by convention, all JPEG files are precorrected for a gamma of 2.2.
- * That's not exact for any monitor, but it's in the ballpark, so the image will probably
- * look acceptable on most monitors. This means that JPEG images
- * (including scans and photos taken with a digital camera) are not linear,
- * so they should not be used as texture maps by shaders that assume linear input.
- *
+ * Add ground to scene.
  * @param {external:THREE.Group} group - the given group to add the ground to.
- * @see https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear
  */
 function addGround(group) {
-  const groundColor = colorTable.veryLightBlue;
-  const groundTexture2 = new THREE.DataTexture(groundColor, 1, 1);
+  var groundColor = new THREE.Color(0xd2ddef);
+  var groundTexture2 = new THREE.DataTexture(groundColor, 1, 1);
   const groundMaterial = new THREE.MeshPhongMaterial({
-    color: colorTable.white,
-    specular: colorTable.black2,
+    color: 0xffffff,
+    specular: 0x111111,
     map: groundTexture2,
-    side: THREE.DoubleSide,
   });
 
   const groundTexture = new THREE.TextureLoader().load(
@@ -779,7 +672,6 @@ function addGround(group) {
   groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
   groundTexture.repeat.set(25, 25);
   groundTexture.anisotropy = 16;
-  groundTexture.colorSpace = THREE.NoColorSpace;
 
   const groundMesh = new THREE.Mesh(
     new THREE.PlaneGeometry(20000, 20000),
@@ -787,13 +679,11 @@ function addGround(group) {
   );
   groundMesh.position.y = -150;
   groundMesh.rotation.x = -Math.PI / 2;
-  groundMesh.receiveShadow = true;
-  groundMesh.name = "Ground";
   group.add(groundMesh);
 }
 
 /**
- * &lt;p>Christmas needs frigging snowflakes.&lt;/p>
+ * <p>Christmas needs frigging snowflakes.</p>
  * Except christmas in Brazil, then its just palm trees...
  * Based on a tutorial found on {@link ScriptsTutorial.com huzzah}
  * @param {external:THREE.Group} group - the given group to add the snowflakes to.
@@ -806,7 +696,7 @@ function addSnowflakes(group) {
   const sfTexture2 = tLoader.load(path + "snowflake2.png");
 
   const vertices = [];
-  for (let i = 0; i &lt; 3700; i++) {
+  for (let i = 0; i < 3700; i++) {
     var vertex = new THREE.Vector3();
     vertex.x = Math.random() * 2000 - 1000;
     vertex.y = Math.random() * 2000 - 1000;
@@ -855,110 +745,273 @@ function addSnowflakes(group) {
     particles.rotation.y = Math.random() * 10;
     particles.rotation.z = Math.random() * 17;
 
-    particles.name = "Particles";
     group.add(particles);
   });
 }
 
 /**
- * Make the christmas tree, which is just a bunch of stacked cones (cylinders).
+ * Make the christmas tree.
+ * @param {Object<String,external:THREE.Material>} materials - the given material object.
  * @param {external:THREE.Object3D} group - the given group to add the tree to.
- * @param {Object&lt;String,external:THREE.Material>} materials - the given material object.
- * @see https://threejs.org/docs/#api/en/geometries/CylinderGeometry
  */
-function makeTree(group, materials) {
-  // radius top, radius bottom, height, radial segments, height segments.
-  const tree = [
-    { geometry: [1, 30, 50, 30, 1], y: 130, material: materials.pine },
-    { geometry: [1, 40, 70, 30, 1], y: 110, material: materials.pine },
-    { geometry: [1, 50, 80, 30, 1], y: 85, material: materials.pine },
-    { geometry: [1, 60, 90, 30, 1], y: 65, material: materials.pine },
-    { geometry: [1, 70, 80, 30, 1], y: 30, material: materials.pine },
-    { geometry: [1, 80, 90, 30, 1], y: 5, material: materials.pine },
-    { geometry: [1, 95, 95, 30, 1], y: -20, material: materials.pine },
-    { geometry: [2, 20, 300, 30, 1], y: 0, material: materials.wood },
-  ];
+function makeTree(materials, group) {
+  var treeTop = new THREE.Mesh(
+    new THREE.CylinderGeometry(1, 30, 50, 30, 1, false),
+    materials.pine,
+  );
+  var treeTop1 = new THREE.Mesh(
+    new THREE.CylinderGeometry(1, 40, 70, 30, 1, false),
+    materials.pine,
+  );
+  var treeTop2 = new THREE.Mesh(
+    new THREE.CylinderGeometry(1, 50, 80, 30, 1, false),
+    materials.pine,
+  );
+  var treeMid = new THREE.Mesh(
+    new THREE.CylinderGeometry(1, 60, 90, 30, 1, false),
+    materials.pine,
+  );
+  var treeMid2 = new THREE.Mesh(
+    new THREE.CylinderGeometry(1, 70, 80, 30, 1, false),
+    materials.pine,
+  );
+  var treeMid3 = new THREE.Mesh(
+    new THREE.CylinderGeometry(1, 80, 90, 30, 1, false),
+    materials.pine,
+  );
+  var treeBase = new THREE.Mesh(
+    new THREE.CylinderGeometry(1, 95, 95, 30, 1, false),
+    materials.pine,
+  );
 
-  if (typeof makeTree.counter == "undefined") {
-    makeTree.counter = 0;
-  }
+  var trunk = new THREE.Mesh(
+    new THREE.CylinderGeometry(2, 20, 300, 30, 1, false),
+    materials.wood,
+  );
 
-  tree.forEach((elem) => {
-    const t = new THREE.Mesh(
-      new THREE.CylinderGeometry(...elem.geometry, false),
-      elem.material,
-    );
-    t.castShadow = true;
-    t.position.set(0, elem.y, 0);
-    t.name = "Tree";
-    group.add(t);
-    lightHelpers[`t${++makeTree.counter}helper`] = new VertexNormalsHelper(
-      t,
-      5,
-      colorTable.white,
-    );
-    lightHelpers[`t${makeTree.counter}helper`].name = "Tree";
-  });
+  treeTop.position.set(0, 130, 0);
+  treeTop1.position.set(0, 110, 0);
+  treeTop2.position.set(0, 85, 0);
+  treeMid.position.set(0, 65, 0);
+  treeMid2.position.set(0, 30, 0);
+  treeMid3.position.set(0, 5, 0);
+  treeBase.position.set(0, -20, 0);
+
+  group.add(trunk);
+  group.add(treeTop);
+  group.add(treeTop1);
+  group.add(treeTop2);
+  group.add(treeMid);
+  group.add(treeMid2);
+  group.add(treeMid3);
+  group.add(treeBase);
 
   addBaubles(group, materials);
+
+  const helper = new VertexNormalsHelper(treeBase, 5, 0xffffff);
+  // scene.add(helper);
 }
 
 /**
- * &lt;p>Add 28 baubles.&lt;/p>
- * &lt;p>Yeah, kind of hardcoded... no, I'm not proud.&lt;/p>
+ * <p>Yeah hardcoded... no I'm not proud</p>
  * But this was the most straightforward way to add trinkets
  * to the tree that actually looked like they were on the tree.
  * @param {external:THREE.Group} group - the given group to add the baubles to.
- * @param {Object&lt;String,external:THREE.Material>} materials - the given material object.
+ * @param {Object<String,external:THREE.Material>} materials - the given material object.
  */
 function addBaubles(group, materials) {
-  const bauble = [
-    { geometry: [5, 15, 5], position: [15, 135, 5], color: materials.red },
-    { geometry: [5, 15, 5], position: [0, 135, 13], color: materials.yellow },
-    { geometry: [5, 15, 5], position: [0, 135, -13], color: materials.red },
-    { geometry: [5, 15, 5], position: [-15, 135, -5], color: materials.yellow },
+  var bauble = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.red,
+  );
+  var bauble1 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.yellow,
+  );
+  var bauble2 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.red,
+  );
+  var bauble3 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.yellow,
+  );
 
-    { geometry: [6, 15, 5], position: [35, 90, 5], color: materials.blue },
-    { geometry: [5, 15, 5], position: [0, 90, 33], color: materials.red },
-    { geometry: [6, 15, 5], position: [-35, 90, -5], color: materials.blue },
-    { geometry: [5, 15, 5], position: [0, 90, -33], color: materials.red },
+  bauble.position.set(15, 135, 5);
+  bauble1.position.set(0, 135, 13);
+  bauble2.position.set(0, 135, -13);
+  bauble3.position.set(-15, 135, -5);
 
-    { geometry: [7, 15, 5], position: [35, 60, 25], color: materials.green },
-    { geometry: [5, 15, 5], position: [-30, 60, 33], color: materials.yellow },
-    { geometry: [7, 15, 5], position: [-35, 60, -25], color: materials.green },
-    { geometry: [5, 15, 5], position: [30, 60, -33], color: materials.yellow },
+  group.add(bauble);
+  group.add(bauble1);
+  group.add(bauble2);
+  group.add(bauble3);
 
-    { geometry: [8, 15, 5], position: [48, 35, 25], color: materials.red },
-    { geometry: [5, 15, 5], position: [-42, 35, 33], color: materials.blue },
-    { geometry: [8, 15, 5], position: [-48, 35, -25], color: materials.red },
-    { geometry: [5, 15, 5], position: [42, 35, -33], color: materials.blue },
+  var bauble4 = new THREE.Mesh(
+    new THREE.SphereGeometry(6, 15, 5),
+    materials.blue,
+  );
+  var bauble5 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.red,
+  );
+  var bauble6 = new THREE.Mesh(
+    new THREE.SphereGeometry(6, 15, 5),
+    materials.blue,
+  );
+  var bauble7 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.red,
+  );
 
-    { geometry: [6, 15, 5], position: [-52, 7, 25], color: materials.yellow },
-    { geometry: [5, 15, 5], position: [50, 7, 33], color: materials.green },
-    { geometry: [6, 15, 5], position: [52, 7, -25], color: materials.yellow },
-    { geometry: [5, 15, 5], position: [-50, 7, -33], color: materials.green },
+  bauble4.position.set(35, 90, 5);
+  bauble5.position.set(0, 90, 33);
+  bauble6.position.set(-35, 90, -5);
+  bauble7.position.set(0, 90, -33);
 
-    { geometry: [7, 15, 5], position: [65, -25, 25], color: materials.blue },
-    { geometry: [5, 15, 5], position: [-30, -25, 63], color: materials.red },
-    { geometry: [7, 15, 5], position: [-65, -25, -25], color: materials.blue },
-    { geometry: [5, 15, 5], position: [30, -25, -63], color: materials.red },
+  group.add(bauble4);
+  group.add(bauble5);
+  group.add(bauble6);
+  group.add(bauble7);
 
-    { geometry: [8, 15, 5], position: [80, -50, 25], color: materials.red },
-    { geometry: [6, 15, 5], position: [-40, -50, 73], color: materials.yellow },
-    { geometry: [8, 15, 5], position: [-80, -50, -25], color: materials.red },
-    { geometry: [6, 15, 5], position: [40, -50, -73], color: materials.yellow },
-  ];
+  var bauble8 = new THREE.Mesh(
+    new THREE.SphereGeometry(7, 15, 5),
+    materials.green,
+  );
+  var bauble9 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.yellow,
+  );
+  var bauble10 = new THREE.Mesh(
+    new THREE.SphereGeometry(7, 15, 5),
+    materials.green,
+  );
+  var bauble11 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.yellow,
+  );
 
-  bauble.forEach((e, i) => {
-    const b = new THREE.Mesh(new THREE.SphereGeometry(...e.geometry), e.color);
-    b.position.set(...e.position);
-    b.name = `bauble${i}`;
-    group.add(b);
-  });
+  bauble8.position.set(35, 60, 25);
+  bauble9.position.set(-30, 60, 33);
+  bauble10.position.set(-35, 60, -25);
+  bauble11.position.set(30, 60, -33);
+
+  group.add(bauble8);
+  group.add(bauble9);
+  group.add(bauble10);
+  group.add(bauble11);
+
+  var bauble12 = new THREE.Mesh(
+    new THREE.SphereGeometry(8, 15, 5),
+    materials.red,
+  );
+  var bauble13 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.blue,
+  );
+  var bauble14 = new THREE.Mesh(
+    new THREE.SphereGeometry(8, 15, 5),
+    materials.red,
+  );
+  var bauble15 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.blue,
+  );
+
+  bauble12.position.set(48, 35, 25);
+  bauble13.position.set(-42, 35, 33);
+  bauble14.position.set(-48, 35, -25);
+  bauble15.position.set(42, 35, -33);
+
+  group.add(bauble12);
+  group.add(bauble13);
+  group.add(bauble14);
+  group.add(bauble15);
+
+  var bauble16 = new THREE.Mesh(
+    new THREE.SphereGeometry(6, 15, 5),
+    materials.yellow,
+  );
+  var bauble17 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.green,
+  );
+  var bauble18 = new THREE.Mesh(
+    new THREE.SphereGeometry(6, 15, 5),
+    materials.yellow,
+  );
+  var bauble19 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.green,
+  );
+
+  bauble16.position.set(-52, 7, 25);
+  bauble17.position.set(50, 7, 33);
+  bauble18.position.set(52, 7, -25);
+  bauble19.position.set(-50, 7, -33);
+
+  group.add(bauble16);
+  group.add(bauble17);
+  group.add(bauble18);
+  group.add(bauble19);
+
+  var bauble20 = new THREE.Mesh(
+    new THREE.SphereGeometry(7, 15, 5),
+    materials.blue,
+  );
+  var bauble21 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.red,
+  );
+  var bauble22 = new THREE.Mesh(
+    new THREE.SphereGeometry(7, 15, 5),
+    materials.blue,
+  );
+  var bauble23 = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 15, 5),
+    materials.red,
+  );
+
+  bauble20.position.set(65, -25, 25);
+  bauble21.position.set(-30, -25, 63);
+  bauble22.position.set(-65, -25, -25);
+  bauble23.position.set(30, -25, -63);
+
+  group.add(bauble20);
+  group.add(bauble21);
+  group.add(bauble22);
+  group.add(bauble23);
+
+  var bauble24 = new THREE.Mesh(
+    new THREE.SphereGeometry(8, 15, 5),
+    materials.red,
+  );
+  var bauble25 = new THREE.Mesh(
+    new THREE.SphereGeometry(6, 15, 5),
+    materials.yellow,
+  );
+  var bauble26 = new THREE.Mesh(
+    new THREE.SphereGeometry(8, 15, 5),
+    materials.red,
+  );
+  var bauble27 = new THREE.Mesh(
+    new THREE.SphereGeometry(6, 15, 5),
+    materials.yellow,
+  );
+
+  bauble24.position.set(80, -50, 25);
+  bauble25.position.set(-40, -50, 73);
+  bauble26.position.set(-80, -50, -25);
+  bauble27.position.set(40, -50, -73);
+
+  group.add(bauble24);
+  group.add(bauble25);
+  group.add(bauble26);
+  group.add(bauble27);
 }
 
 /**
- * &lt;p>Loads an object to the scene.&lt;/p>
+ * <p>Loads an object to the scene.</p>
  * Used to add the teapot and the bunnies.
  * Frigging bunnies all around, everyone loves bunnies.
  * Teapot is our new christmas tree star.
@@ -970,26 +1023,17 @@ function addBaubles(group, materials) {
  * @param {Number} z - position z
  * @param {Number} size - the object's size.
  * @param {Number} rotate - rotation amount.
- * @param {external:THREE.Color} color - the objects's color.
+ * @param {String|Number} color - the objects's color.
  */
 function addObject(group, objectFile, x, y, z, size, rotate, color) {
-  if (typeof addObject.counter == "undefined") {
-    addObject.counter = 0;
-  }
-
   /**
    * ObjectLoader object.
    * @var {external:THREE.OBJLoader}
    * @global
    */
-  const oLoader = new OBJLoader();
-
+  var oLoader = new OBJLoader();
   oLoader.load(objectFile, function (object) {
-    const material2 = new THREE.MeshLambertMaterial({ color: color });
-
-    object.position.set(x, y, z);
-    object.scale.set(size, size, size);
-    object.rotateY(rotate);
+    var material2 = new THREE.MeshLambertMaterial({ color: color });
 
     object.traverse(function (child) {
       if (child instanceof THREE.Mesh) {
@@ -999,71 +1043,48 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
         // enable casting shadows
         child.castShadow = true;
         child.receiveShadow = true;
-
-        let obj = `o${++addObject.counter}helper`;
-        lightHelpers[obj] = new VertexNormalsHelper(child, 5, colorTable.white);
-        lightHelpers[obj].update();
-        lightHelpers[obj].name = objectFile;
-        lightHelpers[obj].visible = false;
-        group.add(lightHelpers[obj]);
       }
     });
 
-    object.name = objectFile;
+    object.position.x = x;
+    object.position.y = y;
+    object.position.z = z;
+    object.scale.set(size, size, size);
+    object.rotateY(rotate);
     group.add(object);
   });
 }
 
 /**
- * Add or remove light or normal {@link showHelpers helpers}.
+ * Add or remove light {@link showHelpers helpers}.
  */
 function displayHelpers() {
-  showHelpers = !showHelpers;
-  // because of strict mode, "this" is undefined
-  let action = showHelpers ? group.add.bind(group) : group.remove.bind(group);
-
-  Object.keys(lightHelpers).forEach((key) => {
-    if (
-      lightHelpers[key].name === "teapot.obj" ||
-      lightHelpers[key].name === "bunny.obj"
-    ) {
-      // not working - only teapot untransformed??!!
-      //lightHelpers[key].visible = showHelpers;
-    } else {
-      action(lightHelpers[key]);
-    }
-  });
-
-  return false;
+  if (showHelpers) {
+    scene.add(lightHelpers.phelper);
+    scene.add(lightHelpers.shelper);
+    scene.add(lightHelpers.dhelper);
+  } else {
+    scene.remove(lightHelpers.phelper);
+    scene.remove(lightHelpers.shelper);
+    scene.remove(lightHelpers.dhelper);
+  }
 }
 
 /**
- * &lt;p>Lights galore - includes point lights, spot lights,
- * and a directional light because why not?&lt;/p>
- *
- * Lighting and color has changed a lot since version
- * {@link https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733/23 155}.
- *
- * These updates enable a
- * {@link https://www.willgibbons.com/linear-workflow/ “linear workflow”}
- * by default, for better
- * {@link https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear image quality}.
- *
+ * Lights galore - includes point lights, spot lights,
+ * and a directional light because why not?
  * @param {external:THREE.Scene} scene - the given scene.
  */
 function addLight(scene) {
-  scene.add(new THREE.AmbientLight(colorTable.black, 6));
+  scene.add(new THREE.AmbientLight(0x222222, 1));
 
-  const pointLight = new THREE.PointLight(colorTable.lightBlue, 2, 1000);
+  const pointLight = new THREE.PointLight(0x00ccff, 1.3, 1000);
   pointLight.position.set(200, 100, 0);
-  pointLight.castShadow = false;
   scene.add(pointLight);
 
-  lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 12);
-  lightHelpers.phelper.name = "PointLigh";
+  lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
 
-  const spotLight = new THREE.SpotLight(colorTable.white, 0.3);
-  spotLight.decay = 0;
+  var spotLight = new THREE.SpotLight(0xffffff, 0.1);
   spotLight.position.set(200, 200, 200);
   spotLight.angle = (2 * Math.PI) / 3;
 
@@ -1079,16 +1100,13 @@ function addLight(scene) {
   scene.add(spotLight);
 
   lightHelpers.shelper = new THREE.SpotLightHelper(spotLight);
-  lightHelpers.shelper.name = "SpotLigh";
 
   // colored directional light at double intensity shining from the top.
-  var directionalLight = new THREE.DirectionalLight(colorTable.white, 2);
+  var directionalLight = new THREE.DirectionalLight(0xffcc00);
   directionalLight.position.set(400, 1, 200);
-  directionalLight.castShadow = true;
   scene.add(directionalLight);
 
   lightHelpers.dhelper = new THREE.DirectionalLightHelper(directionalLight, 15);
-  lightHelpers.dhelper.name = "DirectionalLigh";
 }
 
 /**
@@ -1101,7 +1119,7 @@ function makeGreeting() {
   // display Info
   var greeting = document.createElement("div");
   greeting.setAttribute("id", "greeting");
-  greeting.innerHTML = "&lt;b>MERRY CHRISTMAS!&lt;/b>&lt;br>";
+  greeting.innerHTML = "<b>MERRY CHRISTMAS!</b><br>";
   var info = document.createElement("div");
   info.setAttribute("id", "info");
   greeting.setAttribute("id", "greeting");
@@ -1110,13 +1128,11 @@ function makeGreeting() {
   greeting.style.width = "100%";
   greeting.style.textAlign = "center";
   greeting.style.color = "white";
-  info.innerHTML = `&lt;details>
-  &lt;summary>DRAG TO SPIN&lt;/summary>
-  Have your volume ON for the full experience&lt;br>
-  Press &lt;em>h&lt;/em> for more information&lt;br>
-  For light helpers
-  &lt;a href='javascript:void(0)' onclick='javascript:displayHelpers();'>click me&lt;/a>
-  &lt;/details>`;
+  info.innerHTML = `<details>
+  <summary>DRAG TO SPIN</summary>
+  Have your volume ON for the full experience<br>
+  Press <em>h</em> for more information
+  </details>`;
 
   greeting.appendChild(info);
   container.appendChild(greeting);
@@ -1125,9 +1141,9 @@ function makeGreeting() {
 /**
  * Initialize our scene's components.
  *
- * &lt;p>Add listeners for {@link event:onDocumentMouseDown "mousedown"},
+ * <p>Add listeners for {@link event:onDocumentMouseDown "mousedown"},
  * {@link event:onDocumentTouchStart "touchstart"}, and
- * {@link event:onDocumentTouchMove "touchmove"}.&lt;/p>
+ * {@link event:onDocumentTouchMove "touchmove"}.</p>
  *
  * The listeners are added to the canvas element
  * ({@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.domElement renderer.domElement}),
@@ -1138,41 +1154,36 @@ function makeGreeting() {
 function init() {
   makeGreeting();
 
-  THREE.ColorManagement.enabled = true;
-
   // initialize the scene
   scene = new THREE.Scene();
 
   // add fog to scene
-  scene.fog = new THREE.Fog(colorTable.purple, 500, 10000);
+  scene.fog = new THREE.Fog(0x590fa3, 500, 10000);
 
   makeCamera(scene);
 
   // create the empty scene groups
   group = new THREE.Group();
-  group.name = "MainGroup";
   teaPotGroup = new THREE.Group();
-  teaPotGroup.name = "TeaPot";
 
   scene.add(group);
   group.add(teaPotGroup);
 
   prepareMaterials(group);
 
-  // add 4 skyboxes
-  addPresent(group, 40, 20, -115, -130, imageNames.img3, "textures/cube/pisa/");
-  addPresent(group, 50, 20, -125, 60, imageNames.img2);
-  addPresent(group, 30, -20, -135, -60, imageNames.img1);
-  addPresent(group, 20, -20, -140, 100, imageNames.img1);
+  // add 3 skyboxes
+  addPresent(group, 50, 20, -125, 60, imageNames2);
+  addPresent(group, 30, -20, -135, -60, imageNames);
+  addPresent(group, 20, -20, -140, 100, imageNames);
 
   // add our star teapot
-  addObject(teaPotGroup, "teapot.obj", 0, 155, 0, 0.3, 0, colorTable.yellow);
+  addObject(teaPotGroup, "teapot.obj", 0, 155, 0, 0.3, 0, 0xffff00);
 
   // bunnies for days
-  addObject(group, "bunny.obj", 80, -130, 0, 20, 0, colorTable.brown);
-  addObject(group, "bunny.obj", -50, -140, 0, 10, -90, colorTable.lightBrown);
-  addObject(group, "bunny.obj", 100, -135, 60, 15, 40, colorTable.white);
-  addObject(group, "bunny.obj", 20, -143, -60, 8, -180, colorTable.amber);
+  addObject(group, "bunny.obj", 80, -130, 0, 20, 0, 0x995500);
+  addObject(group, "bunny.obj", -50, -140, 0, 10, -90, 0xcc6600);
+  addObject(group, "bunny.obj", 100, -135, 60, 15, 40, 0xfffff6);
+  addObject(group, "bunny.obj", 20, -143, -60, 8, -180, 0xffae00);
 
   addGround(group);
 
@@ -1190,10 +1201,6 @@ function init() {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  // to cope with changes in lighting
-  renderer.useLegacyLights = true;
-  renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
-
   // add events handlers -- thanks script tutorials
   renderer.domElement.addEventListener("mousedown", onDocumentMouseDown, false);
   renderer.domElement.addEventListener(
@@ -1204,17 +1211,15 @@ function init() {
   renderer.domElement.addEventListener("touchmove", onDocumentTouchMove, false);
 
   /**
-   * &lt;p>Appends an event listener for events whose type attribute value is resize.&lt;/p>
-   * &lt;p>The {@link onWindowResize callback} argument sets the callback
-   * that will be invoked when the event is dispatched.&lt;/p>
+   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * <p>The {@link onWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
    * @param {Event} event the document view is resized.
    * @param {callback} function function to run when the event occurs.
    * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
    * @event resize - executed when the window is resized.
    */
   window.addEventListener("resize", onWindowResize, false);
-
-  window.displayHelpers = displayHelpers;
 }
 
 /**
@@ -1223,18 +1228,18 @@ function init() {
  */
 function animate() {
   /**
-   * &lt;p>Key handler.&lt;/p>
+   * <p>Key handler.</p>
    * Calls {@link handleKeyPress} when pressing assigned keys:
-   * &lt;ul>
-   *  &lt;li>Space - pause&lt;/li>
-   *  &lt;li>h - help&lt;/li>
-   *  &lt;li>l - light helpers&lt;/li>
-   *  &lt;li>w, s, a, d - forward, backward, left, right&lt;/li>
-   *  &lt;li>I, K, J, L - orbit down, up, left, right&lt;/li>
-   *  &lt;li>+, - - field of view (zoom)&lt;/li>
-   *  &lt;li>↑, ↓- up, down&lt;/li>
-   *  &lt;li>n - move camera close/farther away wile rotating, or not&lt;/li>
-   * &lt;/ul>
+   * <ul>
+   *  <li>Space - pause</li>
+   *  <li>h - help</li>
+   *  <li>l - light helpers</li>
+   *  <li>w, s, a, d - forward, backward, left, right</li>
+   *  <li>I, K, J, L - orbit down, up, left, right</li>
+   *  <li>+, - - field of view (zoom)</li>
+   *  <li>↑, ↓- up, down</li>
+   *  <li>n - move camera close/farther away wile rotating, or not</li>
+   * </ul>
    * @event keydown
    */
   document.addEventListener("keydown", handleKeyPress, false);
@@ -1259,12 +1264,12 @@ function render() {
   // spinning teapot -- its a nice star
   teaPotGroup.rotation.y += 0.03;
 
-  if (!paused &amp;&amp; inAndOutCamera) {
+  if (!paused && inAndOutCamera) {
     camera.position.x = Math.cos(timer) * 1000;
     camera.position.z = Math.sin(timer) * 500;
   }
 
-  if (!paused &amp;&amp; !inAndOutCamera) {
+  if (!paused && !inAndOutCamera) {
     // rotate camera around tree
     camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
     camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
@@ -1276,7 +1281,7 @@ function render() {
 }
 
 /**
- * &lt;p>Load the applicarion.&lt;/p>
+ * <p>Load the applicarion.</p>
  * {@link init Initialize} and start {@link animate animation}.
  * @param {Event} event an object has loaded.
  * @event load
@@ -1285,26 +1290,3 @@ window.addEventListener("load", (event) => {
   init();
   animate();
 });
-</code></pre>
-        </article>
-    </section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.Camera.html">Camera</a></li><li><a href="external-THREE.Color.html">Color</a></li><li><a href="external-THREE.Group.html">Group</a></li><li><a href="external-THREE.Material.html">Material</a></li><li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onDocumentMouseDown">onDocumentMouseDown</a></li><li><a href="global.html#event:onDocumentMouseMove">onDocumentMouseMove</a></li><li><a href="global.html#event:onDocumentMouseOut">onDocumentMouseOut</a></li><li><a href="global.html#event:onDocumentMouseUp">onDocumentMouseUp</a></li><li><a href="global.html#event:onDocumentTouchMove">onDocumentTouchMove</a></li><li><a href="global.html#event:onDocumentTouchStart">onDocumentTouchStart</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBaubles">addBaubles</a></li><li><a href="global.html#addGround">addGround</a></li><li><a href="global.html#addLight">addLight</a></li><li><a href="global.html#addObject">addObject</a></li><li><a href="global.html#addPresent">addPresent</a></li><li><a href="global.html#addSnowflakes">addSnowflakes</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#cameraControl">cameraControl</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#container">container</a></li><li><a href="global.html#displayHelpers">displayHelpers</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#group">group</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#imageNames">imageNames</a></li><li><a href="global.html#inAndOutCamera">inAndOutCamera</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#lightHelpers">lightHelpers</a></li><li><a href="global.html#makeCamera">makeCamera</a></li><li><a href="global.html#makeGreeting">makeGreeting</a></li><li><a href="global.html#makeTree">makeTree</a></li><li><a href="global.html#mouseX">mouseX</a></li><li><a href="global.html#mouseXOnMouseDown">mouseXOnMouseDown</a></li><li><a href="global.html#oLoader">oLoader</a></li><li><a href="global.html#onWindowResize">onWindowResize</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#prepareMaterials">prepareMaterials</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#showHelpers">showHelpers</a></li><li><a href="global.html#targetRotation">targetRotation</a></li><li><a href="global.html#targetRotationOnMouseDown">targetRotationOnMouseDown</a></li><li><a href="global.html#teaPotGroup">teaPotGroup</a></li><li><a href="global.html#windowHalfX">windowHalfX</a></li><li><a href="global.html#windowHalfY">windowHalfY</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Feb 17 2024 18:39:51 GMT-0300 (Brasilia Standard Time)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
-</body>
-</html>
