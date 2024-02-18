@@ -169,68 +169,68 @@ let renderer;
  * A container holding the greeting and the canvas.
  * @type {HTMLDivElement}
  */
-var container;
+let container;
 
 /**
  * Rotation about the "Y" axis, applied by the renderer to the scene,
  * based on mouse displacement.
  * @type {Number}
  */
-var targetRotation = 0;
+let targetRotation = 0;
 
 /**
  * Target rotation when the mouse is clicked.
  * @type {Number}
  */
-var targetRotationOnMouseDown = 0;
+let targetRotationOnMouseDown = 0;
 
 /**
  * An event (clientX - windowHalfX).
  * @type {Number}
  */
-var mouseX = 0;
+let mouseX = 0;
 
 /**
  * An event (clientX - windowHalfX) when a movement starts.
  * @type {Number}
  */
-var mouseXOnMouseDown = 0;
+let mouseXOnMouseDown = 0;
 
 /**
  * Half of the window {@link https://developer.mozilla.org/en-US/docs/Web/API/window/innerWidth innerWidth} property.
  * @type {Number}
  */
-var windowHalfX = window.innerWidth / 2;
+let windowHalfX = window.innerWidth / 2;
 
 /**
  * Half of the window {@link https://developer.mozilla.org/en-US/docs/Web/API/window/innerHeight innerHeight} property.
  * @type {Number}
  */
-var windowHalfY = window.innerHeight / 2;
+let windowHalfY = window.innerHeight / 2;
 
 /**
  * Will pause the camera rotation.
  * @type {Boolean}
  */
-var paused = false;
+let paused = false;
 
 /**
  * Camera will move around the tree in and out.
  * @type {Boolean}
  */
-var inAndOutCamera = true;
+let inAndOutCamera = true;
 
 /**
  * Display help.
  * @type {Boolean}
  */
-var help = false;
+let help = false;
 
 /**
  * Image directory.
  * @type {String}
  */
-var path = "img/";
+const path = "img/";
 
 /**
  * Light helpers switch.
@@ -251,15 +251,15 @@ let colorTable = {
   veryLightBlue: new THREE.Color(0xd2ddef),
   black: new THREE.Color(0x222222),
   black2: new THREE.Color(0x111111),
-  blackSRGB: new THREE.Color(0x333333).convertLinearToSRGB(),
+  blackSRGB: new THREE.Color(0x333333),
   orange: new THREE.Color(0xffcc00),
   yellow: new THREE.Color(0xffff00),
   brown: new THREE.Color(0x995500),
   lightBrown: new THREE.Color(0xcc6600),
-  darkBrown: new THREE.Color(0x584000).convertLinearToSRGB(),
+  darkBrown: new THREE.Color(0x584000),
   white2: new THREE.Color(0xfffff6),
   amber: new THREE.Color(0xffae00),
-  purple: new THREE.Color(0x590fa3).convertLinearToSRGB(),
+  purple: new THREE.Color(0x590fa3),
 };
 
 /**
@@ -464,8 +464,8 @@ function getChar(event) {
  * @param {String} ch a given character.
  */
 function cameraControl(c, ch) {
-  var distance = c.position.length();
-  var q, q2;
+  let distance = c.position.length();
+  let q, q2;
 
   switch (ch) {
     // camera controls
@@ -568,7 +568,7 @@ function cameraControl(c, ch) {
  * @param {KeyboardEvent} event keydown event.
  */
 function handleKeyPress(event) {
-  var ch = getChar(event);
+  let ch = getChar(event);
   cameraControl(camera, ch);
   switch (ch) {
     case " ":
@@ -779,7 +779,7 @@ function addGround(group) {
   groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
   groundTexture.repeat.set(25, 25);
   groundTexture.anisotropy = 16;
-  groundTexture.colorSpace = THREE.NoColorSpace;
+  groundTexture.colorSpace = THREE.SRGBColorSpace;
 
   const groundMesh = new THREE.Mesh(
     new THREE.PlaneGeometry(20000, 20000),
@@ -804,10 +804,12 @@ function addSnowflakes(group) {
   const tLoader = new THREE.TextureLoader();
   const sfTexture = tLoader.load(path + "snowflake.png");
   const sfTexture2 = tLoader.load(path + "snowflake2.png");
+  sfTexture.colorSpace = THREE.SRGBColorSpace;
+  sfTexture2.colorSpace = THREE.SRGBColorSpace;
 
   const vertices = [];
   for (let i = 0; i &lt; 3700; i++) {
-    var vertex = new THREE.Vector3();
+    let vertex = new THREE.Vector3();
     vertex.x = Math.random() * 2000 - 1000;
     vertex.y = Math.random() * 2000 - 1000;
     vertex.z = Math.random() * 2000 - 1000;
@@ -1054,18 +1056,17 @@ function displayHelpers() {
  * @param {external:THREE.Scene} scene - the given scene.
  */
 function addLight(scene) {
-  scene.add(new THREE.AmbientLight(colorTable.black, 6));
+  scene.add(new THREE.AmbientLight(colorTable.black, 0.2));
 
   const pointLight = new THREE.PointLight(colorTable.lightBlue, 2, 1000);
   pointLight.position.set(200, 100, 0);
   pointLight.castShadow = false;
   scene.add(pointLight);
 
-  lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 12);
+  lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
   lightHelpers.phelper.name = "PointLigh";
 
   const spotLight = new THREE.SpotLight(colorTable.white, 0.3);
-  spotLight.decay = 0;
   spotLight.position.set(200, 200, 200);
   spotLight.angle = (2 * Math.PI) / 3;
 
@@ -1084,7 +1085,7 @@ function addLight(scene) {
   lightHelpers.shelper.name = "SpotLigh";
 
   // colored directional light at double intensity shining from the top.
-  var directionalLight = new THREE.DirectionalLight(colorTable.white, 2);
+  const directionalLight = new THREE.DirectionalLight(colorTable.white, 2);
   directionalLight.position.set(400, 1, 200);
   directionalLight.castShadow = true;
   scene.add(directionalLight);
@@ -1101,10 +1102,10 @@ function makeGreeting() {
   container = document.createElement("div");
   document.body.appendChild(container);
   // display Info
-  var greeting = document.createElement("div");
+  const greeting = document.createElement("div");
   greeting.setAttribute("id", "greeting");
   greeting.innerHTML = "&lt;b>MERRY CHRISTMAS!&lt;/b>&lt;br>";
-  var info = document.createElement("div");
+  const info = document.createElement("div");
   info.setAttribute("id", "info");
   greeting.setAttribute("id", "greeting");
   greeting.style.position = "absolute";
@@ -1194,7 +1195,7 @@ function init() {
 
   // to cope with changes in lighting
   renderer.useLegacyLights = true;
-  renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   // add events handlers -- thanks script tutorials
   renderer.domElement.addEventListener("mousedown", onDocumentMouseDown, false);
@@ -1303,7 +1304,7 @@ window.addEventListener("load", (event) => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Feb 18 2024 06:35:43 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Feb 18 2024 09:18:49 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
