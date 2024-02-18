@@ -995,6 +995,7 @@ function displayHelpers() {
   showHelpers = !showHelpers;
   // because of strict mode, "this" is undefined
   let action = showHelpers ? group.add.bind(group) : group.remove.bind(group);
+  let action2 = showHelpers ? scene.add.bind(scene) : scene.remove.bind(scene);
 
   Object.keys(lightHelpers).forEach((key) => {
     if (
@@ -1003,6 +1004,12 @@ function displayHelpers() {
     ) {
       // not working - only teapot untransformed??!!
       //lightHelpers[key].visible = showHelpers;
+    } else if (
+      lightHelpers[key].name === "PointLight" ||
+      lightHelpers[key].name === "SpotLight" ||
+      lightHelpers[key].name === "DirectionalLight"
+    ) {
+      action2(lightHelpers[key]);
     } else {
       action(lightHelpers[key]);
     }
@@ -1036,25 +1043,26 @@ function addLight(scene) {
   scene.add(pointLight);
 
   lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
-  lightHelpers.phelper.name = "PointLigh";
+  lightHelpers.phelper.name = "PointLight";
 
   const spotLight = new THREE.SpotLight(colorTable.white, 0.3);
   spotLight.position.set(200, 200, 200);
-  spotLight.angle = (2 * Math.PI) / 3;
+  spotLight.angle = Math.PI / 6;
 
   spotLight.castShadow = true;
 
   spotLight.shadowMapWidth = 1024;
   spotLight.shadowMapHeight = 1024;
 
-  spotLight.shadowCameraNear = 500;
-  spotLight.shadowCameraFar = 1000;
-  spotLight.shadowCameraFov = 10;
+  spotLight.shadowCameraNear = 0.5;
+  spotLight.shadowCameraFar = 5000;
+  spotLight.shadowCameraFov = 30;
+  spotLight.shadow.focus = 1;
 
   scene.add(spotLight);
 
   lightHelpers.shelper = new THREE.SpotLightHelper(spotLight);
-  lightHelpers.shelper.name = "SpotLigh";
+  lightHelpers.shelper.name = "SpotLight";
 
   // colored directional light at double intensity shining from the top.
   const directionalLight = new THREE.DirectionalLight(colorTable.white, 2);
@@ -1063,7 +1071,7 @@ function addLight(scene) {
   scene.add(directionalLight);
 
   lightHelpers.dhelper = new THREE.DirectionalLightHelper(directionalLight, 15);
-  lightHelpers.dhelper.name = "DirectionalLigh";
+  lightHelpers.dhelper.name = "DirectionalLight";
 }
 
 /**
