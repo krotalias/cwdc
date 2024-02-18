@@ -621,9 +621,10 @@ function addPresent(group, size, x, y, z, images) {
 
   // Create a mesh for the object, using the cube shader as the material
   var cube = new THREE.Mesh(new THREE.CubeGeometry(size, size, size), material);
+  cube.position.set(x, y, z);
+  cube.castShadow = true;
   // add it to the scene
   group.add(cube);
-  cube.position.set(x, y, z);
 }
 
 /**
@@ -656,6 +657,7 @@ function addGround(group) {
   );
   groundMesh.position.y = -150;
   groundMesh.rotation.x = -Math.PI / 2;
+  groundMesh.receiveShadow = true;
   group.add(groundMesh);
 }
 
@@ -753,12 +755,20 @@ function makeTree(materials, group) {
   );
 
   treeTop.position.set(0, 130, 0);
+  treeTop.castShadow = true;
   treeTop1.position.set(0, 110, 0);
+  treeTop1.castShadow = true;
   treeTop2.position.set(0, 85, 0);
+  treeTop2.castShadow = true;
   treeMid.position.set(0, 65, 0);
+  treeMid.castShadow = true;
   treeMid2.position.set(0, 30, 0);
+  treeMid2.castShadow = true;
   treeMid3.position.set(0, 5, 0);
+  treeMid3.castShadow = true;
   treeBase.position.set(0, -20, 0);
+  treeBase.castShadow = true;
+  trunk.castShadow = true;
 
   group.add(trunk);
   group.add(treeTop);
@@ -1038,33 +1048,37 @@ function displayHelpers() {
  * @param {external:THREE.Scene} scene - the given scene.
  */
 function addLight(scene) {
-  scene.add(new THREE.AmbientLight(0x222222));
+  scene.add(new THREE.AmbientLight(0x222222, 0.2));
 
   const pointLight = new THREE.PointLight(0x00ccff, 1.3, 1000);
   pointLight.position.set(200, 100, 0);
+  pointLight.castShadow = false;
   scene.add(pointLight);
 
   lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
 
-  const spotLight = new THREE.SpotLight(0xffffff);
+  const spotLight = new THREE.SpotLight(0xffffff, 1);
   spotLight.position.set(200, 200, 200);
+  spotLight.angle = Math.PI / 6;
+  spotLight.decay = 2;
 
   spotLight.castShadow = true;
 
   spotLight.shadowMapWidth = 1024;
   spotLight.shadowMapHeight = 1024;
 
-  spotLight.shadowCameraNear = 500;
-  spotLight.shadowCameraFar = 1000;
-  spotLight.shadowCameraFov = 10;
+  spotLight.shadowCameraNear = 0.5;
+  spotLight.shadowCameraFar = 5000;
+  spotLight.shadowCameraFov = 50;
 
   scene.add(spotLight);
 
-  lightHelpers.shelper = new THREE.SpotLightHelper(spotLight, 0xffffff);
+  lightHelpers.shelper = new THREE.SpotLightHelper(spotLight);
 
   // add directional light
   const directionalLight = new THREE.DirectionalLight(0x000099, 2);
   directionalLight.position.set(400, 1, 200);
+  directionalLight.castShadow = false;
   scene.add(directionalLight);
 
   lightHelpers.dhelper = new THREE.DirectionalLightHelper(
@@ -1163,6 +1177,8 @@ function init() {
   renderer.setClearColor(scene.fog.color);
 
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.shadowMapEnabled = true;
+  renderer.PCFSoftShadowmap = true;
   container.appendChild(renderer.domElement);
 
   renderer.gammaInput = true;
