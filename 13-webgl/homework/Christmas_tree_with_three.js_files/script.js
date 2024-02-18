@@ -511,7 +511,6 @@ function handleKeyPress(event) {
         Press <b>h</b> for more information.`;
       break;
     case "l":
-      showHelpers = !showHelpers;
       displayHelpers();
       break;
     default:
@@ -1020,6 +1019,7 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
  * Add or remove light {@link showHelpers helpers}.
  */
 function displayHelpers() {
+  showHelpers = !showHelpers;
   if (showHelpers) {
     scene.add(lightHelpers.phelper);
     scene.add(lightHelpers.shelper);
@@ -1029,6 +1029,7 @@ function displayHelpers() {
     scene.remove(lightHelpers.shelper);
     scene.remove(lightHelpers.dhelper);
   }
+  return false;
 }
 
 /**
@@ -1095,7 +1096,9 @@ function makeGreeting() {
   info.innerHTML = `<details>
   <summary>DRAG TO SPIN</summary>
   Have your volume ON for the full experience<br>
-  Press <em>h</em> for more information
+  Press <em>h</em> for more information<br>
+  For light helpers
+  <a href='javascript:void(0)' onclick='javascript:displayHelpers();'>click me</a>
   </details>`;
 
   greeting.appendChild(info);
