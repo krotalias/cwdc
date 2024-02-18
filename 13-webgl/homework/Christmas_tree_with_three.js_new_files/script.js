@@ -2,7 +2,7 @@
  * @file
  *
  * Summary.
- * <p>Renders a christmas scene - Merry (Early) Christmas.</p>
+ * <p>Renders a Christmas scene - Merry (Early) Christmas.</p>
  *
  * @author Paulo Roma
  * @author Flavia Cavalcanti
@@ -580,7 +580,7 @@ function handleKeyPress(event) {
 }
 
 /**
- * Prepare materials and add it to the given group scene.
+ * Prepare materials and creates the {@link makeTree tree}.
  * @param {external:THREE.Group} group - the given group.
  */
 function prepareMaterials(group) {
@@ -653,7 +653,7 @@ function prepareMaterials(group) {
  * Why not, am I right? No specification were given saying that the
  * skyboxes had to be used as the 'environment'.
  * @param {external:THREE.Group} group - the given group to add the presents to.
- * @param {Number} size - the size of the cube -- will correspond to width, length, and height.
+ * @param {Number} size - the size of the box -- will correspond to width, length, and height.
  * @param {Number} x - position x
  * @param {Number} y - position y
  * @param {Number} z - position z
@@ -766,8 +766,8 @@ function addGround(group) {
 
 /**
  * <p>Christmas needs frigging snowflakes.</p>
- * Except christmas in Brazil, then its just palm trees...
- * Based on a tutorial found on {@link ScriptsTutorial.com huzzah}
+ * Except Christmas in Brazil, then its just palm trees...
+ * Based on a tutorial found on {@link https://script-tutorials.com/tag/webgl/ huzzah}
  * @param {external:THREE.Group} group - the given group to add the snowflakes to.
  */
 function addSnowflakes(group) {
@@ -833,7 +833,7 @@ function addSnowflakes(group) {
 }
 
 /**
- * Make the christmas tree, which is just a bunch of stacked cones (cylinders).
+ * Make the Christmas tree, which is just a bunch of stacked cones (cylinders).
  * @param {external:THREE.Object3D} group - the given group to add the tree to.
  * @param {Object<String,external:THREE.Material>} materials - the given material object.
  * @see https://threejs.org/docs/#api/en/geometries/CylinderGeometry
@@ -933,7 +933,7 @@ function addBaubles(group, materials) {
  * <p>Loads an object to the scene.</p>
  * Used to add the teapot and the bunnies.
  * Frigging bunnies all around, everyone loves bunnies.
- * Teapot is our new christmas tree star.
+ * Teapot is our new Christmas tree star.
  *
  * @param {external:THREE.Group} group - the given group to add the object to.
  * @param {String} objectFile - the object file to be read.
@@ -1010,8 +1010,10 @@ function displayHelpers() {
 }
 
 /**
- * <p>Lights galore - includes point lights, spot lights,
- * and a directional light because why not?</p>
+ * <p>Lights galore - includes {@link https://threejs.org/docs/#api/en/lights/PointLight point lights},
+ * {@link https://threejs.org/docs/#api/en/lights/SpotLight spot lights},
+ * and a {@link https://threejs.org/docs/#api/en/lights/DirectionalLight directional light}
+ * because why not?</p>
  *
  * Lighting and color has changed a lot since version
  * {@link https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733/23 155}.
