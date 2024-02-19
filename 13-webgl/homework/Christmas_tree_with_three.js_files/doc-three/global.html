@@ -170,6 +170,78 @@
 
         
             
+<h4 class="name" id="colorTable"><span class="type-signature"></span>colorTable<span class="type-signature"> :Object.&lt;String, external:THREE.Color></span></h4>
+
+
+
+
+<div class="description">
+    Color table.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object.&lt;String, external:THREE.Color></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line178">line 178</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="container"><span class="type-signature"></span>container<span class="type-signature"> :HTMLDivElement</span></h4>
 
 
@@ -386,7 +458,7 @@
 
         
             
-<h4 class="name" id="imageNames"><span class="type-signature"></span>imageNames<span class="type-signature"> :Array.&lt;String></span></h4>
+<h4 class="name" id="imageNames"><span class="type-signature">(constant) </span>imageNames<span class="type-signature"> :Object.&lt;Symbol, Array.&lt;String>></span></h4>
 
 
 
@@ -401,7 +473,7 @@
     <ul>
         <li>
             
-<span class="param-type">Array.&lt;String></span>
+<span class="param-type">Object.&lt;Symbol, Array.&lt;String>></span>
 
 
         </li>
@@ -440,79 +512,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line194">line 194</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="imageNames2"><span class="type-signature"></span>imageNames2<span class="type-signature"> :Array.&lt;String></span></h4>
-
-
-
-
-<div class="description">
-    Not the best for a skybox, but the effect is quite psychadelic.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Array.&lt;String></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line207">line 207</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line218">line 218</a>
     </li></ul></dd>
     
 
@@ -792,7 +792,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line184">line 184</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line208">line 208</a>
     </li></ul></dd>
     
 
@@ -954,7 +954,7 @@
 
         
             
-<h4 class="name" id="oLoader"><span class="type-signature"></span>oLoader<span class="type-signature"> :OBJLoader</span></h4>
+<h4 class="name" id="oLoader"><span class="type-signature">(constant) </span>oLoader<span class="type-signature"> :OBJLoader</span></h4>
 
 
 
@@ -1008,7 +1008,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1004">line 1004</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line857">line 857</a>
     </li></ul></dd>
     
 
@@ -1026,7 +1026,7 @@
 
         
             
-<h4 class="name" id="path"><span class="type-signature"></span>path<span class="type-signature"> :String</span></h4>
+<h4 class="name" id="path"><span class="type-signature">(constant) </span>path<span class="type-signature"> :String</span></h4>
 
 
 
@@ -1883,7 +1883,7 @@ to the tree that actually looked like they were on the tree.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line792">line 792</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line790">line 790</a>
     </li></ul></dd>
     
 
@@ -2020,7 +2020,7 @@ to the tree that actually looked like they were on the tree.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line634">line 634</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line661">line 661</a>
     </li></ul></dd>
     
 
@@ -2064,8 +2064,18 @@ to the tree that actually looked like they were on the tree.
 
 
 <div class="description">
-    Lights galore - includes point lights, spot lights,
-and a directional light because why not?
+    <p>Lights galore - includes <a href="https://threejs.org/docs/#api/en/lights/PointLight">point lights</a>,
+<a href="https://threejs.org/docs/#api/en/lights/SpotLight">spot lights</a>,
+and a <a href="https://threejs.org/docs/#api/en/lights/DirectionalLight">directional light</a>
+because why not?</p>
+
+Lighting and color has changed a lot since version
+<a href="https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733/23">155</a>.
+
+These updates enable a
+<a href="https://www.willgibbons.com/linear-workflow/">“linear workflow”</a>
+by default, for better
+<a href="https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear">image quality</a>.
 </div>
 
 
@@ -2158,7 +2168,7 @@ and a directional light because why not?
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1050">line 1050</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line911">line 911</a>
     </li></ul></dd>
     
 
@@ -2205,7 +2215,7 @@ and a directional light because why not?
     <p>Loads an object to the scene.</p>
 Used to add the teapot and the bunnies.
 Frigging bunnies all around, everyone loves bunnies.
-Teapot is our new christmas tree star.
+Teapot is our new Christmas tree star.
 </div>
 
 
@@ -2462,7 +2472,7 @@ Teapot is our new christmas tree star.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line998">line 998</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line851">line 851</a>
     </li></ul></dd>
     
 
@@ -2718,7 +2728,7 @@ skyboxes had to be used as the 'environment'.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line604">line 604</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line626">line 626</a>
     </li></ul></dd>
     
 
@@ -2763,7 +2773,7 @@ skyboxes had to be used as the 'environment'.
 
 <div class="description">
     <p>Christmas needs frigging snowflakes.</p>
-Except christmas in Brazil, then its just palm trees...
+Except Christmas in Brazil, then its just palm trees...
 Based on a tutorial found on huzzah
 </div>
 
@@ -2857,7 +2867,7 @@ Based on a tutorial found on huzzah
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line670">line 670</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line702">line 702</a>
     </li></ul></dd>
     
 
@@ -2946,7 +2956,7 @@ the <a href="global.html#event:keydown">event:keydown</a> event.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1213">line 1213</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1075">line 1075</a>
     </li></ul></dd>
     
 
@@ -3106,7 +3116,7 @@ the <a href="global.html#event:keydown">event:keydown</a> event.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line377">line 377</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line399">line 399</a>
     </li></ul></dd>
     
 
@@ -3194,7 +3204,7 @@ the <a href="global.html#event:keydown">event:keydown</a> event.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1031">line 1031</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line884">line 884</a>
     </li></ul></dd>
     
 
@@ -3331,7 +3341,7 @@ the <a href="global.html#event:keydown">event:keydown</a> event.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line366">line 366</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line388">line 388</a>
     </li></ul></dd>
     
 
@@ -3475,7 +3485,7 @@ the <a href="global.html#event:keydown">event:keydown</a> event.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line481">line 481</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line503">line 503</a>
     </li></ul></dd>
     
 
@@ -3573,7 +3583,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1135">line 1135</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line995">line 995</a>
     </li></ul></dd>
     
 
@@ -3710,7 +3720,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line349">line 349</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line371">line 371</a>
     </li></ul></dd>
     
 
@@ -3798,7 +3808,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1094">line 1094</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line954">line 954</a>
     </li></ul></dd>
     
 
@@ -3834,7 +3844,7 @@ on a swipe-down.
     
 
     
-    <h4 class="name" id="makeTree"><span class="type-signature"></span>makeTree<span class="signature">(materials, group)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="makeTree"><span class="type-signature"></span>makeTree<span class="signature">(group, materials)</span><span class="type-signature"></span></h4>
     
 
     
@@ -3842,7 +3852,7 @@ on a swipe-down.
 
 
 <div class="description">
-    Make the christmas tree.
+    Make the Christmas tree, which is just a bunch of stacked cones (cylinders).
 </div>
 
 
@@ -3878,29 +3888,6 @@ on a swipe-down.
 
         <tr>
             
-                <td class="name"><code>materials</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object.&lt;String, <a href="external-THREE.Material.html">external:THREE.Material</a>></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the given material object.</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>group</code></td>
             
 
@@ -3918,6 +3905,29 @@ on a swipe-down.
             
 
             <td class="description last">the given group to add the tree to.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>materials</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object.&lt;String, <a href="external-THREE.Material.html">external:THREE.Material</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the given material object.</td>
         </tr>
 
     
@@ -3958,12 +3968,19 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line722">line 722</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line756">line 756</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://threejs.org/docs/#api/en/geometries/CylinderGeometry">https://threejs.org/docs/#api/en/geometries/CylinderGeometry</a></li>
+        </ul>
+    </dd>
     
 
     
@@ -4048,7 +4065,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line221">line 221</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line243">line 243</a>
     </li></ul></dd>
     
 
@@ -4185,7 +4202,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line525">line 525</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line547">line 547</a>
     </li></ul></dd>
     
 
@@ -4274,7 +4291,7 @@ calls the <a href="global.html#renderer">renderer.render</a> method.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1240">line 1240</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1102">line 1102</a>
     </li></ul></dd>
     
 
@@ -4381,7 +4398,7 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> when pressing assi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1214">line 1214</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1076">line 1076</a>
     </li></ul></dd>
     
 
@@ -4519,7 +4536,7 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> when pressing assi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1267">line 1267</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1129">line 1129</a>
     </li></ul></dd>
     
 
@@ -4659,7 +4676,7 @@ is pressed while the pointer is inside the element.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line240">line 240</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line262">line 262</a>
     </li></ul></dd>
     
 
@@ -4804,7 +4821,7 @@ is pressed while the pointer is inside the element.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line258">line 258</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line280">line 280</a>
     </li></ul></dd>
     
 
@@ -4952,7 +4969,7 @@ so that it is no longer contained within the element or one of its children.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line297">line 297</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line319">line 319</a>
     </li></ul></dd>
     
 
@@ -5099,7 +5116,7 @@ so that it is no longer contained within the element or one of its children.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line273">line 273</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line295">line 295</a>
     </li></ul></dd>
     
 
@@ -5244,7 +5261,7 @@ are moved along the touch surface.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line334">line 334</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line356">line 356</a>
     </li></ul></dd>
     
 
@@ -5389,7 +5406,7 @@ are placed on the touch surface.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line318">line 318</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line340">line 340</a>
     </li></ul></dd>
     
 
@@ -5581,7 +5598,7 @@ that will be invoked when the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1197">line 1197</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1059">line 1059</a>
     </li></ul></dd>
     
 
@@ -5623,13 +5640,13 @@ that will be invoked when the event is dispatched.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Camera.html">Camera</a></li><li><a href="external-THREE.Material.html">Material</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onDocumentMouseDown">onDocumentMouseDown</a></li><li><a href="global.html#event:onDocumentMouseMove">onDocumentMouseMove</a></li><li><a href="global.html#event:onDocumentMouseOut">onDocumentMouseOut</a></li><li><a href="global.html#event:onDocumentMouseUp">onDocumentMouseUp</a></li><li><a href="global.html#event:onDocumentTouchMove">onDocumentTouchMove</a></li><li><a href="global.html#event:onDocumentTouchStart">onDocumentTouchStart</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBaubles">addBaubles</a></li><li><a href="global.html#addGround">addGround</a></li><li><a href="global.html#addLight">addLight</a></li><li><a href="global.html#addObject">addObject</a></li><li><a href="global.html#addPresent">addPresent</a></li><li><a href="global.html#addSnowflakes">addSnowflakes</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#cameraControl">cameraControl</a></li><li><a href="global.html#container">container</a></li><li><a href="global.html#displayHelpers">displayHelpers</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#group">group</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#imageNames">imageNames</a></li><li><a href="global.html#imageNames2">imageNames2</a></li><li><a href="global.html#inAndOutCamera">inAndOutCamera</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#lightHelpers">lightHelpers</a></li><li><a href="global.html#makeCamera">makeCamera</a></li><li><a href="global.html#makeGreeting">makeGreeting</a></li><li><a href="global.html#makeTree">makeTree</a></li><li><a href="global.html#mouseX">mouseX</a></li><li><a href="global.html#mouseXOnMouseDown">mouseXOnMouseDown</a></li><li><a href="global.html#oLoader">oLoader</a></li><li><a href="global.html#onWindowResize">onWindowResize</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#prepareMaterials">prepareMaterials</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#showHelpers">showHelpers</a></li><li><a href="global.html#targetRotation">targetRotation</a></li><li><a href="global.html#targetRotationOnMouseDown">targetRotationOnMouseDown</a></li><li><a href="global.html#teaPotGroup">teaPotGroup</a></li><li><a href="global.html#windowHalfX">windowHalfX</a></li><li><a href="global.html#windowHalfY">windowHalfY</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Camera.html">Camera</a></li><li><a href="external-THREE.Material.html">Material</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onDocumentMouseDown">onDocumentMouseDown</a></li><li><a href="global.html#event:onDocumentMouseMove">onDocumentMouseMove</a></li><li><a href="global.html#event:onDocumentMouseOut">onDocumentMouseOut</a></li><li><a href="global.html#event:onDocumentMouseUp">onDocumentMouseUp</a></li><li><a href="global.html#event:onDocumentTouchMove">onDocumentTouchMove</a></li><li><a href="global.html#event:onDocumentTouchStart">onDocumentTouchStart</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBaubles">addBaubles</a></li><li><a href="global.html#addGround">addGround</a></li><li><a href="global.html#addLight">addLight</a></li><li><a href="global.html#addObject">addObject</a></li><li><a href="global.html#addPresent">addPresent</a></li><li><a href="global.html#addSnowflakes">addSnowflakes</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#cameraControl">cameraControl</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#container">container</a></li><li><a href="global.html#displayHelpers">displayHelpers</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#group">group</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#imageNames">imageNames</a></li><li><a href="global.html#inAndOutCamera">inAndOutCamera</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#lightHelpers">lightHelpers</a></li><li><a href="global.html#makeCamera">makeCamera</a></li><li><a href="global.html#makeGreeting">makeGreeting</a></li><li><a href="global.html#makeTree">makeTree</a></li><li><a href="global.html#mouseX">mouseX</a></li><li><a href="global.html#mouseXOnMouseDown">mouseXOnMouseDown</a></li><li><a href="global.html#oLoader">oLoader</a></li><li><a href="global.html#onWindowResize">onWindowResize</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#prepareMaterials">prepareMaterials</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#showHelpers">showHelpers</a></li><li><a href="global.html#targetRotation">targetRotation</a></li><li><a href="global.html#targetRotationOnMouseDown">targetRotationOnMouseDown</a></li><li><a href="global.html#teaPotGroup">teaPotGroup</a></li><li><a href="global.html#windowHalfX">windowHalfX</a></li><li><a href="global.html#windowHalfY">windowHalfY</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Feb 18 2024 20:29:57 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 19 2024 07:51:09 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

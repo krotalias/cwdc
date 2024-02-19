@@ -2,7 +2,7 @@
  * @file
  *
  * Summary.
- * <p>Renders a christmas scene - Merry (Early) Christmas.</p>
+ * <p>Renders a Christmas scene - Merry (Early) Christmas.</p>
  *
  * @author Flavia Cavalcanti
  * @since 24/11/2015
@@ -102,74 +102,98 @@ let renderer;
  * A container holding the greeting and the canvas.
  * @type {HTMLDivElement}
  */
-var container;
+let container;
 
 /**
  * Rotation about the "Y" axis, applied by the renderer to the scene,
  * based on mouse displacement.
  * @type {Number}
  */
-var targetRotation = 0;
+let targetRotation = 0;
 
 /**
  * Target rotation when the mouse is clicked.
  * @type {Number}
  */
-var targetRotationOnMouseDown = 0;
+let targetRotationOnMouseDown = 0;
 
 /**
  * An event (clientX - windowHalfX).
  * @type {Number}
  */
-var mouseX = 0;
+let mouseX = 0;
 
 /**
  * An event (clientX - windowHalfX) when a movement starts.
  * @type {Number}
  */
-var mouseXOnMouseDown = 0;
+let mouseXOnMouseDown = 0;
 
 /**
  * Half of the window {@link https://developer.mozilla.org/en-US/docs/Web/API/window/innerWidth innerWidth} property.
  * @type {Number}
  */
-var windowHalfX = window.innerWidth / 2;
+let windowHalfX = window.innerWidth / 2;
 
 /**
  * Half of the window {@link https://developer.mozilla.org/en-US/docs/Web/API/window/innerHeight innerHeight} property.
  * @type {Number}
  */
-var windowHalfY = window.innerHeight / 2;
+let windowHalfY = window.innerHeight / 2;
 
 /**
  * Will pause the camera rotation.
  * @type {Boolean}
  */
-var paused = false;
+let paused = false;
 
 /**
  * Camera will move around the tree in and out.
  * @type {Boolean}
  */
-var inAndOutCamera = true;
+let inAndOutCamera = true;
 
 /**
  * Display help.
  * @type {Boolean}
  */
-var help = false;
+let help = false;
 
 /**
  * Image directory.
  * @type {String}
  */
-var path = "img/";
+const path = "img/";
 
 /**
  * Light helpers switch.
  * @type {Boolean}
  */
 let showHelpers = false;
+
+/**
+ * Color table.
+ * @type {Object<String,external:THREE.Color>}
+ */
+let colorTable = {
+  white: new THREE.Color(0xffffff),
+  red: new THREE.Color(0xff0000),
+  green: new THREE.Color(0x008800),
+  blue: new THREE.Color(0x000099),
+  lightBlue: new THREE.Color(0x00ccff),
+  veryLightBlue: new THREE.Color(0xd2ddef),
+  black: new THREE.Color(0x222222),
+  black2: new THREE.Color(0x111111),
+  blackSRGB: new THREE.Color(0x333333),
+  orange: new THREE.Color(0xffcc00),
+  yellow: new THREE.Color(0xffff00),
+  brown: new THREE.Color(0x995500),
+  lightBrown: new THREE.Color(0xcc6600),
+  darkBrown: new THREE.Color(0x584000),
+  white2: new THREE.Color(0xfffff6),
+  amber: new THREE.Color(0xffae00),
+  purple: new THREE.Color(0x590fa3),
+};
 
 /**
  * Light helpers.
@@ -189,29 +213,27 @@ const lightHelpers = {
 
 /**
  * Not the best for a skybox, but the effect is quite psychadelic.
- * @type {Array<String>}
+ * @type {Object<Symbol, Array<String>>}
  */
-var imageNames = [
-  path + "wrappingPaper.jpg",
-  path + "wrappingPaper.jpg",
-  path + "wrappingPaper.jpg",
-  path + "wrappingPaper.jpg",
-  path + "wrappingPaper.jpg",
-  path + "wrappingPaper.jpg",
-];
-
-/**
- * Not the best for a skybox, but the effect is quite psychadelic.
- * @type {Array<String>}
- */
-var imageNames2 = [
-  path + "wrappingPaper2.jpg",
-  path + "wrappingPaper2.jpg",
-  path + "wrappingPaper2.jpg",
-  path + "wrappingPaper2.jpg",
-  path + "wrappingPaper2.jpg",
-  path + "wrappingPaper2.jpg",
-];
+const imageNames = {
+  img1: [
+    "wrappingPaper.jpg",
+    "wrappingPaper.jpg",
+    "wrappingPaper.jpg",
+    "wrappingPaper.jpg",
+    "wrappingPaper.jpg",
+    "wrappingPaper.jpg",
+  ],
+  img2: [
+    "wrappingPaper2.jpg",
+    "wrappingPaper2.jpg",
+    "wrappingPaper2.jpg",
+    "wrappingPaper2.jpg",
+    "wrappingPaper2.jpg",
+    "wrappingPaper2.jpg",
+  ],
+  img3: ["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"],
+};
 
 /**
  * <p>Resizes the scene according to the screen size.</p>
@@ -375,8 +397,8 @@ function getChar(event) {
  * @param {String} ch a given character.
  */
 function cameraControl(c, ch) {
-  var distance = c.position.length();
-  var q, q2;
+  let distance = c.position.length();
+  let q, q2;
 
   switch (ch) {
     // camera controls
@@ -479,7 +501,7 @@ function cameraControl(c, ch) {
  * @param {KeyboardEvent} event keydown event.
  */
 function handleKeyPress(event) {
-  var ch = getChar(event);
+  let ch = getChar(event);
   cameraControl(camera, ch);
   switch (ch) {
     case " ":
@@ -535,7 +557,7 @@ function prepareMaterials(group) {
   ];
 
   const shininess = 50;
-  const specular = 0x333333;
+  const specular = colorTable.blackSRGB;
   const bumpScale = 1;
   const shading = THREE.SmoothShading;
   const mats = {};
@@ -554,24 +576,24 @@ function prepareMaterials(group) {
         map: texture,
         bumpMap: texture,
         bumpScale: bumpScale,
-        color: 0xff0000,
-        ambient: 0xffffff,
+        color: colorTable.red,
+        ambient: colorTable.white,
         specular: specular,
         shininess: shininess,
         shading: shading,
       });
       mats[`${key}1`] = new THREE.MeshPhongMaterial({
         map: texture,
-        color: 0x008800,
-        ambient: 0xffffff,
+        color: colorTable.green,
+        ambient: colorTable.white,
         specular: specular,
         shininess: shininess,
         shading: shading,
       });
       mats[`${key}3`] = new THREE.MeshPhongMaterial({
         map: texture,
-        color: 0xff0000,
-        ambient: 0xffffff,
+        color: colorTable.red,
+        ambient: colorTable.white,
         shading: shading,
       });
     }
@@ -579,13 +601,13 @@ function prepareMaterials(group) {
     // this is what is really used
     mats[key] = new THREE.MeshPhongMaterial({
       map: texture,
-      color: 0x584000,
-      ambient: 0xffffff,
+      color: colorTable.darkBrown,
+      ambient: colorTable.white,
       shading: shading,
     });
   });
 
-  makeTree(mats, group);
+  makeTree(group, mats);
 }
 
 /**
@@ -603,16 +625,16 @@ function prepareMaterials(group) {
  */
 function addPresent(group, size, x, y, z, images) {
   // load the six images
-  var ourCubeMap = new THREE.ImageUtils.loadTextureCube(images);
+  const ourCubeMap = new THREE.ImageUtils.loadTextureCube(images);
 
   // Use a built-in Three.js shader for cube maps
-  var cubeMapShader = THREE.ShaderLib["cube"];
+  const cubeMapShader = THREE.ShaderLib["cube"];
 
   // point it to our texture
   cubeMapShader.uniforms["tCube"].value = ourCubeMap;
 
   // make a ShaderMaterial using this shader's properties
-  var material = new THREE.ShaderMaterial({
+  const material = new THREE.ShaderMaterial({
     fragmentShader: cubeMapShader.fragmentShader,
     vertexShader: cubeMapShader.vertexShader,
     uniforms: cubeMapShader.uniforms,
@@ -620,9 +642,14 @@ function addPresent(group, size, x, y, z, images) {
   });
 
   // Create a mesh for the object, using the cube shader as the material
-  var cube = new THREE.Mesh(new THREE.CubeGeometry(size, size, size), material);
+  const cube = new THREE.Mesh(
+    new THREE.CubeGeometry(size, size, size),
+    material,
+  );
   cube.position.set(x, y, z);
   cube.castShadow = true;
+  cube.name = "Present";
+
   // add it to the scene
   group.add(cube);
 }
@@ -632,11 +659,15 @@ function addPresent(group, size, x, y, z, images) {
  * @param {external:THREE.Object3D} group - the given group to add the ground to.
  */
 function addGround(group) {
-  var groundColor = new THREE.Color(0xd2ddef);
-  var groundTexture2 = THREE.ImageUtils.generateDataTexture(1, 1, groundColor);
+  const groundColor = new THREE.Color(colorTable.veryLightBlue);
+  const groundTexture2 = THREE.ImageUtils.generateDataTexture(
+    1,
+    1,
+    groundColor,
+  );
   const groundMaterial = new THREE.MeshPhongMaterial({
-    color: 0xffffff,
-    specular: 0x111111,
+    color: colorTable.white,
+    specular: colorTable.black2,
     map: groundTexture2,
   });
 
@@ -658,12 +689,13 @@ function addGround(group) {
   groundMesh.position.y = -150;
   groundMesh.rotation.x = -Math.PI / 2;
   groundMesh.receiveShadow = true;
+  groundMesh.name = "Ground";
   group.add(groundMesh);
 }
 
 /**
  * <p>Christmas needs frigging snowflakes.</p>
- * Except christmas in Brazil, then its just palm trees...
+ * Except Christmas in Brazil, then its just palm trees...
  * Based on a tutorial found on {@link ScriptsTutorial.com huzzah}
  * @param {external:THREE.Object3D} group - the given group to add the snowflakes to.
  */
@@ -674,7 +706,7 @@ function addSnowflakes(group) {
   const sfTexture2 = THREE.ImageUtils.loadTexture(path + "snowflake2.png");
 
   for (let i = 0; i < 3700; i++) {
-    var vertex = new THREE.Vector3();
+    let vertex = new THREE.Vector3();
     vertex.x = Math.random() * 2000 - 1000;
     vertex.y = Math.random() * 2000 - 1000;
     vertex.z = Math.random() * 2000 - 1000;
@@ -710,74 +742,40 @@ function addSnowflakes(group) {
     particles.rotation.y = Math.random() * 10;
     particles.rotation.z = Math.random() * 17;
 
+    particles.name = "Particles";
     group.add(particles);
   });
 }
 
 /**
- * Make the christmas tree.
- * @param {Object<String,external:THREE.Material>} materials - the given material object.
+ * Make the Christmas tree, which is just a bunch of stacked cones (cylinders).
  * @param {external:THREE.Object3D} group - the given group to add the tree to.
+ * @param {Object<String,external:THREE.Material>} materials - the given material object.
+ * @see https://threejs.org/docs/#api/en/geometries/CylinderGeometry
  */
-function makeTree(materials, group) {
-  var treeTop = new THREE.Mesh(
-    new THREE.CylinderGeometry(1, 30, 50, 30, 1, false),
-    materials.pine,
-  );
-  var treeTop1 = new THREE.Mesh(
-    new THREE.CylinderGeometry(1, 40, 70, 30, 1, false),
-    materials.pine,
-  );
-  var treeTop2 = new THREE.Mesh(
-    new THREE.CylinderGeometry(1, 50, 80, 30, 1, false),
-    materials.pine,
-  );
-  var treeMid = new THREE.Mesh(
-    new THREE.CylinderGeometry(1, 60, 90, 30, 1, false),
-    materials.pine,
-  );
-  var treeMid2 = new THREE.Mesh(
-    new THREE.CylinderGeometry(1, 70, 80, 30, 1, false),
-    materials.pine,
-  );
-  var treeMid3 = new THREE.Mesh(
-    new THREE.CylinderGeometry(1, 80, 90, 30, 1, false),
-    materials.pine,
-  );
-  var treeBase = new THREE.Mesh(
-    new THREE.CylinderGeometry(1, 95, 95, 30, 1, false),
-    materials.pine,
-  );
+function makeTree(group, materials) {
+  // radius top, radius bottom, height, radial segments, height segments.
+  const tree = [
+    { geometry: [1, 30, 50, 30, 1], y: 130, material: materials.pine },
+    { geometry: [1, 40, 70, 30, 1], y: 110, material: materials.pine },
+    { geometry: [1, 50, 80, 30, 1], y: 85, material: materials.pine },
+    { geometry: [1, 60, 90, 30, 1], y: 65, material: materials.pine },
+    { geometry: [1, 70, 80, 30, 1], y: 30, material: materials.pine },
+    { geometry: [1, 80, 90, 30, 1], y: 5, material: materials.pine },
+    { geometry: [1, 95, 95, 30, 1], y: -20, material: materials.pine },
+    { geometry: [2, 20, 300, 30, 1], y: 0, material: materials.wood },
+  ];
 
-  var trunk = new THREE.Mesh(
-    new THREE.CylinderGeometry(2, 20, 300, 30, 1, false),
-    materials.wood,
-  );
-
-  treeTop.position.set(0, 130, 0);
-  treeTop.castShadow = true;
-  treeTop1.position.set(0, 110, 0);
-  treeTop1.castShadow = true;
-  treeTop2.position.set(0, 85, 0);
-  treeTop2.castShadow = true;
-  treeMid.position.set(0, 65, 0);
-  treeMid.castShadow = true;
-  treeMid2.position.set(0, 30, 0);
-  treeMid2.castShadow = true;
-  treeMid3.position.set(0, 5, 0);
-  treeMid3.castShadow = true;
-  treeBase.position.set(0, -20, 0);
-  treeBase.castShadow = true;
-  trunk.castShadow = true;
-
-  group.add(trunk);
-  group.add(treeTop);
-  group.add(treeTop1);
-  group.add(treeTop2);
-  group.add(treeMid);
-  group.add(treeMid2);
-  group.add(treeMid3);
-  group.add(treeBase);
+  tree.forEach((elem) => {
+    const t = new THREE.Mesh(
+      new THREE.CylinderGeometry(...elem.geometry, false),
+      elem.material,
+    );
+    t.castShadow = true;
+    t.position.set(0, elem.y, 0);
+    t.name = "Tree";
+    group.add(t);
+  });
 
   addBaubles(group, materials);
 }
@@ -790,201 +788,56 @@ function makeTree(materials, group) {
  * @param {external:THREE.Object3D} group - the given group to add the baubles to.
  */
 function addBaubles(group, materials) {
-  var bauble = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.red,
-  );
-  var bauble1 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.yellow,
-  );
-  var bauble2 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.red,
-  );
-  var bauble3 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.yellow,
-  );
+  const bauble = [
+    { geometry: [5, 15, 5], position: [15, 135, 5], color: materials.red },
+    { geometry: [5, 15, 5], position: [0, 135, 13], color: materials.yellow },
+    { geometry: [5, 15, 5], position: [0, 135, -13], color: materials.red },
+    { geometry: [5, 15, 5], position: [-15, 135, -5], color: materials.yellow },
 
-  bauble.position.set(15, 135, 5);
-  bauble1.position.set(0, 135, 13);
-  bauble2.position.set(0, 135, -13);
-  bauble3.position.set(-15, 135, -5);
+    { geometry: [6, 15, 5], position: [35, 90, 5], color: materials.blue },
+    { geometry: [5, 15, 5], position: [0, 90, 33], color: materials.red },
+    { geometry: [6, 15, 5], position: [-35, 90, -5], color: materials.blue },
+    { geometry: [5, 15, 5], position: [0, 90, -33], color: materials.red },
 
-  group.add(bauble);
-  group.add(bauble1);
-  group.add(bauble2);
-  group.add(bauble3);
+    { geometry: [7, 15, 5], position: [35, 60, 25], color: materials.green },
+    { geometry: [5, 15, 5], position: [-30, 60, 33], color: materials.yellow },
+    { geometry: [7, 15, 5], position: [-35, 60, -25], color: materials.green },
+    { geometry: [5, 15, 5], position: [30, 60, -33], color: materials.yellow },
 
-  var bauble4 = new THREE.Mesh(
-    new THREE.SphereGeometry(6, 15, 5),
-    materials.blue,
-  );
-  var bauble5 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.red,
-  );
-  var bauble6 = new THREE.Mesh(
-    new THREE.SphereGeometry(6, 15, 5),
-    materials.blue,
-  );
-  var bauble7 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.red,
-  );
+    { geometry: [8, 15, 5], position: [48, 35, 25], color: materials.red },
+    { geometry: [5, 15, 5], position: [-42, 35, 33], color: materials.blue },
+    { geometry: [8, 15, 5], position: [-48, 35, -25], color: materials.red },
+    { geometry: [5, 15, 5], position: [42, 35, -33], color: materials.blue },
 
-  bauble4.position.set(35, 90, 5);
-  bauble5.position.set(0, 90, 33);
-  bauble6.position.set(-35, 90, -5);
-  bauble7.position.set(0, 90, -33);
+    { geometry: [6, 15, 5], position: [-52, 7, 25], color: materials.yellow },
+    { geometry: [5, 15, 5], position: [50, 7, 33], color: materials.green },
+    { geometry: [6, 15, 5], position: [52, 7, -25], color: materials.yellow },
+    { geometry: [5, 15, 5], position: [-50, 7, -33], color: materials.green },
 
-  group.add(bauble4);
-  group.add(bauble5);
-  group.add(bauble6);
-  group.add(bauble7);
+    { geometry: [7, 15, 5], position: [65, -25, 25], color: materials.blue },
+    { geometry: [5, 15, 5], position: [-30, -25, 63], color: materials.red },
+    { geometry: [7, 15, 5], position: [-65, -25, -25], color: materials.blue },
+    { geometry: [5, 15, 5], position: [30, -25, -63], color: materials.red },
 
-  var bauble8 = new THREE.Mesh(
-    new THREE.SphereGeometry(7, 15, 5),
-    materials.green,
-  );
-  var bauble9 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.yellow,
-  );
-  var bauble10 = new THREE.Mesh(
-    new THREE.SphereGeometry(7, 15, 5),
-    materials.green,
-  );
-  var bauble11 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.yellow,
-  );
+    { geometry: [8, 15, 5], position: [80, -50, 25], color: materials.red },
+    { geometry: [6, 15, 5], position: [-40, -50, 73], color: materials.yellow },
+    { geometry: [8, 15, 5], position: [-80, -50, -25], color: materials.red },
+    { geometry: [6, 15, 5], position: [40, -50, -73], color: materials.yellow },
+  ];
 
-  bauble8.position.set(35, 60, 25);
-  bauble9.position.set(-30, 60, 33);
-  bauble10.position.set(-35, 60, -25);
-  bauble11.position.set(30, 60, -33);
-
-  group.add(bauble8);
-  group.add(bauble9);
-  group.add(bauble10);
-  group.add(bauble11);
-
-  var bauble12 = new THREE.Mesh(
-    new THREE.SphereGeometry(8, 15, 5),
-    materials.red,
-  );
-  var bauble13 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.blue,
-  );
-  var bauble14 = new THREE.Mesh(
-    new THREE.SphereGeometry(8, 15, 5),
-    materials.red,
-  );
-  var bauble15 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.blue,
-  );
-
-  bauble12.position.set(48, 35, 25);
-  bauble13.position.set(-42, 35, 33);
-  bauble14.position.set(-48, 35, -25);
-  bauble15.position.set(42, 35, -33);
-
-  group.add(bauble12);
-  group.add(bauble13);
-  group.add(bauble14);
-  group.add(bauble15);
-
-  var bauble16 = new THREE.Mesh(
-    new THREE.SphereGeometry(6, 15, 5),
-    materials.yellow,
-  );
-  var bauble17 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.green,
-  );
-  var bauble18 = new THREE.Mesh(
-    new THREE.SphereGeometry(6, 15, 5),
-    materials.yellow,
-  );
-  var bauble19 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.green,
-  );
-
-  bauble16.position.set(-52, 7, 25);
-  bauble17.position.set(50, 7, 33);
-  bauble18.position.set(52, 7, -25);
-  bauble19.position.set(-50, 7, -33);
-
-  group.add(bauble16);
-  group.add(bauble17);
-  group.add(bauble18);
-  group.add(bauble19);
-
-  var bauble20 = new THREE.Mesh(
-    new THREE.SphereGeometry(7, 15, 5),
-    materials.blue,
-  );
-  var bauble21 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.red,
-  );
-  var bauble22 = new THREE.Mesh(
-    new THREE.SphereGeometry(7, 15, 5),
-    materials.blue,
-  );
-  var bauble23 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 15, 5),
-    materials.red,
-  );
-
-  bauble20.position.set(65, -25, 25);
-  bauble21.position.set(-30, -25, 63);
-  bauble22.position.set(-65, -25, -25);
-  bauble23.position.set(30, -25, -63);
-
-  group.add(bauble20);
-  group.add(bauble21);
-  group.add(bauble22);
-  group.add(bauble23);
-
-  var bauble24 = new THREE.Mesh(
-    new THREE.SphereGeometry(8, 15, 5),
-    materials.red,
-  );
-  var bauble25 = new THREE.Mesh(
-    new THREE.SphereGeometry(6, 15, 5),
-    materials.yellow,
-  );
-  var bauble26 = new THREE.Mesh(
-    new THREE.SphereGeometry(8, 15, 5),
-    materials.red,
-  );
-  var bauble27 = new THREE.Mesh(
-    new THREE.SphereGeometry(6, 15, 5),
-    materials.yellow,
-  );
-
-  bauble24.position.set(80, -50, 25);
-  bauble25.position.set(-40, -50, 73);
-  bauble26.position.set(-80, -50, -25);
-  bauble27.position.set(40, -50, -73);
-
-  group.add(bauble24);
-  group.add(bauble25);
-  group.add(bauble26);
-  group.add(bauble27);
+  bauble.forEach((e, i) => {
+    const b = new THREE.Mesh(new THREE.SphereGeometry(...e.geometry), e.color);
+    b.position.set(...e.position);
+    b.name = `bauble${i}`;
+    group.add(b);
+  });
 }
 
 /**
  * <p>Loads an object to the scene.</p>
  * Used to add the teapot and the bunnies.
  * Frigging bunnies all around, everyone loves bunnies.
- * Teapot is our new christmas tree star.
+ * Teapot is our new Christmas tree star.
  *
  * @param {external:THREE.Object3D} group - the given group to add the object to.
  * @param {String} objectFile - the object file to be read.
@@ -1001,9 +854,9 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
    * @var {OBJLoader}
    * @global
    */
-  var oLoader = new THREE.OBJLoader();
+  const oLoader = new THREE.OBJLoader();
   oLoader.load(objectFile, function (object) {
-    var material2 = new THREE.MeshLambertMaterial({ color: color });
+    const material2 = new THREE.MeshLambertMaterial({ color: color });
 
     object.traverse(function (child) {
       if (child instanceof THREE.Mesh) {
@@ -1016,11 +869,11 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
       }
     });
 
-    object.position.x = x;
-    object.position.y = y;
-    object.position.z = z;
+    object.position.set(x, y, z);
     object.scale.set(size, size, size);
     object.rotateY(rotate);
+
+    object.name = objectFile;
     group.add(object);
   });
 }
@@ -1030,34 +883,43 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
  */
 function displayHelpers() {
   showHelpers = !showHelpers;
-  if (showHelpers) {
-    scene.add(lightHelpers.phelper);
-    scene.add(lightHelpers.shelper);
-    scene.add(lightHelpers.dhelper);
-  } else {
-    scene.remove(lightHelpers.phelper);
-    scene.remove(lightHelpers.shelper);
-    scene.remove(lightHelpers.dhelper);
-  }
+  // because of strict mode, "this" is undefined
+  let action = showHelpers ? scene.add.bind(scene) : scene.remove.bind(scene);
+
+  Object.keys(lightHelpers).forEach((key) => {
+    action(lightHelpers[key]);
+  });
   return false;
 }
 
 /**
- * Lights galore - includes point lights, spot lights,
- * and a directional light because why not?
+ * <p>Lights galore - includes {@link https://threejs.org/docs/#api/en/lights/PointLight point lights},
+ * {@link https://threejs.org/docs/#api/en/lights/SpotLight spot lights},
+ * and a {@link https://threejs.org/docs/#api/en/lights/DirectionalLight directional light}
+ * because why not?</p>
+ *
+ * Lighting and color has changed a lot since version
+ * {@link https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733/23 155}.
+ *
+ * These updates enable a
+ * {@link https://www.willgibbons.com/linear-workflow/ “linear workflow”}
+ * by default, for better
+ * {@link https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear image quality}.
+ *
  * @param {external:THREE.Scene} scene - the given scene.
  */
 function addLight(scene) {
-  scene.add(new THREE.AmbientLight(0x222222, 0.2));
+  scene.add(new THREE.AmbientLight(colorTable.black, 0.2));
 
-  const pointLight = new THREE.PointLight(0x00ccff, 1.3, 1000);
+  const pointLight = new THREE.PointLight(colorTable.lightBlue, 1.3, 1000);
   pointLight.position.set(200, 100, 0);
   pointLight.castShadow = false;
   scene.add(pointLight);
 
   lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
+  lightHelpers.phelper.name = "PointLight";
 
-  const spotLight = new THREE.SpotLight(0xffffff, 1);
+  const spotLight = new THREE.SpotLight(colorTable.white, 1);
   spotLight.position.set(200, 200, 200);
   spotLight.angle = Math.PI / 6;
   spotLight.decay = 2;
@@ -1074,18 +936,16 @@ function addLight(scene) {
   scene.add(spotLight);
 
   lightHelpers.shelper = new THREE.SpotLightHelper(spotLight);
+  lightHelpers.shelper.name = "SpotLight";
 
   // add directional light
-  const directionalLight = new THREE.DirectionalLight(0x000099, 2);
+  const directionalLight = new THREE.DirectionalLight(colorTable.blue, 2);
   directionalLight.position.set(400, 1, 200);
   directionalLight.castShadow = false;
   scene.add(directionalLight);
 
-  lightHelpers.dhelper = new THREE.DirectionalLightHelper(
-    directionalLight,
-    15,
-    0xffffff,
-  );
+  lightHelpers.dhelper = new THREE.DirectionalLightHelper(directionalLight, 15);
+  lightHelpers.dhelper.name = "DirectionalLight";
 }
 
 /**
@@ -1096,10 +956,10 @@ function makeGreeting() {
   container = document.createElement("div");
   document.body.appendChild(container);
   // display Info
-  var greeting = document.createElement("div");
+  const greeting = document.createElement("div");
   greeting.setAttribute("id", "greeting");
   greeting.innerHTML = "<b>MERRY CHRISTMAS!</b><br>";
-  var info = document.createElement("div");
+  const info = document.createElement("div");
   info.setAttribute("id", "info");
   greeting.setAttribute("id", "greeting");
   greeting.style.position = "absolute";
@@ -1139,7 +999,7 @@ function init() {
   scene = new THREE.Scene();
 
   // add fog to scene
-  scene.fog = new THREE.Fog(0x590fa3, 500, 10000);
+  scene.fog = new THREE.Fog(colorTable.purple, 500, 10000);
 
   makeCamera(scene);
 
@@ -1153,18 +1013,20 @@ function init() {
   prepareMaterials(group);
 
   // add 3 skyboxes
-  addPresent(group, 50, 20, -125, 60, imageNames2);
-  addPresent(group, 30, -20, -135, -60, imageNames);
-  addPresent(group, 20, -20, -140, 100, imageNames);
+  imageNames.img2 = imageNames.img2.map((img) => path + img);
+  imageNames.img1 = imageNames.img1.map((img) => path + img);
+  addPresent(group, 50, 20, -125, 60, imageNames.img2);
+  addPresent(group, 30, -20, -135, -60, imageNames.img1);
+  addPresent(group, 20, -20, -140, 100, imageNames.img1);
 
   // add our star teapot
-  addObject(teaPotGroup, "teapot.obj", 0, 155, 0, 0.3, 0, 0xffff00);
+  addObject(teaPotGroup, "teapot.obj", 0, 155, 0, 0.3, 0, colorTable.yellow);
 
   // bunnies for days
-  addObject(group, "bunny.obj", 80, -130, 0, 20, 0, 0x995500);
-  addObject(group, "bunny.obj", -50, -140, 0, 10, -90, 0xcc6600);
-  addObject(group, "bunny.obj", 100, -135, 60, 15, 40, 0xfffff6);
-  addObject(group, "bunny.obj", 20, -143, -60, 8, -180, 0xffae00);
+  addObject(group, "bunny.obj", 80, -130, 0, 20, 0, colorTable.brown);
+  addObject(group, "bunny.obj", -50, -140, 0, 10, -90, colorTable.lightBrown);
+  addObject(group, "bunny.obj", 100, -135, 60, 15, 40, colorTable.white2);
+  addObject(group, "bunny.obj", 20, -143, -60, 8, -180, colorTable.amber);
 
   addGround(group);
 
