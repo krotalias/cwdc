@@ -15,6 +15,7 @@
  * @see <a href="/cwdc/13-webgl/homework/img">images</a>
  * @see <a href="/cwdc/13-webgl/homework/textures/cube">cube textures</a>
  * @see <a href="../../img/tree.png"><img src="../../img/tree.png" width="512"></a>
+ * @see <a href="../../img/tree.shadow.png"><img src="../../img/tree.shadow.png" width="512"></a>
  */
 
 "use strict";
@@ -767,7 +768,7 @@ function addGround(group) {
 
 /**
  * <p>Christmas needs frigging snowflakes.</p>
- * Except Christmas in Brazil, then its just palm trees...
+ * Except Christmas in Brazil, then it is just palm trees...
  * Based on a tutorial found on {@link https://script-tutorials.com/tag/webgl/ huzzah}
  * @param {external:THREE.Group} group - the given group to add the snowflakes to.
  */
@@ -1246,7 +1247,7 @@ function render() {
   // mouse click and drag
   group.rotation.y += (targetRotation - group.rotation.y) * 0.01;
 
-  // spinning teapot -- its a nice star
+  // spinning teapot -- it is a nice star
   teaPotGroup.rotation.y += 0.03;
 
   if (!paused && inAndOutCamera) {
