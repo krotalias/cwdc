@@ -248,6 +248,7 @@ const lightHelpers = {
   dhelper: null,
   shelper: null,
   phelper: null,
+  chelper: null,
 };
 
 /**
@@ -1007,7 +1008,8 @@ function displayHelpers() {
     } else if (
       lightHelpers[key].name === "PointLight" ||
       lightHelpers[key].name === "SpotLight" ||
-      lightHelpers[key].name === "DirectionalLight"
+      lightHelpers[key].name === "DirectionalLight" ||
+      lightHelpers[key].name === "CameraHelper"
     ) {
       action2(lightHelpers[key]);
     } else {
@@ -1045,29 +1047,34 @@ function addLight(scene) {
   lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
   lightHelpers.phelper.name = "PointLight";
 
-  const spotLight = new THREE.SpotLight(colorTable.white, 0.3);
+  const spotLight = new THREE.SpotLight(colorTable.white, 1);
   spotLight.position.set(200, 200, 200);
   spotLight.angle = Math.PI / 6;
+  spotLight.decay = 0;
+  spotLight.distance = 0;
+  spotLight.penumbra = 0.2;
 
   spotLight.castShadow = true;
 
-  spotLight.shadowMapWidth = 1024;
-  spotLight.shadowMapHeight = 1024;
+  spotLight.shadow.mapSize.width = 1024;
+  spotLight.shadow.mapSize.height = 1024;
 
-  spotLight.shadowCameraNear = 0.5;
-  spotLight.shadowCameraFar = 5000;
-  spotLight.shadowCameraFov = 30;
+  spotLight.shadow.camera.near = 0.5;
+  spotLight.shadow.camera.far = 5000;
+  spotLight.shadow.camera.fov = 60;
   spotLight.shadow.focus = 1;
 
   scene.add(spotLight);
 
+  lightHelpers.chelper = new THREE.CameraHelper(spotLight.shadow.camera);
+  lightHelpers.chelper.name = "CameraHelper";
   lightHelpers.shelper = new THREE.SpotLightHelper(spotLight);
   lightHelpers.shelper.name = "SpotLight";
 
   // colored directional light at double intensity shining from the top.
   const directionalLight = new THREE.DirectionalLight(colorTable.white, 2);
   directionalLight.position.set(400, 1, 200);
-  directionalLight.castShadow = true;
+  directionalLight.castShadow = false;
   scene.add(directionalLight);
 
   lightHelpers.dhelper = new THREE.DirectionalLightHelper(directionalLight, 15);
