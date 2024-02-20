@@ -1246,35 +1246,49 @@ function init() {
 }
 
 /**
- * Rotates the camera around the tree and
- * calls the {@link renderer renderer.render} method.
+ * A closure to render the application.
+ * @return {animate} animation callback.
+ * @function
+ * @global
+ * @see https://threejs.org/docs/#api/en/core/Object3D.rotation
  */
-function render() {
-  let timer = Date.now() * 0.00035;
-  let { x, y, z } = camera.position;
+const render = (() => {
+  let ang = 0;
+  const increment = THREE.MathUtils.degToRad(0.5);
   const rotSpeed = 0.004;
 
-  // mouse click and drag
-  group.rotation.y += (targetRotation - group.rotation.y) * 0.01;
+  /**
+   * Rotates the camera around the tree and
+   * calls the {@link renderer renderer.render} method.
+   * @callback animate
+   */
+  return () => {
+    let { x, y, z } = camera.position;
 
-  // spinning teapot -- it is a nice star
-  teaPotGroup.rotation.y += 0.03;
+    // mouse click and drag
+    group.rotation.y += (targetRotation - group.rotation.y) * 0.01;
 
-  if (!paused && inAndOutCamera) {
-    camera.position.x = Math.cos(timer) * 1000;
-    camera.position.z = Math.sin(timer) * 500;
-  }
+    // spinning teapot -- it is a nice star
+    teaPotGroup.rotation.y += 0.03;
 
-  if (!paused && !inAndOutCamera) {
-    // rotate camera around tree
-    camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-    camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
-  }
+    if (!paused && inAndOutCamera) {
+      ang += increment;
+      ang %= 2 * Math.PI;
+      camera.position.x = Math.cos(ang) * 1000; // [-1000,1000]
+      camera.position.z = Math.sin(ang) * 500; // [-500,500]
+    }
 
-  camera.lookAt(scene.position);
+    if (!paused && !inAndOutCamera) {
+      // rotate camera around tree
+      camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+      camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+    }
 
-  renderer.render(scene, camera);
-}
+    camera.lookAt(scene.position);
+
+    renderer.render(scene, camera);
+  };
+})();
 
 /**
  * <p>Load the applicarion.</p>
