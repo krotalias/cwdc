@@ -1090,50 +1090,62 @@ function init() {
 /**
  * Triggers the animation loop by calling {@link render}.
  */
-function animate() {
-  requestAnimationFrame(animate);
+function animationLoop() {
+  requestAnimationFrame(animationLoop);
 
   render();
 }
 
 /**
- * Rotates the camera around the tree and
- * calls the {@link renderer renderer.render} method.
+ * A closure to render the application.
+ * @return {animate} animation callback.
+ * @function
+ * @global
+ * @see https://threejs.org/docs/#api/en/core/Object3D.rotation
+ * @see https://threejs.org/docs/#api/en/core/Clock
  */
-function render() {
-  let timer = Date.now() * 0.00035;
-  let { x, y, z } = camera.position;
+const render = (() => {
+  let ang = 0;
+  const timer = new THREE.Clock();
   const rotSpeed = 0.004;
 
-  // mouse click and drag
-  group.rotation.y += (targetRotation - group.rotation.y) * 0.01;
+  /**
+   * Rotates the camera around the tree and
+   * calls the {@link renderer renderer.render} method.
+   * @callback animate
+   */
+  return () => {
+    // mouse click and drag
+    group.rotation.y += (targetRotation - group.rotation.y) * 0.01;
 
-  // spinning teapot -- it is a nice star
-  teaPotGroup.rotation.y += 0.03;
+    // spinning teapot -- it is a nice star
+    teaPotGroup.rotation.y += 0.03;
 
-  if (!paused && inAndOutCamera) {
-    camera.position.x = Math.cos(timer) * 1000;
-    camera.position.z = Math.sin(timer) * 500;
-  }
+    if (!paused && inAndOutCamera) {
+      ang += timer.getDelta() * 0.35;
+      camera.position.x = Math.cos(ang) * 1000; // [-1000,100]
+      camera.position.z = Math.sin(ang) * 500; // [-500,500]
+    }
 
-  if (!paused && !inAndOutCamera) {
-    // rotate camera around tree
-    camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-    camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
-  }
+    if (!paused && !inAndOutCamera) {
+      // rotate camera around tree
+      camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+      camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+    }
 
-  camera.lookAt(scene.position);
+    camera.lookAt(scene.position);
 
-  renderer.render(scene, camera);
-}
+    renderer.render(scene, camera);
+  };
+})();
 
 /**
  * <p>Load the applicarion.</p>
- * {@link init Initialize} and start {@link animate animation}.
+ * {@link init Initialize} and start {@link animationLoop animation}.
  * @param {Event} event an object has loaded.
  * @event load
  */
 window.addEventListener("load", (event) => {
   init();
-  animate();
+  animationLoop();
 });
