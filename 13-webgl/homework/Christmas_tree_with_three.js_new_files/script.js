@@ -1027,6 +1027,10 @@ function displayHelpers() {
  * and a {@link https://threejs.org/docs/#api/en/lights/DirectionalLight directional light}
  * because why not?</p>
  *
+ * <p>We also created a
+ * {@link https://threejs.org/docs/#api/en/helpers/CameraHelper camera helper}
+ * for the spot light.</p>
+ *
  * Lighting and color has changed a lot since version
  * {@link https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733/23 155}.
  *
@@ -1195,25 +1199,6 @@ function init() {
   renderer.domElement.addEventListener("touchmove", onDocumentTouchMove, false);
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is resize.</p>
-   * <p>The {@link onWindowResize callback} argument sets the callback
-   * that will be invoked when the event is dispatched.</p>
-   * @param {Event} event the document view is resized.
-   * @param {callback} function function to run when the event occurs.
-   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-   * @event resize - executed when the window is resized.
-   */
-  window.addEventListener("resize", onWindowResize, false);
-
-  window.displayHelpers = displayHelpers;
-}
-
-/**
- * Triggers the animation by calling {@link render} and binds
- * the {@link event:keydown} event.
- */
-function animate() {
-  /**
    * <p>Key handler.</p>
    * Calls {@link handleKeyPress} when pressing assigned keys:
    * <ul>
@@ -1230,9 +1215,34 @@ function animate() {
    */
   document.addEventListener("keydown", handleKeyPress, false);
 
-  requestAnimationFrame(animate);
+  /**
+   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * <p>The {@link onWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @param {Event} event the document view is resized.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize - executed when the window is resized.
+   */
+  window.addEventListener("resize", onWindowResize, false);
 
-  render();
+  window.displayHelpers = displayHelpers;
+
+  /**
+   * <p>A built in function that can be used instead of
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}.</p>
+   * The {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.setAnimationLoop renderer.setAnimationLoop}
+   * parameter is a {@link render callback,} which
+   * will be called every available frame.<br>
+   * If null is passed it will stop any already ongoing animation.
+   * @param {function} loop callback.
+   * @function
+   * @name setAnimationLoop
+   * @global
+   */
+  renderer.setAnimationLoop(() => {
+    render();
+  });
 }
 
 /**
@@ -1274,5 +1284,4 @@ function render() {
  */
 window.addEventListener("load", (event) => {
   init();
-  animate();
 });

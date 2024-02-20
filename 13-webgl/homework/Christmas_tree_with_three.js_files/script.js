@@ -544,7 +544,7 @@ function handleKeyPress(event) {
 }
 
 /**
- * Prepare materials and add it to the given group scene.
+ * Prepare materials and creates the {@link makeTree tree}.
  * @param {external:THREE.Object3D} group the given group.
  */
 function prepareMaterials(group) {
@@ -1068,13 +1068,7 @@ function init() {
    * @event resize - executed when the window is resized.
    */
   window.addEventListener("resize", onWindowResize, false);
-}
 
-/**
- * Triggers the animation by calling {@link render} and binds
- * the {@link event:keydown} event.
- */
-function animate() {
   /**
    * <p>Key handler.</p>
    * Calls {@link handleKeyPress} when pressing assigned keys:
@@ -1091,7 +1085,12 @@ function animate() {
    * @event keydown
    */
   document.addEventListener("keydown", handleKeyPress, false);
+}
 
+/**
+ * Triggers the animation loop by calling {@link render}.
+ */
+function animate() {
   requestAnimationFrame(animate);
 
   render();
