@@ -11,6 +11,8 @@
  *
  * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_files/script.js">source</a>
  * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js.html">link</a>
+ * @see <a href="../../img/tree.shadow64.png"><img src="../../img/tree.shadow64.png" width="512"></a>
+ * @see <a href="../../img/tree.shadow64.helper.png"><img src="../../img/tree.shadow64.helper.png" width="512"></a>
  */
 
 "use strict";
@@ -209,6 +211,7 @@ const lightHelpers = {
   dhelper: null,
   shelper: null,
   phelper: null,
+  chelper: null,
 };
 
 /**
@@ -695,7 +698,7 @@ function addGround(group) {
 
 /**
  * <p>Christmas needs frigging snowflakes.</p>
- * Except Christmas in Brazil, then its just palm trees...
+ * Except Christmas in Brazil, then it is just palm trees...
  * Based on a tutorial found on {@link ScriptsTutorial.com huzzah}
  * @param {external:THREE.Object3D} group - the given group to add the snowflakes to.
  */
@@ -898,13 +901,9 @@ function displayHelpers() {
  * and a {@link https://threejs.org/docs/#api/en/lights/DirectionalLight directional light}
  * because why not?</p>
  *
- * Lighting and color has changed a lot since version
- * {@link https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733/23 155}.
- *
- * These updates enable a
- * {@link https://www.willgibbons.com/linear-workflow/ “linear workflow”}
- * by default, for better
- * {@link https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear image quality}.
+ * We also created a
+ * {@link https://threejs.org/docs/#api/en/helpers/CameraHelper camera helper}
+ * for the spot light.
  *
  * @param {external:THREE.Scene} scene - the given scene.
  */
@@ -931,10 +930,13 @@ function addLight(scene) {
 
   spotLight.shadowCameraNear = 0.5;
   spotLight.shadowCameraFar = 5000;
-  spotLight.shadowCameraFov = 50;
+  spotLight.shadowCameraFov = 60;
 
   scene.add(spotLight);
 
+  spotLight.shadowCamera = new THREE.PerspectiveCamera(60, 1, 0.5, 5000);
+  lightHelpers.chelper = new THREE.CameraHelper(spotLight.shadowCamera);
+  lightHelpers.chelper.name = "CameraHelper";
   lightHelpers.shelper = new THREE.SpotLightHelper(spotLight);
   lightHelpers.shelper.name = "SpotLight";
 
@@ -1107,7 +1109,7 @@ function render() {
   // mouse click and drag
   group.rotation.y += (targetRotation - group.rotation.y) * 0.01;
 
-  // spinning teapot -- its a nice star
+  // spinning teapot -- it is a nice star
   teaPotGroup.rotation.y += 0.03;
 
   if (!paused && inAndOutCamera) {
