@@ -1008,7 +1008,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line860">line 860</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line874">line 874</a>
     </li></ul></dd>
     
 
@@ -1883,7 +1883,7 @@ to the tree that actually looked like they were on the tree.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line793">line 793</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line807">line 807</a>
     </li></ul></dd>
     
 
@@ -2020,7 +2020,7 @@ to the tree that actually looked like they were on the tree.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line664">line 664</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line678">line 678</a>
     </li></ul></dd>
     
 
@@ -2164,7 +2164,7 @@ for the spot light.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line910">line 910</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line924">line 924</a>
     </li></ul></dd>
     
 
@@ -2468,7 +2468,7 @@ Teapot is our new Christmas tree star.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line854">line 854</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line868">line 868</a>
     </li></ul></dd>
     
 
@@ -2504,7 +2504,7 @@ Teapot is our new Christmas tree star.
     
 
     
-    <h4 class="name" id="addPresent"><span class="type-signature"></span>addPresent<span class="signature">(group, size, x, y, z, images)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addPresent"><span class="type-signature"></span>addPresent<span class="signature">(group, size, x, y, z, images, imgpath)</span><span class="type-signature"></span></h4>
     
 
     
@@ -2512,11 +2512,20 @@ Teapot is our new Christmas tree star.
 
 
 <div class="description">
-    <p>I developed a certain dislike for skyboxes or at least for the clunky ones,
-as such the PRESENTS are going to be skyboxes.</p>
+    <p>I developed a certain dislike for skyboxes or at least for the clunky ones.
+As such, the PRESENTS are going to be skyboxes.</p>
 
-Why not, am I right? No specification were given saying that the
-skyboxes had to be used as the 'environment'.
+<p>Why not, am I right? No specification were given saying that the
+skyboxes had to be used as the 'environment'.</p>
+
+The skybox here is implemented using a shader from
+<a href="https://threejs.org/docs/#api/en/renderers/shaders/ShaderLib">shaderlib</a> plus a
+<a href="https://threejs.org/docs/#api/en/materials/ShaderMaterial">shader material</a>.
+The drawback is that all presents will use the same texture, which corresponds
+to the last image set (array) passed as argument.
+
+<p>This version of three.js is really very old (Dec 14, 2013),
+and it was the best that could be done at that time, I guess.</p>
 </div>
 
 
@@ -2687,6 +2696,29 @@ skyboxes had to be used as the 'environment'.
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>imgpath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">path to the image array.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -2724,7 +2756,7 @@ skyboxes had to be used as the 'environment'.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line629">line 629</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line640">line 640</a>
     </li></ul></dd>
     
 
@@ -2863,7 +2895,7 @@ Based on a tutorial found on huzzah
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line705">line 705</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line719">line 719</a>
     </li></ul></dd>
     
 
@@ -2951,7 +2983,7 @@ Based on a tutorial found on huzzah
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1093">line 1093</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1109">line 1109</a>
     </li></ul></dd>
     
 
@@ -3199,7 +3231,7 @@ Based on a tutorial found on huzzah
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line887">line 887</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line901">line 901</a>
     </li></ul></dd>
     
 
@@ -3578,7 +3610,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line997">line 997</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1011">line 1011</a>
     </li></ul></dd>
     
 
@@ -3803,7 +3835,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line956">line 956</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line970">line 970</a>
     </li></ul></dd>
     
 
@@ -3963,7 +3995,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line759">line 759</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line773">line 773</a>
     </li></ul></dd>
     
 
@@ -4285,7 +4317,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1107">line 1107</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1123">line 1123</a>
     </li></ul></dd>
     
 
@@ -4411,7 +4443,7 @@ calls the <a href="global.html#renderer">renderer.render</a> method.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1112">line 1112</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1128">line 1128</a>
     </li></ul></dd>
     
 
@@ -4516,7 +4548,7 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> when pressing assi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1072">line 1072</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1088">line 1088</a>
     </li></ul></dd>
     
 
@@ -4654,7 +4686,7 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> when pressing assi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1142">line 1142</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1158">line 1158</a>
     </li></ul></dd>
     
 
@@ -5716,7 +5748,7 @@ that will be invoked when the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1061">line 1061</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1077">line 1077</a>
     </li></ul></dd>
     
 
@@ -5764,7 +5796,7 @@ that will be invoked when the event is dispatched.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Feb 20 2024 18:29:33 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Feb 21 2024 08:19:21 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
