@@ -237,13 +237,15 @@ let colorTable = {
 
 /**
  * Light helpers.
- * @property {Object} lightHelpers - container for light helpers.
+ * @property {Object} lightHelpers - container for helpers.
  * @property {external:THREE.DirectionalLightHelper} lightHelpers.dhelper -
  *    {@link https://threejs.org/docs/#api/en/helpers/DirectionalLightHelper directional light} helper.
  * @property {external:THREE.SpotLightHelper} lightHelpers.shelper -
  *    {@link https://threejs.org/docs/#api/en/helpers/SpotLightHelper spot light} helper.
  * @property {external:THREE.PointlLightHelper} lightHelpers.phelper -
  *    {@link https://threejs.org/docs/#api/en/helpers/PointLightHelper point light} helper.
+ * @property {external:THREE.CameraHelper} lightHelpers.chelper -
+ *    {@link https://threejs.org/docs/#api/en/helpers/CameraHelper camera} helper.
  */
 const lightHelpers = {
   dhelper: null,
@@ -1039,20 +1041,33 @@ function displayHelpers() {
  * by default, for better
  * {@link https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear image quality}.
  *
+ * <p>To set “renderer.useLegacyLights = false;” in {@link init},
+ * I had to increase the light intensities, and set:</p>
+ * <ul>
+ *  <li>ambient light 0.2 → 2
+ *  <li>point light 2 → 4</li>
+ *  <li>spot light 1 → 2</li>
+ *  <li>ambient light 2 → Math.PI * 2</li>
+ *  <li>pointLight.decay = 0;</li>
+ *  <li>spotLight.decay = 0;</li>
+ * </ul>
+ *
  * @param {external:THREE.Scene} scene - the given scene.
+ * @see https://discourse.threejs.org/t/shadow-and-color-problems-going-from-v64-to-v161/61640/3
  */
 function addLight(scene) {
-  scene.add(new THREE.AmbientLight(colorTable.black, 0.2));
+  scene.add(new THREE.AmbientLight(colorTable.black, 2));
 
-  const pointLight = new THREE.PointLight(colorTable.lightBlue, 2, 1000);
+  const pointLight = new THREE.PointLight(colorTable.lightBlue, 4, 1000);
   pointLight.position.set(200, 100, 0);
   pointLight.castShadow = false;
+  pointLight.decay = 0;
   scene.add(pointLight);
 
   lightHelpers.phelper = new THREE.PointLightHelper(pointLight, 10);
   lightHelpers.phelper.name = "PointLight";
 
-  const spotLight = new THREE.SpotLight(colorTable.white, 1);
+  const spotLight = new THREE.SpotLight(colorTable.white, 2);
   spotLight.position.set(200, 200, 200);
   spotLight.angle = Math.PI / 6;
   spotLight.decay = 0;
@@ -1077,7 +1092,10 @@ function addLight(scene) {
   lightHelpers.shelper.name = "SpotLight";
 
   // colored directional light at double intensity shining from the top.
-  const directionalLight = new THREE.DirectionalLight(colorTable.white, 2);
+  const directionalLight = new THREE.DirectionalLight(
+    colorTable.white,
+    Math.PI * 2,
+  );
   directionalLight.position.set(400, 1, 200);
   directionalLight.castShadow = false;
   scene.add(directionalLight);
@@ -1186,7 +1204,7 @@ function init() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   // to cope with changes in lighting
-  renderer.useLegacyLights = true;
+  renderer.useLegacyLights = false;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   // add events handlers -- thanks script tutorials
