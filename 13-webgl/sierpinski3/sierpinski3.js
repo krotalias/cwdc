@@ -69,7 +69,7 @@ const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
 
   // create an array with the n initial copies
   let copies = scene.children.filter(
-    (child) => child.name.slice(0, 4) == "copy"
+    (child) => child.name.slice(0, 4) == "copy",
   );
   // remove all n copies from the scene
   scene.remove(...copies);
@@ -107,7 +107,7 @@ const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
           newObj.matrixAutoUpdate = false;
           newObj.matrixWorldNeedsUpdate = true;
           return newObj;
-        })
+        }),
       );
     }
     currentLevel = nextLevel;
@@ -156,8 +156,8 @@ async function mainEntrance() {
           `[jqResponse: ${JSON.stringify(
             jqXHR,
             null,
-            4
-          )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`
+            4,
+          )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`,
         );
         console.log("Could not get data");
         reject("Could not get data");
@@ -192,7 +192,7 @@ async function mainEntrance() {
       return arr.length > 0 ? arr : ["sierpinski3.json"];
     })
     .catch((error) => {
-      alert(`${error}`);
+      console.log(`${error}`);
       // don't need to return anything => execution goes the normal way
       return [
         "crystal.json",
@@ -381,7 +381,7 @@ async function mainEntrance() {
             id=${vid}
             name=${name}
             value=${value}
-            ${checked}>`
+            ${checked}>`,
         );
     }
 
@@ -508,7 +508,7 @@ async function mainEntrance() {
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.screenSpacePanning = true;
   controls.autoRotate = !!+$(
-    "input[type='radio'][name='animate']:checked"
+    "input[type='radio'][name='animate']:checked",
   ).val();
   controls.autoRotateSpeed = 15.0;
   controls.minPolarAngle = 0; // radians
