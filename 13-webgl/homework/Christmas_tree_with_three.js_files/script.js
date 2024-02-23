@@ -1133,13 +1133,17 @@ const render = (() => {
    * @callback animate
    */
   return () => {
-    let { x, y, z } = camera.position;
-
     // mouse click and drag
     group.rotation.y += (targetRotation - group.rotation.y) * 0.01;
 
     // spinning teapot -- it is a nice star
     teaPotGroup.rotation.y += 0.03;
+
+    if (paused && timer.running) {
+      timer.stop();
+    } else if (!paused && !timer.running) {
+      timer.start();
+    }
 
     if (!paused && inAndOutCamera) {
       ang += timer.getDelta() * 0.35;
@@ -1149,8 +1153,7 @@ const render = (() => {
 
     if (!paused && !inAndOutCamera) {
       // rotate camera around tree
-      camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-      camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+      camera.rotation.y = rotSpeed;
     }
 
     camera.lookAt(scene.position);
