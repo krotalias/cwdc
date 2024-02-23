@@ -651,8 +651,8 @@ function prepareMaterials(group) {
 }
 
 /**
- * <p>I developed a certain dislike for skyboxes or at least for the clunky ones,
- * as such the PRESENTS are going to be skyboxes.</p>
+ * <p>I developed a certain dislike for skyboxes or at least for the clunky ones.
+ * As such, the PRESENTS are going to be skyboxes.</p>
  *
  * Why not, am I right? No specification were given saying that the
  * skyboxes had to be used as the 'environment'.
@@ -1281,8 +1281,6 @@ const render = (() => {
    * @callback animate
    */
   return () => {
-    let { x, y, z } = camera.position;
-
     // mouse click and drag
     group.rotation.y += (targetRotation - group.rotation.y) * 0.01;
 
@@ -1298,8 +1296,7 @@ const render = (() => {
 
     if (!paused && !inAndOutCamera) {
       // rotate camera around tree
-      camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-      camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+      camera.rotation.y = rotSpeed;
     }
 
     camera.lookAt(scene.position);
