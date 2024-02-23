@@ -639,13 +639,15 @@ function prepareMaterials(group) {
  */
 function addPresent(group, size, x, y, z, images, imgpath = path) {
   // load the six images - the last set will stick in the shader
-  const ourCubeMap = new THREE.ImageUtils.loadTextureCube(images);
+  const textureCubeMap = THREE.ImageUtils.loadTextureCube(images);
+  textureCubeMap.format = THREE.RGBAFormat;
+  textureCubeMap.mapping = THREE.CubeReflectionMapping;
 
   // Use a built-in Three.js shader for cube maps
   const cubeMapShader = THREE.ShaderLib["cube"];
 
   // point it to our texture
-  cubeMapShader.uniforms["tCube"].value = ourCubeMap;
+  cubeMapShader.uniforms["tCube"].value = textureCubeMap;
 
   // make a ShaderMaterial using this shader's properties
   const material = new THREE.ShaderMaterial({
@@ -1131,6 +1133,8 @@ const render = (() => {
    * @callback animate
    */
   return () => {
+    let { x, y, z } = camera.position;
+
     // mouse click and drag
     group.rotation.y += (targetRotation - group.rotation.y) * 0.01;
 
