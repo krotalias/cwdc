@@ -2112,16 +2112,29 @@ because why not?</p>
 <a href="https://threejs.org/docs/#api/en/helpers/CameraHelper">camera helper</a>
 for the spot light.</p>
 
-Lighting and color has changed a lot since version
-<a href="https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733/23">155</a>.
+<p>Lighting and color has changed a lot since version
+<a href="https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733/23">155</a>.</p>
 
-These updates enable a
+It’s important to understand that using the new lighting mode is just one prerequisite for physically correct lighting.<br>
+You also have to:
+<ul>
+ <li> apply a real-world scale to your scene (meaning 1 world unit = 1 meter).</li>
+ <li>not change the default decay values of 2 for all spot and point lights in your scene.</li>
+</ul>
+<p>Only then you can actually consider SI units for point, spot and area lights.
+Ambient and hemisphere lights (which are special kind of lights and
+essentially simplified models of light probes), as well as directional lights, do not use SI units.</p>
+
+<img src="../../img/unit-of-light.jpg" width="256">
+
+<p>These updates enable a
 <a href="https://www.willgibbons.com/linear-workflow/">“linear workflow”</a>
 by default, for better
-<a href="https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear">image quality</a>.
+<a href="https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear">image quality</a>.</p>
 
 <p>To set “renderer.useLegacyLights = false;” in <a href="global.html#init">init</a>,
-I had to increase the light intensities, and set:</p>
+I had to increase the light intensities, <br>
+and set decay to zero (my lights are too far away from the scene borders):</p>
 <ul>
  <li>ambient light 0.2 → 2
  <li>point light 2 → 4</li>
@@ -2222,7 +2235,7 @@ I had to increase the light intensities, and set:</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1054">line 1054</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1067">line 1067</a>
     </li></ul></dd>
     
 
@@ -3584,7 +3597,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1147">line 1147</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1160">line 1160</a>
     </li></ul></dd>
     
 
@@ -3809,7 +3822,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1106">line 1106</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1119">line 1119</a>
     </li></ul></dd>
     
 
@@ -4291,7 +4304,7 @@ on a swipe-down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1267">line 1267</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1280">line 1280</a>
     </li></ul></dd>
     
 
@@ -4462,7 +4475,7 @@ If null is passed it will stop any already ongoing animation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1243">line 1243</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1256">line 1256</a>
     </li></ul></dd>
     
 
@@ -4557,7 +4570,7 @@ calls the <a href="global.html#renderer">renderer.render</a> method.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1272">line 1272</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1285">line 1285</a>
     </li></ul></dd>
     
 
@@ -4662,7 +4675,7 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> when pressing assi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1213">line 1213</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1226">line 1226</a>
     </li></ul></dd>
     
 
@@ -4800,7 +4813,7 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> when pressing assi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1302">line 1302</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1315">line 1315</a>
     </li></ul></dd>
     
 
@@ -5862,7 +5875,7 @@ that will be invoked when the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1230">line 1230</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1243">line 1243</a>
     </li></ul></dd>
     
 
@@ -5910,7 +5923,7 @@ that will be invoked when the event is dispatched.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Feb 24 2024 08:37:12 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Feb 24 2024 09:08:09 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

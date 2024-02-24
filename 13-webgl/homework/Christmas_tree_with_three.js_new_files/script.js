@@ -1029,16 +1029,29 @@ function displayHelpers() {
  * {@link https://threejs.org/docs/#api/en/helpers/CameraHelper camera helper}
  * for the spot light.</p>
  *
- * Lighting and color has changed a lot since version
- * {@link https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733/23 155}.
+ * <p>Lighting and color has changed a lot since version
+ * {@link https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733/23 155}.</p>
  *
- * These updates enable a
+ * It’s important to understand that using the new lighting mode is just one prerequisite for physically correct lighting.<br>
+ * You also have to:
+ * <ul>
+ *  <li> apply a real-world scale to your scene (meaning 1 world unit = 1 meter).</li>
+ *  <li>not change the default decay values of 2 for all spot and point lights in your scene.</li>
+ * </ul>
+ * <p>Only then you can actually consider SI units for point, spot and area lights.
+ * Ambient and hemisphere lights (which are special kind of lights and
+ * essentially simplified models of light probes), as well as directional lights, do not use SI units.</p>
+ *
+ * <img src="../../img/unit-of-light.jpg" width="256">
+ *
+ * <p>These updates enable a
  * {@link https://www.willgibbons.com/linear-workflow/ “linear workflow”}
  * by default, for better
- * {@link https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear image quality}.
+ * {@link https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear image quality}.</p>
  *
  * <p>To set “renderer.useLegacyLights = false;” in {@link init},
- * I had to increase the light intensities, and set:</p>
+ * I had to increase the light intensities, <br>
+ * and set decay to zero (my lights are too far away from the scene borders):</p>
  * <ul>
  *  <li>ambient light 0.2 → 2
  *  <li>point light 2 → 4</li>
