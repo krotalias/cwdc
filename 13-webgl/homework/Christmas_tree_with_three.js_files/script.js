@@ -800,7 +800,7 @@ function makeTree(group, materials) {
 }
 
 /**
- * <p>Yeah hardcoded... no I'm not proud</p>
+ * <p>Yeah, hardcoded... no, I'm not proud</p>
  * But this was the most straightforward way to add trinkets
  * to the tree that actually looked like they were on the tree.
  * @param {Object<String,external:THREE.Material>} materials - the given material object.
@@ -1139,9 +1139,9 @@ const render = (() => {
     // spinning teapot -- it is a nice star
     teaPotGroup.rotation.y += 0.03;
 
-    if (paused && timer.running) {
+    if ((paused || !inAndOutCamera) && timer.running) {
       timer.stop();
-    } else if (!paused && !timer.running) {
+    } else if ((!paused || inAndOutCamera) && !timer.running) {
       timer.start();
     }
 
