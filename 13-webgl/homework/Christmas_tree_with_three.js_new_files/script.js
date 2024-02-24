@@ -1002,17 +1002,13 @@ function displayHelpers() {
   let action2 = showHelpers ? scene.add.bind(scene) : scene.remove.bind(scene);
 
   Object.keys(lightHelpers).forEach((key) => {
-    if (
-      lightHelpers[key].name === "teapot.obj" ||
-      lightHelpers[key].name === "bunny.obj"
-    ) {
+    if (["teapot.obj", "bunny.obj"].includes(lightHelpers[key].name)) {
       // not working - only teapot untransformed??!!
       //lightHelpers[key].visible = showHelpers;
     } else if (
-      lightHelpers[key].name === "PointLight" ||
-      lightHelpers[key].name === "SpotLight" ||
-      lightHelpers[key].name === "DirectionalLight" ||
-      lightHelpers[key].name === "CameraHelper"
+      ["PointLight", "SpotLight", "DirectionalLight", "CameraHelper"].includes(
+        lightHelpers[key].name,
+      )
     ) {
       action2(lightHelpers[key]);
     } else {
@@ -1203,8 +1199,6 @@ function init() {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  // to cope with changes in lighting
-  renderer.useLegacyLights = false;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   // add events handlers -- thanks script tutorials
