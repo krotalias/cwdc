@@ -21,6 +21,7 @@
  *
  * @see <a href="/cwdc/13-webgl/homework/final/Dancing_Blobby.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/final/Dancing_Blobby_files/Blobby.js">source</a>
+ * @see <img src="../blobby.png" width="512">
  */
 
 "use strict";
@@ -401,10 +402,10 @@ var view = new Matrix4().setLookAt(
 
 /**
  * <p>Projection matrix.</p>
- * Aspect ratio is 1 corresponding to a canvas size 512 x 512
+ * Aspect ratio is 1 corresponding to a canvas size 1100 x 900
  * @type {Matrix4}
  */
-var projection = new Matrix4().setPerspective(FOV, 1.0, ZN, ZF);
+var projection = new Matrix4().setPerspective(FOV, 1.2, ZN, ZF);
 
 /**
  * Translate keypress events to strings.
@@ -2020,7 +2021,7 @@ function macarena(loop, firstLoop) {
     // start jumping: 10*8=80ms
     t = applyMove(t, bendForJump, delay2);
     // raise the body while stretching the legs,
-    // openning the arms and raising the torso: 10*8=80ms
+    // opening the arms and raising the torso: 10*8=80ms
     t = applyMove(t, stretchForJump, delay2);
     // jump, turning: 10*8=80ms
     t = applyMove(t, jumpAndTurn, delay2);

@@ -26,15 +26,48 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/*
- *  blobby.js
- *  Blobby Man.
- *  Based upon Jim Blim's Corner: Nested Transformations and The Blobby Man
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
  *
- *  Author: Flavia Cavalcanti - December 2015
+ * Summary.
+ * &lt;p>Blobby Man.&lt;/p>
  *
- *  IEEE Computer Graphics &amp; Applications, No. 10, October 1987
- *  License LGPL.
+ * Description.
+ * &lt;p>
+ * Based upon Jim Blim's Corner:
+ * {@link https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4057037 Nested Transformations and The Blobby Man}&lt;br>
+ * IEEE Computer Graphics &amp; Applications, No. 10, October 1987
+ * &lt;/p>
+ * &lt;p>There is only one graphical primitive corresponding to a
+ * {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry sphere},&lt;br>
+ * which is scaled, rotated and translated for each joint in the
+ * &lt;a href="/cwdc/13-webgl/Assignment_3/5.hierarchy.pdf">hierarchy&lt;/a>.&lt;/p>
+ *
+ * @author Flavia Cavalcanti
+ * @since December 2015
+ * @license LGPL.
+ *
+ * @see &lt;a href="/cwdc/13-webgl/homework/final/Dancing_Blobby.html">link&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/homework/final/Dancing_Blobby_files/Blobby.js">source&lt;/a>
+ * @see &lt;img src="../blobby.png" width="512">
+ */
+
+"use strict";
+
+/**
+ * Three.js module.
+ * @external THREE
+ * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ */
+
+/**
+ * &lt;p>A representation of mesh, line, or point geometry.&lt;/p>
+ * Includes vertex positions, face indices, normals, colors, UVs,
+ * and custom attributes within buffers, reducing the cost of
+ * passing all this data to the GPU.
+ * @class BufferGeometry
+ * @memberof external:THREE
+ * @see https://threejs.org/docs/#api/en/core/BufferGeometry
  */
 
 /**
@@ -111,88 +144,11 @@ class Stack {
  * @return {Object&lt;{vertices: Float32Array, normals: Float32Array, texCoords: Float32Array, indices: Uint16Array}>}
  */
 function getModelData(geom) {
-  var verticesArray = [];
-  var normalsArray = [];
-  var vertexNormalsArray = [];
-  var reflectedNormalsArray = [];
-  var count = 0;
-  for (var f = 0; f &lt; geom.faces.length; ++f) {
-    var face = geom.faces[f];
-    var v = geom.vertices[face.a];
-    verticesArray.push(v.x);
-    verticesArray.push(v.y);
-    verticesArray.push(v.z);
-
-    v = geom.vertices[face.b];
-    verticesArray.push(v.x);
-    verticesArray.push(v.y);
-    verticesArray.push(v.z);
-
-    v = geom.vertices[face.c];
-    verticesArray.push(v.x);
-    verticesArray.push(v.y);
-    verticesArray.push(v.z);
-    count += 3;
-
-    var fn = face.normal;
-    for (var i = 0; i &lt; 3; ++i) {
-      normalsArray.push(fn.x);
-      normalsArray.push(fn.y);
-      normalsArray.push(fn.z);
-    }
-
-    for (var i = 0; i &lt; 3; ++i) {
-      var vn = face.vertexNormals[i];
-      vertexNormalsArray.push(vn.x);
-      vertexNormalsArray.push(vn.y);
-      vertexNormalsArray.push(vn.z);
-    }
-
-    for (var i = 0; i &lt; 3; ++i) {
-      var index = count * 3 - 9 + 3 * i;
-      vx = vertexNormalsArray[index];
-      vy = vertexNormalsArray[index + 1];
-      vz = vertexNormalsArray[index + 2];
-      nx = normalsArray[index];
-      ny = normalsArray[index + 1];
-      nz = normalsArray[index + 2];
-      //        nx = vertexNormalsArray[index];
-      //        ny = vertexNormalsArray[index + 1];
-      //        nz = vertexNormalsArray[index + 2];
-      //        vx = normalsArray[index];
-      //        vy = normalsArray[index + 1];
-      //        vz = normalsArray[index + 2];
-
-      var dot = vx * nx + vy * ny + vz * nz;
-      rx = 2 * dot * nx - vx;
-      ry = 2 * dot * ny - vy;
-      rz = 2 * dot * nz - vz;
-      reflectedNormalsArray.push(rx);
-      reflectedNormalsArray.push(ry);
-      reflectedNormalsArray.push(rz);
-    }
-  }
-
-  // texture coords
-  // each element is an array of three Vector2
-  var uvs = geom.faceVertexUvs[0];
-  var texCoordArray = [];
-  for (var a = 0; a &lt; uvs.length; ++a) {
-    for (var i = 0; i &lt; 3; ++i) {
-      var uv = uvs[a][i];
-      texCoordArray.push(uv.x);
-      texCoordArray.push(uv.y);
-    }
-  }
-
-  //console.log(count);
   return {
-    numVertices: count,
-    vertices: new Float32Array(verticesArray),
-    normals: new Float32Array(normalsArray),
-    vertexNormals: new Float32Array(vertexNormalsArray),
-    reflectedNormals: new Float32Array(reflectedNormalsArray),
-    texCoords: new Float32Array(texCoordArray),
+    vertices: geom.getAttribute("position").array,
+    normals: geom.getAttribute("normal").array,
+    texCoords: geom.getAttribute("uv").array,
+    indices: geom.index.array,
   };
 }
 
@@ -201,7 +157,7 @@ function getModelData(geom) {
  * @param {HTMLImageElement} image texture image.
  */
 function configureTexture(image) {
-  texture = gl.createTexture();
+  var texture = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
@@ -243,16 +199,11 @@ function makeNormalMatrixElements(model, view) {
 
   // take just the upper-left 3x3 submatrix
   n = n.elements;
+  // prettier-ignore
   return new Float32Array([
-    n[0],
-    n[1],
-    n[2],
-    n[4],
-    n[5],
-    n[6],
-    n[8],
-    n[9],
-    n[10],
+    n[0], n[1], n[2],
+    n[4], n[5], n[6],
+    n[8], n[9], n[10],
   ]);
 }
 
@@ -272,19 +223,33 @@ var doubleBlobby = false;
 var selSkin = 0; //random skin selector 1
 var selSkin2 = 0; //random skin selector 1
 
-//var  previousTimeStamp;
-//var  numberOfFramesForFPS;
-//var  fpsCounter;
+var previousTimeStamp;
+var numberOfFramesForFPS;
+var fpsCounter;
 
-// delay for the steps in the macarena animation
+/**
+ * Delay for the steps in the macarena animation.
+ * @type {Number}
+ */
 var delay = 60;
-// delay for the jump in the macarena animation
+
+/**
+ * Delay for the jump in the macarena animation.
+ * @type {Number}
+ */
 var delay2 = 10;
 
-// holds all call backs from setTimeout
+/**
+ * Holds all callbacks from setTimeout. Used for canceling all callbacks.
+ * @type {Array&lt;timeoutID>}
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+ */
 var callBackArray = [];
 
-// global stack
+/**
+ * Global stack.
+ * @type {Stack}
+ */
 var stk = new Stack();
 
 var XAXIS = new Float32Array([-2.5, 0.0, 0.0]);
@@ -421,20 +386,30 @@ var planeModel;
  * @type {WebGLBuffer}
  */
 var vertexBuffer;
+var indexBuffer;
 var vertexNormalBuffer;
+var texCoordBuffer;
 
 /**
  * Handle to a vertex buffer on the GPU for the plane.
  * @type {WebGLBuffer}
  */
 var vertexBufferPlane;
+var indexBufferPlane;
 var vertexNormalBufferPlane;
+var texCoordBufferPlane;
 
 /**
  * Handle to the compiled {@link renderSphere lighting shader} program on the GPU.
  * @type {WebGLShader}
  */
 var lightingShader;
+
+/**
+ * Handle to the compiled {@link GPlane texture shader} program on the GPU.
+ * @type {WebGLShader}
+ */
+var texturedShader;
 
 /**
  * Transformation matrix that is the root of the hierarchy of objects defining blobby man.
@@ -455,10 +430,10 @@ var view = new Matrix4().setLookAt(
 
 /**
  * &lt;p>Projection matrix.&lt;/p>
- * Aspect ratio is 1 corresponding to a canvas size 512 x 512
+ * Aspect ratio is 1 corresponding to a canvas size 1100 x 900
  * @type {Matrix4}
  */
-var projection = new Matrix4().setPerspective(FOV, 1.0, ZN, ZF);
+var projection = new Matrix4().setPerspective(FOV, 1.2, ZN, ZF);
 
 /**
  * Translate keypress events to strings.
@@ -467,21 +442,29 @@ var projection = new Matrix4().setPerspective(FOV, 1.0, ZN, ZF);
  * @see  http://javascript.info/tutorial/keyboard-events
  */
 function getChar(event) {
-  if (event.which == null) {
-    return String.fromCharCode(event.keyCode); // IE
-  } else if (event.which != 0 &amp;&amp; event.charCode != 0) {
-    return String.fromCharCode(event.which); // the rest
-  } else {
-    return null; // special key
-  }
+  event = event || window.event;
+  let charCode = event.key || String.fromCharCode(event.which);
+  return charCode;
 }
 
-//keep track of all available skins
+/**
+ * Keep track of all available skins.
+ * @type {Array&lt;Function>}
+ */
 var arrayOfSkins = [skinDefault, skinDisco, skinVampire];
+
+/**
+ * Current skin.
+ * @type {Function}
+ */
 var currentSkin = skinDefault;
+
 var numberOfJumps = arrayOfSkins.indexOf(currentSkin);
 var shutUp = false;
 
+/**
+ * Set default {@link currentSkin skin}.
+ */
 function skinDefault() {
   vampire = false;
   disco = false;
@@ -495,6 +478,9 @@ function skinDefault() {
   currentSkin = skinDefault;
 }
 
+/**
+ * Set vampire {@link currentSkin skin}.
+ */
 function skinVampire() {
   vampire = true;
   disco = false;
@@ -509,6 +495,9 @@ function skinVampire() {
   currentSkin = skinVampire;
 }
 
+/**
+ * Set disco {@link currentSkin skin}.
+ */
 function skinDisco() {
   disco = true;
   vampire = false;
@@ -523,8 +512,11 @@ function skinDisco() {
   currentSkin = skinDisco;
 }
 
-//Keeps tracks of the number of jumps performed by Blobby
-//Needed in order to alternate skins in the middle of the dance
+/**
+ * &lt;p>Keeps tracks of the number of jumps performed by Blobby.&lt;/p>
+ * Needed in order to alternate skins in the middle of the dance.
+ * @param {Number} t
+ */
 function incrementJumps(t) {
   callBackArray.push(
     setTimeout(
@@ -537,7 +529,9 @@ function incrementJumps(t) {
   return t;
 }
 
-//Specifies that Blobby should change skins after every jump
+/**
+ * Specifies that Blobby should change skins after every jump.
+ */
 function alternateSkins() {
   if (!doubleBlobby) {
     alternating = !alternating;
@@ -548,7 +542,9 @@ function alternateSkins() {
   }
 }
 
-//Overdose overdose overdose of macarena
+/**
+ * Overdose overdose overdose of macarena.
+ */
 function shutUpThatSong() {
   shutUp = !shutUp;
   if (!shutUp) {
@@ -560,7 +556,9 @@ function shutUpThatSong() {
   }
 }
 
-//Will stop the macarena song if Blobby is only dancing one round
+/**
+ * Will stop the macarena song if Blobby is only dancing one round.
+ */
 function stopSongAfterDance(t) {
   callBackArray.push(
     setTimeout(
@@ -574,7 +572,9 @@ function stopSongAfterDance(t) {
   return t;
 }
 
-//Double trouble for macarena
+/**
+ * Double trouble for macarena.
+ */
 function doubleDancers() {
   doubleBlobby = true;
   alternating = false;
@@ -585,14 +585,18 @@ function doubleDancers() {
   document.getElementById("skinButton").style.backgroundColor = "#FF6223";
 }
 
-//Only one blobby is good enough for me - said no one ever but whatevs
+/**
+ * Only one blobby is good enough for me - said no one ever, but whatevs.
+ */
 function singleDancer() {
   doubleBlobby = false;
   document.getElementById("doubleButton").style.backgroundColor = "#FF6223";
   document.getElementById("singleButton").style.backgroundColor = "#e64200";
 }
 
-// apply a single movement and the sway to blobby
+/**
+ * Apply a single movement and the sway to blobby.
+ */
 function applyMoveAndSway(t, move1, move, sign) {
   for (var i = 0; i &lt; 4; ++i) {
     callBackArray.push(
@@ -608,9 +612,11 @@ function applyMoveAndSway(t, move1, move, sign) {
   return t;
 }
 
-// apply a single movement to blobby
-//As this function may not be directly linked to the macarena dance,
-//a different time delay amount may be passed in
+/**
+ * &lt;p>Apply a single movement to blobby.&lt;/p>
+ * As this function may not be directly linked to the macarena dance,
+ * a different time delay amount may be passed in.
+ */
 function applyMove(t, move, timeDelay, sign) {
   for (var i = 0; i &lt; 8; ++i) {
     callBackArray.push(
@@ -625,15 +631,19 @@ function applyMove(t, move, timeDelay, sign) {
   return t;
 }
 
-// What to do when the Sway button is clicked.
+/**
+ * What to do when the Sway button is clicked.
+ */
 function swayCallBack() {
   stopCallBack();
   var t = sway();
   // console.log ( "sway = " + t );
-  //  document.getElementById("div").value = t;
+  // document.getElementById("div").value = t;
 }
 
-// What to do when the Dance button is clicked.
+/**
+ * What to do when the Dance button is clicked.
+ */
 function danceCallBack(loop) {
   if (typeof loop === "undefined") loop = true;
   if (loop) {
@@ -656,16 +666,18 @@ function danceCallBack(loop) {
     }
   }
   var t = macarena(loop, true);
-  //console.log("macarena = " + t);
-  //  document.getElementById("div").value = t;
+  // console.log("macarena = " + t);
+  // document.getElementById("div").value = t;
 }
 
-// What to do when the Stop button is clicked.
-// Clears out the event array
-// @param stopButton - true if function was called from clicking on the stopButton
+/**
+ * What to do when the Stop button is clicked.
+ * Clears out the event array
+ * @param {Boolean} stopButton - true if function was called from clicking on the stopButton
+ */
 function stopCallBack(stopButton) {
   audio.pause();
-  //  document.getElementById("div").value = 0;
+  // document.getElementById("div").value = 0;
   if (typeof stopButton === "undefined") stopButton = false;
   dancing = false;
   if (stopButton)
@@ -848,7 +860,7 @@ function renderSphere(color) {
     return;
   }
 
-  var vTexCoord = 1; // gl.getAttribLocation( lightingShader, 'vTexCoord' ); //substitute the 1 for the gl.getAttribLocation line if using a mac
+  var vTexCoord = 1; // gl.getAttribLocation( lightingShader, 'vTexCoord' ); // if using a mac
   if (vTexCoord &lt; 0) {
     console.log("Failed to get the storage location of vTexCoord");
     return;
@@ -861,6 +873,7 @@ function renderSphere(color) {
 
   // bind data for points and normals
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
   gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
@@ -888,7 +901,7 @@ function renderSphere(color) {
     makeNormalMatrixElements(current, view),
   );
 
-  gl.drawArrays(gl.TRIANGLES, 0, sphere.numVertices);
+  gl.drawElements(gl.TRIANGLES, sphere.indices.length, gl.UNSIGNED_SHORT, 0);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
   gl.useProgram(null);
@@ -928,6 +941,7 @@ function GPlane() {
   // draw the plane
   // bind buffers
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBufferPlane);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBufferPlane);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBufferPlane);
   gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
@@ -957,23 +971,32 @@ function GPlane() {
   );
 
   // draw
-  gl.drawArrays(gl.TRIANGLES, 0, planeModel.numVertices);
+  gl.drawElements(
+    gl.TRIANGLES,
+    planeModel.indices.length,
+    gl.UNSIGNED_SHORT,
+    0,
+  );
 
   gl.useProgram(null);
 }
 
 /**
  * Code to actually render our geometry.
+ * @param {Date} currentTime current time.
  */
 function draw(currentTime) {
   if (typeof currentTime === "undefined") {
     currentTime = Date.now();
   }
-  //  if ( Math.abs(currentTime - previousTimeStamp) >= 1000 ) {
-  ////     fpsCounter.innerHTML = numberOfFramesForFPS;
-  //     numberOfFramesForFPS = 0;
-  //     previousTimeStamp = currentTime;
-  //  }
+
+  /*
+  if ( Math.abs(currentTime - previousTimeStamp) >= 1000 ) {
+      fpsCounter.innerHTML = numberOfFramesForFPS;
+      numberOfFramesForFPS = 0;
+      previousTimeStamp = currentTime;
+  }
+  */
 
   // clear the framebuffer
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -1023,7 +1046,7 @@ function draw(currentTime) {
   if (!stk.isEmpty()) {
     console.log("Warning: pops do not match pushes");
   }
-  //  numberOfFramesForFPS++;
+  // numberOfFramesForFPS++;
 }
 
 /**
@@ -1037,7 +1060,7 @@ function mainEntrance() {
   var canvas = document.getElementById("theCanvas");
 
   // key handler
-  window.onkeypress = handleKeyPress;
+  window.onkeydown = handleKeyPress;
 
   gl = canvas.getContext("webgl");
   if (!gl) {
@@ -1073,6 +1096,7 @@ function mainEntrance() {
 
   // buffer for vertex positions for triangles
   vertexBuffer = gl.createBuffer();
+  indexBuffer = gl.createBuffer();
   if (!vertexBuffer) {
     console.log("Failed to create the buffer object");
     return;
@@ -1083,6 +1107,9 @@ function mainEntrance() {
 
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, sphere.vertices, gl.STATIC_DRAW);
+
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, sphere.indices, gl.STATIC_DRAW);
 
   // buffer for vertex normals
   vertexNormalBuffer = gl.createBuffer();
@@ -1107,12 +1134,16 @@ function mainEntrance() {
 
   // buffer for vertex positions for triangles
   vertexBufferPlane = gl.createBuffer();
+  indexBufferPlane = gl.createBuffer();
   if (!vertexBufferPlane) {
     console.log("Failed to create the buffer object");
     return;
   }
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBufferPlane);
   gl.bufferData(gl.ARRAY_BUFFER, planeModel.vertices, gl.STATIC_DRAW);
+
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBufferPlane);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, planeModel.indices, gl.STATIC_DRAW);
 
   // buffer for vertex normals
   vertexNormalBufferPlane = gl.createBuffer();
@@ -1145,15 +1176,18 @@ function mainEntrance() {
   numberOfFramesForFPS = 0;
   fpsCounter = document.getElementById("fps");
 
-  //
   // Initialize a texture
-  //
   var image = document.getElementById("texImage");
 
   configureTexture(image);
 
-  // define an animation loop. Its argument is the current time.
-  // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+  /**
+   * &lt;p>Define an animation loop, by calling {@link draw} for each frame.&lt;/p>
+   * Its argument is the current time.
+   * @param {Date} now current time.
+   * @global
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+   */
   var animate = function (now) {
     draw(now);
     requestAnimationFrame(animate); // passes Performance.now() to animate...
@@ -1487,11 +1521,11 @@ function torso(func) {
   stk.pop();
 }
 
-// ==============================================
-
 // =========== POSES =============================
 
-// Default position, Blobby's legs are straight facing the origin
+/**
+ * Default position, Blobby's legs are straight facing the origin.
+ */
 function stiffPosition() {
   TURN = 0.0;
   JUMP = 0.0;
@@ -1523,7 +1557,9 @@ function stiffPosition() {
   LFRONT = 0.0;
 }
 
-// put Blobby standing still with hands on his hip
+/**
+ * Put Blobby standing still with hands on his hip.
+ */
 function resetAngles() {
   callBackArray.length = 0; // clear callBackArray
 
@@ -1540,7 +1576,9 @@ function resetAngles() {
   RELBO = -90.0; /* x */
 }
 
-//Relaxed Blobby - waving with left hand
+/**
+ * Relaxed Blobby - waving with left hand.
+ */
 function whatsUp() {
   stiffPosition();
 
@@ -1584,7 +1622,9 @@ function scaryPose() {
   RELBO = 0.0; /* x */
 }
 
-// Setting Bloby up for a wave
+/**
+ * Setting Bloby up for a wave.
+ */
 function prepareForWave() {
   stiffPosition();
 
@@ -1616,7 +1656,9 @@ function bowPose() {
   RELBO = -90.0; /* x */
 }
 
-// put Blobby standing still with hands on his hip
+/**
+ * Put Blobby standing still with hands on his hip.
+ */
 function handsOnHips() {
   stiffPosition();
 
@@ -1631,9 +1673,8 @@ function handsOnHips() {
   RELBO = -90.0; /* x */
 }
 
-// ============================================
-
 // =========== MOVEMENTS =======================
+
 function wave(sign) {
   console.log(5 * sign);
   RELBO += 5 * sign;
@@ -1658,7 +1699,9 @@ function spinShoulder(sign) {
   RSHOU += -1 * sign * 3;
 }
 
-// Lower back to bow
+/**
+ * Lower back to bow.
+ */
 function bowDown(sign) {
   console.log("bow");
   console.log(sign);
@@ -1668,7 +1711,9 @@ function bowDown(sign) {
   RSHOU += 7 * sign;
 }
 
-// sway to the left
+/**
+ * Sway to the left.
+ */
 function lsway(sign) {
   BTWIS += 1 * sign;
   LANKL -= 5 * sign;
@@ -1676,7 +1721,9 @@ function lsway(sign) {
   LKNEE -= 8 * sign;
 }
 
-// sway to the right
+/**
+ * Sway to the right.
+ */
 function rsway(sign) {
   BTWIS -= 1 * sign;
   RANKL -= 5 * sign;
@@ -1684,35 +1731,45 @@ function rsway(sign) {
   RKNEE -= 8 * sign;
 }
 
-// raise the right arm half way
+/**
+ * Raise the right arm half way.
+ */
 function raiseRightArm() {
   RELBO += 10;
   RATWIS -= 6.5;
   RSHOU += 9;
 }
 
-// raise the left arm half way
+/**
+ * Raise the left arm half way.
+ */
 function raiseLeftArm() {
   LELBO -= 10;
   LATWIS += 6.5;
   LSHOU += 9;
 }
 
-// put right hand on the head
+/**
+ * Put right hand on the head.
+ */
 function rightHandOnHead() {
   RSHOU += 5;
   RATWIS -= 9;
   RHAND += 2.5;
 }
 
-// put left hand on the head
+/**
+ * Put left hand on the head.
+ */
 function leftHandOnHead() {
   LSHOU += 5;
   LATWIS += 9;
   LHAND += 2.5;
 }
 
-// go back to initial position
+/**
+ * Go back to initial position.
+ */
 function rightGoBack() {
   RSHOU -= 14;
   RATWIS += 15.5;
@@ -1720,7 +1777,9 @@ function rightGoBack() {
   RELBO += 2;
 }
 
-// go back to initial position
+/**
+ * Go back to initial position.
+ */
 function leftGoBack() {
   LSHOU -= 14;
   LATWIS -= 15.5;
@@ -1728,7 +1787,9 @@ function leftGoBack() {
   LELBO -= 2;
 }
 
-// bend the knees for the jump
+/**
+ * Bend the knees for the jump.
+ */
 function bendForJump() {
   JUMP -= 1.0 / 30;
   LFRONT += 4.5;
@@ -1748,7 +1809,9 @@ function bendForJump() {
   EXTEN -= 2;
 }
 
-// stretch the legs for the jump
+/**
+ * Stretch the legs for the jump.
+ */
 function stretchForJump() {
   JUMP += 1.0 / 30;
   LFRONT -= 4.5;
@@ -1764,7 +1827,9 @@ function stretchForJump() {
   LSHOU += 3;
 }
 
-// excute the jump and turn to the left
+/**
+ * Excute the jump and turn to the left.
+ */
 function jumpAndTurn() {
   JUMP += 1.0 / 10;
   RANKL -= 5;
@@ -1774,7 +1839,9 @@ function jumpAndTurn() {
   NOD += 2;
 }
 
-// put the feet on the floor
+/**
+ * Put the feet on the floor.
+ */
 function landFromJump() {
   JUMP -= 1.0 / 10;
   RANKL += 5;
@@ -1786,7 +1853,9 @@ function landFromJump() {
   }
 }
 
-// dampen the jump bending the knees
+/**
+ * Dampen the jump bending the knees.
+ */
 function dampenJump() {
   JUMP -= 1.0 / 50;
   LFRONT += 3;
@@ -1798,7 +1867,9 @@ function dampenJump() {
   EXTEN -= 1;
 }
 
-// go back to initial position
+/**
+ * Go back to initial position.
+ */
 function finishJump() {
   JUMP += 1.0 / 50;
   LFRONT -= 3;
@@ -1816,7 +1887,9 @@ function finishJump() {
   EXTEN += 1;
 }
 
-// keep swaying
+/**
+ * Keep swaying.
+ */
 function sway() {
   var t = 0;
   resetAngles();
@@ -1976,7 +2049,7 @@ function macarena(loop, firstLoop) {
     // start jumping: 10*8=80ms
     t = applyMove(t, bendForJump, delay2);
     // raise the body while stretching the legs,
-    // openning the arms and raising the torso: 10*8=80ms
+    // opening the arms and raising the torso: 10*8=80ms
     t = applyMove(t, stretchForJump, delay2);
     // jump, turning: 10*8=80ms
     t = applyMove(t, jumpAndTurn, delay2);
@@ -2012,13 +2085,13 @@ function macarena(loop, firstLoop) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Stack.html">Stack</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Stack.html">Stack</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#alternateSkins">alternateSkins</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#arrayOfSkins">arrayOfSkins</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#bowDown">bowDown</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#currentSkin">currentSkin</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#doubleDancers">doubleDancers</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handsOnHips">handsOnHips</a></li><li><a href="global.html#incrementJumps">incrementJumps</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#prepareForWave">prepareForWave</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#shutUpThatSong">shutUpThatSong</a></li><li><a href="global.html#singleDancer">singleDancer</a></li><li><a href="global.html#skinDefault">skinDefault</a></li><li><a href="global.html#skinDisco">skinDisco</a></li><li><a href="global.html#skinVampire">skinVampire</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stiffPosition">stiffPosition</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stopSongAfterDance">stopSongAfterDance</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#whatsUp">whatsUp</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Feb 25 2024 07:35:20 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Feb 25 2024 10:51:33 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
