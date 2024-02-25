@@ -21,6 +21,7 @@
  *
  * @see <a href="/cwdc/13-webgl/homework/final/Dancing_Blobby.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/final/Dancing_Blobby_files/Blobby.js">source</a>
+ * @see <a href="/cwdc/13-webgl/homework/presentation.pdf">tutorial</a>
  * @see <img src="../blobby.png" width="512">
  */
 
@@ -1028,17 +1029,58 @@ function draw(currentTime) {
  * while {@link draw} does things that have to be repeated each time the canvas is drawn.
  */
 function mainEntrance() {
+  /**
+   * <p>Fires when the document view (window) has been resized.</p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   */
+  function handleWindowResize() {
+    let h = window.innerHeight;
+    let w = window.innerWidth;
+    if (h > w) {
+      h = w / aspect; // aspect < 1
+    } else {
+      w = h * aspect; // aspect > 1
+    }
+    canvas.width = w;
+    canvas.height = h;
+    gl.viewport(0, 0, w, h);
+    // projection = new Matrix4().setPerspective(FOV, aspect, ZN, ZF);
+  }
+
+  /**
+   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * <p>The {@link handleWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @param {Event} event the document view is resized.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize - executed when the window is resized.
+   */
+  window.addEventListener("resize", handleWindowResize, false);
   // retrieve <canvas> element
   var canvas = document.getElementById("theCanvas");
 
-  // key handler
-  window.onkeydown = handleKeyPress;
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.</p>
+   * The callback argument sets the callback that will be invoked when
+   * the event is dispatched.
+   *
+   * @event keydown
+   */
+  window.addEventListener("keydown", (event) => {
+    handleKeyPress(event);
+  });
 
   gl = canvas.getContext("webgl");
   if (!gl) {
     console.log("Failed to get the rendering context for WebGL");
     return;
   }
+
+  let aspect = canvas.width / canvas.height;
+  handleWindowResize();
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
@@ -2047,3 +2089,14 @@ function macarena(loop, firstLoop) {
 
   return t;
 }
+
+/**
+ * <p>Loads the {@link mainEntrance application}.</p>
+ * @param {Event} event an object has loaded.
+ * @param {callback} function function to run when the event occurs.
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
+addEventListener("load", (event) => {
+  mainEntrance();
+});

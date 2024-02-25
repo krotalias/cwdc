@@ -5,7 +5,6 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <meta charset="utf-8" />
         <title>Dancing Blobby</title>
         <link
@@ -20,211 +19,226 @@
         />
     </head>
 
-    <body style="text-align: center; font-family: Raleway, sans-serif">
-        <h2>The Blobby Man</h2>
-        <audio id="audio" src="Dancing_Blobby_files/macarena.mp3"></audio>
-        <audio id="audioGhost" src="Dancing_Blobby_files/ghost.mp3"></audio>
-        <audio id="audioHey" src="Dancing_Blobby_files/hey.mp3"></audio>
-        <audio id="audioWhistle" src="Dancing_Blobby_files/whistle.mp3"></audio>
+    <body>
+        <div
+            id="wrap-container"
+            style="text-align: center; font-family: Raleway, sans-serif"
+        >
+            <h2>The Blobby Man</h2>
 
-        <div class="dropdown">
-            <button
-                id="danceButton"
-                onclick="danceCallBack(true);"
-                style="cursor: pointer; background-color: rgb(230, 66, 0)"
-                title="Dance forever... and ever..."
-            >
-                <img
-                    src="Dancing_Blobby_files/dance.png"
-                    alt="Dance dance"
-                    height="70"
-                    width="70"
-                />
-            </button>
+            <div class="dropdown">
+                <button
+                    id="danceButton"
+                    onclick="danceCallBack(true);"
+                    style="cursor: pointer; background-color: rgb(230, 66, 0)"
+                    title="Dance forever... and ever..."
+                >
+                    <img
+                        src="Dancing_Blobby_files/dance.png"
+                        alt="Dance dance"
+                        height="70"
+                        width="70"
+                    />
+                </button>
+            </div>
+            <div class="dropdown">
+                <button
+                    id="stopButton"
+                    onclick="stopCallBack(true)"
+                    style="cursor: pointer"
+                    title="Stop animation"
+                >
+                    <img
+                        src="Dancing_Blobby_files/stop.png"
+                        alt="Dance dance"
+                        height="70"
+                        width="70"
+                    />
+                </button>
+            </div>
+            <div class="dropdown">
+                <button
+                    id="skinButton"
+                    onclick="alternateSkins()"
+                    style="cursor: pointer; background-color: rgb(255, 98, 35)"
+                    title="Alternate skins between jumps (Single Dancer Mode)"
+                >
+                    <img
+                        src="Dancing_Blobby_files/hand.png"
+                        alt="Alternate skins"
+                        height="70"
+                        width="70"
+                    />
+                </button>
+            </div>
+            <div class="dropdown">
+                <button
+                    id="shutUpButton"
+                    onclick="shutUpThatSong()"
+                    style="cursor: pointer"
+                    title="I cant listen to marena anymore. Please just stop. Shhhh...."
+                >
+                    <img
+                        src="Dancing_Blobby_files/shutUp.png"
+                        alt="Shut up macarena!"
+                        height="70"
+                        width="70"
+                    />
+                </button>
+            </div>
+            <div class="dropdown">
+                <button
+                    id="singleButton"
+                    onclick="singleDancer()"
+                    style="cursor: pointer; background-color: rgb(255, 98, 35)"
+                    title="Single dancer"
+                >
+                    <img
+                        src="Dancing_Blobby_files/single.png"
+                        alt="Single Blobby"
+                        height="70"
+                        width="70"
+                    />
+                </button>
+            </div>
+            <div class="dropdown">
+                <button
+                    id="doubleButton"
+                    onclick="doubleDancers()"
+                    style="cursor: pointer; background-color: rgb(230, 66, 0)"
+                    title="Double trouble. Lets dance!"
+                >
+                    <img
+                        src="Dancing_Blobby_files/double.png"
+                        alt="Double trouble. Lets dance!"
+                        height="70"
+                        width="70"
+                    />
+                </button>
+            </div>
+            <br /><br />
+            <!-- dropdown container -->
+            <div class="dropdown">
+                <!-- trigger button -->
+                <button>Basic Controls</button>
+
+                <!-- dropdown menu -->
+                <ul class="dropdown-menu">
+                    <li>
+                        <a><b>r, R</b> - rotate scene</a>
+                    </li>
+                    <li>
+                        <a><b>t, T</b> - torso rotation</a>
+                    </li>
+                    <li>
+                        <a><b>s, S</b> - shoulder rotation</a>
+                    </li>
+                    <li>
+                        <a><b>a, A</b> - arm rotation</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- dropdown container -->
+            <div class="dropdown">
+                <!-- trigger button -->
+                <button>Basic Poses</button>
+
+                <!-- dropdown menu -->
+                <ul class="dropdown-menu">
+                    <li>
+                        <a><b>u</b> - What's Up?</a>
+                    </li>
+                    <li>
+                        <a><b>i</b> - preparing for wave</a>
+                    </li>
+                    <li>
+                        <a><b>o</b> - hands on hips</a>
+                    </li>
+                    <li>
+                        <a><b>p</b> - bowing down pose</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- dropdown container -->
+            <div class="dropdown">
+                <!-- trigger button -->
+                <button>Basic Movements</button>
+
+                <!-- dropdown menu -->
+                <ul class="dropdown-menu">
+                    <li>
+                        <a><b>w</b> - wave Blobby, wave</a>
+                    </li>
+                    <li>
+                        <a><b>b</b> - bow down</a>
+                    </li>
+                    <li>
+                        <a><b>e</b> - the exorcist</a>
+                    </li>
+                    <li>
+                        <a><b>W</b> - raise left arm and sway</a>
+                    </li>
+                    <li>
+                        <a><b>j</b> - jump to the left</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- dropdown container -->
+            <div class="dropdown">
+                <!-- trigger button -->
+                <button>Advanced Movements</button>
+
+                <!-- dropdown menu -->
+                <ul class="dropdown-menu">
+                    <li>
+                        <a><b>m</b> - dance macarena</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="dropdown">
+                <!-- trigger button -->
+                <button>Modified Skins</button>
+
+                <!-- dropdown menu -->
+                <ul class="dropdown-menu">
+                    <li>
+                        <a><b>d</b> - default</a>
+                    </li>
+                    <li>
+                        <a><b>v</b> - vampire</a>
+                    </li>
+                    <!--            <li><a><b>z</b> - zombie</a></li>-->
+                    <li>
+                        <a><b>c</b> - disco</a>
+                    </li>
+                    <!--            <li><a><b>n</b> - disco fever</a></li>-->
+                </ul>
+            </div>
+
+            <br /><br /><br />
+
+            <canvas id="theCanvas" width="1100" height="900">
+                Please use a browser that supports "canvas"
+            </canvas>
+
+            <audio id="audio" src="Dancing_Blobby_files/macarena.mp3"></audio>
+            <audio id="audioGhost" src="Dancing_Blobby_files/ghost.mp3"></audio>
+            <audio id="audioHey" src="Dancing_Blobby_files/hey.mp3"></audio>
+            <audio
+                id="audioWhistle"
+                src="Dancing_Blobby_files/whistle.mp3"
+            ></audio>
+
+            <img
+                id="texImage"
+                src="Dancing_Blobby_files/dancefloor2.jpg"
+                hidden=""
+            />
         </div>
-        <div class="dropdown">
-            <button
-                id="stopButton"
-                onclick="stopCallBack(true)"
-                style="cursor: pointer"
-                title="Stop animation"
-            >
-                <img
-                    src="Dancing_Blobby_files/stop.png"
-                    alt="Dance dance"
-                    height="70"
-                    width="70"
-                />
-            </button>
-        </div>
-        <div class="dropdown">
-            <button
-                id="skinButton"
-                onclick="alternateSkins()"
-                style="cursor: pointer; background-color: rgb(255, 98, 35)"
-                title="Alternate skins between jumps (Single Dancer Mode)"
-            >
-                <img
-                    src="Dancing_Blobby_files/hand.png"
-                    alt="Alternate skins"
-                    height="70"
-                    width="70"
-                />
-            </button>
-        </div>
-        <div class="dropdown">
-            <button
-                id="shutUpButton"
-                onclick="shutUpThatSong()"
-                style="cursor: pointer"
-                title="I cant listen to marena anymore. Please just stop. Shhhh...."
-            >
-                <img
-                    src="Dancing_Blobby_files/shutUp.png"
-                    alt="Shut up macarena!"
-                    height="70"
-                    width="70"
-                />
-            </button>
-        </div>
-        <div class="dropdown">
-            <button
-                id="singleButton"
-                onclick="singleDancer()"
-                style="cursor: pointer; background-color: rgb(255, 98, 35)"
-                title="Single dancer"
-            >
-                <img
-                    src="Dancing_Blobby_files/single.png"
-                    alt="Single Blobby"
-                    height="70"
-                    width="70"
-                />
-            </button>
-        </div>
-        <div class="dropdown">
-            <button
-                id="doubleButton"
-                onclick="doubleDancers()"
-                style="cursor: pointer; background-color: rgb(230, 66, 0)"
-                title="Double trouble. Lets dance!"
-            >
-                <img
-                    src="Dancing_Blobby_files/double.png"
-                    alt="Double trouble. Lets dance!"
-                    height="70"
-                    width="70"
-                />
-            </button>
-        </div>
-        <br /><br />
-        <!-- dropdown container -->
-        <div class="dropdown">
-            <!-- trigger button -->
-            <button>Basic Controls</button>
-
-            <!-- dropdown menu -->
-            <ul class="dropdown-menu">
-                <li>
-                    <a><b>r, R</b> - rotate scene</a>
-                </li>
-                <li>
-                    <a><b>t, T</b> - torso rotation</a>
-                </li>
-                <li>
-                    <a><b>s, S</b> - shoulder rotation</a>
-                </li>
-                <li>
-                    <a><b>a, A</b> - arm rotation</a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- dropdown container -->
-        <div class="dropdown">
-            <!-- trigger button -->
-            <button>Basic Poses</button>
-
-            <!-- dropdown menu -->
-            <ul class="dropdown-menu">
-                <li>
-                    <a><b>u</b> - What's Up?</a>
-                </li>
-                <li>
-                    <a><b>i</b> - preparing for wave</a>
-                </li>
-                <li>
-                    <a><b>o</b> - hands on hips</a>
-                </li>
-                <li>
-                    <a><b>p</b> - bowing down pose</a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- dropdown container -->
-        <div class="dropdown">
-            <!-- trigger button -->
-            <button>Basic Movements</button>
-
-            <!-- dropdown menu -->
-            <ul class="dropdown-menu">
-                <li>
-                    <a><b>w</b> - wave Blobby, wave</a>
-                </li>
-                <li>
-                    <a><b>b</b> - bow down</a>
-                </li>
-                <li>
-                    <a><b>e</b> - the exorcist</a>
-                </li>
-                <li>
-                    <a><b>W</b> - raise left arm and sway</a>
-                </li>
-                <li>
-                    <a><b>j</b> - jump to the left</a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- dropdown container -->
-        <div class="dropdown">
-            <!-- trigger button -->
-            <button>Advanced Movements</button>
-
-            <!-- dropdown menu -->
-            <ul class="dropdown-menu">
-                <li>
-                    <a><b>m</b> - dance macarena</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="dropdown">
-            <!-- trigger button -->
-            <button>Modified Skins</button>
-
-            <!-- dropdown menu -->
-            <ul class="dropdown-menu">
-                <li>
-                    <a><b>d</b> - default</a>
-                </li>
-                <li>
-                    <a><b>v</b> - vampire</a>
-                </li>
-                <!--            <li><a><b>z</b> - zombie</a></li>-->
-                <li>
-                    <a><b>c</b> - disco</a>
-                </li>
-                <!--            <li><a><b>n</b> - disco fever</a></li>-->
-            </ul>
-        </div>
-
-        <br /><br /><br />
-
-        <canvas id="theCanvas" width="1100" height="900">
-            Please use a browser that supports "canvas"
-        </canvas>
 
         <script id="vertexLightingShader" type="x-shader/x-vertex">
             uniform mat4 model;
@@ -304,15 +318,5 @@
         <script src="Dancing_Blobby_files/Blobby.js"></script>
 
         <script src="/cwdc/13-webgl/lib/three.js"></script>
-
-        <script>
-            window.onload = mainEntrance;
-        </script>
-
-        <img
-            id="texImage"
-            src="Dancing_Blobby_files/dancefloor2.jpg"
-            hidden=""
-        />
     </body>
 </html>

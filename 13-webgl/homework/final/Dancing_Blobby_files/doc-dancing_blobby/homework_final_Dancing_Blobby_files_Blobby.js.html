@@ -49,6 +49,7 @@
  *
  * @see &lt;a href="/cwdc/13-webgl/homework/final/Dancing_Blobby.html">link&lt;/a>
  * @see &lt;a href="/cwdc/13-webgl/homework/final/Dancing_Blobby_files/Blobby.js">source&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/homework/presentation.pdf">tutorial&lt;/a>
  * @see &lt;img src="../blobby.png" width="512">
  */
 
@@ -1056,17 +1057,58 @@ function draw(currentTime) {
  * while {@link draw} does things that have to be repeated each time the canvas is drawn.
  */
 function mainEntrance() {
+  /**
+   * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   */
+  function handleWindowResize() {
+    let h = window.innerHeight;
+    let w = window.innerWidth;
+    if (h > w) {
+      h = w / aspect; // aspect &lt; 1
+    } else {
+      w = h * aspect; // aspect > 1
+    }
+    canvas.width = w;
+    canvas.height = h;
+    gl.viewport(0, 0, w, h);
+    // projection = new Matrix4().setPerspective(FOV, aspect, ZN, ZF);
+  }
+
+  /**
+   * &lt;p>Appends an event listener for events whose type attribute value is resize.&lt;/p>
+   * &lt;p>The {@link handleWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.&lt;/p>
+   * @param {Event} event the document view is resized.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize - executed when the window is resized.
+   */
+  window.addEventListener("resize", handleWindowResize, false);
   // retrieve &lt;canvas> element
   var canvas = document.getElementById("theCanvas");
 
-  // key handler
-  window.onkeydown = handleKeyPress;
+  /**
+   * &lt;p>Appends an event listener for events whose type attribute value is keydown.&lt;/p>
+   * The callback argument sets the callback that will be invoked when
+   * the event is dispatched.
+   *
+   * @event keydown
+   */
+  window.addEventListener("keydown", (event) => {
+    handleKeyPress(event);
+  });
 
   gl = canvas.getContext("webgl");
   if (!gl) {
     console.log("Failed to get the rendering context for WebGL");
     return;
   }
+
+  let aspect = canvas.width / canvas.height;
+  handleWindowResize();
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
@@ -2075,6 +2117,17 @@ function macarena(loop, firstLoop) {
 
   return t;
 }
+
+/**
+ * &lt;p>Loads the {@link mainEntrance application}.&lt;/p>
+ * @param {Event} event an object has loaded.
+ * @param {callback} function function to run when the event occurs.
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
+addEventListener("load", (event) => {
+  mainEntrance();
+});
 </code></pre>
         </article>
     </section>
@@ -2085,13 +2138,13 @@ function macarena(loop, firstLoop) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#alternateSkins">alternateSkins</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#arrayOfSkins">arrayOfSkins</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#bowDown">bowDown</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#currentSkin">currentSkin</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#doubleDancers">doubleDancers</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handsOnHips">handsOnHips</a></li><li><a href="global.html#incrementJumps">incrementJumps</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#prepareForWave">prepareForWave</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#shutUpThatSong">shutUpThatSong</a></li><li><a href="global.html#singleDancer">singleDancer</a></li><li><a href="global.html#skinDefault">skinDefault</a></li><li><a href="global.html#skinDisco">skinDisco</a></li><li><a href="global.html#skinVampire">skinVampire</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stiffPosition">stiffPosition</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stopSongAfterDance">stopSongAfterDance</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#whatsUp">whatsUp</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#alternateSkins">alternateSkins</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#arrayOfSkins">arrayOfSkins</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#bowDown">bowDown</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#currentSkin">currentSkin</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#doubleDancers">doubleDancers</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handsOnHips">handsOnHips</a></li><li><a href="global.html#incrementJumps">incrementJumps</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#prepareForWave">prepareForWave</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#shutUpThatSong">shutUpThatSong</a></li><li><a href="global.html#singleDancer">singleDancer</a></li><li><a href="global.html#skinDefault">skinDefault</a></li><li><a href="global.html#skinDisco">skinDisco</a></li><li><a href="global.html#skinVampire">skinVampire</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stiffPosition">stiffPosition</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stopSongAfterDance">stopSongAfterDance</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#whatsUp">whatsUp</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Feb 25 2024 10:52:04 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Feb 25 2024 17:40:15 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
