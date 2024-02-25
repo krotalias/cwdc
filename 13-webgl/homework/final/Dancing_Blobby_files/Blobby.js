@@ -108,13 +108,27 @@ class Stack {
 }
 
 /**
+ * @typedef {Object} bufferGeometry
+ * @property {Float32Array} vertices vertex coordinates.
+ * @property {Float32Array} normals vertex normals.
+ * @property {Float32Array} texCoords texture coordinates.
+ * @property {Uint16Array} indices index array.
+ */
+
+/**
  * Given an instance of
  * {@link external:THREE.BufferGeometry THREE.BufferGeometry},
- * returns an object containing raw data for
- * vertices, indices, texture coordinates, and normal vectors.
+ * returns a {@link bufferGeometry} object containing raw data for:
+ * <ul>
+ *  <li>vertices, </li>
+ *  <li>indices, </li>
+ *  <li>texture coordinates, </li>
+ *  <li>and normal vectors. </li>
+ * </ul>
+ *
  * @param {external:THREE.BufferGeometry} geom {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry}, <br>
  *                                             {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry}.
- * @return {Object<{vertices: Float32Array, normals: Float32Array, texCoords: Float32Array, indices: Uint16Array}>}
+ * @return {bufferGeometry}
  */
 function getModelData(geom) {
   return {
@@ -195,10 +209,6 @@ var gl;
 var doubleBlobby = false;
 var selSkin = 0; //random skin selector 1
 var selSkin2 = 0; //random skin selector 1
-
-var previousTimeStamp;
-var numberOfFramesForFPS;
-var fpsCounter;
 
 /**
  * Delay for the steps in the macarena animation.
@@ -956,21 +966,8 @@ function GPlane() {
 
 /**
  * Code to actually render our geometry.
- * @param {Date} currentTime current time.
  */
-function draw(currentTime) {
-  if (typeof currentTime === "undefined") {
-    currentTime = Date.now();
-  }
-
-  /*
-  if ( Math.abs(currentTime - previousTimeStamp) >= 1000 ) {
-      fpsCounter.innerHTML = numberOfFramesForFPS;
-      numberOfFramesForFPS = 0;
-      previousTimeStamp = currentTime;
-  }
-  */
-
+function draw() {
   // clear the framebuffer
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -1019,7 +1016,6 @@ function draw(currentTime) {
   if (!stk.isEmpty()) {
     console.log("Warning: pops do not match pushes");
   }
-  // numberOfFramesForFPS++;
 }
 
 /**
@@ -1186,26 +1182,43 @@ function mainEntrance() {
 
   gl.enable(gl.DEPTH_TEST);
 
-  previousTimeStamp = Date.now(); // time in miliseconds
-  numberOfFramesForFPS = 0;
-  fpsCounter = document.getElementById("fps");
-
   // Initialize a texture
   var image = document.getElementById("texImage");
 
   configureTexture(image);
 
   /**
-   * <p>Define an animation loop, by calling {@link draw} for each frame.</p>
-   * Its argument is the current time.
-   * @param {Date} now current time.
+   * A closure to render the application and display the fps.
+   *
+   * @return {loop} animation callback.
+   * @function
    * @global
    * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
    */
-  var animate = function (now) {
-    draw(now);
-    requestAnimationFrame(animate); // passes Performance.now() to animate...
-  };
+  const animate = (() => {
+    // time in milliseconds
+    let previousTimeStamp = Date.now();
+    let numberOfFramesForFPS = 0;
+    let fpsCounter = document.getElementById("fps");
+    let currentTime;
+    /**
+     * <p>Define an animation loop, by calling {@link draw} for each frame.</p>
+     * @callback loop
+     * @global
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+     */
+    return () => {
+      currentTime = Date.now();
+      if (Math.abs(currentTime - previousTimeStamp) >= 1000) {
+        fpsCounter.innerHTML = `(${numberOfFramesForFPS} fps)`;
+        numberOfFramesForFPS = 0;
+        previousTimeStamp = currentTime;
+      }
+      numberOfFramesForFPS++;
+      draw();
+      requestAnimationFrame(animate);
+    };
+  })();
 
   // start drawing!
   animate();
