@@ -854,6 +854,22 @@ function handleKeyPress(event) {
 }
 
 /**
+ * Returns a new keyboard event.
+ * @param {String} key char code.
+ * @returns {KeyboardEvent} a keyboard event.
+ * @event KeyboardEvent
+ */
+const createEvent = (key) => {
+  let code = key.charCodeAt();
+  return new KeyboardEvent("keydown", {
+    key: key,
+    which: code,
+    charCode: code,
+    keyCode: code,
+  });
+};
+
+/**
  *  Helper function that renders the sphere based on the model transformation
  *  on top of the stack and the given local transformation.
  *  @param {Float32Array} color sphere color.
@@ -1227,6 +1243,18 @@ function mainEntrance() {
   rotator = new SimpleRotator(canvas, draw);
   rotator.setViewMatrix(view.elements);
   rotator.setViewDistance(viewDistance);
+
+  window.exorcist = () => {
+    handleKeyPress(createEvent("e"));
+  };
+
+  window.bdown = () => {
+    handleKeyPress(createEvent("b"));
+  };
+
+  window.bwave = () => {
+    handleKeyPress(createEvent("w"));
+  };
 
   /**
    * A closure to render the application and display the fps.
