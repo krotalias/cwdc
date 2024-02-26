@@ -44,6 +44,14 @@
  */
 
 /**
+ * @typedef {Object} bufferGeometry
+ * @property {Float32Array} vertices vertex coordinates.
+ * @property {Float32Array} normals vertex normals.
+ * @property {Float32Array} texCoords texture coordinates.
+ * @property {Uint16Array} indices index array.
+ */
+
+/**
  * @class
  * A very basic stack class.
  */
@@ -106,14 +114,6 @@ class Stack {
     return this.t <= 0;
   }
 }
-
-/**
- * @typedef {Object} bufferGeometry
- * @property {Float32Array} vertices vertex coordinates.
- * @property {Float32Array} normals vertex normals.
- * @property {Float32Array} texCoords texture coordinates.
- * @property {Uint16Array} indices index array.
- */
 
 /**
  * Given an instance of
@@ -193,6 +193,15 @@ function makeNormalMatrixElements(model, view) {
     n[8], n[9], n[10],
   ]);
 }
+
+/**
+ * Returns the magnitude (length) of a vector.
+ * @param {Array<Number>} v n-D vector.
+ * @returns {Number} vector length.
+ * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+ */
+var vecLen = (v) =>
+  Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
 
 // A few global variables...
 var audio = document.getElementById("audio");
@@ -298,9 +307,9 @@ var glColor = white;
 var FOV = 45.0,
   ZN = 1.17,
   ZF = 20.7;
-var XSCR = -0.1,
+var XSCR = 0,
   YSCR = 1.6,
-  ZSCR = 7.9;
+  ZSCR = 0;
 var XM = 0.0,
   YM = 0.0,
   ZM = 1.75;
@@ -354,13 +363,13 @@ var RELBO = 85.0; /* x */
 
 /**
  * Model data (blobby parts).
- * @type {Object<{vertices: Float32Array, normals: Float32Array, texCoords: Float32Array, indices: Uint16Array}>}
+ * @type {bufferGeometry}
  */
 var sphere;
 
 /**
  * Floor.
- * @type {Object<{vertices: Float32Array, normals: Float32Array, texCoords: Float32Array, indices: Uint16Array}>}
+ * @type {bufferGeometry}
  */
 var planeModel;
 
@@ -401,15 +410,27 @@ var texturedShader;
 var bodyMatrix = new Matrix4();
 
 /**
+ * Camera position.
+ * @type {Array<Number>}
+ */
+const eye = [0.1, -1.6, -7.5];
+
+/**
  * View matrix.
  * @type {Matrix4}
  */
 // prettier-ignore
 var view = new Matrix4().setLookAt(
-  0, 0, 0,  // eye
-  0, 0, 1,  // at - looking at the origin
+  ...eye,   // eye
+  0.1, -1.6, -6.5,  // at - looking at the origin
   0, -1, 0, // up vector - y axis
 );
+
+/**
+ * View distance.
+ * @type {Number}
+ */
+var viewDistance = vecLen(eye);
 
 /**
  * <p>Projection matrix.</p>
@@ -417,6 +438,18 @@ var view = new Matrix4().setLookAt(
  * @type {Matrix4}
  */
 var projection = new Matrix4().setPerspective(FOV, 1.2, ZN, ZF);
+
+/**
+ * <p>Object to enable rotation by mouse dragging (arcball).</p>
+ * For using the rotator, I had to:
+ * <ul>
+ *  <li>set XSCR = ZSCR = 0 (was XSCR = -0.1, ZSCR = 7.9),</li>
+ *  <li>set the eye to [0.1, -1.6, -7.5] (was at the origin),</li>
+ *  <li>looking at [0.1, -1.6, -6.5] (was [0,0,1]).</li>
+ * </ul>
+ * @type {SimpleRotator}
+ */
+var rotator;
 
 /**
  * Translate keypress events to strings.
@@ -965,11 +998,38 @@ function GPlane() {
 }
 
 /**
+ * Add a new Blobby to the scene translated by (DX,DY)
+ * and "dressed for success" with the given {@link torso skin}.
+ * @param {Number} DX horizontal translation.
+ * @param {Number} DY vertical translation.
+ * @param {Function} skin function for drawing the skin.
+ */
+function addBlobby(DX, DY, skin) {
+  bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
+  bodyMatrix
+    .rotate(BACK, XAXIS[0], XAXIS[1], XAXIS[2])
+    .rotate(SPIN, ZAXIS[0], ZAXIS[1], ZAXIS[2])
+    .rotate(TILT, XAXIS[0], XAXIS[1], XAXIS[2]);
+
+  bodyMatrix.translate(XM + DX, YM + DY, ZM);
+
+  // for jumping and spinning at the dance
+  bodyMatrix.translate(0, 0, JUMP);
+  bodyMatrix.rotate(TURN, ZAXIS[0], ZAXIS[1], ZAXIS[2]);
+
+  stk.push(bodyMatrix);
+  new torso(skin);
+  stk.pop();
+}
+
+/**
  * Code to actually render our geometry.
  */
 function draw() {
   // clear the framebuffer
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+  view.elements = rotator.getViewMatrix();
 
   bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
   bodyMatrix
@@ -981,36 +1041,12 @@ function draw() {
   GPlane();
   stk.pop();
 
-  if (doubleBlobby) bodyMatrix.translate(XM - 1, YM, ZM);
-  else bodyMatrix.translate(XM, YM, ZM);
-
-  // for jumping and spinning at the dance
-  bodyMatrix.translate(0, 0, JUMP);
-  bodyMatrix.rotate(TURN, ZAXIS[0], ZAXIS[1], ZAXIS[2]);
-
-  stk.push(bodyMatrix);
-
-  if (doubleBlobby) {
-    new torso(arrayOfSkins[selSkin]);
-  } else torso();
-
-  stk.pop();
+  if (doubleBlobby) addBlobby(-1, 0, arrayOfSkins[selSkin]);
+  else addBlobby(0, 0);
 
   if (doubleBlobby) {
     // we need to make the second matrix independent from the first
-    bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
-    bodyMatrix
-      .rotate(BACK, XAXIS[0], XAXIS[1], XAXIS[2])
-      .rotate(SPIN, ZAXIS[0], ZAXIS[1], ZAXIS[2])
-      .rotate(TILT, XAXIS[0], XAXIS[1], XAXIS[2]);
-
-    bodyMatrix.translate(XM + 1, YM, ZM);
-    // for jumping and spinning at the dance
-    bodyMatrix.translate(0, 0, JUMP);
-    bodyMatrix.rotate(TURN, ZAXIS[0], ZAXIS[1], -1.75);
-    stk.push(bodyMatrix);
-    new torso(arrayOfSkins[selSkin2]);
-    stk.pop();
+    addBlobby(1, 0, arrayOfSkins[selSkin2]);
   }
 
   if (!stk.isEmpty()) {
@@ -1186,6 +1222,11 @@ function mainEntrance() {
   var image = document.getElementById("texImage");
 
   configureTexture(image);
+
+  // create new rotator object
+  rotator = new SimpleRotator(canvas, draw);
+  rotator.setViewMatrix(view.elements);
+  rotator.setViewDistance(viewDistance);
 
   /**
    * A closure to render the application and display the fps.
@@ -1515,6 +1556,11 @@ function rightleg() {
   stk.pop();
 }
 
+/**
+ * Draws Blobby's torso using the given function
+ * to set its skin.
+ * @param {Function} func skin.
+ */
 function torso(func) {
   if (typeof func === "undefined") func = skinDefault;
 
@@ -1632,6 +1678,9 @@ function whatsUp() {
   RTWIS = -102;
 }
 
+/**
+ * Scared Blobby.
+ */
 function scaryPose() {
   stiffPosition();
 
@@ -1650,7 +1699,7 @@ function scaryPose() {
 }
 
 /**
- * Setting Bloby up for a wave.
+ * Setting Blobby up for a wave.
  */
 function prepareForWave() {
   stiffPosition();
@@ -1669,6 +1718,9 @@ function prepareForWave() {
   RELBO = 90.0; /* x */
 }
 
+/**
+ * Set Blobby to bow down.
+ */
 function bowPose() {
   stiffPosition();
 
@@ -1716,7 +1768,7 @@ function bow() {
   return t;
 }
 
-// exorciiiist
+// exorcist
 function spinHead() {
   NECK += 5;
 }

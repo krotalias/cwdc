@@ -72,6 +72,14 @@
  */
 
 /**
+ * @typedef {Object} bufferGeometry
+ * @property {Float32Array} vertices vertex coordinates.
+ * @property {Float32Array} normals vertex normals.
+ * @property {Float32Array} texCoords texture coordinates.
+ * @property {Uint16Array} indices index array.
+ */
+
+/**
  * @class
  * A very basic stack class.
  */
@@ -134,14 +142,6 @@ class Stack {
     return this.t &lt;= 0;
   }
 }
-
-/**
- * @typedef {Object} bufferGeometry
- * @property {Float32Array} vertices vertex coordinates.
- * @property {Float32Array} normals vertex normals.
- * @property {Float32Array} texCoords texture coordinates.
- * @property {Uint16Array} indices index array.
- */
 
 /**
  * Given an instance of
@@ -221,6 +221,15 @@ function makeNormalMatrixElements(model, view) {
     n[8], n[9], n[10],
   ]);
 }
+
+/**
+ * Returns the magnitude (length) of a vector.
+ * @param {Array&lt;Number>} v n-D vector.
+ * @returns {Number} vector length.
+ * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+ */
+var vecLen = (v) =>
+  Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
 
 // A few global variables...
 var audio = document.getElementById("audio");
@@ -326,9 +335,9 @@ var glColor = white;
 var FOV = 45.0,
   ZN = 1.17,
   ZF = 20.7;
-var XSCR = -0.1,
+var XSCR = 0,
   YSCR = 1.6,
-  ZSCR = 7.9;
+  ZSCR = 0;
 var XM = 0.0,
   YM = 0.0,
   ZM = 1.75;
@@ -382,13 +391,13 @@ var RELBO = 85.0; /* x */
 
 /**
  * Model data (blobby parts).
- * @type {Object&lt;{vertices: Float32Array, normals: Float32Array, texCoords: Float32Array, indices: Uint16Array}>}
+ * @type {bufferGeometry}
  */
 var sphere;
 
 /**
  * Floor.
- * @type {Object&lt;{vertices: Float32Array, normals: Float32Array, texCoords: Float32Array, indices: Uint16Array}>}
+ * @type {bufferGeometry}
  */
 var planeModel;
 
@@ -429,15 +438,27 @@ var texturedShader;
 var bodyMatrix = new Matrix4();
 
 /**
+ * Camera position.
+ * @type {Array&lt;Number>}
+ */
+const eye = [0.1, -1.6, -7.5];
+
+/**
  * View matrix.
  * @type {Matrix4}
  */
 // prettier-ignore
 var view = new Matrix4().setLookAt(
-  0, 0, 0,  // eye
-  0, 0, 1,  // at - looking at the origin
+  ...eye,   // eye
+  0.1, -1.6, -6.5,  // at - looking at the origin
   0, -1, 0, // up vector - y axis
 );
+
+/**
+ * View distance.
+ * @type {Number}
+ */
+var viewDistance = vecLen(eye);
 
 /**
  * &lt;p>Projection matrix.&lt;/p>
@@ -445,6 +466,18 @@ var view = new Matrix4().setLookAt(
  * @type {Matrix4}
  */
 var projection = new Matrix4().setPerspective(FOV, 1.2, ZN, ZF);
+
+/**
+ * &lt;p>Object to enable rotation by mouse dragging (arcball).&lt;/p>
+ * For using the rotator, I had to:
+ * &lt;ul>
+ *  &lt;li>set XSCR = ZSCR = 0 (was XSCR = -0.1, ZSCR = 7.9),&lt;/li>
+ *  &lt;li>set the eye to [0.1, -1.6, -7.5] (was at the origin),&lt;/li>
+ *  &lt;li>looking at [0.1, -1.6, -6.5] (was [0,0,1]).&lt;/li>
+ * &lt;/ul>
+ * @type {SimpleRotator}
+ */
+var rotator;
 
 /**
  * Translate keypress events to strings.
@@ -993,11 +1026,38 @@ function GPlane() {
 }
 
 /**
+ * Add a new Blobby to the scene translated by (DX,DY)
+ * and "dressed for success" with the given {@link torso skin}.
+ * @param {Number} DX horizontal translation.
+ * @param {Number} DY vertical translation.
+ * @param {Function} skin function for drawing the skin.
+ */
+function addBlobby(DX, DY, skin) {
+  bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
+  bodyMatrix
+    .rotate(BACK, XAXIS[0], XAXIS[1], XAXIS[2])
+    .rotate(SPIN, ZAXIS[0], ZAXIS[1], ZAXIS[2])
+    .rotate(TILT, XAXIS[0], XAXIS[1], XAXIS[2]);
+
+  bodyMatrix.translate(XM + DX, YM + DY, ZM);
+
+  // for jumping and spinning at the dance
+  bodyMatrix.translate(0, 0, JUMP);
+  bodyMatrix.rotate(TURN, ZAXIS[0], ZAXIS[1], ZAXIS[2]);
+
+  stk.push(bodyMatrix);
+  new torso(skin);
+  stk.pop();
+}
+
+/**
  * Code to actually render our geometry.
  */
 function draw() {
   // clear the framebuffer
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+  view.elements = rotator.getViewMatrix();
 
   bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
   bodyMatrix
@@ -1009,36 +1069,12 @@ function draw() {
   GPlane();
   stk.pop();
 
-  if (doubleBlobby) bodyMatrix.translate(XM - 1, YM, ZM);
-  else bodyMatrix.translate(XM, YM, ZM);
-
-  // for jumping and spinning at the dance
-  bodyMatrix.translate(0, 0, JUMP);
-  bodyMatrix.rotate(TURN, ZAXIS[0], ZAXIS[1], ZAXIS[2]);
-
-  stk.push(bodyMatrix);
-
-  if (doubleBlobby) {
-    new torso(arrayOfSkins[selSkin]);
-  } else torso();
-
-  stk.pop();
+  if (doubleBlobby) addBlobby(-1, 0, arrayOfSkins[selSkin]);
+  else addBlobby(0, 0);
 
   if (doubleBlobby) {
     // we need to make the second matrix independent from the first
-    bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
-    bodyMatrix
-      .rotate(BACK, XAXIS[0], XAXIS[1], XAXIS[2])
-      .rotate(SPIN, ZAXIS[0], ZAXIS[1], ZAXIS[2])
-      .rotate(TILT, XAXIS[0], XAXIS[1], XAXIS[2]);
-
-    bodyMatrix.translate(XM + 1, YM, ZM);
-    // for jumping and spinning at the dance
-    bodyMatrix.translate(0, 0, JUMP);
-    bodyMatrix.rotate(TURN, ZAXIS[0], ZAXIS[1], -1.75);
-    stk.push(bodyMatrix);
-    new torso(arrayOfSkins[selSkin2]);
-    stk.pop();
+    addBlobby(1, 0, arrayOfSkins[selSkin2]);
   }
 
   if (!stk.isEmpty()) {
@@ -1214,6 +1250,11 @@ function mainEntrance() {
   var image = document.getElementById("texImage");
 
   configureTexture(image);
+
+  // create new rotator object
+  rotator = new SimpleRotator(canvas, draw);
+  rotator.setViewMatrix(view.elements);
+  rotator.setViewDistance(viewDistance);
 
   /**
    * A closure to render the application and display the fps.
@@ -1543,6 +1584,11 @@ function rightleg() {
   stk.pop();
 }
 
+/**
+ * Draws Blobby's torso using the given function
+ * to set its skin.
+ * @param {Function} func skin.
+ */
 function torso(func) {
   if (typeof func === "undefined") func = skinDefault;
 
@@ -1660,6 +1706,9 @@ function whatsUp() {
   RTWIS = -102;
 }
 
+/**
+ * Scared Blobby.
+ */
 function scaryPose() {
   stiffPosition();
 
@@ -1678,7 +1727,7 @@ function scaryPose() {
 }
 
 /**
- * Setting Bloby up for a wave.
+ * Setting Blobby up for a wave.
  */
 function prepareForWave() {
   stiffPosition();
@@ -1697,6 +1746,9 @@ function prepareForWave() {
   RELBO = 90.0; /* x */
 }
 
+/**
+ * Set Blobby to bow down.
+ */
 function bowPose() {
   stiffPosition();
 
@@ -1744,7 +1796,7 @@ function bow() {
   return t;
 }
 
-// exorciiiist
+// exorcist
 function spinHead() {
   NECK += 5;
 }
@@ -2151,13 +2203,13 @@ addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#alternateSkins">alternateSkins</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#arrayOfSkins">arrayOfSkins</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#bowDown">bowDown</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#currentSkin">currentSkin</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#doubleDancers">doubleDancers</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handsOnHips">handsOnHips</a></li><li><a href="global.html#incrementJumps">incrementJumps</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#prepareForWave">prepareForWave</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#shutUpThatSong">shutUpThatSong</a></li><li><a href="global.html#singleDancer">singleDancer</a></li><li><a href="global.html#skinDefault">skinDefault</a></li><li><a href="global.html#skinDisco">skinDisco</a></li><li><a href="global.html#skinVampire">skinVampire</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stiffPosition">stiffPosition</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stopSongAfterDance">stopSongAfterDance</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#whatsUp">whatsUp</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#alternateSkins">alternateSkins</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#arrayOfSkins">arrayOfSkins</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#bowDown">bowDown</a></li><li><a href="global.html#bowPose">bowPose</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#currentSkin">currentSkin</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#doubleDancers">doubleDancers</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handsOnHips">handsOnHips</a></li><li><a href="global.html#incrementJumps">incrementJumps</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#prepareForWave">prepareForWave</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#scaryPose">scaryPose</a></li><li><a href="global.html#shutUpThatSong">shutUpThatSong</a></li><li><a href="global.html#singleDancer">singleDancer</a></li><li><a href="global.html#skinDefault">skinDefault</a></li><li><a href="global.html#skinDisco">skinDisco</a></li><li><a href="global.html#skinVampire">skinVampire</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stiffPosition">stiffPosition</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stopSongAfterDance">stopSongAfterDance</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#torso">torso</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#whatsUp">whatsUp</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Feb 25 2024 20:27:12 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 26 2024 10:22:45 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

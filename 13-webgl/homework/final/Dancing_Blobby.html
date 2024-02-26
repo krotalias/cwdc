@@ -261,7 +261,8 @@
             void main()
             {
               float ambientFactor = 0.3;
-              vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
+              vec3 lightDirection = normalize((- view * model * a_Position).xyz);
+              //vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
               //vec3 normal = (view * model * vec4(a_Normal, 0.0)).xyz;
               vec3 normal = normalize(normalMatrix * a_Normal);
               float diffuseFactor = 0.8*max(0.0, dot(lightDirection, normal));
@@ -321,6 +322,7 @@
 
         <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
         <script src="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js"></script>
+        <script src="/cwdc/13-webgl/lib/simple-rotator.js"></script>
         <script src="Dancing_Blobby_files/Blobby.js"></script>
 
         <script src="/cwdc/13-webgl/lib/three.js"></script>
