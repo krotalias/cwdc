@@ -1256,6 +1256,14 @@ function mainEntrance() {
     handleKeyPress(createEvent("w"));
   };
 
+  window.blarmup = () => {
+    handleKeyPress(createEvent("W"));
+  };
+
+  window.bljump = () => {
+    handleKeyPress(createEvent("j"));
+  };
+
   /**
    * A closure to render the application and display the fps.
    *
