@@ -1,0 +1,1707 @@
+.TH "torus.cpp" 3Version 1.0" "LCG_cg" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+torus.cpp \- This program demonstrates the creation of display lists for constructing some quadric surfaces\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <IL/il\&.h>\fP
+.br
+\fC#include <GL/glut\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <math\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+\fC#include <sys/time\&.h>\fP
+.br
+\fC#include <Arcball/Arcball\&.hpp>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_Point\fP"
+.br
+.RI "3D point structure\&. "
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBGL_GLEXT_PROTOTYPES\fP"
+.br
+.ti -1c
+.RI "#define \fBM_PI_\fP   3\&.14159265358979323846"
+.br
+.RI " definition\&. "
+.ti -1c
+.RI "#define \fBcheckImageWidth\fP   128"
+.br
+.RI "Texture Image width\&. "
+.ti -1c
+.RI "#define \fBcheckImageHeight\fP   128"
+.br
+.RI "Texture Image height\&. "
+.ti -1c
+.RI "#define \fBfarPlane\fP   (\fBzobs\fP+10*d)"
+.br
+.RI "Far plane distance\&. "
+.ti -1c
+.RI "#define \fBfrontPlane\fP   1"
+.br
+.RI "Front plane distance\&. "
+.ti -1c
+.RI "#define \fBposAng\fP(x)   ((x) < 0\&.0 ? ((x)+\fBTWOPI\fP) : (x))"
+.br
+.RI "Return a positive angle\&. "
+.ti -1c
+.RI "#define \fBTWOPI\fP   (2*M_PI)"
+.br
+.RI "Two PI\&. "
+.ti -1c
+.RI "#define \fBtoRad\fP(x)   ((x)*M_PI/180\&.0)"
+.br
+.RI "Convert an angle to radians\&. "
+.ti -1c
+.RI "#define \fBtoDeg\fP(x)   ((x)*180\&.0/M_PI)"
+.br
+.RI "Convert an angle to degrees\&. "
+.ti -1c
+.RI "#define \fBclamp\fP(x)   (fmin(fmax((x),0),1))"
+.br
+.RI "Clamp to [0,1]\&. "
+.ti -1c
+.RI "#define \fBLEN\fP(x,  y,  z)   (sqrt((x)*(x)+(y)*(y)+(z)*(z)))"
+.br
+.RI "Vector length\&. "
+.ti -1c
+.RI "#define \fBtheAxes\fP   (2*\fBnObjects\fP)"
+.br
+.RI "Axes\&. "
+.ti -1c
+.RI "#define \fBnObjects\fP   (sizeof(\fBobjNames\fP)/sizeof(char*))"
+.br
+.RI "Number of objects;\&. "
+.ti -1c
+.RI "#define \fBscale\fP   (0\&.05*diag)"
+.br
+.RI "Scale for drawing normals\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_Point\fP \fBPoint\fP"
+.br
+.RI "3D point structure\&. "
+.ti -1c
+.RI "typedef \fBPoint\fP \fB_BBOX\fP[2]"
+.br
+.RI "Axis aligned Bounding box\&. "
+.ti -1c
+.RI "typedef enum \fB_oType\fP \fBoType\fP"
+.br
+.RI "Quadric types\&. "
+.ti -1c
+.RI "typedef enum \fB_rAxes\fP \fBrAxes\fP"
+.br
+.RI "Rotation axes\&. "
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fB_oType\fP { \fB_torus\fP = 0, \fB_cylinder\fP, \fB_cone\fP, \fB_ellipsoid\fP, \fB_paraboloid\fP, \fB_hyperbolic_paraboloid\fP, \fB_hyperboloid\fP }"
+.br
+.RI "Quadric types\&. "
+.ti -1c
+.RI "enum \fB_rAxes\fP { \fBxAxis\fP, \fByAxis\fP, \fBzAxis\fP }"
+.br
+.RI "Rotation axes\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBupdateBox\fP (\fBoType\fP index, double x, double y, double z)"
+.br
+.RI "Add a new point to a bounding box\&. "
+.ti -1c
+.RI "double \fBgetBoxSize\fP (\fBoType\fP index, double *dx, double *dy, double *dz)"
+.br
+.RI "Return bounding box dimension\&. "
+.ti -1c
+.RI "void \fBcone\fP (double h, double r, int vs, int rs, int normals)"
+.br
+.RI "Draw a cone, centered at the origin, with a circular base on plane XY\&. "
+.ti -1c
+.RI "void \fBcylinder\fP (double h, double r, int vs, int rs, int normals)"
+.br
+.RI "Draw a cylinder, centered at the origin, with a circular base on plane XY\&. "
+.ti -1c
+.RI "void \fBparaboloid\fP (double h, double r, int vs, int rs, int normals)"
+.br
+.RI "Draw a paraboloid, centered at the origin, with a circular base on plane XY\&. "
+.ti -1c
+.RI "void \fBhyperboloid\fP (double h, double a, double r, int vs, int rs, int normals)"
+.br
+.RI "Draw a one-sheeted hyperboloid of revolution, centered at the origin, with a circular base parallel to plane XY\&. "
+.ti -1c
+.RI "void \fBhyperbolic_paraboloid\fP (double w, double h, int ws, int hs, int normals)"
+.br
+.RI "Draw a hyperbolic paraboloid\&. "
+.ti -1c
+.RI "void \fBtorus\fP (double r1, double r2, int numc, int numt, int normals)"
+.br
+.RI "Draw a torus, centered at the origin, and azimuthally symmetric about the z-axis\&. "
+.ti -1c
+.RI "void \fBsphere\fP (double r1, double r2, double r3, int numc, int numt, int normals)"
+.br
+.RI "Draw an ellipsoid or a sphere centered at the origin\&. "
+.ti -1c
+.RI "void \fBdrawAxes\fP (double r1, double r2)"
+.br
+.RI "Draw the three coordinate axes\&. "
+.ti -1c
+.RI "void \fBdrawBox\fP (const \fB_BBOX\fP BBOX)"
+.br
+.RI "Draw the bounding box as a dashed hexahedron\&. "
+.ti -1c
+.RI "void \fBmakeCheckImage\fP (void)"
+.br
+.RI "Create checkerboard texture\&. "
+.ti -1c
+.RI "int \fBloadImage\fP (const char *filename)"
+.br
+.RI "Load an image from a file\&. "
+.ti -1c
+.RI "void \fBinitTexture\fP (void)"
+.br
+.RI "Initialize texture stuff\&. "
+.ti -1c
+.RI "void \fBinit\fP (void)"
+.br
+.RI "Initialize OpenGL state\&. "
+.ti -1c
+.RI "void \fBdisplay\fP (void)"
+.br
+.RI "Clear window, reset depth buffer and draw torus\&. "
+.ti -1c
+.RI "int \fBdateNow\fP ()"
+.br
+.RI "Return the current Coordinated Universal Time (UTC) in miliseconds\&. "
+.ti -1c
+.RI "void \fB_timer\fP (int value)"
+.br
+.RI "Timer callback function to be triggered in at least delay milliseconds\&. "
+.ti -1c
+.RI "void \fBreshape\fP (int w, int h)"
+.br
+.RI "Handle window resize\&. "
+.ti -1c
+.RI "void \fBkeyboard\fP (unsigned char key, int x, int y)"
+.br
+.RI "Keyboard callback interface\&. "
+.ti -1c
+.RI "void \fBmouseFunc\fP (int state, int button, int _x, int _y)"
+.br
+.RI "Mouse callback interface\&. "
+.ti -1c
+.RI "void \fBmouseDrag\fP (int _x, int _y)"
+.br
+.RI "Mouse callback interface\&. "
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.RI "Main program for testing\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "double \fBzobs\fP = 10\&.0"
+.br
+.RI "Camera position\&. "
+.ti -1c
+.RI "double \fBviewingAngle\fP = 45"
+.br
+.RI "Camera viewing angle, also known as opening angle\&. "
+.ti -1c
+.RI "GLuint \fBobjects\fP"
+.br
+.RI "Object display list base index\&. "
+.ti -1c
+.RI "double \fBR1\fP = 1\&.0"
+.br
+.RI "Distance from the center of the tube to the center of the torus\&. "
+.ti -1c
+.RI "double \fBR2\fP = 0\&.3"
+.br
+.RI "Radius of the tube\&. "
+.ti -1c
+.RI "double \fBR3\fP = 0\&.5"
+.br
+.RI "Radius in z direction for an ellipsoid\&. "
+.ti -1c
+.RI "int \fBnR1\fP = 25"
+.br
+.RI "Number of samples\&. "
+.ti -1c
+.RI "int \fBnR2\fP = 10"
+.br
+.RI "Number of samples\&. "
+.ti -1c
+.RI "int \fBdrawWire\fP = 0"
+.br
+.RI "Whether draw wireframe or filled polygons\&. "
+.ti -1c
+.RI "int \fBdrawNormals\fP = 0"
+.br
+.RI "Whether display vertex normals\&. "
+.ti -1c
+.RI "int \fBapplyTexture\fP = 0"
+.br
+.RI "Whether to apply texture\&. "
+.ti -1c
+.RI "int \fBshowAxes\fP = 0"
+.br
+.RI "Whether to show the coordinate axes\&. "
+.ti -1c
+.RI "int \fBshowBox\fP = 0"
+.br
+.RI "Whether to show the bounding boxes\&. "
+.ti -1c
+.RI "int \fBbackG\fP = 0"
+.br
+.RI "Toggle background color\&. "
+.ti -1c
+.RI "int \fBprocImage\fP = 1"
+.br
+.RI "Whether to use a procedural texture\&. "
+.ti -1c
+.RI "int \fBuseArcball\fP = 0"
+.br
+.RI "Whether to use the arcball paradigm\&. "
+.ti -1c
+.RI "int \fBspin\fP = 1"
+.br
+.RI "Automatic spin\&. "
+.ti -1c
+.RI "\fBrAxes\fP \fBaxis\fP = \fBxAxis\fP"
+.br
+.RI "Current axis\&. "
+.ti -1c
+.RI "GLfloat \fBrotAngle\fP = 2\&.0"
+.br
+.RI "Rotation angle increment\&. "
+.ti -1c
+.RI "unsigned int \fBdelay\fP = 60"
+.br
+.RI "Controls the trigger of the timer function\&. "
+.ti -1c
+.RI "GLubyte \fBcheckImage\fP [\fBcheckImageHeight\fP][\fBcheckImageWidth\fP][4]"
+.br
+.RI "Procedural image for a checkerboard\&. "
+.ti -1c
+.RI "GLuint \fBtexName\fP"
+.br
+.RI "Texture identifier\&. "
+.ti -1c
+.RI "ILuint \fBilImage\fP"
+.br
+.RI "IL image identifier\&. "
+.ti -1c
+.RI "const char * \fBobjNames\fP [] = {'Torus', 'Cylinder', 'Cone', 'Ellipsoid', 'Paraboloid', 'Hyperbolic Paraboloid', 'Hyperboloid'}"
+.br
+.RI "Object names\&. "
+.ti -1c
+.RI "\fB_BBOX\fP \fBobjBoxes\fP [\fBnObjects\fP]"
+.br
+.RI "Object boxes\&. "
+.ti -1c
+.RI "int \fBOBJECT\fP = \fB_torus\fP"
+.br
+.RI "Current object\&. "
+.ti -1c
+.RI "Arcball \fBarcball\fP"
+.br
+.RI "ArcBall\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+This program demonstrates the creation of display lists for constructing some quadric surfaces\&. 
+
+Quadric surfaces are defined by quadratic equations in two dimensional space\&.
+.PP
+Display list is a group of OpenGL commands that have been stored (compiled) for later execution\&. Once a display list is created, all vertex and pixel data are evaluated and copied into the display list memory on the server machine\&. It is only one time process\&. After the display list has been prepared (compiled), you can reuse it repeatedly without re-evaluating and re-transmitting data over and over again to draw each frame\&. Display list is one of the fastest methods to draw static data because vertex data and OpenGL commands are cached in the display list and minimize data transmissions from the client to the server side\&. It means that it reduces CPU cycles to perform the actual data transfer\&.
+.PP
+.IP "\(bu" 2
+To Compile:
+.IP "  \(bu" 4
+gcc \fBtorus\&.cpp\fP -o torus-linux64
+.PP
+
+.IP "\(bu" 2
+or, for MacOS: 
+.br
+.IP "  \(bu" 4
+gcc \fBtorus\&.cpp\fP -o torus\&.osx
+.PP
+
+.IP "\(bu" 2
+Usage: 
+.PP
+.nf
+
+   - torus\&.osx R   r   r'  nR  nr
+   - torus\&.osx 1\&.0 0\&.3 0\&.5 25  10
+.fi
+.PP
+
+.IP "\(bu" 2
+Requirements:
+.IP "  \(bu" 4
+DevIL-ILUT-devel (Fedora)
+.IP "  \(bu" 4
+libdevil1c2 libdevil-dev (Ubuntu)
+.IP "  \(bu" 4
+libdevil (MacPorts)
+.PP
+
+.PP
+.PP
+\fBAuthor\fP
+.RS 4
+Paulo R Cavalcanti 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+06/11/2017 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+https://www.opengl.org/archives/resources/code/samples/redbook/torus.c 
+.PP
+http://www.songho.ca/opengl/gl_displaylist.html 
+.PP
+https://web.cs.wpi.edu/~matt/courses/cs563/talks/renderman/quadric.html 
+.PP
+http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4037402 
+.PP
+http://www.nptel.ac.in/courses/Webcourse-contents/IIT-Delhi/Computer%20Aided%20Design%20&%20ManufacturingI/mod3/01.htm 
+.PP
+http://openil.sourceforge.net/ 
+.PP
+http://tutorial.math.lamar.edu/Classes/CalcIII/QuadricSurfaces.aspx 
+.PP
+http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/ 
+.RE
+.PP
+
+.PP
+Definition in file \fBtorus\&.cpp\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define checkImageHeight   128"
+
+.PP
+Texture Image height\&. 
+.PP
+Definition at line \fB63\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define checkImageWidth   128"
+
+.PP
+Texture Image width\&. 
+.PP
+Definition at line \fB61\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define clamp(x)   (fmin(fmax((x),0),1))"
+
+.PP
+Clamp to [0,1]\&. 
+.PP
+Definition at line \fB79\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define farPlane   (\fBzobs\fP+10*d)"
+
+.PP
+Far plane distance\&. Near and far clipping planes should always be specified as positive\&. That's because they represent how far in front of the 'camera' the clipping planes will be\&. 
+.PP
+Definition at line \fB67\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define frontPlane   1"
+
+.PP
+Front plane distance\&. 
+.PP
+Definition at line \fB69\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define GL_GLEXT_PROTOTYPES"
+
+.PP
+Definition at line \fB44\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define LEN(x, y, z)   (sqrt((x)*(x)+(y)*(y)+(z)*(z)))"
+
+.PP
+Vector length\&. 
+.PP
+Definition at line \fB81\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define M_PI_   3\&.14159265358979323846"
+
+.PP
+ definition\&. Unused\&. We are using M_PI from math\&.h The difference between const and define is that const has a type and define is trick, because it is the pre-compiler which replaces the value\&. 
+.PP
+Definition at line \fB59\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define nObjects   (sizeof(\fBobjNames\fP)/sizeof(char*))"
+
+.PP
+Number of objects;\&. 
+.PP
+Definition at line \fB85\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define posAng(x)   ((x) < 0\&.0 ? ((x)+\fBTWOPI\fP) : (x))"
+
+.PP
+Return a positive angle\&. 
+.PP
+Definition at line \fB71\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define scale   (0\&.05*diag)"
+
+.PP
+Scale for drawing normals\&. 
+.PP
+Definition at line \fB87\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define theAxes   (2*\fBnObjects\fP)"
+
+.PP
+Axes\&. 
+.PP
+Definition at line \fB83\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define toDeg(x)   ((x)*180\&.0/M_PI)"
+
+.PP
+Convert an angle to degrees\&. 
+.PP
+Definition at line \fB77\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define toRad(x)   ((x)*M_PI/180\&.0)"
+
+.PP
+Convert an angle to radians\&. 
+.PP
+Definition at line \fB75\fP of file \fBtorus\&.cpp\fP\&.
+.SS "#define TWOPI   (2*M_PI)"
+
+.PP
+Two PI\&. 
+.PP
+Definition at line \fB73\fP of file \fBtorus\&.cpp\fP\&.
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef \fBPoint\fP _BBOX[2]"
+
+.PP
+Axis aligned Bounding box\&. 
+.PP
+Definition at line \fB128\fP of file \fBtorus\&.cpp\fP\&.
+.SS "typedef enum \fB_oType\fP \fBoType\fP"
+
+.PP
+Quadric types\&. 
+.SS "typedef struct \fB_Point\fP \fBPoint\fP"
+
+.PP
+3D point structure\&. 
+.SS "typedef enum \fB_rAxes\fP \fBrAxes\fP"
+
+.PP
+Rotation axes\&. 
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fB_oType\fP"
+
+.PP
+Quadric types\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fI_torus \fP\fP
+.TP
+\fB\fI_cylinder \fP\fP
+.TP
+\fB\fI_cone \fP\fP
+.TP
+\fB\fI_ellipsoid \fP\fP
+.TP
+\fB\fI_paraboloid \fP\fP
+.TP
+\fB\fI_hyperbolic_paraboloid \fP\fP
+.TP
+\fB\fI_hyperboloid \fP\fP
+.PP
+Definition at line \fB131\fP of file \fBtorus\&.cpp\fP\&.
+.SS "enum \fB_rAxes\fP"
+
+.PP
+Rotation axes\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIxAxis \fP\fP
+.TP
+\fB\fIyAxis \fP\fP
+.TP
+\fB\fIzAxis \fP\fP
+.PP
+Definition at line \fB134\fP of file \fBtorus\&.cpp\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void _timer (int value)"
+
+.PP
+Timer callback function to be triggered in at least delay milliseconds\&. The number of milliseconds is a lower bound on the time before the callback is generated\&. GLUT attempts to deliver the timer callback as soon as possible after the expiration of the callback's time interval\&.
+.PP
+There is no support for canceling a registered callback\&. Instead, ignore a callback based on its value parameter when it is triggered\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvalue\fP a parameter passed to this callback function\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+https://www.opengl.org/resources/libraries/glut/spec3/node64.html 
+.RE
+.PP
+
+.PP
+Definition at line \fB1219\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fB_timer()\fP, \fBdateNow()\fP, and \fBdelay\fP\&.
+.PP
+Referenced by \fB_timer()\fP, and \fBmain()\fP\&.
+.SS "void cone (double h, double r, int vs, int rs, int normals)"
+
+.PP
+Draw a cone, centered at the origin, with a circular base on plane XY\&. Implicit Equation:
+.IP "\(bu" 2
+${x^{2} \over c^{2}}+{y^{2} \over c^{2}} = {z^{2}},\ c = \frac{r}{h}$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${f(x,y,z) = \frac{h}{r} x^{2}}+{\frac{h}{r} y^{2}}-{\frac{r}{h} z^{2} = 0}$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+$\nabla f(x,y,z) = (\frac{h}{r} x,\ \frac{h}{r} y,\ -{\frac{r}{h} z})$
+.PP
+.PP
+Parametric Equation:
+.IP "\(bu" 2
+x(u,v) = u cos(v),
+.IP "\(bu" 2
+y(u,v) = u sin(v),
+.IP "\(bu" 2
+z(u,v) = u * h / r,
+.IP "\(bu" 2
+u  [0,h], v  [0,2]
+.IP "\(bu" 2
+df/du = (cos(v), sin(v), h/r),
+.IP "\(bu" 2
+df/dv = (-u sin(v), u cos(v) , 0)
+.IP "\(bu" 2
+df/du x df/dv = (h/r * u cos(v), h/r * u sin(v), -u) = (h/r * x(u,v), h/r * y(u,v), -r/h * z(u,v))
+.PP
+.PP
+Inverse parametrization:
+.IP "\(bu" 2
+u = (r/h) * z, or u = (r/h) * (h-z), if cone is upside down\&.
+.IP "\(bu" 2
+v = atan2(y,x), if v < 0 then v += 2
+.PP
+.PP
+Note: atan2 returns values  [-, ]
+.PP
+\fBParameters\fP
+.RS 4
+\fIh\fP cone height\&. 
+.br
+\fIr\fP cone base radius\&. 
+.br
+\fIvs\fP number of divisions in z direction\&. 
+.br
+\fIrs\fP number of angular divisions\&. 
+.br
+\fInormals\fP whether to draw normals or polygons\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+http://mathinsight.org/parametrized_surface_examples 
+.PP
+http://mathworld.wolfram.com/Cone.html 
+.PP
+https://en.wikipedia.org/wiki/Atan2 
+.RE
+.PP
+
+.PP
+Definition at line \fB242\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fB_cone\fP, \fBclamp\fP, \fBgetBoxSize()\fP, \fBLEN\fP, \fBscale\fP, \fBTWOPI\fP, and \fBupdateBox()\fP\&.
+.PP
+Referenced by \fBinit()\fP\&.
+.SS "void cylinder (double h, double r, int vs, int rs, int normals)"
+
+.PP
+Draw a cylinder, centered at the origin, with a circular base on plane XY\&. Implicit Equation:
+.IP "\(bu" 2
+${x^{2}+y^{2}} = {r^{2}},$ any z
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${f(x,y,z) = x^{2}+y^{2}}-{r^{2} = 0}$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${\nabla f(x,y,z) = (x, y, 0)}$
+.PP
+.PP
+Parametric Equation:
+.IP "\(bu" 2
+x(u,v) = r cos(v),
+.IP "\(bu" 2
+y(u,v) = r sin(v),
+.IP "\(bu" 2
+z(u,v) = u,
+.IP "\(bu" 2
+u  [0,h], v  [0,2]
+.IP "\(bu" 2
+df/du = (0, 0, 1),
+.IP "\(bu" 2
+df/dv = (-r sin(v), r cos(v) , 0)
+.IP "\(bu" 2
+df/dv x df/du = (r cos(v), r sin(v), 0) = (x(u,v), y(u,v), 0)
+.PP
+.PP
+Inverse parametrization:
+.IP "\(bu" 2
+u = z
+.IP "\(bu" 2
+v = acos(x/r) = atan2(y,x), if v < 0 then v += 2
+.PP
+.PP
+\fBParameters\fP
+.RS 4
+\fIh\fP cylinder height\&. 
+.br
+\fIr\fP cylinder radius\&. 
+.br
+\fIvs\fP number of divisions in z direction\&. 
+.br
+\fIrs\fP number of angular divisions\&. 
+.br
+\fInormals\fP whether to draw normals or polygons\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+http://mathworld.wolfram.com/Cylinder.html 
+.PP
+https://en.wikipedia.org/wiki/Quadric 
+.PP
+http://mathworld.wolfram.com/QuadraticSurface.html 
+.RE
+.PP
+
+.PP
+Definition at line \fB313\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fB_cylinder\fP, \fBclamp\fP, \fBgetBoxSize()\fP, \fBLEN\fP, \fBscale\fP, \fBTWOPI\fP, and \fBupdateBox()\fP\&.
+.PP
+Referenced by \fBinit()\fP\&.
+.SS "int dateNow ()"
+
+.PP
+Return the current Coordinated Universal Time (UTC) in miliseconds\&. 
+.PP
+\fBReturns\fP
+.RS 4
+time since the Epoch (00:00:00 UTC, January 1, 1970) measured in miliseconds\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB1201\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fB_timer()\fP\&.
+.SS "void display (void)"
+
+.PP
+Clear window, reset depth buffer and draw torus\&. Single buffer does not work, in general\&. 
+.PP
+Definition at line \fB1141\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fBapplyTexture\fP, \fBarcball\fP, \fBaxis\fP, \fBdrawBox()\fP, \fBdrawNormals\fP, \fBdrawWire\fP, \fBnObjects\fP, \fBobjBoxes\fP, \fBOBJECT\fP, \fBobjects\fP, \fBrotAngle\fP, \fBshowAxes\fP, \fBshowBox\fP, \fBspin\fP, \fBtheAxes\fP, \fBuseArcball\fP, \fBxAxis\fP, \fByAxis\fP, \fBzAxis\fP, and \fBzobs\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SS "void drawAxes (double r1, double r2)"
+
+.PP
+Draw the three coordinate axes\&. The length of the axes is r1 + r2\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIr1\fP axis length\&. 
+.br
+\fIr2\fP axis additional length\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB785\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBinit()\fP\&.
+.SS "void drawBox (const \fB_BBOX\fP BBOX)"
+
+.PP
+Draw the bounding box as a dashed hexahedron\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIBBOX\fP given bounding box\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB805\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP\&.
+.SS "double getBoxSize (\fBoType\fP index, double * dx, double * dy, double * dz)"
+
+.PP
+Return bounding box dimension\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIindex\fP Position into objBoxes array\&. 
+.br
+\fIdx\fP Bounding box length\&. 
+.br
+\fIdy\fP Bounding box width\&. 
+.br
+\fIdz\fP Bounding box height\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Bounding box diameter\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB199\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fBLEN\fP, and \fBobjBoxes\fP\&.
+.PP
+Referenced by \fBcone()\fP, \fBcylinder()\fP, \fBhyperbolic_paraboloid()\fP, \fBhyperboloid()\fP, \fBparaboloid()\fP, \fBreshape()\fP, \fBsphere()\fP, and \fBtorus()\fP\&.
+.SS "void hyperbolic_paraboloid (double w, double h, int ws, int hs, int normals)"
+
+.PP
+Draw a hyperbolic paraboloid\&. Implicit Equation:
+.IP "\(bu" 2
+${xy = z}$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${f(x,y,z) = xy - z = 0}$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${\nabla f(x,y,z) = (y, x, -1)}$
+.PP
+.PP
+Parametric Equation:
+.IP "\(bu" 2
+x(u,v) = u,
+.IP "\(bu" 2
+y(u,v) = v,
+.IP "\(bu" 2
+z(u,v) = uv
+.IP "\(bu" 2
+u  [0,w], v  [0,h]
+.IP "\(bu" 2
+df/du = (1, 0, v),
+.IP "\(bu" 2
+df/dv = (0, 1, u)
+.IP "\(bu" 2
+df/du x df/dv = (y, x, -1)
+.PP
+.PP
+Inverse parametrization:
+.IP "\(bu" 2
+u = x
+.IP "\(bu" 2
+v = y
+.PP
+.PP
+\fBParameters\fP
+.RS 4
+\fIw\fP hyperbolic paraboloid width\&. 
+.br
+\fIh\fP hyperbolic paraboloid length\&. 
+.br
+\fIws\fP number of divisions in x direction\&. 
+.br
+\fIhs\fP number of divisions in y direction\&. 
+.br
+\fInormals\fP whether to draw normals or polygons\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+http://mathworld.wolfram.com/HyperbolicParaboloid.html 
+.PP
+https://en.wikipedia.org/wiki/Quadric 
+.PP
+http://www.geom.uiuc.edu/docs/reference/CRC-formulas/node61.html 
+.RE
+.PP
+
+.PP
+Definition at line \fB539\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fB_hyperbolic_paraboloid\fP, \fBgetBoxSize()\fP, \fBLEN\fP, \fBscale\fP, and \fBupdateBox()\fP\&.
+.PP
+Referenced by \fBinit()\fP\&.
+.SS "void hyperboloid (double h, double a, double r, int vs, int rs, int normals)"
+
+.PP
+Draw a one-sheeted hyperboloid of revolution, centered at the origin, with a circular base parallel to plane XY\&. Implicit Equation:
+.IP "\(bu" 2
+${{x^{2} \over a^{2}} + {y^{2} \over a^{2}} - {z^{2} \over c^{2}}} = 1$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+$r = a * \sqrt{1 + \frac{h^2}{4c^2}}$
+.IP "\(bu" 2
+
+.br
+
+.IP "\(bu" 2
+$c = \sqrt{h^2 / (4 (\frac{r^2}{a^2} - 1))},\ r \ge a$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${f(x,y,z) = {c^2} x^{2} + {c^2} y^{2} - {a^2} z^{2} - {a^2} {c^2} = 0}$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${\nabla f(x,y,z) = (2 \frac{x}{a^2},\ 2 \frac{y}{a^2},\ -2 \frac{z}{c^2})}$
+.PP
+.PP
+Parametric Equation:
+.IP "\(bu" 2
+x(u,v) = a sqrt(1+u²) cos(v),
+.IP "\(bu" 2
+y(u,v) = a sqrt(1+u²) sin(v),
+.IP "\(bu" 2
+z(u,v) = c u
+.IP "\(bu" 2
+u  [-h,h], v  [0,2]
+.IP "\(bu" 2
+df/du = (-a u/srqt(1+u²) cos(v), -a u/srqt(1+u²) sin(v), c),
+.IP "\(bu" 2
+df/dv = (-a sqrt(1+u²) sin(v), a sqrt(1+u²) cos(v) , 0)
+.IP "\(bu" 2
+df/dv x df/du = (c x, c y, -a²/c z)
+.PP
+.PP
+Inverse parametrization:
+.IP "\(bu" 2
+u = sqrt( x² / a² + y² / a² - 1 )
+.IP "\(bu" 2
+v = atan2(y,x), if v < 0 then v += 2
+.PP
+.PP
+\fBParameters\fP
+.RS 4
+\fIh\fP hyperboloid height\&. 
+.br
+\fIa\fP hyperboloid skirt radius\&. 
+.br
+\fIr\fP hyperboloid base radius\&. 
+.br
+\fIvs\fP number of divisions in z direction\&. 
+.br
+\fIrs\fP number of angular divisions\&. 
+.br
+\fInormals\fP whether to draw normals or polygons\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+http://mathworld.wolfram.com/One-SheetedHyperboloid.html 
+.PP
+http://www.geom.uiuc.edu/docs/reference/CRC-formulas/node61.html 
+.PP
+https://rechneronline.de/pi/hyperboloid-e.php 
+.RE
+.PP
+
+.PP
+Definition at line \fB463\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fB_hyperboloid\fP, \fBclamp\fP, \fBgetBoxSize()\fP, \fBLEN\fP, \fBscale\fP, \fBTWOPI\fP, and \fBupdateBox()\fP\&.
+.PP
+Referenced by \fBinit()\fP\&.
+.SS "void init (void)"
+
+.PP
+Initialize OpenGL state\&. Create fifteen display lists for the seven objects, and their normal vectors, plus another one for the coordinate axes\&.
+.PP
+Use Gouraud shading, and a single light source at the camera position\&.
+.PP
+OpenGL uses a right-handed coordinate system until the perspective projection, where OpenGL switches to a left-handed coordinate space for the depth buffer (z-buffer) test\&.
+.IP "\(bu" 2
+The camera at the origin is looking along -Z axis in eye space,
+.IP "\(bu" 2
+but it is looking along +Z axis in NDC\&.
+.IP "\(bu" 2
+glDepthRange is by default [0, 1] (near, far)\&.
+.IP "\(bu" 2
+Making the +Z axis point into the screen,
+.IP "\(bu" 2
+and with +X to the right and +Y up\&.
+.IP "\(bu" 2
+It is a left-handed system\&.
+.IP "\(bu" 2
+Changing the depth range to [1, 0] will make the system right-handed\&.
+.PP
+.PP
+\fBSee also\fP
+.RS 4
+https://www.youtube.com/watch?v=Ck1SH7oYRFM 
+.PP
+https://webserver2.tecgraf.puc-rio.br/ftp_pub/lfm/OpenGL_Transformation.pdf 
+.PP
+https://www.ics.uci.edu/~gopi/CS211B/opengl_programming_guide_8th_edition.pdf 
+.PP
+http://www.songho.ca/opengl/gl_projectionmatrix.html 
+.PP
+http://devernay.free.fr/cours/opengl/materials.html 
+.PP
+http://math.hws.edu/graphicsbook/c4/s2.html 
+.RE
+.PP
+
+.PP
+Definition at line \fB975\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fBcone()\fP, \fBcylinder()\fP, \fBdrawAxes()\fP, \fBhyperbolic_paraboloid()\fP, \fBhyperboloid()\fP, \fBinitTexture()\fP, \fBnR1\fP, \fBnR2\fP, \fBobjects\fP, \fBparaboloid()\fP, \fBR1\fP, \fBR2\fP, \fBR3\fP, \fBsphere()\fP, \fBtheAxes\fP, \fBtorus()\fP, and \fBzobs\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SS "void initTexture (void)"
+
+.PP
+Initialize texture stuff\&. Create a single texture called texName\&.
+.PP
+\fBSee also\fP
+.RS 4
+https://gregs-blog.com/2008/01/17/opengl-texture-filter-parameters-explained/ 
+.PP
+https://open.gl/textures 
+.RE
+.PP
+
+.PP
+Definition at line \fB912\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fBcheckImage\fP, \fBcheckImageHeight\fP, \fBcheckImageWidth\fP, \fBmakeCheckImage()\fP, \fBprocImage\fP, and \fBtexName\fP\&.
+.PP
+Referenced by \fBinit()\fP, and \fBkeyboard()\fP\&.
+.SS "void keyboard (unsigned char key, int x, int y)"
+
+.PP
+Keyboard callback interface\&. glutPostRedisplay() marks the current window as needing to be redisplayed\&. The next iteration through glutMainLoop, the window's display callback will be called to redisplay the window's normal plane\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIkey\fP key pressed\&. 
+.br
+\fIx\fP coordinate of the mouse cursor\&. 
+.br
+\fIy\fP coordinate of the mouse cursor\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+https://www.opengl.org/resources/libraries/glut/spec3/node49.html 
+.RE
+.PP
+
+.PP
+Definition at line \fB1289\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fBapplyTexture\fP, \fBarcball\fP, \fBaxis\fP, \fBbackG\fP, \fBdrawNormals\fP, \fBdrawWire\fP, \fBilImage\fP, \fBinitTexture()\fP, \fBnObjects\fP, \fBOBJECT\fP, \fBobjNames\fP, \fBprocImage\fP, \fBreshape()\fP, \fBrotAngle\fP, \fBshowAxes\fP, \fBshowBox\fP, \fBspin\fP, \fBtexName\fP, \fBuseArcball\fP, \fBxAxis\fP, \fByAxis\fP, \fBzAxis\fP, and \fBzobs\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SS "int loadImage (const char * filename)"
+
+.PP
+Load an image from a file\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIfilename\fP file name\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+-1 on fail, or image name on success\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+http://openil.sourceforge.net/tuts/tut_4/index.htm 
+.RE
+.PP
+
+.PP
+Definition at line \fB887\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SS "int main (int argc, char ** argv)"
+
+.PP
+Main program for testing\&. Arguments:
+.PP
+.IP "\(bu" 2
+argc - number of arguments\&.
+.IP "\(bu" 2
+argv[0] - Program name\&.
+.IP "\(bu" 2
+argv[1] - r1: Distance from the center of the tube to the center of the torus\&.
+.IP "\(bu" 2
+argv[2] - r2: Radius of the tube\&.
+.IP "\(bu" 2
+argv[3] - r3: Radius in z direction for an ellipsoid\&.
+.IP "\(bu" 2
+argv[4] - nr1: number of samples (divisions) on circle r1\&.
+.IP "\(bu" 2
+argv[5] - nr2: number of samples (divisions) on circle r2\&.
+.IP "\(bu" 2
+argv[6] - fname: texture file name\&. 
+.PP
+
+.PP
+Definition at line \fB1487\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fB_timer()\fP, \fBarcball\fP, \fBdelay\fP, \fBdisplay()\fP, \fBilImage\fP, \fBinit()\fP, \fBkeyboard()\fP, \fBloadImage()\fP, \fBmouseDrag()\fP, \fBmouseFunc()\fP, \fBnR1\fP, \fBnR2\fP, \fBR1\fP, \fBR2\fP, \fBR3\fP, and \fBreshape()\fP\&.
+.SS "void makeCheckImage (void)"
+
+.PP
+Create checkerboard texture\&. 
+.IP "\(bu" 2
+If i's 4th bit is set, i\&.e\&., every 8 iterations of i, i & 0x8 yields nonzero\&.
+.IP "\(bu" 2
+The same for j\&. If either is nonzero, but the other is zero, then XOR will yield 1\&.
+.IP "\(bu" 2
+This is multiplied by 255, i\&.e\&., the maximum value of a channel\&. 
+.PP
+.nf
+ 
+   -  i    -> i & 1000
+   - 0-7   -> 0
+   - 8-15  -> 8
+   - 16-23 -> 0
+   - 24-31 -> 8
+   - \&.\&.\&.\&.
+.fi
+.PP
+
+.PP
+.PP
+\fBSee also\fP
+.RS 4
+https://www.tutorialspoint.com/cprogramming/c_bitwise_operators.htm 
+.PP
+https://www.miniwebtool.com/bitwise-calculator/ 
+.RE
+.PP
+
+.PP
+Definition at line \fB860\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fBcheckImage\fP, \fBcheckImageHeight\fP, and \fBcheckImageWidth\fP\&.
+.PP
+Referenced by \fBinitTexture()\fP\&.
+.SS "void mouseDrag (int _x, int _y)"
+
+.PP
+Mouse callback interface\&. Set the motion callback for the current window\&. The motion callback for a window is called when the mouse moves within the window while one or more mouse buttons are pressed\&.
+.PP
+glutPostRedisplay() marks the current window as needing to be redisplayed\&. The next iteration through glutMainLoop, the window's display callback will be called to redisplay the window's normal plane\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fI_x\fP coordinate of the mouse cursor\&. 
+.br
+\fI_y\fP coordinate of the mouse cursor\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+https://www.opengl.org/resources/libraries/glut/spec3/node51.html 
+.RE
+.PP
+
+.PP
+Definition at line \fB1468\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fBarcball\fP, and \fBuseArcball\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SS "void mouseFunc (int state, int button, int _x, int _y)"
+
+.PP
+Mouse callback interface\&. glutPostRedisplay() marks the current window as needing to be redisplayed\&. The next iteration through glutMainLoop, the window's display callback will be called to redisplay the window's normal plane\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIstate\fP mouse button status\&. 
+.br
+\fIbutton\fP mouse button pressed\&. 
+.br
+\fI_x\fP coordinate of the mouse cursor\&. 
+.br
+\fI_y\fP coordinate of the mouse cursor\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+https://www.opengl.org/resources/libraries/glut/spec3/node50.html 
+.RE
+.PP
+
+.PP
+Definition at line \fB1441\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fBarcball\fP, and \fBuseArcball\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SS "void paraboloid (double h, double r, int vs, int rs, int normals)"
+
+.PP
+Draw a paraboloid, centered at the origin, with a circular base on plane XY\&. Implicit Equation:
+.IP "\(bu" 2
+${x^{2}+y^{2}} = {c\ z},\ c = \frac{r^2}{h}$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${f(x,y,z) = \frac{h}{r^2} x^{2} + \frac{h}{r^2} y^{2} - z = 0}$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${\nabla f(x,y,z) = (2 \frac{h}{r^2} x,\ 2 \frac{h}{r^2} y,\ - 1)}$
+.PP
+.PP
+Parametric Equation:
+.IP "\(bu" 2
+x(u,v) = u cos(v),
+.IP "\(bu" 2
+y(u,v) = u sin(v),
+.IP "\(bu" 2
+z(u,v) = h * (u/r)², (z = h -> u = r)
+.IP "\(bu" 2
+u  [0,h], v  [0,2]
+.IP "\(bu" 2
+df/du = (cos(v), sin(v), 2*u h/r²),
+.IP "\(bu" 2
+df/dv = (-u sin(v), u cos(v) , 0)
+.IP "\(bu" 2
+df/dv x df/du = (2*u h/r² u cos(v), 2*u h/r² u sin(v), -u) = (2h/r² x(u,v), 2h/r² y(u,v), -1)
+.PP
+.PP
+Inverse parametrization:
+.IP "\(bu" 2
+u = sqrt(z * r² / h ) or u = sqrt( (h-z) * r² / h ), if paraboloid is upside down\&.
+.IP "\(bu" 2
+v = atan2(y,x), if v < 0 then v += 2
+.PP
+.PP
+\fBParameters\fP
+.RS 4
+\fIh\fP paraboloid height\&. 
+.br
+\fIr\fP paraboloid radius\&. 
+.br
+\fIvs\fP number of divisions in z direction\&. 
+.br
+\fIrs\fP number of angular divisions\&. 
+.br
+\fInormals\fP whether to draw normals or polygons\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+http://mathworld.wolfram.com/Paraboloid.html 
+.PP
+https://en.wikipedia.org/wiki/Quadric 
+.PP
+http://www.geom.uiuc.edu/docs/reference/CRC-formulas/node61.html 
+.RE
+.PP
+
+.PP
+Definition at line \fB387\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fB_paraboloid\fP, \fBclamp\fP, \fBgetBoxSize()\fP, \fBLEN\fP, \fBscale\fP, \fBTWOPI\fP, and \fBupdateBox()\fP\&.
+.PP
+Referenced by \fBinit()\fP\&.
+.SS "void reshape (int w, int h)"
+
+.PP
+Handle window resize\&. Sets the viewport to its new size\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIw\fP viewport width\&. 
+.br
+\fIh\fP viewport height\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB1254\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fBarcball\fP, \fBfarPlane\fP, \fBfrontPlane\fP, \fBgetBoxSize()\fP, \fBOBJECT\fP, \fBtoDeg\fP, \fBtoRad\fP, \fBviewingAngle\fP, and \fBzobs\fP\&.
+.PP
+Referenced by \fBkeyboard()\fP, and \fBmain()\fP\&.
+.SS "void sphere (double r1, double r2, double r3, int numc, int numt, int normals)"
+
+.PP
+Draw an ellipsoid or a sphere centered at the origin\&. Implicit Equation:
+.IP "\(bu" 2
+${x^{2} \over a^{2}}+{y^{2} \over b^{2}}+{z^{2} \over c^{2}}=1,\ a= r_1,\ b = r_2,\ c = r_3$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${f(x,y,z) = r_2^2 r_3^2\ x^{2}+r_1^2 r_3^2\ y^{2}+r_1^2 r_2^2\ z^{2}} - (r_1 r_2 r_3)^2 = 0$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+${\nabla f(x,y,z) = (r_2^2 r_3^2\ x,\ r_1^2  r_3^2\ y,\ r_1^2  r_2^2\ z)}$
+.PP
+.PP
+A sphere is defined as the set of all points in three-dimensional Euclidean space R³ that are located at a distance r (the 'radius') from a given point (the 'center')\&.
+.PP
+An ellipsoid is a surface that may be obtained from a sphere by deforming it by means of directional scalings, or more generally, of an affine transformation\&.
+.PP
+Parametric Equation:
+.IP "\(bu" 2
+x(u,v) = r1 cos(u) sin(v),
+.IP "\(bu" 2
+y(u,v) = r2 sin(u) sin(v),
+.IP "\(bu" 2
+z(u,v) = r3 cos(v),
+.IP "\(bu" 2
+u  [0,2], v  [0,]
+.IP "\(bu" 2
+df/du = (-r1 sin(u) sin(v), r2 cos(u) sin(v), 0),
+.IP "\(bu" 2
+df/dv = (r1 cos(u) cos(v), r2 sin(u) cos (v), -r3 sin(v))
+.IP "\(bu" 2
+df/dv x df/du = (r2 r3/r1 x(u,v), r1 r3/r2 y(u,v), r1 r2/r3 z(u,v)) sin v = (r2² r3² x(u,v), r1² r3² y(u,v), r1² r2² z(u,v))
+.PP
+.PP
+Inverse parametrization:
+.IP "\(bu" 2
+u = atan2((y,x) * (r1/r2)), if u < 0 then u += 2
+.IP "\(bu" 2
+v = acos(z/r3)
+.PP
+.PP
+\fBParameters\fP
+.RS 4
+\fIr1\fP x radius of the ellipsoid\&. 
+.br
+\fIr2\fP y radius of the ellipsoid\&. 
+.br
+\fIr3\fP z radius of the ellipsoid\&. 
+.br
+\fInumc\fP number of divisions along the zero degree longitude (number of latitude divisions)\&. 
+.br
+\fInumt\fP number of divisions along the zero degree latitude - equator (number of longitude divisions)\&. 
+.br
+\fInormals\fP whether to draw normals or polygons\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+http://mathworld.wolfram.com/Ellipsoid.html 
+.PP
+http://mathworld.wolfram.com/Sphere.html 
+.PP
+https://en.wikipedia.org/wiki/Ellipsoid 
+.PP
+https://sciencing.com/equators-latitude-6314100.html 
+.RE
+.PP
+
+.PP
+Definition at line \fB722\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fB_ellipsoid\fP, \fBclamp\fP, \fBgetBoxSize()\fP, \fBLEN\fP, \fBscale\fP, \fBTWOPI\fP, and \fBupdateBox()\fP\&.
+.PP
+Referenced by \fBinit()\fP\&.
+.SS "void torus (double r1, double r2, int numc, int numt, int normals)"
+
+.PP
+Draw a torus, centered at the origin, and azimuthally symmetric about the z-axis\&. In geometry, a torus is a surface of revolution generated by revolving a circle in three-dimensional space about an axis coplanar with the circle\&.
+.IP "\(bu" 2
+Volume: 2 × π² × R × r²
+.IP "\(bu" 2
+Surface area: 4 × π² × R × r
+.IP "\(bu" 2
+Common objects with this shape: Doughnut, Ring, Lifebuoy
+.PP
+.PP
+Implicit Equation:
+.IP "\(bu" 2
+$(r_1-\sqrt{(x^2+y^2)})^2+z^2=r_2^2,$
+.IP "\(bu" 2
+
+.IP "\(bu" 2
+$f(x,y,z) = (x^2+y^2+z^2+r_1^2-r_2^2)^2 - 4 r_1^2 (x^2+y^2) = 0$, a quartic equation
+.PP
+.PP
+Parametric Equation:
+.IP "\(bu" 2
+x(u,v) = (r1 + r2 cos(v)) cos(u),
+.IP "\(bu" 2
+y(u,v) = (r1 + r2 cos(v)) sin(u),
+.IP "\(bu" 2
+z(u,v) = r2 sin(v),
+.IP "\(bu" 2
+u  [0,2], v  [0,2]
+.IP "\(bu" 2
+df/du = (-y(u,v), x(u,v), 0),
+.IP "\(bu" 2
+df/dv = (-z(u,v) cos(u), -z(u,v) sin(u), r2 cos(v))
+.IP "\(bu" 2
+df/du x df/dv = (r2 x(u,v) cos(v), r2 y(u,v) cos(v), z(u,v) (y(u,v) sin(u) + x(u,v) (cos(u))) = (r2 cos(v) x(u,v), r2 cos(v) y(u,v), (r1 + r2 cos(v)) z(u,v))
+.IP "\(bu" 2
+df/du x df/dv = (cos(v) cos(u), cos(v) sin(u), sin(v))
+.PP
+.PP
+Inverse parametrization:
+.IP "\(bu" 2
+u = atan2(y,x), if u < 0 then u += 2
+.IP "\(bu" 2
+v = asin(z/r2)
+.PP
+.PP
+When:
+.IP "\(bu" 2
+r1 > r2, the surface will be the familiar ring torus\&.
+.IP "\(bu" 2
+r1 = r2 corresponds to the horn torus, which in effect is a torus with no 'hole'\&.
+.IP "\(bu" 2
+r1 < r2 describes the self-intersecting spindle torus\&.
+.IP "\(bu" 2
+r1 = 0, the torus degenerates to the sphere\&.
+.PP
+.PP
+\fBParameters\fP
+.RS 4
+\fIr1\fP distance from the center of the tube to the center of the torus\&. 
+.br
+\fIr2\fP radius of the tube\&. 
+.br
+\fInumc\fP number of divisions of the circle with radius r2\&. 
+.br
+\fInumt\fP number of divisions of the circle with radius r1\&. 
+.br
+\fInormals\fP whether to draw normals or polygons\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+http://mathworld.wolfram.com/Torus.html 
+.PP
+https://en.wikipedia.org/wiki/Torus 
+.PP
+https://blogs.scientificamerican.com/roots-of-unity/a-few-of-my-favorite-spaces-the-torus/ 
+.PP
+https://www.mathsisfun.com/geometry/torus.html 
+.PP
+http://trecs.se/torus.php 
+.PP
+http://mathworld.wolfram.com/QuarticEquation.html 
+.RE
+.PP
+
+.PP
+Definition at line \fB622\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fB_torus\fP, \fBclamp\fP, \fBgetBoxSize()\fP, \fBLEN\fP, \fBscale\fP, \fBTWOPI\fP, and \fBupdateBox()\fP\&.
+.PP
+Referenced by \fBinit()\fP\&.
+.SS "void updateBox (\fBoType\fP index, double x, double y, double z)"
+
+.PP
+Add a new point to a bounding box\&. The axis-aligned minimum bounding box (or AABB) for a given point set is its minimum bounding box subject to the constraint that the edges of the box are parallel to the (Cartesian) coordinate axes\&. It is simply the Cartesian product of N intervals each of which is defined by the minimal and maximal value of the corresponding coordinate for the points in S\&.
+.PP
+Axis-aligned minimal bounding boxes are used to an approximate location of an object in question and as a very simple descriptor of its shape\&. For example, in computational geometry and its applications when it is required to find intersections in the set of objects, the initial check is the intersections between their MBBs\&. Since it is usually a much less expensive operation than the check of the actual intersection (because it only requires comparisons of coordinates), it allows to quickly exclude from checks the pairs that are far apart\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIindex\fP Position into objBoxes array\&. 
+.br
+\fIx\fP Point coordinate\&. 
+.br
+\fIy\fP Point coordinate\&. 
+.br
+\fIz\fP Point coordinate\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+https://en.wikipedia.org/wiki/Minimum_bounding_box 
+.RE
+.PP
+
+.PP
+Definition at line \fB180\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+References \fBobjBoxes\fP\&.
+.PP
+Referenced by \fBcone()\fP, \fBcylinder()\fP, \fBhyperbolic_paraboloid()\fP, \fBhyperboloid()\fP, \fBparaboloid()\fP, \fBsphere()\fP, and \fBtorus()\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "int applyTexture = 0"
+
+.PP
+Whether to apply texture\&. 
+.PP
+Definition at line \fB110\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, and \fBkeyboard()\fP\&.
+.SS "Arcball arcball"
+
+.PP
+ArcBall\&. 
+.PP
+Definition at line \fB158\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, \fBkeyboard()\fP, \fBmain()\fP, \fBmouseDrag()\fP, \fBmouseFunc()\fP, and \fBreshape()\fP\&.
+.SS "\fBrAxes\fP axis = \fBxAxis\fP"
+
+.PP
+Current axis\&. 
+.PP
+Definition at line \fB137\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, and \fBkeyboard()\fP\&.
+.SS "int backG = 0"
+
+.PP
+Toggle background color\&. 
+.PP
+Definition at line \fB116\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBkeyboard()\fP\&.
+.SS "GLubyte checkImage[\fBcheckImageHeight\fP][\fBcheckImageWidth\fP][4]"
+
+.PP
+Procedural image for a checkerboard\&. 
+.PP
+Definition at line \fB146\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBinitTexture()\fP, and \fBmakeCheckImage()\fP\&.
+.SS "unsigned int delay = 60"
+
+.PP
+Controls the trigger of the timer function\&. 
+.PP
+Definition at line \fB143\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fB_timer()\fP, and \fBmain()\fP\&.
+.SS "int drawNormals = 0"
+
+.PP
+Whether display vertex normals\&. 
+.PP
+Definition at line \fB108\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, and \fBkeyboard()\fP\&.
+.SS "int drawWire = 0"
+
+.PP
+Whether draw wireframe or filled polygons\&. 
+.PP
+Definition at line \fB106\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, and \fBkeyboard()\fP\&.
+.SS "ILuint ilImage"
+
+.PP
+IL image identifier\&. 
+.PP
+Definition at line \fB150\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBkeyboard()\fP, and \fBmain()\fP\&.
+.SS "int nR1 = 25"
+
+.PP
+Number of samples\&. 
+.PP
+Definition at line \fB102\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBinit()\fP, and \fBmain()\fP\&.
+.SS "int nR2 = 10"
+
+.PP
+Number of samples\&. 
+.PP
+Definition at line \fB104\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBinit()\fP, and \fBmain()\fP\&.
+.SS "\fB_BBOX\fP objBoxes[\fBnObjects\fP]"
+
+.PP
+Object boxes\&. 
+.PP
+Definition at line \fB154\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, \fBgetBoxSize()\fP, and \fBupdateBox()\fP\&.
+.SS "int OBJECT = \fB_torus\fP"
+
+.PP
+Current object\&. 
+.PP
+Definition at line \fB156\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, \fBkeyboard()\fP, and \fBreshape()\fP\&.
+.SS "GLuint objects"
+
+.PP
+Object display list base index\&. 
+.PP
+Definition at line \fB94\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, and \fBinit()\fP\&.
+.SS "const char* objNames[] = {'Torus', 'Cylinder', 'Cone', 'Ellipsoid', 'Paraboloid', 'Hyperbolic Paraboloid', 'Hyperboloid'}"
+
+.PP
+Object names\&. 
+.PP
+Definition at line \fB152\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBkeyboard()\fP\&.
+.SS "int procImage = 1"
+
+.PP
+Whether to use a procedural texture\&. 
+.PP
+Definition at line \fB118\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBinitTexture()\fP, and \fBkeyboard()\fP\&.
+.SS "double R1 = 1\&.0"
+
+.PP
+Distance from the center of the tube to the center of the torus\&. 
+.PP
+Definition at line \fB96\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBinit()\fP, and \fBmain()\fP\&.
+.SS "double R2 = 0\&.3"
+
+.PP
+Radius of the tube\&. 
+.PP
+Definition at line \fB98\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBinit()\fP, and \fBmain()\fP\&.
+.SS "double R3 = 0\&.5"
+
+.PP
+Radius in z direction for an ellipsoid\&. 
+.PP
+Definition at line \fB100\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBinit()\fP, and \fBmain()\fP\&.
+.SS "GLfloat rotAngle = 2\&.0"
+
+.PP
+Rotation angle increment\&. 
+.PP
+Definition at line \fB140\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, and \fBkeyboard()\fP\&.
+.SS "int showAxes = 0"
+
+.PP
+Whether to show the coordinate axes\&. 
+.PP
+Definition at line \fB112\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, and \fBkeyboard()\fP\&.
+.SS "int showBox = 0"
+
+.PP
+Whether to show the bounding boxes\&. 
+.PP
+Definition at line \fB114\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, and \fBkeyboard()\fP\&.
+.SS "int spin = 1"
+
+.PP
+Automatic spin\&. 
+.PP
+Definition at line \fB122\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, and \fBkeyboard()\fP\&.
+.SS "GLuint texName"
+
+.PP
+Texture identifier\&. 
+.PP
+Definition at line \fB148\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBinitTexture()\fP, and \fBkeyboard()\fP\&.
+.SS "int useArcball = 0"
+
+.PP
+Whether to use the arcball paradigm\&. 
+.PP
+Definition at line \fB120\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, \fBkeyboard()\fP, \fBmouseDrag()\fP, and \fBmouseFunc()\fP\&.
+.SS "double viewingAngle = 45"
+
+.PP
+Camera viewing angle, also known as opening angle\&. 
+.PP
+Definition at line \fB92\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBreshape()\fP\&.
+.SS "double zobs = 10\&.0"
+
+.PP
+Camera position\&. 
+.PP
+Definition at line \fB90\fP of file \fBtorus\&.cpp\fP\&.
+.PP
+Referenced by \fBdisplay()\fP, \fBinit()\fP, \fBkeyboard()\fP, and \fBreshape()\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LCG_cg from the source code\&.

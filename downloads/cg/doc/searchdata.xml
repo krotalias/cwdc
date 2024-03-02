@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<add>
+  <doc>
+    <field name="type">file</field>
+    <field name="name">graph_legend.dox</field>
+    <field name="url">graph__legend_8dox.html</field>
+    <field name="keywords"></field>
+    <field name="text">Invisible Truncated Invisible Undocumented PublicBase Truncated Templ ProtectedBase PrivateBase Used Inherited PublicBase ProtectedBase PrivateBase Undocumented Templ Used m_usedClass</field>
+  </doc>
+  <doc>
+    <field name="type">page</field>
+    <field name="name">index</field>
+    <field name="url">index.html</field>
+    <field name="keywords"></field>
+    <field name="text">Quadrics rendering Paulo Roma Cavalcanti This program provides code templates for use by OpenGL developers Although simple the code supplies everything a beginner in Computer Graphics should know Basic math Surface Implicit representation Surface Parametric representation Normal vector calculation Quadrics Torus ring horn or spindle Several render styles Wireframe Smooth shading Texture procedural or image based Surface normal rendering drawn proportionally to the bounding box diagonal pointing outside the object Bounding Box computation Timer for controlling basic animation Also note the existence of the following directories Arcball Rotation paradigm for CG doc Torus.cpp As you prepare to develop code for the course please be sure you are aware of our current Coding Standards If using the code in this package as an example please modify the comments as appropriate for your own specific code This program runs on linux 6 4 or 3 2 bits Fedora Ubuntu and MacOS To generate executables just run for linux make for MacOS make OS osx for cross-compiling for windows make OS cross C++ compiler OpenGL 1.1 DevIL Eigen3 graphical interface Java Implementation Qt4 or Qt5 based Introduction to OpenGL JOGL Ring Torus Horn Torus Spindle Torus Hyperbolic Paraboloid Paulo Roma Cavalcanti This program provides code templates for use by OpenGL developers Although simple the code supplies everything a beginner in Computer Graphics should know Basic math Surface Implicit representation Surface Parametric representation Normal vector calculation Quadrics Torus ring horn or spindle Several render styles Wireframe Smooth shading Texture procedural or image based Surface normal rendering drawn proportionally to the bounding box diagonal pointing outside the object Bounding Box computation Timer for controlling basic animation Also note the existence of the following directories Arcball Rotation paradigm for CG doc Torus.cpp As you prepare to develop code for the course please be sure you are aware of our current Coding Standards If using the code in this package as an example please modify the comments as appropriate for your own specific code This program runs on linux 6 4 or 3 2 bits Fedora Ubuntu and MacOS To generate executables just run for linux make for MacOS make OS osx for cross-compiling for windows make OS cross C++ compiler OpenGL 1.1 DevIL Eigen3 graphical interface Java Implementation Qt4 or Qt5 based Introduction to OpenGL JOGL Ring Torus Horn Torus Spindle Torus Hyperbolic Paraboloid</field>
+  </doc>
+  <doc>
+    <field name="type">file</field>
+    <field name="name">mainpage.h</field>
+    <field name="url">mainpage_8h.html</field>
+    <field name="keywords">mainpage.h</field>
+    <field name="text">Quadrics visualization and texturing Header html v 1.1.1.1 2 0 1 7 1 5 0 3 1 6 chuckp Exp</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">mainpage.h</field>
+    <field name="url">mainpage_8h_source.html#l00001</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">struct</field>
+    <field name="name">_Point</field>
+    <field name="url">struct__Point.html</field>
+    <field name="keywords">_Point</field>
+    <field name="text">3 D point structure</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">_Point::x</field>
+    <field name="url">struct__Point.html#a08bd40af418bbefe46d5b3334cc09088</field>
+    <field name="keywords">x _Point::x _Point</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">_Point::y</field>
+    <field name="url">struct__Point.html#a102e334379e688d1c7ad17d04eed1edd</field>
+    <field name="keywords">y _Point::y _Point</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">_Point::z</field>
+    <field name="url">struct__Point.html#aaea9b6a42fc621b8728863e2a6007e88</field>
+    <field name="keywords">z _Point::z _Point</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">page</field>
+    <field name="name">todo</field>
+    <field name="url">todo.html</field>
+    <field name="keywords"></field>
+    <field name="text">Todo List page Quadrics rendering graphical interface Java Implementation Qt4 or Qt5 based Introduction to OpenGL JOGL</field>
+  </doc>
+  <doc>
+    <field name="type">file</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp.html</field>
+    <field name="keywords">torus.cpp</field>
+    <field name="text">This program demonstrates the creation of display lists for constructing some quadric surfaces Quadric surfaces are defined by quadratic equations in two dimensional space Display list is a group of OpenGL commands that have been stored compiled for later execution Once a display list is created all vertex and pixel data are evaluated and copied into the display list memory on the server machine It is only one time process After the display list has been prepared compiled you can reuse it repeatedly without re-evaluating and re-transmitting data over and over again to draw each frame Display list is one of the fastest methods to draw static data because vertex data and OpenGL commands are cached in the display list and minimize data transmissions from the client to the server side It means that it reduces CPU cycles to perform the actual data transfer To Compile gcc torus.cpp o torus-linux64 or for MacOS gcc torus.cpp o torus.osx Usage torus.osx R r r nR nr torus.osx 1.0 0.3 0.5 2 5 1 0 Requirements DevIL-ILUT-devel Fedora libdevil1c2 libdevil-dev Ubuntu libdevil MacPorts Paulo R Cavalcanti 0 6</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">cylinder</field>
+    <field name="args">(double h, double r, int vs, int rs, int normals)</field>
+    <field name="url">torus_8cpp.html#a03c085eb7ef8ae60df19dc9e06c0a173</field>
+    <field name="keywords">cylinder</field>
+    <field name="text">Draw a cylinder centered at the origin with a circular base on plane XY Implicit Equation any z Parametric Equation x(u,v) r cos(v) y(u,v) r sin(v) z(u,v) u u 0 h v 0 2 df/du 0 0 1 df/dv r sin(v) r cos(v) 0 df/dv x df/du r cos(v) r sin(v) 0 x(u,v) y(u,v) 0 Inverse parametrization u z v acos x/r atan2(y,x) if v 0 then v 2 h cylinder height r cylinder radius vs number of divisions in z direction rs number of angular divisions normals whether to draw normals or polygons</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">backG</field>
+    <field name="url">torus_8cpp.html#a09d54be3e2975048c9c5cbfe43ddaedb</field>
+    <field name="keywords">backG</field>
+    <field name="text">Toggle background color</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">_timer</field>
+    <field name="args">(int value)</field>
+    <field name="url">torus_8cpp.html#a10d0046af32a1319fbf57cd46b0b7ac1</field>
+    <field name="keywords">_timer</field>
+    <field name="text">Timer callback function to be triggered in at least delay milliseconds The number of milliseconds is a lower bound on the time before the callback is generated GLUT attempts to deliver the timer callback as soon as possible after the expiration of the callback s time interval There is no support for canceling a registered callback Instead ignore a callback based on its value parameter when it is triggered value a parameter passed to this callback function</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">GL_GLEXT_PROTOTYPES</field>
+    <field name="url">torus_8cpp.html#a120fb070bddb21f0bd899f50252c4cb5</field>
+    <field name="keywords">GL_GLEXT_PROTOTYPES</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">clamp</field>
+    <field name="args">(x)</field>
+    <field name="url">torus_8cpp.html#a1458dfc6fee21d63d71f4affba3eab4d</field>
+    <field name="keywords">clamp</field>
+    <field name="text">Clamp to 0 1</field>
+  </doc>
+  <doc>
+    <field name="type">typedef</field>
+    <field name="name">Point</field>
+    <field name="url">torus_8cpp.html#a184fa32e8e7e95b0596d604fc3c645c8</field>
+    <field name="keywords">Point</field>
+    <field name="text">3 D point structure</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">loadImage</field>
+    <field name="args">(const char *filename)</field>
+    <field name="url">torus_8cpp.html#a1ada77601620fb199c1c81c134468219</field>
+    <field name="keywords">loadImage</field>
+    <field name="text">Load an image from a file filename file name 1 on fail or image name on success</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">cone</field>
+    <field name="args">(double h, double r, int vs, int rs, int normals)</field>
+    <field name="url">torus_8cpp.html#a2106dc9326540a0309d6e8d815e10a0e</field>
+    <field name="keywords">cone</field>
+    <field name="text">Draw a cone centered at the origin with a circular base on plane XY Implicit Equation Parametric Equation x(u,v) u cos(v) y(u,v) u sin(v) z(u,v) u h r u 0 h v 0 2 df/du cos(v) sin(v) h/r df/dv u sin(v) u cos(v) 0 df/du x df/dv h/r u cos(v) h/r u sin(v) u h/r x(u,v) h/r y(u,v) r/h z(u,v) Inverse parametrization u r/h z or u r/h h-z if cone is upside down v atan2(y,x) if v 0 then v 2 Note atan2 returns values h cone height r cone base radius vs number of divisions in z direction rs number of angular divisions normals whether to draw normals or polygons</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">objBoxes</field>
+    <field name="args">[nObjects]</field>
+    <field name="url">torus_8cpp.html#a216dc106facfdd84a230455b7fc64d09</field>
+    <field name="keywords">objBoxes</field>
+    <field name="text">Object boxes</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">init</field>
+    <field name="args">(void)</field>
+    <field name="url">torus_8cpp.html#a2858154e2009b0e6e616f313177762bc</field>
+    <field name="keywords">init</field>
+    <field name="text">Initialize OpenGL state Create fifteen display lists for the seven objects and their normal vectors plus another one for the coordinate axes Use Gouraud shading and a single light source at the camera position OpenGL uses a right-handed coordinate system until the perspective projection where OpenGL switches to a left-handed coordinate space for the depth buffer z-buffer test The camera at the origin is looking along Z axis in eye space but it is looking along Z axis in NDC glDepthRange is by default 0 1 near far Making the Z axis point into the screen and with X to the right and Y up It is a left-handed system Changing the depth range to 1 0 will make the system right-handed</field>
+  </doc>
+  <doc>
+    <field name="type">typedef</field>
+    <field name="name">oType</field>
+    <field name="url">torus_8cpp.html#a303d225fce011010d1e81fb2610bd4a2</field>
+    <field name="keywords">oType</field>
+    <field name="text">Quadric types</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">useArcball</field>
+    <field name="url">torus_8cpp.html#a33cbe4ee872f2ff45097c1b2589832fa</field>
+    <field name="keywords">useArcball</field>
+    <field name="text">Whether to use the arcball paradigm</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">M_PI_</field>
+    <field name="url">torus_8cpp.html#a391defc2ad4357e3d4f2bb5f29a5bb20</field>
+    <field name="keywords">M_PI_</field>
+    <field name="text">definition Unused We are using M_PI from math.h The difference between const and define is that const has a type and define is trick because it is the pre-compiler which replaces the value</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">main</field>
+    <field name="args">(int argc, char **argv)</field>
+    <field name="url">torus_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627</field>
+    <field name="keywords">main</field>
+    <field name="text">Main program for testing Arguments argc number of arguments argv 0 Program name argv 1 r1 Distance from the center of the tube to the center of the torus argv 2 r2 Radius of the tube argv 3 r3 Radius in z direction for an ellipsoid argv 4 nr1 number of samples divisions on circle r1 argv 5 nr2 number of samples divisions on circle r2 argv 6 fname texture file name</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">procImage</field>
+    <field name="url">torus_8cpp.html#a3c40e64af48c7c08a32421d54568151d</field>
+    <field name="keywords">procImage</field>
+    <field name="text">Whether to use a procedural texture</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">dateNow</field>
+    <field name="args">()</field>
+    <field name="url">torus_8cpp.html#a400285364a75db2e94a05e2fbb058d11</field>
+    <field name="keywords">dateNow</field>
+    <field name="text">Return the current Coordinated Universal Time UTC in miliseconds time since the Epoch 0 0 0 0 0 0 UTC January 1 1 9 7 0 measured in miliseconds</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">delay</field>
+    <field name="url">torus_8cpp.html#a40df728951e877187328a971765d7b18</field>
+    <field name="keywords">delay</field>
+    <field name="text">Controls the trigger of the timer function</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">applyTexture</field>
+    <field name="url">torus_8cpp.html#a44b441e46cc097350fc7a93e3eebb406</field>
+    <field name="keywords">applyTexture</field>
+    <field name="text">Whether to apply texture</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">hyperboloid</field>
+    <field name="args">(double h, double a, double r, int vs, int rs, int normals)</field>
+    <field name="url">torus_8cpp.html#a45ab7ad59f00458d31969c21d519be65</field>
+    <field name="keywords">hyperboloid</field>
+    <field name="text">Draw a one-sheeted hyperboloid of revolution centered at the origin with a circular base parallel to plane XY Implicit Equation Parametric Equation x(u,v) a sqrt 1 u² cos(v) y(u,v) a sqrt 1 u² sin(v) z(u,v) c u u h h v 0 2 df/du a u/srqt 1 u² cos(v) a u/srqt 1 u² sin(v) c df/dv a sqrt 1 u² sin(v) a sqrt 1 u² cos(v) 0 df/dv x df/du c x c y a²/c z Inverse parametrization u sqrt x² a² y² a² 1 v atan2(y,x) if v 0 then v 2 h hyperboloid height a hyperboloid skirt radius r hyperboloid base radius vs number of divisions in z direction rs number of angular divisions normals whether to draw normals or polygons</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">spin</field>
+    <field name="url">torus_8cpp.html#a4611edbef1f57c9f8b27a4d0a7664c53</field>
+    <field name="keywords">spin</field>
+    <field name="text">Automatic spin</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">checkImageWidth</field>
+    <field name="url">torus_8cpp.html#a48661c07cea0fa9ea6d1d7e60459f18d</field>
+    <field name="keywords">checkImageWidth</field>
+    <field name="text">Texture Image width</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">TWOPI</field>
+    <field name="url">torus_8cpp.html#a4912c64aec0c943b7985db6cb61ff83a</field>
+    <field name="keywords">TWOPI</field>
+    <field name="text">Two PI</field>
+  </doc>
+  <doc>
+    <field name="type">enum</field>
+    <field name="name">_rAxes</field>
+    <field name="url">torus_8cpp.html#a4ce98723b70929e2c31b3cd5922a5c09</field>
+    <field name="keywords">_rAxes</field>
+    <field name="text">Rotation axes</field>
+  </doc>
+  <doc>
+    <field name="type">enumvalue</field>
+    <field name="name">yAxis</field>
+    <field name="url">torus_8cpp.html#a4ce98723b70929e2c31b3cd5922a5c09a3123e0676bbf5648acb1df5a54f4a784</field>
+    <field name="keywords">yAxis yAxis</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">enumvalue</field>
+    <field name="name">zAxis</field>
+    <field name="url">torus_8cpp.html#a4ce98723b70929e2c31b3cd5922a5c09a8b398ee6e2441b74d36b507261499da9</field>
+    <field name="keywords">zAxis zAxis</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">enumvalue</field>
+    <field name="name">xAxis</field>
+    <field name="url">torus_8cpp.html#a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884</field>
+    <field name="keywords">xAxis xAxis</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">toRad</field>
+    <field name="args">(x)</field>
+    <field name="url">torus_8cpp.html#a4d1b70cdd000caf76de23fb618921289</field>
+    <field name="keywords">toRad</field>
+    <field name="text">Convert an angle to radians</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">updateBox</field>
+    <field name="args">(oType index, double x, double y, double z)</field>
+    <field name="url">torus_8cpp.html#a4df56f76f22d357e8c63b7d859a06b0f</field>
+    <field name="keywords">updateBox</field>
+    <field name="text">Add a new point to a bounding box The axis-aligned minimum bounding box or AABB for a given point set is its minimum bounding box subject to the constraint that the edges of the box are parallel to the Cartesian coordinate axes It is simply the Cartesian product of N intervals each of which is defined by the minimal and maximal value of the corresponding coordinate for the points in S Axis-aligned minimal bounding boxes are used to an approximate location of an object in question and as a very simple descriptor of its shape For example in computational geometry and its applications when it is required to find intersections in the set of objects the initial check is the intersections between their MBBs Since it is usually a much less expensive operation than the check of the actual intersection because it only requires comparisons of coordinates it allows to quickly exclude from checks the pairs that are far apart index Position into objBoxes array x Point coordinate y Point coordinate z Point coordinate</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">display</field>
+    <field name="args">(void)</field>
+    <field name="url">torus_8cpp.html#a4ea013001a5fb47853d0fab8f8de35cd</field>
+    <field name="keywords">display</field>
+    <field name="text">Clear window reset depth buffer and draw torus Single buffer does not work in general</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">mouseFunc</field>
+    <field name="args">(int state, int button, int _x, int _y)</field>
+    <field name="url">torus_8cpp.html#a59d408da236069ac2f67330f2b4fcd84</field>
+    <field name="keywords">mouseFunc</field>
+    <field name="text">Mouse callback interface glutPostRedisplay() marks the current window as needing to be redisplayed The next iteration through glutMainLoop the window s display callback will be called to redisplay the window s normal plane state mouse button status button mouse button pressed _x coordinate of the mouse cursor _y coordinate of the mouse cursor</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">initTexture</field>
+    <field name="args">(void)</field>
+    <field name="url">torus_8cpp.html#a59e2b52b8141808a5552debc8fd7b8d9</field>
+    <field name="keywords">initTexture</field>
+    <field name="text">Initialize texture stuff Create a single texture called texName</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">posAng</field>
+    <field name="args">(x)</field>
+    <field name="url">torus_8cpp.html#a60b90fe3b093faa2a5fcd6665ec35e00</field>
+    <field name="keywords">posAng</field>
+    <field name="text">Return a positive angle</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">nR1</field>
+    <field name="url">torus_8cpp.html#a61bbdb4579d1cd678e05ab03e357cabf</field>
+    <field name="keywords">nR1</field>
+    <field name="text">Number of samples</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">drawNormals</field>
+    <field name="url">torus_8cpp.html#a61cfb3fdcf176d455075e4af383a2690</field>
+    <field name="keywords">drawNormals</field>
+    <field name="text">Whether display vertex normals</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">R3</field>
+    <field name="url">torus_8cpp.html#a6752016f7a02ff6ff1b749623be15dbb</field>
+    <field name="keywords">R3</field>
+    <field name="text">Radius in z direction for an ellipsoid</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">LEN</field>
+    <field name="args">(x, y, z)</field>
+    <field name="url">torus_8cpp.html#a67fbe543289603d6092c39ffa596fdaf</field>
+    <field name="keywords">LEN</field>
+    <field name="text">Vector length</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">nObjects</field>
+    <field name="url">torus_8cpp.html#a6b88b073737365876a145587c3f85df9</field>
+    <field name="keywords">nObjects</field>
+    <field name="text">Number of objects</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">sphere</field>
+    <field name="args">(double r1, double r2, double r3, int numc, int numt, int normals)</field>
+    <field name="url">torus_8cpp.html#a6c5b17163125dd32bd7c04a99738d316</field>
+    <field name="keywords">sphere</field>
+    <field name="text">Draw an ellipsoid or a sphere centered at the origin Implicit Equation A sphere is defined as the set of all points in three-dimensional Euclidean space R³ that are located at a distance r the from a given point the An ellipsoid is a surface that may be obtained from a sphere by deforming it by means of directional scalings or more generally of an affine transformation Parametric Equation x(u,v) r1 cos(u) sin(v) y(u,v) r2 sin(u) sin(v) z(u,v) r3 cos(v) u 0 2 v 0 df/du r1 sin(u) sin(v) r2 cos(u) sin(v) 0 df/dv r1 cos(u) cos(v) r2 sin(u) cos v r3 sin(v) df/dv x df/du r2 r3/r1 x(u,v) r1 r3/r2 y(u,v) r1 r2/r3 z(u,v) sin v r2² r3² x(u,v) r1² r3² y(u,v) r1² r2² z(u,v) Inverse parametrization u atan2 y x r1/r2 if u 0 then u 2 v acos z/r3 r1 x radius of the ellipsoid r2 y radius of the ellipsoid r3 z radius of the ellipsoid numc number of divisions along the zero degree longitude number of latitude divisions numt number of divisions along the zero degree latitude equator number of longitude divisions normals whether to draw normals or polygons</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">R2</field>
+    <field name="url">torus_8cpp.html#a6e4ea5fe1993f05924fa4d457def2aa3</field>
+    <field name="keywords">R2</field>
+    <field name="text">Radius of the tube</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">frontPlane</field>
+    <field name="url">torus_8cpp.html#a70b2bcc7e1975b4e689a678bf56cc30f</field>
+    <field name="keywords">frontPlane</field>
+    <field name="text">Front plane distance</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">showAxes</field>
+    <field name="url">torus_8cpp.html#a7c95f8b3e84d565bb68b16bf62c74e99</field>
+    <field name="keywords">showAxes</field>
+    <field name="text">Whether to show the coordinate axes</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">axis</field>
+    <field name="url">torus_8cpp.html#a83ae1c9343d859792d580a61a1657085</field>
+    <field name="keywords">axis</field>
+    <field name="text">Current axis</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">checkImage</field>
+    <field name="args">[checkImageHeight][checkImageWidth][4]</field>
+    <field name="url">torus_8cpp.html#a83df8adf5cc391b27c96831bb501c6c6</field>
+    <field name="keywords">checkImage</field>
+    <field name="text">Procedural image for a checkerboard</field>
+  </doc>
+  <doc>
+    <field name="type">enum</field>
+    <field name="name">_oType</field>
+    <field name="url">torus_8cpp.html#a865f1a1cc9a366f0214b0c6803f8975e</field>
+    <field name="keywords">_oType</field>
+    <field name="text">Quadric types</field>
+  </doc>
+  <doc>
+    <field name="type">enumvalue</field>
+    <field name="name">_hyperboloid</field>
+    <field name="url">torus_8cpp.html#a865f1a1cc9a366f0214b0c6803f8975ea20ecb59cf0f47b39cde9915aa4f0fd73</field>
+    <field name="keywords">_hyperboloid _hyperboloid</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">enumvalue</field>
+    <field name="name">_hyperbolic_paraboloid</field>
+    <field name="url">torus_8cpp.html#a865f1a1cc9a366f0214b0c6803f8975ea284cc31a8bcc813820ae5f3af9e001ef</field>
+    <field name="keywords">_hyperbolic_paraboloid _hyperbolic_paraboloid</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">enumvalue</field>
+    <field name="name">_ellipsoid</field>
+    <field name="url">torus_8cpp.html#a865f1a1cc9a366f0214b0c6803f8975ea5d818a68b1945eb2bc01ef9b9de594d8</field>
+    <field name="keywords">_ellipsoid _ellipsoid</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">enumvalue</field>
+    <field name="name">_torus</field>
+    <field name="url">torus_8cpp.html#a865f1a1cc9a366f0214b0c6803f8975ea7efde285c35f49f3dd3d83450d118af8</field>
+    <field name="keywords">_torus _torus</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">enumvalue</field>
+    <field name="name">_paraboloid</field>
+    <field name="url">torus_8cpp.html#a865f1a1cc9a366f0214b0c6803f8975eaa186bc1b62fcbe62a5edc8bf65d83984</field>
+    <field name="keywords">_paraboloid _paraboloid</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">enumvalue</field>
+    <field name="name">_cone</field>
+    <field name="url">torus_8cpp.html#a865f1a1cc9a366f0214b0c6803f8975eabc0b14bf2a9d7916fec789d516d34b7d</field>
+    <field name="keywords">_cone _cone</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">enumvalue</field>
+    <field name="name">_cylinder</field>
+    <field name="url">torus_8cpp.html#a865f1a1cc9a366f0214b0c6803f8975ead8d1df0e02edb6042f1ebda3ca447169</field>
+    <field name="keywords">_cylinder _cylinder</field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">texName</field>
+    <field name="url">torus_8cpp.html#a880af90db712152846335d53282ace4e</field>
+    <field name="keywords">texName</field>
+    <field name="text">Texture identifier</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">toDeg</field>
+    <field name="args">(x)</field>
+    <field name="url">torus_8cpp.html#a8a7e3040b1d4a934ccb836da9929b153</field>
+    <field name="keywords">toDeg</field>
+    <field name="text">Convert an angle to degrees</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">rotAngle</field>
+    <field name="url">torus_8cpp.html#a8e621e81d5025d5641764107a9f18903</field>
+    <field name="keywords">rotAngle</field>
+    <field name="text">Rotation angle increment</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">farPlane</field>
+    <field name="url">torus_8cpp.html#a93911d183fdeaea2248ae3a1bcecc434</field>
+    <field name="keywords">farPlane</field>
+    <field name="text">Far plane distance Near and far clipping planes should always be specified as positive That s because they represent how far in front of the the clipping planes will be</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">nR2</field>
+    <field name="url">torus_8cpp.html#a9ee0b58ad6cd2ee73698a41082a9d885</field>
+    <field name="keywords">nR2</field>
+    <field name="text">Number of samples</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">paraboloid</field>
+    <field name="args">(double h, double r, int vs, int rs, int normals)</field>
+    <field name="url">torus_8cpp.html#aa4614a9b175f83da6a341e6040632b73</field>
+    <field name="keywords">paraboloid</field>
+    <field name="text">Draw a paraboloid centered at the origin with a circular base on plane XY Implicit Equation Parametric Equation x(u,v) u cos(v) y(u,v) u sin(v) z(u,v) h u/r ² z h u r u 0 h v 0 2 df/du cos(v) sin(v) 2 h/r² df/dv u sin(v) u cos(v) 0 df/dv x df/du 2 h/r² u cos(v) 2 h/r² u sin(v) u 2 h/r² x(u,v) 2 h/r² y(u,v) 1 Inverse parametrization u sqrt z r² h or u sqrt h-z r² h if paraboloid is upside down v atan2(y,x) if v 0 then v 2 h paraboloid height r paraboloid radius vs number of divisions in z direction rs number of angular divisions normals whether to draw normals or polygons</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">arcball</field>
+    <field name="url">torus_8cpp.html#aa4910ccdfc33b30e287cc767ce5c3e7d</field>
+    <field name="keywords">arcball</field>
+    <field name="text">ArcBall</field>
+  </doc>
+  <doc>
+    <field name="type">typedef</field>
+    <field name="name">rAxes</field>
+    <field name="url">torus_8cpp.html#aa8c6413ab09935dff9a9ce1a8abdc0d9</field>
+    <field name="keywords">rAxes</field>
+    <field name="text">Rotation axes</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">getBoxSize</field>
+    <field name="args">(oType index, double *dx, double *dy, double *dz)</field>
+    <field name="url">torus_8cpp.html#aac6527ea8ae3d04017afa7d9c1f992f6</field>
+    <field name="keywords">getBoxSize</field>
+    <field name="text">Return bounding box dimension index Position into objBoxes array dx Bounding box length dy Bounding box width dz Bounding box height Bounding box diameter</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">scale</field>
+    <field name="url">torus_8cpp.html#aae7f4534d8be2c1cf8707cc7ad84ad51</field>
+    <field name="keywords">scale</field>
+    <field name="text">Scale for drawing normals</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">drawAxes</field>
+    <field name="args">(double r1, double r2)</field>
+    <field name="url">torus_8cpp.html#ab52e8d123f74a1dc6fe78192995e2ce7</field>
+    <field name="keywords">drawAxes</field>
+    <field name="text">Draw the three coordinate axes The length of the axes is r1 r2 r1 axis length r2 axis additional length</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">mouseDrag</field>
+    <field name="args">(int _x, int _y)</field>
+    <field name="url">torus_8cpp.html#ab93b36736390103768326aeafcb6bc94</field>
+    <field name="keywords">mouseDrag</field>
+    <field name="text">Mouse callback interface Set the motion callback for the current window The motion callback for a window is called when the mouse moves within the window while one or more mouse buttons are pressed glutPostRedisplay() marks the current window as needing to be redisplayed The next iteration through glutMainLoop the window s display callback will be called to redisplay the window s normal plane _x coordinate of the mouse cursor _y coordinate of the mouse cursor</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">makeCheckImage</field>
+    <field name="args">(void)</field>
+    <field name="url">torus_8cpp.html#abc6a6219108d3ba0991713a42b08e25f</field>
+    <field name="keywords">makeCheckImage</field>
+    <field name="text">Create checkerboard texture If i s 4 th bit is set i.e every 8 iterations of i i 0 x8 yields nonzero The same for j If either is nonzero but the other is zero then XOR will yield 1 This is multiplied by 2 5 5 i.e the maximum value of a channel i i 1 0 0 0 0 7 0 8 1 5 8 1 6 2 3 0 2 4 3 1 8</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">theAxes</field>
+    <field name="url">torus_8cpp.html#ac96cbd544c493c6ac62b8f1796d6a052</field>
+    <field name="keywords">theAxes</field>
+    <field name="text">Axes</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">reshape</field>
+    <field name="args">(int w, int h)</field>
+    <field name="url">torus_8cpp.html#acc1ffe65e6869931318610cae7210078</field>
+    <field name="keywords">reshape</field>
+    <field name="text">Handle window resize Sets the viewport to its new size w viewport width h viewport height</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">showBox</field>
+    <field name="url">torus_8cpp.html#ace174935b5a83938763ea0e6628c33a4</field>
+    <field name="keywords">showBox</field>
+    <field name="text">Whether to show the bounding boxes</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">torus</field>
+    <field name="args">(double r1, double r2, int numc, int numt, int normals)</field>
+    <field name="url">torus_8cpp.html#acf04d1331c5f0cedfaacc30d1d3f46f4</field>
+    <field name="keywords">torus</field>
+    <field name="text">Draw a torus centered at the origin and azimuthally symmetric about the z-axis In geometry a torus is a surface of revolution generated by revolving a circle in three-dimensional space about an axis coplanar with the circle Volume 2 × π² × R × r² Surface area 4 × π² × R × r Common objects with this shape Doughnut Ring Lifebuoy Implicit Equation a quartic equation Parametric Equation x(u,v) r1 r2 cos(v) cos(u) y(u,v) r1 r2 cos(v) sin(u) z(u,v) r2 sin(v) u 0 2 v 0 2 df/du y(u,v) x(u,v) 0 df/dv z(u,v) cos(u) z(u,v) sin(u) r2 cos(v) df/du x df/dv r2 x(u,v) cos(v) r2 y(u,v) cos(v) z(u,v) y(u,v) sin(u) x(u,v) cos(u) r2 cos(v) x(u,v) r2 cos(v) y(u,v) r1 r2 cos(v) z(u,v) df/du x df/dv cos(v) cos(u) cos(v) sin(u) sin(v) Inverse parametrization u atan2(y,x) if u 0 then u 2 v asin z/r2 When r1 r2 the surface will be the familiar ring torus r1 r2 corresponds to the horn torus which in effect is a torus with no r1 r2 describes the self-intersecting spindle torus r1 0 the torus degenerates to the sphere r1 distance from the center of the tube to the center of the torus r2 radius of the tube numc number of divisions of the circle with radius r2 numt number of divisions of the circle with radius r1 normals whether to draw normals or polygons</field>
+  </doc>
+  <doc>
+    <field name="type">typedef</field>
+    <field name="name">_BBOX</field>
+    <field name="args">[2]</field>
+    <field name="url">torus_8cpp.html#ad1be57f7bd984358516dee4959d7ed0e</field>
+    <field name="keywords">_BBOX</field>
+    <field name="text">Axis aligned Bounding box</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">ilImage</field>
+    <field name="url">torus_8cpp.html#ad210616c2fd72bf4ceda644bdf2f99ec</field>
+    <field name="keywords">ilImage</field>
+    <field name="text">IL image identifier</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">objNames</field>
+    <field name="args">[]</field>
+    <field name="url">torus_8cpp.html#ad75248953a45a77c141af439c47ba1c2</field>
+    <field name="keywords">objNames</field>
+    <field name="text">Object names</field>
+  </doc>
+  <doc>
+    <field name="type">define</field>
+    <field name="name">checkImageHeight</field>
+    <field name="url">torus_8cpp.html#ad815a88fe5bd6ac8c8e389ed77976348</field>
+    <field name="keywords">checkImageHeight</field>
+    <field name="text">Texture Image height</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">objects</field>
+    <field name="url">torus_8cpp.html#ae1ba69858e15d666d3782e843e304f75</field>
+    <field name="keywords">objects</field>
+    <field name="text">Object display list base index</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">zobs</field>
+    <field name="url">torus_8cpp.html#ae38eb52b6b985fad0ad745f2a0e79c60</field>
+    <field name="keywords">zobs</field>
+    <field name="text">Camera position</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">keyboard</field>
+    <field name="args">(unsigned char key, int x, int y)</field>
+    <field name="url">torus_8cpp.html#aef7ba2f69afb2d954545f64c7fe24b14</field>
+    <field name="keywords">keyboard</field>
+    <field name="text">Keyboard callback interface glutPostRedisplay() marks the current window as needing to be redisplayed The next iteration through glutMainLoop the window s display callback will be called to redisplay the window s normal plane key key pressed x coordinate of the mouse cursor y coordinate of the mouse cursor</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">drawWire</field>
+    <field name="url">torus_8cpp.html#af2aabe82b3ecb569e82b350505afd0ea</field>
+    <field name="keywords">drawWire</field>
+    <field name="text">Whether draw wireframe or filled polygons</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">OBJECT</field>
+    <field name="url">torus_8cpp.html#af3de682d132a2d134885477fa5ea2095</field>
+    <field name="keywords">OBJECT</field>
+    <field name="text">Current object</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">R1</field>
+    <field name="url">torus_8cpp.html#af404f6d9a332838b9707056c27a4f21a</field>
+    <field name="keywords">R1</field>
+    <field name="text">Distance from the center of the tube to the center of the torus</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">hyperbolic_paraboloid</field>
+    <field name="args">(double w, double h, int ws, int hs, int normals)</field>
+    <field name="url">torus_8cpp.html#af482c84d5de7ddd2204b6379bdc817ec</field>
+    <field name="keywords">hyperbolic_paraboloid</field>
+    <field name="text">Draw a hyperbolic paraboloid Implicit Equation Parametric Equation x(u,v) u y(u,v) v z(u,v) uv u 0 w v 0 h df/du 1 0 v df/dv 0 1 u df/du x df/dv y x 1 Inverse parametrization u x v y w hyperbolic paraboloid width h hyperbolic paraboloid length ws number of divisions in x direction hs number of divisions in y direction normals whether to draw normals or polygons</field>
+  </doc>
+  <doc>
+    <field name="type">function</field>
+    <field name="name">drawBox</field>
+    <field name="args">(const _BBOX BBOX)</field>
+    <field name="url">torus_8cpp.html#af9d617a61a90fc97b51d97e9e5467dee</field>
+    <field name="keywords">drawBox</field>
+    <field name="text">Draw the bounding box as a dashed hexahedron BBOX given bounding box</field>
+  </doc>
+  <doc>
+    <field name="type">variable</field>
+    <field name="name">viewingAngle</field>
+    <field name="url">torus_8cpp.html#afd6b2b339098bf41b9eb67159686d647</field>
+    <field name="keywords">viewingAngle</field>
+    <field name="text">Camera viewing angle also known as opening angle</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00001</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00044</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00059</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00061</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00063</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00067</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00069</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00071</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00073</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00075</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00077</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00079</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00081</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00083</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00085</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00087</field>
+    <field name="keywords"></field>
+    <field name="text"></field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00090</field>
+    <field name="keywords"></field>
+    <field name="text">zobs</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00092</field>
+    <field name="keywords"></field>
+    <field name="text">viewingAngle</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00094</field>
+    <field name="keywords"></field>
+    <field name="text">GLuint objects</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00096</field>
+    <field name="keywords"></field>
+    <field name="text">R1</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00098</field>
+    <field name="keywords"></field>
+    <field name="text">R2</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00100</field>
+    <field name="keywords"></field>
+    <field name="text">R3</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00102</field>
+    <field name="keywords"></field>
+    <field name="text">nR1</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00104</field>
+    <field name="keywords"></field>
+    <field name="text">nR2</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00106</field>
+    <field name="keywords"></field>
+    <field name="text">drawWire</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00108</field>
+    <field name="keywords"></field>
+    <field name="text">drawNormals</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00110</field>
+    <field name="keywords"></field>
+    <field name="text">applyTexture</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00112</field>
+    <field name="keywords"></field>
+    <field name="text">showAxes</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00114</field>
+    <field name="keywords"></field>
+    <field name="text">showBox</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00116</field>
+    <field name="keywords"></field>
+    <field name="text">backG</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00118</field>
+    <field name="keywords"></field>
+    <field name="text">procImage</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00120</field>
+    <field name="keywords"></field>
+    <field name="text">useArcball</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00122</field>
+    <field name="keywords"></field>
+    <field name="text">spin</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00124</field>
+    <field name="keywords"></field>
+    <field name="text">_Point</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00125</field>
+    <field name="keywords"></field>
+    <field name="text">x y z</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00126</field>
+    <field name="keywords"></field>
+    <field name="text">Point</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00128</field>
+    <field name="keywords"></field>
+    <field name="text">Point _BBOX</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00131</field>
+    <field name="keywords"></field>
+    <field name="text">_oType _torus _cylinder _cone _ellipsoid _paraboloid _hyperbolic_paraboloid _hyperboloid oType</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00134</field>
+    <field name="keywords"></field>
+    <field name="text">_rAxes xAxis yAxis zAxis rAxes</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00137</field>
+    <field name="keywords"></field>
+    <field name="text">rAxes axis xAxis</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00140</field>
+    <field name="keywords"></field>
+    <field name="text">GLfloat rotAngle</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00143</field>
+    <field name="keywords"></field>
+    <field name="text">delay</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00146</field>
+    <field name="keywords"></field>
+    <field name="text">GLubyte checkImage checkImageHeight checkImageWidth</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00148</field>
+    <field name="keywords"></field>
+    <field name="text">GLuint texName</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00150</field>
+    <field name="keywords"></field>
+    <field name="text">ILuint ilImage</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00152</field>
+    <field name="keywords"></field>
+    <field name="text">objNames</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00154</field>
+    <field name="keywords"></field>
+    <field name="text">_BBOX objBoxes nObjects</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00156</field>
+    <field name="keywords"></field>
+    <field name="text">OBJECT _torus</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00158</field>
+    <field name="keywords"></field>
+    <field name="text">Arcball arcball</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00180</field>
+    <field name="keywords"></field>
+    <field name="text">updateBox oType index x y z _BBOX bbox objBoxes index x fmin x bbox x x fmax x bbox x y fmin y bbox y y fmax y bbox y z fmin z bbox z z fmax z bbox z</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00199</field>
+    <field name="keywords"></field>
+    <field name="text">getBoxSize oType index dx dy dz _BBOX bbox objBoxes index dx x x dy y y dz z z LEN dx dy dz</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00242</field>
+    <field name="keywords"></field>
+    <field name="text">cone h r vs rs normals i j k z th x y ln nx ny nz u hr h r diag normals dx dy dz diag getBoxSize _cone dx dy dz i i vs i glBegin normals GL_LINES GL_QUAD_STRIP j j rs j k k k z h i k vs u h z hr th j TWOPI rs x u cos th y u sin th nx x hr ny y hr nz u u ln LEN nx ny nz nx ln ny ln nz ln th clamp th TWOPI glNormal3d nx ny nz glTexCoord2d th z h glVertex3d x y z normals glVertex3d x scale nx y scale ny z scale nz updateBox _cone x y z glEnd</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00313</field>
+    <field name="keywords"></field>
+    <field name="text">cylinder h r vs rs normals i j z0 z1 th x y ln nx ny diag normals dx dy dz diag getBoxSize _cylinder dx dy dz i i vs i z0 h i vs z1 h i vs glBegin normals GL_LINES GL_QUAD_STRIP j j rs j th j TWOPI rs x r cos th y r sin th ln LEN x y nx x ln ny y ln th clamp th TWOPI glNormal3d nx ny glTexCoord2d th z1 h glVertex3d x y z1 normals glVertex3d x scale nx y scale ny z1 updateBox _cylinder x y z1 glNormal3d nx ny glTexCoord2d th z0 h glVertex3d x y z0 normals glVertex3d x scale nx y scale ny z0 updateBox _cylinder x y z0 glEnd</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00387</field>
+    <field name="keywords"></field>
+    <field name="text">paraboloid h r vs rs normals i j k z th x y ln nx ny nz u hr2 h r r diag normals dx dy dz diag getBoxSize _paraboloid dx dy dz i i vs i glBegin normals GL_LINES GL_QUAD_STRIP j j rs j k k k z h i k vs u sqrt h z hr2 th j TWOPI rs x u cos th y u sin th nx x hr2 ny y hr2 nz ln LEN nx ny nz nx ln ny ln nz ln th clamp th TWOPI glNormal3d nx ny nz glTexCoord2d th z h glVertex3d x y z normals glVertex3d x scale nx y scale ny z scale nz updateBox _paraboloid x y z glEnd</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00463</field>
+    <field name="keywords"></field>
+    <field name="text">hyperboloid h a r vs rs normals i j k z th x y ln nx ny nz u c sqrt h h r r a a r a printf diag normals dx dy dz diag getBoxSize _hyperboloid dx dy dz i vs i vs i glBegin normals GL_LINES GL_QUAD_STRIP j j rs j k k k z h i k vs u z c u a sqrt u u th j TWOPI rs x u cos th y u sin th nx x c ny y c nz z a a c ln LEN nx ny nz nx ln ny ln nz ln th clamp th TWOPI glNormal3d nx ny nz glTexCoord2d th z h h glVertex3d x y z normals glVertex3d x scale nx y scale ny z scale nz updateBox _hyperboloid x y z glEnd</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00539</field>
+    <field name="keywords"></field>
+    <field name="text">hyperbolic_paraboloid w h ws hs normals i j k u v z x y ln nx ny nz diag normals dx dy dz diag getBoxSize _hyperbolic_paraboloid dx dy dz i hs i hs i glBegin normals GL_LINES GL_QUAD_STRIP j ws j ws j k k k u j w ws v i k h hs x u y v z u v nx y ny x nz ln LEN nx ny nz nx ln ny ln nz ln glNormal3d nx ny nz glTexCoord2d u w w v h h glVertex3d x y z normals glVertex3d x scale nx y scale ny z scale nz updateBox _hyperbolic_paraboloid x y z glEnd</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00622</field>
+    <field name="keywords"></field>
+    <field name="text">torus r1 r2 numc numt normals i j k s t x y z u v cu cv su sv nx ny nz ln diag normals dx dy dz diag getBoxSize _torus dx dy dz i i numc i glBegin normals GL_LINES GL_QUAD_STRIP j j numt j k k k s i k numc t j numt s i k t j u t TWOPI numt v s TWOPI numc cu cos u cv cos v su sin u sv sin v x r1 r2 cv cu y r1 r2 cv su z r2 sv nx cv cu ny cv su nz sv ln LEN nx ny nz nx ln ny ln nz ln u clamp u TWOPI v clamp v TWOPI glTexCoord2d u v glNormal3d nx ny nz glVertex3d x y z normals glVertex3d x scale nx y scale ny z scale nz updateBox _torus x y z glEnd</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00722</field>
+    <field name="keywords"></field>
+    <field name="text">sphere r1 r2 r3 numc numt normals i j k s x y z u v cu cv su sv nx ny nz ln diag normals dx dy dz diag getBoxSize _ellipsoid dx dy dz i i numc i glBegin normals GL_LINES GL_QUAD_STRIP j j numt j k k k s i k u j TWOPI numt v s M_PI numc cu cos u cv cos v su sin u sv sin v x r1 cu sv y r2 su sv z r3 cv nx r2 r3 r2 r3 x ny r1 r3 r1 r3 y nz r1 r2 r1 r2 z ln LEN nx ny nz nx ln ny ln nz ln u clamp u TWOPI v clamp v M_PI glTexCoord2d u v glNormal3d nx ny nz glVertex3d x y z normals glVertex3d x scale nx y scale ny z scale nz updateBox _ellipsoid x y z glEnd</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00785</field>
+    <field name="keywords"></field>
+    <field name="text">drawAxes r1 r2 d d r1 r2 glBegin GL_LINES glColor3d glVertex3d glVertex3d d glColor3d glVertex3d glVertex3d d glColor3d glVertex3d glVertex3d d glEnd</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00805</field>
+    <field name="keywords"></field>
+    <field name="text">drawBox _BBOX BBOX glPushAttrib GL_ENABLE_BIT glLineStipple glEnable GL_LINE_STIPPLE glBegin GL_LINE_LOOP glColor3d glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glEnd glBegin GL_LINE_LOOP glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glEnd glBegin GL_LINE_LOOP glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glEnd glBegin GL_LINE_LOOP glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glVertex3d BBOX x BBOX y BBOX z glEnd glPopAttrib</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00860</field>
+    <field name="keywords"></field>
+    <field name="text">makeCheckImage i j c i i checkImageHeight i j j checkImageWidth j c i j c i checkImage i j GLubyte fmax c checkImage i j GLubyte c checkImage i j GLubyte c checkImage i j GLubyte fmax c checkImage i j GLubyte c checkImage i j GLubyte</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00887</field>
+    <field name="keywords"></field>
+    <field name="text">loadImage filename ILuint imageName ilGenImages imageName ilBindImage imageName ilLoadImage filename ilConvertImage IL_RGBA IL_UNSIGNED_BYTE imageName</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00912</field>
+    <field name="keywords"></field>
+    <field name="text">initTexture makeCheckImage glPixelStorei GL_UNPACK_ALIGNMENT glGenTextures texName glBindTexture GL_TEXTURE_2D texName glTexEnvf GL_TEXTURE_ENV GL_TEXTURE_ENV_MODE GL_DECAL glTexParameteri GL_TEXTURE_2D GL_TEXTURE_WRAP_S GL_REPEAT glTexParameteri GL_TEXTURE_2D GL_TEXTURE_WRAP_T GL_REPEAT glTexParameteri GL_TEXTURE_2D GL_TEXTURE_MIN_FILTER GL_LINEAR_MIPMAP_LINEAR glTexParameteri GL_TEXTURE_2D GL_TEXTURE_MAG_FILTER GL_LINEAR procImage glTexImage2D GL_TEXTURE_2D GL_RGBA checkImageWidth checkImageHeight GL_RGBA GL_UNSIGNED_BYTE checkImage glTexImage2D GL_TEXTURE_2D ilGetInteger IL_IMAGE_BPP ilGetInteger IL_IMAGE_WIDTH ilGetInteger IL_IMAGE_HEIGHT ilGetInteger IL_IMAGE_FORMAT GL_UNSIGNED_BYTE ilGetData glGenerateMipmap GL_TEXTURE_2D</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l00975</field>
+    <field name="keywords"></field>
+    <field name="text">init glEnable GL_DEPTH_TEST glClearDepth glShadeModel GL_SMOOTH glClearColor glEnable GL_RESCALE_NORMAL glDisable GL_DEPTH_CLAMP GLfloat global_ambient GLfloat ambient GLfloat diffuseLight GLfloat specular GLfloat mAmbientB GLfloat mDiffuseLightB GLfloat mSpecularB GLfloat mShininessB GLfloat mAmbient GLfloat mDiffuseLight GLfloat mSpecular GLfloat mShininess glLightModelfv GL_LIGHT_MODEL_AMBIENT global_ambient glLightfv GL_LIGHT0 GL_AMBIENT ambient glLightfv GL_LIGHT0 GL_DIFFUSE diffuseLight glLightfv GL_LIGHT0 GL_SPECULAR specular glLightfv GL_LIGHT1 GL_AMBIENT ambient glLightfv GL_LIGHT1 GL_DIFFUSE diffuseLight glLightfv GL_LIGHT1 GL_SPECULAR specular glLightfv GL_LIGHT2 GL_AMBIENT ambient glLightfv GL_LIGHT2 GL_DIFFUSE diffuseLight glLightfv GL_LIGHT2 GL_SPECULAR specular GLfloat positionZ zobs GLfloat positionY GLfloat positionX glLightfv GL_LIGHT0 GL_POSITION positionZ glLightfv GL_LIGHT1 GL_POSITION positionY glLightfv GL_LIGHT2 GL_POSITION positionX GLfloat mcolor glMaterialfv GL_FRONT GL_AMBIENT_AND_DIFFUSE mcolor glMaterialfv GL_FRONT GL_AMBIENT mAmbient glMaterialfv GL_FRONT GL_DIFFUSE mDiffuseLight glMaterialfv GL_FRONT GL_SPECULAR mSpecular glMaterialf GL_FRONT GL_SHININESS mShininess glMaterialfv GL_BACK GL_AMBIENT mAmbientB glMaterialfv GL_BACK GL_DIFFUSE mDiffuseLightB glMaterialfv GL_BACK GL_SPECULAR mSpecularB glMaterialf GL_BACK GL_SHININESS mShininessB glEnable GL_LIGHT0 glEnable GL_LIGHT1 glEnable GL_LIGHT2 glEnable GL_LIGHTING glLightModeli GL_LIGHT_MODEL_TWO_SIDE glEnable GL_COLOR_MATERIAL glColorMaterial GL_FRONT GL_AMBIENT_AND_DIFFUSE glFrontFace GL_CCW glDepthFunc GL_LEQUAL glLineWidth glHint GL_PERSPECTIVE_CORRECTION_HINT GL_NICEST initTexture objects glGenLists theAxes glNewList objects GL_COMPILE glFrontFace GL_CCW torus R1 R2 nR2 nR1 glEndList glNewList objects GL_COMPILE glFrontFace GL_CCW cylinder R1 R2 nR2 nR1 glEndList glNewList objects GL_COMPILE glFrontFace GL_CCW cone R1 R2 nR2 nR1 glEndList glNewList objects GL_COMPILE glFrontFace GL_CW sphere R1 R2 R3 nR2 nR1 glEndList glNewList objects GL_COMPILE glFrontFace GL_CCW paraboloid R1 R2 nR2 nR1 glEndList glNewList objects GL_COMPILE glFrontFace GL_CW hyperbolic_paraboloid R1 R1 nR1 nR1 glEndList glNewList objects GL_COMPILE glFrontFace GL_CCW hyperboloid R1 R2 R3 nR1 nR2 glEndList glNewList objects GL_COMPILE torus R1 R2 nR2 nR1 glEndList glNewList objects GL_COMPILE cylinder R1 R2 nR2 nR1 glEndList glNewList objects GL_COMPILE cone R1 R2 nR2 nR1 glEndList glNewList objects GL_COMPILE sphere R1 R2 R3 nR2 nR1 glEndList glNewList objects GL_COMPILE paraboloid R1 R2 nR2 nR1 glEndList glNewList objects GL_COMPILE hyperbolic_paraboloid R1 R1 nR1 nR1 glEndList glNewList objects GL_COMPILE hyperboloid R1 R2 R3 nR1 nR2 glEndList glNewList objects GL_COMPILE drawAxes R1 R2 glEndList</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l01141</field>
+    <field name="keywords"></field>
+    <field name="text">display glClear GL_COLOR_BUFFER_BIT GL_DEPTH_BUFFER_BIT useArcball glMatrixMode GL_MODELVIEW glLoadIdentity gluLookAt zobs arcball applyRotationMatrix spin axis xAxis glRotatef rotAngle yAxis glRotatef rotAngle zAxis glRotatef rotAngle showAxes glDisable GL_LIGHTING glCallList objects theAxes glEnable GL_LIGHTING showBox glDisable GL_LIGHTING drawBox objBoxes OBJECT glEnable GL_LIGHTING drawWire glColor3d glPolygonMode GL_FRONT_AND_BACK GL_LINE glColor3d glPolygonMode GL_FRONT_AND_BACK GL_FILL applyTexture glEnable GL_TEXTURE_2D glCallList objects OBJECT glDisable GL_TEXTURE_2D glColor3d drawNormals glCallList objects OBJECT nObjects glutSwapBuffers</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l01201</field>
+    <field name="keywords"></field>
+    <field name="text">dateNow timeval tp gettimeofday tp NULL ms tp tv_sec tp tv_usec ms</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l01219</field>
+    <field name="keywords"></field>
+    <field name="text">_timer value previousTimeStamp dateNow numberOfFramesForFPS currentTime currentTime dateNow fabs currentTime previousTimeStamp numberOfFramesForFPS delay numberOfFramesForFPS delay printf numberOfFramesForFPS delay fflush stdout numberOfFramesForFPS previousTimeStamp currentTime numberOfFramesForFPS glutPostRedisplay glutTimerFunc delay _timer value</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l01254</field>
+    <field name="keywords"></field>
+    <field name="text">reshape w h d dx dy dz d getBoxSize oType OBJECT dx dy dz glViewport GLsizei w GLsizei h glMatrixMode GL_PROJECTION glLoadIdentity viewingAngle atan2 d zobs viewingAngle toDeg viewingAngle gluPerspective viewingAngle GLfloat w h frontPlane farPlane glMatrixMode GL_MODELVIEW glLoadIdentity zobs d tan toRad viewingAngle gluLookAt zobs arcball setWidthHeight w h</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l01289</field>
+    <field name="keywords"></field>
+    <field name="text">keyboard key x y key showAxes showAxes glutPostRedisplay showBox showBox glutPostRedisplay backG backG backG glClearColor glClearColor glutPostRedisplay spin glRotatef rotAngle glutPostRedisplay axis xAxis spin glRotatef rotAngle glutPostRedisplay axis yAxis spin glRotatef rotAngle glutPostRedisplay axis zAxis glLoadIdentity gluLookAt zobs axis xAxis arcball reset glutPostRedisplay drawWire drawWire glutPostRedisplay drawNormals drawNormals glutPostRedisplay OBJECT OBJECT nObjects code OBJECT key code glutSetWindowTitle objNames OBJECT GLint viewport glGetIntegerv GL_VIEWPORT viewport reshape viewport viewport glutPostRedisplay useArcball useArcball useArcball GLMatrix model glGetFloatv GL_MODELVIEW_MATRIX model arcball setViewMatrix model glutPostRedisplay spin spin rotAngle spin glutPostRedisplay applyTexture applyTexture glutPostRedisplay procImage procImage glDeleteTextures texName initTexture glutPostRedisplay printf printf printf printf printf printf printf printf printf printf printf printf printf printf printf printf printf ilDeleteImages ilImage printf exit</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l01441</field>
+    <field name="keywords"></field>
+    <field name="text">mouseFunc state button _x _y useArcball button GLUT_LEFT_BUTTON arcball startRotation _x _y arcball stopRotation glutPostRedisplay</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l01468</field>
+    <field name="keywords"></field>
+    <field name="text">mouseDrag _x _y useArcball arcball updateRotation _x _y glutPostRedisplay</field>
+  </doc>
+  <doc>
+    <field name="type">source</field>
+    <field name="name">torus.cpp</field>
+    <field name="url">torus_8cpp_source.html#l01487</field>
+    <field name="keywords"></field>
+    <field name="text">main argc argv image glutInitWindowSize glutInit argc argv glutInitDisplayMode GLUT_DOUBLE GLUT_RGB GLUT_DEPTH glutCreateWindow argv memset image image strncpy image image argc sscanf argv R1 sscanf argv R2 sscanf argv R3 sscanf argv nR1 sscanf argv nR2 argc strncpy image argv image printf R1 printf R2 printf R3 printf nR1 printf nR2 printf image ilInit ilImage loadImage image printf image init arcball Arcball glutReshapeFunc reshape glutKeyboardFunc keyboard glutMouseFunc mouseFunc glutMotionFunc mouseDrag glutTimerFunc delay _timer glutDisplayFunc display display glutMainLoop</field>
+  </doc>
+</add>

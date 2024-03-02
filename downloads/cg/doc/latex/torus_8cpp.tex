@@ -1,0 +1,2119 @@
+\doxysection{torus.\+cpp File Reference}
+\hypertarget{torus_8cpp}{}\label{torus_8cpp}\index{torus.cpp@{torus.cpp}}
+
+
+This program demonstrates the creation of display lists for constructing some quadric surfaces.  
+
+
+{\ttfamily \#include $<$IL/il.\+h$>$}\newline
+{\ttfamily \#include $<$GL/glut.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$Arcball/\+Arcball.\+hpp$>$}\newline
+Include dependency graph for torus.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{torus_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__Point}{\+\_\+\+Point}}
+\begin{DoxyCompactList}\small\item\em 3D point structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{torus_8cpp_a120fb070bddb21f0bd899f50252c4cb5}{GL\+\_\+\+GLEXT\+\_\+\+PROTOTYPES}}
+\item 
+\#define \mbox{\hyperlink{torus_8cpp_a391defc2ad4357e3d4f2bb5f29a5bb20}{M\+\_\+\+PI\+\_\+}}~3.\+14159265358979323846
+\begin{DoxyCompactList}\small\item\em {$\Pi$} definition. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_a48661c07cea0fa9ea6d1d7e60459f18d}{check\+Image\+Width}}~128
+\begin{DoxyCompactList}\small\item\em Texture Image width. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_ad815a88fe5bd6ac8c8e389ed77976348}{check\+Image\+Height}}~128
+\begin{DoxyCompactList}\small\item\em Texture Image height. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_a93911d183fdeaea2248ae3a1bcecc434}{far\+Plane}}~(\mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{zobs}}+10\texorpdfstring{$\ast$}{*}d)
+\begin{DoxyCompactList}\small\item\em Far plane distance. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_a70b2bcc7e1975b4e689a678bf56cc30f}{front\+Plane}}~1
+\begin{DoxyCompactList}\small\item\em Front plane distance. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_a60b90fe3b093faa2a5fcd6665ec35e00}{pos\+Ang}}(x)~((x) $<$ 0.\+0 ? ((x)+\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}}) \+: (x))
+\begin{DoxyCompactList}\small\item\em Return a positive angle. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}}~(2\texorpdfstring{$\ast$}{*}M\+\_\+\+PI)
+\begin{DoxyCompactList}\small\item\em Two PI. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_a4d1b70cdd000caf76de23fb618921289}{to\+Rad}}(x)~((x)\texorpdfstring{$\ast$}{*}M\+\_\+\+PI/180.\+0)
+\begin{DoxyCompactList}\small\item\em Convert an angle to radians. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_a8a7e3040b1d4a934ccb836da9929b153}{to\+Deg}}(x)~((x)\texorpdfstring{$\ast$}{*}180.\+0/M\+\_\+\+PI)
+\begin{DoxyCompactList}\small\item\em Convert an angle to degrees. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}{clamp}}(x)~(fmin(fmax((x),0),1))
+\begin{DoxyCompactList}\small\item\em Clamp to \mbox{[}0,1\mbox{]}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}{LEN}}(x,  y,  z)~(sqrt((x)\texorpdfstring{$\ast$}{*}(x)+(y)\texorpdfstring{$\ast$}{*}(y)+(z)\texorpdfstring{$\ast$}{*}(z)))
+\begin{DoxyCompactList}\small\item\em Vector length. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_ac96cbd544c493c6ac62b8f1796d6a052}{the\+Axes}}~(2\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{torus_8cpp_a6b88b073737365876a145587c3f85df9}{n\+Objects}})
+\begin{DoxyCompactList}\small\item\em Axes. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_a6b88b073737365876a145587c3f85df9}{n\+Objects}}~(sizeof(\mbox{\hyperlink{torus_8cpp_ad75248953a45a77c141af439c47ba1c2}{obj\+Names}})/sizeof(char\texorpdfstring{$\ast$}{*}))
+\begin{DoxyCompactList}\small\item\em Number of objects;. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}~(0.\+05\texorpdfstring{$\ast$}{*}diag)
+\begin{DoxyCompactList}\small\item\em Scale for drawing normals. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{struct__Point}{\+\_\+\+Point}} \mbox{\hyperlink{torus_8cpp_a184fa32e8e7e95b0596d604fc3c645c8}{Point}}
+\begin{DoxyCompactList}\small\item\em 3D point structure. \end{DoxyCompactList}\item 
+typedef \mbox{\hyperlink{torus_8cpp_a184fa32e8e7e95b0596d604fc3c645c8}{Point}} \mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{\+\_\+\+BBOX}}\mbox{[}2\mbox{]}
+\begin{DoxyCompactList}\small\item\em Axis aligned Bounding box. \end{DoxyCompactList}\item 
+typedef enum \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975e}{\+\_\+o\+Type}} \mbox{\hyperlink{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}{o\+Type}}
+\begin{DoxyCompactList}\small\item\em Quadric types. \end{DoxyCompactList}\item 
+typedef enum \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09}{\+\_\+r\+Axes}} \mbox{\hyperlink{torus_8cpp_aa8c6413ab09935dff9a9ce1a8abdc0d9}{r\+Axes}}
+\begin{DoxyCompactList}\small\item\em Rotation axes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975e}{\+\_\+o\+Type}} \{ \newline
+\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea7efde285c35f49f3dd3d83450d118af8}{\+\_\+torus}} = 0
+, \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ead8d1df0e02edb6042f1ebda3ca447169}{\+\_\+cylinder}}
+, \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eabc0b14bf2a9d7916fec789d516d34b7d}{\+\_\+cone}}
+, \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea5d818a68b1945eb2bc01ef9b9de594d8}{\+\_\+ellipsoid}}
+, \newline
+\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eaa186bc1b62fcbe62a5edc8bf65d83984}{\+\_\+paraboloid}}
+, \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea284cc31a8bcc813820ae5f3af9e001ef}{\+\_\+hyperbolic\+\_\+paraboloid}}
+, \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea20ecb59cf0f47b39cde9915aa4f0fd73}{\+\_\+hyperboloid}}
+ \}
+\begin{DoxyCompactList}\small\item\em Quadric types. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09}{\+\_\+r\+Axes}} \{ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884}{x\+Axis}}
+, \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a3123e0676bbf5648acb1df5a54f4a784}{y\+Axis}}
+, \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8b398ee6e2441b74d36b507261499da9}{z\+Axis}}
+ \}
+\begin{DoxyCompactList}\small\item\em Rotation axes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{update\+Box}} (\mbox{\hyperlink{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}{o\+Type}} index, double x, double y, double z)
+\begin{DoxyCompactList}\small\item\em Add a new point to a bounding box. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{get\+Box\+Size}} (\mbox{\hyperlink{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}{o\+Type}} index, double \texorpdfstring{$\ast$}{*}dx, double \texorpdfstring{$\ast$}{*}dy, double \texorpdfstring{$\ast$}{*}dz)
+\begin{DoxyCompactList}\small\item\em Return bounding box dimension. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_a2106dc9326540a0309d6e8d815e10a0e}{cone}} (double h, double r, int vs, int rs, int normals)
+\begin{DoxyCompactList}\small\item\em Draw a cone, centered at the origin, with a circular base on plane XY. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_a03c085eb7ef8ae60df19dc9e06c0a173}{cylinder}} (double h, double r, int vs, int rs, int normals)
+\begin{DoxyCompactList}\small\item\em Draw a cylinder, centered at the origin, with a circular base on plane XY. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_aa4614a9b175f83da6a341e6040632b73}{paraboloid}} (double h, double r, int vs, int rs, int normals)
+\begin{DoxyCompactList}\small\item\em Draw a paraboloid, centered at the origin, with a circular base on plane XY. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_a45ab7ad59f00458d31969c21d519be65}{hyperboloid}} (double h, double a, double r, int vs, int rs, int normals)
+\begin{DoxyCompactList}\small\item\em Draw a one-\/sheeted hyperboloid of revolution, centered at the origin, with a circular base parallel to plane XY. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_af482c84d5de7ddd2204b6379bdc817ec}{hyperbolic\+\_\+paraboloid}} (double w, double h, int ws, int hs, int normals)
+\begin{DoxyCompactList}\small\item\em Draw a hyperbolic paraboloid. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_acf04d1331c5f0cedfaacc30d1d3f46f4}{torus}} (double r1, double r2, int numc, int numt, int normals)
+\begin{DoxyCompactList}\small\item\em Draw a torus, centered at the origin, and azimuthally symmetric about the z-\/axis. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_a6c5b17163125dd32bd7c04a99738d316}{sphere}} (double r1, double r2, double r3, int numc, int numt, int normals)
+\begin{DoxyCompactList}\small\item\em Draw an ellipsoid or a sphere centered at the origin. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_ab52e8d123f74a1dc6fe78192995e2ce7}{draw\+Axes}} (double r1, double r2)
+\begin{DoxyCompactList}\small\item\em Draw the three coordinate axes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_af9d617a61a90fc97b51d97e9e5467dee}{draw\+Box}} (const \mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{\+\_\+\+BBOX}} BBOX)
+\begin{DoxyCompactList}\small\item\em Draw the bounding box as a dashed hexahedron. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_abc6a6219108d3ba0991713a42b08e25f}{make\+Check\+Image}} (void)
+\begin{DoxyCompactList}\small\item\em Create checkerboard texture. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a1ada77601620fb199c1c81c134468219}{load\+Image}} (const char \texorpdfstring{$\ast$}{*}filename)
+\begin{DoxyCompactList}\small\item\em Load an image from a file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_a59e2b52b8141808a5552debc8fd7b8d9}{init\+Texture}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize texture stuff. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_a2858154e2009b0e6e616f313177762bc}{init}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize Open\+GL state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_a4ea013001a5fb47853d0fab8f8de35cd}{display}} (void)
+\begin{DoxyCompactList}\small\item\em Clear window, reset depth buffer and draw torus. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a400285364a75db2e94a05e2fbb058d11}{date\+Now}} ()
+\begin{DoxyCompactList}\small\item\em Return the current Coordinated Universal Time (UTC) in miliseconds. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_a10d0046af32a1319fbf57cd46b0b7ac1}{\+\_\+timer}} (int value)
+\begin{DoxyCompactList}\small\item\em Timer callback function to be triggered in at least delay milliseconds. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_acc1ffe65e6869931318610cae7210078}{reshape}} (int w, int h)
+\begin{DoxyCompactList}\small\item\em Handle window resize. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_aef7ba2f69afb2d954545f64c7fe24b14}{keyboard}} (unsigned char key, int x, int y)
+\begin{DoxyCompactList}\small\item\em Keyboard callback interface. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_a59d408da236069ac2f67330f2b4fcd84}{mouse\+Func}} (int state, int button, int \+\_\+x, int \+\_\+y)
+\begin{DoxyCompactList}\small\item\em Mouse callback interface. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{torus_8cpp_ab93b36736390103768326aeafcb6bc94}{mouse\+Drag}} (int \+\_\+x, int \+\_\+y)
+\begin{DoxyCompactList}\small\item\em Mouse callback interface. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\begin{DoxyCompactList}\small\item\em Main program for testing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{zobs}} = 10.\+0
+\begin{DoxyCompactList}\small\item\em Camera position. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{torus_8cpp_afd6b2b339098bf41b9eb67159686d647}{viewing\+Angle}} = 45
+\begin{DoxyCompactList}\small\item\em Camera viewing angle, also known as opening angle. \end{DoxyCompactList}\item 
+GLuint \mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}
+\begin{DoxyCompactList}\small\item\em Object display list base index. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}} = 1.\+0
+\begin{DoxyCompactList}\small\item\em Distance from the center of the tube to the center of the torus. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}} = 0.\+3
+\begin{DoxyCompactList}\small\item\em Radius of the tube. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb}{R3}} = 0.\+5
+\begin{DoxyCompactList}\small\item\em Radius in z direction for an ellipsoid. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{n\+R1}} = 25
+\begin{DoxyCompactList}\small\item\em Number of samples. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{n\+R2}} = 10
+\begin{DoxyCompactList}\small\item\em Number of samples. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_af2aabe82b3ecb569e82b350505afd0ea}{draw\+Wire}} = 0
+\begin{DoxyCompactList}\small\item\em Whether draw wireframe or filled polygons. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a61cfb3fdcf176d455075e4af383a2690}{draw\+Normals}} = 0
+\begin{DoxyCompactList}\small\item\em Whether display vertex normals. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a44b441e46cc097350fc7a93e3eebb406}{apply\+Texture}} = 0
+\begin{DoxyCompactList}\small\item\em Whether to apply texture. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a7c95f8b3e84d565bb68b16bf62c74e99}{show\+Axes}} = 0
+\begin{DoxyCompactList}\small\item\em Whether to show the coordinate axes. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_ace174935b5a83938763ea0e6628c33a4}{show\+Box}} = 0
+\begin{DoxyCompactList}\small\item\em Whether to show the bounding boxes. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a09d54be3e2975048c9c5cbfe43ddaedb}{backG}} = 0
+\begin{DoxyCompactList}\small\item\em Toggle background color. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a3c40e64af48c7c08a32421d54568151d}{proc\+Image}} = 1
+\begin{DoxyCompactList}\small\item\em Whether to use a procedural texture. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa}{use\+Arcball}} = 0
+\begin{DoxyCompactList}\small\item\em Whether to use the arcball paradigm. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}{spin}} = 1
+\begin{DoxyCompactList}\small\item\em Automatic spin. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{torus_8cpp_aa8c6413ab09935dff9a9ce1a8abdc0d9}{r\+Axes}} \mbox{\hyperlink{torus_8cpp_a83ae1c9343d859792d580a61a1657085}{axis}} = \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884}{x\+Axis}}
+\begin{DoxyCompactList}\small\item\em Current axis. \end{DoxyCompactList}\item 
+GLfloat \mbox{\hyperlink{torus_8cpp_a8e621e81d5025d5641764107a9f18903}{rot\+Angle}} = 2.\+0
+\begin{DoxyCompactList}\small\item\em Rotation angle increment. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{torus_8cpp_a40df728951e877187328a971765d7b18}{delay}} = 60
+\begin{DoxyCompactList}\small\item\em Controls the trigger of the timer function. \end{DoxyCompactList}\item 
+GLubyte \mbox{\hyperlink{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}{check\+Image}} \mbox{[}\mbox{\hyperlink{torus_8cpp_ad815a88fe5bd6ac8c8e389ed77976348}{check\+Image\+Height}}\mbox{]}\mbox{[}\mbox{\hyperlink{torus_8cpp_a48661c07cea0fa9ea6d1d7e60459f18d}{check\+Image\+Width}}\mbox{]}\mbox{[}4\mbox{]}
+\begin{DoxyCompactList}\small\item\em Procedural image for a checkerboard. \end{DoxyCompactList}\item 
+GLuint \mbox{\hyperlink{torus_8cpp_a880af90db712152846335d53282ace4e}{tex\+Name}}
+\begin{DoxyCompactList}\small\item\em Texture identifier. \end{DoxyCompactList}\item 
+ILuint \mbox{\hyperlink{torus_8cpp_ad210616c2fd72bf4ceda644bdf2f99ec}{il\+Image}}
+\begin{DoxyCompactList}\small\item\em IL image identifier. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{torus_8cpp_ad75248953a45a77c141af439c47ba1c2}{obj\+Names}} \mbox{[}$\,$\mbox{]} = \{\"{}Torus\"{}, \"{}Cylinder\"{}, \"{}Cone\"{}, \"{}Ellipsoid\"{}, \"{}Paraboloid\"{}, \"{}Hyperbolic Paraboloid\"{}, \"{}Hyperboloid\"{}\}
+\begin{DoxyCompactList}\small\item\em Object names. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{\+\_\+\+BBOX}} \mbox{\hyperlink{torus_8cpp_a216dc106facfdd84a230455b7fc64d09}{obj\+Boxes}} \mbox{[}\mbox{\hyperlink{torus_8cpp_a6b88b073737365876a145587c3f85df9}{n\+Objects}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Object boxes. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{OBJECT}} = \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea7efde285c35f49f3dd3d83450d118af8}{\+\_\+torus}}
+\begin{DoxyCompactList}\small\item\em Current object. \end{DoxyCompactList}\item 
+Arcball \mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{arcball}}
+\begin{DoxyCompactList}\small\item\em Arc\+Ball. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This program demonstrates the creation of display lists for constructing some quadric surfaces. 
+
+Quadric surfaces are defined by quadratic equations in two dimensional space.
+
+Display list is a group of Open\+GL commands that have been stored (compiled) for later execution. Once a display list is created, all vertex and pixel data are evaluated and copied into the display list memory on the server machine. It is only one time process. After the display list has been prepared (compiled), you can reuse it repeatedly without re-\/evaluating and re-\/transmitting data over and over again to draw each frame. Display list is one of the fastest methods to draw static data because vertex data and Open\+GL commands are cached in the display list and minimize data transmissions from the client to the server side. It means that it reduces CPU cycles to perform the actual data transfer.
+
+
+\begin{DoxyItemize}
+\item To Compile\+:
+\begin{DoxyItemize}
+\item gcc \doxylink{torus_8cpp}{torus.\+cpp} -\/o torus-\/linux64
+\end{DoxyItemize}
+\item or, for Mac\+OS\+: ~\newline
+
+\begin{DoxyItemize}
+\item gcc \doxylink{torus_8cpp}{torus.\+cpp} -\/o torus.\+osx
+\end{DoxyItemize}
+\item Usage\+: 
+\begin{DoxyPre}
+   -\/ torus.osx R   r   r'  nR  nr
+   -\/ torus.osx 1.0 0.3 0.5 25  10
+\end{DoxyPre}
+
+\item Requirements\+:
+\begin{DoxyItemize}
+\item Dev\+IL-\/\+ILUT-\/devel (Fedora)
+\item libdevil1c2 libdevil-\/dev (Ubuntu)
+\item libdevil (Mac\+Ports)
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Paulo R Cavalcanti 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+06/11/2017 
+\end{DoxyDate}
+\begin{DoxySeeAlso}{See also}
+\href{https://www.opengl.org/archives/resources/code/samples/redbook/torus.c}{\texttt{ https\+://www.\+opengl.\+org/archives/resources/code/samples/redbook/torus.\+c}} 
+
+\href{http://www.songho.ca/opengl/gl_displaylist.html}{\texttt{ http\+://www.\+songho.\+ca/opengl/gl\+\_\+displaylist.\+html}} 
+
+\href{https://web.cs.wpi.edu/~matt/courses/cs563/talks/renderman/quadric.html}{\texttt{ https\+://web.\+cs.\+wpi.\+edu/\texorpdfstring{$\sim$}{\string~}matt/courses/cs563/talks/renderman/quadric.\+html}} 
+
+\href{http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4037402}{\texttt{ http\+://ieeexplore.\+ieee.\+org/stamp/stamp.\+jsp?arnumber=4037402}} 
+
+\href{http://www.nptel.ac.in/courses/Webcourse-contents/IIT-Delhi/Computer\%20Aided\%20Design\%20&\%20ManufacturingI/mod3/01.htm}{\texttt{ http\+://www.\+nptel.\+ac.\+in/courses/\+Webcourse-\/contents/\+IIT-\/\+Delhi/\+Computer\%20\+Aided\%20\+Design\%20\&\%20\+Manufacturing\+I/mod3/01.\+htm}} 
+
+\href{http://openil.sourceforge.net/}{\texttt{ http\+://openil.\+sourceforge.\+net/}} 
+
+\href{http://tutorial.math.lamar.edu/Classes/CalcIII/QuadricSurfaces.aspx}{\texttt{ http\+://tutorial.\+math.\+lamar.\+edu/\+Classes/\+Calc\+III/\+Quadric\+Surfaces.\+aspx}} 
+
+\href{http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/}{\texttt{ http\+://www.\+cs.\+colby.\+edu/maxwell/courses/tutorials/maketutor/}} 
+\end{DoxySeeAlso}
+
+
+Definition in file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{torus_8cpp_ad815a88fe5bd6ac8c8e389ed77976348}\label{torus_8cpp_ad815a88fe5bd6ac8c8e389ed77976348} 
+\index{torus.cpp@{torus.cpp}!checkImageHeight@{checkImageHeight}}
+\index{checkImageHeight@{checkImageHeight}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{checkImageHeight}{checkImageHeight}}
+{\footnotesize\ttfamily \#define check\+Image\+Height~128}
+
+
+
+Texture Image height. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00063}{63}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a48661c07cea0fa9ea6d1d7e60459f18d}\label{torus_8cpp_a48661c07cea0fa9ea6d1d7e60459f18d} 
+\index{torus.cpp@{torus.cpp}!checkImageWidth@{checkImageWidth}}
+\index{checkImageWidth@{checkImageWidth}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{checkImageWidth}{checkImageWidth}}
+{\footnotesize\ttfamily \#define check\+Image\+Width~128}
+
+
+
+Texture Image width. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00061}{61}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}\label{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d} 
+\index{torus.cpp@{torus.cpp}!clamp@{clamp}}
+\index{clamp@{clamp}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{clamp}{clamp}}
+{\footnotesize\ttfamily \#define clamp(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(fmin(fmax((x),0),1))}
+
+
+
+Clamp to \mbox{[}0,1\mbox{]}. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00079}{79}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a93911d183fdeaea2248ae3a1bcecc434}\label{torus_8cpp_a93911d183fdeaea2248ae3a1bcecc434} 
+\index{torus.cpp@{torus.cpp}!farPlane@{farPlane}}
+\index{farPlane@{farPlane}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{farPlane}{farPlane}}
+{\footnotesize\ttfamily \#define far\+Plane~(\mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{zobs}}+10\texorpdfstring{$\ast$}{*}d)}
+
+
+
+Far plane distance. 
+
+Near and far clipping planes should always be specified as positive. That\textquotesingle{}s because they represent how far in front of the \"{}camera\"{} the clipping planes will be. 
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00067}{67}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a70b2bcc7e1975b4e689a678bf56cc30f}\label{torus_8cpp_a70b2bcc7e1975b4e689a678bf56cc30f} 
+\index{torus.cpp@{torus.cpp}!frontPlane@{frontPlane}}
+\index{frontPlane@{frontPlane}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{frontPlane}{frontPlane}}
+{\footnotesize\ttfamily \#define front\+Plane~1}
+
+
+
+Front plane distance. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00069}{69}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a120fb070bddb21f0bd899f50252c4cb5}\label{torus_8cpp_a120fb070bddb21f0bd899f50252c4cb5} 
+\index{torus.cpp@{torus.cpp}!GL\_GLEXT\_PROTOTYPES@{GL\_GLEXT\_PROTOTYPES}}
+\index{GL\_GLEXT\_PROTOTYPES@{GL\_GLEXT\_PROTOTYPES}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{GL\_GLEXT\_PROTOTYPES}{GL\_GLEXT\_PROTOTYPES}}
+{\footnotesize\ttfamily \#define GL\+\_\+\+GLEXT\+\_\+\+PROTOTYPES}
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00044}{44}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}\label{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf} 
+\index{torus.cpp@{torus.cpp}!LEN@{LEN}}
+\index{LEN@{LEN}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{LEN}{LEN}}
+{\footnotesize\ttfamily \#define LEN(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z }\end{DoxyParamCaption})~(sqrt((x)\texorpdfstring{$\ast$}{*}(x)+(y)\texorpdfstring{$\ast$}{*}(y)+(z)\texorpdfstring{$\ast$}{*}(z)))}
+
+
+
+Vector length. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00081}{81}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a391defc2ad4357e3d4f2bb5f29a5bb20}\label{torus_8cpp_a391defc2ad4357e3d4f2bb5f29a5bb20} 
+\index{torus.cpp@{torus.cpp}!M\_PI\_@{M\_PI\_}}
+\index{M\_PI\_@{M\_PI\_}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{M\_PI\_}{M\_PI\_}}
+{\footnotesize\ttfamily \#define M\+\_\+\+PI\+\_\+~3.\+14159265358979323846}
+
+
+
+{$\Pi$} definition. 
+
+Unused. We are using M\+\_\+\+PI from math.\+h The difference between const and define is that const has a type and define is trick, because it is the pre-\/compiler which replaces the value. 
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00059}{59}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a6b88b073737365876a145587c3f85df9}\label{torus_8cpp_a6b88b073737365876a145587c3f85df9} 
+\index{torus.cpp@{torus.cpp}!nObjects@{nObjects}}
+\index{nObjects@{nObjects}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{nObjects}{nObjects}}
+{\footnotesize\ttfamily \#define n\+Objects~(sizeof(\mbox{\hyperlink{torus_8cpp_ad75248953a45a77c141af439c47ba1c2}{obj\+Names}})/sizeof(char\texorpdfstring{$\ast$}{*}))}
+
+
+
+Number of objects;. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00085}{85}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a60b90fe3b093faa2a5fcd6665ec35e00}\label{torus_8cpp_a60b90fe3b093faa2a5fcd6665ec35e00} 
+\index{torus.cpp@{torus.cpp}!posAng@{posAng}}
+\index{posAng@{posAng}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{posAng}{posAng}}
+{\footnotesize\ttfamily \#define pos\+Ang(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((x) $<$ 0.\+0 ? ((x)+\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}}) \+: (x))}
+
+
+
+Return a positive angle. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00071}{71}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}\label{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51} 
+\index{torus.cpp@{torus.cpp}!scale@{scale}}
+\index{scale@{scale}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{scale}{scale}}
+{\footnotesize\ttfamily \#define scale~(0.\+05\texorpdfstring{$\ast$}{*}diag)}
+
+
+
+Scale for drawing normals. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00087}{87}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_ac96cbd544c493c6ac62b8f1796d6a052}\label{torus_8cpp_ac96cbd544c493c6ac62b8f1796d6a052} 
+\index{torus.cpp@{torus.cpp}!theAxes@{theAxes}}
+\index{theAxes@{theAxes}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{theAxes}{theAxes}}
+{\footnotesize\ttfamily \#define the\+Axes~(2\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{torus_8cpp_a6b88b073737365876a145587c3f85df9}{n\+Objects}})}
+
+
+
+Axes. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00083}{83}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a8a7e3040b1d4a934ccb836da9929b153}\label{torus_8cpp_a8a7e3040b1d4a934ccb836da9929b153} 
+\index{torus.cpp@{torus.cpp}!toDeg@{toDeg}}
+\index{toDeg@{toDeg}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{toDeg}{toDeg}}
+{\footnotesize\ttfamily \#define to\+Deg(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((x)\texorpdfstring{$\ast$}{*}180.\+0/M\+\_\+\+PI)}
+
+
+
+Convert an angle to degrees. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00077}{77}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a4d1b70cdd000caf76de23fb618921289}\label{torus_8cpp_a4d1b70cdd000caf76de23fb618921289} 
+\index{torus.cpp@{torus.cpp}!toRad@{toRad}}
+\index{toRad@{toRad}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{toRad}{toRad}}
+{\footnotesize\ttfamily \#define to\+Rad(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((x)\texorpdfstring{$\ast$}{*}M\+\_\+\+PI/180.\+0)}
+
+
+
+Convert an angle to radians. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00075}{75}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}\label{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a} 
+\index{torus.cpp@{torus.cpp}!TWOPI@{TWOPI}}
+\index{TWOPI@{TWOPI}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{TWOPI}{TWOPI}}
+{\footnotesize\ttfamily \#define TWOPI~(2\texorpdfstring{$\ast$}{*}M\+\_\+\+PI)}
+
+
+
+Two PI. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00073}{73}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}\label{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e} 
+\index{torus.cpp@{torus.cpp}!\_BBOX@{\_BBOX}}
+\index{\_BBOX@{\_BBOX}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{\_BBOX}{\_BBOX}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{torus_8cpp_a184fa32e8e7e95b0596d604fc3c645c8}{Point}} \+\_\+\+BBOX\mbox{[}2\mbox{]}}
+
+
+
+Axis aligned Bounding box. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00128}{128}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}\label{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2} 
+\index{torus.cpp@{torus.cpp}!oType@{oType}}
+\index{oType@{oType}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{oType}{oType}}
+{\footnotesize\ttfamily typedef enum \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975e}{\+\_\+o\+Type}} \mbox{\hyperlink{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}{o\+Type}}}
+
+
+
+Quadric types. 
+
+\Hypertarget{torus_8cpp_a184fa32e8e7e95b0596d604fc3c645c8}\label{torus_8cpp_a184fa32e8e7e95b0596d604fc3c645c8} 
+\index{torus.cpp@{torus.cpp}!Point@{Point}}
+\index{Point@{Point}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{Point}{Point}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct__Point}{\+\_\+\+Point}} \mbox{\hyperlink{torus_8cpp_a184fa32e8e7e95b0596d604fc3c645c8}{Point}}}
+
+
+
+3D point structure. 
+
+\Hypertarget{torus_8cpp_aa8c6413ab09935dff9a9ce1a8abdc0d9}\label{torus_8cpp_aa8c6413ab09935dff9a9ce1a8abdc0d9} 
+\index{torus.cpp@{torus.cpp}!rAxes@{rAxes}}
+\index{rAxes@{rAxes}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{rAxes}{rAxes}}
+{\footnotesize\ttfamily typedef enum \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09}{\+\_\+r\+Axes}} \mbox{\hyperlink{torus_8cpp_aa8c6413ab09935dff9a9ce1a8abdc0d9}{r\+Axes}}}
+
+
+
+Rotation axes. 
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975e}\label{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975e} 
+\index{torus.cpp@{torus.cpp}!\_oType@{\_oType}}
+\index{\_oType@{\_oType}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{\_oType}{\_oType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975e}{\+\_\+o\+Type}}}
+
+
+
+Quadric types. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_torus@{\_torus}!torus.cpp@{torus.cpp}}\index{torus.cpp@{torus.cpp}!\_torus@{\_torus}}}\Hypertarget{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea7efde285c35f49f3dd3d83450d118af8}\label{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea7efde285c35f49f3dd3d83450d118af8} 
+\+\_\+torus&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_cylinder@{\_cylinder}!torus.cpp@{torus.cpp}}\index{torus.cpp@{torus.cpp}!\_cylinder@{\_cylinder}}}\Hypertarget{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ead8d1df0e02edb6042f1ebda3ca447169}\label{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ead8d1df0e02edb6042f1ebda3ca447169} 
+\+\_\+cylinder&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_cone@{\_cone}!torus.cpp@{torus.cpp}}\index{torus.cpp@{torus.cpp}!\_cone@{\_cone}}}\Hypertarget{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eabc0b14bf2a9d7916fec789d516d34b7d}\label{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eabc0b14bf2a9d7916fec789d516d34b7d} 
+\+\_\+cone&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_ellipsoid@{\_ellipsoid}!torus.cpp@{torus.cpp}}\index{torus.cpp@{torus.cpp}!\_ellipsoid@{\_ellipsoid}}}\Hypertarget{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea5d818a68b1945eb2bc01ef9b9de594d8}\label{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea5d818a68b1945eb2bc01ef9b9de594d8} 
+\+\_\+ellipsoid&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_paraboloid@{\_paraboloid}!torus.cpp@{torus.cpp}}\index{torus.cpp@{torus.cpp}!\_paraboloid@{\_paraboloid}}}\Hypertarget{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eaa186bc1b62fcbe62a5edc8bf65d83984}\label{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eaa186bc1b62fcbe62a5edc8bf65d83984} 
+\+\_\+paraboloid&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_hyperbolic\_paraboloid@{\_hyperbolic\_paraboloid}!torus.cpp@{torus.cpp}}\index{torus.cpp@{torus.cpp}!\_hyperbolic\_paraboloid@{\_hyperbolic\_paraboloid}}}\Hypertarget{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea284cc31a8bcc813820ae5f3af9e001ef}\label{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea284cc31a8bcc813820ae5f3af9e001ef} 
+\+\_\+hyperbolic\+\_\+paraboloid&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_hyperboloid@{\_hyperboloid}!torus.cpp@{torus.cpp}}\index{torus.cpp@{torus.cpp}!\_hyperboloid@{\_hyperboloid}}}\Hypertarget{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea20ecb59cf0f47b39cde9915aa4f0fd73}\label{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea20ecb59cf0f47b39cde9915aa4f0fd73} 
+\+\_\+hyperboloid&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00131}{131}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+\Hypertarget{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09}\label{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09} 
+\index{torus.cpp@{torus.cpp}!\_rAxes@{\_rAxes}}
+\index{\_rAxes@{\_rAxes}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{\_rAxes}{\_rAxes}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09}{\+\_\+r\+Axes}}}
+
+
+
+Rotation axes. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{xAxis@{xAxis}!torus.cpp@{torus.cpp}}\index{torus.cpp@{torus.cpp}!xAxis@{xAxis}}}\Hypertarget{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884}\label{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884} 
+x\+Axis&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{yAxis@{yAxis}!torus.cpp@{torus.cpp}}\index{torus.cpp@{torus.cpp}!yAxis@{yAxis}}}\Hypertarget{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a3123e0676bbf5648acb1df5a54f4a784}\label{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a3123e0676bbf5648acb1df5a54f4a784} 
+y\+Axis&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{zAxis@{zAxis}!torus.cpp@{torus.cpp}}\index{torus.cpp@{torus.cpp}!zAxis@{zAxis}}}\Hypertarget{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8b398ee6e2441b74d36b507261499da9}\label{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8b398ee6e2441b74d36b507261499da9} 
+z\+Axis&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00134}{134}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{torus_8cpp_a10d0046af32a1319fbf57cd46b0b7ac1}\label{torus_8cpp_a10d0046af32a1319fbf57cd46b0b7ac1} 
+\index{torus.cpp@{torus.cpp}!\_timer@{\_timer}}
+\index{\_timer@{\_timer}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{\_timer()}{\_timer()}}
+{\footnotesize\ttfamily void \+\_\+timer (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+Timer callback function to be triggered in at least delay milliseconds. 
+
+The number of milliseconds is a lower bound on the time before the callback is generated. GLUT attempts to deliver the timer callback as soon as possible after the expiration of the callback\textquotesingle{}s time interval.
+
+There is no support for canceling a registered callback. Instead, ignore a callback based on its value parameter when it is triggered.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & a parameter passed to this callback function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://www.opengl.org/resources/libraries/glut/spec3/node64.html}{\texttt{ https\+://www.\+opengl.\+org/resources/libraries/glut/spec3/node64.\+html}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l01219}{1219}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l01219}{\+\_\+timer()}}, \mbox{\hyperlink{torus_8cpp_source_l01201}{date\+Now()}}, and \mbox{\hyperlink{torus_8cpp_source_l00143}{delay}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01219}{\+\_\+timer()}}, and \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a2106dc9326540a0309d6e8d815e10a0e}\label{torus_8cpp_a2106dc9326540a0309d6e8d815e10a0e} 
+\index{torus.cpp@{torus.cpp}!cone@{cone}}
+\index{cone@{cone}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{cone()}{cone()}}
+{\footnotesize\ttfamily void cone (\begin{DoxyParamCaption}\item[{double}]{h,  }\item[{double}]{r,  }\item[{int}]{vs,  }\item[{int}]{rs,  }\item[{int}]{normals }\end{DoxyParamCaption})}
+
+
+
+Draw a cone, centered at the origin, with a circular base on plane XY. 
+
+Implicit Equation\+:
+\begin{DoxyItemize}
+\item ${x^{2} \over c^{2}}+{y^{2} \over c^{2}} = {z^{2}},\ c = \frac{r}{h}$
+\item 
+\item ${f(x,y,z) = \frac{h}{r} x^{2}}+{\frac{h}{r} y^{2}}-{\frac{r}{h} z^{2} = 0}$
+\item 
+\item $\nabla f(x,y,z) = (\frac{h}{r} x,\ \frac{h}{r} y,\ -{\frac{r}{h} z})$
+\end{DoxyItemize}
+
+Parametric Equation\+:
+\begin{DoxyItemize}
+\item x(u,v) = u cos(v),
+\item y(u,v) = u sin(v),
+\item z(u,v) = u \texorpdfstring{$\ast$}{*} h / r,
+\item u {$\in$} \mbox{[}0,h\mbox{]}, v {$\in$} \mbox{[}0,2{$\Pi$}\mbox{]}
+\item df/du = (cos(v), sin(v), h/r),
+\item df/dv = (-\/u sin(v), u cos(v) , 0)
+\item df/du x df/dv = (h/r \texorpdfstring{$\ast$}{*} u cos(v), h/r \texorpdfstring{$\ast$}{*} u sin(v), -\/u) = (h/r \texorpdfstring{$\ast$}{*} x(u,v), h/r \texorpdfstring{$\ast$}{*} y(u,v), -\/r/h \texorpdfstring{$\ast$}{*} z(u,v))
+\end{DoxyItemize}
+
+Inverse parametrization\+:
+\begin{DoxyItemize}
+\item u = (r/h) \texorpdfstring{$\ast$}{*} z, or u = (r/h) \texorpdfstring{$\ast$}{*} (h-\/z), if cone is upside down.
+\item v = atan2(y,x), if v \texorpdfstring{$<$}{<} 0 then v += 2{$\Pi$}
+\end{DoxyItemize}
+
+Note\+: atan2 returns values {$\in$} \mbox{[}-\/{$\Pi$}, {$\Pi$}\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & cone height. \\
+\hline
+{\em r} & cone base radius. \\
+\hline
+{\em vs} & number of divisions in z direction. \\
+\hline
+{\em rs} & number of angular divisions. \\
+\hline
+{\em normals} & whether to draw normals or polygons. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{http://mathinsight.org/parametrized_surface_examples}{\texttt{ http\+://mathinsight.\+org/parametrized\+\_\+surface\+\_\+examples}} 
+
+\href{http://mathworld.wolfram.com/Cone.html}{\texttt{ http\+://mathworld.\+wolfram.\+com/\+Cone.\+html}} 
+
+\href{https://en.wikipedia.org/wiki/Atan2}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Atan2}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00242}{242}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00131}{\+\_\+cone}}, \mbox{\hyperlink{torus_8cpp_source_l00079}{clamp}}, \mbox{\hyperlink{torus_8cpp_source_l00199}{get\+Box\+Size()}}, \mbox{\hyperlink{torus_8cpp_source_l00081}{LEN}}, \mbox{\hyperlink{torus_8cpp_source_l00087}{scale}}, \mbox{\hyperlink{torus_8cpp_source_l00073}{TWOPI}}, and \mbox{\hyperlink{torus_8cpp_source_l00180}{update\+Box()}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}.
+
+\Hypertarget{torus_8cpp_a03c085eb7ef8ae60df19dc9e06c0a173}\label{torus_8cpp_a03c085eb7ef8ae60df19dc9e06c0a173} 
+\index{torus.cpp@{torus.cpp}!cylinder@{cylinder}}
+\index{cylinder@{cylinder}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{cylinder()}{cylinder()}}
+{\footnotesize\ttfamily void cylinder (\begin{DoxyParamCaption}\item[{double}]{h,  }\item[{double}]{r,  }\item[{int}]{vs,  }\item[{int}]{rs,  }\item[{int}]{normals }\end{DoxyParamCaption})}
+
+
+
+Draw a cylinder, centered at the origin, with a circular base on plane XY. 
+
+Implicit Equation\+:
+\begin{DoxyItemize}
+\item ${x^{2}+y^{2}} = {r^{2}},$ any z
+\item 
+\item ${f(x,y,z) = x^{2}+y^{2}}-{r^{2} = 0}$
+\item 
+\item ${\nabla f(x,y,z) = (x, y, 0)}$
+\end{DoxyItemize}
+
+Parametric Equation\+:
+\begin{DoxyItemize}
+\item x(u,v) = r cos(v),
+\item y(u,v) = r sin(v),
+\item z(u,v) = u,
+\item u {$\in$} \mbox{[}0,h\mbox{]}, v {$\in$} \mbox{[}0,2{$\Pi$}\mbox{]}
+\item df/du = (0, 0, 1),
+\item df/dv = (-\/r sin(v), r cos(v) , 0)
+\item df/dv x df/du = (r cos(v), r sin(v), 0) = (x(u,v), y(u,v), 0)
+\end{DoxyItemize}
+
+Inverse parametrization\+:
+\begin{DoxyItemize}
+\item u = z
+\item v = acos(x/r) = atan2(y,x), if v \texorpdfstring{$<$}{<} 0 then v += 2{$\Pi$}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & cylinder height. \\
+\hline
+{\em r} & cylinder radius. \\
+\hline
+{\em vs} & number of divisions in z direction. \\
+\hline
+{\em rs} & number of angular divisions. \\
+\hline
+{\em normals} & whether to draw normals or polygons. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{http://mathworld.wolfram.com/Cylinder.html}{\texttt{ http\+://mathworld.\+wolfram.\+com/\+Cylinder.\+html}} 
+
+\href{https://en.wikipedia.org/wiki/Quadric}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Quadric}} 
+
+\href{http://mathworld.wolfram.com/QuadraticSurface.html}{\texttt{ http\+://mathworld.\+wolfram.\+com/\+Quadratic\+Surface.\+html}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00313}{313}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00131}{\+\_\+cylinder}}, \mbox{\hyperlink{torus_8cpp_source_l00079}{clamp}}, \mbox{\hyperlink{torus_8cpp_source_l00199}{get\+Box\+Size()}}, \mbox{\hyperlink{torus_8cpp_source_l00081}{LEN}}, \mbox{\hyperlink{torus_8cpp_source_l00087}{scale}}, \mbox{\hyperlink{torus_8cpp_source_l00073}{TWOPI}}, and \mbox{\hyperlink{torus_8cpp_source_l00180}{update\+Box()}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}.
+
+\Hypertarget{torus_8cpp_a400285364a75db2e94a05e2fbb058d11}\label{torus_8cpp_a400285364a75db2e94a05e2fbb058d11} 
+\index{torus.cpp@{torus.cpp}!dateNow@{dateNow}}
+\index{dateNow@{dateNow}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{dateNow()}{dateNow()}}
+{\footnotesize\ttfamily int date\+Now (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Return the current Coordinated Universal Time (UTC) in miliseconds. 
+
+\begin{DoxyReturn}{Returns}
+time since the Epoch (00\+:00\+:00 UTC, January 1, 1970) measured in miliseconds. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l01201}{1201}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01219}{\+\_\+timer()}}.
+
+\Hypertarget{torus_8cpp_a4ea013001a5fb47853d0fab8f8de35cd}\label{torus_8cpp_a4ea013001a5fb47853d0fab8f8de35cd} 
+\index{torus.cpp@{torus.cpp}!display@{display}}
+\index{display@{display}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void display (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Clear window, reset depth buffer and draw torus. 
+
+Single buffer does not work, in general. 
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l01141}{1141}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00110}{apply\+Texture}}, \mbox{\hyperlink{torus_8cpp_source_l00158}{arcball}}, \mbox{\hyperlink{torus_8cpp_source_l00137}{axis}}, \mbox{\hyperlink{torus_8cpp_source_l00805}{draw\+Box()}}, \mbox{\hyperlink{torus_8cpp_source_l00108}{draw\+Normals}}, \mbox{\hyperlink{torus_8cpp_source_l00106}{draw\+Wire}}, \mbox{\hyperlink{torus_8cpp_source_l00085}{n\+Objects}}, \mbox{\hyperlink{torus_8cpp_source_l00154}{obj\+Boxes}}, \mbox{\hyperlink{torus_8cpp_source_l00156}{OBJECT}}, \mbox{\hyperlink{torus_8cpp_source_l00094}{objects}}, \mbox{\hyperlink{torus_8cpp_source_l00140}{rot\+Angle}}, \mbox{\hyperlink{torus_8cpp_source_l00112}{show\+Axes}}, \mbox{\hyperlink{torus_8cpp_source_l00114}{show\+Box}}, \mbox{\hyperlink{torus_8cpp_source_l00122}{spin}}, \mbox{\hyperlink{torus_8cpp_source_l00083}{the\+Axes}}, \mbox{\hyperlink{torus_8cpp_source_l00120}{use\+Arcball}}, \mbox{\hyperlink{torus_8cpp_source_l00134}{x\+Axis}}, \mbox{\hyperlink{torus_8cpp_source_l00134}{y\+Axis}}, \mbox{\hyperlink{torus_8cpp_source_l00134}{z\+Axis}}, and \mbox{\hyperlink{torus_8cpp_source_l00090}{zobs}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_ab52e8d123f74a1dc6fe78192995e2ce7}\label{torus_8cpp_ab52e8d123f74a1dc6fe78192995e2ce7} 
+\index{torus.cpp@{torus.cpp}!drawAxes@{drawAxes}}
+\index{drawAxes@{drawAxes}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{drawAxes()}{drawAxes()}}
+{\footnotesize\ttfamily void draw\+Axes (\begin{DoxyParamCaption}\item[{double}]{r1,  }\item[{double}]{r2 }\end{DoxyParamCaption})}
+
+
+
+Draw the three coordinate axes. 
+
+The length of the axes is r1 + r2.
+
+
+\begin{DoxyParams}{Parameters}
+{\em r1} & axis length. \\
+\hline
+{\em r2} & axis additional length. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00785}{785}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}.
+
+\Hypertarget{torus_8cpp_af9d617a61a90fc97b51d97e9e5467dee}\label{torus_8cpp_af9d617a61a90fc97b51d97e9e5467dee} 
+\index{torus.cpp@{torus.cpp}!drawBox@{drawBox}}
+\index{drawBox@{drawBox}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{drawBox()}{drawBox()}}
+{\footnotesize\ttfamily void draw\+Box (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{\+\_\+\+BBOX}}}]{BBOX }\end{DoxyParamCaption})}
+
+
+
+Draw the bounding box as a dashed hexahedron. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em BBOX} & given bounding box. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00805}{805}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}.
+
+\Hypertarget{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}\label{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6} 
+\index{torus.cpp@{torus.cpp}!getBoxSize@{getBoxSize}}
+\index{getBoxSize@{getBoxSize}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{getBoxSize()}{getBoxSize()}}
+{\footnotesize\ttfamily double get\+Box\+Size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}{o\+Type}}}]{index,  }\item[{double \texorpdfstring{$\ast$}{*}}]{dx,  }\item[{double \texorpdfstring{$\ast$}{*}}]{dy,  }\item[{double \texorpdfstring{$\ast$}{*}}]{dz }\end{DoxyParamCaption})}
+
+
+
+Return bounding box dimension. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Position into obj\+Boxes array. \\
+\hline
+{\em dx} & Bounding box length. \\
+\hline
+{\em dy} & Bounding box width. \\
+\hline
+{\em dz} & Bounding box height. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Bounding box diameter. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00199}{199}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00081}{LEN}}, and \mbox{\hyperlink{torus_8cpp_source_l00154}{obj\+Boxes}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00242}{cone()}}, \mbox{\hyperlink{torus_8cpp_source_l00313}{cylinder()}}, \mbox{\hyperlink{torus_8cpp_source_l00539}{hyperbolic\+\_\+paraboloid()}}, \mbox{\hyperlink{torus_8cpp_source_l00463}{hyperboloid()}}, \mbox{\hyperlink{torus_8cpp_source_l00387}{paraboloid()}}, \mbox{\hyperlink{torus_8cpp_source_l01254}{reshape()}}, \mbox{\hyperlink{torus_8cpp_source_l00722}{sphere()}}, and \mbox{\hyperlink{torus_8cpp_source_l00622}{torus()}}.
+
+\Hypertarget{torus_8cpp_af482c84d5de7ddd2204b6379bdc817ec}\label{torus_8cpp_af482c84d5de7ddd2204b6379bdc817ec} 
+\index{torus.cpp@{torus.cpp}!hyperbolic\_paraboloid@{hyperbolic\_paraboloid}}
+\index{hyperbolic\_paraboloid@{hyperbolic\_paraboloid}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{hyperbolic\_paraboloid()}{hyperbolic\_paraboloid()}}
+{\footnotesize\ttfamily void hyperbolic\+\_\+paraboloid (\begin{DoxyParamCaption}\item[{double}]{w,  }\item[{double}]{h,  }\item[{int}]{ws,  }\item[{int}]{hs,  }\item[{int}]{normals }\end{DoxyParamCaption})}
+
+
+
+Draw a hyperbolic paraboloid. 
+
+Implicit Equation\+:
+\begin{DoxyItemize}
+\item ${xy = z}$
+\item 
+\item ${f(x,y,z) = xy - z = 0}$
+\item 
+\item ${\nabla f(x,y,z) = (y, x, -1)}$
+\end{DoxyItemize}
+
+Parametric Equation\+:
+\begin{DoxyItemize}
+\item x(u,v) = u,
+\item y(u,v) = v,
+\item z(u,v) = uv
+\item u {$\in$} \mbox{[}0,w\mbox{]}, v {$\in$} \mbox{[}0,h\mbox{]}
+\item df/du = (1, 0, v),
+\item df/dv = (0, 1, u)
+\item df/du x df/dv = (y, x, -\/1)
+\end{DoxyItemize}
+
+Inverse parametrization\+:
+\begin{DoxyItemize}
+\item u = x
+\item v = y
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & hyperbolic paraboloid width. \\
+\hline
+{\em h} & hyperbolic paraboloid length. \\
+\hline
+{\em ws} & number of divisions in x direction. \\
+\hline
+{\em hs} & number of divisions in y direction. \\
+\hline
+{\em normals} & whether to draw normals or polygons. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{http://mathworld.wolfram.com/HyperbolicParaboloid.html}{\texttt{ http\+://mathworld.\+wolfram.\+com/\+Hyperbolic\+Paraboloid.\+html}} 
+
+\href{https://en.wikipedia.org/wiki/Quadric}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Quadric}} 
+
+\href{http://www.geom.uiuc.edu/docs/reference/CRC-formulas/node61.html}{\texttt{ http\+://www.\+geom.\+uiuc.\+edu/docs/reference/\+CRC-\/formulas/node61.\+html}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00539}{539}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00131}{\+\_\+hyperbolic\+\_\+paraboloid}}, \mbox{\hyperlink{torus_8cpp_source_l00199}{get\+Box\+Size()}}, \mbox{\hyperlink{torus_8cpp_source_l00081}{LEN}}, \mbox{\hyperlink{torus_8cpp_source_l00087}{scale}}, and \mbox{\hyperlink{torus_8cpp_source_l00180}{update\+Box()}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}.
+
+\Hypertarget{torus_8cpp_a45ab7ad59f00458d31969c21d519be65}\label{torus_8cpp_a45ab7ad59f00458d31969c21d519be65} 
+\index{torus.cpp@{torus.cpp}!hyperboloid@{hyperboloid}}
+\index{hyperboloid@{hyperboloid}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{hyperboloid()}{hyperboloid()}}
+{\footnotesize\ttfamily void hyperboloid (\begin{DoxyParamCaption}\item[{double}]{h,  }\item[{double}]{a,  }\item[{double}]{r,  }\item[{int}]{vs,  }\item[{int}]{rs,  }\item[{int}]{normals }\end{DoxyParamCaption})}
+
+
+
+Draw a one-\/sheeted hyperboloid of revolution, centered at the origin, with a circular base parallel to plane XY. 
+
+Implicit Equation\+:
+\begin{DoxyItemize}
+\item ${{x^{2} \over a^{2}} + {y^{2} \over a^{2}} - {z^{2} \over c^{2}}} = 1$
+\item 
+\item $r = a * \sqrt{1 + \frac{h^2}{4c^2}}$
+\item ~\newline
+
+\item $c = \sqrt{h^2 / (4 (\frac{r^2}{a^2} - 1))},\ r \ge a$
+\item 
+\item ${f(x,y,z) = {c^2} x^{2} + {c^2} y^{2} - {a^2} z^{2} - {a^2} {c^2} = 0}$
+\item 
+\item ${\nabla f(x,y,z) = (2 \frac{x}{a^2},\ 2 \frac{y}{a^2},\ -2 \frac{z}{c^2})}$
+\end{DoxyItemize}
+
+Parametric Equation\+:
+\begin{DoxyItemize}
+\item x(u,v) = a sqrt(1+u²) cos(v),
+\item y(u,v) = a sqrt(1+u²) sin(v),
+\item z(u,v) = c u
+\item u {$\in$} \mbox{[}-\/h,h\mbox{]}, v {$\in$} \mbox{[}0,2{$\Pi$}\mbox{]}
+\item df/du = (-\/a u/srqt(1+u²) cos(v), -\/a u/srqt(1+u²) sin(v), c),
+\item df/dv = (-\/a sqrt(1+u²) sin(v), a sqrt(1+u²) cos(v) , 0)
+\item df/dv x df/du = (c x, c y, -\/a²/c z)
+\end{DoxyItemize}
+
+Inverse parametrization\+:
+\begin{DoxyItemize}
+\item u = sqrt( x² / a² + y² / a² -\/ 1 )
+\item v = atan2(y,x), if v \texorpdfstring{$<$}{<} 0 then v += 2{$\Pi$}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & hyperboloid height. \\
+\hline
+{\em a} & hyperboloid skirt radius. \\
+\hline
+{\em r} & hyperboloid base radius. \\
+\hline
+{\em vs} & number of divisions in z direction. \\
+\hline
+{\em rs} & number of angular divisions. \\
+\hline
+{\em normals} & whether to draw normals or polygons. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{http://mathworld.wolfram.com/One-SheetedHyperboloid.html}{\texttt{ http\+://mathworld.\+wolfram.\+com/\+One-\/\+Sheeted\+Hyperboloid.\+html}} 
+
+\href{http://www.geom.uiuc.edu/docs/reference/CRC-formulas/node61.html}{\texttt{ http\+://www.\+geom.\+uiuc.\+edu/docs/reference/\+CRC-\/formulas/node61.\+html}} 
+
+\href{https://rechneronline.de/pi/hyperboloid-e.php}{\texttt{ https\+://rechneronline.\+de/pi/hyperboloid-\/e.\+php}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00463}{463}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00131}{\+\_\+hyperboloid}}, \mbox{\hyperlink{torus_8cpp_source_l00079}{clamp}}, \mbox{\hyperlink{torus_8cpp_source_l00199}{get\+Box\+Size()}}, \mbox{\hyperlink{torus_8cpp_source_l00081}{LEN}}, \mbox{\hyperlink{torus_8cpp_source_l00087}{scale}}, \mbox{\hyperlink{torus_8cpp_source_l00073}{TWOPI}}, and \mbox{\hyperlink{torus_8cpp_source_l00180}{update\+Box()}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}.
+
+\Hypertarget{torus_8cpp_a2858154e2009b0e6e616f313177762bc}\label{torus_8cpp_a2858154e2009b0e6e616f313177762bc} 
+\index{torus.cpp@{torus.cpp}!init@{init}}
+\index{init@{init}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialize Open\+GL state. 
+
+Create fifteen display lists for the seven objects, and their normal vectors, plus another one for the coordinate axes.
+
+Use Gouraud shading, and a single light source at the camera position.
+
+Open\+GL uses a right-\/handed coordinate system until the perspective projection, where Open\+GL switches to a left-\/handed coordinate space for the depth buffer (z-\/buffer) test.
+\begin{DoxyItemize}
+\item The camera at the origin is looking along -\/Z axis in eye space,
+\item but it is looking along +Z axis in NDC.
+\item gl\+Depth\+Range is by default \mbox{[}0, 1\mbox{]} (near, far).
+\item Making the +Z axis point into the screen,
+\item and with +X to the right and +Y up.
+\item It is a left-\/handed system.
+\item Changing the depth range to \mbox{[}1, 0\mbox{]} will make the system right-\/handed.
+\end{DoxyItemize}
+
+\begin{DoxySeeAlso}{See also}
+\href{https://www.youtube.com/watch?v=Ck1SH7oYRFM}{\texttt{ https\+://www.\+youtube.\+com/watch?v=\+Ck1\+SH7o\+YRFM}} 
+
+\href{https://webserver2.tecgraf.puc-rio.br/ftp_pub/lfm/OpenGL_Transformation.pdf}{\texttt{ https\+://webserver2.\+tecgraf.\+puc-\/rio.\+br/ftp\+\_\+pub/lfm/\+Open\+GL\+\_\+\+Transformation.\+pdf}} 
+
+\href{https://www.ics.uci.edu/~gopi/CS211B/opengl_programming_guide_8th_edition.pdf}{\texttt{ https\+://www.\+ics.\+uci.\+edu/\texorpdfstring{$\sim$}{\string~}gopi/\+CS211\+B/opengl\+\_\+programming\+\_\+guide\+\_\+8th\+\_\+edition.\+pdf}} 
+
+\href{http://www.songho.ca/opengl/gl_projectionmatrix.html}{\texttt{ http\+://www.\+songho.\+ca/opengl/gl\+\_\+projectionmatrix.\+html}} 
+
+\href{http://devernay.free.fr/cours/opengl/materials.html}{\texttt{ http\+://devernay.\+free.\+fr/cours/opengl/materials.\+html}} 
+
+\href{http://math.hws.edu/graphicsbook/c4/s2.html}{\texttt{ http\+://math.\+hws.\+edu/graphicsbook/c4/s2.\+html}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00975}{975}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00242}{cone()}}, \mbox{\hyperlink{torus_8cpp_source_l00313}{cylinder()}}, \mbox{\hyperlink{torus_8cpp_source_l00785}{draw\+Axes()}}, \mbox{\hyperlink{torus_8cpp_source_l00539}{hyperbolic\+\_\+paraboloid()}}, \mbox{\hyperlink{torus_8cpp_source_l00463}{hyperboloid()}}, \mbox{\hyperlink{torus_8cpp_source_l00912}{init\+Texture()}}, \mbox{\hyperlink{torus_8cpp_source_l00102}{n\+R1}}, \mbox{\hyperlink{torus_8cpp_source_l00104}{n\+R2}}, \mbox{\hyperlink{torus_8cpp_source_l00094}{objects}}, \mbox{\hyperlink{torus_8cpp_source_l00387}{paraboloid()}}, \mbox{\hyperlink{torus_8cpp_source_l00096}{R1}}, \mbox{\hyperlink{torus_8cpp_source_l00098}{R2}}, \mbox{\hyperlink{torus_8cpp_source_l00100}{R3}}, \mbox{\hyperlink{torus_8cpp_source_l00722}{sphere()}}, \mbox{\hyperlink{torus_8cpp_source_l00083}{the\+Axes}}, \mbox{\hyperlink{torus_8cpp_source_l00622}{torus()}}, and \mbox{\hyperlink{torus_8cpp_source_l00090}{zobs}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a59e2b52b8141808a5552debc8fd7b8d9}\label{torus_8cpp_a59e2b52b8141808a5552debc8fd7b8d9} 
+\index{torus.cpp@{torus.cpp}!initTexture@{initTexture}}
+\index{initTexture@{initTexture}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{initTexture()}{initTexture()}}
+{\footnotesize\ttfamily void init\+Texture (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialize texture stuff. 
+
+Create a single texture called tex\+Name.
+
+\begin{DoxySeeAlso}{See also}
+\href{https://gregs-blog.com/2008/01/17/opengl-texture-filter-parameters-explained/}{\texttt{ https\+://gregs-\/blog.\+com/2008/01/17/opengl-\/texture-\/filter-\/parameters-\/explained/}} 
+
+\href{https://open.gl/textures}{\texttt{ https\+://open.\+gl/textures}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00912}{912}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00146}{check\+Image}}, \mbox{\hyperlink{torus_8cpp_source_l00063}{check\+Image\+Height}}, \mbox{\hyperlink{torus_8cpp_source_l00061}{check\+Image\+Width}}, \mbox{\hyperlink{torus_8cpp_source_l00860}{make\+Check\+Image()}}, \mbox{\hyperlink{torus_8cpp_source_l00118}{proc\+Image}}, and \mbox{\hyperlink{torus_8cpp_source_l00148}{tex\+Name}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_aef7ba2f69afb2d954545f64c7fe24b14}\label{torus_8cpp_aef7ba2f69afb2d954545f64c7fe24b14} 
+\index{torus.cpp@{torus.cpp}!keyboard@{keyboard}}
+\index{keyboard@{keyboard}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{keyboard()}{keyboard()}}
+{\footnotesize\ttfamily void keyboard (\begin{DoxyParamCaption}\item[{unsigned char}]{key,  }\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Keyboard callback interface. 
+
+glut\+Post\+Redisplay() marks the current window as needing to be redisplayed. The next iteration through glut\+Main\+Loop, the window\textquotesingle{}s display callback will be called to redisplay the window\textquotesingle{}s normal plane.
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & key pressed. \\
+\hline
+{\em x} & coordinate of the mouse cursor. \\
+\hline
+{\em y} & coordinate of the mouse cursor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://www.opengl.org/resources/libraries/glut/spec3/node49.html}{\texttt{ https\+://www.\+opengl.\+org/resources/libraries/glut/spec3/node49.\+html}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l01289}{1289}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00110}{apply\+Texture}}, \mbox{\hyperlink{torus_8cpp_source_l00158}{arcball}}, \mbox{\hyperlink{torus_8cpp_source_l00137}{axis}}, \mbox{\hyperlink{torus_8cpp_source_l00116}{backG}}, \mbox{\hyperlink{torus_8cpp_source_l00108}{draw\+Normals}}, \mbox{\hyperlink{torus_8cpp_source_l00106}{draw\+Wire}}, \mbox{\hyperlink{torus_8cpp_source_l00150}{il\+Image}}, \mbox{\hyperlink{torus_8cpp_source_l00912}{init\+Texture()}}, \mbox{\hyperlink{torus_8cpp_source_l00085}{n\+Objects}}, \mbox{\hyperlink{torus_8cpp_source_l00156}{OBJECT}}, \mbox{\hyperlink{torus_8cpp_source_l00152}{obj\+Names}}, \mbox{\hyperlink{torus_8cpp_source_l00118}{proc\+Image}}, \mbox{\hyperlink{torus_8cpp_source_l01254}{reshape()}}, \mbox{\hyperlink{torus_8cpp_source_l00140}{rot\+Angle}}, \mbox{\hyperlink{torus_8cpp_source_l00112}{show\+Axes}}, \mbox{\hyperlink{torus_8cpp_source_l00114}{show\+Box}}, \mbox{\hyperlink{torus_8cpp_source_l00122}{spin}}, \mbox{\hyperlink{torus_8cpp_source_l00148}{tex\+Name}}, \mbox{\hyperlink{torus_8cpp_source_l00120}{use\+Arcball}}, \mbox{\hyperlink{torus_8cpp_source_l00134}{x\+Axis}}, \mbox{\hyperlink{torus_8cpp_source_l00134}{y\+Axis}}, \mbox{\hyperlink{torus_8cpp_source_l00134}{z\+Axis}}, and \mbox{\hyperlink{torus_8cpp_source_l00090}{zobs}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a1ada77601620fb199c1c81c134468219}\label{torus_8cpp_a1ada77601620fb199c1c81c134468219} 
+\index{torus.cpp@{torus.cpp}!loadImage@{loadImage}}
+\index{loadImage@{loadImage}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{loadImage()}{loadImage()}}
+{\footnotesize\ttfamily int load\+Image (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename }\end{DoxyParamCaption})}
+
+
+
+Load an image from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & file name. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 on fail, or image name on success. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\href{http://openil.sourceforge.net/tuts/tut_4/index.htm}{\texttt{ http\+://openil.\+sourceforge.\+net/tuts/tut\+\_\+4/index.\+htm}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00887}{887}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{torus_8cpp_a3c04138a5bfe5d72780bb7e82a18e627} 
+\index{torus.cpp@{torus.cpp}!main@{main}}
+\index{main@{main}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv }\end{DoxyParamCaption})}
+
+
+
+Main program for testing. 
+
+Arguments\+:
+
+
+\begin{DoxyItemize}
+\item argc -\/ number of arguments.
+\item argv\mbox{[}0\mbox{]} -\/ Program name.
+\item argv\mbox{[}1\mbox{]} -\/ r1\+: Distance from the center of the tube to the center of the torus.
+\item argv\mbox{[}2\mbox{]} -\/ r2\+: Radius of the tube.
+\item argv\mbox{[}3\mbox{]} -\/ r3\+: Radius in z direction for an ellipsoid.
+\item argv\mbox{[}4\mbox{]} -\/ nr1\+: number of samples (divisions) on circle r1.
+\item argv\mbox{[}5\mbox{]} -\/ nr2\+: number of samples (divisions) on circle r2.
+\item argv\mbox{[}6\mbox{]} -\/ fname\+: texture file name. 
+\end{DoxyItemize}
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l01487}{1487}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l01219}{\+\_\+timer()}}, \mbox{\hyperlink{torus_8cpp_source_l00158}{arcball}}, \mbox{\hyperlink{torus_8cpp_source_l00143}{delay}}, \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, \mbox{\hyperlink{torus_8cpp_source_l00150}{il\+Image}}, \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}, \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}, \mbox{\hyperlink{torus_8cpp_source_l00887}{load\+Image()}}, \mbox{\hyperlink{torus_8cpp_source_l01468}{mouse\+Drag()}}, \mbox{\hyperlink{torus_8cpp_source_l01441}{mouse\+Func()}}, \mbox{\hyperlink{torus_8cpp_source_l00102}{n\+R1}}, \mbox{\hyperlink{torus_8cpp_source_l00104}{n\+R2}}, \mbox{\hyperlink{torus_8cpp_source_l00096}{R1}}, \mbox{\hyperlink{torus_8cpp_source_l00098}{R2}}, \mbox{\hyperlink{torus_8cpp_source_l00100}{R3}}, and \mbox{\hyperlink{torus_8cpp_source_l01254}{reshape()}}.
+
+\Hypertarget{torus_8cpp_abc6a6219108d3ba0991713a42b08e25f}\label{torus_8cpp_abc6a6219108d3ba0991713a42b08e25f} 
+\index{torus.cpp@{torus.cpp}!makeCheckImage@{makeCheckImage}}
+\index{makeCheckImage@{makeCheckImage}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{makeCheckImage()}{makeCheckImage()}}
+{\footnotesize\ttfamily void make\+Check\+Image (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Create checkerboard texture. 
+
+
+\begin{DoxyItemize}
+\item If i\textquotesingle{}s 4th bit is set, i.\+e., every 8 iterations of i, i \& 0x8 yields nonzero.
+\item The same for j. If either is nonzero, but the other is zero, then XOR will yield 1.
+\item This is multiplied by 255, i.\+e., the maximum value of a channel. 
+\begin{DoxyPre} 
+   -\/  i    -\/> i \& 1000
+   -\/ 0-\/7   -\/> 0
+   -\/ 8-\/15  -\/> 8
+   -\/ 16-\/23 -\/> 0
+   -\/ 24-\/31 -\/> 8
+   -\/ ....
+\end{DoxyPre}
+
+\end{DoxyItemize}
+
+\begin{DoxySeeAlso}{See also}
+\href{https://www.tutorialspoint.com/cprogramming/c_bitwise_operators.htm}{\texttt{ https\+://www.\+tutorialspoint.\+com/cprogramming/c\+\_\+bitwise\+\_\+operators.\+htm}} 
+
+\href{https://www.miniwebtool.com/bitwise-calculator/}{\texttt{ https\+://www.\+miniwebtool.\+com/bitwise-\/calculator/}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00860}{860}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00146}{check\+Image}}, \mbox{\hyperlink{torus_8cpp_source_l00063}{check\+Image\+Height}}, and \mbox{\hyperlink{torus_8cpp_source_l00061}{check\+Image\+Width}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00912}{init\+Texture()}}.
+
+\Hypertarget{torus_8cpp_ab93b36736390103768326aeafcb6bc94}\label{torus_8cpp_ab93b36736390103768326aeafcb6bc94} 
+\index{torus.cpp@{torus.cpp}!mouseDrag@{mouseDrag}}
+\index{mouseDrag@{mouseDrag}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{mouseDrag()}{mouseDrag()}}
+{\footnotesize\ttfamily void mouse\+Drag (\begin{DoxyParamCaption}\item[{int}]{\+\_\+x,  }\item[{int}]{\+\_\+y }\end{DoxyParamCaption})}
+
+
+
+Mouse callback interface. 
+
+Set the motion callback for the current window. The motion callback for a window is called when the mouse moves within the window while one or more mouse buttons are pressed.
+
+glut\+Post\+Redisplay() marks the current window as needing to be redisplayed. The next iteration through glut\+Main\+Loop, the window\textquotesingle{}s display callback will be called to redisplay the window\textquotesingle{}s normal plane.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+x} & coordinate of the mouse cursor. \\
+\hline
+{\em \+\_\+y} & coordinate of the mouse cursor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://www.opengl.org/resources/libraries/glut/spec3/node51.html}{\texttt{ https\+://www.\+opengl.\+org/resources/libraries/glut/spec3/node51.\+html}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l01468}{1468}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00158}{arcball}}, and \mbox{\hyperlink{torus_8cpp_source_l00120}{use\+Arcball}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a59d408da236069ac2f67330f2b4fcd84}\label{torus_8cpp_a59d408da236069ac2f67330f2b4fcd84} 
+\index{torus.cpp@{torus.cpp}!mouseFunc@{mouseFunc}}
+\index{mouseFunc@{mouseFunc}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{mouseFunc()}{mouseFunc()}}
+{\footnotesize\ttfamily void mouse\+Func (\begin{DoxyParamCaption}\item[{int}]{state,  }\item[{int}]{button,  }\item[{int}]{\+\_\+x,  }\item[{int}]{\+\_\+y }\end{DoxyParamCaption})}
+
+
+
+Mouse callback interface. 
+
+glut\+Post\+Redisplay() marks the current window as needing to be redisplayed. The next iteration through glut\+Main\+Loop, the window\textquotesingle{}s display callback will be called to redisplay the window\textquotesingle{}s normal plane.
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & mouse button status. \\
+\hline
+{\em button} & mouse button pressed. \\
+\hline
+{\em \+\_\+x} & coordinate of the mouse cursor. \\
+\hline
+{\em \+\_\+y} & coordinate of the mouse cursor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://www.opengl.org/resources/libraries/glut/spec3/node50.html}{\texttt{ https\+://www.\+opengl.\+org/resources/libraries/glut/spec3/node50.\+html}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l01441}{1441}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00158}{arcball}}, and \mbox{\hyperlink{torus_8cpp_source_l00120}{use\+Arcball}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_aa4614a9b175f83da6a341e6040632b73}\label{torus_8cpp_aa4614a9b175f83da6a341e6040632b73} 
+\index{torus.cpp@{torus.cpp}!paraboloid@{paraboloid}}
+\index{paraboloid@{paraboloid}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{paraboloid()}{paraboloid()}}
+{\footnotesize\ttfamily void paraboloid (\begin{DoxyParamCaption}\item[{double}]{h,  }\item[{double}]{r,  }\item[{int}]{vs,  }\item[{int}]{rs,  }\item[{int}]{normals }\end{DoxyParamCaption})}
+
+
+
+Draw a paraboloid, centered at the origin, with a circular base on plane XY. 
+
+Implicit Equation\+:
+\begin{DoxyItemize}
+\item ${x^{2}+y^{2}} = {c\ z},\ c = \frac{r^2}{h}$
+\item 
+\item ${f(x,y,z) = \frac{h}{r^2} x^{2} + \frac{h}{r^2} y^{2} - z = 0}$
+\item 
+\item ${\nabla f(x,y,z) = (2 \frac{h}{r^2} x,\ 2 \frac{h}{r^2} y,\ - 1)}$
+\end{DoxyItemize}
+
+Parametric Equation\+:
+\begin{DoxyItemize}
+\item x(u,v) = u cos(v),
+\item y(u,v) = u sin(v),
+\item z(u,v) = h \texorpdfstring{$\ast$}{*} (u/r)², (z = h -\/\texorpdfstring{$>$}{>} u = r)
+\item u {$\in$} \mbox{[}0,h\mbox{]}, v {$\in$} \mbox{[}0,2{$\Pi$}\mbox{]}
+\item df/du = (cos(v), sin(v), 2\texorpdfstring{$\ast$}{*}u h/r²),
+\item df/dv = (-\/u sin(v), u cos(v) , 0)
+\item df/dv x df/du = (2\texorpdfstring{$\ast$}{*}u h/r² u cos(v), 2\texorpdfstring{$\ast$}{*}u h/r² u sin(v), -\/u) = (2h/r² x(u,v), 2h/r² y(u,v), -\/1)
+\end{DoxyItemize}
+
+Inverse parametrization\+:
+\begin{DoxyItemize}
+\item u = sqrt(z \texorpdfstring{$\ast$}{*} r² / h ) or u = sqrt( (h-\/z) \texorpdfstring{$\ast$}{*} r² / h ), if paraboloid is upside down.
+\item v = atan2(y,x), if v \texorpdfstring{$<$}{<} 0 then v += 2{$\Pi$}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em h} & paraboloid height. \\
+\hline
+{\em r} & paraboloid radius. \\
+\hline
+{\em vs} & number of divisions in z direction. \\
+\hline
+{\em rs} & number of angular divisions. \\
+\hline
+{\em normals} & whether to draw normals or polygons. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{http://mathworld.wolfram.com/Paraboloid.html}{\texttt{ http\+://mathworld.\+wolfram.\+com/\+Paraboloid.\+html}} 
+
+\href{https://en.wikipedia.org/wiki/Quadric}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Quadric}} 
+
+\href{http://www.geom.uiuc.edu/docs/reference/CRC-formulas/node61.html}{\texttt{ http\+://www.\+geom.\+uiuc.\+edu/docs/reference/\+CRC-\/formulas/node61.\+html}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00387}{387}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00131}{\+\_\+paraboloid}}, \mbox{\hyperlink{torus_8cpp_source_l00079}{clamp}}, \mbox{\hyperlink{torus_8cpp_source_l00199}{get\+Box\+Size()}}, \mbox{\hyperlink{torus_8cpp_source_l00081}{LEN}}, \mbox{\hyperlink{torus_8cpp_source_l00087}{scale}}, \mbox{\hyperlink{torus_8cpp_source_l00073}{TWOPI}}, and \mbox{\hyperlink{torus_8cpp_source_l00180}{update\+Box()}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}.
+
+\Hypertarget{torus_8cpp_acc1ffe65e6869931318610cae7210078}\label{torus_8cpp_acc1ffe65e6869931318610cae7210078} 
+\index{torus.cpp@{torus.cpp}!reshape@{reshape}}
+\index{reshape@{reshape}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{reshape()}{reshape()}}
+{\footnotesize\ttfamily void reshape (\begin{DoxyParamCaption}\item[{int}]{w,  }\item[{int}]{h }\end{DoxyParamCaption})}
+
+
+
+Handle window resize. 
+
+Sets the viewport to its new size.
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & viewport width. \\
+\hline
+{\em h} & viewport height. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l01254}{1254}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00158}{arcball}}, \mbox{\hyperlink{torus_8cpp_source_l00067}{far\+Plane}}, \mbox{\hyperlink{torus_8cpp_source_l00069}{front\+Plane}}, \mbox{\hyperlink{torus_8cpp_source_l00199}{get\+Box\+Size()}}, \mbox{\hyperlink{torus_8cpp_source_l00156}{OBJECT}}, \mbox{\hyperlink{torus_8cpp_source_l00077}{to\+Deg}}, \mbox{\hyperlink{torus_8cpp_source_l00075}{to\+Rad}}, \mbox{\hyperlink{torus_8cpp_source_l00092}{viewing\+Angle}}, and \mbox{\hyperlink{torus_8cpp_source_l00090}{zobs}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}, and \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a6c5b17163125dd32bd7c04a99738d316}\label{torus_8cpp_a6c5b17163125dd32bd7c04a99738d316} 
+\index{torus.cpp@{torus.cpp}!sphere@{sphere}}
+\index{sphere@{sphere}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{sphere()}{sphere()}}
+{\footnotesize\ttfamily void sphere (\begin{DoxyParamCaption}\item[{double}]{r1,  }\item[{double}]{r2,  }\item[{double}]{r3,  }\item[{int}]{numc,  }\item[{int}]{numt,  }\item[{int}]{normals }\end{DoxyParamCaption})}
+
+
+
+Draw an ellipsoid or a sphere centered at the origin. 
+
+Implicit Equation\+:
+\begin{DoxyItemize}
+\item ${x^{2} \over a^{2}}+{y^{2} \over b^{2}}+{z^{2} \over c^{2}}=1,\ a= r_1,\ b = r_2,\ c = r_3$
+\item 
+\item ${f(x,y,z) = r_2^2 r_3^2\ x^{2}+r_1^2 r_3^2\ y^{2}+r_1^2 r_2^2\ z^{2}} - (r_1 r_2 r_3)^2 = 0$
+\item 
+\item ${\nabla f(x,y,z) = (r_2^2 r_3^2\ x,\ r_1^2  r_3^2\ y,\ r_1^2  r_2^2\ z)}$
+\end{DoxyItemize}
+
+A sphere is defined as the set of all points in three-\/dimensional Euclidean space R³ that are located at a distance r (the \"{}radius\"{}) from a given point (the \"{}center\"{}).
+
+An ellipsoid is a surface that may be obtained from a sphere by deforming it by means of directional scalings, or more generally, of an affine transformation.
+
+Parametric Equation\+:
+\begin{DoxyItemize}
+\item x(u,v) = r1 cos(u) sin(v),
+\item y(u,v) = r2 sin(u) sin(v),
+\item z(u,v) = r3 cos(v),
+\item u {$\in$} \mbox{[}0,2{$\Pi$}\mbox{]}, v {$\in$} \mbox{[}0,{$\Pi$}\mbox{]}
+\item df/du = (-\/r1 sin(u) sin(v), r2 cos(u) sin(v), 0),
+\item df/dv = (r1 cos(u) cos(v), r2 sin(u) cos (v), -\/r3 sin(v))
+\item df/dv x df/du = (r2 r3/r1 x(u,v), r1 r3/r2 y(u,v), r1 r2/r3 z(u,v)) sin v = (r2² r3² x(u,v), r1² r3² y(u,v), r1² r2² z(u,v))
+\end{DoxyItemize}
+
+Inverse parametrization\+:
+\begin{DoxyItemize}
+\item u = atan2((y,x) \texorpdfstring{$\ast$}{*} (r1/r2)), if u \texorpdfstring{$<$}{<} 0 then u += 2{$\Pi$}
+\item v = acos(z/r3)
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em r1} & x radius of the ellipsoid. \\
+\hline
+{\em r2} & y radius of the ellipsoid. \\
+\hline
+{\em r3} & z radius of the ellipsoid. \\
+\hline
+{\em numc} & number of divisions along the zero degree longitude (number of latitude divisions). \\
+\hline
+{\em numt} & number of divisions along the zero degree latitude -\/ equator (number of longitude divisions). \\
+\hline
+{\em normals} & whether to draw normals or polygons. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{http://mathworld.wolfram.com/Ellipsoid.html}{\texttt{ http\+://mathworld.\+wolfram.\+com/\+Ellipsoid.\+html}} 
+
+\href{http://mathworld.wolfram.com/Sphere.html}{\texttt{ http\+://mathworld.\+wolfram.\+com/\+Sphere.\+html}} 
+
+\href{https://en.wikipedia.org/wiki/Ellipsoid}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Ellipsoid}} 
+
+\href{https://sciencing.com/equators-latitude-6314100.html}{\texttt{ https\+://sciencing.\+com/equators-\/latitude-\/6314100.\+html}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00722}{722}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00131}{\+\_\+ellipsoid}}, \mbox{\hyperlink{torus_8cpp_source_l00079}{clamp}}, \mbox{\hyperlink{torus_8cpp_source_l00199}{get\+Box\+Size()}}, \mbox{\hyperlink{torus_8cpp_source_l00081}{LEN}}, \mbox{\hyperlink{torus_8cpp_source_l00087}{scale}}, \mbox{\hyperlink{torus_8cpp_source_l00073}{TWOPI}}, and \mbox{\hyperlink{torus_8cpp_source_l00180}{update\+Box()}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}.
+
+\Hypertarget{torus_8cpp_acf04d1331c5f0cedfaacc30d1d3f46f4}\label{torus_8cpp_acf04d1331c5f0cedfaacc30d1d3f46f4} 
+\index{torus.cpp@{torus.cpp}!torus@{torus}}
+\index{torus@{torus}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{torus()}{torus()}}
+{\footnotesize\ttfamily void torus (\begin{DoxyParamCaption}\item[{double}]{r1,  }\item[{double}]{r2,  }\item[{int}]{numc,  }\item[{int}]{numt,  }\item[{int}]{normals }\end{DoxyParamCaption})}
+
+
+
+Draw a torus, centered at the origin, and azimuthally symmetric about the z-\/axis. 
+
+In geometry, a torus is a surface of revolution generated by revolving a circle in three-\/dimensional space about an axis coplanar with the circle.
+\begin{DoxyItemize}
+\item Volume\+: 2 × π² × R × r²
+\item Surface area\+: 4 × π² × R × r
+\item Common objects with this shape\+: Doughnut, Ring, Lifebuoy
+\end{DoxyItemize}
+
+Implicit Equation\+:
+\begin{DoxyItemize}
+\item $(r_1-\sqrt{(x^2+y^2)})^2+z^2=r_2^2,$
+\item 
+\item $f(x,y,z) = (x^2+y^2+z^2+r_1^2-r_2^2)^2 - 4 r_1^2 (x^2+y^2) = 0$, a quartic equation
+\end{DoxyItemize}
+
+Parametric Equation\+:
+\begin{DoxyItemize}
+\item x(u,v) = (r1 + r2 cos(v)) cos(u),
+\item y(u,v) = (r1 + r2 cos(v)) sin(u),
+\item z(u,v) = r2 sin(v),
+\item u {$\in$} \mbox{[}0,2{$\Pi$}\mbox{]}, v {$\in$} \mbox{[}0,2{$\Pi$}\mbox{]}
+\item df/du = (-\/y(u,v), x(u,v), 0),
+\item df/dv = (-\/z(u,v) cos(u), -\/z(u,v) sin(u), r2 cos(v))
+\item df/du x df/dv = (r2 x(u,v) cos(v), r2 y(u,v) cos(v), z(u,v) (y(u,v) sin(u) + x(u,v) (cos(u))) = (r2 cos(v) x(u,v), r2 cos(v) y(u,v), (r1 + r2 cos(v)) z(u,v))
+\item df/du x df/dv = (cos(v) cos(u), cos(v) sin(u), sin(v))
+\end{DoxyItemize}
+
+Inverse parametrization\+:
+\begin{DoxyItemize}
+\item u = atan2(y,x), if u \texorpdfstring{$<$}{<} 0 then u += 2{$\Pi$}
+\item v = asin(z/r2)
+\end{DoxyItemize}
+
+When\+:
+\begin{DoxyItemize}
+\item r1 \texorpdfstring{$>$}{>} r2, the surface will be the familiar ring torus.
+\item r1 = r2 corresponds to the horn torus, which in effect is a torus with no \"{}hole\"{}.
+\item r1 \texorpdfstring{$<$}{<} r2 describes the self-\/intersecting spindle torus.
+\item r1 = 0, the torus degenerates to the sphere.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em r1} & distance from the center of the tube to the center of the torus. \\
+\hline
+{\em r2} & radius of the tube. \\
+\hline
+{\em numc} & number of divisions of the circle with radius r2. \\
+\hline
+{\em numt} & number of divisions of the circle with radius r1. \\
+\hline
+{\em normals} & whether to draw normals or polygons. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{http://mathworld.wolfram.com/Torus.html}{\texttt{ http\+://mathworld.\+wolfram.\+com/\+Torus.\+html}} 
+
+\href{https://en.wikipedia.org/wiki/Torus}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Torus}} 
+
+\href{https://blogs.scientificamerican.com/roots-of-unity/a-few-of-my-favorite-spaces-the-torus/}{\texttt{ https\+://blogs.\+scientificamerican.\+com/roots-\/of-\/unity/a-\/few-\/of-\/my-\/favorite-\/spaces-\/the-\/torus/}} 
+
+\href{https://www.mathsisfun.com/geometry/torus.html}{\texttt{ https\+://www.\+mathsisfun.\+com/geometry/torus.\+html}} 
+
+\href{http://trecs.se/torus.php}{\texttt{ http\+://trecs.\+se/torus.\+php}} 
+
+\href{http://mathworld.wolfram.com/QuarticEquation.html}{\texttt{ http\+://mathworld.\+wolfram.\+com/\+Quartic\+Equation.\+html}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00622}{622}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00131}{\+\_\+torus}}, \mbox{\hyperlink{torus_8cpp_source_l00079}{clamp}}, \mbox{\hyperlink{torus_8cpp_source_l00199}{get\+Box\+Size()}}, \mbox{\hyperlink{torus_8cpp_source_l00081}{LEN}}, \mbox{\hyperlink{torus_8cpp_source_l00087}{scale}}, \mbox{\hyperlink{torus_8cpp_source_l00073}{TWOPI}}, and \mbox{\hyperlink{torus_8cpp_source_l00180}{update\+Box()}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}.
+
+\Hypertarget{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}\label{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f} 
+\index{torus.cpp@{torus.cpp}!updateBox@{updateBox}}
+\index{updateBox@{updateBox}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{updateBox()}{updateBox()}}
+{\footnotesize\ttfamily void update\+Box (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}{o\+Type}}}]{index,  }\item[{double}]{x,  }\item[{double}]{y,  }\item[{double}]{z }\end{DoxyParamCaption})}
+
+
+
+Add a new point to a bounding box. 
+
+The axis-\/aligned minimum bounding box (or AABB) for a given point set is its minimum bounding box subject to the constraint that the edges of the box are parallel to the (Cartesian) coordinate axes. It is simply the Cartesian product of N intervals each of which is defined by the minimal and maximal value of the corresponding coordinate for the points in S.
+
+Axis-\/aligned minimal bounding boxes are used to an approximate location of an object in question and as a very simple descriptor of its shape. For example, in computational geometry and its applications when it is required to find intersections in the set of objects, the initial check is the intersections between their MBBs. Since it is usually a much less expensive operation than the check of the actual intersection (because it only requires comparisons of coordinates), it allows to quickly exclude from checks the pairs that are far apart.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Position into obj\+Boxes array. \\
+\hline
+{\em x} & Point coordinate. \\
+\hline
+{\em y} & Point coordinate. \\
+\hline
+{\em z} & Point coordinate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\href{https://en.wikipedia.org/wiki/Minimum_bounding_box}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+Minimum\+\_\+bounding\+\_\+box}} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00180}{180}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{torus_8cpp_source_l00154}{obj\+Boxes}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00242}{cone()}}, \mbox{\hyperlink{torus_8cpp_source_l00313}{cylinder()}}, \mbox{\hyperlink{torus_8cpp_source_l00539}{hyperbolic\+\_\+paraboloid()}}, \mbox{\hyperlink{torus_8cpp_source_l00463}{hyperboloid()}}, \mbox{\hyperlink{torus_8cpp_source_l00387}{paraboloid()}}, \mbox{\hyperlink{torus_8cpp_source_l00722}{sphere()}}, and \mbox{\hyperlink{torus_8cpp_source_l00622}{torus()}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{torus_8cpp_a44b441e46cc097350fc7a93e3eebb406}\label{torus_8cpp_a44b441e46cc097350fc7a93e3eebb406} 
+\index{torus.cpp@{torus.cpp}!applyTexture@{applyTexture}}
+\index{applyTexture@{applyTexture}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{applyTexture}{applyTexture}}
+{\footnotesize\ttfamily int apply\+Texture = 0}
+
+
+
+Whether to apply texture. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00110}{110}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}\label{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d} 
+\index{torus.cpp@{torus.cpp}!arcball@{arcball}}
+\index{arcball@{arcball}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{arcball}{arcball}}
+{\footnotesize\ttfamily Arcball arcball}
+
+
+
+Arc\+Ball. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00158}{158}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}, \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}, \mbox{\hyperlink{torus_8cpp_source_l01468}{mouse\+Drag()}}, \mbox{\hyperlink{torus_8cpp_source_l01441}{mouse\+Func()}}, and \mbox{\hyperlink{torus_8cpp_source_l01254}{reshape()}}.
+
+\Hypertarget{torus_8cpp_a83ae1c9343d859792d580a61a1657085}\label{torus_8cpp_a83ae1c9343d859792d580a61a1657085} 
+\index{torus.cpp@{torus.cpp}!axis@{axis}}
+\index{axis@{axis}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{axis}{axis}}
+{\footnotesize\ttfamily \mbox{\hyperlink{torus_8cpp_aa8c6413ab09935dff9a9ce1a8abdc0d9}{r\+Axes}} axis = \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884}{x\+Axis}}}
+
+
+
+Current axis. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00137}{137}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_a09d54be3e2975048c9c5cbfe43ddaedb}\label{torus_8cpp_a09d54be3e2975048c9c5cbfe43ddaedb} 
+\index{torus.cpp@{torus.cpp}!backG@{backG}}
+\index{backG@{backG}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{backG}{backG}}
+{\footnotesize\ttfamily int backG = 0}
+
+
+
+Toggle background color. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00116}{116}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}\label{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6} 
+\index{torus.cpp@{torus.cpp}!checkImage@{checkImage}}
+\index{checkImage@{checkImage}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{checkImage}{checkImage}}
+{\footnotesize\ttfamily GLubyte check\+Image\mbox{[}\mbox{\hyperlink{torus_8cpp_ad815a88fe5bd6ac8c8e389ed77976348}{check\+Image\+Height}}\mbox{]}\mbox{[}\mbox{\hyperlink{torus_8cpp_a48661c07cea0fa9ea6d1d7e60459f18d}{check\+Image\+Width}}\mbox{]}\mbox{[}4\mbox{]}}
+
+
+
+Procedural image for a checkerboard. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00146}{146}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00912}{init\+Texture()}}, and \mbox{\hyperlink{torus_8cpp_source_l00860}{make\+Check\+Image()}}.
+
+\Hypertarget{torus_8cpp_a40df728951e877187328a971765d7b18}\label{torus_8cpp_a40df728951e877187328a971765d7b18} 
+\index{torus.cpp@{torus.cpp}!delay@{delay}}
+\index{delay@{delay}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{delay}{delay}}
+{\footnotesize\ttfamily unsigned int delay = 60}
+
+
+
+Controls the trigger of the timer function. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00143}{143}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01219}{\+\_\+timer()}}, and \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a61cfb3fdcf176d455075e4af383a2690}\label{torus_8cpp_a61cfb3fdcf176d455075e4af383a2690} 
+\index{torus.cpp@{torus.cpp}!drawNormals@{drawNormals}}
+\index{drawNormals@{drawNormals}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{drawNormals}{drawNormals}}
+{\footnotesize\ttfamily int draw\+Normals = 0}
+
+
+
+Whether display vertex normals. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00108}{108}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_af2aabe82b3ecb569e82b350505afd0ea}\label{torus_8cpp_af2aabe82b3ecb569e82b350505afd0ea} 
+\index{torus.cpp@{torus.cpp}!drawWire@{drawWire}}
+\index{drawWire@{drawWire}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{drawWire}{drawWire}}
+{\footnotesize\ttfamily int draw\+Wire = 0}
+
+
+
+Whether draw wireframe or filled polygons. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00106}{106}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_ad210616c2fd72bf4ceda644bdf2f99ec}\label{torus_8cpp_ad210616c2fd72bf4ceda644bdf2f99ec} 
+\index{torus.cpp@{torus.cpp}!ilImage@{ilImage}}
+\index{ilImage@{ilImage}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{ilImage}{ilImage}}
+{\footnotesize\ttfamily ILuint il\+Image}
+
+
+
+IL image identifier. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00150}{150}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}, and \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}\label{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf} 
+\index{torus.cpp@{torus.cpp}!nR1@{nR1}}
+\index{nR1@{nR1}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{nR1}{nR1}}
+{\footnotesize\ttfamily int n\+R1 = 25}
+
+
+
+Number of samples. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00102}{102}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}, and \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}\label{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885} 
+\index{torus.cpp@{torus.cpp}!nR2@{nR2}}
+\index{nR2@{nR2}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{nR2}{nR2}}
+{\footnotesize\ttfamily int n\+R2 = 10}
+
+
+
+Number of samples. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00104}{104}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}, and \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a216dc106facfdd84a230455b7fc64d09}\label{torus_8cpp_a216dc106facfdd84a230455b7fc64d09} 
+\index{torus.cpp@{torus.cpp}!objBoxes@{objBoxes}}
+\index{objBoxes@{objBoxes}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{objBoxes}{objBoxes}}
+{\footnotesize\ttfamily \mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{\+\_\+\+BBOX}} obj\+Boxes\mbox{[}\mbox{\hyperlink{torus_8cpp_a6b88b073737365876a145587c3f85df9}{n\+Objects}}\mbox{]}}
+
+
+
+Object boxes. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00154}{154}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, \mbox{\hyperlink{torus_8cpp_source_l00199}{get\+Box\+Size()}}, and \mbox{\hyperlink{torus_8cpp_source_l00180}{update\+Box()}}.
+
+\Hypertarget{torus_8cpp_af3de682d132a2d134885477fa5ea2095}\label{torus_8cpp_af3de682d132a2d134885477fa5ea2095} 
+\index{torus.cpp@{torus.cpp}!OBJECT@{OBJECT}}
+\index{OBJECT@{OBJECT}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{OBJECT}{OBJECT}}
+{\footnotesize\ttfamily int OBJECT = \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea7efde285c35f49f3dd3d83450d118af8}{\+\_\+torus}}}
+
+
+
+Current object. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00156}{156}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}, and \mbox{\hyperlink{torus_8cpp_source_l01254}{reshape()}}.
+
+\Hypertarget{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}\label{torus_8cpp_ae1ba69858e15d666d3782e843e304f75} 
+\index{torus.cpp@{torus.cpp}!objects@{objects}}
+\index{objects@{objects}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{objects}{objects}}
+{\footnotesize\ttfamily GLuint objects}
+
+
+
+Object display list base index. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00094}{94}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, and \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}.
+
+\Hypertarget{torus_8cpp_ad75248953a45a77c141af439c47ba1c2}\label{torus_8cpp_ad75248953a45a77c141af439c47ba1c2} 
+\index{torus.cpp@{torus.cpp}!objNames@{objNames}}
+\index{objNames@{objNames}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{objNames}{objNames}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} obj\+Names\mbox{[}$\,$\mbox{]} = \{\"{}Torus\"{}, \"{}Cylinder\"{}, \"{}Cone\"{}, \"{}Ellipsoid\"{}, \"{}Paraboloid\"{}, \"{}Hyperbolic Paraboloid\"{}, \"{}Hyperboloid\"{}\}}
+
+
+
+Object names. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00152}{152}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_a3c40e64af48c7c08a32421d54568151d}\label{torus_8cpp_a3c40e64af48c7c08a32421d54568151d} 
+\index{torus.cpp@{torus.cpp}!procImage@{procImage}}
+\index{procImage@{procImage}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{procImage}{procImage}}
+{\footnotesize\ttfamily int proc\+Image = 1}
+
+
+
+Whether to use a procedural texture. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00118}{118}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00912}{init\+Texture()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}\label{torus_8cpp_af404f6d9a332838b9707056c27a4f21a} 
+\index{torus.cpp@{torus.cpp}!R1@{R1}}
+\index{R1@{R1}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{R1}{R1}}
+{\footnotesize\ttfamily double R1 = 1.\+0}
+
+
+
+Distance from the center of the tube to the center of the torus. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00096}{96}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}, and \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}\label{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3} 
+\index{torus.cpp@{torus.cpp}!R2@{R2}}
+\index{R2@{R2}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{R2}{R2}}
+{\footnotesize\ttfamily double R2 = 0.\+3}
+
+
+
+Radius of the tube. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00098}{98}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}, and \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb}\label{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb} 
+\index{torus.cpp@{torus.cpp}!R3@{R3}}
+\index{R3@{R3}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{R3}{R3}}
+{\footnotesize\ttfamily double R3 = 0.\+5}
+
+
+
+Radius in z direction for an ellipsoid. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00100}{100}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}, and \mbox{\hyperlink{torus_8cpp_source_l01487}{main()}}.
+
+\Hypertarget{torus_8cpp_a8e621e81d5025d5641764107a9f18903}\label{torus_8cpp_a8e621e81d5025d5641764107a9f18903} 
+\index{torus.cpp@{torus.cpp}!rotAngle@{rotAngle}}
+\index{rotAngle@{rotAngle}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{rotAngle}{rotAngle}}
+{\footnotesize\ttfamily GLfloat rot\+Angle = 2.\+0}
+
+
+
+Rotation angle increment. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00140}{140}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_a7c95f8b3e84d565bb68b16bf62c74e99}\label{torus_8cpp_a7c95f8b3e84d565bb68b16bf62c74e99} 
+\index{torus.cpp@{torus.cpp}!showAxes@{showAxes}}
+\index{showAxes@{showAxes}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{showAxes}{showAxes}}
+{\footnotesize\ttfamily int show\+Axes = 0}
+
+
+
+Whether to show the coordinate axes. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00112}{112}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_ace174935b5a83938763ea0e6628c33a4}\label{torus_8cpp_ace174935b5a83938763ea0e6628c33a4} 
+\index{torus.cpp@{torus.cpp}!showBox@{showBox}}
+\index{showBox@{showBox}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{showBox}{showBox}}
+{\footnotesize\ttfamily int show\+Box = 0}
+
+
+
+Whether to show the bounding boxes. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00114}{114}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}\label{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53} 
+\index{torus.cpp@{torus.cpp}!spin@{spin}}
+\index{spin@{spin}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{spin}{spin}}
+{\footnotesize\ttfamily int spin = 1}
+
+
+
+Automatic spin. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00122}{122}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_a880af90db712152846335d53282ace4e}\label{torus_8cpp_a880af90db712152846335d53282ace4e} 
+\index{torus.cpp@{torus.cpp}!texName@{texName}}
+\index{texName@{texName}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{texName}{texName}}
+{\footnotesize\ttfamily GLuint tex\+Name}
+
+
+
+Texture identifier. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00148}{148}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l00912}{init\+Texture()}}, and \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}.
+
+\Hypertarget{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa}\label{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa} 
+\index{torus.cpp@{torus.cpp}!useArcball@{useArcball}}
+\index{useArcball@{useArcball}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{useArcball}{useArcball}}
+{\footnotesize\ttfamily int use\+Arcball = 0}
+
+
+
+Whether to use the arcball paradigm. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00120}{120}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}, \mbox{\hyperlink{torus_8cpp_source_l01468}{mouse\+Drag()}}, and \mbox{\hyperlink{torus_8cpp_source_l01441}{mouse\+Func()}}.
+
+\Hypertarget{torus_8cpp_afd6b2b339098bf41b9eb67159686d647}\label{torus_8cpp_afd6b2b339098bf41b9eb67159686d647} 
+\index{torus.cpp@{torus.cpp}!viewingAngle@{viewingAngle}}
+\index{viewingAngle@{viewingAngle}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{viewingAngle}{viewingAngle}}
+{\footnotesize\ttfamily double viewing\+Angle = 45}
+
+
+
+Camera viewing angle, also known as opening angle. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00092}{92}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01254}{reshape()}}.
+
+\Hypertarget{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}\label{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60} 
+\index{torus.cpp@{torus.cpp}!zobs@{zobs}}
+\index{zobs@{zobs}!torus.cpp@{torus.cpp}}
+\doxysubsubsection{\texorpdfstring{zobs}{zobs}}
+{\footnotesize\ttfamily double zobs = 10.\+0}
+
+
+
+Camera position. 
+
+
+
+Definition at line \mbox{\hyperlink{torus_8cpp_source_l00090}{90}} of file \mbox{\hyperlink{torus_8cpp_source}{torus.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{torus_8cpp_source_l01141}{display()}}, \mbox{\hyperlink{torus_8cpp_source_l00975}{init()}}, \mbox{\hyperlink{torus_8cpp_source_l01289}{keyboard()}}, and \mbox{\hyperlink{torus_8cpp_source_l01254}{reshape()}}.
+

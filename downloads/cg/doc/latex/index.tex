@@ -1,0 +1,104 @@
+\chapter{Quadrics rendering}
+\hypertarget{index}{}\label{index}\index{Quadrics rendering@{Quadrics rendering}}
+\begin{DoxyAuthor}{Author}
+Paulo Roma Cavalcanti
+\end{DoxyAuthor}
+\hypertarget{index_Goals}{}\doxysection{\texorpdfstring{Goals}{Goals}}\label{index_Goals}
+This program provides code templates for use by Open\+GL developers. Although simple, the code supplies everything a beginner in Computer Graphics should know\+:
+
+
+\begin{DoxyItemize}
+\item Basic \href{../../OpenGL/surfaces.pdf}{\texttt{ math}}
+\end{DoxyItemize}
+\begin{DoxyEnumerate}
+\item Surface \href{http://www.hao-li.com/cs599-ss2015/slides/Lecture02.1.pdf}{\texttt{ Implicit representation}}
+\item Surface \href{http://tutorial.math.lamar.edu/Classes/CalcIII/ParametricSurfaces.aspx}{\texttt{ Parametric representation}}
+\item \href{https://www.khanacademy.org/math/linear-algebra/vectors-and-spaces/dot-cross-products/v/normal-vector-from-plane-equation}{\texttt{ Normal vector}} calculation
+\item \href{https://en.wikipedia.org/wiki/Quadric}{\texttt{ Quadrics}}
+\item \href{https://blogs.scientificamerican.com/roots-of-unity/a-few-of-my-favorite-spaces-the-torus/}{\texttt{ Torus}} (ring, horn or spindle)
+\end{DoxyEnumerate}
+\begin{DoxyItemize}
+\item Several render styles\+:
+\end{DoxyItemize}
+\begin{DoxyEnumerate}
+\item \href{https://knowledge.autodesk.com/support/autocad/getting-started/caas/CloudHelp/cloudhelp/2016/ENU/AutoCAD-Core/files/GUID-84E193D7-A18D-4EE2-B978-19E4AFBCAEEC-htm.html}{\texttt{ Wireframe}}
+\item \href{http://graphics.wikia.com/wiki/Gouraud_shading}{\texttt{ Smooth shading}}
+\item \href{https://www.textures.com}{\texttt{ Texture}} (procedural or image based)
+\end{DoxyEnumerate}
+\begin{DoxyItemize}
+\item \href{http://mathworld.wolfram.com/NormalVector.html}{\texttt{ Surface normal}} rendering
+\end{DoxyItemize}
+\begin{DoxyEnumerate}
+\item drawn proportionally to the bounding box diagonal
+\item pointing outside the object
+\end{DoxyEnumerate}
+\begin{DoxyItemize}
+\item \href{https://en.wikipedia.org/wiki/Minimum_bounding_box}{\texttt{ Bounding Box}} computation
+\item \href{https://msdn.microsoft.com/en-us/library/hh920765(v=vs.85).aspx}{\texttt{ Timer}} for controlling basic animation
+\end{DoxyItemize}
+
+Also note the existence of the following directories\+:
+\begin{DoxyItemize}
+\item Arcball
+\end{DoxyItemize}
+\begin{DoxyEnumerate}
+\item Rotation \href{/cwdc/13-webgl/extras/doc/Arcball.pdf}{\texttt{ paradigm}} for CG.
+\end{DoxyEnumerate}
+\begin{DoxyItemize}
+\item doc
+\end{DoxyItemize}
+\begin{DoxyEnumerate}
+\item \href{torus_8cpp.html}{\texttt{ Torus.\+cpp}}
+\end{DoxyEnumerate}
+
+As you prepare to develop code for the course, please be sure you are aware of our current \href{https://www.gnu.org/prep/standards/standards.html}{\texttt{ Coding Standards }}
+
+If using the code in this package as an example -\/ please modify the comments as appropriate for your own specific code.
+
+\DoxyHorRuler{0}
+ \hypertarget{index_notes}{}\doxysection{\texorpdfstring{release.\+notes}{release.notes}}\label{index_notes}
+This program runs on linux 64 or 32 bits (Fedora, Ubuntu), and Mac\+OS. To generate executables, just run\+:
+\begin{DoxyItemize}
+\item for linux\+:
+\end{DoxyItemize}
+\begin{DoxyEnumerate}
+\item make
+\end{DoxyEnumerate}
+\begin{DoxyItemize}
+\item for Mac\+OS\+:
+\end{DoxyItemize}
+\begin{DoxyEnumerate}
+\item make OS=osx
+\end{DoxyEnumerate}
+\begin{DoxyItemize}
+\item for cross-\/compiling for windows\+:
+\end{DoxyItemize}
+\begin{DoxyEnumerate}
+\item make OS=cross
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+ \hypertarget{index_requirements}{}\doxysection{\texorpdfstring{requirements}{requirements}}\label{index_requirements}
+
+\begin{DoxyItemize}
+\item C++ compiler
+\item \href{https://www.talisman.org/opengl-1.1/Reference.html}{\texttt{ Open\+GL 1.\+1}}
+\item \href{http://openil.sourceforge.net/}{\texttt{ Dev\+IL}}
+\item \href{http://eigen.tuxfamily.org/index.php?title=Main_Page}{\texttt{ Eigen3}}
+\end{DoxyItemize}
+
+
+\begin{DoxyVerbInclude}
+\end{DoxyVerbInclude}
+ \DoxyHorRuler{0}
+ \begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]\mbox{[}graphical interface, Java Implementation\mbox{]} 
+
+Qt4 or \href{https://www.qt.io}{\texttt{ Qt5}} based 
+
+\href{http://www.cs.cornell.edu/courses/cs4620/2011fa/lectures/practicum01.pdf}{\texttt{ Introduction to Open\+GL}}, \href{http://jogamp.org/jogl/www/}{\texttt{ JOGL}}\end{DoxyRefDesc}
+
+
+\DoxyHorRuler{0}
+ \hypertarget{index_pictures}{}\doxysection{\texorpdfstring{Screen Shots}{Screen Shots}}\label{index_pictures}
+         

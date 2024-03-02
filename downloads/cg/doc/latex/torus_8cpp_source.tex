@@ -1,0 +1,1025 @@
+\doxysection{torus.\+cpp}
+\hypertarget{torus_8cpp_source}{}\label{torus_8cpp_source}\mbox{\hyperlink{torus_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00044}\mbox{\hyperlink{torus_8cpp_a120fb070bddb21f0bd899f50252c4cb5}{00044}}\ \textcolor{preprocessor}{\#define\ GL\_GLEXT\_PROTOTYPES}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00046}00046\ \textcolor{preprocessor}{\#include\ <IL/il.h>}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00047}00047\ \textcolor{preprocessor}{\#include\ <GL/glut.h>}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00048}00048\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00049}00049\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00050}00050\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00051}00051\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00052}00052\ \textcolor{preprocessor}{\#include\ <sys/time.h>}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00053}00053\ \textcolor{preprocessor}{\#include\ <Arcball/Arcball.hpp>}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00059}\mbox{\hyperlink{torus_8cpp_a391defc2ad4357e3d4f2bb5f29a5bb20}{00059}}\ \textcolor{preprocessor}{\#define\ M\_PI\_\ 3.14159265358979323846}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00061}\mbox{\hyperlink{torus_8cpp_a48661c07cea0fa9ea6d1d7e60459f18d}{00061}}\ \textcolor{preprocessor}{\#define\ checkImageWidth\ 128}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00063}\mbox{\hyperlink{torus_8cpp_ad815a88fe5bd6ac8c8e389ed77976348}{00063}}\ \textcolor{preprocessor}{\#define\ checkImageHeight\ 128}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00067}\mbox{\hyperlink{torus_8cpp_a93911d183fdeaea2248ae3a1bcecc434}{00067}}\ \textcolor{preprocessor}{\#define\ farPlane\ (zobs+10*d)}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00069}\mbox{\hyperlink{torus_8cpp_a70b2bcc7e1975b4e689a678bf56cc30f}{00069}}\ \textcolor{preprocessor}{\#define\ frontPlane\ 1}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00071}\mbox{\hyperlink{torus_8cpp_a60b90fe3b093faa2a5fcd6665ec35e00}{00071}}\ \textcolor{preprocessor}{\#define\ posAng(x)\ ((x)\ <\ 0.0\ ?\ ((x)+TWOPI)\ :\ (x))}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00073}\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{00073}}\ \textcolor{preprocessor}{\#define\ TWOPI\ (2*M\_PI)}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00075}\mbox{\hyperlink{torus_8cpp_a4d1b70cdd000caf76de23fb618921289}{00075}}\ \textcolor{preprocessor}{\#define\ toRad(x)\ ((x)*M\_PI/180.0)}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00077}\mbox{\hyperlink{torus_8cpp_a8a7e3040b1d4a934ccb836da9929b153}{00077}}\ \textcolor{preprocessor}{\#define\ toDeg(x)\ ((x)*180.0/M\_PI)}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00079}\mbox{\hyperlink{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}{00079}}\ \textcolor{preprocessor}{\#define\ clamp(x)\ (fmin(fmax((x),0),1))}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00081}\mbox{\hyperlink{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}{00081}}\ \textcolor{preprocessor}{\#define\ LEN(x,y,z)\ (sqrt((x)*(x)+(y)*(y)+(z)*(z)))}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00083}\mbox{\hyperlink{torus_8cpp_ac96cbd544c493c6ac62b8f1796d6a052}{00083}}\ \textcolor{preprocessor}{\#define\ theAxes\ (2*nObjects)}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00085}\mbox{\hyperlink{torus_8cpp_a6b88b073737365876a145587c3f85df9}{00085}}\ \textcolor{preprocessor}{\#define\ nObjects\ (sizeof(objNames)/sizeof(char*))}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00087}\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{00087}}\ \textcolor{preprocessor}{\#define\ scale\ (0.05*diag)\ \ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00090}\mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{00090}}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{zobs}}\ =\ 10.0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00092}\mbox{\hyperlink{torus_8cpp_afd6b2b339098bf41b9eb67159686d647}{00092}}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{torus_8cpp_afd6b2b339098bf41b9eb67159686d647}{viewingAngle}}\ =\ 45;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00094}\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{00094}}\ GLuint\ \mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00096}\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{00096}}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}}\ =\ 1.0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00098}\mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{00098}}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}}\ =\ 0.3;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00100}\mbox{\hyperlink{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb}{00100}}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb}{R3}}\ =\ 0.5;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00102}\mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{00102}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}\ =\ 25;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00104}\mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{00104}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}}\ =\ 10;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00106}\mbox{\hyperlink{torus_8cpp_af2aabe82b3ecb569e82b350505afd0ea}{00106}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_af2aabe82b3ecb569e82b350505afd0ea}{drawWire}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00108}\mbox{\hyperlink{torus_8cpp_a61cfb3fdcf176d455075e4af383a2690}{00108}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a61cfb3fdcf176d455075e4af383a2690}{drawNormals}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00110}\mbox{\hyperlink{torus_8cpp_a44b441e46cc097350fc7a93e3eebb406}{00110}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a44b441e46cc097350fc7a93e3eebb406}{applyTexture}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00112}\mbox{\hyperlink{torus_8cpp_a7c95f8b3e84d565bb68b16bf62c74e99}{00112}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a7c95f8b3e84d565bb68b16bf62c74e99}{showAxes}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00114}\mbox{\hyperlink{torus_8cpp_ace174935b5a83938763ea0e6628c33a4}{00114}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_ace174935b5a83938763ea0e6628c33a4}{showBox}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00116}\mbox{\hyperlink{torus_8cpp_a09d54be3e2975048c9c5cbfe43ddaedb}{00116}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a09d54be3e2975048c9c5cbfe43ddaedb}{backG}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00118}\mbox{\hyperlink{torus_8cpp_a3c40e64af48c7c08a32421d54568151d}{00118}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a3c40e64af48c7c08a32421d54568151d}{procImage}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00120}\mbox{\hyperlink{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa}{00120}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa}{useArcball}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00122}\mbox{\hyperlink{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}{00122}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}{spin}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00124}\mbox{\hyperlink{struct__Point}{00124}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__Point}{\_Point}}\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00125}\mbox{\hyperlink{struct__Point_a08bd40af418bbefe46d5b3334cc09088}{00125}}\ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct__Point_a08bd40af418bbefe46d5b3334cc09088}{x}},\ \mbox{\hyperlink{struct__Point_a102e334379e688d1c7ad17d04eed1edd}{y}},\ \mbox{\hyperlink{struct__Point_aaea9b6a42fc621b8728863e2a6007e88}{z}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00126}\mbox{\hyperlink{torus_8cpp_a184fa32e8e7e95b0596d604fc3c645c8}{00126}}\ \}\ \mbox{\hyperlink{torus_8cpp_a184fa32e8e7e95b0596d604fc3c645c8}{Point}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00128}\mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{00128}}\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct__Point}{Point}}\ \mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{\_BBOX}}[2];}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00131}\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eabc0b14bf2a9d7916fec789d516d34b7d}{00131}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975e}{\_oType}}\ \{\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea7efde285c35f49f3dd3d83450d118af8}{\_torus}}\ =\ 0,\ \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ead8d1df0e02edb6042f1ebda3ca447169}{\_cylinder}},\ \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eabc0b14bf2a9d7916fec789d516d34b7d}{\_cone}},\ \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea5d818a68b1945eb2bc01ef9b9de594d8}{\_ellipsoid}},\ \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eaa186bc1b62fcbe62a5edc8bf65d83984}{\_paraboloid}},\ \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea284cc31a8bcc813820ae5f3af9e001ef}{\_hyperbolic\_paraboloid}},\ \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea20ecb59cf0f47b39cde9915aa4f0fd73}{\_hyperboloid}}\}\ \mbox{\hyperlink{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}{oType}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00134}\mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09}{00134}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09}{\_rAxes}}\ \{\mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884}{xAxis}},\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a3123e0676bbf5648acb1df5a54f4a784}{yAxis}},\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8b398ee6e2441b74d36b507261499da9}{zAxis}}\}\ \mbox{\hyperlink{torus_8cpp_aa8c6413ab09935dff9a9ce1a8abdc0d9}{rAxes}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00137}\mbox{\hyperlink{torus_8cpp_a83ae1c9343d859792d580a61a1657085}{00137}}\ \mbox{\hyperlink{torus_8cpp_aa8c6413ab09935dff9a9ce1a8abdc0d9}{rAxes}}\ \mbox{\hyperlink{torus_8cpp_a83ae1c9343d859792d580a61a1657085}{axis}}\ =\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884}{xAxis}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00140}\mbox{\hyperlink{torus_8cpp_a8e621e81d5025d5641764107a9f18903}{00140}}\ GLfloat\ \mbox{\hyperlink{torus_8cpp_a8e621e81d5025d5641764107a9f18903}{rotAngle}}\ =\ 2.0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00143}\mbox{\hyperlink{torus_8cpp_a40df728951e877187328a971765d7b18}{00143}}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a40df728951e877187328a971765d7b18}{delay}}\ =\ 60;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00146}\mbox{\hyperlink{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}{00146}}\ GLubyte\ \mbox{\hyperlink{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}{checkImage}}[\mbox{\hyperlink{torus_8cpp_ad815a88fe5bd6ac8c8e389ed77976348}{checkImageHeight}}][\mbox{\hyperlink{torus_8cpp_a48661c07cea0fa9ea6d1d7e60459f18d}{checkImageWidth}}][4];}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00148}\mbox{\hyperlink{torus_8cpp_a880af90db712152846335d53282ace4e}{00148}}\ GLuint\ \mbox{\hyperlink{torus_8cpp_a880af90db712152846335d53282ace4e}{texName}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00150}\mbox{\hyperlink{torus_8cpp_ad210616c2fd72bf4ceda644bdf2f99ec}{00150}}\ ILuint\ \mbox{\hyperlink{torus_8cpp_ad210616c2fd72bf4ceda644bdf2f99ec}{ilImage}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00152}\mbox{\hyperlink{torus_8cpp_ad75248953a45a77c141af439c47ba1c2}{00152}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{torus_8cpp_ad75248953a45a77c141af439c47ba1c2}{objNames}}[]\ =\ \{\textcolor{stringliteral}{"{}Torus"{}},\ \textcolor{stringliteral}{"{}Cylinder"{}},\ \textcolor{stringliteral}{"{}Cone"{}},\ \textcolor{stringliteral}{"{}Ellipsoid"{}},\ \textcolor{stringliteral}{"{}Paraboloid"{}},\ \textcolor{stringliteral}{"{}Hyperbolic\ Paraboloid"{}},\ \textcolor{stringliteral}{"{}Hyperboloid"{}}\};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00154}\mbox{\hyperlink{torus_8cpp_a216dc106facfdd84a230455b7fc64d09}{00154}}\ \mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{\_BBOX}}\ \mbox{\hyperlink{torus_8cpp_a216dc106facfdd84a230455b7fc64d09}{objBoxes}}[\mbox{\hyperlink{torus_8cpp_a6b88b073737365876a145587c3f85df9}{nObjects}}];}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00156}\mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{00156}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{OBJECT}}\ =\ \mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea7efde285c35f49f3dd3d83450d118af8}{\_torus}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00158}\mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{00158}}\ Arcball\ \mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{arcball}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00180}\mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{00180}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{updateBox}}(\mbox{\hyperlink{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}{oType}}\ index,\ \textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keywordtype}{double}\ z)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00181}00181\ \ \ \ \mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{\_BBOX}}\ *bbox\ =\ \mbox{\hyperlink{torus_8cpp_a216dc106facfdd84a230455b7fc64d09}{objBoxes}}+index;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00183}00183\ \ \ \ (*bbox)[0].x\ =\ fmin(x,(*bbox)[0].x);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00184}00184\ \ \ \ (*bbox)[1].x\ =\ fmax(x,(*bbox)[1].x);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00185}00185\ \ \ \ (*bbox)[0].y\ =\ fmin(y,(*bbox)[0].y);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00186}00186\ \ \ \ (*bbox)[1].y\ =\ fmax(y,(*bbox)[1].y);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00187}00187\ \ \ \ (*bbox)[0].z\ =\ fmin(z,(*bbox)[0].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00188}00188\ \ \ \ (*bbox)[1].z\ =\ fmax(z,(*bbox)[1].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00189}00189\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00199}\mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{00199}}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{getBoxSize}}(\mbox{\hyperlink{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}{oType}}\ index,\ \textcolor{keywordtype}{double}\ *dx,\ \textcolor{keywordtype}{double}\ *dy,\ \textcolor{keywordtype}{double}\ *dz)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00200}00200\ \ \ \ \mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{\_BBOX}}\ *bbox\ =\ \mbox{\hyperlink{torus_8cpp_a216dc106facfdd84a230455b7fc64d09}{objBoxes}}+index;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00202}00202\ \ \ \ *dx\ =\ (*bbox)[1].x\ -\/\ (*bbox)[0].x;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00203}00203\ \ \ \ *dy\ =\ (*bbox)[1].y\ -\/\ (*bbox)[0].y;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00204}00204\ \ \ \ *dz\ =\ (*bbox)[1].z\ -\/\ (*bbox)[0].z;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00206}00206\ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}{LEN}}(*dx,*dy,*dz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00207}00207\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00242}\mbox{\hyperlink{torus_8cpp_a2106dc9326540a0309d6e8d815e10a0e}{00242}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_a2106dc9326540a0309d6e8d815e10a0e}{cone}}(\textcolor{keywordtype}{double}\ h,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{int}\ vs,\ \textcolor{keywordtype}{int}\ rs,\ \textcolor{keywordtype}{int}\ normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00243}00243\ \ \ \ \textcolor{keywordtype}{int}\ i,\ j,\ k;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00244}00244\ \ \ \ \textcolor{keywordtype}{double}\ z,\ th,\ x,\ y,\ ln,\ nx,\ ny,\ nz,\ u;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00245}00245\ \ \ \ \textcolor{keywordtype}{double}\ hr\ =\ h\ /\ r;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00247}00247\ \ \ \ \textcolor{keywordtype}{double}\ diag;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00248}00248\ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00249}00249\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx,dy,dz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00250}00250\ \ \ \ \ \ \ diag\ =\ \mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{getBoxSize}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eabc0b14bf2a9d7916fec789d516d34b7d}{\_cone}},\&dx,\&dy,\&dz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00251}00251\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00253}00253\ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ vs;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00254}00254\ \ \ \ \ \ \ glBegin(normals?GL\_LINES:GL\_QUAD\_STRIP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00255}00255\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ 0;\ j\ <=\ rs;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (k\ =\ 1;\ k\ >=\ 0;\ k-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ z\ =\ h\ *\ (i+k)\ /\ vs;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ (h-\/z)\ /\ hr;\ \textcolor{comment}{//\ cone\ is\ upside\ down}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ th\ =\ j\ *\ \mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}}\ /\ rs;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ u\ *\ cos(th);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ u\ *\ sin(th);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ x\ *\ hr;\ ny\ =\ y\ *\ hr;\ nz\ =\ u\ >\ 0\ ?\ u\ :\ 1;\ \textcolor{comment}{//\ cone\ is\ upside\ down}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ ln\ =\ \mbox{\hyperlink{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}{LEN}}(nx,ny,nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ /=\ ln;\ ny\ /=\ ln;\ nz\ /=\ ln;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ th\ =\ \mbox{\hyperlink{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}{clamp}}(th/\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ glNormal3d(nx,\ ny,\ nz);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ glTexCoord2d(th,z/h);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nx,\ y+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*ny,\ z+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{updateBox}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eabc0b14bf2a9d7916fec789d516d34b7d}{\_cone}},\ x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00277}00277\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00278}00278\ \ \ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00279}00279\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00280}00280\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00313}\mbox{\hyperlink{torus_8cpp_a03c085eb7ef8ae60df19dc9e06c0a173}{00313}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_a03c085eb7ef8ae60df19dc9e06c0a173}{cylinder}}(\textcolor{keywordtype}{double}\ h,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{int}\ vs,\ \textcolor{keywordtype}{int}\ rs,\ \textcolor{keywordtype}{int}\ normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00314}00314\ \ \ \ \textcolor{keywordtype}{int}\ i,\ j;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00315}00315\ \ \ \ \textcolor{keywordtype}{double}\ z0,\ z1,\ th,\ x,\ y,\ ln,\ nx,\ ny;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00316}00316\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00317}00317\ \ \ \ \textcolor{keywordtype}{double}\ diag;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00319}00319\ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00320}00320\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx,dy,dz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00321}00321\ \ \ \ \ \ \ diag\ =\ \mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{getBoxSize}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ead8d1df0e02edb6042f1ebda3ca447169}{\_cylinder}},\&dx,\&dy,\&dz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00322}00322\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00324}00324\ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ vs;\ i++)\ \{\ \ \ \ \ \ \ \textcolor{comment}{//\ generate\ stacks}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00325}00325\ \ \ \ \ \ \ z0\ =\ h\ *\ i\ /\ vs;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ stack\ bottom\ z}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00326}00326\ \ \ \ \ \ \ z1\ =\ h\ *\ (i+1)\ /\ vs;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ stack\ top\ z}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00327}00327\ \ \ \ \ \ \ glBegin(normals?GL\_LINES:GL\_QUAD\_STRIP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00328}00328\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ 0;\ j\ <=\ rs;\ j++)\ \{\ \ \ \textcolor{comment}{//\ generate\ slices}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00329}00329\ \ \ \ \ \ \ \ \ \ \ \ th\ =\ j\ *\ \mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}}\ /\ rs;\ \ \ \ \ \textcolor{comment}{//\ slice\ left\ theta}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ x\ =\ r\ *\ cos(th);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ y\ =\ r\ *\ sin(th);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00332}00332\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ ln\ =\ \mbox{\hyperlink{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}{LEN}}(x,y,0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ x/ln;\ ny\ =\ y/ln;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \ th\ =\ \mbox{\hyperlink{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}{clamp}}(th/\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ glNormal3d(nx,\ ny,\ 0);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ glTexCoord2d(th,z1/h);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x,\ y,\ z1);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nx,\ y+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*ny,\ z1);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{updateBox}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ead8d1df0e02edb6042f1ebda3ca447169}{\_cylinder}},\ x,\ y,\ z1);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00344}00344\ \ \ \ \ \ \ \ \ \ \ \ glNormal3d(nx,\ ny,\ 0);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ glTexCoord2d(th,z0/h);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x,\ y,\ z0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00348}00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nx,\ y+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*ny,\ z0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00350}00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{updateBox}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ead8d1df0e02edb6042f1ebda3ca447169}{\_cylinder}},\ x,\ y,\ z0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00351}00351\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00352}00352\ \ \ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00353}00353\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00354}00354\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00387}\mbox{\hyperlink{torus_8cpp_aa4614a9b175f83da6a341e6040632b73}{00387}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_aa4614a9b175f83da6a341e6040632b73}{paraboloid}}(\textcolor{keywordtype}{double}\ h,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{int}\ vs,\ \textcolor{keywordtype}{int}\ rs,\ \textcolor{keywordtype}{int}\ normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00388}00388\ \ \ \ \textcolor{keywordtype}{int}\ i,\ j,\ k;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00389}00389\ \ \ \ \textcolor{keywordtype}{double}\ z,\ th,\ x,\ y,\ ln,\ nx,\ ny,\ nz,\ u;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00390}00390\ \ \ \ \textcolor{keywordtype}{double}\ hr2\ =\ h/(r*r);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00391}00391\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00392}00392\ \ \ \ \textcolor{keywordtype}{double}\ diag;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00393}00393\ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00394}00394\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx,dy,dz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00395}00395\ \ \ \ \ \ \ diag\ =\ \mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{getBoxSize}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eaa186bc1b62fcbe62a5edc8bf65d83984}{\_paraboloid}},\&dx,\&dy,\&dz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00396}00396\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00398}00398\ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ vs;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00399}00399\ \ \ \ \ \ \ glBegin(normals?GL\_LINES:GL\_QUAD\_STRIP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00400}00400\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ 0;\ j\ <=\ rs;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (k\ =\ 1;\ k\ >=\ 0;\ k-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ z\ =\ h\ *\ (i+k)\ /\ vs;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ sqrt((h-\/z)/hr2);\ \textcolor{comment}{//\ paraboloid\ is\ upside\ down}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ th\ =\ j\ *\ \mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}}\ /\ rs;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ u\ *\ cos(th);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ u\ *\ sin(th);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00408}00408\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ 2\ *\ x\ *\ hr2;\ ny\ =\ 2\ *\ y\ *\ hr2;\ nz\ =\ 1;\ \textcolor{comment}{//\ paraboloid\ is\ upside\ down}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ ln\ =\ \mbox{\hyperlink{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}{LEN}}(nx,ny,nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ /=\ ln;\ ny\ /=\ ln;\ nz\ /=\ ln;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ th\ =\ \mbox{\hyperlink{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}{clamp}}(th/\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00414}00414\ \ \ \ \ \ \ \ \ \ \ \ \ glNormal3d(nx,\ ny,\ nz);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ glTexCoord2d(th,z/h);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nx,\ y+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*ny,\ z+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00420}00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{updateBox}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975eaa186bc1b62fcbe62a5edc8bf65d83984}{\_paraboloid}},\ x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00422}00422\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00423}00423\ \ \ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00424}00424\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00425}00425\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00426}00426\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00463}\mbox{\hyperlink{torus_8cpp_a45ab7ad59f00458d31969c21d519be65}{00463}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_a45ab7ad59f00458d31969c21d519be65}{hyperboloid}}(\textcolor{keywordtype}{double}\ h,\ \textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{int}\ vs,\ \textcolor{keywordtype}{int}\ rs,\ \textcolor{keywordtype}{int}\ normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00464}00464\ \ \ \ \textcolor{keywordtype}{int}\ i,\ j,\ k;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00465}00465\ \ \ \ \textcolor{keywordtype}{double}\ z,\ th,\ x,\ y,\ ln,\ nx,\ ny,\ nz,\ u;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00466}00466\ \ \ \ \textcolor{keywordtype}{double}\ c\ =\ sqrt(\ h*h\ /\ (4\ *\ (r*r/(a*a)\ -\/\ 1))\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00467}00467\ \ \ \ \textcolor{keywordflow}{if}\ (\ r\ <\ a\ )\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00468}00468\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}Hyperboloid:\ r\ <\ a\ -\/>\ invalid!\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00469}00469\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00470}00470\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00472}00472\ \ \ \ \textcolor{keywordtype}{double}\ diag;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00473}00473\ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00474}00474\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx,dy,dz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00475}00475\ \ \ \ \ \ \ diag\ =\ \mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{getBoxSize}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea20ecb59cf0f47b39cde9915aa4f0fd73}{\_hyperboloid}},\&dx,\&dy,\&dz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00476}00476\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00477}00477\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00478}00478\ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ -\/vs;\ i\ <\ vs;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00479}00479\ \ \ \ \ \ \ glBegin(normals?GL\_LINES:GL\_QUAD\_STRIP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00480}00480\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ 0;\ j\ <=\ rs;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00481}00481\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (k\ =\ 1;\ k\ >=\ 0;\ k-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00482}00482\ \ \ \ \ \ \ \ \ \ \ \ \ z\ =\ h\ *\ (i+k)\ /\ vs;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00483}00483\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ z/c;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00484}00484\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ a\ *\ sqrt(1+u*u);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00485}00485\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00486}00486\ \ \ \ \ \ \ \ \ \ \ \ \ th\ =\ j\ *\ \mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}}\ /\ rs;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00487}00487\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ u\ *\ cos(th);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ u\ *\ sin(th);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00489}00489\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ x\ *\ c;\ ny\ =\ y\ *\ c;\ nz\ =\ -\/z\ *\ a\ *\ a\ /\ c;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ ln\ =\ \mbox{\hyperlink{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}{LEN}}(nx,ny,nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00492}00492\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ /=\ ln;\ ny\ /=\ ln;\ nz\ /=\ ln;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ th\ =\ \mbox{\hyperlink{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}{clamp}}(th/\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00494}00494\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ glNormal3d(nx,\ ny,\ nz);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00496}00496\ \ \ \ \ \ \ \ \ \ \ \ \ glTexCoord2d(th,(z+h)/(2*h));\ \textcolor{comment}{//\ map\ [0,1]\ to\ [-\/h,h]}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00497}00497\ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00498}00498\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00499}00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nx,\ y+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*ny,\ z+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00500}00500\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{updateBox}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea20ecb59cf0f47b39cde9915aa4f0fd73}{\_hyperboloid}},\ x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00502}00502\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00503}00503\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00504}00504\ \ \ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00505}00505\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00506}00506\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00507}00507\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00539}\mbox{\hyperlink{torus_8cpp_af482c84d5de7ddd2204b6379bdc817ec}{00539}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_af482c84d5de7ddd2204b6379bdc817ec}{hyperbolic\_paraboloid}}(\textcolor{keywordtype}{double}\ w,\ \textcolor{keywordtype}{double}\ h,\ \textcolor{keywordtype}{int}\ ws,\ \textcolor{keywordtype}{int}\ hs,\ \textcolor{keywordtype}{int}\ normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00540}00540\ \ \ \ \textcolor{keywordtype}{int}\ i,\ j,\ k;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00541}00541\ \ \ \ \textcolor{keywordtype}{double}\ u,\ v,\ \ z,\ x,\ y,\ ln,\ nx,\ ny,\ nz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00542}00542\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00543}00543\ \ \ \ \textcolor{keywordtype}{double}\ diag;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00544}00544\ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00545}00545\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx,dy,dz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00546}00546\ \ \ \ \ \ \ diag\ =\ \mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{getBoxSize}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea284cc31a8bcc813820ae5f3af9e001ef}{\_hyperbolic\_paraboloid}},\&dx,\&dy,\&dz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00547}00547\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00548}00548\ \ \ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00549}00549\ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ -\/hs;\ i\ <\ hs;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00550}00550\ \ \ \ \ \ \ glBegin(normals?GL\_LINES:GL\_QUAD\_STRIP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00551}00551\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ -\/ws;\ j\ <=\ ws;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00552}00552\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (k\ =\ 1;\ k\ >=\ 0;\ k-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00553}00553\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ j*w/ws;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00554}00554\ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ (i+k)*h/hs;\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00555}00555\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00556}00556\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ u;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00557}00557\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ v;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ z\ =\ u*v;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00559}00559\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ y;\ ny\ =\ x;\ nz\ =\ -\/1;\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00561}00561\ \ \ \ \ \ \ \ \ \ \ \ \ ln\ =\ \mbox{\hyperlink{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}{LEN}}(nx,ny,nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ /=\ ln;\ ny\ /=\ ln;\ nz\ /=\ ln;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00563}00563\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00564}00564\ \ \ \ \ \ \ \ \ \ \ \ \ glNormal3d(nx,\ ny,\ nz);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00565}00565\ \ \ \ \ \ \ \ \ \ \ \ \ glTexCoord2d((u+w)/(2*w),(v+h)/(2*h));\ \textcolor{comment}{//\ map\ [0,1]\ to\ [-\/h,h]}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00566}00566\ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00567}00567\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00568}00568\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nx,\ y+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*ny,\ z+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00569}00569\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00570}00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{updateBox}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea284cc31a8bcc813820ae5f3af9e001ef}{\_hyperbolic\_paraboloid}},\ x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00571}00571\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00572}00572\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00573}00573\ \ \ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00574}00574\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00575}00575\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00576}00576\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00622}\mbox{\hyperlink{torus_8cpp_acf04d1331c5f0cedfaacc30d1d3f46f4}{00622}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_acf04d1331c5f0cedfaacc30d1d3f46f4}{torus}}(\textcolor{keywordtype}{double}\ r1,\ \textcolor{keywordtype}{double}\ r2,\ \textcolor{keywordtype}{int}\ numc,\ \textcolor{keywordtype}{int}\ numt,\ \textcolor{keywordtype}{int}\ normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00623}00623\ \ \ \ \textcolor{keywordtype}{int}\ i,\ j,\ k;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00624}00624\ \ \ \ \textcolor{keywordtype}{double}\ s,\ t,\ x,\ y,\ z;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00625}00625\ \ \ \ \textcolor{keywordtype}{double}\ u,\ v,\ cu,\ cv,\ su,\ sv,\ nx,\ ny,\ nz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00626}00626\ \ \ \ \textcolor{keywordtype}{double}\ ln;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00627}00627\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00628}00628\ \ \ \ \textcolor{keywordtype}{double}\ diag;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00629}00629\ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00630}00630\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx,dy,dz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00631}00631\ \ \ \ \ \ \ diag\ =\ \mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{getBoxSize}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea7efde285c35f49f3dd3d83450d118af8}{\_torus}},\&dx,\&dy,\&dz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00632}00632\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00633}00633\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00634}00634\ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ numc;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00635}00635\ \ \ \ \ \ \ glBegin(normals?GL\_LINES:GL\_QUAD\_STRIP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00636}00636\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ 0;\ j\ <=\ numt;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00637}00637\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (k\ =\ 1;\ k\ >=\ 0;\ k-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00638}00638\ \textcolor{preprocessor}{\#if\ 0\ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00639}00639\ \ \ \ \ \ \ \ \ \ \ \ \ s\ =\ (i\ +\ k)\ \%\ numc\ +\ 0.5;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00640}00640\ \ \ \ \ \ \ \ \ \ \ \ \ t\ =\ j\ \%\ numt;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00641}00641\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00642}00642\ \ \ \ \ \ \ \ \ \ \ \ \ s\ =\ (i\ +\ k);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00643}00643\ \ \ \ \ \ \ \ \ \ \ \ \ t\ =\ j;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00644}00644\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00645}00645\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ t*\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}}/numt;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00646}00646\ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ s*\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}}/numc;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00647}00647\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00648}00648\ \ \ \ \ \ \ \ \ \ \ \ \ cu\ =\ cos(u);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00649}00649\ \ \ \ \ \ \ \ \ \ \ \ \ cv\ =\ cos(v);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00650}00650\ \ \ \ \ \ \ \ \ \ \ \ \ su\ =\ sin(u);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00651}00651\ \ \ \ \ \ \ \ \ \ \ \ \ sv\ =\ sin(v);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00652}00652\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00653}00653\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (x,y,z)\ =\ f(u,v)}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00654}00654\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ (r1\ +\ r2\ *\ cv)\ *\ cu;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00655}00655\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ (r1\ +\ r2\ *\ cv)\ *\ su;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00656}00656\ \ \ \ \ \ \ \ \ \ \ \ \ z\ =\ r2\ *\ sv;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00657}00657\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00658}00658\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ df/du\ x\ df/dv}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00659}00659\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ cv\ *\ cu;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00660}00660\ \ \ \ \ \ \ \ \ \ \ \ \ ny\ =\ cv\ *\ su;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00661}00661\ \ \ \ \ \ \ \ \ \ \ \ \ nz\ =\ sv;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00662}00662\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00663}00663\ \ \ \ \ \ \ \ \ \ \ \ \ ln\ =\ \mbox{\hyperlink{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}{LEN}}(nx,ny,nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00664}00664\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ /=\ ln;\ ny\ /=\ ln;\ nz\ /=\ ln;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00665}00665\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00666}00666\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ \mbox{\hyperlink{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}{clamp}}(u/\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00667}00667\ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ \mbox{\hyperlink{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}{clamp}}(v/\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00668}00668\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00669}00669\ \ \ \ \ \ \ \ \ \ \ \ \ glTexCoord2d(u,v);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00670}00670\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00671}00671\ \ \ \ \ \ \ \ \ \ \ \ \ glNormal3d(nx,\ ny,\ nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00672}00672\ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00673}00673\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00674}00674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nx,\ y+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*ny,\ z+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00675}00675\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00676}00676\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{updateBox}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea7efde285c35f49f3dd3d83450d118af8}{\_torus}},\ x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00677}00677\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00678}00678\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00679}00679\ \ \ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00680}00680\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00681}00681\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00682}00682\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00722}\mbox{\hyperlink{torus_8cpp_a6c5b17163125dd32bd7c04a99738d316}{00722}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_a6c5b17163125dd32bd7c04a99738d316}{sphere}}(\textcolor{keywordtype}{double}\ r1,\ \textcolor{keywordtype}{double}\ r2,\ \textcolor{keywordtype}{double}\ r3,\ \textcolor{keywordtype}{int}\ numc,\ \textcolor{keywordtype}{int}\ numt,\ \textcolor{keywordtype}{int}\ normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00723}00723\ \ \ \ \textcolor{keywordtype}{int}\ i,\ j,\ k;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00724}00724\ \ \ \ \textcolor{keywordtype}{double}\ s,\ x,\ y,\ z;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00725}00725\ \ \ \ \textcolor{keywordtype}{double}\ u,\ v,\ cu,\ cv,\ su,\ sv,\ nx,\ ny,\ nz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00726}00726\ \ \ \ \textcolor{keywordtype}{double}\ ln;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00727}00727\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00728}00728\ \ \ \ \textcolor{keywordtype}{double}\ diag;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00729}00729\ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00730}00730\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx,dy,dz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00731}00731\ \ \ \ \ \ \ diag\ =\ \mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{getBoxSize}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea5d818a68b1945eb2bc01ef9b9de594d8}{\_ellipsoid}},\&dx,\&dy,\&dz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00732}00732\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00733}00733\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00734}00734\ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ numc;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00735}00735\ \ \ \ \ \ \ glBegin(normals?GL\_LINES:GL\_QUAD\_STRIP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00736}00736\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ 0;\ j\ <=\ numt;\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00737}00737\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (k\ =\ 1;\ k\ >=\ 0;\ k-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00738}00738\ \ \ \ \ \ \ \ \ \ \ \ \ s\ =\ (i\ +\ k);\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00739}00739\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00740}00740\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ j*\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}}/numt;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00741}00741\ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ s*M\_PI/numc;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00742}00742\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00743}00743\ \ \ \ \ \ \ \ \ \ \ \ \ cu\ =\ cos(u);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00744}00744\ \ \ \ \ \ \ \ \ \ \ \ \ cv\ =\ cos(v);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00745}00745\ \ \ \ \ \ \ \ \ \ \ \ \ su\ =\ sin(u);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00746}00746\ \ \ \ \ \ \ \ \ \ \ \ \ sv\ =\ sin(v);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00747}00747\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00748}00748\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (x,y,z)\ =\ f(u,v)}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00749}00749\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ r1\ *\ cu\ *\ sv;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00750}00750\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ r2\ *\ su\ *\ sv;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00751}00751\ \ \ \ \ \ \ \ \ \ \ \ \ z\ =\ r3\ *\ cv;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00752}00752\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00753}00753\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ df/du\ x\ df/dv}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00754}00754\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ r2*r3*r2*r3\ *\ x;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00755}00755\ \ \ \ \ \ \ \ \ \ \ \ \ ny\ =\ r1*r3*r1*r3\ *\ y;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00756}00756\ \ \ \ \ \ \ \ \ \ \ \ \ nz\ =\ r1*r2*r1*r2\ *\ z;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00757}00757\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00758}00758\ \ \ \ \ \ \ \ \ \ \ \ \ ln\ =\ \mbox{\hyperlink{torus_8cpp_a67fbe543289603d6092c39ffa596fdaf}{LEN}}(nx,ny,nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00759}00759\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ /=\ ln;\ ny\ /=\ ln;\ nz\ /=\ ln;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00760}00760\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00761}00761\ \ \ \ \ \ \ \ \ \ \ \ \ u\ =\ \mbox{\hyperlink{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}{clamp}}(u/\mbox{\hyperlink{torus_8cpp_a4912c64aec0c943b7985db6cb61ff83a}{TWOPI}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00762}00762\ \ \ \ \ \ \ \ \ \ \ \ \ v\ =\ \mbox{\hyperlink{torus_8cpp_a1458dfc6fee21d63d71f4affba3eab4d}{clamp}}(v/M\_PI);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00763}00763\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00764}00764\ \ \ \ \ \ \ \ \ \ \ \ \ glTexCoord2d(u,v);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00765}00765\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00766}00766\ \ \ \ \ \ \ \ \ \ \ \ \ glNormal3d(nx,\ ny,\ nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00767}00767\ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00768}00768\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (normals)\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00769}00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ glVertex3d(x+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nx,\ y+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*ny,\ z+\mbox{\hyperlink{torus_8cpp_aae7f4534d8be2c1cf8707cc7ad84ad51}{scale}}*nz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00770}00770\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00771}00771\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a4df56f76f22d357e8c63b7d859a06b0f}{updateBox}}(\mbox{\hyperlink{torus_8cpp_a865f1a1cc9a366f0214b0c6803f8975ea5d818a68b1945eb2bc01ef9b9de594d8}{\_ellipsoid}},\ x,\ y,\ z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00772}00772\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00773}00773\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00774}00774\ \ \ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00775}00775\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00776}00776\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00777}00777\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00785}\mbox{\hyperlink{torus_8cpp_ab52e8d123f74a1dc6fe78192995e2ce7}{00785}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_ab52e8d123f74a1dc6fe78192995e2ce7}{drawAxes}}\ (\textcolor{keywordtype}{double}\ r1,\ \textcolor{keywordtype}{double}\ r2)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00786}00786\ \ \ \ \textcolor{keywordtype}{double}\ d;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00787}00787\ \ \ \ d\ =\ r1+r2;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00788}00788\ \ \ \ glBegin(GL\_LINES);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00789}00789\ \ \ \ \ \ \ glColor3d(1.0,0.0,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00790}00790\ \ \ \ \ \ \ glVertex3d(0.0,0.0,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00791}00791\ \ \ \ \ \ \ glVertex3d(d,0.0,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00792}00792\ \ \ \ \ \ \ glColor3d(0.0,1.0,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00793}00793\ \ \ \ \ \ \ glVertex3d(0.0,0.0,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00794}00794\ \ \ \ \ \ \ glVertex3d(0.0,d,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00795}00795\ \ \ \ \ \ \ glColor3d(0.0,0.0,1.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00796}00796\ \ \ \ \ \ \ glVertex3d(0.0,0.0,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00797}00797\ \ \ \ \ \ \ glVertex3d(0.0,0.0,d);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00798}00798\ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00799}00799\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00800}00800\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00805}\mbox{\hyperlink{torus_8cpp_af9d617a61a90fc97b51d97e9e5467dee}{00805}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_af9d617a61a90fc97b51d97e9e5467dee}{drawBox}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{torus_8cpp_ad1be57f7bd984358516dee4959d7ed0e}{\_BBOX}}\ BBOX)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00806}00806\ \ \ \ \ \textcolor{comment}{//\ glPushAttrib\ is\ done\ to\ return\ everything\ to\ normal\ after\ drawing}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00807}00807\ \ \ \ \ glPushAttrib(GL\_ENABLE\_BIT);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00808}00808\ \ \ \ \ glLineStipple(3,\ 0xAAAA);\ \ \textcolor{comment}{//\ [1]}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00809}00809\ \ \ \ \ glEnable(GL\_LINE\_STIPPLE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00810}00810\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00811}00811\ \ \ \ \ glBegin(GL\_LINE\_LOOP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00812}00812\ \ \ \ \ glColor3d(1.0,1.0,1.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00813}00813\ \ \ \ \ glVertex3d(BBOX[0].x,\ BBOX[0].y,\ BBOX[0].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00814}00814\ \ \ \ \ glVertex3d(BBOX[1].x,\ BBOX[0].y,\ BBOX[0].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00815}00815\ \ \ \ \ glVertex3d(BBOX[1].x,\ BBOX[1].y,\ BBOX[0].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00816}00816\ \ \ \ \ glVertex3d(BBOX[0].x,\ BBOX[1].y,\ BBOX[0].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00817}00817\ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00818}00818\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00819}00819\ \ \ \ \ glBegin(GL\_LINE\_LOOP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00820}00820\ \ \ \ \ glVertex3d(BBOX[0].x,\ BBOX[0].y,\ BBOX[1].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00821}00821\ \ \ \ \ glVertex3d(BBOX[1].x,\ BBOX[0].y,\ BBOX[1].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00822}00822\ \ \ \ \ glVertex3d(BBOX[1].x,\ BBOX[1].y,\ BBOX[1].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00823}00823\ \ \ \ \ glVertex3d(BBOX[0].x,\ BBOX[1].y,\ BBOX[1].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00824}00824\ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00825}00825\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00826}00826\ \ \ \ \ glBegin(GL\_LINE\_LOOP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00827}00827\ \ \ \ \ glVertex3d(BBOX[0].x,\ BBOX[0].y,\ BBOX[0].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00828}00828\ \ \ \ \ glVertex3d(BBOX[1].x,\ BBOX[0].y,\ BBOX[0].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00829}00829\ \ \ \ \ glVertex3d(BBOX[1].x,\ BBOX[0].y,\ BBOX[1].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00830}00830\ \ \ \ \ glVertex3d(BBOX[0].x,\ BBOX[0].y,\ BBOX[1].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00831}00831\ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00832}00832\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00833}00833\ \ \ \ \ glBegin(GL\_LINE\_LOOP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00834}00834\ \ \ \ \ glVertex3d(BBOX[0].x,\ BBOX[1].y,\ BBOX[0].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00835}00835\ \ \ \ \ glVertex3d(BBOX[1].x,\ BBOX[1].y,\ BBOX[0].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00836}00836\ \ \ \ \ glVertex3d(BBOX[1].x,\ BBOX[1].y,\ BBOX[1].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00837}00837\ \ \ \ \ glVertex3d(BBOX[0].x,\ BBOX[1].y,\ BBOX[1].z);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00838}00838\ \ \ \ \ glEnd();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00839}00839\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00840}00840\ \ \ \ \ glPopAttrib();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00841}00841\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00842}00842\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00860}\mbox{\hyperlink{torus_8cpp_abc6a6219108d3ba0991713a42b08e25f}{00860}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_abc6a6219108d3ba0991713a42b08e25f}{makeCheckImage}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00861}00861\ \ \ \ \textcolor{keywordtype}{int}\ i,\ j,\ c;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00862}00862\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00863}00863\ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ \mbox{\hyperlink{torus_8cpp_ad815a88fe5bd6ac8c8e389ed77976348}{checkImageHeight}};\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00864}00864\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ 0;\ j\ <\ \mbox{\hyperlink{torus_8cpp_a48661c07cea0fa9ea6d1d7e60459f18d}{checkImageWidth}};\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00865}00865\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (i\ and\ 1000)\ xor\ (j\ and\ 1000)}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00866}00866\ \ \ \ \ \ \ \ \ \ c\ =\ (\ (i\&0x8)==0\ )\ \string^\ (\ (j\&0x8)==0\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00867}00867\ \ \ \ \ \ \ \ \ \ c\ *=\ 255;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00868}00868\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ (i\&0x8)==0\ )\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00869}00869\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}{checkImage}}[i][j][0]\ =\ (GLubyte)\ fmax(c,255);\ \ \textcolor{comment}{//\ red}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00870}00870\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}{checkImage}}[i][j][1]\ =\ (GLubyte)\ c;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ green}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00871}00871\ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00872}00872\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}{checkImage}}[i][j][0]\ =\ (GLubyte)\ c;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ red}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00873}00873\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}{checkImage}}[i][j][1]\ =\ (GLubyte)\ fmax(c,128);\ \ \textcolor{comment}{//\ green}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00874}00874\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00875}00875\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}{checkImage}}[i][j][2]\ =\ (GLubyte)\ c;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ blue}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00876}00876\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}{checkImage}}[i][j][3]\ =\ (GLubyte)\ 255;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ alpha}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00877}00877\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00878}00878\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00879}00879\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00880}00880\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00887}\mbox{\hyperlink{torus_8cpp_a1ada77601620fb199c1c81c134468219}{00887}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a1ada77601620fb199c1c81c134468219}{loadImage}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00888}00888\ \ \ \ \ ILuint\ \ \ \ imageName;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00889}00889\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00890}00890\ \ \ \ \ ilGenImages(1,\ \&imageName);\ \ \ \ \textcolor{comment}{//\ load\ just\ one\ image}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00891}00891\ \ \ \ \ ilBindImage(imageName);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ image\ name\ as\ the\ current\ image\ in\ DevIL}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00892}00892\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00893}00893\ \ \ \ \ \textcolor{comment}{//\ load\ image\ filename\ using\ DevIL}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00894}00894\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ !ilLoadImage(filename)\ )}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00895}00895\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00896}00896\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00897}00897\ \ \ \ \ \textcolor{comment}{//\ convert\ every\ colour\ component\ to\ unsigned\ byte}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00898}00898\ \ \ \ \ \textcolor{comment}{//\ one\ can\ replace\ IL\_RGB\ with\ IL\_RGBA\ if\ the\ image\ contains\ alpha\ channel}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00899}00899\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ !ilConvertImage(IL\_RGBA,\ IL\_UNSIGNED\_BYTE)\ )}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00900}00900\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00901}00901\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00902}00902\ \ \ \ \ \textcolor{keywordflow}{return}\ imageName;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00903}00903\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00904}00904\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00912}\mbox{\hyperlink{torus_8cpp_a59e2b52b8141808a5552debc8fd7b8d9}{00912}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_a59e2b52b8141808a5552debc8fd7b8d9}{initTexture}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00913}00913\ \ \ \ \textcolor{comment}{//\ Create\ a\ checkerboard,\ by\ using\ a\ procedural\ texture:\ red,\ green\ and\ white.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00914}00914\ \ \ \ \mbox{\hyperlink{torus_8cpp_abc6a6219108d3ba0991713a42b08e25f}{makeCheckImage}}();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00915}00915\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00916}00916\ \ \ \ \textcolor{comment}{//\ UNSIGNED\_BYTE\ requires\ one\ byte\ alignment.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00917}00917\ \ \ \ glPixelStorei(GL\_UNPACK\_ALIGNMENT,\ 1);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00918}00918\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00919}00919\ \ \ \ \textcolor{comment}{//\ Create\ a\ single\ texture\ and\ save\ its\ name\ as\ texName.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00920}00920\ \ \ \ glGenTextures(1,\ \&\mbox{\hyperlink{torus_8cpp_a880af90db712152846335d53282ace4e}{texName}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00921}00921\ \ \ \ \textcolor{comment}{//\ Set\ texName\ as\ the\ current\ texture.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00922}00922\ \ \ \ glBindTexture(GL\_TEXTURE\_2D,\ \mbox{\hyperlink{torus_8cpp_a880af90db712152846335d53282ace4e}{texName}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00923}00923\ \ \ \ \textcolor{comment}{//\ Specifies\ a\ texture\ environment.\ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00924}00924\ \ \ \ \textcolor{comment}{//\ GL\_DECAL\ ignores\ the\ primary\ color\ and\ just\ shows\ the\ texel.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00925}00925\ \ \ \ glTexEnvf(GL\_TEXTURE\_ENV,\ GL\_TEXTURE\_ENV\_MODE,\ GL\_DECAL);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00926}00926\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00927}00927\ \ \ \ glTexParameteri(GL\_TEXTURE\_2D,\ GL\_TEXTURE\_WRAP\_S,\ GL\_REPEAT);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00928}00928\ \ \ \ glTexParameteri(GL\_TEXTURE\_2D,\ GL\_TEXTURE\_WRAP\_T,\ GL\_REPEAT);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00929}00929\ \ \ \ \textcolor{comment}{//\ GL\_TEXTURE\_MIN\_FILTER\ is\ used\ whenever\ a\ surface\ is\ rendered\ with\ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00930}00930\ \ \ \ \textcolor{comment}{//\ smaller\ dimensions\ than\ its\ corresponding\ texture\ bitmap\ (far\ away\ objects).\ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00931}00931\ \ \ \ glTexParameteri(GL\_TEXTURE\_2D,\ GL\_TEXTURE\_MIN\_FILTER,\ GL\_LINEAR\_MIPMAP\_LINEAR);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00932}00932\ \ \ \ \textcolor{comment}{//\ GL\_TEXTURE\_MAG\_FILTER\ is\ used\ in\ the\ exact\ opposite\ case:\ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00933}00933\ \ \ \ \textcolor{comment}{//\ a\ surface\ is\ bigger\ than\ the\ texture\ being\ applied\ (near\ objects)}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00934}00934\ \ \ \ glTexParameteri(GL\_TEXTURE\_2D,\ GL\_TEXTURE\_MAG\_FILTER,\ GL\_LINEAR);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00935}00935\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00936}00936\ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{torus_8cpp_a3c40e64af48c7c08a32421d54568151d}{procImage}}\ )\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00937}00937\ \ \ \ \ \ \ glTexImage2D(GL\_TEXTURE\_2D,\ 0,\ GL\_RGBA,\ \mbox{\hyperlink{torus_8cpp_a48661c07cea0fa9ea6d1d7e60459f18d}{checkImageWidth}},\ \mbox{\hyperlink{torus_8cpp_ad815a88fe5bd6ac8c8e389ed77976348}{checkImageHeight}},\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00938}00938\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,\ GL\_RGBA,\ GL\_UNSIGNED\_BYTE,\ \mbox{\hyperlink{torus_8cpp_a83df8adf5cc391b27c96831bb501c6c6}{checkImage}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00939}00939\ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00940}00940\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00941}00941\ \ \ \ \ \ \ glTexImage2D(GL\_TEXTURE\_2D,\ 0,\ ilGetInteger(IL\_IMAGE\_BPP),\ ilGetInteger(IL\_IMAGE\_WIDTH),\ ilGetInteger(IL\_IMAGE\_HEIGHT),}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00942}00942\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,\ ilGetInteger(IL\_IMAGE\_FORMAT),\ GL\_UNSIGNED\_BYTE,\ ilGetData());}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00943}00943\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00944}00944\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00945}00945\ \ \ \ \textcolor{comment}{//\ Mipmap\ only\ makes\ sense\ for\ the\ MIN\_FILTER.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00946}00946\ \ \ \ glGenerateMipmap(GL\_TEXTURE\_2D);\ \textcolor{comment}{//\ allocate\ the\ mipmaps,\ after\ texture\ is\ created.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00947}00947\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00948}00948\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00949}00949\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00975}\mbox{\hyperlink{torus_8cpp_a2858154e2009b0e6e616f313177762bc}{00975}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_a2858154e2009b0e6e616f313177762bc}{init}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00976}00976\ \ \ \ glEnable(GL\_DEPTH\_TEST);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00977}00977\ \ \ \ \textcolor{comment}{//\ Depth\ value\ used\ when\ the\ depth\ buffer\ is\ cleared.\ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00978}00978\ \ \ \ glClearDepth(1.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00979}00979\ \ \ \ \textcolor{comment}{//\ Gouraud\ shading.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00980}00980\ \ \ \ glShadeModel\ (GL\_SMOOTH);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00981}00981\ \ \ \ \textcolor{comment}{//\ Background\ color.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00982}00982\ \ \ \ glClearColor(1.0,\ 250/255.0,\ 205/255.0,\ 0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00983}00983\ \ \ \ \textcolor{comment}{//glEnable(GL\_NORMALIZE);}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00984}00984\ \ \ \ glEnable(GL\_RESCALE\_NORMAL);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00985}00985\ \ \ \ \textcolor{comment}{//\ Disable\ clipping\ against\ near\ and\ far\ planes.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00986}00986\ \ \ \ glDisable(GL\_DEPTH\_CLAMP);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00987}00987\ \ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00988}00988\ \ \ \ \textcolor{comment}{//\ Create\ light\ components}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00989}00989\ \ \ \ GLfloat\ global\_ambient[]\ =\ \{\ 0.1,\ 0.1,\ 0.1,\ 1.0\ \};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00990}00990\ \ \ \ GLfloat\ ambient[]\ =\ \{\ 0.05,\ 0.05,\ 0.05\ \};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00991}00991\ \ \ \ \textcolor{comment}{//\ diffuse\ light\ color}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00992}00992\ \ \ \ GLfloat\ diffuseLight[]\ =\ \{\ 0.8,\ 0.8,\ 0.8,\ 1.0\ \};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00993}00993\ \ \ \ \textcolor{comment}{//\ specular\ light\ color}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00994}00994\ \ \ \ GLfloat\ specular[]\ =\ \{1.0,\ 1.0,\ 1.0\ ,\ 1.0\};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00995}00995\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00996}00996\ \ \ \ \textcolor{comment}{//\ Gold\ color:\ OpenGL/VRML\ Materials}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00997}00997\ \ \ \ \textcolor{comment}{//\ ambient\ material\ color}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00998}00998\ \ \ \ GLfloat\ mAmbientB[]\ =\ \{0.24725,0.1995,0.0745,1.0\};\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l00999}00999\ \ \ \ \textcolor{comment}{//\ diffuse\ material\ color}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01000}01000\ \ \ \ GLfloat\ mDiffuseLightB[]\ =\ \{0.75164,0.60648,0.22648,1.0\};\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01001}01001\ \ \ \ \textcolor{comment}{//\ specular\ material\ color}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01002}01002\ \ \ \ GLfloat\ mSpecularB[]\ =\ \{0.628281,0.555802,0.366065,\ 1.0\};\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01003}01003\ \ \ \ \textcolor{comment}{//\ set\ the\ shininess\ of\ the\ material}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01004}01004\ \ \ \ GLfloat\ mShininessB\ =\ 0.4;\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01005}01005\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01006}01006\ \ \ \ \textcolor{comment}{//\ Cooper\ color:\ OpenGL/VRML\ Materials}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01007}01007\ \ \ \ \textcolor{comment}{//\ ambient\ material\ color}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01008}01008\ \ \ \ GLfloat\ mAmbient[]\ =\ \{0.19125,0.0735,0.0225,1.0\};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01009}01009\ \ \ \ \textcolor{comment}{//\ diffuse\ material\ color}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01010}01010\ \ \ \ GLfloat\ mDiffuseLight[]\ =\ \{0.7038,\ 0.27048,\ 0.0828,\ 1.0\};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01011}01011\ \ \ \ \textcolor{comment}{//\ specular\ material\ color}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01012}01012\ \ \ \ GLfloat\ mSpecular[]\ =\ \{0.256777,\ 0.137622,\ 0.086014,\ 1.0\};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01013}01013\ \ \ \ \textcolor{comment}{//\ set\ the\ shininess\ of\ the\ material}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01014}01014\ \ \ \ GLfloat\ mShininess\ =\ 0.1;\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01015}01015\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01016}01016\ \ \ \ \textcolor{comment}{//\ Assign\ created\ components\ to\ GL\_LIGHT0}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01017}01017\ \ \ \ glLightModelfv(GL\_LIGHT\_MODEL\_AMBIENT,\ global\_ambient);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01018}01018\ \ \ \ glLightfv(GL\_LIGHT0,\ GL\_AMBIENT,\ ambient);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01019}01019\ \ \ \ glLightfv(GL\_LIGHT0,\ GL\_DIFFUSE,\ diffuseLight);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01020}01020\ \ \ \ glLightfv(GL\_LIGHT0,\ GL\_SPECULAR,\ specular);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01021}01021\ \ \ \ glLightfv(GL\_LIGHT1,\ GL\_AMBIENT,\ ambient);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01022}01022\ \ \ \ glLightfv(GL\_LIGHT1,\ GL\_DIFFUSE,\ diffuseLight);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01023}01023\ \ \ \ glLightfv(GL\_LIGHT1,\ GL\_SPECULAR,\ specular);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01024}01024\ \ \ \ glLightfv(GL\_LIGHT2,\ GL\_AMBIENT,\ ambient);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01025}01025\ \ \ \ glLightfv(GL\_LIGHT2,\ GL\_DIFFUSE,\ diffuseLight);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01026}01026\ \ \ \ glLightfv(GL\_LIGHT2,\ GL\_SPECULAR,\ specular);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01027}01027\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01028}01028\ \ \ \ \textcolor{comment}{//\ It's\ a\ 4D\ vector.\ If\ w=1,\ then\ it's\ a\ positional\ light\ source.\ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01029}01029\ \ \ \ \textcolor{comment}{//\ If\ w=0,\ it's\ a\ directional\ light\ source.\ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01030}01030\ \ \ \ GLfloat\ positionZ[]\ =\ \{0.0,0.0,\mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{zobs}},1.0\};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01031}01031\ \ \ \ GLfloat\ positionY[]\ =\ \{0.0,1.0,0.0,0.0\};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01032}01032\ \ \ \ GLfloat\ positionX[]\ =\ \{1.0,0.0,0.0,0.0\};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01033}01033\ \ \ \ glLightfv(GL\_LIGHT0,\ GL\_POSITION,\ positionZ);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01034}01034\ \ \ \ glLightfv(GL\_LIGHT1,\ GL\_POSITION,\ positionY);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01035}01035\ \ \ \ glLightfv(GL\_LIGHT2,\ GL\_POSITION,\ positionX);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01036}01036\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01037}01037\ \ \ \ \textcolor{comment}{//\ mcolor\ will\ be\ applied\ to\ both\ ambient\ and\ diffuse\ components\ of\ the\ material.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01038}01038\ \ \ \ \textcolor{comment}{//\ This\ is\ done\ for\ convenience\ because\ in\ most\ cases\ Ambient\ and\ Diffuse\ properties}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01039}01039\ \ \ \ \textcolor{comment}{//\ of\ a\ material\ should\ be\ set\ to\ the\ same\ color.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01040}01040\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01041}01041\ \ \ \ GLfloat\ mcolor[]\ =\ \{\ 1.0,\ 0.0,\ 0.0,\ 1.0\ \};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01042}01042\ \ \ \ glMaterialfv(GL\_FRONT,\ GL\_AMBIENT\_AND\_DIFFUSE,\ mcolor);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01043}01043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01044}01044\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01045}01045\ \ \ \ glMaterialfv(GL\_FRONT,\ GL\_AMBIENT,\ mAmbient);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01046}01046\ \ \ \ glMaterialfv(GL\_FRONT,\ GL\_DIFFUSE,\ mDiffuseLight);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01047}01047\ \ \ \ glMaterialfv(GL\_FRONT,\ GL\_SPECULAR,\ mSpecular);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01048}01048\ \ \ \ glMaterialf(GL\_FRONT,\ GL\_SHININESS,\ mShininess*128);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01049}01049\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01050}01050\ \ \ \ glMaterialfv(GL\_BACK,\ GL\_AMBIENT,\ mAmbientB);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01051}01051\ \ \ \ glMaterialfv(GL\_BACK,\ GL\_DIFFUSE,\ mDiffuseLightB);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01052}01052\ \ \ \ glMaterialfv(GL\_BACK,\ GL\_SPECULAR,\ mSpecularB);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01053}01053\ \ \ \ glMaterialf(GL\_BACK,\ GL\_SHININESS,\ mShininessB*128);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01054}01054\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01055}01055\ \ \ \ glEnable\ (GL\_LIGHT0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01056}01056\ \ \ \ glEnable\ (GL\_LIGHT1);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01057}01057\ \ \ \ glEnable\ (GL\_LIGHT2);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01058}01058\ \ \ \ glEnable\ (GL\_LIGHTING);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01059}01059\ \ \ \ \textcolor{comment}{//\ Whether\ one-\/\ or\ two-\/sided\ lighting\ calculations\ are\ done\ for\ polygons.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01060}01060\ \ \ \ \textcolor{comment}{//\ It\ has\ no\ effect\ on\ the\ lighting\ calculations\ for\ points,\ lines,\ or\ bitmaps.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01061}01061\ \ \ \ glLightModeli(GL\_LIGHT\_MODEL\_TWO\_SIDE,\ 1);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01062}01062\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01063}01063\ \ \ \ \textcolor{comment}{//\ enable\ color\ tracking\ (specify\ material\ properties\ by\ merely\ calling\ the\ glColor)}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01064}01064\ \ \ \ glEnable\ (GL\_COLOR\_MATERIAL);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01065}01065\ \ \ \ \textcolor{comment}{//\ set\ material\ properties\ which\ will\ be\ assigned\ by\ glColor}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01066}01066\ \ \ \ glColorMaterial(GL\_FRONT,\ GL\_AMBIENT\_AND\_DIFFUSE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01067}01067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01068}01068\ \ \ \ \textcolor{comment}{//\ specifies\ the\ orientation\ of\ front-\/facing\ polygons.\ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01069}01069\ \ \ \ \textcolor{comment}{//\ GL\_CW\ and\ GL\_CCW\ are\ accepted.\ The\ initial\ value\ is\ GL\_CCW.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01070}01070\ \ \ \ glFrontFace(GL\_CCW);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01071}01071\ \ \ \ \textcolor{comment}{//\ specifies\ the\ function\ used\ to\ compare\ each\ incoming\ pixel\ depth\ value\ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01072}01072\ \ \ \ \textcolor{comment}{//\ with\ the\ depth\ value\ present\ in\ the\ depth\ buffer.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01073}01073\ \ \ \ glDepthFunc(GL\_LEQUAL);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01074}01074\ \ \ \ glLineWidth(2.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01075}01075\ \ \ \ glHint(GL\_PERSPECTIVE\_CORRECTION\_HINT,\ GL\_NICEST);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01076}01076\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01077}01077\ \ \ \ \mbox{\hyperlink{torus_8cpp_a59e2b52b8141808a5552debc8fd7b8d9}{initTexture}}();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01078}01078\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01079}01079\ \ \ \ \textcolor{comment}{//\ create\ 2*nObjects+1\ display\ lists}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01080}01080\ \ \ \ \mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}\ =\ glGenLists\ (\mbox{\hyperlink{torus_8cpp_ac96cbd544c493c6ac62b8f1796d6a052}{theAxes}}+1);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01081}01081\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01082}01082\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}},\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01083}01083\ \ \ \ \ \ \ \ \ glFrontFace(GL\_CCW);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01084}01084\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_acf04d1331c5f0cedfaacc30d1d3f46f4}{torus}}(\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ \mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}},\ 0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01085}01085\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01086}01086\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+1,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01087}01087\ \ \ \ \ \ \ \ \ glFrontFace(GL\_CCW);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01088}01088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a03c085eb7ef8ae60df19dc9e06c0a173}{cylinder}}\ (\ 2*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ 2*\mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}\ ,\ 0\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01089}01089\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01090}01090\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+2,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01091}01091\ \ \ \ \ \ \ \ \ glFrontFace(GL\_CCW);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01092}01092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a2106dc9326540a0309d6e8d815e10a0e}{cone}}\ (\ 2*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ 2*\mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}\ ,\ 0\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01093}01093\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01094}01094\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+3,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01095}01095\ \ \ \ \ \ \ \ \ glFrontFace(GL\_CW);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01096}01096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a6c5b17163125dd32bd7c04a99738d316}{sphere}}\ (\ 1.5*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ 1.5*\mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ 1.5*\mbox{\hyperlink{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb}{R3}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}\ ,\ 0\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01097}01097\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01098}01098\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+4,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01099}01099\ \ \ \ \ \ \ \ \ glFrontFace(GL\_CCW);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01100}01100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_aa4614a9b175f83da6a341e6040632b73}{paraboloid}}\ (\ 2*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ 2*\mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}\ ,\ 0\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01101}01101\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01102}01102\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+5,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01103}01103\ \ \ \ \ \ \ \ \ glFrontFace(GL\_CW);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01104}01104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_af482c84d5de7ddd2204b6379bdc817ec}{hyperbolic\_paraboloid}}\ (\ 2*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ 2*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}/2,\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}/2,\ 0\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01105}01105\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01106}01106\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+6,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01107}01107\ \ \ \ \ \ \ \ \ glFrontFace(GL\_CCW);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01108}01108\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a45ab7ad59f00458d31969c21d519be65}{hyperboloid}}\ (\ \mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ \mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ \mbox{\hyperlink{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb}{R3}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}/3,\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ 0\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01109}01109\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01110}01110\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+7,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01111}01111\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_acf04d1331c5f0cedfaacc30d1d3f46f4}{torus}}(\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ \mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}},\ 1);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01112}01112\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01113}01113\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+8,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01114}01114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a03c085eb7ef8ae60df19dc9e06c0a173}{cylinder}}\ (\ 2*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ 2*\mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}},\ 1\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01115}01115\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01116}01116\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+9,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01117}01117\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a2106dc9326540a0309d6e8d815e10a0e}{cone}}\ (\ 2*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ 2*\mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}},\ 1\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01118}01118\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01119}01119\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+10,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01120}01120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a6c5b17163125dd32bd7c04a99738d316}{sphere}}\ (\ 1.5*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ 1.5*\mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ 1.5*\mbox{\hyperlink{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb}{R3}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}},\ 1\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01121}01121\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01122}01122\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+11,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01123}01123\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_aa4614a9b175f83da6a341e6040632b73}{paraboloid}}\ (\ 2*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ 2*\mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}},\ 1\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01124}01124\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01125}01125\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+12,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01126}01126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_af482c84d5de7ddd2204b6379bdc817ec}{hyperbolic\_paraboloid}}\ (\ 2*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ 2*\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}/2,\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}/2,\ 1\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01127}01127\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01128}01128\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+13,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01129}01129\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a45ab7ad59f00458d31969c21d519be65}{hyperboloid}}\ (\ \mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ \mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}},\ \mbox{\hyperlink{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb}{R3}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}/3,\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}},\ 1\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01130}01130\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01131}01131\ \ \ \ glNewList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+14,\ GL\_COMPILE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01132}01132\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_ab52e8d123f74a1dc6fe78192995e2ce7}{drawAxes}}\ (\ \mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}},\ \mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}}\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01133}01133\ \ \ \ glEndList();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01134}01134\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01135}01135\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01141}\mbox{\hyperlink{torus_8cpp_a4ea013001a5fb47853d0fab8f8de35cd}{01141}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_a4ea013001a5fb47853d0fab8f8de35cd}{display}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01142}01142\ \ \ \ glClear(GL\_COLOR\_BUFFER\_BIT\ |\ GL\_DEPTH\_BUFFER\_BIT);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01143}01143\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01144}01144\ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa}{useArcball}})\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01145}01145\ \ \ \ \ \ \ \textcolor{comment}{//\ Apply\ arcball\ transformation.\ }}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01146}01146\ \ \ \ \ \ \ glMatrixMode\ (GL\_MODELVIEW);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01147}01147\ \ \ \ \ \ \ glLoadIdentity();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01148}01148\ \ \ \ \ \ \ gluLookAt(0,\ 0,\ \mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{zobs}},\ 0,\ 0,\ 0,\ 0,\ 1,\ 0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01149}01149\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{arcball}}.applyRotationMatrix();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01150}01150\ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01151}01151\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}{spin}}\ )\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01152}01152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{torus_8cpp_a83ae1c9343d859792d580a61a1657085}{axis}})\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01153}01153\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884}{xAxis}}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01154}01154\ \ \ \ \ \ \ \ \ \ \ \ \ \ glRotatef(\mbox{\hyperlink{torus_8cpp_a8e621e81d5025d5641764107a9f18903}{rotAngle}},\ 1.0,0.0,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01155}01155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01156}01156\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a3123e0676bbf5648acb1df5a54f4a784}{yAxis}}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01157}01157\ \ \ \ \ \ \ \ \ \ \ \ \ \ glRotatef(\mbox{\hyperlink{torus_8cpp_a8e621e81d5025d5641764107a9f18903}{rotAngle}},0.0,1.0,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01158}01158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01159}01159\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8b398ee6e2441b74d36b507261499da9}{zAxis}}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01160}01160\ \ \ \ \ \ \ \ \ \ \ \ \ \ glRotatef(\mbox{\hyperlink{torus_8cpp_a8e621e81d5025d5641764107a9f18903}{rotAngle}},0.0,0.0,1.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01161}01161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01162}01162\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01163}01163\ \ \ \ \ \ \ \ \ \ \ \ \ \ ;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01164}01164\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01165}01165\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01166}01166\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01167}01167\ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{torus_8cpp_a7c95f8b3e84d565bb68b16bf62c74e99}{showAxes}}\ )\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01168}01168\ \ \ \ \ \ \ glDisable\ (GL\_LIGHTING);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01169}01169\ \ \ \ \ \ \ glCallList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+\mbox{\hyperlink{torus_8cpp_ac96cbd544c493c6ac62b8f1796d6a052}{theAxes}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01170}01170\ \ \ \ \ \ \ glEnable\ (GL\_LIGHTING);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01171}01171\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01172}01172\ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{torus_8cpp_ace174935b5a83938763ea0e6628c33a4}{showBox}}\ )\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01173}01173\ \ \ \ \ \ \ glDisable\ (GL\_LIGHTING);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01174}01174\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_af9d617a61a90fc97b51d97e9e5467dee}{drawBox}}(\mbox{\hyperlink{torus_8cpp_a216dc106facfdd84a230455b7fc64d09}{objBoxes}}[\mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{OBJECT}}]);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01175}01175\ \ \ \ \ \ \ glEnable\ (GL\_LIGHTING);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01176}01176\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01177}01177\ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{torus_8cpp_af2aabe82b3ecb569e82b350505afd0ea}{drawWire}}\ )\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01178}01178\ \ \ \ \ \ \ glColor3d\ (0.8,\ 0.8,\ 0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01179}01179\ \ \ \ \ \ \ glPolygonMode\ (GL\_FRONT\_AND\_BACK,\ GL\_LINE);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01180}01180\ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01181}01181\ \ \ \ \ \ \ glColor3d\ (1.0,\ 1.0,\ 1.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01182}01182\ \ \ \ \ \ \ glPolygonMode\ (GL\_FRONT\_AND\_BACK,\ GL\_FILL);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01183}01183\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{torus_8cpp_a44b441e46cc097350fc7a93e3eebb406}{applyTexture}}\ )\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01184}01184\ \ \ \ \ \ \ \ \ \ \ \ glEnable(GL\_TEXTURE\_2D);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01185}01185\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01186}01186\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01187}01187\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01188}01188\ \ \ \ glCallList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+\mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{OBJECT}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01189}01189\ \ \ \ glDisable(GL\_TEXTURE\_2D);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01190}01190\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01191}01191\ \ \ \ glColor3d\ (1.0,\ 1.0,\ 1.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01192}01192\ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{torus_8cpp_a61cfb3fdcf176d455075e4af383a2690}{drawNormals}})\ glCallList(\mbox{\hyperlink{torus_8cpp_ae1ba69858e15d666d3782e843e304f75}{objects}}+\mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{OBJECT}}+\mbox{\hyperlink{torus_8cpp_a6b88b073737365876a145587c3f85df9}{nObjects}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01193}01193\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01194}01194\ \ \ \ glutSwapBuffers();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01195}01195\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01196}01196\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01201}\mbox{\hyperlink{torus_8cpp_a400285364a75db2e94a05e2fbb058d11}{01201}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a400285364a75db2e94a05e2fbb058d11}{dateNow}}()\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01202}01202\ \ \ \ \textcolor{keyword}{struct\ }timeval\ tp;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01203}01203\ \ \ \ gettimeofday(\&tp,\ NULL);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01204}01204\ \ \ \ \textcolor{keywordtype}{int}\ ms\ =\ tp.tv\_sec\ *\ 1000\ +\ tp.tv\_usec\ /\ 1000;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01205}01205\ \ \ \ \textcolor{keywordflow}{return}\ ms;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01206}01206\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01207}01207\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01219}\mbox{\hyperlink{torus_8cpp_a10d0046af32a1319fbf57cd46b0b7ac1}{01219}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_a10d0046af32a1319fbf57cd46b0b7ac1}{\_timer}}(\textcolor{keywordtype}{int}\ value)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01220}01220\ \ \ \ \textcolor{comment}{//\ Previous\ time.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01221}01221\ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ previousTimeStamp\ =\ \mbox{\hyperlink{torus_8cpp_a400285364a75db2e94a05e2fbb058d11}{dateNow}}();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01222}01222\ \ \ \ \textcolor{comment}{//\ Frames\ per\ second.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01223}01223\ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ numberOfFramesForFPS\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01224}01224\ \ \ \ \textcolor{comment}{//\ Current\ time.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01225}01225\ \ \ \ \textcolor{keywordtype}{int}\ currentTime;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01226}01226\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01227}01227\ \ \ \ \textcolor{comment}{//\ How\ many\ times\ we've\ been\ here\ in\ one\ second.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01228}01228\ \ \ \ currentTime\ =\ \mbox{\hyperlink{torus_8cpp_a400285364a75db2e94a05e2fbb058d11}{dateNow}}();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01229}01229\ \ \ \ \textcolor{keywordflow}{if}\ (\ fabs(currentTime\ -\/\ previousTimeStamp)\ >=\ 1000\ )\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01230}01230\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ numberOfFramesForFPS\ >\ 60\ )\ \mbox{\hyperlink{torus_8cpp_a40df728951e877187328a971765d7b18}{delay}}\ *=\ 2;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01231}01231\ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ numberOfFramesForFPS\ <\ 30\ )\ \mbox{\hyperlink{torus_8cpp_a40df728951e877187328a971765d7b18}{delay}}\ /=\ 2;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01232}01232\ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)rfps\ =\ \%d,\ delay\ =\ \%d"{}},\ numberOfFramesForFPS,\ \mbox{\hyperlink{torus_8cpp_a40df728951e877187328a971765d7b18}{delay}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01233}01233\ \ \ \ \ \ \ \ fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01234}01234\ \ \ \ \ \ \ \ numberOfFramesForFPS\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01235}01235\ \ \ \ \ \ \ \ previousTimeStamp\ =\ currentTime;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01236}01236\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01237}01237\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01238}01238\ \ \ \ numberOfFramesForFPS++;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01239}01239\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01240}01240\ \ \ \ \textcolor{comment}{//\ send\ redisplay\ event}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01241}01241\ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01242}01242\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01243}01243\ \ \ \ \textcolor{comment}{//\ call\ this\ function\ again\ in\ delay\ milliseconds}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01244}01244\ \ \ \ glutTimerFunc(\mbox{\hyperlink{torus_8cpp_a40df728951e877187328a971765d7b18}{delay}},\ \mbox{\hyperlink{torus_8cpp_a10d0046af32a1319fbf57cd46b0b7ac1}{\_timer}},\ value);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01245}01245\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01246}01246\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01254}\mbox{\hyperlink{torus_8cpp_acc1ffe65e6869931318610cae7210078}{01254}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_acc1ffe65e6869931318610cae7210078}{reshape}}(\textcolor{keywordtype}{int}\ w,\ \textcolor{keywordtype}{int}\ h)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01255}01255\ \ \ \ \textcolor{keywordtype}{double}\ d,\ dx,\ dy,\ dz;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01256}01256\ \ \ \ d\ =\ \mbox{\hyperlink{torus_8cpp_aac6527ea8ae3d04017afa7d9c1f992f6}{getBoxSize}}((\mbox{\hyperlink{torus_8cpp_a303d225fce011010d1e81fb2610bd4a2}{oType}})\mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{OBJECT}},\ \&dx,\ \&dy,\ \&dz);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01257}01257\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01258}01258\ \ \ \ \textcolor{comment}{//\ Set\ the\ viewport\ to\ be\ the\ entire\ window}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01259}01259\ \ \ \ glViewport(0,\ 0,\ (GLsizei)\ w,\ (GLsizei)\ h);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01260}01260\ \ \ \ glMatrixMode(GL\_PROJECTION);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01261}01261\ \ \ \ glLoadIdentity();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01262}01262\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01263}01263\ \ \ \ \textcolor{comment}{//\ set\ camera\ angle\ to\ fit\ object}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01264}01264\ \ \ \ \mbox{\hyperlink{torus_8cpp_afd6b2b339098bf41b9eb67159686d647}{viewingAngle}}\ =\ 2.0\ *\ atan2(d*0.8,\mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{zobs}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01265}01265\ \ \ \ \mbox{\hyperlink{torus_8cpp_afd6b2b339098bf41b9eb67159686d647}{viewingAngle}}\ =\ \mbox{\hyperlink{torus_8cpp_a8a7e3040b1d4a934ccb836da9929b153}{toDeg}}(\mbox{\hyperlink{torus_8cpp_afd6b2b339098bf41b9eb67159686d647}{viewingAngle}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01266}01266\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01267}01267\ \ \ \ gluPerspective(\mbox{\hyperlink{torus_8cpp_afd6b2b339098bf41b9eb67159686d647}{viewingAngle}},\ (GLfloat)w/h,\ \mbox{\hyperlink{torus_8cpp_a70b2bcc7e1975b4e689a678bf56cc30f}{frontPlane}},\ \mbox{\hyperlink{torus_8cpp_a93911d183fdeaea2248ae3a1bcecc434}{farPlane}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01268}01268\ \ \ \ glMatrixMode(GL\_MODELVIEW);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01269}01269\ \ \ \ glLoadIdentity();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01270}01270\ \textcolor{preprocessor}{\#if\ 1}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01271}01271\ \ \ \ \textcolor{comment}{//\ set\ camera\ position\ to\ fit\ object}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01272}01272\ \ \ \ \mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{zobs}}\ =\ d\ *\ 0.8\ /\ tan(\mbox{\hyperlink{torus_8cpp_a4d1b70cdd000caf76de23fb618921289}{toRad}}(\mbox{\hyperlink{torus_8cpp_afd6b2b339098bf41b9eb67159686d647}{viewingAngle}}*0.5));}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01273}01273\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01274}01274\ \ \ \ gluLookAt(0,\ 0,\ \mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{zobs}},\ 0,\ 0,\ 0,\ 0,\ 1,\ 0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01275}01275\ \ \ \ \mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{arcball}}.setWidthHeight(w,\ h);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01276}01276\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01277}01277\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01289}\mbox{\hyperlink{torus_8cpp_aef7ba2f69afb2d954545f64c7fe24b14}{01289}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_aef7ba2f69afb2d954545f64c7fe24b14}{keyboard}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ key,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01290}01290\ \ \ \ \textcolor{keywordflow}{switch}\ (key)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01291}01291\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'a'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01292}01292\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'A'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01293}01293\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a7c95f8b3e84d565bb68b16bf62c74e99}{showAxes}}\ =\ !\mbox{\hyperlink{torus_8cpp_a7c95f8b3e84d565bb68b16bf62c74e99}{showAxes}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01294}01294\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01295}01295\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01296}01296\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'b'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01297}01297\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'B'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01298}01298\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_ace174935b5a83938763ea0e6628c33a4}{showBox}}\ =\ !\mbox{\hyperlink{torus_8cpp_ace174935b5a83938763ea0e6628c33a4}{showBox}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01299}01299\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01300}01300\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01301}01301\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'g'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01302}01302\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'G'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01303}01303\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a09d54be3e2975048c9c5cbfe43ddaedb}{backG}}\ =\ !\mbox{\hyperlink{torus_8cpp_a09d54be3e2975048c9c5cbfe43ddaedb}{backG}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01304}01304\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{torus_8cpp_a09d54be3e2975048c9c5cbfe43ddaedb}{backG}})}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01305}01305\ \ \ \ \ \ \ \ \ \ \ \ glClearColor(0.0,\ 0.0,\ 0.0,\ 0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01306}01306\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01307}01307\ \ \ \ \ \ \ \ \ \ \ \ glClearColor(1.0,\ 250/255.0,\ 205/255.0,\ 0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01308}01308\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01309}01309\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01310}01310\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'x'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01311}01311\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'X'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01312}01312\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}{spin}})\ \{\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01313}01313\ \ \ \ \ \ \ \ \ \ glRotatef(\mbox{\hyperlink{torus_8cpp_a8e621e81d5025d5641764107a9f18903}{rotAngle}},1.0,0.0,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01314}01314\ \ \ \ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01315}01315\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01316}01316\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a83ae1c9343d859792d580a61a1657085}{axis}}\ =\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884}{xAxis}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01317}01317\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01318}01318\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'y'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01319}01319\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'Y'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01320}01320\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}{spin}})\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01321}01321\ \ \ \ \ \ \ \ \ \ glRotatef(\mbox{\hyperlink{torus_8cpp_a8e621e81d5025d5641764107a9f18903}{rotAngle}},0.0,1.0,0.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01322}01322\ \ \ \ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01323}01323\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01324}01324\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a83ae1c9343d859792d580a61a1657085}{axis}}\ =\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a3123e0676bbf5648acb1df5a54f4a784}{yAxis}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01325}01325\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01326}01326\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'z'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01327}01327\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'Z'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01328}01328\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}{spin}})\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01329}01329\ \ \ \ \ \ \ \ \ \ glRotatef(\mbox{\hyperlink{torus_8cpp_a8e621e81d5025d5641764107a9f18903}{rotAngle}},0.0,0.0,1.0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01330}01330\ \ \ \ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01331}01331\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01332}01332\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a83ae1c9343d859792d580a61a1657085}{axis}}\ =\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8b398ee6e2441b74d36b507261499da9}{zAxis}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01333}01333\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01334}01334\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'i'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01335}01335\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'I'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01336}01336\ \ \ \ \ \ \ glLoadIdentity();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01337}01337\ \ \ \ \ \ \ gluLookAt(0,\ 0,\ \mbox{\hyperlink{torus_8cpp_ae38eb52b6b985fad0ad745f2a0e79c60}{zobs}},\ 0,\ 0,\ 0,\ 0,\ 1,\ 0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01338}01338\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a83ae1c9343d859792d580a61a1657085}{axis}}\ =\ \mbox{\hyperlink{torus_8cpp_a4ce98723b70929e2c31b3cd5922a5c09a8fbcdc66e72c998377080c5aed044884}{xAxis}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01339}01339\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{arcball}}.reset();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01340}01340\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01341}01341\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01342}01342\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'w'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01343}01343\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'W'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01344}01344\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_af2aabe82b3ecb569e82b350505afd0ea}{drawWire}}\ =\ !\mbox{\hyperlink{torus_8cpp_af2aabe82b3ecb569e82b350505afd0ea}{drawWire}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01345}01345\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01346}01346\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01347}01347\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'n'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01348}01348\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'N'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01349}01349\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a61cfb3fdcf176d455075e4af383a2690}{drawNormals}}\ =\ !\mbox{\hyperlink{torus_8cpp_a61cfb3fdcf176d455075e4af383a2690}{drawNormals}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01350}01350\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01351}01351\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01352}01352\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'o'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01353}01353\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'O'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01354}01354\ \ \ \ \ \ \ ++\mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{OBJECT}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01355}01355\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{OBJECT}}\ \%=\ \mbox{\hyperlink{torus_8cpp_a6b88b073737365876a145587c3f85df9}{nObjects}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01356}01356\ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ code;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01357}01357\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'1'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01358}01358\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'2'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01359}01359\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'3'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01360}01360\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'4'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01361}01361\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'5'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01362}01362\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'6'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01363}01363\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'7'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01364}01364\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{OBJECT}}\ =\ key\ -\/\ \textcolor{charliteral}{'0'}\ -\/\ 1;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01365}01365\ \ \ \ \ \ \ code:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01366}01366\ \ \ \ \ \ \ glutSetWindowTitle(\mbox{\hyperlink{torus_8cpp_ad75248953a45a77c141af439c47ba1c2}{objNames}}[\mbox{\hyperlink{torus_8cpp_af3de682d132a2d134885477fa5ea2095}{OBJECT}}]);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01367}01367\ \ \ \ \ \ \ GLint\ viewport[4];}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01368}01368\ \ \ \ \ \ \ glGetIntegerv(GL\_VIEWPORT,\ viewport);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01369}01369\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_acc1ffe65e6869931318610cae7210078}{reshape}}(viewport[2],\ viewport[3]);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01370}01370\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01371}01371\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01372}01372\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'r'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01373}01373\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'R'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01374}01374\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa}{useArcball}}\ =\ !\mbox{\hyperlink{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa}{useArcball}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01375}01375\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa}{useArcball}})\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01376}01376\ \ \ \ \ \ \ \ \ \ \ GLMatrix\ model;\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01377}01377\ \ \ \ \ \ \ \ \ \ \ glGetFloatv(GL\_MODELVIEW\_MATRIX,\ model);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01378}01378\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{arcball}}.setViewMatrix(model);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01379}01379\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01380}01380\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01381}01381\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01382}01382\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'s'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01383}01383\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'S'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01384}01384\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}{spin}}\ =\ !\mbox{\hyperlink{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}{spin}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01385}01385\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a8e621e81d5025d5641764107a9f18903}{rotAngle}}\ =\ \mbox{\hyperlink{torus_8cpp_a4611edbef1f57c9f8b27a4d0a7664c53}{spin}}\ ?\ 2\ :\ 30;\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01386}01386\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01387}01387\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01388}01388\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'t'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01389}01389\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'T'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01390}01390\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a44b441e46cc097350fc7a93e3eebb406}{applyTexture}}\ =\ !\mbox{\hyperlink{torus_8cpp_a44b441e46cc097350fc7a93e3eebb406}{applyTexture}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01391}01391\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01392}01392\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01393}01393\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'p'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01394}01394\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'P'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01395}01395\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a3c40e64af48c7c08a32421d54568151d}{procImage}}\ =\ !\mbox{\hyperlink{torus_8cpp_a3c40e64af48c7c08a32421d54568151d}{procImage}};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01396}01396\ \ \ \ \ \ \ \textcolor{comment}{//\ Delete\ the\ current\ texture,\ so\ it\ can\ be\ recreated.}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01397}01397\ \ \ \ \ \ \ glDeleteTextures(1,\ \&\mbox{\hyperlink{torus_8cpp_a880af90db712152846335d53282ace4e}{texName}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01398}01398\ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_a59e2b52b8141808a5552debc8fd7b8d9}{initTexture}}();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01399}01399\ \ \ \ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01400}01400\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01401}01401\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'h'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01402}01402\ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'H'}:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01403}01403\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}a,\ A:\ Draw\ Axes.\(\backslash\)n"{}});\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01404}01404\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}b,\ B:\ Draw\ Box.\(\backslash\)n"{}});\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01405}01405\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}g,\ G:\ Change\ background\ color.\(\backslash\)n"{}});\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01406}01406\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}x,\ X:\ Rotate\ about\ x-\/axis.\(\backslash\)n"{}});\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01407}01407\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}y,\ Y:\ Rotate\ about\ y-\/axis.\(\backslash\)n"{}});\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01408}01408\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}z,\ Z:\ Rotate\ about\ z-\/axis.\(\backslash\)n"{}});\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01409}01409\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}w,\ W:\ Toggle\ wireframe\ view.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01410}01410\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}i,\ I:\ Return\ object\ to\ initial\ position.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01411}01411\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}n,\ N:\ Toggle\ normal\ display.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01412}01412\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}o,\ O:\ Increment\ object\ display:\ Torus\ -\/>\ Cylinder\ -\/>\ Cone\ -\/>\ Sphere\ -\/>\ Paraboloid\ -\/>\ Hyperbolic\ Paraboloid\ -\/>\ Hyperboloid.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01413}01413\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}1,2,3,4,5,6,7:\ Display\ the\ ith\ object.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01414}01414\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}t,\ T:\ Apply\ texture.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01415}01415\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}p,\ P:\ Procedural\ x\ Image\ Texture.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01416}01416\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}r,\ R:\ Euler\ angles\ x\ Arcball.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01417}01417\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}s,\ S:\ Toggle\ spin.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01418}01418\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}h,\ H:\ Display\ help.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01419}01419\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}Esc:\ Exit.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01420}01420\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01421}01421\ \ \ \ \textcolor{keywordflow}{case}\ 27:}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01422}01422\ \ \ \ \ \ \ ilDeleteImages(1,\ \&\mbox{\hyperlink{torus_8cpp_ad210616c2fd72bf4ceda644bdf2f99ec}{ilImage}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01423}01423\ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01424}01424\ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01425}01425\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01426}01426\ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01427}01427\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01428}01428\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01441}\mbox{\hyperlink{torus_8cpp_a59d408da236069ac2f67330f2b4fcd84}{01441}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_a59d408da236069ac2f67330f2b4fcd84}{mouseFunc}}(\textcolor{keywordtype}{int}\ state,\ \textcolor{keywordtype}{int}\ button,\ \textcolor{keywordtype}{int}\ \_x\ ,\ \textcolor{keywordtype}{int}\ \_y)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01442}01442\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01443}01443\ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa}{useArcball}})\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01444}01444\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01445}01445\ \ \ \ \textcolor{keywordflow}{if}\ (\ button\ ==\ GLUT\_LEFT\_BUTTON\ )}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01446}01446\ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{arcball}}.startRotation(\_x,\_y);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01447}01447\ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01448}01448\ \ \ \ \ \ \ \ \mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{arcball}}.stopRotation();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01449}01449\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01450}01450\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01451}01451\ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01452}01452\ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01453}01453\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01468}\mbox{\hyperlink{torus_8cpp_ab93b36736390103768326aeafcb6bc94}{01468}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{torus_8cpp_ab93b36736390103768326aeafcb6bc94}{mouseDrag}}(\textcolor{keywordtype}{int}\ \_x,\ \textcolor{keywordtype}{int}\ \_y)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01469}01469\ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{torus_8cpp_a33cbe4ee872f2ff45097c1b2589832fa}{useArcball}})\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01470}01470\ \ \ \ \mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{arcball}}.updateRotation(\_x,\_y);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01471}01471\ \ \ \ glutPostRedisplay();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01472}01472\ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01473}01473\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01487}\mbox{\hyperlink{torus_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{01487}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{torus_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01488}01488\ \ \ \ \textcolor{keywordtype}{char}\ image[256];}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01489}01489\ \ \ \ glutInitWindowSize(512,\ 512);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01490}01490\ \ \ \ glutInit(\&argc,\ argv);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01491}01491\ \ \ \ glutInitDisplayMode(GLUT\_DOUBLE\ |\ GLUT\_RGB\ |\ GLUT\_DEPTH);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01492}01492\ \ \ \ glutCreateWindow(argv[0]);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01493}01493\ \ \ \ memset(image,\ \textcolor{charliteral}{'\(\backslash\)0'},\ \textcolor{keyword}{sizeof}(image));}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01494}01494\ \ \ \ strncpy(image,\textcolor{stringliteral}{"{}velazquez\_texture\_256.jpg"{}},\ \textcolor{keyword}{sizeof}(image));}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01495}01495\ \ \ \ \textcolor{keywordflow}{if}\ (\ argc\ >\ 5\ )\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01496}01496\ \ \ \ \ \ \ sscanf(argv[1],\ \textcolor{stringliteral}{"{}\%lf"{}},\ \&\mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01497}01497\ \ \ \ \ \ \ sscanf(argv[2],\ \textcolor{stringliteral}{"{}\%lf"{}},\ \&\mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01498}01498\ \ \ \ \ \ \ sscanf(argv[3],\ \textcolor{stringliteral}{"{}\%lf"{}},\ \&\mbox{\hyperlink{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb}{R3}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01499}01499\ \ \ \ \ \ \ sscanf(argv[4],\ \textcolor{stringliteral}{"{}\%d"{}},\ \&\mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01500}01500\ \ \ \ \ \ \ sscanf(argv[5],\ \textcolor{stringliteral}{"{}\%d"{}},\ \&\mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01501}01501\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ argc\ >\ 6\ )\ strncpy(image,\ argv[6],\ \textcolor{keyword}{sizeof}(image));}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01502}01502\ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01503}01503\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}R1\ =\ \%lf\(\backslash\)n"{}},\ \mbox{\hyperlink{torus_8cpp_af404f6d9a332838b9707056c27a4f21a}{R1}}\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01504}01504\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}R2\ =\ \%lf\(\backslash\)n"{}},\ \mbox{\hyperlink{torus_8cpp_a6e4ea5fe1993f05924fa4d457def2aa3}{R2}}\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01505}01505\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}R3\ =\ \%lf\(\backslash\)n"{}},\ \mbox{\hyperlink{torus_8cpp_a6752016f7a02ff6ff1b749623be15dbb}{R3}}\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01506}01506\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}nR1\ =\ \%d\(\backslash\)n"{}},\ \mbox{\hyperlink{torus_8cpp_a61bbdb4579d1cd678e05ab03e357cabf}{nR1}}\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01507}01507\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}nR2\ =\ \%d\(\backslash\)n"{}},\ \mbox{\hyperlink{torus_8cpp_a9ee0b58ad6cd2ee73698a41082a9d885}{nR2}}\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01508}01508\ \ \ \ \ \ \ printf\ (\ \textcolor{stringliteral}{"{}Texture\ =\ \%s\(\backslash\)n"{}},\ image\ );}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01509}01509\ \ \ \ \}\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01510}01510\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01511}01511\ \ \ \ ilInit();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01512}01512\ \ \ \ \textcolor{comment}{//\ load\ the\ file\ image\ with\ DevIL}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01513}01513\ \ \ \ \textcolor{keywordflow}{if}\ (\ (\mbox{\hyperlink{torus_8cpp_ad210616c2fd72bf4ceda644bdf2f99ec}{ilImage}}=\mbox{\hyperlink{torus_8cpp_a1ada77601620fb199c1c81c134468219}{loadImage}}(image))\ ==\ -\/1\ )\ \{}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01514}01514\ \ \ \ \ \ \ \ \ printf\ (\textcolor{stringliteral}{"{}Can't\ load\ image\ file\ \%s\ using\ DevIL\ \(\backslash\)n"{}},\ image);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01515}01515\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01516}01516\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01517}01517\ }
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01518}01518\ \ \ \ \mbox{\hyperlink{torus_8cpp_a2858154e2009b0e6e616f313177762bc}{init}}();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01519}01519\ \ \ \ \mbox{\hyperlink{torus_8cpp_aa4910ccdfc33b30e287cc767ce5c3e7d}{arcball}}\ =\ Arcball();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01520}01520\ \ \ \ glutReshapeFunc(\mbox{\hyperlink{torus_8cpp_acc1ffe65e6869931318610cae7210078}{reshape}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01521}01521\ \ \ \ glutKeyboardFunc(\mbox{\hyperlink{torus_8cpp_aef7ba2f69afb2d954545f64c7fe24b14}{keyboard}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01522}01522\ \ \ \ glutMouseFunc(\mbox{\hyperlink{torus_8cpp_a59d408da236069ac2f67330f2b4fcd84}{mouseFunc}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01523}01523\ \ \ \ glutMotionFunc(\mbox{\hyperlink{torus_8cpp_ab93b36736390103768326aeafcb6bc94}{mouseDrag}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01524}01524\ \ \ \ glutTimerFunc(\mbox{\hyperlink{torus_8cpp_a40df728951e877187328a971765d7b18}{delay}},\ \mbox{\hyperlink{torus_8cpp_a10d0046af32a1319fbf57cd46b0b7ac1}{\_timer}},\ 0);}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01525}01525\ \ \ \ glutDisplayFunc(\mbox{\hyperlink{torus_8cpp_a4ea013001a5fb47853d0fab8f8de35cd}{display}});}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01526}01526\ \ \ \ \mbox{\hyperlink{torus_8cpp_a4ea013001a5fb47853d0fab8f8de35cd}{display}}();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01527}01527\ \ \ \ glutMainLoop();}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01528}01528\ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{torus_8cpp_source_l01529}01529\ \}}
+
+\end{DoxyCode}
