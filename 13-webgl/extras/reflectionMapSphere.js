@@ -6,8 +6,8 @@
  * <p>Environment map.</p>
  * This is a Frankenstein program based on:
  * <ul>
- *    <li> {@link https://math.hws.edu/eck/cs424/notes2013/19_GLSL.html} </li>
- *    <li> {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/07/reflectionMap2.html} </li>
+ *    <li> {@link https://math.hws.edu/eck/cs424/notes2013/19_GLSL.html The Shader Language for WebGL} </li>
+ *    <li> {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/07/reflectionMap2.html reflectionMap2.html} </li>
  *    <li> {@link https://glmatrix.net} </li>
  * </ul>
  * Basically, it creates eight object {@link createModel models}: subdivision sphere, three.js sphere, teapot, cube, ring, cylinder, cone, torus.<br>
