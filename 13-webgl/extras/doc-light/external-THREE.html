@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: lib/gl-matrix/dist/esm/common.js</title>
+    <title>JSDoc: External: THREE</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,85 +17,113 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: lib/gl-matrix/dist/esm/common.js</h1>
+    <h1 class="page-title">External: THREE</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @file
- *
- * Summary.
- * &lt;p>High performance matrix and vector operations.&lt;/p>
- *
- * @author Brandon Jones
- * @author Colin MacKenzie IV
- * @version 3.4.0
- *
- * @copyright (c) 2015-2021, Brandon Jones, Colin MacKenzie IV.
- * @see &lt;a href="/cwdc/13-webgl/lib/gl-matrix">source&lt;/a>
- */
+        <h2>THREE</h2>
+        
+    
+</header>
 
-/**
- * Common utilities
- * @module glMatrix
- */
-// Configuration Constants
-export var EPSILON = 0.000001;
-export var ARRAY_TYPE =
-    typeof Float32Array !== "undefined" ? Float32Array : Array;
-export var RANDOM = Math.random;
-export var ANGLE_ORDER = "zyx";
-/**
- * Sets the type of array used when creating new vectors and matrices
- *
- * @param {Float32ArrayConstructor | ArrayConstructor} type Array type, such as Float32Array or Array
- */
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Three.js module.</div>
+        
 
-export function setMatrixArrayType(type) {
-    ARRAY_TYPE = type;
-}
-var degree = Math.PI / 180;
-/**
- * Convert Degree To Radian
- *
- * @param {Number} a Angle in Degrees
- */
+        
 
-export function toRadian(a) {
-    return a * degree;
-}
-/**
- * Tests whether or not the arguments have approximately the same value, within an absolute
- * or relative tolerance of glMatrix.EPSILON (an absolute tolerance is used for values less
- * than or equal to 1.0, and a relative tolerance is used for larger values)
- *
- * @param {Number} a The first number to test.
- * @param {Number} b The second number to test.
- * @returns {Boolean} True if the numbers are approximately equal, false otherwise.
- */
 
-export function equals(a, b) {
-    return Math.abs(a - b) &lt;= EPSILON * Math.max(1.0, Math.abs(a), Math.abs(b));
-}
-if (!Math.hypot)
-    Math.hypot = function () {
-        var y = 0,
-            i = arguments.length;
+<dl class="details">
 
-        while (i--) {
-            y += arguments[i] * arguments[i];
-        }
+    
 
-        return Math.sqrt(y);
-    };
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line43">line 43</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://threejs.org/docs/#manual/en/introduction/Installation">https://threejs.org/docs/#manual/en/introduction/Installation</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

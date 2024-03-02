@@ -41,6 +41,22 @@ const mat4 = glMatrix.mat4;
 const mat3 = glMatrix.mat3;
 
 /**
+ * Three.js module.
+ * @external THREE
+ * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ */
+
+/**
+ * <p>A representation of mesh, line, or point geometry.</p>
+ * Includes vertex positions, face indices, normals, colors, UVs,
+ * and custom attributes within buffers, reducing the cost of
+ * passing all this data to the GPU.
+ * @class BufferGeometry
+ * @memberof external:THREE
+ * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ */
+
+/**
  * Array holding image file names to create textures.
  * @type {Array<String>}
  */
@@ -335,10 +351,11 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
  * An object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
  * <p>Polyhedra have no index.</p>
- * @typedef {Object<{vertexPositions: Float32Array,
- *                   vertexNormals: Float32Array,
- *                   vertexTextureCoords: Float32Array,
- *                   indices: Uint16Array}>} modelData
+ * @typedef {Object} modelData
+ * @property {Float32Array} vertexPositions vertex coordinates.
+ * @property {Float32Array} vertexNormals vertex normals.
+ * @property {Float32Array} vertexTextureCoords texture coordinates.
+ * @property {Uint16Array} indices index array.
  */
 
 /**
@@ -378,37 +395,25 @@ var readFileNames = new Promise((resolve, reject) => {
 /**
  * Given an instance of
  * <ul>
- * <li><a href="/cwdc/13-webgl/lib/three.js">THREE.BufferGeometry</a></li>
+ * <li>{@link external:THREE.BufferGeometry THREE.BufferGeometry}</li>
  * </ul>
  * returns an object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
  * <p>Polyhedra have no index.</p>
- * @param {THREE.BufferGeometry} geom THREE.BoxGeometry,<br>
- *                                    THREE.ConeGeometry,<br>
- *                                    THREE.CylinderGeometry,<br>
- *                                    THREE.PlaneGeometry,<br>
- *                                    THREE.RingGeometry,<br>
- *                                    THREE.SphereGeometry,<br>
- *                                    THREE.TorusGeometry,<br>
- *                                    THREE.TorusKnotGeometry,<br>
- *                                    THREE.DodecahedronGeometry,<br>
- *                                    THREE.IcosahedronGeometry,<br>
- *                                    THREE.OctahedronGeometry,<br>
- *                                    THREE.TetrahedronGeometry.
+ * @param {external:THREE.BufferGeometry} geom
+ *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry THREE.ConeGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CylinderGeometry THREE.CylinderGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/RingGeometry THREE.RingGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusGeometry THREE.TorusGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry THREE.TorusKnotGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry}.
  * @return {modelData}
- * @see <a href="https://threejs.org/docs/#api/en/core/BufferGeometry">BufferGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/BoxGeometry">BoxGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/ConeGeometry">ConeGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/CylinderGeometry">CylinderGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/PlaneGeometry">PlaneGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/RingGeometry">RingGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/SphereGeometry">SphereGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/TorusGeometry">TorusGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry">TorusKnotGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry">DodecahedronGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry">IcosahedronGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/OctahedronGeometry">OctahedronGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry">TetrahedronGeometry</a>
  */
 function getModelData(geom) {
   return {

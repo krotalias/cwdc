@@ -69,6 +69,22 @@ const mat4 = glMatrix.mat4;
 const mat3 = glMatrix.mat3;
 
 /**
+ * Three.js module.
+ * @external THREE
+ * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ */
+
+/**
+ * &lt;p>A representation of mesh, line, or point geometry.&lt;/p>
+ * Includes vertex positions, face indices, normals, colors, UVs,
+ * and custom attributes within buffers, reducing the cost of
+ * passing all this data to the GPU.
+ * @class BufferGeometry
+ * @memberof external:THREE
+ * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ */
+
+/**
  * Array holding image file names to create textures.
  * @type {Array&lt;String>}
  */
@@ -363,10 +379,11 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
  * An object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
  * &lt;p>Polyhedra have no index.&lt;/p>
- * @typedef {Object&lt;{vertexPositions: Float32Array,
- *                   vertexNormals: Float32Array,
- *                   vertexTextureCoords: Float32Array,
- *                   indices: Uint16Array}>} modelData
+ * @typedef {Object} modelData
+ * @property {Float32Array} vertexPositions vertex coordinates.
+ * @property {Float32Array} vertexNormals vertex normals.
+ * @property {Float32Array} vertexTextureCoords texture coordinates.
+ * @property {Uint16Array} indices index array.
  */
 
 /**
@@ -395,8 +412,8 @@ var readFileNames = new Promise((resolve, reject) => {
         `[jqResponse: ${JSON.stringify(
           jqXHR,
           null,
-          4
-        )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`
+          4,
+        )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`,
       );
       console.log("Could not get data");
       reject("Could not get data");
@@ -406,37 +423,25 @@ var readFileNames = new Promise((resolve, reject) => {
 /**
  * Given an instance of
  * &lt;ul>
- * &lt;li>&lt;a href="/cwdc/13-webgl/lib/three.js">THREE.BufferGeometry&lt;/a>&lt;/li>
+ * &lt;li>{@link external:THREE.BufferGeometry THREE.BufferGeometry}&lt;/li>
  * &lt;/ul>
  * returns an object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
  * &lt;p>Polyhedra have no index.&lt;/p>
- * @param {THREE.BufferGeometry} geom THREE.BoxGeometry,&lt;br>
- *                                    THREE.ConeGeometry,&lt;br>
- *                                    THREE.CylinderGeometry,&lt;br>
- *                                    THREE.PlaneGeometry,&lt;br>
- *                                    THREE.RingGeometry,&lt;br>
- *                                    THREE.SphereGeometry,&lt;br>
- *                                    THREE.TorusGeometry,&lt;br>
- *                                    THREE.TorusKnotGeometry,&lt;br>
- *                                    THREE.DodecahedronGeometry,&lt;br>
- *                                    THREE.IcosahedronGeometry,&lt;br>
- *                                    THREE.OctahedronGeometry,&lt;br>
- *                                    THREE.TetrahedronGeometry.
+ * @param {external:THREE.BufferGeometry} geom
+ *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry THREE.ConeGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CylinderGeometry THREE.CylinderGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/RingGeometry THREE.RingGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusGeometry THREE.TorusGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry THREE.TorusKnotGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry}.
  * @return {modelData}
- * @see &lt;a href="https://threejs.org/docs/#api/en/core/BufferGeometry">BufferGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/BoxGeometry">BoxGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/ConeGeometry">ConeGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/CylinderGeometry">CylinderGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/PlaneGeometry">PlaneGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/RingGeometry">RingGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/SphereGeometry">SphereGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/TorusGeometry">TorusGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry">TorusKnotGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry">DodecahedronGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry">IcosahedronGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/OctahedronGeometry">OctahedronGeometry&lt;/a>
- * @see &lt;a href="https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry">TetrahedronGeometry&lt;/a>
  */
 function getModelData(geom) {
   return {
@@ -547,7 +552,7 @@ var handleKeyPress = ((event) => {
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
         theModel = createModel(
-          getModelData(new THREE.SphereGeometry(1, 48, 24))
+          getModelData(new THREE.SphereGeometry(1, 48, 24)),
         );
         break;
       case "S":
@@ -560,7 +565,7 @@ var handleKeyPress = ((event) => {
         gscale = mscale = 0.6;
         document.getElementById("models").value = "8";
         theModel = createModel(
-          getModelData(new THREE.TorusKnotGeometry(1, 0.4, 128, 16))
+          getModelData(new THREE.TorusKnotGeometry(1, 0.4, 128, 16)),
         );
         break;
       case "t":
@@ -573,7 +578,7 @@ var handleKeyPress = ((event) => {
         gscale = mscale = 1.2;
         document.getElementById("models").value = "0";
         theModel = createModel(
-          getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20))
+          getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
         );
         break;
       case "c":
@@ -600,28 +605,28 @@ var handleKeyPress = ((event) => {
         gscale = mscale = 1;
         document.getElementById("models").value = "9";
         theModel = createModel(
-          getModelData(new THREE.DodecahedronGeometry(1, 0))
+          getModelData(new THREE.DodecahedronGeometry(1, 0)),
         );
         break;
       case "i":
         gscale = mscale = 1;
         document.getElementById("models").value = "10";
         theModel = createModel(
-          getModelData(new THREE.IcosahedronGeometry(1, 0))
+          getModelData(new THREE.IcosahedronGeometry(1, 0)),
         );
         break;
       case "o":
         gscale = mscale = 1;
         document.getElementById("models").value = "11";
         theModel = createModel(
-          getModelData(new THREE.OctahedronGeometry(1, 0))
+          getModelData(new THREE.OctahedronGeometry(1, 0)),
         );
         break;
       case "w":
         gscale = mscale = 1;
         document.getElementById("models").value = "12";
         theModel = createModel(
-          getModelData(new THREE.TetrahedronGeometry(1, 0))
+          getModelData(new THREE.TetrahedronGeometry(1, 0)),
         );
         break;
       case "r":
@@ -629,9 +634,9 @@ var handleKeyPress = ((event) => {
         document.getElementById("models").value = "4";
         theModel = createModel(
           getModelData(
-            new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586)
+            new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586),
           ),
-          0
+          0,
         );
         break;
       case "O":
@@ -672,7 +677,7 @@ var handleKeyPress = ((event) => {
         return;
     }
     opt.innerHTML = `&lt;br>${gl.getParameter(
-      gl.SHADING_LANGUAGE_VERSION
+      gl.SHADING_LANGUAGE_VERSION,
     )}&lt;br>${gl.getParameter(gl.VERSION)}`;
     if (selector.paused) draw();
   };
@@ -859,7 +864,7 @@ function getModelMatrix() {
     m = mat4.multiply(
       [],
       modelMatrix,
-      mat4.fromScaling([], vec3.fromValues(mscale, mscale, mscale))
+      mat4.fromScaling([], vec3.fromValues(mscale, mscale, mscale)),
     );
   }
   return m;
@@ -923,7 +928,7 @@ function drawTexture() {
   gl.uniformMatrix3fv(
     loc,
     false,
-    makeNormalMatrixElements(modelMatrix, viewMatrix)
+    makeNormalMatrixElements(modelMatrix, viewMatrix),
   );
 
   loc = gl.getUniformLocation(lightingShader, "lightPosition");
@@ -950,7 +955,7 @@ function drawTexture() {
       gl.TRIANGLES,
       theModel.indices.length,
       gl.UNSIGNED_SHORT,
-      0
+      0,
     );
   } else {
     gl.drawArrays(gl.TRIANGLES, 0, theModel.vertexPositions.length / 3);
@@ -995,7 +1000,7 @@ function drawLines() {
   var transform = mat4.multiply(
     [],
     projection,
-    mat4.multiply([], viewMatrix, getModelMatrix())
+    mat4.multiply([], viewMatrix, getModelMatrix()),
   );
   gl.uniformMatrix4fv(loc, false, transform);
 
@@ -1103,7 +1108,7 @@ window.addEventListener("load", (event) => {
           startForReal(image);
         })
         .catch((error) => {
-          alert(`${error}`);
+          console.log(`${error}`);
           // don't return anything => execution goes the normal way
           // in case server does not run php
           imageFilename = [
@@ -1271,7 +1276,7 @@ function startForReal(image) {
   window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-        event.code
+        event.code,
       ) > -1
     ) {
       event.preventDefault();
@@ -1292,7 +1297,7 @@ function startForReal(image) {
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById("vertexColorShader").textContent;
   var fshaderSource = document.getElementById(
-    "fragmentColorShader"
+    "fragmentColorShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
@@ -1303,10 +1308,10 @@ function startForReal(image) {
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
-    "vertexLightingShader"
+    "vertexLightingShader",
   ).textContent;
   var fshaderSource = document.getElementById(
-    "fragmentLightingShader"
+    "fragmentLightingShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
@@ -1432,7 +1437,7 @@ function newTexture(image) {
     gl.texParameteri(
       gl.TEXTURE_2D,
       gl.TEXTURE_MIN_FILTER,
-      gl.NEAREST_MIPMAP_LINEAR
+      gl.NEAREST_MIPMAP_LINEAR,
     );
 
     // wrapping function for texture coordinate s
@@ -1448,7 +1453,7 @@ function newTexture(image) {
     gl.texParameteri(
       gl.TEXTURE_2D,
       gl.TEXTURE_MIN_FILTER,
-      gl.LINEAR // default is gl.NEAREST_MIPMAP_LINEAR
+      gl.LINEAR, // default is gl.NEAREST_MIPMAP_LINEAR
     );
 
     // wrapping function for texture coordinate s (default is gl.REPEAT)
@@ -1509,13 +1514,13 @@ var animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Feb 02 2024 07:23:12 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Mar 02 2024 07:39:39 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
