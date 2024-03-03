@@ -1,10 +1,12 @@
-<!--  Demo of Phong reflection model using Phong shading
-(color is calculated per-fragment).
-Same as Lighting2a.html but adds the specular term in the fragment
-shader. Also uses Lighting2.js code.
+<!--
+    Demo of Phong reflection model using Phong shading
+    (color is calculated per-fragment).
 
-This code is dependent on three.js as well as on the teal book utilities,
-see below.
+    Same as Lighting2a.html but adds the specular term in the fragment shader.
+    Also uses Lighting2.js code.
+
+    This code is dependent on three.js as well as on the teal book utilities,
+    as can be seen below.
 -->
 
 <!doctype html>
@@ -194,12 +196,12 @@ see below.
                 fragColor = color;
             }
         </script>
-        <!-- does not work on safari and IOS -->
+        <!-- does not work on safari and IOS < 16.4 -->
         <script type="importmap">
             {
                 "imports": {
-                    "three": "/WebGL/lib/three/build/three.module.js",
-                    "TeapotGeometry": "/WebGL/lib/three/examples/jsm/geometries/TeapotGeometry.js"
+                    "three": "/cwdc/13-webgl/lib/three/build/three.module.js",
+                    "TeapotGeometry": "/cwdc/13-webgl/lib/three/examples/jsm/geometries/TeapotGeometry.js"
                 }
             }
         </script>
