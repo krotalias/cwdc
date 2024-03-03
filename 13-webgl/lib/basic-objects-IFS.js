@@ -12,7 +12,7 @@
  * coordinates for each vertex, plus a list of indices
  * for the element array buffer. </p>
  *
- * The return value of each function is an object, {@link modelData modelData}, with properties:
+ * The return value of each function is an object, {@link modelData model}, with properties:
  * <ul>
  * <li>model.vertexPositions -- the vertex coordinates; </li>
  * <li>model.vertexNormals -- the normal vectors; </li>
@@ -23,8 +23,10 @@
  * The first three properties are of type Float32Array,
  * while model.indices is of type Uint16Array.
  *
- * <p>This file also defines a variable (not a function) teapotIFS,
- * which is a model of the OpenGL teapot in the same format.</p>
+ * <p>This file also defines a variable (not a function) {@link teapotModel},
+ * which is a model of the OpenGL
+ * <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">teapot</a>
+ * in the same format.</p>
  * <ul>
  * <li>{@link uvCone cone}</li>
  * <li>{@link cube cube}</li>
