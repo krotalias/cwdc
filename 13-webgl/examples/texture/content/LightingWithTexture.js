@@ -39,6 +39,22 @@ const mat4 = glMatrix.mat4;
 const mat3 = glMatrix.mat3;
 
 /**
+ * Three.js module.
+ * @external THREE
+ * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ */
+
+/**
+ * <p>A representation of mesh, line, or point geometry.</p>
+ * Includes vertex positions, face indices, normals, colors, UVs,
+ * and custom attributes within buffers, reducing the cost of
+ * passing all this data to the GPU.
+ * @class BufferGeometry
+ * @memberof external:THREE
+ * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ */
+
+/**
  * Texture array.
  * @type {Array<String>}
  */
@@ -296,47 +312,36 @@ var viewDistance = vecLen(eye);
  * An object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
  * <p>Polyhedra nave no index.</p>
- * @typedef {Object<{vertices: Float32Array,
- *                   normals: Float32Array,
- *                   texCoords: Float32Array,
- *                   indices: Uint16Array}>} modelData
+ * @typedef {Object} modelData
+ * @property {Float32Array} vertices vertex coordinates.
+ * @property {Float32Array} normals vertex normals.
+ * @property {Float32Array} texCoords texture coordinates.
+ * @property {Uint16Array} indices index array.
  */
 
 /**
  * Given an instance of
  * <ul>
- * <li><a href="https://threejs.org/build/three.js">THREE.BufferGeometry</a></li>
+ * <li>{@link external:THREE.BufferGeometry THREE.BufferGeometry}</li>
  * </ul>
  * returns an object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
  * <p>Polyhedra nave no index.</p>
- * @param {THREE.BufferGeometry} geom THREE.BoxGeometry,<br>
- *                                    THREE.CapsuleGeometry,<br>
- *                                    THREE.ConeGeometry,<br>
- *                                    THREE.CylinderGeometry,<br>
- *                                    THREE.PlaneGeometry,<br>
- *                                    THREE.RingGeometry,<br>
- *                                    THREE.SphereGeometry,<br>
- *                                    THREE.TorusGeometry,<br>
- *                                    THREE.TorusKnotGeometry,<br>
- *                                    THREE.DodecahedronGeometry,<br>
- *                                    THREE.IcosahedronGeometry,<br>
- *                                    THREE.OctahedronGeometry,<br>
- *                                    THREE.TetrahedronGeometry.
+ * @param {external:THREE.BufferGeometry} geom
+ *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry THREE.ConeGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CylinderGeometry THREE.CylinderGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/RingGeometry THREE.RingGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusGeometry THREE.TorusGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry THREE.TorusKnotGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry}.
  * @return {modelData}
- * @see <a href="https://threejs.org/docs/#api/en/core/BufferGeometry">BufferGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/BoxGeometry">BoxGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/CapsuleGeometry">CapsuleGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/ConeGeometry">ConeGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/CylinderGeometry">CylinderGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/PlaneGeometry">PlaneGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/RingGeometry">RingGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/SphereGeometry">SphereGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/TorusGeometry">TorusGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry">DodecahedronGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry">IcosahedronGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/OctahedronGeometry">OctahedronGeometry</a>
- * @see <a href="https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry">TetrahedronGeometry</a>
  */
 function getModelData(geom) {
   return {
@@ -411,14 +416,14 @@ function handleKeyPress(event) {
       mscale = 1;
       document.getElementById("models").value = "1";
       theModel = createModel(
-        getModelData(new THREE.ConeGeometry(0.8, 1.5, 48, 24))
+        getModelData(new THREE.ConeGeometry(0.8, 1.5, 48, 24)),
       );
       break;
     case "c":
       mscale = 1;
       document.getElementById("models").value = "3";
       theModel = createModel(
-        getModelData(new THREE.CylinderGeometry(0.5, 0.5, 1.5, 24, 5))
+        getModelData(new THREE.CylinderGeometry(0.5, 0.5, 1.5, 24, 5)),
       );
       break;
     case "r":
@@ -426,16 +431,16 @@ function handleKeyPress(event) {
       document.getElementById("models").value = "4";
       theModel = createModel(
         getModelData(
-          new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586)
+          new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586),
         ),
-        0
+        0,
       );
       break;
     case "u":
       mscale = 1;
       document.getElementById("models").value = "0";
       theModel = createModel(
-        getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20))
+        getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
       );
       break;
     case "v":
@@ -452,7 +457,7 @@ function handleKeyPress(event) {
       mscale = 1;
       document.getElementById("models").value = "8";
       theModel = createModel(
-        getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16))
+        getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16)),
       );
       break;
     case "t":
@@ -460,14 +465,14 @@ function handleKeyPress(event) {
       document.getElementById("models").value = "7";
       theModel = createModel(
         getModelData(new THREE.TorusGeometry(0.6, 0.24, 16, 128)),
-        0
+        0,
       );
       break;
     case "d":
       mscale = 1;
       document.getElementById("models").value = "9";
       theModel = createModel(
-        getModelData(new THREE.DodecahedronGeometry(1, 0))
+        getModelData(new THREE.DodecahedronGeometry(1, 0)),
       );
       break;
     case "i":
@@ -511,7 +516,7 @@ function handleKeyPress(event) {
           texCoords: teapotModel.vertexTextureCoords,
           indices: teapotModel.indices,
         },
-        null
+        null,
       );
       break;
     case "l":
@@ -592,16 +597,51 @@ function selectModel() {
 }
 
 const mesh = document.getElementById("mesh");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the mesh checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 mesh.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 
 const texture = document.getElementById("texture");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the texture checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 texture.addEventListener("change", (event) => handleKeyPress(createEvent("k")));
 
 const axes = document.getElementById("axes");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the axes checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
+    /**
+     * <p>Appends an event listener for events whose type attribute value is change.
+     * The callback argument sets the callback that will be invoked when
+     * the event is dispatched.</p>
+     *
+     * @event change - executed when the rot input radio is checked (but not when unchecked).
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     */
     elem.addEventListener("change", function (event) {
       var item = event.target.value;
       handleKeyPress(createEvent(item));
@@ -611,6 +651,14 @@ if (document.querySelector('input[name="rot"]')) {
 
 if (document.querySelector('input[name="euler"]')) {
   document.querySelectorAll('input[name="euler"]').forEach((elem) => {
+    /**
+     * <p>Appends an event listener for events whose type attribute value is change.
+     * The callback argument sets the callback that will be invoked when
+     * the event is dispatched.</p>
+     *
+     * @event change - executed when the euler input radio is checked (but not when unchecked).
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     */
     elem.addEventListener("change", function (event) {
       var item = event.target.value;
       handleKeyPress(createEvent(item));
@@ -618,6 +666,16 @@ if (document.querySelector('input[name="euler"]')) {
   });
 }
 
+/**
+ * <p>Loads the texture image asynchronously and defines its {@link mainEntrance load callback function}.</p>
+ * @param {Event} event load event.
+ * @callback WindowLoadCallback
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
+ * @see https://sites.google.com/site/csc8820/educational/how-to-implement-texture-mapping
+ * @see https://www.evl.uic.edu/pape/data/Earth/
+ * @event load
+ */
 window.addEventListener("load", (event) => mainEntrance());
 
 /**
@@ -653,7 +711,7 @@ function getModelMatrix() {
     m = mat4.multiply(
       [],
       modelMatrix,
-      mat4.fromScaling([], [mscale, mscale, mscale])
+      mat4.fromScaling([], [mscale, mscale, mscale]),
     );
   }
   return m;
@@ -716,7 +774,7 @@ function drawTexture() {
   gl.uniformMatrix3fv(
     loc,
     false,
-    makeNormalMatrixElements(modelMatrix, viewMatrix)
+    makeNormalMatrixElements(modelMatrix, viewMatrix),
   );
 
   loc = gl.getUniformLocation(lightingShader, "lightPosition");
@@ -742,7 +800,7 @@ function drawTexture() {
       gl.TRIANGLES,
       theModel.indices.length,
       gl.UNSIGNED_SHORT,
-      0
+      0,
     );
   } else {
     gl.drawArrays(gl.TRIANGLES, 0, theModel.vertices.length / 3);
@@ -832,7 +890,7 @@ function drawLines() {
   var transform = mat4.multiply(
     [],
     projection,
-    mat4.multiply([], viewMatrix, getModelMatrix())
+    mat4.multiply([], viewMatrix, getModelMatrix()),
   );
   gl.uniformMatrix4fv(loc, false, transform);
 
@@ -896,11 +954,17 @@ function startForReal(image) {
   // retrieve <canvas> element
   var canvas = document.getElementById("theCanvas");
 
-  // key handler
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.
+   * The callback argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event keydown
+   */
   window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-        event.code
+        event.code,
       ) > -1
     ) {
       event.preventDefault();
@@ -918,7 +982,7 @@ function startForReal(image) {
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById("vertexColorShader").textContent;
   var fshaderSource = document.getElementById(
-    "fragmentColorShader"
+    "fragmentColorShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
@@ -929,10 +993,10 @@ function startForReal(image) {
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
-    "vertexLightingShader"
+    "vertexLightingShader",
   ).textContent;
   var fshaderSource = document.getElementById(
-    "fragmentLightingShader"
+    "fragmentLightingShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
