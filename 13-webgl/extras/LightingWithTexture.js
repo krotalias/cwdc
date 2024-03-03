@@ -402,6 +402,7 @@ var readFileNames = new Promise((resolve, reject) => {
  * <p>Polyhedra have no index.</p>
  * @param {external:THREE.BufferGeometry} geom
  *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry THREE.ConeGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/CylinderGeometry THREE.CylinderGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry},<br>
@@ -1440,7 +1441,7 @@ function newTexture(image) {
 /**
  * <p>Define an {@link frame animation} loop.</p>
  * Step 0.5° ⇒ 60 fps = 30°/s ⇒ 360° in 12s
- * @see https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd
+ * @see {@link https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd Extrinsic & intrinsic rotation}
  */
 var animate = (() => {
   // increase the rotation by some amount, depending on the axis chosen
