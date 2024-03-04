@@ -348,10 +348,17 @@ function getModelData(geom) {
  * @see https://threejs.org/docs/#api/en/core/BufferGeometry
  */
 function makeCube() {
-  // vertices of cube
+  // 8 vertices of cube
+  // prettier-ignore
   var rawVertices = new Float32Array([
-    -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5,
-    -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5,
+    -0.5, -0.5,  0.5,  // v0
+     0.5, -0.5,  0.5,  // v1
+     0.5,  0.5,  0.5,  // v2
+    -0.5,  0.5,  0.5,  // v3
+    -0.5, -0.5, -0.5,  // v4
+     0.5, -0.5, -0.5,  // v5
+     0.5,  0.5, -0.5,  // v6
+    -0.5,  0.5, -0.5,  // v7
   ]);
 
   // prettier-ignore
@@ -364,8 +371,15 @@ function makeCube() {
       0.0, 1.0, 1.0, 1.0,  // cyan
     ]);
 
+  // 6 normals of the faces
+  // prettier-ignore
   var rawNormals = new Float32Array([
-    0, 0, 1, 1, 0, 0, 0, 0, -1, -1, 0, 0, 0, 1, 0, 0, -1, 0,
+     0,  0,  1,  // +z face
+     1,  0,  0,  // +x face
+     0,  0, -1,  // -z face
+    -1,  0,  0,  // -x face
+     0,  1,  0,  // +y face
+     0, -1,  0,  // -y face
   ]);
 
   // prettier-ignore
@@ -446,7 +460,7 @@ function getChar(event) {
 
 /**
  * Handler for key press events for choosing
- * which axis to rotate around.
+ * a model and which axis to rotate around.
  * @param {KeyboardEvent} event key pressed.
  */
 function handleKeyPress(event) {
@@ -476,6 +490,12 @@ function handleKeyPress(event) {
       break;
     case "a":
       selector.axes = !selector.axes;
+      break;
+    case "v":
+      // cube
+      mscale = 1;
+      document.getElementById("models").value = "2";
+      theModel = createModel(makeCube());
       break;
     case "s":
       // sphere with more faces
@@ -528,6 +548,7 @@ var createEvent = (key) => {
 function selectModel() {
   let val = document.getElementById("models").value;
   let key = {
+    2: "v", // cube
     5: "s", // sphere
     6: "p", // teapot
     8: "T", // knot
@@ -617,12 +638,17 @@ function drawSurface() {
     0.8,
     1.0,
   );
-  gl.drawElements(
-    gl.TRIANGLES,
-    theModel.indices.length,
-    mscale == 0.8 ? gl.UNSIGNED_INT : gl.UNSIGNED_SHORT,
-    0,
-  );
+
+  if (theModel.indices) {
+    gl.drawElements(
+      gl.TRIANGLES,
+      theModel.indices.length,
+      mscale == 0.8 ? gl.UNSIGNED_INT : gl.UNSIGNED_SHORT,
+      0,
+    );
+  } else {
+    gl.drawArrays(gl.TRIANGLES, 0, theModel.numVertices);
+  }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
   gl.disableVertexAttribArray(positionIndex);
@@ -772,8 +798,10 @@ function createModel(shape, chi = 2) {
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, shape.vertices, gl.STATIC_DRAW);
 
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, shape.indices, gl.STATIC_DRAW);
+  if (shape.indices) {
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, shape.indices, gl.STATIC_DRAW);
+  }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, shape.normals, gl.STATIC_DRAW);
