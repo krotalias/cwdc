@@ -154,6 +154,15 @@
             }
         </script>
 
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "/cwdc/13-webgl/lib/three/build/three.module.js",
+                    "TeapotGeometry": "/cwdc/13-webgl/lib/three/examples/jsm/geometries/TeapotGeometry.js"
+                }
+            }
+        </script>
+
         <script id="vertexColorShader" type="x-shader/x-vertex">
             uniform mat4 transform;
             attribute vec4 a_Position;
@@ -172,6 +181,15 @@
             void main()
             {
               gl_FragColor = color;
+            }
+        </script>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "/cwdc/13-webgl/lib/three/build/three.module.js",
+                    "TeapotGeometry": "/cwdc/13-webgl/lib/three/examples/jsm/geometries/TeapotGeometry.js"
+                }
             }
         </script>
 
