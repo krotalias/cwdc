@@ -364,21 +364,28 @@ function getModelData(geom) {
 }
 
 /**
- * &lt;p>Creates data for vertices, colors, and normal vectors for
- * a unit cube. &lt;/p>
- * Return value is an object with three attributes:
- * vertices, colors, and normals, each referring to a Float32Array.&lt;br>
- * (Note this is a "self-invoking" anonymous function.)
+ * &lt;p>Creates a unit cube and set its properties:
+ * vertices, normal vectors, indices or colors.&lt;/p>
+ *
+ * &lt;p>For a proper specular reflection on planar faces, such as a cube or a polyhedron,
+ * the normal vectors have to be perpendicular to the plane of each face.&lt;/p>
+ *
+ * &lt;p>Computing an average normal, like is done here when creating indices,
+ * is what one would want to do for a smooth object like a sphere.&lt;/p>
+ * The resulting rendering is very unpleasant, in this case.
+ * The right course is creating three duplicate vertices per cube corner.
+ * @param {Boolean} create_indices whether to generated vertex indices or not.
  * @return {Object&lt;{numVertices: Number,
  *                  vertices: Float32Array,
+ *                  normals: Float32Array,
  *                  colors: Float32Array,
- *                  normals: Float32Array}>}
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ *                  indices: Uint16Array}>}
+ * @see {@link external:THREE.BufferGeometry}
  */
-function makeCube() {
+function makeCube(create_indices = false) {
   // 8 vertices of cube
   // prettier-ignore
-  var rawVertices = new Float32Array([
+  const rawVertices = new Float32Array([
     -0.5, -0.5,  0.5,  // v0
      0.5, -0.5,  0.5,  // v1
      0.5,  0.5,  0.5,  // v2
@@ -390,7 +397,7 @@ function makeCube() {
   ]);
 
   // prettier-ignore
-  var rawColors = new Float32Array([
+  const rawColors = new Float32Array([
       1.0, 0.0, 0.0, 1.0,  // red
       0.0, 1.0, 0.0, 1.0,  // green
       0.0, 0.0, 1.0, 1.0,  // blue
@@ -401,7 +408,7 @@ function makeCube() {
 
   // 6 normals of the faces
   // prettier-ignore
-  var rawNormals = new Float32Array([
+  const rawNormals = new Float32Array([
      0,  0,  1,  // +z face
      1,  0,  0,  // +x face
      0,  0, -1,  // -z face
@@ -410,46 +417,66 @@ function makeCube() {
      0, -1,  0,  // -y face
   ]);
 
+  const n = 1 / Math.sqrt(3);
+  // 8 normals of the vertices
   // prettier-ignore
-  var indices = new Uint16Array([
+  const rawVertexNormals = new Float32Array([
+    -n, -n,  n,  // v0
+     n, -n,  n,  // v1
+     n,  n,  n,  // v2
+    -n,  n,  n,  // v3
+    -n, -n, -n,  // v4
+     n, -n, -n,  // v5
+     n,  n, -n,  // v6
+    -n,  n, -n,  // v7
+ ]);
+
+  // prettier-ignore
+  const indices = new Uint16Array([
       0, 1, 2, 0, 2, 3,  // +z face
-      1, 5, 6, 1, 6, 2,  // +x face
+      2, 1, 5, 6, 2, 5,  // +x face
       5, 4, 7, 5, 7, 6,  // -z face
-      4, 0, 3, 4, 3, 7,  // -x face
-      3, 2, 6, 3, 6, 7,  // +y face
-      4, 5, 1, 4, 1, 0   // -y face
+      7, 4, 0, 0, 3, 7,  // -x face
+      3, 2, 7, 2, 6, 7,  // +y face
+      0, 5, 1, 0, 4, 5   // -y face
     ]);
 
-  var verticesArray = [];
-  var colorsArray = [];
-  var normalsArray = [];
-  for (var i = 0; i &lt; 36; ++i) {
+  const verticesArray = [];
+  const colorsArray = [];
+  const normalsArray = [];
+  for (let i = 0; i &lt; 36; ++i) {
     // for each of the 36 vertices...
-    var face = Math.floor(i / 6);
-    var index = indices[i];
+    let face = Math.floor(i / 6);
+    let index = indices[i];
 
     // (x, y, z): three numbers for each point
-    for (var j = 0; j &lt; 3; ++j) {
+    for (let j = 0; j &lt; 3; ++j) {
       verticesArray.push(rawVertices[3 * index + j]);
     }
 
     // (r, g, b, a): four numbers for each point
-    for (var j = 0; j &lt; 4; ++j) {
+    for (let j = 0; j &lt; 4; ++j) {
       colorsArray.push(rawColors[4 * face + j]);
     }
 
-    // three numbers for each point
-    for (var j = 0; j &lt; 3; ++j) {
+    // (nx, ny, nz): three numbers for each point
+    for (let j = 0; j &lt; 3; ++j) {
       normalsArray.push(rawNormals[3 * face + j]);
     }
   }
 
-  return {
-    numVertices: 36,
-    vertices: new Float32Array(verticesArray),
-    colors: new Float32Array(colorsArray),
-    normals: new Float32Array(normalsArray),
-  };
+  return create_indices
+    ? {
+        vertices: rawVertices,
+        normals: rawVertexNormals,
+        indices: indices,
+      }
+    : {
+        numVertices: 36,
+        vertices: new Float32Array(verticesArray),
+        normals: new Float32Array(normalsArray),
+        colors: new Float32Array(colorsArray),
+      };
 }
 
 /**
@@ -524,6 +551,7 @@ function handleKeyPress(event) {
       mscale = 1;
       document.getElementById("models").value = "2";
       theModel = createModel(makeCube());
+      //theModel = createModel(getModelData(new THREE.BoxGeometry(1, 1, 1)));
       break;
     case "s":
       // sphere with more faces
@@ -988,6 +1016,7 @@ function mainEntrance() {
   gl.enable(gl.DEPTH_TEST);
 
   gl.enable(gl.CULL_FACE);
+  gl.cullFace(gl.BACK);
 
   rotator = new SimpleRotator(canvas, animate);
   rotator.setViewMatrix(modelMatrix.elements);
@@ -1056,7 +1085,7 @@ var animate = (() => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Mar 04 2024 09:59:58 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 05 2024 07:40:38 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

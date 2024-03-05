@@ -14,66 +14,86 @@
         <title>Gouraud shading</title>
         <style>
             #interface {
-                width: 900px;
+                width: fit-content;
                 margin-left: 50px;
+                text-align: left;
             }
             #models,
             label {
                 font-size: x-large;
                 line-height: 200%;
             }
-            #models {
+            #models,
+            button {
                 font-size: 200%;
+                border: 0px;
+                outline: 0px;
+                border-radius: 8px;
+                background-color: lightsteelblue;
+                color: black;
+                height: 2em;
+                margin-right: 1em;
             }
             #opts {
                 list-style: none;
             }
-            label {
-                margin-right: 40px;
+            .wrap-container {
+                padding: 0;
+                margin: 50px auto;
+                display: block;
+                width: 900px;
+                text-align: center;
+            }
+            details {
+                margin-top: 50px;
+                text-align: left;
             }
         </style>
     </head>
 
     <body>
-        <canvas id="theCanvas" width="600" height="400">
-            Please use a browser that supports "canvas"
-        </canvas>
+        <div class="wrap-container">
+            <h1>Lambert Diffuse Model - Gouraud Shading</h1>
+            <canvas id="theCanvas" width="900" height="600">
+                Please use a browser that supports "canvas"
+            </canvas>
 
-        <div id="interface">
-            <p>
-                <label id="object"><b>Object:</b></label>
-            </p>
-            <select name="models" id="models" onchange="selectModel()">
-                <option value="2">Cube</option>
-                <option value="5" selected="selected">Sphere</option>
-                <option value="6">Teapot</option>
-                <option value="8">Torus Knot</option>
-            </select>
-            <button id="btnMesh">Mesh</button>
-            <button id="btnRot">Rotate</button>
+            <div id="interface">
+                <p>
+                    <label id="object"><b>Object:</b></label>
+                </p>
+                <select name="models" id="models" onchange="selectModel()">
+                    <option value="2">Cube</option>
+                    <option value="5" selected="selected">Sphere</option>
+                    <option value="6">Teapot</option>
+                    <option value="8">Torus Knot</option>
+                </select>
+                <button id="btnMesh">Mesh</button>
+                <button id="btnRot">Rotate</button>
+            </div>
+
+            <br />
+
+            <details>
+                <summary style="font-size: 150%">Keyboard controls:</summary>
+
+                <ul style="list-style: none">
+                    <li>SPACE - pause rotation</li>
+                    <li>a - toggle axes visible/invisible</li>
+                    <li>k - toggle texture on/off</li>
+                    <li>l - toggle lines visible/invisible</li>
+                    <li>x - rotate about x axis</li>
+                    <li>y - rotate about y axis</li>
+                    <li>z - rotate about z axis</li>
+                    <li>v - cube</li>
+                    <li>p - teapot</li>
+                    <li>s - sphere</li>
+                    <li>T - torus knot</li>
+                    <li>o - Reset to initial state</li>
+                    <li></li>
+                </ul>
+            </details>
         </div>
-
-        <br />
-
-        <details>
-            <summary style="font-size: 150%">Keyboard controls:</summary>
-
-            <ul style="list-style: none">
-                <li>SPACE - pause rotation</li>
-                <li>a - toggle axes visible/invisible</li>
-                <li>k - toggle texture on/off</li>
-                <li>l - toggle lines visible/invisible</li>
-                <li>x - rotate about x axis</li>
-                <li>y - rotate about y axis</li>
-                <li>z - rotate about z axis</li>
-                <li>v - cube</li>
-                <li>p - teapot</li>
-                <li>s - sphere</li>
-                <li>T - torus knot</li>
-                <li>o - Reset to initial state</li>
-                <li></li>
-            </ul>
-        </details>
 
         <script id="vertexLightingShader" type="x-shader/x-vertex">
             uniform mat4 model;
