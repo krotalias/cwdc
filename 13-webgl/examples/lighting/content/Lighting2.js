@@ -5,11 +5,11 @@
  * <p>Lighting and shading models: <a href="https://en.wikipedia.org/wiki/Lambertian_reflectance">Lambert</a>  x
  * <a href="https://en.wikipedia.org/wiki/Phong_reflection_model">Phong</a>.  </p>
  *
- * Here we add a function to take a model created by {@link https://threejs.org three.js}
+ * Here, we add a {@link getModelData function} to take a model created by {@link https://threejs.org three.js}
  * and extract the data for vertices and normals, <br>
  * so we can load it directly to the GPU.
  *
- * Edit {@link mainEntrance} to choose a model and select
+ * Edit {@link mainEntrance} to select a {@link selectModel model} and {@link makeCube} to set
  * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
  *
  * @author Steve Kautz modified by Paulo Roma
