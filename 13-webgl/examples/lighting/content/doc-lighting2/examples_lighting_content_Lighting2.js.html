@@ -364,8 +364,8 @@ function getModelData(geom) {
 }
 
 /**
- * &lt;p>Creates a unit cube and set its properties:
- * vertices, normal vectors, indices or colors.&lt;/p>
+ * &lt;p>Creates a unit cube, centered at the origin, and set its properties:
+ * vertices, normal vectors, indices and colors.&lt;/p>
  *
  * &lt;p>For a proper specular reflection on planar faces, such as a cube or a polyhedron,
  * the normal vectors have to be perpendicular to the plane of each face.&lt;/p>
@@ -374,13 +374,16 @@ function getModelData(geom) {
  * is what one would want to do for a smooth object like a sphere.&lt;/p>
  * The resulting rendering is very unpleasant, in this case.
  * The right course is creating three duplicate vertices per cube corner.
+ * &lt;p>Even if cube.indices is not defined here, {@link drawModel} can handle it.&lt;/p>
  * @param {Boolean} create_indices whether to generated vertex indices or not.
- * @return {Object&lt;{numVertices: Number,
- *                  vertices: Float32Array,
- *                  normals: Float32Array,
- *                  colors: Float32Array,
- *                  indices: Uint16Array}>}
+ * @return {Object} cube
+ * @property {Number} cube.numVertices number of vertices (36).
+ * @property {Float32Array} cube.vertices vertex coordinate array (108 = 36 * 3).
+ * @property {Float32Array} cube.normals vertex normal array (108 = 36 * 3).
+ * @property {Float32Array} cube.colors vertex color array (144 = 36 * 4).
+ * @property {Uint16Array} cube.indices vertex index array (36 = 6 * 2 * 3).
  * @see {@link external:THREE.BufferGeometry}
+ * @see &lt;img src="/cwdc/13-webgl/examples/images/cube.png">
  */
 function makeCube(create_indices = false) {
   // 8 vertices of cube
@@ -467,15 +470,17 @@ function makeCube(create_indices = false) {
 
   return create_indices
     ? {
-        vertices: rawVertices,
-        normals: rawVertexNormals,
-        indices: indices,
+        numVertices: 8,
+        vertices: rawVertices, // 24 = 8 * 3
+        normals: rawVertexNormals, // 24 = 8 * 3
+        indices: indices, // 36 = 6 faces * 2 tri/face  * 3 ind/tri
       }
     : {
-        numVertices: 36,
-        vertices: new Float32Array(verticesArray),
-        normals: new Float32Array(normalsArray),
-        colors: new Float32Array(colorsArray),
+        numVertices: 36, // 12 tri  * 3 vert/tri
+        vertices: new Float32Array(verticesArray), // 108 = 36 * 3
+        normals: new Float32Array(normalsArray), // 108 = 36 * 3
+        colors: new Float32Array(colorsArray), // 144 = 36 * 4
+        indices: new Uint16Array([...Array(36).keys()]), // 36 = 6 * 2 * 3
       };
 }
 
@@ -616,14 +621,14 @@ window.selectModel = selectModel;
 
 /**
  * &lt;p>Code to actually render our geometry.&lt;/p>
- * Draw {@link drawAxes axes}, {@link drawSurface surface}, and {@link drawLines lines}.
+ * Draw {@link drawAxes axes}, {@link drawModel surface}, and {@link drawLines lines}.
  */
 function draw() {
   // clear the framebuffer
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   if (selector.axes) drawAxes();
-  if (selector.texture) drawSurface();
+  if (selector.texture) drawModel();
   if (selector.lines) drawLines();
 }
 
@@ -640,10 +645,17 @@ function getModelMatrix() {
 }
 
 /**
- * &lt;p>Draws the surface. &lt;/p>
- * Uses the colorShader.
+ * &lt;p>Draws the model, by
+ * using the {@link lightingShader}.&lt;/p>
+ * If {@link theModel}.indices is defined, then calls
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements drawElements}.
+ * Otherwise, {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawArrays drawArrays}.
+ * &lt;p>Since three.js {@link https://sbcode.net/threejs/geometry-to-buffergeometry/ version 125},
+ * THREE.Geometry was deprecated and replaced by
+ * {@link external:THREE.BufferGeometry THREE.BufferGeometry},
+ * which always define indices for efficiency.
  */
-function drawSurface() {
+function drawModel() {
   // bind the shader
   gl.useProgram(lightingShader);
 
@@ -1079,13 +1091,13 @@ var animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawSurface">drawSurface</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeCube">makeCube</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawModel">drawModel</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeCube">makeCube</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 05 2024 07:40:38 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Mar 07 2024 07:22:07 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -336,8 +336,8 @@ function getModelData(geom) {
 }
 
 /**
- * <p>Creates a unit cube and set its properties:
- * vertices, normal vectors, indices or colors.</p>
+ * <p>Creates a unit cube, centered at the origin, and set its properties:
+ * vertices, normal vectors, indices and colors.</p>
  *
  * <p>For a proper specular reflection on planar faces, such as a cube or a polyhedron,
  * the normal vectors have to be perpendicular to the plane of each face.</p>
@@ -346,13 +346,16 @@ function getModelData(geom) {
  * is what one would want to do for a smooth object like a sphere.</p>
  * The resulting rendering is very unpleasant, in this case.
  * The right course is creating three duplicate vertices per cube corner.
+ * <p>Even if cube.indices is not defined here, {@link drawModel} can handle it.</p>
  * @param {Boolean} create_indices whether to generated vertex indices or not.
- * @return {Object<{numVertices: Number,
- *                  vertices: Float32Array,
- *                  normals: Float32Array,
- *                  colors: Float32Array,
- *                  indices: Uint16Array}>}
+ * @return {Object} cube
+ * @property {Number} cube.numVertices number of vertices (36).
+ * @property {Float32Array} cube.vertices vertex coordinate array (108 = 36 * 3).
+ * @property {Float32Array} cube.normals vertex normal array (108 = 36 * 3).
+ * @property {Float32Array} cube.colors vertex color array (144 = 36 * 4).
+ * @property {Uint16Array} cube.indices vertex index array (36 = 6 * 2 * 3).
  * @see {@link external:THREE.BufferGeometry}
+ * @see <img src="/cwdc/13-webgl/examples/images/cube.png">
  */
 function makeCube(create_indices = false) {
   // 8 vertices of cube
@@ -439,15 +442,17 @@ function makeCube(create_indices = false) {
 
   return create_indices
     ? {
-        vertices: rawVertices,
-        normals: rawVertexNormals,
-        indices: indices,
+        numVertices: 8,
+        vertices: rawVertices, // 24 = 8 * 3
+        normals: rawVertexNormals, // 24 = 8 * 3
+        indices: indices, // 36 = 6 faces * 2 tri/face  * 3 ind/tri
       }
     : {
-        numVertices: 36,
-        vertices: new Float32Array(verticesArray),
-        normals: new Float32Array(normalsArray),
-        colors: new Float32Array(colorsArray),
+        numVertices: 36, // 12 tri  * 3 vert/tri
+        vertices: new Float32Array(verticesArray), // 108 = 36 * 3
+        normals: new Float32Array(normalsArray), // 108 = 36 * 3
+        colors: new Float32Array(colorsArray), // 144 = 36 * 4
+        indices: new Uint16Array([...Array(36).keys()]), // 36 = 6 * 2 * 3
       };
 }
 
@@ -588,14 +593,14 @@ window.selectModel = selectModel;
 
 /**
  * <p>Code to actually render our geometry.</p>
- * Draw {@link drawAxes axes}, {@link drawSurface surface}, and {@link drawLines lines}.
+ * Draw {@link drawAxes axes}, {@link drawModel surface}, and {@link drawLines lines}.
  */
 function draw() {
   // clear the framebuffer
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   if (selector.axes) drawAxes();
-  if (selector.texture) drawSurface();
+  if (selector.texture) drawModel();
   if (selector.lines) drawLines();
 }
 
@@ -612,10 +617,17 @@ function getModelMatrix() {
 }
 
 /**
- * <p>Draws the surface. </p>
- * Uses the colorShader.
+ * <p>Draws the model, by
+ * using the {@link lightingShader}.</p>
+ * If {@link theModel}.indices is defined, then calls
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements drawElements}.
+ * Otherwise, {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawArrays drawArrays}.
+ * <p>Since three.js {@link https://sbcode.net/threejs/geometry-to-buffergeometry/ version 125},
+ * THREE.Geometry was deprecated and replaced by
+ * {@link external:THREE.BufferGeometry THREE.BufferGeometry},
+ * which always define indices for efficiency.
  */
-function drawSurface() {
+function drawModel() {
   // bind the shader
   gl.useProgram(lightingShader);
 
