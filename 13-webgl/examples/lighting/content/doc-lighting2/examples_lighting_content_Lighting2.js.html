@@ -33,11 +33,11 @@
  * &lt;p>Lighting and shading models: &lt;a href="https://en.wikipedia.org/wiki/Lambertian_reflectance">Lambert&lt;/a>  x
  * &lt;a href="https://en.wikipedia.org/wiki/Phong_reflection_model">Phong&lt;/a>.  &lt;/p>
  *
- * Here, we add a {@link getModelData function} to take a model created by {@link https://threejs.org three.js}
+ * Here we add a function to take a model created by {@link https://threejs.org three.js}
  * and extract the data for vertices and normals, &lt;br>
  * so we can load it directly to the GPU.
  *
- * Edit {@link mainEntrance} to select a {@link selectModel model} and {@link makeCube} to set
+ * Edit {@link mainEntrance} to choose a model and select
  * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
  *
  * @author Steve Kautz modified by Paulo Roma
@@ -189,7 +189,11 @@ var mscale = 1;
 
 /**
  * Turn the display of the model mesh/texture/axes/animation on/off.
- * @type {Object&lt;{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean}>}
+ * @type {Object}
+ * @property {Boolean} lines mesh visible/invisible
+ * @property {Boolean} texture model surface visible/invisible
+ * @property {Boolean} axes axes visible/invisible
+ * @property {Boolean} paused animation on/off
  */
 var selector = {
   lines: false,
@@ -284,7 +288,7 @@ var view = new Matrix4().setLookAt(
  * Or, use a perspective projection specified with a
  * field of view, an aspect ratio, and distance to near and far
  * clipping planes.
- * Here use aspect ratio 3/2 corresponding to canvas size 600 x 400
+ * Here use aspect ratio 3/2 corresponding to canvas size 900 x 600
  * @type {Matrix4}
  */
 var projection = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);
@@ -365,7 +369,7 @@ function getModelData(geom) {
 
 /**
  * &lt;p>Creates a unit cube, centered at the origin, and set its properties:
- * vertices, normal vectors, indices and colors.&lt;/p>
+ * vertices, normal vectors, texture coordinates, indices and colors.&lt;/p>
  *
  * &lt;p>For a proper specular reflection on planar faces, such as a cube or a polyhedron,
  * the normal vectors have to be perpendicular to the plane of each face.&lt;/p>
@@ -381,6 +385,7 @@ function getModelData(geom) {
  * @property {Float32Array} cube.vertices vertex coordinate array (108 = 36 * 3).
  * @property {Float32Array} cube.normals vertex normal array (108 = 36 * 3).
  * @property {Float32Array} cube.colors vertex color array (144 = 36 * 4).
+ * @property {Float32Array} cube.texCoords vertex texture array (72 = 36 * 2).
  * @property {Uint16Array} cube.indices vertex index array (36 = 6 * 2 * 3).
  * @see {@link external:THREE.BufferGeometry}
  * @see &lt;img src="/cwdc/13-webgl/examples/images/cube.png">
@@ -420,6 +425,19 @@ function makeCube(create_indices = false) {
      0, -1,  0,  // -y face
   ]);
 
+  // 8 texture coordinates of the vertices
+  // prettier-ignore
+  const rawTexture = new Float32Array([
+    0.0, 0.0,  // v0
+    1.0, 0.0,  // v1
+    1.0, 1.0,  // v2
+    0.0, 1.0,  // v3
+    0.0, 0.0,  // v4
+    1.0, 0.0,  // v5
+    1.0, 1.0,  // v6
+    0.0, 1.0,  // v7
+ ]);
+
   const n = 1 / Math.sqrt(3);
   // 8 normals of the vertices
   // prettier-ignore
@@ -447,6 +465,7 @@ function makeCube(create_indices = false) {
   const verticesArray = [];
   const colorsArray = [];
   const normalsArray = [];
+  const textureArray = [];
   for (let i = 0; i &lt; 36; ++i) {
     // for each of the 36 vertices...
     let face = Math.floor(i / 6);
@@ -466,6 +485,11 @@ function makeCube(create_indices = false) {
     for (let j = 0; j &lt; 3; ++j) {
       normalsArray.push(rawNormals[3 * face + j]);
     }
+
+    // (tx, ty): two numbers for each point
+    for (let j = 0; j &lt; 2; ++j) {
+      textureArray.push(rawTexture[2 * index + j]);
+    }
   }
 
   return create_indices
@@ -473,6 +497,7 @@ function makeCube(create_indices = false) {
         numVertices: 8,
         vertices: rawVertices, // 24 = 8 * 3
         normals: rawVertexNormals, // 24 = 8 * 3
+        texCoords: rawTexture, // 72 = 36 * 2
         indices: indices, // 36 = 6 faces * 2 tri/face  * 3 ind/tri
       }
     : {
@@ -480,6 +505,7 @@ function makeCube(create_indices = false) {
         vertices: new Float32Array(verticesArray), // 108 = 36 * 3
         normals: new Float32Array(normalsArray), // 108 = 36 * 3
         colors: new Float32Array(colorsArray), // 144 = 36 * 4
+        texCoords: new Float32Array(textureArray), // 72 = 36 * 2
         indices: new Uint16Array([...Array(36).keys()]), // 36 = 6 * 2 * 3
       };
 }
@@ -621,7 +647,7 @@ window.selectModel = selectModel;
 
 /**
  * &lt;p>Code to actually render our geometry.&lt;/p>
- * Draw {@link drawAxes axes}, {@link drawModel surface}, and {@link drawLines lines}.
+ * Draw {@link drawAxes axes}, {@link drawModel model}, and {@link drawLines lines}.
  */
 function draw() {
   // clear the framebuffer
@@ -1097,7 +1123,7 @@ var animate = (() => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Mar 07 2024 08:05:23 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Mar 08 2024 07:34:20 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
