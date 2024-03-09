@@ -314,6 +314,7 @@ document
  * </ul>
  * returns an object containing raw data for
  * vertices, indices, texture coordinates, and normal vectors.
+ * <p>Polyhedra have no index.</p>
  * @param {external:THREE.BufferGeometry} geom
  *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
@@ -335,7 +336,7 @@ function getModelData(geom) {
     vertices: geom.getAttribute("position").array,
     normals: geom.getAttribute("normal").array,
     texCoords: geom.getAttribute("uv").array,
-    indices: geom.index.array,
+    indices: geom.index ? geom.index.array : null,
   };
 }
 
@@ -570,6 +571,14 @@ function handleKeyPress(event) {
         getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16)),
       );
       break;
+    case "d":
+      // dodecahedron
+      mscale = 1;
+      document.getElementById("models").value = "9";
+      theModel = createModel(
+        getModelData(new THREE.DodecahedronGeometry(1, 0)),
+      );
+      break;
     case "p":
       // teapot
       mscale = 0.8;
@@ -611,6 +620,7 @@ function selectModel() {
     5: "s", // sphere
     6: "p", // teapot
     8: "T", // knot
+    9: "d", // dodecahedron
   };
   handleKeyPress(createEvent(key[val]));
 }
@@ -713,7 +723,7 @@ function drawModel() {
       0,
     );
   } else {
-    gl.drawArrays(gl.TRIANGLES, 0, theModel.numVertices);
+    gl.drawArrays(gl.TRIANGLES, 0, theModel.vertices.length / 3);
   }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
