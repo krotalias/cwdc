@@ -45,8 +45,24 @@
  */
 
 /**
+ * @typedef {Object} bufferGeometry
+ * @property {Float32Array} vertices vertex coordinates.
+ * @property {Float32Array} normals vertex normals.
+ * @property {Float32Array} texCoords texture coordinates.
+ * @property {Uint16Array} indices index array.
+ */
+
+/**
  * @class
- * A very basic stack class.
+ * <p>A very basic stack class for traversing a hierarchical transformation tree.</p>
+ * This class maintains a {@link Matrix4 matrix} stack,
+ * whose top is the current transformation matrix.<br>
+ * Each transformation function applied to {@link TORSO Blobby} manipulates the current matrix.
+ * <p>If a transformation needs to be reused,
+ * it can be copied and pushed onto the top of the stack, by using the command: </p>
+ *  • {@link Stack#push push}(); // “remember where you are”
+ * <p>The top of the matrix stack can also be removed, by using the command:</p>
+ *  • {@link Stack#pop pop}(); // “go back to where you were”
  */
 class Stack {
   constructor() {
@@ -111,18 +127,24 @@ class Stack {
 /**
  * Given an instance of
  * {@link external:THREE.BufferGeometry THREE.BufferGeometry},
- * returns an object containing raw data for
- * vertices, indices, texture coordinates, and normal vectors.
- * @param {external:THREE.BufferGeometry} geom {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry}, <br>
- *                                             {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry}.
- * @return {Object<{vertices: Float32Array, normals: Float32Array, texCoords: Float32Array, indices: Uint16Array}>}
+ * returns an object containing raw data for:
+ * <ul>
+ *  <li>vertices,</li>
+ *  <li>indices, </li>
+ *  <li>texture coordinates, </li>
+ *  <li>and normal vectors.</li>
+ * </ul>
+ * @param {external:THREE.BufferGeometry} geom
+ *        {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry}.
+ * @return {bufferGeometry}
  */
 function getModelData(geom) {
   return {
     vertices: geom.getAttribute("position").array,
     normals: geom.getAttribute("normal").array,
     texCoords: geom.getAttribute("uv").array,
-    indices: geom.index.array,
+    indices: geom.getIndex() ? geom.getIndex().array : null,
   };
 }
 
@@ -155,7 +177,7 @@ function configureTexture(image) {
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
  */
 function reverseDirection(v) {
-  return v.map(function (item) {
+  return v.map((item) => {
     return -item;
   });
 }
@@ -237,15 +259,26 @@ var XAXIS = new Float32Array([-1.0, 0.0, 0.0]);
 var YAXIS = new Float32Array([0.0, -1.0, 0.0]);
 var ZAXIS = new Float32Array([0.0, 0.0, -1.0]);
 
-var red = new Float32Array([1.0, 0.0, 0.0, 1.0]);
-var blue = new Float32Array([0.0, 0.0, 1.0, 1.0]);
-var green = new Float32Array([0.0, 1.0, 0.0, 1.0]);
-var yellow = new Float32Array([0.8, 0.8, 0.0, 1.0]);
-var skin = new Float32Array([0.937, 0.815, 0.811]);
-var white = new Float32Array([1.0, 1.0, 1.0, 1.0]);
-var bgcolor = new Float32Array([0.9, 0.9, 0.9, 1.0]); // background color
-var flcolor = new Float32Array([1.0, 1.0, 1.0, 1.0]); // floor color
-var glColor = white;
+/**
+ * Color table.
+ * @type {Object<String:Array<Number>>}
+ */
+const colorTable = {
+  red: [1.0, 0.0, 0.0, 1.0],
+  blue: [0.0, 0.0, 1.0, 1.0],
+  green: [0.0, 1.0, 0.0, 1.0],
+  yellow: [0.8, 0.8, 0.0, 1.0],
+  skin: [0.937, 0.815, 0.811, 1.0],
+  white: [1.0, 1.0, 1.0, 1.0],
+  bgcolor: [0.9, 0.9, 0.9, 1.0], // background color
+  flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
+};
+
+/**
+ * Color to be used when going up/down the transformation hierarchy.
+ * @type {Array<Number>}
+ */
+var glColor = colorTable.white;
 
 var FOV = 45.0,
   ZN = 1.17,
@@ -306,13 +339,13 @@ var RELBO = 85.0; /* x */
 
 /**
  * Model data (blobby parts).
- * @type {Object<{vertices: Float32Array, normals: Float32Array, texCoords: Float32Array, indices: Uint16Array}>}
+ * @type {bufferGeometry}
  */
 var sphere;
 
 /**
  * Floor.
- * @type {Object<{vertices: Float32Array, normals: Float32Array, texCoords: Float32Array, indices: Uint16Array}>}
+ * @type {bufferGeometry}
  */
 var planeModel;
 
@@ -321,8 +354,23 @@ var planeModel;
  * @type {WebGLBuffer}
  */
 var vertexBuffer;
+
+/**
+ * Handle to a face index buffer on the GPU for the spheres.
+ * @type {WebGLBuffer}
+ */
 var indexBuffer;
+
+/**
+ * Handle to a vertex normal buffer on the GPU for the spheres.
+ * @type {WebGLBuffer}
+ */
 var vertexNormalBuffer;
+
+/**
+ * Handle to a vertex texture buffer on the GPU for the floor.
+ * @type {WebGLBuffer}
+ */
 var texCoordBuffer;
 
 /**
@@ -364,9 +412,9 @@ var eye = [0.1, -1.6, -7.5];
  */
 // prettier-ignore
 var view = new Matrix4().setLookAt(
-  ...eye,    // eye
-  0.1, -1.6, -6.5,   // at - looking at the origin
-  0, -1, 0   // up vector - y axis
+  ...eye,           // eye
+  0.1, -1.6, -6.5,  // at - looking at the origin
+  0, -1, 0          // up vector - y axis
 );
 
 /**
@@ -383,7 +431,13 @@ var viewDistance = vecLen(eye);
 var projection = new Matrix4().setPerspective(FOV, 1.0, ZN, ZF);
 
 /**
- * Object to enable rotation by mouse dragging (arcball).
+ * <p>Object to enable rotation by mouse dragging (arcball).</p>
+ * For using the rotator, I had to:
+ * <ul>
+ *  <li>set XSCR = ZSCR = 0 (was XSCR = -0.1, ZSCR = 7.9),</li>
+ *  <li>set the eye to [0.1, -1.6, -7.5] (was at the origin),</li>
+ *  <li>looking at [0.1, -1.6, -6.5] (was [0,0,1]).</li>
+ * </ul>
  * @type {SimpleRotator}
  */
 var rotator;
@@ -485,7 +539,8 @@ function stopCallBack() {
 }
 
 /**
- * Handler for key press events adjusts object rotations.
+ * Handler for keydown events
+ * to adjust joint angles.
  * @param {KeyboardEvent} event key pressed.
  */
 function handleKeyPress(event) {
@@ -587,10 +642,9 @@ function handleKeyPress(event) {
 /**
  *  Helper function that renders the sphere based on the model transformation
  *  on top of the stack and the given local transformation.
- *  @param {Float32Array} color sphere color.
+ *  @param {Array<Number>} color sphere color.
  */
-function renderSphere(color) {
-  if (typeof color === "undefined") color = glColor;
+function renderSphere(color = glColor) {
   // bind the shader
   gl.useProgram(lightingShader);
 
@@ -632,7 +686,7 @@ function renderSphere(color) {
   loc = gl.getUniformLocation(lightingShader, "projection");
   gl.uniformMatrix4fv(loc, false, projection.elements);
   loc = gl.getUniformLocation(lightingShader, "u_Color");
-  gl.uniform4f(loc, color[0], color[1], color[2], 1.0);
+  gl.uniform4f(loc, ...color);
   var loc = gl.getUniformLocation(lightingShader, "lightPosition");
   gl.uniform4f(loc, 0.0, 5.0, -5.0, 1.0);
 
@@ -684,7 +738,7 @@ function head() {
   stk.push(t);
   t.translate(0.0, -0.162, 0.239);
   t.scale(0.0533, 0.0508, 0.0506);
-  renderSphere(red);
+  renderSphere(colorTable.red);
   stk.pop();
 
   // left eye
@@ -692,7 +746,7 @@ function head() {
   stk.push(t);
   t.translate(0.1, -0.175, 0.5);
   t.scale(0.042, 0.046, 0.042);
-  renderSphere(blue);
+  renderSphere(colorTable.blue);
   stk.pop();
 
   // right eye
@@ -700,7 +754,7 @@ function head() {
   stk.push(t);
   t.translate(-0.1, -0.175, 0.5);
   t.scale(0.042, 0.046, 0.042);
-  renderSphere(blue);
+  renderSphere(colorTable.blue);
   stk.pop();
 }
 
@@ -764,7 +818,7 @@ function shoulder() {
   renderSphere();
   stk.pop();
 
-  glColor = skin;
+  glColor = colorTable.skin;
   t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, 0.153);
@@ -793,7 +847,7 @@ function shoulder() {
 }
 
 function body() {
-  glColor = white;
+  glColor = colorTable.white;
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, 0.62);
@@ -859,7 +913,7 @@ function foot() {
   t.translate(0.0, -0.15, -0.05);
   t.rotate(10.0, XAXIS[0], XAXIS[1], XAXIS[2]);
   t.scale(0.08, 0.19, 0.05);
-  renderSphere(skin);
+  renderSphere(colorTable.skin);
   stk.pop();
 }
 
@@ -901,8 +955,11 @@ function leftleg() {
   stk.pop();
 }
 
+/**
+ * Draws Blobby's torso, which is the root of the transformation hierarchy.
+ */
 function TORSO() {
-  glColor = blue;
+  glColor = colorTable.blue;
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(-0.178, 0.0, 0.0);
@@ -977,7 +1034,7 @@ function GPlane() {
   loc = gl.getUniformLocation(texturedShader, "projection");
   gl.uniformMatrix4fv(loc, false, projection.elements);
   loc = gl.getUniformLocation(texturedShader, "u_Color");
-  gl.uniform4f(loc, flcolor[0], flcolor[1], flcolor[2], 1.0);
+  gl.uniform4f(loc, ...colorTable.flcolor);
   var loc = gl.getUniformLocation(texturedShader, "lightPosition");
   gl.uniform4f(loc, 0.0, -10.0, 5.0, 1.0);
 
@@ -1006,7 +1063,7 @@ function GPlane() {
 }
 
 /**
- * Add a new Blobby to the scene translated by (DX,DY).
+ * Add a new {@link TORSO Blobby} to the scene translated by (DX,DY).
  * @param {Number} DX horizontal translation.
  * @param {Number} DY vertical translation.
  */
@@ -1029,7 +1086,8 @@ function addBlobby(DX, DY) {
 }
 
 /**
- * Code to actually render our geometry.
+ * Code to actually render our geometry,
+ * by drawing the {@link GPlane floor} and three {@link addBlobby Blobbies}.
  */
 function draw() {
   // clear the framebuffer
@@ -1058,6 +1116,8 @@ function draw() {
 
 /**
  * <p>Entry point when page is loaded. </p>
+ *
+ * <p>Triggers the {@link animate animation}.</p>
  *
  * Basically this function does setup that "should" only have to be done once,<br>
  * while {@link draw} does things that have to be repeated each time the canvas is drawn.
@@ -1101,8 +1161,8 @@ function mainEntrance() {
 
   /**
    * <p>Appends an event listener for events whose type attribute value is keydown.</p>
-   * The callback argument sets the callback that will be invoked when
-   * the event is dispatched.
+   * The callback argument sets the {@link handleKeyPress callback}
+   * that will be invoked when the event is dispatched.
    *
    * @event keydown
    */
@@ -1219,7 +1279,7 @@ function mainEntrance() {
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // specify a fill color for clearing the framebuffer
-  gl.clearColor(bgcolor[0], bgcolor[1], bgcolor[2], 1.0);
+  gl.clearColor(...colorTable.bgcolor);
 
   gl.enable(gl.DEPTH_TEST);
 
@@ -1251,7 +1311,7 @@ function mainEntrance() {
     let currentTime;
 
     /**
-     * Define an animation loop.
+     * Define an {@link draw animation} loop.
      * @callback loop
      * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
      */
