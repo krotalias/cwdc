@@ -263,17 +263,19 @@ var ZAXIS = new Float32Array([0.0, 0.0, -1.0]);
 /**
  * Color table.
  * @type {Object<String:Array<Number>>}
+ * @see https://www.color-name.com
+ * @see https://doc.instantreality.org/tools/color_calculator/
  */
 const colorTable = {
   red: [1.0, 0.0, 0.0, 1.0],
   blue: [0.0, 0.0, 1.0, 1.0],
   green: [0.0, 1.0, 0.0, 1.0],
-  yellow: [0.8, 0.8, 0.0, 1.0],
-  skin: [0.937, 0.815, 0.811, 1.0],
+  yellow: [0.8, 0.8, 0.0, 1.0], // #cccc00 (Bitter Lemon)
+  skin: [0.937, 0.815, 0.811, 1.0], // #efd0cf (Queen Pink)
   white: [1.0, 1.0, 1.0, 1.0],
   black: [0.0, 0.0, 0.0, 1.0],
-  brown: [0.5, 0.0, 0.43, 1.0],
-  bgcolor: [0.9, 0.9, 0.9, 1.0], // background color
+  brown: [0.5, 0.0, 0.43, 1.0], // #80006e (Philippine Violet)
+  bgcolor: [0.9, 0.9, 0.9, 1.0], // #e6e6e6 (Platinum) - background color
   flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
 };
 
@@ -293,8 +295,17 @@ var XM = 0.0,
   YM = 0.0,
   ZM = 1.75;
 
-// rotate Blobby
+/**
+ * Jump translation in "z".
+ * @type {Number}
+ */
 var JUMP = 0.0;
+
+/**
+ * <p>Dance rotation about "z" axis, after a jump.</p>
+ * Macarena dance proceeds in four perpendicular directions.
+ * @type {Number}
+ */
 var TURN = 0.0;
 
 // rotate the world
