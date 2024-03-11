@@ -267,16 +267,16 @@ var ZAXIS = new Float32Array([0.0, 0.0, -1.0]);
  * @see https://doc.instantreality.org/tools/color_calculator/
  */
 const colorTable = {
-  red: [1.0, 0.0, 0.0, 1.0],
-  blue: [0.0, 0.0, 1.0, 1.0],
-  green: [0.0, 1.0, 0.0, 1.0],
-  yellow: [0.8, 0.8, 0.0, 1.0], // #cccc00 (Bitter Lemon)
+  red: [1.0, 0.0, 0.0, 1.0], // #ff0000
+  blue: [0.0, 0.0, 1.0, 1.0], // #0000ff
+  ocean_green: [0.34, 0.72, 0.58, 1.0], // #57b894
+  bitter_lemon: [0.8, 0.8, 0.0, 1.0], // #cccc00
   skin: [0.937, 0.815, 0.811, 1.0], // #efd0cf (Queen Pink)
-  white: [1.0, 1.0, 1.0, 1.0],
-  black: [0.0, 0.0, 0.0, 1.0],
-  brown: [0.5, 0.0, 0.43, 1.0], // #80006e (Philippine Violet)
+  white: [1.0, 1.0, 1.0, 1.0], // #ffffff
+  black: [0.0, 0.0, 0.0, 1.0], // #000000
+  philippine_violet: [0.5, 0.0, 0.43, 1.0], // #80006e
   bgcolor: [0.9, 0.9, 0.9, 1.0], // #e6e6e6 (Platinum) - background color
-  flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
+  flcolor: [1.0, 1.0, 1.0, 1.0], // #ffffff (White) - floor color
 };
 
 /**
@@ -760,7 +760,7 @@ function head() {
   stk.push(t);
   t.translate(0.1, -0.175, 0.5);
   t.scale(0.042, 0.046, 0.042);
-  renderSphere(colorTable.blue);
+  renderSphere(colorTable.ocean_green);
   stk.pop();
 
   // right eye
@@ -768,7 +768,7 @@ function head() {
   stk.push(t);
   t.translate(-0.1, -0.175, 0.5);
   t.scale(0.042, 0.046, 0.042);
-  renderSphere(colorTable.blue);
+  renderSphere(colorTable.ocean_green);
   stk.pop();
 }
 
@@ -777,7 +777,7 @@ function uparm() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.275);
   t.scale(0.09, 0.09, 0.275);
-  renderSphere();
+  renderSphere(colorTable.bitter_lemon);
   stk.pop();
 }
 
@@ -786,7 +786,7 @@ function lowarm() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.25);
   t.scale(0.08, 0.08, 0.25);
-  renderSphere();
+  renderSphere(colorTable.bitter_lemon);
   stk.pop();
 }
 
@@ -927,7 +927,7 @@ function foot() {
   t.translate(0.0, -0.15, -0.05);
   t.rotate(10.0, XAXIS[0], XAXIS[1], XAXIS[2]);
   t.scale(0.08, 0.19, 0.05);
-  renderSphere(colorTable.brown);
+  renderSphere(colorTable.philippine_violet);
   stk.pop();
 }
 
