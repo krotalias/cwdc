@@ -53,7 +53,15 @@
 
 /**
  * @class
- * A very basic stack class.
+ * <p>A very basic stack class for traversing a hierarchical transformation tree.</p>
+ * This class maintains a {@link Matrix4 matrix} stack,
+ * whose top is the current transformation matrix.<br>
+ * Each transformation function applied to {@link torso Blobby} manipulates the current matrix.
+ * <p>If a transformation needs to be reused,
+ * it can be copied and pushed onto the top of the stack, by using the command: </p>
+ *  • {@link Stack#push push}(); // “remember where you are”
+ * <p>The top of the matrix stack can also be removed, by using the command:</p>
+ *  • {@link Stack#pop pop}(); // “go back to where you were”
  */
 class Stack {
   constructor() {
@@ -126,8 +134,9 @@ class Stack {
  *  <li>and normal vectors. </li>
  * </ul>
  *
- * @param {external:THREE.BufferGeometry} geom {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry}, <br>
- *                                             {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry}.
+ * @param {external:THREE.BufferGeometry} geom
+ *        {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry}, <br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry}.
  * @return {bufferGeometry}
  */
 function getModelData(geom) {
@@ -253,56 +262,78 @@ var vampire = false;
 var disco = false;
 var alternating = false; //alternate skins between jumps
 
-// Color gallery
-var red = new Float32Array([1.0, 0.0, 0.0, 1.0]);
-var black = new Float32Array([0.0, 0.0, 0.0, 1.0]);
-var blue = new Float32Array([0.0, 0.0, 0.6, 1.0]);
-var white = new Float32Array([1.0, 1.0, 1.0, 1.0]);
+/**
+ * Color table.
+ * @type {Object<String:Array<Number>>}
+ * @see https://www.color-name.com
+ * @see https://doc.instantreality.org/tools/color_calculator/
+ */
+const colorTable = {
+  red: [1.0, 0.0, 0.0, 1.0],
+  duke_blue: [0.0, 0.0, 0.6, 1.0], // #000099
+  black: [0.0, 0.0, 0.0, 1.0],
+  white: [1.0, 1.0, 1.0, 1.0],
+  grullo: [0.65, 0.55, 0.55, 1.0], // #a68c8c
+  emerald: [0.3, 0.75, 0.45, 1.0], // #4dbf73
+  solid_pink: [0.55, 0.2, 0.3, 1.0], // #8c334d
+  light_moss_green: [0.7, 0.85, 0.7, 1.0], // #b3d9b3
+  international_orange: [0.75, 0.2, 0.2, 1.0], // #bf3333
+  persian_red: [0.8, 0.2, 0.2, 1.0], // #cc3333
+  spanish_gray: [0.65, 0.6, 0.6, 1.0], // #a69999
+  mauve_taupe: [0.53, 0.43, 0.43, 1.0], // #876e6e
+  sheen_green: [0.5, 0.8, 0.0, 1.0], // #80cc00
+  light_gold: [0.7, 0.55, 0, 1.0], // #b38c00
+  flirt: [0.7, 0, 0.4, 1.0], // #b30066
+  bgcolor: [0.7, 0.7, 0.7, 1.0], // #b3b3b3 - backgound color
+  flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
+};
 
 // default skin
-var dMouth = new Float32Array([0.55, 0.2, 0.3, 1.0]); //default mouth
-var dSkin = new Float32Array([0.65, 0.55, 0.55, 1.0]); //default skin tone
-var dEyes = new Float32Array([0.3, 0.75, 0.45, 1.0]); //default eyes
-var dTorso = black;
-var dPants = black;
+var dMouth = colorTable.solid_pink; // default mouth
+var dSkin = colorTable.grullo; // default skin tone
+var dEyes = colorTable.emerald; // default eyes
+var dTorso = colorTable.black;
+var dPants = colorTable.black;
 var dArms = dSkin;
-var dHands = black;
-var dBody = new Float32Array([0.7, 0.85, 0.7, 1.0]);
-var dHands = black;
+var dHands = colorTable.black;
+var dBody = colorTable.light_moss_green;
+var dHands = colorTable.black;
 
 // vampire skin
-var vMouth = new Float32Array([0.75, 0.2, 0.2, 1.0]);
-var vEyes = new Float32Array([0.8, 0.2, 0.2, 1.0]);
-var vSkin = new Float32Array([0.65, 0.6, 0.6, 1.0]);
-var vTorso = black;
-var vPants = black;
-var vBody = black;
+var vMouth = colorTable.international_orange;
+var vEyes = colorTable.persian_red;
+var vSkin = colorTable.spanish_gray;
+var vTorso = colorTable.black;
+var vPants = colorTable.black;
+var vBody = colorTable.black;
 var vHands = vSkin;
-var vArms = black;
+var vArms = colorTable.black;
 
 // disco skin
 var discoMouth = dMouth;
 var discoEyes = dEyes;
-var discoSkin = new Float32Array([0.53, 0.43, 0.43, 1.0]);
-var discoTorso = new Float32Array([0.75, 0.2, 0.2, 1.0]);
-var discoPants = new Float32Array([0.5, 0.8, 0.0, 1.0]);
-var discoBody = new Float32Array([0.7, 0.55, 0, 1.0]);
+var discoSkin = colorTable.mauve_taupe;
+var discoTorso = colorTable.international_orange;
+var discoPants = colorTable.sheen_green;
+var discoBody = colorTable.light_gold;
 var discoHands = discoSkin;
-var discoArms = new Float32Array([0.7, 0, 0.4, 1.0]);
+var discoArms = colorTable.flirt;
 
 // to be used color variables
 var skin = dSkin;
 var mouth = dMouth;
 var eyes = dEyes;
-var torsoColor = red;
-var pants = black;
+var torsoColor = colorTable.red;
+var pants = colorTable.black;
 var hands = dHands;
 var bodyColor = dBody;
 var arms = dArms;
 
-var bgcolor = new Float32Array([0.7, 0.7, 0.7, 1.0]); // backgound color
-var flcolor = new Float32Array([1.0, 1.0, 1.0, 1.0]); // floor color
-var glColor = white;
+/**
+ * Color to be used when going up/down the transformation hierarchy.
+ * @type {Array<Number>}
+ */
+var glColor = colorTable.white;
 
 var FOV = 45.0,
   ZN = 1.17,
@@ -314,8 +345,17 @@ var XM = 0.0,
   YM = 0.0,
   ZM = 1.75;
 
-// rotate Blobby
+/**
+ * Jump translation in "z".
+ * @type {Number}
+ */
 var JUMP = 0.0;
+
+/**
+ * <p>Dance rotation about "z" axis, after a jump.</p>
+ * Macarena dance proceeds in four perpendicular directions.
+ * @type {Number}
+ */
 var TURN = 0.0;
 
 // rotate the world
@@ -872,10 +912,9 @@ const createEvent = (key) => {
 /**
  *  Helper function that renders the sphere based on the model transformation
  *  on top of the stack and the given local transformation.
- *  @param {Float32Array} color sphere color.
+ *  @param {Array<Number>} color sphere color.
  */
-function renderSphere(color) {
-  if (typeof color === "undefined") color = glColor;
+function renderSphere(color = glColor) {
   // bind the shader
   gl.useProgram(lightingShader);
 
@@ -985,7 +1024,7 @@ function GPlane() {
   loc = gl.getUniformLocation(texturedShader, "projection");
   gl.uniformMatrix4fv(loc, false, projection.elements);
   loc = gl.getUniformLocation(texturedShader, "u_Color");
-  gl.uniform4f(loc, flcolor[0], flcolor[1], flcolor[2], 1.0);
+  gl.uniform4f(loc, ...colorTable.flcolor);
   var loc = gl.getUniformLocation(texturedShader, "lightPosition");
   gl.uniform4f(loc, 0.0, -10.0, 5.0, 1.0);
 
@@ -1039,7 +1078,8 @@ function addBlobby(DX, DY, skin) {
 }
 
 /**
- * Code to actually render our geometry.
+ * Code to actually render our geometry,
+ * by drawing the {@link GPlane floor} and three {@link addBlobby Blobbies}.
  */
 function draw() {
   // clear the framebuffer
@@ -1072,6 +1112,8 @@ function draw() {
 
 /**
  * <p>Entry point when page is loaded. </p>
+ *
+ *  <p>Triggers the {@link animate animation}.</p>
  *
  * Basically this function does setup that "should" only have to be done once,<br>
  * while {@link draw} does things that have to be repeated each time the canvas is drawn.
@@ -1230,7 +1272,7 @@ function mainEntrance() {
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // specify a fill color for clearing the framebuffer
-  gl.clearColor(bgcolor[0], bgcolor[1], bgcolor[2], 1.0);
+  gl.clearColor(...colorTable.bgcolor);
 
   gl.enable(gl.DEPTH_TEST);
 
@@ -1316,14 +1358,14 @@ function head() {
     stk.push(t);
     t.translate(0.0, 0.0, 0.64);
     t.scale(0.3, 0.3, 0.15);
-    renderSphere(black);
+    renderSphere(colorTable.black);
     stk.pop();
 
     t = new Matrix4(stk.top()); //stupid dinky red sphere on hat
     stk.push(t);
     t.translate(0.0, 0.0, 0.8);
     t.scale(0.04, 0.04, 0.04);
-    renderSphere(red);
+    renderSphere(colorTable.red);
     stk.pop();
   }
 
@@ -1333,7 +1375,7 @@ function head() {
     stk.push(t);
     t.translate(0.0, 0.07, 0.74);
     t.scale(0.33, 0.33, 0.27);
-    renderSphere(black);
+    renderSphere(colorTable.black);
     stk.pop();
   }
 
@@ -1363,14 +1405,14 @@ function head() {
     stk.push(t);
     t.translate(0.04, -0.2, 0.18);
     t.scale(0.01, 0.005, 0.05);
-    renderSphere(white);
+    renderSphere(colorTable.white);
     stk.pop();
 
     t = new Matrix4(stk.top()); //fang left
     stk.push(t);
     t.translate(-0.04, -0.2, 0.18);
     t.scale(0.01, 0.005, 0.05);
-    renderSphere(white);
+    renderSphere(colorTable.white);
     stk.pop();
   }
 
@@ -1550,7 +1592,7 @@ function foot() {
   t.translate(0.0, -0.15, -0.05);
   t.rotate(10.0, XAXIS[0], XAXIS[1], XAXIS[2]);
   t.scale(0.08, 0.19, 0.05);
-  renderSphere(black);
+  renderSphere(colorTable.black);
   stk.pop();
 }
 
