@@ -24,6 +24,7 @@
  *  @see <a href="/cwdc/13-webgl/homework/presentation.pdf">tutorial</a>
  *  @see <a href="/cwdc/13-webgl/videos/Macarena.mp4">vídeo</a>
  *  @see <img src="../blobby.png">
+ *  @see <img src="../blobby2.png">
  */
 
 "use strict";
@@ -270,6 +271,8 @@ const colorTable = {
   yellow: [0.8, 0.8, 0.0, 1.0],
   skin: [0.937, 0.815, 0.811, 1.0],
   white: [1.0, 1.0, 1.0, 1.0],
+  black: [0.0, 0.0, 0.0, 1.0],
+  brown: [0.5, 0.0, 0.43, 1.0],
   bgcolor: [0.9, 0.9, 0.9, 1.0], // background color
   flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
 };
@@ -898,14 +901,14 @@ function foot() {
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.scale(0.05, 0.04, 0.04);
-  renderSphere();
+  renderSphere(colorTable.black);
   stk.pop();
 
   t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.05, -0.05);
   t.scale(0.04, 0.04, 0.04);
-  renderSphere();
+  renderSphere(colorTable.black);
   stk.pop();
 
   t = new Matrix4(stk.top());
@@ -913,7 +916,7 @@ function foot() {
   t.translate(0.0, -0.15, -0.05);
   t.rotate(10.0, XAXIS[0], XAXIS[1], XAXIS[2]);
   t.scale(0.08, 0.19, 0.05);
-  renderSphere(colorTable.skin);
+  renderSphere(colorTable.brown);
   stk.pop();
 }
 
