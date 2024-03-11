@@ -931,16 +931,9 @@ function renderSphere(color = glColor) {
     return;
   }
 
-  var vTexCoord = 1; // gl.getAttribLocation( lightingShader, 'vTexCoord' ); // if using a mac
-  if (vTexCoord < 0) {
-    console.log("Failed to get the storage location of vTexCoord");
-    return;
-  }
-
   // "enable" the a_position attribute
   gl.enableVertexAttribArray(positionIndex);
   gl.enableVertexAttribArray(normalIndex);
-  // gl.enableVertexAttribArray(vTexCoord); //uncomment if using mac
 
   // bind data for points and normals
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
@@ -948,15 +941,13 @@ function renderSphere(color = glColor) {
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
   gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
-  // gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer); //uncomment if using mac
-  // gl.vertexAttribPointer( vTexCoord, 2, gl.FLOAT, false, 0, 0 ); //uncomment if using mac
 
   var loc = gl.getUniformLocation(lightingShader, "view");
   gl.uniformMatrix4fv(loc, false, view.elements);
   loc = gl.getUniformLocation(lightingShader, "projection");
   gl.uniformMatrix4fv(loc, false, projection.elements);
   loc = gl.getUniformLocation(lightingShader, "u_Color");
-  gl.uniform4f(loc, color[0], color[1], color[2], 1.0);
+  gl.uniform4f(loc, ...color);
   var loc = gl.getUniformLocation(lightingShader, "lightPosition");
   gl.uniform4f(loc, 0.0, 5.0, -5.0, 1.0);
 
