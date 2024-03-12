@@ -279,6 +279,7 @@ const colorTable = {
   white: { rgb: [1.0, 1.0, 1.0, 1.0], hex: "#ffffff" },
   black: { rgb: [0.0, 0.0, 0.0, 1.0], hex: "#000000" },
   philippine_violet: { rgb: [0.5, 0.0, 0.43, 1.0], hex: "#80006e" },
+  army_green: { rgb: [0.27, 0.294, 0.105, 1.0], hex: "#454b1b" },
   bgcolor: { rgb: [0.9, 0.9, 0.9, 1.0], hex: "#e6e6e6" }, //  (Platinum) - background color
   flcolor: { rgb: [1.0, 1.0, 1.0, 1.0], hex: "#ffffff" }, // (White) - floor color
 };
@@ -308,9 +309,9 @@ const blobbySkin = {
   pants: colorTable.blue.rgb,
   body: colorTable.white.rgb,
   arms: colorTable.bitter_lemon.rgb,
-  hands: colorTable.queen_pink.rgb,
+  hands: colorTable.black.rgb,
   feet: colorTable.philippine_violet.rgb,
-  hat: colorTable.black.rgb,
+  hat: colorTable.army_green.rgb,
 };
 
 /**

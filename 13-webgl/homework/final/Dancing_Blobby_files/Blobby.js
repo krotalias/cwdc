@@ -288,6 +288,7 @@ const colorTable = {
   orange_red: { rgb: [1.0, 0.384, 0.137, 1.0], hex: "#FF6223" }, // unselected
   blue_suede: [0.407, 0.482, 0.572, 1.0], // #687b92
   beige: [0.96, 0.96, 0.862, 1.0], // #f5f5dc
+  army_green: [0.27, 0.294, 0.105, 1.0], // #454b1b
   bgcolor: [0.7, 0.7, 0.7, 1.0], // #b3b3b3 - backgound color
   flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
 };
@@ -314,12 +315,12 @@ const defaultSkin = {
   skin: colorTable.grullo, // default skin tone
   eyes: colorTable.emerald,
   torso: colorTable.black,
-  pants: colorTable.black,
+  pants: colorTable.army_green,
   body: colorTable.light_moss_green,
   arms: colorTable.grullo,
   hands: colorTable.black,
   feet: colorTable.blue_suede,
-  hat: colorTable.black,
+  hat: colorTable.army_green,
 };
 
 /**
