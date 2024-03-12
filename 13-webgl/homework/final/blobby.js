@@ -262,11 +262,10 @@ var ZAXIS = new Float32Array([0.0, 0.0, -1.0]);
 
 /**
  * Color table.
- * @property {Object} colorTable color table.
- * @property {Object} colorTable.color color.
- * @property {Array<Number>} colorTable.color.rgb
+ * @property {Object} color color name.
+ * @property {Array<Number>} color.rgb
  *   {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_shaders_to_apply_color_in_WebGL rgba} color representation.
- * @property {String} colorTable.color.hex {@link https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color hex} color representation.
+ * @property {String} color.hex {@link https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color hex} color representation.
  * @see https://www.color-name.com
  * @see https://doc.instantreality.org/tools/color_calculator/
  * @see https://fairfaxcryobank.com/donor-skin-tone

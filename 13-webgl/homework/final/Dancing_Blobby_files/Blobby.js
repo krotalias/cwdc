@@ -263,7 +263,7 @@ var disco = false;
 var alternating = false; //alternate skins between jumps
 
 /**
- * Color table.
+ * Color table - {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_shaders_to_apply_color_in_WebGL rgba} representation.
  * @type {Object<String:Array<Number>>}
  * @see https://www.color-name.com
  * @see https://doc.instantreality.org/tools/color_calculator/
@@ -286,6 +286,8 @@ const colorTable = {
   flirt: [0.7, 0, 0.4, 1.0], // #b30066
   tangelo: { rgb: [0.901, 0.258, 0.0, 1.0], hex: "#e64200" }, // selected
   orange_red: { rgb: [1.0, 0.384, 0.137, 1.0], hex: "#FF6223" }, // unselected
+  blue_suede: [0.407, 0.482, 0.572, 1.0], // #687b92
+  beige: [0.96, 0.96, 0.862, 1.0], // #f5f5dc
   bgcolor: [0.7, 0.7, 0.7, 1.0], // #b3b3b3 - backgound color
   flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
 };
@@ -316,7 +318,7 @@ const defaultSkin = {
   body: colorTable.light_moss_green,
   arms: colorTable.grullo,
   hands: colorTable.black,
-  feet: colorTable.black,
+  feet: colorTable.blue_suede,
   hat: colorTable.black,
 };
 
@@ -350,7 +352,7 @@ const discoSkin = {
   body: colorTable.light_gold,
   arms: colorTable.flirt,
   hands: colorTable.mauve_taupe,
-  feet: colorTable.black,
+  feet: colorTable.beige,
   hat: colorTable.black,
 };
 
@@ -1641,7 +1643,7 @@ function foot() {
   stk.push(t);
   t.translate(0.0, 0.05, -0.05);
   t.scale(0.04, 0.04, 0.04);
-  renderSphere(pants); // heel
+  renderSphere(feet); // heel
   stk.pop();
 
   t = new Matrix4(stk.top());
