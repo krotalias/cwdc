@@ -269,6 +269,7 @@ var ZAXIS = new Float32Array([0.0, 0.0, -1.0]);
  * @see https://www.color-name.com
  * @see https://doc.instantreality.org/tools/color_calculator/
  * @see https://fairfaxcryobank.com/donor-skin-tone
+ * @see https://teamcolorcodes.com/iowa-state-cyclones-color-codes/
  */
 const colorTable = {
   red: { rgb: [1.0, 0.0, 0.0, 1.0], hex: "#ff0000" },
@@ -280,6 +281,8 @@ const colorTable = {
   black: { rgb: [0.0, 0.0, 0.0, 1.0], hex: "#000000" },
   philippine_violet: { rgb: [0.5, 0.0, 0.43, 1.0], hex: "#80006e" },
   army_green: { rgb: [0.27, 0.294, 0.105, 1.0], hex: "#454b1b" },
+  cardinal: { rgb: [0.784, 0.062, 0.18, 1.0], hex: "#c8102e" },
+  gold: { rgb: [0.945, 0.745, 0.282, 1.0], hex: "#f1be48" },
   bgcolor: { rgb: [0.9, 0.9, 0.9, 1.0], hex: "#e6e6e6" }, //  (Platinum) - background color
   flcolor: { rgb: [1.0, 1.0, 1.0, 1.0], hex: "#ffffff" }, // (White) - floor color
 };
@@ -300,15 +303,16 @@ const colorTable = {
  *  <li>hat</p>
  * </ul>
  * @type {Object<String,Array<Number>>}
+ * @see <img src="../Isu Cyclones.jpg" width="256">
  */
 const blobbySkin = {
   mouth: colorTable.red.rgb,
   skin: colorTable.queen_pink.rgb, // skin tone
   eyes: colorTable.ocean_green.rgb,
-  torso: colorTable.blue.rgb,
-  pants: colorTable.blue.rgb,
-  body: colorTable.white.rgb,
-  arms: colorTable.bitter_lemon.rgb,
+  torso: colorTable.gold.rgb,
+  pants: colorTable.gold.rgb,
+  body: colorTable.cardinal.rgb,
+  arms: colorTable.white.rgb,
   hands: colorTable.black.rgb,
   feet: colorTable.philippine_violet.rgb,
   hat: colorTable.army_green.rgb,
