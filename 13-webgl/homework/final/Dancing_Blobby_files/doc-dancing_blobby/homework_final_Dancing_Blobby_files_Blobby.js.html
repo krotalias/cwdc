@@ -253,8 +253,8 @@ var audioWhistle = document.getElementById("audioWhistle");
 var gl;
 
 var doubleBlobby = false;
-var selSkin = 0; //random skin selector 1
-var selSkin2 = 0; //random skin selector 1
+var selSkin = 0; // random skin selector 1
+var selSkin2 = 0; // random skin selector 1
 
 /**
  * Delay for the steps in the macarena animation.
@@ -318,46 +318,65 @@ const colorTable = {
   flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
 };
 
-// default skin
-var dMouth = colorTable.solid_pink; // default mouth
-var dSkin = colorTable.grullo; // default skin tone
-var dEyes = colorTable.emerald; // default eyes
-var dTorso = colorTable.black;
-var dPants = colorTable.black;
-var dArms = dSkin;
-var dHands = colorTable.black;
-var dBody = colorTable.light_moss_green;
-var dHands = colorTable.black;
+/**
+ * Default skin.
+ * @type {Object&lt;String,Array&lt;Number>>}
+ */
+const defaultSkin = {
+  mouth: colorTable.solid_pink,
+  skin: colorTable.grullo, // default skin tone
+  eyes: colorTable.emerald,
+  torso: colorTable.black,
+  pants: colorTable.black,
+  body: colorTable.light_moss_green,
+  arms: colorTable.grullo,
+  hands: colorTable.black,
+};
 
-// vampire skin
-var vMouth = colorTable.international_orange;
-var vEyes = colorTable.persian_red;
-var vSkin = colorTable.spanish_gray;
-var vTorso = colorTable.black;
-var vPants = colorTable.black;
-var vBody = colorTable.black;
-var vHands = vSkin;
-var vArms = colorTable.black;
+/**
+ * Vampire skin.
+ * @type {Object&lt;String,Array&lt;Number>>}
+ */
+const vampireSkin = {
+  mouth: colorTable.international_orange,
+  skin: colorTable.spanish_gray,
+  eyes: colorTable.persian_red,
+  torso: colorTable.black,
+  pants: colorTable.black,
+  body: colorTable.black,
+  arms: colorTable.black,
+  hands: colorTable.spanish_gray,
+};
 
-// disco skin
-var discoMouth = dMouth;
-var discoEyes = dEyes;
-var discoSkin = colorTable.mauve_taupe;
-var discoTorso = colorTable.international_orange;
-var discoPants = colorTable.sheen_green;
-var discoBody = colorTable.light_gold;
-var discoHands = discoSkin;
-var discoArms = colorTable.flirt;
+/**
+ * Disco skin.
+ * @type {Object&lt;String,Array&lt;Number>>}
+ */
+const discoSkin = {
+  mouth: colorTable.solid_pink,
+  eyes: colorTable.emerald,
+  skin: colorTable.mauve_taupe,
+  torso: colorTable.international_orange,
+  pants: colorTable.sheen_green,
+  body: colorTable.light_gold,
+  arms: colorTable.flirt,
+  hands: colorTable.mauve_taupe,
+};
 
-// to be used color variables
-var skin = dSkin;
-var mouth = dMouth;
-var eyes = dEyes;
-var torsoColor = colorTable.red;
-var pants = colorTable.black;
-var hands = dHands;
-var bodyColor = dBody;
-var arms = dArms;
+/**
+ * To be used color variables.
+ * @type {Array&lt;Number>}
+ */
+let {
+  mouth,
+  eyes,
+  skin,
+  torso: torsoColor,
+  pants,
+  body: bodyColor,
+  arms,
+  hands,
+} = defaultSkin;
 
 /**
  * Color to be used when going up/down the transformation hierarchy.
@@ -554,14 +573,17 @@ var shutUp = false;
 function skinDefault() {
   vampire = false;
   disco = false;
-  skin = dSkin;
-  eyes = dEyes;
-  mouth = dMouth;
-  pants = dPants;
-  hands = dHands;
-  arms = dArms;
-  bodyColor = dBody;
   currentSkin = skinDefault;
+  ({
+    mouth,
+    eyes,
+    skin,
+    torso: torsoColor,
+    pants,
+    body: bodyColor,
+    arms,
+    hands,
+  } = defaultSkin);
 }
 
 /**
@@ -570,15 +592,17 @@ function skinDefault() {
 function skinVampire() {
   vampire = true;
   disco = false;
-  skin = vSkin;
-  mouth = vMouth;
-  eyes = vEyes;
-  torsoColor = vTorso;
-  pants = vPants;
-  bodyColor = vBody;
-  arms = vArms;
-  hands = vHands;
   currentSkin = skinVampire;
+  ({
+    mouth,
+    eyes,
+    skin,
+    torso: torsoColor,
+    pants,
+    body: bodyColor,
+    arms,
+    hands,
+  } = vampireSkin);
 }
 
 /**
@@ -587,15 +611,17 @@ function skinVampire() {
 function skinDisco() {
   disco = true;
   vampire = false;
-  skin = discoSkin;
-  mouth = discoMouth;
-  eyes = discoEyes;
-  torsoColor = discoTorso;
-  pants = discoPants;
-  bodyColor = discoBody;
-  arms = discoArms;
-  hands = discoHands;
   currentSkin = skinDisco;
+  ({
+    mouth,
+    eyes,
+    skin,
+    torso: torsoColor,
+    pants,
+    body: bodyColor,
+    arms,
+    hands,
+  } = discoSkin);
 }
 
 /**
@@ -668,8 +694,8 @@ function stopSongAfterDance(t) {
 function doubleDancers() {
   doubleBlobby = true;
   alternating = false;
-  selSkin = Math.floor(Math.random() * 3);
-  selSkin2 = Math.floor(Math.random() * 3);
+  selSkin = Math.floor(Math.random() * arrayOfSkins.length);
+  selSkin2 = Math.floor(Math.random() * arrayOfSkins.length);
   document.getElementById("doubleButton").style.backgroundColor =
     colorTable.tangelo;
   document.getElementById("singleButton").style.backgroundColor =
@@ -2285,13 +2311,13 @@ addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#JUMP">JUMP</a></li><li><a href="global.html#TURN">TURN</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#alternateSkins">alternateSkins</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#arrayOfSkins">arrayOfSkins</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#bowDown">bowDown</a></li><li><a href="global.html#bowPose">bowPose</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#currentSkin">currentSkin</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#doubleDancers">doubleDancers</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#glColor">glColor</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handsOnHips">handsOnHips</a></li><li><a href="global.html#incrementJumps">incrementJumps</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#prepareForWave">prepareForWave</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#scaryPose">scaryPose</a></li><li><a href="global.html#shutUpThatSong">shutUpThatSong</a></li><li><a href="global.html#singleDancer">singleDancer</a></li><li><a href="global.html#skinDefault">skinDefault</a></li><li><a href="global.html#skinDisco">skinDisco</a></li><li><a href="global.html#skinVampire">skinVampire</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stiffPosition">stiffPosition</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stopSongAfterDance">stopSongAfterDance</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#torso">torso</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#whatsUp">whatsUp</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#JUMP">JUMP</a></li><li><a href="global.html#TURN">TURN</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#alternateSkins">alternateSkins</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#arrayOfSkins">arrayOfSkins</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#bowDown">bowDown</a></li><li><a href="global.html#bowPose">bowPose</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#currentSkin">currentSkin</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#defaultSkin">defaultSkin</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#discoSkin">discoSkin</a></li><li><a href="global.html#doubleDancers">doubleDancers</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#glColor">glColor</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handsOnHips">handsOnHips</a></li><li><a href="global.html#incrementJumps">incrementJumps</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#prepareForWave">prepareForWave</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#scaryPose">scaryPose</a></li><li><a href="global.html#shutUpThatSong">shutUpThatSong</a></li><li><a href="global.html#singleDancer">singleDancer</a></li><li><a href="global.html#skinDefault">skinDefault</a></li><li><a href="global.html#skinDisco">skinDisco</a></li><li><a href="global.html#skinVampire">skinVampire</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stiffPosition">stiffPosition</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stopSongAfterDance">stopSongAfterDance</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#torso">torso</a></li><li><a href="global.html#vampireSkin">vampireSkin</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#whatsUp">whatsUp</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Mar 11 2024 23:19:56 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 12 2024 01:13:31 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

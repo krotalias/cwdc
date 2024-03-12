@@ -225,8 +225,8 @@ var audioWhistle = document.getElementById("audioWhistle");
 var gl;
 
 var doubleBlobby = false;
-var selSkin = 0; //random skin selector 1
-var selSkin2 = 0; //random skin selector 1
+var selSkin = 0; // random skin selector 1
+var selSkin2 = 0; // random skin selector 1
 
 /**
  * Delay for the steps in the macarena animation.
@@ -290,46 +290,65 @@ const colorTable = {
   flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
 };
 
-// default skin
-var dMouth = colorTable.solid_pink; // default mouth
-var dSkin = colorTable.grullo; // default skin tone
-var dEyes = colorTable.emerald; // default eyes
-var dTorso = colorTable.black;
-var dPants = colorTable.black;
-var dArms = dSkin;
-var dHands = colorTable.black;
-var dBody = colorTable.light_moss_green;
-var dHands = colorTable.black;
+/**
+ * Default skin.
+ * @type {Object<String,Array<Number>>}
+ */
+const defaultSkin = {
+  mouth: colorTable.solid_pink,
+  skin: colorTable.grullo, // default skin tone
+  eyes: colorTable.emerald,
+  torso: colorTable.black,
+  pants: colorTable.black,
+  body: colorTable.light_moss_green,
+  arms: colorTable.grullo,
+  hands: colorTable.black,
+};
 
-// vampire skin
-var vMouth = colorTable.international_orange;
-var vEyes = colorTable.persian_red;
-var vSkin = colorTable.spanish_gray;
-var vTorso = colorTable.black;
-var vPants = colorTable.black;
-var vBody = colorTable.black;
-var vHands = vSkin;
-var vArms = colorTable.black;
+/**
+ * Vampire skin.
+ * @type {Object<String,Array<Number>>}
+ */
+const vampireSkin = {
+  mouth: colorTable.international_orange,
+  skin: colorTable.spanish_gray,
+  eyes: colorTable.persian_red,
+  torso: colorTable.black,
+  pants: colorTable.black,
+  body: colorTable.black,
+  arms: colorTable.black,
+  hands: colorTable.spanish_gray,
+};
 
-// disco skin
-var discoMouth = dMouth;
-var discoEyes = dEyes;
-var discoSkin = colorTable.mauve_taupe;
-var discoTorso = colorTable.international_orange;
-var discoPants = colorTable.sheen_green;
-var discoBody = colorTable.light_gold;
-var discoHands = discoSkin;
-var discoArms = colorTable.flirt;
+/**
+ * Disco skin.
+ * @type {Object<String,Array<Number>>}
+ */
+const discoSkin = {
+  mouth: colorTable.solid_pink,
+  eyes: colorTable.emerald,
+  skin: colorTable.mauve_taupe,
+  torso: colorTable.international_orange,
+  pants: colorTable.sheen_green,
+  body: colorTable.light_gold,
+  arms: colorTable.flirt,
+  hands: colorTable.mauve_taupe,
+};
 
-// to be used color variables
-var skin = dSkin;
-var mouth = dMouth;
-var eyes = dEyes;
-var torsoColor = colorTable.red;
-var pants = colorTable.black;
-var hands = dHands;
-var bodyColor = dBody;
-var arms = dArms;
+/**
+ * To be used color variables.
+ * @type {Array<Number>}
+ */
+let {
+  mouth,
+  eyes,
+  skin,
+  torso: torsoColor,
+  pants,
+  body: bodyColor,
+  arms,
+  hands,
+} = defaultSkin;
 
 /**
  * Color to be used when going up/down the transformation hierarchy.
@@ -526,14 +545,17 @@ var shutUp = false;
 function skinDefault() {
   vampire = false;
   disco = false;
-  skin = dSkin;
-  eyes = dEyes;
-  mouth = dMouth;
-  pants = dPants;
-  hands = dHands;
-  arms = dArms;
-  bodyColor = dBody;
   currentSkin = skinDefault;
+  ({
+    mouth,
+    eyes,
+    skin,
+    torso: torsoColor,
+    pants,
+    body: bodyColor,
+    arms,
+    hands,
+  } = defaultSkin);
 }
 
 /**
@@ -542,15 +564,17 @@ function skinDefault() {
 function skinVampire() {
   vampire = true;
   disco = false;
-  skin = vSkin;
-  mouth = vMouth;
-  eyes = vEyes;
-  torsoColor = vTorso;
-  pants = vPants;
-  bodyColor = vBody;
-  arms = vArms;
-  hands = vHands;
   currentSkin = skinVampire;
+  ({
+    mouth,
+    eyes,
+    skin,
+    torso: torsoColor,
+    pants,
+    body: bodyColor,
+    arms,
+    hands,
+  } = vampireSkin);
 }
 
 /**
@@ -559,15 +583,17 @@ function skinVampire() {
 function skinDisco() {
   disco = true;
   vampire = false;
-  skin = discoSkin;
-  mouth = discoMouth;
-  eyes = discoEyes;
-  torsoColor = discoTorso;
-  pants = discoPants;
-  bodyColor = discoBody;
-  arms = discoArms;
-  hands = discoHands;
   currentSkin = skinDisco;
+  ({
+    mouth,
+    eyes,
+    skin,
+    torso: torsoColor,
+    pants,
+    body: bodyColor,
+    arms,
+    hands,
+  } = discoSkin);
 }
 
 /**
@@ -640,8 +666,8 @@ function stopSongAfterDance(t) {
 function doubleDancers() {
   doubleBlobby = true;
   alternating = false;
-  selSkin = Math.floor(Math.random() * 3);
-  selSkin2 = Math.floor(Math.random() * 3);
+  selSkin = Math.floor(Math.random() * arrayOfSkins.length);
+  selSkin2 = Math.floor(Math.random() * arrayOfSkins.length);
   document.getElementById("doubleButton").style.backgroundColor =
     colorTable.tangelo;
   document.getElementById("singleButton").style.backgroundColor =
