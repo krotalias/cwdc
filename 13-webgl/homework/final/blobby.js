@@ -271,12 +271,29 @@ const colorTable = {
   blue: [0.0, 0.0, 1.0, 1.0], // #0000ff
   ocean_green: [0.34, 0.72, 0.58, 1.0], // #57b894
   bitter_lemon: [0.8, 0.8, 0.0, 1.0], // #cccc00
-  skin: [0.937, 0.815, 0.811, 1.0], // #efd0cf (Queen Pink)
+  queen_pink: [0.937, 0.815, 0.811, 1.0], // #efd0cf
   white: [1.0, 1.0, 1.0, 1.0], // #ffffff
   black: [0.0, 0.0, 0.0, 1.0], // #000000
   philippine_violet: [0.5, 0.0, 0.43, 1.0], // #80006e
   bgcolor: [0.9, 0.9, 0.9, 1.0], // #e6e6e6 (Platinum) - background color
   flcolor: [1.0, 1.0, 1.0, 1.0], // #ffffff (White) - floor color
+};
+
+/**
+ * Blobby skin.
+ * @type {Object<String,Array<Number>>}
+ */
+const blobbySkin = {
+  mouth: colorTable.red,
+  skin: colorTable.queen_pink, // default skin tone
+  eyes: colorTable.ocean_green,
+  torso: colorTable.blue,
+  pants: colorTable.blue,
+  body: colorTable.white,
+  arms: colorTable.bitter_lemon,
+  hands: colorTable.queen_pink,
+  feet: colorTable.philippine_violet,
+  hat: colorTable.black,
 };
 
 /**
@@ -728,7 +745,21 @@ function head() {
   stk.push(t);
   t.translate(0.0, 0.0, 0.4);
   t.scale(0.2, 0.23, 0.3);
-  renderSphere();
+  renderSphere(blobbySkin.skin);
+  stk.pop();
+
+  t = new Matrix4(stk.top()); //hat
+  stk.push(t);
+  t.translate(0.0, 0.0, 0.64);
+  t.scale(0.3, 0.3, 0.15);
+  renderSphere(blobbySkin.hat);
+  stk.pop();
+
+  t = new Matrix4(stk.top()); // stupid dinky red sphere on hat
+  stk.push(t);
+  t.translate(0.0, 0.0, 0.8);
+  t.scale(0.04, 0.04, 0.04);
+  renderSphere(colorTable.red);
   stk.pop();
 
   // nose
@@ -736,7 +767,7 @@ function head() {
   stk.push(t);
   t.translate(0.0, -0.255, 0.42);
   t.scale(0.035, 0.075, 0.035);
-  renderSphere();
+  renderSphere(blobbySkin.skin);
   stk.pop();
 
   // neck
@@ -744,7 +775,7 @@ function head() {
   stk.push(t);
   t.translate(0.0, 0.0, 0.07);
   t.scale(0.065, 0.065, 0.14);
-  renderSphere();
+  renderSphere(blobbySkin.skin);
   stk.pop();
 
   // mouth
@@ -752,7 +783,7 @@ function head() {
   stk.push(t);
   t.translate(0.0, -0.162, 0.239);
   t.scale(0.0533, 0.0508, 0.0506);
-  renderSphere(colorTable.red);
+  renderSphere(blobbySkin.mouth);
   stk.pop();
 
   // left eye
@@ -760,7 +791,7 @@ function head() {
   stk.push(t);
   t.translate(0.1, -0.175, 0.5);
   t.scale(0.042, 0.046, 0.042);
-  renderSphere(colorTable.ocean_green);
+  renderSphere(blobbySkin.eyes);
   stk.pop();
 
   // right eye
@@ -768,7 +799,7 @@ function head() {
   stk.push(t);
   t.translate(-0.1, -0.175, 0.5);
   t.scale(0.042, 0.046, 0.042);
-  renderSphere(colorTable.ocean_green);
+  renderSphere(blobbySkin.eyes);
   stk.pop();
 }
 
@@ -777,7 +808,7 @@ function uparm() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.275);
   t.scale(0.09, 0.09, 0.275);
-  renderSphere(colorTable.bitter_lemon);
+  renderSphere(blobbySkin.arms);
   stk.pop();
 }
 
@@ -786,7 +817,7 @@ function lowarm() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.25);
   t.scale(0.08, 0.08, 0.25);
-  renderSphere(colorTable.bitter_lemon);
+  renderSphere(blobbySkin.arms);
   stk.pop();
 }
 
@@ -795,7 +826,7 @@ function hand() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.116);
   t.scale(0.052, 0.091, 0.155);
-  renderSphere();
+  renderSphere(blobbySkin.hands);
   stk.pop();
 }
 
@@ -832,7 +863,7 @@ function shoulder() {
   renderSphere();
   stk.pop();
 
-  glColor = colorTable.skin;
+  glColor = blobbySkin.arms;
   t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, 0.153);
@@ -861,7 +892,7 @@ function shoulder() {
 }
 
 function body() {
-  glColor = colorTable.white;
+  glColor = blobbySkin.body;
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, 0.62);
@@ -889,7 +920,7 @@ function thigh() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.425);
   t.scale(0.141, 0.141, 0.425);
-  renderSphere();
+  renderSphere(blobbySkin.pants);
   stk.pop();
 }
 
@@ -912,14 +943,14 @@ function foot() {
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.scale(0.05, 0.04, 0.04);
-  renderSphere(colorTable.black);
+  renderSphere(blobbySkin.pants); // ankle
   stk.pop();
 
   t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.05, -0.05);
   t.scale(0.04, 0.04, 0.04);
-  renderSphere(colorTable.black);
+  renderSphere(blobbySkin.feet); // heel
   stk.pop();
 
   t = new Matrix4(stk.top());
@@ -927,7 +958,7 @@ function foot() {
   t.translate(0.0, -0.15, -0.05);
   t.rotate(10.0, XAXIS[0], XAXIS[1], XAXIS[2]);
   t.scale(0.08, 0.19, 0.05);
-  renderSphere(colorTable.philippine_violet);
+  renderSphere(blobbySkin.feet); // foot
   stk.pop();
 }
 
@@ -973,7 +1004,7 @@ function leftleg() {
  * Draws Blobby's torso, which is the root of the transformation hierarchy.
  */
 function TORSO() {
-  glColor = colorTable.blue;
+  glColor = blobbySkin.torso;
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(-0.178, 0.0, 0.0);

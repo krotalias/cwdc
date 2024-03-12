@@ -299,12 +299,29 @@ const colorTable = {
   blue: [0.0, 0.0, 1.0, 1.0], // #0000ff
   ocean_green: [0.34, 0.72, 0.58, 1.0], // #57b894
   bitter_lemon: [0.8, 0.8, 0.0, 1.0], // #cccc00
-  skin: [0.937, 0.815, 0.811, 1.0], // #efd0cf (Queen Pink)
+  queen_pink: [0.937, 0.815, 0.811, 1.0], // #efd0cf
   white: [1.0, 1.0, 1.0, 1.0], // #ffffff
   black: [0.0, 0.0, 0.0, 1.0], // #000000
   philippine_violet: [0.5, 0.0, 0.43, 1.0], // #80006e
   bgcolor: [0.9, 0.9, 0.9, 1.0], // #e6e6e6 (Platinum) - background color
   flcolor: [1.0, 1.0, 1.0, 1.0], // #ffffff (White) - floor color
+};
+
+/**
+ * Blobby skin.
+ * @type {Object&lt;String,Array&lt;Number>>}
+ */
+const blobbySkin = {
+  mouth: colorTable.red,
+  skin: colorTable.queen_pink, // default skin tone
+  eyes: colorTable.ocean_green,
+  torso: colorTable.blue,
+  pants: colorTable.blue,
+  body: colorTable.white,
+  arms: colorTable.bitter_lemon,
+  hands: colorTable.queen_pink,
+  feet: colorTable.philippine_violet,
+  hat: colorTable.black,
 };
 
 /**
@@ -756,7 +773,21 @@ function head() {
   stk.push(t);
   t.translate(0.0, 0.0, 0.4);
   t.scale(0.2, 0.23, 0.3);
-  renderSphere();
+  renderSphere(blobbySkin.skin);
+  stk.pop();
+
+  t = new Matrix4(stk.top()); //hat
+  stk.push(t);
+  t.translate(0.0, 0.0, 0.64);
+  t.scale(0.3, 0.3, 0.15);
+  renderSphere(blobbySkin.hat);
+  stk.pop();
+
+  t = new Matrix4(stk.top()); // stupid dinky red sphere on hat
+  stk.push(t);
+  t.translate(0.0, 0.0, 0.8);
+  t.scale(0.04, 0.04, 0.04);
+  renderSphere(colorTable.red);
   stk.pop();
 
   // nose
@@ -764,7 +795,7 @@ function head() {
   stk.push(t);
   t.translate(0.0, -0.255, 0.42);
   t.scale(0.035, 0.075, 0.035);
-  renderSphere();
+  renderSphere(blobbySkin.skin);
   stk.pop();
 
   // neck
@@ -772,7 +803,7 @@ function head() {
   stk.push(t);
   t.translate(0.0, 0.0, 0.07);
   t.scale(0.065, 0.065, 0.14);
-  renderSphere();
+  renderSphere(blobbySkin.skin);
   stk.pop();
 
   // mouth
@@ -780,7 +811,7 @@ function head() {
   stk.push(t);
   t.translate(0.0, -0.162, 0.239);
   t.scale(0.0533, 0.0508, 0.0506);
-  renderSphere(colorTable.red);
+  renderSphere(blobbySkin.mouth);
   stk.pop();
 
   // left eye
@@ -788,7 +819,7 @@ function head() {
   stk.push(t);
   t.translate(0.1, -0.175, 0.5);
   t.scale(0.042, 0.046, 0.042);
-  renderSphere(colorTable.ocean_green);
+  renderSphere(blobbySkin.eyes);
   stk.pop();
 
   // right eye
@@ -796,7 +827,7 @@ function head() {
   stk.push(t);
   t.translate(-0.1, -0.175, 0.5);
   t.scale(0.042, 0.046, 0.042);
-  renderSphere(colorTable.ocean_green);
+  renderSphere(blobbySkin.eyes);
   stk.pop();
 }
 
@@ -805,7 +836,7 @@ function uparm() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.275);
   t.scale(0.09, 0.09, 0.275);
-  renderSphere(colorTable.bitter_lemon);
+  renderSphere(blobbySkin.arms);
   stk.pop();
 }
 
@@ -814,7 +845,7 @@ function lowarm() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.25);
   t.scale(0.08, 0.08, 0.25);
-  renderSphere(colorTable.bitter_lemon);
+  renderSphere(blobbySkin.arms);
   stk.pop();
 }
 
@@ -823,7 +854,7 @@ function hand() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.116);
   t.scale(0.052, 0.091, 0.155);
-  renderSphere();
+  renderSphere(blobbySkin.hands);
   stk.pop();
 }
 
@@ -860,7 +891,7 @@ function shoulder() {
   renderSphere();
   stk.pop();
 
-  glColor = colorTable.skin;
+  glColor = blobbySkin.arms;
   t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, 0.153);
@@ -889,7 +920,7 @@ function shoulder() {
 }
 
 function body() {
-  glColor = colorTable.white;
+  glColor = blobbySkin.body;
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, 0.62);
@@ -917,7 +948,7 @@ function thigh() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.425);
   t.scale(0.141, 0.141, 0.425);
-  renderSphere();
+  renderSphere(blobbySkin.pants);
   stk.pop();
 }
 
@@ -940,14 +971,14 @@ function foot() {
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.scale(0.05, 0.04, 0.04);
-  renderSphere(colorTable.black);
+  renderSphere(blobbySkin.pants); // ankle
   stk.pop();
 
   t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.05, -0.05);
   t.scale(0.04, 0.04, 0.04);
-  renderSphere(colorTable.black);
+  renderSphere(blobbySkin.feet); // heel
   stk.pop();
 
   t = new Matrix4(stk.top());
@@ -955,7 +986,7 @@ function foot() {
   t.translate(0.0, -0.15, -0.05);
   t.rotate(10.0, XAXIS[0], XAXIS[1], XAXIS[2]);
   t.scale(0.08, 0.19, 0.05);
-  renderSphere(colorTable.philippine_violet);
+  renderSphere(blobbySkin.feet); // foot
   stk.pop();
 }
 
@@ -1001,7 +1032,7 @@ function leftleg() {
  * Draws Blobby's torso, which is the root of the transformation hierarchy.
  */
 function TORSO() {
-  glColor = colorTable.blue;
+  glColor = blobbySkin.torso;
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(-0.178, 0.0, 0.0);
@@ -1734,13 +1765,13 @@ addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#JUMP">JUMP</a></li><li><a href="global.html#TORSO">TORSO</a></li><li><a href="global.html#TURN">TURN</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#check">check</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#glColor">glColor</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#player">player</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#viewDistance">viewDistance</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#JUMP">JUMP</a></li><li><a href="global.html#TORSO">TORSO</a></li><li><a href="global.html#TURN">TURN</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#blobbySkin">blobbySkin</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#check">check</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#glColor">glColor</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#player">player</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#viewDistance">viewDistance</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Mar 11 2024 13:21:44 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 12 2024 08:47:50 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
