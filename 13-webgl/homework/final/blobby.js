@@ -262,45 +262,63 @@ var ZAXIS = new Float32Array([0.0, 0.0, -1.0]);
 
 /**
  * Color table.
- * @type {Object<String:Array<Number>>}
+ * @property {Object} colorTable color table.
+ * @property {Object} colorTable.color color.
+ * @property {Array<Number>} colorTable.color.rgb
+ *   {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_shaders_to_apply_color_in_WebGL rgba} color representation.
+ * @property {String} colorTable.color.hex {@link https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color hex} color representation.
  * @see https://www.color-name.com
  * @see https://doc.instantreality.org/tools/color_calculator/
+ * @see https://fairfaxcryobank.com/donor-skin-tone
  */
 const colorTable = {
-  red: [1.0, 0.0, 0.0, 1.0], // #ff0000
-  blue: [0.0, 0.0, 1.0, 1.0], // #0000ff
-  ocean_green: [0.34, 0.72, 0.58, 1.0], // #57b894
-  bitter_lemon: [0.8, 0.8, 0.0, 1.0], // #cccc00
-  queen_pink: [0.937, 0.815, 0.811, 1.0], // #efd0cf
-  white: [1.0, 1.0, 1.0, 1.0], // #ffffff
-  black: [0.0, 0.0, 0.0, 1.0], // #000000
-  philippine_violet: [0.5, 0.0, 0.43, 1.0], // #80006e
-  bgcolor: [0.9, 0.9, 0.9, 1.0], // #e6e6e6 (Platinum) - background color
-  flcolor: [1.0, 1.0, 1.0, 1.0], // #ffffff (White) - floor color
+  red: { rgb: [1.0, 0.0, 0.0, 1.0], hex: "#ff0000" },
+  blue: { rgb: [0.0, 0.0, 1.0, 1.0], hex: "#0000ff" },
+  ocean_green: { rgb: [0.34, 0.72, 0.58, 1.0], hex: "#57b894" },
+  bitter_lemon: { rgb: [0.8, 0.8, 0.0, 1.0], hex: "#cccc00" },
+  queen_pink: { rgb: [0.937, 0.815, 0.811, 1.0], hex: "#efd0cf" },
+  white: { rgb: [1.0, 1.0, 1.0, 1.0], hex: "#ffffff" },
+  black: { rgb: [0.0, 0.0, 0.0, 1.0], hex: "#000000" },
+  philippine_violet: { rgb: [0.5, 0.0, 0.43, 1.0], hex: "#80006e" },
+  bgcolor: { rgb: [0.9, 0.9, 0.9, 1.0], hex: "#e6e6e6" }, //  (Platinum) - background color
+  flcolor: { rgb: [1.0, 1.0, 1.0, 1.0], hex: "#ffffff" }, // (White) - floor color
 };
 
 /**
- * Blobby skin.
+ * <p>Blobby skin.</p>
+ * Define colors for Blobby parts:
+ * <ul>
+ *  <li>mouth</p>
+ *  <li>skin tone</p>
+ *  <li>eyes</p>
+ *  <li>torso</p>
+ *  <li>pants</p>
+ *  <li>body</p>
+ *  <li>arms</p>
+ *  <li>hands</p>
+ *  <li>feet</p>
+ *  <li>hat</p>
+ * </ul>
  * @type {Object<String,Array<Number>>}
  */
 const blobbySkin = {
-  mouth: colorTable.red,
-  skin: colorTable.queen_pink, // default skin tone
-  eyes: colorTable.ocean_green,
-  torso: colorTable.blue,
-  pants: colorTable.blue,
-  body: colorTable.white,
-  arms: colorTable.bitter_lemon,
-  hands: colorTable.queen_pink,
-  feet: colorTable.philippine_violet,
-  hat: colorTable.black,
+  mouth: colorTable.red.rgb,
+  skin: colorTable.queen_pink.rgb, // skin tone
+  eyes: colorTable.ocean_green.rgb,
+  torso: colorTable.blue.rgb,
+  pants: colorTable.blue.rgb,
+  body: colorTable.white.rgb,
+  arms: colorTable.bitter_lemon.rgb,
+  hands: colorTable.queen_pink.rgb,
+  feet: colorTable.philippine_violet.rgb,
+  hat: colorTable.black.rgb,
 };
 
 /**
  * Color to be used when going up/down the transformation hierarchy.
  * @type {Array<Number>}
  */
-var glColor = colorTable.white;
+var glColor = colorTable.white.rgb;
 
 var FOV = 45.0,
   ZN = 1.17,
@@ -759,7 +777,7 @@ function head() {
   stk.push(t);
   t.translate(0.0, 0.0, 0.8);
   t.scale(0.04, 0.04, 0.04);
-  renderSphere(colorTable.red);
+  renderSphere(colorTable.red.rgb);
   stk.pop();
 
   // nose
@@ -1079,7 +1097,7 @@ function GPlane() {
   loc = gl.getUniformLocation(texturedShader, "projection");
   gl.uniformMatrix4fv(loc, false, projection.elements);
   loc = gl.getUniformLocation(texturedShader, "u_Color");
-  gl.uniform4f(loc, ...colorTable.flcolor);
+  gl.uniform4f(loc, ...colorTable.flcolor.rgb);
   var loc = gl.getUniformLocation(texturedShader, "lightPosition");
   gl.uniform4f(loc, 0.0, -10.0, 5.0, 1.0);
 
@@ -1324,7 +1342,7 @@ function mainEntrance() {
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // specify a fill color for clearing the framebuffer
-  gl.clearColor(...colorTable.bgcolor);
+  gl.clearColor(...colorTable.bgcolor.rgb);
 
   gl.enable(gl.DEPTH_TEST);
 
