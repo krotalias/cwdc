@@ -269,10 +269,10 @@ var alternating = false; //alternate skins between jumps
  * @see https://doc.instantreality.org/tools/color_calculator/
  */
 const colorTable = {
-  red: [1.0, 0.0, 0.0, 1.0],
+  red: [1.0, 0.0, 0.0, 1.0], // #ff0000
   duke_blue: [0.0, 0.0, 0.6, 1.0], // #000099
-  black: [0.0, 0.0, 0.0, 1.0],
-  white: [1.0, 1.0, 1.0, 1.0],
+  black: [0.0, 0.0, 0.0, 1.0], // #000000
+  white: [1.0, 1.0, 1.0, 1.0], // #ffffff
   grullo: [0.65, 0.55, 0.55, 1.0], // #a68c8c
   emerald: [0.3, 0.75, 0.45, 1.0], // #4dbf73
   solid_pink: [0.55, 0.2, 0.3, 1.0], // #8c334d
@@ -284,6 +284,8 @@ const colorTable = {
   sheen_green: [0.5, 0.8, 0.0, 1.0], // #80cc00
   light_gold: [0.7, 0.55, 0, 1.0], // #b38c00
   flirt: [0.7, 0, 0.4, 1.0], // #b30066
+  tangelo: "#e64200", // [0.901, 0.258, 0.0, 1.0] - selected
+  orange_red: "#FF6223", // [1.0, 0.384, 0.137, 1.0] - unselected
   bgcolor: [0.7, 0.7, 0.7, 1.0], // #b3b3b3 - backgound color
   flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
 };
@@ -592,9 +594,11 @@ function alternateSkins() {
   if (!doubleBlobby) {
     alternating = !alternating;
     if (!alternating)
-      document.getElementById("skinButton").style.backgroundColor = "#FF6223";
+      document.getElementById("skinButton").style.backgroundColor =
+        colorTable.orange_red;
     else
-      document.getElementById("skinButton").style.backgroundColor = "#e64200";
+      document.getElementById("skinButton").style.backgroundColor =
+        colorTable.tangelo;
   }
 }
 
@@ -604,11 +608,13 @@ function alternateSkins() {
 function shutUpThatSong() {
   shutUp = !shutUp;
   if (!shutUp) {
-    document.getElementById("shutUpButton").style.backgroundColor = "#FF6223";
+    document.getElementById("shutUpButton").style.backgroundColor =
+      colorTable.orange_red;
     if (dancing) audio.play();
   } else {
     audio.pause();
-    document.getElementById("shutUpButton").style.backgroundColor = "#e64200";
+    document.getElementById("shutUpButton").style.backgroundColor =
+      colorTable.tangelo;
   }
 }
 
@@ -636,9 +642,12 @@ function doubleDancers() {
   alternating = false;
   selSkin = Math.floor(Math.random() * 3);
   selSkin2 = Math.floor(Math.random() * 3);
-  document.getElementById("doubleButton").style.backgroundColor = "#e64200";
-  document.getElementById("singleButton").style.backgroundColor = "#FF6223";
-  document.getElementById("skinButton").style.backgroundColor = "#FF6223";
+  document.getElementById("doubleButton").style.backgroundColor =
+    colorTable.tangelo;
+  document.getElementById("singleButton").style.backgroundColor =
+    colorTable.orange_red;
+  document.getElementById("skinButton").style.backgroundColor =
+    colorTable.orange_red;
 }
 
 /**
@@ -646,8 +655,10 @@ function doubleDancers() {
  */
 function singleDancer() {
   doubleBlobby = false;
-  document.getElementById("doubleButton").style.backgroundColor = "#FF6223";
-  document.getElementById("singleButton").style.backgroundColor = "#e64200";
+  document.getElementById("doubleButton").style.backgroundColor =
+    colorTable.orange_red;
+  document.getElementById("singleButton").style.backgroundColor =
+    colorTable.tangelo;
 }
 
 /**
@@ -703,7 +714,8 @@ function swayCallBack() {
 function danceCallBack(loop) {
   if (typeof loop === "undefined") loop = true;
   if (loop) {
-    document.getElementById("danceButton").style.backgroundColor = "#e64200";
+    document.getElementById("danceButton").style.backgroundColor =
+      colorTable.tangelo;
   }
 
   stopCallBack();
@@ -737,7 +749,8 @@ function stopCallBack(stopButton) {
   if (typeof stopButton === "undefined") stopButton = false;
   dancing = false;
   if (stopButton)
-    document.getElementById("danceButton").style.backgroundColor = "#FF6223";
+    document.getElementById("danceButton").style.backgroundColor =
+      colorTable.orange_red;
 
   callBackArray.map(clearTimeout);
   callBackArray.length = 0;
