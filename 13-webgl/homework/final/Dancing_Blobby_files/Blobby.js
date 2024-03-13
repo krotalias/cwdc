@@ -6,7 +6,7 @@
  *
  * Description.
  * <p>
- * Based upon Jim Blim's Corner:
+ * Based upon {@link https://www.jimblinn.com/ Jim Blinn's Corner}:
  * {@link https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4057037 Nested Transformations and The Blobby Man}<br>
  * IEEE Computer Graphics & Applications, No. 10, October 1987
  * </p>
@@ -22,7 +22,11 @@
  * @see <a href="/cwdc/13-webgl/homework/final/Dancing_Blobby.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/final/Dancing_Blobby_files/Blobby.js">source</a>
  * @see <a href="/cwdc/13-webgl/homework/presentation.pdf">tutorial</a>
+ * @see <a href="https://www.youtube.com/watch?v=AiwR1PKxMsY">Jim Blinn's Keynote Speech at SIGGRAPH (2018)</a>
+ * @see <a href="https://www.youtube.com/watch?v=80uQ81BWJkQ">Jim Blinn's Chronicles SIGGRAPH (2023)</a>
+ * @see <a href="https://www.youtube.com/watch?v=Kj1--TLridQ">Jim Blinn's Metaverse Podcast (2023)</a>
  * @see <img src="../blobby.png" width="512">
+ * @see <img src="../../blobby2.png">
  */
 
 "use strict";
