@@ -283,8 +283,7 @@ const colorTable = {
   army_green: { rgb: [0.27, 0.294, 0.105, 1.0], hex: "#454b1b" },
   cardinal: { rgb: [0.784, 0.062, 0.18, 1.0], hex: "#c8102e" },
   gold: { rgb: [0.945, 0.745, 0.282, 1.0], hex: "#f1be48" },
-  bgcolor: { rgb: [0.9, 0.9, 0.9, 1.0], hex: "#e6e6e6" }, //  (Platinum) - background color
-  flcolor: { rgb: [1.0, 1.0, 1.0, 1.0], hex: "#ffffff" }, // (White) - floor color
+  platinum: { rgb: [0.9, 0.9, 0.9, 1.0], hex: "#e6e6e6" },
 };
 
 /**
@@ -301,6 +300,7 @@ const colorTable = {
  *  <li>hands</p>
  *  <li>feet</p>
  *  <li>hat</p>
+ *  <li>dinky hat ball</li>
  * </ul>
  * @type {Object<String,Array<Number>>}
  * @see <img src="../Isu Cyclones.jpg" width="256">
@@ -316,6 +316,7 @@ const blobbySkin = {
   hands: colorTable.black.rgb,
   feet: colorTable.philippine_violet.rgb,
   hat: colorTable.army_green.rgb,
+  dinkyBall: colorTable.red.rgb,
 };
 
 /**
@@ -324,15 +325,35 @@ const blobbySkin = {
  */
 var glColor = colorTable.white.rgb;
 
-var FOV = 45.0,
-  ZN = 1.17,
-  ZF = 20.7;
-var XSCR = 0,
-  YSCR = 1.65,
-  ZSCR = 0;
-var XM = 0.0,
-  YM = 0.0,
-  ZM = 1.75;
+/**
+ * Background color.
+ * @type {Array<Number>}
+ */
+var bgColor = colorTable.platinum.rgb;
+
+/**
+ * Floor color.
+ * @type {Array<Number>}
+ */
+var flColor = colorTable.white.rgb;
+
+/**
+ * Field of view, aspect ratio, znear, zfar.
+ * @type {Array<Number>}
+ */
+const camera = [45.0, 1.0, 1.17, 20.7];
+
+/**
+ * Blobby screen position.
+ * @type {Array<Number>}
+ */
+const SCR = [0, 1.65, 0];
+
+/**
+ * Single Blobby position.
+ * @type {Array<Number>}
+ */
+const single = [0.0, 0.0, 1.75];
 
 /**
  * Jump translation in "z".
@@ -481,13 +502,13 @@ var viewDistance = vecLen(eye);
  * Aspect ratio is 1 corresponding to a canvas size 512 x 512
  * @type {Matrix4}
  */
-var projection = new Matrix4().setPerspective(FOV, 1.0, ZN, ZF);
+var projection = new Matrix4().setPerspective(...camera);
 
 /**
  * <p>Object to enable rotation by mouse dragging (arcball).</p>
  * For using the rotator, I had to:
  * <ul>
- *  <li>set XSCR = ZSCR = 0 (was XSCR = -0.1, ZSCR = 7.9),</li>
+ *  <li>set SCR = [0, 1.6, 0] (was [-0.1, 1.6, 7.9]),</li>
  *  <li>set the eye to [0.1, -1.6, -7.5] (was at the origin),</li>
  *  <li>looking at [0.1, -1.6, -6.5] (was [0,0,1]).</li>
  * </ul>
@@ -723,7 +744,6 @@ function renderSphere(color = glColor) {
   // "enable" the a_position attribute
   gl.enableVertexAttribArray(positionIndex);
   gl.enableVertexAttribArray(normalIndex);
-  //gl.enableVertexAttribArray(vTexCoord);
 
   // bind data for points and normals
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
@@ -731,8 +751,6 @@ function renderSphere(color = glColor) {
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
   gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
-  //gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-  //gl.vertexAttribPointer( vTexCoord, 2, gl.FLOAT, false, 0, 0 );
 
   var loc = gl.getUniformLocation(lightingShader, "view");
   gl.uniformMatrix4fv(loc, false, view.elements);
@@ -777,11 +795,11 @@ function head() {
   renderSphere(blobbySkin.hat);
   stk.pop();
 
-  t = new Matrix4(stk.top()); // stupid dinky red sphere on hat
+  t = new Matrix4(stk.top()); // dinky ball on hat
   stk.push(t);
   t.translate(0.0, 0.0, 0.8);
   t.scale(0.04, 0.04, 0.04);
-  renderSphere(colorTable.red.rgb);
+  renderSphere(blobbySkin.dinkyBall);
   stk.pop();
 
   // nose
@@ -1101,7 +1119,7 @@ function GPlane() {
   loc = gl.getUniformLocation(texturedShader, "projection");
   gl.uniformMatrix4fv(loc, false, projection.elements);
   loc = gl.getUniformLocation(texturedShader, "u_Color");
-  gl.uniform4f(loc, ...colorTable.flcolor.rgb);
+  gl.uniform4f(loc, ...flColor);
   var loc = gl.getUniformLocation(texturedShader, "lightPosition");
   gl.uniform4f(loc, 0.0, -10.0, 5.0, 1.0);
 
@@ -1135,13 +1153,13 @@ function GPlane() {
  * @param {Number} DY vertical translation.
  */
 function addBlobby(DX, DY) {
-  bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
+  bodyMatrix.setTranslate(...SCR);
   bodyMatrix
     .rotate(BACK, XAXIS[0], XAXIS[1], XAXIS[2])
     .rotate(SPIN, ZAXIS[0], ZAXIS[1], ZAXIS[2])
     .rotate(TILT, XAXIS[0], XAXIS[1], XAXIS[2]);
 
-  bodyMatrix.translate(XM + DX, YM + DY, ZM);
+  bodyMatrix.translate(single[0] + DX, single[1] + DY, single[2]);
 
   // for jumping and spinning at the dance
   bodyMatrix.translate(0, 0, JUMP);
@@ -1162,7 +1180,7 @@ function draw() {
 
   view.elements = rotator.getViewMatrix();
 
-  bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
+  bodyMatrix.setTranslate(...SCR);
   bodyMatrix
     .rotate(BACK, XAXIS[0], XAXIS[1], XAXIS[2])
     .rotate(SPIN, ZAXIS[0], ZAXIS[1], ZAXIS[2])
@@ -1207,7 +1225,7 @@ function mainEntrance() {
     canvas.width = w;
     canvas.height = h;
     gl.viewport(0, 0, w, h);
-    // projection = new Matrix4().setPerspective(FOV, aspect, ZN, ZF);
+    // projection = new Matrix4().setPerspective(...camera);
   }
 
   /**
@@ -1346,7 +1364,7 @@ function mainEntrance() {
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // specify a fill color for clearing the framebuffer
-  gl.clearColor(...colorTable.bgcolor.rgb);
+  gl.clearColor(...bgColor);
 
   gl.enable(gl.DEPTH_TEST);
 

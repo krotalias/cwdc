@@ -284,13 +284,12 @@ const colorTable = {
   sheen_green: [0.5, 0.8, 0.0, 1.0], // #80cc00
   light_gold: [0.7, 0.55, 0, 1.0], // #b38c00
   flirt: [0.7, 0, 0.4, 1.0], // #b30066
-  tangelo: { rgb: [0.901, 0.258, 0.0, 1.0], hex: "#e64200" }, // selected
-  orange_red: { rgb: [1.0, 0.384, 0.137, 1.0], hex: "#FF6223" }, // unselected
+  tangelo: { rgb: [0.901, 0.258, 0.0, 1.0], hex: "#e64200" },
+  orange_red: { rgb: [1.0, 0.384, 0.137, 1.0], hex: "#FF6223" },
   blue_suede: [0.407, 0.482, 0.572, 1.0], // #687b92
   beige: [0.96, 0.96, 0.862, 1.0], // #f5f5dc
   army_green: [0.27, 0.294, 0.105, 1.0], // #454b1b
-  bgcolor: [0.7, 0.7, 0.7, 1.0], // #b3b3b3 - backgound color
-  flcolor: [1.0, 1.0, 1.0, 1.0], // floor color
+  philippine_silver: [0.7, 0.7, 0.7, 1.0], // #b3b3b3
 };
 
 /**
@@ -321,6 +320,7 @@ const defaultSkin = {
   hands: colorTable.black,
   feet: colorTable.blue_suede,
   hat: colorTable.army_green,
+  dinkyBall: colorTable.red,
 };
 
 /**
@@ -338,6 +338,8 @@ const vampireSkin = {
   hands: colorTable.spanish_gray,
   feet: colorTable.black,
   hat: colorTable.black,
+  dinkyBall: colorTable.red,
+  fang: colorTable.white,
 };
 
 /**
@@ -355,6 +357,7 @@ const discoSkin = {
   hands: colorTable.mauve_taupe,
   feet: colorTable.beige,
   hat: colorTable.black,
+  dinkyBall: colorTable.red,
 };
 
 /**
@@ -372,6 +375,8 @@ let {
   hands,
   feet,
   hat,
+  dinkyBall,
+  fang,
 } = defaultSkin;
 
 /**
@@ -380,15 +385,47 @@ let {
  */
 var glColor = colorTable.white;
 
-var FOV = 45.0,
-  ZN = 1.17,
-  ZF = 20.7;
-var XSCR = 0,
-  YSCR = 1.6,
-  ZSCR = 0;
-var XM = 0.0,
-  YM = 0.0,
-  ZM = 1.75;
+/**
+ * Background color.
+ * @type {Array<Number>}
+ */
+var bgColor = colorTable.philippine_silver;
+
+/**
+ * Floor color.
+ * @type {Array<Number>}
+ */
+var flColor = colorTable.white;
+
+/**
+ * Button selected color.
+ * @type {Array<Number>}
+ */
+var selected = colorTable.tangelo.hex;
+
+/**
+ * Button unselected color.
+ * @type {Array<Number>}
+ */
+var unselected = colorTable.orange_red.hex;
+
+/**
+ * Field of view, aspect ratio, znear, zfar.
+ * @type {Array<Number>}
+ */
+const camera = [45.0, 1.2, 1.17, 20.7];
+
+/**
+ * Blobby screen position.
+ * @type {Array<Number>}
+ */
+const SCR = [0, 1.6, 0];
+
+/**
+ * Single Blobby position.
+ * @type {Array<Number>}
+ */
+const single = [0.0, 0.0, 1.75];
 
 /**
  * Jump translation in "z".
@@ -522,13 +559,13 @@ var viewDistance = vecLen(eye);
  * Aspect ratio is 1 corresponding to a canvas size 1100 x 900
  * @type {Matrix4}
  */
-var projection = new Matrix4().setPerspective(FOV, 1.2, ZN, ZF);
+var projection = new Matrix4().setPerspective(...camera);
 
 /**
  * <p>Object to enable rotation by mouse dragging (arcball).</p>
  * For using the rotator, I had to:
  * <ul>
- *  <li>set XSCR = ZSCR = 0 (was XSCR = -0.1, ZSCR = 7.9),</li>
+ *  <li>set SCR = [0, 1.6, 0] (was [-0.1, 1.6, 7.9]),</li>
  *  <li>set the eye to [0.1, -1.6, -7.5] (was at the origin),</li>
  *  <li>looking at [0.1, -1.6, -6.5] (was [0,0,1]).</li>
  * </ul>
@@ -581,6 +618,7 @@ function skinDefault() {
     hands,
     feet,
     hat,
+    dinkyBall,
   } = defaultSkin);
 }
 
@@ -602,6 +640,8 @@ function skinVampire() {
     hands,
     feet,
     hat,
+    dinkyBall,
+    fang,
   } = vampireSkin);
 }
 
@@ -623,6 +663,7 @@ function skinDisco() {
     hands,
     feet,
     hat,
+    dinkyBall,
   } = discoSkin);
 }
 
@@ -650,11 +691,8 @@ function alternateSkins() {
   if (!doubleBlobby) {
     alternating = !alternating;
     if (!alternating)
-      document.getElementById("skinButton").style.backgroundColor =
-        colorTable.orange_red.hex;
-    else
-      document.getElementById("skinButton").style.backgroundColor =
-        colorTable.tangelo.hex;
+      document.getElementById("skinButton").style.backgroundColor = unselected;
+    else document.getElementById("skinButton").style.backgroundColor = selected;
   }
 }
 
@@ -664,13 +702,11 @@ function alternateSkins() {
 function shutUpThatSong() {
   shutUp = !shutUp;
   if (!shutUp) {
-    document.getElementById("shutUpButton").style.backgroundColor =
-      colorTable.hex;
+    document.getElementById("shutUpButton").style.backgroundColor = unselected;
     if (dancing) audio.play();
   } else {
     audio.pause();
-    document.getElementById("shutUpButton").style.backgroundColor =
-      colorTable.tangelo.hex;
+    document.getElementById("shutUpButton").style.backgroundColor = selected;
   }
 }
 
@@ -698,12 +734,9 @@ function doubleDancers() {
   alternating = false;
   selSkin = Math.floor(Math.random() * arrayOfSkins.length);
   selSkin2 = Math.floor(Math.random() * arrayOfSkins.length);
-  document.getElementById("doubleButton").style.backgroundColor =
-    colorTable.tangelo.hex;
-  document.getElementById("singleButton").style.backgroundColor =
-    colorTable.orange_red.hex;
-  document.getElementById("skinButton").style.backgroundColor =
-    colorTable.orange_red.hex;
+  document.getElementById("doubleButton").style.backgroundColor = selected;
+  document.getElementById("singleButton").style.backgroundColor = unselected;
+  document.getElementById("skinButton").style.backgroundColor = unselected;
 }
 
 /**
@@ -711,10 +744,8 @@ function doubleDancers() {
  */
 function singleDancer() {
   doubleBlobby = false;
-  document.getElementById("doubleButton").style.backgroundColor =
-    colorTable.orange_red.hex;
-  document.getElementById("singleButton").style.backgroundColor =
-    colorTable.tangelo.hex;
+  document.getElementById("doubleButton").style.backgroundColor = unselected;
+  document.getElementById("singleButton").style.backgroundColor = selected;
 }
 
 /**
@@ -770,8 +801,7 @@ function swayCallBack() {
 function danceCallBack(loop) {
   if (typeof loop === "undefined") loop = true;
   if (loop) {
-    document.getElementById("danceButton").style.backgroundColor =
-      colorTable.tangelo.hex;
+    document.getElementById("danceButton").style.backgroundColor = selected;
   }
 
   stopCallBack();
@@ -805,8 +835,7 @@ function stopCallBack(stopButton) {
   if (typeof stopButton === "undefined") stopButton = false;
   dancing = false;
   if (stopButton)
-    document.getElementById("danceButton").style.backgroundColor =
-      colorTable.orange_red.hex;
+    document.getElementById("danceButton").style.backgroundColor = unselected;
 
   callBackArray.map(clearTimeout);
   callBackArray.length = 0;
@@ -1084,7 +1113,7 @@ function GPlane() {
   loc = gl.getUniformLocation(texturedShader, "projection");
   gl.uniformMatrix4fv(loc, false, projection.elements);
   loc = gl.getUniformLocation(texturedShader, "u_Color");
-  gl.uniform4f(loc, ...colorTable.flcolor);
+  gl.uniform4f(loc, ...flColor);
   var loc = gl.getUniformLocation(texturedShader, "lightPosition");
   gl.uniform4f(loc, 0.0, -10.0, 5.0, 1.0);
 
@@ -1120,13 +1149,13 @@ function GPlane() {
  * @param {Function} skin function for drawing the skin.
  */
 function addBlobby(DX, DY, skin) {
-  bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
+  bodyMatrix.setTranslate(...SCR);
   bodyMatrix
     .rotate(BACK, XAXIS[0], XAXIS[1], XAXIS[2])
     .rotate(SPIN, ZAXIS[0], ZAXIS[1], ZAXIS[2])
     .rotate(TILT, XAXIS[0], XAXIS[1], XAXIS[2]);
 
-  bodyMatrix.translate(XM + DX, YM + DY, ZM);
+  bodyMatrix.translate(single[0] + DX, single[1] + DY, single[2]);
 
   // for jumping and spinning at the dance
   bodyMatrix.translate(0, 0, JUMP);
@@ -1147,7 +1176,7 @@ function draw() {
 
   view.elements = rotator.getViewMatrix();
 
-  bodyMatrix.setTranslate(XSCR, YSCR, ZSCR);
+  bodyMatrix.setTranslate(...SCR);
   bodyMatrix
     .rotate(BACK, XAXIS[0], XAXIS[1], XAXIS[2])
     .rotate(SPIN, ZAXIS[0], ZAXIS[1], ZAXIS[2])
@@ -1196,7 +1225,7 @@ function mainEntrance() {
     canvas.width = w;
     canvas.height = h;
     gl.viewport(0, 0, w, h);
-    // projection = new Matrix4().setPerspective(FOV, aspect, ZN, ZF);
+    // projection = new Matrix4().setPerspective(...camera);
   }
 
   /**
@@ -1332,7 +1361,7 @@ function mainEntrance() {
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // specify a fill color for clearing the framebuffer
-  gl.clearColor(...colorTable.bgcolor);
+  gl.clearColor(...bgColor);
 
   gl.enable(gl.DEPTH_TEST);
 
@@ -1421,11 +1450,11 @@ function head() {
     renderSphere(hat);
     stk.pop();
 
-    t = new Matrix4(stk.top()); // stupid dinky red sphere on hat
+    t = new Matrix4(stk.top()); // dinky ball on hat
     stk.push(t);
     t.translate(0.0, 0.0, 0.8);
     t.scale(0.04, 0.04, 0.04);
-    renderSphere(colorTable.red);
+    renderSphere(dinkyBall);
     stk.pop();
   }
 
@@ -1465,14 +1494,14 @@ function head() {
     stk.push(t);
     t.translate(0.04, -0.2, 0.18);
     t.scale(0.01, 0.005, 0.05);
-    renderSphere(colorTable.white);
+    renderSphere(fang);
     stk.pop();
 
     t = new Matrix4(stk.top()); // fang left
     stk.push(t);
     t.translate(-0.04, -0.2, 0.18);
     t.scale(0.01, 0.005, 0.05);
-    renderSphere(colorTable.white);
+    renderSphere(fang);
     stk.pop();
   }
 
