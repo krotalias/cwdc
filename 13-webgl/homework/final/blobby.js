@@ -293,17 +293,17 @@ const colorTable = {
  * <p>Blobby skin.</p>
  * Define colors for Blobby parts:
  * <ul>
- *  <li>mouth</p>
- *  <li>skin tone</p>
- *  <li>eyes</p>
- *  <li>torso</p>
- *  <li>pants</p>
- *  <li>body</p>
- *  <li>arms</p>
- *  <li>hands</p>
- *  <li>feet</p>
- *  <li>hat</p>
- *  <li>dinky hat ball</li>
+ *  <li>mouth</li>
+ *  <li>skin tone</li>
+ *  <li>eyes</li>
+ *  <li>torso</li>
+ *  <li>pants</li>
+ *  <li>body</li>
+ *  <li>arms</li>
+ *  <li>hands</li>
+ *  <li>feet</li>
+ *  <li>hat</li>
+ *  <li>dinky ball on hat</li>
  * </ul>
  * @type {Object<String,Array<Number>>}
  * @see <img src="../Isu Cyclones.jpg" width="256">

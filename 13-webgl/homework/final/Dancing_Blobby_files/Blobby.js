@@ -228,7 +228,12 @@ var audioWhistle = document.getElementById("audioWhistle");
  */
 var gl;
 
+/**
+ * Two blobbies on/off.
+ * @type {Boolean}
+ */
 var doubleBlobby = false;
+
 var selSkin = 0; // random skin selector 1
 var selSkin2 = 0; // random skin selector 1
 
@@ -261,10 +266,19 @@ var XAXIS = new Float32Array([-2.5, 0.0, 0.0]);
 var YAXIS = new Float32Array([0.0, -2.5, 0.0]);
 var ZAXIS = new Float32Array([0.0, 0.0, -2.5]);
 
-var dancing = false; //needed for the "Shut the hell up macarena" button
-var vampire = false;
-var disco = false;
-var alternating = false; //alternate skins between jumps
+/**
+ * <p>Dance on/off.</p>
+ * Needed for the "Shut the hell up macarena" {@link shutUpThatSong button}.
+ * @type {Boolean}
+ */
+var dancing = false;
+
+/**
+ * <p>Alternate skin on/off.</p>
+ * {@link alternateSkins Alternate skins} between jumps.
+ * @type {Boolean}
+ */
+var alternating = false;
 
 /**
  * Color table - {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_shaders_to_apply_color_in_WebGL rgba} representation.
@@ -298,18 +312,19 @@ const colorTable = {
 
 /**
  * <p>Default skin.</p>
- * Define colors for Blobby parts:
+ * Define colors for default Blobby parts:
  * <ul>
- *  <li>mouth</p>
- *  <li>skin tone</p>
- *  <li>eyes</p>
- *  <li>torso</p>
- *  <li>pants</p>
- *  <li>body</p>
- *  <li>arms</p>
- *  <li>hands</p>
- *  <li>feet</p>
- *  <li>hat</p>
+ *  <li>mouth</li>
+ *  <li>skin tone</li>
+ *  <li>eyes</li>
+ *  <li>torso</li>
+ *  <li>pants</li>
+ *  <li>body</li>
+ *  <li>arms</li>
+ *  <li>hands</li>
+ *  <li>feet</li>
+ *  <li>hat</li>
+ *  <li>dinkyBall on hat</li>
  * </ul>
  * @type {Object<String,Array<Number>>}
  */
@@ -328,7 +343,22 @@ const defaultSkin = {
 };
 
 /**
- * Vampire skin.
+ * <p>Vampire skin.</p>
+ * Define colors for vampire Blobby parts:
+ * <ul>
+ *  <li>mouth</li>
+ *  <li>skin tone</li>
+ *  <li>eyes</li>
+ *  <li>torso</li>
+ *  <li>pants</li>
+ *  <li>body</li>
+ *  <li>arms</li>
+ *  <li>hands</li>
+ *  <li>feet</li>
+ *  <li>hat</li>
+ *  <li>dinkyBall on hat</li>
+ *  <li>fang</li>
+ * </ul>
  * @type {Object<String,Array<Number>>}
  */
 const vampireSkin = {
@@ -347,7 +377,20 @@ const vampireSkin = {
 };
 
 /**
- * Disco skin.
+ * <p>Disco skin.</p>
+ * Define colors for disco Blobby parts:
+ * <ul>
+ *  <li>mouth</li>
+ *  <li>skin tone</li>
+ *  <li>eyes</li>
+ *  <li>torso</li>
+ *  <li>pants</li>
+ *  <li>body</li>
+ *  <li>arms</li>
+ *  <li>hands</li>
+ *  <li>feet</li>
+ *  <li>hat</li>
+ * </ul>
  * @type {Object<String,Array<Number>>}
  */
 const discoSkin = {
@@ -361,27 +404,7 @@ const discoSkin = {
   hands: colorTable.mauve_taupe,
   feet: colorTable.beige,
   hat: colorTable.black,
-  dinkyBall: colorTable.red,
 };
-
-/**
- * To be used color variables.
- * @type {Array<Number>}
- */
-let {
-  mouth,
-  eyes,
-  skin,
-  torso: torsoColor,
-  pants,
-  body: bodyColor,
-  arms,
-  hands,
-  feet,
-  hat,
-  dinkyBall,
-  fang,
-} = defaultSkin;
 
 /**
  * Color to be used when going up/down the transformation hierarchy.
@@ -599,76 +622,39 @@ var arrayOfSkins = [skinDefault, skinDisco, skinVampire];
  * Current skin.
  * @type {Function}
  */
-var currentSkin = skinDefault;
+var currentSkin = defaultSkin;
 
-var numberOfJumps = arrayOfSkins.indexOf(currentSkin);
+/**
+ * Number of jumps.
+ * @type {Number}
+ */
+var numberOfJumps = 0;
+
+/**
+ * Sound on/off.
+ * @type {Boolean}
+ */
 var shutUp = false;
 
 /**
  * Set default {@link currentSkin skin}.
  */
 function skinDefault() {
-  vampire = false;
-  disco = false;
-  currentSkin = skinDefault;
-  ({
-    mouth,
-    eyes,
-    skin,
-    torso: torsoColor,
-    pants,
-    body: bodyColor,
-    arms,
-    hands,
-    feet,
-    hat,
-    dinkyBall,
-  } = defaultSkin);
+  currentSkin = defaultSkin;
 }
 
 /**
  * Set vampire {@link currentSkin skin}.
  */
 function skinVampire() {
-  vampire = true;
-  disco = false;
-  currentSkin = skinVampire;
-  ({
-    mouth,
-    eyes,
-    skin,
-    torso: torsoColor,
-    pants,
-    body: bodyColor,
-    arms,
-    hands,
-    feet,
-    hat,
-    dinkyBall,
-    fang,
-  } = vampireSkin);
+  currentSkin = vampireSkin;
 }
 
 /**
  * Set disco {@link currentSkin skin}.
  */
 function skinDisco() {
-  disco = true;
-  vampire = false;
-  currentSkin = skinDisco;
-  ({
-    mouth,
-    eyes,
-    skin,
-    torso: torsoColor,
-    pants,
-    body: bodyColor,
-    arms,
-    hands,
-    feet,
-    hat,
-    dinkyBall,
-  } = discoSkin);
+  currentSkin = discoSkin;
 }
 
 /**
@@ -1443,32 +1429,34 @@ function head() {
   stk.push(t);
   t.translate(0.0, 0.0, 0.4);
   t.scale(0.2, 0.23, 0.3);
-  renderSphere(skin);
+  renderSphere(currentSkin.skin);
   stk.pop();
 
-  if (!disco) {
+  let disco = !("dinkyBall" in currentSkin);
+  let vampire = "fang" in currentSkin;
+
+  if (disco) {
+    // black power
+    t = new Matrix4(stk.top()); // hat
+    stk.push(t);
+    t.translate(0.0, 0.07, 0.74);
+    t.scale(0.33, 0.33, 0.27);
+    renderSphere(currentSkin.hat);
+    stk.pop();
+  } else {
+    // hat for vampire or default
     t = new Matrix4(stk.top()); // hat
     stk.push(t);
     t.translate(0.0, 0.0, 0.64);
     t.scale(0.3, 0.3, 0.15);
-    renderSphere(hat);
+    renderSphere(currentSkin.hat);
     stk.pop();
 
     t = new Matrix4(stk.top()); // dinky ball on hat
     stk.push(t);
     t.translate(0.0, 0.0, 0.8);
     t.scale(0.04, 0.04, 0.04);
-    renderSphere(dinkyBall);
-    stk.pop();
-  }
-
-  if (disco) {
-    //black power
-    t = new Matrix4(stk.top()); // hat
-    stk.push(t);
-    t.translate(0.0, 0.07, 0.74);
-    t.scale(0.33, 0.33, 0.27);
-    renderSphere(hat);
+    renderSphere(currentSkin.dinkyBall);
     stk.pop();
   }
 
@@ -1476,21 +1464,21 @@ function head() {
   stk.push(t);
   t.translate(-0.07, -0.205, 0.5);
   t.scale(0.03, 0.02, 0.03);
-  renderSphere(eyes);
+  renderSphere(currentSkin.eyes);
   stk.pop();
 
   t = new Matrix4(stk.top()); // eye left
   stk.push(t);
   t.translate(0.07, -0.205, 0.5);
   t.scale(0.03, 0.02, 0.03);
-  renderSphere(eyes);
+  renderSphere(currentSkin.eyes);
   stk.pop();
 
   t = new Matrix4(stk.top()); // eye right
   stk.push(t);
   t.translate(-0.07, -0.205, 0.5);
   t.scale(0.03, 0.02, 0.03);
-  renderSphere(eyes);
+  renderSphere(currentSkin.eyes);
   stk.pop();
 
   if (vampire) {
@@ -1498,14 +1486,14 @@ function head() {
     stk.push(t);
     t.translate(0.04, -0.2, 0.18);
     t.scale(0.01, 0.005, 0.05);
-    renderSphere(fang);
+    renderSphere(currentSkin.fang);
     stk.pop();
 
     t = new Matrix4(stk.top()); // fang left
     stk.push(t);
     t.translate(-0.04, -0.2, 0.18);
     t.scale(0.01, 0.005, 0.05);
-    renderSphere(fang);
+    renderSphere(currentSkin.fang);
     stk.pop();
   }
 
@@ -1513,21 +1501,21 @@ function head() {
   stk.push(t);
   t.translate(0.0, -0.255, 0.42);
   t.scale(0.035, 0.075, 0.035);
-  renderSphere(skin);
+  renderSphere(currentSkin.skin);
   stk.pop();
 
   t = new Matrix4(stk.top()); // neck
   stk.push(t);
   t.translate(0.0, 0.0, 0.07);
   t.scale(0.065, 0.065, 0.14);
-  renderSphere(skin);
+  renderSphere(currentSkin.skin);
   stk.pop();
 
   t = new Matrix4(stk.top()); // mouth
   stk.push(t);
   t.translate(0.0, -0.162, 0.239);
   t.scale(0.0633, 0.0508, 0.0506);
-  renderSphere(mouth);
+  renderSphere(currentSkin.mouth);
   stk.pop();
 }
 
@@ -1554,7 +1542,7 @@ function hand() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.116);
   t.scale(0.052, 0.091, 0.155);
-  renderSphere(hands);
+  renderSphere(currentSkin.hands);
   stk.pop();
 }
 
@@ -1589,7 +1577,7 @@ function shoulder() {
   renderSphere();
   stk.pop();
 
-  glColor = arms;
+  glColor = currentSkin.arms;
   t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, 0.153);
@@ -1618,7 +1606,7 @@ function shoulder() {
 }
 
 function body() {
-  glColor = bodyColor;
+  glColor = currentSkin.body;
 
   var t = new Matrix4(stk.top());
   stk.push(t);
@@ -1647,7 +1635,7 @@ function thigh() {
   stk.push(t);
   t.translate(0.0, 0.0, -0.425);
   t.scale(0.141, 0.141, 0.425);
-  renderSphere(pants);
+  renderSphere(currentSkin.pants);
   stk.pop();
 }
 
@@ -1655,14 +1643,14 @@ function calf() {
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.scale(0.05, 0.05, 0.05);
-  renderSphere(pants);
+  renderSphere(currentSkin.pants);
   stk.pop();
 
   t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, -0.425);
   t.scale(0.1, 0.1, 0.425);
-  renderSphere(pants);
+  renderSphere(currentSkin.pants);
   stk.pop();
 }
 
@@ -1670,14 +1658,14 @@ function foot() {
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.scale(0.05, 0.04, 0.04);
-  renderSphere(pants); // ankle
+  renderSphere(currentSkin.pants); // ankle
   stk.pop();
 
   t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.05, -0.05);
   t.scale(0.04, 0.04, 0.04);
-  renderSphere(feet); // heel
+  renderSphere(currentSkin.feet); // heel
   stk.pop();
 
   t = new Matrix4(stk.top());
@@ -1685,7 +1673,7 @@ function foot() {
   t.translate(0.0, -0.15, -0.05);
   t.rotate(10.0, XAXIS[0], XAXIS[1], XAXIS[2]);
   t.scale(0.08, 0.19, 0.05);
-  renderSphere(feet); // foot
+  renderSphere(currentSkin.feet); // foot
   stk.pop();
 }
 
@@ -1736,7 +1724,7 @@ function torso(func) {
   if (typeof func === "undefined") func = skinDefault;
 
   if (doubleBlobby) func();
-  glColor = torsoColor;
+  glColor = currentSkin.torso;
   var t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(-0.178, 0.0, 0.0);
@@ -1753,7 +1741,7 @@ function torso(func) {
   stk.push(t);
   t.translate(0.0, 0.0, 0.08);
   t.scale(0.275, 0.152, 0.153);
-  renderSphere(pants);
+  renderSphere(currentSkin.pants);
   stk.pop();
 
   t = new Matrix4(stk.top());
