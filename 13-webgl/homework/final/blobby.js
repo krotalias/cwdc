@@ -1231,8 +1231,8 @@ function mainEntrance() {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
    */
   function handleWindowResize() {
-    let h = window.innerHeight;
-    let w = window.innerWidth;
+    let h = window.innerHeight - 16;
+    let w = window.innerWidth - 16;
     if (h > w) {
       h = w / aspect; // aspect < 1
     } else {

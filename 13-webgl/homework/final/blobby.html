@@ -34,9 +34,12 @@
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
-                margin: 4px 2px;
+                margin: 15px 15px 0px 2px;
                 cursor: pointer;
                 border-radius: 16px;
+            }
+            audio {
+                padding: 20px 0;
             }
         </style>
     </head>
@@ -45,7 +48,7 @@
         <div
             style="
                 text-align: center;
-                font-size: 300%;
+                font-size: 200%;
                 font-weight: bold;
                 margin: 2rem 0;
             "
@@ -63,42 +66,37 @@
                 <div><span id="timeBoxDiv"> 0 </span> ms/cycle</div>
             </div>
 
-            <br />
-            <button type="button" autofocus onclick="danceCallBack()">
-                Dance
-            </button>
+            <div>
+                <button type="button" autofocus onclick="danceCallBack()">
+                    Dance
+                </button>
 
-            <button type="button" onclick="swayCallBack()">Sway</button>
+                <button type="button" onclick="swayCallBack()">Sway</button>
 
-            <button type="button" onclick="stopCallBack()">Stop</button>
+                <button type="button" onclick="stopCallBack()">Stop</button>
+            </div>
 
-            <p id="status"></p>
+            <div>
+                <p id="status"></p>
 
-            Disable
-            <a href="https://support.mozilla.org/en-US/kb/block-autoplay">
-                Autoplay</a
-            >?
-            <label for="disableAutoplay">Then, tick me!</label>
-            <input
-                type="checkbox"
-                name="disableAutoplay"
-                id="disableAutoplay"
-                checked
-            />
+                Disable
+                <a href="https://support.mozilla.org/en-US/kb/block-autoplay">
+                    Autoplay</a
+                >?
+                <label for="disableAutoplay">Then, tick me!</label>
+                <input
+                    type="checkbox"
+                    name="disableAutoplay"
+                    id="disableAutoplay"
+                    checked
+                />
+            </div>
 
-            <br />
             <audio id="audio1" title="Macarena" controls style="width: 220px">
                 <source src="macarena.mp3" type="audio/mpeg" />
                 Your browser does not support the audio element.
             </audio>
 
-            <!--
-        <br /><br />
-        (refresh page to see the effect)<br />(untick me to enable again)
-        <br />
-        -->
-
-            <br /><br />
             <details>
                 <summary style="font-size: 100%">Keyboard controls:</summary>
 
