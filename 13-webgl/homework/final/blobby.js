@@ -1211,6 +1211,19 @@ function draw() {
  * while {@link draw} does things that have to be repeated each time the canvas is drawn.
  */
 function mainEntrance() {
+  // retrieve <canvas> element
+  var canvas = document.getElementById("theCanvas");
+  // player = document.getElementsByTagName("audio")[0];
+  player = document.getElementById("audio1");
+
+  gl = canvas.getContext("webgl2");
+  if (!gl) {
+    console.log("Failed to get the rendering context for WebGL");
+    return;
+  }
+
+  let aspect = canvas.width / canvas.height;
+
   /**
    * <p>Fires when the document view (window) has been resized.</p>
    * Also resizes the canvas and viewport.
@@ -1231,21 +1244,20 @@ function mainEntrance() {
     // projection = new Matrix4().setPerspective(...camera);
   }
 
-  /**
-   * <p>Appends an event listener for events whose type attribute value is resize.</p>
-   * <p>The {@link handleWindowResize callback} argument sets the callback
-   * that will be invoked when the event is dispatched.</p>
-   * @param {Event} event the document view is resized.
-   * @param {callback} function function to run when the event occurs.
-   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-   * @event resize - executed when the window is resized.
-   */
-  window.addEventListener("resize", handleWindowResize, false);
-
-  // retrieve <canvas> element
-  var canvas = document.getElementById("theCanvas");
-  // player = document.getElementsByTagName("audio")[0];
-  player = document.getElementById("audio1");
+  // mobile devices
+  if (screen.width <= 800) {
+    /**
+     * <p>Appends an event listener for events whose type attribute value is resize.</p>
+     * <p>The {@link handleWindowResize callback} argument sets the callback
+     * that will be invoked when the event is dispatched.</p>
+     * @param {Event} event the document view is resized.
+     * @param {callback} function function to run when the event occurs.
+     * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+     * @event resize - executed when the window is resized.
+     */
+    window.addEventListener("resize", handleWindowResize, false);
+    handleWindowResize();
+  }
 
   /**
    * <p>Appends an event listener for events whose type attribute value is keydown.</p>
@@ -1257,15 +1269,6 @@ function mainEntrance() {
   window.addEventListener("keydown", (event) => {
     handleKeyPress(event);
   });
-
-  gl = canvas.getContext("webgl2");
-  if (!gl) {
-    console.log("Failed to get the rendering context for WebGL");
-    return;
-  }
-
-  let aspect = canvas.width / canvas.height;
-  handleWindowResize();
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
