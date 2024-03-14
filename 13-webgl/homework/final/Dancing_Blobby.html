@@ -263,7 +263,8 @@
             />
         </div>
 
-        <script id="vertexLightingShader" type="x-shader/x-vertex">
+        <!-- prettier-ignore -->
+        <script id="vertexLightingShader" type="x-shader/x-vertex">#version 300 es
             uniform mat4 model;
             uniform mat4 view;
             uniform mat4 projection;
@@ -271,13 +272,13 @@
             uniform mat3 normalMatrix;
             uniform vec4 lightPosition;
 
-            attribute vec4 a_Position;
-            attribute vec3 a_Normal;
+            in vec4 a_Position;
+            in vec3 a_Normal;
 
-            varying vec4 color;
+            out vec4 color;
             void main()
             {
-              float ambientFactor = 0.3;
+              const float ambientFactor = 0.3;
               vec3 lightDirection = normalize((- view * model * a_Position).xyz);
               //vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
               //vec3 normal = (view * model * vec4(a_Normal, 0.0)).xyz;
@@ -289,7 +290,8 @@
             }
         </script>
 
-        <script id="vertexTexturedShader" type="x-shader/x-vertex">
+        <!-- prettier-ignore -->
+        <script id="vertexTexturedShader" type="x-shader/x-vertex">#version 300 es
             uniform mat4 model;
             uniform mat4 view;
             uniform mat4 projection;
@@ -297,15 +299,15 @@
             uniform mat3 normalMatrix;
             uniform vec4 lightPosition;
 
-            attribute vec4 a_Position;
-            attribute vec3 a_Normal;
-            attribute vec2 vTexCoord;
+            in vec4 a_Position;
+            in vec3 a_Normal;
+            in vec2 vTexCoord;
 
-            varying vec2 fTexCoord;
-            varying vec4 color;
+            out vec2 fTexCoord;
+            out vec4 color;
             void main()
             {
-              float ambientFactor = 0.3;
+              const float ambientFactor = 0.3;
               vec3 lightDirection = normalize((view * lightPosition - view * model * a_Position).xyz);
               //vec3 normal = (view * model * vec4(a_Normal, 0.0)).xyz;
               vec3 normal = normalize(normalMatrix * a_Normal);
@@ -317,23 +319,30 @@
             }
         </script>
 
-        <script id="fragmentLightingShader" type="x-shader/x-fragment">
+        <!-- prettier-ignore -->
+        <script id="fragmentLightingShader" type="x-shader/x-fragment">#version 300 es
             precision mediump float;
-            varying vec4 color;
+            out vec4 fragColor;
+            in vec4 color;
             void main()
             {
-              gl_FragColor = color;
+              fragColor = color;
             }
         </script>
 
-        <script id="fragmentTexturedShader" type="x-shader/x-fragment">
+        <!-- prettier-ignore -->
+        <script id="fragmentTexturedShader" type="x-shader/x-fragment">#version 300 es
             precision mediump float;
-            varying vec4 color;
-            varying vec2 fTexCoord;
-            uniform sampler2D texture;
+            out vec4 fragColor;
+            uniform sampler2D sampler;
+            in vec2 fTexCoord;
+            in vec4 color;
+
             void main()
             {
-              gl_FragColor = color * texture2D( texture, fTexCoord );
+              // sample from the texture at interpolated texture coordinate
+              vec4 texColor = texture(sampler, fTexCoord);
+              fragColor = color * texColor;
             }
         </script>
 

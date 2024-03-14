@@ -437,7 +437,8 @@ var selected = colorTable.tangelo.hex;
 var unselected = colorTable.orange_red.hex;
 
 /**
- * Field of view, aspect ratio, znear, zfar.
+ * <p>Field of view, aspect ratio, znear, zfar.</p>
+ * Aspect ratio is 1.2 corresponding to a canvas size 1100 x 900
  * @type {Array<Number>}
  */
 const camera = [45.0, 1.2, 1.17, 20.7];
@@ -583,7 +584,6 @@ var viewDistance = vecLen(eye);
 
 /**
  * <p>Projection matrix.</p>
- * Aspect ratio is 1 corresponding to a canvas size 1100 x 900
  * @type {Matrix4}
  */
 var projection = new Matrix4().setPerspective(...camera);
@@ -1242,7 +1242,7 @@ function mainEntrance() {
     handleKeyPress(event);
   });
 
-  gl = canvas.getContext("webgl");
+  gl = canvas.getContext("webgl2");
   if (!gl) {
     console.log("Failed to get the rendering context for WebGL");
     return;
