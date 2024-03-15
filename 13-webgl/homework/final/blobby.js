@@ -586,7 +586,9 @@ function swayCallBack() {
 }
 
 /**
- * What {@link macarena to do} when the Dance button is clicked.
+ * <p>What {@link macarena to do} when the Dance button is clicked.</p>
+ * It started to really annoy me when the music started playing in the middle.
+ * Therefore, when the song is {@link paused}, let's rewind it.
  * @param {Boolean} loop whether to start an endless dancing loop.
  */
 function danceCallBack(loop) {
@@ -1216,7 +1218,7 @@ function draw() {
 function mainEntrance() {
   // retrieve <canvas> element
   var canvas = document.getElementById("theCanvas");
-  // player = document.getElementsByTagName("audio")[0];
+
   player = document.getElementById("audio1");
 
   gl = canvas.getContext("webgl2");
@@ -1274,6 +1276,25 @@ function mainEntrance() {
   window.addEventListener("keydown", (event) => {
     handleKeyPress(event);
   });
+
+  /**
+   * <p>Appends an event listener for events whose type attribute value is ended.</p>
+   * The ended event is fired when playback or streaming has stopped,
+   * because the end of the media was reached or because no further data is available.
+   *
+   * <p>Here, the song macarena is restarted.</p>
+   *
+   * @event ended
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended_event
+   */
+  player.addEventListener(
+    "ended",
+    function () {
+      this.currentTime = 0;
+      this.play();
+    },
+    false,
+  );
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
