@@ -341,7 +341,8 @@ var bgColor = colorTable.platinum.rgb;
 var flColor = colorTable.white.rgb;
 
 /**
- * Field of view, aspect ratio, znear, zfar.
+ * <p>Field of view, aspect ratio, znear, zfar.</p>
+ * Aspect ratio is 1.2 corresponding to a canvas size 110 x 900
  * @type {Array<Number>}
  */
 const camera = [45.0, 1.2, 1.17, 20.7];
@@ -502,7 +503,6 @@ var viewDistance = vecLen(eye);
 
 /**
  * <p>Projection matrix.</p>
- * Aspect ratio is 1 corresponding to a canvas size 512 x 512
  * @type {Matrix4}
  */
 var projection = new Matrix4().setPerspective(...camera);
@@ -586,7 +586,7 @@ function swayCallBack() {
 }
 
 /**
- * What to do when the Dance button is clicked.
+ * What {@link macarena to do} when the Dance button is clicked.
  * @param {Boolean} loop whether to start an endless dancing loop.
  */
 function danceCallBack(loop) {
@@ -597,6 +597,9 @@ function danceCallBack(loop) {
     paused = false;
   } else dt = 7500;
   stopCallBack();
+  // rewind the song
+  player.currentTime -= 30.0;
+  player.play();
   sway(false, dt);
   var t = macarena(loop, dt);
   //console.log("macarena = " + t);
@@ -605,7 +608,8 @@ function danceCallBack(loop) {
 }
 
 /**
- * What to do when the Stop button is clicked.
+ * <p>What to do when the Stop button is clicked.</p>
+ * Pauses the audio, sets {@link paused} to true and clears out the {@link callBackArray event array}.
  */
 function stopCallBack() {
   document.getElementById("timeBoxDiv").innerHTML = 0;
@@ -1254,6 +1258,7 @@ function mainEntrance() {
      * @param {callback} function function to run when the event occurs.
      * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
      * @event resize - executed when the window is resized.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
      */
     window.addEventListener("resize", handleWindowResize, false);
     handleWindowResize();
@@ -1265,6 +1270,7 @@ function mainEntrance() {
    * that will be invoked when the event is dispatched.
    *
    * @event keydown
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
    */
   window.addEventListener("keydown", (event) => {
     handleKeyPress(event);
@@ -1636,7 +1642,7 @@ function sway(loop, duration) {
 }
 
 /**
- * Dance the "Los del Rio", Macarena song.
+ * Dance the "Los del Rio", {@link https://en.wikipedia.org/wiki/Macarena Macarena song}.
  * @param {Boolean} loop whether to start an endless dancing loop.
  * @param {Number} tinit time interval in milliseconds.
  * @return {Number} total time.

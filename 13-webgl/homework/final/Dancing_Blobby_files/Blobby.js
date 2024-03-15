@@ -687,7 +687,7 @@ function alternateSkins() {
 }
 
 /**
- * Overdose overdose overdose of macarena.
+ * Overdose, overdose, overdose of macarena.
  */
 function shutUpThatSong() {
   shutUp = !shutUp;
@@ -701,7 +701,7 @@ function shutUpThatSong() {
 }
 
 /**
- * Will stop the macarena song if Blobby is only dancing one round.
+ * Will stop the Macarena song if Blobby is only dancing one round.
  */
 function stopSongAfterDance(t) {
   callBackArray.push(
@@ -786,7 +786,9 @@ function swayCallBack() {
 }
 
 /**
- * What to do when the Dance button is clicked.
+ * <p>What {@link macarena to do} when the Dance button is clicked.</p>
+ * It started to really annoy me when the music started playing in the middle.
+ * Therefore, when the song is not {@link shutUp}, let's rewind it.
  */
 function danceCallBack(loop) {
   if (typeof loop === "undefined") loop = true;
@@ -796,28 +798,17 @@ function danceCallBack(loop) {
 
   stopCallBack();
   if (!shutUp) {
-    audio.currentTime -= 30.0; //it started to really annoy me when the music started playing in the middle -- let's rewind
+    audio.currentTime -= 30.0;
     audio.play();
-    if (loop) {
-      audio.addEventListener(
-        "ended",
-        function () {
-          this.currentTime = 0;
-          this.play();
-        },
-        false,
-      );
-    }
   }
   var t = macarena(loop, true);
   // console.log("macarena = " + t);
-  // document.getElementById("div").value = t;
 }
 
 /**
- * What to do when the Stop button is clicked.
- * Clears out the event array
- * @param {Boolean} stopButton - true if function was called from clicking on the stopButton
+ * <p>What to do when the Stop button is clicked.</p>
+ * Pauses the audio, sets {@link dancing} to false and clears out the {@link callBackArray event array}.
+ * @param {Boolean} stopButton - true if function was called from clicking on the stopButton.
  */
 function stopCallBack(stopButton) {
   audio.pause();
@@ -1239,6 +1230,7 @@ function mainEntrance() {
      * @param {callback} function function to run when the event occurs.
      * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
      * @event resize - executed when the window is resized.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
      */
     window.addEventListener("resize", handleWindowResize, false);
     handleWindowResize();
@@ -1250,10 +1242,30 @@ function mainEntrance() {
    * the event is dispatched.
    *
    * @event keydown
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
    */
   window.addEventListener("keydown", (event) => {
     handleKeyPress(event);
   });
+
+  /**
+   * <p>Appends an event listener for events whose type attribute value is ended.</p>
+   * The ended event is fired when playback or streaming has stopped,
+   * because the end of the media was reached or because no further data is available.
+   *
+   * <p>Here, the song macarena is restarted.</p>
+   *
+   * @event ended
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended_event
+   */
+  audio.addEventListener(
+    "ended",
+    function () {
+      this.currentTime = 0;
+      this.play();
+    },
+    false,
+  );
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
@@ -2161,7 +2173,7 @@ function returnHandsToHips() {
 // ============================================
 
 /**
- * Dance the "Los del Rio", Macarena song.
+ * Dance the "Los del Rio", {@link https://en.wikipedia.org/wiki/Macarena Macarena song}.
  * @param {Boolean} loop whether to start an endless dancing loop.
  * @param {Number} tinit time interval in milliseconds.
  * @return {Number} total time.
