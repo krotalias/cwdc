@@ -595,11 +595,10 @@ function danceCallBack(loop) {
   if (paused) {
     dt = 0;
     paused = false;
+    // rewind the song to the strong beat
+    player.currentTime = 7.1;
   } else dt = 7500;
   stopCallBack();
-  // rewind the song
-  player.currentTime -= 30.0;
-  player.play();
   sway(false, dt);
   var t = macarena(loop, dt);
   //console.log("macarena = " + t);
