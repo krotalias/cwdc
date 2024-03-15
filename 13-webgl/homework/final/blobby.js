@@ -344,7 +344,7 @@ var flColor = colorTable.white.rgb;
  * Field of view, aspect ratio, znear, zfar.
  * @type {Array<Number>}
  */
-const camera = [45.0, 1.0, 1.17, 20.7];
+const camera = [45.0, 1.2, 1.17, 20.7];
 
 /**
  * Blobby screen position.
