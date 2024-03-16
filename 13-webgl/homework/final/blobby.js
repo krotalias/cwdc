@@ -230,12 +230,14 @@ var gl;
 var player;
 
 /**
+ * <p>Dance on/off. Ceases all movements when true.</p>
+ * Initially set to false, so a {@link danceCallBack sway} pre-mevement is added.
  * @type {Boolean}
  */
 var paused = false;
 
 /**
- * Delay for the steps in the macarena animation.
+ * Delay for the steps (group of movements) in the macarena animation.
  * @type {Number}
  */
 var delay = 60;
@@ -259,8 +261,25 @@ var callBackArray = [];
  */
 var stk = new Stack();
 
+/**
+ * Intrinsic Blobby coordinate X axis.
+ * @type {Float32Array}
+ * @see {@link https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd Extrinsic & intrinsic rotation}
+ * @see {@link https://math.stackexchange.com/questions/1137745/proof-of-the-extrinsic-to-intrinsic-rotation-transform Proof of Extrinsic to Intrinsic Transform}
+ * @see {@link https://pages.github.berkeley.edu/EECS-106/fa21-site/assets/discussions/D1_Rotations_soln.pdf Frame Representations}
+ */
 var XAXIS = new Float32Array([-1.0, 0.0, 0.0]);
+
+/**
+ * Intrinsic Blobby coordinate Y axis.
+ * @type {Float32Array}
+ */
 var YAXIS = new Float32Array([0.0, -1.0, 0.0]);
+
+/**
+ * Intrinsic Blobby coordinate Z axis.
+ * @type {Float32Array}
+ */
 var ZAXIS = new Float32Array([0.0, 0.0, -1.0]);
 
 /**
@@ -269,10 +288,10 @@ var ZAXIS = new Float32Array([0.0, 0.0, -1.0]);
  * @property {Array<Number>} color.rgb
  *   {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_shaders_to_apply_color_in_WebGL rgba} color representation.
  * @property {String} color.hex {@link https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color hex} color representation.
- * @see https://www.color-name.com
- * @see https://doc.instantreality.org/tools/color_calculator/
- * @see https://fairfaxcryobank.com/donor-skin-tone
- * @see https://teamcolorcodes.com/iowa-state-cyclones-color-codes/
+ * @see {@link https://www.color-name.com Find Your Color Name}
+ * @see {@link https://doc.instantreality.org/tools/color_calculator/ Color Calculator}
+ * @see {@link https://fairfaxcryobank.com/donor-skin-tone Skin Tones}
+ * @see {@link https://teamcolorcodes.com/iowa-state-cyclones-color-codes/ Iowa State Cyclones Color Codes}
  */
 const colorTable = {
   red: { rgb: [1.0, 0.0, 0.0, 1.0], hex: "#ff0000" },
@@ -348,8 +367,9 @@ var flColor = colorTable.white.rgb;
 const camera = [45.0, 1.2, 1.17, 20.7];
 
 /**
- * Blobby screen position.
+ * Blobby's feet screen position.
  * @type {Array<Number>}
+ * @see <a href="/cwdc/13-webgl/extras/doc/Nested_Transformations_and_Blobby_Man.pdf#page=5">Jim Blinn's Blobby Man</a>
  */
 const SCR = [0, 1.65, 0];
 
@@ -372,10 +392,28 @@ var JUMP = 0.0;
  */
 var TURN = 0.0;
 
-// rotate the world
-var BACK = -90.0; /* x */
-var SPIN = -30.0; /* z */
-var TILT = 0.0; /* x */
+/**
+ * <p>First world X rotation applied to {@link bodyMatrix}.</p>
+ * We are using proper Euler angles x-z-x
+ * @type {Number}
+ * @see <a href="/cwdc/13-webgl/extras/doc/Nested_Transformations_and_Blobby_Man.pdf#page=5">Jim Blinn's Blobby Man</a>
+ * @see https://en.wikipedia.org/wiki/Euler_angles
+ */
+var BACK = -90.0;
+
+/**
+ * <p>Second world Z rotation applied to {@link bodyMatrix}.</p>
+ * We are using proper Euler angles x-z-x
+ * @type {Number}
+ */
+var SPIN = -30.0;
+
+/**
+ * <p>Third world X rotation applied to {@link bodyMatrix}.</p>
+ * We are using proper Euler angles x-z-x
+ * @type {Number}
+ */
+var TILT = 0.0;
 
 // joint angles
 var ROT = 0.0; /* z - rotate torso around hip */
@@ -511,10 +549,11 @@ var projection = new Matrix4().setPerspective(...camera);
  * <p>Object to enable rotation by mouse dragging (arcball).</p>
  * For using the rotator, I had to:
  * <ul>
- *  <li>set SCR = [0, 1.6, 0] (was [-0.1, 1.6, 7.9]),</li>
+ *  <li>set SCR = [0, 1.65, 0] (was [-0.1, 1.65, 7.9]),</li>
  *  <li>set the eye to [0.1, -1.6, -7.5] (was at the origin),</li>
  *  <li>looking at [0.1, -1.6, -6.5] (was [0,0,1]).</li>
  * </ul>
+ * because the rotation fixed point is at the origin.
  * @type {SimpleRotator}
  */
 var rotator;
@@ -575,7 +614,8 @@ function applyMove(t, move) {
 }
 
 /**
- * What to do when the Sway button is clicked.
+ * <p>What to do when the Sway button is clicked.</p>
+ * Stops the {@link stopCallBack dance} and sets {@link paused} to true.
  */
 function swayCallBack() {
   stopCallBack();
@@ -586,21 +626,25 @@ function swayCallBack() {
 }
 
 /**
- * <p>What {@link macarena to do} when the Dance button is clicked.</p>
- * It started to really annoy me when the music started playing in the middle.
- * Therefore, when the song is {@link paused}, let's rewind it.
+ * <p>What to do when the Dance button is clicked.</p>
+ * First, the {@link stopCallBack dance} is stopped.
+ * Then, a {@link sway} pre-movement (seven complete swings, left+right)
+ * can be appended before the Macarena dance is performed.
+ * Finally, the {@link macarena} is executed. The pre-movement is only appended
+ * when the application is started (the first time this function is called).
+ * <p>Also, it started to really annoy me when the music started playing in the middle.
+ * Therefore, when the song is {@link paused}, let's rewind it.</p>
  * @param {Boolean} loop whether to start an endless dancing loop.
  */
-function danceCallBack(loop) {
-  if (typeof loop === "undefined") loop = true;
+function danceCallBack(loop = true) {
   var dt;
   if (paused) {
-    dt = 0;
+    dt = 0; // no sway
     paused = false;
     // rewind the song to the strong beat
     player.currentTime = 7.1;
-  } else dt = 7500;
-  stopCallBack();
+  } else dt = 7500; // sway delay (7 swings)
+  stopCallBack(); // paused = true
   sway(false, dt);
   var t = macarena(loop, dt);
   //console.log("macarena = " + t);
@@ -1641,9 +1685,12 @@ function finishJump() {
 }
 
 /**
- * Keep swaying.
+ * <p>Keep swaying, that is, leaning the torso from left to right around the
+ * {@link https://en.wikipedia.org/wiki/Hip hip}.</p>
  * @param {Boolean} loop whether to start an endless dancing loop.
- * @param {Number} duration time interval in milliseconds.
+ * @param {Number} duration time interval in milliseconds.<br>
+ *    The value ⌊duration / 960⌋ defines a fixed number of swings.<br>
+ *    If undefiend, keep swaying forever.
  * @return {Number} total time.
  */
 function sway(loop, duration) {
@@ -1651,7 +1698,7 @@ function sway(loop, duration) {
   if (typeof duration === "undefined") duration = cycle;
   var t = 0;
   resetAngles();
-  for (var i = 0; i < Math.trunc(duration / cycle); i++) {
+  for (let i = 0; i < Math.trunc(duration / cycle); i++) {
     t = applyMoveAndSway(t, function () {}, lsway, +1);
     t = applyMoveAndSway(t, function () {}, lsway, -1);
     t = applyMoveAndSway(t, function () {}, rsway, +1);
@@ -1662,14 +1709,17 @@ function sway(loop, duration) {
 }
 
 /**
- * Dance the "Los del Rio", {@link https://en.wikipedia.org/wiki/Macarena Macarena song}.
+ * <p>Dance the "Los del Rio", {@link https://en.wikipedia.org/wiki/Macarena Macarena song}.</p>
+ * If "tinit" is zero, then the dance begins immediately. Otherwise, a pre-movement
+ * (e.g., {@link sway})) can be appended before the dance.
+ * Of course, the delay passed as argument should be large enough to complete
+ * the whole {@link danceCallBack pre-movement}.
  * @param {Boolean} loop whether to start an endless dancing loop.
- * @param {Number} tinit time interval in milliseconds.
+ * @param {Number} tinit time interval in milliseconds (initial delay).
  * @return {Number} total time.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
  */
-function macarena(loop, tinit) {
-  if (typeof tinit === "undefined") tinit = 0;
+function macarena(loop, tinit = 0) {
   var t = tinit; // accumulated time counter
   resetAngles();
   for (var j = 0; j < 4; j++) {
