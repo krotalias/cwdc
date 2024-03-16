@@ -216,7 +216,10 @@ function makeNormalMatrixElements(model, view) {
 var vecLen = (v) =>
   Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
 
-// A few global variables...
+/**
+ * Audio player.
+ * @type {HTMLAudioElement}
+ */
 var audio = document.getElementById("audio");
 var audioGhost = document.getElementById("audioGhost");
 var audioHey = document.getElementById("audioHey");
@@ -234,8 +237,17 @@ var gl;
  */
 var doubleBlobby = false;
 
-var selSkin = 0; // random skin selector 1
-var selSkin2 = 0; // random skin selector 1
+/**
+ * First random skin selector.
+ * @type {Number}
+ */
+var selSkin = 0;
+
+/**
+ * Second random skin selector.
+ * @type {Number}
+ */
+var selSkin2 = 0;
 
 /**
  * Delay for the steps in the macarena animation.
@@ -262,8 +274,25 @@ var callBackArray = [];
  */
 var stk = new Stack();
 
+/**
+ * Intrinsic Blobby coordinate X axis.
+ * @type {Float32Array}
+ * @see {@link https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd Extrinsic & intrinsic rotation}
+ * @see {@link https://math.stackexchange.com/questions/1137745/proof-of-the-extrinsic-to-intrinsic-rotation-transform Proof of Extrinsic to Intrinsic Transform}
+ * @see {@link https://pages.github.berkeley.edu/EECS-106/fa21-site/assets/discussions/D1_Rotations_soln.pdf Frame Representations}
+ */
 var XAXIS = new Float32Array([-2.5, 0.0, 0.0]);
+
+/**
+ * Intrinsic Blobby coordinate Y axis.
+ * @type {Float32Array}
+ */
 var YAXIS = new Float32Array([0.0, -2.5, 0.0]);
+
+/**
+ * Intrinsic Blobby coordinate Z axis.
+ * @type {Float32Array}
+ */
 var ZAXIS = new Float32Array([0.0, 0.0, -2.5]);
 
 /**
@@ -444,8 +473,9 @@ var unselected = colorTable.orange_red.hex;
 const camera = [45.0, 1.2, 1.17, 20.7];
 
 /**
- * Blobby screen position.
+ * Blobby's feet screen position.
  * @type {Array<Number>}
+ * @see <a href="/cwdc/13-webgl/extras/doc/Nested_Transformations_and_Blobby_Man.pdf#page=5">Jim Blinn's Blobby Man</a>
  */
 const SCR = [0, 1.6, 0];
 
@@ -468,10 +498,28 @@ var JUMP = 0.0;
  */
 var TURN = 0.0;
 
-// rotate the world
-var BACK = -90.0; /* x */
-var SPIN = -30.0; /* z */
-var TILT = 0.0; /* x */
+/**
+ * <p>First world X rotation applied to {@link bodyMatrix}.</p>
+ * We are using proper Euler angles x-z-x
+ * @type {Number}
+ * @see <a href="/cwdc/13-webgl/extras/doc/Nested_Transformations_and_Blobby_Man.pdf#page=5">Jim Blinn's Blobby Man</a>
+ * @see https://en.wikipedia.org/wiki/Euler_angles
+ */
+var BACK = -90.0;
+
+/**
+ * <p>Second world Z rotation applied to {@link bodyMatrix}.</p>
+ * We are using proper Euler angles x-z-x
+ * @type {Number}
+ */
+var SPIN = -30.0;
+
+/**
+ * <p>Third world X rotation applied to {@link bodyMatrix}.</p>
+ * We are using proper Euler angles x-z-x
+ * @type {Number}
+ */
+var TILT = 0.0;
 
 // joint angles
 var ROT = 0.0; /* z - rotate torso around hip */
@@ -596,6 +644,7 @@ var projection = new Matrix4().setPerspective(...camera);
  *  <li>set the eye to [0.1, -1.6, -7.5] (was at the origin),</li>
  *  <li>looking at [0.1, -1.6, -6.5] (was [0,0,1]).</li>
  * </ul>
+ * because the rotation fixed point is at the origin.
  * @type {SimpleRotator}
  */
 var rotator;
@@ -776,7 +825,8 @@ function applyMove(t, move, timeDelay, sign) {
 }
 
 /**
- * What to do when the Sway button is clicked.
+ * <p>What to do when the Sway button is clicked.</p>
+ * Stops the {@link stopCallBack dance} and calls {@link sway}.
  */
 function swayCallBack() {
   stopCallBack();
@@ -786,12 +836,13 @@ function swayCallBack() {
 }
 
 /**
- * <p>What {@link macarena to do} when the Dance button is clicked.</p>
- * It started to really annoy me when the music started playing in the middle.
- * Therefore, when the song is not {@link shutUp}, let's rewind it.
+ * <p>What to do when the Dance button is clicked.</p>
+ * First, the {@link stopCallBack dance} is stopped.
+ * Then, the {@link macarena} is executed.
+ * <p>Also, it started to really annoy me when the music started playing in the middle.
+ * Therefore, when the song is not {@link shutUp}, let's rewind it.</p>
  */
-function danceCallBack(loop) {
-  if (typeof loop === "undefined") loop = true;
+function danceCallBack(loop = true) {
   if (loop) {
     document.getElementById("danceButton").style.backgroundColor = selected;
   }
@@ -808,12 +859,10 @@ function danceCallBack(loop) {
 /**
  * <p>What to do when the Stop button is clicked.</p>
  * Pauses the audio, sets {@link dancing} to false and clears out the {@link callBackArray event array}.
- * @param {Boolean} stopButton - true if function was called from clicking on the stopButton.
+ * @param {Boolean} stopButton true if function was called by clicking on the stopButton, and false otherwise.
  */
-function stopCallBack(stopButton) {
+function stopCallBack(stopButton = false) {
   audio.pause();
-  // document.getElementById("div").value = 0;
-  if (typeof stopButton === "undefined") stopButton = false;
   dancing = false;
   if (stopButton)
     document.getElementById("danceButton").style.backgroundColor = unselected;
@@ -1736,9 +1785,7 @@ function rightleg() {
  * to set its skin.
  * @param {Function} func skin.
  */
-function torso(func) {
-  if (typeof func === "undefined") func = skinDefault;
-
+function torso(func = skinDefault) {
   if (doubleBlobby) func();
   glColor = currentSkin.torso;
   var t = new Matrix4(stk.top());
@@ -2142,7 +2189,8 @@ function finishJump() {
 }
 
 /**
- * Keep swaying.
+ * Keep swaying, that is, leaning the torso from left to right around the
+ * {@link https://en.wikipedia.org/wiki/Hip hip}.</p>
  */
 function sway() {
   var t = 0;
@@ -2173,9 +2221,11 @@ function returnHandsToHips() {
 // ============================================
 
 /**
- * Dance the "Los del Rio", {@link https://en.wikipedia.org/wiki/Macarena Macarena song}.
+ * <p>Dance the "Los del Rio", {@link https://en.wikipedia.org/wiki/Macarena Macarena song}.</p>
+ * An optional pre-movement
+ * (e.g., {@link bowDown bow}+{@link sway}) can be appended before the dance.
  * @param {Boolean} loop whether to start an endless dancing loop.
- * @param {Number} tinit time interval in milliseconds.
+ * @param {Boolean} firstloop whether the pre-movement should be appended.
  * @return {Number} total time.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
  */
@@ -2190,7 +2240,7 @@ function macarena(loop, firstLoop) {
   resetAngles();
 
   if (firstLoop == true) {
-    //only bow once
+    // only bow once
     bowPose();
     t = applyMove(t, bowDown, delay, 1);
     t = applyMove(t, bowDown, delay, -1);
@@ -2198,14 +2248,14 @@ function macarena(loop, firstLoop) {
     t = applyMoveAndSway(t, returnHandsToHips, lsway, -1);
     t = applyMoveAndSway(t, returnHandsToHips, rsway, +1);
     t = applyMoveAndSway(t, returnHandsToHips, rsway, -1);
-  }
 
-  for (var j = 0; j < 5; j++) {
-    //sway a bit
-    t = applyMoveAndSway(t, function () {}, lsway, +1);
-    t = applyMoveAndSway(t, function () {}, lsway, -1);
-    t = applyMoveAndSway(t, function () {}, rsway, +1);
-    t = applyMoveAndSway(t, function () {}, rsway, -1);
+    for (var j = 0; j < 5; j++) {
+      // sway a bit
+      t = applyMoveAndSway(t, function () {}, lsway, +1);
+      t = applyMoveAndSway(t, function () {}, lsway, -1);
+      t = applyMoveAndSway(t, function () {}, rsway, +1);
+      t = applyMoveAndSway(t, function () {}, rsway, -1);
+    }
   }
 
   for (var j = 0; j < 4; j++) {
