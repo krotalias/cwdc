@@ -22,12 +22,11 @@
  *  @see <a href="/cwdc/13-webgl/homework/final/blobby.js">source</a>
  *  @see <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix</a>
  *  @see <a href="/cwdc/13-webgl/homework/presentation.pdf">tutorial</a>
- *  @see <a href="/cwdc/13-webgl/videos/Macarena.mp4">vídeo</a>
  *  @see <a href="https://www.youtube.com/watch?v=AiwR1PKxMsY">Jim Blinn's Keynote Speech at SIGGRAPH (2018)</a>
  *  @see <a href="https://www.youtube.com/watch?v=80uQ81BWJkQ">Jim Blinn's Chronicles SIGGRAPH (2023)</a>
  *  @see <a href="https://www.youtube.com/watch?v=Kj1--TLridQ">Jim Blinn's Metaverse Podcast (2023)</a>
- *  @see <img src="../blobby.png">
- *  @see <img src="../blobby2.png">
+ *  @see <a href="/cwdc/13-webgl/videos/Macarena.mp4"><img src="../blobby.png" title="Javascript version, WebGL"></a>
+ *  @see <a href="../macarena-new.c"><img src="../blobby2.png" title="C version, OpenGL 1.1"></a>
  */
 
 "use strict";
@@ -549,7 +548,7 @@ var projection = new Matrix4().setPerspective(...camera);
  * <p>Object to enable rotation by mouse dragging (arcball).</p>
  * For using the rotator, I had to:
  * <ul>
- *  <li>set SCR = [0, 1.65, 0] (was [-0.1, 1.65, 7.9]),</li>
+ *  <li>set SCR to [0, 1.65, 0] (was [-0.1, 1.65, 7.9]),</li>
  *  <li>set the eye to [0.1, -1.6, -7.5] (was at the origin),</li>
  *  <li>looking at [0.1, -1.6, -6.5] (was [0,0,1]).</li>
  * </ul>
