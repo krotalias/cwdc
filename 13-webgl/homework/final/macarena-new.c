@@ -2,7 +2,7 @@
  *  blobby.c
  *  Blobby Man.
  *  Author : Paulo Roma Cavalcanti em 16/05/95.
- *  Based upon Jim Blim's Corner, IEEE October 1987
+ *  Based upon Jim Blinn's Corner, IEEE October 1987
  *  Non-commercial use only.
  */
 #include <GL/glut.h>
