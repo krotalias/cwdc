@@ -854,7 +854,6 @@ function danceCallBack(loop = true) {
   }
   var t = macarena(loop, true);
   // console.log("macarena = " + t);
-  document.getElementById("timeBoxDiv").innerHTML = `${t} ms/cycle`;
 }
 
 /**
@@ -2241,7 +2240,7 @@ function macarena(loop, firstLoop) {
   resetAngles();
 
   if (firstLoop == true) {
-    // only bow once: 60*8*2 + 60*4*4 = 1920
+    // only bow once: 60*8*2 + 60*4*4 = 1920ms
     bowPose();
     t = applyMove(t, bowDown, delay, 1);
     t = applyMove(t, bowDown, delay, -1);
@@ -2251,13 +2250,13 @@ function macarena(loop, firstLoop) {
     t = applyMoveAndSway(t, returnHandsToHips, rsway, -1);
 
     for (var j = 0; j < 5; j++) {
-      // sway a bit: 60*4*4*5 = 4800
+      // sway a bit: 60*4*4*5 = 4800ms
       t = applyMoveAndSway(t, function () {}, lsway, +1);
       t = applyMoveAndSway(t, function () {}, lsway, -1);
       t = applyMoveAndSway(t, function () {}, rsway, +1);
       t = applyMoveAndSway(t, function () {}, rsway, -1);
     }
-    // pre-movement total: 1920 + 4800 = 6720
+    // pre-movement total: 1920 + 4800 = 6720ms
   }
 
   for (var j = 0; j < 4; j++) {
@@ -2373,13 +2372,15 @@ function macarena(loop, firstLoop) {
   }
 
   if (!loop) {
-    stopSongAfterDance(t); //will stop song if Blobby is dancing only one round
+    stopSongAfterDance(t); // stop song if Blobby is dancing only one round
   }
 
   // schedule an endless loop of macarenas
   if (loop) {
     callBackArray.push(setTimeout(macarena, t, loop, firstTime));
   }
+
+  document.getElementById("timeBoxDiv").innerHTML = `${t} ms/cycle`;
 
   return t;
 }

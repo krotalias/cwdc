@@ -648,7 +648,6 @@ function danceCallBack(loop = true) {
   sway(false, dt);
   var t = macarena(loop, dt);
   //console.log("macarena = " + t);
-  document.getElementById("timeBoxDiv").innerHTML = t - dt;
   player.play();
 }
 
@@ -1832,6 +1831,7 @@ function macarena(loop, tinit = 0) {
   }
   // schedule an endless loop of macarenas
   if (loop) callBackArray.push(setTimeout(macarena, t, loop));
+  document.getElementById("timeBoxDiv").innerHTML = t;
   return t;
 }
 
