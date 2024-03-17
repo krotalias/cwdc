@@ -854,6 +854,7 @@ function danceCallBack(loop = true) {
   }
   var t = macarena(loop, true);
   // console.log("macarena = " + t);
+  document.getElementById("timeBoxDiv").innerHTML = `${t} ms/cycle`;
 }
 
 /**
@@ -862,6 +863,7 @@ function danceCallBack(loop = true) {
  * @param {Boolean} stopButton true if function was called by clicking on the stopButton, and false otherwise.
  */
 function stopCallBack(stopButton = false) {
+  document.getElementById("timeBoxDiv").innerHTML = "0 ms/cycle";
   audio.pause();
   dancing = false;
   if (stopButton)
@@ -2230,17 +2232,16 @@ function returnHandsToHips() {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
  */
 function macarena(loop, firstLoop) {
-  dancing = true; //needed for the shut up button
+  dancing = true; // needed for the shut up button
 
   var t = 0; // accumulated time counter
-  //t = bow();
 
-  var firstTime = false; //denotes that its not the first time this loop is called
+  var firstTime = false; // denotes that its not the first time this loop is called
 
   resetAngles();
 
   if (firstLoop == true) {
-    // only bow once
+    // only bow once: 60*8*2 + 60*4*4 = 1920
     bowPose();
     t = applyMove(t, bowDown, delay, 1);
     t = applyMove(t, bowDown, delay, -1);
@@ -2250,12 +2251,13 @@ function macarena(loop, firstLoop) {
     t = applyMoveAndSway(t, returnHandsToHips, rsway, -1);
 
     for (var j = 0; j < 5; j++) {
-      // sway a bit
+      // sway a bit: 60*4*4*5 = 4800
       t = applyMoveAndSway(t, function () {}, lsway, +1);
       t = applyMoveAndSway(t, function () {}, lsway, -1);
       t = applyMoveAndSway(t, function () {}, rsway, +1);
       t = applyMoveAndSway(t, function () {}, rsway, -1);
     }
+    // pre-movement total: 1920 + 4800 = 6720
   }
 
   for (var j = 0; j < 4; j++) {
@@ -2357,6 +2359,7 @@ function macarena(loop, firstLoop) {
     t = applyMove(t, stretchForJump, delay2);
     // jump, turning: 10*8=80ms
     t = applyMove(t, jumpAndTurn, delay2);
+    // increment number of jumps: 1ms
     t = incrementJumps(t);
     // land, folding the foots while spinning: 10*8=80ms
     t = applyMove(t, landFromJump, delay2);
@@ -2364,8 +2367,9 @@ function macarena(loop, firstLoop) {
     t = applyMove(t, dampenJump, delay2);
     // raise the whole body, then go back to inital position: 10*8=80ms
     t = applyMove(t, finishJump, delay2);
-    // total = 4800+80*6 = 5280ms
-    // grand total = 5280 * 4 cycles = 21120ms or 21s
+    // total = 4800+80*6+1 = 5281ms
+    // grand total = 5281 * 4 cycles = 21124ms or 21s
+    // pre-movement + grand total = 21124 + 6720 = 27844ms
   }
 
   if (!loop) {
