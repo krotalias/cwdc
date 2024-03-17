@@ -640,7 +640,7 @@ var projection = new Matrix4().setPerspective(...camera);
  * <p>Object to enable rotation by mouse dragging (arcball).</p>
  * For using the rotator, I had to:
  * <ul>
- *  <li>set SCR = [0, 1.6, 0] (was [-0.1, 1.6, 7.9]),</li>
+ *  <li>set SCR to [0, 1.6, 0] (was [-0.1, 1.6, 7.9]),</li>
  *  <li>set the eye to [0.1, -1.6, -7.5] (was at the origin),</li>
  *  <li>looking at [0.1, -1.6, -6.5] (was [0,0,1]).</li>
  * </ul>
@@ -2256,7 +2256,8 @@ function macarena(loop, firstLoop) {
       t = applyMoveAndSway(t, function () {}, rsway, +1);
       t = applyMoveAndSway(t, function () {}, rsway, -1);
     }
-    // pre-movement total: 1920 + 4800 = 6720ms
+    t += 780; // fix the pace to match the beat
+    // pre-movement total: 1920 + 4800 + 780 = 75000ms
   }
 
   for (var j = 0; j < 4; j++) {
@@ -2368,7 +2369,7 @@ function macarena(loop, firstLoop) {
     t = applyMove(t, finishJump, delay2);
     // total = 4800+80*6+1 = 5281ms
     // grand total = 5281 * 4 cycles = 21124ms or 21s
-    // pre-movement + grand total = 21124 + 6720 = 27844ms
+    // pre-movement + grand total = 21124 + 7500 = 28624ms
   }
 
   if (!loop) {
