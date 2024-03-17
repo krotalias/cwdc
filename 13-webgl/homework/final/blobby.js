@@ -2,7 +2,7 @@
  *  @file
  *
  *  Summary.
- *  <p>Blobby Man.</p>
+ *  <p>Blobby Man - Iowa State Cyclones dancing party.</p>
  *
  *  Description.
  *  <p>
