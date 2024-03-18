@@ -24,9 +24,9 @@
 #define GRAY 0.5, 0.5, 0.5
 #define LIGHTGRAY 0.2, 0.2, 0.2
 
-#define XAXIX -1.0, 0.0, 0.0
-#define YAXIX 0.0, -1.0, 0.0
-#define ZAXIX 0.0, 0.0, -1.0
+#define XAXIS -1.0, 0.0, 0.0
+#define YAXIS 0.0, -1.0, 0.0
+#define ZAXIS 0.0, 0.0, -1.0
 
 #define PI 3.1415927
 #define dcos(ang) cos(PI* ang / 180.0)
@@ -344,7 +344,7 @@ void foot(void) {
 
   glPushMatrix();
   glTranslated(0.0, -0.15, -0.05);
-  glRotated(10.0, XAXIX);
+  glRotated(10.0, XAXIS);
   glScaled(0.08, 0.19, 0.05);
   sphere();
   glPopMatrix();
@@ -355,10 +355,10 @@ void leftarm(void) {
   glPushMatrix();
   uparm();
   glTranslated(0.0, 0.0, -0.55);
-  glRotated(LELBO, XAXIX);
+  glRotated(LELBO, XAXIS);
   lowarm();
   glTranslated(0.0, 0.0, -0.5);
-  glRotated(LHAND, YAXIX);
+  glRotated(LHAND, YAXIS);
   hand();
   glPopMatrix();
 }
@@ -368,10 +368,10 @@ void rightarm(void) {
   glPushMatrix();
   uparm();
   glTranslated(0.0, 0.0, -0.55);
-  glRotated(RELBO, XAXIX);
+  glRotated(RELBO, XAXIS);
   lowarm();
   glTranslated(0.0, 0.0, -0.5);
-  glRotated(RHAND, YAXIX);
+  glRotated(RHAND, YAXIS);
   hand();
   glPopMatrix();
 }
@@ -379,18 +379,18 @@ void rightarm(void) {
 /*=========================  leftleg  =======================================*/
 void leftleg(void) {
   glPushMatrix();
-  glRotated(LFRONT, XAXIX);
-  glRotated(LHIP, ZAXIX);
-  glRotated(LOUT, YAXIX);
-  glRotated(-LHIP, ZAXIX);
-  glRotated(LTWIS, ZAXIX);
+  glRotated(LFRONT, XAXIS);
+  glRotated(LHIP, ZAXIS);
+  glRotated(LOUT, YAXIS);
+  glRotated(-LHIP, ZAXIS);
+  glRotated(LTWIS, ZAXIS);
   thigh();
   glTranslated(0.0, 0.0, -0.85);
-  glRotated(LKNEE, XAXIX);
+  glRotated(LKNEE, XAXIS);
   calf();
   glTranslated(0.0, 0.0, -0.84);
-  glRotated(LANKL, XAXIX);
-  glRotated(LFOOT, ZAXIX);
+  glRotated(LANKL, XAXIS);
+  glRotated(LFOOT, ZAXIS);
   foot();
   glPopMatrix();
 }
@@ -398,18 +398,18 @@ void leftleg(void) {
 /*=========================  rightleg  =======================================*/
 void rightleg(void) {
   glPushMatrix();
-  glRotated(RFRONT, XAXIX);
-  glRotated(RHIP, ZAXIX);
-  glRotated(ROUT, YAXIX);
-  glRotated(-RHIP, ZAXIX);
-  glRotated(RTWIS, ZAXIX);
+  glRotated(RFRONT, XAXIS);
+  glRotated(RHIP, ZAXIS);
+  glRotated(ROUT, YAXIS);
+  glRotated(-RHIP, ZAXIS);
+  glRotated(RTWIS, ZAXIS);
   thigh();
   glTranslated(0.0, 0.0, -0.85);
-  glRotated(RKNEE, XAXIX);
+  glRotated(RKNEE, XAXIS);
   calf();
   glTranslated(0.0, 0.0, -0.84);
-  glRotated(RANKL, XAXIX);
-  glRotated(RFOOT, ZAXIX);
+  glRotated(RANKL, XAXIS);
+  glRotated(RFOOT, ZAXIS);
   foot();
   glPopMatrix();
 }
@@ -423,24 +423,24 @@ void shoulder(void) {
 
   glPushMatrix();
   glTranslated(0.0, 0.0, 0.153);
-  glRotated(NOD, XAXIX);
-  glRotated(NECK, ZAXIX);
+  glRotated(NOD, XAXIS);
+  glRotated(NECK, ZAXIS);
   head();
   glPopMatrix();
 
   glPushMatrix();
   glTranslated(-0.45, 0.0, 0.0);
-  glRotated(LSID, YAXIX);
-  glRotated(LSHOU, XAXIX);
-  glRotated(LATWIS, ZAXIX);
+  glRotated(LSID, YAXIS);
+  glRotated(LSHOU, XAXIS);
+  glRotated(LATWIS, ZAXIS);
   leftarm();
   glPopMatrix();
 
   glPushMatrix();
   glTranslated(0.45, 0.0, 0.0);
-  glRotated(RSID, YAXIX);
-  glRotated(RSHOU, XAXIX);
-  glRotated(RATWIS, ZAXIX);
+  glRotated(RSID, YAXIS);
+  glRotated(RSHOU, XAXIS);
+  glRotated(RATWIS, ZAXIS);
   rightarm();
   glPopMatrix();
 }
@@ -455,9 +455,9 @@ void body(void) {
 
   glPushMatrix();
   glTranslated(0.0, 0.0, 1.0);
-  glRotated(EXTEN, XAXIX); /* the shoulder rotates twice */
-  glRotated(BTWIS, YAXIX);
-  glRotated(ROT, ZAXIX);
+  glRotated(EXTEN, XAXIS); /* the shoulder rotates twice */
+  glRotated(BTWIS, YAXIS);
+  glRotated(ROT, ZAXIS);
   shoulder();
   glPopMatrix();
 }
@@ -482,9 +482,9 @@ void TORSO(void) {
   glPopMatrix();
 
   glPushMatrix();
-  glRotated(EXTEN, XAXIX);
-  glRotated(BTWIS, YAXIX);
-  glRotated(ROT, ZAXIX);
+  glRotated(EXTEN, XAXIS);
+  glRotated(BTWIS, YAXIS);
+  glRotated(ROT, ZAXIS);
   body();
   glPopMatrix();
 }
@@ -554,7 +554,7 @@ void initView(void) {
   glColor3d(BLACK);
 #if 0
  vp.z = 2.0;
- n.x = 0.0; n.y = 1.0; n.z = 0.0; 
+ n.x = 0.0; n.y = 1.0; n.z = 0.0;
  up.x = 0.0; up.y = 0.0; up.z = 1.0;
  ref.x = vp.x+n.x; ref.y = vp.y+n.y; ref.z = vp.z+n.z;
  glOrtho ( p1.x, p2.x, p1.y, p2.y, p1.z, p2.z );
@@ -575,14 +575,14 @@ void initView(void) {
 void displayStuff(void) {
   initView();
   glTranslated(XSCR, YSCR, ZSCR);
-  glRotated(BACK, XAXIX);
-  glRotated(SPIN, ZAXIX);
-  glRotated(TILT, XAXIX);
+  glRotated(BACK, XAXIS);
+  glRotated(SPIN, ZAXIS);
+  glRotated(TILT, XAXIS);
   GPlane();
   glTranslated(XM, YM, ZM);
 
   glTranslated(0, 0, JUMP);
-  glRotated(TURN, ZAXIX);
+  glRotated(TURN, ZAXIS);
 
   TORSO();
 }
