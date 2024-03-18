@@ -498,13 +498,15 @@ var vertexNormalBufferPlane;
 var texCoordBufferPlane;
 
 /**
- * Handle to the compiled {@link renderSphere lighting shader} program on the GPU.
+ * Handle to the {@link mainEntrance compiled} lighting shader program on the GPU,
+ * used for drawing {@link renderSphere spheres}.
  * @type {WebGLShader}
  */
 var lightingShader;
 
 /**
- * Handle to the compiled {@link GPlane texture shader} program on the GPU.
+ * Handle to the {@link mainEntrance compiled} texture shader program on the GPU,
+ * used for drawing {@link GPlane the floor}.
  * @type {WebGLShader}
  */
 var texturedShader;
@@ -522,13 +524,25 @@ var bodyMatrix = new Matrix4();
 var eye = [0.1, -1.6, -7.5];
 
 /**
- * View matrix.
+ * <p>View matrix, defining a projection plane normal (n = {@link eye} - at): [0, 0, -1, 0].</p>
+ * Blinn uses a left-handed system in his paper, and sets BACK to -90, which makes Z goes down.<br>
+ * Threfore, we have to to set the up vector to (0, -1, 0), so the image is not rendered upside down.
+ * <pre>
+ *     u   v   n
+ *    |1   0   0  -0.1|  (-u.eye)
+ *    |0  -1   0  -1.6|  (-v.eye)
+ *    |0   0  -1  -7.5|  (-n.eye)
+ *    |0   0   0   1  |
+ * </pre>
  * @type {Matrix4}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection WebGL model view projection}
+ * @see {@link https://webglfundamentals.org/webgl/lessons/webgl-3d-camera.html WebGL 3D - Cameras}
+ * @see <a href="/cwdc/downloads/apostila.pdf#page=109">Apostila</a>
  */
 // prettier-ignore
 var view = new Matrix4().setLookAt(
   ...eye,           // eye
-  0.1, -1.6, -6.5,  // at - looking at the origin
+  0.1, -1.6, -6.5,  // at - looking at this point
   0, -1, 0          // up vector - y axis
 );
 
@@ -764,9 +778,12 @@ function handleKeyPress(event) {
 }
 
 /**
- *  Helper function that renders the sphere based on the model transformation
- *  on top of the stack and the given local transformation.
- *  @param {Array<Number>} color sphere color.
+ * <p>Renders a sphere, based on the model transformation
+ * on top of the stack,
+ * by using the {@link lightingShader}.</p>
+ * There is a single light source at position [0.0, 5.0, -5.0, 1.0].
+ * @param {Array<Number>} color sphere color.
+ * @see https://www.khronos.org/registry/webgl/specs/1.0/#6.5
  */
 function renderSphere(color = glColor) {
   // bind the shader
@@ -825,7 +842,6 @@ function renderSphere(color = glColor) {
 
   gl.drawElements(gl.TRIANGLES, sphere.indices.length, gl.UNSIGNED_SHORT, 0);
 
-  //https://www.khronos.org/registry/webgl/specs/1.0/#ATTRIBS_AND_RANGE_CHECKING (section 6.5)
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
   gl.useProgram(null);
 }
@@ -1124,7 +1140,8 @@ function TORSO() {
 }
 
 /**
- * Draw the floor plane.
+ * <p>Draw the floor plane, by using the {@link texturedShader}.</p>
+ * There is a single light source at position [0.0, -10.0, 5.0, 1.0];
  */
 function GPlane() {
   // bind the shader
