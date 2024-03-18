@@ -366,14 +366,14 @@ var flColor = colorTable.white.rgb;
 const camera = [45.0, 1.2, 1.17, 20.7];
 
 /**
- * Blobby's feet screen position.
+ * Blobby's belly screen position.
  * @type {Array<Number>}
  * @see <a href="/cwdc/13-webgl/extras/doc/Nested_Transformations_and_Blobby_Man.pdf#page=5">Jim Blinn's Blobby Man</a>
  */
 const SCR = [0, 1.65, 0];
 
 /**
- * Single Blobby position.
+ * Single Blobby belly position.
  * @type {Array<Number>}
  */
 const single = [0.0, 0.0, 1.75];
@@ -393,7 +393,8 @@ var TURN = 0.0;
 
 /**
  * <p>First world X rotation applied to {@link bodyMatrix}.</p>
- * We are using proper Euler angles x-z-x
+ * We are using proper Euler angles x-z-x and
+ * the center of rotation is at Blobby's belly.
  * @type {Number}
  * @see <a href="/cwdc/13-webgl/extras/doc/Nested_Transformations_and_Blobby_Man.pdf#page=5">Jim Blinn's Blobby Man</a>
  * @see https://en.wikipedia.org/wiki/Euler_angles
