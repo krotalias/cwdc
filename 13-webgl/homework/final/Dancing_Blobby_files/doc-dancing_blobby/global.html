@@ -1145,7 +1145,7 @@ Macarena dance proceeds in four perpendicular directions.
 
 
 <div class="description">
-    Holds all callbacks from setTimeout. Used for canceling all callbacks.
+    Holds all setTimeout callback ids. Used for canceling all callbacks.
 </div>
 
 
@@ -3622,8 +3622,12 @@ Threfore, we have to to set the up vector to (0, -1, 0), so the image is not ren
 
 
 <div class="description">
-    Draw the floor plane, by using the <a href="global.html#texturedShader">texturedShader</a>.</p>
-There is a single light source at position [0.0, -10.0, 5.0, 1.0];
+    <p>Draw the floor plane (in fact, a <a href="https://threejs.org/docs/#api/en/geometries/PlaneGeometry">rectangle</a>),
+by using the <a href="global.html#texturedShader">texturedShader</a>.</p>
+The <a href="global.html#planeModel">plane</a> normal is (0,0,1) and it pointset is given
+by the cartesian product of intervals [-3,3] x [-3,3], on plane XY.
+<p>The single Blobby feet is at <a href="global.html#draw">position</a> (0,0,0).</p>
+<p>There is a single light source at position [0.0, -10.0, 5.0, 1.0].</p>
 </div>
 
 
@@ -3667,7 +3671,7 @@ There is a single light source at position [0.0, -10.0, 5.0, 1.0];
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1122">line 1122</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1126">line 1126</a>
     </li></ul></dd>
     
 
@@ -3851,7 +3855,7 @@ and "dressed for success" with the given <a href="global.html#torso">skin</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1200">line 1200</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1204">line 1204</a>
     </li></ul></dd>
     
 
@@ -4027,7 +4031,7 @@ and "dressed for success" with the given <a href="global.html#torso">skin</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1480">line 1480</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1484">line 1484</a>
     </li></ul></dd>
     
 
@@ -4322,7 +4326,7 @@ a different time delay amount may be passed in.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2113">line 2113</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2117">line 2117</a>
     </li></ul></dd>
     
 
@@ -4410,7 +4414,7 @@ a different time delay amount may be passed in.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2025">line 2025</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2029">line 2029</a>
     </li></ul></dd>
     
 
@@ -4498,7 +4502,7 @@ a different time delay amount may be passed in.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1965">line 1965</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1969">line 1969</a>
     </li></ul></dd>
     
 
@@ -4935,7 +4939,7 @@ a different time delay amount may be passed in.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2179">line 2179</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2183">line 2183</a>
     </li></ul></dd>
     
 
@@ -5159,7 +5163,7 @@ Therefore, when the song is not <a href="global.html#shutUp">shutUp</a>, let's r
 
 
 <div class="description">
-    Code to actually render our geometry,
+    Code to actually render our scene geometry,
 by drawing the <a href="global.html#GPlane">floor</a> and one or two <a href="global.html#addBlobby">Blobbies</a>.
 </div>
 
@@ -5204,7 +5208,7 @@ by drawing the <a href="global.html#GPlane">floor</a> and one or two <a href="gl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1222">line 1222</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1226">line 1226</a>
     </li></ul></dd>
     
 
@@ -5292,7 +5296,7 @@ by drawing the <a href="global.html#GPlane">floor</a> and one or two <a href="gl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2193">line 2193</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2197">line 2197</a>
     </li></ul></dd>
     
 
@@ -6038,7 +6042,7 @@ returns a <a href="global.html#bufferGeometry">bufferGeometry</a> object contain
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1982">line 1982</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1986">line 1986</a>
     </li></ul></dd>
     
 
@@ -6469,7 +6473,7 @@ Needed in order to alternate skins in the middle of the dance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2153">line 2153</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2157">line 2157</a>
     </li></ul></dd>
     
 
@@ -6557,7 +6561,7 @@ Needed in order to alternate skins in the middle of the dance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2165">line 2165</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2169">line 2169</a>
     </li></ul></dd>
     
 
@@ -6645,7 +6649,7 @@ Needed in order to alternate skins in the middle of the dance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2103">line 2103</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2107">line 2107</a>
     </li></ul></dd>
     
 
@@ -6733,7 +6737,7 @@ Needed in order to alternate skins in the middle of the dance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2084">line 2084</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2088">line 2088</a>
     </li></ul></dd>
     
 
@@ -7038,7 +7042,7 @@ Needed in order to alternate skins in the middle of the dance.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2037">line 2037</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2041">line 2041</a>
     </li></ul></dd>
     
 
@@ -7200,7 +7204,7 @@ An optional pre-movement
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2251">line 2251</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2255">line 2255</a>
     </li></ul></dd>
     
 
@@ -7322,7 +7326,7 @@ while <a href="global.html#draw">draw</a> does things that have to be repeated e
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1259">line 1259</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1263">line 1263</a>
     </li></ul></dd>
     
 
@@ -7592,7 +7596,7 @@ while <a href="global.html#draw">draw</a> does things that have to be repeated e
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1945">line 1945</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1949">line 1949</a>
     </li></ul></dd>
     
 
@@ -7680,7 +7684,7 @@ while <a href="global.html#draw">draw</a> does things that have to be repeated e
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2066">line 2066</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2070">line 2070</a>
     </li></ul></dd>
     
 
@@ -7768,7 +7772,7 @@ while <a href="global.html#draw">draw</a> does things that have to be repeated e
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2057">line 2057</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2061">line 2061</a>
     </li></ul></dd>
     
 
@@ -7996,7 +8000,7 @@ There is a single light source at position [0.0, 5.0, -5.0, 1.0].
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1877">line 1877</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1881">line 1881</a>
     </li></ul></dd>
     
 
@@ -8250,7 +8254,7 @@ There is a single light source at position [0.0, 5.0, -5.0, 1.0].
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2093">line 2093</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2097">line 2097</a>
     </li></ul></dd>
     
 
@@ -8338,7 +8342,7 @@ There is a single light source at position [0.0, 5.0, -5.0, 1.0].
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2075">line 2075</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2079">line 2079</a>
     </li></ul></dd>
     
 
@@ -8426,7 +8430,7 @@ There is a single light source at position [0.0, 5.0, -5.0, 1.0].
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2047">line 2047</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2051">line 2051</a>
     </li></ul></dd>
     
 
@@ -8514,7 +8518,7 @@ There is a single light source at position [0.0, 5.0, -5.0, 1.0].
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1925">line 1925</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1929">line 1929</a>
     </li></ul></dd>
     
 
@@ -9042,7 +9046,7 @@ There is a single light source at position [0.0, 5.0, -5.0, 1.0].
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1843">line 1843</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1847">line 1847</a>
     </li></ul></dd>
     
 
@@ -9364,7 +9368,7 @@ Pauses the audio, sets <a href="global.html#dancing">dancing</a> to false and cl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2135">line 2135</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2139">line 2139</a>
     </li></ul></dd>
     
 
@@ -9453,7 +9457,7 @@ Pauses the audio, sets <a href="global.html#dancing">dancing</a> to false and cl
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2214">line 2214</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2218">line 2218</a>
     </li></ul></dd>
     
 
@@ -9680,7 +9684,7 @@ to set its skin.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1807">line 1807</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1811">line 1811</a>
     </li></ul></dd>
     
 
@@ -9934,7 +9938,7 @@ to set its skin.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1896">line 1896</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1900">line 1900</a>
     </li></ul></dd>
     
 
@@ -10218,7 +10222,7 @@ Also resizes the canvas and viewport.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1271">line 1271</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1275">line 1275</a>
     </li></ul></dd>
     
 
@@ -10313,7 +10317,7 @@ Also resizes the canvas and viewport.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1486">line 1486</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1490">line 1490</a>
     </li></ul></dd>
     
 
@@ -10577,7 +10581,7 @@ because the end of the media was reached or because no further data is available
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1319">line 1319</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1323">line 1323</a>
     </li></ul></dd>
     
 
@@ -10674,7 +10678,7 @@ the event is dispatched.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1307">line 1307</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1311">line 1311</a>
     </li></ul></dd>
     
 
@@ -10841,7 +10845,7 @@ the event is dispatched.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2407">line 2407</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line2411">line 2411</a>
     </li></ul></dd>
     
 
@@ -11033,7 +11037,7 @@ that will be invoked when the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1293">line 1293</a>
+        <a href="homework_final_Dancing_Blobby_files_Blobby.js.html">homework/final/Dancing_Blobby_files/Blobby.js</a>, <a href="homework_final_Dancing_Blobby_files_Blobby.js.html#line1297">line 1297</a>
     </li></ul></dd>
     
 
@@ -11088,7 +11092,7 @@ that will be invoked when the event is dispatched.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Mar 18 2024 18:52:57 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 19 2024 18:08:27 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

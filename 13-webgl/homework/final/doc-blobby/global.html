@@ -1021,7 +1021,7 @@ Define colors for Blobby parts:
 
 
 <div class="description">
-    Holds all callbacks from setTimeout. Used for canceling all callbacks.
+    Holds all setTimeout callback ids. Used for canceling all callbacks.
 </div>
 
 
@@ -3065,8 +3065,12 @@ Threfore, we have to to set the up vector to (0, -1, 0), so the image is not ren
 
 
 <div class="description">
-    <p>Draw the floor plane, by using the <a href="global.html#texturedShader">texturedShader</a>.</p>
-There is a single light source at position [0.0, -10.0, 5.0, 1.0];
+    <p>Draw the floor plane (in fact, a <a href="https://threejs.org/docs/#api/en/geometries/PlaneGeometry">rectangle</a>),
+by using the <a href="global.html#texturedShader">texturedShader</a>.</p>
+The <a href="global.html#planeModel">plane</a> normal is (0,0,1) and it pointset is given
+by the cartesian product of intervals [-3,3] x [-3,3], on plane XY.
+<p>The central Blobby feet is at <a href="global.html#draw">position</a> (0,0,0).</p>
+<p>There is a single light source at position [0.0, -10.0, 5.0, 1.0].</p>
 </div>
 
 
@@ -3110,7 +3114,7 @@ There is a single light source at position [0.0, -10.0, 5.0, 1.0];
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1147">line 1147</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1151">line 1151</a>
     </li></ul></dd>
     
 
@@ -3358,7 +3362,7 @@ There is a single light source at position [0.0, -10.0, 5.0, 1.0];
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1223">line 1223</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1227">line 1227</a>
     </li></ul></dd>
     
 
@@ -3446,7 +3450,7 @@ There is a single light source at position [0.0, -10.0, 5.0, 1.0];
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1483">line 1483</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1487">line 1487</a>
     </li></ul></dd>
     
 
@@ -3973,7 +3977,7 @@ There is a single light source at position [0.0, -10.0, 5.0, 1.0];
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1619">line 1619</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1623">line 1623</a>
     </li></ul></dd>
     
 
@@ -4498,7 +4502,7 @@ There is a single light source at position [0.0, -10.0, 5.0, 1.0];
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1674">line 1674</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1678">line 1678</a>
     </li></ul></dd>
     
 
@@ -4694,7 +4698,7 @@ Therefore, when the song is <a href="global.html#paused">paused</a>, let's rewin
 
 
 <div class="description">
-    Code to actually render our geometry,
+    Code to actually render our scene geometry,
 by drawing the <a href="global.html#GPlane">floor</a> and three <a href="global.html#addBlobby">Blobbies</a>.
 </div>
 
@@ -4739,7 +4743,7 @@ by drawing the <a href="global.html#GPlane">floor</a> and three <a href="global.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1245">line 1245</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1249">line 1249</a>
     </li></ul></dd>
     
 
@@ -4827,7 +4831,7 @@ by drawing the <a href="global.html#GPlane">floor</a> and three <a href="global.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1686">line 1686</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1690">line 1690</a>
     </li></ul></dd>
     
 
@@ -5779,7 +5783,7 @@ to adjust joint angles.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1655">line 1655</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1659">line 1659</a>
     </li></ul></dd>
     
 
@@ -5867,7 +5871,7 @@ to adjust joint angles.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1665">line 1665</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1669">line 1669</a>
     </li></ul></dd>
     
 
@@ -5955,7 +5959,7 @@ to adjust joint angles.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1611">line 1611</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1615">line 1615</a>
     </li></ul></dd>
     
 
@@ -6043,7 +6047,7 @@ to adjust joint angles.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1596">line 1596</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1600">line 1600</a>
     </li></ul></dd>
     
 
@@ -6348,7 +6352,7 @@ to adjust joint angles.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1559">line 1559</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1563">line 1563</a>
     </li></ul></dd>
     
 
@@ -6524,7 +6528,7 @@ the whole <a href="global.html#danceCallBack">pre-movement</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1738">line 1738</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1742">line 1742</a>
     </li></ul></dd>
     
 
@@ -6646,7 +6650,7 @@ while <a href="global.html#draw">draw</a> does things that have to be repeated e
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1278">line 1278</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1282">line 1282</a>
     </li></ul></dd>
     
 
@@ -6916,7 +6920,7 @@ while <a href="global.html#draw">draw</a> does things that have to be repeated e
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1582">line 1582</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1586">line 1586</a>
     </li></ul></dd>
     
 
@@ -7004,7 +7008,7 @@ while <a href="global.html#draw">draw</a> does things that have to be repeated e
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1575">line 1575</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1579">line 1579</a>
     </li></ul></dd>
     
 
@@ -7239,7 +7243,7 @@ There is a single light source at position [0.0, 5.0, -5.0, 1.0].
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1515">line 1515</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1519">line 1519</a>
     </li></ul></dd>
     
 
@@ -7493,7 +7497,7 @@ There is a single light source at position [0.0, 5.0, -5.0, 1.0].
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1603">line 1603</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1607">line 1607</a>
     </li></ul></dd>
     
 
@@ -7581,7 +7585,7 @@ There is a single light source at position [0.0, 5.0, -5.0, 1.0].
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1589">line 1589</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1593">line 1593</a>
     </li></ul></dd>
     
 
@@ -7669,7 +7673,7 @@ There is a single light source at position [0.0, 5.0, -5.0, 1.0].
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1567">line 1567</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1571">line 1571</a>
     </li></ul></dd>
     
 
@@ -7846,7 +7850,7 @@ Pauses the audio, sets <a href="global.html#paused">paused</a> to true and clear
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1639">line 1639</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1643">line 1643</a>
     </li></ul></dd>
     
 
@@ -8009,7 +8013,7 @@ Pauses the audio, sets <a href="global.html#paused">paused</a> to true and clear
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1712">line 1712</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1716">line 1716</a>
     </li></ul></dd>
     
 
@@ -8570,7 +8574,7 @@ Also resizes the canvas and viewport.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1292">line 1292</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1296">line 1296</a>
     </li></ul></dd>
     
 
@@ -8665,7 +8669,7 @@ Also resizes the canvas and viewport.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1490">line 1490</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1494">line 1494</a>
     </li></ul></dd>
     
 
@@ -8770,7 +8774,7 @@ because the end of the media was reached or because no further data is available
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1340">line 1340</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1344">line 1344</a>
     </li></ul></dd>
     
 
@@ -8867,7 +8871,7 @@ that will be invoked when the event is dispatched.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1328">line 1328</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1332">line 1332</a>
     </li></ul></dd>
     
 
@@ -9035,7 +9039,7 @@ If Autoplay is not disabled, start dancing right away.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1855">line 1855</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1859">line 1859</a>
     </li></ul></dd>
     
 
@@ -9227,7 +9231,7 @@ that will be invoked when the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1314">line 1314</a>
+        <a href="homework_final_blobby.js.html">homework/final/blobby.js</a>, <a href="homework_final_blobby.js.html#line1318">line 1318</a>
     </li></ul></dd>
     
 
@@ -9282,7 +9286,7 @@ that will be invoked when the event is dispatched.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Mar 18 2024 18:52:03 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 19 2024 18:07:40 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

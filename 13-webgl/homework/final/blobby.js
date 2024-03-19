@@ -248,7 +248,7 @@ var delay = 60;
 var delay2 = 10;
 
 /**
- * Holds all callbacks from setTimeout. Used for canceling all callbacks.
+ * Holds all setTimeout callback ids. Used for canceling all callbacks.
  * @type {Array<timeoutID>}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
  */
@@ -1141,8 +1141,12 @@ function TORSO() {
 }
 
 /**
- * <p>Draw the floor plane, by using the {@link texturedShader}.</p>
- * There is a single light source at position [0.0, -10.0, 5.0, 1.0];
+ * <p>Draw the floor plane (in fact, a {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry rectangle}),
+ * by using the {@link texturedShader}.</p>
+ * The {@link planeModel plane} normal is (0,0,1) and it pointset is given
+ * by the cartesian product of intervals [-3,3] x [-3,3], on plane XY.
+ * <p>The central Blobby feet is at {@link draw position} (0,0,0).</p>
+ * <p>There is a single light source at position [0.0, -10.0, 5.0, 1.0].</p>
  */
 function GPlane() {
   // bind the shader
@@ -1239,7 +1243,7 @@ function addBlobby(DX, DY) {
 }
 
 /**
- * Code to actually render our geometry,
+ * Code to actually render our scene geometry,
  * by drawing the {@link GPlane floor} and three {@link addBlobby Blobbies}.
  */
 function draw() {
