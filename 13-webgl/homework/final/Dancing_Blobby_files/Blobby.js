@@ -473,7 +473,8 @@ var unselected = colorTable.orange_red.hex;
 const camera = [45.0, 1.2, 1.17, 20.7];
 
 /**
- * Blobby's belly screen position.
+ * Blobby's belly screen position, after application of BACK rotation,
+ * which aligned Blobby height with the Y axis.
  * @type {Array<Number>}
  * @see <a href="/cwdc/13-webgl/extras/doc/Nested_Transformations_and_Blobby_Man.pdf#page=5">Jim Blinn's Blobby Man</a>
  */
@@ -620,6 +621,13 @@ const eye = [0.1, -1.6, -7.5];
  * <p>View matrix, defining a projection plane normal (n = {@link eye} - at): [0, 0, -1, 0].</p>
  * Blinn uses a left-handed system in his paper, and sets BACK to -90, which makes Z goes down.<br>
  * Threfore, we have to to set the up vector to (0, -1, 0), so the image is not rendered upside down.
+ * Another possibility is:
+ * <ul>
+ *  <li>up = [0, 1, 0], </li>
+ *  <li>SCR = [0. -1.6, 0], </li>
+ *  <li>BACK = 90.0; SPIN = 150.0, </li>
+ *  <li>GPlane light = [0.0, 10.0, 5.0, 1.0]</li>
+ * </ul>
  * <pre>
  *     u   v   n
  *    |1   0   0  -0.1|  (-u.eye)
@@ -659,7 +667,10 @@ var projection = new Matrix4().setPerspective(...camera);
  *  <li>set the eye to [0.1, -1.6, -7.5] (was at the origin),</li>
  *  <li>looking at [0.1, -1.6, -6.5] (was [0,0,1]).</li>
  * </ul>
- * because the rotation fixed point is at the origin.
+ * because the camera's rotation fixed point is at the origin.
+ * <p>Therefore, Blobby, eye and at were translated, so SCR is on plane XZ.</p>
+ * This way, the rotation is going to be around the Y axis, which
+ * is aligned to Blobby's height.
  * @type {SimpleRotator}
  */
 var rotator;
@@ -1118,7 +1129,7 @@ function renderSphere(color = glColor) {
 /**
  * <p>Draw the floor plane (in fact, a {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry rectangle}),
  * by using the {@link texturedShader}.</p>
- * The {@link planeModel plane} normal is (0,0,1) and it pointset is given
+ * The {@link planeModel plane} normal is (0,0,1) and its pointset is given
  * by the cartesian product of intervals [-3,3] x [-3,3], on plane XY.
  * <p>The single Blobby feet is at {@link draw position} (0,0,0).</p>
  * <p>There is a single light source at position [0.0, -10.0, 5.0, 1.0].</p>
