@@ -774,10 +774,10 @@ function autoRotation() {
   autoRotate = !autoRotate;
   if (!autoRotate)
     document.getElementById("autoRotateButton").style.backgroundColor =
-      unselected;
+      selected;
   else
     document.getElementById("autoRotateButton").style.backgroundColor =
-      selected;
+      unselected;
 }
 
 /**
@@ -1062,9 +1062,9 @@ function handleKeyPress(event) {
       skinDisco();
       break;
 
-    case "R":
-    case "r":
-      autoRotate = !autoRotate;
+    case "q":
+    case "Q":
+      autoRotation();
       break;
 
     default:
