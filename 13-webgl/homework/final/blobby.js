@@ -528,6 +528,12 @@ var bodyMatrix = new Matrix4();
 var eye = [0.1, -1.6, -7.5];
 
 /**
+ * Blobby's auto rotation on/off.
+ * @type {Boolean}
+ */
+var autoRotate = true;
+
+/**
  * <p>View matrix, defining a projection plane normal (n = {@link eye} - at): [0, 0, -1, 0].</p>
  * Blinn uses a left-handed system in his paper, and sets BACK to -90, which makes Z goes down.<br>
  * Threfore, we have to to set the up vector to (0, -1, 0), so the image is not rendered upside down.<br>
@@ -786,10 +792,31 @@ function handleKeyPress(event) {
       t = applyMove(t, dampenJump);
       t = applyMove(t, finishJump);
       break;
+    case "R":
+    case "r":
+      autoRotate = !autoRotate;
+      document.getElementById("autoRotation").checked = autoRotate;
+      break;
     default:
       return;
   }
 }
+
+/**
+ * Returns a new keyboard event.
+ * @param {String} key char code.
+ * @returns {KeyboardEvent} a keyboard event.
+ * @event KeyboardEvent
+ */
+const createEvent = (key) => {
+  let code = key.charCodeAt();
+  return new KeyboardEvent("keydown", {
+    key: key,
+    which: code,
+    charCode: code,
+    keyCode: code,
+  });
+};
 
 /**
  * <p>Renders a sphere, based on the model transformation
@@ -1355,6 +1382,18 @@ function mainEntrance() {
   });
 
   /**
+   * <p>Appends an event listener for events whose type attribute value is change.
+   * The callback argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event change - executed when the autoRotation checkbox is checked or unchecked.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   */
+  document
+    .getElementById("autoRotation")
+    .addEventListener("change", (event) => handleKeyPress(createEvent("r")));
+
+  /**
    * <p>Appends an event listener for events whose type attribute value is ended.</p>
    * The ended event is fired when playback or streaming has stopped,
    * because the end of the media was reached or because no further data is available.
@@ -1503,6 +1542,14 @@ function mainEntrance() {
     let numberOfFramesForFPS = 0;
     let fpsCounter = document.getElementById("fps");
     let currentTime;
+    // increase the rotation by some amount, depending on the axis chosen
+    const increment = 0.5;
+    const axis = "y";
+    const rotMatrix = {
+      x: new Matrix4().setRotate(increment, 1, 0, 0),
+      y: new Matrix4().setRotate(increment, 0, 1, 0),
+      z: new Matrix4().setRotate(increment, 0, 0, 1),
+    };
 
     /**
      * Define an {@link draw animation} loop.
@@ -1517,6 +1564,11 @@ function mainEntrance() {
         previousTimeStamp = currentTime;
       }
       numberOfFramesForFPS++;
+      // intrinsic rotation - multiply on the right
+      if (autoRotate) {
+        view.multiply(rotMatrix[axis]);
+        rotator.setViewMatrix(view.elements);
+      }
       draw();
       requestAnimationFrame(animate);
     };
