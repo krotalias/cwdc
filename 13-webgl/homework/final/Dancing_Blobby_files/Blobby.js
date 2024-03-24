@@ -618,6 +618,12 @@ var bodyMatrix = new Matrix4();
 const eye = [0.1, -1.6, -7.5];
 
 /**
+ * Blobby's auto rotation on/off.
+ * @type {Boolean}
+ */
+let autoRotate = true;
+
+/**
  * <p>View matrix, defining a projection plane normal (n = {@link eye} - at): [0, 0, -1, 0].</p>
  * Blinn uses a left-handed system in his paper, and sets BACK to -90, which makes Z goes down.<br>
  * Threfore, we have to to set the up vector to (0, -1, 0), so the image is not rendered upside down.
@@ -759,6 +765,19 @@ function alternateSkins() {
       document.getElementById("skinButton").style.backgroundColor = unselected;
     else document.getElementById("skinButton").style.backgroundColor = selected;
   }
+}
+
+/**
+ * Turn auto rotation on/off.
+ */
+function autoRotation() {
+  autoRotate = !autoRotate;
+  if (!autoRotate)
+    document.getElementById("autoRotateButton").style.backgroundColor =
+      unselected;
+  else
+    document.getElementById("autoRotateButton").style.backgroundColor =
+      selected;
 }
 
 /**
@@ -1041,6 +1060,11 @@ function handleKeyPress(event) {
 
     case "c":
       skinDisco();
+      break;
+
+    case "R":
+    case "r":
+      autoRotate = !autoRotate;
       break;
 
     default:
@@ -1498,6 +1522,16 @@ function mainEntrance() {
     let numberOfFramesForFPS = 0;
     let fpsCounter = document.getElementById("fps");
     let currentTime;
+
+    // increase the rotation by some amount, depending on the axis chosen
+    const increment = 0.5;
+    const axis = "y";
+    const rotMatrix = {
+      x: new Matrix4().setRotate(increment, 1, 0, 0),
+      y: new Matrix4().setRotate(increment, 0, 1, 0),
+      z: new Matrix4().setRotate(increment, 0, 0, 1),
+    };
+
     /**
      * <p>Define an animation loop, by calling {@link draw} for each frame.</p>
      * @callback loop
@@ -1512,6 +1546,11 @@ function mainEntrance() {
         previousTimeStamp = currentTime;
       }
       numberOfFramesForFPS++;
+      // intrinsic rotation - multiply on the right
+      if (autoRotate) {
+        view.multiply(rotMatrix[axis]);
+        rotator.setViewMatrix(view.elements);
+      }
       draw();
       requestAnimationFrame(animate);
     };
