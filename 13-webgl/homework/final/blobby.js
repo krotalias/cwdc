@@ -17,7 +17,7 @@
  *
  * "Dancing Cyclones" runs very nice on mobile devices, and one can
  * {@link https://support.apple.com/guide/iphone/learn-basic-gestures-iph75e97af9b/ios swipe}
- * the image ob the screen to rotate the scene.
+ * the image on the screen to rotate the scene.
  *
  * @author Flavia Roma Cavalcanti
  * @since 07/11/2015.
@@ -215,8 +215,16 @@ function makeNormalMatrixElements(model, view) {
  * @returns {Number} vector length.
  * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
  */
-var vecLen = (v) =>
+const vecLen = (v) =>
   Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
+
+/**
+ * Returns the height of the projection plane at a given distance from the eye.
+ * @param {Number} fov field of view angle in degrees.
+ * @param {Number} d view distance.
+ * @returns {Number} window height.
+ */
+const wheight = (fov, d) => Math.tan((fov * Math.PI) / 360) * d;
 
 // A few global variables...
 
@@ -233,7 +241,7 @@ var player;
 
 /**
  * <p>Dance on/off. Ceases all movements when true.</p>
- * Initially set to false, so a {@link danceCallBack sway} pre-mevement is added.
+ * Initially set to false, so a {@link danceCallBack sway} pre-movement is added.
  * @type {Boolean}
  */
 var paused = false;
@@ -368,15 +376,6 @@ var flColor = colorTable.white.rgb;
  * @type {Array<Number>}
  */
 const camera = [45.0, 1.2, 1.17, 20.7];
-
-/**
- * Blobby's belly screen position, after application of BACK rotation,
- * which aligned Blobby height with the Y axis.
- *
- * @type {Array<Number>}
- * @see <a href="/cwdc/13-webgl/extras/doc/Nested_Transformations_and_Blobby_Man.pdf#page=5">Jim Blinn's Blobby Man</a>
- */
-const SCR = [0, 1.6, 0];
 
 /**
  * Single Blobby belly position.
@@ -531,6 +530,22 @@ var bodyMatrix = new Matrix4();
 var eye = [0.1, -1.6, -7.5];
 
 /**
+ * View distance.
+ * @type {Number}
+ */
+var viewDistance = vecLen(eye);
+
+/**
+ * <p>Blobby's belly screen position, after application of BACK rotation,
+ * which aligned Blobby height with the Y axis.</p>
+ * We want the eye at the same level of the {@link TORSO torso} (Blobby's belly).
+ *
+ * @type {Array<Number>}
+ * @see <a href="/cwdc/13-webgl/extras/doc/Nested_Transformations_and_Blobby_Man.pdf#page=5">Jim Blinn's Blobby Man</a>
+ */
+const SCR = [0, -eye[1], 0]; // wheight(45, viewDistance) / 2 = 1.588 ??
+
+/**
  * Blobby's auto rotation on/off.
  * @type {Boolean}
  */
@@ -539,7 +554,7 @@ var autoRotate = true;
 /**
  * <p>View matrix, defining a projection plane normal (n = {@link eye} - at): [0, 0, -1, 0].</p>
  * Blinn uses a left-handed system in his paper, and sets BACK to -90, which makes Z goes down.<br>
- * Threfore, we have to to set the up vector to (0, -1, 0), so the image is not rendered upside down.<br>
+ * Therefore, we have to to set the up vector to (0, -1, 0), so the image is not rendered upside down.<br>
  * Another possibility is:
  * <ul>
  *  <li>up = [0, 1, 0], </li>
@@ -549,9 +564,9 @@ var autoRotate = true;
  * </ul>
  * <pre>
  *     u   v   n
- *    |1   0   0  -0.1|  (-u.eye)
- *    |0  -1   0  -1.6|  (-v.eye)
- *    |0   0  -1  -7.5|  (-n.eye)
+ *    |1   0   0  -eye[0]|  (-u.eye)
+ *    |0  -1   0   eye[1]|  (-v.eye)
+ *    |0   0  -1   eye[2]|  (-n.eye)
  *    |0   0   0   1  |
  * </pre>
  * @type {Matrix4}
@@ -561,16 +576,10 @@ var autoRotate = true;
  */
 // prettier-ignore
 var view = new Matrix4().setLookAt(
-  ...eye,           // eye
-  0.1, -1.6, -6.5,  // at - looking at this point
-  0, -1, 0          // up vector - y axis
+  ...eye,                    // eye
+  eye[0], eye[1], eye[2]+1,  // at - looking at this point
+  0, -1, 0                   // up vector - y axis
 );
-
-/**
- * View distance.
- * @type {Number}
- */
-var viewDistance = vecLen(eye);
 
 /**
  * <p>Projection matrix.</p>
@@ -1778,7 +1787,7 @@ function finishJump() {
  * @param {Boolean} loop whether to start an endless dancing loop.
  * @param {Number} duration time interval in milliseconds.<br>
  *    The value ⌊duration / 960⌋ defines a fixed number of swings.<br>
- *    If undefiend, keep swaying forever.
+ *    If undefined, keep swaying forever.
  * @return {Number} total time.
  */
 function sway(loop, duration) {
