@@ -1,21 +1,33 @@
 /**
  *  @file
  *
- *  Summary.
- *  <p>Auto Play.</p>
+ * Summary.
+ * <p>Auto Play.</p>
  *
- *  Description.
- *  <p>
- *  Controls whether the audio should autoplay when someone visits my site.
- *  </p>
+ * Description.
+ * <p>
+ * Controls whether the audio should autoplay when someone visits my site.
+ * </p>
+ * The window {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage local storage}
+ * property is used to save whether the autoplay is disabled or not:
+ * <table style="margin: 20px 70px">
+ *  <tr>
+ *    <th>Key</th>
+ *    <th>Value</th>
+ *  </tr>
+ *  <tr>
+ *    <td>"disableAP"</td>
+ *    <td>"yes"</td>
+ *  </tr>
+ * </table>
  *
- *  @author: Paulo Roma Cavalcanti on 19/10/2021.
- *  @license LGPL.
- *  @see https://jsfiddle.net/sanddune/oz0nhv2k/
- *  @see https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Video_player_styling_basics
- *  @see https://css-tricks.com/lets-create-a-custom-audio-player/
- *  @see https://codeconvey.com/customize-html5-audio-player-css/
- *  @see https://support.mozilla.org/en-US/kb/block-autoplay
+ * @author: Paulo Roma Cavalcanti on 19/10/2021.
+ * @license LGPL.
+ * @see {@link https://jsfiddle.net/sanddune/oz0nhv2k/ "Disable Autoplay? tick me then" jsfiddle code}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Video_player_styling_basics Video player styling basics}
+ * @see {@link https://css-tricks.com/lets-create-a-custom-audio-player/ Custom Audio Player}
+ * @see {@link https://codeconvey.com/customize-html5-audio-player-css/ Customize HTML5 Audio Player with CSS}
+ * @see {@link https://support.mozilla.org/en-US/kb/block-autoplay Allow or block media autoplay in Firefox}
  */
 
 var chkAutoPlay = document.getElementById("disableAutoplay");

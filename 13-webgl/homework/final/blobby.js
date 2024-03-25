@@ -1,32 +1,35 @@
 /**
- *  @file
+ * @file
  *
- *  Summary.
- *  <p>Blobby Man - Iowa State Cyclones dancing party.</p>
+ * Summary.
+ * <p>Blobby Man - Iowa State Cyclones dancing party.</p>
  *
- *  Description.
- *  <p>
- *  Based upon {@link https://www.jimblinn.com/ Jim Blinn's Corner}:
+ * Description.
+ * <p>
+ * Based upon {@link https://www.jimblinn.com/ Jim Blinn's Corner}:
  * {@link https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4057037 Nested Transformations and The Blobby Man}<br>
- *  IEEE Computer Graphics & Applications, No. 10, October 1987
- *  </p>
+ * IEEE Computer Graphics & Applications, No. 10, October 1987
+ * </p>
  * <p>There is only one graphical primitive corresponding to a
  * {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry sphere},<br>
  * which is scaled, rotated and translated for each joint in the
  * <a href="/cwdc/13-webgl/Assignment_3/5.hierarchy.pdf">hierarchy</a>.</p>
  *
- *  @author Flavia Roma Cavalcanti
- *  @since 07/11/2015.
- *  @license LGPL.
- *  @see <a href="/cwdc/13-webgl/homework/final/blobby.html">link</a>
- *  @see <a href="/cwdc/13-webgl/homework/final/blobby.js">source</a>
- *  @see <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix</a>
- *  @see <a href="/cwdc/13-webgl/homework/presentation.pdf">tutorial</a>
- *  @see <a href="https://www.youtube.com/watch?v=AiwR1PKxMsY">Jim Blinn's Keynote Speech at SIGGRAPH (2018)</a>
- *  @see <a href="https://www.youtube.com/watch?v=80uQ81BWJkQ">Jim Blinn's Chronicles SIGGRAPH (2023)</a>
- *  @see <a href="https://www.youtube.com/watch?v=Kj1--TLridQ">Jim Blinn's Metaverse Podcast (2023)</a>
- *  @see <a href="/cwdc/13-webgl/videos/Macarena.mp4"><img src="../blobby.png" title="Javascript version, WebGL"></a>
- *  @see <a href="../macarena-new.c"><img src="../blobby2.png" title="C version, OpenGL 1.1"></a>
+ * "Dancing Cyclones" runs very nice on mobile devices, and one can
+ * {@link https://support.apple.com/guide/iphone/learn-basic-gestures-iph75e97af9b/ios swipe}
+ * the image ob the screen to rotate the scene.
+ *
+ * @author Flavia Roma Cavalcanti
+ * @since 07/11/2015.
+ * @license LGPL.
+ * @see <a href="/cwdc/13-webgl/homework/final/blobby.html">link</a>
+ * @see <a href="/cwdc/13-webgl/homework/final/blobby.js">source</a>
+ * @see <a href="/cwdc/13-webgl/homework/presentation.pdf">Animations in WebGL</a>
+ * @see <a href="https://www.youtube.com/watch?v=AiwR1PKxMsY">Jim Blinn's Keynote Speech at SIGGRAPH (2018)</a>
+ * @see <a href="https://www.youtube.com/watch?v=80uQ81BWJkQ">Jim Blinn's Chronicles SIGGRAPH (2023)</a>
+ * @see <a href="https://www.youtube.com/watch?v=Kj1--TLridQ">Jim Blinn's Metaverse Podcast (2023)</a>
+ * @see <a href="/cwdc/13-webgl/videos/Macarena.mp4"><img src="../blobby3.png" title="Javascript version, WebGL" width="512"></a>
+ * @see <a href="../macarena-new.c"><img src="../blobby2.png" title="C version, OpenGL 1.1"></a>
  */
 
 "use strict";
