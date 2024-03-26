@@ -54,11 +54,11 @@
  *
  * @see &lt;a href="/cwdc/13-webgl/homework/final/Dancing_Blobby.html">link&lt;/a>
  * @see &lt;a href="/cwdc/13-webgl/homework/final/Dancing_Blobby_files/Blobby.js">source&lt;/a>
- * @see &lt;a href="/cwdc/13-webgl/homework/presentation.pdf">tutorial&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/homework/presentation.pdf">Animations in WebGL&lt;/a>
  * @see &lt;a href="https://www.youtube.com/watch?v=AiwR1PKxMsY">Jim Blinn's Keynote Speech at SIGGRAPH (2018)&lt;/a>
  * @see &lt;a href="https://www.youtube.com/watch?v=80uQ81BWJkQ">Jim Blinn's Chronicles SIGGRAPH (2023)&lt;/a>
  * @see &lt;a href="https://www.youtube.com/watch?v=Kj1--TLridQ">Jim Blinn's Metaverse Podcast (2023)&lt;/a>
- * @see &lt;a href="/cwdc/13-webgl/videos/Macarena.mp4">&lt;img src="../blobby.png" title="Javascript version, WebGL" width="512">&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/videos/Macarena.mp4">&lt;img src="../blobby2.png" title="Javascript version, WebGL2" width="512">&lt;/a>
  * @see &lt;a href="../../macarena-new.c">&lt;img src="../../blobby2.png" title="C version, OpenGL 1.1">&lt;/a>
  */
 
@@ -248,6 +248,15 @@ function makeNormalMatrixElements(model, view) {
  */
 var vecLen = (v) =>
   Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
+
+/**
+ * Returns the height of the projection plane at a given distance from the eye.
+ * @param {Number} fov field of view angle in degrees.
+ * @param {Number} d view distance.
+ * @returns {Number} window height.
+ * @see {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix.html The Perspective and Orthographic Projection Matrix}
+ */
+const wheight = (fov, d) => Math.tan((fov * Math.PI) / 360) * d;
 
 /**
  * Audio player.
@@ -567,13 +576,13 @@ var RTWIS = -86.0; /* z - rotate right leg in or out */
 var RKNEE = -53.0; /* x - rotate right leg around the knee */
 var RFRONT = 0.0; /* x - rotate right leg forward or backward */
 
-var RHAND = 0.0; /* y - rotate right hand arount wrist */
-var LHAND = 0.0; /* y - rotate left hand arount wrist */
+var RHAND = 0.0; /* y - rotate right hand around wrist */
+var LHAND = 0.0; /* y - rotate left hand around wrist */
 
-var LHIP = 0.0; /* z - angular direction that the leg is kicked*/
-var LOUT = 0.0; /* y - angular distance that the leg is kicked*/
-var LTWIS = 0.0; /* z - angle the leg is twisted about its length*/
-var LKNEE = 0.0; /* x - knee beng*/
+var LHIP = 0.0; /* z - angular direction that the leg is kicked */
+var LOUT = 0.0; /* y - angular distance that the leg is kicked */
+var LTWIS = 0.0; /* z - angle the leg is twisted about its length */
+var LKNEE = 0.0; /* x - knee bend */
 var LFRONT = 0.0; /* x */
 
 var LSID = -45.0; /* y - rotate left arm sideways */
@@ -583,7 +592,7 @@ var LELBO = 90.0; /* x - rotate left arm around the elbo */
 
 var RSID = 112.0; /* y */
 var RSHOU = 40.0; /* x */
-var RATWIS = -102.0; /* z - arm rotation about its own length*/
+var RATWIS = -102.0; /* z - arm rotation about its own length */
 var RELBO = 85.0; /* x */
 
 /**
@@ -774,7 +783,7 @@ function skinDisco() {
 }
 
 /**
- * &lt;p>Keeps tracks of the number of jumps performed by Blobby.&lt;/p>
+ * &lt;p>Keeps track of the number of jumps performed by Blobby.&lt;/p>
  * Needed in order to alternate skins in the middle of the dance.
  * @param {Number} t
  */
@@ -830,7 +839,7 @@ function shutUpThatSong() {
 }
 
 /**
- * Will stop the Macarena song if Blobby is only dancing one round.
+ * Stops the Macarena song if Blobby is only dancing one round.
  */
 function stopSongAfterDance(t) {
   callBackArray.push(
@@ -859,7 +868,7 @@ function doubleDancers() {
 }
 
 /**
- * Only one blobby is good enough for me - said no one ever, but whatevs.
+ * Only one blobby is good enough for me - said no one ever, but whatever.
  */
 function singleDancer() {
   doubleBlobby = false;
@@ -868,7 +877,7 @@ function singleDancer() {
 }
 
 /**
- * Apply a single movement and the sway to blobby.
+ * Apply a single movement and the sway to Blobby.
  */
 function applyMoveAndSway(t, move1, move, sign) {
   for (var i = 0; i &lt; 4; ++i) {
@@ -886,7 +895,7 @@ function applyMoveAndSway(t, move1, move, sign) {
 }
 
 /**
- * &lt;p>Apply a single movement to blobby.&lt;/p>
+ * &lt;p>Apply a single movement to Blobby.&lt;/p>
  * As this function may not be directly linked to the macarena dance,
  * a different time delay amount may be passed in.
  */
@@ -953,7 +962,8 @@ function stopCallBack(stopButton = false) {
 }
 
 /**
- * Handler for key press events adjusts object rotations.
+ * Handler for key press events
+ * to adjusts joint angles.
  * @param {KeyboardEvent} event key pressed.
  */
 function handleKeyPress(event) {
@@ -1423,13 +1433,13 @@ function mainEntrance() {
     "fragmentTexturedShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
-    console.log("Failed to intialize shaders.");
+    console.log("Failed to initialize shaders.");
     return;
   }
   lightingShader = gl.program;
 
   if (!initShaders(gl, vshaderTextured, fshaderTextured)) {
-    console.log("Failed to intialize shaders.");
+    console.log("Failed to initialize shaders.");
     return;
   }
   texturedShader = gl.program;
@@ -1950,8 +1960,8 @@ function stiffPosition() {
   RKNEE = 0.0; /* x - rotate right leg around the knee */
   RFRONT = 0.0;
 
-  RHAND = 0.0; /* y - rotate right hand arount wrist */
-  LHAND = 0.0; /* y - rotate left hand arount wrist */
+  RHAND = 0.0; /* y - rotate right hand around wrist */
+  LHAND = 0.0; /* y - rotate left hand around wrist */
 
   LHIP = 0.0; /* z */
   LOUT = 0.0; /* y */
@@ -2513,13 +2523,13 @@ addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:ended">ended</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#BACK">BACK</a></li><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#JUMP">JUMP</a></li><li><a href="global.html#SCR">SCR</a></li><li><a href="global.html#SPIN">SPIN</a></li><li><a href="global.html#TILT">TILT</a></li><li><a href="global.html#TURN">TURN</a></li><li><a href="global.html#XAXIS">XAXIS</a></li><li><a href="global.html#YAXIS">YAXIS</a></li><li><a href="global.html#ZAXIS">ZAXIS</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#alternateSkins">alternateSkins</a></li><li><a href="global.html#alternating">alternating</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#arrayOfSkins">arrayOfSkins</a></li><li><a href="global.html#audio">audio</a></li><li><a href="global.html#autoRotate">autoRotate</a></li><li><a href="global.html#autoRotation">autoRotation</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bgColor">bgColor</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#bowDown">bowDown</a></li><li><a href="global.html#bowPose">bowPose</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#currentSkin">currentSkin</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#dancing">dancing</a></li><li><a href="global.html#defaultSkin">defaultSkin</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#discoSkin">discoSkin</a></li><li><a href="global.html#doubleBlobby">doubleBlobby</a></li><li><a href="global.html#doubleDancers">doubleDancers</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#flColor">flColor</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#glColor">glColor</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handsOnHips">handsOnHips</a></li><li><a href="global.html#incrementJumps">incrementJumps</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#numberOfJumps">numberOfJumps</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#prepareForWave">prepareForWave</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#scaryPose">scaryPose</a></li><li><a href="global.html#selSkin">selSkin</a></li><li><a href="global.html#selSkin2">selSkin2</a></li><li><a href="global.html#selected">selected</a></li><li><a href="global.html#shutUp">shutUp</a></li><li><a href="global.html#shutUpThatSong">shutUpThatSong</a></li><li><a href="global.html#single">single</a></li><li><a href="global.html#singleDancer">singleDancer</a></li><li><a href="global.html#skinDefault">skinDefault</a></li><li><a href="global.html#skinDisco">skinDisco</a></li><li><a href="global.html#skinVampire">skinVampire</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stiffPosition">stiffPosition</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stopSongAfterDance">stopSongAfterDance</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#torso">torso</a></li><li><a href="global.html#unselected">unselected</a></li><li><a href="global.html#vampireSkin">vampireSkin</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#whatsUp">whatsUp</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:ended">ended</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#BACK">BACK</a></li><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#JUMP">JUMP</a></li><li><a href="global.html#SCR">SCR</a></li><li><a href="global.html#SPIN">SPIN</a></li><li><a href="global.html#TILT">TILT</a></li><li><a href="global.html#TURN">TURN</a></li><li><a href="global.html#XAXIS">XAXIS</a></li><li><a href="global.html#YAXIS">YAXIS</a></li><li><a href="global.html#ZAXIS">ZAXIS</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#alternateSkins">alternateSkins</a></li><li><a href="global.html#alternating">alternating</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#arrayOfSkins">arrayOfSkins</a></li><li><a href="global.html#audio">audio</a></li><li><a href="global.html#autoRotate">autoRotate</a></li><li><a href="global.html#autoRotation">autoRotation</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bgColor">bgColor</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#bowDown">bowDown</a></li><li><a href="global.html#bowPose">bowPose</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#currentSkin">currentSkin</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#dancing">dancing</a></li><li><a href="global.html#defaultSkin">defaultSkin</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#discoSkin">discoSkin</a></li><li><a href="global.html#doubleBlobby">doubleBlobby</a></li><li><a href="global.html#doubleDancers">doubleDancers</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#flColor">flColor</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#glColor">glColor</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handsOnHips">handsOnHips</a></li><li><a href="global.html#incrementJumps">incrementJumps</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#numberOfJumps">numberOfJumps</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#prepareForWave">prepareForWave</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#scaryPose">scaryPose</a></li><li><a href="global.html#selSkin">selSkin</a></li><li><a href="global.html#selSkin2">selSkin2</a></li><li><a href="global.html#selected">selected</a></li><li><a href="global.html#shutUp">shutUp</a></li><li><a href="global.html#shutUpThatSong">shutUpThatSong</a></li><li><a href="global.html#single">single</a></li><li><a href="global.html#singleDancer">singleDancer</a></li><li><a href="global.html#skinDefault">skinDefault</a></li><li><a href="global.html#skinDisco">skinDisco</a></li><li><a href="global.html#skinVampire">skinVampire</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stiffPosition">stiffPosition</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stopSongAfterDance">stopSongAfterDance</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#torso">torso</a></li><li><a href="global.html#unselected">unselected</a></li><li><a href="global.html#vampireSkin">vampireSkin</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#whatsUp">whatsUp</a></li><li><a href="global.html#wheight">wheight</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Mar 25 2024 18:36:54 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Mar 26 2024 03:34:22 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

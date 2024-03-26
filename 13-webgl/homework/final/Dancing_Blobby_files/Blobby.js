@@ -26,11 +26,11 @@
  *
  * @see <a href="/cwdc/13-webgl/homework/final/Dancing_Blobby.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/final/Dancing_Blobby_files/Blobby.js">source</a>
- * @see <a href="/cwdc/13-webgl/homework/presentation.pdf">tutorial</a>
+ * @see <a href="/cwdc/13-webgl/homework/presentation.pdf">Animations in WebGL</a>
  * @see <a href="https://www.youtube.com/watch?v=AiwR1PKxMsY">Jim Blinn's Keynote Speech at SIGGRAPH (2018)</a>
  * @see <a href="https://www.youtube.com/watch?v=80uQ81BWJkQ">Jim Blinn's Chronicles SIGGRAPH (2023)</a>
  * @see <a href="https://www.youtube.com/watch?v=Kj1--TLridQ">Jim Blinn's Metaverse Podcast (2023)</a>
- * @see <a href="/cwdc/13-webgl/videos/Macarena.mp4"><img src="../blobby.png" title="Javascript version, WebGL" width="512"></a>
+ * @see <a href="/cwdc/13-webgl/videos/Macarena.mp4"><img src="../blobby2.png" title="Javascript version, WebGL2" width="512"></a>
  * @see <a href="../../macarena-new.c"><img src="../../blobby2.png" title="C version, OpenGL 1.1"></a>
  */
 
@@ -220,6 +220,15 @@ function makeNormalMatrixElements(model, view) {
  */
 var vecLen = (v) =>
   Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
+
+/**
+ * Returns the height of the projection plane at a given distance from the eye.
+ * @param {Number} fov field of view angle in degrees.
+ * @param {Number} d view distance.
+ * @returns {Number} window height.
+ * @see {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix.html The Perspective and Orthographic Projection Matrix}
+ */
+const wheight = (fov, d) => Math.tan((fov * Math.PI) / 360) * d;
 
 /**
  * Audio player.
@@ -539,13 +548,13 @@ var RTWIS = -86.0; /* z - rotate right leg in or out */
 var RKNEE = -53.0; /* x - rotate right leg around the knee */
 var RFRONT = 0.0; /* x - rotate right leg forward or backward */
 
-var RHAND = 0.0; /* y - rotate right hand arount wrist */
-var LHAND = 0.0; /* y - rotate left hand arount wrist */
+var RHAND = 0.0; /* y - rotate right hand around wrist */
+var LHAND = 0.0; /* y - rotate left hand around wrist */
 
-var LHIP = 0.0; /* z - angular direction that the leg is kicked*/
-var LOUT = 0.0; /* y - angular distance that the leg is kicked*/
-var LTWIS = 0.0; /* z - angle the leg is twisted about its length*/
-var LKNEE = 0.0; /* x - knee beng*/
+var LHIP = 0.0; /* z - angular direction that the leg is kicked */
+var LOUT = 0.0; /* y - angular distance that the leg is kicked */
+var LTWIS = 0.0; /* z - angle the leg is twisted about its length */
+var LKNEE = 0.0; /* x - knee bend */
 var LFRONT = 0.0; /* x */
 
 var LSID = -45.0; /* y - rotate left arm sideways */
@@ -555,7 +564,7 @@ var LELBO = 90.0; /* x - rotate left arm around the elbo */
 
 var RSID = 112.0; /* y */
 var RSHOU = 40.0; /* x */
-var RATWIS = -102.0; /* z - arm rotation about its own length*/
+var RATWIS = -102.0; /* z - arm rotation about its own length */
 var RELBO = 85.0; /* x */
 
 /**
@@ -746,7 +755,7 @@ function skinDisco() {
 }
 
 /**
- * <p>Keeps tracks of the number of jumps performed by Blobby.</p>
+ * <p>Keeps track of the number of jumps performed by Blobby.</p>
  * Needed in order to alternate skins in the middle of the dance.
  * @param {Number} t
  */
@@ -802,7 +811,7 @@ function shutUpThatSong() {
 }
 
 /**
- * Will stop the Macarena song if Blobby is only dancing one round.
+ * Stops the Macarena song if Blobby is only dancing one round.
  */
 function stopSongAfterDance(t) {
   callBackArray.push(
@@ -831,7 +840,7 @@ function doubleDancers() {
 }
 
 /**
- * Only one blobby is good enough for me - said no one ever, but whatevs.
+ * Only one blobby is good enough for me - said no one ever, but whatever.
  */
 function singleDancer() {
   doubleBlobby = false;
@@ -840,7 +849,7 @@ function singleDancer() {
 }
 
 /**
- * Apply a single movement and the sway to blobby.
+ * Apply a single movement and the sway to Blobby.
  */
 function applyMoveAndSway(t, move1, move, sign) {
   for (var i = 0; i < 4; ++i) {
@@ -858,7 +867,7 @@ function applyMoveAndSway(t, move1, move, sign) {
 }
 
 /**
- * <p>Apply a single movement to blobby.</p>
+ * <p>Apply a single movement to Blobby.</p>
  * As this function may not be directly linked to the macarena dance,
  * a different time delay amount may be passed in.
  */
@@ -925,7 +934,8 @@ function stopCallBack(stopButton = false) {
 }
 
 /**
- * Handler for key press events adjusts object rotations.
+ * Handler for key press events
+ * to adjusts joint angles.
  * @param {KeyboardEvent} event key pressed.
  */
 function handleKeyPress(event) {
@@ -1395,13 +1405,13 @@ function mainEntrance() {
     "fragmentTexturedShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
-    console.log("Failed to intialize shaders.");
+    console.log("Failed to initialize shaders.");
     return;
   }
   lightingShader = gl.program;
 
   if (!initShaders(gl, vshaderTextured, fshaderTextured)) {
-    console.log("Failed to intialize shaders.");
+    console.log("Failed to initialize shaders.");
     return;
   }
   texturedShader = gl.program;
@@ -1922,8 +1932,8 @@ function stiffPosition() {
   RKNEE = 0.0; /* x - rotate right leg around the knee */
   RFRONT = 0.0;
 
-  RHAND = 0.0; /* y - rotate right hand arount wrist */
-  LHAND = 0.0; /* y - rotate left hand arount wrist */
+  RHAND = 0.0; /* y - rotate right hand around wrist */
+  LHAND = 0.0; /* y - rotate left hand around wrist */
 
   LHIP = 0.0; /* z */
   LOUT = 0.0; /* y */
