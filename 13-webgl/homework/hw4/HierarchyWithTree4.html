@@ -1,11 +1,14 @@
 <!--  Hierarchical transformation demo.
 Vertex shader does basic Lambert shading. -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0,  maximum-scale=1"
+        />
         <title>Rotor Hierarchy</title>
     </head>
 
@@ -13,6 +16,19 @@ Vertex shader does basic Lambert shading. -->
         <canvas id="theCanvas" width="380" height="480">
             Please use a browser that supports "canvas"
         </canvas>
+
+        <div>
+            <input
+                type="text"
+                name="text-field"
+                id="text-field"
+                placeholder="Type Key"
+            />
+            <button id="simulate" style="height: 2rem">Key Press</button>
+            <br />
+            Key presses: <span id="key-presses">0</span> <br />
+            Key pressed: <span id="key-pressed"></span> <br />
+        </div>
 
         <br />
         <details>
@@ -72,5 +88,6 @@ Vertex shader does basic Lambert shading. -->
         <script src="../../lib/teal_book/cuon-matrix.js"></script>
         <script src="../../lib/simple-rotator.js"></script>
         <script type="module" src="HierarchyWithTree4.js"></script>
+        <script src="/cwdc/13-webgl/mobile_key_simulator/mobile.js"></script>
     </body>
 </html>

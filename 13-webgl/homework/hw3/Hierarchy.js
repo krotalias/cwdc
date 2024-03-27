@@ -686,7 +686,13 @@ function mainEntrance() {
   // retrieve <canvas> element
   var canvas = document.getElementById("theCanvas");
 
-  // key handler
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.</p>
+   * <p>The callback argument sets the {@link handleKeyPress callback}
+   * that will be invoked when the event is dispatched.</p>
+   *
+   * @event keydown
+   */
   window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(

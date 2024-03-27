@@ -1,7 +1,7 @@
 jsdoc -d doc-hierarchy Hierarchy.js
     ../../lib/teal_book/cuon-matrix.js \
     ../../lib/teal_book/cuon-utils.js \
-    ../../lib/simple-rotator.js
+    ../../lib/simple-rotator.js \
     ../../mobile_key_simulator/mobile.js
 jsdoc -d ../../doc-rot RotatingSquare.js
     ../../lib/teal_book/cuon-matrix.js \
