@@ -8,12 +8,12 @@
  * @since 27/09/2016
  * @see <a href="/cwdc/13-webgl/Assignment_3/Hierarchy.html">link</a>
  * @see <a href="/cwdc/13-webgl/Assignment_3/Hierarchy.js">source</a>
- * @see <a href="/cwdc/13-webgl/teal_book/cuon-matrix.js">cuon-matrix</a>
+ * @see <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix</a>
  * @see <a href="/roma/livros/Computer Graphics (3rd Edition).pdf#page=189">Foley</a>
  * @see <a href="https://www.cs.drexel.edu/~david/Classes/ICG/Lectures_new/L-14_HierchModels.pdf">Hierarchical Modeling</a>
  * @see <a href="/cwdc/13-webgl/Assignment_3/5.hierarchy.pdf">Hierarchy Tutorial</a>
- * @see <img src="/cwdc/13-webgl/Assignment_3/robot3.png" width="256"> <img src="/WebGL/labs/WebGL/Assignment_3/robot-full.png" width="420">
- * @see <img src="/cwdc/13-webgl/Assignment_3/camera_view_frustum.svg" width="340"> <img src="/WebGL/labs/WebGL/Assignment_3/side_view_frustum.png" width="340">
+ * @see <img src="/cwdc/13-webgl/Assignment_3/robot3.png" width="256"> <img src="/cwdc/13-webgl/Assignment_3/robot-full.png" width="420">
+ * @see <img src="/cwdc/13-webgl/Assignment_3/camera_view_frustum.svg" width="340"> <img src="/cwdc/13-webgl/Assignment_3/side_view_frustum.png" width="340">
  */
 
 "use strict";
