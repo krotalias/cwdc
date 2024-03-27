@@ -22,7 +22,8 @@ import { CS336Object } from "./CS336Object.js";
 
 /**
  * <p>Module creates a scope to avoid name collisions.</p>
- * Either expose your function to the global window object or use addEventListener to bind handler.
+ * Either expose your {@link mainEntrance function}
+ * to the global window object, or use addEventListener to bind handler.
  * @event load
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
  */
@@ -30,9 +31,13 @@ window.addEventListener("load", (event) => mainEntrance(event));
 
 /**
  * Enum for rotation direction: clockwise x counterclockwise.
+ * @readonly
+ * @enum {Number}
  */
 const direction = Object.freeze({
+  /** Clockwise */
   CW: 0,
+  /** Counterclockwise */
   CCW: 1,
 });
 
@@ -87,7 +92,7 @@ var vertexNormalBuffer;
 var lightingShader;
 
 /**
- * Create the root object container: shaft + generator + base.
+ * Create the root object container: shaft + {@link generatorDummy generator} + base.
  * @type {CS336Object}
  */
 const shaftDummy = new CS336Object();
@@ -103,7 +108,7 @@ base.setScale(6, 0.5, 6);
 shaftDummy.addChild(base);
 
 /**
- * Create the generator object container: generator + generatorBlob + rotor.
+ * Create the generator object container: generator + generatorBlob + {@link rotorDummy rotor}.
  * @type {CS336Object}
  */
 const generatorDummy = new CS336Object();
@@ -290,7 +295,8 @@ var cube = (() => {
 
 /**
  * Return a matrix to transform normals, so they stay
- * perpendicular to surfaces after a linear transformation.
+ * <a href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48">perpendicular</a>
+ * to surfaces after a linear transformation.
  * @param {Matrix4} model model matrix.
  * @param {Matrix4} view view matrix.
  * @returns {Float32Array} elements of the transpose of the inverse of the modelview matrix.
@@ -323,8 +329,8 @@ function getChar(event) {
 }
 
 /**
- * Handler for keydown events.
- * Adjusts object rotations.
+ * <p>Keydown event handler for adjusting joint object rotations.</p>
+ * Each event is {@link getChar translated} into a string and mapped to a function call.
  * @param {KeyboardEvent} event keyboard event.
  */
 function handleKeyPress(event) {
@@ -405,8 +411,9 @@ function handleKeyPress(event) {
 }
 
 /**
- * Helper function renders the cube based on the given model transformation.
+ * Renders a cube based on the given model transformation.
  * @param {Matrix4} matrix local transformation.
+ * @param {Array<Number>} color cube's color in {@link https://en.wikipedia.org/wiki/RGB_color_model RGB} format.
  */
 function drawCube(matrix, color = [0, 1, 0]) {
   // bind the shader
@@ -462,7 +469,7 @@ function drawCube(matrix, color = [0, 1, 0]) {
 }
 
 /**
- * <p>Code to actually render our geometry. </p>
+ * <p>Code to actually render our geometry (scene). </p>
  * @param {Boolean} useRotator whether a {@link SimpleRotator} should be used.
  */
 function draw(useRotator = true) {
@@ -476,7 +483,7 @@ function draw(useRotator = true) {
 }
 
 /**
- * Draw a red cube.
+ * Draw a red {@link drawCube cube}.
  * @param {Matrix4} matrix local transformation.
  */
 function drawCubeRed(matrix) {
@@ -484,7 +491,7 @@ function drawCubeRed(matrix) {
 }
 
 /**
- * Draw a blue cube.
+ * Draw a blue {@link drawCube cube}.
  * @param {Matrix4} matrix local transformation.
  */
 function drawCubeBlue(matrix) {
@@ -492,7 +499,7 @@ function drawCubeBlue(matrix) {
 }
 
 /**
- * Draw a yellow cube.
+ * Draw a yellow {@link drawCube cube}.
  * @param {Matrix4} matrix local transformation.
  */
 function drawCubeYellow(matrix) {
@@ -500,7 +507,7 @@ function drawCubeYellow(matrix) {
 }
 
 /**
- * Draw a magenta cube.
+ * Draw a magenta {@link drawCube cube}.
  * @param {Matrix4} matrix local transformation.
  */
 function drawCubeMagenta(matrix) {
@@ -508,7 +515,7 @@ function drawCubeMagenta(matrix) {
 }
 
 /**
- * Draw a cyan cube.
+ * Draw a cyan {@link drawCube cube}.
  * @param {Matrix4} matrix local transformation.
  */
 function drawCubeCyan(matrix) {
@@ -521,7 +528,7 @@ function drawCubeCyan(matrix) {
  * Start the {@link animate animation} loop.
  *
  * <p>Basically this function does setup that "should" only have to be done once,<br>
- * while draw() does things that have to be repeated each time the canvas is
+ * while {@link draw} does things that have to be repeated each time the canvas is
  * redrawn.</p>
  */
 function mainEntrance() {
@@ -610,6 +617,7 @@ function mainEntrance() {
 /**
  * <p>Define an animation loop.</p>
  * Start drawing!
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
  */
 var animate = () => {
   if (!paused) {
