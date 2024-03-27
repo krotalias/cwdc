@@ -36,7 +36,7 @@
  * @since 27/09/2016
  * @see &lt;a href="/cwdc/13-webgl/homework/hw3/Hierarchy.html">link&lt;/a>
  * @see &lt;a href="/cwdc/13-webgl/homework/hw3/Hierarchy.js">source&lt;/a>
- * @see &lt;a href="/roma/Computer Graphics (3rd Edition).pdf#page=189">Foley&lt;/a>
+ * @see &lt;a href="/roma/books/Computer Graphics/Computer Graphics (3rd Edition).pdf#page=189">Foley&lt;/a>
  * @see &lt;a href="https://www.cs.drexel.edu/~david/Classes/ICG/Lectures_new/L-14_HierchModels.pdf">Hierarchical Modeling&lt;/a>
  * @see &lt;img src="/cwdc/13-webgl/homework/hw3/robot-full.png" width="256" title="Danger, Will Robson!!"> &lt;img src="/cwdc/13-webgl/homework/hw3/robot-lis.png" width="256" title="Danger, Will Robson!!">
  */
@@ -625,7 +625,7 @@ function renderCube(matrixStack, matrixLocal, c = color.green) {
   gl.uniformMatrix3fv(
     normalMatrixLoc,
     false,
-    makeNormalMatrixElements(current, viewMatrix)
+    makeNormalMatrixElements(current, viewMatrix),
   );
 
   gl.drawArrays(gl.TRIANGLES, 0, cube.numVertices);
@@ -718,7 +718,7 @@ function mainEntrance() {
   window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-        event.code
+        event.code,
       ) > -1
     ) {
       event.preventDefault();
@@ -735,10 +735,10 @@ function mainEntrance() {
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
-    "vertexLightingShader"
+    "vertexLightingShader",
   ).textContent;
   var fshaderSource = document.getElementById(
-    "fragmentLightingShader"
+    "fragmentLightingShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
@@ -777,7 +777,7 @@ function mainEntrance() {
     45,
     canvas.width / canvas.height,
     0.1,
-    1000
+    1000,
   );
 
   // create new rotator object
@@ -819,6 +819,17 @@ var animate = (() => {
     }
   };
 })();
+
+/**
+ * &lt;p>Loads the {@link mainEntrance application}.&lt;/p>
+ * @param {Event} event an object has loaded.
+ * @param {callback} function function to run when the event occurs.
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
+addEventListener("load", (event) => {
+  mainEntrance();
+});
 </code></pre>
         </article>
     </section>
@@ -829,13 +840,13 @@ var animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LshoulderMatrix">LshoulderMatrix</a></li><li><a href="global.html#RshoulderMatrix">RshoulderMatrix</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#armMatrix">armMatrix</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#footMatrix">footMatrix</a></li><li><a href="global.html#footMatrixLocal">footMatrixLocal</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handMatrix">handMatrix</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#headMatrix">headMatrix</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#joint">joint</a></li><li><a href="global.html#legMatrix">legMatrix</a></li><li><a href="global.html#legMatrixLocal">legMatrixLocal</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#renderCube">renderCube</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#shoulderMatrixLocal">shoulderMatrixLocal</a></li><li><a href="global.html#torsoMatrix">torsoMatrix</a></li><li><a href="global.html#vMatrix">vMatrix</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LshoulderMatrix">LshoulderMatrix</a></li><li><a href="global.html#RshoulderMatrix">RshoulderMatrix</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#armMatrix">armMatrix</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#footMatrix">footMatrix</a></li><li><a href="global.html#footMatrixLocal">footMatrixLocal</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handMatrix">handMatrix</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#headMatrix">headMatrix</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#joint">joint</a></li><li><a href="global.html#legMatrix">legMatrix</a></li><li><a href="global.html#legMatrixLocal">legMatrixLocal</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#renderCube">renderCube</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#shoulderMatrixLocal">shoulderMatrixLocal</a></li><li><a href="global.html#torsoMatrix">torsoMatrix</a></li><li><a href="global.html#vMatrix">vMatrix</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Nov 25 2023 06:33:05 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Mar 27 2024 06:35:58 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

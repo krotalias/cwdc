@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Mobile Key Simulator</title>
+        <style>
+            button {
+                /* no double-tab zoom */
+                touch-action: manipulation;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <input
+                type="text"
+                name="text-field"
+                id="text-field"
+                placeholder="Type Key"
+            />
+            <button id="simulate">Key Press</button>
+            <br />
+            Key presses: <span id="key-presses">0</span> <br />
+            Key pressed: <span id="key-pressed"></span> <br />
+        </div>
+
+        <script src="mobile.js"></script>
+    </body>
+</html>

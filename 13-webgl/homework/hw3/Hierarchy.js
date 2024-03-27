@@ -791,3 +791,14 @@ var animate = (() => {
     }
   };
 })();
+
+/**
+ * <p>Loads the {@link mainEntrance application}.</p>
+ * @param {Event} event an object has loaded.
+ * @param {callback} function function to run when the event occurs.
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
+addEventListener("load", (event) => {
+  mainEntrance();
+});
