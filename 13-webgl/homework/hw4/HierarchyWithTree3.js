@@ -17,14 +17,16 @@
 import { CS336Object } from "./CS336Object.js";
 
 /**
- * <p>Module creates a scope to avoid name collisions.</p>
- * Either expose your function to the global window object or use addEventListener to bind handler.
- * @memberof Window
- * @function
- * @global
+ * <p>{@link mainEntrance Entry point} when page is loaded.</p>
+ * <p>Basically this function does setup that "should" only have to be done once,<br>
+ * while draw() does things that have to be repeated each time the canvas is
+ * redrawn.</p>
+ * @event load
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
  */
-window.onload = mainEntrance;
+window.addEventListener("load", (event) => {
+  mainEntrance();
+});
 
 // A few global variables...
 
@@ -432,7 +434,7 @@ function drawCube(matrix) {
   gl.uniformMatrix3fv(
     normalMatrixLoc,
     false,
-    makeNormalMatrixElements(current, viewMatrix)
+    makeNormalMatrixElements(current, viewMatrix),
   );
 
   gl.drawArrays(gl.TRIANGLES, 0, cube.numVertices);
@@ -468,11 +470,17 @@ function mainEntrance() {
   // retrieve <canvas> element
   var canvas = document.getElementById("theCanvas");
 
-  // key handler
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.</p>
+   * <p>The callback argument sets the {@link handleKeyPress callback}
+   * that will be invoked when the event is dispatched.</p>
+   *
+   * @event keydown
+   */
   window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-        event.code
+        event.code,
       ) > -1
     ) {
       event.preventDefault();
@@ -489,10 +497,10 @@ function mainEntrance() {
 
   // load and compile the shader pair, using utility from the teal book
   var vshaderSource = document.getElementById(
-    "vertexLightingShader"
+    "vertexLightingShader",
   ).textContent;
   var fshaderSource = document.getElementById(
-    "fragmentLightingShader"
+    "fragmentLightingShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
@@ -540,7 +548,7 @@ function mainEntrance() {
     45,
     canvas.width / canvas.height,
     0.1,
-    1000
+    1000,
   );
 
   // create new rotator object
