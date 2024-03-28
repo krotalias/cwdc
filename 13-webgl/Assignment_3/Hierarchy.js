@@ -10,7 +10,7 @@
  * @see <a href="/cwdc/13-webgl/Assignment_3/Hierarchy.html">link</a>
  * @see <a href="/cwdc/13-webgl/Assignment_3/Hierarchy.js">source</a>
  * @see <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix</a>
- * @see <a href="/roma/livros/Computer Graphics (3rd Edition).pdf#page=189">Foley</a>
+ * @see <a href="https://students.aiu.edu/submissions/profiles/resources/onlineBook/a6A8H5_computer%20graphics.pdf#page=189">Foley</a>
  * @see <a href="https://www.cs.drexel.edu/~david/Classes/ICG/Lectures_new/L-14_HierchModels.pdf">Hierarchical Modeling</a>
  * @see <a href="/cwdc/13-webgl/Assignment_3/5.hierarchy.pdf">Hierarchy Tutorial</a>
  * @see <img src="/cwdc/13-webgl/Assignment_3/robot3.png" width="256"> <img src="/cwdc/13-webgl/Assignment_3/robot-full.png" width="420">
