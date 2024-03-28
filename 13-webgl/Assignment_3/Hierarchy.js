@@ -2,7 +2,8 @@
  * @file
  *
  * Summary.
- * <p>Hierarchical Robot object using a matrix stack.</p>
+ * <p>Partial hierarchical Robot object using a {@link Stack matrix stack}.</p>
+ * One should add at least the right arm and the legs.
  *
  * @author Paulo Roma
  * @since 27/09/2016
@@ -152,8 +153,15 @@ var projection = new Matrix4().setPerspective(45, 1.5, 0.1, 1000);
 var rotator;
 
 /**
- * A very basic stack class,
- * for keeping a hierarchy of transformations.
+ * <p>A very basic stack class for traversing a hierarchical transformation tree.</p>
+ * This class maintains a {@link Matrix4 matrix} stack,
+ * whose top is the current transformation matrix.<br>
+ * Each transformation function applied to {@link draw Robot} manipulates the current matrix.
+ * <p>If a transformation needs to be reused,
+ * it can be copied and pushed onto the top of the stack, by using the command: </p>
+ *  • {@link Stack#push push}(); // “remember where you are”
+ * <p>The top of the matrix stack can also be removed, by using the command:</p>
+ *  • {@link Stack#pop pop}(); // “go back to where you were”
  * @class
  */
 class Stack {
@@ -311,7 +319,8 @@ var cube = (() => {
 
 /**
  * Return a matrix to transform normals, so they stay
- * perpendicular to surfaces after a linear transformation.
+ * <a href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48">perpendicular</a>
+ * to surfaces after a linear transformation.
  * @param {Matrix4} model model matrix.
  * @param {Matrix4} view view matrix.
  * @returns {Float32Array} modelview transposed inverse.
@@ -342,8 +351,8 @@ function getChar(event) {
 }
 
 /**
- * <p>Handler for keydown events.</p>
- * Adjusts object rotations.
+ * <p>Keydown event handler for
+ * adjusting Robot's joint rotations.</p>
  * @param {KeyboardEvent} event keyboard event.
  */
 function handleKeyPress(event) {
@@ -410,12 +419,14 @@ function handleKeyPress(event) {
       headMatrix.setTranslate(0, 7, 0).rotate(joint.head, 0, 1, 0);
       break;
     case "ArrowUp":
+    case ">":
       // Up pressed
       d = rotator.getViewDistance();
       d = Math.min(d + 1, 90);
       rotator.setViewDistance(d);
       break;
     case "ArrowDown":
+    case "<":
       // Down pressed
       d = rotator.getViewDistance();
       d = Math.max(d - 1, 20);
@@ -432,10 +443,9 @@ function handleKeyPress(event) {
 }
 
 /**
- * <p>Helper function.</p>
- * Renders the cube based on the model transformation
+ * Renders a cube based on the model transformation
  * on top of the stack and the given local transformation.
- * @param {Matrix4} matrixStack matrix on top of the stack;
+ * @param {Matrix4} matrixStack matrix on top of the stack.
  * @param {Matrix4} matrixLocal local transformation.
  */
 function renderCube(matrixStack, matrixLocal) {
@@ -504,7 +514,7 @@ function renderCube(matrixStack, matrixLocal) {
 }
 
 /**
- * <p>Code to actually render our geometry.</p>
+ * <p>Code to actually render our geometry (scene).</p>
  * @param {Boolean} useRotator whether a {@link SimpleRotator} should be used.
  */
 function draw(useRotator = true) {
@@ -550,8 +560,14 @@ function draw(useRotator = true) {
  * Starts an {@link animate animation} loop.
  *
  * <p>Basically this function does setup that "should" only have to be done once,<br>
- * while draw() does things that have to be repeated each time the canvas is
+ * while {@link draw draw()} does things that have to be repeated each time the canvas is
  * redrawn.</p>
+ *
+ * <p>At any given time, there can only be one buffer bound for each type
+ * (ARRAY_BUFFER and ELEMENT_ARRAY_BUFFER).<br>
+ * Therefore, the flow is to bind a buffer and set its data, followed
+ * by setting up the vertex attribute pointers for that specific buffer,
+ * and then proceed to the next buffer.</p>
  * @event load
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
  */
@@ -596,12 +612,6 @@ window.addEventListener("load", (event) => {
   }
   lightingShader = gl.program;
   gl.useProgram(null);
-
-  // At any given time there can only be one buffer bound for each type
-  // (ARRAY_BUFFER and ELEMENT_ARRAY_BUFFER),
-  // so the flow is to bind a buffer and set its data followed
-  // by setting up the vertex attribute pointers for that specific buffer,
-  // then proceed to the next buffer:
 
   // buffer for vertex positions for triangles
   vertexBuffer = gl.createBuffer();
@@ -654,8 +664,10 @@ window.addEventListener("load", (event) => {
   rotator.setViewDistance(viewDistance);
 
   /**
-   * <p>Define an animation loop.</p>
-   * Start drawing!
+   * <p>Self-invoking function to define an animation loop.</p>
+   * Here is the place to perform an auto rotation, for instance,
+   * as long as a self-calling animation loop is executed through
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}.
    * @callback animate
    */
   (function animate() {
