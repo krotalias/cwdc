@@ -2,8 +2,7 @@
  * @file
  *
  * Summary.
- * <p>Hierarchical Rotor object using recursion.</p>
- * Depends on <a href="/cwdc/13-webgl/homework/hw4/doc-object">CS336Object</a>
+ * <p>Hierarchical Rotor object using <a href="/cwdc/13-webgl/homework/hw4/doc-object">recursion</a>.</p>
  *
  * @author Paulo Roma
  * @since 27/09/2016
@@ -367,6 +366,7 @@ function handleKeyPress(event) {
       break;
 
     case "ArrowUp":
+    case ">":
       // Up pressed
       d = rotator.getViewDistance();
       d = Math.min(d + 1, 90);
@@ -375,6 +375,7 @@ function handleKeyPress(event) {
       break;
 
     case "ArrowDown":
+    case "<":
       // Down pressed
       d = rotator.getViewDistance();
       d = Math.max(d - 1, 20);
@@ -616,12 +617,11 @@ function mainEntrance() {
 
 /**
  * <p>Define an animation loop.</p>
- * Start drawing!
+ * Rotor should spin proportionally to the blade's {@link bladeAngle pitch}.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
  */
 var animate = () => {
   if (!paused) {
-    // rotor should spin proportionally to the blade's pitch
     var speed = Math.abs(bladeAngle / 10) + 1;
 
     rotorDummy.rotateZ(rotorRotation == direction.CCW ? speed : -speed);
