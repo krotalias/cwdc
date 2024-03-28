@@ -2,7 +2,8 @@
  * @file
  *
  * Summary.
- * <p>Hierarchical object using a matrix stack.</p>
+ * <p>Hierarchical {@link https://en.wikipedia.org/wiki/Robot_(Lost_in_Space) Robot}
+ * object using a matrix stack.</p>
  *
  * @author Paulo Roma
  * @since 27/09/2016
@@ -10,7 +11,7 @@
  * @see <a href="/cwdc/13-webgl/homework/hw3/Hierarchy.js">source</a>
  * @see <a href="/roma/books/Computer Graphics/Computer Graphics (3rd Edition).pdf#page=189">Foley</a>
  * @see <a href="https://www.cs.drexel.edu/~david/Classes/ICG/Lectures_new/L-14_HierchModels.pdf">Hierarchical Modeling</a>
- * @see <img src="/cwdc/13-webgl/homework/hw3/robot-full.png" width="256" title="Danger, Will Robson!!"> <img src="/cwdc/13-webgl/homework/hw3/robot-lis.png" width="256" title="Danger, Will Robson!!">
+ * @see <img src="/cwdc/13-webgl/homework/hw3/robot-full.png" width="256" title="That does not compute"> <img src="/cwdc/13-webgl/homework/hw3/robot-lis.png" width="256" title="Danger, Will Robson!!">
  */
 
 "use strict";
@@ -109,7 +110,7 @@ var handMatrix = new Matrix4()
   .rotate(joint.hand, 0, 1, 0);
 
 /**
- * Half torso height + half edge heigh = 5 + 2
+ * Half torso height + half edge height = 5 + 2
  * @type {Matrix4}
  */
 var headMatrix = new Matrix4()
@@ -236,8 +237,15 @@ var color = {
 };
 
 /**
- * A very basic stack class,
- * for keeping a hierarchy of transformations.
+ * <p>A very basic stack class for traversing a hierarchical transformation tree.</p>
+ * This class maintains a {@link Matrix4 matrix} stack,
+ * whose top is the current transformation matrix.<br>
+ * Each transformation function applied to {@link draw Robot} manipulates the current matrix.
+ * <p>If a transformation needs to be reused,
+ * it can be copied and pushed onto the top of the stack, by using the command: </p>
+ *  • {@link Stack#push push}(); // “remember where you are”
+ * <p>The top of the matrix stack can also be removed, by using the command:</p>
+ *  • {@link Stack#pop pop}(); // “go back to where you were”
  * @class
  */
 class Stack {
@@ -403,7 +411,8 @@ var cube = (() => {
 
 /**
  * Return a matrix to transform normals, so they stay
- * perpendicular to surfaces after a linear transformation.
+ * <a href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48">perpendicular</a>
+ * to surfaces after a linear transformation.
  * @param {Matrix4} model model matrix.
  * @param {Matrix4} view view matrix.
  * @returns {Float32Array} modelview transposed inverse.
@@ -434,8 +443,8 @@ function getChar(event) {
 }
 
 /**
- * <p>Handler for keydown events.</p>
- * Adjusts object rotations.
+ * <p>Keydown event handler for
+ * adjusting Robot's joint rotations.</p>
  * @param {WebGLContextEvent} event keyboard event.
  */
 function handleKeyPress(event) {
@@ -511,12 +520,14 @@ function handleKeyPress(event) {
       headMatrix.setTranslate(0, 7, 0).rotate(joint.head, 0, 1, 0);
       break;
     case "ArrowUp":
+    case ">":
       // Up pressed
       d = rotator.getViewDistance();
       d = Math.min(d + 1, 90);
       rotator.setViewDistance(d);
       break;
     case "ArrowDown":
+    case "<":
       // Down pressed
       d = rotator.getViewDistance();
       d = Math.max(d - 1, 20);
@@ -544,7 +555,6 @@ function handleKeyPress(event) {
 }
 
 /**
- * <p>Helper function.</p>
  * Renders the cube based on the model transformation
  * on top of the stack and the given local transformation.
  * @param {Matrix4} matrixStack matrix on top of the stack;
@@ -607,7 +617,7 @@ function renderCube(matrixStack, matrixLocal, c = color.green) {
 }
 
 /**
- * <p>Code to actually render our geometry.</p>
+ * <p>Code to actually render our geometry (scene).</p>
  * @param {Boolean} useRotator whether a {@link SimpleRotator} should be used.
  */
 function draw(useRotator = true) {
@@ -679,7 +689,7 @@ function draw(useRotator = true) {
  * Starts an {@link animate animation} loop.
  *
  * <p>Basically this function does setup that "should" only have to be done once,<br>
- * while draw() does things that have to be repeated each time the canvas is
+ * while {@link draw draw()} does things that have to be repeated each time the canvas is
  * redrawn.</p>
  */
 function mainEntrance() {
