@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Sierpiński 3D</title>
         <script
             src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -16,6 +17,11 @@
             crossorigin="anonymous"
         />
         <style>
+            body {
+                padding: 0;
+                margin: 0;
+                background-color: antiquewhite;
+            }
             #interface {
                 /* display block allows width and height */
                 display: block;
@@ -32,22 +38,22 @@
                 margin-left: 0%;
             }
             input[type="radio"] {
-                margin: 0 30px;
+                margin: 0 10px;
             }
             label,
             p {
-                font-size: 300%;
-                line-height: 200%;
+                font-size: 100%;
+                line-height: 150%;
             }
             .button {
                 background-color: #4caf50; /* Green */
-                border: none;
+                border: 2px solid white;
                 color: white;
-                padding: 16px 24px;
+                padding: 10px 15px;
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
-                font-size: 32px;
+                margin: 15px 15px 0px 2px;
                 border-radius: 12px;
             }
             .button:active {
