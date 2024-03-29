@@ -1,12 +1,14 @@
 <!--  Demo of Euler angles. -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
         <title>Euler angles in Three.js</title>
         <style>
             body {
+                padding: 0;
+                margin: 0;
                 background-color: antiquewhite;
             }
             #interface {
@@ -114,10 +116,10 @@
         <script type="importmap">
             {
                 "imports": {
-                    "three": "/cwdc/13-webgl/lib/three/build/three.module.js",
-                    "TextGeometry": "/cwdc/13-webgl/lib/three/examples/jsm/geometries/TextGeometry.js",
-                    "FontLoader": "/cwdc/13-webgl/lib/three/examples/jsm/loaders/FontLoader.js",
-                    "BufferGeometryUtils": "/cwdc/13-webgl/lib/three/examples/jsm/utils/BufferGeometryUtils.js"
+                    "three": "https://unpkg.com/three@latest/build/three.module.js?module",
+                    "TextGeometry": "https://unpkg.com/three@latest/examples/jsm/geometries/TextGeometry.js?module",
+                    "FontLoader": "https://unpkg.com/three@latest/examples/jsm/loaders/FontLoader.js?module",
+                    "BufferGeometryUtils": "https://unpkg.com/three@latest/examples/jsm/utils/BufferGeometryUtils.js?module"
                 }
             }
         </script>

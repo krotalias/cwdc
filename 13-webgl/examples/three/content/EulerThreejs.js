@@ -19,7 +19,7 @@
  * </ul>
  *
  * <p>The {@link AirPlane} and the {@link Pilot} were borrowed, and updated to a newer
- * Three.js {@link https://unpkg.com/three@0.148.0/build/three.module.js?module @148}, from:</p>
+ * Three.js {@link https://unpkg.com/three@0.163.0/build/three.module.js?module @163}, from:</p>
  * <ul>
  *  <li>{@link https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/ The Making of “The Aviator”: Animating a Basic 3D Scene with Three.js}
  * </ul>
@@ -198,15 +198,15 @@ window.addEventListener("load", (event) => {
     if (version < "16.4") {
       oldSafari = true;
       import(
-        "https://unpkg.com/three@0.148.0/build/three.module.js?module"
+        "https://unpkg.com/three@0.163.0/build/three.module.js?module"
       ).then((module) => {
         THREE = module;
         import(
-          "https://unpkg.com/three@0.148.0/examples/jsm/geometries/TextGeometry.js?module"
+          "https://unpkg.com/three@0.163.0/examples/jsm/geometries/TextGeometry.js?module"
         ).then((module) => {
           ({ TextGeometry } = module);
           import(
-            "https://unpkg.com/three@0.148.0/examples/jsm/loaders/FontLoader.js?module"
+            "https://unpkg.com/three@0.163.0/examples/jsm/loaders/FontLoader.js?module"
           ).then((module) => {
             ({ FontLoader } = module);
             mainEntrance();
@@ -840,7 +840,7 @@ function drawGlobalAxes(parent) {
     points[1] = new THREE.Vector3(
       i == 0 ? axisLen : 0,
       i == 1 ? axisLen : 0,
-      i == 2 ? axisLen : 0
+      i == 2 ? axisLen : 0,
     );
     var geometry = new THREE.BufferGeometry().setFromPoints(points);
     var line = new THREE.Line(geometry, axisMat[i]);
@@ -1060,7 +1060,7 @@ function mainEntrance() {
   const loader = new FontLoader();
   loader.load(
     "https://threejs.org/examples/fonts/helvetiker_regular.typeface.json",
-    (font) => start(font)
+    (font) => start(font),
   );
 }
 
@@ -1187,7 +1187,7 @@ function createLights2(scene, target) {
   objects.pointLightHelper = new THREE.PointLightHelper(
     pointLight,
     0.05,
-    Colors.red
+    Colors.red,
   );
   scene.add(objects.pointLightHelper);
   objects.pointLightHelper.update();
@@ -1250,7 +1250,7 @@ function start(font) {
   addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-        event.code
+        event.code,
       ) > -1
     ) {
       event.preventDefault();
@@ -1329,6 +1329,7 @@ function start(font) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.NoToneMapping;
   renderer.toneMappingExposure = 1;
+  renderer.useLegacyLights = true;
 
   /**
    * <p>A container for everything: plane, pilot and {@link localAxes local axes}.</p>
