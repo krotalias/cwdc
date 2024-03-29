@@ -1093,11 +1093,11 @@ function createLights(scene) {
 
   // This light globally illuminates all objects in the scene equally.
   // This light cannot be used to cast shadows as it does not have a direction.
-  ambientLight = new THREE.AmbientLight(Colors.white, 0.5);
+  ambientLight = new THREE.AmbientLight(Colors.white, 2);
 
   // A directional light shines from a specific direction.
   // It acts like the sun, that means that all the rays produced are parallel.
-  shadowLight = new THREE.DirectionalLight(Colors.white, 0.3);
+  shadowLight = new THREE.DirectionalLight(Colors.white, 0.5);
 
   // Set the direction of the light
   shadowLight.position.set(0, 1, 0);
@@ -1166,7 +1166,7 @@ function createLights(scene) {
 function createLights2(scene, target) {
   // This light globally illuminates all objects in the scene equally.
   // This light cannot be used to cast shadows as it does not have a direction.
-  ambientLight2 = new THREE.AmbientLight(Colors.white, 0.5);
+  ambientLight2 = new THREE.AmbientLight(Colors.white, 2);
 
   pointLight = new THREE.PointLight(Colors.white, 0.5, 0);
   pointLight.castShadow = false;
@@ -1329,7 +1329,6 @@ function start(font) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.NoToneMapping;
   renderer.toneMappingExposure = 1;
-  renderer.useLegacyLights = true;
 
   /**
    * <p>A container for everything: plane, pilot and {@link localAxes local axes}.</p>
