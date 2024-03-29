@@ -589,11 +589,11 @@ window.addEventListener("load", (event) => {
     if (version < "16.4") {
       oldSafari = true;
       import(
-        "https://unpkg.com/three@0.161.0/build/three.module.js?module"
+        "https://unpkg.com/three@latest/build/three.module.js?module"
       ).then((module) => {
         THREE = module;
         import(
-          "https://unpkg.com/three@0.161.0/examples/jsm/controls/OrbitControls.js?module"
+          "https://unpkg.com/three@latest/examples/jsm/controls/OrbitControls.js?module"
         ).then((module) => {
           ({ OrbitControls } = module);
           mainEntrance();
