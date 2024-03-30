@@ -2,7 +2,7 @@
  * @file
  *
  * Summary.
- * <p>Hierarchical Robot object using recursion.</p>
+ * <p>Hierarchical Robot object using {@link CS336Object recursion}.</p>
  *
  * @author Paulo Roma
  * @since 27/09/2016
@@ -19,7 +19,7 @@ import { CS336Object } from "./CS336Object.js";
 /**
  * <p>{@link mainEntrance Entry point} when page is loaded.</p>
  * <p>Basically this function does setup that "should" only have to be done once,<br>
- * while draw() does things that have to be repeated each time the canvas is
+ * while {@link draw draw()} does things that have to be repeated each time the canvas is
  * redrawn.</p>
  * @event load
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
@@ -60,6 +60,19 @@ var vertexColorBuffer;
  */
 var lightingShader;
 
+/**
+ * Joint angles.
+ * @type {Object<{String:Number}>}
+ */
+const joint = {
+  body: 10.0,
+  torso: 30.0,
+  shoulder: 45.0,
+  arm: 45.0,
+  hand: 90.0,
+  head: 10.0,
+};
+
 // create the objects
 
 var torso = new CS336Object(drawCube);
@@ -83,10 +96,12 @@ arm.setScale(3, 5, 2);
 
 var hand = new CS336Object(drawCube);
 hand.setPosition(0, -6.5, -1.0);
+hand.rotateY(joint.hand);
 hand.setScale(1, 3, 3);
 
 var head = new CS336Object(drawCube);
 head.setPosition(0, 7, 0);
+head.rotateY(joint.head);
 head.setScale(4, 4, 4);
 
 var leg = new CS336Object(drawCube);
@@ -104,6 +119,7 @@ foot.setScale(6, 0.5, 6);
  */
 var armDummy = new CS336Object();
 armDummy.setPosition(0, -4.5, 1.0);
+armDummy.rotateX(-joint.arm);
 armDummy.addChild(arm);
 armDummy.addChild(hand);
 
@@ -113,6 +129,7 @@ armDummy.addChild(hand);
  * @type {CS336Object}
  */
 var LshoulderDummy = new CS336Object();
+LshoulderDummy.rotateX(-joint.shoulder);
 LshoulderDummy.setPosition(6.5, 4, 0);
 LshoulderDummy.addChild(shoulder);
 LshoulderDummy.addChild(armDummy);
@@ -123,6 +140,7 @@ LshoulderDummy.addChild(armDummy);
  * @type {CS336Object}
  */
 var RshoulderDummy = new CS336Object();
+RshoulderDummy.rotateX(-joint.shoulder);
 RshoulderDummy.setPosition(-6.5, 4, 0);
 RshoulderDummy.addChild(shoulder);
 RshoulderDummy.addChild(armDummy);
@@ -133,6 +151,7 @@ RshoulderDummy.addChild(armDummy);
  * @type {CS336Object}
  */
 var torsoDummy = new CS336Object();
+torsoDummy.rotateY(joint.torso);
 torsoDummy.addChild(torso);
 torsoDummy.addChild(head);
 torsoDummy.addChild(LshoulderDummy);
@@ -145,6 +164,7 @@ torsoDummy.addChild(RshoulderDummy);
  * @type {CS336Object}
  */
 var bodyDummy = new CS336Object();
+bodyDummy.rotateY(joint.body);
 bodyDummy.addChild(torsoDummy);
 bodyDummy.addChild(leg);
 bodyDummy.addChild(foot);
@@ -293,7 +313,8 @@ var cube = (() => {
 
 /**
  * Return a matrix to transform normals, so they stay
- * perpendicular to surfaces after a linear transformation.
+ * <a href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48">perpendicular</a>
+ * to surfaces after a linear transformation.
  * @param {Matrix4} model model matrix.
  * @param {Matrix4} view view matrix.
  * @returns {Float32Array} elements of the transposed inverse of the modelview matrix.
@@ -326,12 +347,13 @@ function getChar(event) {
 }
 
 /**
- * Handler for keydown events.
- * Adjusts object rotations.
+ * Keydown event handler for
+ * adjusting Robot's joint rotations.
  * @param {KeyboardEvent} event keyboard event.
  */
 function handleKeyPress(event) {
   var ch = getChar(event);
+  let d;
   switch (ch) {
     case "b":
       bodyDummy.rotateY(15);
@@ -371,6 +393,20 @@ function handleKeyPress(event) {
     case "L":
       head.rotateY(-15);
       break;
+    case "ArrowUp":
+    case ">":
+      // Up pressed
+      d = rotator.getViewDistance();
+      d = Math.min(d + 1, 90);
+      rotator.setViewDistance(d);
+      break;
+    case "ArrowDown":
+    case "<":
+      // Down pressed
+      d = rotator.getViewDistance();
+      d = Math.max(d - 1, 20);
+      rotator.setViewDistance(d);
+      break;
     default:
       return;
   }
@@ -378,7 +414,7 @@ function handleKeyPress(event) {
 }
 
 /**
- * Helper function renders the cube based on the given model transformation.
+ * Renders a cube based on the given model transformation.
  * @param {Matrix4} matrix local transformation.
  */
 function drawCube(matrix) {
@@ -444,7 +480,7 @@ function drawCube(matrix) {
 }
 
 /**
- * <p>Code to actually render our geometry.</p>
+ * <p>Code to actually render our geometry (scene).</p>
  * @param {Boolean} useRotator whether a {@link SimpleRotator} should be used.
  */
 function draw(useRotator = true) {
@@ -463,7 +499,7 @@ function draw(useRotator = true) {
  * Starts an {@link animate animation} loop.
  *
  * <p>Basically this function does setup that "should" only have to be done once,<br>
- * while draw() does things that have to be repeated each time the canvas is
+ * while {@link draw draw()} does things that have to be repeated each time the canvas is
  * redrawn.</p>
  */
 function mainEntrance() {
@@ -557,8 +593,10 @@ function mainEntrance() {
   rotator.setViewDistance(viewDistance);
 
   /**
-   * <p>Define an animation loop.</p>
-   * Start drawing!
+   * <p>Self-invoking function to define an animation loop.</p>
+   * Here is the place to perform an auto rotation, for instance,
+   * as long as a self-calling animation loop is executed through
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}.
    * @callback animate
    */
   (function animate() {
