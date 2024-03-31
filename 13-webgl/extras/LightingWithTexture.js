@@ -15,13 +15,12 @@
  *
  * @author Paulo Roma
  * @since 30/01/2016
- * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a>
- * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a>
+ * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the fragment shader:
+ * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the vertex shader
  * @see <a href="/cwdc/13-webgl/examples/texture/content/Texture.html">Chessboard Texture<a/>
- * @see https://en.wikipedia.org/wiki/Utah_teapot
+ * @see {@link https://en.wikipedia.org/wiki/Utah_teapot Utah teapot}
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
- * @see <a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">basic-objects-IFS</a>
  * @see <img src="../images/teapot.png" width="512" title="Utah teapot">
  *      <img src="../images/tex.png" title="64x64 texture" width="310">
  * @see <img src="../images/sphere.png" width="512" title="texture in fragment shader">
@@ -29,7 +28,7 @@
  *      <img src="../images/snake.png" height="340" title="rattle snake">
  * @see <img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
  *      <img src="../images/aliasing.png" height="340" title="texture coordinates fixed">
- *      <img src="../images/GB.png" height="340" title="rattle snake">
+ *      <img src="../images/GB.png" height="340" title="GhostBusters">
  * @see <img src="../textures/earth-nasa.jpg" height="340" title="earth from nasa">
  *      <img src="../images/Milla.png" height="340" title="Milla Jovovich">
  * @see <img src="../images/sphere-earth.png" height="340" title="texture in fragment shader">
@@ -351,7 +350,7 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
 /**
  * An object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
- * <p>Polyhedra have no index.</p>
+ * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
  * @typedef {Object} modelData
  * @property {Float32Array} vertexPositions vertex coordinates.
  * @property {Float32Array} vertexNormals vertex normals.
@@ -365,7 +364,7 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
  * <p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise<Array<String>>}
- * @see <a href="/cwdc/6-php/readFiles.php">files</a>
+ * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
  * @see https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript
  * @see https://api.jquery.com/jquery.ajax/
  */
@@ -400,7 +399,7 @@ var readFileNames = new Promise((resolve, reject) => {
  * </ul>
  * returns an object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
- * <p>Polyhedra have no index.</p>
+ * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
  * @param {external:THREE.BufferGeometry} geom
  *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
