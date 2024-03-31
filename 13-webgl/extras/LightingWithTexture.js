@@ -2,7 +2,7 @@
  * @file
  *
  * Summary.
- * <p>Lighting, combined with texture mapping.</p>
+ * <p>Lighting, combined with {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}.</p>
  * Same as <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
  * and a 3x3 matrix for {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL light properties}
@@ -26,9 +26,10 @@
  *      <img src="../images/tex.png" title="64x64 texture" width="310">
  * @see <img src="../images/sphere.png" width="512" title="texture in fragment shader">
  *      <img src="../images/anti-aliasing.png" height="340" title="sampling by pixel">
+ *      <img src="../images/snake.png" height="340" title="rattle snake">
  * @see <img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
  *      <img src="../images/aliasing.png" height="340" title="texture coordinates fixed">
- *      <img src="../images/snake.png" height="340" title="rattle snake">
+ *      <img src="../images/GB.png" height="340" title="rattle snake">
  * @see <img src="../textures/earth-nasa.jpg" height="340" title="earth from nasa">
  *      <img src="../images/Milla.png" height="340" title="Milla Jovovich">
  * @see <img src="../images/sphere-earth.png" height="340" title="texture in fragment shader">
@@ -452,7 +453,7 @@ function getChar(event) {
 }
 
 /**
- * <p>Closure for keydwon events.</p>
+ * <p>Closure for keydown events.</p>
  * Chooses a model and which axis to rotate around.<br>
  * Maximum subdivision level is {@link limit}.oct for an octahedron (Uint16Array).<br>
  * When a new texture is selected, triggers callback {@link image} load event.
@@ -467,7 +468,7 @@ var handleKeyPress = ((event) => {
   let gscale = 1;
 
   /**
-   * <p>Handler for keydwon events.</p>
+   * <p>Handler for keydown events.</p>
    * @param {KeyboardEvent} event keyboard event.
    * @callback key_event callback to handle a key pressed.
    */
@@ -1220,7 +1221,7 @@ function isPowerOf2(value) {
  * <p>Creates a textured model and triggers the animation.</p>
  *
  * Basically this function does setup that "should" only have to be done once,<br>
- * while draw() does things that have to be repeated each time the canvas is
+ * while {@link draw draw()} does things that have to be repeated each time the canvas is
  * redrawn.
  * @param {HTMLImageElement} image texture.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL
