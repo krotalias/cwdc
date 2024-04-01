@@ -459,14 +459,14 @@ function getChar(event) {
 
 /**
  * <p>Closure for keydown events.</p>
- * Chooses a model and which axis to rotate around.<br>
- * Maximum subdivision level is {@link limit}.oct for an octahedron (Uint16Array).<br>
+ * Chooses a {@link theModel model} and which axis to rotate around.<br>
+ * The {@link numSubdivisions subdivision level} is {@link maxSubdivisions limited}
+ * for a chosen subdivision polyhedron.<br>
  * When a new texture is selected, triggers callback {@link image} load event.
  * @param {KeyboardEvent} event keyboard event.
  * @return {key_event}
- * @callback KeyboardEvent
  */
-var handleKeyPress = ((event) => {
+const handleKeyPress = ((event) => {
   let kbd = document.getElementById("kbd");
   let opt = document.getElementById("options");
   let zoomfactor = 0.7;
@@ -752,8 +752,8 @@ function zoomOut() {
 const mesh = document.getElementById("mesh");
 
 /**
- * <p>Appends an event listener for events whose type attribute value is change.
- * The callback argument sets the callback that will be invoked when
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
  * @event change - executed when the mesh checkbox is checked or unchecked.
@@ -764,8 +764,8 @@ mesh.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 const axes = document.getElementById("axes");
 
 /**
- * <p>Appends an event listener for events whose type attribute value is change.
- * The callback argument sets the callback that will be invoked when
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
  * @event change - executed when the axes checkbox is checked or unchecked.
@@ -776,8 +776,8 @@ axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
     /**
-     * <p>Appends an event listener for events whose type attribute value is change.
-     * The callback argument sets the callback that will be invoked when
+     * <p>Appends an event listener for events whose type attribute value is change.<br>
+     * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
      * the event is dispatched.</p>
      *
      * @event change - executed when the rot input radio is checked (but not when unchecked).
@@ -793,8 +793,8 @@ if (document.querySelector('input[name="rot"]')) {
 const fix_uv = document.getElementById("fixuv");
 
 /**
- * <p>Appends an event listener for events whose type attribute value is change.
- * The callback argument sets the callback that will be invoked when
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
  * @event change - executed when the fix_uv checkbox is checked or unchecked.
@@ -805,8 +805,8 @@ fix_uv.addEventListener("change", (event) => handleKeyPress(createEvent("f")));
 const cull = document.getElementById("culling");
 
 /**
- * <p>Appends an event listener for events whose type attribute value is change.
- * The callback argument sets the callback that will be invoked when
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
  * @event change - executed when the cull checkbox is checked or unchecked.
@@ -817,8 +817,8 @@ cull.addEventListener("change", (event) => handleKeyPress(createEvent("b")));
 const texture = document.getElementById("texture");
 
 /**
- * <p>Appends an event listener for events whose type attribute value is change.
- * The callback argument sets the callback that will be invoked when
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
  * @event change - executed when the texture checkbox is checked or unchecked.
@@ -1150,10 +1150,9 @@ window.addEventListener("load", (event) => {
  *     1 - octahedron, <br>
  *     2 - tetrahedron.
  * @returns {modelData} shape.
- * @see https://en.wikipedia.org/wiki/Platonic_solid
- * @see http://www-groups.mcs.st-andrews.ac.uk/~john/MT4521/Lectures/L25.html
- * @see https://nrich.maths.org/1384
- * @see https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole
+ * @see {@link https://en.wikipedia.org/wiki/Platonic_solid Platonic solid}
+ * @see {@link https://nrich.maths.org/1384 Euler's Formula and Topology}
+ * @see {@link https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole Euler characteristic of a polygon with a hole}
  *
  */
 function createModel({ shape, chi = 2, poly = 0 }) {
@@ -1271,8 +1270,8 @@ function startForReal(image) {
   var canvas = document.getElementById("theCanvas");
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is keydown.
-   * The callback argument sets the callback that will be invoked when
+   * <p>Appends an event listener for events whose type attribute value is keydown.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
    * @event keydown
