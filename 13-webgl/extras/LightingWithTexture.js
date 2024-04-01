@@ -79,7 +79,7 @@ var image;
  * Number of subdivisions to turn a polyhedron into a sphere.
  * @type {Number}
  */
-var numSubdivisions = limit.oct;
+var numSubdivisions = limit.dod;
 
 /**
  * Scale applied to a model to make its size adequate for rendering.
@@ -476,7 +476,7 @@ var handleKeyPress = ((event) => {
     kbd.innerHTML = ":";
     switch (ch) {
       case "m":
-        numSubdivisions = (numSubdivisions + 1) % (limit.oct + 1);
+        numSubdivisions = (numSubdivisions + 1) % (limit.dod + 1);
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
         theModel = createModel();
@@ -484,7 +484,7 @@ var handleKeyPress = ((event) => {
         break;
       case "M":
         numSubdivisions = numSubdivisions - 1;
-        if (numSubdivisions < 0) numSubdivisions = limit.oct;
+        if (numSubdivisions < 0) numSubdivisions = limit.dod;
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
         theModel = createModel();
@@ -1140,7 +1140,7 @@ window.addEventListener("load", (event) => {
  */
 function createModel(shape, chi = 2) {
   if (typeof shape === "undefined")
-    shape = new polyhedron(fixuv).octahedron({ n: numSubdivisions });
+    shape = new polyhedron(fixuv).dodecahedron({ n: numSubdivisions });
 
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, shape.vertexPositions, gl.STATIC_DRAW);

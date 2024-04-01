@@ -151,7 +151,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line123">line 123</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line124">line 124</a>
     </li></ul></dd>
     
 
@@ -255,7 +255,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line133">line 133</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line134">line 134</a>
     </li></ul></dd>
     
 
@@ -327,7 +327,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line144">line 144</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line145">line 145</a>
     </li></ul></dd>
     
 
@@ -399,7 +399,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line156">line 156</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line157">line 157</a>
     </li></ul></dd>
     
 
@@ -471,7 +471,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line150">line 150</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line151">line 151</a>
     </li></ul></dd>
     
 
@@ -543,7 +543,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line162">line 162</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line163">line 163</a>
     </li></ul></dd>
     
 
@@ -615,7 +615,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line168">line 168</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line169">line 169</a>
     </li></ul></dd>
     
 
@@ -813,7 +813,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line212">line 212</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line213">line 213</a>
     </li></ul></dd>
     
 
@@ -838,6 +838,259 @@ a polyhedron.</div>
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="dodecahedron"><span class="type-signature"></span>dodecahedron<span class="signature">(poly)</span><span class="type-signature"> &rarr; {Object.&lt;{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array, indices:Uint16Array}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Subdivides an initial dodecahedron.</p>
+<p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array">Uint16Array</a></p>
+Generates:
+<ul>
+ <li> 12 * 4<sup>n</sup> triangles</li>
+ <li> 12 * 3 * 4<sup>n</sup> vertices</li>
+ <li> maximum level = 5 (1296 triangles)</li>
+ <li> 12 * 3 * 4**6 = 147456 vertices → buffer overflow</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">dodecahedron.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.radius</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">radius of the dodecahedron.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    limit.dod
+                
+                </td>
+            
+
+            <td class="description last">number of subdivisions.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line326">line 326</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object.&lt;{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array, indices:Uint16Array}></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -959,7 +1212,7 @@ when the 0 coordinate is stitched together with the 1 coordinate.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line324">line 324</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line345">line 345</a>
     </li></ul></dd>
     
 
@@ -1201,7 +1454,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line286">line 286</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line287">line 287</a>
     </li></ul></dd>
     
 
@@ -1307,7 +1560,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line139">line 139</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line140">line 140</a>
     </li></ul></dd>
     
 
@@ -1542,7 +1795,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line251">line 251</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line252">line 252</a>
     </li></ul></dd>
     
 
@@ -1743,7 +1996,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line177">line 177</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line178">line 178</a>
     </li></ul></dd>
     
 
@@ -1795,7 +2048,7 @@ Generates:
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 31 2024 09:13:33 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 31 2024 21:04:05 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

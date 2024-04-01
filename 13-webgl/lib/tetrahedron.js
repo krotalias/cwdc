@@ -59,11 +59,12 @@ var initialOcta = [
 
 /**
  * Maximum subdivision level without overflowing any buffer (16 bits - 65536).
- * @type {Object<{tet:Number, oct:Number}>}
+ * @type {Object<{tet:Number, oct:Number, dod:Number}>}
  */
 var limit = {
   tet: Math.floor(Math.log(65536 / (4 * 3)) / Math.log(4)),
   oct: Math.floor(Math.log(65536 / (8 * 3)) / Math.log(4)),
+  dod: 12, // Math.floor(Math.log(65536 / (12 * 3)) / Math.log(4)),
 };
 
 /**
@@ -304,6 +305,26 @@ class polyhedron {
       vertexTextureCoords: new Float32Array(this.texCoords),
       indices: new Uint16Array(this.pointsIndices),
     };
+  }
+
+  /**
+   * <p>Subdivides an initial dodecahedron.</p>
+   * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
+   * Generates:
+   * <ul>
+   *  <li> 12 * 4<sup>n</sup> triangles</li>
+   *  <li> 12 * 3 * 4<sup>n</sup> vertices</li>
+   *  <li> maximum level = 5 (1296 triangles)</li>
+   *  <li> 12 * 3 * 4**6 = 147456 vertices → buffer overflow</li>
+   * </ul>
+   * @param {Object} poly dodecahedron.
+   * @property {Number} poly.radius=1 radius of the dodecahedron.
+   * @property {Number} poly.n=limit.dod number of subdivisions.
+   * @returns {Object<{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array,indices:Uint16Array}>}
+   */
+  dodecahedron({ radius = 1, n = limit.dod }) {
+    return getModelData(new THREE.DodecahedronGeometry(radius, n));
   }
 
   /**
