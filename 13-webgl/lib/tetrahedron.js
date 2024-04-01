@@ -37,10 +37,10 @@ const vec3 = glMatrix.vec3;
  * @see https://en.wikipedia.org/wiki/Tetrahedron
  */
 var initialTet = [
-  vec3.fromValues(0.0, 0.0, -1.0),
   vec3.fromValues(0.0, Math.sqrt(8 / 9), 1 / 3),
   vec3.fromValues(-Math.sqrt(2 / 3), -Math.sqrt(2 / 9), 1 / 3),
   vec3.fromValues(Math.sqrt(2 / 3), -Math.sqrt(2 / 9), 1 / 3),
+  vec3.fromValues(0.0, 0.0, -1.0),
 ];
 
 /**
@@ -313,10 +313,10 @@ class polyhedron {
    * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
    * Generates:
    * <ul>
-   *  <li> 12 * 4<sup>n</sup> triangles</li>
-   *  <li> 12 * 3 * 4<sup>n</sup> vertices</li>
-   *  <li> maximum level = 5 (1296 triangles)</li>
-   *  <li> 12 * 3 * 4**6 = 147456 vertices → buffer overflow</li>
+   *  <li> 36 * 4<sup>n</sup> triangles</li>
+   *  <li> 36 * 3 * 4<sup>n</sup> vertices</li>
+   *  <li> maximum level = 5 (900 triangles)</li>
+   *  <li> 36 * 3 * 4**5 = 110592 vertices → buffer overflow</li>
    * </ul>
    * @param {Object} poly dodecahedron.
    * @property {Number} poly.radius=1 radius of the dodecahedron.

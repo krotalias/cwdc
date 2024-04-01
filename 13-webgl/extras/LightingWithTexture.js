@@ -76,10 +76,16 @@ var textureCnt = 0;
 var image;
 
 /**
+ * Maximum Number of subdivisions to turn a polyhedron into a sphere.
+ * @type {Number}
+ */
+let maxSubdivisions = limit.dod;
+
+/**
  * Number of subdivisions to turn a polyhedron into a sphere.
  * @type {Number}
  */
-var numSubdivisions = limit.dod;
+let numSubdivisions = maxSubdivisions;
 
 /**
  * Scale applied to a model to make its size adequate for rendering.
@@ -476,19 +482,25 @@ var handleKeyPress = ((event) => {
     kbd.innerHTML = ":";
     switch (ch) {
       case "m":
-        numSubdivisions = (numSubdivisions + 1) % (limit.dod + 1);
+        numSubdivisions = (numSubdivisions + 1) % (maxSubdivisions + 1);
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
-        theModel = createModel();
-        kbd.innerHTML = ` (${8 * 4 ** numSubdivisions} triangles):`;
+        theModel = createModel({ poly: 0 });
+        if (theModel.nfaces)
+          kbd.innerHTML = ` (${
+            theModel.nfaces * 4 ** numSubdivisions
+          } triangles):`;
         break;
       case "M":
         numSubdivisions = numSubdivisions - 1;
-        if (numSubdivisions < 0) numSubdivisions = limit.dod;
+        if (numSubdivisions < 0) numSubdivisions = maxSubdivisions;
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
-        theModel = createModel();
-        kbd.innerHTML = ` (${8 * 4 ** numSubdivisions} triangles):`;
+        theModel = createModel({ poly: 0 });
+        if (theModel.nfaces)
+          kbd.innerHTML = ` (${
+            theModel.nfaces * 4 ** numSubdivisions
+          } triangles):`;
         break;
       case " ":
         selector.paused = !selector.paused;
@@ -524,93 +536,93 @@ var handleKeyPress = ((event) => {
         // sphere from threejs
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
-        theModel = createModel(
-          getModelData(new THREE.SphereGeometry(1, 48, 24)),
-        );
+        theModel = createModel({
+          shape: getModelData(new THREE.SphereGeometry(1, 48, 24)),
+        });
         break;
       case "S":
         // sphere
         this.mscale = mscale = 1;
         document.getElementById("models").value = "5";
-        theModel = createModel();
+        theModel = createModel({ poy: 1 });
         break;
       case "T":
         gscale = mscale = 0.6;
         document.getElementById("models").value = "8";
-        theModel = createModel(
-          getModelData(new THREE.TorusKnotGeometry(1, 0.4, 128, 16)),
-        );
+        theModel = createModel({
+          shape: getModelData(new THREE.TorusKnotGeometry(1, 0.4, 128, 16)),
+        });
         break;
       case "t":
         gscale = mscale = 0.1;
         document.getElementById("models").value = "7";
-        theModel = createModel(uvTorus(10, 5, 30, 30), 0);
+        theModel = createModel({ shape: uvTorus(10, 5, 30, 30), chi: 0 });
         break;
       case "u":
         // capsule from threejs
         gscale = mscale = 1.2;
         document.getElementById("models").value = "0";
-        theModel = createModel(
-          getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
-        );
+        theModel = createModel({
+          shape: getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
+        });
         break;
       case "c":
         gscale = mscale = 0.15;
         document.getElementById("models").value = "3";
-        theModel = createModel(uvCylinder(5, 10, 30, false, false));
+        theModel = createModel({ shape: uvCylinder(5, 10, 30, false, false) });
         break;
       case "C":
         gscale = mscale = 0.8;
         document.getElementById("models").value = "1";
-        theModel = createModel(uvCone(1, 2, 30, false));
+        theModel = createModel({ shape: uvCone(1, 2, 30, false) });
         break;
       case "v":
         gscale = mscale = 0.6;
         document.getElementById("models").value = "2";
-        theModel = createModel(cube(2));
+        theModel = createModel({ shape: cube(2) });
         break;
       case "p":
         gscale = mscale = 0.1;
         document.getElementById("models").value = "6";
-        theModel = createModel(teapotModel, null);
+        theModel = createModel({ shape: teapotModel, chi: null });
         break;
       case "d":
         gscale = mscale = 1;
         document.getElementById("models").value = "9";
-        theModel = createModel(
-          getModelData(new THREE.DodecahedronGeometry(1, 0)),
-        );
+        theModel = createModel({
+          shape: getModelData(new THREE.DodecahedronGeometry(1, 0)),
+        });
         break;
       case "i":
         gscale = mscale = 1;
         document.getElementById("models").value = "10";
-        theModel = createModel(
-          getModelData(new THREE.IcosahedronGeometry(1, 0)),
-        );
+        theModel = createModel({
+          shape: getModelData(new THREE.IcosahedronGeometry(1, 0)),
+        });
         break;
       case "o":
         gscale = mscale = 1;
         document.getElementById("models").value = "11";
-        theModel = createModel(
-          getModelData(new THREE.OctahedronGeometry(1, 0)),
-        );
+        theModel = createModel({
+          shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
+        });
         break;
       case "w":
         gscale = mscale = 1;
         document.getElementById("models").value = "12";
-        theModel = createModel(
-          getModelData(new THREE.TetrahedronGeometry(1, 0)),
-        );
+        theModel = createModel({
+          shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
+        });
         break;
       case "r":
         gscale = mscale = 1.0;
         document.getElementById("models").value = "4";
-        theModel = createModel(
-          getModelData(
+        theModel = createModel({
+          shape: getModelData(
             new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586),
           ),
-          0,
-        );
+          chi: 0,
+        });
         break;
       case "O":
         mat4.identity(modelMatrix);
@@ -991,10 +1003,12 @@ function drawLines() {
 
   // draw edges
   if (theModel.indices) {
+    // draw lines
     gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
     gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.LINES, 0, 2 * theModel.indices.length);
   } else {
+    // draw triangles - three lines
     for (var i = 0; i < theModel.vertexPositions.length; i += 3) {
       gl.drawArrays(gl.LINE_LOOP, i, 3);
     }
@@ -1127,10 +1141,14 @@ window.addEventListener("load", (event) => {
  *  <li> V - E + T = 0 (torus) </li>
  * </ul>
  *
- *
- * @param {modelData} shape a <a href="https://en.wikipedia.org/wiki/Boundary_representation">BREP</a> model
+ * @param {Object} model model descriptor.
+ * @property {modelData} model.shape a <a href="https://en.wikipedia.org/wiki/Boundary_representation">BREP</a> model
  *                    given as an <a href="https://math.hws.edu/graphicsbook/c3/s4.html">IFS</a>.
- * @param {Number | null} chi model <a href="https://en.wikipedia.org/wiki/Euler_characteristic">Euler Characteristic</a>.
+ * @property {Number | null} model.chi=2 model <a href="https://en.wikipedia.org/wiki/Euler_characteristic">Euler Characteristic</a>.
+ * @property {Number} model.poly=0 initial polyhedron for subdivision:<br>
+ *     0 - dodecahedron, <br>
+ *     1 - octahedron, <br>
+ *     2 - tetrahedron.
  * @returns {modelData} shape.
  * @see https://en.wikipedia.org/wiki/Platonic_solid
  * @see http://www-groups.mcs.st-andrews.ac.uk/~john/MT4521/Lectures/L25.html
@@ -1138,9 +1156,22 @@ window.addEventListener("load", (event) => {
  * @see https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole
  *
  */
-function createModel(shape, chi = 2) {
-  if (typeof shape === "undefined")
-    shape = new polyhedron(fixuv).dodecahedron({ n: numSubdivisions });
+function createModel({ shape, chi = 2, poly = 0 }) {
+  if (typeof shape === "undefined") {
+    if (poly === 0) {
+      shape = new polyhedron(fixuv).dodecahedron({ n: numSubdivisions });
+      shape.nfaces = 0;
+      maxSubdivisions = limit.dod;
+    } else if (poly === 1) {
+      shape = new polyhedron(fixuv).octahedron({ n: numSubdivisions });
+      shape.nfaces = 8;
+      maxSubdivisions = limit.oct;
+    } else {
+      shape = new polyhedron(fixuv).tetrahedron({ n: numSubdivisions });
+      shape.nfaces = 4;
+      maxSubdivisions = limit.tet;
+    }
+  }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, shape.vertexPositions, gl.STATIC_DRAW);
