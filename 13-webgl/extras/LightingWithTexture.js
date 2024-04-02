@@ -1031,7 +1031,7 @@ function drawLines() {
     gl.drawArrays(gl.LINES, 0, 2 * theModel.indices.length);
   } else {
     // draw triangles - three lines
-    for (var i = 0; i < theModel.vertexPositions.length; i += 3) {
+    for (var i = 0; i < theModel.vertexPositions.length / 3; i += 3) {
       gl.drawArrays(gl.LINE_LOOP, i, 3);
     }
   }
