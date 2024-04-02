@@ -488,20 +488,34 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
         theModel = createModel({ poly: subPoly });
-        if (theModel.nfaces)
-          kbd.innerHTML = `
-          (${subPoly == 1 ? "octahedron:" : "tetrahedron:"}
+
+        kbd.innerHTML = `
+          (${
+            subPoly == 1
+              ? "octahedron:"
+              : subPoly == 2
+                ? "tetrahedron:"
+                : "dodecahedron:"
+          }
+          level ${numSubdivisions} →
           ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
         break;
       case "M":
-        numSubdivisions = numSubdivisions - 1;
+        numSubdivisions = (numSubdivisions - 1) % (maxSubdivisions + 1);
         if (numSubdivisions < 0) numSubdivisions = maxSubdivisions;
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
         theModel = createModel({ poly: subPoly });
-        if (theModel.nfaces)
-          kbd.innerHTML = `
-          (${subPoly == 1 ? "octahedron:" : "tetrahedron:"}
+
+        kbd.innerHTML = `
+          (${
+            subPoly == 1
+              ? "octahedron:"
+              : subPoly == 2
+                ? "tetrahedron:"
+                : "dodecahedron:"
+          }
+          level ${numSubdivisions} →
           ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
         break;
       case " ":
@@ -591,6 +605,7 @@ const handleKeyPress = ((event) => {
       case "d":
         gscale = mscale = 1;
         subPoly = 0;
+        maxSubdivisions = limit.dod;
         document.getElementById("models").value = "9";
         theModel = createModel({
           shape: getModelData(new THREE.DodecahedronGeometry(1, 0)),
@@ -606,6 +621,7 @@ const handleKeyPress = ((event) => {
       case "o":
         gscale = mscale = 1;
         subPoly = 1;
+        maxSubdivisions = limit.oct;
         document.getElementById("models").value = "11";
         theModel = createModel({
           shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
@@ -614,6 +630,7 @@ const handleKeyPress = ((event) => {
       case "w":
         gscale = mscale = 1;
         subPoly = 2;
+        maxSubdivisions = limit.tet;
         document.getElementById("models").value = "12";
         theModel = createModel({
           shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
