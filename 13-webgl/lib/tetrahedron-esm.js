@@ -6,10 +6,10 @@
  *  Summary.
  *
  * <p>Creates the model of a sphere by continuously subdividing
- * an initial tetrahedron or octahedron.</p>
+ * an initial tetrahedron, octahedron or dodecahedron.</p>
  *
- * The algorithm starts with just four/six points, corresponding
- * to a tetrahedron/octahedron inscribed in the unit sphere, <br>
+ * The algorithm starts with just four/six/twenty points, corresponding
+ * to a tetrahedron/octahedron/dodecahedron inscribed in the unit sphere, <br>
  * and recursively subdivides each triangle by inserting a new vertex
  * at the midpoint of its three edges, <br>
  * which is then projected onto the surface of the sphere.
@@ -305,8 +305,17 @@ export class polyhedron {
    * <ul>
    *  <li> 36 * 4<sup>n</sup> triangles</li>
    *  <li> 36 * 3 * 4<sup>n</sup> vertices</li>
-   *  <li> maximum level = 4 (900 triangles)</li>
+   *  <li> maximum level = 4 (27648 triangles)</li>
    *  <li> 36 * 3 * 4**5 = 110592 vertices → buffer overflow</li>
+   * </ul>
+   * Note: three.js level of detail generates much less vertices than the values above:
+   * <ul>
+   *  <li> n = 0: 36 triangles, 20 vertices</li>
+   *  <li> n = 1: 144 triangles, 74 vertices</li>
+   *  <li> n = 2: 324 triangles, 164 vertices</li>
+   *  <li> n = 3: 576 triangles, 290 vertices</li>
+   *  <li> n = 4: 900 triangles, 452 vertices</li>
+   *  <li> n = 5: 1296 triangles, 650 vertices</li>
    * </ul>
    * @param {Object} poly dodecahedron.
    * @property {Number} poly.radius=1 radius of the dodecahedron.

@@ -94,10 +94,10 @@ let numSubdivisions = maxSubdivisions;
 var mscale = 1;
 
 /**
- * Turn the display of the model mesh/texture/axes/animation on/off.
+ * Display status of the model mesh, texture, axes and paused animation: on/off.
  * @type {OBject<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean}>}
  */
-var selector = {
+const selector = {
   lines: document.getElementById("mesh").checked,
   texture: document.getElementById("texture").checked,
   axes: document.getElementById("axes").checked,
@@ -459,12 +459,13 @@ function getChar(event) {
 
 /**
  * <p>Closure for keydown events.</p>
- * Chooses a {@link theModel model} and which axis to rotate around.<br>
+ * Chooses a {@link theModel model} and which {@link axis} to rotate around.<br>
  * The {@link numSubdivisions subdivision level} is {@link maxSubdivisions limited}
  * for a chosen subdivision polyhedron.<br>
  * When a new texture is selected, triggers callback {@link image} load event.
  * @param {KeyboardEvent} event keyboard event.
- * @return {key_event}
+ * @function
+ * @return {key_event} callback for handling a keyboard event.
  */
 const handleKeyPress = ((event) => {
   let kbd = document.getElementById("kbd");
@@ -669,12 +670,12 @@ const handleKeyPress = ((event) => {
 })();
 
 /**
- * Returns a new keyboard event.
+ * Returns a new keyboard event
+ * that can be passed to {@link handleKeyPress}.
  * @param {String} key char code.
  * @returns {KeyboardEvent} a keyboard event.
- * @event KeyboardEvent
  */
-var createEvent = (key) => {
+const createEvent = (key) => {
   let code = key.charCodeAt();
   return new KeyboardEvent("keydown", {
     key: key,
@@ -685,7 +686,7 @@ var createEvent = (key) => {
 };
 
 /**
- * Selects a model from a menu and creates an {@link KeyboardEvent event} for it.
+ * Selects a model from a menu and creates an {@link createEvent event} for it.
  */
 function selectModel() {
   let val = document.getElementById("models").value;
@@ -708,42 +709,42 @@ function selectModel() {
 }
 
 /**
- * Select next texture and creates an {@link KeyboardEvent event} "n" for it.
+ * Select next texture and creates an {@link createEvent event} "n" for it.
  */
 function nextTexture() {
   handleKeyPress(createEvent("n"));
 }
 
 /**
- * Select previous texture and creates an {@link KeyboardEvent event} "N" for it.
+ * Select previous texture and creates an {@link createEvent event} "N" for it.
  */
 function previousTexture() {
   handleKeyPress(createEvent("N"));
 }
 
 /**
- * Select next subdivision level and creates an {@link KeyboardEvent event} "m" for it.
+ * Select next subdivision level and creates an {@link createEvent event} "m" for it.
  */
 function nextLevel() {
   handleKeyPress(createEvent("m"));
 }
 
 /**
- * Select previous subdivision level and creates an {@link KeyboardEvent event} "M" for it.
+ * Select previous subdivision level and creates an {@link createEvent event} "M" for it.
  */
 function previousLevel() {
   handleKeyPress(createEvent("M"));
 }
 
 /**
- * Increase zoom level and creates an {@link KeyboardEvent event} ↓ for it.
+ * Increase zoom level and creates an {@link createEvent event} ↓ for it.
  */
 function zoomIn() {
   handleKeyPress(createEvent("ArrowDown"));
 }
 
 /**
- * Decrease zoom level and creates an {@link KeyboardEvent event} ↑ for it.
+ * Decrease zoom level and creates an {@link createEvent event} ↑ for it.
  */
 function zoomOut() {
   handleKeyPress(createEvent("ArrowUp"));
