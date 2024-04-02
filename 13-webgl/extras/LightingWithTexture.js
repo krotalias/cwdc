@@ -472,6 +472,7 @@ const handleKeyPress = ((event) => {
   let opt = document.getElementById("options");
   let zoomfactor = 0.7;
   let gscale = 1;
+  let subPoly = 1;
 
   /**
    * <p>Handler for keydown events.</p>
@@ -486,22 +487,22 @@ const handleKeyPress = ((event) => {
         numSubdivisions = (numSubdivisions + 1) % (maxSubdivisions + 1);
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
-        theModel = createModel({ poly: 0 });
+        theModel = createModel({ poly: subPoly });
         if (theModel.nfaces)
-          kbd.innerHTML = ` (${
-            theModel.nfaces * 4 ** numSubdivisions
-          } triangles):`;
+          kbd.innerHTML = `
+          (${subPoly == 1 ? "octahedron:" : "tetrahedron:"}
+          ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
         break;
       case "M":
         numSubdivisions = numSubdivisions - 1;
         if (numSubdivisions < 0) numSubdivisions = maxSubdivisions;
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
-        theModel = createModel({ poly: 0 });
+        theModel = createModel({ poly: subPoly });
         if (theModel.nfaces)
-          kbd.innerHTML = ` (${
-            theModel.nfaces * 4 ** numSubdivisions
-          } triangles):`;
+          kbd.innerHTML = `
+          (${subPoly == 1 ? "octahedron:" : "tetrahedron:"}
+          ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
         break;
       case " ":
         selector.paused = !selector.paused;
@@ -542,10 +543,10 @@ const handleKeyPress = ((event) => {
         });
         break;
       case "S":
-        // sphere
+        // subdivision sphere
         this.mscale = mscale = 1;
         document.getElementById("models").value = "5";
-        theModel = createModel({ poy: 1 });
+        theModel = createModel({ poly: subPoly });
         break;
       case "T":
         gscale = mscale = 0.6;
@@ -589,6 +590,7 @@ const handleKeyPress = ((event) => {
         break;
       case "d":
         gscale = mscale = 1;
+        subPoly = 0;
         document.getElementById("models").value = "9";
         theModel = createModel({
           shape: getModelData(new THREE.DodecahedronGeometry(1, 0)),
@@ -603,6 +605,7 @@ const handleKeyPress = ((event) => {
         break;
       case "o":
         gscale = mscale = 1;
+        subPoly = 1;
         document.getElementById("models").value = "11";
         theModel = createModel({
           shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
@@ -610,6 +613,7 @@ const handleKeyPress = ((event) => {
         break;
       case "w":
         gscale = mscale = 1;
+        subPoly = 2;
         document.getElementById("models").value = "12";
         theModel = createModel({
           shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
