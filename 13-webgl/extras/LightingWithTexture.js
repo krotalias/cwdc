@@ -468,6 +468,7 @@ function getChar(event) {
  * @return {key_event} callback for handling a keyboard event.
  */
 const handleKeyPress = ((event) => {
+  const mod = (n, m) => ((n % m) + m) % m;
   let kbd = document.getElementById("kbd");
   let opt = document.getElementById("options");
   let zoomfactor = 0.7;
@@ -501,8 +502,7 @@ const handleKeyPress = ((event) => {
           ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
         break;
       case "M":
-        numSubdivisions = (numSubdivisions - 1) % (maxSubdivisions + 1);
-        if (numSubdivisions < 0) numSubdivisions = maxSubdivisions;
+        numSubdivisions = mod(numSubdivisions - 1, maxSubdivisions + 1);
         gscale = mscale = 1;
         document.getElementById("models").value = "5";
         theModel = createModel({ poly: subPoly });
