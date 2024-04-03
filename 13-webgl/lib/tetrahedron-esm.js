@@ -6,10 +6,10 @@
  *  Summary.
  *
  * <p>Creates the model of a sphere by continuously subdividing
- * an initial tetrahedron, octahedron or dodecahedron.</p>
+ * an initial tetrahedron, octahedron, dodecahedron or icosahedron.</p>
  *
- * The algorithm starts with just four/six/twenty points, corresponding
- * to a tetrahedron/octahedron/dodecahedron inscribed in the unit sphere, <br>
+ * The algorithm starts with just four/six/twenty/twelve points, corresponding
+ * to a tetrahedron/octahedron/dodecahedron/icosahedron inscribed in the unit sphere, <br>
  * and recursively subdivides each triangle by inserting a new vertex
  * at the midpoint of its three edges, <br>
  * which is then projected onto the surface of the sphere.
@@ -63,6 +63,7 @@ var limit = {
   tet: Math.floor(Math.log(65536 / (4 * 3)) / Math.log(4)),
   oct: Math.floor(Math.log(65536 / (8 * 3)) / Math.log(4)),
   dod: 12, // Math.floor(Math.log(65536 / (12 * 3)) / Math.log(4)),
+  ico: 16,
 };
 
 /**
@@ -305,7 +306,7 @@ export class polyhedron {
    * <ul>
    *  <li> 36 * 4<sup>n</sup> triangles</li>
    *  <li> 36 * 3 * 4<sup>n</sup> vertices</li>
-   *  <li> maximum level = 4 (27648 triangles)</li>
+   *  <li> maximum level = 4 (36864 triangles)</li>
    *  <li> 36 * 3 * 4**5 = 110592 vertices → buffer overflow</li>
    * </ul>
    * Note: three.js level of detail generates much less vertices than the values above:
@@ -324,6 +325,36 @@ export class polyhedron {
    */
   dodecahedron({ radius = 1, n = limit.dod }) {
     return getModelData(new THREE.DodecahedronGeometry(radius, n));
+  }
+
+  /**
+   * <p>Subdivides an initial
+   * {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry icosahedron}.</p>
+   * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
+   * Generates:
+   * <ul>
+   *  <li> 20 * 4<sup>n</sup> triangles</li>
+   *  <li> 20 * 3 * 4<sup>n</sup> vertices</li>
+   *  <li> maximum level = 5 (20480 triangles)</li>
+   *  <li> 20 * 3 * 4**6 = 245760 vertices → buffer overflow</li>
+   * </ul>
+   * Note: three.js level of detail generates much less vertices than the values above:
+   * <ul>
+   *  <li> n = 0: 20 triangles, 12 vertices</li>
+   *  <li> n = 1: 80 triangles, 42 vertices</li>
+   *  <li> n = 2: 189 triangles, 92 vertices</li>
+   *  <li> n = 3: 320 triangles, 162 vertices</li>
+   *  <li> n = 4: 500 triangles, 252 vertices</li>
+   *  <li> n = 5: 720 triangles, 362 vertices</li>
+   * </ul>
+   * @param {Object} poly icosahedron.
+   * @property {Number} poly.radius=1 radius of the icosahedron.
+   * @property {Number} poly.n=limit.ico number of subdivisions.
+   * @returns {Object<{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array,indices:Uint16Array}>}
+   */
+  icosahedron({ radius = 1, n = limit.ico }) {
+    return getModelData(new THREE.IcosahedronGeometry(radius, n));
   }
 
   /**

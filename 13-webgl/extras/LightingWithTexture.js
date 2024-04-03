@@ -474,6 +474,12 @@ const handleKeyPress = ((event) => {
   let zoomfactor = 0.7;
   let gscale = 1;
   let subPoly = 0;
+  const polyName = {
+    0: "dodecahedron",
+    1: "octahedron",
+    2: "tetrahedron",
+    3: "icosahedron",
+  };
 
   /**
    * <p>Handler for keydown events.</p>
@@ -491,13 +497,7 @@ const handleKeyPress = ((event) => {
         theModel = createModel({ poly: subPoly });
 
         kbd.innerHTML = `
-          (${
-            subPoly == 1
-              ? "octahedron:"
-              : subPoly == 2
-                ? "tetrahedron:"
-                : "dodecahedron:"
-          }
+          (${polyName[subPoly]}
           level ${numSubdivisions} →
           ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
         break;
@@ -508,13 +508,7 @@ const handleKeyPress = ((event) => {
         theModel = createModel({ poly: subPoly });
 
         kbd.innerHTML = `
-          (${
-            subPoly == 1
-              ? "octahedron:"
-              : subPoly == 2
-                ? "tetrahedron:"
-                : "dodecahedron:"
-          }
+          (${polyName[subPoly]}
           level ${numSubdivisions} →
           ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
         break;
@@ -559,8 +553,13 @@ const handleKeyPress = ((event) => {
       case "S":
         // subdivision sphere
         this.mscale = mscale = 1;
+        numSubdivisions = maxSubdivisions;
         document.getElementById("models").value = "5";
         theModel = createModel({ poly: subPoly });
+        kbd.innerHTML = `
+          (${polyName[subPoly]}
+          level ${numSubdivisions} →
+          ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
         break;
       case "T":
         gscale = mscale = 0.6;
@@ -606,6 +605,7 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         subPoly = 0;
         maxSubdivisions = limit.dod;
+        numSubdivisions = 0;
         document.getElementById("models").value = "9";
         theModel = createModel({
           shape: getModelData(new THREE.DodecahedronGeometry(1, 0)),
@@ -613,6 +613,9 @@ const handleKeyPress = ((event) => {
         break;
       case "i":
         gscale = mscale = 1;
+        subPoly = 3;
+        maxSubdivisions = limit.ico;
+        numSubdivisions = 0;
         document.getElementById("models").value = "10";
         theModel = createModel({
           shape: getModelData(new THREE.IcosahedronGeometry(1, 0)),
@@ -622,6 +625,7 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         subPoly = 1;
         maxSubdivisions = limit.oct;
+        numSubdivisions = 0;
         document.getElementById("models").value = "11";
         theModel = createModel({
           shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
@@ -631,6 +635,7 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         subPoly = 2;
         maxSubdivisions = limit.tet;
+        numSubdivisions = 0;
         document.getElementById("models").value = "12";
         theModel = createModel({
           shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
@@ -1166,7 +1171,8 @@ window.addEventListener("load", (event) => {
  * @property {Number} model.poly=0 initial polyhedron for subdivision:<br>
  *     0 - dodecahedron, <br>
  *     1 - octahedron, <br>
- *     2 - tetrahedron.
+ *     2 - tetrahedron, <br>
+ *     3 - icosahedron.
  * @returns {modelData} shape.
  * @see {@link https://en.wikipedia.org/wiki/Platonic_solid Platonic solid}
  * @see {@link https://nrich.maths.org/1384 Euler's Formula and Topology}
@@ -1183,10 +1189,14 @@ function createModel({ shape, chi = 2, poly = 0 }) {
       shape = new polyhedron(fixuv).octahedron({ n: numSubdivisions });
       shape.nfaces = 8;
       maxSubdivisions = limit.oct;
-    } else {
+    } else if (poly === 2) {
       shape = new polyhedron(fixuv).tetrahedron({ n: numSubdivisions });
       shape.nfaces = 4;
       maxSubdivisions = limit.tet;
+    } else {
+      shape = new polyhedron(fixuv).icosahedron({ n: numSubdivisions });
+      shape.nfaces = 0;
+      maxSubdivisions = limit.ico;
     }
   }
 
