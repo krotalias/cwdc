@@ -370,7 +370,7 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
  * <p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise<Array<String>>}
- * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
+ * @see <a href="/cwdc/6-php/readFiles.php">files</a>
  * @see https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript
  * @see https://api.jquery.com/jquery.ajax/
  */
