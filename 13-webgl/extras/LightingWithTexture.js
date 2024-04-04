@@ -370,7 +370,7 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
  * <p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise<Array<String>>}
- * @see <a href="/cwdc/6-php/readFiles.php">files</a>
+ * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
  * @see https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript
  * @see https://api.jquery.com/jquery.ajax/
  */
@@ -480,6 +480,10 @@ const handleKeyPress = ((event) => {
     2: "tetrahedron",
     3: "icosahedron",
   };
+  const ntri = (p, n, f) => {
+    if (p == 0 || p == 3) return f * (n * n + 2 * n + 1);
+    else return f * 4 ** n;
+  };
 
   /**
    * <p>Handler for keydown events.</p>
@@ -499,7 +503,7 @@ const handleKeyPress = ((event) => {
         kbd.innerHTML = `
           (${polyName[subPoly]}
           level ${numSubdivisions} →
-          ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
+          ${ntri(subPoly, numSubdivisions, theModel.nfaces)} triangles):`;
         break;
       case "M":
         numSubdivisions = mod(numSubdivisions - 1, maxSubdivisions + 1);
@@ -510,7 +514,7 @@ const handleKeyPress = ((event) => {
         kbd.innerHTML = `
           (${polyName[subPoly]}
           level ${numSubdivisions} →
-          ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
+          ${ntri(subPoly, numSubdivisions, theModel.nfaces)} triangles):`;
         break;
       case " ":
         selector.paused = !selector.paused;
@@ -559,7 +563,7 @@ const handleKeyPress = ((event) => {
         kbd.innerHTML = `
           (${polyName[subPoly]}
           level ${numSubdivisions} →
-          ${theModel.nfaces * 4 ** numSubdivisions} triangles):`;
+          ${ntri(subPoly, numSubdivisions, theModel.nfaces)} triangles):`;
         break;
       case "T":
         gscale = mscale = 0.6;
@@ -1183,7 +1187,7 @@ function createModel({ shape, chi = 2, poly = 0 }) {
   if (typeof shape === "undefined") {
     if (poly === 0) {
       shape = new polyhedron(fixuv).dodecahedron({ n: numSubdivisions });
-      shape.nfaces = 0;
+      shape.nfaces = 36;
       maxSubdivisions = limit.dod;
     } else if (poly === 1) {
       shape = new polyhedron(fixuv).octahedron({ n: numSubdivisions });
@@ -1195,7 +1199,7 @@ function createModel({ shape, chi = 2, poly = 0 }) {
       maxSubdivisions = limit.tet;
     } else {
       shape = new polyhedron(fixuv).icosahedron({ n: numSubdivisions });
-      shape.nfaces = 0;
+      shape.nfaces = 20;
       maxSubdivisions = limit.ico;
     }
   }

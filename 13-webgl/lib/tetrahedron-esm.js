@@ -311,6 +311,7 @@ export class polyhedron {
    * </ul>
    * Note: three.js level of detail generates much less vertices than the values above:
    * <ul>
+   *  <li> 36(n² + 2n + 1) </li>
    *  <li> n = 0: 36 triangles, 20 vertices</li>
    *  <li> n = 1: 144 triangles, 74 vertices</li>
    *  <li> n = 2: 324 triangles, 164 vertices</li>
@@ -341,9 +342,10 @@ export class polyhedron {
    * </ul>
    * Note: three.js level of detail generates much less vertices than the values above:
    * <ul>
-   *  <li> n = 0: 20 triangles, 12 vertices</li>
+   *  <li> 20(n² + 2n + 1) </li>
+   *  <li> n = 0: 20 triangles, 12 vertices</li>s
    *  <li> n = 1: 80 triangles, 42 vertices</li>
-   *  <li> n = 2: 189 triangles, 92 vertices</li>
+   *  <li> n = 2: 180 triangles, 92 vertices</li>
    *  <li> n = 3: 320 triangles, 162 vertices</li>
    *  <li> n = 4: 500 triangles, 252 vertices</li>
    *  <li> n = 5: 720 triangles, 362 vertices</li>
