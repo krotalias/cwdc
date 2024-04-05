@@ -580,7 +580,7 @@ function handleKeyPress(event) {
       );
       break;
     case "p":
-      // teapot
+      // teapot - this is NOT a manifold model - it is a model with borders!
       mscale = 0.8;
       document.getElementById("models").value = "6";
       theModel = createModel(
@@ -844,7 +844,7 @@ function drawLines() {
 }
 
 /**
- * <p>Sets up all buffers for the given model (shape).</p>
+ * <p>Sets up all buffers for the given (triangulated) model (shape).</p>
  *
  * Uses the webgl vertex buffer, normal buffer, texture buffer and index buffer, created in {@link mainEntrance}.<br>
  * Then, binds each one of them as an array buffer and copies the corresponding shape array data to them.
@@ -865,10 +865,10 @@ function drawLines() {
  *                    given as an <a href="https://math.hws.edu/graphicsbook/c3/s4.html">IFS</a>.
  * @param {Number | null} chi model <a href="https://en.wikipedia.org/wiki/Euler_characteristic">Euler Characteristic</a>.
  * @returns {modelData} shape.
- * @see https://en.wikipedia.org/wiki/Platonic_solid
- * @see http://www-groups.mcs.st-andrews.ac.uk/~john/MT4521/Lectures/L25.html
- * @see https://nrich.maths.org/1384
- * @see https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole
+ * @see {@link https://en.wikipedia.org/wiki/Platonic_solid Platonic solid}
+ * @see {@link https://ocw.mit.edu/courses/18-965-geometry-of-manifolds-fall-2004/pages/lecture-notes/ Geometry Of Manifolds}
+ * @see {@link https://nrich.maths.org/1384 Euler's Formula and Topology}
+ * @see {@link https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole Euler characteristic of a polygon with a hole}
  */
 function createModel(shape, chi = 2) {
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
@@ -923,14 +923,17 @@ function createModel(shape, chi = 2) {
 
   let obj = document.getElementById("object");
   obj.innerHTML = "<b>Object:</b>";
-  if (chi !== null) {
-    let faces = shape.indices
-      ? shape.indices.length / 3
-      : shape.vertices.length / 9;
-    let edges = (faces * 3) / 2;
-    let vertices = faces / 2 + chi;
-    obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
+  let faces = shape.indices
+    ? shape.indices.length / 3
+    : shape.vertices.length / 9;
+  let edges = (faces * 3) / 2;
+  let vertices = faces / 2 + chi;
+
+  if (chi === null) {
+    edges = `${edges}??`;
+    vertices = `${vertices}??`;
   }
+  obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
 
   return shape;
 }
