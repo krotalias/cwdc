@@ -237,17 +237,38 @@ var viewMatrix = new Matrix4()
   .rotate(-30, 0, 1, 0);
 
 /**
+ * Camera position.
+ * @type {Array<Number>}
+ */
+var eye = [1.77, 3.54, 3.06];
+
+/**
  * Alternatively use the LookAt function, specifying the view (eye) point,
  * a point at which to look, and a direction for "up".
  * Approximate view point for above is (1.77, 3.54, 3.06)
  * @type {Matrix4}
  */
 /*
-var view = new Matrix4().setLookAt(
-    1.77, 3.54, 3.06,   // eye
-    0, 0, 0,            // at - looking at the origin
-    0, 1, 0);           // up vector - y axis
+var viewMatrix = new Matrix4().setLookAt(
+    ...eye,   // eye
+    0, 0, 0,  // at - looking at the origin
+    0, 1, 0); // up vector - y axis
 */
+
+/**
+ * Returns the magnitude (length) of a vector.
+ * @param {Array<Number>} v n-D vector.
+ * @returns {Number} vector length.
+ * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+ */
+var vecLen = (v) =>
+  Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
+
+/**
+ * View distance.
+ * @type {Number}
+ */
+var viewDistance = vecLen(eye);
 
 /**
  * For projection we can use an orthographic projection, specifying
@@ -524,6 +545,7 @@ function getChar(event) {
  */
 function handleKeyPress(event) {
   var ch = getChar(event);
+  let zoomfactor = 0.7;
   switch (ch) {
     case " ":
       selector.paused = !selector.paused;
@@ -537,6 +559,7 @@ function handleKeyPress(event) {
     case "o":
       modelMatrix.setIdentity();
       rotator.setViewMatrix(modelMatrix.elements);
+      mscale = 1;
       axis = "x";
       break;
     case "l":
@@ -588,6 +611,19 @@ function handleKeyPress(event) {
         null,
       );
       break;
+    case "ArrowUp":
+    case ">":
+      // Up pressed
+      mscale *= zoomfactor;
+      mscale = Math.max(0.1, mscale);
+      break;
+    case "ArrowDown":
+    case "<":
+      // Down pressed
+      mscale /= zoomfactor;
+      mscale = Math.min(3, mscale);
+      break;
+
     default:
       return;
   }
@@ -719,7 +755,9 @@ function drawModel() {
     gl.drawElements(
       gl.TRIANGLES,
       theModel.indices.length,
-      mscale == 0.8 ? gl.UNSIGNED_INT : gl.UNSIGNED_SHORT,
+      document.getElementById("models").value === "6"
+        ? gl.UNSIGNED_INT
+        : gl.UNSIGNED_SHORT,
       0,
     );
   } else {
@@ -960,6 +998,13 @@ function mainEntrance() {
    * @event keydown
    */
   addEventListener("keydown", (event) => {
+    if (
+      ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
+        event.code,
+      ) > -1
+    ) {
+      event.preventDefault();
+    }
     handleKeyPress();
   });
 
