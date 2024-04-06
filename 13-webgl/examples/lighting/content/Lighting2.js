@@ -755,7 +755,7 @@ function drawModel() {
     gl.drawElements(
       gl.TRIANGLES,
       theModel.indices.length,
-      document.getElementById("models").value === "6"
+      theModel.indices.constructor === Uint32Array
         ? gl.UNSIGNED_INT
         : gl.UNSIGNED_SHORT,
       0,
