@@ -667,6 +667,26 @@ if (document.querySelector('input[name="euler"]')) {
 }
 
 /**
+ * Animates the object, by generating an "↓" {@link handleKeyPress event},
+ * whenever the Arrow Down button is clicked.
+ * @event click
+ */
+document
+  .querySelector("#arrowDown")
+  .addEventListener("click", (event) =>
+    handleKeyPress(createEvent("ArrowDown")),
+  );
+
+/**
+ * Animates the object, by generating an "↑" {@link handleKeyPress event},
+ * whenever the Arrow Up button is clicked.
+ * @event click
+ */
+document
+  .querySelector("#arrowUp")
+  .addEventListener("click", (event) => handleKeyPress(createEvent("ArrowUp")));
+
+/**
  * <p>Loads the texture image asynchronously and defines its {@link mainEntrance load callback function}.</p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
@@ -1169,15 +1189,19 @@ function createModel(shape, chi = 2) {
   gl.bufferData(gl.ARRAY_BUFFER, normal, gl.STATIC_DRAW);
 
   let obj = document.getElementById("object");
-  obj.innerHTML = "<b>Object:</b>";
-  if (chi !== null) {
-    let faces = shape.indices
-      ? shape.indices.length / 3
-      : shape.vertices.length / 9;
-    let edges = (faces * 3) / 2;
-    let vertices = faces / 2 + chi;
-    obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
+
+  let faces = shape.indices
+    ? shape.indices.length / 3
+    : shape.vertices.length / 9;
+  let edges = (faces * 3) / 2;
+  let vertices = faces / 2 + chi;
+
+  if (chi === null) {
+    edges = `${edges}??`;
+    vertices = `${vertices}??`;
   }
+
+  obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
 
   return shape;
 }

@@ -42,6 +42,21 @@ of thin air.
                 margin-top: 50px;
                 text-align: left;
             }
+            button {
+                font-size: 200%;
+                border: 0px;
+                outline: 0px;
+                border-radius: 8px;
+                background-color: lightsteelblue;
+                color: black;
+                height: 2em;
+                margin-right: 2em;
+                touch-action: manipulation;
+            }
+            select {
+                margin-right: 2em;
+                touch-action: manipulation;
+            }
         </style>
     </head>
 
@@ -71,6 +86,9 @@ of thin air.
                     <option value="11">Octahedron</option>
                     <option value="12">Tetrahedron</option>
                 </select>
+
+                <button id="arrowUp">↑</button>
+                <button id="arrowDown">↓</button>
 
                 <p>
                     <label><b>Status:</b></label>
@@ -132,7 +150,7 @@ of thin air.
 
             <br />
             <details>
-                <summary style="font-size: 150%">Keyboard controls:</summary>
+                <summary style="font-size: 200%">Keyboard controls:</summary>
 
                 <ul id="opts">
                     <li>SPACE - pause rotation</li>
