@@ -10,9 +10,13 @@ for some options for using the sampled texture value.
         <meta charset="utf-8" />
         <title>Texture with lighting</title>
         <style>
+            body {
+                background-color: antiquewhite;
+            }
             #interface {
                 width: 900px;
                 margin-left: 50px;
+                margin-bottom: 20px;
             }
             #models,
             label {
@@ -29,12 +33,24 @@ for some options for using the sampled texture value.
             }
             .sideBySide {
                 float: left;
-                margin-right: 80px;
+                margin-right: 60px;
             }
+            .sideBySide:nth-last-child(1) {
+                margin-right: 0;
+                padding-right: 0;
+            }
+            #models,
             button {
-                font-size: 300%;
-                margin-right: 40px;
-                padding: 0 10px 0 10px;
+                font-size: 250%;
+                margin-right: 30px;
+                padding: 0 40px 0 40px;
+                border: 0px;
+                outline: 0px;
+                border-radius: 8px;
+                background-color: lightsteelblue;
+                color: black;
+                height: 2em;
+                margin-right: 0.5em;
                 touch-action: manipulation;
             }
             label {
@@ -44,7 +60,12 @@ for some options for using the sampled texture value.
     </head>
 
     <body>
-        <canvas id="theCanvas" width="900" height="600">
+        <canvas
+            id="theCanvas"
+            style="margin-left: 30px"
+            width="900"
+            height="600"
+        >
             Please use a browser that supports "canvas"
         </canvas>
 
@@ -123,35 +144,37 @@ for some options for using the sampled texture value.
                 <label for="culling">Back Face Culling</label><br />
             </form>
 
-            <div class="sideBySide">
-                <p>
-                    <label><b>Texture:</b></label>
-                </p>
-                <button onclick="nextTexture()">+</button>
-                <button onclick="previousTexture()">-</button>
-            </div>
+            <div class="btset">
+                <div class="sideBySide">
+                    <p>
+                        <label><b>Texture:</b></label>
+                    </p>
+                    <button onclick="nextTexture()">+</button>
+                    <button onclick="previousTexture()">-</button>
+                </div>
 
-            <div class="sideBySide">
-                <p>
-                    <label><b>Subdivisions:</b></label>
-                </p>
-                <button onclick="nextLevel()">+</button>
-                <button onclick="previousLevel()">-</button>
-            </div>
+                <div class="sideBySide">
+                    <p>
+                        <label><b>Subdivisions:</b></label>
+                    </p>
+                    <button onclick="nextLevel()">+</button>
+                    <button onclick="previousLevel()">-</button>
+                </div>
 
-            <div class="sideBySide">
-                <p>
-                    <label><b>Zoom:</b></label>
-                </p>
-                <button onclick="zoomIn()">+</button>
-                <button onclick="zoomOut()">-</button>
+                <div class="sideBySide">
+                    <p>
+                        <label><b>Zoom:</b></label>
+                    </p>
+                    <button onclick="zoomIn()">+</button>
+                    <button onclick="zoomOut()">-</button>
+                </div>
             </div>
             <div style="clear: both"></div>
         </div>
 
         <br />
         <details>
-            <summary style="font-size: 150%">
+            <summary style="font-size: 200%">
                 Keyboard controls<span id="kbd">:</span>
             </summary>
 
