@@ -329,6 +329,26 @@ document
   .addEventListener("click", (event) => handleKeyPress(createEvent(" ")));
 
 /**
+ * Animates the object, by generating an "↓" {@link handleKeyPress event},
+ * whenever the Arrow Down button is clicked.
+ * @event click
+ */
+document
+  .querySelector("#arrowDown")
+  .addEventListener("click", (event) =>
+    handleKeyPress(createEvent("ArrowDown")),
+  );
+
+/**
+ * Animates the object, by generating an "↑" {@link handleKeyPress event},
+ * whenever the Arrow Up button is clicked.
+ * @event click
+ */
+document
+  .querySelector("#arrowUp")
+  .addEventListener("click", (event) => handleKeyPress(createEvent("ArrowUp")));
+
+/**
  * Given an instance of
  * <ul>
  * <li>{@link external:THREE.BufferGeometry THREE.BufferGeometry}</li>

@@ -17,7 +17,7 @@
         <style>
             #interface {
                 width: fit-content;
-                margin: 50px;
+                margin: 0 auto;
                 text-align: left;
             }
             #models,
@@ -34,7 +34,11 @@
                 background-color: lightsteelblue;
                 color: black;
                 height: 2em;
-                margin-right: 1em;
+                margin-right: 0.5em;
+                touch-action: manipulation;
+            }
+            #interface:nth-last-child(1) {
+                margin-right: 0;
             }
             #opts {
                 list-style: none;
@@ -73,12 +77,14 @@
                 </select>
                 <button id="btnMesh">Mesh</button>
                 <button id="btnRot">Rotate</button>
+                <button id="arrowUp">↑</button>
+                <button id="arrowDown">↓</button>
             </div>
 
             <br />
 
             <details>
-                <summary style="font-size: 150%">Keyboard controls:</summary>
+                <summary style="font-size: 200%">Keyboard controls:</summary>
 
                 <ul style="list-style: none">
                     <li>SPACE - pause rotation</li>
