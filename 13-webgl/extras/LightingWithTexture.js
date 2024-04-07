@@ -1130,6 +1130,8 @@ window.addEventListener("load", (event) => {
             "BigEarth.jpg",
             "Earth-1024x512.jpg",
             "Ghost Busters.jpg",
+            "GhostBusters-album.jpg",
+            "GhostBusters.jpg",
             "Mila-1200x1200.jpg",
             "NDVI_84.jpg",
             "bricks.png",

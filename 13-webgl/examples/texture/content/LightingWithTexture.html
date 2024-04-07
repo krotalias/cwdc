@@ -11,6 +11,9 @@ for the key controls.
         <meta charset="utf-8" />
         <title>Texture with lighting</title>
         <style>
+            body {
+                background-color: #fcfcfc;
+            }
             #interface {
                 width: 900px;
                 margin-left: 50px;
@@ -25,6 +28,18 @@ for the key controls.
             }
             label {
                 margin-right: 20px;
+            }
+            #models,
+            button {
+                font-size: 200%;
+                border: 0px;
+                outline: 0px;
+                border-radius: 8px;
+                background-color: lightsteelblue;
+                color: black;
+                height: 2em;
+                margin-right: 2em;
+                touch-action: manipulation;
             }
         </style>
     </head>
@@ -53,6 +68,9 @@ for the key controls.
                 <option value="11">Octahedron</option>
                 <option value="12">Tetrahedron</option>
             </select>
+
+            <button id="arrowUp">↑</button>
+            <button id="arrowDown">↓</button>
 
             <p>
                 <label><b>Status:</b></label>
