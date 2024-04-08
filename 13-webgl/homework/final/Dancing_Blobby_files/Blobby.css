@@ -1,4 +1,4 @@
-body{
+body {
     background-color: #b2b2b2;
 }
 
@@ -28,8 +28,8 @@ body{
 
 /** Button Styles **/
 .dropdown button {
-    background: #FF6223;
-    color: #FFFFFF;
+    background: #ff6223;
+    color: #ffffff;
     border: none;
     margin: 0;
     padding: 0.4em 0.8em;
@@ -42,17 +42,22 @@ body{
     display: block;
     padding: 0.2em 0.8em;
     text-decoration: none;
-    background: #CCCCCC;
+    background: #cccccc;
     color: #333333;
     text-align: left;
-
 }
 
 /** List Item Hover Styles **/
 .dropdown a:hover {
-    background: #BBBBBB;
+    background: #bbbbbb;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid black;
+}
+
+button {
+    touch-action: manipulation;
 }
