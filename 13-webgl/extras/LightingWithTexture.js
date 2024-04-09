@@ -102,6 +102,7 @@ const selector = {
   texture: document.getElementById("texture").checked,
   axes: document.getElementById("axes").checked,
   paused: document.getElementById("pause").checked,
+  intrinsic: document.getElementById("intrinsic").checked,
 };
 
 /**
@@ -303,7 +304,6 @@ var colorShader;
  * @type {mat4}
  */
 var modelMatrix = mat4.create();
-
 /**
  * Rotation axis.
  * @type {String}
@@ -544,6 +544,16 @@ const handleKeyPress = ((event) => {
         axis = ch;
         selector.paused = false;
         document.getElementById(axis).checked = true;
+        animate();
+        break;
+      case "I":
+        selector.intrinsic = true;
+        document.getElementById("intrinsic").checked = true;
+        animate();
+        break;
+      case "e":
+        selector.intrinsic = false;
+        document.getElementById("extrinsic").checked = true;
         animate();
         break;
       case "s":
@@ -822,6 +832,23 @@ if (document.querySelector('input[name="rot"]')) {
   });
 }
 
+if (document.querySelector('input[name="mode"]')) {
+  document.querySelectorAll('input[name="mode"]').forEach((elem) => {
+    /**
+     * <p>Appends an event listener for events whose type attribute value is change.<br>
+     * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+     * the event is dispatched.</p>
+     *
+     * @event change - executed when the mode input radio is checked (but not when unchecked).
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     */
+    elem.addEventListener("change", function (event) {
+      var item = event.target.value;
+      handleKeyPress(createEvent(item));
+    });
+  });
+}
+
 const fix_uv = document.getElementById("fixuv");
 
 /**
@@ -1080,9 +1107,13 @@ function drawAxes() {
   gl.vertexAttribPointer(colorIndex, 4, gl.FLOAT, false, 0, 0);
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
-  // set transformation to projection * view only
+  // set transformation to projection * view only for extrinsic
   var loc = gl.getUniformLocation(colorShader, "transform");
   var transform = mat4.multiply([], projection, viewMatrix);
+  // set transformation to projection * view * model for intrinsic
+  if (selector.intrinsic) {
+    mat4.multiply(transform, transform, modelMatrix);
+  }
   gl.uniformMatrix4fv(loc, false, transform);
 
   // draw axes
@@ -1555,8 +1586,13 @@ var animate = (() => {
       requestID = 0;
     }
     if (!selector.paused) {
-      // extrinsic rotation - multiply on the left
-      mat4.multiply(modelMatrix, rotMatrix[axis], modelMatrix);
+      if (selector.intrinsic) {
+        // intrinsic rotation - multiply on the right
+        mat4.multiply(modelMatrix, modelMatrix, rotMatrix[axis]);
+      } else {
+        // extrinsic rotation - multiply on the left
+        mat4.multiply(modelMatrix, rotMatrix[axis], modelMatrix);
+      }
       rotator.setViewMatrix(modelMatrix);
       // request that the browser calls animate() again "as soon as it can"
       requestID = requestAnimationFrame(animate);

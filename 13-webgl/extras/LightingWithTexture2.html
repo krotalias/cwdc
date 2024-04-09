@@ -127,10 +127,18 @@ for some options for using the sampled texture value.
                     <input type="radio" id="y" name="rot" value="y" />
                     <label for="y">y</label>
                     <input type="radio" id="z" name="rot" value="z" />
-                    <label for="z">z</label> (<a
-                        href="https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd"
-                        >extrinsic</a
-                    >)
+                    <label for="z">z</label>
+
+                    <input
+                        type="radio"
+                        id="intrinsic"
+                        name="mode"
+                        checked
+                        value="I"
+                    />
+                    <label for="intrinsic">intrinsic</label>
+                    <input type="radio" id="extrinsic" name="mode" value="e" />
+                    <label for="extrinsic">extrinsic</label>
                 </div>
 
                 <input type="checkbox" id="fixuv" name="fixuv" value="fixuv" />
