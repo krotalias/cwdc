@@ -413,7 +413,8 @@ const handleKeyPress = ((event) => {
         return;
       case "O":
         mat4.identity(modelMatrix);
-        mat4.copy(viewMatrix, vMatrix);
+        rotator.setViewMatrix(modelMatrix);
+        mscale = gscale;
         break;
       case "C":
         gscale = mscale = 1;
