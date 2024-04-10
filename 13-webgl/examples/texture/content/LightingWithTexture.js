@@ -379,183 +379,180 @@ function getChar(event) {
 }
 
 /**
- * Handler for keydown events for choosing
- * which axis to rotate around, select model, etc.
+ * <p>Closure for keydown events.</p>
+ * Chooses a {@link theModel model} and which {@link axis} to rotate around.<br>
  * @param {KeyboardEvent} event keyboard event.
+ * @function
+ * @return {key_event} callback for handling a keyboard event.
  */
-function handleKeyPress(event) {
-  var ch = getChar(event);
-  var d;
-  switch (ch) {
-    case " ":
-      selector.paused = !selector.paused;
-      document.getElementById("pause").checked = selector.paused;
-      if (!selector.paused) document.getElementById(axis).checked = true;
-      animate();
-      return;
-    case "x":
-    case "y":
-    case "z":
-      axis = ch;
-      selector.paused = false;
-      document.getElementById(axis).checked = true;
-      animate();
-      return;
-    case "O":
-      mat4.identity(modelMatrix);
-      mat4.copy(viewMatrix, vMatrix);
-      if (selector.intrinsic) {
-        rotator.setViewMatrix(viewMatrix);
-        rotator.setViewDistance(viewDistance);
-      } else {
-        rotator.setViewMatrix(modelMatrix);
-        rotator.setViewDistance(0);
-      }
-      break;
-    case "C":
-      mscale = 1;
-      document.getElementById("models").value = "1";
-      theModel = createModel(
-        getModelData(new THREE.ConeGeometry(0.8, 1.5, 48, 24)),
-      );
-      break;
-    case "c":
-      mscale = 1;
-      document.getElementById("models").value = "3";
-      theModel = createModel(
-        getModelData(new THREE.CylinderGeometry(0.5, 0.5, 1.5, 24, 5)),
-      );
-      break;
-    case "r":
-      mscale = 1;
-      document.getElementById("models").value = "4";
-      theModel = createModel(
-        getModelData(
-          new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586),
-        ),
-        0,
-      );
-      break;
-    case "u":
-      mscale = 1;
-      document.getElementById("models").value = "0";
-      theModel = createModel(
-        getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
-      );
-      break;
-    case "v":
-      mscale = 1;
-      document.getElementById("models").value = "2";
-      theModel = createModel(getModelData(new THREE.BoxGeometry(1, 1, 1)));
-      break;
-    case "s":
-      mscale = 1;
-      document.getElementById("models").value = "5";
-      theModel = createModel(getModelData(new THREE.SphereGeometry(1, 48, 24)));
-      break;
-    case "T":
-      mscale = 1;
-      document.getElementById("models").value = "8";
-      theModel = createModel(
-        getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16)),
-      );
-      break;
-    case "t":
-      mscale = 1;
-      document.getElementById("models").value = "7";
-      theModel = createModel(
-        getModelData(new THREE.TorusGeometry(0.6, 0.24, 16, 128)),
-        0,
-      );
-      break;
-    case "d":
-      mscale = 1;
-      document.getElementById("models").value = "9";
-      theModel = createModel(
-        getModelData(new THREE.DodecahedronGeometry(1, 0)),
-      );
-      break;
-    case "i":
-      mscale = 1;
-      document.getElementById("models").value = "10";
-      theModel = createModel(getModelData(new THREE.IcosahedronGeometry(1, 0)));
-      break;
-    case "o":
-      mscale = 1;
-      document.getElementById("models").value = "11";
-      theModel = createModel(getModelData(new THREE.OctahedronGeometry(1, 0)));
-      break;
-    case "e":
-    case "E":
-      selector.intrinsic = !selector.intrinsic;
-      document.getElementById("e").checked = !selector.intrinsic;
-      document.getElementById("E").checked = selector.intrinsic;
-      if (selector.intrinsic) {
-        rotator.setViewMatrix(viewMatrix);
-        rotator.setViewDistance(viewDistance);
-      } else {
-        mat4.targetTo(modelMatrix, eye, [0, 0, 0], [0, 1, 0]);
-        rotator.setViewMatrix(modelMatrix);
-        rotator.setViewDistance(0);
+const handleKeyPress = ((event) => {
+  let zoomfactor = 0.7;
+  let gscale = 1;
+
+  /**
+   * <p>Handler for keydown events.</p>
+   * @param {KeyboardEvent} event keyboard event.
+   * @callback key_event callback to handle a key pressed.
+   */
+  return (event) => {
+    var ch = getChar(event);
+    switch (ch) {
+      case " ":
+        selector.paused = !selector.paused;
+        document.getElementById("pause").checked = selector.paused;
+        if (!selector.paused) document.getElementById(axis).checked = true;
+        animate();
+        return;
+      case "x":
+      case "y":
+      case "z":
+        axis = ch;
+        selector.paused = false;
+        document.getElementById(axis).checked = true;
+        animate();
+        return;
+      case "O":
+        mat4.identity(modelMatrix);
         mat4.copy(viewMatrix, vMatrix);
-      }
-      draw();
-      return;
-    case "w":
-      mscale = 1;
-      document.getElementById("models").value = "12";
-      theModel = createModel(getModelData(new THREE.TetrahedronGeometry(1, 0)));
-      break;
-    case "p":
-      mscale = 0.1;
-      document.getElementById("models").value = "6";
-      theModel = createModel(
-        {
-          vertices: teapotModel.vertexPositions,
-          normals: teapotModel.vertexNormals,
-          texCoords: teapotModel.vertexTextureCoords,
-          indices: teapotModel.indices,
-        },
-        null,
-      );
-      break;
-    case "l":
-      selector.lines = !selector.lines;
-      if (!selector.lines) selector.texture = true;
-      document.getElementById("mesh").checked = selector.lines;
-      document.getElementById("texture").checked = selector.texture;
-      break;
-    case "k":
-      selector.texture = !selector.texture;
-      if (!selector.texture) selector.lines = true;
-      document.getElementById("texture").checked = selector.texture;
-      document.getElementById("mesh").checked = selector.lines;
-      break;
-    case "a":
-      selector.axes = !selector.axes;
-      document.getElementById("axes").checked = selector.axes;
-      break;
-    case "ArrowUp":
-      // Up pressed
-      if (selector.intrinsic) {
-        d = rotator.getViewDistance();
-        d = Math.min(d + 0.1, 10);
-        rotator.setViewDistance(d);
-      }
-      break;
-    case "ArrowDown":
-      // Down pressed
-      if (selector.intrinsic) {
-        d = rotator.getViewDistance();
-        d = Math.max(d - 0.1, 3);
-        rotator.setViewDistance(d);
-      }
-      break;
-    default:
-      return;
-  }
-  if (selector.paused) draw();
-}
+        break;
+      case "C":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "1";
+        theModel = createModel(
+          getModelData(new THREE.ConeGeometry(0.8, 1.5, 48, 24)),
+        );
+        break;
+      case "c":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "3";
+        theModel = createModel(
+          getModelData(new THREE.CylinderGeometry(0.5, 0.5, 1.5, 24, 5)),
+        );
+        break;
+      case "r":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "4";
+        theModel = createModel(
+          getModelData(
+            new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586),
+          ),
+          0,
+        );
+        break;
+      case "u":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "0";
+        theModel = createModel(
+          getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
+        );
+        break;
+      case "v":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "2";
+        theModel = createModel(getModelData(new THREE.BoxGeometry(1, 1, 1)));
+        break;
+      case "s":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "5";
+        theModel = createModel(
+          getModelData(new THREE.SphereGeometry(1, 48, 24)),
+        );
+        break;
+      case "T":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "8";
+        theModel = createModel(
+          getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16)),
+        );
+        break;
+      case "t":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "7";
+        theModel = createModel(
+          getModelData(new THREE.TorusGeometry(0.6, 0.24, 16, 128)),
+          0,
+        );
+        break;
+      case "d":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "9";
+        theModel = createModel(
+          getModelData(new THREE.DodecahedronGeometry(1, 0)),
+        );
+        break;
+      case "i":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "10";
+        theModel = createModel(
+          getModelData(new THREE.IcosahedronGeometry(1, 0)),
+        );
+        break;
+      case "o":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "11";
+        theModel = createModel(
+          getModelData(new THREE.OctahedronGeometry(1, 0)),
+        );
+        break;
+      case "e":
+      case "E":
+        selector.intrinsic = !selector.intrinsic;
+        document.getElementById("e").checked = !selector.intrinsic;
+        document.getElementById("E").checked = selector.intrinsic;
+        animate();
+        return;
+      case "w":
+        gscale = mscale = 1;
+        document.getElementById("models").value = "12";
+        theModel = createModel(
+          getModelData(new THREE.TetrahedronGeometry(1, 0)),
+        );
+        break;
+      case "p":
+        gscale = mscale = 0.1;
+        document.getElementById("models").value = "6";
+        theModel = createModel(
+          {
+            vertices: teapotModel.vertexPositions,
+            normals: teapotModel.vertexNormals,
+            texCoords: teapotModel.vertexTextureCoords,
+            indices: teapotModel.indices,
+          },
+          null,
+        );
+        break;
+      case "l":
+        selector.lines = !selector.lines;
+        if (!selector.lines) selector.texture = true;
+        document.getElementById("mesh").checked = selector.lines;
+        document.getElementById("texture").checked = selector.texture;
+        break;
+      case "k":
+        selector.texture = !selector.texture;
+        if (!selector.texture) selector.lines = true;
+        document.getElementById("texture").checked = selector.texture;
+        document.getElementById("mesh").checked = selector.lines;
+        break;
+      case "a":
+        selector.axes = !selector.axes;
+        document.getElementById("axes").checked = selector.axes;
+        break;
+      case "ArrowUp":
+        // Up pressed
+        mscale *= zoomfactor;
+        mscale = Math.max(gscale * 0.1, mscale);
+        break;
+      case "ArrowDown":
+        // Down pressed
+        mscale /= zoomfactor;
+        mscale = Math.min(gscale * 3, mscale);
+        break;
+      default:
+        return;
+    }
+    if (selector.paused) draw();
+  };
+})();
 
 /**
  * Returns a new keyboard event.
@@ -707,14 +704,6 @@ function draw() {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   if (theModel === undefined) return;
-
-  // the test here, instead in animate, allows using arcball
-  // during automatic rotation
-  if (!selector.intrinsic) {
-    mat4.copy(modelMatrix, rotator.getViewMatrix());
-  } else {
-    mat4.copy(viewMatrix, rotator.getViewMatrix());
-  }
 
   if (selector.axes) drawAxes();
   if (selector.texture) drawTexture();
@@ -1095,8 +1084,9 @@ function startForReal(image) {
 
   gl.enable(gl.DEPTH_TEST);
 
-  rotator = new SimpleRotator(canvas, draw);
-  handleKeyPress(createEvent("O"));
+  rotator = new SimpleRotator(canvas, animate);
+  rotator.setViewMatrix(modelMatrix);
+  rotator.setViewDistance(0);
 
   selectModel();
 
@@ -1217,10 +1207,10 @@ var animate = (() => {
   const increment = (0.5 * Math.PI) / 180;
   /** @type {Number} */
   var requestID = 0;
-  const axes = {
-    x: [1, 0, 0],
-    y: [0, 1, 0],
-    z: [0, 0, 1],
+  const rotMatrix = {
+    x: mat4.fromXRotation([], increment),
+    y: mat4.fromYRotation([], increment),
+    z: mat4.fromZRotation([], increment),
   };
 
   /**
@@ -1230,24 +1220,25 @@ var animate = (() => {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
    */
   return () => {
+    draw();
     // to avoid speed up
     if (requestID != 0) {
       cancelAnimationFrame(requestID);
       requestID = 0;
     }
     if (!selector.paused) {
-      let rotMatrix = mat4.fromRotation([], increment, axes[axis]);
       if (selector.intrinsic) {
         // intrinsic rotation (multiply on the right)
-        mat4.multiply(modelMatrix, modelMatrix, rotMatrix);
+        mat4.multiply(modelMatrix, modelMatrix, rotMatrix[axis]);
       } else {
         // extrinsic rotation (multiply on the left)
-        mat4.multiply(modelMatrix, rotMatrix, modelMatrix);
-        rotator.setViewMatrix(modelMatrix);
+        mat4.multiply(modelMatrix, rotMatrix[axis], modelMatrix);
       }
-      draw();
+      rotator.setViewMatrix(modelMatrix);
       // request that the browser calls animate() again "as soon as it can"
       requestID = requestAnimationFrame(animate);
+    } else {
+      modelMatrix = rotator.getViewMatrix();
     }
   };
 })();
