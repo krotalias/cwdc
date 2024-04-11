@@ -237,9 +237,12 @@ var eye = [1.77, 3.54, 3.06];
  *      0, 1, 0); // up vector - y axis
  *
  * or using the {@link https://glmatrix.net glmatrix} package
- *                                        eye           look at    view up
- *                                                      (center)
- *    viewMatrix = {@link https://glmatrix.net/docs/module-mat4.html mat4}.lookAt([], eye, [0, 0, 0], [0, 1, 0]);
+ *
+ *    var viewMatrix = {@link https://glmatrix.net/docs/module-mat4.html mat4}.lookAt(
+ *      [],         // mat4 frustum matrix will be written into
+ *      eye,        // view point
+ *      [0, 0, 0],  // look at (center)
+ *      [0, 1, 0]); // view up
  * </pre>
  * @type {Matrix4}
  * @see <a href="/cwdc/downloads/apostila.pdf#page=109">View matrix</a>

@@ -1312,7 +1312,7 @@ Here use aspect ratio 3/2 corresponding to canvas size 900 x 600</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line300">line 300</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line303">line 303</a>
     </li></ul></dd>
     
 
@@ -1861,7 +1861,7 @@ Here use aspect ratio 3/2 corresponding to canvas size 900 x 600</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line270">line 270</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line273">line 273</a>
     </li></ul></dd>
     
 
@@ -1931,9 +1931,12 @@ a point to look at, and a direction "up", for camera orientation:</p>
      0, 1, 0); // up vector - y axis
 
 or using the <a href="https://glmatrix.net">glmatrix</a> package
-                                       eye           look at    view up
-                                                     (center)
-   viewMatrix = <a href="https://glmatrix.net/docs/module-mat4.html">mat4</a>.lookAt([], eye, [0, 0, 0], [0, 1, 0]);
+
+   var viewMatrix = <a href="https://glmatrix.net/docs/module-mat4.html">mat4</a>.lookAt(
+     [],         // mat4 frustum matrix will be written into
+     eye,        // view point
+     [0, 0, 0],  // look at (center)
+     [0, 1, 0]); // view up
 </pre>
 </div>
 
@@ -1982,7 +1985,7 @@ or using the <a href="https://glmatrix.net">glmatrix</a> package
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line252">line 252</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line255">line 255</a>
     </li></ul></dd>
     
 
@@ -2079,7 +2082,7 @@ or using the <a href="https://glmatrix.net">glmatrix</a> package
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1144">line 1144</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1147">line 1147</a>
     </li></ul></dd>
     
 
@@ -2234,7 +2237,7 @@ or using the <a href="https://glmatrix.net">glmatrix</a> package
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line678">line 678</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line681">line 681</a>
     </li></ul></dd>
     
 
@@ -2447,7 +2450,7 @@ for a surface with g handles and b boundaries.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line950">line 950</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line953">line 953</a>
     </li></ul></dd>
     
 
@@ -2783,7 +2786,7 @@ Draw <a href="global.html#drawAxes">axes</a>, <a href="global.html#drawModel">mo
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line709">line 709</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line712">line 712</a>
     </li></ul></dd>
     
 
@@ -2872,7 +2875,7 @@ Uses the colorShader.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line816">line 816</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line819">line 819</a>
     </li></ul></dd>
     
 
@@ -2961,7 +2964,7 @@ Uses the colorShader.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line863">line 863</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line866">line 866</a>
     </li></ul></dd>
     
 
@@ -3057,7 +3060,7 @@ which always define indices for efficiency.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line741">line 741</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line744">line 744</a>
     </li></ul></dd>
     
 
@@ -3194,7 +3197,7 @@ which always define indices for efficiency.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line560">line 560</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line563">line 563</a>
     </li></ul></dd>
     
 
@@ -3378,7 +3381,7 @@ vertices, indices, texture coordinates, and normal vectors.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line380">line 380</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line383">line 383</a>
     </li></ul></dd>
     
 
@@ -3484,7 +3487,7 @@ vertices, indices, texture coordinates, and normal vectors.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line722">line 722</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line725">line 725</a>
     </li></ul></dd>
     
 
@@ -3835,7 +3838,7 @@ Chooses a <a href="global.html#theModel">model</a> and which <a href="global.htm
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line573">line 573</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line576">line 576</a>
     </li></ul></dd>
     
 
@@ -4368,7 +4371,7 @@ Load all data into the buffers (just once) before proceeding.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1023">line 1023</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1026">line 1026</a>
     </li></ul></dd>
     
 
@@ -4697,7 +4700,7 @@ The right course is creating three duplicate vertices per cube corner.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line412">line 412</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line415">line 415</a>
     </li></ul></dd>
     
 
@@ -4890,7 +4893,7 @@ perpendicular to surfaces after a linear transformation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line541">line 541</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line544">line 544</a>
     </li></ul></dd>
     
 
@@ -5007,7 +5010,7 @@ perpendicular to surfaces after a linear transformation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line691">line 691</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line694">line 694</a>
     </li></ul></dd>
     
 
@@ -5144,7 +5147,7 @@ perpendicular to surfaces after a linear transformation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line263">line 263</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line266">line 266</a>
     </li></ul></dd>
     
 
@@ -5316,7 +5319,7 @@ perpendicular to surfaces after a linear transformation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line578">line 578</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line581">line 581</a>
     </li></ul></dd>
     
 
@@ -5404,7 +5407,7 @@ perpendicular to surfaces after a linear transformation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1155">line 1155</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1158">line 1158</a>
     </li></ul></dd>
     
 
@@ -5621,7 +5624,7 @@ vertices, normal vectors, texture coordinates, and indices.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line302">line 302</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line305">line 305</a>
     </li></ul></dd>
     
 
@@ -5702,7 +5705,7 @@ whenever the Mesh button is clicked.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line318">line 318</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line321">line 321</a>
     </li></ul></dd>
     
 
@@ -5791,7 +5794,7 @@ whenever the Rotate button is clicked.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line327">line 327</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line330">line 330</a>
     </li></ul></dd>
     
 
@@ -5880,7 +5883,7 @@ whenever the Arrow Down button is clicked.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line336">line 336</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line339">line 339</a>
     </li></ul></dd>
     
 
@@ -5969,7 +5972,7 @@ whenever the Arrow Up button is clicked.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line347">line 347</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line350">line 350</a>
     </li></ul></dd>
     
 
@@ -6064,7 +6067,7 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> whenever any of th
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1027">line 1027</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1030">line 1030</a>
     </li></ul></dd>
     
 
@@ -6152,7 +6155,7 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> whenever any of th
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line312">line 312</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line315">line 315</a>
     </li></ul></dd>
     
 
@@ -6200,7 +6203,7 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> whenever any of th
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Apr 11 2024 08:13:55 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Apr 11 2024 11:06:21 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
