@@ -58,21 +58,31 @@ import { TeapotGeometry } from "./TeapotGeometry.js";
  */
 
 /**
- * Axes coordinates.
+ * Axis coordinates.
  * @type {Float32Array}
  */
+// prettier-ignore
 var axisVertices = new Float32Array([
-  0.0, 0.0, 0.0, 1.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.5, 0.0, 0.0, 0.0, 0.0,
+  0.0, 0.0, 0.0,
+  1.5, 0.0, 0.0,
+  0.0, 0.0, 0.0,
+  0.0, 1.5, 0.0,
+  0.0, 0.0, 0.0,
   0.0, 0.0, 1.5,
 ]);
 
 /**
- * Axes colors.
+ * Axis colors.
  * @type {Float32Array}
  */
+// prettier-ignore
 var axisColors = new Float32Array([
-  1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
-  1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0,
+  1.0, 0.0, 0.0, 1.0,
+  1.0, 0.0, 0.0, 1.0,
+  0.0, 1.0, 0.0, 1.0,
+  0.0, 1.0, 0.0, 1.0,
+  0.0, 0.0, 1.0, 1.0,
+  0.0, 0.0, 1.0, 1.0,
 ]);
 
 // A few global variables...
@@ -154,12 +164,6 @@ var axis = "x";
 var mscale = 1;
 
 /**
- * Scale applied to a model to make its size adequate for rendering.
- * @type {Number}
- */
-var mscale = 1;
-
-/**
  * Turn the display of the model mesh/texture/axes/animation on/off.
  * @type {Object}
  * @property {Boolean} lines mesh visible/invisible
@@ -179,6 +183,12 @@ var selector = {
  * @type {SimpleRotator}
  */
 var rotator;
+
+/**
+ * Camera position.
+ * @type {Array<Number>}
+ */
+var eye = [1.77, 3.54, 3.06];
 
 /**
  * <p>View matrix.</p>
@@ -215,13 +225,21 @@ var rotator;
  * (transforming the camera's position will give you [0, 0, 0])</li>
  * </ul>
  * <p><a href="https://www.geertarien.com/blog/2017/07/30/breakdown-of-the-lookAt-function-in-OpenGL/">LookAt</a>
- * functions from math <a href="https://dens.website/tutorials/webgl/gl-matrix">libraries</a> are just a convenience, indeed:</p>
+ * functions from math <a href="https://dens.website/tutorials/webgl/gl-matrix">libraries</a> are just a convenience, indeed,
+ * and requires a view point,
+ * a point to look at, and a direction "up", for camera orientation:</p>
+ * <p>The approximate {@link eye view point} here is: <span style="color:red">[1.77, 3.54, 3.06]</span></p>
+ *
  * <pre>
- *    var viewMatrix = new Matrix4().setLookAt(<span style="color:red">1.77, 3.54, 3.06,</span> 0, 0, 0, 0, 1, 0);
- *            or
+ *    var viewMatrix = new {@link Matrix4 Matrix4()}.setLookAt(
+ *      ...eye,   // view point
+ *      0, 0, 0,  // at - looking at the origin
+ *      0, 1, 0); // up vector - y axis
+ *
+ * or using the {@link https://glmatrix.net glmatrix} package
  *                                        eye           look at    view up
  *                                                      (center)
- *    viewMatrix = mat4.lookAt([], [<span style="color:red">1.77, 3.54, 3.06</span>], [0, 0, 0], [0, 1, 0]);
+ *    viewMatrix = {@link https://glmatrix.net/docs/module-mat4.html mat4}.lookAt([], eye, [0, 0, 0], [0, 1, 0]);
  * </pre>
  * @type {Matrix4}
  * @see <a href="/cwdc/downloads/apostila.pdf#page=109">View matrix</a>
@@ -235,25 +253,6 @@ var viewMatrix = new Matrix4()
   .translate(0, 0, -5)
   .rotate(45, 1, 0, 0)
   .rotate(-30, 0, 1, 0);
-
-/**
- * Camera position.
- * @type {Array<Number>}
- */
-var eye = [1.77, 3.54, 3.06];
-
-/**
- * Alternatively use the LookAt function, specifying the view (eye) point,
- * a point at which to look, and a direction for "up".
- * Approximate view point for above is (1.77, 3.54, 3.06)
- * @type {Matrix4}
- */
-/*
-var viewMatrix = new Matrix4().setLookAt(
-    ...eye,   // eye
-    0, 0, 0,  // at - looking at the origin
-    0, 1, 0); // up vector - y axis
-*/
 
 /**
  * Returns the magnitude (length) of a vector.
@@ -271,28 +270,34 @@ var vecLen = (v) =>
 var viewDistance = vecLen(eye);
 
 /**
- * For projection we can use an orthographic projection, specifying
- * the clipping volume explicitly.
- * @type {Matrix4}
- */
-//var projection = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6);
-
-/**
- * Or, use a perspective projection specified with a
+ * <p>For projection, we can either use:
+ * <ul>
+ * <li>An orthographic projection, specifying
+ * the clipping volume explicitly:
+ *  <ul>
+ *    <li>var <b>projection</b> = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6);</li>
+ *  </ul>
+ * </li>
+ *
+ * <li>Or the same perspective projection, using the Frustum function with:
+ *  <ul>
+ *    <li>a 30 degree field of view, and a near plane at 4,<br>
+ *    which corresponds to a view plane height of: 4 * tan(15) = 1.07</li>
+ *    <li>var <b>projection</b> = new Matrix4().setFrustum(-1.5 * 1.07, 1.5 * 1.07, -1.07, 1.07, 4, 6);</li>
+ *  </ul>
+ * </li>
+ *
+ * <li>Or a perspective projection specified with a
  * field of view, an aspect ratio, and distance to near and far
- * clipping planes.
- * Here use aspect ratio 3/2 corresponding to canvas size 900 x 600
+ * clipping planes:
+ *  <ul>
+ *    <li>var <b>projection</b> = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);</li>
+ *  </ul>
+ * </ul>
+ * Here use aspect ratio 3/2 corresponding to canvas size 900 x 600</p>
  * @type {Matrix4}
  */
 var projection = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);
-
-/**
- * Or, here is the same perspective projection, using the Frustum function
- * a 30 degree field of view with near plane at 4 corresponds
- * view plane height of  4 * tan(15) = 1.07
- * @type {Matrix4}
- */
-// var projection = new Matrix4().setFrustum(-1.5 * 1.07, 1.5 * 1.07, -1.07, 1.07, 4, 6);
 
 /**
  * An object containing raw data for
@@ -559,96 +564,110 @@ function getChar(event) {
 }
 
 /**
- * Handler for key press events for choosing
- * a model and which axis to rotate around.
- * @param {KeyboardEvent} event key pressed.
+ * <p>Closure for keydown events.</p>
+ * Chooses a {@link theModel model} and which {@link axis} to rotate around.<br>
+ * @param {KeyboardEvent} event keyboard event.
+ * @function
+ * @return {key_event} callback for handling a keyboard event.
  */
-function handleKeyPress(event) {
-  var ch = getChar(event);
+const handleKeyPress = ((event) => {
   let zoomfactor = 0.7;
-  switch (ch) {
-    case " ":
-      selector.paused = !selector.paused;
-      animate();
-      break;
-    case "x":
-    case "y":
-    case "z":
-      axis = ch;
-      break;
-    case "o":
-      modelMatrix.setIdentity();
-      rotator.setViewMatrix(modelMatrix.elements);
-      mscale = 1;
-      axis = "x";
-      break;
-    case "l":
-      selector.lines = !selector.lines;
-      if (!selector.lines) selector.texture = true;
-      break;
-    case "k":
-      selector.texture = !selector.texture;
-      if (!selector.texture) selector.lines = true;
-      break;
-    case "a":
-      selector.axes = !selector.axes;
-      break;
-    case "v":
-      // cube
-      mscale = 1;
-      document.getElementById("models").value = "2";
-      theModel = createModel(makeCube());
-      //theModel = createModel(getModelData(new THREE.BoxGeometry(1, 1, 1)));
-      break;
-    case "s":
-      // sphere with more faces
-      mscale = 1;
-      document.getElementById("models").value = "5";
-      theModel = createModel(getModelData(new THREE.SphereGeometry(1, 48, 24)));
-      break;
-    case "T":
-      // torus knot
-      mscale = 1;
-      document.getElementById("models").value = "8";
-      theModel = createModel(
-        getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16)),
-      );
-      break;
-    case "d":
-      // dodecahedron
-      mscale = 1;
-      document.getElementById("models").value = "9";
-      theModel = createModel(
-        getModelData(new THREE.DodecahedronGeometry(1, 0)),
-      );
-      break;
-    case "p":
-      // teapot - this is NOT a manifold model - it is a model with borders!
-      mscale = 0.8;
-      document.getElementById("models").value = "6";
-      theModel = createModel(
-        getModelData(new TeapotGeometry(1, 10, true, true, true, true, true)),
-        null,
-      );
-      break;
-    case "ArrowUp":
-    case ">":
-      // Up pressed
-      mscale *= zoomfactor;
-      mscale = Math.max(0.1, mscale);
-      break;
-    case "ArrowDown":
-    case "<":
-      // Down pressed
-      mscale /= zoomfactor;
-      mscale = Math.min(3, mscale);
-      break;
+  let gscale = 1;
+  let models = document.getElementById("models");
 
-    default:
-      return;
-  }
-  if (selector.paused) draw();
-}
+  /**
+   * <p>Handler for keydown events.</p>
+   * @param {KeyboardEvent} event keyboard event.
+   * @callback key_event callback to handle a key pressed.
+   */
+  return (event) => {
+    let ch = getChar(event);
+    switch (ch) {
+      case " ":
+        selector.paused = !selector.paused;
+        animate();
+        break;
+      case "x":
+      case "y":
+      case "z":
+        axis = ch;
+        break;
+      case "o":
+        modelMatrix.setIdentity();
+        rotator.setViewMatrix(modelMatrix.elements);
+        mscale = gscale;
+        axis = "x";
+        break;
+      case "l":
+        selector.lines = !selector.lines;
+        if (!selector.lines) selector.texture = true;
+        break;
+      case "k":
+        selector.texture = !selector.texture;
+        if (!selector.texture) selector.lines = true;
+        break;
+      case "a":
+        selector.axes = !selector.axes;
+        break;
+      case "v":
+        // cube
+        gscale = mscale = 1;
+        models.value = "2";
+        theModel = createModel(makeCube());
+        //theModel = createModel(getModelData(new THREE.BoxGeometry(1, 1, 1)));
+        break;
+      case "s":
+        // sphere with more faces
+        gscale = mscale = 1;
+        models.value = "5";
+        theModel = createModel(
+          getModelData(new THREE.SphereGeometry(1, 48, 24)),
+        );
+        break;
+      case "T":
+        // torus knot
+        gscale = mscale = 1;
+        models.value = "8";
+        theModel = createModel(
+          getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16)),
+        );
+        break;
+      case "d":
+        // dodecahedron
+        gscale = mscale = 1;
+        models.value = "9";
+        theModel = createModel(
+          getModelData(new THREE.DodecahedronGeometry(1, 0)),
+        );
+        break;
+      case "p":
+        // teapot - this is NOT a manifold model - it is a model with borders!
+        gscale = mscale = 0.8;
+        models.value = "6";
+        theModel = createModel(
+          getModelData(new TeapotGeometry(1, 10, true, true, true, true, true)),
+          null,
+        );
+        break;
+      case "ArrowUp":
+      case ">":
+        // Up pressed
+        mscale *= zoomfactor;
+        mscale = Math.max(gscale * 0.1, mscale);
+        break;
+      case "ArrowDown":
+      case "<":
+        // Down pressed
+        mscale /= zoomfactor;
+        mscale = Math.min(gscale * 3, mscale);
+        break;
+
+      default:
+        return;
+    }
+    if (selector.paused) draw();
+  };
+})();
 
 /**
  * Returns a new keyboard event.
