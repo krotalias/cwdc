@@ -25,8 +25,23 @@
 
 "use strict";
 
+/**
+ * 2 Dimensional Vector.
+ * @type {glMatrix.vec2}
+ * @see {@link https://glmatrix.net/docs/module-vec2.html glMatrix.vec2}
+ */
 const vec2 = glMatrix.vec2;
+/**
+ * 4x4 Matrix
+ * @type {glMatrix.mat4}
+ * @see {@link https://glmatrix.net/docs/module-mat4.html glMatrix.mat4}
+ */
 const mat4 = glMatrix.mat4;
+/**
+ * 2x2 Matrix
+ * @type {glMatrix.mat2}
+ * @see {@link https://glmatrix.net/docs/module-mat2.html glMatrix.mat2}
+ */
 const mat2 = glMatrix.mat2;
 
 /**
