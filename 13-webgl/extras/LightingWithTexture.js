@@ -37,7 +37,18 @@
 
 "use strict";
 
+/**
+ * 4x4 Matrix
+ * @type {glMatrix.mat4}
+ * @see {@link https://glmatrix.net/docs/module-mat4.html glMatrix.mat4}
+ */
 const mat4 = glMatrix.mat4;
+
+/**
+ * 3x3 Matrix
+ * @type {glMatrix.mat3}
+ * @see {@link https://glmatrix.net/docs/module-mat3.html glMatrix.mat3}
+ */
 const mat3 = glMatrix.mat3;
 
 /**
