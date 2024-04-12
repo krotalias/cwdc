@@ -136,14 +136,14 @@ async function mainEntrance() {
    * @return {Promise<Array<String>>}
    * @global
    * @function
-   * @see <a href="/cwdc/6-php/readFiles.php">files</a>
+   * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
    * @see https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript
    * @see https://api.jquery.com/jquery.ajax/
    */
   let readFileNames = new Promise((resolve, reject) => {
     $.ajax({
       type: "GET",
-      url: "/cwdc/6-php/readFiles.php",
+      url: "/cwdc/6-php/readFiles_.php",
       data: {
         dir: "/cwdc/13-webgl/sierpinski3/models",
       },
