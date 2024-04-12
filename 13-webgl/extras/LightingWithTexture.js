@@ -323,10 +323,11 @@ var axis = "x";
 
 /**
  * Whether uv spherical coordinates should be "fixed",
- * when converted from cartesian.
+ * when converted from cartesian (seamless).
  * @type {Boolean}
+ * @see https://forum.unity.com/threads/what-is-this-mipmap-artifact.657052/
  */
-var fixuv = false;
+var fixuv = document.querySelector("#fixuv").checked;
 
 /**
  * Toggle back face culling on/off.
