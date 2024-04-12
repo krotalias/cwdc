@@ -197,23 +197,23 @@ window.addEventListener("load", (event) => {
     console.log(`Safari v${version}`);
     if (version < "16.4") {
       oldSafari = true;
-      import(
-        "https://unpkg.com/three@0.163.0/build/three.module.js?module"
-      ).then((module) => {
-        THREE = module;
-        import(
-          "https://unpkg.com/three@0.163.0/examples/jsm/geometries/TextGeometry.js?module"
-        ).then((module) => {
-          ({ TextGeometry } = module);
+      import("/cwdc/13-webgl/lib/three.r163/build/three.module.js").then(
+        (module) => {
+          THREE = module;
           import(
-            "https://unpkg.com/three@0.163.0/examples/jsm/loaders/FontLoader.js?module"
+            "/cwdc/13-webgl/lib/three.r163/examples/jsm/geometries/TextGeometry.js"
           ).then((module) => {
-            ({ FontLoader } = module);
-            mainEntrance();
-            return;
+            ({ TextGeometry } = module);
+            import(
+              "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/FontLoader.js"
+            ).then((module) => {
+              ({ FontLoader } = module);
+              mainEntrance();
+              return;
+            });
           });
-        });
-      });
+        },
+      );
     }
   }
 

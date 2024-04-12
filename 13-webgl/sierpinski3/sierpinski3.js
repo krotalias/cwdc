@@ -143,7 +143,7 @@ async function mainEntrance() {
   let readFileNames = new Promise((resolve, reject) => {
     $.ajax({
       type: "GET",
-      url: "/cwdc/6-php/readFiles_.php",
+      url: "/cwdc/6-php/readFiles.php",
       data: {
         dir: "/cwdc/13-webgl/sierpinski3/models",
       },
@@ -244,7 +244,7 @@ async function mainEntrance() {
     antialias: true,
   });
   renderer.shadowMap.enabled = true;
-  renderer.useLegacyLights = true;
+  //renderer.useLegacyLights = true;
 
   /**
    * Camera that uses perspective projection.
@@ -588,18 +588,18 @@ window.addEventListener("load", (event) => {
     console.log(`Safari v${version}`);
     if (version < "16.4") {
       oldSafari = true;
-      import(
-        "https://unpkg.com/three@latest/build/three.module.js?module"
-      ).then((module) => {
-        THREE = module;
-        import(
-          "https://unpkg.com/three@latest/examples/jsm/controls/OrbitControls.js?module"
-        ).then((module) => {
-          ({ OrbitControls } = module);
-          mainEntrance();
-          return;
-        });
-      });
+      import("/cwdc/13-webgl/lib/three.r163/build/three.module.js").then(
+        (module) => {
+          THREE = module;
+          import(
+            "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/OrbitControls.js"
+          ).then((module) => {
+            ({ OrbitControls } = module);
+            mainEntrance();
+            return;
+          });
+        },
+      );
     }
   }
 
