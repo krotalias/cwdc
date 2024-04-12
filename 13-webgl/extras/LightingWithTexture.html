@@ -295,7 +295,9 @@ when using mipmap: https://forum.unity.com/threads/what-is-this-mipmap-artifact.
                 theta += 0.5;
                 if (u_fix) {
                     float theta2 = fract(theta+0.5)-0.5;
-                    if (fwidth(theta) > fwidth(theta2)) theta = theta2;
+                    if (fwidth(theta) >= fwidth(theta2)-0.001) {
+                        theta = theta2;
+                    }
                 }
                 spherical[0] = theta;
                 spherical[1] = phi;
