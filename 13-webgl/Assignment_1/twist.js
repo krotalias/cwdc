@@ -16,9 +16,9 @@
  * @since 30/01/2023
  * @see <a href="/cwdc/13-webgl/Assignment_1/twist.html">link</a>
  * @see <a href="/cwdc/13-webgl/Assignment_1/twist.js">source</a>
- * @see http://paulbourke.net/fractals/polyhedral/
- * @see https://larryriddle.agnesscott.org/ifs/siertri/siertri.htm
- * @see http://codepen.io/promac/pen/yNxMWz
+ * @see {@link http://paulbourke.net/fractals/polyhedral/ Sierpinski Gasket}
+ * @see {@link https://larryriddle.agnesscott.org/ifs/siertri/siertri.htm Classic Iterated Function Systems}
+ * @see {@link http://codepen.io/promac/pen/yNxMWz codepen}
  * @see <img src="../twist.png">
  * @see <img src="../sierpinski.gif">
  */
@@ -152,10 +152,10 @@ var centroid;
 function infoBtn() {
   let demo = document.querySelector("#demo");
   let url = {
-    api: "http://ip-api.com/json/?fields=query",
+    api: "http://ip-api.com/json/?fields=query", // no https
     ipify: "https://api.ipify.org?format=json",
     seeip: "https://api.seeip.org/jsonip?",
-    myip: "https://api.myip.com",
+    myip: "https://api.myip.com", // cors (cross-origin resource sharing)
   };
   let size = Object.keys(url).length - 1;
   let randomKey = Object.keys(url)[~~(Math.random() * size)];
@@ -165,16 +165,28 @@ function infoBtn() {
       (json) =>
         (demo.innerHTML += `Your IP address is (${randomKey}): ${
           json[Object.keys(json).at(0)]
-        } <br />`)
+        } <br />`),
     );
 
   let btn = document.querySelector("button");
-  btn.onclick = () => {
+
+  /**
+   * Appends an event listener for button events whose type
+   * attribute value is click.<br>
+   * Displays the Date and WebGL/GLSL versions,
+   * whenever the "Date/Time" button is clicked.
+   * @param {MouseEvent} event a mouse event.
+   * @event click
+   */
+  btn.addEventListener("click", (event) => {
     demo.innerHTML += `${Date()}<br />${gl.getParameter(
-      gl.SHADING_LANGUAGE_VERSION
+      gl.SHADING_LANGUAGE_VERSION,
     )}<br />${gl.getParameter(gl.VERSION)}<br />`;
     btn.disabled = true;
-  };
+    event.preventDefault();
+    // avoid double tap for zoom, after the button is clicked
+    btn.addEventListener("touchstart", (event) => event.preventDefault());
+  });
 }
 
 /**
@@ -193,7 +205,13 @@ function init() {
   // Get the input field
   var input = document.getElementById("subdiv");
 
-  // Execute a function when the user presses a key on the keyboard
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.<br>
+   * The {@link clickCallBack callback} argument sets the callback that will be invoked
+   * when the event is dispatched.</p>
+   *
+   * @event keydown
+   */
   input.addEventListener("keydown", function (event) {
     // If the user presses the "Enter" key on the keyboard
     if (event.key === "Enter") {
@@ -269,7 +287,7 @@ function setUpShaders() {
   gl.viewport(0, 0, canvas.width, canvas.height);
 
   let uColor = getComputedStyle(document.documentElement).getPropertyValue(
-    "--bgcolor"
+    "--bgcolor",
   );
 
   uColor = hexToRgb(uColor);
@@ -283,7 +301,7 @@ function setUpShaders() {
   gl.uniformMatrix4fv(
     gl.getUniformLocation(program, "Projection"),
     false,
-    projection
+    projection,
   );
 
   theta = gl.getUniformLocation(program, "theta");
@@ -293,6 +311,14 @@ function setUpShaders() {
 
   // Initialize event handlers
 
+  /**
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link clickCallBack callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event change - executed when the slider range is changed.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   */
   document.getElementById("slider").onchange = function (event) {
     document.getElementById("subdiv").value = event.target.value.toString();
     clickCallBack();
@@ -452,7 +478,7 @@ function rotateAndTwist(theta, center, twist) {
 }
 
 /**
- * What to do when the left mouse button is clicked.
+ * What to do when the left mouse or the enter button is clicked.
  */
 function clickCallBack() {
   fill = document.getElementById("fill").checked;
@@ -469,7 +495,7 @@ function clickCallBack() {
     ndiv,
     document.getElementById("twist").checked,
     document.getElementById("gpu").checked,
-    ang
+    ang,
   );
 }
 
@@ -558,7 +584,7 @@ var animation = (function () {
         gl.bufferData(
           gl.ARRAY_BUFFER,
           flattenArray(res.triangles),
-          gl.STATIC_DRAW
+          gl.STATIC_DRAW,
         );
         gl.bindBuffer(gl.ARRAY_BUFFER, bufferLineId);
         gl.bufferData(gl.ARRAY_BUFFER, flattenArray(res.edges), gl.STATIC_DRAW);
@@ -589,3 +615,11 @@ var animation = (function () {
     }, delay);
   };
 })();
+
+/**
+ * <p>Loads the {@link init aplication}.</p>
+ * @param {Event} event load event.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @event load
+ */
+window.addEventListener("load", (event) => init());

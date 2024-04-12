@@ -1,7 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0,  maximum-scale=1"
+        />
         <title>2D Sierpinski Gasket</title>
         <style>
             :root {
@@ -14,28 +18,30 @@
                 width: fit-content;
                 margin: 0 auto;
                 border: solid brown 3px;
-                padding: 20px;
-                font-size: 200%;
+                padding: 10px;
+                font-size: 80%;
             }
             canvas {
                 display: block;
                 margin: 0 auto;
             }
             button {
-                font-size: 80%;
+                font-size: 100%;
                 margin: 0 auto;
                 display: block;
-                padding: 0 10px;
+                padding: 10px;
                 color: goldenrod;
-                background-color: white;
+                border-radius: 10%;
+                background-color: brown;
+                touch-action: manipulation;
             }
             label {
-                font-size: 100%;
-                line-height: 200%;
-                margin-right: 40px;
+                font-size: 80%;
+                line-height: 100%;
+                margin-right: 20px;
             }
             input[type="number"] {
-                font-size: 80%;
+                font-size: 60%;
             }
             input[type="button"] {
                 color: goldenrod;
@@ -44,14 +50,14 @@
         </style>
     </head>
 
-    <body onload="init()">
-        <canvas id="gl-canvas" width="512" height="512">
+    <body>
+        <canvas id="gl-canvas" width="380" height="380">
             Oops ... your browser doesn't support the HTML5 canvas element
         </canvas>
 
         <div id="interface">
             <p>
-                <label id="lblslider" for="slider">Subdivisions: 5</label>
+                <label id="lblslider" for="slider">Subdivisions</label>
                 <span id="ang" style="margin-left: 50px">Rotation Angle:</span>
                 <br />
                 <input
@@ -62,12 +68,12 @@
                     max="7"
                     step="1"
                     value="5"
-                    style="width: 18em"
+                    style="width: 8em"
                 />
-                <span id="fps" style="margin-left: 88px">FPS:</span>
+                <span id="fps" style="margin-left: 40px">FPS:</span>
             </p>
 
-            <label for="btnDiv" style="margin-right: 75px">
+            <label for="subdiv" style="margin-right: 65px">
                 Recursion Level
             </label>
             <input
@@ -79,7 +85,7 @@
                 maxlength="1"
                 oninput="this.value = Math.max(Math.min(this.value.replace(/[^0-9]/g,''),7),0)"
                 value="5"
-                style="width: 40px"
+                style="width: 30px"
                 type="number"
             />
             <input
