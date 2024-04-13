@@ -25,16 +25,30 @@
  * @see <a href="/cwdc/13-webgl/extras/skybox-and-env-map.js">source</a>
  * @see <a href="/cwdc/13-webgl/lib/simple-rotator.js">simple-rotator</a>
  * @see <a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">basic-objects-IFS.js</a>
- * @see https://math.hws.edu/eck/cs424/notes2013/19_GLSL.html
- * @see https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/
- * @see https://cdnjs.com/libraries/gl-matrix/2.2.0/
+ * @see {@link https://math.hws.edu/eck/cs424/notes2013/19_GLSL.html The Shader Language for WebGL}
+ * @see {@link https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/ hws code}
  * @see <a href="https://glmatrix.net/docs/index.html">glmatrix</a>
+ *       {@link https://cdnjs.com/libraries/gl-matrix/3.4.0/ (CDN)}
  * @see <iframe width="512" height="512" src="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=0"></iframe>
  */
 
 "use strict";
 
 import { mat3, mat4 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
+
+/**
+ * 4x4 Matrix
+ * @name mat4
+ * @type {glMatrix.mat4}
+ * @see {@link https://glmatrix.net/docs/module-mat4.html glMatrix.mat4}
+ */
+
+/**
+ * 3x3 Matrix
+ * @name mat3
+ * @type {glMatrix.mat3}
+ * @see {@link https://glmatrix.net/docs/module-mat3.html glMatrix.mat3}
+ */
 
 /**
  * The webgl context.
@@ -89,17 +103,20 @@ var normalMatrix = mat3.create();
 var invVT = mat3.create();
 
 /**
- * The cubemap texture.
+ * The cubemap texture object.
+ * @type {WebGLTexture}
  */
 var texID;
 
 /**
- * The texture directory.
+ * File names in the texture directory.
+ * @type {Array<String>}
  */
 var texDir;
 
 /**
  * The texture index.
+ * @type {Number}
  */
 var texCnt = 0;
 
@@ -264,8 +281,8 @@ function _loadTextureCube() {
 /**
  * Create a model with three buffers and a render function.
  *
- * @param {Object.<{vertexPositions: Float32Array, vertexNormals: Float32Array, vertexTextureCoords: Float32Array, indices: Uint16Array}>} modelData
- * @property {object} model
+ * @param {modelData} modelData raw model data.
+ * @property {Object} model
  * @property {WebGLBuffer} model.coordsBuffer - coordinate buffer.
  * @property {WebGLBuffer} model.normalBuffer - normal buffer.
  * @property {WebGLBuffer} model.indexBuffer - index buffer.
@@ -305,8 +322,8 @@ function createModel(modelData) {
 /**
  * Create a skybox model with two buffers and a render function.
  *
- * @param {Object.<{vertexPositions: Float32Array, vertexNormals: Float32Array, vertexTextureCoords: Float32Array, indices: Uint16Array}>} modelData
- * @property {object} model
+ * @param {modelData} modelData raw model data.
+ * @property {Object} model
  * @property {WebGLBuffer} model.coordsBuffer - coordinate buffer.
  * @property {WebGLBuffer} model.indexBuffer - index buffer.
  * @property {Number} model.count - number of indices.
