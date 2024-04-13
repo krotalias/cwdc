@@ -17,6 +17,8 @@
  *
  * <p>The teapot is rotated by an additional modeling transformation.</p>
  *
+ * @author Paulo Roma
+ * @author {@link https://math.hws.edu/eck/ David J. Eck}
  * @since 01/01/2019
  * @see <a href="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=0">teapot</a>
  * @see <a href="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=1">cube</a>
