@@ -20,15 +20,16 @@
  * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=LancellottiChapel">LancellottiChapel</a>
  * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=colosseum">colosseum</a>
  * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=park">park</a>
+ * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=pisa">pisa</a>
  * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=skybox">skybox</a>
  * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.js">source</a>
  * @see <a href="/cwdc/13-webgl/lib/simple-rotator.js">simple-rotator</a>
  * @see <a href="/cwdc/13-webgl/lib/tetrahedron-esm.js">tetrahedron-esm</a>
  * @see <a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">basic-objects-IFS.js</a>
  * @see <a href="https://glmatrix.net/docs/index.html">glmatrix</a>
- * @see https://www.youtube.com/watch?v=8sVvxeKI9Pk
- * @see http://paulbourke.net/panorama/cubemaps/
- * @see https://www.pngwing.com/en/search?q=cube+map
+ * @see {@link https://www.youtube.com/watch?v=8sVvxeKI9Pk  Cubemaps & Skyboxes}
+ * @see {@link http://paulbourke.net/panorama/cubemaps/ Converting to/from cubemaps}
+ * @see {@link https://www.pngwing.com/en/search?q=cube+map Cube map png images}
  * @see <iframe width="600" height="600" src="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=LancellottiChapel"></iframe>
  */
 
@@ -37,6 +38,20 @@
 import { mat3, mat4 } from "https://unpkg.com/gl-matrix@3.4.3/esm/index.js";
 
 import { polyhedron } from "/cwdc/13-webgl/lib/tetrahedron-esm.js";
+
+/**
+ * 4x4 Matrix
+ * @name mat4
+ * @type {glMatrix.mat4}
+ * @see {@link https://glmatrix.net/docs/module-mat4.html glMatrix.mat4}
+ */
+
+/**
+ * 3x3 Matrix
+ * @name mat3
+ * @type {glMatrix.mat3}
+ * @see {@link https://glmatrix.net/docs/module-mat3.html glMatrix.mat3}
+ */
 
 /**
  * The webgl context.
@@ -140,7 +155,7 @@ function configureTexture(targets, images) {
 }
 
 /**
- * <p>Loads the texture image array when the page is loaded.</p>
+ * <p>Loads the {@link loadTexture texture image array} when the page is loaded.</p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
  * @event load
@@ -445,12 +460,13 @@ function draw() {
 /**
  * A closure to render the animation and set {@link requestId}.
  * @return {loop}
+ * @function
  */
 const animation = (() => {
   let requestId = 0;
 
   /**
-   * Animation loop.
+   * Animation {@link draw loop}.
    * @callback loop
    */
   return () => {
@@ -468,8 +484,8 @@ const animation = (() => {
 /**
  * Create a model with three buffers and a render function.
  *
- * @param {Object.<{vertexPositions: Float32Array, vertexNormals: Float32Array, vertexTextureCoords: Float32Array, indices: Uint16Array}>} modelData
- * @property {object} model
+ * @param {modelData} modelData raw model data.
+ * @property {Object} model
  * @property {WebGLBuffer} model.coordsBuffer - coordinate buffer.
  * @property {WebGLBuffer} model.normalBuffer - normal buffer.
  * @property {WebGLBuffer} model.indexBuffer - index buffer.

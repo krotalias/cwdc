@@ -152,7 +152,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line113">line 113</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line115">line 115</a>
     </li></ul></dd>
     
 
@@ -256,7 +256,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line123">line 123</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -328,7 +328,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line134">line 134</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line136">line 136</a>
     </li></ul></dd>
     
 
@@ -400,7 +400,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line146">line 146</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line148">line 148</a>
     </li></ul></dd>
     
 
@@ -472,7 +472,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line140">line 140</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line142">line 142</a>
     </li></ul></dd>
     
 
@@ -544,7 +544,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line152">line 152</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line154">line 154</a>
     </li></ul></dd>
     
 
@@ -616,7 +616,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line158">line 158</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line160">line 160</a>
     </li></ul></dd>
     
 
@@ -814,7 +814,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line202">line 202</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line204">line 204</a>
     </li></ul></dd>
     
 
@@ -839,6 +839,269 @@ a polyhedron.</div>
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="dodecahedron"><span class="type-signature"></span>dodecahedron<span class="signature">(poly)</span><span class="type-signature"> &rarr; {Object.&lt;{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array, indices:Uint16Array}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Subdivides an initial dodecahedron.</p>
+<p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array">Uint16Array</a></p>
+Generates:
+<ul>
+ <li> 36 * 4<sup>n</sup> triangles</li>
+ <li> 36 * 3 * 4<sup>n</sup> vertices</li>
+ <li> maximum level = 4 (36864 triangles)</li>
+ <li> 36 * 3 * 4**5 = 110592 vertices → buffer overflow</li>
+</ul>
+Note: three.js level of detail generates much less vertices than the values above:
+<ul>
+ <li> 36(n² + 2n + 1) </li>
+ <li> n = 0: 36 triangles, 20 vertices</li>
+ <li> n = 1: 144 triangles, 74 vertices</li>
+ <li> n = 2: 324 triangles, 164 vertices</li>
+ <li> n = 3: 576 triangles, 290 vertices</li>
+ <li> n = 4: 900 triangles, 452 vertices</li>
+ <li> n = 5: 1296 triangles, 650 vertices</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">dodecahedron.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.radius</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">radius of the dodecahedron.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    limit.dod
+                
+                </td>
+            
+
+            <td class="description last">number of subdivisions.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line327">line 327</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object.&lt;{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array, indices:Uint16Array}></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -960,7 +1223,7 @@ when the 0 coordinate is stitched together with the 1 coordinate.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line314">line 314</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line377">line 377</a>
     </li></ul></dd>
     
 
@@ -992,6 +1255,270 @@ when the 0 coordinate is stitched together with the 1 coordinate.
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="icosahedron"><span class="type-signature"></span>icosahedron<span class="signature">(poly)</span><span class="type-signature"> &rarr; {Object.&lt;{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array, indices:Uint16Array}>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Subdivides an initial
+<a href="https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry">icosahedron</a>.</p>
+<p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array">Uint16Array</a></p>
+Generates:
+<ul>
+ <li> 20 * 4<sup>n</sup> triangles</li>
+ <li> 20 * 3 * 4<sup>n</sup> vertices</li>
+ <li> maximum level = 5 (20480 triangles)</li>
+ <li> 20 * 3 * 4**6 = 245760 vertices → buffer overflow</li>
+</ul>
+Note: three.js level of detail generates much less vertices than the values above:
+<ul>
+ <li> 20(n² + 2n + 1) </li>
+ <li> n = 0: 20 triangles, 12 vertices</li>s
+ <li> n = 1: 80 triangles, 42 vertices</li>
+ <li> n = 2: 180 triangles, 92 vertices</li>
+ <li> n = 3: 320 triangles, 162 vertices</li>
+ <li> n = 4: 500 triangles, 252 vertices</li>
+ <li> n = 5: 720 triangles, 362 vertices</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">icosahedron.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.radius</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">radius of the icosahedron.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    limit.ico
+                
+                </td>
+            
+
+            <td class="description last">number of subdivisions.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line358">line 358</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object.&lt;{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array, indices:Uint16Array}></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1202,7 +1729,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line276">line 276</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line278">line 278</a>
     </li></ul></dd>
     
 
@@ -1308,7 +1835,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line129">line 129</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -1543,7 +2070,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line241">line 241</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line243">line 243</a>
     </li></ul></dd>
     
 
@@ -1744,7 +2271,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line167">line 167</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line169">line 169</a>
     </li></ul></dd>
     
 
@@ -1790,13 +2317,13 @@ Generates:
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-lib_tetrahedron-esm.html">lib/tetrahedron-esm</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="module-lib_tetrahedron-esm.polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#arcBall">arcBall</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeMap">cubeMap</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadTexture">loadTexture</a></li><li><a href="global.html#model">model</a></li><li><a href="global.html#modelViewMatrix">modelViewMatrix</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#program">program</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotAxis">rotAxis</a></li><li><a href="global.html#rotating">rotating</a></li><li><a href="global.html#rotationMatrixToEulerAngles">rotationMatrixToEulerAngles</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-lib_tetrahedron-esm.html">lib/tetrahedron-esm</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="module-lib_tetrahedron-esm.polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#arcBall">arcBall</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeMap">cubeMap</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadTexture">loadTexture</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#model">model</a></li><li><a href="global.html#modelViewMatrix">modelViewMatrix</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#program">program</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotAxis">rotAxis</a></li><li><a href="global.html#rotating">rotating</a></li><li><a href="global.html#rotationMatrixToEulerAngles">rotationMatrixToEulerAngles</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Mar 03 2024 02:45:26 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Apr 13 2024 10:42:22 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
