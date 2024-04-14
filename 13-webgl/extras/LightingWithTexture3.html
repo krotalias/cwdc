@@ -2,11 +2,6 @@
 Lighting combined with texture mapping.
 See the fragment shader code "modulate" (1), (2), (3)
 for some options for using the sampled texture value.
-
-I had to use glsl 3.0, so I can call fwidth to remove the artifact created
-when using mipmap:
-    https://forum.unity.com/threads/what-is-this-mipmap-artifact.657052/
-    https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf
 -->
 
 <!doctype html>
@@ -146,14 +141,8 @@ when using mipmap:
                     <label for="extrinsic">extrinsic</label>
                 </div>
 
-                <input
-                    type="checkbox"
-                    id="fixuv"
-                    name="fixuv"
-                    checked
-                    value="fixuv"
-                />
-                <label for="fixuv">Fix uv (seamless)</label><br />
+                <input type="checkbox" id="fixuv" name="fixuv" value="fixuv" />
+                <label for="fixuv">Fix uv</label><br />
                 <input
                     type="checkbox"
                     id="culling"
@@ -228,9 +217,8 @@ when using mipmap:
             </ul>
         </details>
 
-        <!-- prettier-ignore -->
-        <script id="vertexLightingShader" type="x-shader/x-vertex">#version 300 es
-            precision highp float;
+        <script id="vertexLightingShader" type="x-shader/x-vertex">
+            precision mediump float;
 
             uniform mat4 model;
             uniform mat4 view;
@@ -238,130 +226,118 @@ when using mipmap:
             uniform mat3 normalMatrix;
             uniform vec4 lightPosition;
 
-            in vec4 a_Position;
-            in vec3 a_Normal;
-            in vec2 a_TexCoord;
+            attribute vec4 a_Position;
+            attribute vec3 a_Normal;
+            attribute vec2 a_TexCoord;
 
-            out vec3 fL;
-            out vec3 fN;
-            out vec3 fV;
-            out vec2 fTexCoord;
-            out vec2 fTexCoord2;
-            void main() {
-                // convert position to eye coords: eye = (0,0,0,1)
-                vec4 positionEye = view * model * a_Position;
+            varying vec3 fL;
+            varying vec3 fN;
+            varying vec3 fV;
+            varying vec2 fTexCoord;
+            void main()
+            {
+              // convert position to eye coords: eye = (0,0,0,1)
+              vec4 positionEye = view * model * a_Position;
 
-                // convert light position to eye coords
-                vec4 lightEye = view * lightPosition;
+              // convert light position to eye coords
+              vec4 lightEye = view * lightPosition;
 
-                // vector to light
-                fL = (lightEye - positionEye).xyz;
+              // vector to light
+              fL = (lightEye - positionEye).xyz;
 
-                // transform normal into eye coords
-                fN = normalMatrix * a_Normal;
+              // transform normal into eye coords
+              fN = normalMatrix * a_Normal;
 
-                // vector from vertex position toward view point (eye)
-                fV = normalize(-(positionEye).xyz);
+              // vector from vertex position toward view point (eye)
+              fV = normalize(-(positionEye).xyz);
 
-                fTexCoord = a_TexCoord;
-                fTexCoord2 = fract(a_TexCoord+0.5)-0.5;
+              fTexCoord = a_TexCoord;
 
-                gl_Position = projection * view * model * a_Position;
+              gl_Position = projection * view * model * a_Position;
             }
         </script>
 
-        <!-- prettier-ignore -->
-        <script id="fragmentLightingShader" type="x-shader/x-fragment">#version 300 es
-            precision highp float;
-            out vec4 fragColor;
+        <script id="fragmentLightingShader" type="x-shader/x-fragment">
+            precision mediump float;
 
             uniform mat3 materialProperties;
             uniform mat3 lightProperties;
             uniform float shininess;
             uniform sampler2D sampler;
-            uniform bool u_fix;
 
-            in vec3 fL;
-            in vec3 fN;
-            in vec3 fV;
-            in vec2 fTexCoord;
-            in vec2 fTexCoord2;
+            varying vec3 fL;
+            varying vec3 fN;
+            varying vec3 fV;
+            varying vec2 fTexCoord;
 
-            void main() {
-                // normalize after interpolating
-                vec3 N = normalize(fN);
-                vec3 L = normalize(fL);
-                vec3 V = normalize(fV);
+            void main()
+            {
+              // normalize after interpolating
+              vec3 N = normalize(fN);
+              vec3 L = normalize(fL);
+              vec3 V = normalize(fV);
 
-                // reflected vector
-                vec3 R = reflect(-L, N);
+              // reflected vector
+              vec3 R = reflect(-L, N);
 
-                // get the columns out of the light and material properties. We keep the surface
-                // properties separate, so we can mess with them using the sampled texture value
-                vec4 ambientSurface = vec4(materialProperties[0], 1.0);
-                vec4 diffuseSurface = vec4(materialProperties[1], 1.0);
-                vec4 specularSurface = vec4(materialProperties[2], 1.0);
+              // get the columns out of the light and material properties. We keep the surface
+              // properties separate, so we can mess with them using the sampled texture value
+              vec4 ambientSurface = vec4(materialProperties[0], 1.0);
+              vec4 diffuseSurface = vec4(materialProperties[1], 1.0);
+              vec4 specularSurface = vec4(materialProperties[2], 1.0);
 
-                vec4 ambientLight = vec4(lightProperties[0], 1.0);
-                vec4 diffuseLight = vec4(lightProperties[1], 1.0);
-                vec4 specularLight = vec4(lightProperties[2], 1.0);
+              vec4 ambientLight = vec4(lightProperties[0], 1.0);
+              vec4 diffuseLight = vec4(lightProperties[1], 1.0);
+              vec4 specularLight = vec4(lightProperties[2], 1.0);
 
-                // sample from the texture at interpolated texture coordinate
-                vec2 fCoord = fTexCoord;
-                if (u_fix) {
-                    if (fwidth(fTexCoord.s) - fwidth(fTexCoord2.s) > -1e-3) {
-                        fCoord.s = fTexCoord2.s;
-                    }
-                }
-                vec4 color = texture(sampler, fCoord);
+              // sample from the texture at interpolated texture coordinate
+              vec4 color = texture2D(sampler, fTexCoord);
 
-                const int modulate = 1;
-                if (modulate == 1) {
-                    // (1) use the value directly as the surface color and ignore the material properties
-                    ambientSurface = color;
-                    diffuseSurface = color;
-                } else if (modulate == 2) {
-                    // (2) modulate intensity of surface color (or of any component)
-                    float m = (color.r + color.g + color.b) / 3.0;
-                    ambientSurface *= m;
-                    diffuseSurface *= m;
-                    specularSurface *= m;
-                } else {
-                    // (3) blend texture using its alpha value (try this with "steve.png")
-                    float m = color.a;
-                    ambientSurface = (1.0 - m) * ambientSurface + m * color;
-                    diffuseSurface = (1.0 - m) * diffuseSurface + m * color;
-                    specularSurface = (1.0 - m) * specularSurface + m * color;
-                }
+              const int modulate = 1;
+              if (modulate == 1) {
+                // (1) use the value directly as the surface color and ignore the material properties
+                ambientSurface = color;
+                diffuseSurface = color;
+              } else if (modulate == 2) {
+                // (2) modulate intensity of surface color (or of any component)
+                float m = (color.r + color.g + color.b) / 3.0;
+                ambientSurface *= m;
+                diffuseSurface *= m;
+                specularSurface *= m;
+              } else {
+                // (3) blend texture using its alpha value (try this with "steve.png")
+                float m = color.a;
+                ambientSurface = (1.0 - m) * ambientSurface + m * color;
+                diffuseSurface = (1.0 - m) * diffuseSurface + m * color;
+                specularSurface = (1.0 - m) * specularSurface + m * color;
+              }
 
-                // lighting factors as usual
+              // lighting factors as usual
 
-                // Lambert's law, clamp negative values to zero
-                float diffuseFactor = max(0.0, dot(L, N));
+              // Lambert's law, clamp negative values to zero
+              float diffuseFactor = max(0.0, dot(L, N));
 
-                // specular factor from Phong reflection model
-                float specularFactor = pow(max(0.0, dot(V, R)), shininess);
+              // specular factor from Phong reflection model
+              float specularFactor = pow(max(0.0, dot(V, R)), shininess);
 
-                // add the components together, note that vec4 * vec4 is componentwise multiplication,
-                // not a dot product
-                vec4 ambient = ambientLight * ambientSurface;
-                vec4 diffuse = diffuseFactor * diffuseLight * diffuseSurface;
-                vec4 specular = specularFactor * specularLight * specularSurface;
-                fragColor = ambient + diffuse + specular;
-                fragColor.a = 1.0;
+              // add the components together, note that vec4 * vec4 is componentwise multiplication,
+              // not a dot product
+              vec4 ambient = ambientLight * ambientSurface;
+              vec4 diffuse = diffuseFactor * diffuseLight * diffuseSurface;
+              vec4 specular = specularFactor * specularLight * specularSurface;
+              gl_FragColor = ambient + diffuse + specular;
+              gl_FragColor.a = 1.0;
             }
         </script>
 
-        <!-- prettier-ignore -->
-        <script id="vertexColorShader" type="x-shader/x-vertex">#version 300 es
-            precision mediump float;
+        <script id="vertexColorShader" type="x-shader/x-vertex">
             // values that stay the same during for all vertices of a single draw call
             uniform mat4 transform;
             // data pulled from buffers
-            in vec4 a_Position;
-            in vec4 a_Color;
+            attribute vec4 a_Position;
+            attribute vec4 a_Color;
             // data passed to the fragment shader to be interpolated
-            out vec4 color;
+            varying vec4 color;
             void main() {
                 gl_PointSize = 8.0;
                 color = a_Color;
@@ -369,17 +345,15 @@ when using mipmap:
             }
         </script>
 
-        <!-- prettier-ignore -->
-        <script id="fragmentColorShader" type="x-shader/x-fragment">#version 300 es
+        <script id="fragmentColorShader" type="x-shader/x-fragment">
             precision mediump float;
-            out vec4 fragColor;
-
-            in vec4 color;
+            varying vec4 color;
             void main() {
-                fragColor = color;
+                gl_FragColor = color;
             }
         </script>
 
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="https://unpkg.com/gl-matrix@3.4.3/gl-matrix.js"></script>
         <script src="../lib/three.min.js"></script>
         <script src="../lib/teal_book/cuon-utils.js"></script>

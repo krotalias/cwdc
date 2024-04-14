@@ -323,7 +323,8 @@ var axis = "x";
 
 /**
  * Whether uv spherical coordinates should be "fixed",
- * when converted from cartesian (seamless).
+ * when converted from cartesian
+ * {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf (seamless)}.
  * @type {Boolean}
  * @see https://forum.unity.com/threads/what-is-this-mipmap-artifact.657052/
  */
@@ -364,17 +365,6 @@ var viewMatrix = mat4.lookAt(
  * @type {mat4}
  */
 var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
-
-/**
- * An object containing raw data for
- * vertices, normal vectors, texture coordinates, and indices.
- * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
- * @typedef {Object} modelData
- * @property {Float32Array} vertexPositions vertex coordinates.
- * @property {Float32Array} vertexNormals vertex normals.
- * @property {Float32Array} vertexTextureCoords texture coordinates.
- * @property {Uint16Array} indices index array.
- */
 
 /**
  * <p>Promise for returning an array with all file names in directory './textures'.</p>
@@ -1223,6 +1213,7 @@ window.addEventListener("load", (event) => {
  *     1 - octahedron, <br>
  *     2 - tetrahedron, <br>
  *     3 - icosahedron.
+ * @property {Boolean} model.fixuv=false whether to change uv texture coordinates.
  * @returns {modelData} shape.
  * @see {@link https://en.wikipedia.org/wiki/Platonic_solid Platonic solid}
  * @see {@link https://ocw.mit.edu/courses/18-965-geometry-of-manifolds-fall-2004/pages/lecture-notes/ Geometry Of Manifolds}
@@ -1230,7 +1221,7 @@ window.addEventListener("load", (event) => {
  * @see {@link https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole Euler characteristic of a polygon with a hole}
  *
  */
-function createModel({ shape, chi = 2, poly = 0 }) {
+function createModel({ shape, chi = 2, poly = 0, fixuv = false }) {
   if (typeof shape === "undefined") {
     if (poly === 0) {
       shape = new polyhedron(fixuv).dodecahedron({ n: numSubdivisions });

@@ -4,7 +4,9 @@ See the fragment shader code "modulate" (1), (2), (3)
 for some options for using the sampled texture value.
 
 I had to use glsl 3.0, so I can call fwidth to remove the artifact created
-when using mipmap: https://forum.unity.com/threads/what-is-this-mipmap-artifact.657052/
+when using mipmap:
+    https://forum.unity.com/threads/what-is-this-mipmap-artifact.657052/
+    https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf
 -->
 
 <!doctype html>
@@ -205,7 +207,7 @@ when using mipmap: https://forum.unity.com/threads/what-is-this-mipmap-artifact.
                 <li>p - teapot</li>
                 <li>r - ring</li>
                 <li>s,S - threejs/subdivision sphere</li>
-                <li>t,T - torus/torus knot</li>
+                <li>t,T - torus/Torus Knot Geometry (threejs)</li>
                 <li>u - capsule (threejs)</li>
                 <li>v - cube</li>
                 <li>a - toggle axes visible/invisible</li>
@@ -298,10 +300,10 @@ when using mipmap: https://forum.unity.com/threads/what-is-this-mipmap-artifact.
                 float pi = radians(180.0);
                 float phi = acos(pos.z/r)/pi;                // acos  -> [0,pi]
                 float theta = atan(pos.y,-pos.x)/(2.0 * pi); // atan2 -> [-pi,pi]
-                theta += 0.5;
+                theta += 0.5; // theta in [0.0,1.0)
                 if (u_fix) {
-                    float theta2 = fract(theta+0.5)-0.5;
-                    if (fwidth(theta) >= fwidth(theta2)-0.001) {
+                    float theta2 = fract(theta+0.5)-0.5; // theta2 in [-0.5,0.5)
+                    if (fwidth(theta) - fwidth(theta2) > -1e-3) {
                         theta = theta2;
                     }
                 }
@@ -402,7 +404,6 @@ when using mipmap: https://forum.unity.com/threads/what-is-this-mipmap-artifact.
             }
         </script>
 
-        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="../lib/gl-matrix-3.4.0.js"></script>
         <script src="../lib/three.min.js"></script>
         <script src="../lib/teal_book/cuon-utils.js"></script>
