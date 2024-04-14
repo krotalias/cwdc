@@ -301,8 +301,10 @@ when using mipmap:
                 float phi = acos(pos.z/r)/pi;                // acos  -> [0,pi]
                 float theta = atan(pos.y,-pos.x)/(2.0 * pi); // atan2 -> [-pi,pi]
                 theta += 0.5; // theta in [0.0,1.0)
+                // construct uvs like Tarini's method
                 if (u_fix) {
                     float theta2 = fract(theta+0.5)-0.5; // theta2 in [-0.5,0.5)
+                    // uses a small bias to prefer the first 'UV set'
                     if (fwidth(theta) - fwidth(theta2) > -1e-3) {
                         theta = theta2;
                     }

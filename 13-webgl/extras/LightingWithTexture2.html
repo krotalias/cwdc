@@ -308,7 +308,9 @@ when using mipmap:
 
                 // sample from the texture at interpolated texture coordinate
                 vec2 fCoord = fTexCoord;
+                // construct uvs like Tarini's method
                 if (u_fix) {
+                    // uses a small bias to prefer the first 'UV set'
                     if (fwidth(fTexCoord.s) - fwidth(fTexCoord2.s) > -1e-3) {
                         fCoord.s = fTexCoord2.s;
                     }

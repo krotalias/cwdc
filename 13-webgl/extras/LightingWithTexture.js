@@ -326,7 +326,8 @@ var axis = "x";
  * when converted from cartesian
  * {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf (seamless)}.
  * @type {Boolean}
- * @see https://forum.unity.com/threads/what-is-this-mipmap-artifact.657052/
+ * @see {@link https://forum.unity.com/threads/what-is-this-mipmap-artifact.657052/ What is this mipmap artifact?}
+ * @see {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Distinctive Derivative Differences}
  */
 var fixuv = document.querySelector("#fixuv").checked;
 
