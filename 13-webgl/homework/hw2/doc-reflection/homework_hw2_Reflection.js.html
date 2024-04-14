@@ -163,7 +163,7 @@ function getTranslationToCentroid() {
   var cx = (v1.elements[0] + v2.elements[0] + v3.elements[0]) / 3;
   var cy = (v1.elements[1] + v2.elements[1] + v3.elements[1]) / 3;
 
-  // set translational part (last column) of matrix
+  // set translation part (last column) of matrix
   var ret = new Matrix4();
   ret.elements[12] = cx;
   ret.elements[13] = cy;
@@ -185,7 +185,7 @@ function getChar(event) {
 }
 
 /**
- * Handler for keydown events will update modelMatrix based
+ * Handler for keydown events will update {@link modelMatrix} based
  * on key press and radio button state.
  * @param {KeyboardEvent} event keyboard event.
  */
@@ -305,7 +305,7 @@ function handleKeyPress(event) {
 }
 
 /**
- * Code to actually render our geometry.
+ * Code to actually render our geometry (scene).
  */
 function draw() {
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -382,7 +382,13 @@ function mainEntrance() {
   var oldx = 3,
     oldy = 3;
 
-  // attach key handler
+  /**
+   * &lt;p>Appends an event listener for events whose type attribute value is keydown.&lt;/p>
+   * &lt;p>The callback argument sets the {@link handleKeyPress callback}
+   * that will be invoked when the event is dispatched.&lt;/p>
+   *
+   * @event keydown
+   */
   window.addEventListener("keydown", (event) => handleKeyPress());
 
   /**
@@ -391,8 +397,7 @@ function mainEntrance() {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
-   * @function click
-   * @global
+   * @event click
    */
   canvas.addEventListener(
     "click",
@@ -421,7 +426,7 @@ function mainEntrance() {
         oldy = wy;
       }
     },
-    false
+    false,
   );
 
   /**
@@ -429,8 +434,7 @@ function mainEntrance() {
    * @param {MouseEvent} event mouse event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
-   * @function dblclick
-   * @global
+   * @event dblclick
    */
   canvas.addEventListener("dblclick", (event) => {
     var rect = canvas.getBoundingClientRect();
@@ -488,6 +492,21 @@ function mainEntrance() {
   animate();
 }
 
+/**
+ * &lt;p>Entry point when page is {@link mainEntrance loaded}.&lt;/p>
+ *
+ * &lt;p>Basically this function does setup that "should" only have to be done once,&lt;br>
+ * while {@link draw draw()} does things that have to be repeated each time the canvas is
+ * redrawn.&lt;/p>
+ *
+ * &lt;p>At any given time, there can only be one buffer bound for each type
+ * (ARRAY_BUFFER and ELEMENT_ARRAY_BUFFER).&lt;br>
+ * Therefore, the flow is to bind a buffer and set its data, followed
+ * by setting up the vertex attribute pointers for that specific buffer,
+ * and then proceed to the next buffer.&lt;/p>
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
 window.addEventListener("load", () => mainEntrance());
 </code></pre>
         </article>
@@ -499,13 +518,13 @@ window.addEventListener("load", () => mainEntrance());
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Global</h3><ul><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#axisbuffer">axisbuffer</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#dblclick">dblclick</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getTranslationToCentroid">getTranslationToCentroid</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#numAxisPoints">numAxisPoints</a></li><li><a href="global.html#numPoints">numPoints</a></li><li><a href="global.html#previousModelMatrix">previousModelMatrix</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#transformations">transformations</a></li><li><a href="global.html#vertexbuffer">vertexbuffer</a></li><li><a href="global.html#vertices">vertices</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:dblclick">dblclick</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#axisbuffer">axisbuffer</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getTranslationToCentroid">getTranslationToCentroid</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#numAxisPoints">numAxisPoints</a></li><li><a href="global.html#numPoints">numPoints</a></li><li><a href="global.html#previousModelMatrix">previousModelMatrix</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#transformations">transformations</a></li><li><a href="global.html#vertexbuffer">vertexbuffer</a></li><li><a href="global.html#vertices">vertices</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Sep 07 2023 08:25:21 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Apr 14 2024 08:51:57 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
