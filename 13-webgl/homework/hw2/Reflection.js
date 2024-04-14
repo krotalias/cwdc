@@ -135,7 +135,7 @@ function getTranslationToCentroid() {
   var cx = (v1.elements[0] + v2.elements[0] + v3.elements[0]) / 3;
   var cy = (v1.elements[1] + v2.elements[1] + v3.elements[1]) / 3;
 
-  // set translational part (last column) of matrix
+  // set translation part (last column) of matrix
   var ret = new Matrix4();
   ret.elements[12] = cx;
   ret.elements[13] = cy;
@@ -157,7 +157,7 @@ function getChar(event) {
 }
 
 /**
- * Handler for keydown events will update modelMatrix based
+ * Handler for keydown events will update {@link modelMatrix} based
  * on key press and radio button state.
  * @param {KeyboardEvent} event keyboard event.
  */
@@ -277,7 +277,7 @@ function handleKeyPress(event) {
 }
 
 /**
- * Code to actually render our geometry.
+ * Code to actually render our geometry (scene).
  */
 function draw() {
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -354,7 +354,13 @@ function mainEntrance() {
   var oldx = 3,
     oldy = 3;
 
-  // attach key handler
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.</p>
+   * <p>The callback argument sets the {@link handleKeyPress callback}
+   * that will be invoked when the event is dispatched.</p>
+   *
+   * @event keydown
+   */
   window.addEventListener("keydown", (event) => handleKeyPress());
 
   /**
@@ -363,8 +369,7 @@ function mainEntrance() {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
-   * @function click
-   * @global
+   * @event click
    */
   canvas.addEventListener(
     "click",
@@ -393,7 +398,7 @@ function mainEntrance() {
         oldy = wy;
       }
     },
-    false
+    false,
   );
 
   /**
@@ -401,8 +406,7 @@ function mainEntrance() {
    * @param {MouseEvent} event mouse event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
-   * @function dblclick
-   * @global
+   * @event dblclick
    */
   canvas.addEventListener("dblclick", (event) => {
     var rect = canvas.getBoundingClientRect();
@@ -460,4 +464,19 @@ function mainEntrance() {
   animate();
 }
 
+/**
+ * <p>Entry point when page is {@link mainEntrance loaded}.</p>
+ *
+ * <p>Basically this function does setup that "should" only have to be done once,<br>
+ * while {@link draw draw()} does things that have to be repeated each time the canvas is
+ * redrawn.</p>
+ *
+ * <p>At any given time, there can only be one buffer bound for each type
+ * (ARRAY_BUFFER and ELEMENT_ARRAY_BUFFER).<br>
+ * Therefore, the flow is to bind a buffer and set its data, followed
+ * by setting up the vertex attribute pointers for that specific buffer,
+ * and then proceed to the next buffer.</p>
+ * @event load
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
 window.addEventListener("load", () => mainEntrance());
