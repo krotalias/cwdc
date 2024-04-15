@@ -507,9 +507,9 @@ const handleKeyPress = ((event) => {
   let subPoly = 0;
   const polyName = {
     0: "dodecahedron",
-    1: "octahedron",
-    2: "tetrahedron",
-    3: "icosahedron",
+    1: "icosahedron",
+    2: "octahedron",
+    3: "tetrahedron",
   };
   const ntri = (p, n, f) => {
     if (p == 0 || p == 3) return f * (n * n + 2 * n + 1);
@@ -522,24 +522,18 @@ const handleKeyPress = ((event) => {
    * @callback key_event callback to handle a key pressed.
    */
   return (event) => {
-    var ch = getChar(event);
-    kbd.innerHTML = ":";
+    const ch = getChar(event);
     switch (ch) {
       case "m":
-        numSubdivisions = (numSubdivisions + 1) % (maxSubdivisions + 1);
-        gscale = mscale = 1;
-        document.getElementById("models").value = "5";
-        theModel = createModel({ poly: subPoly });
-
-        kbd.innerHTML = `
-          (${polyName[subPoly]}
-          level ${numSubdivisions} →
-          ${ntri(subPoly, numSubdivisions, theModel.nfaces)} triangles):`;
-        break;
       case "M":
-        numSubdivisions = mod(numSubdivisions - 1, maxSubdivisions + 1);
+        let inc = ch == "m" ? 1 : -1;
+        numSubdivisions = mod(numSubdivisions + inc, maxSubdivisions + 1);
         gscale = mscale = 1;
-        document.getElementById("models").value = "5";
+        if (numSubdivisions == 0) {
+          document.getElementById("models").value = subPoly + 9;
+        } else {
+          document.getElementById("models").value = "13";
+        }
         theModel = createModel({ poly: subPoly });
 
         kbd.innerHTML = `
@@ -599,7 +593,7 @@ const handleKeyPress = ((event) => {
         // subdivision sphere
         this.mscale = mscale = 1;
         numSubdivisions = maxSubdivisions;
-        document.getElementById("models").value = "5";
+        document.getElementById("models").value = "13";
         theModel = createModel({ poly: subPoly });
         kbd.innerHTML = `
           (${polyName[subPoly]}
@@ -656,36 +650,40 @@ const handleKeyPress = ((event) => {
         theModel = createModel({
           shape: getModelData(new THREE.DodecahedronGeometry(1, 0)),
         });
+        kbd.innerHTML = ":";
         break;
       case "i":
         gscale = mscale = 1;
-        subPoly = 3;
+        subPoly = 1;
         maxSubdivisions = limit.ico;
         numSubdivisions = 0;
         document.getElementById("models").value = "10";
         theModel = createModel({
           shape: getModelData(new THREE.IcosahedronGeometry(1, 0)),
         });
+        kbd.innerHTML = ":";
         break;
       case "o":
         gscale = mscale = 1;
-        subPoly = 1;
+        subPoly = 2;
         maxSubdivisions = limit.oct;
         numSubdivisions = 0;
         document.getElementById("models").value = "11";
         theModel = createModel({
           shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
         });
+        kbd.innerHTML = ":";
         break;
       case "w":
         gscale = mscale = 1;
-        subPoly = 2;
+        subPoly = 3;
         maxSubdivisions = limit.tet;
         numSubdivisions = 0;
         document.getElementById("models").value = "12";
         theModel = createModel({
           shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
         });
+        kbd.innerHTML = ":";
         break;
       case "r":
         gscale = mscale = 1.0;
@@ -716,6 +714,7 @@ const handleKeyPress = ((event) => {
         // reload texture with or without fixing
         image.src = `./textures/${imageFilename[textureCnt]}`;
         document.getElementById("fixuv").checked = fixuv;
+        setUVfix();
         break;
       case "b":
         culling = !culling;
@@ -776,6 +775,7 @@ function selectModel() {
     10: "i", // icosahedron
     11: "o", // octahedron
     12: "w", // tetrahedron
+    13: "S", // subdivision sphere
   };
   handleKeyPress(createEvent(key[val]));
 }
@@ -1239,10 +1239,10 @@ window.addEventListener("load", (event) => {
  * @property {Number | null} model.chi=2 model &lt;a href="https://en.wikipedia.org/wiki/Euler_characteristic">Euler Characteristic&lt;/a>.
  * @property {Number} model.poly=0 initial polyhedron for subdivision:&lt;br>
  *     0 - dodecahedron, &lt;br>
- *     1 - octahedron, &lt;br>
- *     2 - tetrahedron, &lt;br>
- *     3 - icosahedron.
- * @property {Boolean} model.fixuv=false whether to change uv texture coordinates.
+ *     1 - icosahedron, &lt;br>
+ *     2 - octahedron, &lt;br>
+ *     3 - tetrahedron
+ * @property {Boolean} model.fix_uv=false whether to change uv texture coordinates.
  * @returns {modelData} shape.
  * @see {@link https://en.wikipedia.org/wiki/Platonic_solid Platonic solid}
  * @see {@link https://ocw.mit.edu/courses/18-965-geometry-of-manifolds-fall-2004/pages/lecture-notes/ Geometry Of Manifolds}
@@ -1250,25 +1250,28 @@ window.addEventListener("load", (event) => {
  * @see {@link https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole Euler characteristic of a polygon with a hole}
  *
  */
-function createModel({ shape, chi = 2, poly = 0, fixuv = false }) {
+function createModel({ shape, chi = 2, poly = 0, fix_uv = false }) {
   if (typeof shape === "undefined") {
+    setUVfix(true);
     if (poly === 0) {
-      shape = new polyhedron(fixuv).dodecahedron({ n: numSubdivisions });
+      shape = new polyhedron(fix_uv).dodecahedron({ n: numSubdivisions });
       shape.nfaces = 36;
       maxSubdivisions = limit.dod;
-    } else if (poly === 1) {
-      shape = new polyhedron(fixuv).octahedron({ n: numSubdivisions });
+    } else if (poly === 2) {
+      shape = new polyhedron(fix_uv).octahedron({ n: numSubdivisions });
       shape.nfaces = 8;
       maxSubdivisions = limit.oct;
-    } else if (poly === 2) {
-      shape = new polyhedron(fixuv).tetrahedron({ n: numSubdivisions });
+    } else if (poly === 3) {
+      shape = new polyhedron(fix_uv).tetrahedron({ n: numSubdivisions });
       shape.nfaces = 4;
       maxSubdivisions = limit.tet;
     } else {
-      shape = new polyhedron(fixuv).icosahedron({ n: numSubdivisions });
+      shape = new polyhedron(fix_uv).icosahedron({ n: numSubdivisions });
       shape.nfaces = 20;
       maxSubdivisions = limit.ico;
     }
+  } else {
+    setUVfix(false);
   }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
@@ -1518,16 +1521,64 @@ function startForReal(image) {
 }
 
 /**
+ * &lt;p>A closure holding the type of the model.&lt;/p>
+ * {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf Tarini's}
+ * method does not work for objects like polyhedra.&lt;br>
+ * It was meant for objects whose texture coordinates were set by using
+ * {@link https://docs.blender.org/manual/en/2.79/editors/uv_image/uv/editing/unwrapping/mapping_types.html cylindrical or spherical uv-mappings}.&lt;br>
+ * For instance, a cube's face texture coordinates span from 0 to 1.
+ * &lt;p>Therefore, we only use it for subdivision spheres.&lt;/p>
+ * @return {UVfix}
+ * @function
+ */
+const setUVfix = (() => {
+  let subdivisionModel = false;
+
+  /**
+   * Callback to decide whether fo fix UV coordinates, based on
+   * the model type (subdivision or not), and if it is a textured
+   * model or not.
+   * @param {Boolean} subModel &lt;br>
+   *   true: subdividion model, &lt;br>
+   *   false: normal model, &lt;br>
+   *   undefined: not known. Use the type saved in the closure.
+   * @callback UVfix
+   */
+  return (subModel) => {
+    gl.useProgram(lightingShader);
+    let u_fix = gl.getUniformLocation(lightingShader, "u_fix");
+    let texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
+
+    if (texCoordIndex &lt; 0) {
+      // no texture
+      gl.uniform1i(u_fix, fixuv);
+    } else if (subModel == undefined) {
+      if (subdivisionModel) {
+        gl.uniform1i(u_fix, fixuv &amp;&amp; numSubdivisions > 0);
+      } else {
+        gl.uniform1i(u_fix, false);
+      }
+    } else if (subModel) {
+      subdivisionModel = true;
+      gl.uniform1i(u_fix, fixuv &amp;&amp; numSubdivisions > 0);
+    } else {
+      subdivisionModel = false;
+      gl.uniform1i(u_fix, false);
+    }
+    gl.useProgram(null);
+  };
+})();
+
+/**
  * Creates a new texture from an image.
  * @param {HTMLImageElement} image texture.
- * @see https://webglfundamentals.org/webgl/lessons/webgl-3d-textures.html
- * @see https://jameshfisher.com/2020/10/22/why-is-my-webgl-texture-upside-down/
- * @see https://registry.khronos.org/webgl/specs/latest/2.0/#4.1.3
- * @see https://www.youtube.com/watch?v=qMCOX3m-R28
+ * @see {@link https://webglfundamentals.org/webgl/lessons/webgl-3d-textures.html WebGL Textures}
+ * @see {@link https://jameshfisher.com/2020/10/22/why-is-my-webgl-texture-upside-down/ Why is my WebGL texture upside-down?}
+ * @see {@link https://registry.khronos.org/webgl/specs/latest/2.0/#4.1.3 Non-Power-of-Two Texture Access}
+ * @see {@link https://www.youtube.com/watch?v=qMCOX3m-R28 What are Mipmaps?}
  */
 function newTexture(image) {
   gl.useProgram(lightingShader);
-  var u_fix = gl.getUniformLocation(lightingShader, "u_fix");
   let imgSize = document.getElementById("size");
   imgSize.innerHTML = `Texture = ${imageFilename[textureCnt]} (${image.width} x ${image.height})`;
   document.getElementById("textimg").src = image.src;
@@ -1548,7 +1599,7 @@ function newTexture(image) {
     typeof WebGL2RenderingContext !== "undefined" ||
     (isPowerOf2(image.width) &amp;&amp; isPowerOf2(image.height))
   ) {
-    gl.uniform1i(u_fix, fixuv);
+    setUVfix();
 
     // texture parameters are stored with the texture
     gl.generateMipmap(gl.TEXTURE_2D);
@@ -1571,7 +1622,7 @@ function newTexture(image) {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
   } else {
     // NPOT
-    gl.uniform1i(u_fix, false);
+    setUVfix(false);
 
     // texture minification filter
     gl.texParameteri(
@@ -1643,13 +1694,13 @@ var animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodeinputradioischecked(butnotwhenunchecked).">change - executed when the mode input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodeinputradioischecked(butnotwhenunchecked).">change - executed when the mode input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Apr 14 2024 17:49:08 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Apr 15 2024 10:23:09 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

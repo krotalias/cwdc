@@ -479,9 +479,9 @@ const handleKeyPress = ((event) => {
   let subPoly = 0;
   const polyName = {
     0: "dodecahedron",
-    1: "octahedron",
-    2: "tetrahedron",
-    3: "icosahedron",
+    1: "icosahedron",
+    2: "octahedron",
+    3: "tetrahedron",
   };
   const ntri = (p, n, f) => {
     if (p == 0 || p == 3) return f * (n * n + 2 * n + 1);
@@ -494,24 +494,18 @@ const handleKeyPress = ((event) => {
    * @callback key_event callback to handle a key pressed.
    */
   return (event) => {
-    var ch = getChar(event);
-    kbd.innerHTML = ":";
+    const ch = getChar(event);
     switch (ch) {
       case "m":
-        numSubdivisions = (numSubdivisions + 1) % (maxSubdivisions + 1);
-        gscale = mscale = 1;
-        document.getElementById("models").value = "5";
-        theModel = createModel({ poly: subPoly });
-
-        kbd.innerHTML = `
-          (${polyName[subPoly]}
-          level ${numSubdivisions} →
-          ${ntri(subPoly, numSubdivisions, theModel.nfaces)} triangles):`;
-        break;
       case "M":
-        numSubdivisions = mod(numSubdivisions - 1, maxSubdivisions + 1);
+        let inc = ch == "m" ? 1 : -1;
+        numSubdivisions = mod(numSubdivisions + inc, maxSubdivisions + 1);
         gscale = mscale = 1;
-        document.getElementById("models").value = "5";
+        if (numSubdivisions == 0) {
+          document.getElementById("models").value = subPoly + 9;
+        } else {
+          document.getElementById("models").value = "13";
+        }
         theModel = createModel({ poly: subPoly });
 
         kbd.innerHTML = `
@@ -571,7 +565,7 @@ const handleKeyPress = ((event) => {
         // subdivision sphere
         this.mscale = mscale = 1;
         numSubdivisions = maxSubdivisions;
-        document.getElementById("models").value = "5";
+        document.getElementById("models").value = "13";
         theModel = createModel({ poly: subPoly });
         kbd.innerHTML = `
           (${polyName[subPoly]}
@@ -628,36 +622,40 @@ const handleKeyPress = ((event) => {
         theModel = createModel({
           shape: getModelData(new THREE.DodecahedronGeometry(1, 0)),
         });
+        kbd.innerHTML = ":";
         break;
       case "i":
         gscale = mscale = 1;
-        subPoly = 3;
+        subPoly = 1;
         maxSubdivisions = limit.ico;
         numSubdivisions = 0;
         document.getElementById("models").value = "10";
         theModel = createModel({
           shape: getModelData(new THREE.IcosahedronGeometry(1, 0)),
         });
+        kbd.innerHTML = ":";
         break;
       case "o":
         gscale = mscale = 1;
-        subPoly = 1;
+        subPoly = 2;
         maxSubdivisions = limit.oct;
         numSubdivisions = 0;
         document.getElementById("models").value = "11";
         theModel = createModel({
           shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
         });
+        kbd.innerHTML = ":";
         break;
       case "w":
         gscale = mscale = 1;
-        subPoly = 2;
+        subPoly = 3;
         maxSubdivisions = limit.tet;
         numSubdivisions = 0;
         document.getElementById("models").value = "12";
         theModel = createModel({
           shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
         });
+        kbd.innerHTML = ":";
         break;
       case "r":
         gscale = mscale = 1.0;
@@ -688,6 +686,7 @@ const handleKeyPress = ((event) => {
         // reload texture with or without fixing
         image.src = `./textures/${imageFilename[textureCnt]}`;
         document.getElementById("fixuv").checked = fixuv;
+        setUVfix();
         break;
       case "b":
         culling = !culling;
@@ -748,6 +747,7 @@ function selectModel() {
     10: "i", // icosahedron
     11: "o", // octahedron
     12: "w", // tetrahedron
+    13: "S", // subdivision sphere
   };
   handleKeyPress(createEvent(key[val]));
 }
@@ -1211,10 +1211,10 @@ window.addEventListener("load", (event) => {
  * @property {Number | null} model.chi=2 model <a href="https://en.wikipedia.org/wiki/Euler_characteristic">Euler Characteristic</a>.
  * @property {Number} model.poly=0 initial polyhedron for subdivision:<br>
  *     0 - dodecahedron, <br>
- *     1 - octahedron, <br>
- *     2 - tetrahedron, <br>
- *     3 - icosahedron.
- * @property {Boolean} model.fixuv=false whether to change uv texture coordinates.
+ *     1 - icosahedron, <br>
+ *     2 - octahedron, <br>
+ *     3 - tetrahedron
+ * @property {Boolean} model.fix_uv=false whether to change uv texture coordinates.
  * @returns {modelData} shape.
  * @see {@link https://en.wikipedia.org/wiki/Platonic_solid Platonic solid}
  * @see {@link https://ocw.mit.edu/courses/18-965-geometry-of-manifolds-fall-2004/pages/lecture-notes/ Geometry Of Manifolds}
@@ -1222,25 +1222,28 @@ window.addEventListener("load", (event) => {
  * @see {@link https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole Euler characteristic of a polygon with a hole}
  *
  */
-function createModel({ shape, chi = 2, poly = 0, fixuv = false }) {
+function createModel({ shape, chi = 2, poly = 0, fix_uv = false }) {
   if (typeof shape === "undefined") {
+    setUVfix(true);
     if (poly === 0) {
-      shape = new polyhedron(fixuv).dodecahedron({ n: numSubdivisions });
+      shape = new polyhedron(fix_uv).dodecahedron({ n: numSubdivisions });
       shape.nfaces = 36;
       maxSubdivisions = limit.dod;
-    } else if (poly === 1) {
-      shape = new polyhedron(fixuv).octahedron({ n: numSubdivisions });
+    } else if (poly === 2) {
+      shape = new polyhedron(fix_uv).octahedron({ n: numSubdivisions });
       shape.nfaces = 8;
       maxSubdivisions = limit.oct;
-    } else if (poly === 2) {
-      shape = new polyhedron(fixuv).tetrahedron({ n: numSubdivisions });
+    } else if (poly === 3) {
+      shape = new polyhedron(fix_uv).tetrahedron({ n: numSubdivisions });
       shape.nfaces = 4;
       maxSubdivisions = limit.tet;
     } else {
-      shape = new polyhedron(fixuv).icosahedron({ n: numSubdivisions });
+      shape = new polyhedron(fix_uv).icosahedron({ n: numSubdivisions });
       shape.nfaces = 20;
       maxSubdivisions = limit.ico;
     }
+  } else {
+    setUVfix(false);
   }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
@@ -1490,16 +1493,64 @@ function startForReal(image) {
 }
 
 /**
+ * <p>A closure holding the type of the model.</p>
+ * {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf Tarini's}
+ * method does not work for objects like polyhedra.<br>
+ * It was meant for objects whose texture coordinates were set by using
+ * {@link https://docs.blender.org/manual/en/2.79/editors/uv_image/uv/editing/unwrapping/mapping_types.html cylindrical or spherical uv-mappings}.<br>
+ * For instance, a cube's face texture coordinates span from 0 to 1.
+ * <p>Therefore, we only use it for subdivision spheres.</p>
+ * @return {UVfix}
+ * @function
+ */
+const setUVfix = (() => {
+  let subdivisionModel = false;
+
+  /**
+   * Callback to decide whether fo fix UV coordinates, based on
+   * the model type (subdivision or not), and if it is a textured
+   * model or not.
+   * @param {Boolean} subModel <br>
+   *   true: subdividion model, <br>
+   *   false: normal model, <br>
+   *   undefined: not known. Use the type saved in the closure.
+   * @callback UVfix
+   */
+  return (subModel) => {
+    gl.useProgram(lightingShader);
+    let u_fix = gl.getUniformLocation(lightingShader, "u_fix");
+    let texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
+
+    if (texCoordIndex < 0) {
+      // no texture
+      gl.uniform1i(u_fix, fixuv);
+    } else if (subModel == undefined) {
+      if (subdivisionModel) {
+        gl.uniform1i(u_fix, fixuv && numSubdivisions > 0);
+      } else {
+        gl.uniform1i(u_fix, false);
+      }
+    } else if (subModel) {
+      subdivisionModel = true;
+      gl.uniform1i(u_fix, fixuv && numSubdivisions > 0);
+    } else {
+      subdivisionModel = false;
+      gl.uniform1i(u_fix, false);
+    }
+    gl.useProgram(null);
+  };
+})();
+
+/**
  * Creates a new texture from an image.
  * @param {HTMLImageElement} image texture.
- * @see https://webglfundamentals.org/webgl/lessons/webgl-3d-textures.html
- * @see https://jameshfisher.com/2020/10/22/why-is-my-webgl-texture-upside-down/
- * @see https://registry.khronos.org/webgl/specs/latest/2.0/#4.1.3
- * @see https://www.youtube.com/watch?v=qMCOX3m-R28
+ * @see {@link https://webglfundamentals.org/webgl/lessons/webgl-3d-textures.html WebGL Textures}
+ * @see {@link https://jameshfisher.com/2020/10/22/why-is-my-webgl-texture-upside-down/ Why is my WebGL texture upside-down?}
+ * @see {@link https://registry.khronos.org/webgl/specs/latest/2.0/#4.1.3 Non-Power-of-Two Texture Access}
+ * @see {@link https://www.youtube.com/watch?v=qMCOX3m-R28 What are Mipmaps?}
  */
 function newTexture(image) {
   gl.useProgram(lightingShader);
-  var u_fix = gl.getUniformLocation(lightingShader, "u_fix");
   let imgSize = document.getElementById("size");
   imgSize.innerHTML = `Texture = ${imageFilename[textureCnt]} (${image.width} x ${image.height})`;
   document.getElementById("textimg").src = image.src;
@@ -1520,7 +1571,7 @@ function newTexture(image) {
     typeof WebGL2RenderingContext !== "undefined" ||
     (isPowerOf2(image.width) && isPowerOf2(image.height))
   ) {
-    gl.uniform1i(u_fix, fixuv);
+    setUVfix();
 
     // texture parameters are stored with the texture
     gl.generateMipmap(gl.TEXTURE_2D);
@@ -1543,7 +1594,7 @@ function newTexture(image) {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
   } else {
     // NPOT
-    gl.uniform1i(u_fix, false);
+    setUVfix(false);
 
     // texture minification filter
     gl.texParameteri(
