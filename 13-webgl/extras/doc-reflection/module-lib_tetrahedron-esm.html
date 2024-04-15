@@ -161,7 +161,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line49">line 49</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line55">line 55</a>
     </li></ul></dd>
     
 
@@ -240,7 +240,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line37">line 37</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line43">line 43</a>
     </li></ul></dd>
     
 
@@ -319,7 +319,79 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line62">line 62</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line68">line 68</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~vec3"><span class="type-signature">(inner) </span>vec3<span class="type-signature"> :glMatrix.vec3</span></h4>
+
+
+
+
+<div class="description">
+    gl-matrix <a href="https://glmatrix.net/docs/module-vec3.html">3 Dimensional Vector</a>.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">glMatrix.vec3</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line32">line 32</a>
     </li></ul></dd>
     
 
@@ -358,10 +430,11 @@
     Return a pair of spherical coordinates, in the range [0,1],
 corresponding to a point p onto the unit sphere.
 
-<p>The singularity of the mapping (parameterization) is at φ = 0 (z = r) and φ = π (z = -r).</p>
+<p>The singularity of the mapping (parameterization) is at φ = 0 (y = r) and φ = π (y = -r).</p>
 <ul>
 <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
-<li>Also, here, θ is measured from the x axis.</li>
+<li>Also, here, θ is measured from the positive x axis.</li>
+<li> In CG, φ is measured from the positive y axis, not the z axis, as it is usual in math books.
 </ul>
 </div>
 
@@ -455,7 +528,7 @@ corresponding to a point p onto the unit sphere.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line100">line 100</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line116">line 116</a>
     </li></ul></dd>
     
 
@@ -465,15 +538,17 @@ corresponding to a point p onto the unit sphere.
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">https://en.wikipedia.org/wiki/Spherical_coordinate_system</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">Spherical coordinate system</a></li>
         
-            <li><a href="https://en.wikipedia.org/wiki/Parametrization_(geometry)">https://en.wikipedia.org/wiki/Parametrization_(geometry)</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Parametrization_(geometry)">Parametrization (geometry)</a></li>
         
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2</a></li>
+            <li><a href="https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf">Texture Mapping</a></li>
         
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2">Math.atan2()</a></li>
         
-            <li><img src="../Spherical.png"></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos">Math.acos()</a></li>
+        
+            <li><img src="../images/Spherical.png"></li>
         </ul>
     </dd>
     
@@ -502,9 +577,16 @@ corresponding to a point p onto the unit sphere.
     point p in spherical coordinates:
  <ul>
     <li>r = 1 = √(p[0]² + p[1]² + p[2]²)</li>
-    <li>s = θ = atan2(p[1],p[0]) / (2 π ) + 0.5</li>
-    <li>t = φ = acos(p[2]/r) / π </li>
+    <li>s = θ = atan2(p[2],p[0]) / (2 π ) + 0.5</li>
+    <li>t = φ = acos(-p[1]/r) / π </li>
  </ul>
+
+Since the positive angular direction is CCW, x coordinates should be flipped.<br>
+Otherwise, the image will be rendered mirrored, that is, either use:
+<ul>
+ <li>atan2(p[0],p[2]) (border at -y axis) or </li>
+ <li>atan2(p[2],-p[0]) (border at x axis). </li>
+</ul>
 </div>
 
 
@@ -680,7 +762,7 @@ corresponding to a point p onto the unit sphere.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line75">line 75</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line81">line 81</a>
     </li></ul></dd>
     
 
@@ -732,7 +814,7 @@ corresponding to a point p onto the unit sphere.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Apr 13 2024 10:42:22 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Apr 15 2024 18:32:41 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

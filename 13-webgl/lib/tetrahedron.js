@@ -84,7 +84,7 @@ var clamp = (x, min, max) => Math.min(Math.max(min, x), max);
  * <ul>
  * <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
  * <li>Also, here, θ is measured from the positive x axis.</li>
- * <li> In CG, φ is measured from the positive y axis, not the z axis, as it is usual math books.
+ * <li> In CG, φ is measured from the positive y axis, not the z axis, as it is usual in math books.
  * </ul>
  *
  *  @param {vec3} p a point on the sphere.
@@ -335,7 +335,7 @@ class polyhedron {
    * @param {Object} poly dodecahedron.
    * @property {Number} poly.radius=1 radius of the dodecahedron.
    * @property {Number} poly.n=limit.dod number of subdivisions.
-   * @returns {Object<{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array,indices:Uint16Array}>}
+   * @returns {modelData}
    */
   dodecahedron({ radius = 1, n = limit.dod }) {
     return getModelData(new THREE.DodecahedronGeometry(radius, n));
@@ -366,7 +366,7 @@ class polyhedron {
    * @param {Object} poly icosahedron.
    * @property {Number} poly.radius=1 radius of the icosahedron.
    * @property {Number} poly.n=limit.ico number of subdivisions.
-   * @returns {Object<{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array,indices:Uint16Array}>}
+   * @returns {modelData}
    */
   icosahedron({ radius = 1, n = limit.ico }) {
     return getModelData(new THREE.IcosahedronGeometry(radius, n));
