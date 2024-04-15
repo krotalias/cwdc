@@ -14,8 +14,8 @@
  *
  *  @author Paulo Roma Cavalcanti on 17/01/2016.
  *  @since 21/11/2016
- *  @see https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06
- *  @see http://glmatrix.net
+ *  @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
+ *  @see {@link http://glmatrix.net glMatrix}
  *  @see <a href="/cwdc/13-webgl/lib/tetrahedron.js">source</a>
  *  @see <img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
  *  @see <img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
@@ -80,36 +80,38 @@ var clamp = (x, min, max) => Math.min(Math.max(min, x), max);
  * Return a pair of spherical coordinates, in the range [0,1],
  * corresponding to a point p onto the unit sphere.
  *
- * <p>The singularity of the mapping (parameterization) is at φ = 0 (z = r) and φ = π (z = -r).</p>
+ * <p>The singularity of the mapping (parameterization) is at φ = 0 (y = r) and φ = π (y = -r).</p>
  * <ul>
  * <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
- * <li>Also, here, θ is measured from the x axis.</li>
+ * <li>Also, here, θ is measured from the positive x axis.</li>
+ * <li> In CG, φ is measured from the positive y axis, not the z axis, as it is usual math books.
  * </ul>
  *
  *  @param {vec3} p a point on the sphere.
  *  @return {Object<s:Number, t:Number>} point p in spherical coordinates:
  *  <ul>
  *     <li>r = 1 = √(p[0]² + p[1]² + p[2]²)</li>
- *     <li>s = θ = atan2(p[1],p[0]) / (2 π ) + 0.5</li>
- *     <li>t = φ = acos(p[2]/r) / π </li>
+ *     <li>s = θ = atan2(p[2],p[0]) / (2 π ) + 0.5</li>
+ *     <li>t = φ = acos(-p[1]/r) / π </li>
  *  </ul>
  *
  * Since the positive angular direction is CCW, x coordinates should be flipped.<br>
  * Otherwise, the image will be rendered mirrored, that is, either use:
  * <ul>
- *  <li>atan2(p[0],p[1]) (border at -y axis) or </li>
- *  <li>atan2(p[1],-p[0]) (border at x axis). </li>
+ *  <li>atan2(p[0],p[2]) (border at -y axis) or </li>
+ *  <li>atan2(p[2],-p[0]) (border at x axis). </li>
  * </ul>
  *
- * @see https://en.wikipedia.org/wiki/Spherical_coordinate_system
- * @see https://en.wikipedia.org/wiki/Parametrization_(geometry)
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos
+ * @see {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system Spherical coordinate system}
+ * @see {@link https://en.wikipedia.org/wiki/Parametrization_(geometry) Parametrization (geometry)}
+ * @see {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf Texture Mapping}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2 Math.atan2()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos Math.acos()}
  * @see <img src="../images/Spherical.png">
  */
 function cartesian2Spherical(p) {
-  var phi = Math.acos(p[2]) / Math.PI; // acos  -> [0,pi]
-  var theta = Math.atan2(p[1], -p[0]) / (2 * Math.PI); // atan2 -> [-pi,pi]
+  var phi = Math.acos(-p[1]) / Math.PI; // acos  -> [0,pi]
+  var theta = Math.atan2(p[2], -p[0]) / (2 * Math.PI); // atan2 -> [-pi,pi]
   theta += 0.5;
 
   return {

@@ -299,8 +299,8 @@ when using mipmap:
             void cartesian2Spherical(in vec3 pos, out vec2 spherical) {
                 float r = length(pos);
                 float pi = radians(180.0);
-                float phi = acos(pos.z/r)/pi;                // acos  -> [0,pi]
-                float theta = atan(pos.y,-pos.x)/(2.0 * pi); // atan2 -> [-pi,pi]
+                float phi = acos(-pos.y/r)/pi;               // acos  -> [0,pi]
+                float theta = atan(pos.z,-pos.x)/(2.0 * pi); // atan2 -> [-pi,pi]
                 theta += 0.5; // theta in [0.0,1.0)
                 // construct uvs like Tarini's method
                 if (u_fix) {
