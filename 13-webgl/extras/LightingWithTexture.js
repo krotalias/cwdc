@@ -29,7 +29,7 @@
  * @see <img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
  *      <img src="../images/aliasing.png" height="340" title="texture coordinates fixed">
  *      <img src="../images/GB.png" height="340" title="GhostBusters">
- * @see <img src="../textures/earth-nasa.jpg" height="340" title="earth from nasa">
+ * @see <img src="../textures/BigEarth.jpg" height="340" title="earth from nasa">
  *      <img src="../images/Milla.png" height="340" title="Milla Jovovich">
  * @see <img src="../images/sphere-earth.png" height="340" title="texture in fragment shader">
  *      <img src="../images/teapot-earth.png" height="340" title="teapot points projected onto a sphere">
