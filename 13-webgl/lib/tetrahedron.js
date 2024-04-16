@@ -250,7 +250,7 @@ class polyhedron {
    * @param {Object} poly tetrahedron.
    * @property {Array<vec3>} poly.vtx=initialTet vertices of initial tetrahedron.
    * @property {Number} poly.n=limit.tet number of subdivisions.
-   * @returns {Object<{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array,indices:Uint16Array}>}
+   * @returns {modelData}
    */
   tetrahedron({ vtx = initialTet, n = limit.tet }) {
     const [a, b, c, d] = vtx;
@@ -285,7 +285,7 @@ class polyhedron {
    * @param {Object} poly octahedron.
    * @property {Array<vec3>} poly.vtx=initialOcta vertices of initial octahedron.
    * @property {Number} poly.n=limit.oct number of subdivisions.
-   * @returns {Object<{vertexPositions:Float32Array, vertexNormals:Float32Array, vertexTextureCoords:Float32Array,indices:Uint16Array}>}
+   * @returns {modelData}
    */
   octahedron({ vtx = initialOcta, n = limit.oct }) {
     const [a, b, c, d, e, f] = vtx;
