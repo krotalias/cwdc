@@ -22,8 +22,8 @@
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
  * @see <figure>
- *      <img src="../images/teapot.png" width="512" title="Utah teapot">
- *      <img src="../images/tex.png" title="64x64 texture" width="310">
+ *      <img src="../images/teapot.png" height="310" title="Utah teapot">
+ *      <img src="../images/tex.png" title="64x64 texture" height="310">
  *      <figcaption style="font-size: 200%">{@link cartesian2Spherical North Pole - Y axis}</figcaption>
  *      </figure>
  * @see <figure>
