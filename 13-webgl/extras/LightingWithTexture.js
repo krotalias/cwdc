@@ -21,18 +21,37 @@
  * @see {@link https://en.wikipedia.org/wiki/Utah_teapot Utah teapot}
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
- * @see <img src="../images/teapot.png" width="512" title="Utah teapot">
+ * @see <figure>
+ *      <img src="../images/teapot.png" width="512" title="Utah teapot">
  *      <img src="../images/tex.png" title="64x64 texture" width="310">
- * @see <img src="../images/sphere.png" width="512" title="texture in fragment shader">
- *      <img src="../images/anti-aliasing.png" height="340" title="sampling by pixel">
- *      <img src="../images/snake.png" height="340" title="rattle snake">
- * @see <img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
+ *      <figcaption style="font-size: 200%">{@link cartesian2Spherical North Pole - Y axis}</figcaption>
+ *      </figure>
+ * @see <figure>
+ *      <img src="../textures/BigEarth.jpg" height="340" title="earth from nasa">
+ *      <img src="../images/spherical-projection.png" height="340" title="projection">
+ *      <figcaption style="font-size: 200%">
+ *      <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">Equirectangular projection</a> X
+ *      <a href="https://www.britannica.com/science/Mercator-projection">Mercator Projection</a>
+ *      </figcaption>
+ *      </figure>
+ * @see  <figure>
+ *      <img src="../images/sphere-earth.png" height="340" title="texture in fragment shader">
+ *      <img src="../images/teapot-earth.png" height="340" title="teapot points projected onto a sphere">
+ *      <figcaption style="font-size: 200%"><a href="https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf">Spherical Projection</a></figcaption>
+ *      </figure>
+ * @see <figure>
+ *      <img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
  *      <img src="../images/aliasing.png" height="340" title="texture coordinates fixed">
  *      <img src="../images/GB.png" height="340" title="GhostBusters">
- * @see <img src="../textures/BigEarth.jpg" height="340" title="earth from nasa">
+ *      <figcaption style="font-size: 200%">Subdivision Sphere Seam - <a href="https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf">Mipmapping Artifact</a></figcaption>
+ *      </figure>
+ * @see <figure>
+ *      <img src="../images/sphere.png" width="512" title="texture in fragment shader">
+ *      <img src="../images/anti-aliasing.png" height="340" title="sampling by pixel"><br>
+ *      <img src="../images/snake.png" height="340" title="rattle snake">
  *      <img src="../images/Milla.png" height="340" title="Milla Jovovich">
- * @see <img src="../images/sphere-earth.png" height="340" title="texture in fragment shader">
- *      <img src="../images/teapot-earth.png" height="340" title="teapot points projected onto a sphere">
+ *      <figcaption style="font-size: 200%">Texture Sampled in <a href="/cwdc/13-webgl/showCode.php?f=extras/LightingWithTexture">Fragment Shader</a></figcaption>
+ *      <figure>
  */
 
 "use strict";
