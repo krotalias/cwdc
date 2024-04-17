@@ -30,7 +30,11 @@
  *      <img src="../textures/BigEarth.jpg" height="340" title="earth from nasa">
  *      <img src="../images/spherical-projection.png" height="340" title="projection">
  *      <figcaption style="font-size: 200%">
- *      <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">Equirectangular projection</a> X
+ *      <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">Equirectangular projection</a>
+ *      </figcaption>
+ *      <img src="../images/mercator-projection-world-map-political.png" height="340" title="mercator">
+ *      <img src="../images/Globe-Earth-land-distortion-projection-Mercator-latitudes.jpg" height="340" title="projection">
+ *      <figcaption style="font-size: 200%">
  *      <a href="https://www.britannica.com/science/Mercator-projection">Mercator Projection</a>
  *      </figcaption>
  *      </figure>
@@ -43,14 +47,16 @@
  *      <img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
  *      <img src="../images/aliasing.png" height="340" title="texture coordinates fixed">
  *      <img src="../images/GB.png" height="340" title="GhostBusters">
- *      <figcaption style="font-size: 200%">Subdivision Sphere Seam - <a href="https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf">Mipmapping Artifact</a></figcaption>
+ *      <figcaption style="font-size: 200%">{@link polyhedron#tetrahedron Subdivision Sphere} Seam -
+ *        <a href="https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf">Mipmapping Artifact</a></figcaption>
  *      </figure>
  * @see <figure>
  *      <img src="../images/sphere.png" width="512" title="texture in fragment shader">
  *      <img src="../images/anti-aliasing.png" height="340" title="sampling by pixel"><br>
  *      <img src="../images/snake.png" height="340" title="rattle snake">
  *      <img src="../images/Milla.png" height="340" title="Milla Jovovich">
- *      <figcaption style="font-size: 200%">Texture Sampled in <a href="/cwdc/13-webgl/showCode.php?f=extras/LightingWithTexture">Fragment Shader</a></figcaption>
+ *      <figcaption style="font-size: 200%">{@link https://learnopengl.com/Getting-started/Textures Texture Sampled} in
+ *        <a href="/cwdc/13-webgl/showCode.php?f=extras/LightingWithTexture">Fragment Shader</a></figcaption>
  *      <figure>
  */
 
