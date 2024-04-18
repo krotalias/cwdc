@@ -1200,6 +1200,7 @@ window.addEventListener("load", (event) => {
             "earth-nasa.png",
             "lion.jpg",
             "rattle_snake.jpg",
+            "world-map-equirectangular.jpg",
           ];
           startForReal(image);
         });
