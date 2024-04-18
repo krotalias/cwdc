@@ -17,7 +17,7 @@
  * @since 30/01/2016
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the fragment shader:
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the vertex shader
- * @see <a href="/cwdc/13-webgl/examples/texture/content/Texture.html">Chessboard Texture<a/>
+ * @see <a href="https://math.rice.edu/~polking/cartography/cart.pdf">Mapping the Sphere<a/>
  * @see {@link https://en.wikipedia.org/wiki/Utah_teapot Utah teapot}
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
@@ -28,12 +28,12 @@
  *      </figure>
  * @see <figure>
  *      <img src="../textures/BigEarth.jpg" height="340" title="earth from nasa">
- *      <img src="../images/spherical-projection.png" height="340" title="projection">
+ *      <img src="../images/spherical-projection.png" height="340" title="spherical projection">
  *      <figcaption style="font-size: 200%">
  *      <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">Equirectangular projection</a>
  *      </figcaption>
- *      <img src="../images/mercator-projection-world-map-political.png" height="340" title="mercator">
- *      <img src="../images/Globe-Earth-land-distortion-projection-Mercator-latitudes.jpg" height="340" title="projection">
+ *      <img src="../images/mercator-projection-world-map-political.png" height="340" title="mercator world map">
+ *      <img src="../images/Globe-Earth-land-distortion-projection-Mercator-latitudes.jpg" height="340" title="mercator projection">
  *      <figcaption style="font-size: 200%">
  *      <a href="https://www.britannica.com/science/Mercator-projection">Mercator Projection</a>
  *      </figcaption>
@@ -45,8 +45,7 @@
  *      </figure>
  * @see <figure>
  *      <img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
- *      <img src="../images/aliasing.png" height="340" title="texture coordinates fixed">
- *      <img src="../images/GB.png" height="340" title="GhostBusters">
+ *      <img src="../images/GB.png" height="340" title="GhostBusters Seam">
  *      <figcaption style="font-size: 200%">{@link polyhedron#tetrahedron Subdivision Sphere} Seam -
  *        <a href="https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf">Mipmapping Artifact</a></figcaption>
  *      </figure>
