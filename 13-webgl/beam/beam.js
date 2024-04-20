@@ -198,12 +198,22 @@ function edgeRenderProgram(canvas) {
 }
 
 /**
- * Return the c<sub>th</sub> RGB color from
- * {@link https://d3js.org d3}
- * {@link https://www.geeksforgeeks.org/d3-js-schemeaccent-method/ palette}.
- * @param {Number} c palette index.
- * @return {Array<Number>} rgb color.
- * @function
+ * Array with eight categorical (visually distinct} normalized RGBA colors.
+ * <pre>
+ *  [
+ *    [ 0.4980392156862745, 0.788235294117647,   0.4980392156862745,  1 ],
+ *    [ 0.7450980392156863, 0.6823529411764706,  0.8313725490196079,  1 ],
+ *    [ 0.9921568627450981, 0.7529411764705882,  0.5254901960784314,  1 ],
+ *    [ 1,                  1,                   0.6,                 1 ],
+ *    [ 0.2196078431372549, 0.4235294117647059,  0.6901960784313725,  1 ],
+ *    [ 0.9411764705882353, 0.00784313725490196, 0.4980392156862745,  1 ],
+ *    [ 0.7490196078431373, 0.3568627450980392,  0.09019607843137255, 1 ],
+ *    [ 0.4,                0.4,                 0.4,                 1 ]
+ *  ]
+ * </pre>
+ * @var {Array<Array<Number>>} palette
+ * @see {@link https://d3js.org d3}
+ * @see {@link https://www.geeksforgeeks.org/d3-js-schemeaccent-method/ palette}
  */
 const palette = d3.schemeAccent.map((c) => {
   let color = d3.color(c);
