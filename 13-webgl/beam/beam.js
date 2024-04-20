@@ -18,19 +18,24 @@
  * @see {@link http://zach.li Zach Lieberman} {@link https://www.instagram.com/p/Cc3uGxaJ2MB/ (Instagram)}
  */
 
+"use strict";
+
 /**
- * Edge light object, defined by:
- * <ul>
- *  <li> initial random position and angle, </li>
- *  <li> direction (rotation angle) </li>
- *  <li> initial size and random maximum size, </li>
- *  <li> color, </li>
- *  <li> increment (for growth and rotation). </li>
- * </ul>
+ * Edge light object.
  */
 class edgeLight {
   /**
-   * Constructs a new edge.
+   * Constructs a new edge:
+   *
+   * <ul>
+   *  <li> initial random position: [-1,1]x{-1,1]}, </li>
+   *  <li> initial random angle: [0,2π), </li>
+   *  <li> random direction: (cos(angle ± π/2), sin(angle ± π/2)) </li>
+   *  <li> initial size: 0.1</li>
+   *  <li> random maximum size: [0.5, 1.0], </li>
+   *  <li> random color from d3 {@link palette}, </li>
+   *  <li> increment: 0.001 (for growth and rotation). </li>
+   * </ul>
    *
    * @param {Number} aspect canvas aspect ratio.
    */
@@ -193,6 +198,19 @@ function edgeRenderProgram(canvas) {
 }
 
 /**
+ * Return the c<sub>th</sub> RGB color from
+ * {@link https://d3js.org d3}
+ * {@link https://www.geeksforgeeks.org/d3-js-schemeaccent-method/ palette}.
+ * @param {Number} c palette index.
+ * @return {Array<Number>} rgb color.
+ * @function
+ */
+const palette = d3.schemeAccent.map((c) => {
+  let color = d3.color(c);
+  return [color.r / 255, color.g / 255, color.b / 255, 1];
+});
+
+/**
  * <p>Entry point when page is loaded.</p>
  *
  * @see {@link https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html WebGL Resizing the Canvas}
@@ -203,11 +221,6 @@ function mainEntrance() {
   let canvas = document.querySelector("#theCanvas");
   canvas.width = canvas.clientWidth;
   canvas.height = canvas.clientHeight;
-
-  palette = d3.schemeAccent.map((c) => {
-    let color = d3.color(c);
-    return [color.r / 255, color.g / 255, color.b / 255, 1];
-  });
 
   // The regl objects
   let { regl, drawEdge } = edgeRenderProgram(canvas);
