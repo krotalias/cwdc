@@ -5,16 +5,25 @@
         <meta charset="utf-8" />
         <title>Segments</title>
         <style>
+            :root {
+                --width: 360px;
+                --height: 360px;
+            }
             .wrap-container {
                 text-align: center;
             }
             #slider {
-                width: 360px;
+                width: var(--width);
                 margin: 0 auto;
             }
             body {
                 margin: 10px 0;
                 padding: 0;
+            }
+            #theCanvas {
+                width: var(--width);
+                height: var(--height);
+                border: 10px solid gray;
             }
         </style>
     </head>
@@ -25,12 +34,7 @@
                     >Light Studies</a
                 >
             </h1>
-            <canvas
-                id="theCanvas"
-                width="360"
-                height="360"
-                style="border: 10px solid gray"
-            ></canvas>
+            <canvas id="theCanvas"></canvas>
 
             <div id="sliders">
                 <p>
@@ -79,61 +83,5 @@
         <script src="https://d3js.org/d3.v7.js"></script>
 
         <script src="beam.js"></script>
-
-        <script language="javascript">
-            // The drawing canvas
-            let canvas = document.querySelector("#theCanvas");
-
-            palette = d3.schemeAccent.map((c) => {
-                let color = d3.color(c);
-                return [color.r / 255, color.g / 255, color.b / 255, 1];
-            });
-
-            // The regl objects
-            let { regl, drawEdge } = edgeRenderProgram(canvas);
-
-            // Click callback (pause)
-            let run = true;
-            canvas.onmousedown = () => {
-                run = !run;
-            };
-
-            // A set of edge lights
-            let edges = [new edgeLight()];
-            const maxEdges = 40;
-            const minEdges = 4;
-            const createProbability = 0.02;
-            const ae = document.querySelector("#attenuation");
-            const lt = document.querySelector("#light");
-            const beam = document.querySelector("#beam");
-
-            regl.frame(function () {
-                if (!run) return;
-
-                regl.clear({
-                    color: [0, 0, 0, 1],
-                });
-
-                //drawEdge(edges);
-                for (let edge of edges) {
-                    drawEdge({
-                        a: edge.a,
-                        b: edge.b,
-                        color: edge.color,
-                        attenuationExponent: +ae.value,
-                        lightIntensity: +lt.value,
-                        beamLength: +beam.value,
-                    });
-                    edge.animate();
-                }
-                edges = edges.filter((e) => !e.terminated);
-                if (
-                    edges.length < maxEdges &&
-                    (edges.length < minEdges ||
-                        Math.random() < createProbability)
-                )
-                    edges.push(new edgeLight());
-            });
-        </script>
     </body>
 </html>

@@ -2,18 +2,20 @@
  * @file
  *
  * Summary.
- * <p>Edge light object.</p>
+ * <p>Light Beam Studies.</p>
  *
  * @author Claudio Esperança
+ * @author Paulo Roma
  * @since 08/06/2022
  * @see <a href="/cwdc//13-webgl/beam/segments.html">link</a>
  * @see <a href="/cwdc/13-webgl/beam/beam.js">source</a>
- * @see https://github.com/regl-project/regl
- * @see https://regl-project.github.io/regl/
- * @see https://regl-intro.herokuapp.com/#Passing_parameters_to_the_command
- * @see https://peterbeshai.com/blog/2017-05-26-beautifully-animate-points-with-webgl-and-regl/
- * @see https://drive.google.com/file/d/1bDLGlqdqgMBsUSr1icIaSqdm_5VC2io5/view
- * @see https://www.instagram.com/p/Cc3uGxaJ2MB/
+ * @see {@link https://github.com/regl-project/regl github}
+ * @see {@link https://regl-project.github.io/regl/ regl: Fast functional WebGL}
+ * @see {@link https://vallandingham.me/regl_intro.html An Intro to regl for Data Visualization}
+ * @see {@link https://observablehq.com/@spattana/basic-webgl-programming-using-regl Basic WebGL Programming Using REGL}
+ * @see {@link https://peterbeshai.com/blog/2017-05-26-beautifully-animate-points-with-webgl-and-regl/ Beautifully Animate Points with WebGL and regl}
+ * @see {@link https://drive.google.com/file/d/1bDLGlqdqgMBsUSr1icIaSqdm_5VC2io5/view Vídeo: Animação com feixes}
+ * @see {@link http://zach.li Zach Lieberman} {@link https://www.instagram.com/p/Cc3uGxaJ2MB/ (Instagram)}
  */
 
 /**
@@ -100,7 +102,7 @@ class edgeLight {
  *
  * @param {HTMLElement} canvas WebGL canvas.
  * @returns {Object<regl:Object, drawEdge:function>} regl object and draw function.
- * @see http://regl.party/api#from-a-canvas
+ * @see {@link http://regl.party/api#from-a-canvas regl api}
  */
 function edgeRenderProgram(canvas) {
   const regl = createREGL(canvas);
@@ -189,3 +191,87 @@ function edgeRenderProgram(canvas) {
 
   return { regl, drawEdge };
 }
+
+/**
+ * <p>Entry point when page is loaded.</p>
+ *
+ * @see {@link https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html WebGL Resizing the Canvas}
+ *
+ */
+function mainEntrance() {
+  // The drawing canvas
+  let canvas = document.querySelector("#theCanvas");
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+
+  palette = d3.schemeAccent.map((c) => {
+    let color = d3.color(c);
+    return [color.r / 255, color.g / 255, color.b / 255, 1];
+  });
+
+  // The regl objects
+  let { regl, drawEdge } = edgeRenderProgram(canvas);
+
+  // Pause the animation
+  let run = true;
+
+  /**
+   * <p>The mousedown event is fired at an Element when a pointing device button is pressed
+   * while the pointer is inside the element.</p>
+   *
+   * Pauses/resumes the animation whenever the mouse left button is clicked into the canvas.
+   *
+   * @param {MouseEvent} event mouse event.
+   * @event onmousedown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event mousedown event}
+   */
+  canvas.onmousedown = (event) => {
+    if (event.button == 0) {
+      run = !run;
+    }
+  };
+
+  // A set of edge lights
+  let edges = [new edgeLight()];
+  const maxEdges = 40;
+  const minEdges = 4;
+  const createProbability = 0.02;
+  const ae = document.querySelector("#attenuation");
+  const lt = document.querySelector("#light");
+  const beam = document.querySelector("#beam");
+
+  regl.frame(function () {
+    if (!run) return;
+
+    regl.clear({
+      color: [0, 0, 0, 1],
+    });
+
+    //drawEdge(edges);
+    for (let edge of edges) {
+      drawEdge({
+        a: edge.a,
+        b: edge.b,
+        color: edge.color,
+        attenuationExponent: +ae.value,
+        lightIntensity: +lt.value,
+        beamLength: +beam.value,
+      });
+      edge.animate();
+    }
+    edges = edges.filter((e) => !e.terminated);
+    if (
+      edges.length < maxEdges &&
+      (edges.length < minEdges || Math.random() < createProbability)
+    )
+      edges.push(new edgeLight());
+  });
+}
+
+/**
+ * Loads the {@link mainEntrance application}.
+ * @param {Event} event load event.
+ * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event load event}
+ */
+addEventListener("load", (event) => mainEntrance());
