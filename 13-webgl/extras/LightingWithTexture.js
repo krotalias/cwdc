@@ -508,7 +508,7 @@ const handleKeyPress = ((event) => {
     3: "tetrahedron",
   };
   const ntri = (p, n, f) => {
-    if (p == 0 || p == 3) return f * (n * n + 2 * n + 1);
+    if (p < 2) return f * (n * n + 2 * n + 1);
     else return f * 4 ** n;
   };
 
@@ -1577,7 +1577,7 @@ const setUVfix = (() => {
 function newTexture(image) {
   gl.useProgram(lightingShader);
   let imgSize = document.getElementById("size");
-  imgSize.innerHTML = `Texture = ${imageFilename[textureCnt]} (${image.width} x ${image.height})`;
+  imgSize.innerHTML = `${imageFilename[textureCnt]} (${image.width} x ${image.height})`;
   document.getElementById("textimg").src = image.src;
 
   // bind the texture
