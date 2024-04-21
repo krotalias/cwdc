@@ -498,6 +498,7 @@ const handleKeyPress = ((event) => {
   const mod = (n, m) => ((n % m) + m) % m;
   let kbd = document.getElementById("kbd");
   let opt = document.getElementById("options");
+  let models = document.getElementById("models");
   let zoomfactor = 0.7;
   let gscale = 1;
   let subPoly = 0;
@@ -526,9 +527,9 @@ const handleKeyPress = ((event) => {
         numSubdivisions = mod(numSubdivisions + inc, maxSubdivisions + 1);
         gscale = mscale = 1;
         if (numSubdivisions == 0) {
-          document.getElementById("models").value = subPoly + 9;
+          models.value = subPoly + 9;
         } else {
-          document.getElementById("models").value = "13";
+          models.value = "13";
         }
         theModel = createModel({ poly: subPoly });
 
@@ -580,7 +581,7 @@ const handleKeyPress = ((event) => {
       case "s":
         // sphere from threejs
         gscale = mscale = 1;
-        document.getElementById("models").value = "5";
+        models.value = "5";
         theModel = createModel({
           shape: getModelData(new THREE.SphereGeometry(1, 48, 24)),
         });
@@ -589,7 +590,7 @@ const handleKeyPress = ((event) => {
         // subdivision sphere
         this.mscale = mscale = 1;
         numSubdivisions = maxSubdivisions;
-        document.getElementById("models").value = "13";
+        models.value = "13";
         theModel = createModel({ poly: subPoly });
         kbd.innerHTML = `
           (${polyName[subPoly]}
@@ -598,51 +599,62 @@ const handleKeyPress = ((event) => {
         break;
       case "T":
         gscale = mscale = 0.6;
-        document.getElementById("models").value = "8";
+        models.value = "8";
         theModel = createModel({
           shape: getModelData(new THREE.TorusKnotGeometry(1, 0.4, 128, 16)),
         });
         break;
       case "t":
         gscale = mscale = 0.1;
-        document.getElementById("models").value = "7";
+        models.value = "7";
         theModel = createModel({ shape: uvTorus(10, 5, 30, 30), chi: 0 });
         break;
       case "u":
         // capsule from threejs
         gscale = mscale = 1.2;
-        document.getElementById("models").value = "0";
+        models.value = "0";
         theModel = createModel({
           shape: getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
         });
         break;
       case "c":
         gscale = mscale = 0.15;
-        document.getElementById("models").value = "3";
+        models.value = "3";
         theModel = createModel({ shape: uvCylinder(5, 10, 30, false, false) });
         break;
       case "C":
         gscale = mscale = 0.8;
-        document.getElementById("models").value = "1";
+        models.value = "1";
         theModel = createModel({ shape: uvCone(1, 2, 30, false) });
         break;
       case "v":
         gscale = mscale = 0.6;
-        document.getElementById("models").value = "2";
+        models.value = "2";
         theModel = createModel({ shape: cube(2) });
         break;
       case "p":
         // teapot - this is NOT a manifold model - it is a model with borders!
         gscale = mscale = 0.1;
-        document.getElementById("models").value = "6";
+        models.value = "6";
         theModel = createModel({ shape: teapotModel, chi: null });
+        break;
+      case "P":
+        // teapot - this is NOT a manifold model - it is a model with borders!
+        gscale = mscale = 0.8;
+        models.value = "6";
+        theModel = createModel({
+          shape: getModelData(
+            new THREE.TeapotGeometry(1, 10, true, true, true, true, true),
+          ),
+          chi: null,
+        });
         break;
       case "d":
         gscale = mscale = 1;
         subPoly = 0;
         maxSubdivisions = limit.dod;
         numSubdivisions = 0;
-        document.getElementById("models").value = "9";
+        models.value = "9";
         theModel = createModel({
           shape: getModelData(new THREE.DodecahedronGeometry(1, 0)),
         });
@@ -653,7 +665,7 @@ const handleKeyPress = ((event) => {
         subPoly = 1;
         maxSubdivisions = limit.ico;
         numSubdivisions = 0;
-        document.getElementById("models").value = "10";
+        models.value = "10";
         theModel = createModel({
           shape: getModelData(new THREE.IcosahedronGeometry(1, 0)),
         });
@@ -664,7 +676,7 @@ const handleKeyPress = ((event) => {
         subPoly = 2;
         maxSubdivisions = limit.oct;
         numSubdivisions = 0;
-        document.getElementById("models").value = "11";
+        models.value = "11";
         theModel = createModel({
           shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
         });
@@ -675,7 +687,7 @@ const handleKeyPress = ((event) => {
         subPoly = 3;
         maxSubdivisions = limit.tet;
         numSubdivisions = 0;
-        document.getElementById("models").value = "12";
+        models.value = "12";
         theModel = createModel({
           shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
         });
@@ -683,7 +695,7 @@ const handleKeyPress = ((event) => {
         break;
       case "r":
         gscale = mscale = 1.0;
-        document.getElementById("models").value = "4";
+        models.value = "4";
         theModel = createModel({
           shape: getModelData(
             new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586),
@@ -1025,7 +1037,9 @@ function drawTexture() {
     gl.drawElements(
       gl.TRIANGLES,
       theModel.indices.length,
-      gl.UNSIGNED_SHORT,
+      theModel.indices.constructor === Uint32Array
+        ? gl.UNSIGNED_INT
+        : gl.UNSIGNED_SHORT,
       0,
     );
   } else {
@@ -1157,10 +1171,10 @@ function drawAxes() {
  * <p>Loads the texture image asynchronously and defines its {@link ImageLoadCallback load callback function}.</p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
- * @see https://sites.google.com/site/csc8820/educational/how-to-implement-texture-mapping
- * @see https://www.evl.uic.edu/pape/data/Earth/
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event load event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image Image() constructor}
+ * @see {@link https://web.cse.ohio-state.edu/~shen.94/581/Site/Slides_files/texture.pdf Texture Mapping}
+ * @see {@link https://www.evl.uic.edu/pape/data/Earth/ Earth images}
  * @event load
  */
 window.addEventListener("load", (event) => {
