@@ -21,6 +21,22 @@
 "use strict";
 
 /**
+ * <p>d3 is a collection of modules that are designed to work together.</p>
+ * You can use the modules independently,
+ * or you can use them together as part of the default build.
+ * @external d3
+ * @see https://d3js.org/api
+ */
+
+/**
+ * An array of eight categorical colors.
+ * @function schemeAccent
+ * @memberof external:d3
+ * @see https://d3js.org/d3-scale-chromatic/categorical#schemeAccent
+ * @see https://www.geeksforgeeks.org/d3-js-schemeaccent-method/
+ */
+
+/**
  * Edge light object.
  */
 class edgeLight {
@@ -201,19 +217,18 @@ function edgeRenderProgram(canvas) {
  * Array with eight categorical (visually distinct} normalized RGBA colors.
  * <pre>
  *  [
- *    [ 0.4980392156862745, 0.788235294117647,   0.4980392156862745,  1 ],
- *    [ 0.7450980392156863, 0.6823529411764706,  0.8313725490196079,  1 ],
- *    [ 0.9921568627450981, 0.7529411764705882,  0.5254901960784314,  1 ],
- *    [ 1,                  1,                   0.6,                 1 ],
- *    [ 0.2196078431372549, 0.4235294117647059,  0.6901960784313725,  1 ],
- *    [ 0.9411764705882353, 0.00784313725490196, 0.4980392156862745,  1 ],
- *    [ 0.7490196078431373, 0.3568627450980392,  0.09019607843137255, 1 ],
- *    [ 0.4,                0.4,                 0.4,                 1 ]
+ *    [ 0.4980392156862745, 0.788235294117647,   0.4980392156862745,  1 ], // Iguana Green
+ *    [ 0.7450980392156863, 0.6823529411764706,  0.8313725490196079,  1 ], // Wisteria
+ *    [ 0.9921568627450981, 0.7529411764705882,  0.5254901960784314,  1 ], // Macaroni And Cheese
+ *    [ 1,                  1,                   0.6,                 1 ], // Canary
+ *    [ 0.2196078431372549, 0.4235294117647059,  0.6901960784313725,  1 ], // Blue Yonder
+ *    [ 0.9411764705882353, 0.00784313725490196, 0.4980392156862745,  1 ], // Mexican Pink
+ *    [ 0.7490196078431373, 0.3568627450980392,  0.09019607843137255, 1 ], // Alloy Orange
+ *    [ 0.4,                0.4,                 0.4,                 1 ]  // Granite Gray
  *  ]
  * </pre>
  * @var {Array<Array<Number>>} palette
- * @see {@link https://d3js.org d3}
- * @see {@link https://www.geeksforgeeks.org/d3-js-schemeaccent-method/ palette}
+ * @see {@link external:d3.schemeAccent}
  */
 const palette = d3.schemeAccent.map((c) => {
   let color = d3.color(c);
