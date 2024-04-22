@@ -309,7 +309,7 @@ var projection = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);
  * @property {Float32Array} vertices vertex coordinates.
  * @property {Float32Array} normals vertex normals.
  * @property {Float32Array} texCoords texture coordinates.
- * @property {Uint16Array} indices index array.
+ * @property {Uint16Array|Uint32Array} indices index array.
  */
 
 /**
@@ -363,7 +363,7 @@ document
  * </ul>
  * returns an object containing raw data for
  * vertices, indices, texture coordinates, and normal vectors.
- * <p>Polyhedra have no index.</p>
+ * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
  * @param {external:THREE.BufferGeometry} geom
  *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
@@ -377,7 +377,8 @@ document
  *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry}.
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry}.<br>
+ *        {@link TeapotGeometry THREE.TeaPotGeometry}.
  * @return {modelData}
  */
 function getModelData(geom) {
