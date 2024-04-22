@@ -451,12 +451,13 @@
       }
 
       /**
-       * @name TeapotGeometry.attributes
+       * @name TeapotGeometry.BufferAttribute
        * @property {Object} attributes TeaPot vertex attributes.
        * @property {Float32Array} attributes.position vertex coordinates.
        * @property {Float32Array} attributes.normal vertex normals.
        * @property {Float32Array} attributes.uv texture coordinates.
        * @property {Float32Array} index face index array.
+       * @see {@link https://threejs.org/docs/#api/en/core/BufferAttribute BufferAttribute} 
        */
       this.setIndex(new THREE.BufferAttribute(indices, 1));
       this.setAttribute("position", new THREE.BufferAttribute(vertices, 3));

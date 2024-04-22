@@ -700,12 +700,13 @@ class TeapotGeometry extends BufferGeometry {
     }
 
     /**
-     * @name TeapotGeometry.attributes
+     * @name TeapotGeometry.BufferAttribute
      * @property {Object} attributes TeaPot vertex attributes.
      * @property {Float32Array} attributes.position vertex coordinates.
      * @property {Float32Array} attributes.normal vertex normals.
      * @property {Float32Array} attributes.uv texture coordinates.
      * @property {Float32Array} index face index array.
+     * @see {@link https://threejs.org/docs/#api/en/core/BufferAttribute BufferAttribute}
      */
     this.setIndex(new BufferAttribute(indices, 1));
     this.setAttribute("position", new BufferAttribute(vertices, 3));
