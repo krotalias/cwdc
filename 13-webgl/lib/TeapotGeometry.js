@@ -18,6 +18,7 @@
  * @see <a href="/cwdc/13-webgl/lib/TeapotGeometry.js">source</a>
  * @see https://en.wikipedia.org/wiki/Utah_teapot
  * @see http://www.holmes3d.net/graphics/teapot/
+ * @see https://threejs.org/examples/webgl_geometry_teapot.html
  * @see <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Original_Utah_Teapot_-_Computer_History_Museums.jpg" width="512">
  */
 
@@ -29,7 +30,8 @@
    *    size = 50,
    *    segments = 10,
    *    bottom = true,
-   *    lid = true, body = true,
+   *    lid = true,
+   *    body = true,
    *    fitLid = false,
    *    blinn = true
    * </pre>
@@ -448,6 +450,14 @@
         }
       }
 
+      /**
+       * @name TeapotGeometry.attributes
+       * @property {Object} attributes TeaPot vertex attributes.
+       * @property {Float32Array} attributes.position vertex coordinates.
+       * @property {Float32Array} attributes.normal vertex normals.
+       * @property {Float32Array} attributes.uv texture coordinates.
+       * @property {Float32Array} indices face index array.
+       */
       this.setIndex(new THREE.BufferAttribute(indices, 1));
       this.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
       this.setAttribute("normal", new THREE.BufferAttribute(normals, 3));

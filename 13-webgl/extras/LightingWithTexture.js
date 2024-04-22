@@ -446,7 +446,8 @@ var readFileNames = new Promise((resolve, reject) => {
  *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry}.
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry}.<br>
+ *        {@link TeapotGeometry THREE.TeaPotGeometry}.
  * @return {modelData}
  */
 function getModelData(geom) {

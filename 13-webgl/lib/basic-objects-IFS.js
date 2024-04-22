@@ -38,18 +38,18 @@
  * </ul>
  * @since 08/01/2014
  * @see <a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">source</a>
- * @see https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js
+ * @see {@link https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js hws source}
  */
 
 /**
  * An object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
- * <p>Polyhedra have no index.</p>
+ * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
  * @typedef {Object} modelData
  * @property {Float32Array} vertexPositions vertex coordinates.
  * @property {Float32Array} vertexNormals vertex normals.
  * @property {Float32Array} vertexTextureCoords texture coordinates.
- * @property {Uint16Array} indices index array.
+ * @property {Uint16Array|Uint32Array} indices index array.
  */
 
 /**
