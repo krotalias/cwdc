@@ -705,7 +705,7 @@ class TeapotGeometry extends BufferGeometry {
      * @property {Float32Array} attributes.position vertex coordinates.
      * @property {Float32Array} attributes.normal vertex normals.
      * @property {Float32Array} attributes.uv texture coordinates.
-     * @property {Float32Array} indices face index array.
+     * @property {Float32Array} index face index array.
      */
     this.setIndex(new BufferAttribute(indices, 1));
     this.setAttribute("position", new BufferAttribute(vertices, 3));
