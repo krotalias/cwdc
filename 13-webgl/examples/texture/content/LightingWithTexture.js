@@ -257,7 +257,7 @@ var mscale = 1;
 
 /**
  * Turn the display of the model mesh/texture/axes/animation on/off.
- * @type {OBject<{lines:Boolean, texture:Boolean, axes:Boolean, paused: Boolean, intrinsic: Boolean}>}
+ * @type {Object<{lines:Boolean, texture:Boolean, axes:Boolean, paused: Boolean, intrinsic: Boolean}>}
  */
 var selector = {
   lines: document.getElementById("mesh").checked,
@@ -322,7 +322,7 @@ var viewDistance = vecLen(eye);
 /**
  * An object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
- * <p>Polyhedra nave no index.</p>
+ * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
  * @typedef {Object} modelData
  * @property {Float32Array} vertices vertex coordinates.
  * @property {Float32Array} normals vertex normals.
@@ -337,7 +337,7 @@ var viewDistance = vecLen(eye);
  * </ul>
  * returns an object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
- * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} nave no index.</p>
+ * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
  * @param {external:THREE.BufferGeometry} geom
  *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
@@ -711,10 +711,10 @@ document
  * <p>Loads the texture image asynchronously and defines its {@link mainEntrance load callback function}.</p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
- * @see https://sites.google.com/site/csc8820/educational/how-to-implement-texture-mapping
- * @see https://www.evl.uic.edu/pape/data/Earth/
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event load event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image Image() constructor}
+ * @see {@link https://web.cse.ohio-state.edu/~shen.94/581/Site/Slides_files/texture.pdf Texture Mapping}
+ * @see {@link https://www.evl.uic.edu/pape/data/Earth/ Earth images}
  * @event load
  */
 window.addEventListener("load", (event) => mainEntrance());
@@ -735,7 +735,7 @@ function draw() {
 }
 
 /**
- * Returns a new scale model matrix, which applies mscale.
+ * Returns a new scale model matrix, which applies {@link mscale}.
  * @returns {mat4} model matrix.
  */
 function getModelMatrix() {
@@ -752,7 +752,7 @@ function getModelMatrix() {
 
 /**
  * <p>Texture render the current model.</p>
- * Uses the lightingShader.
+ * Uses the {@link lightingShader}.
  *
  * <p>If the attribute "a_TexCoord" is not defined in the vertex shader,
  * texture coordinates will be calculated pixel by pixel
@@ -848,7 +848,7 @@ function drawTexture() {
 
 /**
  * <p>Draws the axes. </p>
- * Uses the colorShader.
+ * Uses the {@link colorShader}.
  */
 function drawAxes() {
   // bind the shader
@@ -900,7 +900,7 @@ function drawAxes() {
 
 /**
  * <p>Draws the mesh edges and normals. </p>
- * Uses the colorShader.
+ * Uses the {@link colorShader}.
  */
 function drawLines() {
   // bind the shader
@@ -981,7 +981,7 @@ function mainEntrance() {
 
 /**
  * <p>Entry point when page is loaded.</p>
- * Basically this function does setup that "should" only have to be done once,
+ * Basically this function does setup that "should" only have to be done once,<br>
  * while {@link draw} does things that have to be repeated each time the canvas is
  * redrawn.
  * @param {HTMLImageElement} image texture image.
@@ -1226,7 +1226,7 @@ function createModel(shape, chi = 2) {
  * A closure to define an animation loop.
  * @return {frame}
  * @function
- * @see https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd
+ * @see {@link https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd Extrinsic & intrinsic rotation: Do I multiply from right or left?}
  */
 var animate = (() => {
   // increase the rotation by some amount (30°/s), depending on the axis chosen
