@@ -35,7 +35,18 @@
 
 "use strict";
 
+/**
+ * 4x4 Matrix
+ * @type {glMatrix.mat4}
+ * @see {@link https://glmatrix.net/docs/module-mat4.html glMatrix.mat4}
+ */
 const mat4 = glMatrix.mat4;
+
+/**
+ * 3x3 Matrix
+ * @type {glMatrix.mat3}
+ * @see {@link https://glmatrix.net/docs/module-mat3.html glMatrix.mat3}
+ */
 const mat3 = glMatrix.mat3;
 
 /**
@@ -316,7 +327,7 @@ var viewDistance = vecLen(eye);
  * @property {Float32Array} vertices vertex coordinates.
  * @property {Float32Array} normals vertex normals.
  * @property {Float32Array} texCoords texture coordinates.
- * @property {Uint16Array} indices index array.
+ * @property {Uint16Array|Uint32Array} indices index array.
  */
 
 /**
@@ -326,7 +337,7 @@ var viewDistance = vecLen(eye);
  * </ul>
  * returns an object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
- * <p>Polyhedra nave no index.</p>
+ * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} nave no index.</p>
  * @param {external:THREE.BufferGeometry} geom
  *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
@@ -340,7 +351,8 @@ var viewDistance = vecLen(eye);
  *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry}.
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry},<br>
+ *        {@link TeapotGeometry THREE.TeapotGeometry}.
  * @return {modelData}
  */
 function getModelData(geom) {
@@ -388,6 +400,7 @@ function getChar(event) {
 const handleKeyPress = ((event) => {
   let zoomfactor = 0.7;
   let gscale = 1;
+  const models = document.getElementById("models");
 
   /**
    * <p>Handler for keydown events.</p>
@@ -418,21 +431,21 @@ const handleKeyPress = ((event) => {
         break;
       case "C":
         gscale = mscale = 1;
-        document.getElementById("models").value = "1";
+        models.value = "1";
         theModel = createModel(
           getModelData(new THREE.ConeGeometry(0.8, 1.5, 48, 24)),
         );
         break;
       case "c":
         gscale = mscale = 1;
-        document.getElementById("models").value = "3";
+        models.value = "3";
         theModel = createModel(
           getModelData(new THREE.CylinderGeometry(0.5, 0.5, 1.5, 24, 5)),
         );
         break;
       case "r":
         gscale = mscale = 1;
-        document.getElementById("models").value = "4";
+        models.value = "4";
         theModel = createModel(
           getModelData(
             new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586),
@@ -442,33 +455,33 @@ const handleKeyPress = ((event) => {
         break;
       case "u":
         gscale = mscale = 1;
-        document.getElementById("models").value = "0";
+        models.value = "0";
         theModel = createModel(
           getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
         );
         break;
       case "v":
         gscale = mscale = 1;
-        document.getElementById("models").value = "2";
+        models.value = "2";
         theModel = createModel(getModelData(new THREE.BoxGeometry(1, 1, 1)));
         break;
       case "s":
         gscale = mscale = 1;
-        document.getElementById("models").value = "5";
+        models.value = "5";
         theModel = createModel(
           getModelData(new THREE.SphereGeometry(1, 48, 24)),
         );
         break;
       case "T":
         gscale = mscale = 1;
-        document.getElementById("models").value = "8";
+        models.value = "8";
         theModel = createModel(
           getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16)),
         );
         break;
       case "t":
         gscale = mscale = 1;
-        document.getElementById("models").value = "7";
+        models.value = "7";
         theModel = createModel(
           getModelData(new THREE.TorusGeometry(0.6, 0.24, 16, 128)),
           0,
@@ -476,21 +489,21 @@ const handleKeyPress = ((event) => {
         break;
       case "d":
         gscale = mscale = 1;
-        document.getElementById("models").value = "9";
+        models.value = "9";
         theModel = createModel(
           getModelData(new THREE.DodecahedronGeometry(1, 0)),
         );
         break;
       case "i":
         gscale = mscale = 1;
-        document.getElementById("models").value = "10";
+        models.value = "10";
         theModel = createModel(
           getModelData(new THREE.IcosahedronGeometry(1, 0)),
         );
         break;
       case "o":
         gscale = mscale = 1;
-        document.getElementById("models").value = "11";
+        models.value = "11";
         theModel = createModel(
           getModelData(new THREE.OctahedronGeometry(1, 0)),
         );
@@ -504,14 +517,14 @@ const handleKeyPress = ((event) => {
         return;
       case "w":
         gscale = mscale = 1;
-        document.getElementById("models").value = "12";
+        models.value = "12";
         theModel = createModel(
           getModelData(new THREE.TetrahedronGeometry(1, 0)),
         );
         break;
       case "p":
         gscale = mscale = 0.1;
-        document.getElementById("models").value = "6";
+        models.value = "6";
         theModel = createModel(
           {
             vertices: teapotModel.vertexPositions,
@@ -519,6 +532,16 @@ const handleKeyPress = ((event) => {
             texCoords: teapotModel.vertexTextureCoords,
             indices: teapotModel.indices,
           },
+          null,
+        );
+        break;
+      case "P":
+        gscale = mscale = 0.8;
+        models.value = "6";
+        theModel = createModel(
+          getModelData(
+            new THREE.TeapotGeometry(1, 10, true, true, true, true, true),
+          ),
           null,
         );
         break;
@@ -809,7 +832,9 @@ function drawTexture() {
     gl.drawElements(
       gl.TRIANGLES,
       theModel.indices.length,
-      gl.UNSIGNED_SHORT,
+      theModel.indices.constructor === Uint32Array
+        ? gl.UNSIGNED_INT
+        : gl.UNSIGNED_SHORT,
       0,
     );
   } else {
@@ -818,6 +843,7 @@ function drawTexture() {
 
   gl.disableVertexAttribArray(positionIndex);
   gl.disableVertexAttribArray(normalIndex);
+  gl.useProgram(null);
 }
 
 /**
@@ -983,7 +1009,7 @@ function startForReal(image) {
   });
 
   // get the rendering context for WebGL
-  gl = canvas.getContext("webgl");
+  gl = canvas.getContext("webgl2");
   if (!gl) {
     console.log("Failed to get the rendering context for WebGL");
     return;
@@ -1084,6 +1110,8 @@ function startForReal(image) {
   gl.clearColor(0.0, 0.4, 0.4, 1.0);
 
   gl.enable(gl.DEPTH_TEST);
+  //gl.enable(gl.CULL_FACE);
+  //gl.cullFace(gl.BACK);
 
   rotator = new SimpleRotator(canvas, animate);
   rotator.setViewMatrix(modelMatrix);
@@ -1118,23 +1146,17 @@ function startForReal(image) {
  *                    given as an <a href="https://math.hws.edu/graphicsbook/c3/s4.html">IFS</a>.
  * @param {Number | null} chi model <a href="https://en.wikipedia.org/wiki/Euler_characteristic">Euler Characteristic</a>.
  * @returns {modelData} shape.
- * @see https://en.wikipedia.org/wiki/Platonic_solid
- * @see http://www-groups.mcs.st-andrews.ac.uk/~john/MT4521/Lectures/L25.html
- * @see https://nrich.maths.org/1384
- * @see https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole
+ * @see {@link https://en.wikipedia.org/wiki/Platonic_solid Platonic solid}
+ * @see {@link https://ocw.mit.edu/courses/18-965-geometry-of-manifolds-fall-2004/pages/lecture-notes/ Geometry Of Manifolds}
+ * @see {@link https://nrich.maths.org/1384 Euler's Formula and Topology}
+ * @see {@link https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole Euler characteristic of a polygon with a hole}
  *
  */
 function createModel(shape, chi = 2) {
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, shape.vertices, gl.STATIC_DRAW);
 
-  if (shape.indices) {
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, shape.indices, gl.STATIC_DRAW);
-  }
-
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
-
   gl.bufferData(gl.ARRAY_BUFFER, shape.normals, gl.STATIC_DRAW);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
@@ -1153,6 +1175,9 @@ function createModel(shape, chi = 2) {
   // number of edges: ni
   // number of endpoints: ni * 6
   if (shape.indices) {
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, shape.indices, gl.STATIC_DRAW);
+
     let ni = shape.indices.length;
     lines = new Float32Array(18 * ni);
     for (i = 0, k = 0; i < ni; i += 3, k += 18) {
