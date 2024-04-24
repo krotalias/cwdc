@@ -83,9 +83,11 @@ var clamp = (x, min, max) => Math.min(Math.max(min, x), max);
  * <p>The singularity of the mapping (parameterization) is at φ = 0 (y = r) and φ = π (y = -r).</p>
  * <ul>
  * <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
- * <li>Also, here, θ is measured from the positive x axis.</li>
- * <li> In CG, φ is measured from the positive y axis, not the z axis, as it is usual in math books.
+ * <li>Also, here, θ is measured from the positive Z axis.</li>
+ * <li> In CG, φ is measured from the positive Y axis, not the z axis, as it is usual in math books.
  * </ul>
+ * Note that this definition provides a logical extension of the usual polar coordinates notation,<br>
+ * with θ remaining the angle in the xy-plane (here, xz-plane) and φ becoming the angle out of that plane.
  *
  *  @param {vec3} p a point on the sphere.
  *  @return {Object<s:Number, t:Number>} point p in spherical coordinates:
@@ -98,8 +100,8 @@ var clamp = (x, min, max) => Math.min(Math.max(min, x), max);
  * Since the positive angular direction is CCW, x coordinates should be flipped.<br>
  * Otherwise, the image will be rendered mirrored, that is, either use:
  * <ul>
- *  <li>atan2(p[0],p[2]) (border at -y axis) or </li>
- *  <li>atan2(p[2],-p[0]) (border at x axis). </li>
+ *  <li>atan2(p[0],p[2]) (border at -y axis of the image - wrap top to bottom) or </li>
+ *  <li>atan2(p[2],-p[0]) (border at x axis of the image - wrap left to right). </li>
  * </ul>
  *
  * @see {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system Spherical coordinate system}
@@ -107,7 +109,7 @@ var clamp = (x, min, max) => Math.min(Math.max(min, x), max);
  * @see {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf Texture Mapping}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2 Math.atan2()}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos Math.acos()}
- * @see <img src="../images/Spherical.png">
+ * @see <img src="../images/Spherical2.png">
  */
 function cartesian2Spherical(p) {
   var phi = Math.acos(-p[1]) / Math.PI; // acos  -> [0,pi]
@@ -118,6 +120,33 @@ function cartesian2Spherical(p) {
     s: clamp(theta, 0.0, 1.0),
     t: clamp(phi, 0.0, 1.0),
   };
+}
+
+/**
+ * <p>Return a point on the unit sphere given their
+ * {@link https://mathworld.wolfram.com/SphericalCoordinates.html spherical coordinates}: (θ, φ, r=1).</p>
+ * It is assumed that:
+ * <ul>
+ *  <li>the two systems have the same origin,</li>
+ *  <li>the spherical reference plane is the Cartesian XZ plane, </li>
+ *  <li>φ is inclination from the Y direction, and</li>
+ *  <li>the azimuth angles are measured from the Cartesian Z axis (so that the X axis has θ = +90°).</li>
+ *  <li>X = p[0] = -r cos(θ) * sin(φ)</li>
+ *  <li>Z = p[2] = r sin(θ) * sin(φ)</li>
+ *  <li>Y = p[1] = -r cos(φ)</li>
+ * </ul>
+ *
+ * @param {Number} s azimuth angle θ, 0 ≤ θ < 2π.
+ * @param {Number} t zenith angle φ, 0 ≤ φ ≤ π.
+ * @returns {vec3} cartesian point onto the unit sphere.
+ * @see <img src="../images/Spherical2.png">
+ */
+function spherical2Cartesian(s, t) {
+  let p = vec3.fromValues(0, 0, 0);
+  p[0] = -Math.cos(s) * Math.sin(t);
+  p[2] = Math.sin(s) * Math.sin(t);
+  p[1] = -Math.cos(t);
+  return p;
 }
 
 /**

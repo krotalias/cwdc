@@ -430,12 +430,14 @@
     Return a pair of spherical coordinates, in the range [0,1],
 corresponding to a point p onto the unit sphere.
 
-<p>The singularity of the mapping (parameterization) is at φ = 0 (y = r) and φ = π (y = -r).</p>
+<p>The singularity of the mapping (parameterization) is at φ = 0 (Y = r) and φ = π (Y = -r).</p>
 <ul>
 <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
-<li>Also, here, θ is measured from the positive x axis.</li>
-<li> In CG, φ is measured from the positive y axis, not the z axis, as it is usual in math books.
+<li>Also, here, θ is measured from the positive Z axis.</li>
+<li> In CG, φ is measured from the positive Y axis, not the z axis, as it is usual in math books.
 </ul>
+Note that this definition provides a logical extension of the usual polar coordinates notation,<br>
+with θ remaining the angle in the xy-plane (here, xz-plane) and φ becoming the angle out of that plane.
 </div>
 
 
@@ -528,7 +530,7 @@ corresponding to a point p onto the unit sphere.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line116">line 116</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -548,7 +550,7 @@ corresponding to a point p onto the unit sphere.
         
             <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos">Math.acos()</a></li>
         
-            <li><img src="../images/Spherical.png"></li>
+            <li><img src="../images/Spherical2.png"></li>
         </ul>
     </dd>
     
@@ -584,8 +586,8 @@ corresponding to a point p onto the unit sphere.
 Since the positive angular direction is CCW, x coordinates should be flipped.<br>
 Otherwise, the image will be rendered mirrored, that is, either use:
 <ul>
- <li>atan2(p[0],p[2]) (border at -y axis) or </li>
- <li>atan2(p[2],-p[0]) (border at x axis). </li>
+ <li>atan2(p[0],p[2]) (border at -y axis of the image - wrap top to bottom) or </li>
+ <li>atan2(p[2],-p[0]) (border at x axis of the image - wrap left to right). </li>
 </ul>
 </div>
 
@@ -793,6 +795,206 @@ Otherwise, the image will be rendered mirrored, that is, either use:
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="~spherical2Cartesian"><span class="type-signature">(inner) </span>spherical2Cartesian<span class="signature">(s, t)</span><span class="type-signature"> &rarr; {vec3}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Return a point on the unit sphere given their
+<a href="https://mathworld.wolfram.com/SphericalCoordinates.html">spherical coordinates</a>: (θ, φ, r=1).</p>
+It is assumed that:
+<ul>
+ <li>the two systems have the same origin,</li>
+ <li>the spherical reference plane is the Cartesian XZ plane, </li>
+ <li>φ is inclination from the Y direction, and</li>
+ <li>the azimuth angles are measured from the Cartesian Z axis (so that the X axis has θ = +90°).</li>
+ <li>X = p[0] = -r cos(θ) * sin(φ)</li>
+ <li>Z = p[2] = r sin(θ) * sin(φ)</li>
+ <li>Y = p[1] = -r cos(φ)</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>s</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">azimuth angle θ, 0 ≤ θ < 2π.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>t</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">zenith angle φ, 0 ≤ φ ≤ π.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line148">line 148</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><img src="../images/Spherical2.png"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    cartesian point onto the unit sphere.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">vec3</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
     
 
     
@@ -814,7 +1016,7 @@ Otherwise, the image will be rendered mirrored, that is, either use:
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Apr 16 2024 06:24:27 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 24 2024 17:23:15 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
