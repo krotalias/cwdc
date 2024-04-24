@@ -232,8 +232,8 @@ var shininess = 10.0;
  * Shiny brass.
  * <p>Remember this is column major.</p>
  * @type {Float32Array}
- * @see http://devernay.free.fr/cours/opengl/materials.html
- * @see https://docs.unity3d.com/Manual/StandardShaderMaterialCharts.html
+ * @see {@link http://devernay.free.fr/cours/opengl/materials.html OpenGL/VRML Materials}
+ * @see {@link https://docs.unity3d.com/Manual/StandardShaderMaterialCharts.html Material charts}
  */
 // prettier-ignore
 var matPropElements = new Float32Array([
@@ -358,7 +358,7 @@ var fixuv = document.querySelector("#fixuv").checked;
 /**
  * Toggle back face culling on/off.
  * @type {Boolean}
- * @see https://learnopengl.com/Advanced-OpenGL/Face-culling
+ * @see {@link https://learnopengl.com/Advanced-OpenGL/Face-culling Face culling}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/frontFace
  */
 var culling = true;
@@ -375,7 +375,7 @@ var eye = vec3.fromValues(1.77, 3.54, 3.0);
  * @see <a href="/cwdc/downloads/apostila.pdf#page=109">View matrix</a>
  * @see <a href="/cwdc/downloads/PDFs/06_LCG_Transformacoes.pdf">Mudança de Base</a>
  * @see <a href="https://en.wikipedia.org/wiki/Change_of_basis">Change of Basis</a>
- * @see https://learn.microsoft.com/en-us/windows/win32/direct3d9/view-transform
+ * @see {@link https://learn.microsoft.com/en-us/windows/win32/direct3d9/view-transform View Transform (Direct3D 9)}
  */
 // prettier-ignore
 var viewMatrix = mat4.lookAt(
@@ -398,8 +398,8 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise<Array<String>>}
  * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
- * @see https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript
- * @see https://api.jquery.com/jquery.ajax/
+ * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
+ * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
 var readFileNames = new Promise((resolve, reject) => {
   $.ajax({
@@ -446,7 +446,7 @@ var readFileNames = new Promise((resolve, reject) => {
  *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry}.<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry},<br>
  *        {@link TeapotGeometry THREE.TeapotGeometry}.
  * @return {modelData}
  */
@@ -939,7 +939,7 @@ function draw() {
 }
 
 /**
- * Returns a new scale model matrix, which applies mscale.
+ * Returns a new scale model matrix, which applies {@link mscale}.
  * @returns {mat4} model matrix.
  */
 function getModelMatrix() {
@@ -956,7 +956,7 @@ function getModelMatrix() {
 
 /**
  * <p>Texture render the current model.</p>
- * Uses the lightingShader.
+ * Uses the {@link lightingShader}.
  *
  * <p>If the attribute "a_TexCoord" is not defined in the vertex shader,
  * texture coordinates will be calculated pixel by pixel
@@ -1054,8 +1054,8 @@ function drawTexture() {
 }
 
 /**
- * <p>Draws the lines. </p>
- * Uses the colorShader.
+ * <p>Draws the lines: mesh + normals.</p>
+ * Uses the {@link colorShader}.
  * <p>This code takes too long on mobile - too many API calls.</p>
  * <pre>
  *  // draw edges
@@ -1069,7 +1069,7 @@ function drawTexture() {
  * </pre>
  * The solution is having a single {@link lineBuffer buffer} with all lines,
  * which was set in {@link createModel}.
- * @see https://stackoverflow.com/questions/47232671/how-gl-drawelements-find-the-corresponding-vertices-array-buffer
+ * @see {@link https://stackoverflow.com/questions/47232671/how-gl-drawelements-find-the-corresponding-vertices-array-buffer How gl.drawElements "find" the corresponding vertices array buffer?}
  */
 function drawLines() {
   // bind the shader
@@ -1122,7 +1122,7 @@ function drawLines() {
 
 /**
  * <p>Draws the axes. </p>
- * Uses the colorShader.
+ * Uses the {@link colorShader}.
  */
 function drawAxes() {
   // bind the shader
@@ -1376,7 +1376,7 @@ function createModel({ shape, chi = 2, poly = 0, fix_uv = false }) {
 /**
  * Returns whether a given value is a power of two.
  * @param {Number} value number to check.
- * @returns {Boolean} true if is power of two: value = 2<sup>n</sup>
+ * @returns {Boolean} true if value is a power of two: value = 2<sup>n</sup>
  */
 function isPowerOf2(value) {
   return (value & (value - 1)) === 0;
@@ -1392,12 +1392,12 @@ function isPowerOf2(value) {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/generateMipmap
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texParameter
- * @see https://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D
- * @see https://learnopengl.com/Getting-started/Textures
- * @see https://artincontext.org/shades-of-teal/
- * @see https://www.khronos.org/opengl/wiki/Common_Mistakes
- * @see https://www.youtube.com/watch?v=qMCOX3m-R28
+ * @see {@link https://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences WebGL and OpenGL Differences}
+ * @see {@link https://learnopengl.com/Getting-started/Textures Textures}
+ * @see {@link https://artincontext.org/shades-of-teal/ 38 Shades of Teal Color}
+ * @see {@link https://www.khronos.org/opengl/wiki/Common_Mistakes Common Mistakes}
+ * @see {@link https://www.youtube.com/watch?v=qMCOX3m-R28 What are Mipmaps?}
  */
 function startForReal(image) {
   console.log("Started...");
@@ -1582,7 +1582,8 @@ const setUVfix = (() => {
 })();
 
 /**
- * Creates a new texture from an image.
+ * <p>Creates a new texture from an image.</p>
+ * Uses the {@link lightingShader}.
  * @param {HTMLImageElement} image texture.
  * @see {@link https://webglfundamentals.org/webgl/lessons/webgl-3d-textures.html WebGL Textures}
  * @see {@link https://jameshfisher.com/2020/10/22/why-is-my-webgl-texture-upside-down/ Why is my WebGL texture upside-down?}
