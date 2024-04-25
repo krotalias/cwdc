@@ -87,14 +87,14 @@ var clamp = (x, min, max) => Math.min(Math.max(min, x), max);
  * <li> In CG, φ is measured from the positive Y axis, not the z axis, as it is usual in math books.
  * </ul>
  * Note that this definition provides a logical extension of the usual polar coordinates notation,<br>
- * with θ remaining the angle in the xy-plane (here, xz-plane) and φ becoming the angle out of that plane.
+ * with θ remaining the angle in the xy-plane (here, ZX-plane) and φ becoming the angle out of that plane.
  *
  *  @param {vec3} p a point on the sphere.
  *  @return {Object<s:Number, t:Number>} point p in spherical coordinates:
  *  <ul>
  *     <li>r = 1 = √(p[0]² + p[1]² + p[2]²)</li>
- *     <li>s = θ = atan2(p[2],p[0]) / (2 π ) + 0.5</li>
- *     <li>t = φ = acos(-p[1]/r) / π </li>
+ *     <li>s = θ = atan2(p[2],p[0]) / 2π + 0.5</li>
+ *     <li>t = φ = acos(-p[1]/r) / π</li>
  *  </ul>
  *
  * Since the positive angular direction is CCW, x coordinates should be flipped.<br>
@@ -138,15 +138,91 @@ function cartesian2Spherical(p) {
  *
  * @param {Number} s azimuth angle θ, 0 ≤ θ < 2π.
  * @param {Number} t zenith angle φ, 0 ≤ φ ≤ π.
+ * @param {Number} r radius.
  * @returns {vec3} cartesian point onto the unit sphere.
  * @see <img src="../images/Spherical2.png">
  */
-function spherical2Cartesian(s, t) {
+function spherical2Cartesian(s, t, r = 1) {
   let p = vec3.fromValues(0, 0, 0);
-  p[0] = -Math.cos(s) * Math.sin(t);
-  p[2] = Math.sin(s) * Math.sin(t);
-  p[1] = -Math.cos(t);
+  p[0] = -r * Math.cos(s) * Math.sin(t);
+  p[2] = r * Math.sin(s) * Math.sin(t);
+  p[1] = -r * Math.cos(t);
   return p;
+}
+
+/**
+ * Return an array with n points on the equator.
+ * @param {Number} n number of points.
+ * @return {Float32Array} points on the equator.
+ */
+function pointsOnEquator(n) {
+  let ds = (Math.PI * 2) / n;
+  let arr = new Float32Array(3 * n);
+  for (let i = 0, j = 0; i < n; ++i, j += 3) {
+    let p = spherical2Cartesian(i * ds, Math.PI / 2, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
+}
+
+/**
+ * Return an array with n points on the prime meridian.
+ * @param {Number} n number of points.
+ * @return {Float32Array} points on the prime meridian.
+ */
+function pointsOnPrimeMeridian(n) {
+  let ds = Math.PI / n;
+  let arr = new Float32Array(3 * n);
+  for (let i = 0, j = 0; i < n; ++i, j += 3) {
+    let p = spherical2Cartesian(0, i * ds, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
+}
+
+/**
+ * Return an array with n points on the anti meridian.
+ * @param {Number} n number of points.
+ * @return {Float32Array} points on the anti meridian.
+ */
+function pointsOnAntiMeridian(n) {
+  let ds = Math.PI / n;
+  let arr = new Float32Array(3 * n);
+  for (let i = 0, j = 0; i < n; ++i, j += 3) {
+    let p = spherical2Cartesian(Math.PI, i * ds, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
+}
+
+/**
+ * Return an array with n points on the prime and anti meridian.
+ * @param {Number} n number of points.
+ * @return {Float32Array} points on the prime and anti meridian.
+ */
+function pointsOnMeridian(n) {
+  let j = 0;
+  let ds = (Math.PI * 2) / n;
+  let arr = new Float32Array(3 * n);
+  for (let i = 0; i < n; ++i, j += 3) {
+    let p = spherical2Cartesian(Math.PI, i * ds, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  for (let i = n; i < 0; --i, j += 3) {
+    let p = spherical2Cartesian(0, i * ds, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
 }
 
 /**

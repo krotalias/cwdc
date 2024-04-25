@@ -138,6 +138,7 @@ const selector = {
   axes: document.getElementById("axes").checked,
   paused: document.getElementById("pause").checked,
   intrinsic: document.getElementById("intrinsic").checked,
+  equator: document.getElementById("equator").checked,
 };
 
 /**
@@ -308,6 +309,18 @@ var normalBuffer;
  * @type {WebGLBuffer}
  */
 var lineBuffer;
+
+/**
+ * Handle to a buffer on the GPU.
+ * @type {WebGLBuffer}
+ */
+var equatorBuffer;
+
+/**
+ * Handle to a buffer on the GPU.
+ * @type {WebGLBuffer}
+ */
+var meridianBuffer;
 
 /**
  * Handle to a buffer on the GPU.
@@ -579,12 +592,18 @@ const handleKeyPress = ((event) => {
         document.getElementById("extrinsic").checked = true;
         animate();
         break;
+      case "E":
+        selector.equator = !selector.equator;
+        document.getElementById("equator").checked = selector.equator;
+        animate();
+        break;
       case "s":
         // sphere from threejs
         gscale = mscale = 1;
         models.value = "5";
         theModel = createModel({
           shape: getModelData(new THREE.SphereGeometry(1, 48, 24)),
+          // shape: uvSphere(1, 48, 24),
         });
         break;
       case "S":
@@ -855,6 +874,18 @@ const axes = document.getElementById("axes");
  */
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
+const equator = document.getElementById("equator");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the equator checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
+equator.addEventListener("change", (event) => handleKeyPress(createEvent("E")));
+
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
     /**
@@ -936,6 +967,7 @@ function draw() {
   if (selector.axes) drawAxes();
   if (selector.texture) drawTexture();
   if (selector.lines) drawLines();
+  if (selector.equator) drawEquator();
 }
 
 /**
@@ -1165,6 +1197,52 @@ function drawAxes() {
   // (not really necessary when there is only one shader)
   gl.disableVertexAttribArray(positionIndex);
   gl.disableVertexAttribArray(colorIndex);
+  gl.useProgram(null);
+}
+
+/**
+ * <p>Draws the equator. </p>
+ * Uses the {@link colorShader}.
+ */
+function drawEquator() {
+  // bind the shader
+  gl.useProgram(colorShader);
+  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  if (positionIndex < 0) {
+    console.log("Failed to get the storage location of a_Position");
+    return;
+  }
+
+  var a_color = gl.getAttribLocation(colorShader, "a_Color");
+  if (a_color < 0) {
+    console.log("Failed to get the storage location of a_Color");
+    return;
+  }
+  gl.vertexAttrib4f(a_color, 1.0, 0.0, 0.0, 1.0);
+
+  // "enable" the a_position attribute
+  gl.enableVertexAttribArray(positionIndex);
+  //  ------------ draw triangle borders
+  // set transformation to projection * view * model
+  var loc = gl.getUniformLocation(colorShader, "transform");
+  var transform = mat4.multiply(
+    [],
+    projection,
+    mat4.multiply([], viewMatrix, getModelMatrix()),
+  );
+  gl.uniformMatrix4fv(loc, false, transform);
+
+  // draw equator
+  gl.bindBuffer(gl.ARRAY_BUFFER, equatorBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.drawArrays(gl.LINE_LOOP, 0, 36);
+
+  // draw meridian
+  gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.drawArrays(gl.LINE_LOOP, 0, 36);
+
+  gl.disableVertexAttribArray(positionIndex);
   gl.useProgram(null);
 }
 
@@ -1485,6 +1563,8 @@ function startForReal(image) {
   axisBuffer = gl.createBuffer();
   normalBuffer = gl.createBuffer();
   lineBuffer = gl.createBuffer();
+  equatorBuffer = gl.createBuffer();
+  meridianBuffer = gl.createBuffer();
   if (!axisBuffer) {
     console.log("Failed to create the buffer object");
     return;
@@ -1500,6 +1580,14 @@ function startForReal(image) {
   }
   gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, axisColors, gl.STATIC_DRAW);
+
+  let equatorVertices = pointsOnEquator(36);
+  gl.bindBuffer(gl.ARRAY_BUFFER, equatorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, equatorVertices, gl.STATIC_DRAW);
+
+  let meridianVertices = pointsOnMeridian(36);
+  gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, meridianVertices, gl.STATIC_DRAW);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 

@@ -115,14 +115,14 @@ var clamp = (x, min, max) => Math.min(Math.max(min, x), max);
  * &lt;li> In CG, φ is measured from the positive Y axis, not the z axis, as it is usual in math books.
  * &lt;/ul>
  * Note that this definition provides a logical extension of the usual polar coordinates notation,&lt;br>
- * with θ remaining the angle in the xy-plane (here, xz-plane) and φ becoming the angle out of that plane.
+ * with θ remaining the angle in the xy-plane (here, ZX-plane) and φ becoming the angle out of that plane.
  *
  *  @param {vec3} p a point on the sphere.
  *  @return {Object&lt;s:Number, t:Number>} point p in spherical coordinates:
  *  &lt;ul>
  *     &lt;li>r = 1 = √(p[0]² + p[1]² + p[2]²)&lt;/li>
- *     &lt;li>s = θ = atan2(p[2],p[0]) / (2 π ) + 0.5&lt;/li>
- *     &lt;li>t = φ = acos(-p[1]/r) / π &lt;/li>
+ *     &lt;li>s = θ = atan2(p[2],p[0]) / 2π + 0.5&lt;/li>
+ *     &lt;li>t = φ = acos(-p[1]/r) / π&lt;/li>
  *  &lt;/ul>
  *
  * Since the positive angular direction is CCW, x coordinates should be flipped.&lt;br>
@@ -166,15 +166,91 @@ function cartesian2Spherical(p) {
  *
  * @param {Number} s azimuth angle θ, 0 ≤ θ &lt; 2π.
  * @param {Number} t zenith angle φ, 0 ≤ φ ≤ π.
+ * @param {Number} r radius.
  * @returns {vec3} cartesian point onto the unit sphere.
  * @see &lt;img src="../images/Spherical2.png">
  */
-function spherical2Cartesian(s, t) {
+function spherical2Cartesian(s, t, r = 1) {
   let p = vec3.fromValues(0, 0, 0);
-  p[0] = -Math.cos(s) * Math.sin(t);
-  p[2] = Math.sin(s) * Math.sin(t);
-  p[1] = -Math.cos(t);
+  p[0] = -r * Math.cos(s) * Math.sin(t);
+  p[2] = r * Math.sin(s) * Math.sin(t);
+  p[1] = -r * Math.cos(t);
   return p;
+}
+
+/**
+ * Return an array with n points on the equator.
+ * @param {Number} n number of points.
+ * @return {Float32Array} points on the equator.
+ */
+function pointsOnEquator(n) {
+  let ds = (Math.PI * 2) / n;
+  let arr = new Float32Array(3 * n);
+  for (let i = 0, j = 0; i &lt; n; ++i, j += 3) {
+    let p = spherical2Cartesian(i * ds, Math.PI / 2, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
+}
+
+/**
+ * Return an array with n points on the prime meridian.
+ * @param {Number} n number of points.
+ * @return {Float32Array} points on the prime meridian.
+ */
+function pointsOnPrimeMeridian(n) {
+  let ds = Math.PI / n;
+  let arr = new Float32Array(3 * n);
+  for (let i = 0, j = 0; i &lt; n; ++i, j += 3) {
+    let p = spherical2Cartesian(0, i * ds, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
+}
+
+/**
+ * Return an array with n points on the anti meridian.
+ * @param {Number} n number of points.
+ * @return {Float32Array} points on the anti meridian.
+ */
+function pointsOnAntiMeridian(n) {
+  let ds = Math.PI / n;
+  let arr = new Float32Array(3 * n);
+  for (let i = 0, j = 0; i &lt; n; ++i, j += 3) {
+    let p = spherical2Cartesian(Math.PI, i * ds, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
+}
+
+/**
+ * Return an array with n points on the prime and anti meridian.
+ * @param {Number} n number of points.
+ * @return {Float32Array} points on the prime and anti meridian.
+ */
+function pointsOnMeridian(n) {
+  let j = 0;
+  let ds = (Math.PI * 2) / n;
+  let arr = new Float32Array(3 * n);
+  for (let i = 0; i &lt; n; ++i, j += 3) {
+    let p = spherical2Cartesian(Math.PI, i * ds, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  for (let i = n; i &lt; 0; --i, j += 3) {
+    let p = spherical2Cartesian(0, i * ds, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
 }
 
 /**
@@ -481,13 +557,13 @@ class polyhedron {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodeinputradioischecked(butnotwhenunchecked).">change - executed when the mode input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#spherical2Cartesian">spherical2Cartesian</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhentheequatorcheckboxischeckedorunchecked.">change - executed when the equator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodeinputradioischecked(butnotwhenunchecked).">change - executed when the mode input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawEquator">drawEquator</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#equatorBuffer">equatorBuffer</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#pointsOnAntiMeridian">pointsOnAntiMeridian</a></li><li><a href="global.html#pointsOnEquator">pointsOnEquator</a></li><li><a href="global.html#pointsOnMeridian">pointsOnMeridian</a></li><li><a href="global.html#pointsOnPrimeMeridian">pointsOnPrimeMeridian</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#spherical2Cartesian">spherical2Cartesian</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 24 2024 17:23:24 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Apr 25 2024 09:36:48 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

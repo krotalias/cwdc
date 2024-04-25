@@ -437,7 +437,7 @@ corresponding to a point p onto the unit sphere.
 <li> In CG, φ is measured from the positive Y axis, not the z axis, as it is usual in math books.
 </ul>
 Note that this definition provides a logical extension of the usual polar coordinates notation,<br>
-with θ remaining the angle in the xy-plane (here, xz-plane) and φ becoming the angle out of that plane.
+with θ remaining the angle in the xy-plane (here, ZX-plane) and φ becoming the angle out of that plane.
 </div>
 
 
@@ -579,8 +579,8 @@ with θ remaining the angle in the xy-plane (here, xz-plane) and φ becoming the
     point p in spherical coordinates:
  <ul>
     <li>r = 1 = √(p[0]² + p[1]² + p[2]²)</li>
-    <li>s = θ = atan2(p[2],p[0]) / (2 π ) + 0.5</li>
-    <li>t = φ = acos(-p[1]/r) / π </li>
+    <li>s = θ = atan2(p[2],p[0]) / 2π + 0.5</li>
+    <li>t = φ = acos(-p[1]/r) / π</li>
  </ul>
 
 Since the positive angular direction is CCW, x coordinates should be flipped.<br>
@@ -789,6 +789,642 @@ Otherwise, the image will be rendered mirrored, that is, either use:
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~pointsOnAntiMeridian"><span class="type-signature">(inner) </span>pointsOnAntiMeridian<span class="signature">(n)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Return an array with n points on the anti meridian.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number of points.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line195">line 195</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    points on the anti meridian.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Float32Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~pointsOnEquator"><span class="type-signature">(inner) </span>pointsOnEquator<span class="signature">(n)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Return an array with n points on the equator.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number of points.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line161">line 161</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    points on the equator.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Float32Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~pointsOnMeridian"><span class="type-signature">(inner) </span>pointsOnMeridian<span class="signature">(n)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Return an array with n points on the prime and anti meridian.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number of points.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line212">line 212</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    points on the prime and anti meridian.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Float32Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~pointsOnPrimeMeridian"><span class="type-signature">(inner) </span>pointsOnPrimeMeridian<span class="signature">(n)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Return an array with n points on the prime meridian.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number of points.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line178">line 178</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    points on the prime meridian.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Float32Array</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1016,7 +1652,7 @@ It is assumed that:
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 24 2024 17:23:15 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Apr 25 2024 09:36:43 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
