@@ -129,6 +129,39 @@ let numSubdivisions = maxSubdivisions;
 var mscale = 1;
 
 /**
+ * Number of segments for drawing a meridian or a parallel.
+ * @type {Number}
+ */
+const nsegments = 36;
+
+/**
+ * GPS coordinates of the city location to be drawn.
+ * @type {Object<String:Object<{latitude:Number,longitude:Number}>>}
+ */
+const gpsCoordinates = {
+  Null_Island: {
+    latitude: 0,
+    longitude: 0,
+  },
+  Rio: {
+    latitude: -22.9068,
+    longitude: -43.1729,
+  },
+  NYC: {
+    latitude: 40.7128,
+    longitude: -74.006,
+  },
+  Syracuse: {
+    latitude: 37.075474,
+    longitude: 15.286586,
+  },
+  Calgary: {
+    latitude: 51.049999,
+    longitude: -114.066666,
+  },
+};
+
+/**
  * Display status of the model mesh, texture, axes and paused animation: on/off.
  * @type {OBject<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean}>}
  */
@@ -1235,12 +1268,12 @@ function drawEquator() {
   // draw equator
   gl.bindBuffer(gl.ARRAY_BUFFER, equatorBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-  gl.drawArrays(gl.LINE_LOOP, 0, 36);
+  gl.drawArrays(gl.LINE_LOOP, 0, nsegments);
 
   // draw meridian
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-  gl.drawArrays(gl.LINE_LOOP, 0, 36);
+  gl.drawArrays(gl.LINE_LOOP, 0, nsegments);
 
   gl.disableVertexAttribArray(positionIndex);
   gl.useProgram(null);
@@ -1581,11 +1614,17 @@ function startForReal(image) {
   gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, axisColors, gl.STATIC_DRAW);
 
-  let equatorVertices = pointsOnEquator(36);
+  let equatorVertices = pointsOnParallel(
+    nsegments,
+    gpsCoordinates.Null_Island.latitude,
+  );
   gl.bindBuffer(gl.ARRAY_BUFFER, equatorBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, equatorVertices, gl.STATIC_DRAW);
 
-  let meridianVertices = pointsOnMeridian(36);
+  let meridianVertices = pointsOnMeridian(
+    nsegments,
+    gpsCoordinates.Null_Island.longitude,
+  );
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, meridianVertices, gl.STATIC_DRAW);
 

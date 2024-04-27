@@ -151,20 +151,32 @@ function spherical2Cartesian(s, t, r = 1) {
 }
 
 /**
- * Return an array with n points on the equator.
+ * Return an array with n points on a parallel given its
+ * {@link https://www.britannica.com/science/latitude latitude}.
  * @param {Number} n number of points.
- * @return {Float32Array} points on the equator.
+ * @param {Number} latitude distance north or south of the Equator: [-90°,90°].
+ * @return {Float32Array} points on the parallel.
  */
-function pointsOnEquator(n) {
+function pointsOnParallel(n, latitude = 0) {
   let ds = (Math.PI * 2) / n;
-  let arr = new Float32Array(3 * n);
+  const arr = new Float32Array(3 * n);
+  let phi = ((latitude + 90) * Math.PI) / 180;
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    let p = spherical2Cartesian(i * ds, Math.PI / 2, 1.01);
+    let p = spherical2Cartesian(i * ds, phi, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
   }
   return arr;
+}
+
+/**
+ * Return an array with n points on the equator.
+ * @param {Number} n number of points.
+ * @return {Float32Array} points on the equator.
+ */
+function pointsOnEquator(n) {
+  return pointsOnParallel(n);
 }
 
 /**
@@ -202,22 +214,26 @@ function pointsOnAntiMeridian(n) {
 }
 
 /**
- * Return an array with n points on the prime and anti meridian.
+ * Return an array with n points on a meridian given its
+ * {@link https://en.wikipedia.org/wiki/Longitude longitude}.
  * @param {Number} n number of points.
- * @return {Float32Array} points on the prime and anti meridian.
+ * @param {Number} longitude distance east or west of the prime meridian:[-180°,180°]
+ * @return {Float32Array} points on the meridian.
  */
-function pointsOnMeridian(n) {
+function pointsOnMeridian(n, longitude = 0) {
   let j = 0;
   let ds = (Math.PI * 2) / n;
-  let arr = new Float32Array(3 * n);
+  const arr = new Float32Array(3 * n);
+  let plong = (longitude * Math.PI) / 180.0;
+  let along = plong + Math.PI;
   for (let i = 0; i < n; ++i, j += 3) {
-    let p = spherical2Cartesian(Math.PI, i * ds, 1.01);
+    let p = spherical2Cartesian(plong, i * ds, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
   }
   for (let i = n; i < 0; --i, j += 3) {
-    let p = spherical2Cartesian(0, i * ds, 1.01);
+    let p = spherical2Cartesian(along, i * ds, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
