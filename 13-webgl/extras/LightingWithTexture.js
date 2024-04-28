@@ -667,9 +667,9 @@ const handleKeyPress = ((event) => {
         });
         break;
       case "t":
-        gscale = mscale = 0.1;
+        gscale = mscale = 1;
         models.value = "7";
-        theModel = createModel({ shape: uvTorus(10, 5, 30, 30), chi: 0 });
+        theModel = createModel({ shape: uvTorus(1, 0.5, 30, 30), chi: 0 });
         break;
       case "u":
         // capsule from threejs
@@ -680,9 +680,11 @@ const handleKeyPress = ((event) => {
         });
         break;
       case "c":
-        gscale = mscale = 0.15;
+        gscale = mscale = 0.75;
         models.value = "3";
-        theModel = createModel({ shape: uvCylinder(5, 10, 30, false, false) });
+        theModel = createModel({
+          shape: uvCylinder(1, 2, 30, false, false),
+        });
         break;
       case "C":
         gscale = mscale = 0.8;
