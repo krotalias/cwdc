@@ -683,13 +683,19 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 0.75;
         models.value = "3";
         theModel = createModel({
-          shape: uvCylinder(1, 2, 30, false, false),
+          // shape: uvCylinder(1, 2, 30, false, false),
+          shape: getModelData(
+            new THREE.CylinderGeometry(1, 1, 2, 30, 1, false),
+          ),
         });
         break;
       case "C":
         gscale = mscale = 0.8;
         models.value = "1";
-        theModel = createModel({ shape: uvCone(1, 2, 30, false) });
+        theModel = createModel({
+          // shape: uvCone(1, 2, 30, false),
+          shape: getModelData(new THREE.ConeGeometry(1, 2, 30, 5, false)),
+        });
         break;
       case "v":
         gscale = mscale = 0.6;
