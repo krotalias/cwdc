@@ -162,6 +162,15 @@ const gpsCoordinates = {
 };
 
 /**
+ * Name of the current city location.
+ * @type {String}
+ */
+const currentLocation =
+  Object.keys(gpsCoordinates)[
+    Math.floor(Math.random() * Object.keys(gpsCoordinates).length)
+  ];
+
+/**
  * Display status of the model mesh, texture, axes and paused animation: on/off.
  * @type {OBject<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean}>}
  */
@@ -347,7 +356,7 @@ var lineBuffer;
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var equatorBuffer;
+var parallelBuffer;
 
 /**
  * Handle to a buffer on the GPU.
@@ -1000,7 +1009,7 @@ function draw() {
   if (selector.axes) drawAxes();
   if (selector.texture) drawTexture();
   if (selector.lines) drawLines();
-  if (selector.equator) drawEquator();
+  if (selector.equator) drawParallel();
 }
 
 /**
@@ -1234,10 +1243,10 @@ function drawAxes() {
 }
 
 /**
- * <p>Draws the equator. </p>
+ * <p>Draws a parellel. </p>
  * Uses the {@link colorShader}.
  */
-function drawEquator() {
+function drawParallel() {
   // bind the shader
   gl.useProgram(colorShader);
   var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
@@ -1265,8 +1274,8 @@ function drawEquator() {
   );
   gl.uniformMatrix4fv(loc, false, transform);
 
-  // draw equator
-  gl.bindBuffer(gl.ARRAY_BUFFER, equatorBuffer);
+  // draw parallel
+  gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
   gl.drawArrays(gl.LINE_LOOP, 0, nsegments);
 
@@ -1596,7 +1605,7 @@ function startForReal(image) {
   axisBuffer = gl.createBuffer();
   normalBuffer = gl.createBuffer();
   lineBuffer = gl.createBuffer();
-  equatorBuffer = gl.createBuffer();
+  parallelBuffer = gl.createBuffer();
   meridianBuffer = gl.createBuffer();
   if (!axisBuffer) {
     console.log("Failed to create the buffer object");
@@ -1616,14 +1625,14 @@ function startForReal(image) {
 
   let equatorVertices = pointsOnParallel(
     nsegments,
-    gpsCoordinates.Null_Island.latitude,
+    gpsCoordinates[currentLocation].latitude,
   );
-  gl.bindBuffer(gl.ARRAY_BUFFER, equatorBuffer);
+  gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, equatorVertices, gl.STATIC_DRAW);
 
   let meridianVertices = pointsOnMeridian(
     nsegments,
-    gpsCoordinates.Null_Island.longitude,
+    gpsCoordinates[currentLocation].longitude,
   );
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, meridianVertices, gl.STATIC_DRAW);
@@ -1652,6 +1661,8 @@ function startForReal(image) {
   rotator = new SimpleRotator(canvas, animate);
   rotator.setViewMatrix(modelMatrix);
   rotator.setViewDistance(0);
+
+  $('label[for="equator"]').html(currentLocation);
 
   selectModel();
 
