@@ -80,7 +80,7 @@ var clamp = (x, min, max) => Math.min(Math.max(min, x), max);
  * Return a pair of spherical coordinates, in the range [0,1],
  * corresponding to a point p onto the unit sphere.
  *
- * <p>The singularity of the mapping (parameterization) is at φ = 0 (y = r) and φ = π (y = -r).</p>
+ * <p>The singularity of the mapping (parameterization) is at φ = 0 (Y = r) and φ = π (Y = -r).</p>
  * <ul>
  * <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
  * <li>Also, here, θ is measured from the positive Z axis.</li>
@@ -160,7 +160,7 @@ function spherical2Cartesian(s, t, r = 1) {
 function pointsOnParallel(n, latitude = 0) {
   let ds = (Math.PI * 2) / n;
   const arr = new Float32Array(3 * n);
-  let phi = ((latitude + 90) * Math.PI) / 180;
+  let phi = ((clamp(latitude, -90, 90) + 90) * Math.PI) / 180;
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
     let p = spherical2Cartesian(i * ds, phi, 1.01);
     arr[j] = p[0];
@@ -217,23 +217,23 @@ function pointsOnAntiMeridian(n) {
  * Return an array with n points on a meridian given its
  * {@link https://en.wikipedia.org/wiki/Longitude longitude}.
  * @param {Number} n number of points.
- * @param {Number} longitude distance east or west of the prime meridian:[-180°,180°]
+ * @param {Number} longitude distance east or west of the prime meridian: [-180°,180°]
  * @return {Float32Array} points on the meridian.
  */
 function pointsOnMeridian(n, longitude = 0) {
   let j = 0;
   let ds = (Math.PI * 2) / n;
   const arr = new Float32Array(3 * n);
-  let plong = (longitude * Math.PI) / 180.0;
-  let along = plong + Math.PI;
+  let theta = (clamp(longitude, -180, 180) * Math.PI) / 180.0;
+  let supplement = theta + Math.PI;
   for (let i = 0; i < n; ++i, j += 3) {
-    let p = spherical2Cartesian(plong, i * ds, 1.01);
+    let p = spherical2Cartesian(theta, i * ds, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
   }
   for (let i = n; i < 0; --i, j += 3) {
-    let p = spherical2Cartesian(along, i * ds, 1.01);
+    let p = spherical2Cartesian(supplement, i * ds, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];

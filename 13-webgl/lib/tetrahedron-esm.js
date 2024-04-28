@@ -142,15 +142,36 @@ function cartesian2Spherical(p) {
  *
  * @param {Number} s azimuth angle θ, 0 ≤ θ < 2π.
  * @param {Number} t zenith angle φ, 0 ≤ φ ≤ π.
+ * @param {Number} r radius.
  * @returns {vec3} cartesian point onto the unit sphere.
  * @see <img src="../images/Spherical2.png">
  */
-function spherical2Cartesian(s, t) {
+function spherical2Cartesian(s, t, r = 1) {
   let p = vec3.fromValues(0, 0, 0);
-  p[0] = -Math.cos(s) * Math.sin(t);
-  p[2] = Math.sin(s) * Math.sin(t);
-  p[1] = -Math.cos(t);
+  p[0] = -r * Math.cos(s) * Math.sin(t);
+  p[2] = r * Math.sin(s) * Math.sin(t);
+  p[1] = -r * Math.cos(t);
   return p;
+}
+
+/**
+ * Return an array with n points on a parallel given its
+ * {@link https://www.britannica.com/science/latitude latitude}.
+ * @param {Number} n number of points.
+ * @param {Number} latitude distance north or south of the Equator: [-90°,90°].
+ * @return {Float32Array} points on the parallel.
+ */
+function pointsOnParallel(n, latitude = 0) {
+  let ds = (Math.PI * 2) / n;
+  const arr = new Float32Array(3 * n);
+  let phi = ((clamp(latitude, -90, 90) + 90) * Math.PI) / 180;
+  for (let i = 0, j = 0; i < n; ++i, j += 3) {
+    let p = spherical2Cartesian(i * ds, phi, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
 }
 
 /**
@@ -159,15 +180,7 @@ function spherical2Cartesian(s, t) {
  * @return {Float32Array} points on the equator.
  */
 function pointsOnEquator(n) {
-  let ds = (Math.PI * 2) / n;
-  let arr = new Float32Array(3 * n);
-  for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    let p = spherical2Cartesian(i * ds, Math.PI / 2, 1.01);
-    arr[j] = p[0];
-    arr[j + 1] = p[1];
-    arr[j + 2] = p[2];
-  }
-  return arr;
+  return pointsOnParallel(n);
 }
 
 /**
@@ -215,16 +228,16 @@ function pointsOnMeridian(n, longitude = 0) {
   let j = 0;
   let ds = (Math.PI * 2) / n;
   const arr = new Float32Array(3 * n);
-  let plong = (longitude * Math.PI) / 180.0;
-  let along = plong + Math.PI;
+  let theta = (clamp(longitude, -180, 180) * Math.PI) / 180.0;
+  let supplement = theta + Math.PI;
   for (let i = 0; i < n; ++i, j += 3) {
-    let p = spherical2Cartesian(plong, i * ds, 1.01);
+    let p = spherical2Cartesian(theta, i * ds, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
   }
   for (let i = n; i < 0; --i, j += 3) {
-    let p = spherical2Cartesian(along, i * ds, 1.01);
+    let p = spherical2Cartesian(supplement, i * ds, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
