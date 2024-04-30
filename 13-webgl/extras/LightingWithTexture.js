@@ -3,15 +3,26 @@
  *
  * Summary.
  * <p>Lighting, combined with {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}.</p>
- * Same as <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
+ *
+ * <p>This is just a demo for teaching CG, that became over complicated, similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
  * and a 3x3 matrix for {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL light properties}
  * that are passed to the fragment shader as
- * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniform uniforms}.
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniform uniforms}.<p>
+ *
+ * Texture coordinates can be set in each model or be sampled at each pixel in the fragment shader.
+ * We can also approximate a sphere by subdividing a
+ * {@link https://en.wikipedia.org/wiki/Regular_polyhedron regular polyhedron}, and solve Mipmapping artifact issues
+ * by using {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf Tarini's} method, in this case.
  *
  * <p>Edit the {@link lightPropElements light}/{@link matPropElements material} matrices in the global variables to experiment.
  * Edit {@link startForReal} to choose a model and select
- * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.</p>
+ * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
+ * In fact, {@link https://threejs.org Three.js} only uses face normals for polyhedra.<p>
+ *
+ * To fit a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections,
+ * or 1:1 (squared) for Mercator projections. Finding high resolution, good quality,
+ * and free cartographic maps is very, really very difficult.
  *
  * @author Paulo Roma
  * @since 30/01/2016
@@ -41,7 +52,7 @@
  * @see  <figure>
  *      <img src="../images/sphere-earth.png" height="340" title="texture in fragment shader">
  *      <img src="../images/teapot-earth.png" height="340" title="teapot points projected onto a sphere">
- *      <figcaption style="font-size: 200%"><a href="https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf">Spherical Projection</a></figcaption>
+ *      <figcaption style="font-size: 200%"><a href="https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf">Spherical (Equirectangular) Projection</a></figcaption>
  *      </figure>
  * @see <figure>
  *      <img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
@@ -409,6 +420,15 @@ var axis = "x";
  * @see {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Distinctive Derivative Differences}
  */
 var fixuv = document.querySelector("#fixuv").checked;
+
+/**
+ * Whether to use a
+ * {@link https://en.wikipedia.org/wiki/Mercator_projection Mercator projection}.
+ * @type {Boolean}
+ * @see {@link https://globe-3d-2m2vlb3ft.now.sh Globe}
+ * @see {@link https://forum.unity.com/threads/unity-shader-map-projection-mercator-to-equirectangular-or-lambert-azimuthal-equal-area.813987/ Unity shader, Mercator to equirectangular}
+ */
+var mercator = document.querySelector("#mercator").checked;
 
 /**
  * Toggle back face culling on/off.
@@ -794,6 +814,10 @@ const handleKeyPress = ((event) => {
         document.getElementById("fixuv").checked = fixuv;
         setUVfix();
         break;
+      case "g":
+        mercator = !mercator;
+        document.getElementById("mercator").checked = mercator;
+        break;
       case "b":
         culling = !culling;
         if (culling) gl.enable(gl.CULL_FACE);
@@ -982,6 +1006,18 @@ const fix_uv = document.getElementById("fixuv");
  */
 fix_uv.addEventListener("change", (event) => handleKeyPress(createEvent("f")));
 
+const merc = document.getElementById("mercator");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the mercator checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
+merc.addEventListener("change", (event) => handleKeyPress(createEvent("g")));
+
 const cull = document.getElementById("culling");
 
 /**
@@ -1043,6 +1079,10 @@ function getModelMatrix() {
  * <p>If the attribute "a_TexCoord" is not defined in the vertex shader,
  * texture coordinates will be calculated pixel by pixel
  * in the fragment shader.</p>
+ *
+ * <p> We can also set a uniform attribute (u_mercator) in the shader,
+ * for using a {@link https://hrcak.srce.hr/file/239690 Mercator projection}
+ * instead of an {@link https://en.wikipedia.org/wiki/Equirectangular_projection equirectangular projection}.</p>
  */
 function drawTexture() {
   // bind the shader
@@ -1061,16 +1101,16 @@ function drawTexture() {
     return;
   }
 
-  var noTexture = false;
   var texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
-  if (texCoordIndex < 0) {
-    // the texture coordinates will be calculated in the fragment shader
-    noTexture = true;
-  }
+  var noTexture = texCoordIndex < 0;
+
+  var u_mercator = gl.getUniformLocation(lightingShader, "u_mercator");
+  gl.uniform1i(u_mercator, mercator);
 
   // "enable" the a_position attribute
   gl.enableVertexAttribArray(positionIndex);
   gl.enableVertexAttribArray(normalIndex);
+  // texture coordinates can be calculated in the fragment shader
   if (!noTexture) gl.enableVertexAttribArray(texCoordIndex);
 
   // bind buffers for points
@@ -1693,7 +1733,7 @@ const setUVfix = (() => {
   let subdivisionModel = false;
 
   /**
-   * Callback to decide whether fo fix UV coordinates, based on
+   * Callback to decide whether to fix UV coordinates, based on
    * the model type (subdivision or not), and if it is a textured
    * model or not.
    * @param {Boolean} subModel <br>

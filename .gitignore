@@ -5,6 +5,7 @@ Doxyfile
 *.bak
 .rsync
 .env*
+*.swp
 .htaccess
 vendor
 .vercel

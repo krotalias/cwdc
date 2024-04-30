@@ -161,7 +161,14 @@ when using mipmap:
                     checked
                     value="fixuv"
                 />
-                <label for="fixuv">Fix uv (seamless)</label><br />
+                <label for="fixuv">Fix uv (seamless)</label>
+                <input
+                    type="checkbox"
+                    id="mercator"
+                    name="mercator"
+                    value="mercator"
+                />
+                <label for="mercator">Mercator Projection</label><br />
                 <input
                     type="checkbox"
                     id="culling"
@@ -293,6 +300,7 @@ when using mipmap:
             uniform float shininess;
             uniform sampler2D sampler;
             uniform bool u_fix;
+            uniform bool u_mercator;
 
             in vec3 fL;
             in vec3 fN;
@@ -321,6 +329,28 @@ when using mipmap:
                 spherical[1] = phi;
             }
 
+            // calculate texture coordinates, by inverting the parameterization:
+            // spherical to Mercator: https://stackoverflow.com/questions/59907996/shader-that-transforms-a-mercator-projection-to-equirectangular
+            // pos = (x,y) -> mercator = (theta, phi), theta, phy in [0,1]
+            void spherical2Mercator(in vec2 pos, out vec2 mercator) {
+                float pi = radians(180.0);
+
+                // uv to equirectangular
+                float lat = (pos.x) * 2.0 * pi;   // [0, 2pi]
+                float lon = (pos.y - 0.5f) * pi;  // [-pi, pi]
+
+                // equirectangular to mercator
+                float x = lat;
+                float y = log(tan(pi / 4.0 + lon / 2.0));
+
+                // bring x,y into [0,1] range
+                x = x / (2.0 * pi);
+                y = (y+pi) / (2.0 * pi);
+
+                mercator[0] = x;
+                mercator[1] = y;
+            }
+
             void main() {
                 // normalize after interpolating
                 vec3 M = fM;
@@ -342,11 +372,17 @@ when using mipmap:
                 vec4 diffuseLight = vec4(lightProperties[1], 1.0);
                 vec4 specularLight = vec4(lightProperties[2], 1.0);
 
-                vec2 fTexCoord;
+                vec2 fTexCoord, mercator;
                 cartesian2Spherical(M,fTexCoord);
 
+                vec4 color;
                 // sample from the texture at interpolated texture coordinate
-                vec4 color = texture(sampler, fTexCoord);
+                if (u_mercator) {
+                    spherical2Mercator(fTexCoord,mercator);
+                    color = texture(sampler, mercator);
+                } else {
+                    color = texture(sampler, fTexCoord);
+                }
 
                 const int modulate = 1;
                 if (modulate == 1) {
