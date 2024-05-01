@@ -4,7 +4,7 @@
  * Summary.
  * <p>Lighting, combined with {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}.</p>
  *
- * <p>This is just a demo for teaching CG, that became over complicated, similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
+ * <p>This is just a demo for teaching CG, which became over complicated, similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
  * and a 3x3 matrix for {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL light properties}
  * that are passed to the fragment shader as
@@ -1382,9 +1382,12 @@ window.addEventListener("load", (event) => {
             "earth-nasa.jpg",
             "earth-nasa.png",
             "lion.jpg",
+            "mceclip16.png",
             "rattle_snake.jpg",
             "world-map-Mercator-Tissot_indicatrix.jpg",
+            "world-map-Mercator-political.jpg",
             "world-map-Mercator.jpg",
+            "world-map-Mercator.png",
             "world-map-continents-oceans.jpg",
             "world-map-equirectangular-Tissot_indicatrix.png",
             "world-map-equirectangular-Tissot_indicatrix_30°.jpg",
