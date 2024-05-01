@@ -337,7 +337,8 @@ when using mipmap:
 
                 // uv to equirectangular
                 float lat = (pos.x) * 2.0 * pi;   // [0, 2pi]
-                float lon = (pos.y - 0.5f) * pi;  // [-pi, pi]
+                float lon = (pos.y - 0.5f) * pi;  // [-pi/2, pi/2]
+                lon = clamp(lon,radians(-85.0),radians(85.0));
 
                 // equirectangular to mercator
                 float x = lat;

@@ -78,7 +78,14 @@ var limit = {
  * @param {Number} min minimum value.
  * @param {Number} max maximum value.
  */
-var clamp = (x, min, max) => Math.min(Math.max(min, x), max);
+const clamp = (x, min, max) => Math.min(Math.max(min, x), max);
+
+/**
+ * Convert degrees to radians.
+ * @param {Number} deg angle in degrees.
+ * @returns {Number} angle in radians.
+ */
+const radians = (deg) => (deg * Math.PI) / 180;
 
 /**
  * Return a pair of spherical coordinates, in the range [0,1],
@@ -152,6 +159,44 @@ function spherical2Cartesian(s, t, r = 1) {
   p[2] = r * Math.sin(s) * Math.sin(t);
   p[1] = -r * Math.cos(t);
   return p;
+}
+
+/**
+ * <p>Return a 2D point in
+ * {@link https://en.wikipedia.org/wiki/Mercator_projection Mercator coordinates}.</p>
+ * <p>The Mercator projection is a map projection that was widely used for navigation,
+ * since {@link https://www.atractor.pt/mat/loxodromica/mercator_loxodromica-_en.html loxodromes}
+ * are straight lines (although great circles are curved).</p>
+ * The following {@link https://mathworld.wolfram.com/MercatorProjection.html equations}
+ * place the x-axis of the projection on the equator,
+ * and the y-axis at longitude θ<sub>0</sub>, where θ is the longitude and φ is the latitude:
+ * <ul>
+ *    <li>x =	θ - θ<sub>0</sub>, 0 ≤ θ - θ<sub>0</sub> ≤ 2π</li>
+ *    <li>y =	ln [tan (π/4 + φ/2)], -π ≤ φ ≤ π </li>
+ * </ul>
+ * @param {Number} s longitude (horizontal angle) θ, 0 ≤ θ < 1.
+ * @param {Number} t latitude (vertical angle) φ, 0 ≤ φ ≤ 1.
+ * @return {Object<x:Number, y:Number>} mercator coordinates in [0,1].
+ * @see {@link https://stackoverflow.com/questions/59907996/shader-that-transforms-a-mercator-projection-to-equirectangular mercator projection to equirectangular}
+ */
+function spherical2Mercator(s, t) {
+  // uv to equirectangular
+  let lat = s * 2.0 * Math.PI; // [0, 2pi]
+  let lon = (t - 0.5) * Math.PI; // [-pi/2, pi/2]
+  lon = clamp(lon, radians(-85.0), radians(85.0));
+
+  // equirectangular to mercator
+  let x = lat;
+  let y = Math.log(Math.tan(Math.PI / 4.0 + lon / 2.0));
+
+  // bring x,y into [0,1] range
+  x = x / (2.0 * Math.PI);
+  y = (y + Math.PI) / (2.0 * Math.PI);
+
+  return {
+    x: x,
+    y: y,
+  };
 }
 
 /**
