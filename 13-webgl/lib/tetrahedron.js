@@ -158,7 +158,7 @@ function spherical2Cartesian(s, t, r = 1) {
 }
 
 /**
- * <p>Return a 2D point in
+ * <p>Convert a 2D point in spherical coordinates to a 2D point in
  * {@link https://en.wikipedia.org/wiki/Mercator_projection Mercator coordinates}.</p>
  * <p>The Mercator projection is a map projection that was widely used for navigation,
  * since {@link https://www.atractor.pt/mat/loxodromica/mercator_loxodromica-_en.html loxodromes}
@@ -203,7 +203,7 @@ function spherical2Mercator(s, t) {
 }
 
 /**
- * Return a 2D point in spherical coordinates.
+ * Convert a 2D point in mercator coordinates to a 2D point in spherical coordinates.
  * @param {Number} x latitude in [0,1].
  * @param {Number} y longitude in [0,1].
  * @returns {Object<x:Number, y:Number>} spherical coordinates in [0,1].
