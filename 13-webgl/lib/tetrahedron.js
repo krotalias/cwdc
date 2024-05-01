@@ -168,12 +168,19 @@ function spherical2Cartesian(s, t, r = 1) {
  * and the y-axis at longitude θ<sub>0</sub>, where θ is the longitude and φ is the latitude:
  * <ul>
  *    <li>x =	θ - θ<sub>0</sub>, 0 ≤ θ - θ<sub>0</sub> ≤ 2π</li>
- *    <li>y =	ln [tan (π/4 + φ/2)], -π ≤ φ ≤ π </li>
+ *    <li>y =	ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2 → -π ≤ y ≤ π </li>
  * </ul>
+ * The poles extent to infinity. Therefore, to create a square image,
+ * the maximum latitude occurs at y = π, namely:
+ * <ul>
+ *    <li>φ<sub>max</sub> = 2 atan (e<sup>π</sup>) - π /2 = 85.051129°</li>
+ * </ul>
+ * As a consequence, we clamp the longitude to &#91;-85°,85°&#93; to avoid any artifact.
  * @param {Number} s longitude (horizontal angle) θ, 0 ≤ θ < 1.
  * @param {Number} t latitude (vertical angle) φ, 0 ≤ φ ≤ 1.
  * @return {Object<x:Number, y:Number>} mercator coordinates in [0,1].
  * @see {@link https://stackoverflow.com/questions/59907996/shader-that-transforms-a-mercator-projection-to-equirectangular mercator projection to equirectangular}
+ * @see {@link https://paulbourke.net/panorama/webmerc2sphere/ Converting Web Mercator projection to equirectangular}
  */
 function spherical2Mercator(s, t) {
   // uv to equirectangular
@@ -183,15 +190,31 @@ function spherical2Mercator(s, t) {
 
   // equirectangular to mercator
   let x = lat;
-  let y = Math.log(Math.tan(Math.PI / 4.0 + lon / 2.0));
+  let y = Math.log(Math.tan(Math.PI / 4.0 + lon / 2.0)); // [-pi, pi]
 
   // bring x,y into [0,1] range
-  x = x / (2.0 * Math.PI);
+  x = s;
   y = (y + Math.PI) / (2.0 * Math.PI);
 
   return {
     x: x,
     y: y,
+  };
+}
+
+/**
+ * Return a 2D point in spherical coordinates.
+ * @param {Number} x latitude in [0,1].
+ * @param {Number} y longitude in [0,1].
+ * @returns {Object<x:Number, y:Number>} spherical coordinates in [0,1].
+ */
+function mercator2Spherical(x, y) {
+  let lon = y * 2 * Math.PI - Math.PI; // [-pi, pi]
+  let t = 2 * Math.atan(Math.exp(lon)) - Math.PI / 2; // [-pi/2, pi/2]
+  t = t / Math.PI + 0.5; // [0, 1]
+  return {
+    s: x,
+    t: t,
   };
 }
 

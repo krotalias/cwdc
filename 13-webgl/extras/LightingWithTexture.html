@@ -329,9 +329,9 @@ when using mipmap:
                 spherical[1] = phi;
             }
 
-            // calculate texture coordinates, by inverting the parameterization:
+            // calculate mercator texture coordinates:
             // spherical to Mercator: https://stackoverflow.com/questions/59907996/shader-that-transforms-a-mercator-projection-to-equirectangular
-            // pos = (x,y) -> mercator = (theta, phi), theta, phy in [0,1]
+            // pos = (lat,lon) -> mercator = (x, y), x, y in [0,1]
             void spherical2Mercator(in vec2 pos, out vec2 mercator) {
                 float pi = radians(180.0);
 
@@ -342,10 +342,10 @@ when using mipmap:
 
                 // equirectangular to mercator
                 float x = lat;
-                float y = log(tan(pi / 4.0 + lon / 2.0));
+                float y = log(tan(pi / 4.0 + lon / 2.0)); // [-pi,pi]
 
                 // bring x,y into [0,1] range
-                x = x / (2.0 * pi);
+                x = pos.x;
                 y = (y+pi) / (2.0 * pi);
 
                 mercator[0] = x;
