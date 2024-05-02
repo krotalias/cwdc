@@ -808,11 +808,15 @@ const handleKeyPress = ((event) => {
       case "n":
         textureCnt = (textureCnt + 1) % imageFilename.length;
         image.src = `./textures/${imageFilename[textureCnt]}`;
+        mercator = imageFilename[textureCnt].includes("Mercator");
+        document.getElementById("mercator").checked = mercator;
         return;
       case "N":
         --textureCnt;
         if (textureCnt < 0) textureCnt = imageFilename.length - 1;
         image.src = `./textures/${imageFilename[textureCnt]}`;
+        mercator = imageFilename[textureCnt].includes("Mercator");
+        document.getElementById("mercator").checked = mercator;
         return;
       case "f":
         fixuv = !fixuv;
@@ -877,7 +881,7 @@ function selectModel() {
     3: "c", // cylinder
     4: "r", // ring
     5: "s", // sphere
-    6: "p", // teapot
+    6: "P", // teapot
     7: "t", // torus
     8: "T", // knot
     9: "d", // dodecahedron
