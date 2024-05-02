@@ -4,7 +4,7 @@
  * Summary.
  * <p>Lighting, combined with {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}.</p>
  *
- * <p>This is just a demo for teaching CG, which became over complicated, similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
+ * <p>This is just a demo for teaching CG, which became over complicated, and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
  * and a 3x3 matrix for {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL light properties}
  * that are passed to the fragment shader as
@@ -12,7 +12,7 @@
  *
  * Texture coordinates can be set in each model or be sampled at each pixel in the fragment shader.
  * We can also approximate a sphere by subdividing a
- * {@link https://en.wikipedia.org/wiki/Regular_polyhedron regular polyhedron}, and solve Mipmapping artifact issues
+ * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}, and solve Mipmapping artifact issues
  * by using {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf Tarini's} method, in this case.
  *
  * <p>Edit the {@link lightPropElements light}/{@link matPropElements material} matrices in the global variables to experiment.
@@ -22,7 +22,14 @@
  *
  * To fit a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections,
  * or 1:1 (squared) for Mercator projections. Finding high resolution, good quality,
- * and free cartographic maps is very, really very difficult.
+ * and free {@link https://www.axismaps.com/guide/map-projections cartographic maps}
+ * is very, really very difficult.
+ *
+ * <p>{@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
+ * can only be set for a sphere created by subdividing
+ * a tetrahedron or an octahedron. For all the other models, the solution is using
+ * the <a href="../../showCode.php?f=extras/LightingWithTexture">shader</a>
+ * that samples texture coordinates for each pixel.</p>
  *
  * @author Paulo Roma
  * @since 30/01/2016
@@ -1443,19 +1450,27 @@ function createModel({ shape, chi = 2, poly = 0, fix_uv = false }) {
   if (typeof shape === "undefined") {
     setUVfix(true);
     if (poly === 0) {
-      shape = new polyhedron(fix_uv).dodecahedron({ n: numSubdivisions });
+      shape = new polyhedron(fix_uv, mercator).dodecahedron({
+        n: numSubdivisions,
+      });
       shape.nfaces = 36;
       maxSubdivisions = limit.dod;
     } else if (poly === 2) {
-      shape = new polyhedron(fix_uv).octahedron({ n: numSubdivisions });
+      shape = new polyhedron(fix_uv, mercator).octahedron({
+        n: numSubdivisions,
+      });
       shape.nfaces = 8;
       maxSubdivisions = limit.oct;
     } else if (poly === 3) {
-      shape = new polyhedron(fix_uv).tetrahedron({ n: numSubdivisions });
+      shape = new polyhedron(fix_uv, mercator).tetrahedron({
+        n: numSubdivisions,
+      });
       shape.nfaces = 4;
       maxSubdivisions = limit.tet;
     } else {
-      shape = new polyhedron(fix_uv).icosahedron({ n: numSubdivisions });
+      shape = new polyhedron(fix_uv, mercator).icosahedron({
+        n: numSubdivisions,
+      });
       shape.nfaces = 20;
       maxSubdivisions = limit.ico;
     }

@@ -310,20 +310,26 @@ function pointsOnMeridian(n, longitude = 0) {
 }
 
 /**
- * Class for creating the model of a sphere by continuously subdividing
- * a polyhedron.
+ * <p>Class for creating the model of a sphere by continuously subdividing a
+ * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}.</p>
+ * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square Mercator coordinates}
+ * only can be set for tetrahedra and octahedra, because
+ * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Three.js polyhedra}
+ * possess their own texture coordinates.
  */
 class polyhedron {
   /**
    * @constructs polyhedron
    * @param {Boolean} fix whether to fix uv coordinates.
+   * @param {Boolean} mercator whether to use mercator coordinates.
    */
-  constructor(fix = true) {
+  constructor(fix = true, mercator = false) {
     /**
      * Whether texture coordinates should be fixed.
      * @type {Boolean}
      */
     this.fix = fix;
+    this.mercator = mercator;
   }
 
   /**
@@ -382,15 +388,20 @@ class polyhedron {
 
     if (this.fix) this.fixUVCoordinates(sc);
 
-    this.texCoords.push(sc[0].s, sc[0].t);
-    this.texCoords.push(sc[1].s, sc[1].t);
-    this.texCoords.push(sc[2].s, sc[2].t);
+    for (let i in sc) {
+      const { s, t } = sc[i];
+      if (this.mercator) {
+        const { x, y } = spherical2Mercator(s, t);
+        this.texCoords.push(x, y);
+      } else {
+        this.texCoords.push(s, t);
+      }
+    }
 
     // normals are vectors
-
-    this.normalsArray.push(a[0], a[1], a[2]);
-    this.normalsArray.push(b[0], b[1], b[2]);
-    this.normalsArray.push(c[0], c[1], c[2]);
+    this.normalsArray.push(...a);
+    this.normalsArray.push(...b);
+    this.normalsArray.push(...c);
 
     this.index += 3;
   }

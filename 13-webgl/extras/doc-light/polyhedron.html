@@ -28,10 +28,14 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>polyhedron<span class="signature">(fix)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>polyhedron<span class="signature">(fix, mercator)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Class for creating the model of a sphere by continuously subdividing
-a polyhedron.</div>
+            <div class="class-description"><p>Class for creating the model of a sphere by continuously subdividing a
+<a href="https://en.wikipedia.org/wiki/Regular_polyhedron">convex regular polyhedron</a>.</p>
+<a href="https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square">Mercator coordinates</a>
+only can be set for tetrahedra and octahedra, because
+<a href="https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry">Three.js polyhedra</a>
+possess their own texture coordinates.</div>
         
     
 </header>
@@ -46,7 +50,7 @@ a polyhedron.</div>
     
 
     
-    <h4 class="name" id="polyhedron"><span class="type-signature"></span>new polyhedron<span class="signature">(fix)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="polyhedron"><span class="type-signature"></span>new polyhedron<span class="signature">(fix, mercator)</span><span class="type-signature"></span></h4>
     
 
     
@@ -114,6 +118,35 @@ a polyhedron.</div>
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>mercator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">whether to use mercator coordinates.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -151,7 +184,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line316">line 316</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line320">line 320</a>
     </li></ul></dd>
     
 
@@ -255,7 +288,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line326">line 326</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line331">line 331</a>
     </li></ul></dd>
     
 
@@ -327,7 +360,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line337">line 337</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line343">line 343</a>
     </li></ul></dd>
     
 
@@ -399,7 +432,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line349">line 349</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line355">line 355</a>
     </li></ul></dd>
     
 
@@ -471,7 +504,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line343">line 343</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line349">line 349</a>
     </li></ul></dd>
     
 
@@ -543,7 +576,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line355">line 355</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line361">line 361</a>
     </li></ul></dd>
     
 
@@ -615,7 +648,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line361">line 361</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line367">line 367</a>
     </li></ul></dd>
     
 
@@ -813,7 +846,7 @@ a polyhedron.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line405">line 405</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line416">line 416</a>
     </li></ul></dd>
     
 
@@ -1059,7 +1092,7 @@ Note: three.js level of detail generates much less vertices than the values abov
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line529">line 529</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line540">line 540</a>
     </li></ul></dd>
     
 
@@ -1223,7 +1256,7 @@ when the 0 coordinate is stitched together with the 1 coordinate.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line579">line 579</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line590">line 590</a>
     </li></ul></dd>
     
 
@@ -1476,7 +1509,7 @@ Note: three.js level of detail generates much less vertices than the values abov
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line560">line 560</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line571">line 571</a>
     </li></ul></dd>
     
 
@@ -1729,7 +1762,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line479">line 479</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line490">line 490</a>
     </li></ul></dd>
     
 
@@ -1835,7 +1868,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line332">line 332</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line338">line 338</a>
     </li></ul></dd>
     
 
@@ -2070,7 +2103,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line444">line 444</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line455">line 455</a>
     </li></ul></dd>
     
 
@@ -2271,7 +2304,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line370">line 370</a>
+        <a href="lib_tetrahedron.js.html">lib/tetrahedron.js</a>, <a href="lib_tetrahedron.js.html#line376">line 376</a>
     </li></ul></dd>
     
 
@@ -2323,7 +2356,7 @@ Generates:
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 01 2024 10:09:22 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu May 02 2024 08:11:11 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
