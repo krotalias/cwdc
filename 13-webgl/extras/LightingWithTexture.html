@@ -85,14 +85,14 @@ when using mipmap:
             <p>
                 <label id="object"><b>Object:</b></label>
             </p>
-            <select name="models" id="models" onchange="selectModel()">
+            <select name="models" id="models">
                 <option value="0">Capsule</option>
                 <option value="1">Cone</option>
                 <option value="2">Cube</option>
                 <option value="3">Cylinder</option>
                 <option value="4">Ring</option>
                 <option value="5">Sphere</option>
-                <option value="6" selected="selected">Teapot</option>
+                <option value="6" selected>Teapot</option>
                 <option value="7">Torus</option>
                 <option value="8">Torus Knot</option>
                 <option value="9">Dodecahedron</option>
@@ -115,16 +115,55 @@ when using mipmap:
                     checked
                     value="texture"
                 />
-                <label for="texture">Texture</label><br />
+                <label for="texture">Texture</label>
+
+                <select name="textures" id="textures" style="font-size: small">
+                    <option value="0" selected>BigEarth.jpg</option>
+                    <option value="1">Earth-1024x512.jpg</option>
+                    <option value="2">Ghost Busters.jpg</option>
+                    <option value="3">GhostBusters-album.jpg</option>
+                    <option value="4">GhostBusters.jpg</option>
+                    <option value="5">Milla.jpg</option>
+                    <option value="6">NDVI_84.jpg</option>
+                    <option value="7">bricks.png</option>
+                    <option value="8">check64border.png</option>
+                    <option value="9">citrus-fruit-skin.png</option>
+                    <option value="10">earth-big-nasa.jpg</option>
+                    <option value="11">earth-nasa.jpg</option>
+                    <option value="12">earth-nasa.png</option>
+                    <option value="13">lion.jpg</option>
+                    <option value="14">mceclip16.png</option>
+                    <option value="15">rattle_snake.jpg</option>
+                    <option value="16">
+                        world-map-Mercator-Tissot_indicatrix.jpg
+                    </option>
+                    <option value="17">
+                        world-map-Mercator-political2.jpg
+                    </option>
+                    <option value="18">world-map-Mercator.jpg</option>
+                    <option value="19">world-map-Mercator.png</option>
+                    <option value="20">world-map-continents-oceans.jpg</option>
+                    <option value="21">
+                        world-map-equirectangular-Tissot_indicatrix.png
+                    </option>
+                    <option value="22">
+                        world-map-equirectangular-Tissot_indicatrix_30°.jpg
+                    </option>
+                    <option value="23">world-map-equirectangular.jpg</option>
+                </select>
+
+                <br />
+
                 <input type="checkbox" id="axes" name="axes" value="axes" />
                 <label for="axes">Axes</label>
+
                 <input
                     type="checkbox"
                     id="equator"
                     name="equator"
                     value="equator"
                 />
-                <label for="equator">Equator</label><br />
+                <label for="equator">Equator</label>
 
                 <div id="radio">
                     <input

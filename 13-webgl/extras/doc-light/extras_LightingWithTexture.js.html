@@ -834,14 +834,9 @@ const handleKeyPress = ((event) => {
         mscale = gscale;
         break;
       case "n":
-        textureCnt = (textureCnt + 1) % imageFilename.length;
-        image.src = `./textures/${imageFilename[textureCnt]}`;
-        mercator = imageFilename[textureCnt].includes("Mercator");
-        document.getElementById("mercator").checked = mercator;
-        return;
       case "N":
-        --textureCnt;
-        if (textureCnt &lt; 0) textureCnt = imageFilename.length - 1;
+        let incr = ch == "n" ? 1 : -1;
+        textureCnt = mod(textureCnt + incr, imageFilename.length);
         image.src = `./textures/${imageFilename[textureCnt]}`;
         mercator = imageFilename[textureCnt].includes("Mercator");
         document.getElementById("mercator").checked = mercator;
@@ -880,6 +875,17 @@ const handleKeyPress = ((event) => {
     if (selector.paused) draw();
   };
 })();
+
+/**
+ * Select a texture from menu.
+ */
+function selectTexture() {
+  const selectElement = document.getElementById("textures");
+  textureCnt = +selectElement.value;
+  image.src = `./textures/${imageFilename[textureCnt]}`;
+  mercator = imageFilename[textureCnt].includes("Mercator");
+  document.getElementById("mercator").checked = mercator;
+}
 
 /**
  * Returns a new keyboard event
@@ -1080,6 +1086,30 @@ const texture = document.getElementById("texture");
  * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
  */
 texture.addEventListener("change", (event) => handleKeyPress(createEvent("k")));
+
+const textures = document.getElementById("textures");
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
+ * The {@link selectTexture} argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event change - executed when the textures &amp;lt;select&amp;gt; is changed.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
+textures.addEventListener("change", (event) => selectTexture());
+
+const models = document.getElementById("models");
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
+ * The {@link selectModel} argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * @event change - executed when the models &amp;lt;select&amp;gt; is changed.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
+models.addEventListener("change", (event) => selectModel());
 
 /**
  * Code to actually render our geometry.
@@ -1376,6 +1406,16 @@ function drawParallel() {
 }
 
 /**
+ * Get texture file names from an html &amp;lt;select&amp;gt; element
+ * identified by "textures".
+ */
+function getTextures(optionNames) {
+  optionNames.length = 0;
+  const selectElement = document.getElementById("textures");
+  [...selectElement.options].map((o) => optionNames.push(o.text));
+}
+
+/**
  * &lt;p>Loads the texture image asynchronously and defines its {@link ImageLoadCallback load callback function}.&lt;/p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
@@ -1406,32 +1446,7 @@ window.addEventListener("load", (event) => {
           console.log(`${error}`);
           // don't return anything => execution goes the normal way
           // in case server does not run php
-          imageFilename = [
-            "BigEarth.jpg",
-            "Earth-1024x512.jpg",
-            "Ghost Busters.jpg",
-            "GhostBusters-album.jpg",
-            "GhostBusters.jpg",
-            "Milla.jpg",
-            "NDVI_84.jpg",
-            "bricks.png",
-            "check64border.png",
-            "citrus-fruit-skin.png",
-            "earth-big-nasa.jpg",
-            "earth-nasa.jpg",
-            "earth-nasa.png",
-            "lion.jpg",
-            "mceclip16.png",
-            "rattle_snake.jpg",
-            "world-map-Mercator-Tissot_indicatrix.jpg",
-            "world-map-Mercator-political2.jpg",
-            "world-map-Mercator.jpg",
-            "world-map-Mercator.png",
-            "world-map-continents-oceans.jpg",
-            "world-map-equirectangular-Tissot_indicatrix.png",
-            "world-map-equirectangular-Tissot_indicatrix_30°.jpg",
-            "world-map-equirectangular.jpg",
-          ];
+          getTextures(imageFilename);
           startForReal(image);
         });
     } else {
@@ -1837,6 +1852,7 @@ function newTexture(image) {
   let imgSize = document.getElementById("size");
   imgSize.innerHTML = `${imageFilename[textureCnt]} (${image.width} x ${image.height})`;
   document.getElementById("textimg").src = image.src;
+  document.getElementById("textures").value = String(textureCnt);
 
   // bind the texture
   gl.bindTexture(gl.TEXTURE_2D, textureHandle);
@@ -1949,13 +1965,13 @@ var animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhentheequatorcheckboxischeckedorunchecked.">change - executed when the equator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemercatorcheckboxischeckedorunchecked.">change - executed when the mercator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodeinputradioischecked(butnotwhenunchecked).">change - executed when the mode input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#mercator2Spherical">mercator2Spherical</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#nsegments">nsegments</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#pointsOnAntiMeridian">pointsOnAntiMeridian</a></li><li><a href="global.html#pointsOnEquator">pointsOnEquator</a></li><li><a href="global.html#pointsOnMeridian">pointsOnMeridian</a></li><li><a href="global.html#pointsOnParallel">pointsOnParallel</a></li><li><a href="global.html#pointsOnPrimeMeridian">pointsOnPrimeMeridian</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#radians">radians</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#spherical2Cartesian">spherical2Cartesian</a></li><li><a href="global.html#spherical2Mercator">spherical2Mercator</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhentheequatorcheckboxischeckedorunchecked.">change - executed when the equator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemercatorcheckboxischeckedorunchecked.">change - executed when the mercator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodeinputradioischecked(butnotwhenunchecked).">change - executed when the mode input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthemodels&lt;select&gt;ischanged.">change - executed when the models &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthetextures&lt;select&gt;ischanged.">change - executed when the textures &lt;select&gt; is changed.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#cartesian2Spherical">cartesian2Spherical</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#initialOcta">initialOcta</a></li><li><a href="global.html#initialTet">initialTet</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#limit">limit</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#mercator2Spherical">mercator2Spherical</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#nsegments">nsegments</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#pointsOnAntiMeridian">pointsOnAntiMeridian</a></li><li><a href="global.html#pointsOnEquator">pointsOnEquator</a></li><li><a href="global.html#pointsOnMeridian">pointsOnMeridian</a></li><li><a href="global.html#pointsOnParallel">pointsOnParallel</a></li><li><a href="global.html#pointsOnPrimeMeridian">pointsOnPrimeMeridian</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#radians">radians</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#spherical2Cartesian">spherical2Cartesian</a></li><li><a href="global.html#spherical2Mercator">spherical2Mercator</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu May 02 2024 08:36:19 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu May 02 2024 17:59:30 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

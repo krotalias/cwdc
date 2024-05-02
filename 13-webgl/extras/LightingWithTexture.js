@@ -806,14 +806,9 @@ const handleKeyPress = ((event) => {
         mscale = gscale;
         break;
       case "n":
-        textureCnt = (textureCnt + 1) % imageFilename.length;
-        image.src = `./textures/${imageFilename[textureCnt]}`;
-        mercator = imageFilename[textureCnt].includes("Mercator");
-        document.getElementById("mercator").checked = mercator;
-        return;
       case "N":
-        --textureCnt;
-        if (textureCnt < 0) textureCnt = imageFilename.length - 1;
+        let incr = ch == "n" ? 1 : -1;
+        textureCnt = mod(textureCnt + incr, imageFilename.length);
         image.src = `./textures/${imageFilename[textureCnt]}`;
         mercator = imageFilename[textureCnt].includes("Mercator");
         document.getElementById("mercator").checked = mercator;
@@ -852,6 +847,17 @@ const handleKeyPress = ((event) => {
     if (selector.paused) draw();
   };
 })();
+
+/**
+ * Select a texture from menu.
+ */
+function selectTexture() {
+  const selectElement = document.getElementById("textures");
+  textureCnt = +selectElement.value;
+  image.src = `./textures/${imageFilename[textureCnt]}`;
+  mercator = imageFilename[textureCnt].includes("Mercator");
+  document.getElementById("mercator").checked = mercator;
+}
 
 /**
  * Returns a new keyboard event
@@ -1052,6 +1058,30 @@ const texture = document.getElementById("texture");
  * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
  */
 texture.addEventListener("change", (event) => handleKeyPress(createEvent("k")));
+
+const textures = document.getElementById("textures");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link selectTexture} argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the textures &lt;select&gt; is changed.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
+textures.addEventListener("change", (event) => selectTexture());
+
+const models = document.getElementById("models");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link selectModel} argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the models &lt;select&gt; is changed.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
+models.addEventListener("change", (event) => selectModel());
 
 /**
  * Code to actually render our geometry.
@@ -1348,6 +1378,16 @@ function drawParallel() {
 }
 
 /**
+ * Get texture file names from an html &lt;select&gt; element
+ * identified by "textures".
+ */
+function getTextures(optionNames) {
+  optionNames.length = 0;
+  const selectElement = document.getElementById("textures");
+  [...selectElement.options].map((o) => optionNames.push(o.text));
+}
+
+/**
  * <p>Loads the texture image asynchronously and defines its {@link ImageLoadCallback load callback function}.</p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
@@ -1378,32 +1418,7 @@ window.addEventListener("load", (event) => {
           console.log(`${error}`);
           // don't return anything => execution goes the normal way
           // in case server does not run php
-          imageFilename = [
-            "BigEarth.jpg",
-            "Earth-1024x512.jpg",
-            "Ghost Busters.jpg",
-            "GhostBusters-album.jpg",
-            "GhostBusters.jpg",
-            "Milla.jpg",
-            "NDVI_84.jpg",
-            "bricks.png",
-            "check64border.png",
-            "citrus-fruit-skin.png",
-            "earth-big-nasa.jpg",
-            "earth-nasa.jpg",
-            "earth-nasa.png",
-            "lion.jpg",
-            "mceclip16.png",
-            "rattle_snake.jpg",
-            "world-map-Mercator-Tissot_indicatrix.jpg",
-            "world-map-Mercator-political2.jpg",
-            "world-map-Mercator.jpg",
-            "world-map-Mercator.png",
-            "world-map-continents-oceans.jpg",
-            "world-map-equirectangular-Tissot_indicatrix.png",
-            "world-map-equirectangular-Tissot_indicatrix_30°.jpg",
-            "world-map-equirectangular.jpg",
-          ];
+          getTextures(imageFilename);
           startForReal(image);
         });
     } else {
@@ -1809,6 +1824,7 @@ function newTexture(image) {
   let imgSize = document.getElementById("size");
   imgSize.innerHTML = `${imageFilename[textureCnt]} (${image.width} x ${image.height})`;
   document.getElementById("textimg").src = image.src;
+  document.getElementById("textures").value = String(textureCnt);
 
   // bind the texture
   gl.bindTexture(gl.TEXTURE_2D, textureHandle);
