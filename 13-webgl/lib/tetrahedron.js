@@ -175,7 +175,7 @@ function spherical2Cartesian(s, t, r = 1) {
  * <ul>
  *    <li>φ<sub>max</sub> = 2 atan (e<sup>π</sup>) - π /2 = 85.051129°</li>
  * </ul>
- * As a consequence, we clamp the longitude to &#91;-85°,85°&#93; to avoid any artifact.
+ * As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any artifact.
  * @param {Number} s longitude (horizontal angle) θ, 0 ≤ θ < 1.
  * @param {Number} t latitude (vertical angle) φ, 0 ≤ φ ≤ 1.
  * @return {Object<x:Number, y:Number>} mercator coordinates in [0,1].
@@ -183,14 +183,14 @@ function spherical2Cartesian(s, t, r = 1) {
  * @see {@link https://paulbourke.net/panorama/webmerc2sphere/ Converting Web Mercator projection to equirectangular}
  */
 function spherical2Mercator(s, t) {
-  // uv to equirectangular
-  let lat = s * 2.0 * Math.PI; // [0, 2pi]
-  let lon = (t - 0.5) * Math.PI; // [-pi/2, pi/2]
-  lon = clamp(lon, radians(-85.0), radians(85.0));
+  // st (uv) to equirectangular
+  let lon = s * 2.0 * Math.PI; // [0, 2pi]
+  let lat = (t - 0.5) * Math.PI; // [-pi/2, pi/2]
+  lat = clamp(lat, radians(-85.0), radians(85.0));
 
   // equirectangular to mercator
-  let x = lat;
-  let y = Math.log(Math.tan(Math.PI / 4.0 + lon / 2.0)); // [-pi, pi]
+  let x = lon;
+  let y = Math.log(Math.tan(Math.PI / 4.0 + lat / 2.0)); // [-pi, pi]
 
   // bring x,y into [0,1] range
   x = s;
@@ -204,13 +204,13 @@ function spherical2Mercator(s, t) {
 
 /**
  * Convert a 2D point in mercator coordinates to a 2D point in spherical coordinates.
- * @param {Number} x latitude in [0,1].
- * @param {Number} y longitude in [0,1].
+ * @param {Number} x longitude in [0,1].
+ * @param {Number} y latitude in [0,1].
  * @returns {Object<x:Number, y:Number>} spherical coordinates in [0,1].
  */
 function mercator2Spherical(x, y) {
-  let lon = y * 2 * Math.PI - Math.PI; // [-pi, pi]
-  let t = 2 * Math.atan(Math.exp(lon)) - Math.PI / 2; // [-pi/2, pi/2]
+  let lat = y * 2 * Math.PI - Math.PI; // [-pi, pi]
+  let t = 2 * Math.atan(Math.exp(lat)) - Math.PI / 2; // [-pi/2, pi/2]
   t = t / Math.PI + 0.5; // [0, 1]
   return {
     s: x,
