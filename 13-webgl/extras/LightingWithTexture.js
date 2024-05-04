@@ -12,8 +12,10 @@
  *
  * Texture coordinates can be set in each model or be sampled at each pixel in the fragment shader.
  * We can also approximate a sphere by subdividing a
- * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}, and solve Mipmapping artifact issues
+ * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}, and solve Mipmapping artifact issues,
  * by using {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf Tarini's} method, in this case.
+ * These artifacts show up due to the discontinuity in the seam, when crossing the line with 0 radians on one side and to 2π on the other.
+ * It is possible that some triangles have edges that cross this line, causing the wrong mipmap level 0 to be chosen.
  *
  * <p>Edit the {@link lightPropElements light}/{@link matPropElements material} matrices in the global variables to experiment.
  * Edit {@link startForReal} to choose a model and select
@@ -27,9 +29,18 @@
  *
  * <p>{@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
  * can only be set for a sphere created by subdividing
- * a tetrahedron or an octahedron. For all the other models, the solution is using
+ * a {@link polyhedron#tetrahedron tetrahedron} or an {@link polyhedron#octahedron octahedron}.
+ * For all the other {@link getModelData models}, the solution is using
  * the <a href="../../showCode.php?f=extras/LightingWithTexture">shader</a>
  * that samples texture coordinates for each pixel.</p>
+ *
+ * Since a unit sphere fits in WebGL {@link https://carmencincotti.com/2022-11-28/from-clip-space-to-ndc-space/ NDC space},
+ * then, for each fragment, one can go from:
+ * <ul>
+ *   <li> cartesian → spherical (equirectangular) → Mercator </li>
+ *   <li> (x, y, z) → (long, lat) → (x, y) </li>
+ *   <li> sample texture at (x, y)</li>
+ * </ul>
  *
  * @author Paulo Roma
  * @since 30/01/2016
@@ -190,7 +201,7 @@ const currentLocation =
 
 /**
  * Display status of the model mesh, texture, axes and paused animation: on/off.
- * @type {OBject<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean}>}
+ * @type {Object<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean}>}
  */
 const selector = {
   lines: document.getElementById("mesh").checked,
@@ -1411,7 +1422,7 @@ window.addEventListener("load", (event) => {
     if (typeof theModel === "undefined") {
       readFileNames
         .then((arr) => {
-          if (arr.length > 0) imageFilename = arr;
+          if (arr.length > 0) imageFilename = arr.sort();
           startForReal(image);
         })
         .catch((error) => {
