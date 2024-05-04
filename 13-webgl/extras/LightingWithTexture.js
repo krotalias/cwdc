@@ -20,7 +20,8 @@
  * <p>Edit the {@link lightPropElements light}/{@link matPropElements material} matrices in the global variables to experiment.
  * Edit {@link startForReal} to choose a model and select
  * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
- * In fact, {@link https://threejs.org Three.js} only uses face normals for polyhedra.<p>
+ * In fact, {@link https://threejs.org Three.js} only uses face normals for
+ * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedra}.<p>
  *
  * To fit a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections,
  * or 1:1 (squared) for Mercator projections. Finding high resolution, good quality,
@@ -223,7 +224,7 @@ var rotator;
  * @type {Float32Array}
  */
 // prettier-ignore
-var axisVertices = new Float32Array([
+const axisVertices = new Float32Array([
   0.0, 0.0, 0.0,
   1.5, 0.0, 0.0,
   0.0, 0.0, 0.0,
@@ -237,7 +238,7 @@ var axisVertices = new Float32Array([
  * @type {Float32Array}
  */
 // prettier-ignore
-var axisColors = new Float32Array([
+const axisColors = new Float32Array([
   1.0, 0.0, 0.0, 1.0,
   1.0, 0.0, 0.0, 1.0,
   0.0, 1.0, 0.0, 1.0,
@@ -251,69 +252,72 @@ var axisColors = new Float32Array([
 /**
  * <p>Light properties.</p>
  * Ambient, diffuse and specular.
- * Generic white light.
  * <p>Remember this is column major.</p>
- * @type {Float32Array}
+ * @type {Object<String:Float32Array>}
  */
 // prettier-ignore
-var lightPropElements = new Float32Array([
-  0.5, 0.5, 0.5,
-  0.7, 0.7, 0.7,
-  0.7, 0.7, 0.7
-]);
+const lightPropElements = {
+  // generic white light.
+  white_light: new Float32Array([
+                    0.5, 0.5, 0.5,
+                    0.7, 0.7, 0.7,
+                    0.7, 0.7, 0.7
+  ]),
 
-/* --------------------------------------------------------
-// blue light with red specular highlights (because we can)
-// prettier-ignore
-var lightPropElements = new Float32Array([
-  0.2, 0.2, 0.2,
-  0.0, 0.0, 0.7,
-  0.7, 0.0, 0.0
-]);
-
-// shiny green plastic
-// prettier-ignore
-var matPropElements = new Float32Array([
-  0.3, 0.3, 0.3,
-  0.0, 0.8, 0.0,
-  0.8, 0.8, 0.8
-]);
-var shininess = 30;
-
-// very fake looking white, useful for testing lights
-// prettier-ignore
-var matPropElements = new Float32Array([
-  1, 1, 1,
-  1, 1, 1,
-  1, 1, 1
-]);
-var shininess = 20.0;
-
-// clay or terracotta
-// prettier-ignore
-var matPropElements = new Float32Array([
-  0.75, 0.38, 0.26,
-  0.75, 0.38, 0.26,
-  0.25, 0.20, 0.15 // weak specular highlight similar to diffuse color
-]);
-var shininess = 10.0;
-------------------------------------------------------------- */
+  // blue light with red specular highlights
+  // (because we can)
+  blue_red: new Float32Array([
+                0.2, 0.2, 0.2,
+                0.0, 0.0, 0.7,
+                0.7, 0.0, 0.0
+  ])
+};
 
 /**
  * <p>Material properties.</p>
- * Shiny brass.
+ * Ambient, diffuse and specular.
  * <p>Remember this is column major.</p>
- * @type {Float32Array}
+ * @type {Object<String:Float32Array>}
  * @see {@link http://devernay.free.fr/cours/opengl/materials.html OpenGL/VRML Materials}
  * @see {@link https://docs.unity3d.com/Manual/StandardShaderMaterialCharts.html Material charts}
  */
 // prettier-ignore
-var matPropElements = new Float32Array([
-  0.33, 0.22, 0.03,
-  0.78, 0.57, 0.11,
-  0.99, 0.91, 0.81
-]);
-var shininess = 28.0;
+const matPropElements = {
+  shiny_brass: new Float32Array([
+                0.33, 0.22, 0.03,
+                0.78, 0.57, 0.11,
+                0.99, 0.91, 0.81
+  ]),
+
+  shiny_green_plastic: new Float32Array([
+                        0.3, 0.3, 0.3,
+                        0.0, 0.8, 0.0,
+                        0.8, 0.8, 0.8
+  ]),
+
+  // very fake looking white
+  // useful for testing lights
+  fake_white: new Float32Array([
+                  1, 1, 1,
+                  1, 1, 1,
+                  1, 1, 1
+  ]),
+
+  // clay or terracotta
+  clay: new Float32Array([
+        0.75, 0.38, 0.26,
+        0.75, 0.38, 0.26,
+        0.25, 0.20, 0.15 // weak specular highlight similar to diffuse color
+  ]),
+};
+
+/**
+ * <p>Specular term exponent used in the
+ * {@link https://en.wikipedia.org/wiki/Phong_reflection_model Phong reflection model}.</p>
+ * One entry for each material property.
+ * @type {Array<Number>}
+ */
+const shininess = [28.0, 30, 20.0, 10.0, 200];
 
 /**
  * The OpenGL context.
@@ -1194,11 +1198,11 @@ function drawTexture() {
 
   // light and material properties
   loc = gl.getUniformLocation(lightingShader, "lightProperties");
-  gl.uniformMatrix3fv(loc, false, lightPropElements);
+  gl.uniformMatrix3fv(loc, false, lightPropElements.white_light);
   loc = gl.getUniformLocation(lightingShader, "materialProperties");
-  gl.uniformMatrix3fv(loc, false, matPropElements);
+  gl.uniformMatrix3fv(loc, false, matPropElements.shiny_brass);
   loc = gl.getUniformLocation(lightingShader, "shininess");
-  gl.uniform1f(loc, shininess);
+  gl.uniform1f(loc, shininess[shininess.length - 1]);
 
   // need to choose a texture unit, then bind the texture to TEXTURE_2D for that unit
   var textureUnit = 1;

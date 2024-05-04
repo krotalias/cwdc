@@ -406,10 +406,10 @@ when using mipmap:
                 // lighting factors as usual
 
                 // Lambert's law, clamp negative values to zero
-                float diffuseFactor = max(0.0, dot(L, N));
+                float diffuseFactor = clamp(dot(L, N), 0.0, 1.0);
 
                 // specular factor from Phong reflection model
-                float specularFactor = pow(max(0.0, dot(V, R)), shininess);
+                float specularFactor = pow(clamp(dot(V, R), 0.0, 1.0), shininess);
 
                 // add the components together, note that vec4 * vec4 is componentwise multiplication,
                 // not a dot product
