@@ -1411,11 +1411,28 @@ function drawParallel() {
 /**
  * Get texture file names from an html &lt;select&gt; element
  * identified by "textures".
+ * @param {Array<String>} optionNames array of texture file names.
  */
 function getTextures(optionNames) {
   optionNames.length = 0;
   const selectElement = document.getElementById("textures");
   [...selectElement.options].map((o) => optionNames.push(o.text));
+}
+
+/**
+ * Set texture file names of an html &lt;select&gt; element identified by "textures".
+ * @param {Array<String>} optionNames array of texture file names.
+ */
+function setTextures(optionNames) {
+  const sel = document.getElementById("textures");
+
+  let options_str = "";
+
+  optionNames.forEach((img, index) => {
+    options_str += `<option value="${index}">${img}</option>`;
+  });
+
+  sel.innerHTML = options_str;
 }
 
 /**
@@ -1443,6 +1460,7 @@ window.addEventListener("load", (event) => {
       readFileNames
         .then((arr) => {
           if (arr.length > 0) imageFilename = arr.sort();
+          setTextures(imageFilename);
           startForReal(image);
         })
         .catch((error) => {
