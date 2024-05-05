@@ -189,6 +189,22 @@ const gpsCoordinates = {
     latitude: 51.049999,
     longitude: -114.066666,
   },
+  Ames: {
+    latitude: 42.034534,
+    longitude: -93.620369,
+  },
+  Rome: {
+    latitude: 41.902782,
+    longitude: 12.496366,
+  },
+  Berlin: {
+    latitude: 52.520008,
+    longitude: 13.404954,
+  },
+  Hawaii: {
+    latitude: 21.3068,
+    longitude: -157.7912,
+  },
 };
 
 /**
@@ -1368,7 +1384,7 @@ function drawParallel() {
 
   // "enable" the a_position attribute
   gl.enableVertexAttribArray(positionIndex);
-  //  ------------ draw triangle borders
+
   // set transformation to projection * view * model
   var loc = gl.getUniformLocation(colorShader, "transform");
   var transform = mat4.multiply(
@@ -1448,7 +1464,9 @@ window.addEventListener("load", (event) => {
 /**
  * <p>Sets up all buffers for the given (triangulated) model (shape).</p>
  *
- * Uses the webgl vertex buffer, normal buffer, texture buffer and index buffer, created in {@link startForReal}.<br>
+ * Uses the webgl {@link vertexBuffer vertex buffer},
+ * {@link normalBuffer normal buffer}, {@link texCoordBuffer texture buffer}
+ * and {@link indexBuffer index buffer}, created in {@link startForReal}.<br>
  * Then, binds each one of them as an array buffer and copies the corresponding shape array data to them.
  *
  * <p>Also, the Euler characteristic for the model is:</p>
@@ -1700,7 +1718,7 @@ function startForReal(image) {
     return null;
   }
 
-  // buffer for tex coords
+  // buffer for texture coords
   texCoordBuffer = gl.createBuffer();
   if (!texCoordBuffer) {
     console.log("Failed to create the buffer object");
