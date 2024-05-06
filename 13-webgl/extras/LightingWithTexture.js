@@ -44,11 +44,18 @@
  * </ul>
  *
  * @author Paulo Roma
+ * @license MIT
+ * @copyright 2024 Paulo R Cavalcanti.
  * @since 30/01/2016
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the fragment shader:
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the vertex shader
  * @see <a href="https://math.rice.edu/~polking/cartography/cart.pdf">Mapping the Sphere<a/>
- * @see {@link https://en.wikipedia.org/wiki/Utah_teapot Utah teapot}
+ * @see <a href="https://maa.org/sites/default/files/pdf/upload_library/22/Ford/Apostol496-508.pdf">A Fresh Look at the Method of Archimedes</a>
+ * @see <a href="https://djalil.chafai.net/blog/wp-content/uploads/2011/11/Letac-From-Archimedes-to-Statistics-The-area-of-the-sphere.pdf">From Archimedes to statistics: the area of the sphere</a>
+ * @see <a href="https://cuhkmath.wordpress.com/2018/01/05/archimedes-and-the-area-of-sphere/">Archimedes and the area of sphere</a>
+ * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps</a>
+ * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
+ * @see {@link https://www.thetruesize.com/ The True Size of ...}
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
  * @see <figure>
@@ -69,8 +76,8 @@
  *      </figcaption>
  *      </figure>
  * @see  <figure>
- *      <img src="../images/sphere-earth.png" height="340" title="texture in fragment shader">
- *      <img src="../images/teapot-earth.png" height="340" title="teapot points projected onto a sphere">
+ *      <img src="../images/sphere-earth.png" height="340" title="equirectangular projection">
+ *      <img src="../images/teapot-earth.png" height="340" title="sphere projected onto a teapot">
  *      <figcaption style="font-size: 200%"><a href="https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf">Spherical (Equirectangular) Projection</a></figcaption>
  *      </figure>
  * @see <figure>
@@ -82,7 +89,7 @@
  * @see <figure>
  *      <img src="../images/sphere.png" width="512" title="texture in fragment shader">
  *      <img src="../images/anti-aliasing.png" height="340" title="sampling by pixel"><br>
- *      <img src="../images/snake.png" height="340" title="rattle snake">
+ *      <img src="../images/Gordon_River.png" height="340" title="Gordon River">
  *      <img src="../images/Milla.png" height="340" title="Milla Jovovich">
  *      <figcaption style="font-size: 200%">{@link https://learnopengl.com/Getting-started/Textures Texture Sampled} in
  *        <a href="/cwdc/13-webgl/showCode.php?f=extras/LightingWithTexture">Fragment Shader</a></figcaption>
