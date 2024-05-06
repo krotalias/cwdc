@@ -4,7 +4,9 @@
  * Summary.
  * <p>Lighting, combined with {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}.</p>
  *
- * <p>This is just a demo for teaching CG, which became over complicated, and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
+ * <p><b>For Educational Purposes Only.</b></p>
+ * <p>This is just a <b>demo</b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
+ * which became overly complicated, and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
  * and a 3x3 matrix for {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL light properties}
  * that are passed to the fragment shader as
@@ -14,7 +16,8 @@
  * We can also approximate a sphere by subdividing a
  * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}, and solve Mipmapping artifact issues,
  * by using {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf Tarini's} method, in this case.
- * These artifacts show up due to the discontinuity in the seam, when crossing the line with 0 radians on one side and to 2π on the other.
+ * These {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b artifacts}
+ * show up due to the discontinuity in the seam, when crossing the line with 0 radians on one side and to 2π on the other.
  * It is possible that some triangles have edges that cross this line, causing the wrong mipmap level 0 to be chosen.
  *
  * <p>Edit the {@link lightPropElements light}/{@link matPropElements material} matrices in the global variables to experiment.
@@ -44,7 +47,7 @@
  * </ul>
  *
  * @author Paulo Roma
- * @license MIT
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright 2024 Paulo R Cavalcanti.
  * @since 30/01/2016
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the fragment shader:
@@ -56,6 +59,7 @@
  * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps</a>
  * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
+ * @see {@link https://en.wikipedia.org/wiki/Sextant Navigational Sextant}
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
  * @see <figure>
