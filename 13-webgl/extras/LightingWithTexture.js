@@ -1111,7 +1111,10 @@ const textures = document.getElementById("textures");
  * @event change - executed when the textures &lt;select&gt; is changed.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
  */
-textures.addEventListener("change", (event) => selectTexture());
+textures.addEventListener("change", (event) => {
+  selectTexture();
+  document.activeElement.blur();
+});
 
 const models = document.getElementById("models");
 
