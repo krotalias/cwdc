@@ -26,7 +26,7 @@
  * In fact, {@link https://threejs.org Three.js} only uses face normals for
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedra}.<p>
  *
- * To fit a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections,
+ * To lay a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections,
  * or 1:1 (squared) for Mercator projections. Finding high resolution, good quality,
  * and free {@link https://www.axismaps.com/guide/map-projections cartographic maps}
  * is very, really very difficult.
@@ -119,7 +119,8 @@ const mat3 = glMatrix.mat3;
 /**
  * Three.js module.
  * @external THREE
- * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
+ * @see {@link https://discoverthreejs.com DISCOVER three.js}
  */
 
 /**
@@ -1897,7 +1898,7 @@ function newTexture(image) {
   /*
    * (0,0) in the image coordinate system is the top left corner,
    * and the (0,0) in the texture coordinate system is bottom left.
-   * Threfore, load the image bytes to the currently bound texture,
+   * Therefore, load the image bytes to the currently bound texture,
    * flipping the vertical.
    */
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
