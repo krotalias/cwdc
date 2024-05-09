@@ -128,6 +128,7 @@ const toRadian = glMatrix.glMatrix.toRadian;
  * @external THREE
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
+ * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
  */
 
 /**
@@ -1503,8 +1504,10 @@ window.addEventListener("load", (event) => {
     if (typeof theModel === "undefined") {
       readFileNames
         .then((arr) => {
+          let initialTexture = imageFilename[0];
           if (arr.length > 0) imageFilename = arr.sort();
           setTextures(imageFilename);
+          textureCnt = imageFilename.indexOf(initialTexture);
           startForReal(image);
         })
         .catch((error) => {
@@ -1866,6 +1869,8 @@ function startForReal(image) {
  * <p>Therefore, we only use it for subdivision spheres.</p>
  * @return {UVfix}
  * @function
+ * @see {@link https://gamedev.stackexchange.com/questions/130888/what-are-screen-space-derivatives-and-when-would-i-use-them What are screen space derivatives}
+ * @see <a href="../images/rasterized_triangle.png"><img src="../images/rasterized_triangle.png" width="512"></a>
  */
 const setUVfix = (() => {
   let subdivisionModel = false;
