@@ -117,6 +117,13 @@ const mat4 = glMatrix.mat4;
 const mat3 = glMatrix.mat3;
 
 /**
+ * Convert Degree To Radian.
+ * @type {Function}
+ * @see {@link https://glmatrix.net/docs/module-glMatrix.html glMatrix.toRadian}
+ */
+const toRadian = glMatrix.glMatrix.toRadian;
+
+/**
  * Three.js module.
  * @external THREE
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
@@ -459,7 +466,7 @@ var modelMatrix = mat4.create();
  * Rotation axis.
  * @type {String}
  */
-var axis = "x";
+var axis = document.querySelector('input[name="rot"]:checked').value;
 
 /**
  * Whether uv spherical coordinates should be "fixed",
@@ -492,7 +499,8 @@ var culling = true;
  * Camera position.
  * @type {vec3}
  */
-var eye = vec3.fromValues(1.77, 3.54, 3.0);
+const eye = vec3.fromValues(0, 0, 5.5);
+// const eye = vec3.fromValues(1.77, 3.54, 3.0);
 
 /**
  * View matrix.
@@ -501,20 +509,24 @@ var eye = vec3.fromValues(1.77, 3.54, 3.0);
  * @see <a href="/cwdc/downloads/PDFs/06_LCG_Transformacoes.pdf">Mudança de Base</a>
  * @see <a href="https://en.wikipedia.org/wiki/Change_of_basis">Change of Basis</a>
  * @see {@link https://learn.microsoft.com/en-us/windows/win32/direct3d9/view-transform View Transform (Direct3D 9)}
+ * @see {@link https://www.youtube.com/watch?v=6Xn1l7_HYfU Changes in Obliquity}
+ * @see {@link https://www.khanacademy.org/science/cosmology-and-astronomy/earth-history-topic/earth-title-topic/v/milankovitch-cycles-precession-and-obliquity Milankovitch cycles precession and obliquity}
  */
 // prettier-ignore
-var viewMatrix = mat4.lookAt(
+const viewMatrix = mat4.lookAt(
   [],
-  eye,                        // eye
-  vec3.fromValues(0, 0, 0),   // at - looking at the origin
-  vec3.fromValues(0, 1, 0)    // up vector - y axis
+  eye,
+  // at - looking at the origin
+  vec3.fromValues(0, 0, 0),
+  // up vector - y axis tilt (obliquity)
+  vec3.transformMat4([],vec3.fromValues(0, 1, 0),mat4.fromZRotation([], toRadian(23.44))),
 );
 
 /**
  * Projection matrix.
  * @type {mat4}
  */
-var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
+const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
 
 /**
  * <p>Promise for returning an array with all file names in directory './textures'.</p>
@@ -526,7 +538,7 @@ var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
  * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
  * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
-var readFileNames = new Promise((resolve, reject) => {
+const readFileNames = new Promise((resolve, reject) => {
   $.ajax({
     type: "GET",
     url: "/cwdc/6-php/readFiles_.php",
@@ -667,6 +679,7 @@ const handleKeyPress = ((event) => {
       case " ":
         selector.paused = !selector.paused;
         document.getElementById("pause").checked = selector.paused;
+        if (axis === " ") axis = "y";
         if (!selector.paused) document.getElementById(axis).checked = true;
         animate();
         return;
@@ -774,13 +787,13 @@ const handleKeyPress = ((event) => {
         break;
       case "p":
         // teapot - this is NOT a manifold model - it is a model with borders!
-        gscale = mscale = 0.1;
+        gscale = mscale = 0.09;
         models.value = "6";
         theModel = createModel({ shape: teapotModel, chi: null });
         break;
       case "P":
         // teapot - this is NOT a manifold model - it is a model with borders!
-        gscale = mscale = 0.8;
+        gscale = mscale = 0.7;
         models.value = "6";
         theModel = createModel({
           shape: getModelData(
@@ -1956,7 +1969,7 @@ function newTexture(image) {
  */
 var animate = (() => {
   // increase the rotation by some amount, depending on the axis chosen
-  const increment = (0.5 * Math.PI) / 180;
+  const increment = toRadian(0.5);
   /** @type {Number} */
   var requestID = 0;
   const rotMatrix = {
