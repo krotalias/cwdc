@@ -152,7 +152,7 @@ var imageFilename = [
  * Current texture index.
  * @type {Number}
  */
-var textureCnt = document
+var textureCnt = +document
   .getElementById("textures")
   .querySelector("[selected]").value;
 
