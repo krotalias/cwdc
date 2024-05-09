@@ -141,10 +141,12 @@ const toRadian = glMatrix.glMatrix.toRadian;
  */
 
 /**
- * Array holding image file names to create textures.
+ * Array holding image file names to create textures from.
  * @type {Array<String>}
  */
-var imageFilename = ["BigEarth.jpg"];
+var imageFilename = [
+  document.getElementById("textures").querySelector("[selected]").text,
+];
 
 /**
  * Current texture index.
@@ -501,6 +503,18 @@ var culling = true;
  */
 const eye = vec3.fromValues(0, 0, 5.5);
 // const eye = vec3.fromValues(1.77, 3.54, 3.0);
+
+/**
+ * <p>Light Position.</p>
+ * Phong illumination model will highlight
+ * the projection of this position
+ * on the current model.
+ * <p>In the case of a sphere, it will trace the equator,
+ * if no other rotation is applied by the user.</p>
+ * @type {Array<Number>}
+ */
+const lightPosition = [0.0, 0.0, 10.0, 1.0];
+// const lightPosition = [2.0, 4.0, 2.0, 1.0];
 
 /**
  * View matrix.
@@ -1238,7 +1252,7 @@ function drawTexture() {
   );
 
   loc = gl.getUniformLocation(lightingShader, "lightPosition");
-  gl.uniform4f(loc, 2.0, 4.0, 2.0, 1.0);
+  gl.uniform4f(loc, ...lightPosition);
 
   // light and material properties
   loc = gl.getUniformLocation(lightingShader, "lightProperties");

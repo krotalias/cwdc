@@ -91,8 +91,8 @@ when using mipmap:
                 <option value="2">Cube</option>
                 <option value="3">Cylinder</option>
                 <option value="4">Ring</option>
-                <option value="5">Sphere</option>
-                <option value="6" selected>Teapot</option>
+                <option value="5" selected>Sphere</option>
+                <option value="6">Teapot</option>
                 <option value="7">Torus</option>
                 <option value="8">Torus Knot</option>
                 <option value="9">Dodecahedron</option>
@@ -159,7 +159,9 @@ when using mipmap:
                     <option value="17">earth-big-nasa.jpg</option>
                     <option value="18">earth-nasa.jpg</option>
                     <option value="19">flat_earth_still_clouds.jpg</option>
-                    <option value="20">flat_earth_still_noClouds.jpg</option>
+                    <option value="20" selected>
+                        flat_earth_still_noClouds.jpg
+                    </option>
                     <option value="21">lion.jpg</option>
                     <option value="22">mceclip16.png</option>
                     <option value="23">rattle_snake.jpg</option>
@@ -195,17 +197,11 @@ when using mipmap:
                 <label for="equator">Equator</label>
 
                 <div id="radio">
-                    <input
-                        type="radio"
-                        id="pause"
-                        name="rot"
-                        checked
-                        value=" "
-                    />
+                    <input type="radio" id="pause" name="rot" value=" " />
                     <label for="pause">Pause</label>
                     <input type="radio" id="x" name="rot" value="x" />
                     <label for="x">x</label>
-                    <input type="radio" id="y" name="rot" value="y" />
+                    <input type="radio" id="y" name="rot" checked value="y" />
                     <label for="y">y</label>
                     <input type="radio" id="z" name="rot" value="z" />
                     <label for="z">z</label>
