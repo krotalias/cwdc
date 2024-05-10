@@ -926,30 +926,37 @@ const handleKeyPress = ((event) => {
 })();
 
 /**
- * <p>Select a texture from the menu.</p>
+ * <p>Closure for selecting a texture from the menu.</p>
  * Tetrahedra and octahedra may need to be reloaded for
  * getting appropriate texture coordinates:
  * <ul>
  *  <li>mercator x equirectangular.</li>
  * </ul>
- *
+ * @function
  * @param {Boolean} getCnt indicates the need of getting textureCnt
  * from &lt;select&gt; element in html.
  */
-function selectTexture(getCnt = true) {
-  if (getCnt) {
-    const selectElement = document.getElementById("textures");
-    textureCnt = +selectElement.value;
-  }
-  image.src = `./textures/${imageFilename[textureCnt]}`;
-  mercator = imageFilename[textureCnt].includes("Mercator");
-  document.getElementById("mercator").checked = mercator;
+const selectTexture = (() => {
+  const selectElement = document.getElementById("textures");
+  const chkMerc = document.getElementById("mercator");
+  let previousMercator = undefined;
 
-  // I should also test if the coordinate type has changed...
-  if (!noTexture && theModel.nfaces <= 8) {
-    selectModel();
-  }
-}
+  return (getCnt = true) => {
+    if (getCnt) {
+      textureCnt = +selectElement.value;
+    }
+    image.src = `./textures/${imageFilename[textureCnt]}`;
+    mercator = imageFilename[textureCnt].includes("Mercator");
+    chkMerc.checked = mercator;
+
+    if (previousMercator != mercator) {
+      previousMercator = mercator;
+      if (!noTexture && theModel.nfaces <= 8) {
+        selectModel(); // reload subdivision model
+      }
+    }
+  };
+})();
 
 /**
  * Returns a new keyboard event
