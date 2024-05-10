@@ -378,9 +378,9 @@ export class polyhedron {
    * @param {vec3} c third vertex.
    */
   triangle(a, b, c) {
-    this.pointsArray.push(a[0], a[1], a[2]);
-    this.pointsArray.push(b[0], b[1], b[2]);
-    this.pointsArray.push(c[0], c[1], c[2]);
+    this.pointsArray.push(...a);
+    this.pointsArray.push(...b);
+    this.pointsArray.push(...c);
 
     this.pointsIndices.push(this.index, this.index + 1, this.index + 2);
 
@@ -392,8 +392,8 @@ export class polyhedron {
 
     if (this.fix) this.fixUVCoordinates(sc);
 
-    for (let i in sc) {
-      const { s, t } = sc[i];
+    for (let uv of sc) {
+      const { s, t } = uv;
       if (this.mercator) {
         const { x, y } = spherical2Mercator(s, t);
         this.texCoords.push(x, y);
@@ -589,7 +589,7 @@ export class polyhedron {
    * when the 0 coordinate is stitched together with the 1 coordinate.
    *
    * @param {Array<Object<{s:Number, t:Number}>>} sc triangle given by its spherical coordinates.
-   * @see https://gamedev.stackexchange.com/questions/148167/correcting-projection-of-360-content-onto-a-sphere-distortion-at-the-poles/148178#148178
+   * @see {@link https://gamedev.stackexchange.com/questions/148167/correcting-projection-of-360-content-onto-a-sphere-distortion-at-the-poles/148178#148178 Per-Fragment Equirectangular}
    */
   fixUVCoordinates(sc) {
     var zero = 0.2;

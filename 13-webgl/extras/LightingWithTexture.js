@@ -158,6 +158,12 @@ var textureCnt = +document
   .querySelector("[selected]").value;
 
 /**
+ * Indicates whether not use the texture from the model.
+ * @type {Boolean}
+ */
+let noTexture;
+
+/**
  * Texture image.
  * @type {HTMLImageElement}
  * @see {@link ImageLoadCallback}
@@ -882,9 +888,7 @@ const handleKeyPress = ((event) => {
       case "N":
         let incr = ch == "n" ? 1 : -1;
         textureCnt = mod(textureCnt + incr, imageFilename.length);
-        image.src = `./textures/${imageFilename[textureCnt]}`;
-        mercator = imageFilename[textureCnt].includes("Mercator");
-        document.getElementById("mercator").checked = mercator;
+        selectTexture(false);
         return;
       case "f":
         fixuv = !fixuv;
@@ -922,14 +926,29 @@ const handleKeyPress = ((event) => {
 })();
 
 /**
- * Select a texture from menu.
+ * <p>Select a texture from the menu.</p>
+ * Tetrahedra and octahedra may need to be reloaded for
+ * getting appropriate texture coordinates:
+ * <ul>
+ *  <li>mercator x equirectangular.</li>
+ * </ul>
+ *
+ * @param {Boolean} getCnt indicates the need of getting textureCnt
+ * from &lt;select&gt; element in html.
  */
-function selectTexture() {
-  const selectElement = document.getElementById("textures");
-  textureCnt = +selectElement.value;
+function selectTexture(getCnt = true) {
+  if (getCnt) {
+    const selectElement = document.getElementById("textures");
+    textureCnt = +selectElement.value;
+  }
   image.src = `./textures/${imageFilename[textureCnt]}`;
   mercator = imageFilename[textureCnt].includes("Mercator");
   document.getElementById("mercator").checked = mercator;
+
+  // I should also test if the coordinate type has changed...
+  if (!noTexture && theModel.nfaces <= 8) {
+    selectModel();
+  }
 }
 
 /**
@@ -1219,7 +1238,7 @@ function drawTexture() {
   }
 
   var texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
-  var noTexture = texCoordIndex < 0;
+  noTexture = texCoordIndex < 0;
 
   var u_mercator = gl.getUniformLocation(lightingShader, "u_mercator");
   gl.uniform1i(u_mercator, mercator);
@@ -1988,7 +2007,7 @@ function newTexture(image) {
  * Step 0.5° ⇒ 60 fps = 30°/s ⇒ 360° in 12s
  * @see {@link https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd Extrinsic & intrinsic rotation}
  */
-var animate = (() => {
+const animate = (() => {
   // increase the rotation by some amount, depending on the axis chosen
   const increment = toRadian(0.5);
   /** @type {Number} */
