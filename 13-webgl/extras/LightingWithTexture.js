@@ -26,17 +26,19 @@
  * In fact, {@link https://threejs.org Three.js} only uses face normals for
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedra}.<p>
  *
- * To lay a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections,
+ * <p>To lay a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections,
  * or 1:1 (squared) for Mercator projections. Finding high resolution, good quality,
  * and free {@link https://www.axismaps.com/guide/map-projections cartographic maps}
- * is very, really very difficult.
+ * is very, really very difficult.</p>
  *
- * <p>{@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
- * can only be set for a sphere created by subdividing
- * a {@link polyhedron#tetrahedron tetrahedron} or an {@link polyhedron#octahedron octahedron}.
- * For all the other {@link getModelData models}, the solution is using
+ * <p>The initial position on the screen takes into account the {@link https://science.nasa.gov/science-research/earth-science/milankovitch-orbital-cycles-and-their-role-in-earths-climate/ obliquity}
+ * of the earth (23.44°), and the Phong highlight projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line},
+ * if the user has not interacted using the arcball.<p>
+ *
+ * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
+ * can be set in a {@link createModel model} directly, or be set in
  * the <a href="../../showCode.php?f=extras/LightingWithTexture">shader</a>
- * that samples texture coordinates for each pixel.</p>
+ * that samples texture coordinates for each pixel.</br>
  *
  * Since a unit sphere fits in WebGL {@link https://carmencincotti.com/2022-11-28/from-clip-space-to-ndc-space/ NDC space},
  * then, for each fragment, one can go from:
@@ -52,16 +54,18 @@
  * @since 30/01/2016
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the fragment shader:
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the vertex shader
+ * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
+ * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="https://math.rice.edu/~polking/cartography/cart.pdf">Mapping the Sphere<a/>
  * @see <a href="https://maa.org/sites/default/files/pdf/upload_library/22/Ford/Apostol496-508.pdf">A Fresh Look at the Method of Archimedes</a>
  * @see <a href="https://djalil.chafai.net/blog/wp-content/uploads/2011/11/Letac-From-Archimedes-to-Statistics-The-area-of-the-sphere.pdf">From Archimedes to statistics: the area of the sphere</a>
  * @see <a href="https://cuhkmath.wordpress.com/2018/01/05/archimedes-and-the-area-of-sphere/">Archimedes and the area of sphere</a>
+ * @see <a href="https://arxiv.org/pdf/1905.11214">On some information geometric structures concerning Mercator projections</a>
  * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps</a>
  * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
  * @see {@link https://en.wikipedia.org/wiki/Sextant Navigational Sextant}
- * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
- * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
+ * @see {@link https://www.youtube.com/c/CasualNavigationAcademy CasualNavigationAcademy}
  * @see <figure>
  *      <img src="../images/teapot.png" height="310" title="Utah teapot">
  *      <img src="../images/tex.png" title="64x64 texture" height="310">
@@ -557,14 +561,14 @@ const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
  * <p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise<Array<String>>}
- * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
+ * @see <a href="/cwdc/6-php/readFiles.php">files</a>
  * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
  * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
 const readFileNames = new Promise((resolve, reject) => {
   $.ajax({
     type: "GET",
-    url: "/cwdc/6-php/readFiles_.php",
+    url: "/cwdc/6-php/readFiles.php",
     data: {
       dir: "/cwdc/13-webgl/extras/textures",
     },
@@ -951,8 +955,8 @@ const selectTexture = (() => {
 
     if (previousMercator != mercator) {
       previousMercator = mercator;
-      if (!noTexture && theModel.nfaces <= 8) {
-        selectModel(); // reload subdivision model
+      if (!noTexture) {
+        selectModel(); // reload subdivision/sphere model
       }
     }
   };
@@ -1434,7 +1438,7 @@ function drawAxes() {
 }
 
 /**
- * <p>Draws a parellel. </p>
+ * <p>Draws a parallel. </p>
  * Uses the {@link colorShader}.
  */
 function drawParallel() {
@@ -1628,7 +1632,28 @@ function createModel({ shape, chi = 2, poly = 0, fix_uv = false }) {
   gl.bufferData(gl.ARRAY_BUFFER, shape.vertexNormals, gl.STATIC_DRAW);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, shape.vertexTextureCoords, gl.STATIC_DRAW);
+
+  // generate mercator texture coordinates
+  if (!noTexture && !shape.vertexMercatorCoords) {
+    shape.vertexMercatorCoords = new Float32Array(
+      shape.vertexTextureCoords.length,
+    );
+    for (let i = 0; i < shape.vertexTextureCoords.length; i += 2) {
+      let s = shape.vertexTextureCoords[i];
+      let t = shape.vertexTextureCoords[i + 1];
+      let { x, y } = spherical2Mercator(s, t);
+      shape.vertexMercatorCoords[i] = x;
+      shape.vertexMercatorCoords[i + 1] = y;
+    }
+  } else {
+    if (noTexture) shape.vertexMercatorCoords = shape.vertexTextureCoords;
+  }
+
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    mercator ? shape.vertexMercatorCoords : shape.vertexTextureCoords,
+    gl.STATIC_DRAW,
+  );
 
   let nv = shape.vertexPositions.length;
   normal = new Float32Array(6 * nv);

@@ -369,10 +369,17 @@ export class polyhedron {
      * @type {Array<Number>}
      */
     this.texCoords = [];
+
+    /**
+     * Vertex mercator texture coordinate array.
+     * @type {Array<Number>}
+     */
+    this.mercCoords = [];
   }
 
   /**
-   * Adds a new triangle.
+   * <p>Adds a new triangle.</p>
+   * Mercator texture coordinates are also set.
    * @param {vec3} a first vertex.
    * @param {vec3} b second vertex.
    * @param {vec3} c third vertex.
@@ -394,12 +401,10 @@ export class polyhedron {
 
     for (let uv of sc) {
       const { s, t } = uv;
-      if (this.mercator) {
-        const { x, y } = spherical2Mercator(s, t);
-        this.texCoords.push(x, y);
-      } else {
-        this.texCoords.push(s, t);
-      }
+      this.texCoords.push(s, t);
+
+      const { x, y } = spherical2Mercator(s, t);
+      this.texCoords.push(x, y);
     }
 
     // normals are vectors
@@ -471,6 +476,7 @@ export class polyhedron {
       vertexPositions: new Float32Array(this.pointsArray),
       vertexNormals: new Float32Array(this.normalsArray),
       vertexTextureCoords: new Float32Array(this.texCoords),
+      vertexMercatorCoords: new Float32Array(this.mercCoords),
       indices: new Uint16Array(this.pointsIndices),
     };
   }
@@ -510,6 +516,7 @@ export class polyhedron {
       vertexPositions: new Float32Array(this.pointsArray),
       vertexNormals: new Float32Array(this.normalsArray),
       vertexTextureCoords: new Float32Array(this.texCoords),
+      vertexMercatorCoords: new Float32Array(this.mercCoords),
       indices: new Uint16Array(this.pointsIndices),
     };
   }
