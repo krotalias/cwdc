@@ -6,7 +6,7 @@
  *
  * <p><b>For Educational Purposes Only.</b></p>
  * <p>This is just a <b>demo</b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
- * which became overly complicated, and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
+ * which became overly complicated and kind of messy, and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
  * and a 3x3 matrix for {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL light properties}
  * that are passed to the fragment shader as
@@ -32,8 +32,14 @@
  * is very, really very difficult.</p>
  *
  * <p>The initial position on the screen takes into account the {@link https://science.nasa.gov/science-research/earth-science/milankovitch-orbital-cycles-and-their-role-in-earths-climate/ obliquity}
- * of the earth (23.44°), and the Phong highlight projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line},
- * if the user has not interacted using the arcball.<p>
+ * of the earth ({@link viewMatrix 23.44°}), and the {@link https://en.wikipedia.org/wiki/Phong_reflection_model Phong highlight}
+ * projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line},
+ * if the user has not interacted using the {@link http://courses.cms.caltech.edu/cs171/assignments/hw3/hw3-notes/notes-hw3.html#NotesSection2 arcball}.
+ * If {@link https://www.php.net PHP} is running on the {@link https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server HTTP server},
+ * then any image file in directory <a href="/cwdc/13-webgl/extras/textures">textures</a>
+ * will be available in the {@link readFileNames menu}. Otherwise, sorry for that {@link https://pages.github.com GitHub pages},
+ * only images listed in the html
+ * file.<p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
  * can be set in a {@link createModel model} directly, or be set in
