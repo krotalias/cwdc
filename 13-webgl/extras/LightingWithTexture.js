@@ -6,7 +6,7 @@
  *
  * <p><b>For Educational Purposes Only.</b></p>
  * <p>This is just a <b>demo</b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
- * which became overly complicated and kind of messy, and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
+ * which became overly complicated, and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
  * and a 3x3 matrix for {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL light properties}
  * that are passed to the fragment shader as
@@ -483,6 +483,7 @@ var colorShader;
  * @type {mat4}
  */
 var modelMatrix = mat4.create();
+
 /**
  * Rotation axis.
  * @type {String}
@@ -1560,6 +1561,8 @@ window.addEventListener("load", (event) => {
   };
   // starts loading the image asynchronously
   image.src = `./textures/${imageFilename[0]}`;
+  mercator = imageFilename[0].includes("Mercator");
+  document.getElementById("mercator").checked = mercator;
 });
 
 /**
