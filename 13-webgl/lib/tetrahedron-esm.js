@@ -185,6 +185,7 @@ function spherical2Cartesian(s, t, r = 1) {
  * @return {Object<x:Number, y:Number>} mercator coordinates in [0,1].
  * @see {@link https://stackoverflow.com/questions/59907996/shader-that-transforms-a-mercator-projection-to-equirectangular mercator projection to equirectangular}
  * @see {@link https://paulbourke.net/panorama/webmerc2sphere/ Converting Web Mercator projection to equirectangular}
+ * @see <img src="../images/Cylindrical_Projection_basics2.svg">
  */
 function spherical2Mercator(s, t) {
   // st (uv) to equirectangular
