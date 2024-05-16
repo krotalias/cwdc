@@ -119,7 +119,7 @@ const radians = (deg) => (deg * Math.PI) / 180;
  * Otherwise, the image will be rendered mirrored, that is, either use:
  * <ul>
  *  <li>atan2(x, z) (border at -y axis of the image - wrap top to bottom) or </li>
- *  <li>atan2(-z, x) (border at x axis of the image - wrap left to right). </li>
+ *  <li>atan2(-z, x) (border at x axis of the image - wrap right to left). </li>
  * </ul>
  *
  * @see {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system Spherical coordinate system}

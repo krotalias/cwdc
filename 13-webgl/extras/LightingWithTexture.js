@@ -58,8 +58,8 @@
  * as the intersection of its line of latitude (parallel) and line of longitude (meridian) on the model surface (preferably a map onto a sphere).
  * Your task is (using the mouse or any pointer device) to pick a point in the texture image and display its location on the map.
  *
- * <p>A bigger chalenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case,
- * by casting a ray and finding its closest (first) intersecton (relative to the viewer) with the polygonal surface of the model.</p>
+ * <p>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case,
+ * by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.</p>
  *
  * @author Paulo Roma
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
