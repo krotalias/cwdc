@@ -108,7 +108,7 @@
  *        <a href="https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf">Mipmapping Artifact</a></figcaption>
  *      </figure>
  * @see <figure>
- *      <img src="../images/sphere.png" width="512" title="texture in fragment shader">
+ *      <img src="../images/sphere.png" height="340" title="texture in fragment shader">
  *      <img src="../images/anti-aliasing.png" height="340" title="sampling by pixel"><br>
  *      <img src="../images/Gordon_River.png" height="340" title="Gordon River">
  *      <img src="../images/Milla.png" height="340" title="Milla Jovovich">
