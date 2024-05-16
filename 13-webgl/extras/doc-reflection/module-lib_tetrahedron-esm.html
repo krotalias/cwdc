@@ -427,14 +427,24 @@
 
 
 <div class="description">
-    Return a pair of spherical coordinates, in the range [0,1],
-corresponding to a point p onto the unit sphere.
+    <p>Return a pair of spherical coordinates, in the range [0,1],
+corresponding to a point p onto the unit sphere.</p>
 
-<p>The singularity of the mapping (parameterization) is at φ = 0 (Y = r) and φ = π (Y = -r).</p>
+The forward projection transforms spherical coordinates into planar coordinates:
+<ul>
+<li>if point p is plotted on a plane, we have the
+<a href="https://docs.qgis.org/3.4/en/docs/gentle_gis_introduction/coordinate_reference_systems.html"><i>plate carrée</i> projection</a>,
+a special case of the equirectangular projection.</li>
+<li>this projection maps x to be the value of the longitude and
+y to be the value of the latitude.</li>
+</ul>
+
+<p>The singularity of the mapping (parameterization) is at φ = 0 (Y = r) and φ = π (Y = -r):</p>
 <ul>
 <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
 <li>Also, here, θ is measured from the positive Z axis.</li>
-<li> In CG, φ is measured from the positive Y axis, not the z axis, as it is usual in math books.
+<li> In <a href="https://en.wikipedia.org/wiki/Geographic_coordinate_system">geographic coordinate system</a>,
+φ is measured from the positive Y axis (North), not the z axis, as it is usual in math books.
 </ul>
 Note that this definition provides a logical extension of the usual polar coordinates notation,<br>
 with θ remaining the angle in the xy-plane (here, ZX-plane) and φ becoming the angle out of that plane.
@@ -530,7 +540,7 @@ with θ remaining the angle in the xy-plane (here, ZX-plane) and φ becoming the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line125">line 125</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line138">line 138</a>
     </li></ul></dd>
     
 
@@ -543,6 +553,10 @@ with θ remaining the angle in the xy-plane (here, ZX-plane) and φ becoming the
             <li><a href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">Spherical coordinate system</a></li>
         
             <li><a href="https://en.wikipedia.org/wiki/Parametrization_(geometry)">Parametrization (geometry)</a></li>
+        
+            <li><a href="https://math.libretexts.org/Courses/Monroe_Community_College/MTH_212_Calculus_III/Chapter_11%253A_Vectors_and_the_Geometry_of_Space/11.7%253A_Cylindrical_and_Spherical_Coordinates">Cylindrical and Spherical Coordinates</a></li>
+        
+            <li><a href="https://pro.arcgis.com/en/pro-app/latest/help/mapping/properties/coordinate-systems-and-projections.htm">Coordinate systems</a></li>
         
             <li><a href="https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf">Texture Mapping</a></li>
         
@@ -578,16 +592,17 @@ with θ remaining the angle in the xy-plane (here, ZX-plane) and φ becoming the
 <div class="param-desc">
     point p in spherical coordinates:
  <ul>
-    <li>r = 1 = √(p[0]² + p[1]² + p[2]²)</li>
-    <li>s = θ = atan2(p[2],p[0]) / 2π + 0.5</li>
-    <li>t = φ = acos(-p[1]/r) / π</li>
+    <li>const [x, y, z] = p</li>
+    <li>r = 1 = √(x² + y² + z²)</li>
+    <li>s = θ = atan2(z, x) / 2π + 0.5</li>
+    <li>t = φ = acos(-y/r) / π</li>
  </ul>
 
 Since the positive angular direction is CCW, x coordinates should be flipped.<br>
 Otherwise, the image will be rendered mirrored, that is, either use:
 <ul>
- <li>atan2(p[0],p[2]) (border at -y axis of the image - wrap top to bottom) or </li>
- <li>atan2(p[2],-p[0]) (border at x axis of the image - wrap left to right). </li>
+ <li>atan2(x, z) (border at -y axis of the image - wrap top to bottom) or </li>
+ <li>atan2(-z, x) (border at x axis of the image - wrap left to right). </li>
 </ul>
 </div>
 
@@ -924,12 +939,19 @@ Otherwise, the image will be rendered mirrored, that is, either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line216">line 216</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line238">line 238</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><img src="../images/Cylindrical_Projection_basics2.svg"></li>
+        </ul>
+    </dd>
     
 
     
@@ -1083,7 +1105,7 @@ Otherwise, the image will be rendered mirrored, that is, either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line277">line 277</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line299">line 299</a>
     </li></ul></dd>
     
 
@@ -1242,7 +1264,7 @@ Otherwise, the image will be rendered mirrored, that is, either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line251">line 251</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line273">line 273</a>
     </li></ul></dd>
     
 
@@ -1437,7 +1459,7 @@ Otherwise, the image will be rendered mirrored, that is, either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line296">line 296</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line318">line 318</a>
     </li></ul></dd>
     
 
@@ -1632,7 +1654,7 @@ Otherwise, the image will be rendered mirrored, that is, either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line233">line 233</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line255">line 255</a>
     </li></ul></dd>
     
 
@@ -1791,7 +1813,7 @@ Otherwise, the image will be rendered mirrored, that is, either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line260">line 260</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line282">line 282</a>
     </li></ul></dd>
     
 
@@ -2182,7 +2204,7 @@ It is assumed that:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line156">line 156</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line178">line 178</a>
     </li></ul></dd>
     
 
@@ -2388,7 +2410,7 @@ As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any art
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line190">line 190</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line211">line 211</a>
     </li></ul></dd>
     
 
@@ -2473,7 +2495,7 @@ As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any art
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 15 2024 05:27:14 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu May 16 2024 10:04:42 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

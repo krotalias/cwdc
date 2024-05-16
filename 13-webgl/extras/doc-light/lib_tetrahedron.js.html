@@ -112,14 +112,24 @@ const clamp = (x, min, max) => Math.min(Math.max(min, x), max);
 const radians = (deg) => (deg * Math.PI) / 180;
 
 /**
- * Return a pair of spherical coordinates, in the range [0,1],
- * corresponding to a point p onto the unit sphere.
+ * &lt;p>Return a pair of spherical coordinates, in the range [0,1],
+ * corresponding to a point p onto the unit sphere.&lt;/p>
  *
- * &lt;p>The singularity of the mapping (parameterization) is at φ = 0 (Y = r) and φ = π (Y = -r).&lt;/p>
+ * The forward projection transforms spherical coordinates into planar coordinates:
+ * &lt;ul>
+ * &lt;li>if point p is plotted on a plane, we have the
+ * {@link https://docs.qgis.org/3.4/en/docs/gentle_gis_introduction/coordinate_reference_systems.html &lt;i>plate carrée&lt;/i> projection},
+ * a special case of the equirectangular projection.&lt;/li>
+ * &lt;li>this projection maps x to be the value of the longitude and
+ * y to be the value of the latitude.&lt;/li>
+ * &lt;/ul>
+ *
+ * &lt;p>The singularity of the mapping (parameterization) is at φ = 0 (Y = r) and φ = π (Y = -r):&lt;/p>
  * &lt;ul>
  * &lt;li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.&lt;/li>
  * &lt;li>Also, here, θ is measured from the positive Z axis.&lt;/li>
- * &lt;li> In CG, φ is measured from the positive Y axis, not the z axis, as it is usual in math books.
+ * &lt;li> In {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system},
+ * φ is measured from the positive Y axis (North), not the z axis, as it is usual in math books.
  * &lt;/ul>
  * Note that this definition provides a logical extension of the usual polar coordinates notation,&lt;br>
  * with θ remaining the angle in the xy-plane (here, ZX-plane) and φ becoming the angle out of that plane.
@@ -127,28 +137,40 @@ const radians = (deg) => (deg * Math.PI) / 180;
  *  @param {vec3} p a point on the sphere.
  *  @return {Object&lt;s:Number, t:Number>} point p in spherical coordinates:
  *  &lt;ul>
- *     &lt;li>r = 1 = √(p[0]² + p[1]² + p[2]²)&lt;/li>
- *     &lt;li>s = θ = atan2(p[2],p[0]) / 2π + 0.5&lt;/li>
- *     &lt;li>t = φ = acos(-p[1]/r) / π&lt;/li>
+ *     &lt;li>const [x, y, z] = p&lt;/li>
+ *     &lt;li>r = 1 = √(x² + y² + z²)&lt;/li>
+ *     &lt;li>s = θ = atan2(z, x) / 2π + 0.5&lt;/li>
+ *     &lt;li>t = φ = acos(-y/r) / π&lt;/li>
  *  &lt;/ul>
  *
  * Since the positive angular direction is CCW, x coordinates should be flipped.&lt;br>
  * Otherwise, the image will be rendered mirrored, that is, either use:
  * &lt;ul>
- *  &lt;li>atan2(p[0],p[2]) (border at -y axis of the image - wrap top to bottom) or &lt;/li>
- *  &lt;li>atan2(p[2],-p[0]) (border at x axis of the image - wrap left to right). &lt;/li>
+ *  &lt;li>atan2(x, z) (border at -y axis of the image - wrap top to bottom) or &lt;/li>
+ *  &lt;li>atan2(-z, x) (border at x axis of the image - wrap left to right). &lt;/li>
  * &lt;/ul>
  *
  * @see {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system Spherical coordinate system}
  * @see {@link https://en.wikipedia.org/wiki/Parametrization_(geometry) Parametrization (geometry)}
+ * @see {@link https://math.libretexts.org/Courses/Monroe_Community_College/MTH_212_Calculus_III/Chapter_11%3A_Vectors_and_the_Geometry_of_Space/11.7%3A_Cylindrical_and_Spherical_Coordinates Cylindrical and Spherical Coordinates}
+ * @see {@link https://pro.arcgis.com/en/pro-app/latest/help/mapping/properties/coordinate-systems-and-projections.htm Coordinate systems}
  * @see {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf Texture Mapping}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2 Math.atan2()}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos Math.acos()}
  * @see &lt;img src="../images/Spherical2.png">
  */
 function cartesian2Spherical(p) {
-  var phi = Math.acos(-p[1]) / Math.PI; // acos  -> [0,pi]
-  var theta = Math.atan2(p[2], -p[0]) / (2 * Math.PI); // atan2 -> [-pi,pi]
+  const [x, y, z] = p;
+
+  // acos ∈ [0,pi] ⇒ phi ∈ [0,1]
+  // acos (-y) = π - acos (y)
+  // y is flipped (points down in texture image)
+  let phi = Math.acos(-y) / Math.PI;
+
+  // atan2 ∈ [-pi,pi] ⇒ theta ∈ [-0.5, 0.5]
+  let theta = Math.atan2(-z, x) / (2 * Math.PI);
+
+  // theta ∈ [0, 1]
   theta += 0.5;
 
   return {
@@ -178,11 +200,10 @@ function cartesian2Spherical(p) {
  * @see &lt;img src="../images/Spherical2.png">
  */
 function spherical2Cartesian(s, t, r = 1) {
-  let p = vec3.fromValues(0, 0, 0);
-  p[0] = -r * Math.cos(s) * Math.sin(t);
-  p[2] = r * Math.sin(s) * Math.sin(t);
-  p[1] = -r * Math.cos(t);
-  return p;
+  let x = -r * Math.cos(s) * Math.sin(t);
+  let z = r * Math.sin(s) * Math.sin(t);
+  let y = -r * Math.cos(t);
+  return vec3.fromValues(x, y, z);
 }
 
 /**
@@ -236,6 +257,7 @@ function spherical2Mercator(s, t) {
  * @param {Number} x longitude in [0,1].
  * @param {Number} y latitude in [0,1].
  * @returns {Object&lt;x:Number, y:Number>} spherical coordinates in [0,1].
+ * @see &lt;img src="../images/Cylindrical_Projection_basics2.svg">
  */
 function mercator2Spherical(x, y) {
   let lat = y * 2 * Math.PI - Math.PI; // [-pi, pi]
@@ -679,7 +701,7 @@ class polyhedron {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 15 2024 09:48:27 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu May 16 2024 10:04:56 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
