@@ -122,8 +122,8 @@ const radians = (deg) => (deg * Math.PI) / 180;
  *     <li>r = 1 = √(x² + y² + z²)</li>
  *     <li>s = θ = atan2(z, x) / 2π + 0.5</li>
  *     <li>t = φ = acos(-y/r) / π</li>
- *     <li>tg(-θ) = -tg(θ) = tan (-z/x) = atan2(-z, x)
- *     <li>arctan(-θ) = -arctan(θ) = -z/x = atan2(-z, x)
+ *     <li>tg(-θ) = -tg(θ) = tan (-z/x)
+ *     <li>arctan(-θ) = -arctan(θ) = atan2(-z, x)
  *  </ul>
  *
  * Since the positive angular direction is CCW, z coordinates should be flipped.<br>
