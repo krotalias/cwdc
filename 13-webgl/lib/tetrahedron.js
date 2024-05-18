@@ -96,15 +96,20 @@ const radians = (deg) => (deg * Math.PI) / 180;
  * y to be the value of the latitude.</li>
  * </ul>
  *
- * <p>The singularity of the mapping (parameterization) is at φ = 0 (Y = r) and φ = π (Y = -r):</p>
+ * <p>The singularity of the mapping (parameterization) is at φ = 0 (y = r) and φ = π (y = -r):</p>
  * <ul>
- * <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
- * <li>Also, here, θ is measured from the positive Z axis.</li>
- * <li> In {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system},
- * φ is measured from the positive Y axis (North), not the z axis, as it is usual in math books.
+ *   <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
+ *   <li> In {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system},
+ *   φ is measured from the positive y axis (North), not the z axis, as it is usual in math books.
+ *   <li>Therefore, we will use North-Clockwise Convention.</li>
+ *   <li>The 'clockwise from north' convention is used in navigation and mapping.</li>
+ *   <li>________________________________________________</li>
+ *   <li> atan2(y, x) (East-Counterclockwise Convention)</li>
+ *   <li> atan2(x, y) (North-Clockwise Convention)</li>
+ *   <li> atan2(-x,-y) (South-Clockwise Convention)</li>
  * </ul>
  * Note that this definition provides a logical extension of the usual polar coordinates notation,<br>
- * with θ remaining the angle in the xy-plane (here, ZX-plane) and φ becoming the angle out of that plane.
+ * with θ remaining the angle in the zx-plane and φ becoming the angle out of that plane.
  *
  *  @param {vec3} p a point on the sphere.
  *  @return {Object<s:Number, t:Number>} point p in spherical coordinates:
@@ -113,13 +118,18 @@ const radians = (deg) => (deg * Math.PI) / 180;
  *     <li>r = 1 = √(x² + y² + z²)</li>
  *     <li>s = θ = atan2(z, x) / 2π + 0.5</li>
  *     <li>t = φ = acos(-y/r) / π</li>
+ *     <li>tg(-θ) = -tg(θ) = tan (-z/x) = atan2(-z, x)
+ *     <li>arctan(-θ) = -arctan(θ) = -z/x = atan2(-z, x)
  *  </ul>
  *
- * Since the positive angular direction is CCW, x coordinates should be flipped.<br>
- * Otherwise, the image will be rendered mirrored, that is, either use:
+ * Since the positive angular direction is CCW, z coordinates should be flipped.<br>
+ * Otherwise, the image will be rendered mirrored, that is,
+ * we need North-Counterlockwise Convention, which means either use:
  * <ul>
- *  <li>atan2(x, z) (border at -y axis of the image - wrap top to bottom) or </li>
- *  <li>atan2(-z, x) (border at x axis of the image - wrap right to left). </li>
+ *  <li>border ≡ antimeridian
+ *  <li>atan2(-z, x) (border at -x axis of the image - wrap left to right) (correct form) or </li>
+ *  <li>atan2(z, -x) (border at x axis of the image - wrap right to left). </li>
+ *  <li>atan2(z, x) (border at x axis of the image - mirrored). </li>
  * </ul>
  *
  * @see {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system Spherical coordinate system}
@@ -129,7 +139,8 @@ const radians = (deg) => (deg * Math.PI) / 180;
  * @see {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf Texture Mapping}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2 Math.atan2()}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos Math.acos()}
- * @see <img src="../images/Spherical2.png">
+ * @see {@link https://en.wikipedia.org/wiki/Atan2 atan2}
+ * @see <img src="../images/Spherical2.png" width="356"> <img src="../images/Declination.jpg" width="175">
  */
 function cartesian2Spherical(p) {
   const [x, y, z] = p;
@@ -157,19 +168,19 @@ function cartesian2Spherical(p) {
  * It is assumed that:
  * <ul>
  *  <li>the two systems have the same origin,</li>
- *  <li>the spherical reference plane is the Cartesian XZ plane, </li>
- *  <li>φ is inclination from the Y direction, and</li>
- *  <li>the azimuth angles are measured from the Cartesian Z axis (so that the X axis has θ = +90°).</li>
- *  <li>X = p[0] = -r cos(θ) * sin(φ)</li>
- *  <li>Z = p[2] = r sin(θ) * sin(φ)</li>
- *  <li>Y = p[1] = -r cos(φ)</li>
+ *  <li>the spherical reference plane is the Cartesian xz plane, </li>
+ *  <li>φ is inclination from the y direction, and</li>
+ *  <li>the azimuth is measured from the Cartesian x axis, so that the x axis has θ = 0° (prime meridian).</li>
+ *  <li>x = p[0] = -r cos(θ) * sin(φ)</li>
+ *  <li>z = p[2] = r sin(θ) * sin(φ)</li>
+ *  <li>y = p[1] = -r cos(φ)</li>
  * </ul>
  *
  * @param {Number} s azimuth angle θ, 0 ≤ θ < 2π.
  * @param {Number} t zenith angle φ, 0 ≤ φ ≤ π.
  * @param {Number} r radius.
  * @returns {vec3} cartesian point onto the unit sphere.
- * @see <img src="../images/Spherical2.png">
+ * @see <img src="../images/Spherical2.png" width="512">
  */
 function spherical2Cartesian(s, t, r = 1) {
   let x = -r * Math.cos(s) * Math.sin(t);
