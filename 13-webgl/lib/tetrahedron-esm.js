@@ -88,6 +88,12 @@ const clamp = (x, min, max) => Math.min(Math.max(min, x), max);
 const radians = (deg) => (deg * Math.PI) / 180;
 
 /**
+ * Default number of segments (points-1) for drawing a meridian or parallel.
+ * @type {Number}
+ */
+const nsegments = 36;
+
+/**
  * <p>Return a pair of spherical coordinates, in the range [0,1],
  * corresponding to a point p onto the unit sphere.</p>
  *
@@ -100,17 +106,26 @@ const radians = (deg) => (deg * Math.PI) / 180;
  * y to be the value of the latitude.</li>
  * </ul>
  *
- * <p>The singularity of the mapping (parameterization) is at φ = 0 (y = r) and φ = π (y = -r):</p>
+ * <p>The singularity of the mapping (parameterization) is at φ = 0 (y = -r) and φ = π (y = r):</p>
  * <ul>
  *   <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
  *   <li> In {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system},
  *   φ is measured from the positive y axis (North), not the z axis, as it is usual in math books.
- *   <li>Therefore, we will use North-Clockwise Convention.</li>
+ *   <li>Therefore, we will use North-Counterclockwise Convention.</li>
  *   <li>The 'clockwise from north' convention is used in navigation and mapping.</li>
  *   <li>________________________________________________</li>
  *   <li> atan2(y, x) (East-Counterclockwise Convention)</li>
  *   <li> atan2(x, y) (North-Clockwise Convention)</li>
  *   <li> atan2(-x,-y) (South-Clockwise Convention)</li>
+ *   <li>________________________________________________</li>
+ *   <li> cos(φ-90) = sin(φ)</li>
+ *   <li> sin(φ-90) = -cos(φ)</li>
+ *   <li> x = r cos(θ) sin(φ) </li>
+ *   <li> y = −r cos (φ) </li>
+ *   <li> z = -r sin(θ) sin(φ) </li>
+ *   <li> z/x = −(r sin(θ) sin(φ)) / (r cos(θ) sin(φ)) = -sin(θ) / cos(θ) = −tanθ </li>
+ *   <li> θ = atan(−z/x) </li>
+ *   <li> φ = acos(−y/r) </li>
  * </ul>
  * Note that this definition provides a logical extension of the usual polar coordinates notation,<br>
  * with θ remaining the angle in the zx-plane and φ becoming the angle out of that plane.
@@ -120,15 +135,15 @@ const radians = (deg) => (deg * Math.PI) / 180;
  *  <ul>
  *     <li>const [x, y, z] = p</li>
  *     <li>r = 1 = √(x² + y² + z²)</li>
- *     <li>s = θ = atan2(z, x) / 2π + 0.5</li>
+ *     <li>s = θ = atan2(-z, x) / 2π + 0.5</li>
  *     <li>t = φ = acos(-y/r) / π</li>
  *     <li>tg(-θ) = -tg(θ) = tan (-z/x)
  *     <li>arctan(-θ) = -arctan(θ) = atan2(-z, x)
  *  </ul>
  *
- * Since the positive angular direction is CCW, z coordinates should be flipped.<br>
- * Otherwise, the image will be rendered mirrored, that is,
- * we need North-Counterlockwise Convention, which means either use:
+ * Since the positive angular direction is CCW,
+ * we can not use North-Clockwise Convention,
+ * because the image would be rendered mirrored.
  * <ul>
  *  <li>border ≡ antimeridian
  *  <li>atan2(-z, x) (border at -x axis of the image - wrap left to right) (correct form) or </li>
@@ -136,22 +151,23 @@ const radians = (deg) => (deg * Math.PI) / 180;
  *  <li>atan2(z, x) (border at x axis of the image - mirrored). </li>
  * </ul>
  *
+ * @see {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf#page=3 Texture Mapping}
  * @see {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system Spherical coordinate system}
  * @see {@link https://en.wikipedia.org/wiki/Parametrization_(geometry) Parametrization (geometry)}
  * @see {@link https://math.libretexts.org/Courses/Monroe_Community_College/MTH_212_Calculus_III/Chapter_11%3A_Vectors_and_the_Geometry_of_Space/11.7%3A_Cylindrical_and_Spherical_Coordinates Cylindrical and Spherical Coordinates}
  * @see {@link https://pro.arcgis.com/en/pro-app/latest/help/mapping/properties/coordinate-systems-and-projections.htm Coordinate systems}
- * @see {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf Texture Mapping}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2 Math.atan2()}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos Math.acos()}
  * @see {@link https://en.wikipedia.org/wiki/Atan2 atan2}
- * @see <img src="../images/Spherical2.png" width="356"> <img src="../images/Declination.jpg" width="175">
+ * @see <img src="../images/spherical-projection.png" width = "256">
+ * @see <img src="../images/Spherical2.png" width="356">
+ *      <img src="../images/Declination.jpg" width="175">
  */
 function cartesian2Spherical(p) {
   const [x, y, z] = p;
 
   // acos ∈ [0,pi] ⇒ phi ∈ [0,1]
   // acos (-y) = π - acos (y)
-  // y is flipped (points down in texture image)
   let phi = Math.acos(-y) / Math.PI;
 
   // atan2 ∈ [-pi,pi] ⇒ theta ∈ [-0.5, 0.5]
@@ -168,15 +184,15 @@ function cartesian2Spherical(p) {
 
 /**
  * <p>Return a point on the unit sphere given their
- * {@link https://mathworld.wolfram.com/SphericalCoordinates.html spherical coordinates}: (θ, φ, r=1).</p>
+ * {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf#page=3 spherical coordinates}: (θ, φ, r=1).</p>
  * It is assumed that:
  * <ul>
  *  <li>the two systems have the same origin,</li>
  *  <li>the spherical reference plane is the Cartesian xz plane, </li>
  *  <li>φ is inclination from the y direction, and</li>
  *  <li>the azimuth is measured from the Cartesian x axis, so that the x axis has θ = 0° (prime meridian).</li>
- *  <li>x = p[0] = -r cos(θ) * sin(φ)</li>
- *  <li>z = p[2] = r sin(θ) * sin(φ)</li>
+ *  <li>x = p[0] = r cos(θ) * sin(φ)</li>
+ *  <li>z = p[2] = -r sin(θ) * sin(φ)</li>
  *  <li>y = p[1] = -r cos(φ)</li>
  * </ul>
  *
@@ -184,11 +200,12 @@ function cartesian2Spherical(p) {
  * @param {Number} t zenith angle φ, 0 ≤ φ ≤ π.
  * @param {Number} r radius.
  * @returns {vec3} cartesian point onto the unit sphere.
- * @see <img src="../images/Spherical2.png" width="512">
+ * @see {@link https://mathworld.wolfram.com/SphericalCoordinates.html spherical coordinates}
+ * @see <img src="../images/spherical-projection.png" width="256">
  */
 function spherical2Cartesian(s, t, r = 1) {
-  let x = -r * Math.cos(s) * Math.sin(t);
-  let z = r * Math.sin(s) * Math.sin(t);
+  let x = r * Math.cos(s) * Math.sin(t);
+  let z = -r * Math.sin(s) * Math.sin(t);
   let y = -r * Math.cos(t);
   return vec3.fromValues(x, y, z);
 }
@@ -259,11 +276,11 @@ function mercator2Spherical(x, y) {
 /**
  * Return an array with n points on a parallel given its
  * {@link https://www.britannica.com/science/latitude latitude}.
- * @param {Number} n number of points.
  * @param {Number} latitude distance north or south of the Equator: [-90°,90°].
+ * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the parallel.
  */
-function pointsOnParallel(n, latitude = 0) {
+function pointsOnParallel(latitude = 0, n = nsegments) {
   let ds = (Math.PI * 2) / n;
   const arr = new Float32Array(3 * n);
   let phi = ((clamp(latitude, -90, 90) + 90) * Math.PI) / 180;
@@ -278,19 +295,19 @@ function pointsOnParallel(n, latitude = 0) {
 
 /**
  * Return an array with n points on the equator.
- * @param {Number} n number of points.
+ * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the equator.
  */
-function pointsOnEquator(n) {
+function pointsOnEquator(n = nsegments) {
   return pointsOnParallel(n);
 }
 
 /**
  * Return an array with n points on the prime meridian.
- * @param {Number} n number of points.
+ * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the prime meridian.
  */
-function pointsOnPrimeMeridian(n) {
+function pointsOnPrimeMeridian(n = nsegments) {
   let ds = Math.PI / n;
   let arr = new Float32Array(3 * n);
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
@@ -304,10 +321,10 @@ function pointsOnPrimeMeridian(n) {
 
 /**
  * Return an array with n points on the anti meridian.
- * @param {Number} n number of points.
+ * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the anti meridian.
  */
-function pointsOnAntiMeridian(n) {
+function pointsOnAntiMeridian(n = nsegments) {
   let ds = Math.PI / n;
   let arr = new Float32Array(3 * n);
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
@@ -322,24 +339,19 @@ function pointsOnAntiMeridian(n) {
 /**
  * Return an array with n points on a meridian given its
  * {@link https://en.wikipedia.org/wiki/Longitude longitude}.
- * @param {Number} n number of points.
  * @param {Number} longitude distance east or west of the prime meridian: [-180°,180°]
+ * @param {Number} [n={@link nsegments}] number of points.
+ * @param {Booelan} anti whether to draw the antimeridian also.
  * @return {Float32Array} points on the meridian.
  */
-function pointsOnMeridian(n, longitude = 0) {
+function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
   let j = 0;
-  let ds = (Math.PI * 2) / n;
+  let ds = Math.PI / n;
+  if (anti) ds *= 2;
   const arr = new Float32Array(3 * n);
   let theta = (clamp(longitude, -180, 180) * Math.PI) / 180.0;
-  let supplement = theta + Math.PI;
   for (let i = 0; i < n; ++i, j += 3) {
     let p = spherical2Cartesian(theta, i * ds, 1.01);
-    arr[j] = p[0];
-    arr[j + 1] = p[1];
-    arr[j + 2] = p[2];
-  }
-  for (let i = n; i < 0; --i, j += 3) {
-    let p = spherical2Cartesian(supplement, i * ds, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];

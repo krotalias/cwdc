@@ -206,12 +206,6 @@ let numSubdivisions = maxSubdivisions;
 var mscale = 1;
 
 /**
- * Number of segments for drawing a meridian or a parallel.
- * @type {Number}
- */
-const nsegments = 36;
-
-/**
  * GPS coordinates of the city location to be drawn.
  * @type {Object<String:Object<{latitude:Number,longitude:Number}>>}
  */
@@ -1880,14 +1874,12 @@ function startForReal(image) {
   gl.bufferData(gl.ARRAY_BUFFER, axisColors, gl.STATIC_DRAW);
 
   let equatorVertices = pointsOnParallel(
-    nsegments,
     gpsCoordinates[currentLocation].latitude,
   );
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, equatorVertices, gl.STATIC_DRAW);
 
   let meridianVertices = pointsOnMeridian(
-    nsegments,
     gpsCoordinates[currentLocation].longitude,
   );
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);

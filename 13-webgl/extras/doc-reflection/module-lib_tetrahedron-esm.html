@@ -337,6 +337,78 @@
 
         
             
+<h4 class="name" id="~nsegments"><span class="type-signature">(inner, constant) </span>nsegments<span class="type-signature"> :Number</span></h4>
+
+
+
+
+<div class="description">
+    Default number of segments (points-1) for drawing a meridian or parallel.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="~vec3"><span class="type-signature">(inner) </span>vec3<span class="type-signature"> :glMatrix.vec3</span></h4>
 
 
@@ -439,17 +511,26 @@ a special case of the equirectangular projection.</li>
 y to be the value of the latitude.</li>
 </ul>
 
-<p>The singularity of the mapping (parameterization) is at φ = 0 (y = r) and φ = π (y = -r):</p>
+<p>The singularity of the mapping (parameterization) is at φ = 0 (y = -r) and φ = π (y = r):</p>
 <ul>
   <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
   <li> In <a href="https://en.wikipedia.org/wiki/Geographic_coordinate_system">geographic coordinate system</a>,
   φ is measured from the positive y axis (North), not the z axis, as it is usual in math books.
-  <li>Therefore, we will use North-Clockwise Convention.</li>
+  <li>Therefore, we will use North-Counterclockwise Convention.</li>
   <li>The 'clockwise from north' convention is used in navigation and mapping.</li>
   <li>________________________________________________</li>
   <li> atan2(y, x) (East-Counterclockwise Convention)</li>
   <li> atan2(x, y) (North-Clockwise Convention)</li>
   <li> atan2(-x,-y) (South-Clockwise Convention)</li>
+  <li>________________________________________________</li>
+  <li> cos(φ-90) = sin(φ)</li>
+  <li> sin(φ-90) = -cos(φ)</li>
+  <li> x = r cos(θ) sin(φ) </li>
+  <li> y = −r cos (φ) </li>
+  <li> z = -r sin(θ) sin(φ) </li>
+  <li> z/x = −(r sin(θ) sin(φ)) / (r cos(θ) sin(φ)) = -sin(θ) / cos(θ) = −tanθ </li>
+  <li> θ = atan(−z/x) </li>
+  <li> φ = acos(−y/r) </li>
 </ul>
 Note that this definition provides a logical extension of the usual polar coordinates notation,<br>
 with θ remaining the angle in the zx-plane and φ becoming the angle out of that plane.
@@ -545,7 +626,7 @@ with θ remaining the angle in the zx-plane and φ becoming the angle out of tha
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line149">line 149</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line166">line 166</a>
     </li></ul></dd>
     
 
@@ -555,6 +636,8 @@ with θ remaining the angle in the zx-plane and φ becoming the angle out of tha
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
+            <li><a href="https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf#page=3">Texture Mapping</a></li>
+        
             <li><a href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">Spherical coordinate system</a></li>
         
             <li><a href="https://en.wikipedia.org/wiki/Parametrization_(geometry)">Parametrization (geometry)</a></li>
@@ -563,15 +646,16 @@ with θ remaining the angle in the zx-plane and φ becoming the angle out of tha
         
             <li><a href="https://pro.arcgis.com/en/pro-app/latest/help/mapping/properties/coordinate-systems-and-projections.htm">Coordinate systems</a></li>
         
-            <li><a href="https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf">Texture Mapping</a></li>
-        
             <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2">Math.atan2()</a></li>
         
             <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos">Math.acos()</a></li>
         
             <li><a href="https://en.wikipedia.org/wiki/Atan2">atan2</a></li>
         
-            <li><img src="../images/Spherical2.png" width="356"> <img src="../images/Declination.jpg" width="175"></li>
+            <li><img src="../images/spherical-projection.png" width = "256"></li>
+        
+            <li><img src="../images/Spherical2.png" width="356">
+     <img src="../images/Declination.jpg" width="175"></li>
         </ul>
     </dd>
     
@@ -601,15 +685,15 @@ with θ remaining the angle in the zx-plane and φ becoming the angle out of tha
  <ul>
     <li>const [x, y, z] = p</li>
     <li>r = 1 = √(x² + y² + z²)</li>
-    <li>s = θ = atan2(z, x) / 2π + 0.5</li>
+    <li>s = θ = atan2(-z, x) / 2π + 0.5</li>
     <li>t = φ = acos(-y/r) / π</li>
-    <li>tg(-θ) = -tg(θ) = tan (-z/x) = atan2(-z, x)
-    <li>arctan(-θ) = -arctan(θ) = -z/x = atan2(-z, x)
+    <li>tg(-θ) = -tg(θ) = tan (-z/x)
+    <li>arctan(-θ) = -arctan(θ) = atan2(-z, x)
  </ul>
 
-Since the positive angular direction is CCW, z coordinates should be flipped.<br>
-Otherwise, the image will be rendered mirrored, that is,
-we need North-Counterlockwise Convention, which means either use:
+Since the positive angular direction is CCW,
+we can not use North-Clockwise Convention,
+because the image would be rendered mirrored.
 <ul>
  <li>border ≡ antimeridian
  <li>atan2(-z, x) (border at -x axis of the image - wrap left to right) (correct form) or </li>
@@ -951,7 +1035,7 @@ we need North-Counterlockwise Convention, which means either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line249">line 249</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line266">line 266</a>
     </li></ul></dd>
     
 
@@ -1016,7 +1100,7 @@ we need North-Counterlockwise Convention, which means either use:
     
 
     
-    <h4 class="name" id="~pointsOnAntiMeridian"><span class="type-signature">(inner) </span>pointsOnAntiMeridian<span class="signature">(n)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id="~pointsOnAntiMeridian"><span class="type-signature">(inner) </span>pointsOnAntiMeridian<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -1048,7 +1132,11 @@ we need North-Counterlockwise Convention, which means either use:
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -1073,7 +1161,23 @@ we need North-Counterlockwise Convention, which means either use:
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    nsegments
+                
+                </td>
             
 
             <td class="description last">number of points.</td>
@@ -1117,7 +1221,7 @@ we need North-Counterlockwise Convention, which means either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line310">line 310</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line327">line 327</a>
     </li></ul></dd>
     
 
@@ -1175,7 +1279,7 @@ we need North-Counterlockwise Convention, which means either use:
     
 
     
-    <h4 class="name" id="~pointsOnEquator"><span class="type-signature">(inner) </span>pointsOnEquator<span class="signature">(n)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id="~pointsOnEquator"><span class="type-signature">(inner) </span>pointsOnEquator<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -1207,7 +1311,11 @@ we need North-Counterlockwise Convention, which means either use:
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -1232,7 +1340,23 @@ we need North-Counterlockwise Convention, which means either use:
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    nsegments
+                
+                </td>
             
 
             <td class="description last">number of points.</td>
@@ -1276,7 +1400,7 @@ we need North-Counterlockwise Convention, which means either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line284">line 284</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line301">line 301</a>
     </li></ul></dd>
     
 
@@ -1334,7 +1458,7 @@ we need North-Counterlockwise Convention, which means either use:
     
 
     
-    <h4 class="name" id="~pointsOnMeridian"><span class="type-signature">(inner) </span>pointsOnMeridian<span class="signature">(n, longitude)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id="~pointsOnMeridian"><span class="type-signature">(inner) </span>pointsOnMeridian<span class="signature">(longitude, n<span class="signature-attributes">opt</span>, anti)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -1367,6 +1491,8 @@ we need North-Counterlockwise Convention, which means either use:
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
         <th>Default</th>
@@ -1377,33 +1503,6 @@ we need North-Counterlockwise Convention, which means either use:
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>n</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">number of points.</td>
-        </tr>
-
     
 
         <tr>
@@ -1421,6 +1520,14 @@ we need North-Counterlockwise Convention, which means either use:
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
                 <td class="default">
@@ -1431,6 +1538,82 @@ we need North-Counterlockwise Convention, which means either use:
             
 
             <td class="description last">distance east or west of the prime meridian: [-180°,180°]</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    nsegments
+                
+                </td>
+            
+
+            <td class="description last">number of points.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>anti</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Booelan</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">whether to draw the antimeridian also.</td>
         </tr>
 
     
@@ -1471,7 +1654,7 @@ we need North-Counterlockwise Convention, which means either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line329">line 329</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line347">line 347</a>
     </li></ul></dd>
     
 
@@ -1529,7 +1712,7 @@ we need North-Counterlockwise Convention, which means either use:
     
 
     
-    <h4 class="name" id="~pointsOnParallel"><span class="type-signature">(inner) </span>pointsOnParallel<span class="signature">(n, latitude)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id="~pointsOnParallel"><span class="type-signature">(inner) </span>pointsOnParallel<span class="signature">(latitude, n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -1562,6 +1745,8 @@ we need North-Counterlockwise Convention, which means either use:
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
         <th>Default</th>
@@ -1572,33 +1757,6 @@ we need North-Counterlockwise Convention, which means either use:
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>n</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">number of points.</td>
-        </tr>
-
     
 
         <tr>
@@ -1616,6 +1774,14 @@ we need North-Counterlockwise Convention, which means either use:
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
                 <td class="default">
@@ -1626,6 +1792,45 @@ we need North-Counterlockwise Convention, which means either use:
             
 
             <td class="description last">distance north or south of the Equator: [-90°,90°].</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    nsegments
+                
+                </td>
+            
+
+            <td class="description last">number of points.</td>
         </tr>
 
     
@@ -1666,7 +1871,7 @@ we need North-Counterlockwise Convention, which means either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line266">line 266</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line283">line 283</a>
     </li></ul></dd>
     
 
@@ -1724,7 +1929,7 @@ we need North-Counterlockwise Convention, which means either use:
     
 
     
-    <h4 class="name" id="~pointsOnPrimeMeridian"><span class="type-signature">(inner) </span>pointsOnPrimeMeridian<span class="signature">(n)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id="~pointsOnPrimeMeridian"><span class="type-signature">(inner) </span>pointsOnPrimeMeridian<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -1756,7 +1961,11 @@ we need North-Counterlockwise Convention, which means either use:
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -1781,7 +1990,23 @@ we need North-Counterlockwise Convention, which means either use:
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    nsegments
+                
+                </td>
             
 
             <td class="description last">number of points.</td>
@@ -1825,7 +2050,7 @@ we need North-Counterlockwise Convention, which means either use:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line293">line 293</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line310">line 310</a>
     </li></ul></dd>
     
 
@@ -2051,15 +2276,15 @@ we need North-Counterlockwise Convention, which means either use:
 
 <div class="description">
     <p>Return a point on the unit sphere given their
-<a href="https://mathworld.wolfram.com/SphericalCoordinates.html">spherical coordinates</a>: (θ, φ, r=1).</p>
+<a href="https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf#page=3">spherical coordinates</a>: (θ, φ, r=1).</p>
 It is assumed that:
 <ul>
  <li>the two systems have the same origin,</li>
  <li>the spherical reference plane is the Cartesian xz plane, </li>
  <li>φ is inclination from the y direction, and</li>
  <li>the azimuth is measured from the Cartesian x axis, so that the x axis has θ = 0° (prime meridian).</li>
- <li>x = p[0] = -r cos(θ) * sin(φ)</li>
- <li>z = p[2] = r sin(θ) * sin(φ)</li>
+ <li>x = p[0] = r cos(θ) * sin(φ)</li>
+ <li>z = p[2] = -r sin(θ) * sin(φ)</li>
  <li>y = p[1] = -r cos(φ)</li>
 </ul>
 </div>
@@ -2216,7 +2441,7 @@ It is assumed that:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line189">line 189</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line206">line 206</a>
     </li></ul></dd>
     
 
@@ -2226,7 +2451,9 @@ It is assumed that:
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><img src="../images/Spherical2.png" width="512"></li>
+            <li><a href="https://mathworld.wolfram.com/SphericalCoordinates.html">spherical coordinates</a></li>
+        
+            <li><img src="../images/spherical-projection.png" width="256"></li>
         </ul>
     </dd>
     
@@ -2422,7 +2649,7 @@ As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any art
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line222">line 222</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line239">line 239</a>
     </li></ul></dd>
     
 
@@ -2507,7 +2734,7 @@ As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any art
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 18 2024 11:19:33 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun May 19 2024 11:01:20 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
