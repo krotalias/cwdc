@@ -279,7 +279,8 @@ function mercator2Spherical(x, y) {
 function pointsOnParallel(latitude = 0, n = nsegments) {
   let ds = (Math.PI * 2) / n;
   const arr = new Float32Array(3 * n);
-  let phi = ((clamp(latitude, -90, 90) + 90) * Math.PI) / 180;
+  let phi = clamp(latitude, -90, 90) + 90;
+  phi = radians(phi);
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
     let p = spherical2Cartesian(i * ds, phi, 1.01);
     arr[j] = p[0];
@@ -294,8 +295,8 @@ function pointsOnParallel(latitude = 0, n = nsegments) {
  * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the equator.
  */
-function pointsOnEquator(n) {
-  return pointsOnParallel(n);
+function pointsOnEquator(n = nsegments) {
+  return pointsOnParallel(0, n);
 }
 
 /**
@@ -304,15 +305,7 @@ function pointsOnEquator(n) {
  * @return {Float32Array} points on the prime meridian.
  */
 function pointsOnPrimeMeridian(n = nsegments) {
-  let ds = Math.PI / n;
-  let arr = new Float32Array(3 * n);
-  for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    let p = spherical2Cartesian(0, i * ds, 1.01);
-    arr[j] = p[0];
-    arr[j + 1] = p[1];
-    arr[j + 2] = p[2];
-  }
-  return arr;
+  return pointsOnMeridian(0, n, false);
 }
 
 /**
@@ -321,15 +314,7 @@ function pointsOnPrimeMeridian(n = nsegments) {
  * @return {Float32Array} points on the anti meridian.
  */
 function pointsOnAntiMeridian(n = nsegments) {
-  let ds = Math.PI / n;
-  let arr = new Float32Array(3 * n);
-  for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    let p = spherical2Cartesian(Math.PI, i * ds, 1.01);
-    arr[j] = p[0];
-    arr[j + 1] = p[1];
-    arr[j + 2] = p[2];
-  }
-  return arr;
+  return pointsOnMeridian(180, n, false);
 }
 
 /**
@@ -342,10 +327,11 @@ function pointsOnAntiMeridian(n = nsegments) {
  */
 function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
   let j = 0;
-  let ds = Math.PI / n;
+  let ds = Math.PI / (n - 1);
   if (anti) ds *= 2;
   const arr = new Float32Array(3 * n);
-  let theta = (clamp(longitude, -180, 180) * Math.PI) / 180.0;
+  let theta = clamp(longitude, -180, 180);
+  theta = radians(theta);
   for (let i = 0; i < n; ++i, j += 3) {
     let p = spherical2Cartesian(theta, i * ds, 1.01);
     arr[j] = p[0];
