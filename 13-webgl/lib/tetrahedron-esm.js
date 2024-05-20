@@ -106,7 +106,7 @@ const nsegments = 36;
  * y to be the value of the latitude.</li>
  * </ul>
  *
- * <p>The singularity of the mapping (parameterization) is at φ = 0 (y = -r) and φ = π (y = r):</p>
+ * <p>The singularity of the mapping (parametrization) is at φ = 0 (y = -r) and φ = π (y = r):</p>
  * <ul>
  *   <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
  *   <li> In {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system},
@@ -137,8 +137,8 @@ const nsegments = 36;
  *     <li>r = 1 = √(x² + y² + z²)</li>
  *     <li>s = θ = atan2(-z, x) / 2π + 0.5</li>
  *     <li>t = φ = acos(-y/r) / π</li>
- *     <li>tg(-θ) = -tg(θ) = tan (-z/x)
- *     <li>arctan(-θ) = -arctan(θ) = atan2(-z, x)
+ *     <li>tg(-θ) = -tg(θ) = tan (z/x)
+ *     <li>arctan(-θ) = -arctan(θ) = atan2(z, x)
  *  </ul>
  *
  * Since the positive angular direction is CCW,
@@ -281,7 +281,7 @@ function mercator2Spherical(x, y) {
  * @return {Float32Array} points on the parallel.
  */
 function pointsOnParallel(latitude = 0, n = nsegments) {
-  let ds = (Math.PI * 2) / n;
+  let ds = (Math.PI * 2) / (n - 1);
   const arr = new Float32Array(3 * n);
   let phi = clamp(latitude, -90, 90) + 90;
   phi = radians(phi);
@@ -326,7 +326,7 @@ function pointsOnAntiMeridian(n = nsegments) {
  * {@link https://en.wikipedia.org/wiki/Longitude longitude}.
  * @param {Number} longitude distance east or west of the prime meridian: [-180°,180°]
  * @param {Number} [n={@link nsegments}] number of points.
- * @param {Booelan} anti whether to draw the antimeridian also.
+ * @param {Boolean} anti whether to draw the antimeridian also.
  * @return {Float32Array} points on the meridian.
  */
 function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
@@ -593,7 +593,15 @@ export class polyhedron {
    */
   dodecahedron({ radius = 1, n = limit.dod }) {
     this.name = "dodecahedron";
-    return getModelData(new THREE.DodecahedronGeometry(radius, n));
+    const obj = getModelData(new THREE.DodecahedronGeometry(radius, n));
+
+    // rotate texture by 180°
+    const uv = obj.vertexTextureCoords;
+    for (let i = 0; i < uv.length; i += 2) {
+      uv[i] += 0.5;
+      if (uv[i] > 1) uv[i] -= 1;
+    }
+    return obj;
   }
 
   /**
@@ -625,7 +633,15 @@ export class polyhedron {
    */
   icosahedron({ radius = 1, n = limit.ico }) {
     this.name = "icosahedron";
-    return getModelData(new THREE.IcosahedronGeometry(radius, n));
+    const obj = getModelData(new THREE.IcosahedronGeometry(radius, n));
+
+    // rotate texture by 180°
+    const uv = obj.vertexTextureCoords;
+    for (let i = 0; i < uv.length; i += 2) {
+      uv[i] += 0.5;
+      if (uv[i] > 1) uv[i] -= 1;
+    }
+    return obj;
   }
 
   /**
