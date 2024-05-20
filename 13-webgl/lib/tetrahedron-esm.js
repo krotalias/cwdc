@@ -274,6 +274,21 @@ function mercator2Spherical(x, y) {
 }
 
 /**
+ * Set Mercator vertex coordinates.
+ * @param {modelData} obj model data.
+ */
+function setMercatorCoordinates(obj) {
+  obj.vertexMercatorCoords = new Float32Array(obj.vertexTextureCoords.length);
+  for (let i = 0; i < obj.vertexTextureCoords.length; i += 2) {
+    let s = obj.vertexTextureCoords[i];
+    let t = obj.vertexTextureCoords[i + 1];
+    let { x, y } = spherical2Mercator(s, t);
+    obj.vertexMercatorCoords[i] = x;
+    obj.vertexMercatorCoords[i + 1] = y;
+  }
+}
+
+/**
  * Return an array with n points on a parallel given its
  * {@link https://www.britannica.com/science/latitude latitude}.
  * @param {Number} latitude distance north or south of the Equator: [-90°,90°].
@@ -601,6 +616,9 @@ export class polyhedron {
       uv[i] += 0.5;
       if (uv[i] > 1) uv[i] -= 1;
     }
+
+    setMercatorCoordinates(obj);
+
     return obj;
   }
 
@@ -641,6 +659,9 @@ export class polyhedron {
       uv[i] += 0.5;
       if (uv[i] > 1) uv[i] -= 1;
     }
+
+    setMercatorCoordinates(obj);
+
     return obj;
   }
 

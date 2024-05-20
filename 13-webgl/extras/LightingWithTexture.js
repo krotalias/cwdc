@@ -1643,25 +1643,15 @@ function createModel({ shape, chi = 2, poly = 0, fix_uv = false }) {
 
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
 
-  // generate mercator texture coordinates
   if (!noTexture && !shape.vertexMercatorCoords) {
-    shape.vertexMercatorCoords = new Float32Array(
-      shape.vertexTextureCoords.length,
-    );
-    for (let i = 0; i < shape.vertexTextureCoords.length; i += 2) {
-      let s = shape.vertexTextureCoords[i];
-      let t = shape.vertexTextureCoords[i + 1];
-      let { x, y } = spherical2Mercator(s, t);
-      shape.vertexMercatorCoords[i] = x;
-      shape.vertexMercatorCoords[i + 1] = y;
-    }
-  } else {
-    if (noTexture) shape.vertexMercatorCoords = shape.vertexTextureCoords;
+    setMercatorCoordinates(shape);
   }
 
   gl.bufferData(
     gl.ARRAY_BUFFER,
-    mercator ? shape.vertexMercatorCoords : shape.vertexTextureCoords,
+    mercator && shape.vertexMercatorCoords
+      ? shape.vertexMercatorCoords
+      : shape.vertexTextureCoords,
     gl.STATIC_DRAW,
   );
 
