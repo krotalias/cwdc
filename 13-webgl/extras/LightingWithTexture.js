@@ -134,8 +134,10 @@ const mat4 = glMatrix.mat4;
 const mat3 = glMatrix.mat3;
 
 /**
- * Convert Degree To Radian.
- * @type {Function}
+ * Convert degrees to radians.
+ * @param {Number} a angle in degrees.
+ * @return {Number} angle in radians.
+ * @function
  * @see {@link https://glmatrix.net/docs/module-glMatrix.html glMatrix.toRadian}
  */
 const toRadian = glMatrix.glMatrix.toRadian;
@@ -768,7 +770,7 @@ const handleKeyPress = ((event) => {
         break;
       case "S":
         // subdivision sphere
-        this.mscale = mscale = 1;
+        gscale = mscale = 1;
         numSubdivisions = maxSubdivisions;
         models.value = "13";
         theModel = createModel({ poly: subPoly });

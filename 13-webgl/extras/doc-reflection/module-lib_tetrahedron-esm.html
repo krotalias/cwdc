@@ -107,7 +107,151 @@
 
         
             
-<h4 class="name" id="~initialOcta"><span class="type-signature">(inner) </span>initialOcta<span class="type-signature"> :Array.&lt;vec3></span></h4>
+<h4 class="name" id=".limit"><span class="type-signature">(static, constant) </span>limit<span class="type-signature"> :Object.&lt;{tet:Number, oct:Number, dod:Number}></span></h4>
+
+
+
+
+<div class="description">
+    Maximum subdivision level without overflowing any buffer (16 bits - 65536).
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object.&lt;{tet:Number, oct:Number, dod:Number}></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line68">line 68</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".nsegments"><span class="type-signature">(static, constant) </span>nsegments<span class="type-signature"> :Number</span></h4>
+
+
+
+
+<div class="description">
+    Default number of segments (points-1) for drawing a meridian or parallel.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line97">line 97</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~initialOcta"><span class="type-signature">(inner, constant) </span>initialOcta<span class="type-signature"> :Array.&lt;vec3></span></h4>
 
 
 
@@ -186,7 +330,7 @@
 
         
             
-<h4 class="name" id="~initialTet"><span class="type-signature">(inner) </span>initialTet<span class="type-signature"> :Array.&lt;vec3></span></h4>
+<h4 class="name" id="~initialTet"><span class="type-signature">(inner, constant) </span>initialTet<span class="type-signature"> :Array.&lt;vec3></span></h4>
 
 
 
@@ -253,150 +397,6 @@
             <li><a href="https://en.wikipedia.org/wiki/Tetrahedron">https://en.wikipedia.org/wiki/Tetrahedron</a></li>
         </ul>
     </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~limit"><span class="type-signature">(inner) </span>limit<span class="type-signature"> :Object.&lt;{tet:Number, oct:Number, dod:Number}></span></h4>
-
-
-
-
-<div class="description">
-    Maximum subdivision level without overflowing any buffer (16 bits - 65536).
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object.&lt;{tet:Number, oct:Number, dod:Number}></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line68">line 68</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~nsegments"><span class="type-signature">(inner, constant) </span>nsegments<span class="type-signature"> :Number</span></h4>
-
-
-
-
-<div class="description">
-    Default number of segments (points-1) for drawing a meridian or parallel.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Number</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line94">line 94</a>
-    </li></ul></dd>
-    
-
-    
-
     
 
     
@@ -491,7 +491,7 @@
     
 
     
-    <h4 class="name" id="~cartesian2Spherical"><span class="type-signature">(inner) </span>cartesian2Spherical<span class="signature">(p)</span><span class="type-signature"> &rarr; {Object.&lt;s:Number, t:Number>}</span></h4>
+    <h4 class="name" id=".cartesian2Spherical"><span class="type-signature">(static) </span>cartesian2Spherical<span class="signature">(p)</span><span class="type-signature"> &rarr; {Object.&lt;s:Number, t:Number>}</span></h4>
     
 
     
@@ -626,7 +626,7 @@ with θ remaining the angle in the zx-plane and φ becoming the angle out of tha
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line166">line 166</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line169">line 169</a>
     </li></ul></dd>
     
 
@@ -728,7 +728,7 @@ because the image would be rendered mirrored.
     
 
     
-    <h4 class="name" id="~clamp"><span class="type-signature">(inner) </span>clamp<span class="signature">(x, min, max)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".clamp"><span class="type-signature">(static) </span>clamp<span class="signature">(x, min, max)</span><span class="type-signature"> &rarr; {Number}</span></h4>
     
 
     
@@ -875,7 +875,7 @@ because the image would be rendered mirrored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line81">line 81</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line83">line 83</a>
     </li></ul></dd>
     
 
@@ -900,6 +900,28 @@ because the image would be rendered mirrored.
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    min ≤ x ≤ max.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -911,7 +933,7 @@ because the image would be rendered mirrored.
     
 
     
-    <h4 class="name" id="~mercator2Spherical"><span class="type-signature">(inner) </span>mercator2Spherical<span class="signature">(x, y)</span><span class="type-signature"> &rarr; {Object.&lt;x:Number, y:Number>}</span></h4>
+    <h4 class="name" id=".mercator2Spherical"><span class="type-signature">(static) </span>mercator2Spherical<span class="signature">(x, y)</span><span class="type-signature"> &rarr; {Object.&lt;x:Number, y:Number>}</span></h4>
     
 
     
@@ -1035,7 +1057,7 @@ because the image would be rendered mirrored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line266">line 266</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line269">line 269</a>
     </li></ul></dd>
     
 
@@ -1100,7 +1122,7 @@ because the image would be rendered mirrored.
     
 
     
-    <h4 class="name" id="~pointsOnAntiMeridian"><span class="type-signature">(inner) </span>pointsOnAntiMeridian<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id=".pointsOnAntiMeridian"><span class="type-signature">(static) </span>pointsOnAntiMeridian<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -1221,7 +1243,7 @@ because the image would be rendered mirrored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line335">line 335</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line338">line 338</a>
     </li></ul></dd>
     
 
@@ -1279,7 +1301,7 @@ because the image would be rendered mirrored.
     
 
     
-    <h4 class="name" id="~pointsOnEquator"><span class="type-signature">(inner) </span>pointsOnEquator<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id=".pointsOnEquator"><span class="type-signature">(static) </span>pointsOnEquator<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -1400,7 +1422,7 @@ because the image would be rendered mirrored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line317">line 317</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line320">line 320</a>
     </li></ul></dd>
     
 
@@ -1458,7 +1480,7 @@ because the image would be rendered mirrored.
     
 
     
-    <h4 class="name" id="~pointsOnMeridian"><span class="type-signature">(inner) </span>pointsOnMeridian<span class="signature">(longitude, n<span class="signature-attributes">opt</span>, anti)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id=".pointsOnMeridian"><span class="type-signature">(static) </span>pointsOnMeridian<span class="signature">(longitude, n<span class="signature-attributes">opt</span>, anti)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -1531,8 +1553,6 @@ because the image would be rendered mirrored.
 
             
                 <td class="default">
-                
-                    0
                 
                 </td>
             
@@ -1608,8 +1628,6 @@ because the image would be rendered mirrored.
             
                 <td class="default">
                 
-                    false
-                
                 </td>
             
 
@@ -1654,7 +1672,7 @@ because the image would be rendered mirrored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line347">line 347</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line350">line 350</a>
     </li></ul></dd>
     
 
@@ -1712,7 +1730,7 @@ because the image would be rendered mirrored.
     
 
     
-    <h4 class="name" id="~pointsOnParallel"><span class="type-signature">(inner) </span>pointsOnParallel<span class="signature">(latitude, n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id=".pointsOnParallel"><span class="type-signature">(static) </span>pointsOnParallel<span class="signature">(latitude, n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -1785,8 +1803,6 @@ because the image would be rendered mirrored.
 
             
                 <td class="default">
-                
-                    0
                 
                 </td>
             
@@ -1871,7 +1887,7 @@ because the image would be rendered mirrored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line298">line 298</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line301">line 301</a>
     </li></ul></dd>
     
 
@@ -1929,7 +1945,7 @@ because the image would be rendered mirrored.
     
 
     
-    <h4 class="name" id="~pointsOnPrimeMeridian"><span class="type-signature">(inner) </span>pointsOnPrimeMeridian<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id=".pointsOnPrimeMeridian"><span class="type-signature">(static) </span>pointsOnPrimeMeridian<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -2050,7 +2066,7 @@ because the image would be rendered mirrored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line326">line 326</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line329">line 329</a>
     </li></ul></dd>
     
 
@@ -2108,7 +2124,7 @@ because the image would be rendered mirrored.
     
 
     
-    <h4 class="name" id="~radians"><span class="type-signature">(inner) </span>radians<span class="signature">(deg)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id=".radians"><span class="type-signature">(static) </span>radians<span class="signature">(deg)</span><span class="type-signature"> &rarr; {Number}</span></h4>
     
 
     
@@ -2209,7 +2225,7 @@ because the image would be rendered mirrored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line88">line 88</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line91">line 91</a>
     </li></ul></dd>
     
 
@@ -2267,7 +2283,7 @@ because the image would be rendered mirrored.
     
 
     
-    <h4 class="name" id="~setMercatorCoordinates"><span class="type-signature">(inner) </span>setMercatorCoordinates<span class="signature">(obj)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".setMercatorCoordinates"><span class="type-signature">(static) </span>setMercatorCoordinates<span class="signature">(obj)</span><span class="type-signature"></span></h4>
     
 
     
@@ -2368,7 +2384,7 @@ because the image would be rendered mirrored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line280">line 280</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line283">line 283</a>
     </li></ul></dd>
     
 
@@ -2404,7 +2420,7 @@ because the image would be rendered mirrored.
     
 
     
-    <h4 class="name" id="~spherical2Cartesian"><span class="type-signature">(inner) </span>spherical2Cartesian<span class="signature">(s, t, r)</span><span class="type-signature"> &rarr; {vec3}</span></h4>
+    <h4 class="name" id=".spherical2Cartesian"><span class="type-signature">(static) </span>spherical2Cartesian<span class="signature">(s, t, r)</span><span class="type-signature"> &rarr; {vec3}</span></h4>
     
 
     
@@ -2449,8 +2465,6 @@ It is assumed that:
         
 
         
-        <th>Default</th>
-        
 
         <th class="last">Description</th>
     </tr>
@@ -2476,10 +2490,6 @@ It is assumed that:
             
 
             
-                <td class="default">
-                
-                </td>
-            
 
             <td class="description last">azimuth angle θ, 0 ≤ θ < 2π.</td>
         </tr>
@@ -2503,10 +2513,6 @@ It is assumed that:
             
 
             
-                <td class="default">
-                
-                </td>
-            
 
             <td class="description last">zenith angle φ, 0 ≤ φ ≤ π.</td>
         </tr>
@@ -2529,12 +2535,6 @@ It is assumed that:
 
             
 
-            
-                <td class="default">
-                
-                    1
-                
-                </td>
             
 
             <td class="description last">radius.</td>
@@ -2578,7 +2578,7 @@ It is assumed that:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line206">line 206</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line209">line 209</a>
     </li></ul></dd>
     
 
@@ -2645,7 +2645,7 @@ It is assumed that:
     
 
     
-    <h4 class="name" id="~spherical2Mercator"><span class="type-signature">(inner) </span>spherical2Mercator<span class="signature">(s, t)</span><span class="type-signature"> &rarr; {Object.&lt;x:Number, y:Number>}</span></h4>
+    <h4 class="name" id=".spherical2Mercator"><span class="type-signature">(static) </span>spherical2Mercator<span class="signature">(s, t)</span><span class="type-signature"> &rarr; {Object.&lt;x:Number, y:Number>}</span></h4>
     
 
     
@@ -2786,7 +2786,7 @@ As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any art
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line239">line 239</a>
+        <a href="lib_tetrahedron-esm.js.html">lib/tetrahedron-esm.js</a>, <a href="lib_tetrahedron-esm.js.html#line242">line 242</a>
     </li></ul></dd>
     
 
@@ -2871,7 +2871,7 @@ As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any art
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon May 20 2024 08:36:42 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 21 2024 10:10:16 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

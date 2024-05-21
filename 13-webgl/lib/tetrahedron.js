@@ -36,7 +36,7 @@ const vec3 = glMatrix.vec3;
  * @type {Array<vec3>}
  * @see https://en.wikipedia.org/wiki/Tetrahedron
  */
-var initialTet = [
+const initialTet = [
   vec3.fromValues(0.0, Math.sqrt(8 / 9), 1 / 3),
   vec3.fromValues(-Math.sqrt(2 / 3), -Math.sqrt(2 / 9), 1 / 3),
   vec3.fromValues(Math.sqrt(2 / 3), -Math.sqrt(2 / 9), 1 / 3),
@@ -48,7 +48,7 @@ var initialTet = [
  * @type {Array<vec3>}
  * @see https://en.wikipedia.org/wiki/Octahedron
  */
-var initialOcta = [
+const initialOcta = [
   vec3.fromValues(0.0, 0.0, 1.0),
   vec3.fromValues(0.0, 0.0, -1.0),
   vec3.fromValues(0.0, 1.0, 0.0),
@@ -61,7 +61,7 @@ var initialOcta = [
  * Maximum subdivision level without overflowing any buffer (16 bits - 65536).
  * @type {Object<{tet:Number, oct:Number, dod:Number}>}
  */
-var limit = {
+const limit = {
   tet: Math.floor(Math.log(65536 / (4 * 3)) / Math.log(4)),
   oct: Math.floor(Math.log(65536 / (8 * 3)) / Math.log(4)),
   dod: 12, // Math.floor(Math.log(65536 / (12 * 3)) / Math.log(4)),
@@ -73,6 +73,8 @@ var limit = {
  * @param {Number} x value.
  * @param {Number} min minimum value.
  * @param {Number} max maximum value.
+ * @return {Number} min ≤ x ≤ max.
+ * @function
  */
 const clamp = (x, min, max) => Math.min(Math.max(min, x), max);
 
@@ -80,6 +82,7 @@ const clamp = (x, min, max) => Math.min(Math.max(min, x), max);
  * Convert degrees to radians.
  * @param {Number} deg angle in degrees.
  * @returns {Number} angle in radians.
+ * @function
  */
 const radians = (deg) => (deg * Math.PI) / 180;
 

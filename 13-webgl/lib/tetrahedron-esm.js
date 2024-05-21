@@ -40,7 +40,7 @@ import { vec3 } from "https://unpkg.com/gl-matrix@3.4.3/esm/index.js";
  * @type {Array<vec3>}
  * @see https://en.wikipedia.org/wiki/Tetrahedron
  */
-var initialTet = [
+const initialTet = [
   vec3.fromValues(0.0, Math.sqrt(8 / 9), 1 / 3),
   vec3.fromValues(-Math.sqrt(2 / 3), -Math.sqrt(2 / 9), 1 / 3),
   vec3.fromValues(Math.sqrt(2 / 3), -Math.sqrt(2 / 9), 1 / 3),
@@ -52,7 +52,7 @@ var initialTet = [
  * @type {Array<vec3>}
  * @see https://en.wikipedia.org/wiki/Octahedron
  */
-var initialOcta = [
+const initialOcta = [
   vec3.fromValues(0.0, 0.0, 1.0),
   vec3.fromValues(0.0, 0.0, -1.0),
   vec3.fromValues(0.0, 1.0, 0.0),
@@ -65,7 +65,7 @@ var initialOcta = [
  * Maximum subdivision level without overflowing any buffer (16 bits - 65536).
  * @type {Object<{tet:Number, oct:Number, dod:Number}>}
  */
-var limit = {
+export const limit = {
   tet: Math.floor(Math.log(65536 / (4 * 3)) / Math.log(4)),
   oct: Math.floor(Math.log(65536 / (8 * 3)) / Math.log(4)),
   dod: 12, // Math.floor(Math.log(65536 / (12 * 3)) / Math.log(4)),
@@ -77,21 +77,24 @@ var limit = {
  * @param {Number} x value.
  * @param {Number} min minimum value.
  * @param {Number} max maximum value.
+ * @return {Number} min ≤ x ≤ max.
+ * @function
  */
-const clamp = (x, min, max) => Math.min(Math.max(min, x), max);
+export const clamp = (x, min, max) => Math.min(Math.max(min, x), max);
 
 /**
  * Convert degrees to radians.
  * @param {Number} deg angle in degrees.
  * @returns {Number} angle in radians.
+ * @function
  */
-const radians = (deg) => (deg * Math.PI) / 180;
+export const radians = (deg) => (deg * Math.PI) / 180;
 
 /**
  * Default number of segments (points-1) for drawing a meridian or parallel.
  * @type {Number}
  */
-const nsegments = 36;
+export const nsegments = 36;
 
 /**
  * <p>Return a pair of spherical coordinates, in the range [0,1],
@@ -163,7 +166,7 @@ const nsegments = 36;
  * @see <img src="../images/Spherical2.png" width="356">
  *      <img src="../images/Declination.jpg" width="175">
  */
-function cartesian2Spherical(p) {
+export function cartesian2Spherical(p) {
   const [x, y, z] = p;
 
   // acos ∈ [0,pi] ⇒ phi ∈ [0,1]
@@ -203,7 +206,7 @@ function cartesian2Spherical(p) {
  * @see {@link https://mathworld.wolfram.com/SphericalCoordinates.html spherical coordinates}
  * @see <img src="../images/spherical-projection.png" width="256">
  */
-function spherical2Cartesian(s, t, r = 1) {
+export function spherical2Cartesian(s, t, r = 1) {
   let x = r * Math.cos(s) * Math.sin(t);
   let z = -r * Math.sin(s) * Math.sin(t);
   let y = -r * Math.cos(t);
@@ -236,7 +239,7 @@ function spherical2Cartesian(s, t, r = 1) {
  * @see {@link https://paulbourke.net/panorama/webmerc2sphere/ Converting Web Mercator projection to equirectangular}
  * @see <img src="../images/Cylindrical_Projection_basics2.svg">
  */
-function spherical2Mercator(s, t) {
+export function spherical2Mercator(s, t) {
   // st (uv) to equirectangular
   let lon = s * 2.0 * Math.PI; // [0, 2pi]
   let lat = (t - 0.5) * Math.PI; // [-pi/2, pi/2]
@@ -263,7 +266,7 @@ function spherical2Mercator(s, t) {
  * @returns {Object<x:Number, y:Number>} spherical coordinates in [0,1].
  * @see <img src="../images/Cylindrical_Projection_basics2.svg">
  */
-function mercator2Spherical(x, y) {
+export function mercator2Spherical(x, y) {
   let lat = y * 2 * Math.PI - Math.PI; // [-pi, pi]
   let t = 2 * Math.atan(Math.exp(lat)) - Math.PI / 2; // [-pi/2, pi/2]
   t = t / Math.PI + 0.5; // [0, 1]
@@ -277,7 +280,7 @@ function mercator2Spherical(x, y) {
  * Set Mercator vertex coordinates.
  * @param {modelData} obj model data.
  */
-function setMercatorCoordinates(obj) {
+export function setMercatorCoordinates(obj) {
   obj.vertexMercatorCoords = new Float32Array(obj.vertexTextureCoords.length);
   for (let i = 0; i < obj.vertexTextureCoords.length; i += 2) {
     let s = obj.vertexTextureCoords[i];
@@ -295,7 +298,7 @@ function setMercatorCoordinates(obj) {
  * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the parallel.
  */
-function pointsOnParallel(latitude = 0, n = nsegments) {
+export function pointsOnParallel(latitude = 0, n = nsegments) {
   let ds = (Math.PI * 2) / (n - 1);
   const arr = new Float32Array(3 * n);
   let phi = clamp(latitude, -90, 90) + 90;
@@ -314,7 +317,7 @@ function pointsOnParallel(latitude = 0, n = nsegments) {
  * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the equator.
  */
-function pointsOnEquator(n = nsegments) {
+export function pointsOnEquator(n = nsegments) {
   return pointsOnParallel(0, n);
 }
 
@@ -323,7 +326,7 @@ function pointsOnEquator(n = nsegments) {
  * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the prime meridian.
  */
-function pointsOnPrimeMeridian(n = nsegments) {
+export function pointsOnPrimeMeridian(n = nsegments) {
   return pointsOnMeridian(0, n, false);
 }
 
@@ -332,7 +335,7 @@ function pointsOnPrimeMeridian(n = nsegments) {
  * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the anti meridian.
  */
-function pointsOnAntiMeridian(n = nsegments) {
+export function pointsOnAntiMeridian(n = nsegments) {
   return pointsOnMeridian(180, n, false);
 }
 
@@ -344,7 +347,7 @@ function pointsOnAntiMeridian(n = nsegments) {
  * @param {Boolean} anti whether to draw the antimeridian also.
  * @return {Float32Array} points on the meridian.
  */
-function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
+export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
   let j = 0;
   let ds = Math.PI / (n - 1);
   if (anti) ds *= 2;
