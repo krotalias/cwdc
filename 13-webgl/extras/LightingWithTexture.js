@@ -119,19 +119,50 @@
 
 "use strict";
 
+// import * as THREE from "three";
+// import { TeapotGeometry } from "TeapotGeometry";
+import * as THREE from "/cwdc/13-webgl/lib/three.module.js";
+import { TeapotGeometry } from "/cwdc/13-webgl/examples/lighting/content/TeapotGeometry.js";
+import {
+  limit,
+  nsegments,
+  pointsOnParallel,
+  pointsOnMeridian,
+  setMercatorCoordinates,
+  polyhedron,
+} from "/cwdc/13-webgl/lib/polyhedron.js";
+import {
+  vec3,
+  mat3,
+  mat4,
+  glMatrix,
+} from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
+
 /**
  * 4x4 Matrix
  * @type {glMatrix.mat4}
+ * @name mat4
  * @see {@link https://glmatrix.net/docs/module-mat4.html glMatrix.mat4}
  */
-const mat4 = glMatrix.mat4;
 
 /**
  * 3x3 Matrix
  * @type {glMatrix.mat3}
+ * @name mat3
  * @see {@link https://glmatrix.net/docs/module-mat3.html glMatrix.mat3}
  */
-const mat3 = glMatrix.mat3;
+
+/**
+ * gl-matrix {@link https://glmatrix.net/docs/module-vec3.html 3 Dimensional Vector}.
+ * @name vec3
+ * @type {glMatrix.vec3}
+ */
+
+/**
+ * gl-matrix {@link https://glmatrix.net/docs/module-vec4.html 4 Dimensional Vector}.
+ * @name vec4
+ * @type {glMatrix.vec4}
+ */
 
 /**
  * Convert degrees to radians.
@@ -140,7 +171,7 @@ const mat3 = glMatrix.mat3;
  * @function
  * @see {@link https://glmatrix.net/docs/module-glMatrix.html glMatrix.toRadian}
  */
-const toRadian = glMatrix.glMatrix.toRadian;
+const toRadian = glMatrix.toRadian;
 
 /**
  * Three.js module.
@@ -800,7 +831,7 @@ const handleKeyPress = ((event) => {
         models.value = "6";
         theModel = createModel({
           shape: getModelData(
-            new THREE.TeapotGeometry(1, 10, true, true, true, true, true),
+            new TeapotGeometry(1, 10, true, true, true, true, true),
           ),
           chi: null,
         });
@@ -1164,6 +1195,14 @@ const models = document.getElementById("models");
  * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
  */
 models.addEventListener("change", (event) => selectModel());
+
+// export for using in the html file.
+window.zoomIn = zoomIn;
+window.zoomOut = zoomOut;
+window.nextTexture = nextTexture;
+window.previousTexture = previousTexture;
+window.nextLevel = nextLevel;
+window.previousLevel = previousLevel;
 
 /**
  * Code to actually render our geometry.

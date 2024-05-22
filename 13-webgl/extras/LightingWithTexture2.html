@@ -471,15 +471,20 @@ when using mipmap:
             }
         </script>
 
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
+                    "TeapotGeometry": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/geometries/TeapotGeometry.js"
+                }
+            }
+        </script>
+
         <!-- for getting ajax -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://unpkg.com/gl-matrix@3.4.3/gl-matrix.js"></script>
-        <script src="../lib/three.min.js"></script>
-        <script src="../lib/TeapotGeometry.js"></script>
-        <script src="../lib/teal_book/cuon-utils.js"></script>
-        <script src="../lib/tetrahedron.js"></script>
-        <script src="../lib/simple-rotator.js"></script>
-        <script src="../lib/basic-objects-IFS.js"></script>
-        <script src="LightingWithTexture.js"></script>
+        <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
+        <script src="/cwdc/13-webgl/lib/simple-rotator.js"></script>
+        <script src="/cwdc/13-webgl/lib/basic-objects-IFS.js"></script>
+        <script src="LightingWithTexture.js" type="module"></script>
     </body>
 </html>
