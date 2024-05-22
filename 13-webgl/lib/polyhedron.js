@@ -28,7 +28,7 @@
 "use strict";
 
 // import * as THREE from "three";
-import * as THREE from "/cwdc/13-webgl/lib/three.min.js";
+import * as THREE from "/cwdc/13-webgl/lib/three.module.js";
 import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
 
 /**
