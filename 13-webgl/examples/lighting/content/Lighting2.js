@@ -38,7 +38,7 @@
 //import * as THREE from "three";
 //import { TeapotGeometry } from "TeapotGeometry";
 
-import * as THREE from "/cwdc/13-webgl/lib/three/build/three.module.js";
+import * as THREE from "/cwdc/13-webgl/lib/three.module.js";
 import { TeapotGeometry } from "./TeapotGeometry.js";
 
 /**
@@ -377,7 +377,7 @@ document
  *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry}.<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry},<br>
  *        {@link TeapotGeometry THREE.TeapotGeometry}.
  * @return {modelData}
  */

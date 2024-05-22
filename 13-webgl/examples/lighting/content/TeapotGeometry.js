@@ -27,7 +27,7 @@ import {
   Matrix4,
   Vector3,
   Vector4,
-} from "/cwdc/13-webgl/lib/three/build/three.module.js";
+} from "/cwdc/13-webgl/lib/three.module.js";
 
 /**
  * <p>Tessellates the famous Utah teapot database, by Martin Newell, into triangles.</p>
