@@ -30,20 +30,19 @@
     
         <h2><span class="attribs"><span class="type-signature"></span></span>TeapotGeometry<span class="signature">(size, segments, bottom, lid, body, fitLid, blinn)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>Tessellates the famous Utah teapot database by Martin Newell into triangles.</p>
+            <div class="class-description"><p>Tessellates the famous Utah teapot database, by Martin Newell, into triangles.</p>
 <pre>
 Parameters:
-   size = 50,
-   segments = 10,
-   bottom = true,
-   lid = true,
-   body = true,
-   fitLid = false,
-   blinn = true
+  size = 50,
+  segments = 10,
+  bottom = true,
+  lid = true,
+  body = true,
+  fitLid = false,
+  blinn = true
 </pre>
 
-  Go to <a href="http://en.wikipedia.org/wiki/File:Original_Utah_Teapot.jpg">Wikipedia</a> for the original
-  real-world teapot (from <a href="http://en.wikipedia.org/wiki/Utah_teapot">Utah Teapot</a>).
+Go to <a href="https://en.wikipedia.org/wiki/Utah_teapot">Wikipedia</a> for the original real-world teapot.
 
 <p>Note that the bottom (the last four patches) is not flat - blame Frank Crow, not me.</p>
 
@@ -52,10 +51,9 @@ patches both sides can be seen, <br>
 e.g., the gap around the lid and inside the spout.</p>
 
 <p>Segments 'n' determines the number of triangles output.</p>
+[degenerates at the top and bottom cusps are deleted]
 <pre>
   Total triangles = 32*2*n*n - 8*n
-
-  [degenerated at the top and bottom cusps are deleted]
 
   size_factor   # triangles
       1          56
@@ -68,8 +66,8 @@ e.g., the gap around the lid and inside the spout.</p>
      30       57360
 </pre>
 
-Code converted from my ancient SPD software, <a href="http://tog.acm.org/resources/SPD/">SPD software</a>. <br>
-Created for the Udacity course "Interactive Rendering", <a href="http://bit.ly/ericity">"Interactive Rendering"</a>.<br>
+Code converted from my ancient <a href="https://tog.acm.org/resources/SPD/">SPD software</a>.<br>
+Created for the Udacity course  <a href="https://bit.ly/ericity">"Interactive Rendering"</a>.<br>
 YouTube video on teapot history: <a href="https://www.youtube.com/watch?v=DxMfblPzFNc">https://www.youtube.com/watch?v=DxMfblPzFNc</a></div>
         
     
@@ -141,8 +139,8 @@ YouTube video on teapot history: <a href="https://www.youtube.com/watch?v=DxMfbl
 
             
 
-            <td class="description last">is a relative scale: I've scaled the teapot to fit vertically between -1 and 1.<br>
-Think of it as a "radius".</td>
+            <td class="description last">is a relative scale: I've scaled the teapot to fit vertically between -1 and 1. <br>
+   Think of it as a "radius".</td>
         </tr>
 
     
@@ -165,8 +163,8 @@ Think of it as a "radius".</td>
 
             
 
-            <td class="description last">number of line segments to subdivide each patch edge;<br>
-  1 is possible but gives degenerates, so two is the real minimum.</td>
+            <td class="description last">number of line segments to subdivide each patch edge; <br>
+   1 is possible but gives degenerates, so two is the real minimum.</td>
         </tr>
 
     
@@ -190,7 +188,7 @@ Think of it as a "radius".</td>
             
 
             <td class="description last">boolean, if true (default) then the bottom patches are added. <br>
-  Some consider adding the bottom heresy, so set this to "false" to adhere to the One True Way.</td>
+   Some consider adding the bottom heresy, so set this to "false" to adhere to the One True Way.</td>
         </tr>
 
     
@@ -260,7 +258,7 @@ Think of it as a "radius".</td>
             
 
             <td class="description last">the lid is a tad small in the original. <br>
-  This stretches it a bit so you can't see the teapot's insides through the gap.</td>
+   This stretches it a bit, so you can't see the teapot's insides through the gap.</td>
         </tr>
 
     
@@ -283,11 +281,10 @@ Think of it as a "radius".</td>
 
             
 
-            <td class="description last">Jim Blinn scaled the original data vertically by dividing by about 1.3 to look
-  nicer. <br>
-  If you want to see the original teapot, similar to the real-world model, set
-  this to false. <br>
-  True by default.</td>
+            <td class="description last">Jim Blinn scaled the original data vertically by dividing by about 1.3 to look nicer. <br>
+   If you want to see the original teapot, similar to the real-world model, set
+   this to false. <br>
+   True by default.</td>
         </tr>
 
     
@@ -328,7 +325,7 @@ Think of it as a "radius".</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_TeapotGeometry.js.html">lib/TeapotGeometry.js</a>, <a href="lib_TeapotGeometry.js.html#line86">line 86</a>
+        <a href="examples_lighting_content_TeapotGeometry.js.html">examples/lighting/content/TeapotGeometry.js</a>, <a href="examples_lighting_content_TeapotGeometry.js.html#line89">line 89</a>
     </li></ul></dd>
     
 
@@ -587,7 +584,7 @@ Think of it as a "radius".</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_TeapotGeometry.js.html">lib/TeapotGeometry.js</a>, <a href="lib_TeapotGeometry.js.html#line453">line 453</a>
+        <a href="examples_lighting_content_TeapotGeometry.js.html">examples/lighting/content/TeapotGeometry.js</a>, <a href="examples_lighting_content_TeapotGeometry.js.html#line702">line 702</a>
     </li></ul></dd>
     
 
@@ -634,7 +631,7 @@ Think of it as a "radius".</td>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 22 2024 09:03:51 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 22 2024 09:13:50 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
