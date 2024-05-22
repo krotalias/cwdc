@@ -39,7 +39,7 @@
 //import { TeapotGeometry } from "TeapotGeometry";
 
 import * as THREE from "/cwdc/13-webgl/lib/three.module.js";
-import { TeapotGeometry } from "./TeapotGeometry.js";
+import { TeapotGeometry } from "/cwdc/13-webgl/lib/TeapotGeometry.js";
 
 /**
  * Three.js module.

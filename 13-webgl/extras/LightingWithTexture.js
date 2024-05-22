@@ -122,7 +122,7 @@
 // import * as THREE from "three";
 // import { TeapotGeometry } from "TeapotGeometry";
 import * as THREE from "/cwdc/13-webgl/lib/three.module.js";
-import { TeapotGeometry } from "/cwdc/13-webgl/examples/lighting/content/TeapotGeometry.js";
+import { TeapotGeometry } from "/cwdc/13-webgl/lib/TeapotGeometry.js";
 import {
   limit,
   nsegments,

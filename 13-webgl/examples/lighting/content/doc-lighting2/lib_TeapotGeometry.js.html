@@ -1,8 +1,36 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/TeapotGeometry.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/TeapotGeometry.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file
  *
  * Summary.
- * <p>Utah teapot.</p>
+ * &lt;p>Utah teapot.&lt;/p>
  *
  * In the early years of 3D modeling and rendering, {@link https://en.wikipedia.org/wiki/Martin_Newell_(computer_scientist) Martin Newel}
  * created a computer-generated three dimensional teapot.
@@ -15,10 +43,10 @@
  * @author Martin Newell
  * @since 07/01/2023
  *
- * @see <a href="/cwdc/13-webgl/examples/lighting/content/TeapotGeometry.js">source</a>
+ * @see &lt;a href="/cwdc/13-webgl/lib/TeapotGeometry.js">source&lt;/a>
  * @see https://en.wikipedia.org/wiki/Utah_teapot
  * @see http://www.holmes3d.net/graphics/teapot/
- * @see <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Original_Utah_Teapot_-_Computer_History_Museums.jpg" width="512">
+ * @see &lt;img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Original_Utah_Teapot_-_Computer_History_Museums.jpg" width="512">
  */
 
 import {
@@ -30,8 +58,8 @@ import {
 } from "/cwdc/13-webgl/lib/three.module.js";
 
 /**
- * <p>Tessellates the famous Utah teapot database, by Martin Newell, into triangles.</p>
- * <pre>
+ * &lt;p>Tessellates the famous Utah teapot database, by Martin Newell, into triangles.&lt;/p>
+ * &lt;pre>
  * Parameters:
  *   size = 50,
  *   segments = 10,
@@ -40,19 +68,19 @@ import {
  *   body = true,
  *   fitLid = false,
  *   blinn = true
- * </pre>
+ * &lt;/pre>
  *
  * Go to {@link https://en.wikipedia.org/wiki/Utah_teapot Wikipedia} for the original real-world teapot.
  *
- * <p>Note that the bottom (the last four patches) is not flat - blame Frank Crow, not me.</p>
+ * &lt;p>Note that the bottom (the last four patches) is not flat - blame Frank Crow, not me.&lt;/p>
  *
- * <p>The teapot should normally be rendered as a double sided object, since for some
- * patches both sides can be seen, <br>
- * e.g., the gap around the lid and inside the spout.</p>
+ * &lt;p>The teapot should normally be rendered as a double sided object, since for some
+ * patches both sides can be seen, &lt;br>
+ * e.g., the gap around the lid and inside the spout.&lt;/p>
  *
- * <p>Segments 'n' determines the number of triangles output.</p>
+ * &lt;p>Segments 'n' determines the number of triangles output.&lt;/p>
  * [degenerates at the top and bottom cusps are deleted]
- * <pre>
+ * &lt;pre>
  *   Total triangles = 32*2*n*n - 8*n
  *
  *   size_factor   # triangles
@@ -64,25 +92,25 @@ import {
  *      10        6320
  *      20       25440
  *      30       57360
- * </pre>
+ * &lt;/pre>
  *
- * Code converted from my ancient {@link https://tog.acm.org/resources/SPD/ SPD software}.<br>
- * Created for the Udacity course  {@link https://bit.ly/ericity "Interactive Rendering"}.<br>
+ * Code converted from my ancient {@link https://tog.acm.org/resources/SPD/ SPD software}.&lt;br>
+ * Created for the Udacity course  {@link https://bit.ly/ericity "Interactive Rendering"}.&lt;br>
  * YouTube video on teapot history: {@link https://www.youtube.com/watch?v=DxMfblPzFNc}
  *
- * @param {Number} size is a relative scale: I've scaled the teapot to fit vertically between -1 and 1. <br>
+ * @param {Number} size is a relative scale: I've scaled the teapot to fit vertically between -1 and 1. &lt;br>
  *    Think of it as a "radius".
- * @param {Number} segments - number of line segments to subdivide each patch edge; <br>
+ * @param {Number} segments - number of line segments to subdivide each patch edge; &lt;br>
  *    1 is possible but gives degenerates, so two is the real minimum.
- * @param {Boolean} bottom - boolean, if true (default) then the bottom patches are added. <br>
+ * @param {Boolean} bottom - boolean, if true (default) then the bottom patches are added. &lt;br>
  *    Some consider adding the bottom heresy, so set this to "false" to adhere to the One True Way.
  * @param {Boolean} lid - to remove the lid and look inside, set to true.
  * @param {Boolean} body - to remove the body and leave the lid, set this and "bottom" to false.
- * @param {Boolean} fitLid - the lid is a tad small in the original. <br>
+ * @param {Boolean} fitLid - the lid is a tad small in the original. &lt;br>
  *    This stretches it a bit, so you can't see the teapot's insides through the gap.
- * @param {Boolean} blinn - Jim Blinn scaled the original data vertically by dividing by about 1.3 to look nicer. <br>
+ * @param {Boolean} blinn - Jim Blinn scaled the original data vertically by dividing by about 1.3 to look nicer. &lt;br>
  *    If you want to see the original teapot, similar to the real-world model, set
- *    this to false. <br>
+ *    this to false. &lt;br>
  *    True by default.
  */
 
@@ -528,18 +556,18 @@ class TeapotGeometry extends BufferGeometry {
       vtx3, // if any vertex matches, return false
     ) =>
       !(
-        (vertices[vtx1 * 3] === vertices[vtx2 * 3] &&
-          vertices[vtx1 * 3 + 1] === vertices[vtx2 * 3 + 1] &&
+        (vertices[vtx1 * 3] === vertices[vtx2 * 3] &amp;&amp;
+          vertices[vtx1 * 3 + 1] === vertices[vtx2 * 3 + 1] &amp;&amp;
           vertices[vtx1 * 3 + 2] === vertices[vtx2 * 3 + 2]) ||
-        (vertices[vtx1 * 3] === vertices[vtx3 * 3] &&
-          vertices[vtx1 * 3 + 1] === vertices[vtx3 * 3 + 1] &&
+        (vertices[vtx1 * 3] === vertices[vtx3 * 3] &amp;&amp;
+          vertices[vtx1 * 3 + 1] === vertices[vtx3 * 3 + 1] &amp;&amp;
           vertices[vtx1 * 3 + 2] === vertices[vtx3 * 3 + 2]) ||
-        (vertices[vtx2 * 3] === vertices[vtx3 * 3] &&
-          vertices[vtx2 * 3 + 1] === vertices[vtx3 * 3 + 1] &&
+        (vertices[vtx2 * 3] === vertices[vtx3 * 3] &amp;&amp;
+          vertices[vtx2 * 3 + 1] === vertices[vtx3 * 3 + 1] &amp;&amp;
           vertices[vtx2 * 3 + 2] === vertices[vtx3 * 3 + 2])
       );
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i &lt; 3; i++) {
       mgm[i] = new Matrix4();
     }
 
@@ -556,22 +584,22 @@ class TeapotGeometry extends BufferGeometry {
 
     let indexCount = 0;
 
-    for (let surf = minPatches; surf < maxPatches; surf++) {
+    for (let surf = minPatches; surf &lt; maxPatches; surf++) {
       // lid is in the middle of the data, patches 20-27,
       // so ignore it for this part of the loop if the lid is not desired
-      if (lid || surf < 20 || surf >= 28) {
+      if (lid || surf &lt; 20 || surf >= 28) {
         // get M * G * M matrix for x,y,z
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i &lt; 3; i++) {
           // get control patches
-          for (let r = 0; r < 4; r++) {
-            for (let c = 0; c < 4; c++) {
+          for (let r = 0; r &lt; 4; r++) {
+            for (let c = 0; c &lt; 4; c++) {
               // transposed
               g[c * 4 + r] =
                 teapotVertices[teapotPatches[surf * 16 + r * 4 + c] * 3 + i];
 
               // is the lid to be made larger, and is this a point on the lid
               // that is X or Y?
-              if (fitLid && surf >= 20 && surf < 28 && i !== 2) {
+              if (fitLid &amp;&amp; surf >= 20 &amp;&amp; surf &lt; 28 &amp;&amp; i !== 2) {
                 // increase XY size by 7.7%, found empirically. I don't
                 // increase Z so that the teapot will continue to fit in the
                 // space -1 to 1 for Y (Y is up for the final model).
@@ -580,7 +608,7 @@ class TeapotGeometry extends BufferGeometry {
 
               // Blinn "fixed" the teapot by dividing Z by blinnScale, and that's the
               // data we now use. The original teapot is taller. Fix it:
-              if (!blinn && i === 2) {
+              if (!blinn &amp;&amp; i === 2) {
                 g[c * 4 + r] *= blinnScale;
               }
             }
@@ -593,10 +621,10 @@ class TeapotGeometry extends BufferGeometry {
         }
 
         // step along, get points, and output
-        for (let sstep = 0; sstep <= segments; sstep++) {
+        for (let sstep = 0; sstep &lt;= segments; sstep++) {
           const s = sstep / segments;
 
-          for (let tstep = 0; tstep <= segments; tstep++) {
+          for (let tstep = 0; tstep &lt;= segments; tstep++) {
             const t = tstep / segments;
 
             // point from basis
@@ -624,7 +652,7 @@ class TeapotGeometry extends BufferGeometry {
             vdtp.fromArray(dtp);
 
             // do for x,y,z
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i &lt; 3; i++) {
               // multiply power vectors times matrix to get value
               tcoord = vsp.clone();
               tcoord.applyMatrix4(mgm[i]);
@@ -647,7 +675,7 @@ class TeapotGeometry extends BufferGeometry {
             norm.normalize();
 
             // if X and Z length is 0, at the cusp, so point the normal up or down, depending on patch number
-            if (vert[0] === 0 && vert[1] === 0) {
+            if (vert[0] === 0 &amp;&amp; vert[1] === 0) {
               // if above the middle of the teapot, normal points up, else down
               normOut.set(0, vert[2] > maxHeight2 ? 1 : -1, 0);
             } else {
@@ -670,8 +698,8 @@ class TeapotGeometry extends BufferGeometry {
         }
 
         // save the faces
-        for (let sstep = 0; sstep < segments; sstep++) {
-          for (let tstep = 0; tstep < segments; tstep++) {
+        for (let sstep = 0; sstep &lt; segments; sstep++) {
+          for (let tstep = 0; tstep &lt; segments; tstep++) {
             const v1 =
               surfCount * vertPerRow * vertPerRow + sstep * vertPerRow + tstep;
             const v2 = v1 + 1;
@@ -718,3 +746,26 @@ class TeapotGeometry extends BufferGeometry {
 }
 
 export { TeapotGeometry };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawModel">drawModel</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeCube">makeCube</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 22 2024 10:38:01 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
