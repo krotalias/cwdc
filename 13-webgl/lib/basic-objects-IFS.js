@@ -53,6 +53,40 @@
  */
 
 /**
+ * Given an instance of
+ * <ul>
+ * <li>{@link external:THREE.BufferGeometry THREE.BufferGeometry}</li>
+ * </ul>
+ * returns an object containing raw data for
+ * vertices, normal vectors, texture coordinates, and indices.
+ * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
+ * @param {external:THREE.BufferGeometry} geom
+ *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry THREE.ConeGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CylinderGeometry THREE.CylinderGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/RingGeometry THREE.RingGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusGeometry THREE.TorusGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry THREE.TorusKnotGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry},<br>
+ *        {@link TeapotGeometry THREE.TeapotGeometry}.
+ * @return {modelData}
+ */
+function getModelData(geom) {
+  return {
+    vertexPositions: geom.getAttribute("position").array,
+    vertexNormals: geom.getAttribute("normal").array,
+    vertexTextureCoords: geom.getAttribute("uv").array,
+    indices: geom.index ? geom.index.array : null,
+  };
+}
+
+/**
  * <p>Create a model of a cube, centered at the origin.</p>
  * This is not a particularly good format for a cube,
  * since an IFS representation has a lot of redundancy.

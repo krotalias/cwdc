@@ -81,6 +81,40 @@
  */
 
 /**
+ * Given an instance of
+ * &lt;ul>
+ * &lt;li>{@link external:THREE.BufferGeometry THREE.BufferGeometry}&lt;/li>
+ * &lt;/ul>
+ * returns an object containing raw data for
+ * vertices, normal vectors, texture coordinates, and indices.
+ * &lt;p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.&lt;/p>
+ * @param {external:THREE.BufferGeometry} geom
+ *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry THREE.ConeGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CylinderGeometry THREE.CylinderGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/RingGeometry THREE.RingGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusGeometry THREE.TorusGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry THREE.TorusKnotGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},&lt;br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry},&lt;br>
+ *        {@link TeapotGeometry THREE.TeapotGeometry}.
+ * @return {modelData}
+ */
+function getModelData(geom) {
+  return {
+    vertexPositions: geom.getAttribute("position").array,
+    vertexNormals: geom.getAttribute("normal").array,
+    vertexTextureCoords: geom.getAttribute("uv").array,
+    indices: geom.index ? geom.index.array : null,
+  };
+}
+
+/**
  * &lt;p>Create a model of a cube, centered at the origin.&lt;/p>
  * This is not a particularly good format for a cube,
  * since an IFS representation has a lot of redundancy.
@@ -1541,13 +1575,13 @@ var teapotModel = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-lib_tetrahedron-esm.html">lib/tetrahedron-esm</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="module-lib_tetrahedron-esm.polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#arcBall">arcBall</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeMap">cubeMap</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadTexture">loadTexture</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#model">model</a></li><li><a href="global.html#modelViewMatrix">modelViewMatrix</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#program">program</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotAxis">rotAxis</a></li><li><a href="global.html#rotating">rotating</a></li><li><a href="global.html#rotationMatrixToEulerAngles">rotationMatrixToEulerAngles</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-lib_polyhedron.html">lib/polyhedron</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="module-lib_polyhedron.polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#arcBall">arcBall</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeMap">cubeMap</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadTexture">loadTexture</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#model">model</a></li><li><a href="global.html#modelViewMatrix">modelViewMatrix</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#program">program</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotAxis">rotAxis</a></li><li><a href="global.html#rotating">rotating</a></li><li><a href="global.html#rotationMatrixToEulerAngles">rotationMatrixToEulerAngles</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 21 2024 10:10:16 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 22 2024 07:25:46 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

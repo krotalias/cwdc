@@ -1,33 +1,63 @@
-/** @module */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/polyhedron.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/polyhedron.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module */
 
 /**
  *  @file
  *
  *  Summary.
  *
- * <p>Creates the model of a sphere by continuously subdividing
- * an initial tetrahedron, octahedron, dodecahedron or icosahedron.</p>
+ * &lt;p>Creates the model of a sphere by continuously subdividing
+ * an initial tetrahedron, octahedron, dodecahedron or icosahedron.&lt;/p>
  *
  * The algorithm starts with just four/six/twenty/twelve points, corresponding
- * to a tetrahedron/octahedron/dodecahedron/icosahedron inscribed in the unit sphere, <br>
+ * to a tetrahedron/octahedron/dodecahedron/icosahedron inscribed in the unit sphere, &lt;br>
  * and recursively subdivides each triangle by inserting a new vertex
- * at the midpoint of its three edges, <br>
+ * at the midpoint of its three edges, &lt;br>
  * which is then projected onto the surface of the sphere.
  *
  *  @author Paulo Roma Cavalcanti on 17/01/2016.
  *  @since 21/11/2016
  *  @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
  *  @see {@link http://glmatrix.net glMatrix}
- *  @see <a href="/cwdc/13-webgl/lib/tetrahedron-esm.js">source</a>
- *  @see <img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
- *  @see <img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
- *  @see <img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
- *  @see <img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256">
+ *  @see &lt;a href="/cwdc/13-webgl/lib/tetrahedron-esm.js">source&lt;/a>
+ *  @see &lt;img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
+ *  @see &lt;img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
+ *  @see &lt;img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
+ *  @see &lt;img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256">
  */
 
 "use strict";
 
-import { vec3 } from "https://unpkg.com/gl-matrix@3.4.3/esm/index.js";
+// import * as THREE from "three";
+import * as THREE from "/cwdc/13-webgl/lib/three.min.js";
+import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
 
 /**
  * gl-matrix {@link https://glmatrix.net/docs/module-vec3.html 3 Dimensional Vector}.
@@ -37,7 +67,7 @@ import { vec3 } from "https://unpkg.com/gl-matrix@3.4.3/esm/index.js";
 
 /**
  * Four points of a tetrahedron inscribed in the unit sphere.
- * @type {Array<vec3>}
+ * @type {Array&lt;vec3>}
  * @see https://en.wikipedia.org/wiki/Tetrahedron
  */
 const initialTet = [
@@ -49,7 +79,7 @@ const initialTet = [
 
 /**
  * Six points of an octahedron inscribed in the unit sphere.
- * @type {Array<vec3>}
+ * @type {Array&lt;vec3>}
  * @see https://en.wikipedia.org/wiki/Octahedron
  */
 const initialOcta = [
@@ -63,7 +93,7 @@ const initialOcta = [
 
 /**
  * Maximum subdivision level without overflowing any buffer (16 bits - 65536).
- * @type {Object<{tet:Number, oct:Number, dod:Number}>}
+ * @type {Object&lt;{tet:Number, oct:Number, dod:Number}>}
  */
 export const limit = {
   tet: Math.floor(Math.log(65536 / (4 * 3)) / Math.log(4)),
@@ -97,62 +127,62 @@ export const radians = (deg) => (deg * Math.PI) / 180;
 export const nsegments = 36;
 
 /**
- * <p>Return a pair of spherical coordinates, in the range [0,1],
- * corresponding to a point p onto the unit sphere.</p>
+ * &lt;p>Return a pair of spherical coordinates, in the range [0,1],
+ * corresponding to a point p onto the unit sphere.&lt;/p>
  *
  * The forward projection transforms spherical coordinates into planar coordinates:
- * <ul>
- * <li>if point p is plotted on a plane, we have the
- * {@link https://docs.qgis.org/3.4/en/docs/gentle_gis_introduction/coordinate_reference_systems.html <i>plate carrée</i> projection},
- * a special case of the equirectangular projection.</li>
- * <li>this projection maps x to be the value of the longitude and
- * y to be the value of the latitude.</li>
- * </ul>
+ * &lt;ul>
+ * &lt;li>if point p is plotted on a plane, we have the
+ * {@link https://docs.qgis.org/3.4/en/docs/gentle_gis_introduction/coordinate_reference_systems.html &lt;i>plate carrée&lt;/i> projection},
+ * a special case of the equirectangular projection.&lt;/li>
+ * &lt;li>this projection maps x to be the value of the longitude and
+ * y to be the value of the latitude.&lt;/li>
+ * &lt;/ul>
  *
- * <p>The singularity of the mapping (parametrization) is at φ = 0 (y = -r) and φ = π (y = r):</p>
- * <ul>
- *   <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
- *   <li> In {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system},
+ * &lt;p>The singularity of the mapping (parametrization) is at φ = 0 (y = -r) and φ = π (y = r):&lt;/p>
+ * &lt;ul>
+ *   &lt;li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.&lt;/li>
+ *   &lt;li> In {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system},
  *   φ is measured from the positive y axis (North), not the z axis, as it is usual in math books.
- *   <li>Therefore, we will use North-Counterclockwise Convention.</li>
- *   <li>The 'clockwise from north' convention is used in navigation and mapping.</li>
- *   <li>________________________________________________</li>
- *   <li> atan2(y, x) (East-Counterclockwise Convention)</li>
- *   <li> atan2(x, y) (North-Clockwise Convention)</li>
- *   <li> atan2(-x,-y) (South-Clockwise Convention)</li>
- *   <li>________________________________________________</li>
- *   <li> cos(φ-90) = sin(φ)</li>
- *   <li> sin(φ-90) = -cos(φ)</li>
- *   <li> x = r cos(θ) sin(φ) </li>
- *   <li> y = −r cos (φ) </li>
- *   <li> z = -r sin(θ) sin(φ) </li>
- *   <li> z/x = −(r sin(θ) sin(φ)) / (r cos(θ) sin(φ)) = -sin(θ) / cos(θ) = −tanθ </li>
- *   <li> θ = atan(−z/x) </li>
- *   <li> φ = acos(−y/r) </li>
- * </ul>
- * Note that this definition provides a logical extension of the usual polar coordinates notation,<br>
+ *   &lt;li>Therefore, we will use North-Counterclockwise Convention.&lt;/li>
+ *   &lt;li>The 'clockwise from north' convention is used in navigation and mapping.&lt;/li>
+ *   &lt;li>________________________________________________&lt;/li>
+ *   &lt;li> atan2(y, x) (East-Counterclockwise Convention)&lt;/li>
+ *   &lt;li> atan2(x, y) (North-Clockwise Convention)&lt;/li>
+ *   &lt;li> atan2(-x,-y) (South-Clockwise Convention)&lt;/li>
+ *   &lt;li>________________________________________________&lt;/li>
+ *   &lt;li> cos(φ-90) = sin(φ)&lt;/li>
+ *   &lt;li> sin(φ-90) = -cos(φ)&lt;/li>
+ *   &lt;li> x = r cos(θ) sin(φ) &lt;/li>
+ *   &lt;li> y = −r cos (φ) &lt;/li>
+ *   &lt;li> z = -r sin(θ) sin(φ) &lt;/li>
+ *   &lt;li> z/x = −(r sin(θ) sin(φ)) / (r cos(θ) sin(φ)) = -sin(θ) / cos(θ) = −tanθ &lt;/li>
+ *   &lt;li> θ = atan(−z/x) &lt;/li>
+ *   &lt;li> φ = acos(−y/r) &lt;/li>
+ * &lt;/ul>
+ * Note that this definition provides a logical extension of the usual polar coordinates notation,&lt;br>
  * with θ remaining the angle in the zx-plane and φ becoming the angle out of that plane.
  *
  *  @param {vec3} p a point on the sphere.
- *  @return {Object<s:Number, t:Number>} point p in spherical coordinates:
- *  <ul>
- *     <li>const [x, y, z] = p</li>
- *     <li>r = 1 = √(x² + y² + z²)</li>
- *     <li>s = θ = atan2(-z, x) / 2π + 0.5</li>
- *     <li>t = φ = acos(-y/r) / π</li>
- *     <li>tg(-θ) = -tg(θ) = tan (z/x)
- *     <li>arctan(-θ) = -arctan(θ) = atan2(z, x)
- *  </ul>
+ *  @return {Object&lt;s:Number, t:Number>} point p in spherical coordinates:
+ *  &lt;ul>
+ *     &lt;li>const [x, y, z] = p&lt;/li>
+ *     &lt;li>r = 1 = √(x² + y² + z²)&lt;/li>
+ *     &lt;li>s = θ = atan2(-z, x) / 2π + 0.5&lt;/li>
+ *     &lt;li>t = φ = acos(-y/r) / π&lt;/li>
+ *     &lt;li>tg(-θ) = -tg(θ) = tan (z/x)
+ *     &lt;li>arctan(-θ) = -arctan(θ) = atan2(z, x)
+ *  &lt;/ul>
  *
  * Since the positive angular direction is CCW,
  * we can not use North-Clockwise Convention,
  * because the image would be rendered mirrored.
- * <ul>
- *  <li>border ≡ antimeridian
- *  <li>atan2(-z, x) (border at -x axis of the image - wrap left to right) (correct form) or </li>
- *  <li>atan2(z, -x) (border at x axis of the image - wrap right to left). </li>
- *  <li>atan2(z, x) (border at x axis of the image - mirrored). </li>
- * </ul>
+ * &lt;ul>
+ *  &lt;li>border ≡ antimeridian
+ *  &lt;li>atan2(-z, x) (border at -x axis of the image - wrap left to right) (correct form) or &lt;/li>
+ *  &lt;li>atan2(z, -x) (border at x axis of the image - wrap right to left). &lt;/li>
+ *  &lt;li>atan2(z, x) (border at x axis of the image - mirrored). &lt;/li>
+ * &lt;/ul>
  *
  * @see {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf#page=3 Texture Mapping}
  * @see {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system Spherical coordinate system}
@@ -162,9 +192,9 @@ export const nsegments = 36;
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2 Math.atan2()}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos Math.acos()}
  * @see {@link https://en.wikipedia.org/wiki/Atan2 atan2}
- * @see <img src="../images/spherical-projection.png" width = "256">
- * @see <img src="../images/Spherical2.png" width="356">
- *      <img src="../images/Declination.jpg" width="175">
+ * @see &lt;img src="../images/spherical-projection.png" width = "256">
+ * @see &lt;img src="../images/Spherical2.png" width="356">
+ *      &lt;img src="../images/Declination.jpg" width="175">
  */
 export function cartesian2Spherical(p) {
   const [x, y, z] = p;
@@ -186,25 +216,25 @@ export function cartesian2Spherical(p) {
 }
 
 /**
- * <p>Return a point on the unit sphere given their
- * {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf#page=3 spherical coordinates}: (θ, φ, r=1).</p>
+ * &lt;p>Return a point on the unit sphere given their
+ * {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf#page=3 spherical coordinates}: (θ, φ, r=1).&lt;/p>
  * It is assumed that:
- * <ul>
- *  <li>the two systems have the same origin,</li>
- *  <li>the spherical reference plane is the Cartesian xz plane, </li>
- *  <li>φ is inclination from the y direction, and</li>
- *  <li>the azimuth is measured from the Cartesian x axis, so that the x axis has θ = 0° (prime meridian).</li>
- *  <li>x = p[0] = r cos(θ) * sin(φ)</li>
- *  <li>z = p[2] = -r sin(θ) * sin(φ)</li>
- *  <li>y = p[1] = -r cos(φ)</li>
- * </ul>
+ * &lt;ul>
+ *  &lt;li>the two systems have the same origin,&lt;/li>
+ *  &lt;li>the spherical reference plane is the Cartesian xz plane, &lt;/li>
+ *  &lt;li>φ is inclination from the y direction, and&lt;/li>
+ *  &lt;li>the azimuth is measured from the Cartesian x axis, so that the x axis has θ = 0° (prime meridian).&lt;/li>
+ *  &lt;li>x = p[0] = r cos(θ) * sin(φ)&lt;/li>
+ *  &lt;li>z = p[2] = -r sin(θ) * sin(φ)&lt;/li>
+ *  &lt;li>y = p[1] = -r cos(φ)&lt;/li>
+ * &lt;/ul>
  *
- * @param {Number} s azimuth angle θ, 0 ≤ θ < 2π.
+ * @param {Number} s azimuth angle θ, 0 ≤ θ &lt; 2π.
  * @param {Number} t zenith angle φ, 0 ≤ φ ≤ π.
  * @param {Number} r radius.
  * @returns {vec3} cartesian point onto the unit sphere.
  * @see {@link https://mathworld.wolfram.com/SphericalCoordinates.html spherical coordinates}
- * @see <img src="../images/spherical-projection.png" width="256">
+ * @see &lt;img src="../images/spherical-projection.png" width="256">
  */
 export function spherical2Cartesian(s, t, r = 1) {
   let x = r * Math.cos(s) * Math.sin(t);
@@ -214,30 +244,30 @@ export function spherical2Cartesian(s, t, r = 1) {
 }
 
 /**
- * <p>Convert a 2D point in spherical coordinates to a 2D point in
- * {@link https://en.wikipedia.org/wiki/Mercator_projection Mercator coordinates}.</p>
- * <p>The Mercator projection is a map projection that was widely used for navigation,
+ * &lt;p>Convert a 2D point in spherical coordinates to a 2D point in
+ * {@link https://en.wikipedia.org/wiki/Mercator_projection Mercator coordinates}.&lt;/p>
+ * &lt;p>The Mercator projection is a map projection that was widely used for navigation,
  * since {@link https://www.atractor.pt/mat/loxodromica/mercator_loxodromica-_en.html loxodromes}
- * are straight lines (although great circles are curved).</p>
+ * are straight lines (although great circles are curved).&lt;/p>
  * The following {@link https://mathworld.wolfram.com/MercatorProjection.html equations}
  * place the x-axis of the projection on the equator,
- * and the y-axis at longitude θ<sub>0</sub>, where θ is the longitude and φ is the latitude:
- * <ul>
- *    <li>x =	θ - θ<sub>0</sub>, 0 ≤ θ - θ<sub>0</sub> ≤ 2π</li>
- *    <li>y =	ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2 → -π ≤ y ≤ π </li>
- * </ul>
+ * and the y-axis at longitude θ&lt;sub>0&lt;/sub>, where θ is the longitude and φ is the latitude:
+ * &lt;ul>
+ *    &lt;li>x =	θ - θ&lt;sub>0&lt;/sub>, 0 ≤ θ - θ&lt;sub>0&lt;/sub> ≤ 2π&lt;/li>
+ *    &lt;li>y =	ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2 → -π ≤ y ≤ π &lt;/li>
+ * &lt;/ul>
  * The poles extent to infinity. Therefore, to create a square image,
  * the maximum latitude occurs at y = π, namely:
- * <ul>
- *    <li>φ<sub>max</sub> = 2 atan (e<sup>π</sup>) - π /2 = 85.051129°</li>
- * </ul>
- * As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any artifact.
- * @param {Number} s longitude (horizontal angle) θ, 0 ≤ θ < 1.
+ * &lt;ul>
+ *    &lt;li>φ&lt;sub>max&lt;/sub> = 2 atan (e&lt;sup>π&lt;/sup>) - π /2 = 85.051129°&lt;/li>
+ * &lt;/ul>
+ * As a consequence, we clamp the latitude to &amp;#91;-85°,85°&amp;#93; to avoid any artifact.
+ * @param {Number} s longitude (horizontal angle) θ, 0 ≤ θ &lt; 1.
  * @param {Number} t latitude (vertical angle) φ, 0 ≤ φ ≤ 1.
- * @return {Object<x:Number, y:Number>} mercator coordinates in [0,1].
+ * @return {Object&lt;x:Number, y:Number>} mercator coordinates in [0,1].
  * @see {@link https://stackoverflow.com/questions/59907996/shader-that-transforms-a-mercator-projection-to-equirectangular mercator projection to equirectangular}
  * @see {@link https://paulbourke.net/panorama/webmerc2sphere/ Converting Web Mercator projection to equirectangular}
- * @see <img src="../images/Cylindrical_Projection_basics2.svg">
+ * @see &lt;img src="../images/Cylindrical_Projection_basics2.svg">
  */
 export function spherical2Mercator(s, t) {
   // st (uv) to equirectangular
@@ -263,8 +293,8 @@ export function spherical2Mercator(s, t) {
  * Convert a 2D point in mercator coordinates to a 2D point in spherical coordinates.
  * @param {Number} x longitude in [0,1].
  * @param {Number} y latitude in [0,1].
- * @returns {Object<x:Number, y:Number>} spherical coordinates in [0,1].
- * @see <img src="../images/Cylindrical_Projection_basics2.svg">
+ * @returns {Object&lt;x:Number, y:Number>} spherical coordinates in [0,1].
+ * @see &lt;img src="../images/Cylindrical_Projection_basics2.svg">
  */
 export function mercator2Spherical(x, y) {
   let lat = y * 2 * Math.PI - Math.PI; // [-pi, pi]
@@ -282,7 +312,7 @@ export function mercator2Spherical(x, y) {
  */
 export function setMercatorCoordinates(obj) {
   obj.vertexMercatorCoords = new Float32Array(obj.vertexTextureCoords.length);
-  for (let i = 0; i < obj.vertexTextureCoords.length; i += 2) {
+  for (let i = 0; i &lt; obj.vertexTextureCoords.length; i += 2) {
     let s = obj.vertexTextureCoords[i];
     let t = obj.vertexTextureCoords[i + 1];
     let { x, y } = spherical2Mercator(s, t);
@@ -303,7 +333,7 @@ export function pointsOnParallel(latitude = 0, n = nsegments) {
   const arr = new Float32Array(3 * n);
   let phi = clamp(latitude, -90, 90) + 90;
   phi = radians(phi);
-  for (let i = 0, j = 0; i < n; ++i, j += 3) {
+  for (let i = 0, j = 0; i &lt; n; ++i, j += 3) {
     let p = spherical2Cartesian(i * ds, phi, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
@@ -354,7 +384,7 @@ export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
   const arr = new Float32Array(3 * n);
   let theta = clamp(longitude, -180, 180);
   theta = radians(theta);
-  for (let i = 0; i < n; ++i, j += 3) {
+  for (let i = 0; i &lt; n; ++i, j += 3) {
     let p = spherical2Cartesian(theta, i * ds, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
@@ -364,8 +394,8 @@ export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
 }
 
 /**
- * <p>Class for creating the model of a sphere by continuously subdividing a
- * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}.</p>
+ * &lt;p>Class for creating the model of a sphere by continuously subdividing a
+ * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}.&lt;/p>
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square Mercator coordinates}
  * only can be set for tetrahedra and octahedra, because
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Three.js polyhedra}
@@ -407,37 +437,37 @@ export class polyhedron {
 
     /**
      * Vertex coordinate array.
-     * @type {Array<Number>}
+     * @type {Array&lt;Number>}
      */
     this.pointsArray = [];
 
     /**
      * Vertex normal array.
-     * @type {Array<Number>}
+     * @type {Array&lt;Number>}
      */
     this.normalsArray = [];
 
     /**
      * Index array (triangular face indices).
-     * @type {Array<Number>}
+     * @type {Array&lt;Number>}
      */
     this.pointsIndices = [];
 
     /**
      * Vertex texture coordinate array.
-     * @type {Array<Number>}
+     * @type {Array&lt;Number>}
      */
     this.texCoords = [];
 
     /**
      * Vertex mercator texture coordinate array.
-     * @type {Array<Number>}
+     * @type {Array&lt;Number>}
      */
     this.mercCoords = [];
   }
 
   /**
-   * <p>Adds a new triangle.</p>
+   * &lt;p>Adds a new triangle.&lt;/p>
    * Mercator texture coordinates are also set.
    * @param {vec3} a first vertex.
    * @param {vec3} b second vertex.
@@ -505,18 +535,18 @@ export class polyhedron {
   }
 
   /**
-   * <p>Subdivides an initial tetrahedron.</p>
-   * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
-   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
+   * &lt;p>Subdivides an initial tetrahedron.&lt;/p>
+   * &lt;p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}&lt;/p>
    * Generates:
-   * <ul>
-   *  <li> 4 * 4<sup>n</sup> triangles</li>
-   *  <li> 4 * 3 * 4<sup>n</sup> vertices</li>
-   *  <li> maximum level = 6 (16384 triangles)</li>
-   *  <li> 4 * 3 * 4**7 = 196608 vertices → buffer overflow</li>
-   * </ul>
+   * &lt;ul>
+   *  &lt;li> 4 * 4&lt;sup>n&lt;/sup> triangles&lt;/li>
+   *  &lt;li> 4 * 3 * 4&lt;sup>n&lt;/sup> vertices&lt;/li>
+   *  &lt;li> maximum level = 6 (16384 triangles)&lt;/li>
+   *  &lt;li> 4 * 3 * 4**7 = 196608 vertices → buffer overflow&lt;/li>
+   * &lt;/ul>
    * @param {Object} poly tetrahedron.
-   * @property {Array<vec3>} poly.vtx=initialTet vertices of initial tetrahedron.
+   * @property {Array&lt;vec3>} poly.vtx=initialTet vertices of initial tetrahedron.
    * @property {Number} poly.n=limit.tet number of subdivisions.
    * @returns {modelData}
    */
@@ -542,18 +572,18 @@ export class polyhedron {
   }
 
   /**
-   * <p>Subdivides an initial octahedron.</p>
-   * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
-   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
+   * &lt;p>Subdivides an initial octahedron.&lt;/p>
+   * &lt;p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}&lt;/p>
    * Generates:
-   * <ul>
-   *  <li> 8 * 4<sup>n</sup> triangles</li>
-   *  <li> 8 * 3 * 4<sup>n</sup> vertices</li>
-   *  <li> maximum level = 5 (8192 triangles)</li>
-   *  <li> 8 * 3 * 4**6 = 98304 vertices → buffer overflow</li>
-   * </ul>
+   * &lt;ul>
+   *  &lt;li> 8 * 4&lt;sup>n&lt;/sup> triangles&lt;/li>
+   *  &lt;li> 8 * 3 * 4&lt;sup>n&lt;/sup> vertices&lt;/li>
+   *  &lt;li> maximum level = 5 (8192 triangles)&lt;/li>
+   *  &lt;li> 8 * 3 * 4**6 = 98304 vertices → buffer overflow&lt;/li>
+   * &lt;/ul>
    * @param {Object} poly octahedron.
-   * @property {Array<vec3>} poly.vtx=initialOcta vertices of initial octahedron.
+   * @property {Array&lt;vec3>} poly.vtx=initialOcta vertices of initial octahedron.
    * @property {Number} poly.n=limit.oct number of subdivisions.
    * @returns {modelData}
    */
@@ -583,27 +613,27 @@ export class polyhedron {
   }
 
   /**
-   * <p>Subdivides an initial
-   * {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry dodecahedron}.</p>
-   * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
-   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
+   * &lt;p>Subdivides an initial
+   * {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry dodecahedron}.&lt;/p>
+   * &lt;p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}&lt;/p>
    * Generates:
-   * <ul>
-   *  <li> 36 * 4<sup>n</sup> triangles</li>
-   *  <li> 36 * 3 * 4<sup>n</sup> vertices</li>
-   *  <li> maximum level = 4 (36864 triangles)</li>
-   *  <li> 36 * 3 * 4**5 = 110592 vertices → buffer overflow</li>
-   * </ul>
+   * &lt;ul>
+   *  &lt;li> 36 * 4&lt;sup>n&lt;/sup> triangles&lt;/li>
+   *  &lt;li> 36 * 3 * 4&lt;sup>n&lt;/sup> vertices&lt;/li>
+   *  &lt;li> maximum level = 4 (36864 triangles)&lt;/li>
+   *  &lt;li> 36 * 3 * 4**5 = 110592 vertices → buffer overflow&lt;/li>
+   * &lt;/ul>
    * Note: three.js level of detail generates much less vertices than the values above:
-   * <ul>
-   *  <li> 36(n² + 2n + 1) </li>
-   *  <li> n = 0: 36 triangles, 20 vertices</li>
-   *  <li> n = 1: 144 triangles, 74 vertices</li>
-   *  <li> n = 2: 324 triangles, 164 vertices</li>
-   *  <li> n = 3: 576 triangles, 290 vertices</li>
-   *  <li> n = 4: 900 triangles, 452 vertices</li>
-   *  <li> n = 5: 1296 triangles, 650 vertices</li>
-   * </ul>
+   * &lt;ul>
+   *  &lt;li> 36(n² + 2n + 1) &lt;/li>
+   *  &lt;li> n = 0: 36 triangles, 20 vertices&lt;/li>
+   *  &lt;li> n = 1: 144 triangles, 74 vertices&lt;/li>
+   *  &lt;li> n = 2: 324 triangles, 164 vertices&lt;/li>
+   *  &lt;li> n = 3: 576 triangles, 290 vertices&lt;/li>
+   *  &lt;li> n = 4: 900 triangles, 452 vertices&lt;/li>
+   *  &lt;li> n = 5: 1296 triangles, 650 vertices&lt;/li>
+   * &lt;/ul>
    * @param {Object} poly dodecahedron.
    * @property {Number} poly.radius=1 radius of the dodecahedron.
    * @property {Number} poly.n=limit.dod number of subdivisions.
@@ -615,7 +645,7 @@ export class polyhedron {
 
     // rotate texture by 180°
     const uv = obj.vertexTextureCoords;
-    for (let i = 0; i < uv.length; i += 2) {
+    for (let i = 0; i &lt; uv.length; i += 2) {
       uv[i] += 0.5;
       if (uv[i] > 1) uv[i] -= 1;
     }
@@ -626,27 +656,27 @@ export class polyhedron {
   }
 
   /**
-   * <p>Subdivides an initial
-   * {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry icosahedron}.</p>
-   * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
-   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
+   * &lt;p>Subdivides an initial
+   * {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry icosahedron}.&lt;/p>
+   * &lt;p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}&lt;/p>
    * Generates:
-   * <ul>
-   *  <li> 20 * 4<sup>n</sup> triangles</li>
-   *  <li> 20 * 3 * 4<sup>n</sup> vertices</li>
-   *  <li> maximum level = 5 (20480 triangles)</li>
-   *  <li> 20 * 3 * 4**6 = 245760 vertices → buffer overflow</li>
-   * </ul>
+   * &lt;ul>
+   *  &lt;li> 20 * 4&lt;sup>n&lt;/sup> triangles&lt;/li>
+   *  &lt;li> 20 * 3 * 4&lt;sup>n&lt;/sup> vertices&lt;/li>
+   *  &lt;li> maximum level = 5 (20480 triangles)&lt;/li>
+   *  &lt;li> 20 * 3 * 4**6 = 245760 vertices → buffer overflow&lt;/li>
+   * &lt;/ul>
    * Note: three.js level of detail generates much less vertices than the values above:
-   * <ul>
-   *  <li> 20(n² + 2n + 1) </li>
-   *  <li> n = 0: 20 triangles, 12 vertices</li>
-   *  <li> n = 1: 80 triangles, 42 vertices</li>
-   *  <li> n = 2: 180 triangles, 92 vertices</li>
-   *  <li> n = 3: 320 triangles, 162 vertices</li>
-   *  <li> n = 4: 500 triangles, 252 vertices</li>
-   *  <li> n = 5: 720 triangles, 362 vertices</li>
-   * </ul>
+   * &lt;ul>
+   *  &lt;li> 20(n² + 2n + 1) &lt;/li>
+   *  &lt;li> n = 0: 20 triangles, 12 vertices&lt;/li>
+   *  &lt;li> n = 1: 80 triangles, 42 vertices&lt;/li>
+   *  &lt;li> n = 2: 180 triangles, 92 vertices&lt;/li>
+   *  &lt;li> n = 3: 320 triangles, 162 vertices&lt;/li>
+   *  &lt;li> n = 4: 500 triangles, 252 vertices&lt;/li>
+   *  &lt;li> n = 5: 720 triangles, 362 vertices&lt;/li>
+   * &lt;/ul>
    * @param {Object} poly icosahedron.
    * @property {Number} poly.radius=1 radius of the icosahedron.
    * @property {Number} poly.n=limit.ico number of subdivisions.
@@ -658,7 +688,7 @@ export class polyhedron {
 
     // rotate texture by 180°
     const uv = obj.vertexTextureCoords;
-    for (let i = 0; i < uv.length; i += 2) {
+    for (let i = 0; i &lt; uv.length; i += 2) {
       uv[i] += 0.5;
       if (uv[i] > 1) uv[i] -= 1;
     }
@@ -669,18 +699,18 @@ export class polyhedron {
   }
 
   /**
-   * <p>Equirectangular mapping (also called latitude/longitude or spherical coordinates) is non-linear.<br>
-   * That means normal UV mapping can only approximate it - quite badly at the poles, in fact.</p>
+   * &lt;p>Equirectangular mapping (also called latitude/longitude or spherical coordinates) is non-linear.&lt;br>
+   * That means normal UV mapping can only approximate it - quite badly at the poles, in fact.&lt;/p>
    *
-   * <p>To fix this, we can calculate our own texture coordinate per fragment, <br>
-   * by using the direction to the fragment being drawn, resulting in a perfect match.</p>
+   * &lt;p>To fix this, we can calculate our own texture coordinate per fragment, &lt;br>
+   * by using the direction to the fragment being drawn, resulting in a perfect match.&lt;/p>
    *
    * As a last resource, we can try to adjust uv texture coordinates,
-   * when two vertices of a triangle are on one side, <br>
+   * when two vertices of a triangle are on one side, &lt;br>
    * and the third on the other side of the discontinuity created,
    * when the 0 coordinate is stitched together with the 1 coordinate.
    *
-   * @param {Array<Object<{s:Number, t:Number}>>} sc triangle given by its spherical coordinates.
+   * @param {Array&lt;Object&lt;{s:Number, t:Number}>>} sc triangle given by its spherical coordinates.
    * @see {@link https://gamedev.stackexchange.com/questions/148167/correcting-projection-of-360-content-onto-a-sphere-distortion-at-the-poles/148178#148178 Per-Fragment Equirectangular}
    */
   fixUVCoordinates(sc) {
@@ -692,21 +722,44 @@ export class polyhedron {
 
     var s = sc[0].s + sc[1].s + sc[2].s;
     var t = sc[0].t + sc[1].t + sc[2].t;
-    if (s > onem && s < onep) {
+    if (s > onem &amp;&amp; s &lt; onep) {
       // two zeros
       if (sc[0].s > onem || sc[1].s > onem || sc[2].s > onem)
         sc[0].s = sc[1].s = sc[2].s = 0;
-    } else if (s > twom && s < twop) {
+    } else if (s > twom &amp;&amp; s &lt; twop) {
       // two ones
-      if (sc[0].s < zero || sc[1].s < zero || sc[2].s < zero)
+      if (sc[0].s &lt; zero || sc[1].s &lt; zero || sc[2].s &lt; zero)
         sc[0].s = sc[1].s = sc[2].s = 1;
     }
-    if (t > onem && t < onep) {
+    if (t > onem &amp;&amp; t &lt; onep) {
       if (sc[0].t > onem || sc[1].t > onem || sc[2].t > onem)
         sc[0].t = sc[1].t = sc[2].t = 0;
-    } else if (t > twom && t < twop) {
-      if (sc[0].t < zero || sc[1].t < zero || sc[2].t < zero)
+    } else if (t > twom &amp;&amp; t &lt; twop) {
+      if (sc[0].t &lt; zero || sc[1].t &lt; zero || sc[2].t &lt; zero)
         sc[0].t = sc[1].t = sc[2].t = 1;
     }
   }
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-lib_polyhedron.html">lib/polyhedron</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="module-lib_polyhedron.polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#arcBall">arcBall</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeMap">cubeMap</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadTexture">loadTexture</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#model">model</a></li><li><a href="global.html#modelViewMatrix">modelViewMatrix</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#program">program</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotAxis">rotAxis</a></li><li><a href="global.html#rotating">rotating</a></li><li><a href="global.html#rotationMatrixToEulerAngles">rotationMatrixToEulerAngles</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 22 2024 07:25:46 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

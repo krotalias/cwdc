@@ -37,7 +37,7 @@
 
 import { mat3, mat4 } from "https://unpkg.com/gl-matrix@3.4.3/esm/index.js";
 
-import { polyhedron } from "/cwdc/13-webgl/lib/tetrahedron-esm.js";
+import { polyhedron } from "/cwdc/13-webgl/lib/polyhedron.js";
 
 /**
  * 4x4 Matrix
