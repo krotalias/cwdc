@@ -23,10 +23,6 @@
  * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=pisa">pisa</a>
  * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=skybox">skybox</a>
  * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.js">source</a>
- * @see <a href="/cwdc/13-webgl/lib/simple-rotator.js">simple-rotator</a>
- * @see <a href="/cwdc/13-webgl/lib/tetrahedron-esm.js">tetrahedron-esm</a>
- * @see <a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">basic-objects-IFS.js</a>
- * @see <a href="https://glmatrix.net/docs/index.html">glmatrix</a>
  * @see {@link https://www.youtube.com/watch?v=8sVvxeKI9Pk  Cubemaps & Skyboxes}
  * @see {@link http://paulbourke.net/panorama/cubemaps/ Converting to/from cubemaps}
  * @see {@link https://www.pngwing.com/en/search?q=cube+map Cube map png images}
