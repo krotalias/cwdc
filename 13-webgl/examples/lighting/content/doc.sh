@@ -1,1 +1,1 @@
-jsdoc -d doc-lighting2 Lighting2.js ../../../../13-webgl/lib/TeapotGeometry.js ../../../../13-webgl/lib/teal_book/cuon-matrix.js ../../../../13-webgl/lib/teal_book/cuon-utils.js ../../../../13-webgl/lib/simple-rotator.js
+jsdoc -d doc-lighting2 Lighting2.js ../../../../13-webgl/lib/TeapotGeometry.js ../../../../13-webgl/lib/teal_book/cuon-matrix.js ../../../../13-webgl/lib/teal_book/cuon-utils.js ../../../../13-webgl/lib/simple-rotator.js ../../../../13-webgl/lib/basic-objects-IFS.js

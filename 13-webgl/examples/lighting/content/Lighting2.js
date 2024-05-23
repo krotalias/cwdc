@@ -44,7 +44,9 @@ import { TeapotGeometry } from "/cwdc/13-webgl/lib/TeapotGeometry.js";
 /**
  * Three.js module.
  * @external THREE
- * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
+ * @see {@link https://discoverthreejs.com DISCOVER three.js}
+ * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
  */
 
 /**
@@ -303,16 +305,6 @@ var viewDistance = vecLen(eye);
 var projection = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);
 
 /**
- * An object containing raw data for
- * vertices, normal vectors, texture coordinates, and indices.
- * @typedef {Object} modelData
- * @property {Float32Array} vertices vertex coordinates.
- * @property {Float32Array} normals vertex normals.
- * @property {Float32Array} texCoords texture coordinates.
- * @property {Uint16Array|Uint32Array} indices index array.
- */
-
-/**
  * Loads the {@link mainEntrance application}.
  * @event load
  */
@@ -355,40 +347,6 @@ document
 document
   .querySelector("#arrowUp")
   .addEventListener("click", (event) => handleKeyPress(createEvent("ArrowUp")));
-
-/**
- * Given an instance of
- * <ul>
- * <li>{@link external:THREE.BufferGeometry THREE.BufferGeometry}</li>
- * </ul>
- * returns an object containing raw data for
- * vertices, indices, texture coordinates, and normal vectors.
- * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
- * @param {external:THREE.BufferGeometry} geom
- *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry THREE.ConeGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/CylinderGeometry THREE.CylinderGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/RingGeometry THREE.RingGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/TorusGeometry THREE.TorusGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry THREE.TorusKnotGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},<br>
- *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry},<br>
- *        {@link TeapotGeometry THREE.TeapotGeometry}.
- * @return {modelData}
- */
-function getModelData(geom) {
-  return {
-    vertices: geom.getAttribute("position").array,
-    normals: geom.getAttribute("normal").array,
-    texCoords: geom.getAttribute("uv").array,
-    indices: geom.index ? geom.index.array : null,
-  };
-}
 
 /**
  * <p>Creates a unit cube, centered at the origin, and set its properties:
@@ -518,17 +476,17 @@ function makeCube(create_indices = false) {
   return create_indices
     ? {
         numVertices: 8,
-        vertices: rawVertices, // 24 = 8 * 3
-        normals: rawVertexNormals, // 24 = 8 * 3
-        texCoords: rawTexture, // 72 = 36 * 2
+        vertexPositions: rawVertices, // 24 = 8 * 3
+        vertexNormals: rawVertexNormals, // 24 = 8 * 3
+        vertexTextureCoords: rawTexture, // 72 = 36 * 2
         indices: indices, // 36 = 6 faces * 2 tri/face  * 3 ind/tri
       }
     : {
         numVertices: 36, // 12 tri  * 3 vert/tri
-        vertices: new Float32Array(verticesArray), // 108 = 36 * 3
-        normals: new Float32Array(normalsArray), // 108 = 36 * 3
+        vertexPositions: new Float32Array(verticesArray), // 108 = 36 * 3
+        vertexNormals: new Float32Array(normalsArray), // 108 = 36 * 3
         colors: new Float32Array(colorsArray), // 144 = 36 * 4
-        texCoords: new Float32Array(textureArray), // 72 = 36 * 2
+        vertexTextureCoords: new Float32Array(textureArray), // 72 = 36 * 2
         indices: new Uint16Array([...Array(36).keys()]), // 36 = 6 * 2 * 3
       };
 }
@@ -804,7 +762,7 @@ function drawModel() {
       0,
     );
   } else {
-    gl.drawArrays(gl.TRIANGLES, 0, theModel.vertices.length / 3);
+    gl.drawArrays(gl.TRIANGLES, 0, theModel.vertexPositions.length / 3);
   }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
@@ -909,7 +867,7 @@ function drawLines() {
     gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.LINES, 0, 2 * theModel.indices.length);
   } else {
-    for (var i = 0; i < theModel.vertices.length; i += 3) {
+    for (var i = 0; i < theModel.vertexPositions.length; i += 3) {
       gl.drawArrays(gl.LINE_LOOP, i, 3);
     }
   }
@@ -917,7 +875,7 @@ function drawLines() {
   // draw normals
   gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-  gl.drawArrays(gl.LINES, 0, 2 * theModel.vertices.length);
+  gl.drawArrays(gl.LINES, 0, 2 * theModel.vertexPositions.length);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
   gl.disableVertexAttribArray(positionIndex);
@@ -953,7 +911,7 @@ function drawLines() {
  */
 function createModel(shape, chi = 2) {
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, shape.vertices, gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, shape.vertexPositions, gl.STATIC_DRAW);
 
   if (shape.indices) {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
@@ -961,14 +919,15 @@ function createModel(shape, chi = 2) {
   }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, shape.normals, gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, shape.vertexNormals, gl.STATIC_DRAW);
 
-  let nv = shape.vertices.length;
+  let nv = shape.vertexPositions.length;
   normal = new Float32Array(6 * nv);
   for (var i = 0, k = 0; i < nv; i += 3, k += 6) {
     for (var j = 0; j < 3; j++) {
-      normal[j + k] = shape.vertices[i + j];
-      normal[j + k + 3] = normal[j + k] + (0.1 / mscale) * shape.normals[i + j];
+      normal[j + k] = shape.vertexPositions[i + j];
+      normal[j + k + 3] =
+        normal[j + k] + (0.1 / mscale) * shape.vertexNormals[i + j];
     }
   }
 
@@ -980,9 +939,9 @@ function createModel(shape, chi = 2) {
     lines = new Float32Array(18 * ni);
     for (i = 0, k = 0; i < ni; i += 3, k += 18) {
       for (j = 0; j < 3; j++) {
-        let v1 = shape.vertices[shape.indices[i] * 3 + j];
-        let v2 = shape.vertices[shape.indices[i + 1] * 3 + j];
-        let v3 = shape.vertices[shape.indices[i + 2] * 3 + j];
+        let v1 = shape.vertexPositions[shape.indices[i] * 3 + j];
+        let v2 = shape.vertexPositions[shape.indices[i + 1] * 3 + j];
+        let v3 = shape.vertexPositions[shape.indices[i + 2] * 3 + j];
 
         lines[j + k] = v1;
         lines[j + k + 3] = v2;
@@ -1006,7 +965,7 @@ function createModel(shape, chi = 2) {
   obj.innerHTML = "<b>Object:</b>";
   let faces = shape.indices
     ? shape.indices.length / 3
-    : shape.vertices.length / 9;
+    : shape.vertexPositions.length / 9;
   let edges = (faces * 3) / 2;
   let vertices = faces / 2 + chi;
 
