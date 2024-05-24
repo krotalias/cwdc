@@ -5,15 +5,15 @@
  * <p>This example combines a skybox with a fully reflective object.</p>
  * The skybox and teapot can be rotated independently.
  * The teapot seems to be reflecting its environment, <br>
- * but it's really just that the teapot and skybox use the same cubemap texture.
+ * but it's really just that the teapot and skybox use the same {@link loadTextureCube cubemap texture}.
  *
- * <p>To get this to work, I use two shader programs,
+ * <p>To get this to work, we use two <a href="../../showCode.php?f=extras/skybox-and-env-map">shader programs</a>,
  * one for the skybox and one for the teapot.</p>
  *
- * <p>To get the reflection map to work with a rotatable skybox,
+ * <p>To get the {@link https://www.humus.name/index.php?page=Textures reflection map} to work with a rotatable skybox,
  * the reflected ray in the teapot shader is transformed <br>
- * by the inverse of the view transform rotation matrix.<br>
- * (The view transform is applied to both the skybox and the teapot).</p>
+ * by the {@link invVT inverse of the view transform} rotation matrix.<br>
+ * (The {@link modelview view transform} is applied to both the {@link cubeSB skybox} and the {@link teapot}).</p>
  *
  * <p>The teapot is rotated by an additional modeling transformation.</p>
  *
@@ -25,9 +25,8 @@
  * @see <a href="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=2">sphere</a>
  * @see <a href="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=3">torus</a>
  * @see <a href="/cwdc/13-webgl/extras/skybox-and-env-map.js">source</a>
- * @see <a href="/cwdc/13-webgl/lib/simple-rotator.js">simple-rotator</a>
- * @see <a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">basic-objects-IFS.js</a>
  * @see {@link https://math.hws.edu/eck/cs424/notes2013/19_GLSL.html The Shader Language for WebGL}
+ * @see {@link https://learnopengl.com/Advanced-OpenGL/Cubemaps Cubemaps & Skyboxes}
  * @see {@link https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/ hws code}
  * @see <a href="https://glmatrix.net/docs/index.html">glmatrix</a>
  *       {@link https://cdnjs.com/libraries/gl-matrix/3.4.0/ (CDN)}
