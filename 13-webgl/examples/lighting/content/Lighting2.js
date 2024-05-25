@@ -26,6 +26,7 @@
  * @see <a href="/cwdc/13-webgl/examples/lighting/content/Lighting2a.html">Lambert diffuse model, Phong shading</a>
  * @see <a href="/cwdc/13-webgl/examples/lighting/content/Lighting2b.html">Phong reflection model, Gouraud shading</a>
  * @see <a href="/cwdc/13-webgl/examples/lighting/content/Lighting2c.html">Phong reflection model, Phong shading</a>
+ * @see <img width="512" src="/cwdc/13-webgl/examples/lighting/content/Lighting.png">
  */
 
 "use strict";
