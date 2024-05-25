@@ -1903,6 +1903,13 @@ function startForReal(image) {
   // normals pointing outward
   gl.frontFace(gl.CCW);
 
+  // add some thickness
+  // https://alteredqualia.com/tmp/webgl-linewidth-test/
+  gl.lineWidth(3);
+  console.log(
+    `line width range: ${gl.getParameter(gl.ALIASED_LINE_WIDTH_RANGE)}`,
+  );
+
   rotator = new SimpleRotator(canvas, animate);
   rotator.setViewMatrix(modelMatrix);
   rotator.setViewDistance(0);

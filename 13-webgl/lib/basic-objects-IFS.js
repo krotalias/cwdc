@@ -239,13 +239,20 @@ function uvSphere(radius, slices, stacks) {
   var i, j, u, v, x, y, z;
   var indexV = 0;
   var indexT = 0;
+  var yNorth = true;
   for (i = 0; i <= stacks; i++) {
     v = -Math.PI / 2 + i * dv;
     for (j = 0; j <= slices; j++) {
       u = j * du;
-      x = Math.cos(u) * Math.cos(v);
-      y = Math.sin(u) * Math.cos(v);
-      z = Math.sin(v);
+      if (yNorth) {
+        x = -Math.cos(u) * Math.cos(v);
+        y = Math.sin(v);
+        z = Math.sin(u) * Math.cos(v);
+      } else {
+        x = Math.cos(u) * Math.cos(v);
+        y = Math.sin(u) * Math.cos(v);
+        z = Math.sin(v);
+      }
       vertices[indexV] = radius * x;
       normals[indexV++] = x;
       vertices[indexV] = radius * y;
