@@ -761,8 +761,8 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         models.value = "5";
         theModel = createModel({
-          shape: getModelData(new THREE.SphereGeometry(1, 48, 24)),
-          // shape: uvSphere(1, 48, 24),
+          // shape: getModelData(new THREE.SphereGeometry(1, 48, 24)),
+          shape: uvSphere(1, 48, 24),
         });
         break;
       case "S":
@@ -799,10 +799,13 @@ const handleKeyPress = ((event) => {
       case "c":
         gscale = mscale = 0.75;
         models.value = "3";
+        let r = mercator ? 0.5 : 0.75;
+        let length = 2 * Math.PI * r;
+        let height = mercator ? length : length / 2;
         theModel = createModel({
-          // shape: uvCylinder(1, 2, 30, false, false),
+          // shape: uvCylinder(r, height, 30, false, false),
           shape: getModelData(
-            new THREE.CylinderGeometry(1, 1, 2, 30, 1, false),
+            new THREE.CylinderGeometry(r, r, height, 30, 1, false),
           ),
         });
         break;
