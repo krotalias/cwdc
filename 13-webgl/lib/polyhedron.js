@@ -18,7 +18,7 @@
  *  @since 21/11/2016
  *  @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
  *  @see {@link http://glmatrix.net glMatrix}
- *  @see <a href="/cwdc/13-webgl/lib/tetrahedron-esm.js">source</a>
+ *  @see <a href="/cwdc/13-webgl/lib/polyhedron.js">source</a>
  *  @see <img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
  *  @see <img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
  *  @see <img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
