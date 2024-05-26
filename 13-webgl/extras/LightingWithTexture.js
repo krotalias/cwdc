@@ -802,10 +802,11 @@ const handleKeyPress = ((event) => {
         let r = mercator ? 0.5 : 0.75;
         let length = 2 * Math.PI * r;
         let height = mercator ? length : length / 2;
+        if (noTexture) height -= r;
         theModel = createModel({
           // shape: uvCylinder(r, height, 30, false, false),
           shape: getModelData(
-            new THREE.CylinderGeometry(r, r, height, 30, 1, false),
+            new THREE.CylinderGeometry(r, r, height, 30, 5, false),
           ),
         });
         break;
