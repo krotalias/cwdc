@@ -73,7 +73,6 @@ const limit = {
  * @param {Number} x value.
  * @param {Number} min minimum value.
  * @param {Number} max maximum value.
- * @return {Number} min ≤ x ≤ max.
  * @function
  */
 const clamp = (x, min, max) => Math.min(Math.max(min, x), max);
@@ -82,6 +81,7 @@ const clamp = (x, min, max) => Math.min(Math.max(min, x), max);
  * Convert degrees to radians.
  * @param {Number} deg angle in degrees.
  * @returns {Number} angle in radians.
+ * @return {Number} min ≤ x ≤ max.
  * @function
  */
 const radians = (deg) => (deg * Math.PI) / 180;
@@ -256,7 +256,12 @@ function spherical2Mercator(s, t) {
 }
 
 /**
- * Convert a 2D point in mercator coordinates to a 2D point in spherical coordinates.
+ * Convert a 2D point (x=long, y=lat) in {@link https://en.wikipedia.org/wiki/Mercator_projection mercator coordinates}
+ * to a 2D point (θ, φ) in {@link https://paulbourke.net/geometry/transformationprojection/ spherical coordinates}.
+ * <ul>
+ *    <li>θ =	x + θ<sub>0</sub>, 0 ≤ x + θ<sub>0</sub> ≤ 2π</li>
+ *    <li>φ =	2 atan (exp (y)) - π/2, -π ≤ y ≤ π → -85.051129° ≤ φ ≤ 85.051129° </li>
+ * </ul>
  * @param {Number} x longitude in [0,1].
  * @param {Number} y latitude in [0,1].
  * @returns {Object<x:Number, y:Number>} spherical coordinates in [0,1].
@@ -284,6 +289,20 @@ function setMercatorCoordinates(obj) {
     let { x, y } = spherical2Mercator(s, t);
     obj.vertexMercatorCoords[i] = x;
     obj.vertexMercatorCoords[i + 1] = y;
+  }
+}
+
+/**
+ * Rotate u texture coordinate by a given angle.
+ * @param {modelData} obj model data.
+ * @param {Number} degrees rotation angle.
+ */
+export function rotateUTexture(obj, degrees) {
+  const du = degrees / 360;
+  const uv = obj.vertexTextureCoords;
+  for (let i = 0; i < uv.length; i += 2) {
+    uv[i] += du;
+    if (uv[i] > 1) uv[i] -= 1;
   }
 }
 
@@ -610,11 +629,7 @@ class polyhedron {
     const obj = getModelData(new THREE.DodecahedronGeometry(radius, n));
 
     // rotate texture by 180°
-    const uv = obj.vertexTextureCoords;
-    for (let i = 0; i < uv.length; i += 2) {
-      uv[i] += 0.5;
-      if (uv[i] > 1) uv[i] -= 1;
-    }
+    rotateUTexture(obj, 180);
 
     setMercatorCoordinates(obj);
 
@@ -653,11 +668,7 @@ class polyhedron {
     const obj = getModelData(new THREE.IcosahedronGeometry(radius, n));
 
     // rotate texture by 180°
-    const uv = obj.vertexTextureCoords;
-    for (let i = 0; i < uv.length; i += 2) {
-      uv[i] += 0.5;
-      if (uv[i] > 1) uv[i] -= 1;
-    }
+    rotateUTexture(obj, 180);
 
     setMercatorCoordinates(obj);
 

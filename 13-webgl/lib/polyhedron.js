@@ -299,6 +299,20 @@ export function setMercatorCoordinates(obj) {
 }
 
 /**
+ * Rotate u texture coordinate by a given angle.
+ * @param {modelData} obj model data.
+ * @param {Number} degrees rotation angle.
+ */
+export function rotateUTexture(obj, degrees) {
+  const du = degrees / 360;
+  const uv = obj.vertexTextureCoords;
+  for (let i = 0; i < uv.length; i += 2) {
+    uv[i] += du;
+    if (uv[i] > 1) uv[i] -= 1;
+  }
+}
+
+/**
  * Return an array with n points on a parallel given its
  * {@link https://www.britannica.com/science/latitude latitude}.
  * @param {Number} latitude distance north or south of the Equator: [-90°,90°].
@@ -621,11 +635,7 @@ export class polyhedron {
     const obj = getModelData(new THREE.DodecahedronGeometry(radius, n));
 
     // rotate texture by 180°
-    const uv = obj.vertexTextureCoords;
-    for (let i = 0; i < uv.length; i += 2) {
-      uv[i] += 0.5;
-      if (uv[i] > 1) uv[i] -= 1;
-    }
+    rotateUTexture(obj, 180);
 
     setMercatorCoordinates(obj);
 
@@ -664,11 +674,7 @@ export class polyhedron {
     const obj = getModelData(new THREE.IcosahedronGeometry(radius, n));
 
     // rotate texture by 180°
-    const uv = obj.vertexTextureCoords;
-    for (let i = 0; i < uv.length; i += 2) {
-      uv[i] += 0.5;
-      if (uv[i] > 1) uv[i] -= 1;
-    }
+    rotateUTexture(obj, 180);
 
     setMercatorCoordinates(obj);
 
