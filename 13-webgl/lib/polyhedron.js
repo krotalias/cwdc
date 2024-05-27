@@ -262,7 +262,12 @@ export function spherical2Mercator(s, t) {
 }
 
 /**
- * Convert a 2D point in mercator coordinates to a 2D point in spherical coordinates.
+ * Convert a 2D point (x=long, y=lat) in {@link https://en.wikipedia.org/wiki/Mercator_projection mercator coordinates}
+ * to a 2D point (θ, φ) in {@link https://paulbourke.net/geometry/transformationprojection/ spherical coordinates}.
+ * <ul>
+ *    <li>θ =	x + θ<sub>0</sub>, 0 ≤ x + θ<sub>0</sub> ≤ 2π</li>
+ *    <li>φ =	2 atan (exp (y)) - π/2, -π ≤ y ≤ π → -85.051129° ≤ φ ≤ 85.051129° </li>
+ * </ul>
  * @param {Number} x longitude in [0,1].
  * @param {Number} y latitude in [0,1].
  * @returns {Object<x:Number, y:Number>} spherical coordinates in [0,1].

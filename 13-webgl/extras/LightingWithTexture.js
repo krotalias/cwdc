@@ -63,7 +63,7 @@
  *
  * @author Paulo Roma
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
- * @copyright 2024 Paulo R Cavalcanti.
+ * @copyright © 2024 Paulo R Cavalcanti.
  * @since 30/01/2016
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the fragment shader:
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the vertex shader
