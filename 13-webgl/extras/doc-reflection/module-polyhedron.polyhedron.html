@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: polyhedron</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: polyhedron</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>
+            <span class="ancestors"><a href="module-polyhedron.html">polyhedron</a>.</span>polyhedron<span class="signature">(fix, mercator)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>Class for creating the model of a sphere by continuously subdividing a
+<a href="https://en.wikipedia.org/wiki/Regular_polyhedron">convex regular polyhedron</a>.</p>
+<a href="https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square">Mercator coordinates</a>
+only can be set for tetrahedra and octahedra, because
+<a href="https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry">Three.js polyhedra</a>
+possess their own texture coordinates.</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="polyhedron"><span class="type-signature"></span>new polyhedron<span class="signature">(fix, mercator)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">whether to fix uv coordinates.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mercator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">whether to use mercator coordinates.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line395">line 395</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="fix"><span class="type-signature"></span>fix<span class="type-signature"> :Boolean</span></h4>
+
+
+
+
+<div class="description">
+    Whether texture coordinates should be fixed.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line406">line 406</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="index"><span class="type-signature"></span>index<span class="type-signature"> :Number</span></h4>
+
+
+
+
+<div class="description">
+    Number of vertices.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line427">line 427</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="mercCoords"><span class="type-signature"></span>mercCoords<span class="type-signature"> :Array.&lt;Number></span></h4>
+
+
+
+
+<div class="description">
+    Vertex mercator texture coordinate array.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;Number></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line457">line 457</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="mercator"><span class="type-signature"></span>mercator<span class="type-signature"> :Boolean</span></h4>
+
+
+
+
+<div class="description">
+    UV coordinates type: mercator (true) or equirectangular (false).
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line411">line 411</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="name"><span class="type-signature"></span>name<span class="type-signature"> :String</span></h4>
+
+
+
+
+<div class="description">
+    Name (type) of the subdivided polyhedron.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">String</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line416">line 416</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="normalsArray"><span class="type-signature"></span>normalsArray<span class="type-signature"> :Array.&lt;Number></span></h4>
+
+
+
+
+<div class="description">
+    Vertex normal array.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;Number></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line439">line 439</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="pointsArray"><span class="type-signature"></span>pointsArray<span class="type-signature"> :Array.&lt;Number></span></h4>
+
+
+
+
+<div class="description">
+    Vertex coordinate array.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;Number></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line433">line 433</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="pointsIndices"><span class="type-signature"></span>pointsIndices<span class="type-signature"> :Array.&lt;Number></span></h4>
+
+
+
+
+<div class="description">
+    Index array (triangular face indices).
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;Number></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line445">line 445</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="texCoords"><span class="type-signature"></span>texCoords<span class="type-signature"> :Array.&lt;Number></span></h4>
+
+
+
+
+<div class="description">
+    Vertex texture coordinate array.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;Number></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line451">line 451</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="divideTriangle"><span class="type-signature"></span>divideTriangle<span class="signature">(a, b, c, count)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Recursively subdivides a triangle.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">vec3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">first vertex.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">vec3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">second vertex.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>c</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">vec3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">third vertex.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">subdivision counter.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line505">line 505</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="dodecahedron"><span class="type-signature"></span>dodecahedron<span class="signature">(poly)</span><span class="type-signature"> &rarr; {<a href="global.html#modelData">modelData</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Subdivides an initial
+<a href="https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry">dodecahedron</a>.</p>
+<p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array">Uint16Array</a></p>
+Generates:
+<ul>
+ <li> 36 * 4<sup>n</sup> triangles</li>
+ <li> 36 * 3 * 4<sup>n</sup> vertices</li>
+ <li> maximum level = 4 (36864 triangles)</li>
+ <li> 36 * 3 * 4**5 = 110592 vertices → buffer overflow</li>
+</ul>
+Note: three.js level of detail generates much less vertices than the values above:
+<ul>
+ <li> 36(n² + 2n + 1) </li>
+ <li> n = 0: 36 triangles, 20 vertices</li>
+ <li> n = 1: 144 triangles, 74 vertices</li>
+ <li> n = 2: 324 triangles, 164 vertices</li>
+ <li> n = 3: 576 triangles, 290 vertices</li>
+ <li> n = 4: 900 triangles, 452 vertices</li>
+ <li> n = 5: 1296 triangles, 650 vertices</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">dodecahedron.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.radius</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">radius of the dodecahedron.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    limit.dod
+                
+                </td>
+            
+
+            <td class="description last">number of subdivisions.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line633">line 633</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#modelData">modelData</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="fixUVCoordinates"><span class="type-signature"></span>fixUVCoordinates<span class="signature">(sc)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Equirectangular mapping (also called latitude/longitude or spherical coordinates) is non-linear.<br>
+That means normal UV mapping can only approximate it - quite badly at the poles, in fact.</p>
+
+<p>To fix this, we can calculate our own texture coordinate per fragment, <br>
+by using the direction to the fragment being drawn, resulting in a perfect match.</p>
+
+As a last resource, we can try to adjust uv texture coordinates,
+when two vertices of a triangle are on one side, <br>
+and the third on the other side of the discontinuity created,
+when the 0 coordinate is stitched together with the 1 coordinate.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object.&lt;{s:Number, t:Number}>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">triangle given by its spherical coordinates.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line699">line 699</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://gamedev.stackexchange.com/questions/148167/correcting-projection-of-360-content-onto-a-sphere-distortion-at-the-poles/148178#148178">Per-Fragment Equirectangular</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="icosahedron"><span class="type-signature"></span>icosahedron<span class="signature">(poly)</span><span class="type-signature"> &rarr; {<a href="global.html#modelData">modelData</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Subdivides an initial
+<a href="https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry">icosahedron</a>.</p>
+<p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array">Uint16Array</a></p>
+Generates:
+<ul>
+ <li> 20 * 4<sup>n</sup> triangles</li>
+ <li> 20 * 3 * 4<sup>n</sup> vertices</li>
+ <li> maximum level = 5 (20480 triangles)</li>
+ <li> 20 * 3 * 4**6 = 245760 vertices → buffer overflow</li>
+</ul>
+Note: three.js level of detail generates much less vertices than the values above:
+<ul>
+ <li> 20(n² + 2n + 1) </li>
+ <li> n = 0: 20 triangles, 12 vertices</li>
+ <li> n = 1: 80 triangles, 42 vertices</li>
+ <li> n = 2: 180 triangles, 92 vertices</li>
+ <li> n = 3: 320 triangles, 162 vertices</li>
+ <li> n = 4: 500 triangles, 252 vertices</li>
+ <li> n = 5: 720 triangles, 362 vertices</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">icosahedron.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.radius</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">radius of the icosahedron.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    limit.ico
+                
+                </td>
+            
+
+            <td class="description last">number of subdivisions.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line672">line 672</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#modelData">modelData</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="octahedron"><span class="type-signature"></span>octahedron<span class="signature">(poly)</span><span class="type-signature"> &rarr; {<a href="global.html#modelData">modelData</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Subdivides an initial octahedron.</p>
+<p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array">Uint16Array</a></p>
+Generates:
+<ul>
+ <li> 8 * 4<sup>n</sup> triangles</li>
+ <li> 8 * 3 * 4<sup>n</sup> vertices</li>
+ <li> maximum level = 5 (8192 triangles)</li>
+ <li> 8 * 3 * 4**6 = 98304 vertices → buffer overflow</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">octahedron.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.vtx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;vec3></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    initialOcta
+                
+                </td>
+            
+
+            <td class="description last">vertices of initial octahedron.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    limit.oct
+                
+                </td>
+            
+
+            <td class="description last">number of subdivisions.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line581">line 581</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#modelData">modelData</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="resetBuffers"><span class="type-signature"></span>resetBuffers<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Start with empty buffers.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line422">line 422</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="tetrahedron"><span class="type-signature"></span>tetrahedron<span class="signature">(poly)</span><span class="type-signature"> &rarr; {<a href="global.html#modelData">modelData</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Subdivides an initial tetrahedron.</p>
+<p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array">Uint16Array</a></p>
+Generates:
+<ul>
+ <li> 4 * 4<sup>n</sup> triangles</li>
+ <li> 4 * 3 * 4<sup>n</sup> vertices</li>
+ <li> maximum level = 6 (16384 triangles)</li>
+ <li> 4 * 3 * 4**7 = 196608 vertices → buffer overflow</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">tetrahedron.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.vtx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;vec3></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    initialTet
+                
+                </td>
+            
+
+            <td class="description last">vertices of initial tetrahedron.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>poly.n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    limit.tet
+                
+                </td>
+            
+
+            <td class="description last">number of subdivisions.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line544">line 544</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#modelData">modelData</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="triangle"><span class="type-signature"></span>triangle<span class="signature">(a, b, c)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Adds a new triangle.</p>
+Mercator texture coordinates are also set.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">vec3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">first vertex.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">vec3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">second vertex.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>c</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">vec3</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">third vertex.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line467">line 467</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="module-polyhedron.polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#arcBall">arcBall</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeMap">cubeMap</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadTexture">loadTexture</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#model">model</a></li><li><a href="global.html#modelViewMatrix">modelViewMatrix</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#program">program</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotAxis">rotAxis</a></li><li><a href="global.html#rotating">rotating</a></li><li><a href="global.html#rotationMatrixToEulerAngles">rotationMatrixToEulerAngles</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 28 2024 11:14:50 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -54,6 +54,20 @@
  *   <li> sample texture at (x, y)</li>
  * </ul>
  *
+ * <p><u>As a final remark</u>, I thought it would be easier to deal with map images as textures, but I was mistaken. I tried, as long as I could,
+ * not to rewrite third party code. Unfortunately, this was impossible. The main issue was that the prime meridian is
+ * at the center of a map image, and not at its border, which corresponds to its antimeridian. </p>
+ *
+ * <p>Initially, I used the {@link https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js basic-objects-IFS} package,
+ * but the models had their z axis pointing up, as the {@link https://en.wikipedia.org/wiki/Zenith zenith},
+ * but I wanted the y axis being the north pole (up).
+ * Therefore, I switched to {@link getModelData THREE.js}, and almost everything
+ * worked just fine, but a sphere created by subdividing a {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedron}
+ * had their {@link module:polyhedron.rotateUTexture texture coordinates} rotated by 180°,
+ * and a cylinder or a cone, by 90°.
+ * As a consequence, I decided to adapt basic-objects-IFS to my needs, by introducing a global hook, {@link yNorth},
+ * and {@link setNorth rotating} the models accordling.</p>
+ *
  * <b>Homework</b>: The application selects a random city and displays its location (when its name is checked in the interface),
  * as the intersection of its line of latitude (parallel) and line of longitude (meridian) on the model surface (preferably a map onto a sphere).
  * Your task is (using the mouse or any pointer device) to pick a point in the texture image and display its location on the map.
@@ -104,7 +118,7 @@
  * @see <figure>
  *      <img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
  *      <img src="../images/GB.png" height="340" title="GhostBusters Seam">
- *      <figcaption style="font-size: 200%">{@link polyhedron#tetrahedron Subdivision Sphere} Seam -
+ *      <figcaption style="font-size: 200%">{@link module:polyhedron.polyhedron#tetrahedron Subdivision Sphere} Seam -
  *        <a href="https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf">Mipmapping Artifact</a></figcaption>
  *      </figure>
  * @see <figure>
