@@ -41,6 +41,31 @@
  * @see {@link https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js hws source}
  */
 
+"use strict";
+
+/**
+ * Sets the North to be the y axis,
+ * so the z axis points outside the screen.
+ * @type {Boolean}
+ */
+let yNorth = true;
+
+/**
+ * Rotate the given model so the y axis points North.
+ * @param {Float32Array} vertices vertex array.
+ * @param {Float32Array} normals normal array.
+ */
+function setNorth(vertices, normals) {
+  if (yNorth) {
+    for (let i = 0; i < vertices.length; i += 3) {
+      vertices[i] = -vertices[i]; // x
+      [vertices[i + 1], vertices[i + 2]] = [vertices[i + 2], vertices[i + 1]];
+      normals[i] = -normals[i]; // x
+      [normals[i + 1], normals[i + 2]] = [normals[i + 2], normals[i + 1]];
+    }
+  }
+}
+
 /**
  * An object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
@@ -133,7 +158,7 @@ function cube(side) {
  * @param {Number} innerRadius the radius of the hole in the radius; a value of
  *    zero will give a disk rather than a ring.  <br>
  *    If not present, the default value is 0.25.
- * @param {Number} outerRadius the radius of the ring, from the center to teh
+ * @param {Number} outerRadius the radius of the ring, from the center to the
  *    outer edge.  Must be greater than innerRadius.  <br>
  *    If not provided, the default value is 2*innerRadius or is 0.5 if innerRadius is 0.
  * @param {Number} slices the number of radial subdivisions in the circular approximation
@@ -155,6 +180,7 @@ function ring(innerRadius, outerRadius, slices) {
   var k = 0;
   var t = 0;
   var n = 0;
+  var s, c;
   if (innerRadius == 0) {
     for (i = 0; i < slices; i++) {
       c = Math.cos(d * i);
@@ -239,7 +265,6 @@ function uvSphere(radius, slices, stacks) {
   var i, j, u, v, x, y, z;
   var indexV = 0;
   var indexT = 0;
-  var yNorth = true;
   for (i = 0; i <= stacks; i++) {
     v = -Math.PI / 2 + i * dv;
     for (j = 0; j <= slices; j++) {
@@ -484,6 +509,8 @@ function uvCylinder(radius, height, slices, noTop, noBottom) {
       indices[k++] = startIndex + i + 2;
     }
   }
+  setNorth(vertices, normals);
+
   return {
     vertexPositions: vertices,
     vertexNormals: normals,
@@ -605,6 +632,7 @@ function uvCone(radius, height, slices, noBottom) {
       indices[k++] = startIndex + i + 2;
     }
   }
+  setNorth(vertices, normals);
   return {
     vertexPositions: vertices,
     vertexNormals: normals,

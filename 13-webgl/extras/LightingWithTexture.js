@@ -804,18 +804,18 @@ const handleKeyPress = ((event) => {
         let height = mercator ? length : length / 2;
         if (noTexture) height -= r;
         theModel = createModel({
-          // shape: uvCylinder(r, height, 30, false, false),
-          shape: getModelData(
-            new THREE.CylinderGeometry(r, r, height, 30, 5, false),
-          ),
+          shape: uvCylinder(r, height, 30, false, false),
+          //shape: getModelData(
+          //  new THREE.CylinderGeometry(r, r, height, 30, 5, false),
+          //),
         });
         break;
       case "C":
         gscale = mscale = 0.8;
         models.value = "1";
         theModel = createModel({
-          // shape: uvCone(1, 2, 30, false),
-          shape: getModelData(new THREE.ConeGeometry(1, 2, 30, 5, false)),
+          shape: uvCone(1, 2, 30, false),
+          // shape: getModelData(new THREE.ConeGeometry(1, 2, 30, 5, false)),
         });
         break;
       case "v":
