@@ -536,7 +536,10 @@ function uvCone(radius, height, slices, noBottom) {
   radius = radius || 0.5;
   height = height || 2 * radius;
   slices = slices || 32;
-  var fractions = [0, 0.5, 0.75, 0.875, 0.9375];
+  // improves the interpolation - roma
+  var cuts = 16;
+  var fractions = [...Array(cuts).keys()].map((i) => i / cuts);
+  // var fractions = [0, 4/16, 8/16, 12/16, 14/16, 15/16];
   var vertexCount = fractions.length * (slices + 1) + slices;
   if (!noBottom) vertexCount += slices + 2;
   var triangleCount = (fractions.length - 1) * slices * 2 + slices;

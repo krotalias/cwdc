@@ -68,7 +68,7 @@
  * As a consequence, I decided to adapt basic-objects-IFS to my needs, by introducing a global hook, {@link yNorth},
  * and {@link setNorth rotating} the models accordling.</p>
  *
- * <b>Homework</b>: The application selects a random city and displays its location (when its name is checked in the interface),
+ * <b>Homework</b>: The application selects a random {@link gpsCoordinates city} and displays its location (when its name is checked in the interface),
  * as the intersection of its line of latitude (parallel) and line of longitude (meridian) on the model surface (preferably a map onto a sphere).
  * Your task is (using the mouse or any pointer device) to pick a point in the texture image and display its location on the map.
  *
