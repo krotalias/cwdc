@@ -1678,8 +1678,8 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
 
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
 
-  if (name === "cylinder" || name === "cone") {
-    rotateUTexture(shape, 450); // 360 + 90
+  if (["cylinder", "cone", "capsule"].includes(name)) {
+    rotateUTexture(shape, 90);
   }
 
   if (!noTexture && !shape.vertexMercatorCoords) {
