@@ -823,7 +823,7 @@ const handleKeyPress = ((event) => {
           shape: hws
             ? uvCylinder(r, height, 30, false, false)
             : getModelData(
-                new THREE.CylinderGeometry(r, r, height, 30, 5, false),
+                new THREE.CylinderGeometry(r, r, height, 30, 1, false),
               ),
         });
         break;
