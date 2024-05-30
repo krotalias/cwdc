@@ -688,6 +688,7 @@ const handleKeyPress = ((event) => {
   let zoomfactor = 0.7;
   let gscale = 1;
   let subPoly = 0;
+  let hws = true;
   const polyName = {
     0: "dodecahedron",
     1: "icosahedron",
@@ -775,8 +776,9 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         models.value = "5";
         theModel = createModel({
-          // shape: getModelData(new THREE.SphereGeometry(1, 48, 24)),
-          shape: uvSphere(1, 48, 24),
+          shape: hws
+            ? uvSphere(1, 48, 24)
+            : getModelData(new THREE.SphereGeometry(1, 48, 24)),
         });
         break;
       case "S":
@@ -818,18 +820,20 @@ const handleKeyPress = ((event) => {
         let height = mercator ? length : length / 2;
         if (noTexture) height -= r;
         theModel = createModel({
-          shape: uvCylinder(r, height, 30, false, false),
-          //shape: getModelData(
-          //  new THREE.CylinderGeometry(r, r, height, 30, 5, false),
-          //),
+          shape: hws
+            ? uvCylinder(r, height, 30, false, false)
+            : getModelData(
+                new THREE.CylinderGeometry(r, r, height, 30, 5, false),
+              ),
         });
         break;
       case "C":
         gscale = mscale = 0.8;
         models.value = "1";
         theModel = createModel({
-          shape: uvCone(1, 2, 30, false),
-          // shape: getModelData(new THREE.ConeGeometry(1, 2, 30, 5, false)),
+          shape: hws
+            ? uvCone(1, 2, 30, false)
+            : getModelData(new THREE.ConeGeometry(1, 2, 30, 5, false)),
         });
         break;
       case "v":
@@ -944,6 +948,8 @@ const handleKeyPress = ((event) => {
         mscale /= zoomfactor;
         mscale = Math.min(gscale * 3, mscale);
         break;
+      case "Meta":
+        hws = !hws;
       default:
         return;
     }
