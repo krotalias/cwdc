@@ -143,6 +143,7 @@ import {
   pointsOnParallel,
   pointsOnMeridian,
   setMercatorCoordinates,
+  rotateUTexture,
   polyhedron,
 } from "/cwdc/13-webgl/lib/polyhedron.js";
 import {
@@ -825,6 +826,7 @@ const handleKeyPress = ((event) => {
             : getModelData(
                 new THREE.CylinderGeometry(r, r, height, 30, 1, false),
               ),
+          name: !hws ? "cylinder" : "",
         });
         break;
       case "C":
@@ -834,6 +836,7 @@ const handleKeyPress = ((event) => {
           shape: hws
             ? uvCone(1, 2, 30, false)
             : getModelData(new THREE.ConeGeometry(1, 2, 30, 5, false)),
+          name: !hws ? "cone" : "",
         });
         break;
       case "v":
@@ -1620,6 +1623,7 @@ window.addEventListener("load", (event) => {
  * @param {Object} model model descriptor.
  * @property {modelData} model.shape a <a href="https://en.wikipedia.org/wiki/Boundary_representation">BREP</a> model
  *                    given as an <a href="https://math.hws.edu/graphicsbook/c3/s4.html">IFS</a>.
+ * @property {String} model.name="" model name.
  * @property {Number | null} model.chi=2 model <a href="https://en.wikipedia.org/wiki/Euler_characteristic">Euler Characteristic</a>.
  * @property {Number} model.poly=0 initial polyhedron for subdivision:<br>
  *     0 - dodecahedron, <br>
@@ -1634,7 +1638,7 @@ window.addEventListener("load", (event) => {
  * @see {@link https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole Euler characteristic of a polygon with a hole}
  *
  */
-function createModel({ shape, chi = 2, poly = 0, fix_uv = false }) {
+function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
   if (typeof shape === "undefined") {
     setUVfix(true);
     if (poly === 0) {
@@ -1673,6 +1677,10 @@ function createModel({ shape, chi = 2, poly = 0, fix_uv = false }) {
   gl.bufferData(gl.ARRAY_BUFFER, shape.vertexNormals, gl.STATIC_DRAW);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+
+  if (name === "cylinder" || name === "cone") {
+    rotateUTexture(shape, 450); // 360 + 90
+  }
 
   if (!noTexture && !shape.vertexMercatorCoords) {
     setMercatorCoordinates(shape);
