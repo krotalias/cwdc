@@ -32,7 +32,7 @@
  * Summary.
  * &lt;p>Lighting, combined with {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}.&lt;/p>
  *
- * &lt;p>&lt;b>For Educational Purposes Only.&lt;/b>&lt;/p>
+ * &lt;p>&lt;b>For educational purposes only.&lt;/b>&lt;/p>
  * &lt;p>This is just a &lt;b>demo&lt;/b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
  * which became overly complicated, and it is similar to &lt;a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2&lt;/a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
@@ -40,42 +40,42 @@
  * that are passed to the fragment shader as
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniform uniforms}.&lt;p>
  *
- * Texture coordinates can be set in each model or be sampled at each pixel in the fragment shader.
+ * Texture coordinates can be set in each model or sampled at each pixel in the fragment shader.
  * We can also approximate a sphere by subdividing a
- * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}, and solve Mipmapping artifact issues,
+ * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron} and solving Mipmapping artifact issues
  * by using {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf Tarini's} method, in this case.
  * These {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b artifacts}
- * show up due to the discontinuity in the seam, when crossing the line with 0 radians on one side and to 2π on the other.
+ * show up due to the discontinuity in the seam when crossing the line with 0 radians on one side and 2π on the other.
  * It is possible that some triangles have edges that cross this line, causing the wrong mipmap level 0 to be chosen.
  *
- * &lt;p>Edit the {@link lightPropElements light}/{@link matPropElements material} matrices in the global variables to experiment.
+ * &lt;p>Edit the {@link lightPropElements light} and {@link matPropElements material} matrices in the global variables to experiment.
  * Edit {@link startForReal} to choose a model and select
  * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
  * In fact, {@link https://threejs.org Three.js} only uses face normals for
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedra}.&lt;p>
  *
- * &lt;p>To lay a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections,
- * or 1:1 (squared) for Mercator projections. Finding high resolution, good quality,
+ * &lt;p>To lay a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections
+ * or 1:1 (squared) for Mercator projections. Finding high-resolution, good-quality,
  * and free {@link https://www.axismaps.com/guide/map-projections cartographic maps}
- * is very, really very difficult.&lt;/p>
+ * is really, really difficult.&lt;/p>
  *
  * &lt;p>The initial position on the screen takes into account the {@link https://science.nasa.gov/science-research/earth-science/milankovitch-orbital-cycles-and-their-role-in-earths-climate/ obliquity}
  * of the earth ({@link viewMatrix 23.44°}), and the {@link https://en.wikipedia.org/wiki/Phong_reflection_model Phong highlight}
- * projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line},
+ * projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line}
  * if the user has not interacted using the {@link http://courses.cms.caltech.edu/cs171/assignments/hw3/hw3-notes/notes-hw3.html#NotesSection2 arcball}.
  * If {@link https://www.php.net PHP} is running on the {@link https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server HTTP server},
  * then any image file in directory &lt;a href="/cwdc/13-webgl/extras/textures">textures&lt;/a>
- * will be available in the {@link readFileNames menu}. Otherwise, sorry for that {@link https://pages.github.com GitHub pages},
- * only images listed in the html
+ * will be available in the {@link readFileNames menu}. Otherwise, sorry {@link https://pages.github.com GitHub pages},
+ * only the images listed in the html
  * file.&lt;p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
- * can be set in a {@link createModel model} directly, or be set in
+ * can be set in a {@link createModel model} directly or in
  * the &lt;a href="../../showCode.php?f=extras/LightingWithTexture">shader&lt;/a>
  * that samples texture coordinates for each pixel.&lt;/br>
  *
- * Since a unit sphere fits in WebGL {@link https://carmencincotti.com/2022-11-28/from-clip-space-to-ndc-space/ NDC space},
- * then, for each fragment, one can go from:
+ * Since a unit sphere fits in the WebGL {@link https://carmencincotti.com/2022-11-28/from-clip-space-to-ndc-space/ NDC space},
+ * it is possible to go into each fragment from:
  * &lt;ul>
  *   &lt;li> cartesian → spherical (equirectangular) → Mercator &lt;/li>
  *   &lt;li> (x, y, z) → (long, lat) → (x, y) &lt;/li>
@@ -83,24 +83,24 @@
  * &lt;/ul>
  *
  * &lt;p>&lt;u>As a final remark&lt;/u>, I thought it would be easier to deal with map images as textures, but I was mistaken. I tried, as long as I could,
- * not to rewrite third party code. Unfortunately, this was impossible. The main issue was that the prime meridian is
- * at the center of a map image, and not at its border, which corresponds to its antimeridian. &lt;/p>
+ * not to rewrite third-party code. Unfortunately, this was impossible. The main issue was that the prime meridian is
+ * at the center of a map image and not at its border, which corresponds to its antimeridian. &lt;/p>
  *
  * &lt;p>Initially, I used the {@link https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js basic-objects-IFS} package,
- * but the models had their z axis pointing up, as the {@link https://en.wikipedia.org/wiki/Zenith zenith},
- * but I wanted the y axis being the north pole (up).
- * Therefore, I switched to {@link getModelData THREE.js}, and almost everything
+ * but the models had their z axis pointing up as the {@link https://en.wikipedia.org/wiki/Zenith zenith},
+ * but I wanted the y axis to be the north pole (up).
+ * Therefore, I switched to {@link getModelData Three.js}, and almost everything
  * worked just fine, but a sphere created by subdividing a {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedron}
- * had their {@link module:polyhedron.rotateUTexture texture coordinates} rotated by 180°,
- * and a cylinder or a cone, by 90°.
- * As a consequence, I decided to adapt basic-objects-IFS to my needs, by introducing a global hook, {@link yNorth},
- * and {@link setNorth rotating} the models accordling.&lt;/p>
+ * had its {@link module:polyhedron.rotateUTexture texture coordinates} rotated by 180°
+ * and a cylinder or cone by 90°.
+ * As a consequence, I decided to adapt basic-objects-IFS to my needs by introducing a global hook, {@link yNorth},
+ * and {@link setNorth rotating} the models accordingly.&lt;/p>
  *
- * &lt;b>Homework&lt;/b>: The application selects a random {@link gpsCoordinates city} and displays its location (when its name is checked in the interface),
+ * &lt;b>Homework&lt;/b>: The application selects a random {@link gpsCoordinates city} and displays its location (when its name is checked in the interface)
  * as the intersection of its line of latitude (parallel) and line of longitude (meridian) on the model surface (preferably a map onto a sphere).
  * Your task is (using the mouse or any pointer device) to pick a point in the texture image and display its location on the map.
  *
- * &lt;p>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case,
+ * &lt;p>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case
  * by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.&lt;/p>
  *
  * @author Paulo Roma
@@ -645,7 +645,7 @@ const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
  * &lt;p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.&lt;/p>
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise&lt;Array&lt;String>>}
- * @see &lt;a href="/cwdc/6-php/readFiles_.php">files&lt;/a>
+ * @see &lt;a href="/cwdc/6-php/readFiles.php">files&lt;/a>
  * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
  * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
@@ -2168,7 +2168,7 @@ const animate = (() => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri May 31 2024 09:58:17 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri May 31 2024 18:44:15 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
