@@ -811,6 +811,7 @@ const handleKeyPress = ((event) => {
         models.value = "0";
         theModel = createModel({
           shape: getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
+          name: "capsule",
         });
         break;
       case "c":
@@ -952,6 +953,7 @@ const handleKeyPress = ((event) => {
         mscale = Math.min(gscale * 3, mscale);
         break;
       case "Meta":
+      case "Alt":
         hws = !hws;
       default:
         return;
