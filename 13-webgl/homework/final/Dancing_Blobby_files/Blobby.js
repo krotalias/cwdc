@@ -22,8 +22,8 @@
  *
  * @author Flavia Cavalcanti
  * @since December 2015
- * @license LGPL.
- *
+ * @license {@link https://www.gnu.org/licenses/lgpl-3.0.en.html LGPL}.
+ * @copyright © 2015-2024 Flavia R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/homework/final/Dancing_Blobby.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/final/Dancing_Blobby_files/Blobby.js">source</a>
  * @see <a href="/cwdc/13-webgl/homework/presentation.pdf">Animations in WebGL</a>
@@ -39,7 +39,9 @@
 /**
  * Three.js module.
  * @external THREE
- * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
+ * @see {@link https://discoverthreejs.com DISCOVER three.js}
+ * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
  */
 
 /**

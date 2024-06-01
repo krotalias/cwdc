@@ -21,7 +21,8 @@
  *
  * @author Flavia Roma Cavalcanti
  * @since 07/11/2015.
- * @license LGPL.
+ * @license {@link https://www.gnu.org/licenses/lgpl-3.0.en.html LGPL}.
+ * @copyright © 2015-2024 Flavia R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/homework/final/blobby.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/final/blobby.js">source</a>
  * @see <a href="/cwdc/13-webgl/homework/presentation.pdf">Animations in WebGL</a>
@@ -37,7 +38,9 @@
 /**
  * Three.js module.
  * @external THREE
- * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
+ * @see {@link https://discoverthreejs.com DISCOVER three.js}
+ * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
  */
 
 /**
@@ -223,6 +226,7 @@ const vecLen = (v) =>
  * @param {Number} fov field of view angle in degrees.
  * @param {Number} d view distance.
  * @returns {Number} window height.
+ * @see {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix.html The Perspective and Orthographic Projection Matrix}
  */
 const wheight = (fov, d) => Math.tan((fov * Math.PI) / 360) * d;
 
