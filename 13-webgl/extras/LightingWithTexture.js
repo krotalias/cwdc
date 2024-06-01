@@ -18,33 +18,32 @@
  * by using {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf Tarini's} method, in this case.
  * These {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b artifacts}
  * show up due to the discontinuity in the seam when crossing the line with 0 radians on one side and 2π on the other.
- * It is possible that some triangles have edges that cross this line, causing the wrong mipmap level 0 to be chosen.
+ * Some triangles may have edges that cross this line, causing the wrong mipmap level 0 to be chosen.
  *
  * <p>Edit the {@link lightPropElements light} and {@link matPropElements material} matrices in the global variables to experiment.
  * Edit {@link startForReal} to choose a model and select
  * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
- * In fact, {@link https://threejs.org Three.js} only uses face normals for
- * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedra}.<p>
+ * {@link https://threejs.org Three.js} only uses face normals for
+ * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedra}, indeed.<p>
  *
  * <p>To lay a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections
  * or 1:1 (squared) for Mercator projections. Finding high-resolution, good-quality,
  * and free {@link https://www.axismaps.com/guide/map-projections cartographic maps}
- * is really, really difficult.</p>
+ * is really difficult.</p>
  *
  * <p>The initial position on the screen takes into account the {@link https://science.nasa.gov/science-research/earth-science/milankovitch-orbital-cycles-and-their-role-in-earths-climate/ obliquity}
  * of the earth ({@link viewMatrix 23.44°}), and the {@link https://en.wikipedia.org/wiki/Phong_reflection_model Phong highlight}
  * projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line}
- * if the user has not interacted using the {@link http://courses.cms.caltech.edu/cs171/assignments/hw3/hw3-notes/notes-hw3.html#NotesSection2 arcball}.
+ * if the user has not interacted using the {@link http://courses.cms.caltech.edu/cs171/assignments/hw3/hw3-notes/notes-hw3.html#NotesSection2 Arcball}.
  * If {@link https://www.php.net PHP} is running on the {@link https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server HTTP server},
  * then any image file in directory <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * will be available in the {@link readFileNames menu}. Otherwise, sorry {@link https://pages.github.com GitHub pages},
- * only the images listed in the html
- * file.<p>
+ * only the images listed in the HTML file.<p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
  * can be set in a {@link createModel model} directly or in
  * the <a href="../../showCode.php?f=extras/LightingWithTexture">shader</a>
- * that samples texture coordinates for each pixel.</br>
+ * that samples texture coordinates for each pixel.
  *
  * Since a unit sphere fits in the WebGL {@link https://carmencincotti.com/2022-11-28/from-clip-space-to-ndc-space/ NDC space},
  * it is possible to go into each fragment from:
@@ -55,12 +54,14 @@
  * </ul>
  *
  * <p><u>As a final remark</u>, I thought it would be easier to deal with map images as textures, but I was mistaken. I tried, as long as I could,
- * not to rewrite third-party code. Unfortunately, this was impossible. The main issue was that the prime meridian is
- * at the center of a map image and not at its border, which corresponds to its antimeridian. </p>
+ * not to rewrite third-party code. Unfortunately, this was impossible. The main issue was that the
+ * {@link https://en.wikipedia.org/wiki/Prime_meridian prime meridian} is
+ * at the center of a map image and not at its border, which corresponds to
+ * its {@link https://en.wikipedia.org/wiki/180th_meridian antimeridian}. </p>
  *
  * <p>Initially, I used the {@link https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js basic-objects-IFS} package,
- * but the models had their z axis pointing up as the {@link https://en.wikipedia.org/wiki/Zenith zenith},
- * but I wanted the y axis to be the north pole (up).
+ * but the models had their z-axis pointing up as the {@link https://en.wikipedia.org/wiki/Zenith zenith},
+ * but I wanted the y-axis to be the north pole (up).
  * Therefore, I switched to {@link getModelData Three.js}, and almost everything
  * worked just fine, but a sphere created by subdividing a {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedron}
  * had its {@link module:polyhedron.rotateUTexture texture coordinates} rotated by 180°
@@ -617,7 +618,7 @@ const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
  * <p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise<Array<String>>}
- * @see <a href="/cwdc/6-php/readFiles.php">files</a>
+ * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
  * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
  * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
