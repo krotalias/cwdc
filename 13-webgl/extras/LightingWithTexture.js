@@ -826,9 +826,16 @@ const handleKeyPress = ((event) => {
           shape: hws
             ? uvCylinder(r, height, 30, false, false)
             : getModelData(
-                new THREE.CylinderGeometry(r, r, height, 30, 1, false),
+                new THREE.CylinderGeometry(
+                  r,
+                  r,
+                  height,
+                  30,
+                  1,
+                  false,
+                  -Math.PI / 2,
+                ),
               ),
-          name: !hws ? "cylinder" : "",
         });
         break;
       case "C":
@@ -837,8 +844,9 @@ const handleKeyPress = ((event) => {
         theModel = createModel({
           shape: hws
             ? uvCone(1, 2, 30, false)
-            : getModelData(new THREE.ConeGeometry(1, 2, 30, 5, false)),
-          name: !hws ? "cone" : "",
+            : getModelData(
+                new THREE.ConeGeometry(1, 2, 30, 5, false, -Math.PI / 2),
+              ),
         });
         break;
       case "v":
@@ -1681,7 +1689,7 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
 
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
 
-  if (["cylinder", "cone", "capsule"].includes(name)) {
+  if (["capsule"].includes(name)) {
     rotateUTexture(shape, 90);
   }
 
