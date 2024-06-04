@@ -383,7 +383,7 @@ function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
  * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}.</p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square Mercator coordinates}
- * are also set and
+ * are also created and returned as a new {@link modelData}'s property, vertexMercatorCoords, and
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Three.js polyhedra}
  * texture coordinates should be rotated by 180°, because their original coordinates
  * reversed the places of the prime and anti meridians.
@@ -393,19 +393,13 @@ class polyhedron {
   /**
    * @constructs polyhedron
    * @param {Boolean} fix whether to fix uv coordinates.
-   * @param {Boolean} mercator whether to use mercator coordinates.
    */
-  constructor(fix = true, mercator = false) {
+  constructor(fix = true) {
     /**
      * Whether texture coordinates should be fixed.
      * @type {Boolean}
      */
     this.fix = fix;
-    /**
-     * UV coordinates type: mercator (true) or equirectangular (false).
-     * @type {Boolean}
-     */
-    this.mercator = mercator;
     /**
      * Name (type) of the subdivided polyhedron.
      * @type {String}

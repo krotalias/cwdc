@@ -1655,25 +1655,25 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
   if (typeof shape === "undefined") {
     setUVfix(true);
     if (poly === 0) {
-      shape = new polyhedron(fix_uv, mercator).dodecahedron({
+      shape = new polyhedron(fix_uv).dodecahedron({
         n: numSubdivisions,
       });
       shape.nfaces = 36;
       maxSubdivisions = limit.dod;
     } else if (poly === 2) {
-      shape = new polyhedron(fix_uv, mercator).octahedron({
+      shape = new polyhedron(fix_uv).octahedron({
         n: numSubdivisions,
       });
       shape.nfaces = 8;
       maxSubdivisions = limit.oct;
     } else if (poly === 3) {
-      shape = new polyhedron(fix_uv, mercator).tetrahedron({
+      shape = new polyhedron(fix_uv).tetrahedron({
         n: numSubdivisions,
       });
       shape.nfaces = 4;
       maxSubdivisions = limit.tet;
     } else {
-      shape = new polyhedron(fix_uv, mercator).icosahedron({
+      shape = new polyhedron(fix_uv).icosahedron({
         n: numSubdivisions,
       });
       shape.nfaces = 20;
