@@ -105,6 +105,8 @@
  *      <figcaption style="font-size: 200%">
  *      <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">Equirectangular projection</a>
  *      </figcaption>
+ *      </figure>
+ * @see <figure>
  *      <img src="../images/mercator-projection-world-map-political.png" height="340" title="mercator world map">
  *      <img src="../images/Globe-Earth-land-distortion-projection-Mercator-latitudes.jpg" height="340" title="mercator projection">
  *      <figcaption style="font-size: 200%">
@@ -816,9 +818,9 @@ const handleKeyPress = ((event) => {
         });
         break;
       case "c":
-        gscale = mscale = 0.75;
+        gscale = mscale = 1;
         models.value = "3";
-        let r = mercator ? 0.5 : 0.75;
+        let r = mercator ? 3 / 8 : 9 / 16;
         let length = 2 * Math.PI * r;
         let height = mercator ? length : length / 2;
         if (noTexture) height -= r;
@@ -920,7 +922,7 @@ const handleKeyPress = ((event) => {
         models.value = "4";
         theModel = createModel({
           shape: getModelData(
-            new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586),
+            new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 2 * Math.PI),
           ),
           chi: 0,
         });

@@ -387,10 +387,13 @@ export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
 /**
  * <p>Class for creating the model of a sphere by continuously subdividing a
  * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}.</p>
+ *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square Mercator coordinates}
- * only can be set for tetrahedra and octahedra, because
+ * are also set and
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Three.js polyhedra}
- * possess their own texture coordinates.
+ * texture coordinates should be rotated by 180°, because their original coordinates
+ * reversed the places of the prime and anti meridians.
+ * @see <img src="../images/simple-cylindrical-projection-earth-map-globe-mercator.jpg" width="512">
  */
 export class polyhedron {
   /**
