@@ -35,9 +35,9 @@
 <a href="https://en.wikipedia.org/wiki/Regular_polyhedron">convex regular polyhedron</a>.</p>
 
 <a href="https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square">Mercator coordinates</a>
-are also created and returned as a new <a href="global.html#modelData">modelData</a>'s property, vertexMercatorCoords, and
+are created and returned as a new <a href="global.html#modelData">modelData</a>'s property, vertexMercatorCoords, and
 <a href="https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry">Three.js polyhedra</a>
-texture coordinates should be rotated by 180°, because their original coordinates
+texture coordinates are rotated by 180°, because their original coordinates
 reversed the places of the prime and anti meridians.</div>
         
     
@@ -112,7 +112,7 @@ reversed the places of the prime and anti meridians.</div>
             
                 <td class="default">
                 
-                    true
+                    false
                 
                 </td>
             
@@ -221,7 +221,9 @@ reversed the places of the prime and anti meridians.</div>
 
 
 <div class="description">
-    Whether texture coordinates should be fixed.
+    <p>Whether texture coordinates should be fixed.</p>
+Deprecated in face of <a href="https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b">Tarini's</a>
+method executed in the fragment shader.
 </div>
 
 
@@ -269,7 +271,7 @@ reversed the places of the prime and anti meridians.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line408">line 408</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line410">line 410</a>
     </li></ul></dd>
     
 
@@ -341,7 +343,7 @@ reversed the places of the prime and anti meridians.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line424">line 424</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line426">line 426</a>
     </li></ul></dd>
     
 
@@ -413,7 +415,7 @@ reversed the places of the prime and anti meridians.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line454">line 454</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line456">line 456</a>
     </li></ul></dd>
     
 
@@ -485,7 +487,7 @@ reversed the places of the prime and anti meridians.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line413">line 413</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line415">line 415</a>
     </li></ul></dd>
     
 
@@ -557,7 +559,7 @@ reversed the places of the prime and anti meridians.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line436">line 436</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line438">line 438</a>
     </li></ul></dd>
     
 
@@ -629,7 +631,7 @@ reversed the places of the prime and anti meridians.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line430">line 430</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line432">line 432</a>
     </li></ul></dd>
     
 
@@ -701,7 +703,7 @@ reversed the places of the prime and anti meridians.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line442">line 442</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line444">line 444</a>
     </li></ul></dd>
     
 
@@ -773,7 +775,7 @@ reversed the places of the prime and anti meridians.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line448">line 448</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line450">line 450</a>
     </li></ul></dd>
     
 
@@ -971,7 +973,7 @@ reversed the places of the prime and anti meridians.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line502">line 502</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line504">line 504</a>
     </li></ul></dd>
     
 
@@ -1217,7 +1219,7 @@ Note: three.js level of detail generates much less vertices than the values abov
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line630">line 630</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line632">line 632</a>
     </li></ul></dd>
     
 
@@ -1381,7 +1383,7 @@ when the 0 coordinate is stitched together with the 1 coordinate.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line696">line 696</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line698">line 698</a>
     </li></ul></dd>
     
 
@@ -1634,7 +1636,7 @@ Note: three.js level of detail generates much less vertices than the values abov
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line669">line 669</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line671">line 671</a>
     </li></ul></dd>
     
 
@@ -1887,7 +1889,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line578">line 578</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line580">line 580</a>
     </li></ul></dd>
     
 
@@ -1993,7 +1995,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line419">line 419</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line421">line 421</a>
     </li></ul></dd>
     
 
@@ -2228,7 +2230,7 @@ Generates:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line541">line 541</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line543">line 543</a>
     </li></ul></dd>
     
 
@@ -2430,7 +2432,7 @@ Mercator texture coordinates are also set.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line464">line 464</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line466">line 466</a>
     </li></ul></dd>
     
 
@@ -2482,7 +2484,7 @@ Mercator texture coordinates are also set.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 04 2024 07:54:05 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 04 2024 08:26:40 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

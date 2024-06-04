@@ -383,9 +383,9 @@ function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
  * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}.</p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square Mercator coordinates}
- * are also created and returned as a new {@link modelData}'s property, vertexMercatorCoords, and
+ * are created and returned as a new {@link modelData}'s property, vertexMercatorCoords, and
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Three.js polyhedra}
- * texture coordinates should be rotated by 180°, because their original coordinates
+ * texture coordinates are rotated by 180°, because their original coordinates
  * reversed the places of the prime and anti meridians.
  * @see <img src="../images/simple-cylindrical-projection-earth-map-globe-mercator.jpg" width="512">
  */
@@ -394,9 +394,11 @@ class polyhedron {
    * @constructs polyhedron
    * @param {Boolean} fix whether to fix uv coordinates.
    */
-  constructor(fix = true) {
+  constructor(fix = false) {
     /**
-     * Whether texture coordinates should be fixed.
+     * <p>Whether texture coordinates should be fixed.</p>
+     * Deprecated in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
+     * method executed in the fragment shader.
      * @type {Boolean}
      */
     this.fix = fix;
