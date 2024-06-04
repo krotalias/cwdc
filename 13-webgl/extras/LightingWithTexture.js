@@ -80,7 +80,7 @@
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2024 Paulo R Cavalcanti.
  * @since 30/01/2016
- * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the fragment shader:
+ * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the fragment shader
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the vertex shader
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
@@ -303,7 +303,7 @@ const gpsCoordinates = {
  * Name of the current city location.
  * @type {String}
  */
-const currentLocation =
+let currentLocation =
   Object.keys(gpsCoordinates)[
     Math.floor(Math.random() * Object.keys(gpsCoordinates).length)
   ];
@@ -686,6 +686,7 @@ function getChar(event) {
  */
 const handleKeyPress = ((event) => {
   const mod = (n, m) => ((n % m) + m) % m;
+  const cities = Object.keys(gpsCoordinates);
   let kbd = document.getElementById("kbd");
   let opt = document.getElementById("options");
   let models = document.getElementById("models");
@@ -966,6 +967,16 @@ const handleKeyPress = ((event) => {
       case "Meta":
       case "Alt":
         hws = !hws;
+        break;
+      case "G":
+        let cl = cities.indexOf(currentLocation);
+        currentLocation = cities[mod(cl + 1, cities.length)];
+        setPosition(currentLocation);
+        selector.equator = true;
+        document.getElementById("equator").checked = selector.equator;
+        $('label[for="equator"]').html(currentLocation);
+        animate();
+        break;
       default:
         return;
     }
@@ -1795,6 +1806,24 @@ function isPowerOf2(value) {
 }
 
 /**
+ * Load a new parallel and merdian into the GPU
+ * corresponding to the given location.
+ * @param {String} location a {@link gpsCoordinates city name}.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData
+ */
+function setPosition(location) {
+  let parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
+  gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
+  gl.bufferSubData(gl.ARRAY_BUFFER, 0, parallelVertices);
+
+  let meridianVertices = pointsOnMeridian(gpsCoordinates[location].longitude);
+  gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
+  gl.bufferSubData(gl.ARRAY_BUFFER, 0, meridianVertices);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+}
+
+/**
  * <p>Creates a textured model and triggers the animation.</p>
  *
  * Basically this function does setup that "should" only have to be done once,<br>
@@ -1915,11 +1944,11 @@ function startForReal(image) {
   gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, axisColors, gl.STATIC_DRAW);
 
-  let equatorVertices = pointsOnParallel(
+  let parallelVertices = pointsOnParallel(
     gpsCoordinates[currentLocation].latitude,
   );
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, equatorVertices, gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, parallelVertices, gl.STATIC_DRAW);
 
   let meridianVertices = pointsOnMeridian(
     gpsCoordinates[currentLocation].longitude,
