@@ -10,7 +10,13 @@
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
  * and a 3x3 matrix for {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL light properties}
  * that are passed to the fragment shader as
- * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniform uniforms}.<p>
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniform uniforms}.
+ *
+ * Edit the {@link lightPropElements light} and {@link matPropElements material} matrices in the global variables to experiment or
+ * {@link startForReal} to choose a model and select
+ * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
+ * {@link https://threejs.org Three.js} only uses face normals for
+ * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedra}, indeed.<p>
  *
  * Texture coordinates can be set in each model or sampled at each pixel in the fragment shader.
  * We can also approximate a sphere by subdividing a
@@ -19,12 +25,6 @@
  * These {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b artifacts}
  * show up due to the discontinuity in the seam when crossing the line with 0 radians on one side and 2π on the other.
  * Some triangles may have edges that cross this line, causing the wrong mipmap level 0 to be chosen.
- *
- * <p>Edit the {@link lightPropElements light} and {@link matPropElements material} matrices in the global variables to experiment.
- * Edit {@link startForReal} to choose a model and select
- * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
- * {@link https://threejs.org Three.js} only uses face normals for
- * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedra}, indeed.<p>
  *
  * <p>To lay a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections
  * or 1:1 (squared) for Mercator projections. Finding high-resolution, good-quality,
@@ -61,9 +61,9 @@
  *
  * <p>Initially, I used the {@link https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js basic-objects-IFS} package,
  * but the models had their z-axis pointing up as the {@link https://en.wikipedia.org/wiki/Zenith zenith},
- * but I wanted the y-axis to be the north pole (up).
+ * and I wanted the y-axis to be the north pole (up).
  * Therefore, I switched to {@link getModelData Three.js}, and almost everything
- * worked just fine, but a sphere created by subdividing a {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedron}
+ * worked just fine. Nonetheless, a sphere created by subdividing a {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedron}
  * had its {@link module:polyhedron.rotateUTexture texture coordinates} rotated by 180°
  * and a cylinder or cone by 90°.
  * As a consequence, I decided to adapt basic-objects-IFS to my needs by introducing a global hook, {@link yNorth},
@@ -974,7 +974,13 @@ const handleKeyPress = ((event) => {
         setPosition(currentLocation);
         selector.equator = true;
         document.getElementById("equator").checked = selector.equator;
-        $('label[for="equator"]').html(currentLocation);
+        $('label[for="equator"]').html(
+          `<i>${currentLocation}</i> (lat: ${gpsCoordinates[
+            currentLocation
+          ].latitude.toFixed(5)}, long: ${gpsCoordinates[
+            currentLocation
+          ].longitude.toFixed(5)})`,
+        );
         animate();
         break;
       default:
@@ -1988,7 +1994,13 @@ function startForReal(image) {
   rotator.setViewMatrix(modelMatrix);
   rotator.setViewDistance(0);
 
-  $('label[for="equator"]').html(currentLocation);
+  $('label[for="equator"]').html(
+    `<i>${currentLocation}</i> (lat: ${gpsCoordinates[
+      currentLocation
+    ].latitude.toFixed(5)}, long: ${gpsCoordinates[
+      currentLocation
+    ].longitude.toFixed(5)})`,
+  );
 
   selectModel();
 
