@@ -807,7 +807,12 @@ const handleKeyPress = ((event) => {
       case "t":
         gscale = mscale = 1;
         models.value = "7";
-        theModel = createModel({ shape: uvTorus(1, 0.5, 30, 30), chi: 0 });
+        theModel = createModel({
+          shape: hws
+            ? uvTorus(1, 0.5, 30, 30)
+            : getModelData(new THREE.TorusGeometry(0.75, 0.25, 30, 30)),
+          chi: 0,
+        });
         break;
       case "u":
         // capsule from threejs
@@ -855,7 +860,9 @@ const handleKeyPress = ((event) => {
       case "v":
         gscale = mscale = 0.6;
         models.value = "2";
-        theModel = createModel({ shape: cube(2) });
+        theModel = createModel({
+          shape: hws ? cube(2) : getModelData(new THREE.BoxGeometry(2, 2, 2)),
+        });
         break;
       case "p":
         // teapot - this is NOT a manifold model - it is a model with borders!
