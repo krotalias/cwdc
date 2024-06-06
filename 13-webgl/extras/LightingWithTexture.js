@@ -1059,7 +1059,7 @@ function selectModel() {
     3: "c", // cylinder
     4: "r", // ring
     5: "s", // sphere
-    6: "P", // teapot
+    6: "p", // teapot
     7: "t", // torus
     8: "T", // knot
     9: "d", // dodecahedron
