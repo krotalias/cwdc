@@ -693,7 +693,7 @@ const handleKeyPress = ((event) => {
   let zoomfactor = 0.7;
   let gscale = 1;
   let subPoly = 0;
-  let hws = true;
+  let hws = false;
   const polyName = {
     0: "dodecahedron",
     1: "icosahedron",
@@ -866,18 +866,14 @@ const handleKeyPress = ((event) => {
         break;
       case "p":
         // teapot - this is NOT a manifold model - it is a model with borders!
-        gscale = mscale = 0.09;
-        models.value = "6";
-        theModel = createModel({ shape: teapotModel, chi: null });
-        break;
-      case "P":
-        // teapot - this is NOT a manifold model - it is a model with borders!
-        gscale = mscale = 0.7;
+        gscale = mscale = hws ? 0.09 : 0.7;
         models.value = "6";
         theModel = createModel({
-          shape: getModelData(
-            new TeapotGeometry(1, 10, true, true, true, true, true),
-          ),
+          shape: hws
+            ? teapotModel
+            : getModelData(
+                new TeapotGeometry(1, 10, true, true, true, true, true),
+              ),
           chi: null,
         });
         break;
@@ -929,9 +925,11 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1.0;
         models.value = "4";
         theModel = createModel({
-          shape: getModelData(
-            new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 2 * Math.PI),
-          ),
+          shape: hws
+            ? ring(0.3, 1.0, 30)
+            : getModelData(
+                new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 2 * Math.PI),
+              ),
           chi: 0,
         });
         break;

@@ -297,7 +297,7 @@ function setMercatorCoordinates(obj) {
  * @param {modelData} obj model data.
  * @param {Number} degrees rotation angle.
  */
-export function rotateUTexture(obj, degrees) {
+function rotateUTexture(obj, degrees) {
   const du = degrees / 360 + 1;
   const uv = obj.vertexTextureCoords;
   for (let i = 0; i < uv.length; i += 2) {
