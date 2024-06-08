@@ -12,6 +12,23 @@
             Please use a browser that supports "canvas"
         </canvas>
 
+        <details>
+            <summary style="font-size: 200%">
+                Keyboard controls<span id="kbd">:</span>
+            </summary>
+
+            <ul style="list-style: none">
+                <li>s - square</li>
+                <li>t - trapezoid</li>
+                <li>d - defaut wrapping</li>
+                <li>v/V - wrapping behaviour</li>
+                <li>w/W - wrappig wacky</li>
+                <li>1 - MAG/MIN: gl.NEAREST, gl.NEAREST</li>
+                <li>2 - MAG/MIN: gl.LINEAR, gl.NEAREST</li>
+                <li>3 - MAG/MIN: gl.LINEAR, gl.LINEAR</li>
+            </ul>
+        </details>
+
         <script id="vertexShader" type="x-shader/x-vertex">
             attribute vec4 a_Position;
             attribute vec2 a_TexCoord;
@@ -40,7 +57,7 @@
         <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
         <script src="Texture.js"></script>
         <script>
-            window.onload = main;
+            window.onload = mainEntrance;
         </script>
     </body>
 </html>
