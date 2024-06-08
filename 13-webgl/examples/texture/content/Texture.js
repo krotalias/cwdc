@@ -133,7 +133,7 @@ var shader;
 var textureHandle;
 
 /**
- * Translate keypdown events to strings.
+ * Translate keydown events to strings.
  * @see http://javascript.info/tutorial/keyboard-events
  */
 function getChar(event) {

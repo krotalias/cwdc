@@ -25,7 +25,7 @@
  * or edit {@link startForReal} to choose a model and select
  * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.</p>
  *
- * @author Steve Kautz modified by Paulo Roma
+ * @author {@link https://stevekautz.com/cs336f22/cs336f22_archived.html Steve Kautz} modified by Paulo Roma
  * @since 26/09/2016
  * @see <a href="/cwdc/13-webgl/examples/texture/content/LightingWithProceduralTexture.html">Procedural texture</a>
  * @see <a href="/cwdc/13-webgl/examples/texture/content/LightingWithTexture.html">Image texture</a>
