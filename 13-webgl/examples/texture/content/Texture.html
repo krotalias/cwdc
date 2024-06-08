@@ -4,16 +4,39 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0,  maximum-scale=1"
+        />
         <title>Basic texture</title>
+        <style>
+            button {
+                touch-action: manipulation;
+            }
+        </style>
     </head>
 
     <body>
-        <canvas id="theCanvas" width="600" height="600">
+        <canvas id="theCanvas" width="370" height="370">
             Please use a browser that supports "canvas"
         </canvas>
 
+        <div>
+            <input
+                type="text"
+                name="text-field"
+                id="text-field"
+                placeholder="Type Key"
+            />
+            <button id="simulate" style="height: 2rem">Key Press</button>
+            <br />
+            Key presses: <span id="key-presses">0</span> <br />
+            Key pressed: <span id="key-pressed"></span> <br />
+        </div>
+
+        <br />
         <details>
-            <summary style="font-size: 200%">
+            <summary style="font-size: 120%">
                 Keyboard controls<span id="kbd">:</span>
             </summary>
 
@@ -22,7 +45,7 @@
                 <li>t - trapezoid</li>
                 <li>d - defaut wrapping</li>
                 <li>v/V - wrapping behaviour</li>
-                <li>w/W - wrappig wacky</li>
+                <li>w/W - wrapping wacky</li>
                 <li>1 - MAG/MIN: gl.NEAREST, gl.NEAREST</li>
                 <li>2 - MAG/MIN: gl.LINEAR, gl.NEAREST</li>
                 <li>3 - MAG/MIN: gl.LINEAR, gl.LINEAR</li>
