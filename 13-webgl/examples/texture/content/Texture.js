@@ -188,11 +188,11 @@ function handleKeyPress(event) {
       break;
     case "w":
       gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-      gl.bufferData(gl.ARRAY_BUFFER, texCoords.wrapping4, gl.STATIC_DRAW);
+      gl.bufferData(gl.ARRAY_BUFFER, texCoords.wrapping3, gl.STATIC_DRAW);
       break;
     case "W":
       gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-      gl.bufferData(gl.ARRAY_BUFFER, texCoords.wrapping3, gl.STATIC_DRAW);
+      gl.bufferData(gl.ARRAY_BUFFER, texCoords.wrapping4, gl.STATIC_DRAW);
       break;
 
     default:
@@ -224,8 +224,8 @@ function draw() {
   gl.enableVertexAttribArray(positionIndex);
 
   // associate the data in the currently bound buffer with the a_position attribute
-  // (The '2' specifies there are 2 floats per vertex in the buffer.  Don't worry about
-  // the last three args just yet.)
+  // (The '2' specifies there are 2 floats per vertex in the buffer.
+  // Don't worry about the last three args just yet.)
   gl.vertexAttribPointer(positionIndex, 2, gl.FLOAT, false, 0, 0);
 
   // bind the texture coordinate buffer
@@ -242,19 +242,18 @@ function draw() {
   gl.enableVertexAttribArray(texCoordIndex);
 
   // associate the data in the currently bound buffer with the a_position attribute
-  // (The '2' specifies there are 2 floats per vertex in the buffer.  Don't worry about
-  // the last three args just yet.)
+  // (The '2' specifies there are 2 floats per vertex in the buffer.
+  // Don't worry about the last three args just yet.)
   gl.vertexAttribPointer(texCoordIndex, 2, gl.FLOAT, false, 0, 0);
 
   // we can unbind the buffer now (not really necessary when there is only one buffer)
-  //gl.bindBuffer(gl.ARRAY_BUFFER, null); <----
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // need to choose a texture unit, then bind the texture to TEXTURE_2D for that unit
   var textureUnit = 3;
   gl.activeTexture(gl.TEXTURE0 + textureUnit);
   gl.bindTexture(gl.TEXTURE_2D, textureHandle);
-  //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-  //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+
   gl.activeTexture(gl.TEXTURE0);
 
   var loc = gl.getUniformLocation(shader, "sampler");
@@ -264,7 +263,7 @@ function draw() {
 
   // draw, specifying the type of primitive to assemble from the vertices
   gl.drawArrays(gl.TRIANGLES, 0, numPoints);
-  //gl.drawArrays(gl.LINES, 0, numPoints);
+  // gl.drawArrays(gl.LINE_LOOP, 0, numPoints);
 
   // unbind shader and "disable" the attribute indices
   // (not really necessary when there is only one shader)
@@ -323,10 +322,13 @@ function startForReal(image) {
     return;
   }
 
-  // retain a handle to the shader program, then unbind it
-  // (This looks odd, but the way initShaders works is that it "binds" the shader and
-  // stores the handle in an extra property of the gl object.  That's ok, but will really
-  // mess things up when we have more than one shader pair.)
+  /*
+   * Retain a handle to the shader program, then unbind it.
+   * This looks odd, but the way initShaders works is that it "binds" the shader
+   * and stores the handle in an extra property of the gl object.
+   * That's ok, but will really mess things up when we have
+   * more than one shader pair.
+   */
   shader = gl.program;
   gl.useProgram(null);
 
@@ -381,8 +383,10 @@ function startForReal(image) {
   // texture parameters are stored with the texture
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-  //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);  // default is REPEAT
-  //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);  // default is REPEAT
+
+  // default is gl.REPEAT
+  //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
   /**
    * Define an animation {@link draw loop}.
