@@ -153,7 +153,7 @@ function getChar(event) {
 
 /**
  * <p>Handler for key press events.</p>
- * Changes {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texParameter texture coordinates} and sets
+ * Changes {@link https://webglfundamentals.org/webgl/lessons/webgl-3d-textures.html texture coordinates} and sets
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texParameter texture parameters}.
  * @param {KeyboardEvent} event key pressed.
  */
