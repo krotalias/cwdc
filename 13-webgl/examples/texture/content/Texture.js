@@ -76,7 +76,7 @@ const numPoints = vertices.square.length / 2;
 
 /**
  * <p>A straightforward way to choose texture coordinates.</p>
- * The goal is {@link https://research.ncl.ac.uk/game/mastersdegree/graphicsforgames/texturemapping/Tutorial%203%20-%20Texture%20Mapping.pdf realizing}
+ * The goal is <a href="https://research.ncl.ac.uk/game/mastersdegree/graphicsforgames/texturemapping/Tutorial 3 - Texture Mapping.pdf">realizing</a>
  * what happens when texture coordinates, outside the [0,1] range, wrap around.
  * <p>OpenGL texture coordiates may be arbitrary values.
  * They will however be clamped, or repeated/wrapped into the
