@@ -1,11 +1,12 @@
 /**
  * @file
  *
- * <p>Basic example of loading an image as a texture and mapping it onto a
- * surface. </p>
+ * <p>Basic example of loading an image as a texture and
+ * {@link https://www.cs.utexas.edu/users/fussell/courses/cs354/lectures/lecture5.pdf mapping}
+ * it onto a surface. </p>
  *
  * Edit the coordinates of the {@link vertices} or edit the {@link texCoords texture coordinates}
- * to experiment. {@link imageFilename Image filename} is given directly below.
+ * to experiment. {@link imageFilename Image filename} can also be chaged directly in the code.
  *
  * <p>For security reasons the browser restricts access to the local
  * filesystem.</p>
@@ -18,6 +19,8 @@
  *
  * <li>then point your browser to http://localhost:2222</li>
  * and navigate to the example you want to run.
+ *
+ * <li>or just use vscode {@link https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer live server}.
  * </ul>
  *
  * For alternatives
@@ -27,6 +30,7 @@
  * @since 26/09/2016
  * @see <a href="/cwdc/13-webgl/examples/texture/content/Texture.html">link</a>
  * @see <a href="/cwdc/13-webgl/examples/texture/content/Texture.js">source</a>
+ * @see <iframe width="390" height="390" src="/cwdc/13-webgl/examples/texture/content/Texture.html"></iframe>
  */
 
 /**
@@ -48,8 +52,8 @@ const imageFilename = [
 ];
 
 /**
- * <p>Raw data for some point positions - this will be a square, consisting
- * of two triangles. </p>
+ * <p>Raw data for some point positions - this will be a square or a trapezoid,
+ * consisting of two triangles. </p>
  *
  * We provide two values per vertex for the x and y coordinates
  * (z will be zero by default).
@@ -71,7 +75,12 @@ const vertices = {
 const numPoints = vertices.square.length / 2;
 
 /**
- * Most straightforward way to choose texture coordinates.
+ * <p>A straightforward way to choose texture coordinates.</p>
+ * The goal is {@link https://research.ncl.ac.uk/game/mastersdegree/graphicsforgames/texturemapping/Tutorial%203%20-%20Texture%20Mapping.pdf realizing}
+ * what happens when texture coordinates, outside the [0,1] range, wrap around.
+ * <p>OpenGL texture coordiates may be arbitrary values.
+ * They will however be clamped, or repeated/wrapped into the
+ * range [0,1] depending on the texture coordinate wrap or clamp settings.</p>
  * @type {Object<String,Float32Array>}
  */
 const texCoords = {
@@ -143,8 +152,9 @@ function getChar(event) {
 }
 
 /**
- * Handler for key press events will choose
- * which axis to rotate around.
+ * <p>Handler for key press events.</p>
+ * Changes {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texParameter texture coordinates} and sets
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texParameter texture parameters}.
  * @param {KeyboardEvent} event key pressed.
  */
 function handleKeyPress(event) {
@@ -286,10 +296,10 @@ function mainEntrance() {
 }
 
 /**
- * Basically this function does setup that "should" only have to be done once,
+ * Basically this function does setup that "should" only have to be done once,<br>
  * while {@link draw draw()} does things that have to be repeated
  * each time the canvas is redrawn.
- * @param {HTMLImageElement}
+ * @param {HTMLImageElement} image texture as an image.
  */
 function startForReal(image) {
   /**
