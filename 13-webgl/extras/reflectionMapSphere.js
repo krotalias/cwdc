@@ -26,7 +26,7 @@
  * @see {@link https://www.youtube.com/watch?v=8sVvxeKI9Pk  Cubemaps & Skyboxes}
  * @see {@link http://paulbourke.net/panorama/cubemaps/ Converting to/from cubemaps}
  * @see {@link https://www.pngwing.com/en/search?q=cube+map Cube map png images}
- * @see <iframe width="600" height="600" src="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=LancellottiChapel"></iframe>
+ * @see <iframe title="Reflection Map" style="width: 670px; height: 600px; transform-origin: 0px 80px; transform: scale(0.75);" src="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=LancellottiChapel"></iframe>
  */
 
 "use strict";

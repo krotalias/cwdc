@@ -30,7 +30,7 @@
  * @see https://threejs.org/docs/#api/en/math/Euler
  * @see <a href="/cwdc/13-webgl/examples/three/content/EulerThreejs.html">link</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/EulerThreejs.js">source</a>
- * @see <iframe width="600" height="512" src="/cwdc/13-webgl/examples/three/content/EulerThreejs.html"></iframe>
+ * @see <iframe title="Euler" style="width: 650px; height: 512px; transform-origin: 0px 80px; transform: scale(0.75);" src="/cwdc/13-webgl/examples/three/content/EulerThreejs.html"></iframe>
  * @see <img src="../TIEaft-SWE.jpg" width="256" align="top"> <img src="../airplane.png" width="340" align="top">
  */
 
