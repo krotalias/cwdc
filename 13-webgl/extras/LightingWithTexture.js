@@ -82,11 +82,11 @@
  * <li>
  * To determine a ship's latitude at the sea (without a {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS}),
  * one needs a {@link https://www.youtube.com/watch?v=00ZEIZsl5xk sextant}.
- * However, what is it necessary to get the longitude?
+ * However, what is it necessary to get its longitude?
  * What calculation should be done (it is simpler than you might think)?
  * </li>
  * <li>
- * What does the obliquity of the earth has to do with the {@link https://en.wikipedia.org/wiki/Timeline_of_glaciation Glatial} periods?
+ * What does the obliquity of the earth have to do with the {@link https://en.wikipedia.org/wiki/Timeline_of_glaciation Glatial} periods?
  * </li>
  * </ol>
  *
@@ -636,7 +636,7 @@ const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
  * <p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise<Array<String>>}
- * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
+ * @see <a href="/cwdc/6-php/readFiles.php">files</a>
  * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
  * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
