@@ -37,6 +37,8 @@
  * <li>{@link uvTorus torus}</li>
  * </ul>
  * @since 08/01/2014
+ * @author {@link https://math.hws.edu/eck/ David J. Eck}
+ * @author modified by Paulo Roma
  * @see <a href="/cwdc/13-webgl/lib/basic-objects-IFS.js">source</a>
  * @see {@link https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js hws source}
  */
