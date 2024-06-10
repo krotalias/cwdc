@@ -30,7 +30,7 @@
  * @see {@link https://paulbourke.net/panorama/cubemaps/ Converting to/from cubemaps}
  * @see {@link https://www.humus.name/index.php?page=Textures Textures}
  * @see {@link https://www.pngwing.com/en/search?q=cube+map Cube map png images}
- * @see <iframe title="Reflection Map" style="margin-bottom: -200px; width: 670px; height: 830px; transform-origin: 0px 80px; transform: scale(0.7);" src="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=LancellottiChapel"></iframe>
+ * @see <iframe title="Reflection Map" style="margin-bottom: -200px; width: 650px; height: 850px; transform-origin: 0px 80px; transform: scale(0.7);" src="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=LancellottiChapel"></iframe>
  */
 
 "use strict";
@@ -336,7 +336,7 @@ function init(cubeMapArr) {
   lmodel.push([createModel(uvTorus(10, 5, 30, 30)), 25]);
   lmodel.push([
     createModel(new polyhedron().octahedron({ n: numTimesToSubdivide })),
-    2,
+    2.5,
   ]);
   lmodel.push([createModel(uvSphere(10, 30, 30)), 30]);
 
