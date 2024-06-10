@@ -94,7 +94,7 @@
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
  * @see {@link https://en.wikipedia.org/wiki/Sextant Navigational Sextant}
  * @see {@link https://www.youtube.com/c/CasualNavigationAcademy CasualNavigationAcademy}
- * @see <iframe title="Mercator World Map" style="width: 970px; height: 600px; transform-origin: 70px 80px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture2.html"></iframe>
+ * @see <iframe title="Mercator World Map" style="margin-bottom: -250px; width: 970px; height: 600px; transform-origin: 70px 80px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture2.html"></iframe>
  * @see <figure>
  *      <img src="../images/teapot.png" height="310" title="Utah teapot">
  *      <img src="../images/tex.png" title="64x64 texture" height="310">
