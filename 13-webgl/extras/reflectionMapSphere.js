@@ -26,9 +26,11 @@
  * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=skybox">skybox</a>
  * @see <a href="/cwdc/13-webgl/extras/reflectionMapSphere.js">source</a>
  * @see {@link https://www.youtube.com/watch?v=8sVvxeKI9Pk  Cubemaps & Skyboxes}
- * @see {@link http://paulbourke.net/panorama/cubemaps/ Converting to/from cubemaps}
+ * @see {@link https://en.wikipedia.org/wiki/Cube_mapping Cube mapping}
+ * @see {@link https://paulbourke.net/panorama/cubemaps/ Converting to/from cubemaps}
+ * @see {@link https://www.humus.name/index.php?page=Textures Textures}
  * @see {@link https://www.pngwing.com/en/search?q=cube+map Cube map png images}
- * @see <iframe title="Reflection Map" style="margin-bottom: -200px; width: 670px; height: 780px; transform-origin: 0px 80px; transform: scale(0.75);" src="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=LancellottiChapel"></iframe>
+ * @see <iframe title="Reflection Map" style="margin-bottom: -200px; width: 670px; height: 830px; transform-origin: 0px 80px; transform: scale(0.7);" src="/cwdc/13-webgl/extras/reflectionMapSphere.html?texture=LancellottiChapel"></iframe>
  */
 
 "use strict";
