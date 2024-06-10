@@ -8,7 +8,7 @@
  *
  * <p>The <a href="../sierpinski3/mat.html">transformations</a> corresponding to the
  * <a href="https://larryriddle.agnesscott.org/ifs/siertri/siertri.htm">IFS</a>
- * correspond to those objects that have a name starting with "copy". <br>
+ * are those objects that have a name starting with "copy". <br>
  * In the 3D {@link https://en.wikipedia.org/wiki/Sierpiński_triangle Sierpiński Gasket}
  * example (included), there are 4 of these, named "copy1" ... "copy4".</p>
  *
@@ -16,15 +16,19 @@
  * copies of these objects, up to the given level, <br>
  * whereas the other objects are rendered unchanged.</p>
  *
- * @author Claudio Esperança and Paulo Roma
+ * @author Claudio Esperança
+ * @author Paulo Roma
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
+ * @copyright © 2022-2024 Paulo R Cavalcanti.
  * @since 23/06/2022
  * @see <a href="/cwdc/13-webgl/sierpinski3/sierpinski3.html?file=crystal.json">link</a>
  * @see <a href="/cwdc/13-webgl/sierpinski3/sierpinski3.js">source</a>
- * @see https://observablehq.com/@esperanc/iterated-function-systems?collection=@esperanc/computacao-grafica
- * @see https://observablehq.com/d/1e035729ed562001
- * @see https://threejs.org/editor
- * @see https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing
- * @see https://dplatz.de/blog/2019/es6-bare-imports.html
+ * @see {@link https://observablehq.com/@esperanc/iterated-function-systems?collection=@esperanc/computacao-grafica Iterated Function Systems}
+ * @see {@link https://observablehq.com/d/1e035729ed562001 3D IFS with three.js}
+ * @see {@link https://threejs.org/editor three.js Editor}
+ * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
+ * @see {@link https://dplatz.de/blog/2019/es6-bare-imports.html How to handle ES6 bare module imports for local Development}
+ * @see <iframe title="Sierpinks 3D" style="width: 800px; height: 600px; transform-origin: 0px 100px; transform: scale(0.8);"  src="/cwdc/13-webgl/sierpinski3/sierpinski3.html"></iframe>
  */
 
 /**

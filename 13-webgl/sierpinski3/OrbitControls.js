@@ -14,8 +14,8 @@
  * @since 19/11/2022
  * @author Michael Herzog (Mugen87)
  * @see <a href="/cwdc/13-webgl/sierpinski3/OrbitControls.js">source</a>
- * @see https://threejs.org/docs/#examples/en/controls/OrbitControls
- * @see https://raw.githubusercontent.com/mrdoob/three.js/master/examples/jsm/controls/OrbitControls.js
+ * @see {@link https://threejs.org/docs/#examples/en/controls/OrbitControls doc}
+ * @see {@link https://raw.githubusercontent.com/mrdoob/three.js/master/examples/jsm/controls/OrbitControls.js github}
  */
 
 import {
