@@ -85,6 +85,9 @@
  * However, what is it necessary to get the longitude?
  * What calculation should be done (it is simpler than you might think)?
  * </li>
+ * <li>
+ * What the obliquity of the earth has to do with the {@link https://en.wikipedia.org/wiki/Timeline_of_glaciation Glatial} periods?
+ * </li>
  * </ol>
  *
  * @author Paulo Roma
