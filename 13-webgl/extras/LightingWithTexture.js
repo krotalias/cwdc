@@ -69,12 +69,23 @@
  * As a consequence, I decided to adapt basic-objects-IFS to my needs by introducing a global hook, {@link yNorth},
  * and {@link setNorth rotating} the models accordingly.</p>
  *
- * <b>Homework</b>: The application selects a random {@link gpsCoordinates city} and displays its location (when its name is checked in the interface)
- * as the intersection of its line of latitude (parallel) and line of longitude (meridian) on the model surface (preferably a map onto a sphere).
- * Your task is (using the mouse or any pointer device) to pick a point in the texture image and display its location on the map.
+ * <b>Homework</b>:
  *
- * <p>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case
- * by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.</p>
+ * <ol>
+ * <li>The application selects a random {@link gpsCoordinates city} and displays its location (when its name is checked in the interface)
+ * as the intersection of its line of latitude (parallel) and line of longitude (meridian) on the model surface (preferably a map onto a sphere).
+ * Your task is (using the mouse or any pointer device) to pick a point in the texture image and display its location on the map.</li>
+ *
+ * <li>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case
+ * by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
+ *
+ * <li>
+ * To determine a ship's latitude at the sea (without a {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS}),
+ * one needs a {@link https://www.youtube.com/watch?v=00ZEIZsl5xk sextant}.
+ * However, what is it necessary to get the longitude?
+ * What calculation should be done (it is simpler than you might think)?
+ * </li>
+ * </ol>
  *
  * @author Paulo Roma
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
@@ -94,7 +105,8 @@
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
  * @see {@link https://en.wikipedia.org/wiki/Sextant Navigational Sextant}
  * @see {@link https://www.youtube.com/c/CasualNavigationAcademy CasualNavigationAcademy}
- * @see <iframe title="Mercator World Map" style="margin-bottom: -250px; width: 970px; height: 600px; transform-origin: 70px 80px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture2.html"></iframe>
+ * @see <iframe title="Mercator World Map" style="width: 970px; height: 600px; transform-origin: 70px 80px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture2.html"></iframe>
+ * @see <iframe title="Equirectangular World Map" style="position: relative; top: -280px; margin-bottom: -600px; width: 970px; height: 600px; transform-origin: 70px 0px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture.html"></iframe>
  * @see <figure>
  *      <img src="../images/teapot.png" height="310" title="Utah teapot">
  *      <img src="../images/tex.png" title="64x64 texture" height="310">
