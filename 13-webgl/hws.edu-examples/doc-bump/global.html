@@ -2070,6 +2070,79 @@ Will contain a cube, a cylinder and a torus.
 
 
         
+            
+<h4 class="name" id="yNorth"><span class="type-signature"></span>yNorth<span class="type-signature"> :Boolean</span></h4>
+
+
+
+
+<div class="description">
+    Sets the North to be the y axis,
+so the z axis points outside the screen.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line66">line 66</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
     
 
     
@@ -2448,9 +2521,9 @@ source code for the vertex shader and for the fragment shader.</p>
 
 
 <div class="description">
-    Create a model of a cube, centered at the origin.  (This is not
-a particularly good format for a cube, since an IFS representation
-has a lot of redundancy.)
+    <p>Create a model of a cube, centered at the origin.</p>
+This is not a particularly good format for a cube,
+since an IFS representation has a lot of redundancy.
 </div>
 
 
@@ -2544,7 +2617,7 @@ has a lot of redundancy.)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line68">line 68</a>
+        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line92">line 92</a>
     </li></ul></dd>
     
 
@@ -3039,6 +3112,166 @@ Called from <a href="global.html#init">init</a>.
     
 
     
+    <h4 class="name" id="setNorth"><span class="type-signature"></span>setNorth<span class="signature">(vertices, normals)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Rotate the given model so the y axis points North.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vertices</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float32Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">vertex array.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>normals</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float32Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">normal array.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="uvCone"><span class="type-signature"></span>uvCone<span class="signature">(radius, height, slices, noBottom)</span><span class="type-signature"> &rarr; {<a href="global.html#modelData">modelData</a>}</span></h4>
     
 
@@ -3047,7 +3280,8 @@ Called from <a href="global.html#init">init</a>.
 
 
 <div class="description">
-    Defines a model of a cone.  The axis of the cone is the z-axis,
+    <p>Defines a model of a cone.</p>
+The axis of the cone is the z-axis,
 and the center is at (0,0,0).
 </div>
 
@@ -3214,7 +3448,7 @@ and the center is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line414">line 414</a>
+        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line449">line 449</a>
     </li></ul></dd>
     
 
@@ -3283,7 +3517,8 @@ and the center is at (0,0,0).
 
 
 <div class="description">
-    Defines a model of a cylinder.  The axis of the cylinder is the z-axis,
+    <p>Defines a model of a cylinder.</p>
+The axis of the cylinder is the z-axis,
 and the center is at (0,0,0).
 </div>
 
@@ -3472,7 +3707,7 @@ to height/2 along the z-axis.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line197">line 197</a>
+        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line223">line 223</a>
     </li></ul></dd>
     
 
@@ -3684,7 +3919,7 @@ with the north pole on the positive z-axis and the center at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line343">line 343</a>
+        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line371">line 371</a>
     </li></ul></dd>
     
 
@@ -3753,7 +3988,8 @@ with the north pole on the positive z-axis and the center at (0,0,0).
 
 
 <div class="description">
-    Create a model of a torus (surface of a doughnut).  The z-axis goes through the doughnut hole,
+    <p>Create a model of a torus (surface of a doughnut).</p>
+The z-axis goes through the doughnut hole,
 and the center of the torus is at (0,0,0).
 </div>
 
@@ -3919,7 +4155,7 @@ to the z-axis and go around the tube the long way (arouind the hole).</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line119">line 119</a>
+        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line144">line 144</a>
     </li></ul></dd>
     
 
@@ -4546,7 +4782,7 @@ positions, normal vectors, texture coordinates, tangent vectors and indices.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line49">line 49</a>
+        <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">hws.edu-examples/basic-object-models-with-tangents-IFS.js</a>, <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html#line50">line 50</a>
     </li></ul></dd>
     
 
@@ -5423,13 +5659,13 @@ that will be invoked when the event is dispatched.</p>
 <a href="global.html#draw">object</a> &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linkdrawstrength%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
 <a href="global.html#draw">strength</a> &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linkloadBumpmapimage%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
 <a href="global.html#loadBumpmap">image</a> &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linksetDiffusecolor%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
-<a href="global.html#setDiffuse">color</a> &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a_coords_loc">a_coords_loc</a></li><li><a href="global.html#a_normal_loc">a_normal_loc</a></li><li><a href="global.html#a_tangent_loc">a_tangent_loc</a></li><li><a href="global.html#a_texCoords_loc">a_texCoords_loc</a></li><li><a href="global.html#bumpmap">bumpmap</a></li><li><a href="global.html#bumpmapURLs">bumpmapURLs</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initGL">initGL</a></li><li><a href="global.html#loadBumpmap">loadBumpmap</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setDiffuse">setDiffuse</a></li><li><a href="global.html#texture">texture</a></li><li><a href="global.html#u_bumpmap">u_bumpmap</a></li><li><a href="global.html#u_bumpmapSize">u_bumpmapSize</a></li><li><a href="global.html#u_bumpmapStrength">u_bumpmapStrength</a></li><li><a href="global.html#u_lights">u_lights</a></li><li><a href="global.html#u_material">u_material</a></li><li><a href="global.html#u_modelview">u_modelview</a></li><li><a href="global.html#u_normalMatrix">u_normalMatrix</a></li><li><a href="global.html#u_projection">u_projection</a></li><li><a href="global.html#u_texture">u_texture</a></li><li><a href="global.html#u_useTexture">u_useTexture</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+<a href="global.html#setDiffuse">color</a> &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a_coords_loc">a_coords_loc</a></li><li><a href="global.html#a_normal_loc">a_normal_loc</a></li><li><a href="global.html#a_tangent_loc">a_tangent_loc</a></li><li><a href="global.html#a_texCoords_loc">a_texCoords_loc</a></li><li><a href="global.html#bumpmap">bumpmap</a></li><li><a href="global.html#bumpmapURLs">bumpmapURLs</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initGL">initGL</a></li><li><a href="global.html#loadBumpmap">loadBumpmap</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setDiffuse">setDiffuse</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#texture">texture</a></li><li><a href="global.html#u_bumpmap">u_bumpmap</a></li><li><a href="global.html#u_bumpmapSize">u_bumpmapSize</a></li><li><a href="global.html#u_bumpmapStrength">u_bumpmapStrength</a></li><li><a href="global.html#u_lights">u_lights</a></li><li><a href="global.html#u_material">u_material</a></li><li><a href="global.html#u_modelview">u_modelview</a></li><li><a href="global.html#u_normalMatrix">u_normalMatrix</a></li><li><a href="global.html#u_projection">u_projection</a></li><li><a href="global.html#u_texture">u_texture</a></li><li><a href="global.html#u_useTexture">u_useTexture</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 11 2024 08:22:59 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 11 2024 10:27:22 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

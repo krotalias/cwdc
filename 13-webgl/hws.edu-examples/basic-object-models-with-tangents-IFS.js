@@ -38,6 +38,7 @@
  * </ul>
  *
  * @author {@link https://math.hws.edu/eck/ David J. Eck}
+ * @author modified by Paulo Roma
  * @authora modified by Paulo Roma
  * @since 19/11/2022
  * @see <a href="/cwdc/13-webgl/hws.edu-examples/basic-object-models-with-tangents-IFS.js">source</a>
@@ -58,9 +59,32 @@
  */
 
 /**
- * Create a model of a cube, centered at the origin.  (This is not
- * a particularly good format for a cube, since an IFS representation
- * has a lot of redundancy.)
+ * Sets the North to be the y axis,
+ * so the z axis points outside the screen.
+ * @type {Boolean}
+ */
+let yNorth = true;
+
+/**
+ * Rotate the given model so the y axis points North.
+ * @param {Float32Array} vertices vertex array.
+ * @param {Float32Array} normals normal array.
+ */
+function setNorth(vertices, normals) {
+  if (yNorth) {
+    for (let i = 0; i < vertices.length; i += 3) {
+      vertices[i] = -vertices[i]; // x
+      [vertices[i + 1], vertices[i + 2]] = [vertices[i + 2], vertices[i + 1]];
+      normals[i] = -normals[i]; // x
+      [normals[i + 1], normals[i + 2]] = [normals[i + 2], normals[i + 1]];
+    }
+  }
+}
+
+/**
+ * <p>Create a model of a cube, centered at the origin.</p>
+ * This is not a particularly good format for a cube,
+ * since an IFS representation has a lot of redundancy.
  * @param {Number} side the length of a side of the cube.
  *       If not given, the value will be 1.
  * @return {modelData}
@@ -103,7 +127,8 @@ function cube(side) {
 }
 
 /**
- * Create a model of a torus (surface of a doughnut).  The z-axis goes through the doughnut hole,
+ * <p>Create a model of a torus (surface of a doughnut).</p>
+ * The z-axis goes through the doughnut hole,
  * and the center of the torus is at (0,0,0).
  * @param {Number} outerRadius the distance from the center to the outside of the tube, 0.5 if not specified.
  * @param {Number} innerRadius the distance from the center to the inside of the tube, outerRadius/3 if not
@@ -181,7 +206,8 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
 }
 
 /**
- * Defines a model of a cylinder.  The axis of the cylinder is the z-axis,
+ * <p>Defines a model of a cylinder.</p>
+ * The axis of the cylinder is the z-axis,
  * and the center is at (0,0,0).
  * @param {Number} radius the radius of the cylinder
  * @param {Number} height the height of the cylinder.  The cylinder extends from -height/2
@@ -319,6 +345,8 @@ function uvCylinder(radius, height, slices, noTop, noBottom) {
       indices[k++] = startIndex + i + 2;
     }
   }
+  setNorth(vertices, normals);
+
   return {
     vertexPositions: vertices,
     vertexNormals: normals,
@@ -359,9 +387,15 @@ function uvSphere(radius, slices, stacks) {
     v = -Math.PI / 2 + i * dv;
     for (j = 0; j <= slices; j++) {
       u = j * du;
-      x = Math.cos(u) * Math.cos(v);
-      y = Math.sin(u) * Math.cos(v);
-      z = Math.sin(v);
+      if (yNorth) {
+        x = -Math.cos(u) * Math.cos(v);
+        y = Math.sin(v);
+        z = Math.sin(u) * Math.cos(v);
+      } else {
+        x = Math.cos(u) * Math.cos(v);
+        y = Math.sin(u) * Math.cos(v);
+        z = Math.sin(v);
+      }
       vertices[indexV] = radius * x;
       tangents[indexV] = -y;
       normals[indexV++] = x;
@@ -398,7 +432,8 @@ function uvSphere(radius, slices, stacks) {
 }
 
 /**
- * Defines a model of a cone.  The axis of the cone is the z-axis,
+ * <p>Defines a model of a cone.</p>
+ * The axis of the cone is the z-axis,
  * and the center is at (0,0,0).
  * @param {Number} radius the radius of the cone.
  * @param {Number} height the height of the cone. <br>
@@ -524,6 +559,8 @@ function uvCone(radius, height, slices, noBottom) {
       indices[k++] = startIndex + i + 2;
     }
   }
+  setNorth(vertices, normals);
+
   return {
     vertexPositions: vertices,
     vertexNormals: normals,

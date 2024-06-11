@@ -66,6 +66,7 @@
  * &lt;/ul>
  *
  * @author {@link https://math.hws.edu/eck/ David J. Eck}
+ * @author modified by Paulo Roma
  * @authora modified by Paulo Roma
  * @since 19/11/2022
  * @see &lt;a href="/cwdc/13-webgl/hws.edu-examples/basic-object-models-with-tangents-IFS.js">source&lt;/a>
@@ -86,9 +87,32 @@
  */
 
 /**
- * Create a model of a cube, centered at the origin.  (This is not
- * a particularly good format for a cube, since an IFS representation
- * has a lot of redundancy.)
+ * Sets the North to be the y axis,
+ * so the z axis points outside the screen.
+ * @type {Boolean}
+ */
+let yNorth = true;
+
+/**
+ * Rotate the given model so the y axis points North.
+ * @param {Float32Array} vertices vertex array.
+ * @param {Float32Array} normals normal array.
+ */
+function setNorth(vertices, normals) {
+  if (yNorth) {
+    for (let i = 0; i &lt; vertices.length; i += 3) {
+      vertices[i] = -vertices[i]; // x
+      [vertices[i + 1], vertices[i + 2]] = [vertices[i + 2], vertices[i + 1]];
+      normals[i] = -normals[i]; // x
+      [normals[i + 1], normals[i + 2]] = [normals[i + 2], normals[i + 1]];
+    }
+  }
+}
+
+/**
+ * &lt;p>Create a model of a cube, centered at the origin.&lt;/p>
+ * This is not a particularly good format for a cube,
+ * since an IFS representation has a lot of redundancy.
  * @param {Number} side the length of a side of the cube.
  *       If not given, the value will be 1.
  * @return {modelData}
@@ -131,7 +155,8 @@ function cube(side) {
 }
 
 /**
- * Create a model of a torus (surface of a doughnut).  The z-axis goes through the doughnut hole,
+ * &lt;p>Create a model of a torus (surface of a doughnut).&lt;/p>
+ * The z-axis goes through the doughnut hole,
  * and the center of the torus is at (0,0,0).
  * @param {Number} outerRadius the distance from the center to the outside of the tube, 0.5 if not specified.
  * @param {Number} innerRadius the distance from the center to the inside of the tube, outerRadius/3 if not
@@ -209,7 +234,8 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
 }
 
 /**
- * Defines a model of a cylinder.  The axis of the cylinder is the z-axis,
+ * &lt;p>Defines a model of a cylinder.&lt;/p>
+ * The axis of the cylinder is the z-axis,
  * and the center is at (0,0,0).
  * @param {Number} radius the radius of the cylinder
  * @param {Number} height the height of the cylinder.  The cylinder extends from -height/2
@@ -347,6 +373,8 @@ function uvCylinder(radius, height, slices, noTop, noBottom) {
       indices[k++] = startIndex + i + 2;
     }
   }
+  setNorth(vertices, normals);
+
   return {
     vertexPositions: vertices,
     vertexNormals: normals,
@@ -387,9 +415,15 @@ function uvSphere(radius, slices, stacks) {
     v = -Math.PI / 2 + i * dv;
     for (j = 0; j &lt;= slices; j++) {
       u = j * du;
-      x = Math.cos(u) * Math.cos(v);
-      y = Math.sin(u) * Math.cos(v);
-      z = Math.sin(v);
+      if (yNorth) {
+        x = -Math.cos(u) * Math.cos(v);
+        y = Math.sin(v);
+        z = Math.sin(u) * Math.cos(v);
+      } else {
+        x = Math.cos(u) * Math.cos(v);
+        y = Math.sin(u) * Math.cos(v);
+        z = Math.sin(v);
+      }
       vertices[indexV] = radius * x;
       tangents[indexV] = -y;
       normals[indexV++] = x;
@@ -426,7 +460,8 @@ function uvSphere(radius, slices, stacks) {
 }
 
 /**
- * Defines a model of a cone.  The axis of the cone is the z-axis,
+ * &lt;p>Defines a model of a cone.&lt;/p>
+ * The axis of the cone is the z-axis,
  * and the center is at (0,0,0).
  * @param {Number} radius the radius of the cone.
  * @param {Number} height the height of the cone. &lt;br>
@@ -552,6 +587,8 @@ function uvCone(radius, height, slices, noBottom) {
       indices[k++] = startIndex + i + 2;
     }
   }
+  setNorth(vertices, normals);
+
   return {
     vertexPositions: vertices,
     vertexNormals: normals,
@@ -574,13 +611,13 @@ function uvCone(radius, height, slices, noBottom) {
 {@link draw object} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linkdrawstrength%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
 {@link draw strength} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linkloadBumpmapimage%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
 {@link loadBumpmap image} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linksetDiffusecolor%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
-{@link setDiffuse color} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a_coords_loc">a_coords_loc</a></li><li><a href="global.html#a_normal_loc">a_normal_loc</a></li><li><a href="global.html#a_tangent_loc">a_tangent_loc</a></li><li><a href="global.html#a_texCoords_loc">a_texCoords_loc</a></li><li><a href="global.html#bumpmap">bumpmap</a></li><li><a href="global.html#bumpmapURLs">bumpmapURLs</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initGL">initGL</a></li><li><a href="global.html#loadBumpmap">loadBumpmap</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setDiffuse">setDiffuse</a></li><li><a href="global.html#texture">texture</a></li><li><a href="global.html#u_bumpmap">u_bumpmap</a></li><li><a href="global.html#u_bumpmapSize">u_bumpmapSize</a></li><li><a href="global.html#u_bumpmapStrength">u_bumpmapStrength</a></li><li><a href="global.html#u_lights">u_lights</a></li><li><a href="global.html#u_material">u_material</a></li><li><a href="global.html#u_modelview">u_modelview</a></li><li><a href="global.html#u_normalMatrix">u_normalMatrix</a></li><li><a href="global.html#u_projection">u_projection</a></li><li><a href="global.html#u_texture">u_texture</a></li><li><a href="global.html#u_useTexture">u_useTexture</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+{@link setDiffuse color} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a_coords_loc">a_coords_loc</a></li><li><a href="global.html#a_normal_loc">a_normal_loc</a></li><li><a href="global.html#a_tangent_loc">a_tangent_loc</a></li><li><a href="global.html#a_texCoords_loc">a_texCoords_loc</a></li><li><a href="global.html#bumpmap">bumpmap</a></li><li><a href="global.html#bumpmapURLs">bumpmapURLs</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initGL">initGL</a></li><li><a href="global.html#loadBumpmap">loadBumpmap</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setDiffuse">setDiffuse</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#texture">texture</a></li><li><a href="global.html#u_bumpmap">u_bumpmap</a></li><li><a href="global.html#u_bumpmapSize">u_bumpmapSize</a></li><li><a href="global.html#u_bumpmapStrength">u_bumpmapStrength</a></li><li><a href="global.html#u_lights">u_lights</a></li><li><a href="global.html#u_material">u_material</a></li><li><a href="global.html#u_modelview">u_modelview</a></li><li><a href="global.html#u_normalMatrix">u_normalMatrix</a></li><li><a href="global.html#u_projection">u_projection</a></li><li><a href="global.html#u_texture">u_texture</a></li><li><a href="global.html#u_useTexture">u_useTexture</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 11 2024 08:22:59 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 11 2024 10:27:22 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
