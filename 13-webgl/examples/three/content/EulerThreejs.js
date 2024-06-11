@@ -26,8 +26,8 @@
  *
  * @since 10/11/2014
  * @author Paulo Roma
- * @see https://discoverthreejs.com/book/first-steps/transformations/
- * @see https://threejs.org/docs/#api/en/math/Euler
+ * @see {@link https://discoverthreejs.com/book/first-steps/transformations/ Transformations, Coordinate Systems, and the Scene Graph}
+ * @see {@link https://threejs.org/docs/#api/en/math/Euler Euler Angles}
  * @see <a href="/cwdc/13-webgl/examples/three/content/EulerThreejs.html">link</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/EulerThreejs.js">source</a>
  * @see <iframe title="Euler" style="width: 650px; height: 512px; transform-origin: 0px 80px; transform: scale(0.75);" src="/cwdc/13-webgl/examples/three/content/EulerThreejs.html"></iframe>
@@ -39,7 +39,9 @@
 /**
  * Three.js module.
  * @external THREE
- * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
+ * @see {@link https://discoverthreejs.com DISCOVER three.js}
+ * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
  */
 let THREE;
 
@@ -899,7 +901,7 @@ function drawLocalAxes(parent, font) {
     textGeometry = new TextGeometry(ch, {
       font: font,
       size: 0.1,
-      height: 0,
+      depth: 0,
     });
     var mesh = new THREE.Mesh(textGeometry, textMaterialNeg);
     mesh.position.set(...points[i]);
