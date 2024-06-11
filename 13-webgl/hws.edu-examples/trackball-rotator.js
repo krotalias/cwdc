@@ -39,11 +39,14 @@
  * </ul>
  *
  * @since 19/11/2022
- * @author David J. Eck and modified by Paulo Roma
+ * @author {@link https://math.hws.edu/eck/ David J. Eck}
+ * @author modified by Paulo Roma
  * @see <a href="/cwdc/13-webgl/hws.edu-examples/trackball-rotator.js">source</a>
- * @see https://math.hws.edu/graphicsbook/source/webgl/cube-with-trackball-rotator.html
- * @see https://math.hws.edu/graphicsbook/source/webgl/trackball-rotator.js
- * @see https://math.hws.edu/graphicsbook/source/webgl/skybox-and-env-map.html
+ * @see {@link https://math.hws.edu/graphicsbook/source/webgl/trackball-rotator.js hws source}
+ * @see {@link https://math.hws.edu/graphicsbook/source/webgl/cube-with-trackball-rotator.html A Cube with "Trackball" Mouse Rotation}
+ * @see {@link https://math.hws.edu/graphicsbook/source/webgl/skybox-and-env-map.html WebGL Reflection Map With Skybox}
+ * @see {@link https://braintrekking.wordpress.com/2012/08/21/tutorial-of-arcball-without-quaternions/ Tutorial of Arcball without quaternions}
+ * @see <a href="/cwdc/13-webgl/extras/doc/ArcBallTutorialFlavia.pdf">The ArcBall Technique</a>
  * @see <img src="/cwdc/13-webgl/lib/arcball4.png" width="256">
  */
 

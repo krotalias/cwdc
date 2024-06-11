@@ -45,7 +45,7 @@
  *    &lt;li>plus a list of indices for the element array buffer.&lt;/li>
  *  &lt;/ul>
  *
- * The return value of each function is an object, model,
+ * The return value of each function is an object, {@link modelData model},
  * with properties:
  * &lt;pre>
  *    model.vertexPositions -- the vertex coordinates;
@@ -65,7 +65,8 @@
  *  &lt;li>{@link uvTorus torus}&lt;/li>
  * &lt;/ul>
  *
- * @author David J. Eck and modified by Paulo Roma
+ * @author {@link https://math.hws.edu/eck/ David J. Eck}
+ * @authora modified by Paulo Roma
  * @since 19/11/2022
  * @see &lt;a href="/cwdc/13-webgl/hws.edu-examples/basic-object-models-with-tangents-IFS.js">source&lt;/a>
  *
@@ -74,16 +75,22 @@
 "use strict";
 
 /**
+ * An object containing raw data for
+ * vertices, normal vectors, texture coordinates, and indices.
+ * @typedef {Object} modelData
+ * @property {Float32Array} vertexPositions vertex coordinates.
+ * @property {Float32Array} vertexNormals vertex normals.
+ * @property {Float32Array} vertexTextureCoords texture coordinates.
+ * @property {Uint16Array|Uint32Array} indices index array.
+ */
+
+/**
  * Create a model of a cube, centered at the origin.  (This is not
  * a particularly good format for a cube, since an IFS representation
  * has a lot of redundancy.)
  * @param {Number} side the length of a side of the cube.
  *       If not given, the value will be 1.
- * @return {Object&lt;{vertexPositions: Float32Array,
-                    vertexNormals: Float32Array,
-                    vertexTextureCoords: Float32Array,
-                    vertexTangents: Float32Array,
-                    indices: Uint16Array}>}
+ * @return {modelData}
  */
 function cube(side) {
     let s = (side || 1) / 2;
@@ -132,12 +139,8 @@ function cube(side) {
  * z-axis and go around the tube the short way (through the hole).
  * @param {Number} stacks the number of lines of latitude plus 1, default 16. These lines are perpendicular
  * to the z-axis and go around the tube the long way (arouind the hole).
- * @return {Object&lt;{vertexPositions: Float32Array,
-                    vertexNormals: Float32Array,
-                    vertexTextureCoords: Float32Array,
-                    vertexTangents: Float32Array,
-                    indices: Uint16Array}>}
- * @see &lt;a href="/roma/cg/doc/html/torus_8cpp.html#acf04d1331c5f0cedfaacc30d1d3f46f4">torus&lt;/a>
+ * @return {modelData}
+ * @see &lt;a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#acf04d1331c5f0cedfaacc30d1d3f46f4">torus&lt;/a>
  * @see &lt;img src="../torusparams.gif">
  */
 function uvTorus(outerRadius, innerRadius, slices, stacks) {
@@ -215,12 +218,8 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  *   the cylinder does not have a top. The top is a disk at the positive end of the cylinder.
  * @param {Boolean} noBottom if missing or false, the cylinder has a bottom; if set to true,
  *   the cylinder does not have a bottom. The bottom is a disk at the negtive end of the cylinder.
- * @return {Object&lt;{vertexPositions: Float32Array,
-                    vertexNormals: Float32Array,
-                    vertexTextureCoords: Float32Array,
-                    vertexTangents: Float32Array,
-                    indices: Uint16Array}>}
- * @see &lt;a href="/roma/cg/doc/html/torus_8cpp.html#a03c085eb7ef8ae60df19dc9e06c0a173">cylinder&lt;/a>
+ * @return {modelData}
+ * @see &lt;a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a03c085eb7ef8ae60df19dc9e06c0a173">cylinder&lt;/a>
  */
 function uvCylinder(radius, height, slices, noTop, noBottom) {
     radius = radius || 0.5;
@@ -365,12 +364,8 @@ function uvCylinder(radius, height, slices, noTop, noBottom) {
  * @param {Number} stacks the number of lines of latitude plus 1, default 16.
  *   (This is the number of vertical slices, bounded by lines of latitude,
  *    the north pole and the south pole.)
- * @return {Object&lt;{vertexPositions:Float32Array,
- *          vertexNormals:Float32Array,
- *          vertexTextureCoords:Float32Array,
- *          vertexTangents: Float32Array,
- *          indices:Uint16Array}>}
- * @see &lt;a href="/roma/cg/doc/html/torus_8cpp.html#a6c5b17163125dd32bd7c04a99738d316">sphere&lt;/a>
+ * @return {modelData}
+ * @see &lt;a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a6c5b17163125dd32bd7c04a99738d316">sphere&lt;/a>
  */
 function uvSphere(radius, slices, stacks) {
     radius = radius || 0.5;
@@ -440,12 +435,8 @@ function uvSphere(radius, slices, stacks) {
  * @param {Boolean} noBottom if missing or false, the cone has a bottom;
  *    if set to true, the cone does not have a bottom. &lt;br>
  *    The bottom is a disk at the wide end of the cone.
- * @return {Object&lt;{vertexPositions:Float32Array,
- *          vertexNormals:Float32Array,
- *          vertexTextureCoords:Float32Array,
- *          vertexTangents: Float32Array,
- *          indices:Uint16Array}>}
- * @see &lt;a href="/roma/cg/doc/html/torus_8cpp.html#a2106dc9326540a0309d6e8d815e10a0e">cone&lt;/a>
+ * @return {modelData}
+ * @see &lt;a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a2106dc9326540a0309d6e8d815e10a0e">cone&lt;/a>
  */
 function uvCone(radius, height, slices, noBottom) {
     radius = radius || 0.5;
@@ -582,13 +573,13 @@ function uvCone(radius, height, slices, noBottom) {
 {@link draw object} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linkdrawstrength%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
 {@link draw strength} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linkloadBumpmapimage%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
 {@link loadBumpmap image} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linksetDiffusecolor%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
-{@link setDiffuse color} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a_coords_loc">a_coords_loc</a></li><li><a href="global.html#a_normal_loc">a_normal_loc</a></li><li><a href="global.html#a_tangent_loc">a_tangent_loc</a></li><li><a href="global.html#a_texCoords_loc">a_texCoords_loc</a></li><li><a href="global.html#bumpmap">bumpmap</a></li><li><a href="global.html#bumpmapURLs">bumpmapURLs</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initGL">initGL</a></li><li><a href="global.html#loadBumpmap">loadBumpmap</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setDiffuse">setDiffuse</a></li><li><a href="global.html#texture">texture</a></li><li><a href="global.html#u_bumpmap">u_bumpmap</a></li><li><a href="global.html#u_bumpmapSize">u_bumpmapSize</a></li><li><a href="global.html#u_bumpmapStrength">u_bumpmapStrength</a></li><li><a href="global.html#u_lights">u_lights</a></li><li><a href="global.html#u_material">u_material</a></li><li><a href="global.html#u_modelview">u_modelview</a></li><li><a href="global.html#u_normalMatrix">u_normalMatrix</a></li><li><a href="global.html#u_projection">u_projection</a></li><li><a href="global.html#u_texture">u_texture</a></li><li><a href="global.html#u_useTexture">u_useTexture</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
+{@link setDiffuse color} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a_coords_loc">a_coords_loc</a></li><li><a href="global.html#a_normal_loc">a_normal_loc</a></li><li><a href="global.html#a_tangent_loc">a_tangent_loc</a></li><li><a href="global.html#a_texCoords_loc">a_texCoords_loc</a></li><li><a href="global.html#bumpmap">bumpmap</a></li><li><a href="global.html#bumpmapURLs">bumpmapURLs</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initGL">initGL</a></li><li><a href="global.html#loadBumpmap">loadBumpmap</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setDiffuse">setDiffuse</a></li><li><a href="global.html#texture">texture</a></li><li><a href="global.html#u_bumpmap">u_bumpmap</a></li><li><a href="global.html#u_bumpmapSize">u_bumpmapSize</a></li><li><a href="global.html#u_bumpmapStrength">u_bumpmapStrength</a></li><li><a href="global.html#u_lights">u_lights</a></li><li><a href="global.html#u_material">u_material</a></li><li><a href="global.html#u_modelview">u_modelview</a></li><li><a href="global.html#u_normalMatrix">u_normalMatrix</a></li><li><a href="global.html#u_projection">u_projection</a></li><li><a href="global.html#u_texture">u_texture</a></li><li><a href="global.html#u_useTexture">u_useTexture</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Nov 23 2023 07:28:41 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jun 11 2024 07:31:44 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

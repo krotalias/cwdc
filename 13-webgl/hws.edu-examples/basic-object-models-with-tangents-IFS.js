@@ -17,7 +17,7 @@
  *    <li>plus a list of indices for the element array buffer.</li>
  *  </ul>
  *
- * The return value of each function is an object, model,
+ * The return value of each function is an object, {@link modelData model},
  * with properties:
  * <pre>
  *    model.vertexPositions -- the vertex coordinates;
@@ -37,7 +37,8 @@
  *  <li>{@link uvTorus torus}</li>
  * </ul>
  *
- * @author David J. Eck and modified by Paulo Roma
+ * @author {@link https://math.hws.edu/eck/ David J. Eck}
+ * @authora modified by Paulo Roma
  * @since 19/11/2022
  * @see <a href="/cwdc/13-webgl/hws.edu-examples/basic-object-models-with-tangents-IFS.js">source</a>
  *
@@ -46,16 +47,22 @@
 "use strict";
 
 /**
+ * An object containing raw data for
+ * vertices, normal vectors, texture coordinates, and indices.
+ * @typedef {Object} modelData
+ * @property {Float32Array} vertexPositions vertex coordinates.
+ * @property {Float32Array} vertexNormals vertex normals.
+ * @property {Float32Array} vertexTextureCoords texture coordinates.
+ * @property {Uint16Array|Uint32Array} indices index array.
+ */
+
+/**
  * Create a model of a cube, centered at the origin.  (This is not
  * a particularly good format for a cube, since an IFS representation
  * has a lot of redundancy.)
  * @param {Number} side the length of a side of the cube.
  *       If not given, the value will be 1.
- * @return {Object<{vertexPositions: Float32Array,
-                    vertexNormals: Float32Array,
-                    vertexTextureCoords: Float32Array,
-                    vertexTangents: Float32Array,
-                    indices: Uint16Array}>}
+ * @return {modelData}
  */
 function cube(side) {
     let s = (side || 1) / 2;
@@ -104,12 +111,8 @@ function cube(side) {
  * z-axis and go around the tube the short way (through the hole).
  * @param {Number} stacks the number of lines of latitude plus 1, default 16. These lines are perpendicular
  * to the z-axis and go around the tube the long way (arouind the hole).
- * @return {Object<{vertexPositions: Float32Array,
-                    vertexNormals: Float32Array,
-                    vertexTextureCoords: Float32Array,
-                    vertexTangents: Float32Array,
-                    indices: Uint16Array}>}
- * @see <a href="/roma/cg/doc/html/torus_8cpp.html#acf04d1331c5f0cedfaacc30d1d3f46f4">torus</a>
+ * @return {modelData}
+ * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#acf04d1331c5f0cedfaacc30d1d3f46f4">torus</a>
  * @see <img src="../torusparams.gif">
  */
 function uvTorus(outerRadius, innerRadius, slices, stacks) {
@@ -187,12 +190,8 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  *   the cylinder does not have a top. The top is a disk at the positive end of the cylinder.
  * @param {Boolean} noBottom if missing or false, the cylinder has a bottom; if set to true,
  *   the cylinder does not have a bottom. The bottom is a disk at the negtive end of the cylinder.
- * @return {Object<{vertexPositions: Float32Array,
-                    vertexNormals: Float32Array,
-                    vertexTextureCoords: Float32Array,
-                    vertexTangents: Float32Array,
-                    indices: Uint16Array}>}
- * @see <a href="/roma/cg/doc/html/torus_8cpp.html#a03c085eb7ef8ae60df19dc9e06c0a173">cylinder</a>
+ * @return {modelData}
+ * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a03c085eb7ef8ae60df19dc9e06c0a173">cylinder</a>
  */
 function uvCylinder(radius, height, slices, noTop, noBottom) {
     radius = radius || 0.5;
@@ -337,12 +336,8 @@ function uvCylinder(radius, height, slices, noTop, noBottom) {
  * @param {Number} stacks the number of lines of latitude plus 1, default 16.
  *   (This is the number of vertical slices, bounded by lines of latitude,
  *    the north pole and the south pole.)
- * @return {Object<{vertexPositions:Float32Array,
- *          vertexNormals:Float32Array,
- *          vertexTextureCoords:Float32Array,
- *          vertexTangents: Float32Array,
- *          indices:Uint16Array}>}
- * @see <a href="/roma/cg/doc/html/torus_8cpp.html#a6c5b17163125dd32bd7c04a99738d316">sphere</a>
+ * @return {modelData}
+ * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a6c5b17163125dd32bd7c04a99738d316">sphere</a>
  */
 function uvSphere(radius, slices, stacks) {
     radius = radius || 0.5;
@@ -412,12 +407,8 @@ function uvSphere(radius, slices, stacks) {
  * @param {Boolean} noBottom if missing or false, the cone has a bottom;
  *    if set to true, the cone does not have a bottom. <br>
  *    The bottom is a disk at the wide end of the cone.
- * @return {Object<{vertexPositions:Float32Array,
- *          vertexNormals:Float32Array,
- *          vertexTextureCoords:Float32Array,
- *          vertexTangents: Float32Array,
- *          indices:Uint16Array}>}
- * @see <a href="/roma/cg/doc/html/torus_8cpp.html#a2106dc9326540a0309d6e8d815e10a0e">cone</a>
+ * @return {modelData}
+ * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a2106dc9326540a0309d6e8d815e10a0e">cone</a>
  */
 function uvCone(radius, height, slices, noBottom) {
     radius = radius || 0.5;
