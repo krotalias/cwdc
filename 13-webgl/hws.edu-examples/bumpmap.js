@@ -4,18 +4,18 @@
  * Summary.
  * <p>Bump Mapping.</p>
  *
- * A mostly successful attempt to do bumpmapping.<br>
+ * A mostly successful attempt to do {@link https://en.wikipedia.org/wiki/Bump_mapping Bump Mapping}.<br>
  * Grayscale height maps are used to perturb the normals to a surface,
  * making the surface look "bumpy". <br>
  *
  * The implementation requires tangent vectors for the surface.
  *
  * <p>The five object models used here have tangent vectors that can be passed
- * as an attribute to the shader program. </p>
+ * as an attribute to the shader program.</p>
  *
- * Note: I haven't learned how to make the appropriate tangent vectors in general. <br>
- * It took some experimentation for me to get them
- * pointed in directions that seem to work.
+ * <p>Nevertheless, I'd like to be able set tangent vectors in general,
+ * but it took me some experimentation to get them
+ * pointed in directions that seem to work.</p>
  *
  * @author {@link https://math.hws.edu/eck/ David J. Eck}
  * @author modified by Paulo Roma
@@ -24,6 +24,7 @@
  * @see <a href="/cwdc/13-webgl/hws.edu-examples/bumpmap.js">source</a>
  * @see {@link https://math.hws.edu/graphicsbook/source/webgl/bumpmap.html WebGL Bumpmap Demo}
  * @see {@link https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=312 3D GRAPHICS WITH WEBGL}
+ * @see <iframe title="Bump Mapping" style="margin-bottom: -100px; width: 600px; height: 512px; transform-origin: 0px 80px; transform: scale(0.75);" src="/cwdc/13-webgl/hws.edu-examples/bumpmap.html"></iframe>
  */
 
 "use strict";
