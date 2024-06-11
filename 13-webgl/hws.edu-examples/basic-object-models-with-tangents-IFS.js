@@ -136,7 +136,7 @@ function cube(side) {
  * @param {Number} slices the number of lines of longitude, default 32. These are slices parallel to the
  * z-axis and go around the tube the short way (through the hole).
  * @param {Number} stacks the number of lines of latitude plus 1, default 16. These lines are perpendicular
- * to the z-axis and go around the tube the long way (arouind the hole).
+ * to the z-axis and go around the tube the long way (around the hole).
  * @return {modelData}
  * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#acf04d1331c5f0cedfaacc30d1d3f46f4">torus</a>
  * @see <img src="../torusparams.gif">
@@ -216,7 +216,7 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  * @param {Boolean} noTop if missing or false, the cylinder has a top; if set to true,
  *   the cylinder does not have a top. The top is a disk at the positive end of the cylinder.
  * @param {Boolean} noBottom if missing or false, the cylinder has a bottom; if set to true,
- *   the cylinder does not have a bottom. The bottom is a disk at the negtive end of the cylinder.
+ *   the cylinder does not have a bottom. The bottom is a disk at the negative end of the cylinder.
  * @return {modelData}
  * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a03c085eb7ef8ae60df19dc9e06c0a173">cylinder</a>
  */
