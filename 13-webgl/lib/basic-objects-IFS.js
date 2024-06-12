@@ -46,14 +46,18 @@
 "use strict";
 
 /**
- * Sets the North to be the y axis,
- * so the z axis points outside the screen.
+ * Sets the North to be the y-axis,
+ * so the z-axis points outside the screen.
  * @type {Boolean}
  */
 let yNorth = true;
 
 /**
- * Rotate the given model so the y axis points North.
+ * <p>Rotate the given model so the y-axis points North.</p>
+ * The variable {@link yNorth} must be true, otherwise this function has no effect:
+ * <ul style="list-style: none;">
+ *   <li>if (yNorth) (x, y, z) → (-x, z , y)</li>
+ * </ul>
  * @param {Float32Array} vertices vertex array.
  * @param {Float32Array} normals normal array.
  */
@@ -638,6 +642,7 @@ function uvCone(radius, height, slices, noBottom) {
     }
   }
   setNorth(vertices, normals);
+
   return {
     vertexPositions: vertices,
     vertexNormals: normals,

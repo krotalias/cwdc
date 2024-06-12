@@ -3043,7 +3043,7 @@ One entry for each material property.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line653">line 653</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line658">line 658</a>
     </li></ul></dd>
     
 
@@ -3739,8 +3739,8 @@ One entry for each material property.
 
 
 <div class="description">
-    Sets the North to be the y axis,
-so the z axis points outside the screen.
+    Sets the North to be the y-axis,
+so the z-axis points outside the screen.
 </div>
 
 
@@ -4663,7 +4663,7 @@ since an IFS representation has a lot of redundancy.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line124">line 124</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line128">line 128</a>
     </li></ul></dd>
     
 
@@ -5475,7 +5475,7 @@ vertices, normal vectors, texture coordinates, and indices.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line107">line 107</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -7561,7 +7561,7 @@ This is not a great representation, since all the normals are the same.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line171">line 171</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line175">line 175</a>
     </li></ul></dd>
     
 
@@ -7854,7 +7854,11 @@ from &lt;select&gt; element in html.</td>
 
 
 <div class="description">
-    Rotate the given model so the y axis points North.
+    <p>Rotate the given model so the y-axis points North.</p>
+The variable <a href="global.html#yNorth">yNorth</a> must be true, otherwise this function has no effect:
+<ul style="list-style: none;">
+  <li>if (yNorth) (x, y, z) → (-x, z , y)</li>
+</ul>
 </div>
 
 
@@ -7970,7 +7974,7 @@ from &lt;select&gt; element in html.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line60">line 60</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line64">line 64</a>
     </li></ul></dd>
     
 
@@ -8913,7 +8917,7 @@ to height/2 along the z-axis, with the tip at (0,0,height/2).</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line537">line 537</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line541">line 541</a>
     </li></ul></dd>
     
 
@@ -9174,7 +9178,7 @@ and the center is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line408">line 408</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line412">line 412</a>
     </li></ul></dd>
     
 
@@ -9386,7 +9390,7 @@ with the north pole on the positive z-axis and the center at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line256">line 256</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line260">line 260</a>
     </li></ul></dd>
     
 
@@ -9625,7 +9629,7 @@ and the center of the torus is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line332">line 332</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line336">line 336</a>
     </li></ul></dd>
     
 
@@ -10512,7 +10516,7 @@ vertices, normal vectors, texture coordinates, and indices.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line71">line 71</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -11869,7 +11873,7 @@ the event is dispatched.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jun 10 2024 16:57:59 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jun 12 2024 09:03:30 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
