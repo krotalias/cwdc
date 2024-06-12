@@ -70,14 +70,17 @@ let yNorth = true;
  * The variable {@link yNorth} must be true, otherwise this function has no effect.
  * @param {Float32Array} vertices vertex array.
  * @param {Float32Array} normals normal array.
+ * @param {Float32Array} tangents tangent array.
  */
-function setNorth(vertices, normals) {
+function setNorth(vertices, normals, tangents) {
   if (yNorth) {
     for (let i = 0; i < vertices.length; i += 3) {
       vertices[i] = -vertices[i]; // x
       [vertices[i + 1], vertices[i + 2]] = [vertices[i + 2], vertices[i + 1]];
       normals[i] = -normals[i]; // x
       [normals[i + 1], normals[i + 2]] = [normals[i + 2], normals[i + 1]];
+      tangents[i] = -tangents[i]; // x
+      [tangents[i + 1], tangents[i + 2]] = [tangents[i + 2], tangents[i + 1]];
     }
   }
 }
@@ -351,7 +354,7 @@ function uvCylinder(radius, height, slices, noTop, noBottom) {
       indices[k++] = startIndex + i + 2;
     }
   }
-  setNorth(vertices, normals);
+  setNorth(vertices, normals, tangents);
 
   return {
     vertexPositions: vertices,
@@ -565,7 +568,7 @@ function uvCone(radius, height, slices, noBottom) {
       indices[k++] = startIndex + i + 2;
     }
   }
-  setNorth(vertices, normals);
+  setNorth(vertices, normals, tangents);
 
   return {
     vertexPositions: vertices,
