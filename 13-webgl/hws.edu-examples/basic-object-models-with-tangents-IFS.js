@@ -89,6 +89,40 @@ function setNorth(vertices, normals, tangents) {
 }
 
 /**
+ * Given an instance of
+ * <ul>
+ * <li>{@link https://threejs.org/docs/#api/en/core/BufferGeometry THREE.BufferGeometry}</li>
+ * </ul>
+ * returns an object containing raw data for
+ * vertices, normal vectors, texture coordinates, and indices.
+ * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
+ * @param {external:THREE.BufferGeometry} geom
+ *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry THREE.ConeGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/CylinderGeometry THREE.CylinderGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/RingGeometry THREE.RingGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusGeometry THREE.TorusGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry THREE.TorusKnotGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry THREE.DodecahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry THREE.IcosahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry THREE.OctahedronGeometry},<br>
+ *        {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry THREE.TetrahedronGeometry},<br>
+ *        {@link TeapotGeometry THREE.TeapotGeometry}.
+ * @return {modelData}
+ */
+function getModelData(geom) {
+  return {
+    vertexPositions: geom.getAttribute("position").array,
+    vertexNormals: geom.getAttribute("normal").array,
+    vertexTextureCoords: geom.getAttribute("uv").array,
+    indices: geom.index ? geom.index.array : null,
+  };
+}
+
+/**
  * <p>Create a model of a cube, centered at the origin.</p>
  * This is not a particularly good format for a cube,
  * since an IFS representation has a lot of redundancy.
@@ -462,7 +496,10 @@ function uvCone(radius, height, slices, noBottom) {
   radius = radius || 0.5;
   height = height || 2 * radius;
   slices = slices || 32;
-  var fractions = [0, 0.5, 0.75, 0.875, 0.9375];
+  // improves the interpolation - roma
+  var cuts = 16;
+  var fractions = [...Array(cuts).keys()].map((i) => i / cuts);
+  // var fractions = [0, 4/16, 8/16, 12/16, 14/16, 15/16];
   var vertexCount = fractions.length * (slices + 1) + slices;
   if (!noBottom) vertexCount += slices + 2;
   var triangleCount = (fractions.length - 1) * slices * 2 + slices;
