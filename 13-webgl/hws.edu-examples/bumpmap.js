@@ -4,18 +4,45 @@
  * Summary.
  * <p>Bump Mapping.</p>
  *
- * A mostly successful attempt to do {@link https://en.wikipedia.org/wiki/Bump_mapping Bump Mapping}.<br>
- * Grayscale height maps are used to perturb the normals to a surface,
- * making the surface look "bumpy". <br>
+ * <p>A mostly successful attempt to do {@link https://en.wikipedia.org/wiki/Bump_mapping Bump mapping}, in which
+ * {@link https://3dgrayscale.com/what-is-a-3d-heightmap/ grayscale height maps}
+ * are used to perturb the normals to a surface,
+ * making the surface look "bumpy".</p>
  *
- * The implementation requires tangent vectors for the surface.
+ * <p>The implementation requires tangent vectors for the surface.
+ * For our version of {@link https://www.youtube.com/watch?v=pCAM0aeOpOs bump mapping},
+ * the tangent vector should be
+ * coordinated with the texture coordinates for the surface, that is,
+ * the tangent vector should point in the direction in which
+ * the <i>s</i> coordinate in the texture coordinates is
+ * {@link https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=315 increasing }.</p>
+ *
+ * <img src="../Normal_Tangent_Space.jpg" width="256">
+ * <img src="../bump.png" width="256">
+ *
+ * <p>In {@link https://computergraphics.stackexchange.com/questions/5498/compute-sphere-tangent-for-normal-mapping spherical coordinates}
+ * with the usual longitude x latitude (𝜃, 𝜙) coordinates:</p>
+ * <ul>
+ *  <li>t = ∂f/∂θ or ∂f/∂u in our {@link uvSphere sphere} implementation,</li>
+ *  <li>b = ∂f/∂𝜙 or ∂f/∂v in our {@link uvTorus torus} implementation,</li>
+ *  <li> b = n × t. </li>
+ * </ul>
+ *
+ * <p>The base of a {@link uvCylinder cylinder} or {@link uvCone cone} is in fact a plane.
+ * Therefore, we use a constant vector perpendicular
+ * to its normal, in this case:
+ *
+ * <ul>
+ *  <li> (1, 0, 0) or (-1, 0, 0).</li>
+ * </ul>
+ *
+ * Nevertheless, we'd like to be able set tangent vectors in general,
+ * but it took some experimentation to get them
+ * pointing in directions that seem to work.</p>
  *
  * <p>The five object models used here have tangent vectors that can be passed
- * as an attribute to the shader program.</p>
- *
- * <p>Nevertheless, I'd like to be able set tangent vectors in general,
- * but it took me some experimentation to get them
- * pointed in directions that seem to work.</p>
+ * as an {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/By_example/Hello_vertex_attributes attribute}
+ * to the shader program.</p>
  *
  * @author {@link https://math.hws.edu/eck/ David J. Eck}
  * @author modified by Paulo Roma
@@ -323,7 +350,7 @@ function loadBumpmap() {
       /*
        * (0,0) in the image coordinate system is the top left corner,
        * and the (0,0) in the texture coordinate system is bottom left.
-       * Threfore, load the image bytes to the currently bound texture,
+       * Therefore, load the image bytes to the currently bound texture,
        * flipping the vertical.
        */
       gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
