@@ -23,7 +23,7 @@
  * @see <a href="/cwdc/13-webgl/hws.edu-examples/bumpmap.html">link</a>
  * @see <a href="/cwdc/13-webgl/hws.edu-examples/bumpmap.js">source</a>
  * @see {@link https://math.hws.edu/graphicsbook/source/webgl/bumpmap.html WebGL Bumpmap Demo}
- * @see {@link https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=312 3D GRAPHICS WITH WEBGL}
+ * @see {@link https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=314 3D GRAPHICS WITH WEBGL}
  * @see <iframe title="Bump Mapping" style="margin-bottom: -100px; width: 600px; height: 512px; transform-origin: 0px 80px; transform: scale(0.75);" src="/cwdc/13-webgl/hws.edu-examples/bumpmap.html"></iframe>
  */
 

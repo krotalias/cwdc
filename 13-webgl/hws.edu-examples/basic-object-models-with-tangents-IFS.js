@@ -433,15 +433,11 @@ function uvSphere(radius, slices, stacks) {
     v = -Math.PI / 2 + i * dv;
     for (j = 0; j <= slices; j++) {
       u = j * du;
-      if (yNorth) {
-        x = -Math.cos(u) * Math.cos(v);
-        y = Math.sin(v);
-        z = Math.sin(u) * Math.cos(v);
-      } else {
-        x = Math.cos(u) * Math.cos(v);
-        y = Math.sin(u) * Math.cos(v);
-        z = Math.sin(v);
-      }
+
+      x = Math.cos(u) * Math.cos(v);
+      y = Math.sin(u) * Math.cos(v);
+      z = Math.sin(v);
+
       vertices[indexV] = radius * x;
       tangents[indexV] = -y;
       normals[indexV++] = x;
@@ -468,6 +464,8 @@ function uvSphere(radius, slices, stacks) {
       indices[k++] = row2 + i + 1;
     }
   }
+  setNorth(vertices, normals, tangents);
+
   return {
     vertexPositions: vertices,
     vertexNormals: normals,
