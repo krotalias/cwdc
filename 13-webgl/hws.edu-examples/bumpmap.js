@@ -469,7 +469,7 @@ function initGL() {
   mat4.perspective(projection, Math.PI / 10, 1, 1, 10);
   gl.uniformMatrix4fv(u_projection, false, projection);
 
-  objects[0] = createModel(uvCone(0.6, 1, 24, false));
+  objects[0] = createModel(uvCone(0.6, 1, 24, 5, false));
   objects[1] = createModel(cube(0.85));
   objects[2] = createModel(uvCylinder());
   objects[3] = createModel(uvTorus(0.65, 0.2, 64, 24));
