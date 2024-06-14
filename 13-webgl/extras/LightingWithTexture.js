@@ -59,15 +59,19 @@
  * at the center of a map image and not at its border, which corresponds to
  * its {@link https://en.wikipedia.org/wiki/180th_meridian antimeridian}. </p>
  *
- * <p>Initially, I used the {@link https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js basic-objects-IFS} package,
+ * <p>Initially, I used the {@link https://math.hws.edu/graphicsbook/demos/script/basic-object-models-IFS.js basic-object-models-IFS} package,
  * but the models had their z-axis pointing up as the {@link https://en.wikipedia.org/wiki/Zenith zenith},
  * and I wanted the y-axis to be the north pole (up).
  * Therefore, I switched to {@link getModelData Three.js}, and almost everything
  * worked just fine. Nonetheless, a sphere created by subdividing a {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedron}
  * had its {@link module:polyhedron.rotateUTexture texture coordinates} rotated by 180°
- * and a cylinder or cone by 90°.
- * As a consequence, I decided to adapt basic-objects-IFS to my needs by introducing a global hook, {@link yNorth},
- * and {@link setNorth rotating} the models accordingly.</p>
+ * and a cylinder or cone by 90°. In fact, there is a poorly documented parameter,
+ * {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry thetaStart}, that <u>does fix</u> just that.</p>
+ *
+ * <p>Nevertheless, I decided to adapt the {@link https://math.hws.edu/graphicsbook/ hws} software
+ * to my needs by introducing a global hook, {@link yNorth},
+ * and {@link setNorth rotating} the models accordingly.
+ * A user can switch between hws and three.js models by pressing a single key (❖ or ⌘) in the interface.</p>
  *
  * <b>Homework</b>:
  *
