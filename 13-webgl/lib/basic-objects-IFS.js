@@ -275,15 +275,11 @@ function uvSphere(radius, slices, stacks) {
     v = -Math.PI / 2 + i * dv;
     for (j = 0; j <= slices; j++) {
       u = j * du;
-      if (yNorth) {
-        x = -Math.cos(u) * Math.cos(v);
-        y = Math.sin(v);
-        z = Math.sin(u) * Math.cos(v);
-      } else {
-        x = Math.cos(u) * Math.cos(v);
-        y = Math.sin(u) * Math.cos(v);
-        z = Math.sin(v);
-      }
+
+      x = Math.cos(u) * Math.cos(v);
+      y = Math.sin(u) * Math.cos(v);
+      z = Math.sin(v);
+
       vertices[indexV] = radius * x;
       normals[indexV++] = x;
       vertices[indexV] = radius * y;
@@ -307,6 +303,8 @@ function uvSphere(radius, slices, stacks) {
       indices[k++] = row2 + i + 1;
     }
   }
+  setNorth(vertices, normals);
+
   return {
     vertexPositions: vertices,
     vertexNormals: normals,
@@ -399,12 +397,12 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  * @param {Number} radius the radius of the cylinder
  * @param {Number} height the height of the cylinder.  <br>
  *    The cylinder extends from -height/2 to height/2 along the z-axis.
- * @param {Number} slices the number of slices, like the slices of an orange.
+ * @param {Number} slices the number of slices, like the slices of an orange, default 32.
  * @param {Boolean} noTop if missing or false, the cylinder has a top; if set to true,
- *   the cylinder has a top. <br>
+ *   the cylinder does not have a top. <br>
  *   The top is a disk at the positive end of the cylinder.
  * @param {Boolean} noBottom if missing or false, the cylinder has a bottom; if set to true,
- *   the cylinder has a bottom. <br>
+ *   the cylinder does not have a bottom. <br>
  *   The bottom is a disk at the negative end of the cylinder.
  * @return {modelData}
  * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a03c085eb7ef8ae60df19dc9e06c0a173">cylinder</a>
@@ -532,19 +530,21 @@ function uvCylinder(radius, height, slices, noTop, noBottom) {
  * @param {Number} radius the radius of the cone
  * @param {Number} height the height of the cone.  The cone extends from -height/2
  * to height/2 along the z-axis, with the tip at (0,0,height/2).
- * @param {Number} slices the number of slices, like the slices of an orange.
+ * @param {Number} slices the number of slices, like the slices of an orange, default 32.
+ * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, default 16.
  * @param {Boolean} noBottom if missing or false, the cone has a bottom; if set to true,
- *   the cone has a bottom. The bottom is a disk at the wide end of the cone.
+ *   the cone does not have a bottom. <br>
+ *   The bottom is a disk at the wide end of the cone.
  * @return {modelData}
  * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a2106dc9326540a0309d6e8d815e10a0e">cone</a>
  */
-function uvCone(radius, height, slices, noBottom) {
+function uvCone(radius, height, slices, stacks, noBottom) {
   radius = radius || 0.5;
   height = height || 2 * radius;
   slices = slices || 32;
+  stacks = stacks || 16;
   // improves the interpolation - roma
-  var cuts = 16;
-  var fractions = [...Array(cuts).keys()].map((i) => i / cuts);
+  var fractions = [...Array(stacks).keys()].map((i) => i / stacks);
   // var fractions = [0, 4/16, 8/16, 12/16, 14/16, 15/16];
   var vertexCount = fractions.length * (slices + 1) + slices;
   if (!noBottom) vertexCount += slices + 2;
