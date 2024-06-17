@@ -1649,7 +1649,7 @@ Here use aspect ratio 3/2 corresponding to canvas size 900 x 600</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line620">line 620</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line661">line 661</a>
     </li></ul></dd>
     
 
@@ -2080,6 +2080,79 @@ or using the <a href="https://glmatrix.net">glmatrix</a> package
             <li><img src="../projection.png" width="256"> <img src="../projection2.png" width="256"></li>
         </ul>
     </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="yNorth"><span class="type-signature"></span>yNorth<span class="type-signature"> :Boolean</span></h4>
+
+
+
+
+<div class="description">
+    Sets the North to be the y-axis,
+so the z-axis points outside the screen.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line53">line 53</a>
+    </li></ul></dd>
+    
+
+    
+
     
 
     
@@ -2909,7 +2982,7 @@ since an IFS representation has a lot of redundancy.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line97">line 97</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line128">line 128</a>
     </li></ul></dd>
     
 
@@ -3612,7 +3685,7 @@ vertices, normal vectors, texture coordinates, and indices.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line80">line 80</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -5276,7 +5349,7 @@ This is not a great representation, since all the normals are the same.
 
             
 
-            <td class="description last">the radius of the ring, from the center to teh
+            <td class="description last">the radius of the ring, from the center to the
    outer edge.  Must be greater than innerRadius.  <br>
    If not provided, the default value is 2*innerRadius or is 0.5 if innerRadius is 0.</td>
         </tr>
@@ -5344,7 +5417,7 @@ This is not a great representation, since all the normals are the same.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line144">line 144</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line175">line 175</a>
     </li></ul></dd>
     
 
@@ -5486,7 +5559,171 @@ This is not a great representation, since all the normals are the same.
     
 
     
-    <h4 class="name" id="uvCone"><span class="type-signature"></span>uvCone<span class="signature">(radius, height, slices, noBottom)</span><span class="type-signature"> &rarr; {<a href="global.html#modelData">modelData</a>}</span></h4>
+    <h4 class="name" id="setNorth"><span class="type-signature"></span>setNorth<span class="signature">(vertices, normals)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Rotate the given model so the y-axis points North.</p>
+The variable <a href="global.html#yNorth">yNorth</a> must be true, otherwise this function has no effect:
+<ul style="list-style: none;">
+  <li>if (yNorth) (x, y, z) → (-x, z , y)</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vertices</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float32Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">vertex array.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>normals</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float32Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">normal array.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line64">line 64</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="uvCone"><span class="type-signature"></span>uvCone<span class="signature">(radius, height, slices, stacks, noBottom)</span><span class="type-signature"> &rarr; {<a href="global.html#modelData">modelData</a>}</span></h4>
     
 
     
@@ -5595,7 +5832,30 @@ to height/2 along the z-axis, with the tip at (0,0,height/2).</td>
 
             
 
-            <td class="description last">the number of slices, like the slices of an orange.</td>
+            <td class="description last">the number of slices, like the slices of an orange, default 32.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stacks</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the number of stacks, like horizontal cuts of an orange, default 16.</td>
         </tr>
 
     
@@ -5619,7 +5879,8 @@ to height/2 along the z-axis, with the tip at (0,0,height/2).</td>
             
 
             <td class="description last">if missing or false, the cone has a bottom; if set to true,
-  the cone has a bottom. The bottom is a disk at the wide end of the cone.</td>
+  the cone does not have a bottom. <br>
+  The bottom is a disk at the wide end of the cone.</td>
         </tr>
 
     
@@ -5660,7 +5921,7 @@ to height/2 along the z-axis, with the tip at (0,0,height/2).</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line508">line 508</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line543">line 543</a>
     </li></ul></dd>
     
 
@@ -5721,7 +5982,7 @@ to height/2 along the z-axis, with the tip at (0,0,height/2).</td>
     
 
     
-    <h4 class="name" id="uvCylinder"><span class="type-signature"></span>uvCylinder<span class="signature">(radius, height, slices, noTop, noBottom)</span><span class="type-signature"> &rarr; {<a href="global.html#modelData">modelData</a>}</span></h4>
+    <h4 class="name" id="uvCylinder"><span class="type-signature"></span>uvCylinder<span class="signature">(radius, height, slices, stacks, noTop, noBottom)</span><span class="type-signature"> &rarr; {<a href="global.html#modelData">modelData</a>}</span></h4>
     
 
     
@@ -5830,7 +6091,30 @@ and the center is at (0,0,0).
 
             
 
-            <td class="description last">the number of slices, like the slices of an orange.</td>
+            <td class="description last">the number of slices, like the slices of an orange, default 32.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stacks</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the number of stacks, like horizontal cuts of an orange, default 16.</td>
         </tr>
 
     
@@ -5854,7 +6138,7 @@ and the center is at (0,0,0).
             
 
             <td class="description last">if missing or false, the cylinder has a top; if set to true,
-  the cylinder has a top. <br>
+  the cylinder does not have a top. <br>
   The top is a disk at the positive end of the cylinder.</td>
         </tr>
 
@@ -5879,7 +6163,7 @@ and the center is at (0,0,0).
             
 
             <td class="description last">if missing or false, the cylinder has a bottom; if set to true,
-  the cylinder has a bottom. <br>
+  the cylinder does not have a bottom. <br>
   The bottom is a disk at the negative end of the cylinder.</td>
         </tr>
 
@@ -5921,7 +6205,7 @@ and the center is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line381">line 381</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line411">line 411</a>
     </li></ul></dd>
     
 
@@ -6133,7 +6417,7 @@ with the north pole on the positive z-axis and the center at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line228">line 228</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line260">line 260</a>
     </li></ul></dd>
     
 
@@ -6372,7 +6656,7 @@ and the center of the torus is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line305">line 305</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line334">line 334</a>
     </li></ul></dd>
     
 
@@ -7017,7 +7301,7 @@ vertices, normal vectors, texture coordinates, and indices.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line44">line 44</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -7590,13 +7874,13 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> whenever any of th
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawModel">drawModel</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeCube">makeCube</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawModel">drawModel</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeCube">makeCube</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat May 25 2024 07:42:33 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jun 17 2024 07:11:11 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
