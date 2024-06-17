@@ -548,7 +548,8 @@ function uvCone(radius, height, slices, stacks, noBottom) {
   // var fractions = [0, 4/16, 8/16, 12/16, 14/16, 15/16];
   var vertexCount = fractions.length * (slices + 1) + slices;
   if (!noBottom) vertexCount += slices + 2;
-  var triangleCount = (fractions.length - 1) * slices * 2 + slices;
+  // roma - fixed
+  var triangleCount = (fractions.length - 1) * slices * 2 + 2 * slices;
   if (!noBottom) triangleCount += slices;
   var vertices = new Float32Array(vertexCount * 3);
   var normals = new Float32Array(vertexCount * 3);
