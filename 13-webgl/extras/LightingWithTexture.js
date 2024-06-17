@@ -852,7 +852,7 @@ const handleKeyPress = ((event) => {
         if (noTexture) height -= r;
         theModel = createModel({
           shape: hws
-            ? uvCylinder(r, height, 30, false, false)
+            ? uvCylinder(r, height, 30, 1, false, false)
             : getModelData(
                 new THREE.CylinderGeometry(
                   r,

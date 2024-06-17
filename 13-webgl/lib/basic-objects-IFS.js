@@ -398,6 +398,7 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  * @param {Number} height the height of the cylinder.  <br>
  *    The cylinder extends from -height/2 to height/2 along the z-axis.
  * @param {Number} slices the number of slices, like the slices of an orange, default 32.
+ * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, default 16.
  * @param {Boolean} noTop if missing or false, the cylinder has a top; if set to true,
  *   the cylinder does not have a top. <br>
  *   The top is a disk at the positive end of the cylinder.
@@ -407,10 +408,11 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  * @return {modelData}
  * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a03c085eb7ef8ae60df19dc9e06c0a173">cylinder</a>
  */
-function uvCylinder(radius, height, slices, noTop, noBottom) {
+function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
   radius = radius || 0.5;
   height = height || 2 * radius;
   slices = slices || 32;
+  stacks = stacks || 16;
   var vertexCount = 2 * (slices + 1);
   if (!noTop) vertexCount += slices + 2;
   if (!noBottom) vertexCount += slices + 2;

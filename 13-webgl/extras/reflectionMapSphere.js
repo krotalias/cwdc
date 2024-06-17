@@ -331,8 +331,8 @@ function init(cubeMapArr) {
   lmodel.push([createModel(teapotModel), 35]);
   lmodel.push([createModel(cube(15)), 30]);
   lmodel.push([createModel(ring(5, 10, 30)), 30]);
-  lmodel.push([createModel(uvCylinder(10, 20, 30, false, false)), 30]);
-  lmodel.push([createModel(uvCone(10, 20, 30, false)), 30]);
+  lmodel.push([createModel(uvCylinder(10, 20, 30, 5, false, false)), 30]);
+  lmodel.push([createModel(uvCone(10, 20, 30, 5, false)), 30]);
   lmodel.push([createModel(uvTorus(10, 5, 30, 30)), 25]);
   lmodel.push([
     createModel(new polyhedron().octahedron({ n: numTimesToSubdivide })),
