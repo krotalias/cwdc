@@ -413,51 +413,61 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
   height = height || 2 * radius;
   slices = slices || 32;
   stacks = stacks || 16;
-  var vertexCount = 2 * (slices + 1);
+
+  // improves the interpolation - roma
+  const fractions = [...Array(stacks + 1).keys()].map((i) => i / stacks);
+
+  let vertexCount = (fractions.length - 1) * (slices + 1) + 2 * (slices + 1);
   if (!noTop) vertexCount += slices + 2;
   if (!noBottom) vertexCount += slices + 2;
-  var triangleCount = 2 * slices;
+
+  let triangleCount = (fractions.length - 2) * 2 * slices + 2 * slices;
   if (!noTop) triangleCount += slices;
   if (!noBottom) triangleCount += slices;
-  var vertices = new Float32Array(vertexCount * 3);
-  var normals = new Float32Array(vertexCount * 3);
-  var texCoords = new Float32Array(vertexCount * 2);
-  var indices = new Uint16Array(triangleCount * 3);
-  var du = (2 * Math.PI) / slices;
-  var kv = 0;
-  var kt = 0;
-  var k = 0;
-  var i, u;
-  for (i = 0; i <= slices; i++) {
-    u = i * du;
-    var c = Math.cos(u);
-    var s = Math.sin(u);
-    vertices[kv] = c * radius;
-    normals[kv++] = c;
-    vertices[kv] = s * radius;
-    normals[kv++] = s;
-    vertices[kv] = -height / 2;
-    normals[kv++] = 0;
-    texCoords[kt++] = i / slices;
-    texCoords[kt++] = 0;
-    vertices[kv] = c * radius;
-    normals[kv++] = c;
-    vertices[kv] = s * radius;
-    normals[kv++] = s;
-    vertices[kv] = height / 2;
-    normals[kv++] = 0;
-    texCoords[kt++] = i / slices;
-    texCoords[kt++] = 1;
+
+  const vertices = new Float32Array(vertexCount * 3);
+  const normals = new Float32Array(vertexCount * 3);
+  const texCoords = new Float32Array(vertexCount * 2);
+  const indices = new Uint16Array(triangleCount * 3);
+  let du = (2 * Math.PI) / slices;
+  let kv = 0;
+  let kt = 0;
+  let k = 0;
+  let i, j;
+
+  for (j = 0; j <= fractions.length; j++) {
+    // create a zig-zag mesh
+    var uoffset = j % 2 == 0 ? 0 : 0.5;
+    for (i = 0; i <= slices; i++) {
+      let h1 = -height / 2 + fractions[j] * height;
+      let u = (i + uoffset) * du;
+      var c = Math.cos(u);
+      var s = Math.sin(u);
+      vertices[kv] = c * radius; // x
+      normals[kv++] = c;
+      vertices[kv] = s * radius; // y
+      normals[kv++] = s;
+      vertices[kv] = h1; // z
+      normals[kv++] = 0;
+      texCoords[kt++] = (i + uoffset) / slices;
+      texCoords[kt++] = fractions[j];
+    }
   }
-  for (i = 0; i < slices; i++) {
-    indices[k++] = 2 * i;
-    indices[k++] = 2 * i + 3;
-    indices[k++] = 2 * i + 1;
-    indices[k++] = 2 * i;
-    indices[k++] = 2 * i + 2;
-    indices[k++] = 2 * i + 3;
+
+  for (j = 0; j < fractions.length - 1; j++) {
+    let row1 = j * (slices + 1);
+    let row2 = (j + 1) * (slices + 1);
+    for (i = 0; i < slices; i++) {
+      indices[k++] = row1 + i;
+      indices[k++] = row2 + i + 1;
+      indices[k++] = row2 + i;
+      indices[k++] = row1 + i;
+      indices[k++] = row1 + i + 1;
+      indices[k++] = row2 + i + 1;
+    }
   }
-  var startIndex = kv / 3;
+
+  let startIndex = kv / 3;
   if (!noBottom) {
     vertices[kv] = 0;
     normals[kv++] = 0;
@@ -468,9 +478,9 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
     texCoords[kt++] = 0.5;
     texCoords[kt++] = 0.5;
     for (i = 0; i <= slices; i++) {
-      u = 2 * Math.PI - i * du;
-      var c = Math.cos(u);
-      var s = Math.sin(u);
+      let u = 2 * Math.PI - i * du;
+      let c = Math.cos(u);
+      let s = Math.sin(u);
       vertices[kv] = c * radius;
       normals[kv++] = 0;
       vertices[kv] = s * radius;
@@ -486,7 +496,8 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
       indices[k++] = startIndex + i + 2;
     }
   }
-  var startIndex = kv / 3;
+
+  startIndex = kv / 3;
   if (!noTop) {
     vertices[kv] = 0;
     normals[kv++] = 0;
@@ -496,10 +507,11 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
     normals[kv++] = 1;
     texCoords[kt++] = 0.5;
     texCoords[kt++] = 0.5;
+    uoffset = uoffset == 0 ? 0.5 : 0;
     for (i = 0; i <= slices; i++) {
-      u = i * du;
-      var c = Math.cos(u);
-      var s = Math.sin(u);
+      let u = (i + uoffset) * du;
+      let c = Math.cos(u);
+      let s = Math.sin(u);
       vertices[kv] = c * radius;
       normals[kv++] = 0;
       vertices[kv] = s * radius;
@@ -545,33 +557,35 @@ function uvCone(radius, height, slices, stacks, noBottom) {
   height = height || 2 * radius;
   slices = slices || 32;
   stacks = stacks || 16;
+
   // improves the interpolation - roma
-  var fractions = [...Array(stacks).keys()].map((i) => i / stacks);
-  // var fractions = [0, 4/16, 8/16, 12/16, 14/16, 15/16];
-  var vertexCount = fractions.length * (slices + 1) + slices;
+  const fractions = [...Array(stacks).keys()].map((i) => i / stacks);
+  // const fractions = [0, 4/16, 8/16, 12/16, 14/16, 15/16];
+  let vertexCount = fractions.length * (slices + 1) + slices;
   if (!noBottom) vertexCount += slices + 2;
   // roma - fixed
-  var triangleCount = (fractions.length - 1) * slices * 2 + 2 * slices;
+  let triangleCount = (fractions.length - 1) * slices * 2 + 2 * slices;
   if (!noBottom) triangleCount += slices;
-  var vertices = new Float32Array(vertexCount * 3);
-  var normals = new Float32Array(vertexCount * 3);
-  var texCoords = new Float32Array(vertexCount * 2);
-  var indices = new Uint16Array(triangleCount * 3);
-  var normallength = Math.sqrt(height * height + radius * radius);
-  var n1 = height / normallength;
-  var n2 = radius / normallength;
-  var du = (2 * Math.PI) / slices;
-  var kv = 0;
-  var kt = 0;
-  var k = 0;
-  var i, j, u;
+  const vertices = new Float32Array(vertexCount * 3);
+  const normals = new Float32Array(vertexCount * 3);
+  const texCoords = new Float32Array(vertexCount * 2);
+  const indices = new Uint16Array(triangleCount * 3);
+  let normallength = Math.sqrt(height * height + radius * radius);
+  let n1 = height / normallength;
+  let n2 = radius / normallength;
+  let du = (2 * Math.PI) / slices;
+  let kv = 0;
+  let kt = 0;
+  let k = 0;
+  let i, j;
+
   for (j = 0; j < fractions.length; j++) {
     var uoffset = j % 2 == 0 ? 0 : 0.5;
     for (i = 0; i <= slices; i++) {
-      var h1 = -height / 2 + fractions[j] * height;
-      u = (i + uoffset) * du;
-      var c = Math.cos(u);
-      var s = Math.sin(u);
+      let h1 = -height / 2 + fractions[j] * height;
+      let u = (i + uoffset) * du;
+      let c = Math.cos(u);
+      let s = Math.sin(u);
       vertices[kv] = c * radius * (1 - fractions[j]);
       normals[kv++] = c * n1;
       vertices[kv] = s * radius * (1 - fractions[j]);
@@ -582,10 +596,10 @@ function uvCone(radius, height, slices, stacks, noBottom) {
       texCoords[kt++] = fractions[j];
     }
   }
-  var k = 0;
+
   for (j = 0; j < fractions.length - 1; j++) {
-    var row1 = j * (slices + 1);
-    var row2 = (j + 1) * (slices + 1);
+    let row1 = j * (slices + 1);
+    let row2 = (j + 1) * (slices + 1);
     for (i = 0; i < slices; i++) {
       indices[k++] = row1 + i;
       indices[k++] = row2 + i + 1;
@@ -595,12 +609,13 @@ function uvCone(radius, height, slices, stacks, noBottom) {
       indices[k++] = row2 + i + 1;
     }
   }
-  var start = kv / 3 - (slices + 1);
+
+  let start = kv / 3 - (slices + 1);
   for (i = 0; i < slices; i++) {
     // slices points at top, with different normals, texcoords
-    u = (i + 0.5) * du;
-    var c = Math.cos(u);
-    var s = Math.sin(u);
+    let u = (i + 0.5) * du;
+    let c = Math.cos(u);
+    let s = Math.sin(u);
     vertices[kv] = 0;
     normals[kv++] = c * n1;
     vertices[kv] = 0;
@@ -615,8 +630,9 @@ function uvCone(radius, height, slices, stacks, noBottom) {
     indices[k++] = start + i + 1;
     indices[k++] = start + (slices + 1) + i;
   }
+
   if (!noBottom) {
-    var startIndex = kv / 3;
+    let startIndex = kv / 3;
     vertices[kv] = 0;
     normals[kv++] = 0;
     vertices[kv] = 0;
@@ -626,9 +642,9 @@ function uvCone(radius, height, slices, stacks, noBottom) {
     texCoords[kt++] = 0.5;
     texCoords[kt++] = 0.5;
     for (i = 0; i <= slices; i++) {
-      u = 2 * Math.PI - i * du;
-      var c = Math.cos(u);
-      var s = Math.sin(u);
+      let u = 2 * Math.PI - i * du;
+      let c = Math.cos(u);
+      let s = Math.sin(u);
       vertices[kv] = c * radius;
       normals[kv++] = 0;
       vertices[kv] = s * radius;
