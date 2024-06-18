@@ -70,7 +70,10 @@
  *
  * <p>Nevertheless, I decided to adapt the {@link https://math.hws.edu/graphicsbook/ hws} software
  * to my needs by introducing a global hook, {@link yNorth},
- * and {@link setNorth rotating} the models accordingly.
+ * and {@link setNorth rotating} the models accordingly. Furthermore, I added the parameter <u>stacks</u> to {@link uvCone} and {@link uvCylinder},
+ * to improve interpolation and fixed the number of triangles generated in uvCone. This way, the set of models in hws and
+ * three.js became quite similar, although I kept the "<i>zig-zag</i>" mesh for cones and cylinders in hws
+ * (I have no idea whether it provides any practical advantage).
  * A user can switch between hws and three.js models by pressing a single key (❖ or ⌘) in the interface.</p>
  *
  * <b>Homework</b>:
@@ -2054,7 +2057,7 @@ const setUVfix = (() => {
    * the model type (subdivision or not), and if it is a textured
    * model or not.
    * @param {Boolean} subModel <br>
-   *   true: subdividion model, <br>
+   *   true: subdivision model, <br>
    *   false: normal model, <br>
    *   undefined: not known. Use the type saved in the closure.
    * @callback UVfix
