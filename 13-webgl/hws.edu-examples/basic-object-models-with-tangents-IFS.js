@@ -257,6 +257,7 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  * @param {Number} height the height of the cylinder.  The cylinder extends from -height/2
  * to height/2 along the z-axis.
  * @param {Number} slices the number of slices, like the slices of an orange, default 32.
+ * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, default 16.
  * @param {Boolean} noTop if missing or false, the cylinder has a top; if set to true,
  *   the cylinder does not have a top. <br>
  *   The top is a disk at the positive end of the cylinder.
@@ -266,61 +267,69 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  * @return {modelData}
  * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a03c085eb7ef8ae60df19dc9e06c0a173">cylinder</a>
  */
-function uvCylinder(radius, height, slices, noTop, noBottom) {
+function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
   radius = radius || 0.5;
   height = height || 2 * radius;
   slices = slices || 32;
-  let vertexCount = 2 * (slices + 1);
+  stacks = stacks || 16;
+
+  // improves the interpolation - roma
+  const fractions = [...Array(stacks + 1).keys()].map((i) => i / stacks);
+
+  let vertexCount = (fractions.length - 1) * (slices + 1) + 2 * (slices + 1);
   if (!noTop) vertexCount += slices + 2;
   if (!noBottom) vertexCount += slices + 2;
-  let triangleCount = 2 * slices;
+
+  let triangleCount = (fractions.length - 2) * 2 * slices + 2 * slices;
   if (!noTop) triangleCount += slices;
   if (!noBottom) triangleCount += slices;
-  let vertices = new Float32Array(vertexCount * 3);
-  let normals = new Float32Array(vertexCount * 3);
-  let tangents = new Float32Array(vertexCount * 3);
-  let texCoords = new Float32Array(vertexCount * 2);
-  let indices = new Uint16Array(triangleCount * 3);
+
+  const vertices = new Float32Array(vertexCount * 3);
+  const normals = new Float32Array(vertexCount * 3);
+  const tangents = new Float32Array(vertexCount * 3);
+  const texCoords = new Float32Array(vertexCount * 2);
+  const indices = new Uint16Array(triangleCount * 3);
   let du = (2 * Math.PI) / slices;
   let kv = 0;
   let kt = 0;
   let k = 0;
-  let i, u;
-  for (i = 0; i <= slices; i++) {
-    u = i * du;
-    let c = Math.cos(u);
-    let s = Math.sin(u);
-    vertices[kv] = c * radius;
-    tangents[kv] = -s;
-    normals[kv++] = c;
-    vertices[kv] = s * radius;
-    tangents[kv] = c;
-    normals[kv++] = s;
-    vertices[kv] = -height / 2;
-    tangents[kv] = 0;
-    normals[kv++] = 0;
-    texCoords[kt++] = i / slices;
-    texCoords[kt++] = 0;
-    vertices[kv] = c * radius;
-    tangents[kv] = -s;
-    normals[kv++] = c;
-    vertices[kv] = s * radius;
-    tangents[kv] = c;
-    normals[kv++] = s;
-    vertices[kv] = height / 2;
-    tangents[kv] = 0;
-    normals[kv++] = 0;
-    texCoords[kt++] = i / slices;
-    texCoords[kt++] = 1;
+  let i, j;
+
+  for (j = 0; j <= fractions.length; j++) {
+    // create a zig-zag mesh
+    var uoffset = j % 2 == 0 ? 0 : 0.5;
+    for (i = 0; i <= slices; i++) {
+      let h1 = -height / 2 + fractions[j] * height;
+      let u = (i + uoffset) * du;
+      let c = Math.cos(u);
+      let s = Math.sin(u);
+      vertices[kv] = c * radius; // x
+      tangents[kv] = -s;
+      normals[kv++] = c;
+      vertices[kv] = s * radius; // y
+      tangents[kv] = c;
+      normals[kv++] = s;
+      vertices[kv] = h1; // z
+      tangents[kv] = 0;
+      normals[kv++] = 0;
+      texCoords[kt++] = (i + uoffset) / slices;
+      texCoords[kt++] = fractions[j];
+    }
   }
-  for (i = 0; i < slices; i++) {
-    indices[k++] = 2 * i;
-    indices[k++] = 2 * i + 3;
-    indices[k++] = 2 * i + 1;
-    indices[k++] = 2 * i;
-    indices[k++] = 2 * i + 2;
-    indices[k++] = 2 * i + 3;
+
+  for (j = 0; j < fractions.length - 1; j++) {
+    let row1 = j * (slices + 1);
+    let row2 = (j + 1) * (slices + 1);
+    for (i = 0; i < slices; i++) {
+      indices[k++] = row1 + i;
+      indices[k++] = row2 + i + 1;
+      indices[k++] = row2 + i;
+      indices[k++] = row1 + i;
+      indices[k++] = row1 + i + 1;
+      indices[k++] = row2 + i + 1;
+    }
   }
+
   let startIndex = kv / 3;
   if (!noBottom) {
     vertices[kv] = 0;
@@ -335,7 +344,7 @@ function uvCylinder(radius, height, slices, noTop, noBottom) {
     texCoords[kt++] = 0.5;
     texCoords[kt++] = 0.5;
     for (i = 0; i <= slices; i++) {
-      u = 2 * Math.PI - i * du;
+      let u = 2 * Math.PI - i * du;
       let c = Math.cos(u);
       let s = Math.sin(u);
       vertices[kv] = c * radius;
@@ -356,6 +365,7 @@ function uvCylinder(radius, height, slices, noTop, noBottom) {
       indices[k++] = startIndex + i + 2;
     }
   }
+
   startIndex = kv / 3;
   if (!noTop) {
     vertices[kv] = 0;
@@ -369,8 +379,9 @@ function uvCylinder(radius, height, slices, noTop, noBottom) {
     normals[kv++] = 1;
     texCoords[kt++] = 0.5;
     texCoords[kt++] = 0.5;
+    uoffset = uoffset == 0 ? 0.5 : 0;
     for (i = 0; i <= slices; i++) {
-      u = i * du;
+      let u = (i + uoffset) * du;
       let c = Math.cos(u);
       let s = Math.sin(u);
       vertices[kv] = c * radius;
@@ -496,33 +507,37 @@ function uvCone(radius, height, slices, stacks, noBottom) {
   height = height || 2 * radius;
   slices = slices || 32;
   stacks = stacks || 16;
+
   // improves the interpolation - roma
-  var fractions = [...Array(stacks).keys()].map((i) => i / stacks);
-  // var fractions = [0, 4/16, 8/16, 12/16, 14/16, 15/16];
-  var vertexCount = fractions.length * (slices + 1) + slices;
+  const fractions = [...Array(stacks).keys()].map((i) => i / stacks);
+  // const fractions = [0, 4/16, 8/16, 12/16, 14/16, 15/16];
+  let vertexCount = fractions.length * (slices + 1) + slices;
   if (!noBottom) vertexCount += slices + 2;
-  var triangleCount = (fractions.length - 1) * slices * 2 + slices;
+  // roma - fixed
+  let triangleCount = (fractions.length - 1) * slices * 2 + 2 * slices;
   if (!noBottom) triangleCount += slices;
-  var vertices = new Float32Array(vertexCount * 3);
-  var normals = new Float32Array(vertexCount * 3);
-  var tangents = new Float32Array(vertexCount * 3);
-  var texCoords = new Float32Array(vertexCount * 2);
-  var indices = new Uint16Array(triangleCount * 3);
-  var normallength = Math.sqrt(height * height + radius * radius);
-  var n1 = height / normallength;
-  var n2 = radius / normallength;
-  var du = (2 * Math.PI) / slices;
-  var kv = 0;
-  var kt = 0;
-  var k = 0;
-  var i, j, u;
+  const vertices = new Float32Array(vertexCount * 3);
+  const normals = new Float32Array(vertexCount * 3);
+  const tangents = new Float32Array(vertexCount * 3);
+  const texCoords = new Float32Array(vertexCount * 2);
+  const indices = new Uint16Array(triangleCount * 3);
+  let normallength = Math.sqrt(height * height + radius * radius);
+  let n1 = height / normallength;
+  let n2 = radius / normallength;
+  let du = (2 * Math.PI) / slices;
+  let kv = 0;
+  let kt = 0;
+  let k = 0;
+  let i, j;
+
   for (j = 0; j < fractions.length; j++) {
+    // create a zig-zag mesh
     var uoffset = j % 2 == 0 ? 0 : 0.5;
     for (i = 0; i <= slices; i++) {
-      var h1 = -height / 2 + fractions[j] * height;
-      u = (i + uoffset) * du;
-      var c = Math.cos(u);
-      var s = Math.sin(u);
+      let h1 = -height / 2 + fractions[j] * height;
+      let u = (i + uoffset) * du;
+      let c = Math.cos(u);
+      let s = Math.sin(u);
       vertices[kv] = c * radius * (1 - fractions[j]);
       tangents[kv] = -s * n1;
       normals[kv++] = c * n1;
@@ -536,10 +551,10 @@ function uvCone(radius, height, slices, stacks, noBottom) {
       texCoords[kt++] = fractions[j];
     }
   }
-  var k = 0;
+
   for (j = 0; j < fractions.length - 1; j++) {
-    var row1 = j * (slices + 1);
-    var row2 = (j + 1) * (slices + 1);
+    let row1 = j * (slices + 1);
+    let row2 = (j + 1) * (slices + 1);
     for (i = 0; i < slices; i++) {
       indices[k++] = row1 + i;
       indices[k++] = row2 + i + 1;
@@ -549,12 +564,13 @@ function uvCone(radius, height, slices, stacks, noBottom) {
       indices[k++] = row2 + i + 1;
     }
   }
-  var start = kv / 3 - (slices + 1);
+
+  let start = kv / 3 - (slices + 1);
   for (i = 0; i < slices; i++) {
     // slices points at top, with different normals, texcoords
-    u = (i + 0.5) * du;
-    var c = Math.cos(u);
-    var s = Math.sin(u);
+    let u = (i + 0.5) * du;
+    let c = Math.cos(u);
+    let s = Math.sin(u);
     vertices[kv] = 0;
     tangents[kv] = -s * n1;
     normals[kv++] = c * n1;
@@ -572,8 +588,9 @@ function uvCone(radius, height, slices, stacks, noBottom) {
     indices[k++] = start + i + 1;
     indices[k++] = start + (slices + 1) + i;
   }
+
   if (!noBottom) {
-    var startIndex = kv / 3;
+    let startIndex = kv / 3;
     vertices[kv] = 0;
     tangents[kv] = -1;
     normals[kv++] = 0;
@@ -586,9 +603,9 @@ function uvCone(radius, height, slices, stacks, noBottom) {
     texCoords[kt++] = 0.5;
     texCoords[kt++] = 0.5;
     for (i = 0; i <= slices; i++) {
-      u = 2 * Math.PI - i * du;
-      var c = Math.cos(u);
-      var s = Math.sin(u);
+      let u = 2 * Math.PI - i * du;
+      let c = Math.cos(u);
+      let s = Math.sin(u);
       vertices[kv] = c * radius;
       tangents[kv] = -1;
       normals[kv++] = 0;
