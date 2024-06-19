@@ -807,6 +807,7 @@ const handleKeyPress = ((event) => {
           shape: hws
             ? uvSphere(1, 48, 24)
             : getModelData(new THREE.SphereGeometry(1, 48, 24)),
+          name: "sphere",
         });
         break;
       case "S":
@@ -825,6 +826,7 @@ const handleKeyPress = ((event) => {
         models.value = "8";
         theModel = createModel({
           shape: getModelData(new THREE.TorusKnotGeometry(1, 0.4, 128, 16)),
+          name: "torusknot",
         });
         break;
       case "t":
@@ -834,6 +836,7 @@ const handleKeyPress = ((event) => {
           shape: hws
             ? uvTorus(1, 0.5, 30, 30)
             : getModelData(new THREE.TorusGeometry(0.75, 0.25, 30, 30)),
+          name: "torus",
           chi: 0,
         });
         break;
@@ -855,18 +858,19 @@ const handleKeyPress = ((event) => {
         if (noTexture) height -= r;
         theModel = createModel({
           shape: hws
-            ? uvCylinder(r, height, 30, 1, false, false)
+            ? uvCylinder(r, height, 30, 5, false, false)
             : getModelData(
                 new THREE.CylinderGeometry(
                   r,
                   r,
                   height,
                   30,
-                  1,
+                  5,
                   false,
                   -Math.PI / 2,
                 ),
               ),
+          name: "cylinder",
         });
         break;
       case "C":
@@ -878,6 +882,7 @@ const handleKeyPress = ((event) => {
             : getModelData(
                 new THREE.ConeGeometry(1, 2, 30, 5, false, -Math.PI / 2),
               ),
+          name: "cone",
         });
         break;
       case "v":
@@ -885,6 +890,7 @@ const handleKeyPress = ((event) => {
         models.value = "2";
         theModel = createModel({
           shape: hws ? cube(2) : getModelData(new THREE.BoxGeometry(2, 2, 2)),
+          name: "cube",
         });
         break;
       case "p":
@@ -897,6 +903,7 @@ const handleKeyPress = ((event) => {
             : getModelData(
                 new TeapotGeometry(1, 10, true, true, true, true, true),
               ),
+          name: "teapot",
           chi: null,
         });
         break;
@@ -953,6 +960,7 @@ const handleKeyPress = ((event) => {
             : getModelData(
                 new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 2 * Math.PI),
               ),
+          name: "ring",
           chi: 0,
         });
         break;
@@ -1740,7 +1748,7 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
     rotateUTexture(shape, 90);
   }
 
-  if (!noTexture && !shape.vertexMercatorCoords) {
+  if (!noTexture && !shape.vertexMercatorCoords && name === "sphere") {
     setMercatorCoordinates(shape);
   }
 
