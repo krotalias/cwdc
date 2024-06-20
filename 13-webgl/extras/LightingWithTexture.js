@@ -1833,7 +1833,7 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
     edges = `${edges}??`;
     vertices = `${vertices}??`;
   }
-  obj.innerHTML = `<b>Object </b>(${faces} ▲, ${edges} ⎯, ${vertices} •)`;
+  obj.innerHTML = `<b>Object </b>(${faces} ▲, ${edges} ―, ${vertices} •)`;
 
   return shape;
 }
