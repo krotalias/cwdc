@@ -1022,7 +1022,7 @@ const handleKeyPress = ((event) => {
       default:
         return;
     }
-    opt.innerHTML = `<br>${gl.getParameter(
+    opt.innerHTML = `${gl.getParameter(
       gl.SHADING_LANGUAGE_VERSION,
     )}<br>${gl.getParameter(gl.VERSION)}`;
     if (selector.paused) draw();
@@ -1833,7 +1833,7 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
     edges = `${edges}??`;
     vertices = `${vertices}??`;
   }
-  obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
+  obj.innerHTML = `<b>Object </b>(${faces} ▲, ${edges} ⎯, ${vertices} •)`;
 
   return shape;
 }
@@ -2107,8 +2107,10 @@ const setUVfix = (() => {
 function newTexture(image) {
   gl.useProgram(lightingShader);
   let imgSize = document.getElementById("size");
-  imgSize.innerHTML = `${imageFilename[textureCnt]} (${image.width} x ${image.height})`;
+  imgSize.innerHTML = `${imageFilename[textureCnt]}`;
   document.getElementById("textimg").src = image.src;
+  document.getElementById("figc").textContent =
+    `(${image.width} x ${image.height})`;
   document.getElementById("textures").value = String(textureCnt);
 
   // bind the texture

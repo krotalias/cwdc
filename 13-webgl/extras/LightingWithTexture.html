@@ -76,14 +76,19 @@ when using mipmap:
         </canvas>
 
         <div id="interface">
-            <div id="legenda">
-                <div id="size"></div>
-                <img id="textimg" src="" width="256" />
-                <div id="options"></div>
+            <div id="legenda" style="margin: 0 10px 0 0">
+                <figure style="margin: 0 15px 10px 0">
+                    <div id="size" style="margin-bottom: 3px"></div>
+                    <img id="textimg" src="" width="256" />
+                    <figcaption id="figc"></figcaption>
+                </figure>
+                <div id="options" style="font-size: small"></div>
             </div>
 
             <p>
-                <label id="object"><b>Object:</b></label>
+                <label id="object" style="margin-right: 0"
+                    ><b>Object:</b></label
+                >
             </p>
             <select name="models" id="models">
                 <option value="0">Capsule</option>
