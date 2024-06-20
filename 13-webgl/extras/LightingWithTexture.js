@@ -333,7 +333,7 @@ let currentLocation =
 
 /**
  * Display status of the model mesh, texture, axes and paused animation: on/off.
- * @type {Object<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean}>}
+ * @type {Object<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean, intrinsic:Boolean, equator:Boolean, hws:Boolean}>}
  */
 const selector = {
   lines: document.getElementById("mesh").checked,
@@ -342,6 +342,7 @@ const selector = {
   paused: document.getElementById("pause").checked,
   intrinsic: document.getElementById("intrinsic").checked,
   equator: document.getElementById("equator").checked,
+  hws: document.getElementById("hws").checked,
 };
 
 /**
@@ -716,7 +717,6 @@ const handleKeyPress = ((event) => {
   let zoomfactor = 0.7;
   let gscale = 1;
   let subPoly = 0;
-  let hws = false;
   const polyName = {
     0: "dodecahedron",
     1: "icosahedron",
@@ -804,7 +804,7 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         models.value = "5";
         theModel = createModel({
-          shape: hws
+          shape: selector.hws
             ? uvSphere(1, 48, 24)
             : getModelData(new THREE.SphereGeometry(1, 48, 24)),
           name: "sphere",
@@ -833,7 +833,7 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         models.value = "7";
         theModel = createModel({
-          shape: hws
+          shape: selector.hws
             ? uvTorus(1, 0.5, 30, 30)
             : getModelData(new THREE.TorusGeometry(0.75, 0.25, 30, 30)),
           name: "torus",
@@ -857,7 +857,7 @@ const handleKeyPress = ((event) => {
         let height = mercator ? length : length / 2;
         if (noTexture) height -= r;
         theModel = createModel({
-          shape: hws
+          shape: selector.hws
             ? uvCylinder(r, height, 30, 5, false, false)
             : getModelData(
                 new THREE.CylinderGeometry(
@@ -877,7 +877,7 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 0.8;
         models.value = "1";
         theModel = createModel({
-          shape: hws
+          shape: selector.hws
             ? uvCone(1, 2, 30, 5, false)
             : getModelData(
                 new THREE.ConeGeometry(1, 2, 30, 5, false, -Math.PI / 2),
@@ -889,16 +889,18 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 0.6;
         models.value = "2";
         theModel = createModel({
-          shape: hws ? cube(2) : getModelData(new THREE.BoxGeometry(2, 2, 2)),
+          shape: selector.hws
+            ? cube(2)
+            : getModelData(new THREE.BoxGeometry(2, 2, 2)),
           name: "cube",
         });
         break;
       case "p":
         // teapot - this is NOT a manifold model - it is a model with borders!
-        gscale = mscale = hws ? 0.09 : 0.7;
+        gscale = mscale = selector.hws ? 0.09 : 0.7;
         models.value = "6";
         theModel = createModel({
-          shape: hws
+          shape: selector.hws
             ? teapotModel
             : getModelData(
                 new TeapotGeometry(1, 10, true, true, true, true, true),
@@ -955,7 +957,7 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1.0;
         models.value = "4";
         theModel = createModel({
-          shape: hws
+          shape: selector.hws
             ? ring(0.3, 1.0, 30)
             : getModelData(
                 new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 2 * Math.PI),
@@ -1002,7 +1004,8 @@ const handleKeyPress = ((event) => {
         break;
       case "Meta":
       case "Alt":
-        hws = !hws;
+        selector.hws = !selector.hws;
+        document.getElementById("hws").checked = selector.hws;
         break;
       case "G":
         let cl = cities.indexOf(currentLocation);
@@ -1179,6 +1182,18 @@ const equator = document.getElementById("equator");
  * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
  */
 equator.addEventListener("change", (event) => handleKeyPress(createEvent("E")));
+
+const hws = document.getElementById("hws");
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the hws checkbox is checked or unchecked.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
+hws.addEventListener("change", (event) => handleKeyPress(createEvent("Alt")));
 
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {

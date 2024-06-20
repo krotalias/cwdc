@@ -441,8 +441,8 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
     for (i = 0; i <= slices; i++) {
       let h1 = -height / 2 + fractions[j] * height;
       let u = (i + uoffset) * du;
-      var c = Math.cos(u);
-      var s = Math.sin(u);
+      let c = Math.cos(u);
+      let s = Math.sin(u);
       vertices[kv] = c * radius; // x
       normals[kv++] = c;
       vertices[kv] = s * radius; // y
