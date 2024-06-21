@@ -435,9 +435,10 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
   let k = 0;
   let i, j;
 
-  for (j = 0; j <= fractions.length; j++) {
+  let uoffset;
+  for (j = 0; j < fractions.length; j++) {
     // create a zig-zag mesh
-    var uoffset = j % 2 == 0 ? 0 : 0.5;
+    uoffset = j % 2 == 0 ? 0 : 0.5;
     for (i = 0; i <= slices; i++) {
       let h1 = -height / 2 + fractions[j] * height;
       let u = (i + uoffset) * du;
@@ -453,6 +454,7 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
       texCoords[kt++] = fractions[j];
     }
   }
+  uoffset = fractions.length % 2 == 0 ? 0 : 0.5;
 
   for (j = 0; j < fractions.length - 1; j++) {
     let row1 = j * (slices + 1);
@@ -580,6 +582,7 @@ function uvCone(radius, height, slices, stacks, noBottom) {
   let i, j;
 
   for (j = 0; j < fractions.length; j++) {
+    // create a zig-zag mesh
     var uoffset = j % 2 == 0 ? 0 : 0.5;
     for (i = 0; i <= slices; i++) {
       let h1 = -height / 2 + fractions[j] * height;
