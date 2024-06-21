@@ -63,6 +63,13 @@ when using mipmap:
             label {
                 margin-right: 40px;
             }
+            .checkbox {
+                column-count: 2;
+                width: 40em;
+                list-style: none;
+                margin-right: 0;
+                padding: 0;
+            }
         </style>
     </head>
 
@@ -115,9 +122,8 @@ when using mipmap:
                     </a>
                 </label>
             </p>
-            <form>
-                <input type="checkbox" id="mesh" name="mesh" value="mesh" />
-                <label for="mesh">Mesh</label><br />
+
+            <form style="margin-top: 150px">
                 <input
                     type="checkbox"
                     id="texture"
@@ -192,23 +198,70 @@ when using mipmap:
                     <option value="36">world-map-equirectangular.jpg</option>
                 </select>
 
-                <br />
+                <ul class="checkbox">
+                    <li>
+                        <input
+                            type="checkbox"
+                            id="mesh"
+                            name="mesh"
+                            value="mesh"
+                        />
+                        <label for="mesh">Mesh</label>
+                    </li>
 
-                <input
-                    type="checkbox"
-                    id="axes"
-                    name="axes"
-                    checked
-                    value="axes"
-                />
-                <label for="axes">Axes</label>
-                <input
-                    type="checkbox"
-                    id="equator"
-                    name="equator"
-                    value="equator"
-                />
-                <label for="equator">Equator</label><br />
+                    <li>
+                        <input
+                            type="checkbox"
+                            id="fixuv"
+                            name="fixuv"
+                            checked
+                            value="fixuv"
+                        />
+                        <label for="fixuv">Fix uv (seamless)</label>
+                    </li>
+
+                    <li>
+                        <input
+                            type="checkbox"
+                            id="culling"
+                            name="culling"
+                            checked
+                            value="culling"
+                        />
+                        <label for="culling">Back Face Culling</label>
+                    </li>
+
+                    <li>
+                        <input
+                            type="checkbox"
+                            id="axes"
+                            name="axes"
+                            checked
+                            value="axes"
+                        />
+                        <label for="axes">Axes</label>
+                    </li>
+
+                    <li>
+                        <input
+                            type="checkbox"
+                            id="mercator"
+                            name="mercator"
+                            value="mercator"
+                        />
+                        <label for="mercator">Mercator Projection</label>
+                    </li>
+
+                    <li>
+                        <input
+                            type="checkbox"
+                            id="hws"
+                            name="hws"
+                            value="hws"
+                        />
+                        <label for="hws">hws models</label><br />
+                    </li>
+                </ul>
 
                 <div id="radio">
                     <input type="radio" id="pause" name="rot" value=" " />
@@ -232,34 +285,15 @@ when using mipmap:
                     <label for="extrinsic">extrinsic</label>
                 </div>
 
-                <input
-                    type="checkbox"
-                    id="fixuv"
-                    name="fixuv"
-                    checked
-                    value="fixuv"
-                />
-                <label for="fixuv">Fix uv (seamless) &nbsp;</label>
+                <br />
 
                 <input
                     type="checkbox"
-                    id="mercator"
-                    name="mercator"
-                    value="mercator"
+                    id="equator"
+                    name="equator"
+                    value="equator"
                 />
-                <label for="mercator">Mercator Projection</label><br />
-
-                <input
-                    type="checkbox"
-                    id="culling"
-                    name="culling"
-                    checked
-                    value="culling"
-                />
-                <label for="culling">Back Face Culling</label>
-
-                <input type="checkbox" id="hws" name="hws" value="hws" />
-                <label for="hws">hws models</label><br />
+                <label for="equator">Equator</label>
             </form>
 
             <div class="btset">
