@@ -276,11 +276,11 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
   // improves the interpolation - roma
   const fractions = [...Array(stacks + 1).keys()].map((i) => i / stacks);
 
-  let vertexCount = (fractions.length - 1) * (slices + 1) + 2 * (slices + 1);
+  let vertexCount = fractions.length * (slices + 1);
   if (!noTop) vertexCount += slices + 2;
   if (!noBottom) vertexCount += slices + 2;
 
-  let triangleCount = (fractions.length - 2) * 2 * slices + 2 * slices;
+  let triangleCount = (fractions.length - 1) * 2 * slices;
   if (!noTop) triangleCount += slices;
   if (!noBottom) triangleCount += slices;
 
