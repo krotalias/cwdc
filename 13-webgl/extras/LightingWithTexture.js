@@ -799,8 +799,15 @@ const handleKeyPress = ((event) => {
         document.getElementById("equator").checked = selector.equator;
         animate();
         break;
+      case "Z":
+        gscale = mscale = 1;
+        models.value = "5";
+        theModel = createModel({
+          shape: uvSphereND(1, 48, 24),
+          name: "spherend",
+        });
+        break;
       case "s":
-        // sphere from threejs
         gscale = mscale = 1;
         models.value = "5";
         theModel = createModel({
@@ -1748,7 +1755,7 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
       maxSubdivisions = limit.ico;
     }
   } else {
-    setUVfix(false);
+    setUVfix(name == "spherend");
   }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
@@ -1763,7 +1770,7 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
     rotateUTexture(shape, 90);
   }
 
-  if (!noTexture && !shape.vertexMercatorCoords && name === "sphere") {
+  if (!noTexture && !shape.vertexMercatorCoords && name.includes("sphere")) {
     setMercatorCoordinates(shape);
   }
 

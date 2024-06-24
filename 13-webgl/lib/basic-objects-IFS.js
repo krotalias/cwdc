@@ -247,11 +247,15 @@ function ring(innerRadius, outerRadius, slices) {
 
 /**
  * <p>Create a model of a sphere.</p>
- * The z-axis is the axis of the sphere,
+ * The z-axis is the axis of the sphere
  * with the north pole on the positive z-axis and the center at (0,0,0).
+ * <p>The number of triangles is 2 * slices * stacks, e.g., 48 * 24 * 2 = 2304.
+ * <p>However, two rows of vertices have been duplicated.
+ * Without {@link uvSphereND vertex duplication},
+ * the number of triangles would be 48 * 22 * 2 + 2 * 48 = 2208.</p>
  * @param {Number} radius the radius of the sphere, default 0.5 if not specified.
- * @param {Number} slices the number of lines of longitude, default 32
- * @param {Number} stacks the number of lines of latitude plus 1, default 16. <br>
+ * @param {Number} slices the number of lines of longitude, minimum 3, default 32
+ * @param {Number} stacks the number of lines of latitude plus 1, minimum 2, default 16. <br>
  *   (This is the number of vertical slices, bounded by lines of latitude,
  *   the north pole and the south pole.)
  * @return {modelData}
@@ -261,24 +265,26 @@ function uvSphere(radius, slices, stacks) {
   radius = radius || 0.5;
   slices = slices || 32;
   stacks = stacks || 16;
-  var vertexCount = (slices + 1) * (stacks + 1);
-  var vertices = new Float32Array(3 * vertexCount);
-  var normals = new Float32Array(3 * vertexCount);
-  var texCoords = new Float32Array(2 * vertexCount);
-  var indices = new Uint16Array(2 * slices * stacks * 3);
-  var du = (2 * Math.PI) / slices;
-  var dv = Math.PI / stacks;
-  var i, j, u, v, x, y, z;
-  var indexV = 0;
-  var indexT = 0;
-  for (i = 0; i <= stacks; i++) {
-    v = -Math.PI / 2 + i * dv;
-    for (j = 0; j <= slices; j++) {
-      u = j * du;
 
-      x = Math.cos(u) * Math.cos(v);
-      y = Math.sin(u) * Math.cos(v);
-      z = Math.sin(v);
+  let vertexCount = (slices + 1) * (stacks + 1);
+  const vertices = new Float32Array(3 * vertexCount);
+  const normals = new Float32Array(3 * vertexCount);
+  const texCoords = new Float32Array(2 * vertexCount);
+  const indices = new Uint16Array(2 * slices * stacks * 3);
+  let du = (2 * Math.PI) / slices;
+  let dv = Math.PI / stacks;
+  let i, j;
+  let indexV = 0;
+  let indexT = 0;
+
+  for (i = 0; i <= stacks; i++) {
+    let v = -Math.PI / 2 + i * dv;
+    for (j = 0; j <= slices; j++) {
+      let u = j * du;
+
+      let x = Math.cos(u) * Math.cos(v);
+      let y = Math.sin(u) * Math.cos(v);
+      let z = Math.sin(v);
 
       vertices[indexV] = radius * x;
       normals[indexV++] = x;
@@ -290,10 +296,11 @@ function uvSphere(radius, slices, stacks) {
       texCoords[indexT++] = i / stacks;
     }
   }
-  var k = 0;
+
+  let k = 0;
   for (j = 0; j < stacks; j++) {
-    var row1 = j * (slices + 1);
-    var row2 = (j + 1) * (slices + 1);
+    let row1 = j * (slices + 1);
+    let row2 = (j + 1) * (slices + 1);
     for (i = 0; i < slices; i++) {
       indices[k++] = row1 + i;
       indices[k++] = row2 + i + 1;
@@ -303,6 +310,136 @@ function uvSphere(radius, slices, stacks) {
       indices[k++] = row2 + i + 1;
     }
   }
+  setNorth(vertices, normals);
+
+  return {
+    vertexPositions: vertices,
+    vertexNormals: normals,
+    vertexTextureCoords: texCoords,
+    indices: indices,
+  };
+}
+
+/**
+ * <p>Create a model of a sphere.</p>
+ * The z-axis is the axis of the sphere
+ * with the north pole on the positive z-axis and the center at (0,0,0).
+ * <p>This version does not duplicate vertices on the seam, but it does require
+ * Tarini's method when texturing.</p>
+ * @param {Number} radius the radius of the sphere, default 0.5 if not specified.
+ * @param {Number} slices the number of lines of longitude, minimum 3, default 32
+ * @param {Number} stacks the number of lines of latitude plus 1, minimum 2, default 16. <br>
+ *   (This is the number of vertical slices, bounded by lines of latitude,
+ *   the north pole and the south pole.)
+ * @return {modelData}
+ * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a6c5b17163125dd32bd7c04a99738d316">sphere</a>
+ */
+function uvSphereND(radius, slices, stacks) {
+  radius = radius || 0.5;
+  slices = slices || 32;
+  stacks = stacks || 16;
+
+  let vertexCount = slices * (stacks - 1) + 2;
+  let triangleCount = (stacks - 2) * 2 * slices + 2 * slices;
+  const vertices = new Float32Array(3 * vertexCount);
+  const normals = new Float32Array(3 * vertexCount);
+  const texCoords = new Float32Array(2 * vertexCount);
+  const indices = new Uint16Array(triangleCount * 3);
+  let du = (2 * Math.PI) / slices;
+  let dv = Math.PI / stacks;
+  let i, j;
+  let indexV = 0;
+  let indexT = 0;
+  let k = 0;
+
+  // vertex at south pole
+  vertices[indexV] = 0;
+  normals[indexV++] = 0;
+  vertices[indexV] = 0;
+  normals[indexV++] = 0;
+  vertices[indexV] = -radius;
+  normals[indexV++] = -1;
+  texCoords[indexT++] = 0.0;
+  texCoords[indexT++] = 0.0;
+
+  // vertices in the middle of the sphere
+  for (j = 1; j < stacks; j++) {
+    let v = -Math.PI / 2 + j * dv;
+    for (i = 0; i < slices; i++) {
+      let u = i * du;
+
+      let x = Math.cos(u) * Math.cos(v);
+      let y = Math.sin(u) * Math.cos(v);
+      let z = Math.sin(v);
+
+      vertices[indexV] = radius * x;
+      normals[indexV++] = x;
+      vertices[indexV] = radius * y;
+      normals[indexV++] = y;
+      vertices[indexV] = radius * z;
+      normals[indexV++] = z;
+      texCoords[indexT++] = i / slices;
+      texCoords[indexT++] = j / stacks;
+    }
+  }
+
+  // vertex at north pole
+  vertices[indexV] = 0;
+  normals[indexV++] = 0;
+  vertices[indexV] = 0;
+  normals[indexV++] = 0;
+  vertices[indexV] = radius;
+  normals[indexV++] = 1;
+  texCoords[indexT++] = 1.0;
+  texCoords[indexT++] = 1.0;
+
+  // triangles incident on vertex at south pole
+  // stacks = 0, row1 = 0
+  let row2 = 1;
+  for (i = 0; i < slices - 1; i++) {
+    indices[k++] = 0;
+    indices[k++] = row2 + i + 1;
+    indices[k++] = row2 + i;
+  }
+  i = slices - 1;
+  indices[k++] = 0;
+  indices[k++] = row2;
+  indices[k++] = row2 + i;
+
+  // triangles in the middle of the sphere
+  for (j = 1; j < stacks - 1; j++) {
+    let row1 = (j - 1) * slices + 1;
+    let row2 = row1 + slices;
+    for (i = 0; i < slices - 1; i++) {
+      indices[k++] = row1 + i;
+      indices[k++] = row2 + i + 1;
+      indices[k++] = row2 + i;
+      indices[k++] = row1 + i;
+      indices[k++] = row1 + i + 1;
+      indices[k++] = row2 + i + 1;
+    }
+    i = slices - 1;
+    indices[k++] = row1 + i;
+    indices[k++] = row2;
+    indices[k++] = row2 + i;
+    indices[k++] = row1;
+    indices[k++] = row2;
+    indices[k++] = row1 + i;
+  }
+
+  // triangles incident on vertex at north pole
+  // stacks = stacks - 1, row2 = vertexCount - 1
+  let row1 = vertexCount - slices - 1;
+  for (i = 0; i < slices - 1; i++) {
+    indices[k++] = vertexCount - 1;
+    indices[k++] = row1 + i;
+    indices[k++] = row1 + i + 1;
+  }
+  i = slices - 1;
+  indices[k++] = vertexCount - 1;
+  indices[k++] = row1 + i;
+  indices[k++] = row1;
+
   setNorth(vertices, normals);
 
   return {
@@ -397,8 +534,8 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  * @param {Number} radius the radius of the cylinder
  * @param {Number} height the height of the cylinder.  <br>
  *    The cylinder extends from -height/2 to height/2 along the z-axis.
- * @param {Number} slices the number of slices, like the slices of an orange, default 32.
- * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, default 16.
+ * @param {Number} slices the number of slices, like the slices of an orange, minimum 3, default 32.
+ * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, minimum 1, default 16.
  * @param {Boolean} noTop if missing or false, the cylinder has a top; if set to true,
  *   the cylinder does not have a top. <br>
  *   The top is a disk at the positive end of the cylinder.
@@ -546,8 +683,8 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
  * @param {Number} radius the radius of the cone
  * @param {Number} height the height of the cone.  The cone extends from -height/2
  * to height/2 along the z-axis, with the tip at (0,0,height/2).
- * @param {Number} slices the number of slices, like the slices of an orange, default 32.
- * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, default 16.
+ * @param {Number} slices the number of slices, like the slices of an orange, minimum 3, default 32.
+ * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, minimum 1, default 16.
  * @param {Boolean} noBottom if missing or false, the cone has a bottom; if set to true,
  *   the cone does not have a bottom. <br>
  *   The bottom is a disk at the wide end of the cone.

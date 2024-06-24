@@ -275,11 +275,15 @@ function ring(innerRadius, outerRadius, slices) {
 
 /**
  * &lt;p>Create a model of a sphere.&lt;/p>
- * The z-axis is the axis of the sphere,
+ * The z-axis is the axis of the sphere
  * with the north pole on the positive z-axis and the center at (0,0,0).
+ * &lt;p>The number of triangles is 2 * slices * stacks, e.g., 48 * 24 * 2 = 2304.
+ * &lt;p>However, two rows of vertices have been duplicated.
+ * Without {@link uvSphereND vertex duplication},
+ * the number of triangles would be 48 * 22 * 2 + 2 * 48 = 2208.&lt;/p>
  * @param {Number} radius the radius of the sphere, default 0.5 if not specified.
- * @param {Number} slices the number of lines of longitude, default 32
- * @param {Number} stacks the number of lines of latitude plus 1, default 16. &lt;br>
+ * @param {Number} slices the number of lines of longitude, minimum 3, default 32
+ * @param {Number} stacks the number of lines of latitude plus 1, minimum 2, default 16. &lt;br>
  *   (This is the number of vertical slices, bounded by lines of latitude,
  *   the north pole and the south pole.)
  * @return {modelData}
@@ -289,24 +293,26 @@ function uvSphere(radius, slices, stacks) {
   radius = radius || 0.5;
   slices = slices || 32;
   stacks = stacks || 16;
-  var vertexCount = (slices + 1) * (stacks + 1);
-  var vertices = new Float32Array(3 * vertexCount);
-  var normals = new Float32Array(3 * vertexCount);
-  var texCoords = new Float32Array(2 * vertexCount);
-  var indices = new Uint16Array(2 * slices * stacks * 3);
-  var du = (2 * Math.PI) / slices;
-  var dv = Math.PI / stacks;
-  var i, j, u, v, x, y, z;
-  var indexV = 0;
-  var indexT = 0;
-  for (i = 0; i &lt;= stacks; i++) {
-    v = -Math.PI / 2 + i * dv;
-    for (j = 0; j &lt;= slices; j++) {
-      u = j * du;
 
-      x = Math.cos(u) * Math.cos(v);
-      y = Math.sin(u) * Math.cos(v);
-      z = Math.sin(v);
+  let vertexCount = (slices + 1) * (stacks + 1);
+  const vertices = new Float32Array(3 * vertexCount);
+  const normals = new Float32Array(3 * vertexCount);
+  const texCoords = new Float32Array(2 * vertexCount);
+  const indices = new Uint16Array(2 * slices * stacks * 3);
+  let du = (2 * Math.PI) / slices;
+  let dv = Math.PI / stacks;
+  let i, j;
+  let indexV = 0;
+  let indexT = 0;
+
+  for (i = 0; i &lt;= stacks; i++) {
+    let v = -Math.PI / 2 + i * dv;
+    for (j = 0; j &lt;= slices; j++) {
+      let u = j * du;
+
+      let x = Math.cos(u) * Math.cos(v);
+      let y = Math.sin(u) * Math.cos(v);
+      let z = Math.sin(v);
 
       vertices[indexV] = radius * x;
       normals[indexV++] = x;
@@ -318,10 +324,11 @@ function uvSphere(radius, slices, stacks) {
       texCoords[indexT++] = i / stacks;
     }
   }
-  var k = 0;
+
+  let k = 0;
   for (j = 0; j &lt; stacks; j++) {
-    var row1 = j * (slices + 1);
-    var row2 = (j + 1) * (slices + 1);
+    let row1 = j * (slices + 1);
+    let row2 = (j + 1) * (slices + 1);
     for (i = 0; i &lt; slices; i++) {
       indices[k++] = row1 + i;
       indices[k++] = row2 + i + 1;
@@ -331,6 +338,136 @@ function uvSphere(radius, slices, stacks) {
       indices[k++] = row2 + i + 1;
     }
   }
+  setNorth(vertices, normals);
+
+  return {
+    vertexPositions: vertices,
+    vertexNormals: normals,
+    vertexTextureCoords: texCoords,
+    indices: indices,
+  };
+}
+
+/**
+ * &lt;p>Create a model of a sphere.&lt;/p>
+ * The z-axis is the axis of the sphere
+ * with the north pole on the positive z-axis and the center at (0,0,0).
+ * &lt;p>This version does not duplicate vertices on the seam, but it does require
+ * Tarini's method when texturing.&lt;/p>
+ * @param {Number} radius the radius of the sphere, default 0.5 if not specified.
+ * @param {Number} slices the number of lines of longitude, minimum 3, default 32
+ * @param {Number} stacks the number of lines of latitude plus 1, minimum 2, default 16. &lt;br>
+ *   (This is the number of vertical slices, bounded by lines of latitude,
+ *   the north pole and the south pole.)
+ * @return {modelData}
+ * @see &lt;a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a6c5b17163125dd32bd7c04a99738d316">sphere&lt;/a>
+ */
+function uvSphereND(radius, slices, stacks) {
+  radius = radius || 0.5;
+  slices = slices || 32;
+  stacks = stacks || 16;
+
+  let vertexCount = slices * (stacks - 1) + 2;
+  let triangleCount = (stacks - 2) * 2 * slices + 2 * slices;
+  const vertices = new Float32Array(3 * vertexCount);
+  const normals = new Float32Array(3 * vertexCount);
+  const texCoords = new Float32Array(2 * vertexCount);
+  const indices = new Uint16Array(triangleCount * 3);
+  let du = (2 * Math.PI) / slices;
+  let dv = Math.PI / stacks;
+  let i, j;
+  let indexV = 0;
+  let indexT = 0;
+  let k = 0;
+
+  // vertex at south pole
+  vertices[indexV] = 0;
+  normals[indexV++] = 0;
+  vertices[indexV] = 0;
+  normals[indexV++] = 0;
+  vertices[indexV] = -radius;
+  normals[indexV++] = -1;
+  texCoords[indexT++] = 0.0;
+  texCoords[indexT++] = 0.0;
+
+  // vertices in the middle of the sphere
+  for (j = 1; j &lt; stacks; j++) {
+    let v = -Math.PI / 2 + j * dv;
+    for (i = 0; i &lt; slices; i++) {
+      let u = i * du;
+
+      let x = Math.cos(u) * Math.cos(v);
+      let y = Math.sin(u) * Math.cos(v);
+      let z = Math.sin(v);
+
+      vertices[indexV] = radius * x;
+      normals[indexV++] = x;
+      vertices[indexV] = radius * y;
+      normals[indexV++] = y;
+      vertices[indexV] = radius * z;
+      normals[indexV++] = z;
+      texCoords[indexT++] = i / slices;
+      texCoords[indexT++] = j / stacks;
+    }
+  }
+
+  // vertex at north pole
+  vertices[indexV] = 0;
+  normals[indexV++] = 0;
+  vertices[indexV] = 0;
+  normals[indexV++] = 0;
+  vertices[indexV] = radius;
+  normals[indexV++] = 1;
+  texCoords[indexT++] = 1.0;
+  texCoords[indexT++] = 1.0;
+
+  // triangles incident on vertex at south pole
+  // stacks = 0, row1 = 0
+  let row2 = 1;
+  for (i = 0; i &lt; slices - 1; i++) {
+    indices[k++] = 0;
+    indices[k++] = row2 + i + 1;
+    indices[k++] = row2 + i;
+  }
+  i = slices - 1;
+  indices[k++] = 0;
+  indices[k++] = row2;
+  indices[k++] = row2 + i;
+
+  // triangles in the middle of the sphere
+  for (j = 1; j &lt; stacks - 1; j++) {
+    let row1 = (j - 1) * slices + 1;
+    let row2 = row1 + slices;
+    for (i = 0; i &lt; slices - 1; i++) {
+      indices[k++] = row1 + i;
+      indices[k++] = row2 + i + 1;
+      indices[k++] = row2 + i;
+      indices[k++] = row1 + i;
+      indices[k++] = row1 + i + 1;
+      indices[k++] = row2 + i + 1;
+    }
+    i = slices - 1;
+    indices[k++] = row1 + i;
+    indices[k++] = row2;
+    indices[k++] = row2 + i;
+    indices[k++] = row1;
+    indices[k++] = row2;
+    indices[k++] = row1 + i;
+  }
+
+  // triangles incident on vertex at north pole
+  // stacks = stacks - 1, row2 = vertexCount - 1
+  let row1 = vertexCount - slices - 1;
+  for (i = 0; i &lt; slices - 1; i++) {
+    indices[k++] = vertexCount - 1;
+    indices[k++] = row1 + i;
+    indices[k++] = row1 + i + 1;
+  }
+  i = slices - 1;
+  indices[k++] = vertexCount - 1;
+  indices[k++] = row1 + i;
+  indices[k++] = row1;
+
   setNorth(vertices, normals);
 
   return {
@@ -425,8 +562,8 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  * @param {Number} radius the radius of the cylinder
  * @param {Number} height the height of the cylinder.  &lt;br>
  *    The cylinder extends from -height/2 to height/2 along the z-axis.
- * @param {Number} slices the number of slices, like the slices of an orange, default 32.
- * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, default 16.
+ * @param {Number} slices the number of slices, like the slices of an orange, minimum 3, default 32.
+ * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, minimum 1, default 16.
  * @param {Boolean} noTop if missing or false, the cylinder has a top; if set to true,
  *   the cylinder does not have a top. &lt;br>
  *   The top is a disk at the positive end of the cylinder.
@@ -574,8 +711,8 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
  * @param {Number} radius the radius of the cone
  * @param {Number} height the height of the cone.  The cone extends from -height/2
  * to height/2 along the z-axis, with the tip at (0,0,height/2).
- * @param {Number} slices the number of slices, like the slices of an orange, default 32.
- * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, default 16.
+ * @param {Number} slices the number of slices, like the slices of an orange, minimum 3, default 32.
+ * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, minimum 1, default 16.
  * @param {Boolean} noBottom if missing or false, the cone has a bottom; if set to true,
  *   the cone does not have a bottom. &lt;br>
  *   The bottom is a disk at the wide end of the cone.
@@ -1642,13 +1779,13 @@ var teapotModel = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="module-polyhedron.polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhentheequatorcheckboxischeckedorunchecked.">change - executed when the equator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthehwscheckboxischeckedorunchecked.">change - executed when the hws checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemercatorcheckboxischeckedorunchecked.">change - executed when the mercator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodeinputradioischecked(butnotwhenunchecked).">change - executed when the mode input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthemodels&lt;select&gt;ischanged.">change - executed when the models &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthetextures&lt;select&gt;ischanged.">change - executed when the textures &lt;select&gt; is changed.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="module-polyhedron.polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhentheequatorcheckboxischeckedorunchecked.">change - executed when the equator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthehwscheckboxischeckedorunchecked.">change - executed when the hws checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemercatorcheckboxischeckedorunchecked.">change - executed when the mercator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodeinputradioischecked(butnotwhenunchecked).">change - executed when the mode input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthemodels&lt;select&gt;ischanged.">change - executed when the models &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthetextures&lt;select&gt;ischanged.">change - executed when the textures &lt;select&gt; is changed.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Jun 21 2024 21:35:46 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jun 24 2024 20:35:22 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
