@@ -979,7 +979,7 @@ const handleKeyPress = ((event) => {
           shape: selector.hws
             ? ring(0.3, 1.0, 30)
             : getModelData(
-                new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 2 * Math.PI),
+                new THREE.RingGeometry(0.3, 1.0, 30, 1, 0, 2 * Math.PI),
               ),
           name: "ring",
           chi: 0,
@@ -1862,12 +1862,18 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
     : shape.vertexPositions.length / 9;
   let edges = (faces * 3) / 2;
   let vertices = faces / 2 + chi;
-
   let vertReal = shape.vertexPositions.length / 3;
+
   if (chi === null) {
     edges = `??`;
     vertices = `??`;
   }
+
+  if (name == "ring") {
+    vertices = vertReal;
+    edges = faces + vertices;
+  }
+
   obj.innerHTML = `(${faces} ▲, ${edges} ―, ${vertices} •, ${vertReal} 🔴)`;
   return shape;
 }
