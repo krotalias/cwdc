@@ -1735,6 +1735,7 @@ window.addEventListener("load", (event) => {
  * @see {@link https://en.wikipedia.org/wiki/Platonic_solid Platonic solid}
  * @see {@link https://ocw.mit.edu/courses/18-965-geometry-of-manifolds-fall-2004/pages/lecture-notes/ Geometry Of Manifolds}
  * @see {@link https://nrich.maths.org/1384 Euler's Formula and Topology}
+ * @see <a href="http://hans.munthe-kaas.no/protect/Conway/7_Euler s Map Theorem.pdf">Euler’s Map Theorem</a>
  * @see {@link https://math.stackexchange.com/questions/3571483/euler-characteristic-of-a-polygon-with-a-hole Euler characteristic of a polygon with a hole}
  *
  */
