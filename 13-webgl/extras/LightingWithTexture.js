@@ -76,7 +76,19 @@
  * (I have no idea whether it provides any practical advantage).
  * A user can switch between hws and three.js models by pressing a single key (❖ or ⌘) in the interface.</p>
  *
- * <b>Homework</b>:
+ * <p>There is a lot of redundancy in the form of vertex duplication in all of these models, which may preclude mipmapping
+ * artifacts. The theoretical number of vertices for a {@link https://en.wikipedia.org/wiki/Manifold manifold model}
+ * and the actual number of vertices are displayed in the interface.
+ * The number of edges is simply three times the number of faces divided by two.</p>
+ *
+ * Of course, these are just {@link https://en.wikipedia.org/wiki/Polygon_mesh polygon meshes} and not
+ * valid topological {@link https://en.wikipedia.org/wiki/Boundary_representation B-rep}
+ * models that enforce the {@link https://www.britannica.com/science/Euler-characteristic Euler characteristic},
+ * such as the {@link https://people.computing.clemson.edu/~dhouse/courses/405/papers/p589-baumgart.pdf winged-edge},
+ * {@link https://dl.acm.org/doi/pdf/10.1145/282918.282923 quad-edge},
+ * or {@link https://www.scorec.rpi.edu/REPORTS/1986-1.pdf radial-edge} data structures.
+ *
+ * <p><b>Homework</b>:</p>
  *
  * <ol>
  * <li>The application selects a random {@link gpsCoordinates city} and displays its location (when its name is checked in the interface)
@@ -1851,12 +1863,12 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
   let edges = (faces * 3) / 2;
   let vertices = faces / 2 + chi;
 
+  let vertReal = shape.vertexPositions.length / 3;
   if (chi === null) {
-    edges = `${edges}??`;
-    vertices = `${vertices}??`;
+    edges = `??`;
+    vertices = `??`;
   }
-  obj.innerHTML = `<b>Object </b>(${faces} ▲, ${edges} ―, ${vertices} •)`;
-
+  obj.innerHTML = `(${faces} ▲, ${edges} ―, ${vertices} •, ${vertReal} 🔴)`;
   return shape;
 }
 

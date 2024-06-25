@@ -250,9 +250,15 @@ function ring(innerRadius, outerRadius, slices) {
  * The z-axis is the axis of the sphere
  * with the north pole on the positive z-axis and the center at (0,0,0).
  * <p>The number of triangles is 2 * slices * stacks, e.g., 48 * 24 * 2 = 2304.
- * <p>However, two rows of vertices have been duplicated.
+ * <p>However, two rows and one column of vertices have been duplicated.
  * Without {@link uvSphereND vertex duplication},
- * the number of triangles would be 48 * 22 * 2 + 2 * 48 = 2208.</p>
+ * the number of triangles would be 48 * 23 * 2 = 2208.<br>
+ * In fact, this is topologically a cylinder whose vertices on the two borders
+ * have the same coordinates of the sphere north/south poles, respectively:
+ * <ul>
+ *  <li>uvSphere(radius, slices, stack) ≍ uvCylinder(r, height, slices, stack, true, true)</li>
+ * </ul>
+ * </p>
  * @param {Number} radius the radius of the sphere, default 0.5 if not specified.
  * @param {Number} slices the number of lines of longitude, minimum 3, default 32
  * @param {Number} stacks the number of lines of latitude plus 1, minimum 2, default 16. <br>
@@ -339,8 +345,8 @@ function uvSphereND(radius, slices, stacks) {
   slices = slices || 32;
   stacks = stacks || 16;
 
-  let vertexCount = slices * (stacks - 1) + 2;
-  let triangleCount = (stacks - 2) * 2 * slices + 2 * slices;
+  let vertexCount = (stacks - 1) * slices + 2;
+  let triangleCount = (stacks - 1) * slices * 2;
   const vertices = new Float32Array(3 * vertexCount);
   const normals = new Float32Array(3 * vertexCount);
   const texCoords = new Float32Array(2 * vertexCount);
