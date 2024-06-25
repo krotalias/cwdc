@@ -1871,7 +1871,7 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
   }
 
   if (name == "ring") {
-    vertices = vertReal;
+    vertices = faces;
     edges = faces + vertices;
   }
 
