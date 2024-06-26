@@ -4,7 +4,7 @@
  * Summary.
  *
  * <p>The TrackballRotator class implements an <a href="/cwdc/13-webgl/extras/doc/Arcball.pdf">ArcBall</a> like interface.</p>
- * Create by {@link https://dl.acm.org/profile/81100026146 Ken Shoemake} in 1992,
+ * Created by {@link https://dl.acm.org/profile/81100026146 Ken Shoemake} in 1992,
  * it is the de facto <a href="/cwdc/13-webgl/extras/doc/shoemake92-arcball.pdf">standard</a>
  * for interactive 3D model manipulation and visualization.
  * <p>The class defines the following methods for an object rotator of type TrackballRotator:</p>
