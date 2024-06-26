@@ -12,7 +12,8 @@
  * Edit {@link mainEntrance} to select a {@link selectModel model} and {@link makeCube} to set
  * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
  *
- * @author Steve Kautz modified by Paulo Roma
+ * @author {@link https://stevekautz.com Steve Kautz}
+ * @author modified by Paulo Roma
  * @since 27/09/2016
  * @see <a href="https://dl.acm.org/doi/pdf/10.1145/362736.362739">Flat shading</a> -
  * <a href="https://csl.illinois.edu/news-and-media/tech-reports">Wendell Jack Bouknight</a> (1970)
@@ -969,12 +970,14 @@ function createModel(shape, chi = 2) {
     : shape.vertexPositions.length / 9;
   let edges = (faces * 3) / 2;
   let vertices = faces / 2 + chi;
+  let vertReal = shape.vertexPositions.length / 3;
 
   if (chi === null) {
-    edges = `${edges}??`;
-    vertices = `${vertices}??`;
+    edges = `??`;
+    vertices = `??`;
   }
-  obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
+
+  obj.innerHTML = `(${faces} ▲, ${edges} ―, ${vertices} •, ${vertReal} 🔴)`;
 
   return shape;
 }

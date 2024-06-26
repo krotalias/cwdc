@@ -4,7 +4,7 @@
  * Summary.
  *
  * <p>The SimpleRotator class implements an <a href="/cwdc/13-webgl/extras/doc/Arcball.pdf">ArcBall</a> like interface.</p>
- * Create by {@link https://dl.acm.org/profile/81100026146 Ken Shoemake} in 1992,
+ * Created by {@link https://dl.acm.org/profile/81100026146 Ken Shoemake} in 1992,
  * it is the de facto <a href="/cwdc/13-webgl/extras/doc/shoemake92-arcball.pdf">standard</a>
  * for interactive 3D model manipulation and visualization.
  * <p>The class defines the following methods for an object of type SimpleRotator:</p>
@@ -31,7 +31,8 @@
  * </ul>
  *
  * @since 22/01/2016
- * @author David J. Eck modified by Paulo Roma
+ * @author {@link https://math.hws.edu/eck/ David J. Eck}
+ * @author modified by Paulo Roma
  * @see <a href="/cwdc/13-webgl/lib/simple-rotator.js">source</a>
  * @see {@link https://math.hws.edu/eck/cs424/notes2013/webgl/skybox-and-reflection/simple-rotator.js hws source}
  * @see {@link https://math.hws.edu/eck/cs424/notes2013/webgl/cube-with-rotator.html A Cube With Rotator}

@@ -25,7 +25,8 @@
  * or edit {@link startForReal} to choose a model and select
  * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.</p>
  *
- * @author {@link https://stevekautz.com/cs336f22/cs336f22_archived.html Steve Kautz} modified by Paulo Roma
+ * @author {@link https://stevekautz.com/cs336f22/cs336f22_archived.html Steve Kautz}
+ * @author modified by Paulo Roma
  * @since 26/09/2016
  * @see <a href="/cwdc/13-webgl/examples/texture/content/LightingWithProceduralTexture.html">Procedural texture</a>
  * @see <a href="/cwdc/13-webgl/examples/texture/content/LightingWithTexture.html">Image texture</a>
@@ -452,9 +453,9 @@ const handleKeyPress = ((event) => {
         models.value = "4";
         theModel = createModel(
           getModelData(
-            new THREE.RingGeometry(0.3, 1.0, 30, 30, 0, 6.283185307179586),
+            new THREE.RingGeometry(0.3, 1.0, 30, 15, 0, 2 * Math.PI),
           ),
-          0,
+          30,
         );
         break;
       case "u":
@@ -1215,13 +1216,20 @@ function createModel(shape, chi = 2) {
     : shape.vertices.length / 9;
   let edges = (faces * 3) / 2;
   let vertices = faces / 2 + chi;
+  let vertReal = shape.vertices.length / 3;
 
   if (chi === null) {
-    edges = `${edges}??`;
-    vertices = `${vertices}??`;
+    edges = ``;
+    vertices = `??`;
   }
 
-  obj.innerHTML = `<b>Object </b>(${faces} triangles, ${edges} edges, ${vertices} vertices):`;
+  if (chi > 2) {
+    edges = (faces * 3) / 2 + chi;
+    vertices = edges - faces;
+  }
+
+  obj.innerHTML =
+    obj.innerHTML = `(${faces} ▲, ${edges} ―, ${vertices} •, ${vertReal} 🔴)`;
 
   return shape;
 }
