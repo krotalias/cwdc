@@ -79,7 +79,7 @@
  * <p>There is a lot of redundancy in the form of vertex duplication in all of these models, which may preclude mipmapping
  * artifacts. The theoretical number of vertices for a {@link https://en.wikipedia.org/wiki/Manifold manifold model}
  * and the actual number of vertices are displayed in the interface.
- * The number of edges is simply three times the number of faces divided by two.</p>
+ * The number of edges is simply three times the number of triangles divided by two.</p>
  *
  * Of course, these are just {@link https://en.wikipedia.org/wiki/Polygon_mesh polygon meshes} and not
  * valid topological {@link https://en.wikipedia.org/wiki/Boundary_representation B-rep}
@@ -975,14 +975,15 @@ const handleKeyPress = ((event) => {
       case "r":
         gscale = mscale = 1.0;
         models.value = "4";
+        let segments = 30;
         theModel = createModel({
           shape: selector.hws
-            ? ring(0.3, 1.0, 30)
+            ? ring(0.3, 1.0, segments)
             : getModelData(
-                new THREE.RingGeometry(0.3, 1.0, 30, 1, 0, 2 * Math.PI),
+                new THREE.RingGeometry(0.3, 1.0, segments, 1, 0, 2 * Math.PI),
               ),
           name: "ring",
-          chi: 0,
+          chi: segments,
         });
         break;
       case "O":
@@ -1871,8 +1872,8 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
   }
 
   if (name == "ring") {
-    vertices = faces;
-    edges = faces + vertices;
+    edges = (faces * 3) / 2 + chi;
+    vertices = edges - faces;
   }
 
   obj.innerHTML = `(${faces} ▲, ${edges} ―, ${vertices} •, ${vertReal} 🔴)`;
