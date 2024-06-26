@@ -1219,7 +1219,7 @@ function createModel(shape, chi = 2) {
   let vertReal = shape.vertices.length / 3;
 
   if (chi === null) {
-    edges = ``;
+    edges = `??`;
     vertices = `??`;
   }
 
