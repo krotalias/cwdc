@@ -77,16 +77,18 @@
  * A user can switch between hws and three.js models by pressing a single key (❖ or ⌘) in the interface.</p>
  *
  * <p>There is a lot of redundancy in the form of vertex duplication in all of these models, which may preclude mipmapping
- * artifacts. The theoretical number of vertices for a {@link https://en.wikipedia.org/wiki/Manifold manifold model}
- * and the actual number of vertices are displayed in the interface.
- * The number of edges is simply three times the number of triangles divided by two.</p>
+ * artifacts. The theoretical number of vertices, <mark>𝑣</mark>, for a {@link https://en.wikipedia.org/wiki/Manifold manifold model}
+ * and the actual number of vertices (🔴) are displayed in the interface.
+ * The number of edges, <i>e</i>, is simply three times the number of triangles, <i>t</i>, divided by two:
+ * <a href="http://drhuang.com/science/mathematics/book/gtm/GTM056.Algebraic.topology..An.introduction,.Massey.W..(Springer,.1977)(ISBN.0387902716)(600dpi)(T)(282s)_MDat_.pdf#page=52"><i>2e = 3t</i></a>
+ * or <i>e = 3(<mark>𝑣</mark> - χ), χ(S²)=2</i>.</p>
  *
  * <p>As a proof of concept, I implemented a {@link uvSphereND sphere} model without any vertex duplication.
  * Besides being much harder to code, its last slice (e.g., slices = 48) goes from 6.152285613280011 (2π/48 * 47) to 0.0
  * and not 2π (if there was an extra duplicate vertex), which generates texture coordinates
  * going from 0.9791666666666666 (47/48) to 0.0 and not 1.0.
  * Although this is what causes the mipmapping artifacts, it has nothing to do with the topology of the model
- * but how mimapping is implemented on the GPU.</p>
+ * but how mimapping is {@link https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-28-mipmap-level-measurement implemented} on the GPU.</p>
  *
  * Of course, these are just {@link https://en.wikipedia.org/wiki/Polygon_mesh polygon meshes} suitable for visualization
  * and not valid topological {@link https://en.wikipedia.org/wiki/Boundary_representation B-rep}
