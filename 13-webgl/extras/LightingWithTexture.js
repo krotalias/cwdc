@@ -79,9 +79,15 @@
  * <p>There is a lot of redundancy in the form of vertex duplication in all of these models, which may preclude mipmapping
  * artifacts. The theoretical number of vertices, <mark>𝑣</mark>, for a {@link https://en.wikipedia.org/wiki/Manifold manifold model}
  * and the actual number of vertices (🔴) are {@link createModel displayed} in the interface.
- * The number of edges, <i>e</i>, is simply three times the number of triangles, <i>t</i>, divided by two:
- * <a href="http://drhuang.com/science/mathematics/book/gtm/GTM056.Algebraic.topology..An.introduction,.Massey.W..(Springer,.1977)(ISBN.0387902716)(600dpi)(T)(282s)_MDat_.pdf#page=52"><i>2e = 3t</i></a>
- * or <i>e = 3(<mark>𝑣</mark> - <a href="../doc/Eulers_Map_Theorem.pdf">χ</a>}), χ(S²)=2</i>.</p>
+ * The number of edges, <i>e</i>, is simply three times the number of triangles, <i>t</i>, divided by two.</p>
+ *
+ * For any triangulation of a {@link https://en.wikipedia.org/wiki/Surface_(topology) compact surface},
+ * the <a href="http://drhuang.com/science/mathematics/book/gtm/GTM056.Algebraic.topology..An.introduction,.Massey.W..(Springer,.1977)(ISBN.0387902716)(600dpi)(T)(282s)_MDat_.pdf#page=52">following holds</a>:
+ * <ul>
+ * <li><i>2e = 3t</i>,</li>
+ * <li><i>e = 3(<mark>𝑣</mark> - <a href="../doc/Eulers_Map_Theorem.pdf">χ</a>), χ(S²)=2</i>,</li>
+ * <li>𝑣 &ge; 1/2 (7 + √(49 - 24χ)).</li>
+ * </ul>
  *
  * <p>As a proof of concept, I implemented a {@link uvSphereND sphere} model without any vertex duplication.
  * Besides being much harder to code, its last slice (e.g., slices = 48) goes from 6.152285613280011 (2π/48 * 47) to 0.0
