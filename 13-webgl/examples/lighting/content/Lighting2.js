@@ -594,6 +594,7 @@ const handleKeyPress = ((event) => {
         models.value = "8";
         theModel = createModel(
           getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16)),
+          1,
         );
         break;
       case "d":
