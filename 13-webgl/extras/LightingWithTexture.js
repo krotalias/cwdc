@@ -74,7 +74,7 @@
  * to improve interpolation and fixed the number of triangles generated in uvCone. This way, the set of models in hws and
  * three.js became quite similar, although I kept the "<i>zig-zag</i>" mesh for cones and cylinders in hws
  * (I have no idea whether it provides any practical advantage).
- * A user can switch between hws and three.js models by pressing a single key (❖ or ⌘) in the interface.</p>
+ * A user can switch between hws and three.js models by pressing a single key (Alt, ❖ or ⌘) in the interface.</p>
  *
  * <p>There is a lot of redundancy in the form of vertex duplication in all of these models, which may preclude mipmapping
  * artifacts. The theoretical number of vertices, <mark>𝑣</mark>, for a {@link https://en.wikipedia.org/wiki/Manifold manifold model}
@@ -857,11 +857,14 @@ const handleKeyPress = ((event) => {
           ${ntri(subPoly, numSubdivisions, theModel.nfaces)} triangles):`;
         break;
       case "T":
+        // (2,3)-torus knot (trefoil knot).
+        // The genus of a torus knot is (p−1)(q−1)/2.
         gscale = mscale = 0.6;
         models.value = "8";
         theModel = createModel({
           shape: getModelData(new THREE.TorusKnotGeometry(1, 0.4, 128, 16)),
           name: "torusknot",
+          chi: 1,
         });
         break;
       case "t":
@@ -1119,6 +1122,7 @@ const createEvent = (key) => {
 
 /**
  * Selects a model from a menu and creates an {@link createEvent event} for it.
+ * @see {@link https://encyclopediaofmath.org/wiki/Torus_knot Torus Knot}.
  */
 function selectModel() {
   let val = document.getElementById("models").value;
@@ -1733,8 +1737,9 @@ window.addEventListener("load", (event) => {
  *
  * <p>The number of triangles must be even for a valid triangulation of the sphere:</p>
  * <ul>
- *  <li> V - E + T = 2 (sphere) </li>
- *  <li> V - E + T = 0 (torus) </li>
+ *  <li> V - E + T = 2 ({@link https://en.wikipedia.org/wiki/Sphere sphere}) </li>
+ *  <li> V - E + T = 1 ({@link https://en.wikipedia.org/wiki/Trefoil_knot trefoil knot}) </li>
+ *  <li> V - E + T = 0 ({@link https://en.wikipedia.org/wiki/Torus torus}) </li>
  * </ul>
  *
  * @param {Object} model model descriptor.
@@ -1746,7 +1751,7 @@ window.addEventListener("load", (event) => {
  *     0 - dodecahedron, <br>
  *     1 - icosahedron, <br>
  *     2 - octahedron, <br>
- *     3 - tetrahedron
+ *     3 - tetrahedron.
  * @property {Boolean} model.fix_uv=false whether to change uv texture coordinates.
  * @returns {modelData} shape.
  * @see {@link https://en.wikipedia.org/wiki/Platonic_solid Platonic solid}
