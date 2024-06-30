@@ -745,16 +745,7 @@ const handleKeyPress = ((event) => {
   let zoomfactor = 0.7;
   let gscale = 1;
   let subPoly = 0;
-  const polyName = {
-    0: "dodecahedron",
-    1: "icosahedron",
-    2: "octahedron",
-    3: "tetrahedron",
-  };
-  const ntri = (p, n, f) => {
-    if (p < 2) return f * (n * n + 2 * n + 1);
-    else return f * 4 ** n;
-  };
+  let tri;
 
   /**
    * <p>Handler for keydown events.</p>
@@ -776,10 +767,11 @@ const handleKeyPress = ((event) => {
         }
         theModel = createModel({ poly: subPoly });
 
+        tri = theModel.ntri(numSubdivisions);
         kbd.innerHTML = `
-          (${polyName[subPoly]}
-          level ${numSubdivisions} →
-          ${ntri(subPoly, numSubdivisions, theModel.nfaces)} triangles):`;
+          (${theModel.name}
+          level ${theModel.level(tri)} →
+          ${tri} triangles):`;
         break;
       case " ":
         selector.paused = !selector.paused;
@@ -848,13 +840,14 @@ const handleKeyPress = ((event) => {
       case "S":
         // subdivision sphere
         gscale = mscale = 1;
-        numSubdivisions = maxSubdivisions;
         models.value = "13";
+        numSubdivisions = maxSubdivisions;
         theModel = createModel({ poly: subPoly });
+        tri = theModel.ntri(numSubdivisions);
         kbd.innerHTML = `
-          (${polyName[subPoly]}
-          level ${numSubdivisions} →
-          ${ntri(subPoly, numSubdivisions, theModel.nfaces)} triangles):`;
+          (${theModel.name}
+          level ${theModel.level(tri)} →
+          ${tri} triangles):`;
         break;
       case "T":
         // (2,3)-torus knot (trefoil knot).
@@ -950,8 +943,8 @@ const handleKeyPress = ((event) => {
       case "d":
         gscale = mscale = 1;
         subPoly = 0;
-        maxSubdivisions = limit.dod;
         numSubdivisions = 0;
+        maxSubdivisions = limit.dod;
         models.value = "9";
         theModel = createModel({
           shape: getModelData(new THREE.DodecahedronGeometry(1, 0)),
@@ -961,8 +954,8 @@ const handleKeyPress = ((event) => {
       case "i":
         gscale = mscale = 1;
         subPoly = 1;
-        maxSubdivisions = limit.ico;
         numSubdivisions = 0;
+        maxSubdivisions = limit.ico;
         models.value = "10";
         theModel = createModel({
           shape: getModelData(new THREE.IcosahedronGeometry(1, 0)),
@@ -972,8 +965,8 @@ const handleKeyPress = ((event) => {
       case "o":
         gscale = mscale = 1;
         subPoly = 2;
-        maxSubdivisions = limit.oct;
         numSubdivisions = 0;
+        maxSubdivisions = selector.hws ? limit.oct_hws : limit.oct;
         models.value = "11";
         theModel = createModel({
           shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
@@ -983,8 +976,8 @@ const handleKeyPress = ((event) => {
       case "w":
         gscale = mscale = 1;
         subPoly = 3;
-        maxSubdivisions = limit.tet;
         numSubdivisions = 0;
+        maxSubdivisions = selector.hws ? limit.tet_hws : limit.tet;
         models.value = "12";
         theModel = createModel({
           shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
@@ -1753,7 +1746,7 @@ window.addEventListener("load", (event) => {
  *     2 - octahedron, <br>
  *     3 - tetrahedron.
  * @property {Boolean} model.fix_uv=false whether to change uv texture coordinates.
- * @returns {modelData} shape.
+ * @returns {modelData|module:polyhedron~polyData} shape.
  * @see {@link https://en.wikipedia.org/wiki/Platonic_solid Platonic solid}
  * @see {@link https://ocw.mit.edu/courses/18-965-geometry-of-manifolds-fall-2004/pages/lecture-notes/ Geometry Of Manifolds}
  * @see {@link https://nrich.maths.org/1384 Euler's Formula and Topology}
@@ -1768,27 +1761,28 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
       shape = new polyhedron(fix_uv).dodecahedron({
         n: numSubdivisions,
       });
-      shape.nfaces = 36;
-      maxSubdivisions = limit.dod;
-    } else if (poly === 2) {
-      shape = new polyhedron(fix_uv).octahedron({
-        n: numSubdivisions,
-      });
-      shape.nfaces = 8;
-      maxSubdivisions = limit.oct;
-    } else if (poly === 3) {
-      shape = new polyhedron(fix_uv).tetrahedron({
-        n: numSubdivisions,
-      });
-      shape.nfaces = 4;
-      maxSubdivisions = limit.tet;
-    } else {
+    } else if (poly === 1) {
       shape = new polyhedron(fix_uv).icosahedron({
         n: numSubdivisions,
       });
-      shape.nfaces = 20;
-      maxSubdivisions = limit.ico;
+    } else if (poly === 2) {
+      shape = selector.hws
+        ? new polyhedron(fix_uv).octahedronHWS({
+            n: numSubdivisions,
+          })
+        : new polyhedron(fix_uv).octahedron({
+            n: numSubdivisions,
+          });
+    } else if (poly === 3) {
+      shape = selector.hws
+        ? new polyhedron(fix_uv).tetrahedronHWS({
+            n: numSubdivisions,
+          })
+        : new polyhedron(fix_uv).tetrahedron({
+            n: numSubdivisions,
+          });
     }
+    maxSubdivisions = shape.maxSubdivisions;
   } else {
     setUVfix(name == "spherend");
   }

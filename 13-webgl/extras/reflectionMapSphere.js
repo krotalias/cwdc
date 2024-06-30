@@ -335,7 +335,7 @@ function init(cubeMapArr) {
   lmodel.push([createModel(uvCone(10, 20, 30, 5, false)), 30]);
   lmodel.push([createModel(uvTorus(10, 5, 30, 30)), 25]);
   lmodel.push([
-    createModel(new polyhedron().octahedron({ n: numTimesToSubdivide })),
+    createModel(new polyhedron().octahedronHWS({ n: numTimesToSubdivide })),
     2.5,
   ]);
   lmodel.push([createModel(uvSphere(10, 30, 30)), 30]);

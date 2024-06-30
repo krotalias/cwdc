@@ -32,6 +32,23 @@ import * as THREE from "/cwdc/13-webgl/lib/three.module.js";
 import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
 
 /**
+ * An object containing raw data for
+ * vertices, normal vectors, texture coordinates, mercator coordinates and indices.
+ * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
+ * @typedef {Object} polyData
+ * @property {Float32Array} vertexPositions vertex coordinates.
+ * @property {Float32Array} vertexNormals vertex normals.
+ * @property {Float32Array} vertexTextureCoords texture coordinates.
+ * @property {Float32Array} vertexMercatorCoords mercator texture coordinates.
+ * @property {Uint16Array} indices index array.
+ * @property {String} name polyhedron name.
+ * @property {Number} nfaces initial number of triangles.
+ * @property {Number} maxNumSubdivisions maximum number of subdivisions.
+ * @property {Function} ntri return the number of triangles given the level of detail.
+ * @property {Function} level return the level of detail given the number of triangles.
+ */
+
+/**
  * gl-matrix {@link https://glmatrix.net/docs/module-vec3.html 3 Dimensional Vector}.
  * @name vec3
  * @type {glMatrix.vec3}
@@ -65,12 +82,14 @@ const initialOcta = [
 
 /**
  * Maximum subdivision level without overflowing any buffer (16 bits - 65536).
- * @type {Object<{tet:Number, oct:Number, dod:Number}>}
+ * @type {Object<{tet:Number, oct:Number, dod:Number, ico: Number}>}
  */
 export const limit = {
-  tet: Math.floor(Math.log(65536 / (4 * 3)) / Math.log(4)),
-  oct: Math.floor(Math.log(65536 / (8 * 3)) / Math.log(4)),
-  dod: 12, // Math.floor(Math.log(65536 / (12 * 3)) / Math.log(4)),
+  tet_hws: Math.floor(Math.log(65536 / (4 * 3)) / Math.log(4)),
+  oct_hws: Math.floor(Math.log(65536 / (8 * 3)) / Math.log(4)),
+  tet: 24,
+  oct: 20,
+  dod: 12,
   ico: 16,
 };
 
@@ -285,7 +304,7 @@ export function mercator2Spherical(x, y) {
 
 /**
  * Set Mercator vertex coordinates.
- * @param {modelData} obj model data.
+ * @param {polylData} obj model data.
  */
 export function setMercatorCoordinates(obj) {
   obj.vertexMercatorCoords = new Float32Array(obj.vertexTextureCoords.length);
@@ -300,7 +319,7 @@ export function setMercatorCoordinates(obj) {
 
 /**
  * Rotate u texture coordinate by a given angle.
- * @param {modelData} obj model data.
+ * @param {module:polyhedron~polyData} obj model data.
  * @param {Number} degrees rotation angle.
  */
 export function rotateUTexture(obj, degrees) {
@@ -389,7 +408,7 @@ export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
  * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}.</p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square Mercator coordinates}
- * are created and returned as a new {@link modelData}'s property, vertexMercatorCoords, and
+ * are created and returned as a {@link module:polyhedron~polyData}'s property, vertexMercatorCoords, and
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Three.js polyhedra}
  * texture coordinates are rotated by 180°, because their original coordinates
  * reversed the places of the prime and anti meridians.
@@ -413,6 +432,44 @@ export class polyhedron {
      * @type {String}
      */
     this.name = "";
+
+    /**
+     * Return the number of triangles at a given subdivision level.
+     * @param {Number} n level of detail.
+     * @returns {Number} number of triangles.
+     */
+    this.ntriHWS = (n) => this.nfaces * 4 ** Math.min(n, this.maxSubdivisions);
+
+    /**
+     * Return the subdivision level given a number of triangles.
+     * @param {Number} t number of triangles.
+     * @returns {Number} level of detail.
+     */
+    this.levelHWS = (t) => Math.log(t / this.nfaces) / Math.log(4);
+
+    /**
+     * Return the number of triangles at a given subdivision level.
+     * @param {Number} n level of detail.
+     * @returns {Number} number of triangles.
+     */
+    this.ntri = (n) => {
+      n = Math.min(n, this.maxSubdivisions);
+      return this.nfaces * (n * n + 2 * n + 1);
+    };
+
+    /**
+     * Return the subdivision level given a number of triangles.
+     * @param {Number} t number of triangles.
+     * @returns {Number} level of detail.
+     */
+    this.level = (t) => {
+      const a = 1;
+      const b = 2;
+      const c = 1 - t / this.nfaces;
+      let delta = b * b - 4 * a * c;
+      let root = Math.sqrt(delta) / (2 * a);
+      return Math.ceil(root) - 1;
+    };
   }
 
   /**
@@ -525,7 +582,7 @@ export class polyhedron {
   }
 
   /**
-   * <p>Subdivides an initial tetrahedron.</p>
+   * <p>Subdivides an initial {@link module:polyhedron~initialTet tetrahedron}.</p>
    * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
    * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
    * Generates:
@@ -537,15 +594,26 @@ export class polyhedron {
    * </ul>
    * @param {Object} poly tetrahedron.
    * @property {Array<vec3>} poly.vtx=initialTet vertices of initial tetrahedron.
-   * @property {Number} poly.n=limit.tet number of subdivisions.
-   * @returns {modelData}
+   * @property {Number} poly.n=limit.tet_hws number of subdivisions.
+   * @returns {module:polyhedron~polyData}
    */
-  tetrahedron({ vtx = initialTet, n = limit.tet }) {
+  tetrahedronHWS({ vtx = initialTet, n = limit.tet_hws }) {
+    this.name = "tetrahedronHWS";
+    /**
+     * Initial number of triangles.
+     * @type {Number}
+     */
+    this.nfaces = 4;
+    /**
+     * Maximum number of subdivisions.
+     * @type {Number}
+     */
+    this.maxSubdivisions = limit.tet_hws;
+
     const [a, b, c, d] = vtx;
     this.resetBuffers();
-    this.name = "tetrahedron";
 
-    n = Math.min(limit.tet, n);
+    n = Math.min(limit.tet_hws, n);
 
     this.divideTriangle(a, b, c, n);
     this.divideTriangle(d, c, b, n);
@@ -558,11 +626,16 @@ export class polyhedron {
       vertexTextureCoords: new Float32Array(this.texCoords),
       vertexMercatorCoords: new Float32Array(this.mercCoords),
       indices: new Uint16Array(this.pointsIndices),
+      maxSubdivisions: this.maxSubdivisions,
+      name: this.name,
+      nfaces: this.nfaces,
+      ntri: this.ntriHWS,
+      level: this.levelHWS,
     };
   }
 
   /**
-   * <p>Subdivides an initial octahedron.</p>
+   * <p>Subdivides an initial {@link module:polyhedron~initialOcta octahedron}.</p>
    * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
    * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
    * Generates:
@@ -574,15 +647,18 @@ export class polyhedron {
    * </ul>
    * @param {Object} poly octahedron.
    * @property {Array<vec3>} poly.vtx=initialOcta vertices of initial octahedron.
-   * @property {Number} poly.n=limit.oct number of subdivisions.
-   * @returns {modelData}
+   * @property {Number} poly.n=limit.oct_hws number of subdivisions.
+   * @returns {module:polyhedron~polyData}
    */
-  octahedron({ vtx = initialOcta, n = limit.oct }) {
+  octahedronHWS({ vtx = initialOcta, n = limit.oct_hws }) {
+    this.name = "octahedronHWS";
+    this.nfaces = 8;
+    this.maxSubdivisions = limit.oct_hws;
+
     const [a, b, c, d, e, f] = vtx;
     this.resetBuffers();
-    this.name = "octahedron";
 
-    n = Math.min(limit.oct, n);
+    n = Math.min(limit.oct_hws, n);
 
     this.divideTriangle(b, c, e, n);
     this.divideTriangle(f, c, b, n);
@@ -599,22 +675,100 @@ export class polyhedron {
       vertexTextureCoords: new Float32Array(this.texCoords),
       vertexMercatorCoords: new Float32Array(this.mercCoords),
       indices: new Uint16Array(this.pointsIndices),
+      maxSubdivisions: this.maxSubdivisions,
+      nfaces: this.nfaces,
+      name: this.name,
+      ntri: this.ntriHWS,
+      level: this.levelHWS,
     };
   }
 
   /**
    * <p>Subdivides an initial
-   * {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry dodecahedron}.</p>
-   * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
-   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
+   * {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry tetrahedron}.</p>
    * Generates:
    * <ul>
-   *  <li> 36 * 4<sup>n</sup> triangles</li>
-   *  <li> 36 * 3 * 4<sup>n</sup> vertices</li>
-   *  <li> maximum level = 4 (36864 triangles)</li>
-   *  <li> 36 * 3 * 4**5 = 110592 vertices → buffer overflow</li>
+   *  <li> 4(n² + 2n + 1) </li>
+   *  <li> n = 0: 4 triangles, 4 vertices</li>
+   *  <li> n = 1: 16 triangles, 10 vertices</li>
+   *  <li> n = 2: 36 triangles, 20 vertices</li>
+   *  <li> n = 3: 64 triangles, 34 vertices</li>
+   *  <li> n = 4: 100 triangles, 52 vertices</li>
+   *  <li> n = 5: 144 triangles, 74 vertices</li>
    * </ul>
-   * Note: three.js level of detail generates much less vertices than the values above:
+   * @param {Object} poly tetrahedron.
+   * @property {Number} poly.radius=1 radius for three.js.
+   * @property {Number} poly.n=limit.tet number of subdivisions.
+   * @returns {module:polyhedron~polyData}
+   */
+  tetrahedron({ radius = 1, n = limit.tet }) {
+    this.name = "tetrahedron";
+    this.nfaces = 4;
+    this.maxSubdivisions = limit.tet;
+
+    n = Math.min(limit.tet, n);
+
+    const obj = getModelData(new THREE.TetrahedronGeometry(radius, n));
+
+    // rotate texture by 180°
+    rotateUTexture(obj, 180);
+
+    setMercatorCoordinates(obj);
+
+    obj.maxSubdivisions = this.maxSubdivisions;
+    obj.nfaces = this.nfaces;
+    obj.name = this.name;
+    obj.ntri = this.ntri;
+    obj.level = this.level;
+
+    return obj;
+  }
+
+  /**
+   * <p>Subdivides an initial
+   * {@link https://threejs.org/docs/#api/en/geometries/OctahedronGeometry octhedron}.</p>
+   * Generates:
+   * <ul>
+   *  <li> 8(n² + 2n + 1) </li>
+   *  <li> n = 0: 8 triangles, 6 vertices</li>
+   *  <li> n = 1: 32 triangles, 18 vertices</li>
+   *  <li> n = 2: 72 triangles, 38 vertices</li>
+   *  <li> n = 3: 192 triangles, 66 vertices</li>
+   *  <li> n = 4: 200 triangles, 102 vertices</li>
+   *  <li> n = 5: 288 triangles, 146 vertices</li>
+   * </ul>
+   * @param {Object} poly octahedron.
+   * @property {Number} poly.radius=1 radius for three.js.
+   * @property {Number} poly.n=limit.oct number of subdivisions.
+   * @returns {module:polyhedron~polyData}
+   */
+  octahedron({ radius = 1, n = limit.oct }) {
+    this.name = "octahedron";
+    this.nfaces = 8;
+    this.maxSubdivisions = limit.oct;
+
+    n = Math.min(limit.oct, n);
+
+    const obj = getModelData(new THREE.OctahedronGeometry(radius, n));
+
+    // rotate texture by 180°
+    rotateUTexture(obj, 180);
+
+    setMercatorCoordinates(obj);
+
+    obj.maxSubdivisions = this.maxSubdivisions;
+    obj.nfaces = this.nfaces;
+    obj.name = this.name;
+    obj.ntri = this.ntri;
+    obj.level = this.level;
+
+    return obj;
+  }
+
+  /**
+   * <p>Subdivides an initial
+   * {@link https://threejs.org/docs/#api/en/geometries/DodecahedronGeometry dodecahedron}.</p>
+   * Generates:
    * <ul>
    *  <li> 36(n² + 2n + 1) </li>
    *  <li> n = 0: 36 triangles, 20 vertices</li>
@@ -627,10 +781,15 @@ export class polyhedron {
    * @param {Object} poly dodecahedron.
    * @property {Number} poly.radius=1 radius of the dodecahedron.
    * @property {Number} poly.n=limit.dod number of subdivisions.
-   * @returns {modelData}
+   * @returns {module:polyhedron~polyData}
    */
   dodecahedron({ radius = 1, n = limit.dod }) {
     this.name = "dodecahedron";
+    this.nfaces = 36;
+    this.maxSubdivisions = limit.dod;
+
+    n = Math.min(limit.dod, n);
+
     const obj = getModelData(new THREE.DodecahedronGeometry(radius, n));
 
     // rotate texture by 180°
@@ -638,22 +797,19 @@ export class polyhedron {
 
     setMercatorCoordinates(obj);
 
+    obj.maxSubdivisions = this.maxSubdivisions;
+    obj.nfaces = this.nfaces;
+    obj.name = this.name;
+    obj.ntri = this.ntri;
+    obj.level = this.level;
+
     return obj;
   }
 
   /**
    * <p>Subdivides an initial
    * {@link https://threejs.org/docs/#api/en/geometries/IcosahedronGeometry icosahedron}.</p>
-   * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
-   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
    * Generates:
-   * <ul>
-   *  <li> 20 * 4<sup>n</sup> triangles</li>
-   *  <li> 20 * 3 * 4<sup>n</sup> vertices</li>
-   *  <li> maximum level = 5 (20480 triangles)</li>
-   *  <li> 20 * 3 * 4**6 = 245760 vertices → buffer overflow</li>
-   * </ul>
-   * Note: three.js level of detail generates much less vertices than the values above:
    * <ul>
    *  <li> 20(n² + 2n + 1) </li>
    *  <li> n = 0: 20 triangles, 12 vertices</li>
@@ -666,16 +822,27 @@ export class polyhedron {
    * @param {Object} poly icosahedron.
    * @property {Number} poly.radius=1 radius of the icosahedron.
    * @property {Number} poly.n=limit.ico number of subdivisions.
-   * @returns {modelData}
+   * @returns {module:polyhedron~polyData}
    */
   icosahedron({ radius = 1, n = limit.ico }) {
     this.name = "icosahedron";
+    this.nfaces = 20;
+    this.maxSubdivisions = limit.ico;
+
+    n = Math.min(limit.ico, n);
+
     const obj = getModelData(new THREE.IcosahedronGeometry(radius, n));
 
     // rotate texture by 180°
     rotateUTexture(obj, 180);
 
     setMercatorCoordinates(obj);
+
+    obj.maxSubdivisions = this.maxSubdivisions;
+    obj.nfaces = this.nfaces;
+    obj.name = this.name;
+    obj.ntri = this.ntri;
+    obj.level = this.level;
 
     return obj;
   }
