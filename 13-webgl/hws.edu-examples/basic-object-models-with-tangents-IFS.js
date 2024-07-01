@@ -137,27 +137,24 @@ function cube(side) {
   let tangents = [];
   let texCoords = [];
   let indices = [];
+
   function face(xyz, nrm, tang) {
     let start = coords.length / 3;
-    let i;
-    for (i = 0; i < 12; i++) {
-      coords.push(xyz[i]);
-    }
-    for (i = 0; i < 4; i++) {
-      normals.push(nrm[0], nrm[1], nrm[2]);
-    }
-    for (i = 0; i < 4; i++) {
-      tangents.push(tang[0], tang[1], tang[2]);
-    }
+
+    coords.push(...xyz);
+    normals.push(...nrm, ...nrm, ...nrm, ...nrm);
+    tangents.push(...tang, ...tang, ...tang, ...tang);
     texCoords.push(0, 0, 1, 0, 1, 1, 0, 1);
     indices.push(start, start + 1, start + 2, start, start + 2, start + 3);
   }
+
   face([-s, -s, s, s, -s, s, s, s, s, -s, s, s], [0, 0, 1], [1, 0, 0]);
-  face([-s, -s, -s, -s, s, -s, s, s, -s, s, -s, -s], [0, 0, -1], [0, 1, 0]);
-  face([-s, s, -s, -s, s, s, s, s, s, s, s, -s], [0, 1, 0], [0, 0, 1]);
+  face([s, -s, -s, -s, -s, -s, -s, s, -s, s, s, -s], [0, 0, -1], [0, 1, 0]);
+  face([-s, s, s, s, s, s, s, s, -s, -s, s, -s], [0, 1, 0], [0, 0, 1]);
   face([-s, -s, -s, s, -s, -s, s, -s, s, -s, -s, s], [0, -1, 0], [1, 0, 0]);
-  face([s, -s, -s, s, s, -s, s, s, s, s, -s, s], [1, 0, 0], [0, 1, 0]);
+  face([s, -s, s, s, -s, -s, s, s, -s, s, s, s], [1, 0, 0], [0, 1, 0]);
   face([-s, -s, -s, -s, -s, s, -s, s, s, -s, s, -s], [-1, 0, 0], [0, 0, 1]);
+
   return {
     vertexPositions: new Float32Array(coords),
     vertexNormals: new Float32Array(normals),
@@ -429,25 +426,27 @@ function uvSphere(radius, slices, stacks) {
   radius = radius || 0.5;
   slices = slices || 32;
   stacks = stacks || 16;
-  var vertexCount = (slices + 1) * (stacks + 1);
-  var vertices = new Float32Array(3 * vertexCount);
-  var normals = new Float32Array(3 * vertexCount);
-  let tangents = new Float32Array(3 * vertexCount);
-  var texCoords = new Float32Array(2 * vertexCount);
-  var indices = new Uint16Array(2 * slices * stacks * 3);
-  var du = (2 * Math.PI) / slices;
-  var dv = Math.PI / stacks;
-  var i, j, u, v, x, y, z;
-  var indexV = 0;
-  var indexT = 0;
-  for (i = 0; i <= stacks; i++) {
-    v = -Math.PI / 2 + i * dv;
-    for (j = 0; j <= slices; j++) {
-      u = j * du;
 
-      x = Math.cos(u) * Math.cos(v);
-      y = Math.sin(u) * Math.cos(v);
-      z = Math.sin(v);
+  let vertexCount = (slices + 1) * (stacks + 1);
+  const vertices = new Float32Array(3 * vertexCount);
+  const normals = new Float32Array(3 * vertexCount);
+  const tangents = new Float32Array(3 * vertexCount);
+  const texCoords = new Float32Array(2 * vertexCount);
+  const indices = new Uint16Array(2 * slices * stacks * 3);
+  let du = (2 * Math.PI) / slices;
+  let dv = Math.PI / stacks;
+  let i, j;
+  let indexV = 0;
+  let indexT = 0;
+
+  for (i = 0; i <= stacks; i++) {
+    let v = -Math.PI / 2 + i * dv;
+    for (j = 0; j <= slices; j++) {
+      let u = j * du;
+
+      let x = Math.cos(u) * Math.cos(v);
+      let y = Math.sin(u) * Math.cos(v);
+      let z = Math.sin(v);
 
       vertices[indexV] = radius * x;
       tangents[indexV] = -y;
@@ -462,10 +461,11 @@ function uvSphere(radius, slices, stacks) {
       texCoords[indexT++] = i / stacks;
     }
   }
-  var k = 0;
+
+  let k = 0;
   for (j = 0; j < stacks; j++) {
-    var row1 = j * (slices + 1);
-    var row2 = (j + 1) * (slices + 1);
+    let row1 = j * (slices + 1);
+    let row2 = (j + 1) * (slices + 1);
     for (i = 0; i < slices; i++) {
       indices[k++] = row1 + i;
       indices[k++] = row2 + i + 1;
@@ -532,7 +532,7 @@ function uvCone(radius, height, slices, stacks, noBottom) {
 
   for (j = 0; j < fractions.length; j++) {
     // create a zig-zag mesh
-    var uoffset = j % 2 == 0 ? 0 : 0.5;
+    let uoffset = j % 2 == 0 ? 0 : 0.5;
     for (i = 0; i <= slices; i++) {
       let h1 = -height / 2 + fractions[j] * height;
       let u = (i + uoffset) * du;
