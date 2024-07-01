@@ -112,7 +112,7 @@ export const clamp = (x, min, max) => Math.min(Math.max(min, x), max);
 export const radians = (deg) => (deg * Math.PI) / 180;
 
 /**
- * Default number of segments (points-1) for drawing a meridian or parallel.
+ * Default number of segments (points - 1) for drawing a meridian or parallel.
  * @type {Number}
  */
 export const nsegments = 36;
@@ -220,9 +220,9 @@ export function cartesian2Spherical(p) {
  *  <li>y = p[1] = -r cos(φ)</li>
  * </ul>
  *
- * @param {Number} s azimuth angle θ, 0 ≤ θ < 2π.
+ * @param {Number} s azimuth angle θ, 0 ≤ θ ≤ 2π.
  * @param {Number} t zenith angle φ, 0 ≤ φ ≤ π.
- * @param {Number} r radius.
+ * @param {Number} r radius distance, r ≥ 0.
  * @returns {vec3} cartesian point onto the unit sphere.
  * @see {@link https://mathworld.wolfram.com/SphericalCoordinates.html spherical coordinates}
  * @see <img src="../images/spherical-projection.png" width="256">
@@ -253,7 +253,7 @@ export function spherical2Cartesian(s, t, r = 1) {
  *    <li>φ<sub>max</sub> = 2 atan (e<sup>π</sup>) - π /2 = 85.051129°</li>
  * </ul>
  * As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any artifact.
- * @param {Number} s longitude (horizontal angle) θ, 0 ≤ θ < 1.
+ * @param {Number} s longitude (horizontal angle) θ, 0 ≤ θ ≤ 1.
  * @param {Number} t latitude (vertical angle) φ, 0 ≤ φ ≤ 1.
  * @return {Object<x:Number, y:Number>} mercator coordinates in [0,1].
  * @see {@link https://stackoverflow.com/questions/59907996/shader-that-transforms-a-mercator-projection-to-equirectangular mercator projection to equirectangular}
@@ -304,7 +304,7 @@ export function mercator2Spherical(x, y) {
 
 /**
  * Set Mercator vertex coordinates.
- * @param {polylData} obj model data.
+ * @param {module:polyhedron~polyData} obj model data.
  */
 export function setMercatorCoordinates(obj) {
   obj.vertexMercatorCoords = new Float32Array(obj.vertexTextureCoords.length);
@@ -334,7 +334,7 @@ export function rotateUTexture(obj, degrees) {
 /**
  * Return an array with n points on a parallel given its
  * {@link https://www.britannica.com/science/latitude latitude}.
- * @param {Number} latitude distance north or south of the Equator: [-90°,90°].
+ * @param {Number} [latitude=0] distance north or south of the Equator: [-90°,90°].
  * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the parallel.
  */
@@ -382,9 +382,9 @@ export function pointsOnAntiMeridian(n = nsegments) {
 /**
  * Return an array with n points on a meridian given its
  * {@link https://en.wikipedia.org/wiki/Longitude longitude}.
- * @param {Number} longitude distance east or west of the prime meridian: [-180°,180°]
+ * @param {Number} [longitude=0] distance east or west of the prime meridian: [-180°,180°]
  * @param {Number} [n={@link nsegments}] number of points.
- * @param {Boolean} anti whether to draw the antimeridian also.
+ * @param {Boolean} [anti=false] whether to draw the antimeridian also.
  * @return {Float32Array} points on the meridian.
  */
 export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
@@ -408,7 +408,7 @@ export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
  * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}.</p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square Mercator coordinates}
- * are created and returned as a {@link module:polyhedron~polyData}'s property, vertexMercatorCoords, and
+ * are created and returned as a {@link module:polyhedron~polyData polyData}'s property, vertexMercatorCoords, and
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Three.js polyhedra}
  * texture coordinates are rotated by 180°, because their original coordinates
  * reversed the places of the prime and anti meridians.
@@ -436,21 +436,21 @@ export class polyhedron {
     /**
      * Return the number of triangles at a given subdivision level.
      * @param {Number} n level of detail.
-     * @returns {Number} number of triangles.
+     * @returns {Number} number of triangles: nfaces * 4<sup>n</sup>.
      */
     this.ntriHWS = (n) => this.nfaces * 4 ** Math.min(n, this.maxSubdivisions);
 
     /**
      * Return the subdivision level given a number of triangles.
      * @param {Number} t number of triangles.
-     * @returns {Number} level of detail.
+     * @returns {Number} level of detail: log₄(t / nfaces).
      */
     this.levelHWS = (t) => Math.log(t / this.nfaces) / Math.log(4);
 
     /**
      * Return the number of triangles at a given subdivision level.
      * @param {Number} n level of detail.
-     * @returns {Number} number of triangles.
+     * @returns {Number} number of triangles: nfaces * (n² + 2n + 1).
      */
     this.ntri = (n) => {
       n = Math.min(n, this.maxSubdivisions);
@@ -460,7 +460,7 @@ export class polyhedron {
     /**
      * Return the subdivision level given a number of triangles.
      * @param {Number} t number of triangles.
-     * @returns {Number} level of detail.
+     * @returns {Number} level of detail n: n² + 2n + 1 - t = 0.
      */
     this.level = (t) => {
       const a = 1;
