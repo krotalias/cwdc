@@ -160,35 +160,36 @@ function cube(side) {
  * centered at the origin.</p>
  * This is not a great representation, since all the normals are the same.
  * @param {Number} innerRadius the radius of the hole in the radius; a value of
- *    zero will give a disk rather than a ring.  <br>
- *    If not present, the default value is 0.25.
+ *    zero will give a disk rather than a ring. <br>
+ *    If ommited, the default value is 0.25.
  * @param {Number} outerRadius the radius of the ring, from the center to the
- *    outer edge.  Must be greater than innerRadius.  <br>
- *    If not provided, the default value is 2*innerRadius or is 0.5 if innerRadius is 0.
+ *    outer edge. Must be greater than innerRadius. <br>
+ *    If ommited, the default value is 2*innerRadius if innerRadius > 0 or 0.5 otherwise.
  * @param {Number} slices the number of radial subdivisions in the circular approximation
- *    of an annulus.  <br>
- *    If not provided, the value will be 32.
+ *    of an annulus, minimum 3, default 32.
  * @return {modelData}
  */
 function ring(innerRadius, outerRadius, slices) {
   if (arguments.length == 0) innerRadius = 0.25;
   outerRadius = outerRadius || innerRadius * 2 || 0.5;
   slices = slices || 32;
-  var vertexCount, vertices, normals, texCoords, indices, i;
-  vertexCount = innerRadius == 0 ? slices + 1 : slices * 2;
-  vertices = new Float32Array(3 * vertexCount);
-  normals = new Float32Array(3 * vertexCount);
-  texCoords = new Float32Array(2 * vertexCount);
-  indices = new Uint16Array(innerRadius == 0 ? 3 * slices : 3 * 2 * slices);
-  var d = (2 * Math.PI) / slices;
-  var k = 0;
-  var t = 0;
-  var n = 0;
-  var s, c;
+
+  const vertexCount = innerRadius == 0 ? slices + 1 : slices * 2;
+  const vertices = new Float32Array(3 * vertexCount);
+  const normals = new Float32Array(3 * vertexCount);
+  const texCoords = new Float32Array(2 * vertexCount);
+  const indices = new Uint16Array(
+    innerRadius == 0 ? 3 * slices : 3 * 2 * slices,
+  );
+  const d = (2 * Math.PI) / slices;
+  let k = 0;
+  let t = 0;
+  let n = 0;
+
   if (innerRadius == 0) {
-    for (i = 0; i < slices; i++) {
-      c = Math.cos(d * i);
-      s = Math.sin(d * i);
+    for (let i = 0; i < slices; i++) {
+      const c = Math.cos(d * i);
+      const s = Math.sin(d * i);
       vertices[k++] = c * outerRadius;
       vertices[k++] = s * outerRadius;
       vertices[k++] = 0;
@@ -201,10 +202,10 @@ function ring(innerRadius, outerRadius, slices) {
     vertices[k++] = vertices[k++] = vertices[k++] = 0;
     texCoords[t++] = texCoords[t++] = 0;
   } else {
-    var r = innerRadius / outerRadius;
-    for (i = 0; i < slices; i++) {
-      c = Math.cos(d * i);
-      s = Math.sin(d * i);
+    const r = innerRadius / outerRadius;
+    for (let i = 0; i < slices; i++) {
+      const c = Math.cos(d * i);
+      const s = Math.sin(d * i);
       vertices[k++] = c * innerRadius;
       vertices[k++] = s * innerRadius;
       vertices[k++] = 0;
@@ -216,7 +217,7 @@ function ring(innerRadius, outerRadius, slices) {
       texCoords[t++] = 0.5 + 0.5 * c;
       texCoords[t++] = 0.5 + 0.5 * s;
     }
-    for (i = 0; i < slices - 1; i++) {
+    for (let i = 0; i < slices - 1; i++) {
       indices[n++] = 2 * i;
       indices[n++] = 2 * i + 1;
       indices[n++] = 2 * i + 3;
@@ -224,6 +225,7 @@ function ring(innerRadius, outerRadius, slices) {
       indices[n++] = 2 * i + 3;
       indices[n++] = 2 * i + 2;
     }
+    let i = slices - 1;
     indices[n++] = 2 * i;
     indices[n++] = 2 * i + 1;
     indices[n++] = 1;
@@ -231,10 +233,12 @@ function ring(innerRadius, outerRadius, slices) {
     indices[n++] = 1;
     indices[n++] = 0;
   }
-  for (i = 0; i < vertexCount; i++) {
+
+  for (let i = 0; i < vertexCount; i++) {
     normals[3 * i] = normals[3 * i + 1] = 0;
     normals[3 * i + 2] = 1;
   }
+
   return {
     vertexPositions: vertices,
     vertexNormals: normals,
@@ -460,12 +464,12 @@ function uvSphereND(radius, slices, stacks) {
  * and the center of the torus is at (0,0,0).
  * @param {Number} outerRadius the distance from the center to the outside of the tube, 0.5 if not specified.
  * @param {Number} innerRadius the distance from the center to the inside of the tube, outerRadius/3 if not
- *    specified.  <br>
+ *    specified. <br>
  *   (This is the radius of the doughnut hole.)
- * @param {Number} slices the number of lines of longitude, default 32.  <br>
+ * @param {Number} slices the number of lines of longitude, minimum 3, default 32. <br>
  *    These are slices parallel to the
  *    z-axis and go around the tube the short way (through the hole).
- * @param {Number} stacks the number of lines of latitude plus 1, default 16.  <br>
+ * @param {Number} stacks the number of lines of latitude plus 1, minimum 2, default 16. <br>
  *   These lines are perpendicular
  *   to the z-axis and go around the tube the long way (around the hole).
  * @return {modelData}
@@ -477,29 +481,30 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
   innerRadius = innerRadius || outerRadius / 3;
   slices = slices || 32;
   stacks = stacks || 16;
-  var vertexCount = (slices + 1) * (stacks + 1);
-  var vertices = new Float32Array(3 * vertexCount);
-  var normals = new Float32Array(3 * vertexCount);
-  var texCoords = new Float32Array(2 * vertexCount);
-  var indices = new Uint16Array(2 * slices * stacks * 3);
-  var du = (2 * Math.PI) / slices;
-  var dv = (2 * Math.PI) / stacks;
-  var centerRadius = (innerRadius + outerRadius) / 2;
-  var tubeRadius = outerRadius - centerRadius;
-  var i, j, u, v, cx, cy, sin, cos, x, y, z;
-  var indexV = 0;
-  var indexT = 0;
-  for (j = 0; j <= stacks; j++) {
-    v = -Math.PI + j * dv;
-    cos = Math.cos(v);
-    sin = Math.sin(v);
-    for (i = 0; i <= slices; i++) {
-      u = i * du;
-      cx = Math.cos(u);
-      cy = Math.sin(u);
-      x = cx * (centerRadius + tubeRadius * cos);
-      y = cy * (centerRadius + tubeRadius * cos);
-      z = sin * tubeRadius;
+
+  const vertexCount = (slices + 1) * (stacks + 1);
+  const vertices = new Float32Array(3 * vertexCount);
+  const normals = new Float32Array(3 * vertexCount);
+  const texCoords = new Float32Array(2 * vertexCount);
+  const indices = new Uint16Array(2 * slices * stacks * 3);
+  const du = (2 * Math.PI) / slices;
+  const dv = (2 * Math.PI) / stacks;
+  const centerRadius = (innerRadius + outerRadius) / 2;
+  const tubeRadius = outerRadius - centerRadius;
+  let indexV = 0;
+  let indexT = 0;
+
+  for (let j = 0; j <= stacks; j++) {
+    const v = -Math.PI + j * dv;
+    const cos = Math.cos(v);
+    const sin = Math.sin(v);
+    for (let i = 0; i <= slices; i++) {
+      const u = i * du;
+      const cx = Math.cos(u);
+      const cy = Math.sin(u);
+      const x = cx * (centerRadius + tubeRadius * cos);
+      const y = cy * (centerRadius + tubeRadius * cos);
+      const z = sin * tubeRadius;
       vertices[indexV] = x;
       normals[indexV++] = cx * cos;
       vertices[indexV] = y;
@@ -510,11 +515,12 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
       texCoords[indexT++] = j / stacks;
     }
   }
-  var k = 0;
-  for (j = 0; j < stacks; j++) {
-    var row1 = j * (slices + 1);
-    var row2 = (j + 1) * (slices + 1);
-    for (i = 0; i < slices; i++) {
+
+  let k = 0;
+  for (let j = 0; j < stacks; j++) {
+    const row1 = j * (slices + 1);
+    const row2 = (j + 1) * (slices + 1);
+    for (let i = 0; i < slices; i++) {
       indices[k++] = row1 + i;
       indices[k++] = row2 + i + 1;
       indices[k++] = row2 + i;
@@ -523,6 +529,7 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
       indices[k++] = row2 + i + 1;
     }
   }
+
   return {
     vertexPositions: vertices,
     vertexNormals: normals,
@@ -536,7 +543,7 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  * The axis of the cylinder is the z-axis,
  * and the center is at (0,0,0).
  * @param {Number} radius the radius of the cylinder
- * @param {Number} height the height of the cylinder.  <br>
+ * @param {Number} height the height of the cylinder. <br>
  *    The cylinder extends from -height/2 to height/2 along the z-axis.
  * @param {Number} slices the number of slices, like the slices of an orange, minimum 3, default 32.
  * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, minimum 1, default 16.
@@ -683,7 +690,7 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
  * The axis of the cone is the z-axis,
  * and the center is at (0,0,0).
  * @param {Number} radius the radius of the cone
- * @param {Number} height the height of the cone.  The cone extends from -height/2
+ * @param {Number} height the height of the cone. The cone extends from -height/2
  * to height/2 along the z-axis, with the tip at (0,0,height/2).
  * @param {Number} slices the number of slices, like the slices of an orange, minimum 3, default 32.
  * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, minimum 1, default 16.

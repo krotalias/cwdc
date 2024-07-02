@@ -2121,7 +2121,7 @@ const setUVfix = (() => {
    * Callback to decide whether to fix UV coordinates, based on
    * the model type (subdivision or not), and if it is a textured
    * model or not.
-   * @param {Boolean} subModel <br>
+   * @param {Boolean} subModel
    *   true: subdivision model, <br>
    *   false: normal model, <br>
    *   undefined: not known. Use the type saved in the closure.

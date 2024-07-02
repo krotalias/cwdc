@@ -3043,7 +3043,7 @@ One entry for each material property.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line819">line 819</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line826">line 826</a>
     </li></ul></dd>
     
 
@@ -7475,8 +7475,8 @@ This is not a great representation, since all the normals are the same.
             
 
             <td class="description last">the radius of the hole in the radius; a value of
-   zero will give a disk rather than a ring.  <br>
-   If not present, the default value is 0.25.</td>
+   zero will give a disk rather than a ring. <br>
+   If ommited, the default value is 0.25.</td>
         </tr>
 
     
@@ -7500,8 +7500,8 @@ This is not a great representation, since all the normals are the same.
             
 
             <td class="description last">the radius of the ring, from the center to the
-   outer edge.  Must be greater than innerRadius.  <br>
-   If not provided, the default value is 2*innerRadius or is 0.5 if innerRadius is 0.</td>
+   outer edge. Must be greater than innerRadius. <br>
+   If ommited, the default value is 2*innerRadius if innerRadius > 0 or 0.5 otherwise.</td>
         </tr>
 
     
@@ -7525,8 +7525,7 @@ This is not a great representation, since all the normals are the same.
             
 
             <td class="description last">the number of radial subdivisions in the circular approximation
-   of an annulus.  <br>
-   If not provided, the value will be 32.</td>
+   of an annulus, minimum 3, default 32.</td>
         </tr>
 
     
@@ -7567,7 +7566,7 @@ This is not a great representation, since all the normals are the same.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line173">line 173</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line172">line 172</a>
     </li></ul></dd>
     
 
@@ -8841,7 +8840,7 @@ and the center is at (0,0,0).
 
             
 
-            <td class="description last">the height of the cone.  The cone extends from -height/2
+            <td class="description last">the height of the cone. The cone extends from -height/2
 to height/2 along the z-axis, with the tip at (0,0,height/2).</td>
         </tr>
 
@@ -8954,7 +8953,7 @@ to height/2 along the z-axis, with the tip at (0,0,height/2).</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line696">line 696</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line703">line 703</a>
     </li></ul></dd>
     
 
@@ -9100,7 +9099,7 @@ and the center is at (0,0,0).
 
             
 
-            <td class="description last">the height of the cylinder.  <br>
+            <td class="description last">the height of the cylinder. <br>
    The cylinder extends from -height/2 to height/2 along the z-axis.</td>
         </tr>
 
@@ -9238,7 +9237,7 @@ and the center is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line552">line 552</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line559">line 559</a>
     </li></ul></dd>
     
 
@@ -9460,7 +9459,7 @@ have the same coordinates of the sphere north/south poles, respectively:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line268">line 268</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line272">line 272</a>
     </li></ul></dd>
     
 
@@ -9674,7 +9673,7 @@ Tarini's method when texturing.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line341">line 341</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line345">line 345</a>
     </li></ul></dd>
     
 
@@ -9821,7 +9820,7 @@ and the center of the torus is at (0,0,0).
             
 
             <td class="description last">the distance from the center to the inside of the tube, outerRadius/3 if not
-   specified.  <br>
+   specified. <br>
   (This is the radius of the doughnut hole.)</td>
         </tr>
 
@@ -9845,7 +9844,7 @@ and the center of the torus is at (0,0,0).
 
             
 
-            <td class="description last">the number of lines of longitude, default 32.  <br>
+            <td class="description last">the number of lines of longitude, minimum 3, default 32. <br>
    These are slices parallel to the
    z-axis and go around the tube the short way (through the hole).</td>
         </tr>
@@ -9870,7 +9869,7 @@ and the center of the torus is at (0,0,0).
 
             
 
-            <td class="description last">the number of lines of latitude plus 1, default 16.  <br>
+            <td class="description last">the number of lines of latitude plus 1, minimum 2, default 16. <br>
   These lines are perpendicular
   to the z-axis and go around the tube the long way (around the hole).</td>
         </tr>
@@ -9913,7 +9912,7 @@ and the center of the torus is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line475">line 475</a>
+        <a href="lib_basic-objects-IFS.js.html">lib/basic-objects-IFS.js</a>, <a href="lib_basic-objects-IFS.js.html#line479">line 479</a>
     </li></ul></dd>
     
 
@@ -10310,8 +10309,7 @@ model or not.
 
             
 
-            <td class="description last"><br>
-  true: subdivision model, <br>
+            <td class="description last">true: subdivision model, <br>
   false: normal model, <br>
   undefined: not known. Use the type saved in the closure.</td>
         </tr>
@@ -12254,7 +12252,7 @@ the event is dispatched.</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jul 01 2024 09:02:25 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jul 02 2024 06:49:49 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
