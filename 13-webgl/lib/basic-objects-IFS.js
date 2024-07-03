@@ -474,7 +474,7 @@ function uvSphereND(radius, slices, stacks) {
  *   to the z-axis and go around the tube the long way (around the hole).
  * @return {modelData}
  * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#acf04d1331c5f0cedfaacc30d1d3f46f4">torus</a>
- * @see <img src="../torusparams.gif">
+ * @see <img src="/cwdc/13-webgl/extras/torusparams.gif">
  */
 function uvTorus(outerRadius, innerRadius, slices, stacks) {
   outerRadius = outerRadius || 0.5;

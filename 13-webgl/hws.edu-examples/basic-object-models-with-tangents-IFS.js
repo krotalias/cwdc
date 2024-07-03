@@ -131,15 +131,15 @@ function getModelData(geom) {
  * @return {modelData}
  */
 function cube(side) {
-  let s = (side || 1) / 2;
-  let coords = [];
-  let normals = [];
-  let tangents = [];
-  let texCoords = [];
-  let indices = [];
+  const s = (side || 1) / 2;
+  const coords = [];
+  const normals = [];
+  const tangents = [];
+  const texCoords = [];
+  const indices = [];
 
   function face(xyz, nrm, tang) {
-    let start = coords.length / 3;
+    const start = coords.length / 3;
 
     coords.push(...xyz);
     normals.push(...nrm, ...nrm, ...nrm, ...nrm);
@@ -172,10 +172,10 @@ function cube(side) {
  * @param {Number} innerRadius the distance from the center to the inside of the tube, outerRadius/3 if not
  *    specified.  <br>
  *    This is the radius of the doughnut hole.
- * @param {Number} slices the number of lines of longitude, default 32. <br>
+ * @param {Number} slices the number of lines of longitude, minimum 3, default 32. <br>
  *    These are slices parallel to the
  *    z-axis and go around the tube the short way (through the hole).
- * @param {Number} stacks the number of lines of latitude plus 1, default 16. <br>
+ * @param {Number} stacks the number of lines of latitude plus 1, minimum 2, default 16. <br>
  *    These lines are perpendicular
  *    to the z-axis and go around the tube the long way (around the hole).
  * @return {modelData}
@@ -187,16 +187,17 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
   innerRadius = innerRadius || outerRadius / 3;
   slices = slices || 32;
   stacks = stacks || 16;
-  let vertexCount = (slices + 1) * (stacks + 1);
-  let vertices = new Float32Array(3 * vertexCount);
-  let normals = new Float32Array(3 * vertexCount);
-  let tangents = new Float32Array(3 * vertexCount);
-  let texCoords = new Float32Array(2 * vertexCount);
-  let indices = new Uint16Array(2 * slices * stacks * 3);
-  let du = (2 * Math.PI) / slices;
-  let dv = (2 * Math.PI) / stacks;
-  let centerRadius = (innerRadius + outerRadius) / 2;
-  let tubeRadius = outerRadius - centerRadius;
+
+  const vertexCount = (slices + 1) * (stacks + 1);
+  const vertices = new Float32Array(3 * vertexCount);
+  const normals = new Float32Array(3 * vertexCount);
+  const tangents = new Float32Array(3 * vertexCount);
+  const texCoords = new Float32Array(2 * vertexCount);
+  const indices = new Uint16Array(2 * slices * stacks * 3);
+  const du = (2 * Math.PI) / slices;
+  const dv = (2 * Math.PI) / stacks;
+  const centerRadius = (innerRadius + outerRadius) / 2;
+  const tubeRadius = outerRadius - centerRadius;
   let i, j, u, v, cx, cy, sin, cos, x, y, z;
   let indexV = 0;
   let indexT = 0;
@@ -226,8 +227,8 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
   }
   let k = 0;
   for (j = 0; j < stacks; j++) {
-    let row1 = j * (slices + 1);
-    let row2 = (j + 1) * (slices + 1);
+    const row1 = j * (slices + 1);
+    const row2 = (j + 1) * (slices + 1);
     for (i = 0; i < slices; i++) {
       indices[k++] = row1 + i;
       indices[k++] = row2 + i + 1;
@@ -253,8 +254,8 @@ function uvTorus(outerRadius, innerRadius, slices, stacks) {
  * @param {Number} radius the radius of the cylinder
  * @param {Number} height the height of the cylinder.  The cylinder extends from -height/2
  * to height/2 along the z-axis.
- * @param {Number} slices the number of slices, like the slices of an orange, default 32.
- * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, default 16.
+ * @param {Number} slices the number of slices, like the slices of an orange, minimum 3, default 32.
+ * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, minimum 1, default 16.
  * @param {Boolean} noTop if missing or false, the cylinder has a top; if set to true,
  *   the cylinder does not have a top. <br>
  *   The top is a disk at the positive end of the cylinder.
@@ -286,7 +287,7 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
   const tangents = new Float32Array(vertexCount * 3);
   const texCoords = new Float32Array(vertexCount * 2);
   const indices = new Uint16Array(triangleCount * 3);
-  let du = (2 * Math.PI) / slices;
+  const du = (2 * Math.PI) / slices;
   let kv = 0;
   let kt = 0;
   let k = 0;
@@ -294,12 +295,12 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
 
   for (j = 0; j < fractions.length; j++) {
     // create a zig-zag mesh
-    let uoffset = j % 2 == 0 ? 0 : 0.5;
+    const uoffset = j % 2 == 0 ? 0 : 0.5;
     for (i = 0; i <= slices; i++) {
-      let h1 = -height / 2 + fractions[j] * height;
-      let u = (i + uoffset) * du;
-      let c = Math.cos(u);
-      let s = Math.sin(u);
+      const h1 = -height / 2 + fractions[j] * height;
+      const u = (i + uoffset) * du;
+      const c = Math.cos(u);
+      const s = Math.sin(u);
       vertices[kv] = c * radius; // x
       tangents[kv] = -s;
       normals[kv++] = c;
@@ -315,8 +316,8 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
   }
 
   for (j = 0; j < fractions.length - 1; j++) {
-    let row1 = j * (slices + 1);
-    let row2 = (j + 1) * (slices + 1);
+    const row1 = j * (slices + 1);
+    const row2 = (j + 1) * (slices + 1);
     for (i = 0; i < slices; i++) {
       indices[k++] = row1 + i;
       indices[k++] = row2 + i + 1;
@@ -341,9 +342,9 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
     texCoords[kt++] = 0.5;
     texCoords[kt++] = 0.5;
     for (i = 0; i <= slices; i++) {
-      let u = 2 * Math.PI - i * du;
-      let c = Math.cos(u);
-      let s = Math.sin(u);
+      const u = 2 * Math.PI - i * du;
+      const c = Math.cos(u);
+      const s = Math.sin(u);
       vertices[kv] = c * radius;
       tangents[kv] = -1;
       normals[kv++] = 0;
@@ -376,11 +377,11 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
     normals[kv++] = 1;
     texCoords[kt++] = 0.5;
     texCoords[kt++] = 0.5;
-    let uoffset = fractions.length % 2 == 0 ? 0.5 : 0;
+    const uoffset = fractions.length % 2 == 0 ? 0.5 : 0;
     for (i = 0; i <= slices; i++) {
-      let u = (i + uoffset) * du;
-      let c = Math.cos(u);
-      let s = Math.sin(u);
+      const u = (i + uoffset) * du;
+      const c = Math.cos(u);
+      const s = Math.sin(u);
       vertices[kv] = c * radius;
       tangents[kv] = 1;
       normals[kv++] = 0;
@@ -415,8 +416,8 @@ function uvCylinder(radius, height, slices, stacks, noTop, noBottom) {
  * The z-axis is the axis of the sphere,
  * with the north pole on the positive z-axis and the center at (0,0,0).
  * @param {Number} radius the radius of the sphere, default 0.5 if not specified.
- * @param {Number} slices the number of lines of longitude, default 32
- * @param {Number} stacks the number of lines of latitude plus 1, default 16.<br>
+ * @param {Number} slices the number of lines of longitude, minimum 3, default 32
+ * @param {Number} stacks the number of lines of latitude plus 1, minimum 2, default 16.<br>
  *    This is the number of vertical slices, bounded by lines of latitude,
  *    the north pole and the south pole.
  * @return {modelData}
@@ -427,26 +428,26 @@ function uvSphere(radius, slices, stacks) {
   slices = slices || 32;
   stacks = stacks || 16;
 
-  let vertexCount = (slices + 1) * (stacks + 1);
+  const vertexCount = (slices + 1) * (stacks + 1);
   const vertices = new Float32Array(3 * vertexCount);
   const normals = new Float32Array(3 * vertexCount);
   const tangents = new Float32Array(3 * vertexCount);
   const texCoords = new Float32Array(2 * vertexCount);
   const indices = new Uint16Array(2 * slices * stacks * 3);
-  let du = (2 * Math.PI) / slices;
-  let dv = Math.PI / stacks;
+  const du = (2 * Math.PI) / slices;
+  const dv = Math.PI / stacks;
   let i, j;
   let indexV = 0;
   let indexT = 0;
 
   for (i = 0; i <= stacks; i++) {
-    let v = -Math.PI / 2 + i * dv;
+    const v = -Math.PI / 2 + i * dv;
     for (j = 0; j <= slices; j++) {
-      let u = j * du;
+      const u = j * du;
 
-      let x = Math.cos(u) * Math.cos(v);
-      let y = Math.sin(u) * Math.cos(v);
-      let z = Math.sin(v);
+      const x = Math.cos(u) * Math.cos(v);
+      const y = Math.sin(u) * Math.cos(v);
+      const z = Math.sin(v);
 
       vertices[indexV] = radius * x;
       tangents[indexV] = -y;
@@ -464,8 +465,8 @@ function uvSphere(radius, slices, stacks) {
 
   let k = 0;
   for (j = 0; j < stacks; j++) {
-    let row1 = j * (slices + 1);
-    let row2 = (j + 1) * (slices + 1);
+    const row1 = j * (slices + 1);
+    const row2 = (j + 1) * (slices + 1);
     for (i = 0; i < slices; i++) {
       indices[k++] = row1 + i;
       indices[k++] = row2 + i + 1;
@@ -494,8 +495,8 @@ function uvSphere(radius, slices, stacks) {
  * @param {Number} height the height of the cone. <br>
  *      The cone extends from -height/2 to height/2 along the z-axis, <br>
  *      with the tip at (0,0,height/2).
- * @param {Number} slices the number of slices, like the slices of an orange, default 32.
- * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, default 16.
+ * @param {Number} slices the number of slices, like the slices of an orange, minimum 3, default 32.
+ * @param {Number} stacks the number of stacks, like horizontal cuts of an orange, minimum 1, default 16.
  * @param {Boolean} noBottom if missing or false, the cone has a bottom;
  *    if set to true, the cone does not have a bottom. <br>
  *    The bottom is a disk at the wide end of the cone.
@@ -521,10 +522,10 @@ function uvCone(radius, height, slices, stacks, noBottom) {
   const tangents = new Float32Array(vertexCount * 3);
   const texCoords = new Float32Array(vertexCount * 2);
   const indices = new Uint16Array(triangleCount * 3);
-  let normallength = Math.sqrt(height * height + radius * radius);
-  let n1 = height / normallength;
-  let n2 = radius / normallength;
-  let du = (2 * Math.PI) / slices;
+  const normallength = Math.sqrt(height * height + radius * radius);
+  const n1 = height / normallength;
+  const n2 = radius / normallength;
+  const du = (2 * Math.PI) / slices;
   let kv = 0;
   let kt = 0;
   let k = 0;
@@ -532,12 +533,12 @@ function uvCone(radius, height, slices, stacks, noBottom) {
 
   for (j = 0; j < fractions.length; j++) {
     // create a zig-zag mesh
-    let uoffset = j % 2 == 0 ? 0 : 0.5;
+    const uoffset = j % 2 == 0 ? 0 : 0.5;
     for (i = 0; i <= slices; i++) {
-      let h1 = -height / 2 + fractions[j] * height;
-      let u = (i + uoffset) * du;
-      let c = Math.cos(u);
-      let s = Math.sin(u);
+      const h1 = -height / 2 + fractions[j] * height;
+      const u = (i + uoffset) * du;
+      const c = Math.cos(u);
+      const s = Math.sin(u);
       vertices[kv] = c * radius * (1 - fractions[j]);
       tangents[kv] = -s * n1;
       normals[kv++] = c * n1;
@@ -553,8 +554,8 @@ function uvCone(radius, height, slices, stacks, noBottom) {
   }
 
   for (j = 0; j < fractions.length - 1; j++) {
-    let row1 = j * (slices + 1);
-    let row2 = (j + 1) * (slices + 1);
+    const row1 = j * (slices + 1);
+    const row2 = (j + 1) * (slices + 1);
     for (i = 0; i < slices; i++) {
       indices[k++] = row1 + i;
       indices[k++] = row2 + i + 1;
@@ -568,9 +569,9 @@ function uvCone(radius, height, slices, stacks, noBottom) {
   let start = kv / 3 - (slices + 1);
   for (i = 0; i < slices; i++) {
     // slices points at top, with different normals, texcoords
-    let u = (i + 0.5) * du;
-    let c = Math.cos(u);
-    let s = Math.sin(u);
+    const u = (i + 0.5) * du;
+    const c = Math.cos(u);
+    const s = Math.sin(u);
     vertices[kv] = 0;
     tangents[kv] = -s * n1;
     normals[kv++] = c * n1;
@@ -603,9 +604,9 @@ function uvCone(radius, height, slices, stacks, noBottom) {
     texCoords[kt++] = 0.5;
     texCoords[kt++] = 0.5;
     for (i = 0; i <= slices; i++) {
-      let u = 2 * Math.PI - i * du;
-      let c = Math.cos(u);
-      let s = Math.sin(u);
+      const u = 2 * Math.PI - i * du;
+      const c = Math.cos(u);
+      const s = Math.sin(u);
       vertices[kv] = c * radius;
       tangents[kv] = -1;
       normals[kv++] = 0;
