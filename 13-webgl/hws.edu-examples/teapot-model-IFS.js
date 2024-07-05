@@ -7,10 +7,13 @@
  * {@link https://en.wikipedia.org/wiki/Utah_teapot teapot},
  * about 20 units big.</p>
  *
- * @author David J. Eck
+ * @author {@link https://math.hws.edu/eck/ David J. Eck}
  * @since August 2023
  *
- * @see {@link https://math.hws.edu/graphicsbook/source/webgl/teapot-model-IFS.js source}
+ * @see <a href="/cwdc/13-webgl/hws.edu-examples/teapot-model-IFS.js">source</a>
+ * @see {@link https://math.hws.edu/graphicsbook/source/webgl/teapot-model-IFS.js hws source}
+ * @see {@link https://en.wikipedia.org/wiki/Utah_teapot Utah teapot}
+ * @see {@link http://www.holmes3d.net/graphics/teapot/ The Utah Teapot}
  * @see <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Original_Utah_Teapot_-_Computer_History_Museums.jpg" width="512">
  */
 
@@ -22,7 +25,7 @@
  * @property {Float32Array} teapotModel.vertexTextureCoords - texture coordinates;
  * @property {Uint16Array} teapotModel.indices - face indices.
  */
-var teapotModel = {
+const teapotModel = {
   vertexPositions: new Float32Array([
     5.929688, 4.125, 0, 5.387188, 4.125, 2.7475, 5.2971, 4.494141, 2.70917,
     5.832031, 4.494141, 0, 5.401602, 4.617188, 2.753633, 5.945313, 4.617188, 0,
