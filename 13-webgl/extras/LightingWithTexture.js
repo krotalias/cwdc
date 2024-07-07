@@ -1762,9 +1762,13 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
         n: numSubdivisions,
       });
     } else if (poly === 1) {
-      shape = new polyhedron(fix_uv).icosahedron({
-        n: numSubdivisions,
-      });
+      shape = selector.hws
+        ? new polyhedron(fix_uv).icosahedronHWS({
+            n: numSubdivisions,
+          })
+        : new polyhedron(fix_uv).icosahedron({
+            n: numSubdivisions,
+          });
     } else if (poly === 2) {
       shape = selector.hws
         ? new polyhedron(fix_uv).octahedronHWS({

@@ -81,12 +81,35 @@ const initialOcta = [
 ];
 
 /**
+ * Twelve points of an icosahedron inscribed in the unit sphere.
+ * @type {Array<vec3>}
+ * @see https://en.wikipedia.org/wiki/Icosahedron
+ */
+const initialIco = [
+  vec3.fromValues(0, -0.525731, 0.850651),
+  vec3.fromValues(0.850651, 0, 0.525731),
+  vec3.fromValues(0.850651, 0, -0.525731),
+  vec3.fromValues(-0.850651, 0, -0.525731),
+  vec3.fromValues(-0.850651, 0, 0.525731),
+  vec3.fromValues(-0.525731, 0.850651, 0),
+
+  vec3.fromValues(0.525731, 0.850651, 0),
+  vec3.fromValues(0.525731, -0.850651, 0),
+  vec3.fromValues(-0.525731, -0.850651, 0),
+  vec3.fromValues(0, -0.525731, -0.850651),
+  vec3.fromValues(0, 0.525731, -0.850651),
+  vec3.fromValues(0, 0.525731, 0.850651),
+];
+
+/**
  * Maximum subdivision level without overflowing any buffer (16 bits - 65536).
  * @type {Object<{tet:Number, oct:Number, dod:Number, ico: Number}>}
  */
 export const limit = {
   tet_hws: Math.floor(Math.log(65536 / (4 * 3)) / Math.log(4)),
   oct_hws: Math.floor(Math.log(65536 / (8 * 3)) / Math.log(4)),
+  ico_hws: Math.floor(Math.log(65536 / (12 * 3)) / Math.log(4)),
+  dod_hws: Math.floor(Math.log(65536 / (36 * 3)) / Math.log(4)),
   tet: 24,
   oct: 20,
   dod: 12,
@@ -192,7 +215,7 @@ export function cartesian2Spherical(p) {
 
   // acos ∈ [0,pi] ⇒ phi ∈ [0,1]
   // acos (-y) = π - acos (y)
-  let phi = Math.acos(-y) / Math.PI;
+  const phi = Math.acos(-y) / Math.PI;
 
   // atan2 ∈ [-pi,pi] ⇒ theta ∈ [-0.5, 0.5]
   let theta = Math.atan2(-z, x) / (2 * Math.PI);
@@ -228,9 +251,9 @@ export function cartesian2Spherical(p) {
  * @see <img src="../images/spherical-projection.png" width="256">
  */
 export function spherical2Cartesian(s, t, r = 1) {
-  let x = r * Math.cos(s) * Math.sin(t);
-  let z = -r * Math.sin(s) * Math.sin(t);
-  let y = -r * Math.cos(t);
+  const x = r * Math.cos(s) * Math.sin(t);
+  const z = -r * Math.sin(s) * Math.sin(t);
+  const y = -r * Math.cos(t);
   return vec3.fromValues(x, y, z);
 }
 
@@ -262,7 +285,7 @@ export function spherical2Cartesian(s, t, r = 1) {
  */
 export function spherical2Mercator(s, t) {
   // st (uv) to equirectangular
-  let lon = s * 2.0 * Math.PI; // [0, 2pi]
+  const lon = s * 2.0 * Math.PI; // [0, 2pi]
   let lat = (t - 0.5) * Math.PI; // [-pi/2, pi/2]
   lat = clamp(lat, radians(-85.0), radians(85.0));
 
@@ -293,7 +316,7 @@ export function spherical2Mercator(s, t) {
  * @see <img src="../images/Cylindrical_Projection_basics2.svg">
  */
 export function mercator2Spherical(x, y) {
-  let lat = y * 2 * Math.PI - Math.PI; // [-pi, pi]
+  const lat = y * 2 * Math.PI - Math.PI; // [-pi, pi]
   let t = 2 * Math.atan(Math.exp(lat)) - Math.PI / 2; // [-pi/2, pi/2]
   t = t / Math.PI + 0.5; // [0, 1]
   return {
@@ -309,9 +332,9 @@ export function mercator2Spherical(x, y) {
 export function setMercatorCoordinates(obj) {
   obj.vertexMercatorCoords = new Float32Array(obj.vertexTextureCoords.length);
   for (let i = 0; i < obj.vertexTextureCoords.length; i += 2) {
-    let s = obj.vertexTextureCoords[i];
-    let t = obj.vertexTextureCoords[i + 1];
-    let { x, y } = spherical2Mercator(s, t);
+    const s = obj.vertexTextureCoords[i];
+    const t = obj.vertexTextureCoords[i + 1];
+    const { x, y } = spherical2Mercator(s, t);
     obj.vertexMercatorCoords[i] = x;
     obj.vertexMercatorCoords[i + 1] = y;
   }
@@ -339,12 +362,12 @@ export function rotateUTexture(obj, degrees) {
  * @return {Float32Array} points on the parallel.
  */
 export function pointsOnParallel(latitude = 0, n = nsegments) {
-  let ds = (Math.PI * 2) / (n - 1);
+  const ds = (Math.PI * 2) / (n - 1);
   const arr = new Float32Array(3 * n);
   let phi = clamp(latitude, -90, 90) + 90;
   phi = radians(phi);
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    let p = spherical2Cartesian(i * ds, phi, 1.01);
+    const p = spherical2Cartesian(i * ds, phi, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
@@ -389,13 +412,13 @@ export function pointsOnAntiMeridian(n = nsegments) {
  */
 export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
   let j = 0;
-  let ds = Math.PI / (n - 1);
+  const ds = Math.PI / (n - 1);
   if (anti) ds *= 2;
   const arr = new Float32Array(3 * n);
   let theta = clamp(longitude, -180, 180);
   theta = radians(theta);
   for (let i = 0; i < n; ++i, j += 3) {
-    let p = spherical2Cartesian(theta, i * ds, 1.01);
+    const p = spherical2Cartesian(theta, i * ds, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
@@ -466,8 +489,8 @@ export class polyhedron {
       const a = 1;
       const b = 2;
       const c = 1 - t / this.nfaces;
-      let delta = b * b - 4 * a * c;
-      let root = Math.sqrt(delta) / (2 * a);
+      const delta = b * b - 4 * a * c;
+      const root = Math.sqrt(delta) / (2 * a);
       return Math.ceil(root) - 1;
     };
   }
@@ -527,7 +550,7 @@ export class polyhedron {
 
     this.pointsIndices.push(this.index, this.index + 1, this.index + 2);
 
-    var sc = [
+    const sc = [
       cartesian2Spherical(a),
       cartesian2Spherical(b),
       cartesian2Spherical(c),
@@ -535,7 +558,7 @@ export class polyhedron {
 
     if (this.fix) this.fixUVCoordinates(sc);
 
-    for (let uv of sc) {
+    for (const uv of sc) {
       const { s, t } = uv;
       this.texCoords.push(s, t);
 
@@ -560,9 +583,9 @@ export class polyhedron {
    */
   divideTriangle(a, b, c, count) {
     if (count > 0) {
-      var ab = vec3.create();
-      var ac = vec3.create();
-      var bc = vec3.create();
+      const ab = vec3.create();
+      const ac = vec3.create();
+      const bc = vec3.create();
       vec3.scale(ab, vec3.add(ab, a, b), 0.5);
       vec3.scale(ac, vec3.add(ac, a, c), 0.5);
       vec3.scale(bc, vec3.add(bc, b, c), 0.5);
@@ -668,6 +691,68 @@ export class polyhedron {
     this.divideTriangle(c, f, a, n);
     this.divideTriangle(a, d, e, n);
     this.divideTriangle(a, f, d, n);
+
+    return {
+      vertexPositions: new Float32Array(this.pointsArray),
+      vertexNormals: new Float32Array(this.normalsArray),
+      vertexTextureCoords: new Float32Array(this.texCoords),
+      vertexMercatorCoords: new Float32Array(this.mercCoords),
+      indices: new Uint16Array(this.pointsIndices),
+      maxSubdivisions: this.maxSubdivisions,
+      nfaces: this.nfaces,
+      name: this.name,
+      ntri: this.ntriHWS,
+      level: this.levelHWS,
+    };
+  }
+
+  /**
+   * <p>Subdivides an initial {@link module:polyhedron~initialIco icosahedron}.</p>
+   * <p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
+   * Generates:
+   * <ul>
+   *  <li> 12 * 4<sup>n</sup> triangles</li>
+   *  <li> 12 * 3 * 4<sup>n</sup> vertices</li>
+   *  <li> maximum level = 5 (20480 triangles)</li>
+   *  <li> 12 * 3 * 4**6 = 147456 vertices → buffer overflow</li>
+   * </ul>
+   * @param {Object} poly icosahedron.
+   * @property {Array<vec3>} poly.vtx=initialIco vertices of initial octahedron.
+   * @property {Number} poly.n=limit.ico_hws number of subdivisions.
+   * @returns {module:polyhedron~polyData}
+   */
+  icosahedronHWS({ vtx = initialIco, n = limit.ico_hws }) {
+    this.name = "icosahedronHWS";
+    this.nfaces = 20;
+    this.maxSubdivisions = limit.ico_hws;
+
+    // prettier-ignore
+    const [v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11] = vtx;
+
+    this.resetBuffers();
+
+    n = Math.min(limit.ico_hws, n);
+    this.divideTriangle(v1, v2, v6, n);
+    this.divideTriangle(v1, v7, v2, n);
+    this.divideTriangle(v3, v4, v5, n);
+    this.divideTriangle(v4, v3, v8, n);
+    this.divideTriangle(v6, v5, v11, n);
+    this.divideTriangle(v5, v6, v10, n);
+    this.divideTriangle(v9, v10, v2, n);
+    this.divideTriangle(v10, v9, v3, n);
+    this.divideTriangle(v7, v8, v9, n);
+    this.divideTriangle(v8, v7, v0, n);
+    this.divideTriangle(v11, v0, v1, n);
+    this.divideTriangle(v0, v11, v4, n);
+    this.divideTriangle(v6, v2, v10, n);
+    this.divideTriangle(v1, v6, v11, n);
+    this.divideTriangle(v3, v5, v10, n);
+    this.divideTriangle(v5, v4, v11, n);
+    this.divideTriangle(v2, v7, v9, n);
+    this.divideTriangle(v7, v1, v0, n);
+    this.divideTriangle(v3, v9, v8, n);
+    this.divideTriangle(v4, v8, v0, n);
 
     return {
       vertexPositions: new Float32Array(this.pointsArray),
@@ -863,14 +948,14 @@ export class polyhedron {
    * @see {@link https://gamedev.stackexchange.com/questions/148167/correcting-projection-of-360-content-onto-a-sphere-distortion-at-the-poles/148178#148178 Per-Fragment Equirectangular}
    */
   fixUVCoordinates(sc) {
-    var zero = 0.2;
-    var onem = 1 - zero;
-    var onep = 1 + zero;
-    var twom = 2 - zero;
-    var twop = 2 + zero;
+    const zero = 0.2;
+    const onem = 1 - zero;
+    const onep = 1 + zero;
+    const twom = 2 - zero;
+    const twop = 2 + zero;
 
-    var s = sc[0].s + sc[1].s + sc[2].s;
-    var t = sc[0].t + sc[1].t + sc[2].t;
+    const s = sc[0].s + sc[1].s + sc[2].s;
+    const t = sc[0].t + sc[1].t + sc[2].t;
     if (s > onem && s < onep) {
       // two zeros
       if (sc[0].s > onem || sc[1].s > onem || sc[2].s > onem)
