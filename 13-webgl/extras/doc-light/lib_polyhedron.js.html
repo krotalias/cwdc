@@ -130,6 +130,34 @@ const initialIco = [
 ];
 
 /**
+ * Twelve points of an dodcahedron inscribed in the unit sphere.
+ * @type {Array&lt;vec3>}
+ * @see https://en.wikipedia.org/wiki/Dodecahedron
+ */
+const initialDod = [
+  vec3.fromValues(-3.56822e-1, 0.0, 9.34172e-1),
+  vec3.fromValues(3.56822e-1, 0.0, 9.34172e-1),
+  vec3.fromValues(5.7735e-1, 5.7735e-1, 5.7735e-1),
+  vec3.fromValues(0.0, 9.34172e-1, 3.56822e-1),
+  vec3.fromValues(-5.7735e-1, 5.7735e-1, 5.7735e-1),
+  vec3.fromValues(-5.7735e-1, -5.7735e-1, 5.7735e-1),
+  vec3.fromValues(0.0, -9.34172e-1, 3.56822e-1),
+  vec3.fromValues(5.7735e-1, -5.7735e-1, 5.7735e-1),
+  vec3.fromValues(9.34172e-1, -3.56822e-1, 0.0),
+  vec3.fromValues(9.34172e-1, 3.56822e-1, 0.0),
+  vec3.fromValues(0.0, -9.34172e-1, -3.56822e-1),
+  vec3.fromValues(5.7735e-1, -5.7735e-1, -5.7735e-1),
+  vec3.fromValues(5.7735e-1, 5.7735e-1, -5.7735e-1),
+  vec3.fromValues(0.0, 9.34172e-1, -3.56822e-1),
+  vec3.fromValues(-5.7735e-1, -5.7735e-1, -5.7735e-1),
+  vec3.fromValues(-3.56822e-1, 0.0, -9.34172e-1),
+  vec3.fromValues(3.56822e-1, 0.0, -9.34172e-1),
+  vec3.fromValues(-9.34172e-1, -3.56822e-1, 0.0),
+  vec3.fromValues(-9.34172e-1, 3.56822e-1, 0.0),
+  vec3.fromValues(-5.7735e-1, 5.7735e-1, -5.7735e-1),
+];
+
+/**
  * Maximum subdivision level without overflowing any buffer (16 bits - 65536).
  * @type {Object&lt;{tet:Number, oct:Number, dod:Number, ico: Number}>}
  */
@@ -440,7 +468,7 @@ export function pointsOnAntiMeridian(n = nsegments) {
  */
 export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
   let j = 0;
-  const ds = Math.PI / (n - 1);
+  let ds = Math.PI / (n - 1);
   if (anti) ds *= 2;
   const arr = new Float32Array(3 * n);
   let theta = clamp(longitude, -180, 180);
@@ -797,6 +825,95 @@ export class polyhedron {
   }
 
   /**
+   * &lt;p>Subdivides an initial {@link module:polyhedron~initialDod dodecahedron}.&lt;/p>
+   * &lt;p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}&lt;/p>
+   * Generates:
+   * &lt;ul>
+   *  &lt;li> 36 * 4&lt;sup>n&lt;/sup> triangles&lt;/li>
+   *  &lt;li> 36 * 3 * 4&lt;sup>n&lt;/sup> vertices&lt;/li>
+   *  &lt;li> maximum level = 4 (9216 triangles)&lt;/li>
+   *  &lt;li> 36 * 3 * 4**5 = 110592 vertices → buffer overflow&lt;/li>
+   * &lt;/ul>
+   * @param {Object} poly dodecahedron.
+   * @property {Array&lt;vec3>} poly.vtx=initialDod vertices of initial dodecahedron.
+   * @property {Number} poly.n=limit.dod_hws number of subdivisions.
+   * @returns {module:polyhedron~polyData}
+   */
+  dodecahedronHWS({ vtx = initialDod, n = limit.dod_hws }) {
+    this.name = "dodecahedronHWS";
+    this.nfaces = 36;
+    this.maxSubdivisions = limit.dod_hws;
+
+    // prettier-ignore
+    const [v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19] = vtx;
+
+    this.resetBuffers();
+
+    n = Math.min(limit.ico_hws, n);
+    this.divideTriangle(v19, v18, v4, n);
+    this.divideTriangle(v19, v4, v3, n);
+    this.divideTriangle(v19, v3, v13, n);
+
+    this.divideTriangle(v19, v13, v12, n);
+    this.divideTriangle(v19, v12, v16, n);
+    this.divideTriangle(v19, v16, v15, n);
+
+    this.divideTriangle(v11, v16, v12, n);
+    this.divideTriangle(v11, v12, v9, n);
+    this.divideTriangle(v11, v9, v8, n);
+
+    this.divideTriangle(v5, v0, v4, n);
+    this.divideTriangle(v5, v4, v18, n);
+    this.divideTriangle(v5, v18, v17, n);
+
+    this.divideTriangle(v14, v10, v6, n);
+    this.divideTriangle(v14, v6, v5, n);
+    this.divideTriangle(v14, v5, v17, n);
+
+    this.divideTriangle(v14, v17, v18, n);
+    this.divideTriangle(v14, v18, v19, n);
+    this.divideTriangle(v14, v19, v15, n);
+
+    this.divideTriangle(v14, v15, v16, n);
+    this.divideTriangle(v14, v16, v11, n);
+    this.divideTriangle(v14, v11, v10, n);
+
+    this.divideTriangle(v12, v13, v3, n);
+    this.divideTriangle(v12, v3, v2, n);
+    this.divideTriangle(v12, v2, v9, n);
+
+    this.divideTriangle(v8, v7, v6, n);
+    this.divideTriangle(v8, v6, v10, n);
+    this.divideTriangle(v8, v10, v11, n);
+
+    this.divideTriangle(v1, v7, v8, n);
+    this.divideTriangle(v1, v8, v9, n);
+    this.divideTriangle(v1, v9, v2, n);
+
+    this.divideTriangle(v1, v0, v5, n);
+    this.divideTriangle(v1, v5, v6, n);
+    this.divideTriangle(v1, v6, v7, n);
+
+    this.divideTriangle(v0, v1, v2, n);
+    this.divideTriangle(v0, v2, v3, n);
+    this.divideTriangle(v0, v3, v4, n);
+
+    return {
+      vertexPositions: new Float32Array(this.pointsArray),
+      vertexNormals: new Float32Array(this.normalsArray),
+      vertexTextureCoords: new Float32Array(this.texCoords),
+      vertexMercatorCoords: new Float32Array(this.mercCoords),
+      indices: new Uint16Array(this.pointsIndices),
+      maxSubdivisions: this.maxSubdivisions,
+      nfaces: this.nfaces,
+      name: this.name,
+      ntri: this.ntriHWS,
+      level: this.levelHWS,
+    };
+  }
+
+  /**
    * &lt;p>Subdivides an initial
    * {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry tetrahedron}.&lt;/p>
    * Generates:
@@ -1018,7 +1135,7 @@ export class polyhedron {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Jul 06 2024 21:35:12 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jul 07 2024 08:22:57 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

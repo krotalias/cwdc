@@ -1758,9 +1758,13 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
   if (typeof shape === "undefined") {
     setUVfix(true);
     if (poly === 0) {
-      shape = new polyhedron(fix_uv).dodecahedron({
-        n: numSubdivisions,
-      });
+      shape = selector.hws
+        ? new polyhedron(fix_uv).dodecahedronHWS({
+            n: numSubdivisions,
+          })
+        : new polyhedron(fix_uv).dodecahedron({
+            n: numSubdivisions,
+          });
     } else if (poly === 1) {
       shape = selector.hws
         ? new polyhedron(fix_uv).icosahedronHWS({
