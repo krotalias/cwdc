@@ -108,7 +108,7 @@ const initialIco = [
 export const limit = {
   tet_hws: Math.floor(Math.log(65536 / (4 * 3)) / Math.log(4)),
   oct_hws: Math.floor(Math.log(65536 / (8 * 3)) / Math.log(4)),
-  ico_hws: Math.floor(Math.log(65536 / (12 * 3)) / Math.log(4)),
+  ico_hws: Math.floor(Math.log(65536 / (20 * 3)) / Math.log(4)),
   dod_hws: Math.floor(Math.log(65536 / (36 * 3)) / Math.log(4)),
   tet: 24,
   oct: 20,
@@ -712,10 +712,10 @@ export class polyhedron {
    * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}</p>
    * Generates:
    * <ul>
-   *  <li> 12 * 4<sup>n</sup> triangles</li>
-   *  <li> 12 * 3 * 4<sup>n</sup> vertices</li>
+   *  <li> 20 * 4<sup>n</sup> triangles</li>
+   *  <li> 20 * 3 * 4<sup>n</sup> vertices</li>
    *  <li> maximum level = 5 (20480 triangles)</li>
-   *  <li> 12 * 3 * 4**6 = 147456 vertices → buffer overflow</li>
+   *  <li> 20 * 3 * 4**6 = 245760 vertices → buffer overflow</li>
    * </ul>
    * @param {Object} poly icosahedron.
    * @property {Array<vec3>} poly.vtx=initialIco vertices of initial octahedron.
