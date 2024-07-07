@@ -102,7 +102,7 @@ const initialIco = [
 ];
 
 /**
- * Twelve points of an dodcahedron inscribed in the unit sphere.
+ * Twenty points of a dodecahedron inscribed in the unit sphere.
  * @type {Array<vec3>}
  * @see https://en.wikipedia.org/wiki/Dodecahedron
  */
