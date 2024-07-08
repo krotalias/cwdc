@@ -944,22 +944,26 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         subPoly = 0;
         numSubdivisions = 0;
-        maxSubdivisions = limit.dod;
+        maxSubdivisions = selector.hws ? limit.dod_hws : limit.dod;
         models.value = "9";
-        theModel = createModel({
-          shape: getModelData(new THREE.DodecahedronGeometry(1, 0)),
-        });
+        theModel = createModel(
+          selector.hws
+            ? { poly: subPoly }
+            : { shape: getModelData(new THREE.DodecahedronGeometry(1, 0)) },
+        );
         kbd.innerHTML = ":";
         break;
       case "i":
         gscale = mscale = 1;
         subPoly = 1;
         numSubdivisions = 0;
-        maxSubdivisions = limit.ico;
+        maxSubdivisions = selector.hws ? limit.ico_hws : limit.ico;
         models.value = "10";
-        theModel = createModel({
-          shape: getModelData(new THREE.IcosahedronGeometry(1, 0)),
-        });
+        theModel = createModel(
+          selector.hws
+            ? { poly: subPoly }
+            : { shape: getModelData(new THREE.IcosahedronGeometry(1, 0)) },
+        );
         kbd.innerHTML = ":";
         break;
       case "o":
@@ -968,9 +972,13 @@ const handleKeyPress = ((event) => {
         numSubdivisions = 0;
         maxSubdivisions = selector.hws ? limit.oct_hws : limit.oct;
         models.value = "11";
-        theModel = createModel({
-          shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
-        });
+        theModel = createModel(
+          selector.hws
+            ? { poly: subPoly }
+            : {
+                shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
+              },
+        );
         kbd.innerHTML = ":";
         break;
       case "w":
@@ -979,9 +987,13 @@ const handleKeyPress = ((event) => {
         numSubdivisions = 0;
         maxSubdivisions = selector.hws ? limit.tet_hws : limit.tet;
         models.value = "12";
-        theModel = createModel({
-          shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
-        });
+        theModel = createModel(
+          selector.hws
+            ? { poly: subPoly }
+            : {
+                shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
+              },
+        );
         kbd.innerHTML = ":";
         break;
       case "r":

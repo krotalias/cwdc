@@ -572,9 +572,7 @@ export class polyhedron {
    * @param {vec3} c third vertex.
    */
   triangle(a, b, c) {
-    this.pointsArray.push(...a);
-    this.pointsArray.push(...b);
-    this.pointsArray.push(...c);
+    this.pointsArray.push(...a, ...b, ...c);
 
     this.pointsIndices.push(this.index, this.index + 1, this.index + 2);
 
@@ -595,9 +593,7 @@ export class polyhedron {
     }
 
     // normals are vectors
-    this.normalsArray.push(...a);
-    this.normalsArray.push(...b);
-    this.normalsArray.push(...c);
+    this.normalsArray.push(...a, ...b, ...c);
 
     this.index += 3;
   }
