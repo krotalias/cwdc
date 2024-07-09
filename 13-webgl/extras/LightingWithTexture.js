@@ -192,7 +192,6 @@
 import * as THREE from "/cwdc/13-webgl/lib/three.module.js";
 import { TeapotGeometry } from "/cwdc/13-webgl/lib/TeapotGeometry.js";
 import {
-  limit,
   nsegments,
   pointsOnParallel,
   pointsOnMeridian,
@@ -264,7 +263,7 @@ const toRadian = glMatrix.toRadian;
  * Array holding image file names to create textures from.
  * @type {Array<String>}
  */
-var imageFilename = [
+const imageFilename = [
   document.getElementById("textures").querySelector("[selected]").text,
 ];
 
@@ -293,13 +292,13 @@ var image;
  * Maximum Number of subdivisions to turn a polyhedron into a sphere.
  * @type {Number}
  */
-let maxSubdivisions = limit.dod;
+let maxSubdivisions = 0;
 
 /**
  * Number of subdivisions to turn a polyhedron into a sphere.
  * @type {Number}
  */
-let numSubdivisions = maxSubdivisions;
+let numSubdivisions = -1;
 
 /**
  * Scale applied to a model to make its size adequate for rendering.
@@ -710,7 +709,7 @@ const readFileNames = new Promise((resolve, reject) => {
  * @see <a href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48">𝑛′=(𝑀<sup>&#8211;1</sup>)<sup>𝑇</sup>⋅𝑛</a>
  */
 function makeNormalMatrixElements(model, view) {
-  var modelview = mat4.multiply([], view, model);
+  const modelview = mat4.multiply([], view, model);
   return mat3.normalFromMat4([], modelview);
 }
 
@@ -739,13 +738,19 @@ function getChar(event) {
 const handleKeyPress = ((event) => {
   const mod = (n, m) => ((n % m) + m) % m;
   const cities = Object.keys(gpsCoordinates);
-  let kbd = document.getElementById("kbd");
-  let opt = document.getElementById("options");
-  let models = document.getElementById("models");
+  const kbd = document.getElementById("kbd");
+  const opt = document.getElementById("options");
+  const models = document.getElementById("models");
   let zoomfactor = 0.7;
   let gscale = 1;
   let subPoly = 0;
   let tri;
+  const poly = {
+    d: 0,
+    i: 1,
+    o: 2,
+    w: 3,
+  };
 
   /**
    * <p>Handler for keydown events.</p>
@@ -761,7 +766,7 @@ const handleKeyPress = ((event) => {
         numSubdivisions = mod(numSubdivisions + inc, maxSubdivisions + 1);
         gscale = mscale = 1;
         if (numSubdivisions == 0) {
-          models.value = subPoly + 9;
+          models.value = (subPoly + 9).toString();
         } else {
           models.value = "13";
         }
@@ -941,59 +946,14 @@ const handleKeyPress = ((event) => {
         });
         break;
       case "d":
-        gscale = mscale = 1;
-        subPoly = 0;
-        numSubdivisions = 0;
-        maxSubdivisions = selector.hws ? limit.dod_hws : limit.dod;
-        models.value = "9";
-        theModel = createModel(
-          selector.hws
-            ? { poly: subPoly }
-            : { shape: getModelData(new THREE.DodecahedronGeometry(1, 0)) },
-        );
-        kbd.innerHTML = ":";
-        break;
       case "i":
-        gscale = mscale = 1;
-        subPoly = 1;
-        numSubdivisions = 0;
-        maxSubdivisions = selector.hws ? limit.ico_hws : limit.ico;
-        models.value = "10";
-        theModel = createModel(
-          selector.hws
-            ? { poly: subPoly }
-            : { shape: getModelData(new THREE.IcosahedronGeometry(1, 0)) },
-        );
-        kbd.innerHTML = ":";
-        break;
       case "o":
-        gscale = mscale = 1;
-        subPoly = 2;
-        numSubdivisions = 0;
-        maxSubdivisions = selector.hws ? limit.oct_hws : limit.oct;
-        models.value = "11";
-        theModel = createModel(
-          selector.hws
-            ? { poly: subPoly }
-            : {
-                shape: getModelData(new THREE.OctahedronGeometry(1, 0)),
-              },
-        );
-        kbd.innerHTML = ":";
-        break;
       case "w":
         gscale = mscale = 1;
-        subPoly = 3;
+        subPoly = poly[ch];
         numSubdivisions = 0;
-        maxSubdivisions = selector.hws ? limit.tet_hws : limit.tet;
-        models.value = "12";
-        theModel = createModel(
-          selector.hws
-            ? { poly: subPoly }
-            : {
-                shape: getModelData(new THREE.TetrahedronGeometry(1, 0)),
-              },
-        );
+        models.value = (subPoly + 9).toString();
+        theModel = createModel({ poly: subPoly });
         kbd.innerHTML = ":";
         break;
       case "r":
@@ -1130,8 +1090,8 @@ const createEvent = (key) => {
  * @see {@link https://encyclopediaofmath.org/wiki/Torus_knot Torus Knot}.
  */
 function selectModel() {
-  let val = document.getElementById("models").value;
-  let key = {
+  const val = document.getElementById("models").value;
+  const key = {
     0: "u", // capsule
     1: "C", // cone
     2: "v", // cube
@@ -1251,7 +1211,7 @@ if (document.querySelector('input[name="rot"]')) {
      * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
      */
     elem.addEventListener("change", function (event) {
-      var item = event.target.value;
+      const item = event.target.value;
       handleKeyPress(createEvent(item));
     });
   });
@@ -1268,7 +1228,7 @@ if (document.querySelector('input[name="mode"]')) {
      * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
      */
     elem.addEventListener("change", function (event) {
-      var item = event.target.value;
+      const item = event.target.value;
       handleKeyPress(createEvent(item));
     });
   });
@@ -1376,7 +1336,7 @@ function draw() {
  * @returns {mat4} model matrix.
  */
 function getModelMatrix() {
-  var m = modelMatrix;
+  let m = modelMatrix;
   if (mscale != 1) {
     m = mat4.multiply(
       [],
@@ -2256,7 +2216,7 @@ const animate = (() => {
   // increase the rotation by some amount, depending on the axis chosen
   const increment = toRadian(0.5);
   /** @type {Number} */
-  var requestID = 0;
+  let requestID = 0;
   const rotMatrix = {
     x: mat4.fromXRotation([], increment),
     y: mat4.fromYRotation([], increment),
