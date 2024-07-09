@@ -5,20 +5,24 @@
  *
  *  Summary.
  *
- * <p>Creates the model of a sphere by continuously subdividing
- * an initial tetrahedron, octahedron, dodecahedron or icosahedron.</p>
+ * <p>Creates the model of a sphere by continuously subdividing an initial
+ * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}.</p>
  *
- * The algorithm starts with just four/six/twenty/twelve points, corresponding
- * to a tetrahedron/octahedron/dodecahedron/icosahedron inscribed in the unit sphere, <br>
+ * The algorithm starts with just four, six, twenty, or twelve points, corresponding
+ * to a {@link https://www.brainsofsteel.co.uk/post/how-to-make-a-tetrahedron tetrahedron},
+ *      {@link https://www.youtube.com/watch?v=47yZf6GHqzg octahedron},
+ *      {@link https://www.polyhedra.net/en/model.php?name-en=dodecahedron dodecahedron}, or
+ *      {@link https://www.mathhappens.org/take-and-make-icosahedron-from-golden-rectangles/ icosahedron},
+ * inscribed in the unit sphere,
  * and recursively subdivides each triangle by inserting a new vertex
- * at the midpoint of its three edges, <br>
+ * at the midpoint of its three edges,
  * which is then projected onto the surface of the sphere.
  *
- *  @author Paulo Roma Cavalcanti on 17/01/2016.
+ *  @author Paulo Roma Cavalcanti
  *  @since 21/11/2016
+ *  @see <a href="/cwdc/13-webgl/lib/polyhedron.js">source</a>
  *  @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
  *  @see {@link http://glmatrix.net glMatrix}
- *  @see <a href="/cwdc/13-webgl/lib/polyhedron.js">source</a>
  *  @see <img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
  *  @see <img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
  *  @see <img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
@@ -87,15 +91,17 @@ const initialOcta = [
  */
 const initialIco = [
   vec3.fromValues(0, -0.525731, 0.850651),
+
   vec3.fromValues(0.850651, 0, 0.525731),
   vec3.fromValues(0.850651, 0, -0.525731),
   vec3.fromValues(-0.850651, 0, -0.525731),
   vec3.fromValues(-0.850651, 0, 0.525731),
-  vec3.fromValues(-0.525731, 0.850651, 0),
 
+  vec3.fromValues(-0.525731, 0.850651, 0),
   vec3.fromValues(0.525731, 0.850651, 0),
   vec3.fromValues(0.525731, -0.850651, 0),
   vec3.fromValues(-0.525731, -0.850651, 0),
+
   vec3.fromValues(0, -0.525731, -0.850651),
   vec3.fromValues(0, 0.525731, -0.850651),
   vec3.fromValues(0, 0.525731, 0.850651),
