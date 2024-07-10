@@ -85,55 +85,131 @@ const initialOcta = [
 ];
 
 /**
- * Twelve points of an icosahedron inscribed in the unit sphere.
+ * <p>Twelve points of an icosahedron inscribed in the unit sphere.</p>
+ *
+ * Golden Ratio:
+ * <ul>
+ *  <li>Φ = (√5+1)/2 = 1.618033988749895 </li>
+ * </ul>
+ *
+ * Radius of circunsphere:
+ * <ul>
+ *  <li>R = √(Φ² + 1)/2 a = 1</li>
+ *  <li>r = √(Φ² + 1) = 1.902113032590307 (a=2)</li>
+ * </ul>
+ *
+ * Edge length:
+ * <ul>
+ *  <li>a = 2R / √(Φ² + 1) = 0.7639320225002103</li>
+ * </ul>
+ *
+ * Vertex Coordinates:
+ * <ul>
+ *  <li>Φ / √(Φ² + 1)) = 0.85065080835204</li>
+ *  <li>1 / √(Φ² + 1) = 0.5257311121191336</li>
+ * </ul>
+ * Twelve vertices:
+ * <ul>
+ *  <li>(0, ±1/r, ±Φ/r) </li>
+ *  <li>(±1/r, ±Φ/r, 0) </li>
+ *  <li>(±Φ/r, 0, ±1/r) </li>
+ * </ul>
+ *
  * @type {Array<vec3>}
- * @see https://en.wikipedia.org/wiki/Icosahedron
+ * @see {@link https://en.wikipedia.org/wiki/Icosahedron Icosahedron}
+ * @see {@link https://en.wikipedia.org/wiki/Regular_icosahedron Regular icosahedron}
+ * @see <img src="../images/Icosahedron-golden-rectangles.svg" width="256">
  */
-const initialIco = [
-  vec3.fromValues(0, -0.525731, 0.850651),
+const initialIco = (() => {
+  const a = (Math.sqrt(5) + 1) / 2;
+  const r = Math.sqrt(a * a + 1);
+  const b = 1 / r;
+  const c = a / r;
+  return [
+    vec3.fromValues(0, -b, c),
 
-  vec3.fromValues(0.850651, 0, 0.525731),
-  vec3.fromValues(0.850651, 0, -0.525731),
-  vec3.fromValues(-0.850651, 0, -0.525731),
-  vec3.fromValues(-0.850651, 0, 0.525731),
+    vec3.fromValues(c, 0, b),
+    vec3.fromValues(c, 0, -b),
+    vec3.fromValues(-c, 0, -b),
+    vec3.fromValues(-c, 0, b),
 
-  vec3.fromValues(-0.525731, 0.850651, 0),
-  vec3.fromValues(0.525731, 0.850651, 0),
-  vec3.fromValues(0.525731, -0.850651, 0),
-  vec3.fromValues(-0.525731, -0.850651, 0),
+    vec3.fromValues(-b, c, 0),
+    vec3.fromValues(b, c, 0),
+    vec3.fromValues(b, -c, 0),
+    vec3.fromValues(-b, -c, 0),
 
-  vec3.fromValues(0, -0.525731, -0.850651),
-  vec3.fromValues(0, 0.525731, -0.850651),
-  vec3.fromValues(0, 0.525731, 0.850651),
-];
+    vec3.fromValues(0, -b, -c),
+    vec3.fromValues(0, b, -c),
+    vec3.fromValues(0, b, c),
+  ];
+})();
 
 /**
- * Twenty points of a dodecahedron inscribed in the unit sphere.
+ * <p>Twenty points of a dodecahedron inscribed in the unit sphere.</p>
+ * Golden Ratio:
+ * <ul>
+ *  <li>Φ = (√5+1)/2 = 1.618033988749895 </li>
+ *  <ki>2/Φ = √5 - 1 = 1.2360679774997898</li>
+ * </ul>
+ * Radius of circunscribed sphere:
+ * <ul>
+ *  <li>R = √3 Φ/2 a = 1</li>
+ * </ul>
+ * Edge length:
+ * <ul>
+ *  <li>a = 4R / ((√5 + 1)√3) = 2/Φ R/√3 = R (√5 - 1) / √3 = 0.71364417954618</li>
+ * </ul>
+ *
+ * Vertex coordinates:
+ * <ul>
+ *  <li>1/√3 = 0.5773502691896258</li>
+ *  <li>(√5-1) / (2√3) = 1 / Φ√3 = 0.35682208977309</li>
+ *  <li>(√5+1) / (2√3) = Φ / √3 = 0.9341723589627158</li>
+ * </ul>
+ *
+ * The eight vertices of a cube:
+ * <ul>
+ *  <li>(±1/√3, ±1/√3, ±1/√3)</li>
+ * </ul>
+ * The coordinates of the 12 additional vertices:
+ * <ul>
+ *  <li>(0, ±(Φ / √3), ±(1 / Φ√3),) </li>
+ *  <li>(±(1 / Φ√3), 0, ±(Φ / √3)) </li>
+ *  <li>(±(Φ / √3), ±(1 / Φ√3), 0) </li>
+ * </ul>
  * @type {Array<vec3>}
- * @see https://en.wikipedia.org/wiki/Dodecahedron
+ * @see {@link https://en.wikipedia.org/wiki/Dodecahedron Dodecahedron}
+ * @see {@link https://en.wikipedia.org/wiki/Regular_dodecahedron Regular dodecahedron}
+ * @see {@link https://www.scientificamerican.com/article/why-did-ancient-romans-make-this-baffling-metal-dodecahedron/ Why Did Ancient Romans Make this Baffling Metal Dodecahedron?}
+ * @see <img src="../images/dodecahedron.png" width="256">
  */
-const initialDod = [
-  vec3.fromValues(-3.56822e-1, 0.0, 9.34172e-1),
-  vec3.fromValues(3.56822e-1, 0.0, 9.34172e-1),
-  vec3.fromValues(5.7735e-1, 5.7735e-1, 5.7735e-1),
-  vec3.fromValues(0.0, 9.34172e-1, 3.56822e-1),
-  vec3.fromValues(-5.7735e-1, 5.7735e-1, 5.7735e-1),
-  vec3.fromValues(-5.7735e-1, -5.7735e-1, 5.7735e-1),
-  vec3.fromValues(0.0, -9.34172e-1, 3.56822e-1),
-  vec3.fromValues(5.7735e-1, -5.7735e-1, 5.7735e-1),
-  vec3.fromValues(9.34172e-1, -3.56822e-1, 0.0),
-  vec3.fromValues(9.34172e-1, 3.56822e-1, 0.0),
-  vec3.fromValues(0.0, -9.34172e-1, -3.56822e-1),
-  vec3.fromValues(5.7735e-1, -5.7735e-1, -5.7735e-1),
-  vec3.fromValues(5.7735e-1, 5.7735e-1, -5.7735e-1),
-  vec3.fromValues(0.0, 9.34172e-1, -3.56822e-1),
-  vec3.fromValues(-5.7735e-1, -5.7735e-1, -5.7735e-1),
-  vec3.fromValues(-3.56822e-1, 0.0, -9.34172e-1),
-  vec3.fromValues(3.56822e-1, 0.0, -9.34172e-1),
-  vec3.fromValues(-9.34172e-1, -3.56822e-1, 0.0),
-  vec3.fromValues(-9.34172e-1, 3.56822e-1, 0.0),
-  vec3.fromValues(-5.7735e-1, 5.7735e-1, -5.7735e-1),
-];
+const initialDod = (() => {
+  const a = 1 / Math.sqrt(3);
+  const b = (Math.sqrt(5) - 1) * 0.5 * a;
+  const c = (Math.sqrt(5) + 1) * 0.5 * a;
+  return [
+    vec3.fromValues(-b, 0, c),
+    vec3.fromValues(b, 0, c),
+    vec3.fromValues(a, a, a),
+    vec3.fromValues(0, c, b),
+    vec3.fromValues(-a, a, a),
+    vec3.fromValues(-a, -a, a),
+    vec3.fromValues(0, -c, b),
+    vec3.fromValues(a, -a, a),
+    vec3.fromValues(c, -b, 0),
+    vec3.fromValues(c, b, 0),
+    vec3.fromValues(0, -c, -b),
+    vec3.fromValues(a, -a, -a),
+    vec3.fromValues(a, a, -a),
+    vec3.fromValues(0, c, -b),
+    vec3.fromValues(-a, -a, -a),
+    vec3.fromValues(-b, 0, -c),
+    vec3.fromValues(b, 0, -c),
+    vec3.fromValues(-c, -b, 0),
+    vec3.fromValues(-c, b, 0),
+    vec3.fromValues(-a, a, -a),
+  ];
+})();
 
 /**
  * Maximum subdivision level without overflowing any buffer (16 bits - 65536).
