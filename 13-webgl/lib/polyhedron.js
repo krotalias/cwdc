@@ -59,9 +59,35 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  */
 
 /**
- * Four points of a tetrahedron inscribed in the unit sphere.
+ * <p>Four points of a tetrahedron inscribed in the unit sphere.</p>
+ *
+ * Radius of circunsphere:
+ * <ul>
+ *  <li>R = √6 a/4 = 1</li>
+ * </ul>
+ *
+ * Edge length:
+ * <ul>
+ *  <li>a = 4R / √6 = 2/3 √6 = 1.6329931618554523</li>
+ * </ul>
+ *
+ * Four vertices:
+ * <ul>
+ *  <li>( 8/9, 0, -1/3 )</li>
+ *  <li>( -√2/9, √2/3, -1/3 )</li>
+ *  <li>( -√2/9, -√2/3, -1/3 )</li>
+ *  <li>( 0, 0, 1 )</li>
+ * </ul>
+ * Alternatively:
+ * <ul>
+ *  <li>( 0, 8/9, 1/3 )</li>
+ *  <li>( -√2/3, -√2/9, 1/3 )</li>
+ *  <li>( √2/3, -√2/9, 1/3 )</li>
+ *  <li>( 0, 0, -1 )</li>
+ * </ul>
  * @type {Array<vec3>}
- * @see https://en.wikipedia.org/wiki/Tetrahedron
+ * @see {@link https://en.wikipedia.org/wiki/Tetrahedron Tetrahedron}
+ * @see <img src="../images/Tetrahedron.svg" width="256">
  */
 const initialTet = [
   vec3.fromValues(0.0, Math.sqrt(8 / 9), 1 / 3),
@@ -71,9 +97,28 @@ const initialTet = [
 ];
 
 /**
- * Six points of an octahedron inscribed in the unit sphere.
+ * <p>Six points of an octahedron inscribed in the unit sphere.</p>
+ *
+ * Radius of circunsphere:
+ * <ul>
+ *  <li>R = √2/2 a = 1</li>
+ * </ul>
+ *
+ * Edge length:
+ * <ul>
+ *  <li>a = 2R / √2 = 1.414213562373095</li>
+ * </ul>
+ *
+ * Six vertices:
+ * <ul>
+ *  <li>( ±1, 0, 0 )</li>
+ *  <li>( 0, ±1, 0 )</li>
+ *  <li>( 0, 0, ±1 )</li>
+ * </ul>
+ *
  * @type {Array<vec3>}
- * @see https://en.wikipedia.org/wiki/Octahedron
+ * @see {@link https://en.wikipedia.org/wiki/Octahedron Octahedron}
+ * @see <img src="../images/Octahedron.gif" width="256">
  */
 const initialOcta = [
   vec3.fromValues(0.0, 0.0, 1.0),
@@ -980,6 +1025,7 @@ export class polyhedron {
    * @property {Number} poly.radius=1 radius for three.js.
    * @property {Number} poly.n=limit.tet number of subdivisions.
    * @returns {module:polyhedron~polyData}
+   * @see {@link https://github.com/mrdoob/three.js/blob/master/src/geometries/TetrahedronGeometry.js TetrahedronGeometry.js}
    */
   tetrahedron({ radius = 1, n = limit.tet }) {
     this.name = "tetrahedron";
@@ -1021,6 +1067,7 @@ export class polyhedron {
    * @property {Number} poly.radius=1 radius for three.js.
    * @property {Number} poly.n=limit.oct number of subdivisions.
    * @returns {module:polyhedron~polyData}
+   * @see {@link https://github.com/mrdoob/three.js/blob/master/src/geometries/OctahedronGeometry.js OctahedronGeometry.js}
    */
   octahedron({ radius = 1, n = limit.oct }) {
     this.name = "octahedron";
@@ -1062,6 +1109,7 @@ export class polyhedron {
    * @property {Number} poly.radius=1 radius of the dodecahedron.
    * @property {Number} poly.n=limit.dod number of subdivisions.
    * @returns {module:polyhedron~polyData}
+   * @see {@link https://github.com/mrdoob/three.js/blob/master/src/geometries/DodecahedronGeometry.js DodecahedronGeometry.js}
    */
   dodecahedron({ radius = 1, n = limit.dod }) {
     this.name = "dodecahedron";
@@ -1103,6 +1151,7 @@ export class polyhedron {
    * @property {Number} poly.radius=1 radius of the icosahedron.
    * @property {Number} poly.n=limit.ico number of subdivisions.
    * @returns {module:polyhedron~polyData}
+   * @see {@link https://github.com/mrdoob/three.js/blob/master/src/geometries/IcosahedronGeometry.js IcosahedronGeometry.js}
    */
   icosahedron({ radius = 1, n = limit.ico }) {
     this.name = "icosahedron";
