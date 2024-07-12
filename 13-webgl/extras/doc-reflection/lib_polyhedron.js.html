@@ -33,24 +33,30 @@
  *
  *  Summary.
  *
- * &lt;p>Creates the model of a sphere by continuously subdividing
- * an initial tetrahedron, octahedron, dodecahedron or icosahedron.&lt;/p>
+ * &lt;p>Creates the model of a sphere by continuously subdividing an initial
+ * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron}.&lt;/p>
  *
- * The algorithm starts with just four/six/twenty/twelve points, corresponding
- * to a tetrahedron/octahedron/dodecahedron/icosahedron inscribed in the unit sphere, &lt;br>
+ * The algorithm starts with just four, six, twenty, or twelve points, corresponding
+ * to a {@link https://www.brainsofsteel.co.uk/post/how-to-make-a-tetrahedron tetrahedron},
+ *      {@link https://www.youtube.com/watch?v=47yZf6GHqzg octahedron},
+ *      {@link https://www.polyhedra.net/en/model.php?name-en=dodecahedron dodecahedron}, or
+ *      {@link https://www.mathhappens.org/take-and-make-icosahedron-from-golden-rectangles/ icosahedron},
+ * inscribed in the unit sphere,
  * and recursively subdivides each triangle by inserting a new vertex
- * at the midpoint of its three edges, &lt;br>
+ * at the midpoint of its three edges,
  * which is then projected onto the surface of the sphere.
  *
- *  @author Paulo Roma Cavalcanti on 17/01/2016.
- *  @since 21/11/2016
- *  @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
- *  @see {@link http://glmatrix.net glMatrix}
- *  @see &lt;a href="/cwdc/13-webgl/lib/polyhedron.js">source&lt;/a>
- *  @see &lt;img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
- *  @see &lt;img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
- *  @see &lt;img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
- *  @see &lt;img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256">
+ * @author Paulo Roma Cavalcanti
+ * @since 21/11/2016
+ * @see &lt;a href="/cwdc/13-webgl/lib/polyhedron.js">source&lt;/a>
+ * @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
+ * @see {@link https://www.britannica.com/science/Platonic-solid Platonic solid}
+ * @see {@link https://www.mathsisfun.com/geometry/platonic-solids-why-five.html Platonic Solids - Why Five?}
+ * @see {@link https://users.monash.edu.au/~normd/documents/MATH-348-lecture-32.pdf Platonic Solids and Beyond}
+ * @see &lt;img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
+ * @see &lt;img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
+ * @see &lt;img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
+ * @see &lt;img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256">
  */
 
 "use strict";
@@ -83,9 +89,35 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  */
 
 /**
- * Four points of a tetrahedron inscribed in the unit sphere.
+ * &lt;p>Four points of a tetrahedron inscribed in the unit sphere.&lt;/p>
+ *
+ * Radius of circunsphere:
+ * &lt;ul>
+ *  &lt;li>R = √6 a/4 = 1&lt;/li>
+ * &lt;/ul>
+ *
+ * Edge length:
+ * &lt;ul>
+ *  &lt;li>a = 4R / √6 = 2/3 √6 = 1.6329931618554523&lt;/li>
+ * &lt;/ul>
+ *
+ * Four vertices:
+ * &lt;ul>
+ *  &lt;li>( 8/9, 0, -1/3 )&lt;/li>
+ *  &lt;li>( -√2/9, √2/3, -1/3 )&lt;/li>
+ *  &lt;li>( -√2/9, -√2/3, -1/3 )&lt;/li>
+ *  &lt;li>( 0, 0, 1 )&lt;/li>
+ * &lt;/ul>
+ * Alternatively:
+ * &lt;ul>
+ *  &lt;li>( 0, 8/9, 1/3 )&lt;/li>
+ *  &lt;li>( -√2/3, -√2/9, 1/3 )&lt;/li>
+ *  &lt;li>( √2/3, -√2/9, 1/3 )&lt;/li>
+ *  &lt;li>( 0, 0, -1 )&lt;/li>
+ * &lt;/ul>
  * @type {Array&lt;vec3>}
- * @see https://en.wikipedia.org/wiki/Tetrahedron
+ * @see {@link https://en.wikipedia.org/wiki/Tetrahedron Tetrahedron}
+ * @see &lt;img src="../images/Tetrahedron.svg" width="256">
  */
 const initialTet = [
   vec3.fromValues(0.0, Math.sqrt(8 / 9), 1 / 3),
@@ -95,9 +127,28 @@ const initialTet = [
 ];
 
 /**
- * Six points of an octahedron inscribed in the unit sphere.
+ * &lt;p>Six points of an octahedron inscribed in the unit sphere.&lt;/p>
+ *
+ * Radius of circunsphere:
+ * &lt;ul>
+ *  &lt;li>R = √2/2 a = 1&lt;/li>
+ * &lt;/ul>
+ *
+ * Edge length:
+ * &lt;ul>
+ *  &lt;li>a = 2R / √2 = 1.414213562373095&lt;/li>
+ * &lt;/ul>
+ *
+ * Six vertices:
+ * &lt;ul>
+ *  &lt;li>( ±1, 0, 0 )&lt;/li>
+ *  &lt;li>( 0, ±1, 0 )&lt;/li>
+ *  &lt;li>( 0, 0, ±1 )&lt;/li>
+ * &lt;/ul>
+ *
  * @type {Array&lt;vec3>}
- * @see https://en.wikipedia.org/wiki/Octahedron
+ * @see {@link https://en.wikipedia.org/wiki/Octahedron Octahedron}
+ * @see &lt;img src="../images/Octahedron.gif" width="256">
  */
 const initialOcta = [
   vec3.fromValues(0.0, 0.0, 1.0),
@@ -109,25 +160,131 @@ const initialOcta = [
 ];
 
 /**
- * Twelve points of an icosahedron inscribed in the unit sphere.
+ * &lt;p>Twelve points of an icosahedron inscribed in the unit sphere.&lt;/p>
+ *
+ * Golden Ratio:
+ * &lt;ul>
+ *  &lt;li>Φ = (√5+1)/2 = 1.618033988749895 &lt;/li>
+ * &lt;/ul>
+ *
+ * Radius of circunsphere:
+ * &lt;ul>
+ *  &lt;li>R = √(Φ² + 1)/2 a = 1&lt;/li>
+ *  &lt;li>r = √(Φ² + 1) = 1.902113032590307 (a=2)&lt;/li>
+ * &lt;/ul>
+ *
+ * Edge length:
+ * &lt;ul>
+ *  &lt;li>a = 2R / √(Φ² + 1) = 0.7639320225002103&lt;/li>
+ * &lt;/ul>
+ *
+ * Vertex Coordinates:
+ * &lt;ul>
+ *  &lt;li>Φ / √(Φ² + 1)) = 0.85065080835204&lt;/li>
+ *  &lt;li>1 / √(Φ² + 1) = 0.5257311121191336&lt;/li>
+ * &lt;/ul>
+ * Twelve vertices:
+ * &lt;ul>
+ *  &lt;li>(0, ±1/r, ±Φ/r) &lt;/li>
+ *  &lt;li>(±1/r, ±Φ/r, 0) &lt;/li>
+ *  &lt;li>(±Φ/r, 0, ±1/r) &lt;/li>
+ * &lt;/ul>
+ *
  * @type {Array&lt;vec3>}
- * @see https://en.wikipedia.org/wiki/Icosahedron
+ * @see {@link https://en.wikipedia.org/wiki/Icosahedron Icosahedron}
+ * @see {@link https://en.wikipedia.org/wiki/Regular_icosahedron Regular icosahedron}
+ * @see &lt;img src="../images/Icosahedron-golden-rectangles.svg" width="256">
  */
-const initialIco = [
-  vec3.fromValues(0, -0.525731, 0.850651),
-  vec3.fromValues(0.850651, 0, 0.525731),
-  vec3.fromValues(0.850651, 0, -0.525731),
-  vec3.fromValues(-0.850651, 0, -0.525731),
-  vec3.fromValues(-0.850651, 0, 0.525731),
-  vec3.fromValues(-0.525731, 0.850651, 0),
+const initialIco = (() => {
+  const a = (Math.sqrt(5) + 1) / 2;
+  const r = Math.sqrt(a * a + 1);
+  const b = 1 / r;
+  const c = a / r;
+  return [
+    vec3.fromValues(0, -b, c),
 
-  vec3.fromValues(0.525731, 0.850651, 0),
-  vec3.fromValues(0.525731, -0.850651, 0),
-  vec3.fromValues(-0.525731, -0.850651, 0),
-  vec3.fromValues(0, -0.525731, -0.850651),
-  vec3.fromValues(0, 0.525731, -0.850651),
-  vec3.fromValues(0, 0.525731, 0.850651),
-];
+    vec3.fromValues(c, 0, b),
+    vec3.fromValues(c, 0, -b),
+    vec3.fromValues(-c, 0, -b),
+    vec3.fromValues(-c, 0, b),
+
+    vec3.fromValues(-b, c, 0),
+    vec3.fromValues(b, c, 0),
+    vec3.fromValues(b, -c, 0),
+    vec3.fromValues(-b, -c, 0),
+
+    vec3.fromValues(0, -b, -c),
+    vec3.fromValues(0, b, -c),
+    vec3.fromValues(0, b, c),
+  ];
+})();
+
+/**
+ * &lt;p>Twenty points of a dodecahedron inscribed in the unit sphere.&lt;/p>
+ * Golden Ratio:
+ * &lt;ul>
+ *  &lt;li>Φ = (√5+1)/2 = 1.618033988749895 &lt;/li>
+ *  &lt;ki>2/Φ = √5 - 1 = 1.2360679774997898&lt;/li>
+ * &lt;/ul>
+ * Radius of circunscribed sphere:
+ * &lt;ul>
+ *  &lt;li>R = √3 Φ/2 a = 1&lt;/li>
+ * &lt;/ul>
+ * Edge length:
+ * &lt;ul>
+ *  &lt;li>a = 4R / ((√5 + 1)√3) = 2/Φ R/√3 = R (√5 - 1) / √3 = 0.71364417954618&lt;/li>
+ * &lt;/ul>
+ *
+ * Vertex coordinates:
+ * &lt;ul>
+ *  &lt;li>1/√3 = 0.5773502691896258&lt;/li>
+ *  &lt;li>(√5-1) / (2√3) = 1 / Φ√3 = 0.35682208977309&lt;/li>
+ *  &lt;li>(√5+1) / (2√3) = Φ / √3 = 0.9341723589627158&lt;/li>
+ * &lt;/ul>
+ *
+ * The eight vertices of a cube:
+ * &lt;ul>
+ *  &lt;li>(±1/√3, ±1/√3, ±1/√3)&lt;/li>
+ * &lt;/ul>
+ * The coordinates of the 12 additional vertices:
+ * &lt;ul>
+ *  &lt;li>(0, ±(Φ / √3), ±(1 / Φ√3),) &lt;/li>
+ *  &lt;li>(±(1 / Φ√3), 0, ±(Φ / √3)) &lt;/li>
+ *  &lt;li>(±(Φ / √3), ±(1 / Φ√3), 0) &lt;/li>
+ * &lt;/ul>
+ * @type {Array&lt;vec3>}
+ * @see {@link https://en.wikipedia.org/wiki/Dodecahedron Dodecahedron}
+ * @see {@link https://en.wikipedia.org/wiki/Regular_dodecahedron Regular dodecahedron}
+ * @see {@link https://www.scientificamerican.com/article/why-did-ancient-romans-make-this-baffling-metal-dodecahedron/ Why Did Ancient Romans Make this Baffling Metal Dodecahedron?}
+ * @see &lt;img src="../images/dodecahedron.png" width="256">
+ */
+const initialDod = (() => {
+  const a = 1 / Math.sqrt(3);
+  const b = (Math.sqrt(5) - 1) * 0.5 * a;
+  const c = (Math.sqrt(5) + 1) * 0.5 * a;
+  return [
+    vec3.fromValues(-b, 0, c),
+    vec3.fromValues(b, 0, c),
+    vec3.fromValues(a, a, a),
+    vec3.fromValues(0, c, b),
+    vec3.fromValues(-a, a, a),
+    vec3.fromValues(-a, -a, a),
+    vec3.fromValues(0, -c, b),
+    vec3.fromValues(a, -a, a),
+    vec3.fromValues(c, -b, 0),
+    vec3.fromValues(c, b, 0),
+    vec3.fromValues(0, -c, -b),
+    vec3.fromValues(a, -a, -a),
+    vec3.fromValues(a, a, -a),
+    vec3.fromValues(0, c, -b),
+    vec3.fromValues(-a, -a, -a),
+    vec3.fromValues(-b, 0, -c),
+    vec3.fromValues(b, 0, -c),
+    vec3.fromValues(-c, -b, 0),
+    vec3.fromValues(-c, b, 0),
+    vec3.fromValues(-a, a, -a),
+  ];
+})();
 
 /**
  * Maximum subdivision level without overflowing any buffer (16 bits - 65536).
@@ -136,7 +293,7 @@ const initialIco = [
 export const limit = {
   tet_hws: Math.floor(Math.log(65536 / (4 * 3)) / Math.log(4)),
   oct_hws: Math.floor(Math.log(65536 / (8 * 3)) / Math.log(4)),
-  ico_hws: Math.floor(Math.log(65536 / (12 * 3)) / Math.log(4)),
+  ico_hws: Math.floor(Math.log(65536 / (20 * 3)) / Math.log(4)),
   dod_hws: Math.floor(Math.log(65536 / (36 * 3)) / Math.log(4)),
   tet: 24,
   oct: 20,
@@ -440,7 +597,7 @@ export function pointsOnAntiMeridian(n = nsegments) {
  */
 export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
   let j = 0;
-  const ds = Math.PI / (n - 1);
+  let ds = Math.PI / (n - 1);
   if (anti) ds *= 2;
   const arr = new Float32Array(3 * n);
   let theta = clamp(longitude, -180, 180);
@@ -572,9 +729,7 @@ export class polyhedron {
    * @param {vec3} c third vertex.
    */
   triangle(a, b, c) {
-    this.pointsArray.push(...a);
-    this.pointsArray.push(...b);
-    this.pointsArray.push(...c);
+    this.pointsArray.push(...a, ...b, ...c);
 
     this.pointsIndices.push(this.index, this.index + 1, this.index + 2);
 
@@ -595,9 +750,7 @@ export class polyhedron {
     }
 
     // normals are vectors
-    this.normalsArray.push(...a);
-    this.normalsArray.push(...b);
-    this.normalsArray.push(...c);
+    this.normalsArray.push(...a, ...b, ...c);
 
     this.index += 3;
   }
@@ -740,10 +893,10 @@ export class polyhedron {
    * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}&lt;/p>
    * Generates:
    * &lt;ul>
-   *  &lt;li> 12 * 4&lt;sup>n&lt;/sup> triangles&lt;/li>
-   *  &lt;li> 12 * 3 * 4&lt;sup>n&lt;/sup> vertices&lt;/li>
+   *  &lt;li> 20 * 4&lt;sup>n&lt;/sup> triangles&lt;/li>
+   *  &lt;li> 20 * 3 * 4&lt;sup>n&lt;/sup> vertices&lt;/li>
    *  &lt;li> maximum level = 5 (20480 triangles)&lt;/li>
-   *  &lt;li> 12 * 3 * 4**6 = 147456 vertices → buffer overflow&lt;/li>
+   *  &lt;li> 20 * 3 * 4**6 = 245760 vertices → buffer overflow&lt;/li>
    * &lt;/ul>
    * @param {Object} poly icosahedron.
    * @property {Array&lt;vec3>} poly.vtx=initialIco vertices of initial octahedron.
@@ -797,6 +950,95 @@ export class polyhedron {
   }
 
   /**
+   * &lt;p>Subdivides an initial {@link module:polyhedron~initialDod dodecahedron}.&lt;/p>
+   * &lt;p>WebGL's vertex index buffers are limited to 16-bit (0-65535) right now:
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array Uint16Array}&lt;/p>
+   * Generates:
+   * &lt;ul>
+   *  &lt;li> 36 * 4&lt;sup>n&lt;/sup> triangles&lt;/li>
+   *  &lt;li> 36 * 3 * 4&lt;sup>n&lt;/sup> vertices&lt;/li>
+   *  &lt;li> maximum level = 4 (9216 triangles)&lt;/li>
+   *  &lt;li> 36 * 3 * 4**5 = 110592 vertices → buffer overflow&lt;/li>
+   * &lt;/ul>
+   * @param {Object} poly dodecahedron.
+   * @property {Array&lt;vec3>} poly.vtx=initialDod vertices of initial dodecahedron.
+   * @property {Number} poly.n=limit.dod_hws number of subdivisions.
+   * @returns {module:polyhedron~polyData}
+   */
+  dodecahedronHWS({ vtx = initialDod, n = limit.dod_hws }) {
+    this.name = "dodecahedronHWS";
+    this.nfaces = 36;
+    this.maxSubdivisions = limit.dod_hws;
+
+    // prettier-ignore
+    const [v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19] = vtx;
+
+    this.resetBuffers();
+
+    n = Math.min(limit.ico_hws, n);
+    this.divideTriangle(v19, v18, v4, n);
+    this.divideTriangle(v19, v4, v3, n);
+    this.divideTriangle(v19, v3, v13, n);
+
+    this.divideTriangle(v19, v13, v12, n);
+    this.divideTriangle(v19, v12, v16, n);
+    this.divideTriangle(v19, v16, v15, n);
+
+    this.divideTriangle(v11, v16, v12, n);
+    this.divideTriangle(v11, v12, v9, n);
+    this.divideTriangle(v11, v9, v8, n);
+
+    this.divideTriangle(v5, v0, v4, n);
+    this.divideTriangle(v5, v4, v18, n);
+    this.divideTriangle(v5, v18, v17, n);
+
+    this.divideTriangle(v14, v10, v6, n);
+    this.divideTriangle(v14, v6, v5, n);
+    this.divideTriangle(v14, v5, v17, n);
+
+    this.divideTriangle(v14, v17, v18, n);
+    this.divideTriangle(v14, v18, v19, n);
+    this.divideTriangle(v14, v19, v15, n);
+
+    this.divideTriangle(v14, v15, v16, n);
+    this.divideTriangle(v14, v16, v11, n);
+    this.divideTriangle(v14, v11, v10, n);
+
+    this.divideTriangle(v12, v13, v3, n);
+    this.divideTriangle(v12, v3, v2, n);
+    this.divideTriangle(v12, v2, v9, n);
+
+    this.divideTriangle(v8, v7, v6, n);
+    this.divideTriangle(v8, v6, v10, n);
+    this.divideTriangle(v8, v10, v11, n);
+
+    this.divideTriangle(v1, v7, v8, n);
+    this.divideTriangle(v1, v8, v9, n);
+    this.divideTriangle(v1, v9, v2, n);
+
+    this.divideTriangle(v1, v0, v5, n);
+    this.divideTriangle(v1, v5, v6, n);
+    this.divideTriangle(v1, v6, v7, n);
+
+    this.divideTriangle(v0, v1, v2, n);
+    this.divideTriangle(v0, v2, v3, n);
+    this.divideTriangle(v0, v3, v4, n);
+
+    return {
+      vertexPositions: new Float32Array(this.pointsArray),
+      vertexNormals: new Float32Array(this.normalsArray),
+      vertexTextureCoords: new Float32Array(this.texCoords),
+      vertexMercatorCoords: new Float32Array(this.mercCoords),
+      indices: new Uint16Array(this.pointsIndices),
+      maxSubdivisions: this.maxSubdivisions,
+      nfaces: this.nfaces,
+      name: this.name,
+      ntri: this.ntriHWS,
+      level: this.levelHWS,
+    };
+  }
+
+  /**
    * &lt;p>Subdivides an initial
    * {@link https://threejs.org/docs/#api/en/geometries/TetrahedronGeometry tetrahedron}.&lt;/p>
    * Generates:
@@ -813,6 +1055,7 @@ export class polyhedron {
    * @property {Number} poly.radius=1 radius for three.js.
    * @property {Number} poly.n=limit.tet number of subdivisions.
    * @returns {module:polyhedron~polyData}
+   * @see {@link https://github.com/mrdoob/three.js/blob/master/src/geometries/TetrahedronGeometry.js TetrahedronGeometry.js}
    */
   tetrahedron({ radius = 1, n = limit.tet }) {
     this.name = "tetrahedron";
@@ -854,6 +1097,7 @@ export class polyhedron {
    * @property {Number} poly.radius=1 radius for three.js.
    * @property {Number} poly.n=limit.oct number of subdivisions.
    * @returns {module:polyhedron~polyData}
+   * @see {@link https://github.com/mrdoob/three.js/blob/master/src/geometries/OctahedronGeometry.js OctahedronGeometry.js}
    */
   octahedron({ radius = 1, n = limit.oct }) {
     this.name = "octahedron";
@@ -895,6 +1139,7 @@ export class polyhedron {
    * @property {Number} poly.radius=1 radius of the dodecahedron.
    * @property {Number} poly.n=limit.dod number of subdivisions.
    * @returns {module:polyhedron~polyData}
+   * @see {@link https://github.com/mrdoob/three.js/blob/master/src/geometries/DodecahedronGeometry.js DodecahedronGeometry.js}
    */
   dodecahedron({ radius = 1, n = limit.dod }) {
     this.name = "dodecahedron";
@@ -936,6 +1181,7 @@ export class polyhedron {
    * @property {Number} poly.radius=1 radius of the icosahedron.
    * @property {Number} poly.n=limit.ico number of subdivisions.
    * @returns {module:polyhedron~polyData}
+   * @see {@link https://github.com/mrdoob/three.js/blob/master/src/geometries/IcosahedronGeometry.js IcosahedronGeometry.js}
    */
   icosahedron({ radius = 1, n = limit.ico }) {
     this.name = "icosahedron";
@@ -1018,7 +1264,7 @@ export class polyhedron {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Jul 06 2024 21:00:58 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Jul 12 2024 07:52:22 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

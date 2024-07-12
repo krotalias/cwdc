@@ -18,15 +18,17 @@
  * at the midpoint of its three edges,
  * which is then projected onto the surface of the sphere.
  *
- *  @author Paulo Roma Cavalcanti
- *  @since 21/11/2016
- *  @see <a href="/cwdc/13-webgl/lib/polyhedron.js">source</a>
- *  @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
- *  @see {@link http://glmatrix.net glMatrix}
- *  @see <img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
- *  @see <img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
- *  @see <img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
- *  @see <img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256">
+ * @author Paulo Roma Cavalcanti
+ * @since 21/11/2016
+ * @see <a href="/cwdc/13-webgl/lib/polyhedron.js">source</a>
+ * @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
+ * @see {@link https://www.britannica.com/science/Platonic-solid Platonic solid}
+ * @see {@link https://www.mathsisfun.com/geometry/platonic-solids-why-five.html Platonic Solids - Why Five?}
+ * @see {@link https://users.monash.edu.au/~normd/documents/MATH-348-lecture-32.pdf Platonic Solids and Beyond}
+ * @see <img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
+ * @see <img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
+ * @see <img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
+ * @see <img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256">
  */
 
 "use strict";
