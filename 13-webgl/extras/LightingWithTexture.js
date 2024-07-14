@@ -197,7 +197,7 @@ import {
   pointsOnMeridian,
   setMercatorCoordinates,
   rotateUTexture,
-  polyhedron,
+  Polyhedron,
 } from "/cwdc/13-webgl/lib/polyhedron.js";
 import {
   vec3,
@@ -1731,34 +1731,34 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
     setUVfix(true);
     if (poly === 0) {
       shape = selector.hws
-        ? new polyhedron(fix_uv).dodecahedronHWS({
+        ? new Polyhedron(fix_uv).dodecahedronHWS({
             n: numSubdivisions,
           })
-        : new polyhedron(fix_uv).dodecahedron({
+        : new Polyhedron(fix_uv).dodecahedron({
             n: numSubdivisions,
           });
     } else if (poly === 1) {
       shape = selector.hws
-        ? new polyhedron(fix_uv).icosahedronHWS({
+        ? new Polyhedron(fix_uv).icosahedronHWS({
             n: numSubdivisions,
           })
-        : new polyhedron(fix_uv).icosahedron({
+        : new Polyhedron(fix_uv).icosahedron({
             n: numSubdivisions,
           });
     } else if (poly === 2) {
       shape = selector.hws
-        ? new polyhedron(fix_uv).octahedronHWS({
+        ? new Polyhedron(fix_uv).octahedronHWS({
             n: numSubdivisions,
           })
-        : new polyhedron(fix_uv).octahedron({
+        : new Polyhedron(fix_uv).octahedron({
             n: numSubdivisions,
           });
     } else if (poly === 3) {
       shape = selector.hws
-        ? new polyhedron(fix_uv).tetrahedronHWS({
+        ? new Polyhedron(fix_uv).tetrahedronHWS({
             n: numSubdivisions,
           })
-        : new polyhedron(fix_uv).tetrahedron({
+        : new Polyhedron(fix_uv).tetrahedron({
             n: numSubdivisions,
           });
     }

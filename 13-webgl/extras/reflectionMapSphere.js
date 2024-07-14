@@ -37,7 +37,7 @@
 
 import { mat3, mat4 } from "https://unpkg.com/gl-matrix@3.4.3/esm/index.js";
 
-import { polyhedron } from "/cwdc/13-webgl/lib/polyhedron.js";
+import { Polyhedron } from "/cwdc/13-webgl/lib/polyhedron.js";
 
 /**
  * 4x4 Matrix
@@ -335,7 +335,7 @@ function init(cubeMapArr) {
   lmodel.push([createModel(uvCone(10, 20, 30, 5, false)), 30]);
   lmodel.push([createModel(uvTorus(10, 5, 30, 30)), 25]);
   lmodel.push([
-    createModel(new polyhedron().octahedronHWS({ n: numTimesToSubdivide })),
+    createModel(new Polyhedron().octahedronHWS({ n: numTimesToSubdivide })),
     2.5,
   ]);
   lmodel.push([createModel(uvSphere(10, 30, 30)), 30]);

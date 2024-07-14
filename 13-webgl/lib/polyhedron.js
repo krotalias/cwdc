@@ -18,17 +18,15 @@
  * at the midpoint of its three edges,
  * which is then projected onto the surface of the sphere.
  *
- * @author Paulo Roma Cavalcanti
- * @since 21/11/2016
- * @see <a href="/cwdc/13-webgl/lib/polyhedron.js">source</a>
- * @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
- * @see {@link https://www.britannica.com/science/Platonic-solid Platonic solid}
- * @see {@link https://www.mathsisfun.com/geometry/platonic-solids-why-five.html Platonic Solids - Why Five?}
- * @see {@link https://users.monash.edu.au/~normd/documents/MATH-348-lecture-32.pdf Platonic Solids and Beyond}
- * @see <img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
- * @see <img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
- * @see <img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
- * @see <img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256">
+ *  @author Paulo Roma Cavalcanti
+ *  @since 21/11/2016
+ *  @see <a href="/cwdc/13-webgl/lib/polyhedron.js">source</a>
+ *  @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
+ *  @see {@link http://glmatrix.net glMatrix}
+ *  @see <img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
+ *  @see <img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
+ *  @see <img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
+ *  @see <img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256">
  */
 
 "use strict";
@@ -61,11 +59,17 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  */
 
 /**
- * <p>Four points of a tetrahedron inscribed in the unit sphere.</p>
+ * <p>Four points of a {@link https://www.brainsofsteel.co.uk/post/how-to-make-a-tetrahedron tetrahedron}
+ * inscribed in the unit sphere.</p>
  *
  * Radius of circunsphere:
  * <ul>
  *  <li>R = √6 a/4 = 1</li>
+ * </ul>
+ *
+ * Radius of circuncircle:
+ * <ul>
+ *  <li>r = a/√3 = 2/3 √6 / √3 = 2/3 √2 = √(8/9) = 0.9428090415820634</li>
  * </ul>
  *
  * Edge length:
@@ -75,31 +79,39 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  *
  * Four vertices:
  * <ul>
- *  <li>( 8/9, 0, -1/3 )</li>
- *  <li>( -√2/9, √2/3, -1/3 )</li>
- *  <li>( -√2/9, -√2/3, -1/3 )</li>
+ *  <li>( √(8/9), 0, -1/3 )</li>
+ *  <li>( -√(2/9), √(2/3), -1/3 )</li>
+ *  <li>( -√(2/9), -√(2/3), -1/3 )</li>
  *  <li>( 0, 0, 1 )</li>
  * </ul>
  * Alternatively:
  * <ul>
- *  <li>( 0, 8/9, 1/3 )</li>
- *  <li>( -√2/3, -√2/9, 1/3 )</li>
- *  <li>( √2/3, -√2/9, 1/3 )</li>
+ *  <li>( 0, √(8/9), 1/3 )</li>
+ *  <li>( -√(2/3), -√(2/9), 1/3 )</li>
+ *  <li>( √(2/3), -√(2/9), 1/3 )</li>
  *  <li>( 0, 0, -1 )</li>
  * </ul>
  * @type {Array<vec3>}
  * @see {@link https://en.wikipedia.org/wiki/Tetrahedron Tetrahedron}
+ * @see {@link https://en.wikipedia.org/wiki/Equilateral_triangle Equilateral triangle}
  * @see <img src="../images/Tetrahedron.svg" width="256">
  */
-const initialTet = [
-  vec3.fromValues(0.0, Math.sqrt(8 / 9), 1 / 3),
-  vec3.fromValues(-Math.sqrt(2 / 3), -Math.sqrt(2 / 9), 1 / 3),
-  vec3.fromValues(Math.sqrt(2 / 3), -Math.sqrt(2 / 9), 1 / 3),
-  vec3.fromValues(0.0, 0.0, -1.0),
-];
+const initialTet = (() => {
+  const r = Math.sqrt(8 / 9);
+  const x = r * 0.5; // r * sin(Math.PI/6)
+  const y = Math.sqrt(2 / 3); // r * cos(Math.PI/6)
+  const z = 1 / 3;
+  return [
+    vec3.fromValues(0, r, z),
+    vec3.fromValues(-y, -x, z),
+    vec3.fromValues(y, -x, z),
+    vec3.fromValues(0, 0, -1),
+  ];
+})();
 
 /**
- * <p>Six points of an octahedron inscribed in the unit sphere.</p>
+ * <p>Six points of an {@link https://www.youtube.com/watch?v=47yZf6GHqzg octahedron}
+ * inscribed in the unit sphere.</p>
  *
  * Radius of circunsphere:
  * <ul>
@@ -132,7 +144,8 @@ const initialOcta = [
 ];
 
 /**
- * <p>Twelve points of an icosahedron inscribed in the unit sphere.</p>
+ * <p>Twelve points of an {@link https://www.mathhappens.org/take-and-make-icosahedron-from-golden-rectangles/ icosahedron}
+ * inscribed in the unit sphere.</p>
  *
  * Golden Ratio:
  * <ul>
@@ -192,7 +205,8 @@ const initialIco = (() => {
 })();
 
 /**
- * <p>Twenty points of a dodecahedron inscribed in the unit sphere.</p>
+ * <p>Twenty points of a {@link https://www.polyhedra.net/en/model.php?name-en=dodecahedron dodecahedron}
+ * inscribed in the unit sphere.</p>
  * Golden Ratio:
  * <ul>
  *  <li>Φ = (√5+1)/2 = 1.618033988749895 </li>
@@ -594,16 +608,17 @@ export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
  * reversed the places of the prime and anti meridians.
  * @see <img src="../images/simple-cylindrical-projection-earth-map-globe-mercator.jpg" width="512">
  */
-export class polyhedron {
+export class Polyhedron {
   /**
-   * @constructs polyhedron
+   * @constructs Polyhedron
    * @param {Boolean} fix whether to fix uv coordinates.
    */
   constructor(fix = false) {
     /**
      * <p>Whether texture coordinates should be fixed.</p>
-     * Deprecated in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
-     * method executed in the fragment shader.
+     *
+     * <p><u>Deprecated</u> in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
+     * method executed in the fragment shader.</p>
      * @type {Boolean}
      */
     this.fix = fix;
@@ -1189,6 +1204,9 @@ export class polyhedron {
    * when two vertices of a triangle are on one side, <br>
    * and the third on the other side of the discontinuity created,
    * when the 0 coordinate is stitched together with the 1 coordinate.
+   *
+   * <p><u>Deprecated</u> in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
+   * method executed in the fragment shader.</p>
    *
    * @param {Array<Object<{s:Number, t:Number}>>} sc triangle given by its spherical coordinates.
    * @see {@link https://gamedev.stackexchange.com/questions/148167/correcting-projection-of-360-content-onto-a-sphere-distortion-at-the-poles/148178#148178 Per-Fragment Equirectangular}

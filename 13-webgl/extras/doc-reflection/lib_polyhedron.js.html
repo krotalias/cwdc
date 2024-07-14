@@ -46,17 +46,15 @@
  * at the midpoint of its three edges,
  * which is then projected onto the surface of the sphere.
  *
- * @author Paulo Roma Cavalcanti
- * @since 21/11/2016
- * @see &lt;a href="/cwdc/13-webgl/lib/polyhedron.js">source&lt;/a>
- * @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
- * @see {@link https://www.britannica.com/science/Platonic-solid Platonic solid}
- * @see {@link https://www.mathsisfun.com/geometry/platonic-solids-why-five.html Platonic Solids - Why Five?}
- * @see {@link https://users.monash.edu.au/~normd/documents/MATH-348-lecture-32.pdf Platonic Solids and Beyond}
- * @see &lt;img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
- * @see &lt;img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
- * @see &lt;img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
- * @see &lt;img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256">
+ *  @author Paulo Roma Cavalcanti
+ *  @since 21/11/2016
+ *  @see &lt;a href="/cwdc/13-webgl/lib/polyhedron.js">source&lt;/a>
+ *  @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
+ *  @see {@link http://glmatrix.net glMatrix}
+ *  @see &lt;img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
+ *  @see &lt;img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
+ *  @see &lt;img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
+ *  @see &lt;img src="/cwdc/13-webgl/lib/tets/octa3.png" width="256"> &lt;img src="/cwdc/13-webgl/lib/tets/octa4.png" width="256">
  */
 
 "use strict";
@@ -89,11 +87,17 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  */
 
 /**
- * &lt;p>Four points of a tetrahedron inscribed in the unit sphere.&lt;/p>
+ * &lt;p>Four points of a {@link https://www.brainsofsteel.co.uk/post/how-to-make-a-tetrahedron tetrahedron}
+ * inscribed in the unit sphere.&lt;/p>
  *
  * Radius of circunsphere:
  * &lt;ul>
  *  &lt;li>R = √6 a/4 = 1&lt;/li>
+ * &lt;/ul>
+ *
+ * Radius of circuncircle:
+ * &lt;ul>
+ *  &lt;li>r = a/√3 = 2/3 √6 / √3 = 2/3 √2 = √(8/9) = 0.9428090415820634&lt;/li>
  * &lt;/ul>
  *
  * Edge length:
@@ -103,31 +107,39 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  *
  * Four vertices:
  * &lt;ul>
- *  &lt;li>( 8/9, 0, -1/3 )&lt;/li>
- *  &lt;li>( -√2/9, √2/3, -1/3 )&lt;/li>
- *  &lt;li>( -√2/9, -√2/3, -1/3 )&lt;/li>
+ *  &lt;li>( √(8/9), 0, -1/3 )&lt;/li>
+ *  &lt;li>( -√(2/9), √(2/3), -1/3 )&lt;/li>
+ *  &lt;li>( -√(2/9), -√(2/3), -1/3 )&lt;/li>
  *  &lt;li>( 0, 0, 1 )&lt;/li>
  * &lt;/ul>
  * Alternatively:
  * &lt;ul>
- *  &lt;li>( 0, 8/9, 1/3 )&lt;/li>
- *  &lt;li>( -√2/3, -√2/9, 1/3 )&lt;/li>
- *  &lt;li>( √2/3, -√2/9, 1/3 )&lt;/li>
+ *  &lt;li>( 0, √(8/9), 1/3 )&lt;/li>
+ *  &lt;li>( -√(2/3), -√(2/9), 1/3 )&lt;/li>
+ *  &lt;li>( √(2/3), -√(2/9), 1/3 )&lt;/li>
  *  &lt;li>( 0, 0, -1 )&lt;/li>
  * &lt;/ul>
  * @type {Array&lt;vec3>}
  * @see {@link https://en.wikipedia.org/wiki/Tetrahedron Tetrahedron}
+ * @see {@link https://en.wikipedia.org/wiki/Equilateral_triangle Equilateral triangle}
  * @see &lt;img src="../images/Tetrahedron.svg" width="256">
  */
-const initialTet = [
-  vec3.fromValues(0.0, Math.sqrt(8 / 9), 1 / 3),
-  vec3.fromValues(-Math.sqrt(2 / 3), -Math.sqrt(2 / 9), 1 / 3),
-  vec3.fromValues(Math.sqrt(2 / 3), -Math.sqrt(2 / 9), 1 / 3),
-  vec3.fromValues(0.0, 0.0, -1.0),
-];
+const initialTet = (() => {
+  const r = Math.sqrt(8 / 9);
+  const x = r * 0.5; // r * sin(Math.PI/6)
+  const y = Math.sqrt(2 / 3); // r * cos(Math.PI/6)
+  const z = 1 / 3;
+  return [
+    vec3.fromValues(0, r, z),
+    vec3.fromValues(-y, -x, z),
+    vec3.fromValues(y, -x, z),
+    vec3.fromValues(0, 0, -1),
+  ];
+})();
 
 /**
- * &lt;p>Six points of an octahedron inscribed in the unit sphere.&lt;/p>
+ * &lt;p>Six points of an {@link https://www.youtube.com/watch?v=47yZf6GHqzg octahedron}
+ * inscribed in the unit sphere.&lt;/p>
  *
  * Radius of circunsphere:
  * &lt;ul>
@@ -160,7 +172,8 @@ const initialOcta = [
 ];
 
 /**
- * &lt;p>Twelve points of an icosahedron inscribed in the unit sphere.&lt;/p>
+ * &lt;p>Twelve points of an {@link https://www.mathhappens.org/take-and-make-icosahedron-from-golden-rectangles/ icosahedron}
+ * inscribed in the unit sphere.&lt;/p>
  *
  * Golden Ratio:
  * &lt;ul>
@@ -220,7 +233,8 @@ const initialIco = (() => {
 })();
 
 /**
- * &lt;p>Twenty points of a dodecahedron inscribed in the unit sphere.&lt;/p>
+ * &lt;p>Twenty points of a {@link https://www.polyhedra.net/en/model.php?name-en=dodecahedron dodecahedron}
+ * inscribed in the unit sphere.&lt;/p>
  * Golden Ratio:
  * &lt;ul>
  *  &lt;li>Φ = (√5+1)/2 = 1.618033988749895 &lt;/li>
@@ -622,16 +636,17 @@ export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
  * reversed the places of the prime and anti meridians.
  * @see &lt;img src="../images/simple-cylindrical-projection-earth-map-globe-mercator.jpg" width="512">
  */
-export class polyhedron {
+export class Polyhedron {
   /**
-   * @constructs polyhedron
+   * @constructs Polyhedron
    * @param {Boolean} fix whether to fix uv coordinates.
    */
   constructor(fix = false) {
     /**
      * &lt;p>Whether texture coordinates should be fixed.&lt;/p>
-     * Deprecated in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
-     * method executed in the fragment shader.
+     *
+     * &lt;p>&lt;u>Deprecated&lt;/u> in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
+     * method executed in the fragment shader.&lt;/p>
      * @type {Boolean}
      */
     this.fix = fix;
@@ -1218,6 +1233,9 @@ export class polyhedron {
    * and the third on the other side of the discontinuity created,
    * when the 0 coordinate is stitched together with the 1 coordinate.
    *
+   * &lt;p>&lt;u>Deprecated&lt;/u> in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
+   * method executed in the fragment shader.&lt;/p>
+   *
    * @param {Array&lt;Object&lt;{s:Number, t:Number}>>} sc triangle given by its spherical coordinates.
    * @see {@link https://gamedev.stackexchange.com/questions/148167/correcting-projection-of-360-content-onto-a-sphere-distortion-at-the-poles/148178#148178 Per-Fragment Equirectangular}
    */
@@ -1258,13 +1276,13 @@ export class polyhedron {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="module-polyhedron.polyhedron.html">polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#arcBall">arcBall</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeMap">cubeMap</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadTexture">loadTexture</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#model">model</a></li><li><a href="global.html#modelViewMatrix">modelViewMatrix</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#program">program</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotAxis">rotAxis</a></li><li><a href="global.html#rotating">rotating</a></li><li><a href="global.html#rotationMatrixToEulerAngles">rotationMatrixToEulerAngles</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#arcBall">arcBall</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeMap">cubeMap</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadTexture">loadTexture</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#model">model</a></li><li><a href="global.html#modelViewMatrix">modelViewMatrix</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#program">program</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotAxis">rotAxis</a></li><li><a href="global.html#rotating">rotating</a></li><li><a href="global.html#rotationMatrixToEulerAngles">rotationMatrixToEulerAngles</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Jul 12 2024 07:52:22 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jul 14 2024 09:42:58 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
