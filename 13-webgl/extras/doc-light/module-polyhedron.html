@@ -161,7 +161,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line279">line 279</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line288">line 288</a>
     </li></ul></dd>
     
 
@@ -233,7 +233,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line312">line 312</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line321">line 321</a>
     </li></ul></dd>
     
 
@@ -276,8 +276,8 @@ Edge length:
 Vertex coordinates:
 <ul>
  <li>1/√3 = 0.5773502691896258</li>
- <li>(√5-1) / (2√3) = 1 / Φ√3 = 0.35682208977309</li>
- <li>(√5+1) / (2√3) = Φ / √3 = 0.9341723589627158</li>
+ <li>1 / Φ√3 = (√5-1) / (2√3) = 0.35682208977309</li>
+ <li>Φ / √3 = (√5+1) / (2√3) = 0.9341723589627158</li>
 </ul>
 
 The eight vertices of a cube:
@@ -286,7 +286,7 @@ The eight vertices of a cube:
 </ul>
 The coordinates of the 12 additional vertices:
 <ul>
- <li>(0, ±(Φ / √3), ±(1 / Φ√3),) </li>
+ <li>(0, ±(Φ / √3), ±(1 / Φ√3)) </li>
  <li>(±(1 / Φ√3), 0, ±(Φ / √3)) </li>
  <li>(±(Φ / √3), ±(1 / Φ√3), 0) </li>
 </ul>
@@ -337,7 +337,7 @@ The coordinates of the 12 additional vertices:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line247">line 247</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line256">line 256</a>
     </li></ul></dd>
     
 
@@ -451,7 +451,7 @@ Twelve vertices:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line183">line 183</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line192">line 192</a>
     </li></ul></dd>
     
 
@@ -501,9 +501,9 @@ Edge length:
 
 Six vertices:
 <ul>
- <li>( ±1, 0, 0 )</li>
- <li>( 0, ±1, 0 )</li>
- <li>( 0, 0, ±1 )</li>
+ <li>(±1, 0, 0)</li>
+ <li>(0, ±1, 0)</li>
+ <li>(0, 0, ±1)</li>
 </ul>
 </div>
 
@@ -552,7 +552,7 @@ Six vertices:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line137">line 137</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line146">line 146</a>
     </li></ul></dd>
     
 
@@ -603,19 +603,26 @@ Edge length:
  <li>a = 4R / √6 = 2/3 √6 = 1.6329931618554523</li>
 </ul>
 
+Vertex coordinates:
+<ul>
+ <li>x = r sin(π/6) = √(2/9) = 0.4714045207910317</li>
+ <li>y = r cos(π/6) = √(2/3) = 0.816496580927726</li>
+ <li>z = 1/3 = 0.3333333333333333 (24/9 = 8/9 + (z-1)²)</li>
+</ul>
+
 Four vertices:
 <ul>
- <li>( √(8/9), 0, -1/3 )</li>
- <li>( -√(2/9), √(2/3), -1/3 )</li>
- <li>( -√(2/9), -√(2/3), -1/3 )</li>
- <li>( 0, 0, 1 )</li>
+ <li>(r, 0, -z)</li>
+ <li>(-x, y, -z)</li>
+ <li>(-x, -y, -z)</li>
+ <li>(0, 0, 1)</li>
 </ul>
 Alternatively:
 <ul>
- <li>( 0, √(8/9), 1/3 )</li>
- <li>( -√(2/3), -√(2/9), 1/3 )</li>
- <li>( √(2/3), -√(2/9), 1/3 )</li>
- <li>( 0, 0, -1 )</li>
+ <li>(0, r, z)</li>
+ <li>(y, -x, z)</li>
+ <li>(-y, -x, z)</li>
+ <li>(0, 0, -1)</li>
 </ul>
 </div>
 
@@ -664,7 +671,7 @@ Alternatively:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line99">line 99</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line108">line 108</a>
     </li></ul></dd>
     
 
@@ -747,7 +754,7 @@ Alternatively:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line55">line 55</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line57">line 57</a>
     </li></ul></dd>
     
 
@@ -910,7 +917,7 @@ with θ remaining the angle in the zx-plane and φ becoming the angle out of tha
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line384">line 384</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line393">line 393</a>
     </li></ul></dd>
     
 
@@ -1159,7 +1166,7 @@ because the image would be rendered mirrored.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line298">line 298</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line307">line 307</a>
     </li></ul></dd>
     
 
@@ -1346,7 +1353,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line489">line 489</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line498">line 498</a>
     </li></ul></dd>
     
 
@@ -1532,7 +1539,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line572">line 572</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line581">line 581</a>
     </li></ul></dd>
     
 
@@ -1711,7 +1718,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line554">line 554</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line563">line 563</a>
     </li></ul></dd>
     
 
@@ -1969,7 +1976,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line584">line 584</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line593">line 593</a>
     </li></ul></dd>
     
 
@@ -2188,7 +2195,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line535">line 535</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line544">line 544</a>
     </li></ul></dd>
     
 
@@ -2367,7 +2374,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line563">line 563</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line572">line 572</a>
     </li></ul></dd>
     
 
@@ -2526,7 +2533,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line306">line 306</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line315">line 315</a>
     </li></ul></dd>
     
 
@@ -2708,7 +2715,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line519">line 519</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line528">line 528</a>
     </li></ul></dd>
     
 
@@ -2845,7 +2852,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line503">line 503</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line512">line 512</a>
     </li></ul></dd>
     
 
@@ -3039,7 +3046,7 @@ It is assumed that:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line424">line 424</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line433">line 433</a>
     </li></ul></dd>
     
 
@@ -3247,7 +3254,7 @@ As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any art
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line457">line 457</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line466">line 466</a>
     </li></ul></dd>
     
 
@@ -3633,7 +3640,7 @@ vertices, normal vectors, texture coordinates, mercator coordinates and indices.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line38">line 38</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line40">line 40</a>
     </li></ul></dd>
     
 
@@ -3669,7 +3676,7 @@ vertices, normal vectors, texture coordinates, mercator coordinates and indices.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jul 14 2024 09:43:04 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jul 15 2024 09:12:22 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

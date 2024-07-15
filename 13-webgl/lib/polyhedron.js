@@ -22,7 +22,9 @@
  *  @since 21/11/2016
  *  @see <a href="/cwdc/13-webgl/lib/polyhedron.js">source</a>
  *  @see {@link https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/WebGL/7E/06 Angel's code}
- *  @see {@link http://glmatrix.net glMatrix}
+ *  @see <a href="https://www.britannica.com/science/Platonic-solid">Platonic solid</a>
+ *  @see <a href="https://www.mathsisfun.com/geometry/platonic-solids-why-five.html">Platonic Solids - Why Five?</a>
+ *  @see <a href="https://users.monash.edu.au/~normd/documents/MATH-348-lecture-32.pdf">Platonic Solids and Beyond</a>
  *  @see <img src="/cwdc/13-webgl/lib/tets/tet1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet2.png" width="256">
  *  @see <img src="/cwdc/13-webgl/lib/tets/tet3.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/tet4.png" width="256">
  *  @see <img src="/cwdc/13-webgl/lib/tets/octa1.png" width="256"> <img src="/cwdc/13-webgl/lib/tets/octa2.png" width="256">
@@ -77,19 +79,26 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  *  <li>a = 4R / √6 = 2/3 √6 = 1.6329931618554523</li>
  * </ul>
  *
+ * Vertex coordinates:
+ * <ul>
+ *  <li>x = r sin(π/6) = √(2/9) = 0.4714045207910317</li>
+ *  <li>y = r cos(π/6) = √(2/3) = 0.816496580927726</li>
+ *  <li>z = 1/3 = 0.3333333333333333 (24/9 = 8/9 + (z-1)²)</li>
+ * </ul>
+ *
  * Four vertices:
  * <ul>
- *  <li>( √(8/9), 0, -1/3 )</li>
- *  <li>( -√(2/9), √(2/3), -1/3 )</li>
- *  <li>( -√(2/9), -√(2/3), -1/3 )</li>
- *  <li>( 0, 0, 1 )</li>
+ *  <li>(r, 0, -z)</li>
+ *  <li>(-x, y, -z)</li>
+ *  <li>(-x, -y, -z)</li>
+ *  <li>(0, 0, 1)</li>
  * </ul>
  * Alternatively:
  * <ul>
- *  <li>( 0, √(8/9), 1/3 )</li>
- *  <li>( -√(2/3), -√(2/9), 1/3 )</li>
- *  <li>( √(2/3), -√(2/9), 1/3 )</li>
- *  <li>( 0, 0, -1 )</li>
+ *  <li>(0, r, z)</li>
+ *  <li>(y, -x, z)</li>
+ *  <li>(-y, -x, z)</li>
+ *  <li>(0, 0, -1)</li>
  * </ul>
  * @type {Array<vec3>}
  * @see {@link https://en.wikipedia.org/wiki/Tetrahedron Tetrahedron}
@@ -103,8 +112,8 @@ const initialTet = (() => {
   const z = 1 / 3;
   return [
     vec3.fromValues(0, r, z),
-    vec3.fromValues(-y, -x, z),
     vec3.fromValues(y, -x, z),
+    vec3.fromValues(-y, -x, z),
     vec3.fromValues(0, 0, -1),
   ];
 })();
@@ -125,9 +134,9 @@ const initialTet = (() => {
  *
  * Six vertices:
  * <ul>
- *  <li>( ±1, 0, 0 )</li>
- *  <li>( 0, ±1, 0 )</li>
- *  <li>( 0, 0, ±1 )</li>
+ *  <li>(±1, 0, 0)</li>
+ *  <li>(0, ±1, 0)</li>
+ *  <li>(0, 0, ±1)</li>
  * </ul>
  *
  * @type {Array<vec3>}
@@ -224,8 +233,8 @@ const initialIco = (() => {
  * Vertex coordinates:
  * <ul>
  *  <li>1/√3 = 0.5773502691896258</li>
- *  <li>(√5-1) / (2√3) = 1 / Φ√3 = 0.35682208977309</li>
- *  <li>(√5+1) / (2√3) = Φ / √3 = 0.9341723589627158</li>
+ *  <li>1 / Φ√3 = (√5-1) / (2√3) = 0.35682208977309</li>
+ *  <li>Φ / √3 = (√5+1) / (2√3) = 0.9341723589627158</li>
  * </ul>
  *
  * The eight vertices of a cube:
@@ -234,7 +243,7 @@ const initialIco = (() => {
  * </ul>
  * The coordinates of the 12 additional vertices:
  * <ul>
- *  <li>(0, ±(Φ / √3), ±(1 / Φ√3),) </li>
+ *  <li>(0, ±(Φ / √3), ±(1 / Φ√3)) </li>
  *  <li>(±(1 / Φ√3), 0, ±(Φ / √3)) </li>
  *  <li>(±(Φ / √3), ±(1 / Φ√3), 0) </li>
  * </ul>
@@ -806,10 +815,10 @@ export class Polyhedron {
 
     n = Math.min(limit.tet_hws, n);
 
-    this.divideTriangle(a, b, c, n);
-    this.divideTriangle(d, c, b, n);
-    this.divideTriangle(a, d, b, n);
-    this.divideTriangle(a, c, d, n);
+    this.divideTriangle(c, b, a, n);
+    this.divideTriangle(b, c, d, n);
+    this.divideTriangle(b, d, a, n);
+    this.divideTriangle(d, c, a, n);
 
     return {
       vertexPositions: new Float32Array(this.pointsArray),
