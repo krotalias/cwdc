@@ -83,7 +83,7 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  * <ul>
  *  <li>x = r sin(π/6) = √(2/9) = 0.4714045207910317</li>
  *  <li>y = r cos(π/6) = √(2/3) = 0.816496580927726</li>
- *  <li>z = 1/3 = 0.3333333333333333 (24/9 = 8/9 + (z-1)²)</li>
+ *  <li>z = 1/3 = 0.3333333333333333 (24/9 = 8/9 + (z+1)²)</li>
  * </ul>
  *
  * Four vertices:
