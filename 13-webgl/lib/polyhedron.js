@@ -62,7 +62,7 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
 
 /**
  * <p>Four points of a {@link https://www.brainsofsteel.co.uk/post/how-to-make-a-tetrahedron tetrahedron}
- * inscribed in the unit sphere.</p>
+ * inscribed in the unit sphere, in three different vertex arrangements.</p>
  *
  * Radius of circunsphere:
  * <ul>
@@ -86,36 +86,68 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  *  <li>z = 1/3 = 0.3333333333333333 (24/9 = 8/9 + (z+1)²)</li>
  * </ul>
  *
- * Four vertices:
+ * Four vertices, lower face parallell to the xy plane:
  * <ul>
  *  <li>(r, 0, -z)</li>
  *  <li>(-x, y, -z)</li>
  *  <li>(-x, -y, -z)</li>
  *  <li>(0, 0, 1)</li>
  * </ul>
- * Alternatively:
+ * Alternatively, higher face parallell to the xy plane:
  * <ul>
  *  <li>(0, r, z)</li>
  *  <li>(y, -x, z)</li>
  *  <li>(-y, -x, z)</li>
  *  <li>(0, 0, -1)</li>
  * </ul>
+ * Embedded inside a cube:
+ * <ul>
+ *  <li>(1/√3, 1/√3, 1/√3)</li>
+ *  <li>(-1/√3, -1/√3, 1/√3)</li>
+ *  <li>(-1/√3, 1/√3, -1/√3)</li>
+ *  <li>(1/√3, -1/√3, -1/√3)</li>
+ * </ul>
  * @type {Array<vec3>}
  * @see {@link https://en.wikipedia.org/wiki/Tetrahedron Tetrahedron}
  * @see {@link https://en.wikipedia.org/wiki/Equilateral_triangle Equilateral triangle}
- * @see <img src="../images/Tetrahedron.svg" width="256">
+ * @see <figure>
+ *      <img src="../images/Tetrahedron.svg" width="128">
+ *      <img src="../images/tet.png" width="164">
+ *      <figcaption>
+ *        Lower face parallell to the xy plane.
+ *      </figcaption>
+ *      <img src="../images/Tetraeder_animation_with_cube.gif" width="128">
+ *      <figcaption>
+ *        Embedded in a cube.
+ *      </figcaption>
+ *      </figure>
  */
 const initialTet = (() => {
   const r = Math.sqrt(8 / 9);
   const x = r * 0.5; // r * sin(Math.PI/6)
   const y = Math.sqrt(2 / 3); // r * cos(Math.PI/6)
   const z = 1 / 3;
-  return [
-    vec3.fromValues(0, r, z),
-    vec3.fromValues(y, -x, z),
-    vec3.fromValues(-y, -x, z),
-    vec3.fromValues(0, 0, -1),
-  ];
+  const d = 1 / Math.sqrt(3);
+  return {
+    normal: [
+      vec3.fromValues(0, r, z),
+      vec3.fromValues(y, -x, z),
+      vec3.fromValues(-y, -x, z),
+      vec3.fromValues(0, 0, -1),
+    ],
+    alternative: [
+      vec3.fromValues(r, 0, -z),
+      vec3.fromValues(-x, y, -z),
+      vec3.fromValues(-x, -y, -z),
+      vec3.fromValues(0, 0, 1),
+    ],
+    cube: [
+      vec3.fromValues(d, d, d),
+      vec3.fromValues(-d, -d, d),
+      vec3.fromValues(-d, d, -d),
+      vec3.fromValues(d, -d, -d),
+    ],
+  };
 })();
 
 /**
@@ -793,11 +825,11 @@ export class Polyhedron {
    *  <li> 4 * 3 * 4**7 = 196608 vertices → buffer overflow</li>
    * </ul>
    * @param {Object} poly tetrahedron.
-   * @property {Array<vec3>} poly.vtx=initialTet vertices of initial tetrahedron.
+   * @property {Array<vec3>} poly.vtx=initialTet.cube vertices of initial tetrahedron.
    * @property {Number} poly.n=limit.tet_hws number of subdivisions.
    * @returns {module:polyhedron~polyData}
    */
-  tetrahedronHWS({ vtx = initialTet, n = limit.tet_hws }) {
+  tetrahedronHWS({ vtx = initialTet.cube, n = limit.tet_hws }) {
     this.name = "tetrahedronHWS";
     /**
      * Initial number of triangles.
