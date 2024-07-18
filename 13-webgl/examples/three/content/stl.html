@@ -1,0 +1,37 @@
+<!doctype html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STL Viewer</title>
+    <style>
+        body {
+            background-color: #fcfcfc;
+            margin: 0;
+            padding: 0;
+        }
+        #canvasid {
+            background-color: antiquewhite;
+            width: 380px;
+            height: 380px;
+            display: block;
+            border: #ccc solid 3px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<html>
+    <body>
+        <canvas id="canvasid"></canvas>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://unpkg.com/three@latest/build/three.module.js",
+                    "three/addons/": "https://unpkg.com/three@latest/examples/jsm/"
+                }
+            }
+        </script>
+
+        <script type="module" src="stl.js"></script>
+    </body>
+</html>
