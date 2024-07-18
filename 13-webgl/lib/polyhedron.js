@@ -284,6 +284,8 @@ const initialIco = (() => {
  * @see {@link https://en.wikipedia.org/wiki/Regular_dodecahedron Regular dodecahedron}
  * @see {@link https://www.scientificamerican.com/article/why-did-ancient-romans-make-this-baffling-metal-dodecahedron/ Why Did Ancient Romans Make this Baffling Metal Dodecahedron?}
  * @see <img src="../images/dodecahedron.png" width="256">
+ * @see <iframe title="Cube in a Dodecahedron" src="/cwdc/13-webgl/examples/three/content/stl.html" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
+ * @see {@link https://www.thingiverse.com/thing:3279291 Cube in a Dodecahedron}
  */
 const initialDod = (() => {
   const a = 1 / Math.sqrt(3);
