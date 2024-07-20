@@ -33,6 +33,16 @@ import Stats from "three/addons/libs/stats.module.js";
  */
 
 /**
+ * <p>A representation of mesh, line, or point geometry.</p>
+ * Includes vertex positions, face indices, normals, colors, UVs,
+ * and custom attributes within buffers, reducing the cost of
+ * passing all this data to the GPU.
+ * @class BufferGeometry
+ * @memberof external:THREE
+ * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ */
+
+/**
  * Loads the viewer and starts the animation.
  */
 function init() {
@@ -44,6 +54,20 @@ function init() {
     white: 0xffffff,
     grey: 0xfcfcfc,
   };
+
+  /**
+   * Array of model names.
+   * @type {Array<String>}
+   * @global
+   */
+  const models = [
+    "Dodecahedron_Cube_A.stl",
+    "Dodecahedron_Cube_B.stl",
+    "Dodecahedron_Cube_C.stl",
+    "Dodecahedron_Cube_D.stl",
+    "Dodecahedron_Cube_E.stl",
+    "Utah_teapot_(solid).stl",
+  ];
 
   /**
    * The WebGL renderer displays your beautifully crafted scenes using WebGL.
@@ -58,7 +82,6 @@ function init() {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setClearColor(colorTable.antiqueWhite, 1.0);
   renderer.setSize(obj.clientWidth, obj.clientHeight);
-  //obj.appendChild(renderer.domElement);
 
   /**
    * Camera that uses perspective projection.
@@ -67,13 +90,11 @@ function init() {
    * @see https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
    */
   const camera = new THREE.PerspectiveCamera(
-    100,
+    45,
     obj.clientWidth / obj.clientHeight,
     0.01,
     1000,
   );
-  camera.position.z = 70;
-  camera.updateProjectionMatrix();
 
   /**
    * <p>TrackballControls is similar to OrbitControls.</p>
@@ -124,16 +145,31 @@ function init() {
    * @see {@link https://blog.arashtad.com/blog/load-stl-3d-models-in-three-js/ How to load STL 3d models in Three JS}
    */
   const loader = new STLLoader();
+  let mesh = undefined;
 
-  loader.load("models/stl/Dodecahedron_Cube_D.stl", function (geometry) {
-    console.log(geometry);
+  /**
+   * Loads a model to the scene.
+   * @param {external:THREE.BufferGeometry} geometry model.
+   * @global
+   */
+  function loadModel(geometry) {
+    // console.log(geometry);
     geometry.center();
     geometry.computeVertexNormals();
 
-    var mesh = new THREE.Mesh(geometry, material);
+    if (mesh) {
+      scene.remove(mesh);
+      mesh.geometry.dispose();
+    }
+    mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(0, 0, 0);
     scene.add(mesh);
-  });
+
+    const diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
+    camera.position.set(0, 0, diag * 1.1);
+  }
+
+  loader.load("models/stl/" + models[3], loadModel);
 
   /**
    * <p>When developing a Three.js application,
@@ -149,7 +185,8 @@ function init() {
   stats.domElement.style.position = "absolute";
   stats.domElement.style.left = "10px";
   stats.domElement.style.top = "10px";
-  /// document.body.appendChild(stats.dom);
+  document.body.appendChild(stats.dom);
+  stats.dom.style.display = "none";
 
   /**
    * <p>A built in function that can be used instead of
@@ -178,14 +215,69 @@ function init() {
     renderer.render(scene, camera);
     stats.update();
   }
+
+  /**
+   * <p>Closure for keydown events.</p>
+   * Selects the next/previous {@link models model}
+   * or turns {@link external:THREE.Stats stats} visible/invisible,
+   * when pressing keys ("n","N") or ("s") respectively.<br>
+   * @param {KeyboardEvent} event keyboard event.
+   * @function
+   * @global
+   * @return {key_event} callback for handling a keyboard event.
+   */
+  const handleKeyPress = ((event) => {
+    const mod = (n, m) => ((n % m) + m) % m;
+    let modelCnt = 3;
+    let visible = false;
+
+    /**
+     * <p>Handler for keydown events.</p>
+     * @param {KeyboardEvent} event keyboard event.
+     * @callback key_event callback to handle a key pressed.
+     */
+    return (event) => {
+      const ch = event.key;
+      switch (ch) {
+        case "n":
+        case "N":
+          let incr = ch == "n" ? 1 : -1;
+          modelCnt = mod(modelCnt + incr, models.length);
+          loader.load("models/stl/" + models[modelCnt], loadModel);
+          break;
+        case "s":
+          visible = !visible;
+          if (visible) stats.dom.style.display = "block";
+          else stats.dom.style.display = "none";
+          break;
+      }
+    };
+  })();
+
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event keydown
+   */
+  window.addEventListener("keydown", (event) => {
+    if (
+      ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
+        event.code,
+      ) > -1
+    ) {
+      event.preventDefault();
+    }
+    handleKeyPress(event);
+  });
 }
 
 /**
- * <p>Defines its {@link init load callback function}.</p>
+ * <p>Sets the {@link init load callback function}.</p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event load event}
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image Image() constructor}
  * @event load
  */
 window.addEventListener("load", (event) => {
