@@ -146,6 +146,7 @@ function init() {
    */
   const loader = new STLLoader();
   let mesh = undefined;
+  let line = undefined;
 
   /**
    * Loads a model to the scene.
@@ -157,13 +158,24 @@ function init() {
     geometry.center();
     geometry.computeVertexNormals();
 
+    let vis = undefined;
     if (mesh) {
       scene.remove(mesh);
+      scene.remove(line);
       mesh.geometry.dispose();
+      vis = line.visible;
     }
     mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(0, 0, 0);
     scene.add(mesh);
+
+    const edges = new THREE.EdgesGeometry(geometry);
+    line = new THREE.LineSegments(
+      edges,
+      new THREE.LineBasicMaterial({ color: 0xffffff }),
+    );
+    scene.add(line);
+    line.visible = vis ? vis : false;
 
     const diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
     camera.position.set(0, 0, diag * 1.1);
@@ -218,9 +230,9 @@ function init() {
 
   /**
    * <p>Closure for keydown events.</p>
-   * Selects the next/previous {@link models model}
-   * or turns {@link external:THREE.Stats stats} visible/invisible,
-   * when pressing keys ("n","N") or ("s") respectively.<br>
+   * Selects the next/previous {@link models model},
+   * or turns {@link external:THREE.Stats stats} and mesh visible/invisible,
+   * when pressing keys ("n","N") or ("s","m") respectively.<br>
    * @param {KeyboardEvent} event keyboard event.
    * @function
    * @global
@@ -249,6 +261,9 @@ function init() {
           visible = !visible;
           if (visible) stats.dom.style.display = "block";
           else stats.dom.style.display = "none";
+          break;
+        case "m":
+          line.visible = !line.visible;
           break;
       }
     };
