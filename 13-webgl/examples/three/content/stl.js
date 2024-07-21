@@ -3,10 +3,15 @@
  *
  * Summary.
  *
- * <p>STL Viewer.</p>
+ * <p>STL and VTK Viewer.</p>
  * STL is a file format commonly used for 3D printing and computer-aided design (CAD).
  * The name STL is an acronym that stands for stereolithography — a popular 3D printing technology.
  * You might also hear it referred to as Standard Triangle Language or Standard Tessellation Language.
+ *
+ * <p>VTK provides a number of source and writer objects to read and write popular data file formats.
+ * The Visualization Toolkit also provides some of its own file formats.
+ * The main reason for creating yet another data file format is to offer a consistent data representation scheme
+ * for a variety of dataset types, and to provide a simple method to communicate data between software.</p>
  *
  * @author Paulo Roma Cavalcanti
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
@@ -14,6 +19,7 @@
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
  * @see {@link https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html#what-is-an-stl-file STL files}
  * @see {@link https://en.wikipedia.org/wiki/STL_(file_format) STL (file format)}
+ * @see {@link https://docs.vtk.org/en/latest/design_documents/VTKFileFormats.html VTK File Formats}
  * @see <iframe title="Cube in a Dodecahedron" src="/cwdc/13-webgl/examples/three/content/stl.html" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
  */
 
@@ -21,6 +27,7 @@
 
 import * as THREE from "three";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
+import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 
@@ -67,6 +74,9 @@ function init() {
     "Dodecahedron_Cube_D.stl",
     "Dodecahedron_Cube_E.stl",
     "Utah_teapot_(solid).stl",
+    "scene_NIH3D.stl",
+    "hubble_model_kit.stl",
+    "bunny.vtk",
   ];
 
   /**
@@ -144,7 +154,18 @@ function init() {
    * @see {@link https://sbcode.net/threejs/loaders-stl/ STL Model Loader}
    * @see {@link https://blog.arashtad.com/blog/load-stl-3d-models-in-three-js/ How to load STL 3d models in Three JS}
    */
-  const loader = new STLLoader();
+  const stl_loader = new STLLoader();
+
+  /**
+   * VTK data sets can contain several types of lattice data and/or geometric figures.
+   * The content of VTK files can be in ASCII text format or a mixed binary/ASCII format
+   * in which headers and parameters are in ASCII format but the data values are in binary format.
+   * @class VTKLoader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/examples/webgl_loader_vtk.html VTK Model Loader}
+   */
+  const vtk_loader = new VTKLoader();
+
   let mesh = undefined;
   let line = undefined;
 
@@ -182,7 +203,7 @@ function init() {
     camera.position.set(0, 0, diag * 1.1);
   }
 
-  loader.load("models/stl/" + models[3], loadModel);
+  stl_loader.load("models/stl/" + models[3], loadModel);
 
   /**
    * <p>When developing a Three.js application,
@@ -256,7 +277,9 @@ function init() {
         case "N":
           let incr = ch == "n" ? 1 : -1;
           modelCnt = mod(modelCnt + incr, models.length);
-          loader.load("models/stl/" + models[modelCnt], loadModel);
+          if (models[modelCnt].includes(".vtk"))
+            vtk_loader.load("models/vtk/" + models[modelCnt], loadModel);
+          else stl_loader.load("models/stl/" + models[modelCnt], loadModel);
           break;
         case "s":
           visible = !visible;
