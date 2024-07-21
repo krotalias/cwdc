@@ -229,6 +229,8 @@ function init() {
 
     const diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
     camera.position.set(0, 0, diag * 1.1);
+    camera.up.set(0, 1, 0);
+    camera.rotation.set(0, 0, 0);
   }
 
   stl_loader.load("models/stl/" + models[3], loadModel);
