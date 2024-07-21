@@ -20,7 +20,7 @@
 "use strict";
 
 import * as THREE from "three";
-import { STLLoader } from "three/addons/loaders/STLLoader";
+import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 
@@ -163,6 +163,7 @@ function init() {
       scene.remove(mesh);
       scene.remove(line);
       mesh.geometry.dispose();
+      line.geometry.dispose();
       vis = line.visible;
     }
     mesh = new THREE.Mesh(geometry, material);
