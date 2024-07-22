@@ -3,33 +3,46 @@
  *
  * Summary.
  *
- * <p>STL and VTK Viewer.</p>
- * STL is a file format commonly used for 3D printing and computer-aided design (CAD).
+ * <p>STL, OBJ and VTK Viewer.</p>
+ * <ol>
+ * <li>{@link https://en.wikipedia.org/wiki/STL_(file_format) STL} is a file format commonly used for 3D printing and computer-aided design (CAD).
  * The name STL is an acronym that stands for stereolithography — a popular 3D printing technology.
- * You might also hear it referred to as Standard Triangle Language or Standard Tessellation Language.
+ * You might also hear it referred to as Standard Triangle Language or Standard Tessellation Language.</li>
  *
- * <p>VTK provides a number of source and writer objects to read and write popular data file formats.
+ * <li>{@link https://en.wikipedia.org/wiki/Wavefront_.obj_file OBJ} (or .OBJ) is a geometry definition file format first developed by Wavefront Technologies
+ * for its Advanced Visualizer animation package.
+ * The file format is open and has been adopted by other 3D graphics application vendors.</li>
+ *
+ * <li>{@link https://docs.vtk.org/en/latest/design_documents/VTKFileFormats.html VTK} provides a number of source and writer objects to read and write popular data file formats.
  * The Visualization Toolkit also provides some of its own file formats.
  * The main reason for creating yet another data file format is to offer a consistent data representation scheme
- * for a variety of dataset types, and to provide a simple method to communicate data between software.</p>
+ * for a variety of dataset types, and to provide a simple method to communicate data between software.</li>
+ *
+ * </ol>
  *
  * @author Paulo Roma Cavalcanti
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html">link</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
  * @see {@link https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html#what-is-an-stl-file STL files}
- * @see {@link https://en.wikipedia.org/wiki/STL_(file_format) STL (file format)}
- * @see {@link https://docs.vtk.org/en/latest/design_documents/VTKFileFormats.html VTK File Formats}
  * @see <iframe title="Cube in a Dodecahedron" src="/cwdc/13-webgl/examples/three/content/stl.html" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
  */
 
 "use strict";
 
-import * as THREE from "three";
-import { STLLoader } from "three/addons/loaders/STLLoader.js";
-import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
-import { TrackballControls } from "three/addons/controls/TrackballControls.js";
-import Stats from "three/addons/libs/stats.module.js";
+//import * as THREE from "three";
+//import { STLLoader } from "three/addons/loaders/STLLoader.js";
+//import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
+//import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+//import { TrackballControls } from "three/addons/controls/TrackballControls.js";
+//import Stats from "three/addons/libs/stats.module.js";
+
+import * as THREE from "/cwdc/13-webgl/lib/three.r163/build/three.module.js";
+import { STLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/STLLoader.js";
+import { VTKLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/VTKLoader.js";
+import { OBJLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/OBJLoader.js";
+import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/TrackballControls.js";
+import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
 
 /**
  * Three.js module.
@@ -77,6 +90,7 @@ function init() {
     "scene_NIH3D.stl",
     "hubble_model_kit.stl",
     "bunny.vtk",
+    "IronMan.obj",
   ];
 
   /**
@@ -141,11 +155,14 @@ function init() {
   camera.add(dirLight);
   camera.add(dirLight.target);
 
-  // load model material
+  // model material
   const material = new THREE.MeshLambertMaterial({
     color: colorTable.gold,
     side: THREE.DoubleSide,
   });
+
+  // edge material
+  const edgeMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
 
   /**
    * The STL model format is widely used for rapid prototyping, 3D printing and computer-aided manufacturing.
@@ -166,41 +183,95 @@ function init() {
    */
   const vtk_loader = new VTKLoader();
 
+  /**
+   * <p>A loader for loading a .obj resource.</p>
+   * The OBJ file format is a simple data-format that represents 3D geometry in a
+   * human readable format as the position of each vertex,
+   * the UV position of each texture coordinate vertex, vertex normals,
+   * and the faces that make each polygon defined as a list of vertices, and texture vertices.
+   * @class OBJLoader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#examples/en/loaders/OBJLoader obj_loader Model Loader}
+   */
+  const obj_loader = new OBJLoader();
+
   let mesh = undefined;
   let line = undefined;
+  // .obj file
+  let lines = [];
+  let object = undefined;
 
   /**
-   * Loads a model to the scene.
+   * Callback to load a model from a file to the scene.
    * @param {external:THREE.BufferGeometry} geometry model.
    * @global
    */
   function loadModel(geometry) {
     // console.log(geometry);
-    geometry.center();
-    geometry.computeVertexNormals();
 
     let vis = undefined;
     if (mesh) {
       scene.remove(mesh);
-      scene.remove(line);
       mesh.geometry.dispose();
+      mesh = undefined;
+    }
+    if (line) {
+      scene.remove(line);
       line.geometry.dispose();
       vis = line.visible;
+      line = undefined;
     }
-    mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(0, 0, 0);
-    scene.add(mesh);
+    if (lines.length > 0) {
+      for (const line of lines) {
+        scene.remove(line);
+        line.geometry.dispose();
+      }
+      vis = lines[0].visible;
+      lines = [];
+    }
+    if (object) {
+      scene.remove(object);
+      object = undefined;
+    }
+    if (geometry.isBufferGeometry) {
+      geometry.center();
+      geometry.computeVertexNormals();
 
-    const edges = new THREE.EdgesGeometry(geometry);
-    line = new THREE.LineSegments(
-      edges,
-      new THREE.LineBasicMaterial({ color: 0xffffff }),
-    );
-    scene.add(line);
-    line.visible = vis ? vis : false;
+      mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(0, 0, 0);
+      scene.add(mesh);
 
-    const diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
-    camera.position.set(0, 0, diag * 1.1);
+      const edges = new THREE.EdgesGeometry(geometry);
+      line = new THREE.LineSegments(edges, edgeMaterial);
+      scene.add(line);
+      line.visible = vis ? vis : false;
+      const diag = geometry.boundingBox.max.distanceTo(
+        geometry.boundingBox.min,
+      );
+      camera.position.set(0, 0, diag * 1.1);
+    } else {
+      // OBJ file
+      let bb = new THREE.Box3().setFromObject(geometry);
+      const diag = bb.max.distanceTo(bb.min);
+      let center = new THREE.Vector3(0);
+      bb.getCenter(center);
+      geometry.position.set(-center.x, -center.y, center.z);
+      geometry.traverse(function (child) {
+        if (child.isMesh) {
+          child.material = material;
+          const edges = new THREE.EdgesGeometry(child.geometry);
+          const line = new THREE.LineSegments(edges, edgeMaterial);
+          line.position.set(-center.x, -center.y, center.z);
+          scene.add(line);
+          lines.push(line);
+          line.visible = vis ? vis : false;
+        }
+      });
+      scene.add(geometry);
+      object = geometry;
+      camera.position.set(-center.x, -center.y, diag * 1.1);
+    }
+
     camera.up.set(0, 1, 0);
     camera.rotation.set(0, 0, 0);
   }
@@ -279,9 +350,13 @@ function init() {
         case "N":
           let incr = ch == "n" ? 1 : -1;
           modelCnt = mod(modelCnt + incr, models.length);
-          if (models[modelCnt].includes(".vtk"))
+          if (models[modelCnt].includes(".vtk")) {
             vtk_loader.load("models/vtk/" + models[modelCnt], loadModel);
-          else stl_loader.load("models/stl/" + models[modelCnt], loadModel);
+          } else if (models[modelCnt].includes(".stl")) {
+            stl_loader.load("models/stl/" + models[modelCnt], loadModel);
+          } else {
+            obj_loader.load("models/obj/" + models[modelCnt], loadModel);
+          }
           break;
         case "s":
           visible = !visible;
@@ -289,7 +364,12 @@ function init() {
           else stats.dom.style.display = "none";
           break;
         case "m":
-          line.visible = !line.visible;
+          if (line) line.visible = !line.visible;
+          if (lines.length > 0) {
+            for (const line of lines) {
+              line.visible = !line.visible;
+            }
+          }
           break;
       }
     };
