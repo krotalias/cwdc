@@ -30,19 +30,12 @@
 
 "use strict";
 
-//import * as THREE from "three";
-//import { STLLoader } from "three/addons/loaders/STLLoader.js";
-//import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
-//import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-//import { TrackballControls } from "three/addons/controls/TrackballControls.js";
-//import Stats from "three/addons/libs/stats.module.js";
-
-import * as THREE from "/cwdc/13-webgl/lib/three.r163/build/three.module.js";
-import { STLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/STLLoader.js";
-import { VTKLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/VTKLoader.js";
-import { OBJLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/OBJLoader.js";
-import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/TrackballControls.js";
-import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
+import * as THREE from "three";
+import { STLLoader } from "three/addons/loaders/STLLoader.js";
+import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
+import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { TrackballControls } from "three/addons/controls/TrackballControls.js";
+import Stats from "three/addons/libs/stats.module.js";
 
 /**
  * Three.js module.
