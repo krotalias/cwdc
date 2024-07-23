@@ -58,19 +58,13 @@
 
 "use strict";
 
-//import * as THREE from "three";
-//import { STLLoader } from "three/addons/loaders/STLLoader.js";
-//import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
-//import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-//import { TrackballControls } from "three/addons/controls/TrackballControls.js";
-//import Stats from "three/addons/libs/stats.module.js";
-
-import * as THREE from "/cwdc/13-webgl/lib/three.r163/build/three.module.js";
-import { STLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/STLLoader.js";
-import { VTKLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/VTKLoader.js";
-import { OBJLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/OBJLoader.js";
-import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/TrackballControls.js";
-import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
+import * as THREE from "three";
+import { STLLoader } from "three/addons/loaders/STLLoader.js";
+import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
+import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import { TrackballControls } from "three/addons/controls/TrackballControls.js";
+import Stats from "three/addons/libs/stats.module.js";
 
 /**
  * Three.js module.
@@ -223,6 +217,17 @@ function init() {
    */
   const obj_loader = new OBJLoader();
 
+  /**
+   * &lt;p>A loader for loading an .mtl resource, used internally by OBJLoader.&lt;/p>
+   * The Material Template Library format (MTL) or .MTL File Format is a
+   * companion file format to .OBJ that describes surface shading (material)
+   * properties of objects within one or more .OBJ files.
+   * @class MTLLoader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#examples/en/loaders/MTLLoader mtl_loader Material Loader}
+   */
+  const mtl_loader = new MTLLoader();
+
   let mesh = undefined;
   let line = undefined;
   // .obj file
@@ -286,7 +291,7 @@ function init() {
       geometry.position.set(-center.x, -center.y, center.z);
       geometry.traverse(function (child) {
         if (child.isMesh) {
-          child.material = material;
+          //child.material = material;
           const edges = new THREE.EdgesGeometry(child.geometry);
           const line = new THREE.LineSegments(edges, edgeMaterial);
           line.position.set(-center.x, -center.y, center.z);
@@ -383,7 +388,14 @@ function init() {
           } else if (models[modelCnt].includes(".stl")) {
             stl_loader.load("models/stl/" + models[modelCnt], loadModel);
           } else {
-            obj_loader.load("models/obj/" + models[modelCnt], loadModel);
+            mtl_loader.load(
+              "models/obj/" + models[modelCnt].replace(".obj", ".mtl"),
+              (materials) => {
+                materials.preload();
+                obj_loader.setMaterials(materials);
+                obj_loader.load("models/obj/" + models[modelCnt], loadModel);
+              },
+            );
           }
           break;
         case "s":
@@ -442,13 +454,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="external-THREE.STLLoader.html">STLLoader</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.Stats.html">Stats</a></li><li><a href="external-THREE.TrackballControls.html">TrackballControls</a></li><li><a href="external-THREE.VTKLoader.html">VTKLoader</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.MTLLoader.html">MTLLoader</a></li><li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="external-THREE.STLLoader.html">STLLoader</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.Stats.html">Stats</a></li><li><a href="external-THREE.TrackballControls.html">TrackballControls</a></li><li><a href="external-THREE.VTKLoader.html">VTKLoader</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jul 22 2024 18:11:55 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jul 22 2024 21:04:42 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

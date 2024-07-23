@@ -34,6 +34,7 @@ import * as THREE from "three";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 
@@ -188,6 +189,17 @@ function init() {
    */
   const obj_loader = new OBJLoader();
 
+  /**
+   * <p>A loader for loading an .mtl resource, used internally by OBJLoader.</p>
+   * The Material Template Library format (MTL) or .MTL File Format is a
+   * companion file format to .OBJ that describes surface shading (material)
+   * properties of objects within one or more .OBJ files.
+   * @class MTLLoader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#examples/en/loaders/MTLLoader mtl_loader Material Loader}
+   */
+  const mtl_loader = new MTLLoader();
+
   let mesh = undefined;
   let line = undefined;
   // .obj file
@@ -251,7 +263,7 @@ function init() {
       geometry.position.set(-center.x, -center.y, center.z);
       geometry.traverse(function (child) {
         if (child.isMesh) {
-          child.material = material;
+          //child.material = material;
           const edges = new THREE.EdgesGeometry(child.geometry);
           const line = new THREE.LineSegments(edges, edgeMaterial);
           line.position.set(-center.x, -center.y, center.z);
@@ -348,7 +360,14 @@ function init() {
           } else if (models[modelCnt].includes(".stl")) {
             stl_loader.load("models/stl/" + models[modelCnt], loadModel);
           } else {
-            obj_loader.load("models/obj/" + models[modelCnt], loadModel);
+            mtl_loader.load(
+              "models/obj/" + models[modelCnt].replace(".obj", ".mtl"),
+              (materials) => {
+                materials.preload();
+                obj_loader.setMaterials(materials);
+                obj_loader.load("models/obj/" + models[modelCnt], loadModel);
+              },
+            );
           }
           break;
         case "s":
