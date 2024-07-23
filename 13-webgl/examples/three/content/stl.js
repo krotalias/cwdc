@@ -358,6 +358,7 @@ function init() {
           } else if (models[modelCnt].includes(".stl")) {
             stl_loader.load("models/stl/" + models[modelCnt], loadModel);
           } else {
+            mtl_loader.setMaterialOptions({ side: THREE.DoubleSide });
             mtl_loader.load(
               "models/obj/" + models[modelCnt].replace(".obj", ".mtl"),
               (materials) => {
