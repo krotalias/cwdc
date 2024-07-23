@@ -34,7 +34,7 @@ import * as THREE from "three";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 
@@ -331,12 +331,11 @@ function init() {
    * Selects the next/previous {@link models model},
    * or turns {@link external:THREE.Stats stats} and mesh visible/invisible,
    * when pressing keys ("n","N") or ("s","m") respectively.<br>
-   * @param {KeyboardEvent} event keyboard event.
    * @function
    * @global
    * @return {key_event} callback for handling a keyboard event.
    */
-  const handleKeyPress = ((event) => {
+  const handleKeyPress = (() => {
     const mod = (n, m) => ((n % m) + m) % m;
     let modelCnt = 3;
     let visible = false;
@@ -381,6 +380,10 @@ function init() {
               line.visible = !line.visible;
             }
           }
+          break;
+        case "o":
+          controls.reset();
+          camera.position.set(0, 0, diag * 1.1);
           break;
       }
     };

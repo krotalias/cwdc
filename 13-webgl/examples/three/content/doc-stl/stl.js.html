@@ -1,33 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>JSDoc: Source: stl.js</title>
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: stl.js</title>
 
-        <script src="scripts/prettify/prettify.js"></script>
-        <script src="scripts/prettify/lang-css.js"></script>
-        <!--[if lt IE 9]>
-            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-        <link
-            type="text/css"
-            rel="stylesheet"
-            href="styles/prettify-tomorrow.css"
-        />
-        <link
-            type="text/css"
-            rel="stylesheet"
-            href="styles/jsdoc-default.css"
-        />
-    </head>
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
 
-    <body>
-        <div id="main">
-            <h1 class="page-title">Source: stl.js</h1>
+<body>
 
-            <section>
-                <article>
-                    <pre class="prettyprint source linenums"><code>/**
+<div id="main">
+
+    <h1 class="page-title">Source: stl.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file
  *
  * Summary.
@@ -59,21 +58,13 @@
 
 "use strict";
 
-//import * as THREE from "three";
-//import { STLLoader } from "three/addons/loaders/STLLoader.js";
-//import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
-//import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-//import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
-//import { TrackballControls } from "three/addons/controls/TrackballControls.js";
-//import Stats from "three/addons/libs/stats.module.js";
-
-import * as THREE from "/cwdc/13-webgl/lib/three.r163/build/three.module.js";
-import { STLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/STLLoader.js";
-import { VTKLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/VTKLoader.js";
-import { OBJLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/OBJLoader.js";
-import { MTLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/MTLLoader.js";
-import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/TrackballControls.js";
-import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
+import * as THREE from "three";
+import { STLLoader } from "three/addons/loaders/STLLoader.js";
+import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
+import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import { TrackballControls } from "three/addons/controls/TrackballControls.js";
+import Stats from "three/addons/libs/stats.module.js";
 
 /**
  * Three.js module.
@@ -368,12 +359,11 @@ function init() {
    * Selects the next/previous {@link models model},
    * or turns {@link external:THREE.Stats stats} and mesh visible/invisible,
    * when pressing keys ("n","N") or ("s","m") respectively.&lt;br>
-   * @param {KeyboardEvent} event keyboard event.
    * @function
    * @global
    * @return {key_event} callback for handling a keyboard event.
    */
-  const handleKeyPress = ((event) => {
+  const handleKeyPress = (() => {
     const mod = (n, m) => ((n % m) + m) % m;
     let modelCnt = 3;
     let visible = false;
@@ -419,6 +409,10 @@ function init() {
             }
           }
           break;
+        case "o":
+          controls.reset();
+          camera.position.set(0, 0, diag * 1.1);
+          break;
       }
     };
   })();
@@ -453,74 +447,25 @@ window.addEventListener("load", (event) => {
   init();
 });
 </code></pre>
-                </article>
-            </section>
-        </div>
+        </article>
+    </section>
 
-        <nav>
-            <h2><a href="index.html">Home</a></h2>
-            <h3>Externals</h3>
-            <ul>
-                <li><a href="external-THREE.html">THREE</a></li>
-            </ul>
-            <h3>Classes</h3>
-            <ul>
-                <li>
-                    <a href="external-THREE.BufferGeometry.html"
-                        >BufferGeometry</a
-                    >
-                </li>
-                <li><a href="external-THREE.MTLLoader.html">MTLLoader</a></li>
-                <li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li>
-                <li>
-                    <a href="external-THREE.PerspectiveCamera.html"
-                        >PerspectiveCamera</a
-                    >
-                </li>
-                <li><a href="external-THREE.STLLoader.html">STLLoader</a></li>
-                <li><a href="external-THREE.Scene.html">Scene</a></li>
-                <li><a href="external-THREE.Stats.html">Stats</a></li>
-                <li>
-                    <a href="external-THREE.TrackballControls.html"
-                        >TrackballControls</a
-                    >
-                </li>
-                <li><a href="external-THREE.VTKLoader.html">VTKLoader</a></li>
-                <li>
-                    <a href="external-THREE.WebGLRenderer.html"
-                        >WebGLRenderer</a
-                    >
-                </li>
-            </ul>
-            <h3>Events</h3>
-            <ul>
-                <li><a href="global.html#event:keydown">keydown</a></li>
-                <li><a href="global.html#event:load">load</a></li>
-            </ul>
-            <h3>Global</h3>
-            <ul>
-                <li><a href="global.html#handleKeyPress">handleKeyPress</a></li>
-                <li><a href="global.html#init">init</a></li>
-                <li><a href="global.html#loadModel">loadModel</a></li>
-                <li><a href="global.html#models">models</a></li>
-                <li><a href="global.html#runAnimation">runAnimation</a></li>
-                <li>
-                    <a href="global.html#setAnimationLoop">setAnimationLoop</a>
-                </li>
-            </ul>
-        </nav>
 
-        <br class="clear" />
 
-        <footer>
-            Documentation generated by
-            <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jul
-            23 2024 06:03:38 GMT-0300 (Brasilia Standard Time)
-        </footer>
 
-        <script>
-            prettyPrint();
-        </script>
-        <script src="scripts/linenumber.js"></script>
-    </body>
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.MTLLoader.html">MTLLoader</a></li><li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="external-THREE.STLLoader.html">STLLoader</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.Stats.html">Stats</a></li><li><a href="external-THREE.TrackballControls.html">TrackballControls</a></li><li><a href="external-THREE.VTKLoader.html">VTKLoader</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jul 23 2024 20:52:57 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
 </html>
