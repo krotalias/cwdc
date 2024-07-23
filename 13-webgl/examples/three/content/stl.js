@@ -34,7 +34,7 @@ import * as THREE from "three";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 
@@ -259,13 +259,13 @@ function init() {
       diag = bb.max.distanceTo(bb.min);
       let center = new THREE.Vector3(0);
       bb.getCenter(center);
-      geometry.position.set(-center.x, -center.y, center.z);
+      geometry.position.set(-center.x, -center.y, -center.z);
       geometry.traverse(function (child) {
         if (child.isMesh) {
           //child.material = material;
           const edges = new THREE.EdgesGeometry(child.geometry);
           const line = new THREE.LineSegments(edges, edgeMaterial);
-          line.position.set(-center.x, -center.y, center.z);
+          line.position.set(-center.x, -center.y, -center.z);
           scene.add(line);
           lines.push(line);
           line.visible = vis ? vis : false;
