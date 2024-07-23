@@ -85,6 +85,7 @@ function init() {
     "hubble_model_kit.stl",
     "bunny.vtk",
     "IronMan.obj",
+    "House.obj",
   ];
 
   /**
@@ -200,6 +201,7 @@ function init() {
    */
   const mtl_loader = new MTLLoader();
 
+  let diag = 0;
   let mesh = undefined;
   let line = undefined;
   // .obj file
@@ -250,14 +252,11 @@ function init() {
       line = new THREE.LineSegments(edges, edgeMaterial);
       scene.add(line);
       line.visible = vis ? vis : false;
-      const diag = geometry.boundingBox.max.distanceTo(
-        geometry.boundingBox.min,
-      );
-      camera.position.set(0, 0, diag * 1.1);
+      diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
     } else {
       // OBJ file
       let bb = new THREE.Box3().setFromObject(geometry);
-      const diag = bb.max.distanceTo(bb.min);
+      diag = bb.max.distanceTo(bb.min);
       let center = new THREE.Vector3(0);
       bb.getCenter(center);
       geometry.position.set(-center.x, -center.y, center.z);
@@ -274,9 +273,8 @@ function init() {
       });
       scene.add(geometry);
       object = geometry;
-      camera.position.set(-center.x, -center.y, diag * 1.1);
     }
-
+    camera.position.set(0, 0, diag * 1.1);
     camera.up.set(0, 1, 0);
     camera.rotation.set(0, 0, 0);
   }
