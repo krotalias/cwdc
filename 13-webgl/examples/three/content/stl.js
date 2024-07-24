@@ -371,12 +371,13 @@ function init() {
         case "n":
         case "N":
         case "k":
-          let incr = ch == "n" ? 1 : -1;
           if (ch == "k") {
             modelCnt = +document.getElementById("models").value;
-            incr = 0;
+          } else {
+            const incr = ch == "n" ? 1 : -1;
+            modelCnt = mod(modelCnt + incr, models.length);
+            document.getElementById("models").value = modelCnt;
           }
-          modelCnt = mod(modelCnt + incr, models.length);
           if (models[modelCnt].includes(".vtk")) {
             vtk_loader.load("models/vtk/" + models[modelCnt], loadModel);
           } else if (models[modelCnt].includes(".stl")) {
@@ -392,7 +393,6 @@ function init() {
               },
             );
           }
-          document.getElementById("models").value = modelCnt;
           break;
         case "s":
           visible = !visible;
