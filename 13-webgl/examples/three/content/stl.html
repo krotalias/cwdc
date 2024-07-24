@@ -23,20 +23,43 @@
     <body>
         <canvas id="canvasid"></canvas>
 
-        <br />
+        <div style="text-align: center; margin-top: 20px">
+            <select
+                name="models"
+                id="models"
+                style="
+                    font-size: 120%;
+                    background-color: burlywood;
+                    color: black;
+                    border: solid 5px lightsteelblue;
+                    border-radius: 10%;
+                "
+            >
+                <option value="0">Dodecahedron_Cube_A.stl</option>
+                <option value="1">Dodecahedron_Cube_B.stl</option>
+                <option value="2">Dodecahedron_Cube_C.stl</option>
+                <option value="3" selected>Dodecahedron_Cube_D.stl</option>
+                <option value="4">Dodecahedron_Cube_E.stl</option>
+                <option value="5">Utah_teapot_(solid).stl</option>
+                <option value="6">scene_NIH3D.stl</option>
+                <option value="7">hubble_model_kit.stl</option>
+                <option value="8">bunny.vtk</option>
+                <option value="9">IronMan.obj</option>
+            </select>
 
-        <details style="text-align: center">
-            <summary style="font-size: 100%">
-                Keyboard controls (drag on the object to rotate it):
-            </summary>
+            <details style="margin-top: 20px">
+                <summary style="font-size: 100%">
+                    Keyboard controls (drag on the object to rotate it):
+                </summary>
 
-            <ul style="list-style: none">
-                <li>n, N - next/previous model</li>
-                <li>m - toggle mesh on/off</li>
-                <li>s - toggle stats on/off</li>
-                <li>o - reset camera controls</li>
-            </ul>
-        </details>
+                <ul style="list-style: none">
+                    <li>n, N - next/previous model</li>
+                    <li>m - toggle mesh on/off</li>
+                    <li>s - toggle stats on/off</li>
+                    <li>o - reset camera controls</li>
+                </ul>
+            </details>
+        </div>
 
         <script type="importmap">
             {

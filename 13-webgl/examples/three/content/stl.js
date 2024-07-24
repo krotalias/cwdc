@@ -5,15 +5,18 @@
  *
  * <p>STL, OBJ and VTK Viewer.</p>
  * <ol>
- * <li>{@link https://en.wikipedia.org/wiki/STL_(file_format) STL} is a file format commonly used for 3D printing and computer-aided design (CAD).
+ * <li>{@link https://en.wikipedia.org/wiki/STL_(file_format) STL}
+ * is a file format commonly used for 3D printing and computer-aided design (CAD).
  * The name STL is an acronym that stands for stereolithography — a popular 3D printing technology.
  * You might also hear it referred to as Standard Triangle Language or Standard Tessellation Language.</li>
  *
- * <li>{@link https://en.wikipedia.org/wiki/Wavefront_.obj_file OBJ} (or .OBJ) is a geometry definition file format first developed by Wavefront Technologies
+ * <li>{@link https://en.wikipedia.org/wiki/Wavefront_.obj_file OBJ}
+ * (or .OBJ) is a geometry definition file format first developed by Wavefront Technologies
  * for its Advanced Visualizer animation package.
  * The file format is open and has been adopted by other 3D graphics application vendors.</li>
  *
- * <li>{@link https://docs.vtk.org/en/latest/design_documents/VTKFileFormats.html VTK} provides a number of source and writer objects to read and write popular data file formats.
+ * <li>{@link https://docs.vtk.org/en/latest/design_documents/VTKFileFormats.html VTK}
+ * provides a number of source and writer objects to read and write popular data file formats.
  * The Visualization Toolkit also provides some of its own file formats.
  * The main reason for creating yet another data file format is to offer a consistent data representation scheme
  * for a variety of dataset types, and to provide a simple method to communicate data between software.</li>
@@ -34,7 +37,7 @@ import * as THREE from "three";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 
@@ -60,7 +63,7 @@ import Stats from "three/addons/libs/stats.module.js";
  * Loads the viewer and starts the animation.
  */
 function init() {
-  const obj = document.getElementById("canvasid");
+  const canvas = document.getElementById("canvasid");
 
   const colorTable = {
     gold: 0xffd700,
@@ -70,23 +73,23 @@ function init() {
   };
 
   /**
-   * Array of model names.
+   * Array holding model file names to create models from.
    * @type {Array<String>}
-   * @global
    */
   const models = [
-    "Dodecahedron_Cube_A.stl",
-    "Dodecahedron_Cube_B.stl",
-    "Dodecahedron_Cube_C.stl",
-    "Dodecahedron_Cube_D.stl",
-    "Dodecahedron_Cube_E.stl",
-    "Utah_teapot_(solid).stl",
-    "scene_NIH3D.stl",
-    "hubble_model_kit.stl",
-    "bunny.vtk",
-    "IronMan.obj",
-    "House.obj",
+    document.getElementById("models").querySelector("[selected]").text,
   ];
+
+  /**
+   * Get model file names from an html &lt;select&gt; element
+   * identified by "models".
+   * @param {Array<String>} optionNames array of model file names.
+   */
+  function getModels(optionNames) {
+    optionNames.length = 0;
+    const selectElement = document.getElementById("models");
+    [...selectElement.options].map((o) => optionNames.push(o.text));
+  }
 
   /**
    * The WebGL renderer displays your beautifully crafted scenes using WebGL.
@@ -95,12 +98,11 @@ function init() {
    * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
    */
   const renderer = new THREE.WebGLRenderer({
-    canvas: obj,
+    canvas: canvas,
     antialias: true,
   });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setClearColor(colorTable.antiqueWhite, 1.0);
-  renderer.setSize(obj.clientWidth, obj.clientHeight);
 
   /**
    * Camera that uses perspective projection.
@@ -110,7 +112,7 @@ function init() {
    */
   const camera = new THREE.PerspectiveCamera(
     45,
-    obj.clientWidth / obj.clientHeight,
+    canvas.clientWidth / canvas.clientHeight,
     0.01,
     1000,
   );
@@ -124,7 +126,7 @@ function init() {
    * @memberof external:THREE
    * @see https://threejs.org/docs/#examples/en/controls/TrackballControls
    */
-  const controls = new TrackballControls(camera, obj);
+  const controls = new TrackballControls(camera, canvas);
   controls.rotateSpeed = 5.0;
   controls.zoomSpeed = 5;
   controls.panSpeed = 2;
@@ -243,6 +245,7 @@ function init() {
     if (geometry.isBufferGeometry) {
       geometry.center();
       geometry.computeVertexNormals();
+      geometry.computeBoundingBox();
 
       mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(0, 0, 0);
@@ -274,12 +277,9 @@ function init() {
       scene.add(geometry);
       object = geometry;
     }
+    controls.reset();
     camera.position.set(0, 0, diag * 1.1);
-    camera.up.set(0, 1, 0);
-    camera.rotation.set(0, 0, 0);
   }
-
-  stl_loader.load("models/stl/" + models[3], loadModel);
 
   /**
    * <p>When developing a Three.js application,
@@ -297,6 +297,10 @@ function init() {
   stats.domElement.style.top = "10px";
   document.body.appendChild(stats.dom);
   stats.dom.style.display = "none";
+
+  getModels(models);
+
+  stl_loader.load("models/stl/" + models[3], loadModel);
 
   /**
    * <p>A built in function that can be used instead of
@@ -350,7 +354,12 @@ function init() {
       switch (ch) {
         case "n":
         case "N":
+        case "k":
           let incr = ch == "n" ? 1 : -1;
+          if (ch == "k") {
+            modelCnt = +document.getElementById("models").value;
+            incr = 0;
+          }
           modelCnt = mod(modelCnt + incr, models.length);
           if (models[modelCnt].includes(".vtk")) {
             vtk_loader.load("models/vtk/" + models[modelCnt], loadModel);
@@ -390,6 +399,22 @@ function init() {
   })();
 
   /**
+   * Returns a new keyboard event
+   * that can be passed to {@link handleKeyPress}.
+   * @param {String} key char code.
+   * @returns {KeyboardEvent} a keyboard event.
+   */
+  const createEvent = (key) => {
+    let code = key.charCodeAt();
+    return new KeyboardEvent("keydown", {
+      key: key,
+      which: code,
+      charCode: code,
+      keyCode: code,
+    });
+  };
+
+  /**
    * <p>Appends an event listener for events whose type attribute value is keydown.<br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
@@ -406,6 +431,18 @@ function init() {
     }
     handleKeyPress(event);
   });
+
+  /**
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event change - executed when the models &lt;select&gt; is changed.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   */
+  document
+    .getElementById("models")
+    .addEventListener("change", (event) => handleKeyPress(createEvent("k")));
 }
 
 /**
