@@ -65,6 +65,11 @@ import Stats from "three/addons/libs/stats.module.js";
 function init() {
   const canvas = document.getElementById("canvasid");
 
+  /**
+   * Color names mapping.
+   * @type {Object<String:hexadecimal>}
+   * @global
+   */
   const colorTable = {
     gold: 0xffd700,
     antiqueWhite: 0xfaebd7,
@@ -75,6 +80,7 @@ function init() {
   /**
    * Array holding model file names to create models from.
    * @type {Array<String>}
+   * @global
    */
   const models = [
     document.getElementById("models").querySelector("[selected]").text || "",
@@ -83,6 +89,7 @@ function init() {
   /**
    * Selected model number.
    * @type {Number}
+   * @global
    */
   let modelCnt =
     +document.getElementById("models").querySelector("[selected]").value || 3;
@@ -91,6 +98,7 @@ function init() {
    * Get model file names from an html &lt;select&gt; element
    * identified by "models".
    * @param {Array<String>} optionNames array of model file names.
+   * @global
    */
   function getModels(optionNames) {
     optionNames.length = 0;
@@ -110,6 +118,8 @@ function init() {
   });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setClearColor(colorTable.antiqueWhite, 1.0);
+  // to avoid aliasing
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
   /**
    * Camera that uses perspective projection.
