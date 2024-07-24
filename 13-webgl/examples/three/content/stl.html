@@ -8,6 +8,9 @@
             background-color: #fcfcfc;
             margin: 0;
             padding: 0;
+            user-select: none;
+            -webkit-user-select: none; /* Safari */
+            overflow: hidden; /* Disable pull-to-refresh */
         }
         #canvasid {
             background-color: antiquewhite;
@@ -17,13 +20,20 @@
             border: #ccc solid 3px;
             margin: 0 auto;
         }
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        details {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <html>
     <body>
         <canvas id="canvasid"></canvas>
 
-        <div style="text-align: center; margin-top: 20px">
+        <div class="container">
             <select
                 name="models"
                 id="models"
@@ -48,7 +58,7 @@
                 <option value="10">House.obj</option>
             </select>
 
-            <details style="margin-top: 20px">
+            <details>
                 <summary style="font-size: 100%">
                     Keyboard controls (drag on the object to rotate it):
                 </summary>
