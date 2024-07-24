@@ -392,6 +392,7 @@ function init() {
               },
             );
           }
+          document.getElementById("models").value = modelCnt;
           break;
         case "s":
           visible = !visible;
