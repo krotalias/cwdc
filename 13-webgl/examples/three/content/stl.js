@@ -77,8 +77,15 @@ function init() {
    * @type {Array<String>}
    */
   const models = [
-    document.getElementById("models").querySelector("[selected]").text,
+    document.getElementById("models").querySelector("[selected]").text || "",
   ];
+
+  /**
+   * Selected model number.
+   * @type {Number}
+   */
+  let modelCnt =
+    +document.getElementById("models").querySelector("[selected]").value || 3;
 
   /**
    * Get model file names from an html &lt;select&gt; element
@@ -300,7 +307,7 @@ function init() {
 
   getModels(models);
 
-  stl_loader.load("models/stl/" + models[3], loadModel);
+  stl_loader.load("models/stl/" + models[modelCnt], loadModel);
 
   /**
    * <p>A built in function that can be used instead of
@@ -341,7 +348,6 @@ function init() {
    */
   const handleKeyPress = (() => {
     const mod = (n, m) => ((n % m) + m) % m;
-    let modelCnt = 3;
     let visible = false;
 
     /**
