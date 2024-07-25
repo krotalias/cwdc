@@ -4,6 +4,9 @@
  * Summary.
  *
  * <p>STL, OBJ and VTK Viewer.</p>
+ * Uses {@link external:THREE Three.js} to load, display, and manipulate a model read from a file.
+ * The center of the model bounding box is translated to the origin so a trackball can rotate the model.
+ * <p>Three file formats are currently supported:</p>
  * <ol>
  * <li>{@link https://en.wikipedia.org/wiki/STL_(file_format) STL}
  * is a file format commonly used for 3D printing and computer-aided design (CAD).
@@ -13,7 +16,11 @@
  * <li>{@link https://en.wikipedia.org/wiki/Wavefront_.obj_file OBJ}
  * (or .OBJ) is a geometry definition file format first developed by Wavefront Technologies
  * for its Advanced Visualizer animation package.
- * The file format is open and has been adopted by other 3D graphics application vendors.</li>
+ * The file format is open and has been adopted by other 3D graphics application vendors.
+ * <p>{@link external:THREE.MTLLoader MTL file}, short for Material Template Library, is companion file format used in 3D computer graphics and modeling.
+ * It is often associated with Wavefront OBJ file format,
+ * which is common format for storing 3D models and their associated materials and textures.</p>
+ * </li>
  *
  * <li>{@link https://docs.vtk.org/en/latest/design_documents/VTKFileFormats.html VTK}
  * provides a number of source and writer objects to read and write popular data file formats.
@@ -28,6 +35,7 @@
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html">link</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
  * @see {@link https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html#what-is-an-stl-file STL files}
+ * @see {@link https://docs.fileformat.com/3d/mtl/ What is an MTL file?}
  * @see <iframe title="Cube in a Dodecahedron" src="/cwdc/13-webgl/examples/three/content/stl.html" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
  */
 
@@ -77,22 +85,24 @@ function init() {
     grey: 0xfcfcfc,
   };
 
+  // default model
+  const defModel = document
+    .getElementById("models")
+    .querySelector("[selected]");
+
   /**
    * Array holding model file names to create models from.
    * @type {Array<String>}
    * @global
    */
-  const models = [
-    document.getElementById("models").querySelector("[selected]").text || "",
-  ];
+  const models = [defModel ? defModel.text : ""];
 
   /**
    * Selected model number.
    * @type {Number}
    * @global
    */
-  let modelCnt =
-    +document.getElementById("models").querySelector("[selected]").value || 3;
+  let modelCnt = defModel ? +defModel.value : 0;
 
   /**
    * Get model file names from an html &lt;select&gt; element
@@ -217,8 +227,10 @@ function init() {
    * @class MTLLoader
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/MTLLoader mtl_loader Material Loader}
+   * @see {@link https://paulbourke.net/dataformats/mtl/ MTL material format (Lightwave, OBJ)}
    */
   const mtl_loader = new MTLLoader();
+  mtl_loader.setMaterialOptions({ side: THREE.DoubleSide });
 
   let diag = 0;
   let mesh = undefined;
@@ -294,8 +306,7 @@ function init() {
       scene.add(geometry);
       object = geometry;
     }
-    controls.reset();
-    camera.position.set(0, 0, diag * 1.1);
+    handleKeyPress(createEvent("o"));
   }
 
   /**
@@ -314,10 +325,6 @@ function init() {
   stats.domElement.style.top = "10px";
   document.body.appendChild(stats.dom);
   stats.dom.style.display = "none";
-
-  getModels(models);
-
-  stl_loader.load("models/stl/" + models[modelCnt], loadModel);
 
   /**
    * <p>A built in function that can be used instead of
@@ -349,9 +356,6 @@ function init() {
 
   /**
    * <p>Closure for keydown events.</p>
-   * Selects the next/previous {@link models model},
-   * or turns {@link external:THREE.Stats stats} and mesh visible/invisible,
-   * when pressing keys ("n","N") or ("s","m") respectively.<br>
    * @function
    * @global
    * @return {key_event} callback for handling a keyboard event.
@@ -359,9 +363,13 @@ function init() {
   const handleKeyPress = (() => {
     const mod = (n, m) => ((n % m) + m) % m;
     let visible = false;
+    const modelPath = "models";
 
     /**
      * <p>Handler for keydown events.</p>
+     * Selects the next/previous {@link models model}
+     * or turns {@link external:THREE.Stats stats} and mesh visible/invisible
+     * when pressing keys ("n","N") or ("s","m"), respectively.<br>
      * @param {KeyboardEvent} event keyboard event.
      * @callback key_event callback to handle a key pressed.
      */
@@ -379,17 +387,19 @@ function init() {
             document.getElementById("models").value = modelCnt;
           }
           if (models[modelCnt].includes(".vtk")) {
-            vtk_loader.load("models/vtk/" + models[modelCnt], loadModel);
+            vtk_loader.load(`${modelPath}/vtk/${models[modelCnt]}`, loadModel);
           } else if (models[modelCnt].includes(".stl")) {
-            stl_loader.load("models/stl/" + models[modelCnt], loadModel);
+            stl_loader.load(`${modelPath}/stl/${models[modelCnt]}`, loadModel);
           } else {
-            mtl_loader.setMaterialOptions({ side: THREE.DoubleSide });
             mtl_loader.load(
-              "models/obj/" + models[modelCnt].replace(".obj", ".mtl"),
+              `${modelPath}/obj/${models[modelCnt]}`.replace(".obj", ".mtl"),
               (materials) => {
                 materials.preload();
                 obj_loader.setMaterials(materials);
-                obj_loader.load("models/obj/" + models[modelCnt], loadModel);
+                obj_loader.load(
+                  `${modelPath}/obj/${models[modelCnt]}`,
+                  loadModel,
+                );
               },
             );
           }
@@ -460,6 +470,9 @@ function init() {
   document
     .getElementById("models")
     .addEventListener("change", (event) => handleKeyPress(createEvent("k")));
+
+  getModels(models);
+  handleKeyPress(createEvent("k"));
 }
 
 /**
