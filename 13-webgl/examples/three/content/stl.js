@@ -471,6 +471,42 @@ function init() {
     .getElementById("models")
     .addEventListener("change", (event) => handleKeyPress(createEvent("k")));
 
+  /**
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event change - executed when the mesh checkbox is is checked or unchecked.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   */
+  document
+    .getElementById("mesh")
+    .addEventListener("change", (event) =>
+      handleKeyPress(createEvent("m")),
+    ); /**
+
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event change - executed when the stats checkbox is is checked or unchecked.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   */
+  document
+    .getElementById("stats")
+    .addEventListener("change", (event) => handleKeyPress(createEvent("s")));
+
+  /** <p>Appends an event listener for events whose type attribute value is click.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event click - reset button: fires after both the mousedown and mouseup events have fired (in that order).
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+   */
+  document
+    .getElementById("reset")
+    .addEventListener("click", (event) => handleKeyPress(createEvent("o")));
+
   getModels(models);
   handleKeyPress(createEvent("k"));
 }
