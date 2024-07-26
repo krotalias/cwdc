@@ -481,10 +481,9 @@ function init() {
    */
   document
     .getElementById("mesh")
-    .addEventListener("change", (event) =>
-      handleKeyPress(createEvent("m")),
-    ); /**
+    .addEventListener("change", (event) => handleKeyPress(createEvent("m")));
 
+  /**
    * <p>Appends an event listener for events whose type attribute value is change.<br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
