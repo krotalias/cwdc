@@ -31,10 +31,9 @@
  * </ol>
  *
  * @author Paulo Roma
- * @since 26/07/2024
+ * @since 27/09/2016
  * @copyright © 2024 Paulo R Cavalcanti
  * @license {@link https://www.gnu.org/licenses/gpl-3.0.en.html GPLv3}
- * @date 27/09/2016
  * @see <a href="/cwdc/13-webgl/homework/hw3/test.html?rev=3">link</a>
  * @see <a href="/cwdc/13-webgl/homework/hw3/test.js">source</a>
  */

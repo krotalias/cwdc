@@ -32,17 +32,19 @@
  * Summary.
  *
  * &lt;p>Two cubes in a circular orbit.
+ *
  * The smaller also orbits around the greatest as a satelyte.&lt;/p>
+ * &lt;ul>
+ *  &lt;li>An animation of a colored unit cube orbiting counterclockwise
+ *  is rendered about the y-axis, in the x-z plane, in a circle of radius 10.&lt;/li>
  *
- * An animation of a colored unit cube orbiting counterclockwise,
- * is rendered
- * about the y-axis, in the x-z plane, in a circle of radius 10.
+ *  &lt;li>The second cube, half the size of the first one, orbits clockwise around
+ *  the first one in a radius of 2, and at three times the speed of the first one's orbit.&lt;/li>
  *
- * &lt;p>The second cube, half the size of the first one, orbits clockwise around
- * the first one in a radius of 2, and at three times the speed of the first one's orbit. &lt;/p>
- * (Neither cube should spin on its own axis.)
+ *  &lt;li>Neither cube should spin on its own axis.&lt;/li>
  *
- * &lt;p>The transformation is applied passing the model matrix to the vertex shader. &lt;/p>
+ *  &lt;li>The transformation is applied, passing the model matrix to the vertex shader. &lt;/li>
+ * &lt;/ul>
  *
  * Notes:
  * &lt;ol>
@@ -51,15 +53,18 @@
  * &lt;/ol>
  *
  * @author Paulo Roma
- * @date 27/09/2016
+ * @since 27/09/2016
+ * @copyright © 2024 Paulo R Cavalcanti
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.en.html GPLv3}
  * @see &lt;a href="/cwdc/13-webgl/homework/hw3/test2.html">link&lt;/a>
  * @see &lt;a href="/cwdc/13-webgl/homework/hw3/test2.js">source&lt;/a>
+ * @see &lt;iframe title="Two cubes orbiting" style="width: 820px; height: 480px; transform-origin: 70px 80px; transform: scale(0.45);" src="/cwdc/13-webgl/homework/hw3/test2.html">&lt;/iframe>
  */
 
 "use strict";
 
 // prettier-ignore
-var axisVertices = new Float32Array([
+const axisVertices = new Float32Array([
   0.0, 0.0, 0.0,
   1.5, 0.0, 0.0,
   0.0, 0.0, 0.0,
@@ -70,7 +75,7 @@ var axisVertices = new Float32Array([
 
 // RGB
 // prettier-ignore
-var axisColors = new Float32Array([
+const axisColors = new Float32Array([
   1.0, 0.0, 0.0, 1.0,
   1.0, 0.0, 0.0, 1.0,
   0.0, 1.0, 0.0, 1.0,
@@ -83,29 +88,29 @@ var axisColors = new Float32Array([
  * Handle to buffers on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexBuffer;
-var vertexColorBuffer;
-var indexBuffer;
-var axisBuffer;
-var axisColorBuffer;
+let vertexBuffer;
+let vertexColorBuffer;
+let indexBuffer;
+let axisBuffer;
+let axisColorBuffer;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var shader;
+let shader;
 
 /**
  * Model transformation.
- * @type {Matrxi4}
+ * @type {Matrix4}
  */
-var modelMatrix;
+let modelMatrix;
 
 /**
  * WebGL context.
  * @type {WebGL2RenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * &lt;p>View matrix.&lt;/p>
@@ -119,41 +124,52 @@ var gl;
  * @type {Matrix4}
  */
 // prettier-ignore
-var viewMatrix = new Matrix4().setLookAt(
+const viewMatrix = new Matrix4().setLookAt(
   5.77, 3.54, 20.06,  // eye
   0, 0, 0,            // at - looking at the origin
   0, 1, 0             // up vector - y axis
 );
 
 /**
- * For projection we can use an orthographic projection, specifying
- * the clipping volume explicitly. &lt;br>
- * Note that right - left is 1.5 times top - bottom,
- * corresponding to the screen aspect ratio 600 x 400 &lt;br>
- * var projection = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6)
- *
- * &lt;p>Or, use a perspective projection specified with a
+ * For projection we can either use an orthographic projection (1), specifying
+ * the clipping volume explicitly,
+ * or a perspective projection (2), specified with a
  * field of view, an aspect ratio, and distance to near and far
- * clipping planes.&lt;br>
- * Here use aspect ratio 3/2 corresponding to canvas size 600 x 400&lt;/p>
+ * clipping planes:&lt;/p>
+ * &lt;ul>
+ *  &lt;li>aspect ratio is 3/2 corresponding to a canvas size 600 x 400.&lt;/li>
+ *  &lt;li>in (1) below, (right - left) = aspect × (top - bottom),
+ *  corresponding to the screen aspect ratio.&lt;/li>
+ * &lt;/ul>
+ * &lt;ol>
+ *  &lt;li>let projection = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6)&lt;/li>
+ *  &lt;li>let projection = new Matrix4().setPerspective(35, aspect, 0.4, 100)&lt;/li>
+ * &lt;/ol>
  * @type {Matrix4}
  */
-var projection;
+let projection;
 
 /**
- * &lt;p>A cube model.&lt;/p>
- *
- * Creates data (numVertices, vertices, colors, and normal vectors)
- * for a unit cube. &lt;br>
- *
- * (Note this is a "self-invoking" anonymous function.)
- * @type {cube_data}
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ * @typedef {Object} cube_data
+ * @property {Number} numVertices number of vertices
+ * @property {Float32Array} vertices vertex array
+ * @property {Float32Array} colors vertex color array
+ * @property {Float32Array} normals vertex normal array
+ * @property {Uint16Array} indices vertex index array
+ * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
  */
-var cube = (() => {
+
+/**
+ * &lt;p>Closure for creating a cube model.&lt;/p>
+ * (Note this is a "self-invoking" anonymous function.)
+ * @function
+ * @type {cube_data}
+ * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
+ */
+const cube = (() => {
   // vertices of cube
   // prettier-ignore
-  var rawVertices = new Float32Array([
+  const rawVertices = new Float32Array([
     -0.5, -0.5, 0.5,
     0.5, -0.5, 0.5,
     0.5, 0.5, 0.5,
@@ -165,7 +181,7 @@ var cube = (() => {
   ]);
 
   // prettier-ignore
-  var rawColors = new Float32Array([
+  const rawColors = new Float32Array([
     1.0, 0.0, 0.0, 1.0,  // red
     0.0, 1.0, 0.0, 1.0,  // green
     0.0, 0.0, 1.0, 1.0,  // blue
@@ -175,7 +191,7 @@ var cube = (() => {
   ]);
 
   // prettier-ignore
-  var rawNormals = new Float32Array([
+  const rawNormals = new Float32Array([
     0, 0, 1,
     1, 0, 0,
     0, 0, -1,
@@ -185,7 +201,7 @@ var cube = (() => {
   ]);
 
   // prettier-ignore
-  var indices = new Uint16Array([
+  const indices = new Uint16Array([
     0, 1, 2, 0, 2, 3,  // +z face
     1, 5, 6, 1, 6, 2,  // +x face
     5, 4, 7, 5, 7, 6,  // -z face
@@ -194,39 +210,36 @@ var cube = (() => {
     4, 5, 1, 4, 1, 0   // -y face
   ]);
 
-  var verticesArray = [];
-  var colorsArray = [];
-  var normalsArray = [];
-  for (var i = 0; i &lt; 36; ++i) {
+  const verticesArray = [];
+  const colorsArray = [];
+  const normalsArray = [];
+  for (let i = 0; i &lt; 36; ++i) {
     // for each of the 36 vertices...
-    var face = Math.floor(i / 6);
-    var index = indices[i];
+    const face = Math.floor(i / 6);
+    const index = indices[i];
 
     // (x, y, z): three numbers for each point
-    for (var j = 0; j &lt; 3; ++j) {
+    for (let j = 0; j &lt; 3; ++j) {
       verticesArray.push(rawVertices[3 * index + j]);
     }
 
     // (r, g, b, a): four numbers for each point
-    for (var j = 0; j &lt; 4; ++j) {
+    for (let j = 0; j &lt; 4; ++j) {
       colorsArray.push(rawColors[4 * face + j]);
     }
 
     // three numbers for each point
-    for (var j = 0; j &lt; 3; ++j) {
+    for (let j = 0; j &lt; 3; ++j) {
       normalsArray.push(rawNormals[3 * face + j]);
     }
   }
 
   /**
-   * Returned value is an object with four attributes:
-   * numVertices, vertices, colors, and normals.
+   * &lt;p>Return raw data (numVertices, vertices, colors, normal vectors and indices)
+   * of a unit cube. &lt;/p>
    *
-   * @return {Object&lt;{numVertices: Number,
-   *                  vertices: Float32Array,
-   *                  colors: Float32Array,
-   *                  normals: Float32Array}>}
-   * cube associated attributes.
+   * &lt;p>This is not the best way of storing a cube,
+   * because 6 faces x 2 triangles/face * 3 vertices/face = 36 indices.&lt;/p>
    * @callback cube_data
    */
   return {
@@ -234,6 +247,7 @@ var cube = (() => {
     vertices: new Float32Array(verticesArray), // 36 * 3 = 108
     colors: new Float32Array(colorsArray), // 36 * 4 = 144
     normals: new Float32Array(normalsArray), // 36 * 3 = 108
+    indices: new Uint16Array(indices), // 6 * 6 = 36
   };
 })();
 
@@ -243,13 +257,14 @@ var cube = (() => {
  * perpendicular to surfaces after a linear transformation.
  * @param {Matrix4} model model matrix.
  * @param {Matrix4} view view matrix.
- * @returns {Float32Array} elements of the transpose of the inverse of the modelview matrix.
+ * @returns {Float32Array} (𝑀&lt;sup>&amp;#8211;1&lt;/sup>)&lt;sup>𝑇&lt;/sup> - transpose of the inverse of the modelview matrix.
+ * @see {@link https://krotalias.github.io/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48 Normal “vector” transformation}
  */
 function makeNormalMatrixElements(model, view) {
-  var n = new Matrix4(view).multiply(model);
-  n.transpose();
-  n.invert();
-  n = n.elements;
+  const modelView = new Matrix4(view).multiply(model);
+  modelView.transpose();
+  modelView.invert();
+  const n = modelView.elements;
   // prettier-ignore
   return new Float32Array([
     n[0], n[1], n[2],
@@ -278,8 +293,8 @@ function draw(degrees) {
 
   // bind the shader and set attributes
   gl.useProgram(shader);
-  var positionIndex = gl.getAttribLocation(shader, "a_Position");
-  var colorIndex = gl.getAttribLocation(shader, "a_Color");
+  const positionIndex = gl.getAttribLocation(shader, "a_Position");
+  const colorIndex = gl.getAttribLocation(shader, "a_Color");
   gl.enableVertexAttribArray(positionIndex);
   gl.enableVertexAttribArray(colorIndex);
 
@@ -290,13 +305,13 @@ function draw(degrees) {
   gl.vertexAttribPointer(colorIndex, 4, gl.FLOAT, false, 0, 0);
 
   // identity transformation
-  var model = new Matrix4().multiply(modelMatrix);
+  let model = new Matrix4().multiply(modelMatrix);
 
   // model.scale(8, 1, 1);
   // model.scale(1, 8, 1);
 
   // set uniforms in shader for projection * view * model transformation
-  var loc = gl.getUniformLocation(shader, "model");
+  let loc = gl.getUniformLocation(shader, "model");
   gl.uniformMatrix4fv(loc, false, model.elements);
   loc = gl.getUniformLocation(shader, "view");
   gl.uniformMatrix4fv(loc, false, viewMatrix.elements);
@@ -308,11 +323,11 @@ function draw(degrees) {
   // draw the cube
   gl.drawArrays(gl.TRIANGLES, 0, cube.numVertices);
 
-  let rad = deg2rad(3 * degrees);
+  const rad = deg2rad(3 * degrees);
 
   // second cube
-  var x = 2 * Math.cos(rad);
-  var z = 2 * Math.sin(rad);
+  const x = 2 * Math.cos(rad);
+  const z = 2 * Math.sin(rad);
   loc = gl.getUniformLocation(shader, "model");
   model = new Matrix4()
     .translate(x, 0, z)
@@ -343,7 +358,7 @@ function draw(degrees) {
  */
 function mainEntrance() {
   // retrieve &lt;canvas> element
-  var canvas = document.getElementById("theCanvas");
+  const canvas = document.getElementById("theCanvas");
 
   // get the rendering context for WebGL
   gl = canvas.getContext("webgl2");
@@ -352,21 +367,23 @@ function mainEntrance() {
     return;
   }
 
-  let aspect = canvas.clientWidth / canvas.clientHeight;
+  const aspect = canvas.clientWidth / canvas.clientHeight;
   projection = new Matrix4().setPerspective(35, aspect, 0.4, 100);
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById("vertexShader").textContent;
-  var fshaderSource = document.getElementById("fragmentShader").textContent;
+  const vshaderSource = document.getElementById("vertexShader").textContent;
+  const fshaderSource = document.getElementById("fragmentShader").textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
     return;
   }
 
-  // retain a handle to the shader program, then unbind it
-  // (This looks odd, but the way initShaders works is that it "binds" the shader and
-  // stores the handle in an extra property of the gl object.  That's ok, but will really
-  // mess things up when we have more than one shader pair.)
+  /**
+   * Retain a handle to the shader program, then unbind it.
+   * This looks odd, but the way initShaders works is that it "binds" the shader and
+   * stores the handle in an extra property of the gl object.
+   * That's ok, but will really mess things up when we have more than one shader pair.
+   */
   shader = gl.program;
   gl.useProgram(null);
 
@@ -420,8 +437,6 @@ function mainEntrance() {
   // enable z-buffer
   gl.enable(gl.DEPTH_TEST);
 
-  // code to actually render our geometry
-
   modelMatrix = new Matrix4();
 
   /**
@@ -431,9 +446,9 @@ function mainEntrance() {
    * @function
    * @global
    */
-  var runanimation = (() => {
-    var degrees = 0;
-    var increment = 2;
+  const runanimation = (() => {
+    let degrees = 0;
+    const increment = 2;
 
     /**
      * Multiply the global {@link modelMatrix} on the right by a rotation followed by a translation.
@@ -446,9 +461,9 @@ function mainEntrance() {
       degrees %= 360;
 
       // orbit of radius 10 in the x - z plane
-      let rad = deg2rad(-degrees);
-      var x = 10 * Math.cos(rad);
-      var z = 10 * Math.sin(rad);
+      const rad = deg2rad(-degrees);
+      const x = 10 * Math.cos(rad);
+      const z = 10 * Math.sin(rad);
       //modelMatrix.setTranslate(x, 0, z).rotate(5*degrees,0,1,0);
       modelMatrix.setTranslate(x, 0, z);
 
@@ -483,7 +498,7 @@ window.addEventListener("load", (event) => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 23 2023 21:06:08 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Jul 26 2024 17:39:26 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
