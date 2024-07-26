@@ -30,7 +30,7 @@
  * @license {@link https://www.gnu.org/licenses/gpl-3.0.en.html GPLv3}
  * @see <a href="/cwdc/13-webgl/homework/hw3/test2.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/hw3/test2.js">source</a>
- * @see <iframe title="Two cubes orbiting" style="width: 820px; height: 480px; transform-origin: 70px 80px; transform: scale(0.45);" src="/cwdc/13-webgl/homework/hw3/test2.html"></iframe>
+ * @see <iframe title="Two cubes orbiting" style="width: 820px; height: 480px; transform-origin: 0px 20px; transform: scale(0.5);" src="/cwdc/13-webgl/homework/hw3/test2.html"></iframe>
  */
 
 "use strict";
