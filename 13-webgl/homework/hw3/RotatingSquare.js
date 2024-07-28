@@ -539,7 +539,7 @@ addEventListener("load", (event) => {
   // complete revolutions about the center per cycle
   let rpc = urlParams.get("rpc") || "2";
 
-  const ndigits = getFractionalPart(rpc).ndigits;
+  let ndigits = getFractionalPart(rpc).ndigits;
   const negative = rpc < 0;
   rpc = rpc >= 0 ? +rpc : -1 / rpc;
   if (negative && ndigits == 0) ndigits = 2;
