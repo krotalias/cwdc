@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: homework/hw3/test.js</title>
+    <title>JSDoc: Source: test2.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: homework/hw3/test.js</h1>
+    <h1 class="page-title">Source: test2.js</h1>
 
     
 
@@ -31,30 +31,24 @@
  *
  * Summary.
  *
- * &lt;p>Similar to the two cubes &lt;a href="/cwdc/13-webgl/doc-test2">example&lt;/a>.&lt;/p>
+ * &lt;p>Two cubes in a circular orbit.
  *
- * &lt;p>There are two cubes and an X. The cubes also orbit around the X as satelytes.&lt;/p>
- *
+ * The smaller also orbits around the greatest as a satelyte.&lt;/p>
  * &lt;ul>
- * &lt;li>An animation of a colored X orbiting clockwise
- * is rendered about the y-axis, in the x-z plane, in a circle of radius 10.&lt;/li>
+ *  &lt;li>An animation of a colored unit cube orbiting counterclockwise
+ *  is rendered about the y-axis, in the x-z plane, in a circle of radius 10.&lt;/li>
  *
- * &lt;li>The first cube is half of a unit cube and orbits clockwise around X with a radius of 8,
- * while the second cube is one third of a unit cube and orbits counter-clockwise around X
- * with a radius of 6. &lt;/li>
+ *  &lt;li>The second cube, half the size of the first one, orbits clockwise around
+ *  the first one in a radius of 2, and at three times the speed of the first one's orbit.&lt;/li>
  *
- * &lt;li>Both cubes orbit at a constant
- * {@link https://en.wikipedia.org/wiki/Angular_frequency angular speed} of π radians/s or 180°/s.&lt;/li>
+ *  &lt;li>Neither cube should spin on its own axis.&lt;/li>
  *
- * &lt;li>The X also spins on its own y-axis "rev" times per full orbit, where "rev" is given in the URL (default 365).&lt;/li>
- *
- * &lt;li>The transformation is applied passing the model matrix to the vertex shader. &lt;/li>
+ *  &lt;li>The transformation is applied, passing the model matrix to the vertex shader. &lt;/li>
  * &lt;/ul>
  *
  * Notes:
  * &lt;ol>
- *  &lt;li>the only modified code is in the {@link draw} and {@link animate} functions,
- *  plus the vertex shader.&lt;/li>
+ *  &lt;li>the only modified code is in the {@link draw} function and in the vertex shader.&lt;/li>
  *  &lt;li>it uses the type {@link Matrix4} from the teal book utilities in cuon-matrix.js&lt;/li>
  * &lt;/ol>
  *
@@ -62,9 +56,9 @@
  * @since 27/09/2016
  * @copyright © 2024 Paulo R Cavalcanti
  * @license {@link https://www.gnu.org/licenses/gpl-3.0.en.html GPLv3}
- * @see &lt;a href="/cwdc/13-webgl/homework/hw3/test.html?rev=3">link&lt;/a>
- * @see &lt;a href="/cwdc/13-webgl/homework/hw3/test.js">source&lt;/a>
- * @see &lt;iframe title="Two cubes orbting an X" style="position: relative; top: 0px; margin-bottom: -250px; width: 820px; height: 520px; transform-origin: 0px 20px; transform: scale(0.5);" src="/cwdc/13-webgl/homework/hw3/test.html?rev=3">&lt;/iframe>
+ * @see &lt;a href="/cwdc/13-webgl/homework/hw3/test2.html">link&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/homework/hw3/test2.js">source&lt;/a>
+ * @see &lt;iframe title="Two cubes orbiting" style="width: 820px; height: 480px; transform-origin: 0px 20px; transform: scale(0.5);" src="/cwdc/13-webgl/homework/hw3/test2.html">&lt;/iframe>
  */
 
 "use strict";
@@ -94,7 +88,6 @@ const axisColors = new Float32Array([
  * Handle to buffers on the GPU.
  * @type {WebGLBuffer}
  */
-// prettier-ignore
 let vertexBuffer;
 let vertexColorBuffer;
 let indexBuffer;
@@ -114,10 +107,16 @@ let shader;
 let modelMatrix;
 
 /**
+ * WebGL context.
+ * @type {WebGL2RenderingContext}
+ */
+let gl;
+
+/**
  * &lt;p>View matrix.&lt;/p>
  * One strategy is to identify a
  * &lt;a href="/cs336/examples/lighting/content/doc-lighting2/global.html#viewMatrix">transformation&lt;/a>
- * to our camera frame, then invert it. &lt;br>
+ * to our camera frame, then invert it.  &lt;br>
  *
  * &lt;p>Alternatively use the LookAt function, specifying the view (eye) point,
  * a point at which to look, and a direction for "up".&lt;br>
@@ -126,7 +125,7 @@ let modelMatrix;
  */
 // prettier-ignore
 const viewMatrix = new Matrix4().setLookAt(
-  5.77, 3.54, 25.06,  // eye
+  5.77, 3.54, 20.06,  // eye
   0, 0, 0,            // at - looking at the origin
   0, 1, 0             // up vector - y axis
 );
@@ -144,7 +143,7 @@ const viewMatrix = new Matrix4().setLookAt(
  * &lt;/ul>
  * &lt;ol>
  *  &lt;li>let projection = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6)&lt;/li>
- *  &lt;li>let projection = new Matrix4().setPerspective(50, aspect, 0.4, 100)&lt;/li>
+ *  &lt;li>let projection = new Matrix4().setPerspective(35, aspect, 0.4, 100)&lt;/li>
  * &lt;/ol>
  * @type {Matrix4}
  */
@@ -164,7 +163,8 @@ let projection;
  * &lt;p>Closure for creating a cube model.&lt;/p>
  * (Note this is a "self-invoking" anonymous function.)
  * @function
- * @return {cube_data} callback or returning cube properties.
+ * @type {cube_data}
+ * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
  */
 const cube = (() => {
   // vertices of cube
@@ -240,9 +240,7 @@ const cube = (() => {
    *
    * &lt;p>This is not the best way of storing a cube,
    * because 6 faces x 2 triangles/face * 3 vertices/face = 36 indices.&lt;/p>
-   *
    * @callback cube_data
-   * @return {cube_data}
    */
   return {
     numVertices: 36, // number of indices
@@ -271,7 +269,7 @@ function makeNormalMatrixElements(model, view) {
   return new Float32Array([
     n[0], n[1], n[2],
     n[4], n[5], n[6],
-    n[8], n[9], n[10],
+    n[8], n[9], n[10]
   ]);
 }
 
@@ -287,10 +285,9 @@ const deg2rad = (deg) => (deg * Math.PI) / 180.0;
 /**
  * Render our geometry.
  *
- * @param {WebGLRenderingContext} gl WebGL context.
- * @param {Number} rad rotation angle for the cubes.
+ * @param {Number} degrees rotation angle.
  */
-function draw(gl, rad) {
+function draw(degrees) {
   // clear the framebuffer
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -308,10 +305,10 @@ function draw(gl, rad) {
   gl.vertexAttribPointer(colorIndex, 4, gl.FLOAT, false, 0, 0);
 
   // identity transformation
-  let model = new Matrix4()
-    .multiply(modelMatrix)
-    .rotate(-45, 0, 0, 1)
-    .scale(1, 8, 1);
+  let model = new Matrix4().multiply(modelMatrix);
+
+  // model.scale(8, 1, 1);
+  // model.scale(1, 8, 1);
 
   // set uniforms in shader for projection * view * model transformation
   let loc = gl.getUniformLocation(shader, "model");
@@ -323,37 +320,19 @@ function draw(gl, rad) {
   loc = gl.getUniformLocation(shader, "normalMatrix");
   gl.uniformMatrix3fv(loc, false, makeNormalMatrixElements(model, viewMatrix));
 
-  // draw the X left leg: cube scaled by 8 in y and rotated -45° in z
+  // draw the cube
   gl.drawArrays(gl.TRIANGLES, 0, cube.numVertices);
 
-  loc = gl.getUniformLocation(shader, "model");
-  model = new Matrix4()
-    .multiply(modelMatrix)
-    .rotate(45, 0, 0, 1)
-    .scale(1, 8, 1);
-  gl.uniformMatrix4fv(loc, false, model.elements);
-  // draw the X right leg: cube scaled by 8 in y and rotated 45° in z
-  gl.drawArrays(gl.TRIANGLES, 0, cube.numVertices);
+  const rad = deg2rad(3 * degrees);
 
   // second cube
-  let x = 8 * Math.cos(rad);
-  let z = 8 * Math.sin(rad);
+  const x = 2 * Math.cos(rad);
+  const z = 2 * Math.sin(rad);
   loc = gl.getUniformLocation(shader, "model");
   model = new Matrix4()
     .translate(x, 0, z)
     .multiply(modelMatrix)
     .scale(1 / 2, 1 / 2, 1 / 2);
-  gl.uniformMatrix4fv(loc, false, model.elements);
-  gl.drawArrays(gl.TRIANGLES, 0, cube.numVertices);
-
-  // third cube
-  x = 6 * Math.cos(-rad);
-  z = 6 * Math.sin(-rad);
-  loc = gl.getUniformLocation(shader, "model");
-  model = new Matrix4()
-    .translate(x, 0, z)
-    .multiply(modelMatrix)
-    .scale(1 / 3, 1 / 3, 1 / 3);
   gl.uniformMatrix4fv(loc, false, model.elements);
   gl.drawArrays(gl.TRIANGLES, 0, cube.numVertices);
 
@@ -373,8 +352,7 @@ function draw(gl, rad) {
 
 /**
  * &lt;p>Entry point when page is loaded.&lt;/p>
- *
- * Basically, this function does setup that "should" only have to be done once, &lt;br>
+ * basically this function does setup that "should" only have to be done once, &lt;br>
  * while {@link draw} does things that have to be repeated each time the canvas is
  * redrawn.
  */
@@ -383,14 +361,14 @@ function mainEntrance() {
   const canvas = document.getElementById("theCanvas");
 
   // get the rendering context for WebGL
-  const gl = canvas.getContext("webgl2");
+  gl = canvas.getContext("webgl2");
   if (!gl) {
     console.log("Failed to get the rendering context for WebGL2");
     return;
   }
 
   const aspect = canvas.clientWidth / canvas.clientHeight;
-  projection = new Matrix4().setPerspective(50, aspect, 0.4, 100);
+  projection = new Matrix4().setPerspective(35, aspect, 0.4, 100);
 
   // load and compile the shader pair, using utility from the teal book
   const vshaderSource = document.getElementById("vertexShader").textContent;
@@ -400,10 +378,10 @@ function mainEntrance() {
     return;
   }
 
-  /*
+  /**
    * Retain a handle to the shader program, then unbind it.
-   * This looks odd, but the way initShaders works is that it "binds"
-   * the shader and stores the handle in an extra property of the gl object.
+   * This looks odd, but the way initShaders works is that it "binds" the shader and
+   * stores the handle in an extra property of the gl object.
    * That's ok, but will really mess things up when we have more than one shader pair.
    */
   shader = gl.program;
@@ -468,40 +446,31 @@ function mainEntrance() {
    * @function
    * @global
    */
-  const animate = (() => {
+  const runanimation = (() => {
     let degrees = 0;
-
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    // complete revolutions about the center per cycle
-    const revolution = +urlParams.get("rev") || 365;
-    document.getElementById("turns").innerHTML = revolution;
-
-    const increment = 1 / revolution;
+    const increment = 2;
 
     /**
-     * Multiply the global {@link modelMatrix} on the right
-     * by a rotation followed by a translation.
+     * Multiply the global {@link modelMatrix} on the right by a rotation followed by a translation.
      * @callback updateModelMatrix
      */
     return () => {
-      const rad = deg2rad(degrees % 360);
-      draw(gl, 3 * revolution * rad);
+      draw(degrees);
 
       degrees += increment;
+      degrees %= 360;
 
       // orbit of radius 10 in the x - z plane
+      const rad = deg2rad(-degrees);
       const x = 10 * Math.cos(rad);
       const z = 10 * Math.sin(rad);
-      modelMatrix
-        .setTranslate(x, 0, z)
-        .rotate((revolution * degrees) % 360, 0, 1, 0);
+      //modelMatrix.setTranslate(x, 0, z).rotate(5*degrees,0,1,0);
+      modelMatrix.setTranslate(x, 0, z);
 
-      requestAnimationFrame(animate);
+      requestAnimationFrame(runanimation);
     };
   })();
-
-  animate();
+  runanimation();
 }
 
 /**
@@ -523,13 +492,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cube">cube</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#runanimation">runanimation</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jul 28 2024 09:25:44 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jul 28 2024 09:24:43 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
