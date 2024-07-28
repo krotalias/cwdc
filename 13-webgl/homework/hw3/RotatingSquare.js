@@ -3,8 +3,11 @@
  *
  * Summary.
  *
- * <p>Traces the path of the combined motion of the center
- * of a small square orbit (deferent) around the center of a circle
+ * <p>Tracing Closed Curves with Epicycles.</p>
+ *
+ * <p>This application traces the path of the combined motion of the center
+ * of a small square orbit ({@link https://www.ufrgs.br/amlef/glossario/orbita-deferente/ deferent})
+ * around the center of a circle
  * and within the orbit itself
  * ({@link https://www.creativescala.org/creative-scala/cycles/epicycles.html epicycle}).</p>
  *
@@ -23,27 +26,32 @@
  * utilities to perform {@link https://www.cuemath.com/algebra/matrix-operations/ matrix operations}.</li>
  * </ul>
  *
- * <pre>
- * Usage example for {@link Matrix4}:
+ * <img src="/cwdc/13-webgl/homework/hw3/Epicycle.png" width="256">
  *
- *   const m = new Matrix4();                         // identity matrix
- *   m.setTranslate(0.3, 0.0, 0.0);                   // make it into a translation matrix
- *   const m2 = new Matrix4().setRotate(90, 0, 0, 1); // create and make rotation in one step
+ * <pre>
+ * Usage example of a {@link Matrix4}:
+ *
+ *   const m = new Matrix4();                         // identity {@link Matrix4 matrix}
+ *   m.setTranslate(0.3, 0.0, 0.0);                   // make it into a {@link Matrix4#setTranslate translation} matrix
+ *   const m2 = new Matrix4().setRotate(90, 0, 0, 1); // create and make {@link Matrix4#setRotate rotation} in one step
  *                                                    // (rotate 90 degrees in xy-plane)
- *   m.multiply(m2);                                  // multiply m on right by m2, i.e., m = m * m2;
- *   Float32Array theRealData = m.elements;           // get the underlying float array
+ *   m.multiply(m2);                                  // {@link Matrix4#multiply multiply} m on right by m2, i.e., m = m * m2;
+ *   Float32Array theRealData = m.elements;           // get the {@link Matrix4#elements underlying} float array
  *                                                    // (this part is sent to shader)
  *
- *   Alternatively, one can chain up the operations:
+ * Alternatively, one can chain up the operations:
  *
  *   const m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
  * </pre>
  *
  * @author Paulo Roma
- * @date 11/10/2015
+ * @since 11/10/2015
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
+ * @copyright © 2024 Paulo R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html?rpc=2">link</a>
  * @see <a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.js">source</a>
  * @see {@link https://sciencedemonstrations.fas.harvard.edu/presentations/ptolemaic-epicycle-machine Ptolemaic Epicycle Machine}
+ * @see {@link https://study.com/learn/lesson/epicycle-ptolemy-astronomy-diagrams.html Epicycle in Astronomy & Meaning of Ptolemy}
  * @see <img src="/cwdc/13-webgl/homework/hw3/cross.png" width="256"> <img src="/cwdc/13-webgl/homework/hw3/cross166.png" width="256">
  */
 
@@ -328,7 +336,7 @@ function mainEntrance(r) {
     const increment = rpc > 1 ? 4 : 2;
 
     let cycles = 1;
-    let { fractional, ndigits } = getFractionalPart(rpc);
+    const { ndigits } = getFractionalPart(rpc);
     if (!Number.isInteger(rpc)) {
       const limit = 10 ** ndigits;
       for (cycles = 2; cycles < limit; ++cycles) {
