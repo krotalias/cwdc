@@ -31,13 +31,13 @@
  * <pre>
  * Usage example of a {@link Matrix4}:
  *
- *   const m = new Matrix4();                         // identity {@link Matrix4 matrix}
- *   m.setTranslate(0.3, 0.0, 0.0);                   // make it into a {@link Matrix4#setTranslate translation} matrix
- *   const m2 = new Matrix4().setRotate(90, 0, 0, 1); // create and make {@link Matrix4#setRotate rotation} in one step
- *                                                    // (rotate 90 degrees in xy-plane)
- *   m.multiply(m2);                                  // {@link Matrix4#multiply multiply} m on right by m2, i.e., m = m * m2;
- *   Float32Array theRealData = m.elements;           // get the {@link Matrix4#elements underlying} float array
- *                                                    // (this part is sent to shader)
+ *   const m = new Matrix4();        // identity {@link Matrix4 matrix}
+ *   m.setTranslate(0.3, 0.0, 0.0);  // make it into a {@link Matrix4#setTranslate translation} matrix
+ *   const m2 = new Matrix4().       // create and make {@link Matrix4#setRotate rotation} in one step
+ *     setRotate(90, 0, 0, 1);       // (rotate 90 degrees in xy-plane)
+ *   m.multiply(m2);                 // {@link Matrix4#multiply multiply} m on right by m2, i.e., m = m * m2;
+ *   Float32Array theRealData = m.elements;  // get the {@link Matrix4#elements underlying} float array
+ *                                           // (this part is sent to shader)
  *
  * Alternatively, one can chain up the operations:
  *
@@ -351,7 +351,7 @@ function mainEntrance(r) {
 
     /**
      * Maximum number of points to close the curve.
-     * @type {Number}
+     * @type {Object<curve:Number, circle:Number>}
      */
     const npoints = {
       curve: Math.ceil(totalAng / increment),
