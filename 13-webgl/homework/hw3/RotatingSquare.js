@@ -2,33 +2,48 @@
  * @file
  *
  * Summary.
- * <p>Applies a transformation using a matrix in the vertex shader.</p>
- * (The only modified code is in the {@link draw} function and in the vertex shader.)
  *
- * <p>Uses the type Matrix4 from the {@link https://www.rose-hulman.edu/class/csse/csse351/reference/0321902920_WebGL.pdf teal book}
- * utilities in cuon-matrix.js</p>
+ * <p>Traces the path of the combined motion of the center
+ * of a small square orbit (deferent) around the center of a circle
+ * and within the orbit itself
+ * ({@link https://www.creativescala.org/creative-scala/cycles/epicycles.html epicycle}).</p>
+ *
+ * <ul>
+ * <li>An {@link https://en.wikipedia.org/wiki/Deferent_and_epicycle epicycle}
+ * means a circle moving on another circle.</li>
+ *
+ * <li>The number (rpc) of revolutions of the square (epicycles)
+ * per orbit cycle (deferent) is passed
+ * as a {@link https://ahrefs.com/blog/url-parameters/ URL parameter} (query string).</li>
+ *
+ * <li>Applies a transformation by passing a {@link modelMatrix matrix} to the vertex shader.</li>
+ *
+ * <li>Uses the class {@link Matrix4} from the
+ * {@link https://www.rose-hulman.edu/class/csse/csse351/reference/0321902920_WebGL.pdf teal book}
+ * utilities to perform {@link https://www.cuemath.com/algebra/matrix-operations/ matrix operations}.</li>
+ * </ul>
  *
  * <pre>
  * Usage example for {@link Matrix4}:
  *
- *   var m = new Matrix4();                          // identity matrix
- *   m.setTranslate(0.3, 0.0, 0.0);                  // make it into a translation matrix
- *   var m2 = new Matrix4().setRotate(90, 0, 0, 1);  // create and make rotation in one step
- *                                                   // (rotate 90 degrees in x-y plane)
- *   m.multiply(m2);                                 // multiply m on right by m2, i.e., m = m * m2;
- *   Float32Array theRealData = m.elements;          // get the underlying float array
- *                                                   // (this part is sent to shader)
+ *   const m = new Matrix4();                         // identity matrix
+ *   m.setTranslate(0.3, 0.0, 0.0);                   // make it into a translation matrix
+ *   const m2 = new Matrix4().setRotate(90, 0, 0, 1); // create and make rotation in one step
+ *                                                    // (rotate 90 degrees in xy-plane)
+ *   m.multiply(m2);                                  // multiply m on right by m2, i.e., m = m * m2;
+ *   Float32Array theRealData = m.elements;           // get the underlying float array
+ *                                                    // (this part is sent to shader)
  *
- *   Alternatively, can chain up the operations:
+ *   Alternatively, one can chain up the operations:
  *
- *   var m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
+ *   const m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
  * </pre>
  *
  * @author Paulo Roma
  * @date 11/10/2015
  * @see <a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html?rpc=2">link</a>
  * @see <a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.js">source</a>
- * @see <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix</a>
+ * @see {@link https://sciencedemonstrations.fas.harvard.edu/presentations/ptolemaic-epicycle-machine Ptolemaic Epicycle Machine}
  * @see <img src="/cwdc/13-webgl/homework/hw3/cross.png" width="256"> <img src="/cwdc/13-webgl/homework/hw3/cross166.png" width="256">
  */
 
@@ -41,7 +56,7 @@
  * @type {Float32Array}
  */
 // prettier-ignore
-var vertices = new Float32Array([
+const vertices = new Float32Array([
   -0.5, -0.5,
   0.5, -0.5,
   0.5, 0.5,
@@ -54,23 +69,21 @@ var vertices = new Float32Array([
  * Number of vertices.
  * @type {Number}
  */
-var numPoints = vertices.length / 2;
-
-// A few global variables...
+const numPoints = vertices.length / 2;
 
 /**
  * The OpenGL context.
  * @type {WebGL2RenderingContext}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext
  */
-var gl;
+let gl;
 
 /**
  * Handle to a <a href="/cwdc/13-webgl/homework/hw3/enableVertexAttribPointer.png">buffer</a> on the GPU.
  * @type {WebGLBuffer}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createBuffer
  */
-var vertexbuffer;
+let vertexbuffer;
 
 /**
  * <p>Position attribute in the vertex shader.</p>
@@ -79,38 +92,38 @@ var vertexbuffer;
  * @type {GLint}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation
  */
-var positionIndex;
+let positionIndex;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLProgram}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLProgram
  */
-var shader;
+let shader;
 
 /**
  * Collor attribute in the fragment shader.
  * @type {GLint}
  */
-var u_color;
+let u_color;
 
 /**
  * Complete revolutions about the center per cycle.
  * @type {Number}
  */
-var rpc = 2;
+let rpc = 2;
 
 /**
  * Html element where the angle is going to be displayed.
  * @type {HTMLElement}
  */
-let angle = document.getElementById("ang");
+const angle = document.getElementById("ang");
 
 /**
  * Returns a number fractional part and its number of digits.
  * @param {Number} n float number.
  * @returns {Object<fractional:String,ndigits:Number>} fractional part and number of digits.
- * @see https://en.wikipedia.org/wiki/Decimal#Decimal_fractions
+ * @see {@link https://en.wikipedia.org/wiki/Decimal#Decimal_fractions Decimal fractions}
  */
 function getFractionalPart(n) {
   if (Number.isInteger(+n)) return { fractional: "0", ndigits: 0 };
@@ -123,7 +136,7 @@ function getFractionalPart(n) {
  * @param {Number} n float number.
  * @param {Number} dig number of digits.
  * @returns {Number} n with dig decimal places.
- * @see https://en.wikipedia.org/wiki/Decimal_separator
+ * @see {@link https://en.wikipedia.org/wiki/Decimal_separator Decimal separator}
  */
 function roundNumber(n, dig) {
   const limit = 10 ** dig;
@@ -140,8 +153,8 @@ function roundNumber(n, dig) {
  *
  * @param {Number} ang rotation angle in degrees.
  * @return {Array<Number,Number,Number,Number>} position of the center of the cross and the small square.
- * @see http://uniguld.dk/wp-content/guld/DTU/webgrafik/0321902920_WebGL.pdf#page=103
- * @see http://uniguld.dk/wp-content/guld/DTU/webgrafik/0321902920_WebGL.pdf#page=108
+ * @see {@link https://www.informit.com/articles/article.aspx?p=2111395 Figure 3.8}
+ * @see {@link https://www.informit.com/articles/article.aspx?p=2111395 Figure 3.9}
  * @see <a href="/cwdc/13-webgl/homework/hw3/drawArrays.png">drawArrays</a>
  * @see <a href="/cwdc/13-webgl/homework/hw3/shapes.png">WebGL shapes</a>
  *
@@ -178,20 +191,24 @@ function draw(ang) {
   gl.vertexAttribPointer(positionIndex, 2, gl.FLOAT, false, 0, 0);
 
   // degrees to radians
-  var deg2rad = (deg) => (Math.PI * deg) / 180.0;
+  const deg2rad = (deg) => (Math.PI * deg) / 180.0;
 
-  var angr = rpc == 0 ? 0 : deg2rad(ang / rpc);
-  var angs = deg2rad(ang);
-  var x = 0.65 * Math.cos(angr);
-  var y = 0.65 * Math.sin(angr);
-  var x2 = 0.35 * Math.cos(angs);
-  var y2 = 0.35 * Math.sin(angs);
+  const angr = rpc == 0 ? 0 : deg2rad(ang / rpc);
+  const angs = deg2rad(ang);
+  const x = 0.65 * Math.cos(angr);
+  const y = 0.65 * Math.sin(angr);
+  const x2 = 0.35 * Math.cos(angs);
+  const y2 = 0.35 * Math.sin(angs);
 
   // get the location of the uniform variable in the shader
-  var u_transform = gl.getUniformLocation(shader, "u_transform");
+  const u_transform = gl.getUniformLocation(shader, "u_transform");
 
-  // draw vertical rectangle
-  var modelMatrix = new Matrix4()
+  /**
+   * Transformation matrix for drawing the vertical rectangle,
+   * @type {Matrix4}
+   * @global
+   */
+  let modelMatrix = new Matrix4()
     .translate(x, y, 0.0)
     .rotate(ang, 0.0, 0.0, 1.0)
     .scale(0.15, 0.4, 1.0);
@@ -236,14 +253,14 @@ function draw(ang) {
  *
  * Basically this function does setup that
  * only has to be done once,<br>
- * while draw() does things that have to be repeated
+ * while {@link draw draw()} does things that have to be repeated
  * each time the canvas is redrawn.
  *
  * @param {Number} r revolutions per cycle.
  */
 function mainEntrance(r) {
   // retrieve <canvas> element
-  var canvas = document.getElementById("theCanvas");
+  const canvas = document.getElementById("theCanvas");
 
   rpc = r;
 
@@ -254,8 +271,8 @@ function mainEntrance(r) {
   }
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById("vertexShader").textContent;
-  var fshaderSource = document.getElementById("fragmentShader").textContent;
+  const vshaderSource = document.getElementById("vertexShader").textContent;
+  const fshaderSource = document.getElementById("fragmentShader").textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
     return;
@@ -265,10 +282,10 @@ function mainEntrance(r) {
   shader = gl.program;
 
   // get the location of the uniform variable in the shader
-  var u_projection = gl.getUniformLocation(shader, "u_projection");
+  const u_projection = gl.getUniformLocation(shader, "u_projection");
 
   // set a square window
-  var projectionMatrix = new Matrix4().ortho(-1.1, 1.3, -1.2, 1.2, -1, 1);
+  const projectionMatrix = new Matrix4().ortho(-1.1, 1.3, -1.2, 1.2, -1, 1);
   gl.uniformMatrix4fv(u_projection, false, projectionMatrix.elements);
 
   // Unbind the shader.
@@ -304,31 +321,31 @@ function mainEntrance(r) {
    * @function
    * @global
    * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/lineWidth
-   * @see http://uniguld.dk/wp-content/guld/DTU/webgrafik/0321902920_WebGL.pdf#page=111
+   * @see {@link https://www.informit.com/articles/article.aspx?p=2111395 Figure 3.11}
    */
-  var runAnimation = (() => {
-    var ang = 0.0;
-    var increment = rpc > 1 ? 4 : 2;
+  const runAnimation = (() => {
+    let ang = 0.0;
+    const increment = rpc > 1 ? 4 : 2;
 
-    var cycles = 1;
+    let cycles = 1;
     let { fractional, ndigits } = getFractionalPart(rpc);
     if (!Number.isInteger(rpc)) {
       const limit = 10 ** ndigits;
       for (cycles = 2; cycles < limit; ++cycles) {
         // if (Number.isInteger(rpc * cycles)) break;
-        let n = (rpc * 360 * cycles) % 360;
+        const n = (rpc * 360 * cycles) % 360;
         if (n < 1 || n > 359) break;
       }
     }
 
     // maximum angle - used to reset angle to zero
-    var totalAng = rpc == 0 ? 360 : 360 * rpc * cycles;
+    const totalAng = rpc == 0 ? 360 : 360 * rpc * cycles;
 
     /**
      * Maximum number of points to close the curve.
      * @type {Number}
      */
-    var npoints = {
+    const npoints = {
       curve: Math.ceil(totalAng / increment),
       circle: Math.ceil((360 / increment) * rpc),
     };
@@ -337,50 +354,50 @@ function mainEntrance(r) {
      * Get the location of the transformation uniform variable in the shader.
      * @type {GLint}
      */
-    var u_transform = gl.getUniformLocation(shader, "u_transform");
+    const u_transform = gl.getUniformLocation(shader, "u_transform");
 
     /**
-     * Array for holding points to draw the curve
+     * Object for holding points to draw the curve
      * generated by the center of the cross and the small square.
-     * @type {Float32Array}
+     * @type {Object<curve:Float32Array, circle:Float32Array>}
      */
-    var points = {
+    const points = {
       curve: new Float32Array(2 * (npoints.curve + 1)),
       circle: new Float32Array(2 * (npoints.circle + 1)),
     };
 
     /**
      * Number of points in the curve so far.
-     * @type {Number}
+     * @type {Obecjec<curve:Number, circle:Number>}
      */
-    var drawCount = {
+    const drawCount = {
       curve: 0,
       circle: 0,
     };
 
-    var buffer = {
+    const buffer = {
       curve: gl.createBuffer(),
       circle: gl.createBuffer(),
     };
 
-    var index = {
+    const index = {
       curve: 0,
       circle: 0,
     };
 
-    var finished = {
+    const finished = {
       curve: false,
       circle: false,
     };
 
-    var added = {
+    const added = {
       curve: false,
       circle: false,
     };
 
-    var modelMatrix = new Matrix4();
+    const modelMatrix = new Matrix4();
 
-    var tAngle = document.getElementById("tang");
+    const tAngle = document.getElementById("tang");
 
     // display the total angle.
     tAngle.innerHTML = `${Number(totalAng.toFixed(2))}° = ${Number(
@@ -391,13 +408,13 @@ function mainEntrance(r) {
 
     /**
      * <p>Increments angle by "increment" in each frame
-     * and render the scene.</p>
+     * and {@link draw render} the scene.</p>
      * Note the swap of buffers for drawing the two curves.
      * @callback render
-     * @see https://webglfundamentals.org/webgl/lessons/resources/fragment-shader-anim.html
+     * @see {@link https://webglfundamentals.org/webgl/lessons/resources/fragment-shader-anim.html Fragment Shader Anim}
      */
     return () => {
-      var [x, y, x2, y2] = draw(ang);
+      const [x, y, x2, y2] = draw(ang);
 
       if (index.curve < 2 * npoints.curve) {
         points.curve[index.curve++] = x + x2;
@@ -520,10 +537,10 @@ addEventListener("load", (event) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   // complete revolutions about the center per cycle
-  var rpc = urlParams.get("rpc") || "2";
+  let rpc = urlParams.get("rpc") || "2";
 
-  let ndigits = getFractionalPart(rpc).ndigits;
-  let negative = rpc < 0;
+  const ndigits = getFractionalPart(rpc).ndigits;
+  const negative = rpc < 0;
   rpc = rpc >= 0 ? +rpc : -1 / rpc;
   if (negative && ndigits == 0) ndigits = 2;
   if (ndigits > 0) {
