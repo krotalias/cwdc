@@ -259,21 +259,22 @@ const toRadian = glMatrix.toRadian;
  * @see https://threejs.org/docs/#api/en/core/BufferGeometry
  */
 
+// default texture
+const defTexture = document
+  .getElementById("textures")
+  .querySelector("[selected]");
+
 /**
  * Array holding image file names to create textures from.
  * @type {Array<String>}
  */
-const imageFilename = [
-  document.getElementById("textures").querySelector("[selected]").text,
-];
+const imageFilename = [defTexture ? defTexture.text : "BigEarth.jpg"];
 
 /**
  * Current texture index.
  * @type {Number}
  */
-var textureCnt = +document
-  .getElementById("textures")
-  .querySelector("[selected]").value;
+let textureCnt = defTexture ? +defTexture.value : 0;
 
 /**
  * Indicates whether not use the texture from the model.
@@ -286,7 +287,7 @@ let noTexture;
  * @type {HTMLImageElement}
  * @see {@link ImageLoadCallback}
  */
-var image;
+let image;
 
 /**
  * Maximum Number of subdivisions to turn a polyhedron into a sphere.
@@ -304,7 +305,7 @@ let numSubdivisions = -1;
  * Scale applied to a model to make its size adequate for rendering.
  * @type {Number}
  */
-var mscale = 1;
+let mscale = 1;
 
 /**
  * GPS coordinates of the city location to be drawn.
@@ -376,7 +377,7 @@ const selector = {
  * Arcball.
  * @type {SimpleRotator}
  */
-var rotator;
+let rotator;
 
 /**
  * Vertex coordinates for creating the axes.
@@ -482,116 +483,116 @@ const shininess = [28.0, 30, 20.0, 10.0, 200];
  * The OpenGL context.
  * @type {WebGL2RenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * Current model data.
  * @type {modelData}
  */
-var theModel;
+let theModel;
 
 /**
  * Array with normal end points.
  * @type {Float32Array}
  */
-var normal;
+let normal;
 
 /**
  * Array with edges end points.
  * @type {Float32Array}
  */
-var lines;
+let lines;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexBuffer;
+let vertexBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexNormalBuffer;
+let vertexNormalBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var texCoordBuffer;
+let texCoordBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var indexBuffer;
+let indexBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var axisBuffer;
+let axisBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var normalBuffer;
+let normalBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var lineBuffer;
+let lineBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var parallelBuffer;
+let parallelBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var meridianBuffer;
+let meridianBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var axisColorBuffer;
+let axisColorBuffer;
 
 /**
  * Handle to the texture object on the GPU.
  * @type {WebGLTexture}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createTexture
  */
-var textureHandle;
+let textureHandle;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var lightingShader;
+let lightingShader;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var colorShader;
+let colorShader;
 
 /**
  * Model matrix.
  * @type {mat4}
  */
-var modelMatrix = mat4.create();
+let modelMatrix = mat4.create();
 
 /**
  * Rotation axis.
  * @type {String}
  */
-var axis = document.querySelector('input[name="rot"]:checked').value;
+let axis = document.querySelector('input[name="rot"]:checked').value;
 
 /**
  * Whether uv spherical coordinates should be "fixed",
@@ -601,7 +602,7 @@ var axis = document.querySelector('input[name="rot"]:checked').value;
  * @see {@link https://forum.unity.com/threads/what-is-this-mipmap-artifact.657052/ What is this mipmap artifact?}
  * @see {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Distinctive Derivative Differences}
  */
-var fixuv = document.querySelector("#fixuv").checked;
+let fixuv = document.querySelector("#fixuv").checked;
 
 /**
  * Whether to use a
@@ -610,7 +611,7 @@ var fixuv = document.querySelector("#fixuv").checked;
  * @see {@link https://globe-3d-2m2vlb3ft.now.sh Globe}
  * @see {@link https://forum.unity.com/threads/unity-shader-map-projection-mercator-to-equirectangular-or-lambert-azimuthal-equal-area.813987/ Unity shader, Mercator to equirectangular}
  */
-var mercator = document.querySelector("#mercator").checked;
+let mercator = document.querySelector("#mercator").checked;
 
 /**
  * Toggle back face culling on/off.
@@ -618,7 +619,7 @@ var mercator = document.querySelector("#mercator").checked;
  * @see {@link https://learnopengl.com/Advanced-OpenGL/Face-culling Face culling}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/frontFace
  */
-var culling = true;
+let culling = true;
 
 /**
  * Camera position.
@@ -705,7 +706,7 @@ const readFileNames = new Promise((resolve, reject) => {
  * perpendicular to surfaces after a linear transformation.
  * @param {mat4} model model matrix.
  * @param {mat4} view view matrix.
- * @returns {mat3} 3x3 normal matrix (transpose inverse) from the 4x4 modelview matrix.
+ * @returns {mat3} (𝑀<sup>&#8211;1</sup>)<sup>𝑇</sup> - 3x3 normal matrix (transpose inverse) from the 4x4 modelview matrix.
  * @see <a href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48">𝑛′=(𝑀<sup>&#8211;1</sup>)<sup>𝑇</sup>⋅𝑛</a>
  */
 function makeNormalMatrixElements(model, view) {
@@ -721,7 +722,7 @@ function makeNormalMatrixElements(model, view) {
  */
 function getChar(event) {
   event = event || window.event;
-  let charCode = event.key || String.fromCharCode(event.which);
+  const charCode = event.key || String.fromCharCode(event.which);
   return charCode;
 }
 
@@ -762,7 +763,7 @@ const handleKeyPress = ((event) => {
     switch (ch) {
       case "m":
       case "M":
-        let inc = ch == "m" ? 1 : -1;
+        const inc = ch == "m" ? 1 : -1;
         numSubdivisions = mod(numSubdivisions + inc, maxSubdivisions + 1);
         gscale = mscale = 1;
         if (numSubdivisions == 0) {
@@ -888,8 +889,8 @@ const handleKeyPress = ((event) => {
       case "c":
         gscale = mscale = 1;
         models.value = "3";
-        let r = mercator ? 3 / 8 : 9 / 16;
-        let length = 2 * Math.PI * r;
+        const r = mercator ? 3 / 8 : 9 / 16;
+        const length = 2 * Math.PI * r;
         let height = mercator ? length : length / 2;
         if (noTexture) height -= r;
         theModel = createModel({
@@ -959,7 +960,7 @@ const handleKeyPress = ((event) => {
       case "r":
         gscale = mscale = 1.0;
         models.value = "4";
-        let segments = 30;
+        const segments = 30;
         theModel = createModel({
           shape: selector.hws
             ? ring(0.3, 1.0, segments)
@@ -977,7 +978,7 @@ const handleKeyPress = ((event) => {
         break;
       case "n":
       case "N":
-        let incr = ch == "n" ? 1 : -1;
+        const incr = ch == "n" ? 1 : -1;
         textureCnt = mod(textureCnt + incr, imageFilename.length);
         selectTexture(false);
         return;
@@ -1012,7 +1013,7 @@ const handleKeyPress = ((event) => {
         document.getElementById("hws").checked = selector.hws;
         break;
       case "G":
-        let cl = cities.indexOf(currentLocation);
+        const cl = cities.indexOf(currentLocation);
         currentLocation = cities[mod(cl + 1, cities.length)];
         setPosition(currentLocation);
         selector.equator = true;
@@ -1076,7 +1077,7 @@ const selectTexture = (() => {
  * @returns {KeyboardEvent} a keyboard event.
  */
 const createEvent = (key) => {
-  let code = key.charCodeAt();
+  const code = key.charCodeAt();
   return new KeyboardEvent("keydown", {
     key: key,
     which: code,
@@ -1336,15 +1337,13 @@ function draw() {
  * @returns {mat4} model matrix.
  */
 function getModelMatrix() {
-  let m = modelMatrix;
-  if (mscale != 1) {
-    m = mat4.multiply(
-      [],
-      modelMatrix,
-      mat4.fromScaling([], vec3.fromValues(mscale, mscale, mscale)),
-    );
-  }
-  return m;
+  return mscale != 1
+    ? mat4.multiply(
+        [],
+        modelMatrix,
+        mat4.fromScaling([], vec3.fromValues(mscale, mscale, mscale)),
+      )
+    : modelMatrix;
 }
 
 /**
@@ -1364,22 +1363,22 @@ function drawTexture() {
   gl.useProgram(lightingShader);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
+  const normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
   if (normalIndex < 0) {
     console.log("Failed to get the storage location of a_Normal");
     return;
   }
 
-  var texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
+  const texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
   noTexture = texCoordIndex < 0;
 
-  var u_mercator = gl.getUniformLocation(lightingShader, "u_mercator");
+  const u_mercator = gl.getUniformLocation(lightingShader, "u_mercator");
   gl.uniform1i(u_mercator, mercator);
 
   // "enable" the a_position attribute
@@ -1399,7 +1398,7 @@ function drawTexture() {
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // set uniform in shader for projection * view * model transformation
-  var loc = gl.getUniformLocation(lightingShader, "model");
+  let loc = gl.getUniformLocation(lightingShader, "model");
   gl.uniformMatrix4fv(loc, false, getModelMatrix());
   loc = gl.getUniformLocation(lightingShader, "view");
   gl.uniformMatrix4fv(loc, false, viewMatrix);
@@ -1424,7 +1423,7 @@ function drawTexture() {
   gl.uniform1f(loc, shininess[shininess.length - 1]);
 
   // need to choose a texture unit, then bind the texture to TEXTURE_2D for that unit
-  var textureUnit = 1;
+  const textureUnit = 1;
   gl.activeTexture(gl.TEXTURE0 + textureUnit);
   gl.bindTexture(gl.TEXTURE_2D, textureHandle);
   loc = gl.getUniformLocation(lightingShader, "sampler");
@@ -1459,7 +1458,7 @@ function drawTexture() {
  *  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
  *  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
  *  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
- *  for (var i = 0; i < theModel.indices.length; i += 3) {
+ *  for (let i = 0; i < theModel.indices.length; i += 3) {
  *      // offset - two bytes per index (UNSIGNED_SHORT)
  *      gl.drawElements(gl.LINE_LOOP, 3, gl.UNSIGNED_SHORT, i * 2);
  *  }
@@ -1472,13 +1471,13 @@ function drawLines() {
   // bind the shader
   gl.useProgram(colorShader);
 
-  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(colorShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var a_color = gl.getAttribLocation(colorShader, "a_Color");
+  const a_color = gl.getAttribLocation(colorShader, "a_Color");
   if (a_color < 0) {
     console.log("Failed to get the storage location of a_Color");
     return;
@@ -1492,8 +1491,8 @@ function drawLines() {
 
   //  ------------ draw triangle borders
   // set transformation to projection * view * model
-  var loc = gl.getUniformLocation(colorShader, "transform");
-  var transform = mat4.multiply(
+  const loc = gl.getUniformLocation(colorShader, "transform");
+  const transform = mat4.multiply(
     [],
     projection,
     mat4.multiply([], viewMatrix, getModelMatrix()),
@@ -1501,7 +1500,7 @@ function drawLines() {
   gl.uniformMatrix4fv(loc, false, transform);
 
   // draw edges - single pre-computed lineBuffer
-  let len = theModel.indices
+  const len = theModel.indices
     ? theModel.indices.length
     : theModel.vertexPositions.length;
   gl.bindBuffer(gl.ARRAY_BUFFER, lineBuffer);
@@ -1525,13 +1524,13 @@ function drawAxes() {
   // bind the shader
   gl.useProgram(colorShader);
 
-  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(colorShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var colorIndex = gl.getAttribLocation(colorShader, "a_Color");
+  const colorIndex = gl.getAttribLocation(colorShader, "a_Color");
   if (colorIndex < 0) {
     console.log("Failed to get the storage location of a_Color");
     return;
@@ -1547,8 +1546,8 @@ function drawAxes() {
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // set transformation to projection * view only for extrinsic
-  var loc = gl.getUniformLocation(colorShader, "transform");
-  var transform = mat4.multiply([], projection, viewMatrix);
+  const loc = gl.getUniformLocation(colorShader, "transform");
+  const transform = mat4.multiply([], projection, viewMatrix);
   // set transformation to projection * view * model for intrinsic
   if (selector.intrinsic) {
     mat4.multiply(transform, transform, modelMatrix);
@@ -1572,13 +1571,13 @@ function drawAxes() {
 function drawParallel() {
   // bind the shader
   gl.useProgram(colorShader);
-  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(colorShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var a_color = gl.getAttribLocation(colorShader, "a_Color");
+  const a_color = gl.getAttribLocation(colorShader, "a_Color");
   if (a_color < 0) {
     console.log("Failed to get the storage location of a_Color");
     return;
@@ -1589,8 +1588,8 @@ function drawParallel() {
   gl.enableVertexAttribArray(positionIndex);
 
   // set transformation to projection * view * model
-  var loc = gl.getUniformLocation(colorShader, "transform");
-  var transform = mat4.multiply(
+  const loc = gl.getUniformLocation(colorShader, "transform");
+  const transform = mat4.multiply(
     [],
     projection,
     mat4.multiply([], viewMatrix, getModelMatrix()),
@@ -1662,7 +1661,7 @@ window.addEventListener("load", (event) => {
     if (typeof theModel === "undefined") {
       readFileNames
         .then((arr) => {
-          let initialTexture = imageFilename[0];
+          const initialTexture = imageFilename[0];
           if (arr.length > 0) imageFilename = arr.sort();
           setTextures(imageFilename);
           textureCnt = imageFilename.indexOf(initialTexture);
@@ -1791,10 +1790,10 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
     gl.STATIC_DRAW,
   );
 
-  let nv = shape.vertexPositions.length;
+  const nv = shape.vertexPositions.length;
   normal = new Float32Array(6 * nv);
-  for (var i = 0, k = 0; i < nv; i += 3, k += 6) {
-    for (var j = 0; j < 3; j++) {
+  for (let i = 0, k = 0; i < nv; i += 3, k += 6) {
+    for (let j = 0; j < 3; j++) {
       normal[j + k] = shape.vertexPositions[i + j];
       normal[j + k + 3] =
         normal[j + k] + (0.1 / mscale) * shape.vertexNormals[i + j];
@@ -1808,13 +1807,13 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, shape.indices, gl.STATIC_DRAW);
 
-    let ni = shape.indices.length;
+    const ni = shape.indices.length;
     lines = new Float32Array(18 * ni);
-    for (i = 0, k = 0; i < ni; i += 3, k += 18) {
-      for (j = 0; j < 3; j++) {
-        let v1 = shape.vertexPositions[shape.indices[i] * 3 + j];
-        let v2 = shape.vertexPositions[shape.indices[i + 1] * 3 + j];
-        let v3 = shape.vertexPositions[shape.indices[i + 2] * 3 + j];
+    for (let i = 0, k = 0; i < ni; i += 3, k += 18) {
+      for (let j = 0; j < 3; j++) {
+        const v1 = shape.vertexPositions[shape.indices[i] * 3 + j];
+        const v2 = shape.vertexPositions[shape.indices[i + 1] * 3 + j];
+        const v3 = shape.vertexPositions[shape.indices[i + 2] * 3 + j];
 
         lines[j + k] = v1;
         lines[j + k + 3] = v2;
@@ -1827,13 +1826,13 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
       }
     }
   } else {
-    let ni = shape.vertexPositions.length;
+    const ni = shape.vertexPositions.length;
     lines = new Float32Array(18 * ni);
-    for (i = 0, k = 0; i < ni; i += 3, k += 18) {
-      for (j = 0; j < 3; j++) {
-        let v1 = shape.vertexPositions[i * 3 + j];
-        let v2 = shape.vertexPositions[(i + 1) * 3 + j];
-        let v3 = shape.vertexPositions[(i + 2) * 3 + j];
+    for (let i = 0, k = 0; i < ni; i += 3, k += 18) {
+      for (let j = 0; j < 3; j++) {
+        const v1 = shape.vertexPositions[i * 3 + j];
+        const v2 = shape.vertexPositions[(i + 1) * 3 + j];
+        const v3 = shape.vertexPositions[(i + 2) * 3 + j];
 
         lines[j + k] = v1;
         lines[j + k + 3] = v2;
@@ -1852,14 +1851,14 @@ function createModel({ shape, name = "", chi = 2, poly = 0, fix_uv = false }) {
   gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, normal, gl.STATIC_DRAW);
 
-  let obj = document.getElementById("object");
+  const obj = document.getElementById("object");
 
-  let faces = shape.indices
+  const faces = shape.indices
     ? shape.indices.length / 3
     : shape.vertexPositions.length / 9;
   let edges = (faces * 3) / 2;
   let vertices = faces / 2 + chi;
-  let vertReal = shape.vertexPositions.length / 3;
+  const vertReal = shape.vertexPositions.length / 3;
 
   if (chi === null) {
     edges = `??`;
@@ -1891,11 +1890,11 @@ function isPowerOf2(value) {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData
  */
 function setPosition(location) {
-  let parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
+  const parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, parallelVertices);
 
-  let meridianVertices = pointsOnMeridian(gpsCoordinates[location].longitude);
+  const meridianVertices = pointsOnMeridian(gpsCoordinates[location].longitude);
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, meridianVertices);
 
@@ -1923,7 +1922,7 @@ function startForReal(image) {
   console.log("Started...");
 
   // retrieve <canvas> element
-  var canvas = document.getElementById("theCanvas");
+  const canvas = document.getElementById("theCanvas");
 
   /**
    * <p>Appends an event listener for events whose type attribute value is keydown.<br>
@@ -1954,8 +1953,8 @@ function startForReal(image) {
   }
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById("vertexColorShader").textContent;
-  var fshaderSource = document.getElementById(
+  let vshaderSource = document.getElementById("vertexColorShader").textContent;
+  let fshaderSource = document.getElementById(
     "fragmentColorShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
@@ -1966,12 +1965,8 @@ function startForReal(image) {
   gl.useProgram(null);
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById(
-    "vertexLightingShader",
-  ).textContent;
-  var fshaderSource = document.getElementById(
-    "fragmentLightingShader",
-  ).textContent;
+  vshaderSource = document.getElementById("vertexLightingShader").textContent;
+  fshaderSource = document.getElementById("fragmentLightingShader").textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
     return;
@@ -2023,13 +2018,13 @@ function startForReal(image) {
   gl.bindBuffer(gl.ARRAY_BUFFER, axisColorBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, axisColors, gl.STATIC_DRAW);
 
-  let parallelVertices = pointsOnParallel(
+  const parallelVertices = pointsOnParallel(
     gpsCoordinates[currentLocation].latitude,
   );
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, parallelVertices, gl.STATIC_DRAW);
 
-  let meridianVertices = pointsOnMeridian(
+  const meridianVertices = pointsOnMeridian(
     gpsCoordinates[currentLocation].longitude,
   );
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
@@ -2109,8 +2104,8 @@ const setUVfix = (() => {
    */
   return (subModel) => {
     gl.useProgram(lightingShader);
-    let u_fix = gl.getUniformLocation(lightingShader, "u_fix");
-    let texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
+    const u_fix = gl.getUniformLocation(lightingShader, "u_fix");
+    const texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
 
     if (texCoordIndex < 0) {
       // no texture
@@ -2143,7 +2138,7 @@ const setUVfix = (() => {
  */
 function newTexture(image) {
   gl.useProgram(lightingShader);
-  let imgSize = document.getElementById("size");
+  const imgSize = document.getElementById("size");
   imgSize.innerHTML = `${imageFilename[textureCnt]}`;
   document.getElementById("textimg").src = image.src;
   document.getElementById("figc").textContent =
