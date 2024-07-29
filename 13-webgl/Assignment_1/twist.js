@@ -4,16 +4,23 @@
  * Summary.
  *
  * <p>Draw a fractal known as
- * <a href="https://en.wikipedia.org/wiki/Sierpiński_triangle">Sierpińsk</a> Gasket,
- * with twist and {@link https://glmatrix.net glMatrix},
- * by recursively dividing in half
- * the edges of an initial triangle.</p>
+ * <a href="https://en.wikipedia.org/wiki/Sierpiński_triangle">Sierpińsk</a> Gasket
+ * (with an optional {@link rotateAndTwist twist factor} controlled using a slider)
+ * by {@link divideTriangle recursively dividing} in half
+ * the edges of an {@link vertices initial triangle}.</p>
  *
- * The number of red triangles is 3<sup>n</sup>
- * and white triangles is (3<sup>n</sup>-1)/2.
+ * The number of red triangles is 3<sup>n</sup>,
+ * and the number of {@link https://nrich.maths.org/4757/solution white triangles}
+ * is the sum of a {@link https://www.cuemath.com/algebra/sum-of-a-gp/ geometric progression}
+ * of ratio 3 and first term 1:
+ * <ul>
+ *  <li>1 + 3 + 3² + ... + 3<sup>n-1</sup> = (3<sup>n</sup>-1)/2, n &ge; 0.</li>
+ * </ul>
  *
  * @author Paulo Roma Cavalcanti
  * @since 30/01/2023
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
+ * @copyright © 2023 Paulo R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/Assignment_1/twist.html">link</a>
  * @see <a href="/cwdc/13-webgl/Assignment_1/twist.js">source</a>
  * @see {@link http://paulbourke.net/fractals/polyhedral/ Sierpinski Gasket}
@@ -49,68 +56,68 @@ const mat2 = glMatrix.mat2;
  * @type {HTMLCanvasElement}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
  */
-var canvas;
+let canvas;
 
 /**
  * The OpenGL context.
  * @type {WebGLRenderingContext}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext
  */
-var gl;
+let gl;
 
 /**
  * Vertices for rendering.
  * @type {Array<vec2>}
  */
-var points = [];
+let points = [];
 
 /**
  * Edges for rendering.
  * @type {Array<vec2>}
  */
-var lines = [];
+let lines = [];
 
 /**
  * Triangle buffer.
  * @type {WebGLBuffer}
  */
-var bufferId;
+let bufferId;
 
 /**
  * Edge buffer.
  * @type {WebGLBuffer}
  */
-var bufferLineId;
+let bufferLineId;
 
 /**
  * Number indicating the location of the variable vPosition if found.
  * @type {GLInt}
  */
-var vPosition;
+let vPosition;
 
 /**
  * Whether to draw the fourth triangle.
  * @type {Boolean}
  */
-var fill = true;
+let fill = true;
 
 /**
  * Controls the spin speed.
  * @type {Number}
  */
-var delay = 100;
+let delay = 100;
 
 /**
  * Whether not using the gpu.
  * @type {Boolean}
  */
-var cpu = false;
+let cpu = false;
 
 /**
  * Twist state.
  * @type {Boolean}
  */
-var deform = true;
+let deform = true;
 
 /**
  * <p>Rotation angle.</p>
@@ -129,51 +136,51 @@ var deform = true;
  * @see http://www.opengl.org/sdk/docs/tutorials/ClockworkCoders/uniform.php
  * @see http://en.wikibooks.org/wiki/GLSL_Programming/Vector_and_Matrix_Operations
  */
-var theta;
+let theta;
 
 /**
  * Toggle twist on/off.
  * @type {WebGLUniformLocation}
  */
-var twist;
+let twist;
 
 /**
  * Toggle gpu on/off.
  * @type {WebGLUniformLocation}
  */
-var gpu;
+let gpu;
 
 /**
  * Fixed point - centroid of the triangle.
  * @type {WebGLUniformLocation}
  */
-var origin;
+let origin;
 
 /**
  * Fragment color.
  * @type {WebGLUniformLocation}
  */
-var fColor;
+let fColor;
 
 /**
  * Initial triangle centroid.
  * @type {vec2}
  */
-var centroid;
+let centroid;
 
 /**
  * Display IP address and set button click action.
  */
 function infoBtn() {
-  let demo = document.querySelector("#demo");
-  let url = {
+  const demo = document.querySelector("#demo");
+  const url = {
     api: "http://ip-api.com/json/?fields=query", // no https
     ipify: "https://api.ipify.org?format=json",
     seeip: "https://api.seeip.org/jsonip?",
     myip: "https://api.myip.com", // cors (cross-origin resource sharing)
   };
-  let size = Object.keys(url).length - 1;
-  let randomKey = Object.keys(url)[~~(Math.random() * size)];
+  const size = Object.keys(url).length - 1;
+  const randomKey = Object.keys(url)[~~(Math.random() * size)];
   fetch(url[randomKey])
     .then((response) => response.json())
     .then(
@@ -183,7 +190,7 @@ function infoBtn() {
         } <br />`),
     );
 
-  let btn = document.querySelector("button");
+  const btn = document.querySelector("button");
 
   /**
    * Appends an event listener for button events whose type
@@ -191,7 +198,7 @@ function infoBtn() {
    * Displays the Date and WebGL/GLSL versions,
    * whenever the "Date/Time" button is clicked.
    * @param {MouseEvent} event a mouse event.
-   * @event click
+   * @event click - Get date/time: fires after both the mousedown and mouseup events have fired (in that order).
    */
   btn.addEventListener("click", (event) => {
     demo.innerHTML += `${Date()}<br />${gl.getParameter(
@@ -218,14 +225,14 @@ function init() {
   }
 
   // Get the input field
-  var input = document.getElementById("subdiv");
+  const input = document.getElementById("subdiv");
 
   /**
    * <p>Appends an event listener for events whose type attribute value is keydown.<br>
    * The {@link clickCallBack callback} argument sets the callback that will be invoked
    * when the event is dispatched.</p>
    *
-   * @event keydown
+   * @event keydown - "Enter" pressed on &lt;input&gt; btnDiv.
    */
   input.addEventListener("keydown", function (event) {
     // If the user presses the "Enter" key on the keyboard
@@ -251,7 +258,7 @@ function init() {
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
  */
 function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   // ["#rrggbb", "rr", "gg", "bb"]
   return result
     ? {
@@ -270,7 +277,7 @@ function setUpShaders() {
   // Used to load, compile and link shaders to form a program object
   //
   // handle to the compiled shader program on the GPU
-  var program = initShaders(gl, "vertex-shader", "fragment-shader");
+  const program = initShaders(gl, "vertex-shader", "fragment-shader");
   // bind the shader
   gl.useProgram(program);
 
@@ -311,7 +318,7 @@ function setUpShaders() {
   gl.clearColor(uColor.r / 255, uColor.g / 255, uColor.b / 255, 1);
 
   // enlarge the window, by setting a new orthographic projection matrix, defined in twist.html
-  var projection = mat4.orthoNO([], -1.5, 1.5, -2.0, 1.0, -1, 1);
+  const projection = mat4.orthoNO([], -1.5, 1.5, -2.0, 1.0, -1, 1);
   // the projection matrix will be applied in the vertex shader, also defined in twist.html
   gl.uniformMatrix4fv(
     gl.getUniformLocation(program, "Projection"),
@@ -376,7 +383,7 @@ function drawTriangle(ndiv = 5, doTwist = true, useGPU = true, angle = 0) {
    * @type {Array<vec2>}
    * @global
    */
-  var vertices = [
+  const vertices = [
     vec2.fromValues(-1, -1),
     vec2.fromValues(0, Math.sqrt(3) - 1),
     vec2.fromValues(1, -1),
@@ -421,7 +428,7 @@ function triangle(a, b, c) {
  * @param {Number} d degrees.
  * @returns {Number} radians.
  */
-var radians = (d) => (d * Math.PI) / 180;
+const radians = (d) => (d * Math.PI) / 180;
 
 /**
  * Partitions triangle (a,b,c) into four new triangles,
@@ -439,9 +446,9 @@ function divideTriangle(a, b, c, count) {
   } else {
     // bisect the sides
 
-    var ab = vec2.lerp([], a, b, 0.5); // (a+b)/2
-    var ac = vec2.lerp([], a, c, 0.5); // (a+c)/2
-    var bc = vec2.lerp([], b, c, 0.5); // (b+c)/2
+    const ab = vec2.lerp([], a, b, 0.5); // (a+b)/2
+    const ac = vec2.lerp([], a, c, 0.5); // (a+c)/2
+    const bc = vec2.lerp([], b, c, 0.5); // (b+c)/2
 
     --count;
 
@@ -468,24 +475,24 @@ function divideTriangle(a, b, c, count) {
  * @return {Object<Array<vec2>,Array<vec2>>} a new array with same size of points.
  */
 function rotateAndTwist(theta, center, twist) {
-  var triangles = [];
-  var edges = [];
-  var m = mat2.fromRotation([], theta);
+  const triangles = [];
+  const edges = [];
+  const m = mat2.fromRotation([], theta);
 
   // triangle vertices: rotate about the center - T' R T
-  let p1 = vec2.create();
-  for (var p of points) {
+  const p1 = vec2.create();
+  for (const p of points) {
     vec2.subtract(p1, p, center); // translate to (0,0)
     if (twist) mat2.fromRotation(m, theta + vec2.length(p1));
-    let p2 = vec2.add([], vec2.transformMat2([], p1, m), center); // rotate and translate back
+    const p2 = vec2.add([], vec2.transformMat2([], p1, m), center); // rotate and translate back
     triangles.push(p2);
   }
 
   // triangle borders (edges)
-  for (var p of lines) {
+  for (const p of lines) {
     vec2.subtract(p1, p, center);
     if (twist) mat2.fromRotation(m, theta + vec2.length(p1));
-    let p2 = vec2.add([], vec2.transformMat2([], p1, m), center);
+    const p2 = vec2.add([], vec2.transformMat2([], p1, m), center);
     edges.push(p2);
   }
 
@@ -500,10 +507,10 @@ function clickCallBack() {
   delay = document.getElementById("spin").checked ? 0 : 100;
   deform = document.getElementById("twist").checked;
 
-  let label = document.getElementById("lblslider");
-  let ndiv = document.getElementById("subdiv").value;
-  let angStr = document.getElementById("ang").innerHTML;
-  let ang = +angStr.slice(angStr.indexOf(":") + 1, angStr.indexOf("°"));
+  const label = document.getElementById("lblslider");
+  const ndiv = document.getElementById("subdiv").value;
+  const angStr = document.getElementById("ang").innerHTML;
+  const ang = +angStr.slice(angStr.indexOf(":") + 1, angStr.indexOf("°"));
   document.getElementById("slider").value = ndiv;
   label.innerHTML = `Subdivisions: ${ndiv}`;
   drawTriangle(
@@ -519,11 +526,11 @@ function clickCallBack() {
  * @return {fps} a callback for counting number of frames.
  * @function
  */
-var fpsCounter = (() => {
-  var lastCalledTime = Date.now();
-  var thisfps = 60;
-  var fcount = 0;
-  var ftime = 0;
+const fpsCounter = (() => {
+  let lastCalledTime = Date.now();
+  let thisfps = 60;
+  let fcount = 0;
+  let ftime = 0;
   /**
    * <p>Counts the number of frames per second.</p>
    * Basically, it is necessary to count how many times
@@ -549,9 +556,9 @@ var fpsCounter = (() => {
  * @returns {Float32Array} a new linear array.
  */
 function flattenArray(arr) {
-  let n = arr[0].length;
+  const n = arr[0].length;
   let pos = 0;
-  var f32 = new Float32Array(n * arr.length);
+  const f32 = new Float32Array(n * arr.length);
 
   arr.forEach((elem) => {
     elem.forEach((e) => {
@@ -567,10 +574,10 @@ function flattenArray(arr) {
  * @function
  * @return {render}
  */
-var animation = (function () {
-  var black = new Float32Array([0.0, 0.0, 0.0, 1.0]);
-  var red = new Float32Array([1.0, 0.0, 0.0, 1.0]);
-  var ang = 0.0;
+const animation = (function () {
+  const black = new Float32Array([0.0, 0.0, 0.0, 1.0]);
+  const red = new Float32Array([1.0, 0.0, 0.0, 1.0]);
+  let ang = 0.0;
 
   /**
    * <p>Display function.</p>
@@ -584,7 +591,7 @@ var animation = (function () {
       gl.clear(gl.COLOR_BUFFER_BIT);
       ang += 0.1;
       ang = ang % 360;
-      let fps = fpsCounter();
+      const fps = fpsCounter();
       document.getElementById("fps").innerHTML = `FPS: ${fps
         .toFixed(0)
         .toString()}`;
@@ -594,7 +601,7 @@ var animation = (function () {
         gl.uniform1f(theta, ang);
       } else {
         // this is brute force!
-        let res = rotateAndTwist(radians(ang), centroid, deform);
+        const res = rotateAndTwist(radians(ang), centroid, deform);
         gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
         gl.bufferData(
           gl.ARRAY_BUFFER,
@@ -622,7 +629,7 @@ var animation = (function () {
       gl.drawArrays(gl.LINES, 0, lines.length);
       /*
       // too slow on mobile
-      for (var i = 0; i < points.length; i += 3) {
+      for (let i = 0; i < points.length; i += 3) {
         gl.drawArrays(gl.LINE_LOOP, i, 3);
       }
     */
@@ -635,6 +642,6 @@ var animation = (function () {
  * <p>Loads the {@link init aplication}.</p>
  * @param {Event} event load event.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
- * @event load
+ * @event load - fired when the whole page has loaded.
  */
 window.addEventListener("load", (event) => init());
