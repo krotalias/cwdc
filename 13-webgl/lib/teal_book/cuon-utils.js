@@ -110,6 +110,7 @@ function loadShader(gl, type, source) {
 /**
  * Initialize and get the rendering context for WebGL.
  * This will make any GL errors show up in your browser JavaScript console.
+ * @deprecated since WebGL2
  * @param {HTMLCanvasElement} canvas &lt;canvas&gt; element.
  * @param {Boolean} opt_debug flag to initialize the context for debugging.
  * @return {WebGL2RenderingContext} the rendering context for WebGL.

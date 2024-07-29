@@ -660,7 +660,7 @@ export class Polyhedron {
     /**
      * <p>Whether texture coordinates should be fixed.</p>
      *
-     * <p><u>Deprecated</u> in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
+     * @deprecated in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
      * method executed in the fragment shader.</p>
      * @type {Boolean}
      */
@@ -1248,7 +1248,7 @@ export class Polyhedron {
    * and the third on the other side of the discontinuity created,
    * when the 0 coordinate is stitched together with the 1 coordinate.
    *
-   * <p><u>Deprecated</u> in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
+   * @deprecated in face of {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b Tarini's}
    * method executed in the fragment shader.</p>
    *
    * @param {Array<Object<{s:Number, t:Number}>>} sc triangle given by its spherical coordinates.
