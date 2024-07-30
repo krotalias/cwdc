@@ -67,8 +67,8 @@
 <p>Similar to <a href="/cwdc/13-webgl/examples/example123/content/GL_example3.js">GL_example3</a>,
 but applies the transformation using a matrix in the vertex shader.</p>
 
-Initially, the square should rotate counterclockwise about its lower left corner, colored red,
-at a rate of two degrees per frame.<br>
+<p>Initially, the square should rotate counterclockwise about its lower left corner, colored red,
+at a rate of two degrees per frame.</p>
 When a key is pressed, the square should, starting in its current position,
 begin rotating about a different corner, depending on the key pressed:
 <ul>
@@ -78,28 +78,36 @@ begin rotating about a different corner, depending on the key pressed:
  <li>'r' for the red corner.</li>
 </ul>
 
-See the <a href="global.html#runAnimation">animation loop</a> for various kinds of rotations.
+See the <a href="global.html#runAnimation">animation loop</a> for various kinds of rotations:
 
-<p>Line width is not implemented in <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/lineWidth">WebGL</a>.
+<ul>
+<li>The square crawls the window borders when any of their vertices touch
+an edge of the window.</li>
+
+<li>Line width is not implemented in <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/lineWidth">WebGL</a>.
 The solution used here is through texture coordinates in the
-<a href="/cwdc/13-webgl/homework/hw2/showCode.php?f=RotatingSquare3">fragment shader</a> to obtain it.</p>
+<a href="/cwdc/13-webgl/homework/hw2/showCode.php?f=RotatingSquare3">fragment shader</a> to obtain it.</li>
 
-<p>Uses the type <a href="Matrix4.html">Matrix4</a> from the teal book utilities
-in <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix.js</a>.</p>
+<li>Uses the class <a href="Matrix4.html">Matrix4</a> from the
+<a href="https://www.rose-hulman.edu/class/csse/csse351/reference/0321902920_WebGL.pdf">teal book</a>
+utilities to perform <a href="https://www.cuemath.com/algebra/matrix-operations/">matrix operations</a>.</li>
+</ul>
 
-<p>Usage example for Matrix4:</p>
+<iframe title="WebGL+Canvas" style="position: relative; top: 20px; margin-bottom: -300px; width: 950px; height: 980px; transform-origin: 0px 20px; transform: scale(0.6);" src="/cwdc/13-webgl/homework/hw2/RotatingSquare3.html"></iframe>
+
+<p>Usage example of a Matrix4:</p>
 <pre>
-  var m = new Matrix4();                           // identity matrix
-  m.setTranslate(0.3, 0.0, 0.0);                   // make it into a translation matrix
-  var m2 = new Matrix4().setRotate(90, 0, 0, 1);   // create and make rotation in one step
-                                                   // (rotate 90 degrees in x-y plane)
-  m.multiply(m2);                                  // multiply m on right by m2, i.e., m = m * m2;
-  var theRealData = m.elements;                    // get the underlying Float32Array
-                                                      (this part is sent to shader)
+  const m = new Matrix4();        // identity <a href="Matrix4.html">matrix</a>
+  m.setTranslate(0.3, 0.0, 0.0);  // make it into a <a href="Matrix4.html#setTranslate">translation</a> matrix
+  const m2 = new Matrix4().       // create and make <a href="Matrix4.html#setRotate">rotation</a> in one step
+    setRotate(90, 0, 0, 1);       // (rotate 90 degrees in x-y plane)
+  m.multiply(m2);                 // <a href="Matrix4.html#multiply">multiply</a> m on right by m2, i.e., m = m * m2;
+  const theRealData = m.elements; // get the <a href="Matrix4.html#elements">underlying</a> Float32Array
+                                  // (this part is sent to shader)
 
-  Alternatively, can chain up the operations:
+Alternatively, one can chain up the operations:
 
-  var m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
+  const m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
 </pre></div>
         
 
@@ -137,7 +145,13 @@ in <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix.js</a>.</p>
     
 
     
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>© 2016-2024 Paulo R Cavalcanti.</li></ul></dd>
+    
 
+    
+    <dt class="tag-license">License:</dt>
+    <dd class="tag-license"><ul class="dummy"><li>Licensed under the <a href="https://www.opensource.org/licenses/mit-license.php">MIT license</a>.</li></ul></dd>
     
 
     
@@ -247,11 +261,14 @@ in <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix.js</a>.</p>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Kanda and Matsuda (c) 2012</li>
+            <li>Kanda and Matsuda</li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>© 2012 Kanda and Matsuda</li></ul></dd>
     
 
     
@@ -357,11 +374,14 @@ in <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix.js</a>.</p>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Kanda and Matsuda (c) 2012</li>
+            <li>Kanda and Matsuda</li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>© 2012 Kanda and Matsuda</li></ul></dd>
     
 
     
@@ -423,13 +443,13 @@ in <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix.js</a>.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:change-executedwhenthecornerinputradioischecked(butnotwhenunchecked).">change - executed when the corner input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#cindex">cindex</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#colorbuffer">colorbuffer</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawOnCanvas">drawOnCanvas</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getVertex">getVertex</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#keys">keys</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#mapCornerToWorld">mapCornerToWorld</a></li><li><a href="global.html#mapToViewport">mapToViewport</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#numPoints">numPoints</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#printMatrix">printMatrix</a></li><li><a href="global.html#projectionMatrix">projectionMatrix</a></li><li><a href="global.html#rotateAboutCorner">rotateAboutCorner</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#textbuffer">textbuffer</a></li><li><a href="global.html#textureCoords">textureCoords</a></li><li><a href="global.html#vertexbuffer">vertexbuffer</a></li><li><a href="global.html#vertices">vertices</a></li><li><a href="global.html#world">world</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:change-executedwhenthecornerinputradioischecked(butnotwhenunchecked).">change - executed when the corner input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:keydown-firedwhenakeyispressed.">keydown - fired when a key is pressed.</a></li><li><a href="global.html#event:load-firedwhenthewholepagehasloaded.">load - fired when the whole page has loaded.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#cindex">cindex</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#colorbuffer">colorbuffer</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawOnCanvas">drawOnCanvas</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getVertex">getVertex</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#keys">keys</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#mapCornerToWorld">mapCornerToWorld</a></li><li><a href="global.html#mapToViewport">mapToViewport</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#numPoints">numPoints</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#printMatrix">printMatrix</a></li><li><a href="global.html#projectionMatrix">projectionMatrix</a></li><li><a href="global.html#rotateAboutCorner">rotateAboutCorner</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#textbuffer">textbuffer</a></li><li><a href="global.html#textureCoords">textureCoords</a></li><li><a href="global.html#vertexbuffer">vertexbuffer</a></li><li><a href="global.html#vertices">vertices</a></li><li><a href="global.html#world">world</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Nov 29 2023 11:23:17 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jul 30 2024 07:39:44 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -5,8 +5,8 @@
  * <p>Similar to <a href="/cwdc/13-webgl/examples/example123/content/GL_example3.js">GL_example3</a>,
  * but applies the transformation using a matrix in the vertex shader.</p>
  *
- * Initially, the square should rotate counterclockwise about its lower left corner, colored red,
- * at a rate of two degrees per frame.<br>
+ * <p>Initially, the square should rotate counterclockwise about its lower left corner, colored red,
+ * at a rate of two degrees per frame.</p>
  * When a key is pressed, the square should, starting in its current position,
  * begin rotating about a different corner, depending on the key pressed:
  * <ul>
@@ -16,31 +16,41 @@
  *  <li>'r' for the red corner.</li>
  * </ul>
  *
- * See the {@link runAnimation animation loop} for various kinds of rotations.
+ * See the {@link runAnimation animation loop} for various kinds of rotations:
  *
- * <p>Line width is not implemented in {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/lineWidth WebGL}.
+ * <ul>
+ * <li>The square crawls the window borders when any of their vertices touch
+ * an edge of the window.</li>
+ *
+ * <li>Line width is not implemented in {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/lineWidth WebGL}.
  * The solution used here is through texture coordinates in the
- * <a href="/cwdc/13-webgl/homework/hw2/showCode.php?f=RotatingSquare3">fragment shader</a> to obtain it.</p>
+ * <a href="/cwdc/13-webgl/homework/hw2/showCode.php?f=RotatingSquare3">fragment shader</a> to obtain it.</li>
  *
- * <p>Uses the type {@link Matrix4} from the teal book utilities
- * in <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix.js</a>.</p>
+ * <li>Uses the class {@link Matrix4} from the
+ * {@link https://www.rose-hulman.edu/class/csse/csse351/reference/0321902920_WebGL.pdf teal book}
+ * utilities to perform {@link https://www.cuemath.com/algebra/matrix-operations/ matrix operations}.</li>
+ * </ul>
  *
- * <p>Usage example for Matrix4:</p>
+ * <iframe title="WebGL+Canvas" style="position: relative; top: 20px; margin-bottom: -300px; width: 950px; height: 980px; transform-origin: 0px 20px; transform: scale(0.6);" src="/cwdc/13-webgl/homework/hw2/RotatingSquare3.html"></iframe>
+ *
+ * <p>Usage example of a Matrix4:</p>
  * <pre>
- *   var m = new Matrix4();                           // identity matrix
- *   m.setTranslate(0.3, 0.0, 0.0);                   // make it into a translation matrix
- *   var m2 = new Matrix4().setRotate(90, 0, 0, 1);   // create and make rotation in one step
- *                                                    // (rotate 90 degrees in x-y plane)
- *   m.multiply(m2);                                  // multiply m on right by m2, i.e., m = m * m2;
- *   var theRealData = m.elements;                    // get the underlying Float32Array
- *                                                       (this part is sent to shader)
+ *   const m = new Matrix4();        // identity {@link Matrix4 matrix}
+ *   m.setTranslate(0.3, 0.0, 0.0);  // make it into a {@link Matrix4#setTranslate translation} matrix
+ *   const m2 = new Matrix4().       // create and make {@link Matrix4#setRotate rotation} in one step
+ *     setRotate(90, 0, 0, 1);       // (rotate 90 degrees in x-y plane)
+ *   m.multiply(m2);                 // {@link Matrix4#multiply multiply} m on right by m2, i.e., m = m * m2;
+ *   const theRealData = m.elements; // get the {@link Matrix4#elements underlying} Float32Array
+ *                                   // (this part is sent to shader)
  *
- *   Alternatively, can chain up the operations:
+ * Alternatively, one can chain up the operations:
  *
- *   var m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
+ *   const m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
  * </pre>
  * @author Paulo Roma
  * @since 27/09/2016
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
+ * @copyright © 2016-2024 Paulo R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/homework/hw2/RotatingSquare3.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/hw2/RotatingSquare3.js">source</a>
  * @see <a href="/cwdc/13-webgl/examples/example123/content/GL_example3.html">GL_example3</a>
@@ -57,7 +67,7 @@
  * @type {Float32Array}
  */
 // prettier-ignore
-var vertices = new Float32Array([
+const vertices = new Float32Array([
   -0.5, -0.5,
   0.5, -0.5,
   0.5, 0.5,
@@ -70,7 +80,7 @@ var vertices = new Float32Array([
  * Keys to corners.
  * @type {Object<String,Number>}
  */
-var keys = {
+const keys = {
   r: 0,
   g: 1,
   b: 2,
@@ -81,32 +91,32 @@ var keys = {
  * Toggle animation.
  * @type {Boolean}
  */
-var paused = document.getElementById("pause").checked;
+let paused = document.getElementById("pause").checked;
 
 /**
  * Number of points (vertices).
  * @type {Number}
  */
-var numPoints = vertices.length / 2;
+const numPoints = vertices.length / 2;
 
 /**
  * Index of current corner relative to vertices.
  * @type {Number}
  */
-var cindex = 0;
+let cindex = 0;
 
 /**
  * Whether a key has been pressed.
  * @type {Boolean}
  */
-var click = false;
+let click = false;
 
 /**
  * A color value for each vertex.
  * @type {Float32Array}
  */
 // prettier-ignore
-var colors = new Float32Array([
+const colors = new Float32Array([
   1.0, 0.0, 0.0, 1.0,  // red
   0.0, 1.0, 0.0, 1.0,  // green
   0.0, 0.0, 1.0, 1.0,  // blue
@@ -120,7 +130,7 @@ var colors = new Float32Array([
  * @type {Float32Array}
  */
 // prettier-ignore
-var textureCoords = new Float32Array([
+const textureCoords = new Float32Array([
   1.0, 0.0,
   1.0, 1.0,
   0.0, 1.0,
@@ -137,7 +147,7 @@ var textureCoords = new Float32Array([
  * @property {Number} canvas.h height.
  * @property {Number} canvas.aspect aspect ratio.
  */
-var canvas = {
+const canvas = {
   elem: document.querySelector("canvas"),
   get w() {
     return this.elem.width;
@@ -160,7 +170,7 @@ var canvas = {
  * @property {Array<Number>} world.bounds lower left and upper right corners.
  * @property {Array<Number>} world.upperBounds upper right corner.
  */
-var world = {
+const world = {
   _size: 8,
   get h() {
     return this._size;
@@ -183,55 +193,55 @@ var world = {
  * Model scale.
  * @type {Number}
  */
-var mscale = 1;
+let mscale = 1;
 
 /**
  * The OpenGL context.
  * @type {WebGLRenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * The canvas context.
  * @type {CanvasRenderingContext2D}
  */
-var ctx;
+let ctx;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexbuffer;
+let vertexbuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var colorbuffer;
+let colorbuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var textbuffer;
+let textbuffer;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var shader;
+let shader;
 
 /**
  * Model transformation matrix.
  * @type {Matrix4}
  */
-var modelMatrix = new Matrix4();
+let modelMatrix = new Matrix4();
 
 /**
  * Projection matrix.
  * @type {Matrix4}
  */
-var projectionMatrix = new Matrix4().setOrtho(...world.bounds, 0, 1);
+const projectionMatrix = new Matrix4().setOrtho(...world.bounds, 0, 1);
 
 /**
  * Translate keydown events to strings.
@@ -244,8 +254,8 @@ function getChar(event) {
   return event.key
     ? event.key
     : event.key == null
-    ? String.fromCharCode(event.code) // IE
-    : null; // special key
+      ? String.fromCharCode(event.code) // IE
+      : null; // special key
 }
 
 /**
@@ -256,10 +266,10 @@ function getChar(event) {
  * @return {key_event}
  * @function
  */
-var handleKeyPress = ((event) => {
-  let pause = document.getElementById("pause");
-  let key = (ind) => Object.keys(keys).find((k) => keys[k] === ind);
-  let zoomfactor = 0.7;
+const handleKeyPress = ((event) => {
+  const pause = document.getElementById("pause");
+  const key = (ind) => Object.keys(keys).find((k) => keys[k] === ind);
+  const zoomfactor = 0.7;
 
   /**
    * <p>Handler for keydown events.</p>
@@ -267,7 +277,7 @@ var handleKeyPress = ((event) => {
    * @callback key_event callback to handle a key pressed.
    */
   return (event) => {
-    var ch = getChar(event);
+    const ch = getChar(event);
 
     switch (ch) {
       case "m":
@@ -306,8 +316,8 @@ var handleKeyPress = ((event) => {
  * @returns {KeyboardEvent} a keyboard event.
  * @event KeyboardEvent
  */
-var createEvent = (key) => {
-  let code = key.charCodeAt();
+const createEvent = (key) => {
+  const code = key.charCodeAt();
   return new KeyboardEvent("keydown", {
     key: key,
     which: code,
@@ -341,7 +351,7 @@ if (document.querySelector('input[name="corner"]')) {
      * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
      */
     elem.addEventListener("change", function (event) {
-      var item = event.target.value;
+      const item = event.target.value;
       handleKeyPress(createEvent(item));
     });
   });
@@ -349,7 +359,7 @@ if (document.querySelector('input[name="corner"]')) {
 
 /**
  * <p>Loads the {@link mainEntrance application}.</p>
- * @event load
+ * @event load - fired when the whole page has loaded.
  * @param {Event} event event load event.
  */
 window.addEventListener("load", (event) => mainEntrance());
@@ -364,8 +374,8 @@ window.addEventListener("load", (event) => mainEntrance());
  * @see https://www.geeksforgeeks.org/what-is-double-tilde-operator-in-javascript/
  */
 function getColor(i) {
-  let j = (i % numPoints) * 4;
-  let c = colors.slice(j, j + 3).map((x) => ~~(x * 255));
+  const j = (i % numPoints) * 4;
+  const c = colors.slice(j, j + 3).map((x) => ~~(x * 255));
   return `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
 }
 
@@ -375,7 +385,7 @@ function getColor(i) {
  * @returns {Array<Number>} vertex coordinates.
  */
 function getVertex(i) {
-  let j = (i % numPoints) * 2;
+  const j = (i % numPoints) * 2;
   return [vertices[j], vertices[j + 1]];
 }
 
@@ -411,7 +421,7 @@ function draw() {
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexbuffer);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(shader, "a_Position");
+  const positionIndex = gl.getAttribLocation(shader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
@@ -432,7 +442,7 @@ function draw() {
   gl.bindBuffer(gl.ARRAY_BUFFER, colorbuffer);
 
   // get the index for the a_Color attribute defined in the vertex shader
-  var colorIndex = gl.getAttribLocation(shader, "a_Color");
+  const colorIndex = gl.getAttribLocation(shader, "a_Color");
   if (colorIndex < 0) {
     console.log("Failed to get the storage location of a_Color");
     return;
@@ -448,7 +458,7 @@ function draw() {
   gl.bindBuffer(gl.ARRAY_BUFFER, textbuffer);
 
   // get the index for the a_TexCoord attribute defined in the vertex shader
-  var textureCoordinates = gl.getAttribLocation(shader, "a_TexCoord");
+  const textureCoordinates = gl.getAttribLocation(shader, "a_TexCoord");
   if (textureCoordinates < 0) {
     console.log("Failed to get the storage location of a_TexCoord");
     return;
@@ -462,25 +472,25 @@ function draw() {
   gl.vertexAttribPointer(textureCoordinates, 2, gl.FLOAT, false, 0, 0);
 
   // set border width
-  var border_width = gl.getUniformLocation(shader, "border_width");
+  const border_width = gl.getUniformLocation(shader, "border_width");
   gl.uniform1f(border_width, 0.08);
 
   // set border corlor
-  var border_color = gl.getUniformLocation(shader, "border_color");
+  const border_color = gl.getUniformLocation(shader, "border_color");
   gl.uniform4fv(border_color, [0.4, 0.4, 0.4, 1.0]);
 
   // set the value of the uniform transformation matrix in the shader and draw
-  var transformLoc = gl.getUniformLocation(shader, "transform");
+  const transformLoc = gl.getUniformLocation(shader, "transform");
   gl.uniformMatrix4fv(transformLoc, false, modelMatrix.elements);
 
-  var projectionLoc = gl.getUniformLocation(shader, "projection");
+  const projectionLoc = gl.getUniformLocation(shader, "projection");
   gl.uniformMatrix4fv(projectionLoc, false, projectionMatrix.elements);
 
   gl.drawArrays(gl.TRIANGLES, 0, numPoints);
 
   // draw points on the four corner vertices
-  for (let index of Object.values(keys)) {
-    let pindex = index * 4;
+  for (const index of Object.values(keys)) {
+    const pindex = index * 4;
     gl.uniform4fv(border_color, colors.slice(pindex, pindex + 4));
     gl.drawArrays(gl.POINTS, index, 1);
   }
@@ -504,8 +514,7 @@ function draw() {
  * @returns {Array<Number>} transformed point.
  */
 function mapToViewport(x, y, w = world) {
-  let vtx = new Vector4([x, y, 0.0, 1.0]);
-  vtx = modelMatrix.multiplyVector4(vtx);
+  const vtx = modelMatrix.multiplyVector4(new Vector4([x, y, 0.0, 1.0]));
   return [
     ((vtx.elements[0] + w.w / 2) * ctx.canvas.clientWidth) / w.w,
     ((-vtx.elements[1] + w.h / 2) * ctx.canvas.clientHeight) / w.h,
@@ -521,18 +530,18 @@ function drawOnCanvas() {
   ctx.rect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
   ctx.fill();
 
-  let [x1, y1] = mapToViewport(...getVertex(cindex), world);
-  let dindex = cindex == 2 ? 0 : cindex == 1 ? 5 : cindex + 2;
-  let [x2, y2] = mapToViewport(...getVertex(dindex), world);
+  const [x1, y1] = mapToViewport(...getVertex(cindex), world);
+  const dindex = cindex == 2 ? 0 : cindex == 1 ? 5 : cindex + 2;
+  const [x2, y2] = mapToViewport(...getVertex(dindex), world);
 
-  var grd = ctx.createLinearGradient(x1, y1, x2, y2);
+  const grd = ctx.createLinearGradient(x1, y1, x2, y2);
   grd.addColorStop(0, getColor(cindex));
   grd.addColorStop(1, getColor(dindex));
 
   ctx.beginPath();
   for (let i = 0; i < numPoints; i++) {
     if (i == 3 || i == 4) continue;
-    let [x, y] = mapToViewport(...getVertex(i), world);
+    const [x, y] = mapToViewport(...getVertex(i), world);
     if (i == 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
   }
@@ -547,12 +556,12 @@ function drawOnCanvas() {
   ctx.fillStyle = grd; // "#FFCC00";
   ctx.fill();
 
-  let msize = 4;
+  const msize = 4;
   for (let i = 0; i < numPoints; i++) {
     if (i == 3 || i == 4) continue;
     ctx.fillStyle = getColor(i);
     ctx.beginPath();
-    let [x, y] = mapToViewport(...getVertex(i), world);
+    const [x, y] = mapToViewport(...getVertex(i), world);
     if (i == cindex) {
       ctx.fillRect(x - msize, y - msize, 2 * msize, 2 * msize);
     } else {
@@ -567,7 +576,7 @@ function drawOnCanvas() {
  * @param {Matrix4} matrix transformation matrix.
  */
 function printMatrix(matrix) {
-  var m = new Matrix4(matrix).transpose().elements;
+  const m = new Matrix4(matrix).transpose().elements;
   for (let i = 0, j = 0; i < 4; ++i, j += 4) {
     console.log(`${i}: [${m.slice(j, j + 4).toString()}]`);
   }
@@ -579,10 +588,9 @@ function printMatrix(matrix) {
  * @returns {Array<Number>} corner coordinates in model and world space.
  */
 function mapCornerToWorld(ind) {
-  let [vx, vy] = [0, 0];
-  if (ind !== undefined) [vx, vy] = getVertex(ind);
-  let corner = new Vector4([vx, vy, 0, 1]);
-  let [px, py] = modelMatrix.multiplyVector4(corner).elements;
+  const [vx, vy] = ind !== undefined ? getVertex(ind) : [0, 0];
+  const corner = new Vector4([vx, vy, 0, 1]);
+  const [px, py] = modelMatrix.multiplyVector4(corner).elements;
   return [vx, vy, px, py];
 }
 
@@ -605,11 +613,18 @@ function mainEntrance() {
     return;
   }
 
-  // key handler
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event keydown - fired when a key is pressed.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event}
+   */
   window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(
-        event.code
+        event.code,
       )
     ) {
       event.preventDefault();
@@ -618,8 +633,8 @@ function mainEntrance() {
   });
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById("vertexShader").textContent;
-  var fshaderSource = document.getElementById("fragmentShader").textContent;
+  const vshaderSource = document.getElementById("vertexShader").textContent;
+  const fshaderSource = document.getElementById("fragmentShader").textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
     return;
@@ -695,23 +710,23 @@ function mainEntrance() {
  * angle grows by "increment" each frame.
  * @return {loop} animation loop.
  */
-var runAnimation = (() => {
+const runAnimation = (() => {
   // control the rotation angle
-  var ang = 0.0;
+  let ang = 0.0;
 
   // click translation
-  var tx = 0;
-  var ty = 0;
+  let tx = 0;
+  let ty = 0;
 
   // angle increment
-  var increment = 2.0;
+  const increment = 2.0;
 
   // these values are set when the function is loaded,
   // and do not change afterwards...
-  let [wlen, hlen] = world.upperBounds;
+  const [wlen, hlen] = world.upperBounds;
 
-  var requestId = 0;
-  var vx, vy, px, py;
+  let requestId = 0;
+  let vx, vy, px, py;
   [px, py] = getVertex(cindex);
 
   /**
@@ -753,7 +768,7 @@ var runAnimation = (() => {
     }
 
     // collision detection - rotate (CCW) around the hit vertex
-    for (let k in keys) {
+    for (const k in keys) {
       [vx, vy, vx, vy] = mapCornerToWorld(keys[k]);
       if (vx < -wlen || vx > wlen || vy < -hlen || vy > hlen) {
         cindex = keys[k];
