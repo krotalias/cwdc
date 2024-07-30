@@ -4,8 +4,8 @@
  * Summary.
  * <p>Similar to <a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.js">GL_example3</a>.</p>
  *
- * Initially, the square should rotate counterclockwise about its lower left corner, colored red,
- * at a rate of two degrees per frame.<br>
+ * <p>Initially, the square should rotate counterclockwise about its lower left corner, colored red,
+ * at a rate of two degrees per frame.<p>
  * When a key is pressed, the square should, starting in its current position,
  * begin rotating about a different corner, depending on the key pressed:
  * <ul>
@@ -15,27 +15,36 @@
  *  <li>'r' for the red corner.</li>
  * </ul>
  *
- * See the {@link runAnimation animation loop} for various kinds of rotations.
+ * See the {@link runAnimation animation loop} for various kinds of rotations:
  *
- * <p>Uses the type {@link Matrix4} from the teal book utilities
- * in <a href="/cwdc/13-webgl/lib/teal_book/cuon-matrix.js">cuon-matrix.js</a>.</p>
+ * <ul>
+ *  <li>The square wraps around the window borders when it rotates about a vertex outiside the window.</li>
+ *  <li>Uses the class {@link Matrix4} from the
+ *  {@link https://www.rose-hulman.edu/class/csse/csse351/reference/0321902920_WebGL.pdf teal book}
+ *  utilities to perform {@link https://www.cuemath.com/algebra/matrix-operations/ matrix operations}.</li>
+ * </ul>
  *
- * <p>Usage example for Matrix4:</p>
+ * <iframe title="canvas+cuon-matrix" style="position: relative; top: 20px; margin-bottom: -60px; width: 450px; height: 480px; transform-origin: 0px 20px; transform: scale(0.8);" src="/cwdc/13-webgl/homework/hw2/RotatingSquare.html"></iframe>
+ *
+ * <p>Usage example of a Matrix4:</p>
  * <pre>
- *   var m = new Matrix4();                           // identity matrix
- *   m.setTranslate(0.3, 0.0, 0.0);                   // make it into a translation matrix
- *   var m2 = new Matrix4().setRotate(90, 0, 0, 1);   // create and make rotation in one step
- *                                                    // (rotate 90 degrees in x-y plane)
- *   m.multiply(m2);                                  // multiply m on right by m2, i.e., m = m * m2;
- *   var theRealData = m.elements;                    // get the underlying Float32Array
- *                                                       (this part is sent to shader)
+ *   const m = new Matrix4();        // identity {@link Matrix4 matrix}
+ *   m.setTranslate(0.3, 0.0, 0.0);  // make it into a {@link Matrix4#setTranslate translation} matrix
+ *   const m2 = new Matrix4().       // create and make {@link Matrix4#setRotate rotation} in one step
+ *     setRotate(90, 0, 0, 1);       // (rotate 90 degrees in x-y plane)
+ *   m.multiply(m2);                 // {@link Matrix4#multiply multiply} m on right by m2, i.e., m = m * m2;
+ *   const theRealData = m.elements; // get the {@link Matrix4#elements underlying} Float32Array
+ *                                   // (this part is sent to shader)
  *
- *   Alternatively, can chain up the operations:
+ * Alternatively, one can chain up the operations:
  *
- *   var m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
+ *   const m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
  * </pre>
+ *
  * @author Paulo Roma
  * @since 27/09/2016
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
+ * @copyright © 2016-2024 Paulo R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/homework/hw2/RotatingSquare.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/hw2/RotatingSquare.js">source</a>
  * @see <a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.html">GL_example3a</a>
@@ -52,7 +61,7 @@
  * @type {Float32Array}
  */
 // prettier-ignore
-var vertices = new Float32Array([
+const vertices = new Float32Array([
   -0.5, -0.5,
   0.5, -0.5,
   0.5, 0.5,
@@ -65,7 +74,7 @@ var vertices = new Float32Array([
  * Keys to corners.
  * @type {Object<String,Number>}
  */
-var keys = {
+const keys = {
   r: 0,
   g: 1,
   b: 2,
@@ -76,32 +85,32 @@ var keys = {
  * Number of points (vertices).
  * @type {Number}
  */
-var numPoints = vertices.length / 2;
+const numPoints = vertices.length / 2;
 
 /**
  * Index of current corner relative to vertices.
  * @type {Number}
  */
-var cindex = 0;
+let cindex = 0;
 
 /**
  * Window size.
  * @type {Number}
  */
-var wsize = 5;
+const wsize = 5;
 
 /**
  * Whether a key has been clicked.
  * @type {Boolean}
  */
-var click = false;
+let click = false;
 
 /**
  * A color value for each vertex.
  * @type {Float32Array}
  */
 // prettier-ignore
-var colors = new Float32Array([
+const colors = new Float32Array([
   1.0, 0.0, 0.0, 1.0,  // red
   0.0, 1.0, 0.0, 1.0,  // green
   0.0, 0.0, 1.0, 1.0,  // blue
@@ -114,7 +123,7 @@ var colors = new Float32Array([
  * Model transformation matrix.
  * @type {Matrix4}
  */
-var modelMatrix = new Matrix4();
+const modelMatrix = new Matrix4();
 
 /**
  * Translate keydown events to strings.
@@ -127,8 +136,8 @@ function getChar(event) {
   return event.key
     ? event.key
     : event.key == null
-    ? String.fromCharCode(event.code) // IE
-    : null; // special key
+      ? String.fromCharCode(event.code) // IE
+      : null; // special key
 }
 
 /**
@@ -137,7 +146,7 @@ function getChar(event) {
  * @param {KeyboardEvent} event keyboard event.
  */
 function handleKeyPress(event) {
-  var ch = getChar(event);
+  let ch = getChar(event);
 
   switch (ch) {
     case "m":
@@ -161,8 +170,8 @@ function handleKeyPress(event) {
  * @returns {KeyboardEvent} a keyboard event.
  * @function
  */
-var createEvent = (key) => {
-  let code = key.charCodeAt();
+const createEvent = (key) => {
+  const code = key.charCodeAt();
   return new KeyboardEvent("keydown", {
     key: key,
     which: code,
@@ -171,15 +180,28 @@ var createEvent = (key) => {
   });
 };
 
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.
+ * The callback argument sets the {@link handleKeyPress callback} that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the corner input radio is checked (but not when unchecked).
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 if (document.querySelector('input[name="corner"]')) {
   document.querySelectorAll('input[name="corner"]').forEach((elem) => {
     elem.addEventListener("change", function (event) {
-      var item = event.target.value;
+      const item = event.target.value;
       handleKeyPress(createEvent(item));
     });
   });
 }
 
+/**
+ * <p>Loads the {@link mainEntrance application}.</p>
+ * @event load - fired when the whole page has loaded.
+ * @param {Event} event event load event.
+ */
 window.addEventListener("load", (event) => mainEntrance());
 
 /**
@@ -193,8 +215,8 @@ window.addEventListener("load", (event) => mainEntrance());
  * @see https://www.geeksforgeeks.org/what-is-double-tilde-operator-in-javascript/
  */
 function getColor(i) {
-  let j = (i % numPoints) * 4;
-  let c = colors.slice(j, j + 3).map((x) => ~~(x * 255));
+  const j = (i % numPoints) * 4;
+  const c = colors.slice(j, j + 3).map((x) => ~~(x * 255));
   return `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
 }
 
@@ -204,7 +226,7 @@ function getColor(i) {
  * @returns {Array<Number>} vertex coordinates.
  */
 function getVertex(i) {
-  let j = (i % numPoints) * 2;
+  const j = (i % numPoints) * 2;
   return [vertices[j], vertices[j + 1]];
 }
 
@@ -214,8 +236,8 @@ function getVertex(i) {
  * @param {Number} ang rotation angle.
  * @param {Number} x transformed x coordinate of the pivot vertex.
  * @param {Number} y transformed y coordinate of the pivot vertex.
- * @param {Number} tx translation from the transformed pivot vertex to its original position, in the x axis.
- * @param {Number} ty translation from the transformed pivot vertex to its original position, in the y axis.
+ * @param {Number} tx translation from the transformed pivot vertex to its original position, in the x-axis.
+ * @param {Number} ty translation from the transformed pivot vertex to its original position, in the y-axis.
  */
 function rotateAboutCorner(ang, x, y, tx, ty) {
   modelMatrix.setTranslate(x, y, 0.0);
@@ -225,9 +247,11 @@ function rotateAboutCorner(ang, x, y, tx, ty) {
 }
 
 /**
- * Maps a point in world coordinates to viewport coordinates.<br>
- * - [-n,n] x [-n,n] → [-w,w] x [h,-h]
- * <p>Note that the Y axis points downwards.</p>
+ * Maps a point in world coordinates to viewport coordinates:
+ * <ul>
+ *  <li>[-n,n] x [-n,n] → [-w,w] x [h,-h]</li>
+ * </ul>
+ * <p>Note that the y-axis points downwards.</p>
  * @param {CanvasRenderingContext2D} ctx canvas context.
  * @param {Number} x point abscissa.
  * @param {Number} y point ordinate.
@@ -235,8 +259,7 @@ function rotateAboutCorner(ang, x, y, tx, ty) {
  * @returns {Array<Number>} transformed point.
  */
 function mapToViewport(ctx, x, y, n = wsize) {
-  let vtx = new Vector4([x, y, 0.0, 1.0]);
-  vtx = modelMatrix.multiplyVector4(vtx);
+  const vtx = modelMatrix.multiplyVector4(new Vector4([x, y, 0.0, 1.0]));
   return [
     ((vtx.elements[0] + n / 2) * ctx.canvas.clientWidth) / n,
     ((-vtx.elements[1] + n / 2) * ctx.canvas.clientHeight) / n,
@@ -253,18 +276,18 @@ function drawOnCanvas(ctx) {
   ctx.rect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
   ctx.fill();
 
-  let [x1, y1] = mapToViewport(ctx, ...getVertex(cindex));
-  let dindex = cindex == 2 ? 0 : cindex == 1 ? 5 : cindex + 2;
-  let [x2, y2] = mapToViewport(ctx, ...getVertex(dindex));
+  const [x1, y1] = mapToViewport(ctx, ...getVertex(cindex));
+  const dindex = cindex == 2 ? 0 : cindex == 1 ? 5 : cindex + 2;
+  const [x2, y2] = mapToViewport(ctx, ...getVertex(dindex));
 
-  var grd = ctx.createLinearGradient(x1, y1, x2, y2);
+  const grd = ctx.createLinearGradient(x1, y1, x2, y2);
   grd.addColorStop(0, getColor(cindex));
   grd.addColorStop(1, getColor(dindex));
 
   ctx.beginPath();
   for (let i = 0; i < numPoints; i++) {
     if (i == 3 || i == 4) continue;
-    let [x, y] = mapToViewport(ctx, ...getVertex(i));
+    const [x, y] = mapToViewport(ctx, ...getVertex(i));
     if (i == 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
   }
@@ -279,12 +302,12 @@ function drawOnCanvas(ctx) {
   ctx.fillStyle = grd; // "#FFCC00";
   ctx.fill();
 
-  let msize = 4;
+  const msize = 4;
   for (let i = 0; i < numPoints; i++) {
     if (i == 3 || i == 4) continue;
     ctx.fillStyle = getColor(i);
     ctx.beginPath();
-    let [x, y] = mapToViewport(ctx, ...getVertex(i));
+    const [x, y] = mapToViewport(ctx, ...getVertex(i));
     if (i == cindex) {
       ctx.fillRect(x - msize, y - msize, 2 * msize, 2 * msize);
     } else {
@@ -299,7 +322,7 @@ function drawOnCanvas(ctx) {
  * @param {Matrix4} matrix transformation matrix.
  */
 function printMatrix(matrix) {
-  var m = new Matrix4(matrix).transpose().elements;
+  const m = new Matrix4(matrix).transpose().elements;
   for (let i = 0, j = 0; i < 4; ++i, j += 4) {
     console.log(`${i}: [${m.slice(j, j + 4).toString()}]`);
   }
@@ -313,9 +336,16 @@ function printMatrix(matrix) {
  * redrawn.
  */
 function mainEntrance() {
-  var ctx = document.querySelector("#theCanvas").getContext("2d");
+  const ctx = document.querySelector("#theCanvas").getContext("2d");
 
-  // key handler
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.<br>
+   * The callback argument sets the {@link handleKeyPress callback} that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event keydown - fired when a key is pressed.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event}
+   */
   window.onkeydown = handleKeyPress;
 
   /**
@@ -325,25 +355,25 @@ function mainEntrance() {
    * @global
    * @function
    */
-  var runAnimation = (() => {
+  const runAnimation = (() => {
     // control the rotation angle
-    var ang = 0.0;
+    let ang = 0.0;
 
     // click translation
-    var tx = 0;
-    var ty = 0;
+    let tx = 0;
+    let ty = 0;
 
     // angle increment
-    var increment = 2.0;
+    const increment = 2.0;
 
     // current corner for rotation
-    var corner = new Vector4([0, 0, 0, 1]);
+    const corner = new Vector4([0, 0, 0, 1]);
 
     // this value is set when the function is loaded,
     // and do not change afterwards...
-    let wlen = wsize / 2;
+    const wlen = wsize / 2;
 
-    var vx, vy, px, py;
+    let vx, vy, px, py;
     [px, py] = getVertex(cindex);
 
     /**
