@@ -5,9 +5,9 @@
  * <p>Similar to <a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.js">GL_example3a</a>.</p>
  *
  * Initially, the square should rotate counterclockwise about its lower left corner, colored red,
- * at a rate of two degrees per frame.<br>
- * When a key is pressed, the square should, starting in its current position,
- * begin rotating about a different corner, depending on the key pressed:
+ * at a rate of two degrees per frame.</p>
+ * <p>When a key is pressed, the square should, starting in its current position,
+ * begin rotating about a different corner, depending on the key pressed:</p>
  * <ul>
  *  <li>'g' for the green corner, </li>
  *  <li>'b' for the blue corner, </li>
@@ -16,13 +16,14 @@
  * </ul>
  *
  * See the {@link runAnimation animation loop} for various kinds of rotations.
+ * The square wraps around the window borders when it rotates about a vertex outiside
+ * the window.
  *
- * <p>Uses the type
- * <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrix/DOMMatrix">DOMMatrix</a>
- * from HTML5.</p>
- *
+ * <p>Uses the type {@link DOMMatrix} from {@link https://en.wikipedia.org/wiki/HTML5 HTML5}.</p>
  * @author Paulo Roma
  * @since 23/08/2022
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
+ * @copyright © 2022 Paulo R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/homework/hw2/RotatingSquare4.html">canvas+DOMMatrix</a> -
  * <a href="/cwdc/13-webgl/homework/hw2/showCode.php?f=RotatingSquare4">html</a> -
  * <a href="/cwdc/13-webgl/homework/hw2/doc-square4/index.html">doc</a>
@@ -39,11 +40,22 @@
  * @see <a href="/cwdc/13-webgl/homework/hw2/hw2b.pdf">hw2b PDF</a>
  * @see <a href="/cwdc/13-webgl/homework/hw2/RotatingSquare4.js">source</a>
  * @see <a href="../videos/RotatingSquare.mp4">video</a>
- * @see https://www.javascripture.com/DOMMatrix
  * @see <img src="/cwdc/13-webgl/homework/hw2/Rect.png" width="512">
  */
 
 "use strict";
+
+/**
+ * <p>DOMMatrix Class.</p>
+ * The {@link https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrix DOMMatrix}
+ * interface represents 4×4 matrices,
+ * suitable for 2D and 3D operations including rotation and translation.
+ * It is a mutable version of the
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrixReadOnly DOMMatrixReadOnly} interface.
+ * @typedef {Class} DOMMatrix
+ * @see {@link https://www.javascripture.com/DOMMatrix DOMMatrix}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrix/DOMMatrix DOMMatrix() constructor}
+ */
 
 /**
  * Raw data for some point positions -
@@ -53,7 +65,7 @@
  * @type {Float32Array}
  */
 // prettier-ignore
-var vertices = new Float32Array([
+const vertices = new Float32Array([
   -0.5, -0.5,
   0.5, -0.5,
   0.5, 0.5,
@@ -66,7 +78,7 @@ var vertices = new Float32Array([
  * Keys to corners.
  * @type {Object<String,Number>}
  */
-var keys = {
+const keys = {
   r: 0,
   g: 1,
   b: 2,
@@ -77,19 +89,19 @@ var keys = {
  * Number of points (vertices).
  * @type {Number}
  */
-var numPoints = vertices.length / 2;
+const numPoints = vertices.length / 2;
 
 /**
  * Index of current corner relative to vertices.
  * @type {Number}
  */
-var cindex = 0;
+let cindex = 0;
 
 /**
  * Window size.
  * @type {Number}
  */
-var wsize = 5;
+const wsize = 5;
 
 /**
  * <p>Model transformation matrix.</p>
@@ -104,20 +116,20 @@ var wsize = 5;
  * </pre>
  * @type {DOMMatrix}
  */
-var modelMatrix = new DOMMatrix();
+let modelMatrix = new DOMMatrix();
 
 /**
  * Whether a key has been pressed.
  * @type {Boolean}
  */
-var click = false;
+let click = false;
 
 /**
  * A color value for each vertex.
  * @type {Float32Array}
  */
 // prettier-ignore
-var colors = new Float32Array([
+const colors = new Float32Array([
   1.0, 0.0, 0.0, 1.0,  // red
   0.0, 1.0, 0.0, 1.0,  // green
   0.0, 0.0, 1.0, 1.0,  // blue
@@ -137,8 +149,8 @@ function getChar(event) {
   return event.key
     ? event.key
     : event.key == null
-    ? String.fromCharCode(event.code) // IE
-    : null; // special key
+      ? String.fromCharCode(event.code) // IE
+      : null; // special key
 }
 
 /**
@@ -147,7 +159,7 @@ function getChar(event) {
  * @param {KeyboardEvent} event keyboard event.
  */
 function handleKeyPress(event) {
-  var ch = getChar(event);
+  let ch = getChar(event);
 
   switch (ch) {
     case "m":
@@ -173,8 +185,8 @@ function handleKeyPress(event) {
  * @returns {KeyboardEvent} a keyboard event.
  * @function
  */
-var createEvent = (key) => {
-  let code = key.charCodeAt();
+const createEvent = (key) => {
+  const code = key.charCodeAt();
   return new KeyboardEvent("keydown", {
     key: key,
     which: code,
@@ -183,15 +195,30 @@ var createEvent = (key) => {
   });
 };
 
+/**
+ * <p>Appends an event listener for events whose type attribute value is change.<br>
+ * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * @event change - executed when the corner input radio is checked (but not when unchecked).
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
 if (document.querySelector('input[name="corner"]')) {
   document.querySelectorAll('input[name="corner"]').forEach((elem) => {
     elem.addEventListener("change", function (event) {
-      var item = event.target.value;
+      const item = event.target.value;
       handleKeyPress(createEvent(item));
     });
   });
 }
 
+/**
+ * Loads the {@link mainEntrance application}.</p>
+ * @param {Event} event an object has loaded.
+ * @param {callback} function function to run when the event occurs.
+ * @event load - fired when the whole page has loaded.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ */
 window.addEventListener("load", (event) => mainEntrance());
 
 /**
@@ -200,13 +227,13 @@ window.addEventListener("load", (event) => mainEntrance());
  * @param {Number} i color index.
  * @returns {String} a RGB color.
  * @see <a href="../number-conversions.png">number conversions</a>
- * @see https://medium.com/@nikjohn/cast-to-number-in-javascript-using-the-unary-operator-f4ca67c792ce
- * @see https://stackoverflow.com/questions/5971645/what-is-the-double-tilde-operator-in-javascript
- * @see https://www.geeksforgeeks.org/what-is-double-tilde-operator-in-javascript/
+ * @see {@link https://medium.com/@nikjohn/cast-to-number-in-javascript-using-the-unary-operator-f4ca67c792ce Cast to Number in Javascript using the Unary (+) Operator}
+ * @see {@link https://stackoverflow.com/questions/5971645/what-is-the-double-tilde-operator-in-javascript What is the "double tilde" (~~) operator in JavaScript?}
+ * @see {@link https://www.geeksforgeeks.org/what-is-double-tilde-operator-in-javascript/ What is (~~) “double tilde” operator in JavaScript?}
  */
 function getColor(i) {
-  let j = (i % numPoints) * 4;
-  let c = colors.slice(j, j + 3).map((x) => ~~(x * 255));
+  const j = (i % numPoints) * 4;
+  const c = colors.slice(j, j + 3).map((x) => ~~(x * 255));
   return `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
 }
 
@@ -216,7 +243,7 @@ function getColor(i) {
  * @returns {Array<Number>} vertex coordinates.
  */
 function getVertex(i) {
-  let j = (i % numPoints) * 2;
+  const j = (i % numPoints) * 2;
   return [vertices[j], vertices[j + 1]];
 }
 
@@ -248,7 +275,7 @@ function updateModelMatrix(ang, x, y, tx, ty) {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate
  */
 function rotateAboutCorner(ctx, ang, x, y, tx, ty) {
-  let [w, h] = [ctx.canvas.clientWidth, ctx.canvas.clientHeight];
+  const [w, h] = [ctx.canvas.clientWidth, ctx.canvas.clientHeight];
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.translate(w / 2, h / 2);
   ctx.scale(w / wsize, h / wsize);
@@ -270,25 +297,25 @@ function drawOnCanvas(ctx) {
   ctx.rect(-wsize, -wsize, 2 * wsize, 2 * wsize);
   ctx.fill();
 
-  let [x1, y1] = getVertex(cindex);
-  let dindex = cindex == 2 ? 0 : cindex == 1 ? 5 : cindex + 2;
-  let [x2, y2] = getVertex(dindex);
+  const [x1, y1] = getVertex(cindex);
+  const dindex = cindex == 2 ? 0 : cindex == 1 ? 5 : cindex + 2;
+  const [x2, y2] = getVertex(dindex);
 
-  var grd = ctx.createLinearGradient(x1, y1, x2, y2);
+  const grd = ctx.createLinearGradient(x1, y1, x2, y2);
   grd.addColorStop(0, getColor(cindex));
   grd.addColorStop(1, getColor(dindex));
 
   ctx.beginPath();
   for (let i = 0; i < numPoints; i++) {
     if (i == 3 || i == 4) continue;
-    let [x, y] = getVertex(i);
+    const [x, y] = getVertex(i);
     if (i == 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
   }
   ctx.closePath();
 
   // every size is in respect to the window size.
-  let msize = wsize * 0.01;
+  const msize = wsize * 0.01;
 
   // the outline
   ctx.lineWidth = 4 * msize;
@@ -303,7 +330,7 @@ function drawOnCanvas(ctx) {
     if (i == 3 || i == 4) continue;
     ctx.fillStyle = getColor(i);
     ctx.beginPath();
-    let [x, y] = getVertex(i);
+    const [x, y] = getVertex(i);
     if (i == cindex) {
       ctx.fillRect(x - msize, y - msize, 2 * msize, 2 * msize);
     } else {
@@ -317,12 +344,12 @@ function drawOnCanvas(ctx) {
  * Print matrix.
  * @param {DOMMatrix} matrix transformation matrix.
  * @param {Boolean} full if true, prints the 4x4 matrix.
- * Otherwise, prints the 2x3 matrix. If omitted, use its current
- * dimension.
+ * Otherwise, prints the 2x3 matrix. </br>
+ * If omitted, use its current dimension.
  */
 function printMatrix(matrix, full = !matrix.is2D) {
-  let [ini, row, col] = full ? [6, 4, 4] : [0, 2, 3];
-  var m = matrix.toJSON();
+  const [ini, row, col] = full ? [6, 4, 4] : [0, 2, 3];
+  const m = matrix.toJSON();
   for (let i = 0, j = ini; i < row; ++i, j += col) {
     console.log(`${i}: [${Object.values(m).slice(j, j + col)}]`);
   }
@@ -336,9 +363,16 @@ function printMatrix(matrix, full = !matrix.is2D) {
  * redrawn.
  */
 function mainEntrance() {
-  var ctx = document.querySelector("#theCanvas").getContext("2d");
+  const ctx = document.querySelector("#theCanvas").getContext("2d");
 
-  // key handler
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keydown.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event keydown - fired when a key is pressed.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event}
+   */
   window.onkeydown = handleKeyPress;
 
   /**
@@ -348,23 +382,23 @@ function mainEntrance() {
    * @global
    * @function
    */
-  var runAnimation = (() => {
+  const runAnimation = (() => {
     // control the rotation angle
-    var ang = 0.0;
+    let ang = 0.0;
 
     // click translation
-    var tx = 0;
-    var ty = 0;
+    let tx = 0;
+    let ty = 0;
 
     // angle increment
-    var increment = 2.0;
+    const increment = 2.0;
 
     // current corner for rotation
-    var p = new DOMPoint(...getVertex(cindex));
+    let p = new DOMPoint(...getVertex(cindex));
 
     // this value is set when the function is loaded,
     // and do not change afterwards...
-    let wlen = wsize / 2;
+    const wlen = wsize / 2;
 
     /**
      * <p>Keep drawing frames.</p>
@@ -376,7 +410,7 @@ function mainEntrance() {
       ang += increment;
       ang = ang % 360;
       if (click) {
-        var [vx, vy] = getVertex(cindex);
+        const [vx, vy] = getVertex(cindex);
 
         p = new DOMPoint(vx, vy);
         p = modelMatrix.transformPoint(p);
