@@ -500,7 +500,11 @@ function rotateAndTwist(theta, center, twist) {
 }
 
 /**
- * What to do when the left mouse or the enter button is clicked.
+ * <p>Appends an event listener for events whose type attribute value is click.</p>
+ * This {@link drawTriangle callback} is fired whenever an &lt;input&gt; checkbox
+ * is checked/unchecked.
+ * @event click - fires after both the mousedown and mouseup events have fired (in that order).
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
  */
 function clickCallBack() {
   fill = document.getElementById("fill").checked;
