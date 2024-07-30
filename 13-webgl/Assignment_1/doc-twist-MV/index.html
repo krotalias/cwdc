@@ -67,12 +67,17 @@
 
 <p>Draw a fractal known as
 <a href="https://en.wikipedia.org/wiki/Sierpiński_triangle">Sierpińsk</a> Gasket,
-with twist and MV.js,
-by recursively dividing in half
-the edges of an initial triangle.</p>
+(with an optional <a href="global.html#rotateAndTwist">twist factor</a> controlled using a slider)
+by <a href="global.html#divideTriangle">recursively dividing</a> in half
+the edges of an <a href="global.html#vertices">initial triangle</a>.</p>
 
-The number of red triangles is 3<sup>n</sup>
-and white triangles is (3<sup>n</sup>-1)/2.</div>
+The number of red triangles is 3<sup>n</sup>,
+and the number of <a href="https://nrich.maths.org/4757/solution">white triangles</a>
+is the sum of a <a href="https://www.cuemath.com/algebra/sum-of-a-gp/">geometric progression</a>
+of ratio 3 and first term 1:
+<ul>
+ <li>1 + 3 + 3² + ... + 3<sup>n-1</sup> = (3<sup>n</sup>-1)/2, n &ge; 0.</li>
+</ul></div>
         
 
         
@@ -109,7 +114,13 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
     
 
     
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>© 2023 Paulo R Cavalcanti.</li></ul></dd>
+    
 
+    
+    <dt class="tag-license">License:</dt>
+    <dd class="tag-license"><ul class="dummy"><li>Licensed under the <a href="https://www.opensource.org/licenses/mit-license.php">MIT license</a>.</li></ul></dd>
     
 
     
@@ -131,11 +142,11 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
         
             <li><a href="/cwdc/13-webgl/Assignment_1/twist-MV.js">source</a></li>
         
-            <li><a href="http://paulbourke.net/fractals/polyhedral/">http://paulbourke.net/fractals/polyhedral/</a></li>
+            <li><a href="https://paulbourke.net/fractals/polyhedral/">Sierpinski Gasket</a></li>
         
-            <li><a href="https://larryriddle.agnesscott.org/ifs/siertri/siertri.htm">https://larryriddle.agnesscott.org/ifs/siertri/siertri.htm</a></li>
+            <li><a href="https://larryriddle.agnesscott.org/ifs/siertri/siertri.htm">Classic Iterated Function Systems</a></li>
         
-            <li><a href="http://codepen.io/promac/pen/yNxMWz">http://codepen.io/promac/pen/yNxMWz</a></li>
+            <li><a href="http://codepen.io/promac/pen/yNxMWz">codepen</a></li>
         
             <li><img src="../twist.png"></li>
         
@@ -185,7 +196,7 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
 
 <header>
     
-        <h2>lib/Common/MV.js</h2>
+        <h2>lib/Common/MVES6.js</h2>
         
     
 </header>
@@ -206,7 +217,7 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
 
     
     <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>02/05/2015</li></ul></dd>
+    <dd class="tag-since"><ul class="dummy"><li>07/08/2021</li></ul></dd>
     
 
     
@@ -225,7 +236,7 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Edward Angel</li>
+            <li><a href="https://scholar.google.com/citations?user=uT_WCZ0AAAAJ&amp;hl=en">Edward Angel</a></li>
         </ul>
     </dd>
     
@@ -239,7 +250,7 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Common_MV.js.html">lib/Common/MV.js</a>, <a href="lib_Common_MV.js.html#line1">line 1</a>
+        <a href="lib_Common_MVES6.js.html">lib/Common/MVES6.js</a>, <a href="lib_Common_MVES6.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -249,9 +260,9 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="/WebGL/Common/MV.js">source</a></li>
+            <li><a href="/cwdc/13-webgl/lib/Common/MV.js">source</a></li>
         
-            <li><a href="https://scholar.google.com/citations?user=uT_WCZ0AAAAJ&hl=en">https://scholar.google.com/citations?user=uT_WCZ0AAAAJ&hl=en</a></li>
+            <li><a href="https://github.com/jiayaozhang/Interactive-Computer-Graphics-WebGL/blob/master/Code%20update/Code%20update/Common/MVES6.js">github</a></li>
         </ul>
     </dd>
     
@@ -297,7 +308,7 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
 
 <header>
     
-        <h2>lib/Common/initShaders.js</h2>
+        <h2>lib/Common/initShadersES6.js</h2>
         
     
 </header>
@@ -318,7 +329,7 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
 
     
     <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>20/08/2014</li></ul></dd>
+    <dd class="tag-since"><ul class="dummy"><li>07/08/2021</li></ul></dd>
     
 
     
@@ -337,7 +348,7 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Edward Angel</li>
+            <li><a href="https://scholar.google.com/citations?user=uT_WCZ0AAAAJ&amp;hl=en">Edward Angel</a></li>
         </ul>
     </dd>
     
@@ -351,7 +362,7 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_Common_initShaders.js.html">lib/Common/initShaders.js</a>, <a href="lib_Common_initShaders.js.html#line1">line 1</a>
+        <a href="lib_Common_initShadersES6.js.html">lib/Common/initShadersES6.js</a>, <a href="lib_Common_initShadersES6.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -361,9 +372,9 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="/cwdc/13-webgl/lib/Common/initShaders.js">source</a></li>
+            <li><a href="/cwdc/13-webgl/lib/Common/initShadersES6.js">source</a></li>
         
-            <li><a href="https://scholar.google.com/citations?user=uT_WCZ0AAAAJ&hl=en">https://scholar.google.com/citations?user=uT_WCZ0AAAAJ&hl=en</a></li>
+            <li><a href="https://github.com/jiayaozhang/Interactive-Computer-Graphics-WebGL/blob/master/Code%20update/Code%20update/Common/initShadersES6.js">github</a></li>
         </ul>
     </dd>
     
@@ -405,13 +416,13 @@ and white triangles is (3<sup>n</sup>-1)/2.</div>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#_argumentsToArray">_argumentsToArray</a></li><li><a href="global.html#add">add</a></li><li><a href="global.html#animation">animation</a></li><li><a href="global.html#bufferId">bufferId</a></li><li><a href="global.html#bufferLineId">bufferLineId</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#centroid">centroid</a></li><li><a href="global.html#clickCallBack">clickCallBack</a></li><li><a href="global.html#cpu">cpu</a></li><li><a href="global.html#cross">cross</a></li><li><a href="global.html#deform">deform</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#det">det</a></li><li><a href="global.html#det2">det2</a></li><li><a href="global.html#det3">det3</a></li><li><a href="global.html#det4">det4</a></li><li><a href="global.html#divideTriangle">divideTriangle</a></li><li><a href="global.html#dot">dot</a></li><li><a href="global.html#drawTriangle">drawTriangle</a></li><li><a href="global.html#equal">equal</a></li><li><a href="global.html#fColor">fColor</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#flatten">flatten</a></li><li><a href="global.html#fpsCounter">fpsCounter</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpu">gpu</a></li><li><a href="global.html#hexToRgb">hexToRgb</a></li><li><a href="global.html#infoBtn">infoBtn</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#inverse">inverse</a></li><li><a href="global.html#inverse2">inverse2</a></li><li><a href="global.html#inverse3">inverse3</a></li><li><a href="global.html#inverse4">inverse4</a></li><li><a href="global.html#length">length</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#lookAt">lookAt</a></li><li><a href="global.html#mat2">mat2</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#mix">mix</a></li><li><a href="global.html#mult">mult</a></li><li><a href="global.html#negate">negate</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#normalize">normalize</a></li><li><a href="global.html#origin">origin</a></li><li><a href="global.html#ortho">ortho</a></li><li><a href="global.html#perspective">perspective</a></li><li><a href="global.html#points">points</a></li><li><a href="global.html#printm">printm</a></li><li><a href="global.html#radians">radians</a></li><li><a href="global.html#rotate">rotate</a></li><li><a href="global.html#rotate2">rotate2</a></li><li><a href="global.html#rotateAndTwist">rotateAndTwist</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#scalem">scalem</a></li><li><a href="global.html#setUpShaders">setUpShaders</a></li><li><a href="global.html#sizeof">sizeof</a></li><li><a href="global.html#subtract">subtract</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#transpose">transpose</a></li><li><a href="global.html#triangle">triangle</a></li><li><a href="global.html#twist">twist</a></li><li><a href="global.html#vPosition">vPosition</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertices">vertices</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:keydown-%2522Enter%2522pressedon&lt;input&gt;btnDiv.">keydown - "Enter" pressed on &lt;input&gt; btnDiv.</a></li><li><a href="global.html#event:load-firedwhenthewholepagehasloaded.">load - fired when the whole page has loaded.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#bufferId">bufferId</a></li><li><a href="global.html#bufferLineId">bufferLineId</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#centroid">centroid</a></li><li><a href="global.html#clickCallBack">clickCallBack</a></li><li><a href="global.html#cpu">cpu</a></li><li><a href="global.html#deform">deform</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#divideTriangle">divideTriangle</a></li><li><a href="global.html#drawTriangle">drawTriangle</a></li><li><a href="global.html#fColor">fColor</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#fpsCounter">fpsCounter</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpu">gpu</a></li><li><a href="global.html#hexToRgb">hexToRgb</a></li><li><a href="global.html#infoBtn">infoBtn</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#origin">origin</a></li><li><a href="global.html#points">points</a></li><li><a href="global.html#rotate2">rotate2</a></li><li><a href="global.html#rotateAndTwist">rotateAndTwist</a></li><li><a href="global.html#setUpShaders">setUpShaders</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#triangle">triangle</a></li><li><a href="global.html#twist">twist</a></li><li><a href="global.html#vPosition">vPosition</a></li><li><a href="global.html#vertices">vertices</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Sep 29 2023 04:04:37 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jul 30 2024 11:19:13 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
