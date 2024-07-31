@@ -4,36 +4,46 @@
  * Summary.
  * <p>Demo of matrix transformations.</p>
  *
- * <p>An output area in the html page
+ * <ul>
+ * <li>An output area in the html page
  * shows the matrices that were multiplied together to get the
- * current transformation being applied to the triangle.</p>
+ * current transformation being applied to a triangle.</li>
  *
- * The drawing and shader code is the same as
+ * <li>The drawing and shader code is the same as
  * <a href="/cwdc/13-webgl/examples/transformations/content/Transformations.js">Transformations.js</a><br>
  * What's been added are the html controls for selecting the
  * transformation and the corresponding event handling code
- * to update the transformation matrix.
+ * to update the transformation matrix.</li>
  *
- * <p>Note also that instead of explicitly listing 16 numbers to represent a matrix,
- * this uses the type {@link Matrix4} (and {@link Vector4}) from
+ * <li>Instead of explicitly listing 16 numbers to represent a matrix,
+ * we use the type {@link Matrix4} (and {@link Vector4}) from
  * the {@link https://uniguld.dk/wp-content/guld/DTU/webgrafik/0321902920_WebGL.pdf teal book}
- * utilities in cuon-matrix.js, for example:</p>
+ * utilities to perform {@link https://www.cuemath.com/algebra/matrix-operations/ matrix operations}.
+ * </li>
+ * </ul>
+ * Usage example of a {@link Matrix4}:
  * <pre>
- *   var m = new Matrix4();                   // identity matrix
- *   m.setTranslate(0.3, 0.0, 0.0);           // make it into a translation matrix
- *   var m2 = new Matrix4();
- *   m2.setRotate(90, 0, 0, 1);               // rotate 90 degrees in x-y plane
- *   m.multiply(m2);                          // multiply m on right by m2, i.e., m = m * m2;
- *   var theRealData = m.elements;            // get the underlying Float32Array
- *   var projection = new Matrix4().ortho(-1, 1, -1, 1, -1, 1); // default projection
+ *   var m = new Matrix4();           // identity {@link Matrix4 matrix}
+ *   m.setTranslate(0.3, 0.0, 0.0);   // make it into a {@link Matrix4#setTranslate translation} matrix
+ *   var m2 = new Matrix4().          // create and make {@link Matrix4#setRotate rotation} in one step
+ *     setRotate(90, 0, 0, 1);        // (rotate 90 degrees in xy-plane)
+ *   m.multiply(m2);                  // {@link Matrix4#multiply multiply} m on right by m2, i.e., m = m * m2;
+ *   var theRealData = m.elements;    // get the {@link Matrix4#elements underlying} Float32Array
+ *   var projection = new Matrix4().
+ *     ortho(-1, 1, -1, 1, -1, 1);    // default {@link Matrix4#ortho projection}
  * </pre>
- * @author Steve Kautz
+ * @author {@link https://www.cs.iastate.edu/smkautz Steve Kautz}
+ * @author Paulo Roma
  * @since 27/09/2016
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
+ * @copyright © 2016-2024 Paulo R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/homework/hw2/Reflection.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/hw2/Reflection.js">source</a>
  * @see <a href="/cwdc/13-webgl/homework/hw2/hw2b.pdf">doc</a>
  * @see <a href="https://www.mauriciopoppe.com/notes/computer-graphics/transformation-matrices/rotation/euler-angles/">Euler Angles</a>
  * @see <a href="https://www.alamo.edu/contentassets/ab5b70d70f264cec9097745e8f30ca0a/graphing/math0303-equations-of-a-line.pdf">Slope-Intercept</a>
+ * @see {@link https://www.youtube.com/watch?v=rUczpTPATyU Is WebGL left handed?}
+ * @see {@link https://www.learnopengles.com/tag/left-handed-coordinate-system/ Well, only NDC is.}
  * @see <img src="../clip_space_graph.svg" width="512">
  */
 
@@ -380,7 +390,7 @@ function mainEntrance() {
       var x = event.clientX;
       var y = event.clientY;
 
-      // y axis is upside down
+      // y-axis is upside down
       let wx = 2 * ((x - rect.left) / rect.width) - 1;
       let wy = -2 * ((y - rect.top) / rect.height) + 1;
 

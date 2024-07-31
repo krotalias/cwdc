@@ -66,28 +66,33 @@
             <div class="description">Summary.
 <p>Demo of matrix transformations.</p>
 
-<p>An output area in the html page
+<ul>
+<li>An output area in the html page
 shows the matrices that were multiplied together to get the
-current transformation being applied to the triangle.</p>
+current transformation being applied to a triangle.</li>
 
-The drawing and shader code is the same as
+<li>The drawing and shader code is the same as
 <a href="/cwdc/13-webgl/examples/transformations/content/Transformations.js">Transformations.js</a><br>
 What's been added are the html controls for selecting the
 transformation and the corresponding event handling code
-to update the transformation matrix.
+to update the transformation matrix.</li>
 
-<p>Note also that instead of explicitly listing 16 numbers to represent a matrix,
-this uses the type <a href="Matrix4.html">Matrix4</a> (and <a href="Vector4.html">Vector4</a>) from
+<li>Instead of explicitly listing 16 numbers to represent a matrix,
+we use the type <a href="Matrix4.html">Matrix4</a> (and <a href="Vector4.html">Vector4</a>) from
 the <a href="https://uniguld.dk/wp-content/guld/DTU/webgrafik/0321902920_WebGL.pdf">teal book</a>
-utilities in cuon-matrix.js, for example:</p>
+utilities to perform <a href="https://www.cuemath.com/algebra/matrix-operations/">matrix operations</a>.
+</li>
+</ul>
+Usage example of a <a href="Matrix4.html">Matrix4</a>:
 <pre>
-  var m = new Matrix4();                   // identity matrix
-  m.setTranslate(0.3, 0.0, 0.0);           // make it into a translation matrix
-  var m2 = new Matrix4();
-  m2.setRotate(90, 0, 0, 1);               // rotate 90 degrees in x-y plane
-  m.multiply(m2);                          // multiply m on right by m2, i.e., m = m * m2;
-  var theRealData = m.elements;            // get the underlying Float32Array
-  var projection = new Matrix4().ortho(-1, 1, -1, 1, -1, 1); // default projection
+  var m = new Matrix4();           // identity <a href="Matrix4.html">matrix</a>
+  m.setTranslate(0.3, 0.0, 0.0);   // make it into a <a href="Matrix4.html#setTranslate">translation</a> matrix
+  var m2 = new Matrix4().          // create and make <a href="Matrix4.html#setRotate">rotation</a> in one step
+    setRotate(90, 0, 0, 1);        // (rotate 90 degrees in xy-plane)
+  m.multiply(m2);                  // <a href="Matrix4.html#multiply">multiply</a> m on right by m2, i.e., m = m * m2;
+  var theRealData = m.elements;    // get the <a href="Matrix4.html#elements">underlying</a> Float32Array
+  var projection = new Matrix4().
+    ortho(-1, 1, -1, 1, -1, 1);    // default <a href="Matrix4.html#ortho">projection</a>
 </pre></div>
         
 
@@ -119,13 +124,21 @@ utilities in cuon-matrix.js, for example:</p>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Steve Kautz</li>
+            <li><a href="https://www.cs.iastate.edu/smkautz">Steve Kautz</a></li>
+        
+            <li>Paulo Roma</li>
         </ul>
     </dd>
     
 
     
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>© 2016-2024 Paulo R Cavalcanti.</li></ul></dd>
+    
 
+    
+    <dt class="tag-license">License:</dt>
+    <dd class="tag-license"><ul class="dummy"><li>Licensed under the <a href="https://www.opensource.org/licenses/mit-license.php">MIT license</a>.</li></ul></dd>
     
 
     
@@ -152,6 +165,10 @@ utilities in cuon-matrix.js, for example:</p>
             <li><a href="https://www.mauriciopoppe.com/notes/computer-graphics/transformation-matrices/rotation/euler-angles/">Euler Angles</a></li>
         
             <li><a href="https://www.alamo.edu/contentassets/ab5b70d70f264cec9097745e8f30ca0a/graphing/math0303-equations-of-a-line.pdf">Slope-Intercept</a></li>
+        
+            <li><a href="https://www.youtube.com/watch?v=rUczpTPATyU">Is WebGL left handed?</a></li>
+        
+            <li><a href="https://www.learnopengles.com/tag/left-handed-coordinate-system/">Well, only NDC is.</a></li>
         
             <li><img src="../clip_space_graph.svg" width="512"></li>
         </ul>
@@ -239,11 +256,14 @@ utilities in cuon-matrix.js, for example:</p>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Kanda and Matsuda (c) 2012</li>
+            <li>Kanda and Matsuda</li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>© 2012 Kanda and Matsuda</li></ul></dd>
     
 
     
@@ -349,11 +369,14 @@ utilities in cuon-matrix.js, for example:</p>
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li>Kanda and Matsuda (c) 2012</li>
+            <li>Kanda and Matsuda</li>
         </ul>
     </dd>
     
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>© 2012 Kanda and Matsuda</li></ul></dd>
     
 
     
@@ -421,7 +444,7 @@ utilities in cuon-matrix.js, for example:</p>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Apr 14 2024 08:51:57 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jul 31 2024 18:53:04 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
