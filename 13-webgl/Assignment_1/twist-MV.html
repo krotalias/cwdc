@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -73,6 +73,7 @@
             <input
                 name="txtboxDiv"
                 id="subdiv"
+                type="number"
                 min="0"
                 max="7"
                 step="1"
@@ -80,15 +81,17 @@
                 oninput="this.value = Math.max(Math.min(this.value.replace(/[^0-9]/g,''),7),0)"
                 value="5"
                 style="width: 40px"
-                type="number"
             />
             <input
                 name="btnDiv"
                 id="btnDiv"
                 type="button"
-                value="Number of Divisions: [0,7]"
                 onclick="clickCallBack()"
             />
+
+            <div style="display: inline; margin-left: 1em">
+                🔺 = <span id="red">1</span>, △ = <span id="white">0</span>
+            </div>
 
             <br /><br />
             <input
@@ -97,17 +100,10 @@
                 type="checkbox"
                 checked
                 required="required"
-                onclick="clickCallBack()"
             />
             <label for="twist">Twist</label>
 
-            <input
-                id="fill"
-                name="fill"
-                type="checkbox"
-                required="required"
-                onclick="clickCallBack()"
-            />
+            <input id="fill" name="fill" type="checkbox" required="required" />
             <label for="fill">Fill</label>
 
             <input
@@ -116,7 +112,6 @@
                 type="checkbox"
                 checked
                 required="required"
-                onclick="clickCallBack()"
             />
             <label for="gpu">GPU(Rotate)</label>
 
@@ -126,7 +121,6 @@
                 type="checkbox"
                 checked
                 required="required"
-                onclick="clickCallBack()"
             />
             <label for="spin">Spin Fast</label>
 
