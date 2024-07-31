@@ -5,21 +5,35 @@
  * <p>Demo of matrix transformations.</p>
  *
  * <ul>
- * <li>An output area in the html page
+ * <li>An output area in the HTML page
  * shows the matrices that were multiplied together to get the
  * current transformation being applied to a triangle.</li>
  *
- * <li>The drawing and shader code is the same as
+ * <li>The drawing and shader code are the same as in
  * <a href="/cwdc/13-webgl/examples/transformations/content/Transformations.js">Transformations.js</a><br>
- * What's been added are the html controls for selecting the
+ * What's been added are the HTML controls for selecting the
  * transformation and the corresponding event handling code
  * to update the transformation matrix.</li>
  *
  * <li>Instead of explicitly listing 16 numbers to represent a matrix,
- * we use the type {@link Matrix4} (and {@link Vector4}) from
+ * we use the types {@link Matrix4} and {@link Vector4} from
  * the {@link https://uniguld.dk/wp-content/guld/DTU/webgrafik/0321902920_WebGL.pdf teal book}
  * utilities to perform {@link https://www.cuemath.com/algebra/matrix-operations/ matrix operations}.
  * </li>
+ * <li>The matrix stack has been removed from {@link https://en.wikipedia.org/wiki/OpenGL OpenGL} version 3 and beyond.</li>
+ * <li>Nonetheless, there are at least three packages available for matrix manipulation:
+ *    <ol>
+ *      <li>{@link https://glmatrix.net glMatrix} (available via {@link https://www.jsdelivr.com/package/npm/gl-matrix CDN})</li>
+ *      <li><a href="http://rodger.global-linguist.com/webgl/examples.zip">cuon-matrix</a> (examples/lib - unmaintained)</li>
+ *      <li><a href="https://github.com/johnpaulwelsh/ComputerGraphics/blob/master/Lab_3/Common/MV.js">MV</a> (poorly documented)</li>
+ *    </ol>
+ *    Of course, the choice is up to you...
+ * </li>
+ * <li>This code is very old, and the use of <mark>var</mark> in Javascript has been <em>"deprecated"</em> meanwhile.
+ * Therefore, one {@link https://www.freecodecamp.org/news/understanding-let-const-and-var-keywords/ should use}
+ * <mark>const</mark>, and where not possible, <mark>let</mark>.</li>
+ * <li>Do not spare {@link https://javascript.info/object objects} in Javascript.
+ * They come for free and are very helpful, in general.</li>
  * </ul>
  * Usage example of a {@link Matrix4}:
  * <pre>
