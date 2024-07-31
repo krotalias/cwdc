@@ -50,18 +50,20 @@ let gl;
 
 /**
  * A 2D point.
- * @typedef {Array<Number>} vec2d
+ * @typedef {Array<Number>} vec2
  * @property {Number} - x coordinate.
  * @property {Number} - y coordinate.
+ * @see <a href="/cwdc/13-webgl/lib/Common/MVES6.js">MVES6.js</a>
  */
 
 /**
  * A 4D point.
- * @typedef {Array<Number>} vec4d
+ * @typedef {Array<Number>} vec4
  * @property {Number} - x coordinate.
  * @property {Number} - y coordinate.
  * @property {Number} - z coordinate.
  * @property {Number} - w coordinate.
+ * @see <a href="/cwdc/13-webgl/lib/Common/MVES6.js">MVES6.js</a>
  */
 
 /**
