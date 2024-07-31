@@ -492,16 +492,16 @@ function rotateAndTwist(theta, center, twist) {
   let m = rotate2(theta);
 
   for (const p of points) {
-    p = subtract(p, center);
-    if (twist) m = rotate2(theta + length(p));
-    const p2 = add(mult(m, p), center);
+    const p1 = subtract(p, center);
+    if (twist) m = rotate2(theta + length(p1));
+    const p2 = add(mult(m, p1), center);
     triangles.push(p2);
   }
 
   for (const p of lines) {
-    p = subtract(p, center);
-    if (twist) m = rotate2(theta + length(p));
-    const p2 = add(mult(m, p), center);
+    const p1 = subtract(p, center);
+    if (twist) m = rotate2(theta + length(p1));
+    const p2 = add(mult(m, p1), center);
     edges.push(p2);
   }
 
