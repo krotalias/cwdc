@@ -14,13 +14,15 @@
  * is the sum of a {@link https://www.cuemath.com/algebra/sum-of-a-gp/ geometric progression}
  * of ratio 3 and first term 1:
  * <ul>
- *  <li>1 + 3 + 3² + ... + 3<sup>n-1</sup> = (3<sup>n</sup>-1)/2, n &ge; 0.</li>
+ *  <li>W(0) = 0</li>
+ *  <li>W(n) = 3 * W(n-1) + 1</li>
+ *  <li>W(n) = 1 + 3 + 3² + ... + 3<sup>n-1</sup> = (3<sup>n</sup>-1)/2, n &ge; 0.</li>
  * </ul>
  *
  * @author Paulo Roma Cavalcanti
  * @since 30/01/2023
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
- * @copyright © 2023 Paulo R Cavalcanti.
+ * @copyright © 2023-2024 Paulo R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/Assignment_1/twist.html">link</a>
  * @see <a href="/cwdc/13-webgl/Assignment_1/twist.js">source</a>
  * @see {@link http://paulbourke.net/fractals/polyhedral/ Sierpinski Gasket}
@@ -198,7 +200,7 @@ function infoBtn() {
    * Displays the Date and WebGL/GLSL versions,
    * whenever the "Date/Time" button is clicked.
    * @param {MouseEvent} event a mouse event.
-   * @event click - Get date/time: fires after both the mousedown and mouseup events have fired (in that order).
+   * @event click - date/time button: fires after both the mousedown and mouseup events have fired (in that order).
    */
   btn.addEventListener("click", (event) => {
     demo.innerHTML += `${Date()}<br />${gl.getParameter(
@@ -232,7 +234,7 @@ function init() {
    * The {@link clickCallBack callback} argument sets the callback that will be invoked
    * when the event is dispatched.</p>
    *
-   * @event keydown - "Enter" pressed on &lt;input&gt; btnDiv.
+   * @event keydown - &lt;Enter&gt; key pressed in &lt;input&gt; subdiv.
    */
   input.addEventListener("keydown", function (event) {
     // If the user presses the "Enter" key on the keyboard
@@ -338,13 +340,27 @@ function setUpShaders() {
    * The {@link clickCallBack callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event change - executed when the slider range is changed.
+   * @event change - executed when the &lt;input&gt; slider is changed.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
    */
   document.getElementById("slider").onchange = function (event) {
     document.getElementById("subdiv").value = event.target.value.toString();
     clickCallBack();
   };
+}
+
+if (document.querySelector('input[type="checkbox"]')) {
+  document.querySelectorAll("input[type=checkbox]").forEach((elem) => {
+    /**
+     * <p>Appends an event listener for events whose type attribute value is change.<br>
+     * The {@link clickCallBack callback} argument sets the callback that will be invoked when
+     * the event is dispatched.</p>
+     *
+     * @event change - executed when a checkbox is checked or unchecked.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     */
+    elem.addEventListener("change", () => clickCallBack());
+  });
 }
 
 /**
@@ -500,10 +516,9 @@ function rotateAndTwist(theta, center, twist) {
 }
 
 /**
- * <p>Appends an event listener for events whose type attribute value is click.</p>
+ * <p>What to do when the left mouse button is clicked.</p>
  * This {@link drawTriangle callback} is fired whenever an &lt;input&gt; checkbox
- * is checked/unchecked.
- * @event click - fires after both the mousedown and mouseup events have fired (in that order).
+ * is checked/unchecked, a button is clicked or the &lt;Enter&gt; key is pressed.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
  */
 function clickCallBack() {
@@ -523,6 +538,8 @@ function clickCallBack() {
     document.getElementById("gpu").checked,
     ang,
   );
+  document.getElementById("red").innerHTML = 3 ** ndiv;
+  document.getElementById("white").innerHTML = (3 ** ndiv - 1) / 2;
 }
 
 /**
