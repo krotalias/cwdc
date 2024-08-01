@@ -34,14 +34,18 @@
 /**
  * Three.js module.
  * @external THREE
- * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
+ * @see {@link https://discoverthreejs.com DISCOVER three.js}
+ * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
  */
 let THREE;
 
 /**
- * OrbitControls module.
- * @external OrbitControls
- * @see https://threejs.org/docs/#examples/en/controls/OrbitControls
+ * Orbit controls allow the camera to orbit around a target.
+ * @memberof external:THREE
+ * @class OrbitControls
+ * @see {@link https://threejs.org/docs/#examples/en/controls/OrbitControls OrbitControls}
+ * @see {@link https://raw.githubusercontent.com/mrdoob/three.js/master/examples/jsm/controls/OrbitControls.js github}
  */
 let OrbitControls;
 
@@ -69,10 +73,10 @@ let OrbitControls;
  * @see https://www.codingem.com/javascript-clone-object/
  */
 const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
-  let scene = loadedScene.clone();
+  const scene = loadedScene.clone();
 
   // create an array with the n initial copies
-  let copies = scene.children.filter(
+  const copies = scene.children.filter(
     (child) => child.name.slice(0, 4) == "copy",
   );
   // remove all n copies from the scene
@@ -80,7 +84,7 @@ const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
 
   // initial level with only n copies
   let currentLevel = copies.map((copy) => {
-    let obj = copy.clone();
+    const obj = copy.clone();
     obj.matrixAutoUpdate = false;
     return obj;
   });
@@ -88,7 +92,7 @@ const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   for (let level = 1; level <= maxLevel; level++) {
     let nextLevel = [];
     // create a next level with n * currentLevel.length objects
-    for (let copy of copies) {
+    for (const copy of copies) {
       // for each obj in this level generate n more,
       // using either its matrix or its original's copy matrix
       // for coloring objs
@@ -144,7 +148,7 @@ async function mainEntrance() {
    * @see https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript
    * @see https://api.jquery.com/jquery.ajax/
    */
-  let readFileNames = new Promise((resolve, reject) => {
+  const readFileNames = new Promise((resolve, reject) => {
     $.ajax({
       type: "GET",
       url: "/cwdc/6-php/readFiles_.php",
@@ -184,14 +188,14 @@ async function mainEntrance() {
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  let jfile = urlParams.get("file") || "sierpinski3.json";
+  const jfile = urlParams.get("file") || "sierpinski3.json";
 
   /**
    * Array holding model file names to create scenes.
    * @var {Array<String>} modelFileName
    * @global
    */
-  let modelFileName = await readFileNames
+  const modelFileName = await readFileNames
     .then((arr) => {
       return arr.length > 0 ? arr : ["sierpinski3.json"];
     })
@@ -206,7 +210,7 @@ async function mainEntrance() {
       ];
     });
 
-  let response = await fetch(`./models/${jfile}`);
+  const response = await fetch(`./models/${jfile}`);
 
   /**
    * Javascript object holding the current loaded model ready to be parsed.
@@ -214,7 +218,7 @@ async function mainEntrance() {
    * @global
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/json
    */
-  let model = await response.json();
+  const model = await response.json();
 
   /**
    * Current loaded model parsed from a json file.
@@ -279,9 +283,9 @@ async function mainEntrance() {
    */
   async function nextScene() {
     sceneCnt = (sceneCnt + 1) % modelFileName.length;
-    let jfile = modelFileName[sceneCnt];
-    let response = await fetch(`./models/${jfile}`);
-    let model = await response.json();
+    const jfile = modelFileName[sceneCnt];
+    const response = await fetch(`./models/${jfile}`);
+    const model = await response.json();
     loadedScene = loader.parse(model);
     renderScene();
   }
@@ -295,9 +299,9 @@ async function mainEntrance() {
   async function previousScene() {
     --sceneCnt;
     if (sceneCnt < 0) sceneCnt = modelFileName.length - 1;
-    let jfile = modelFileName[sceneCnt];
-    let response = await fetch(`./models/${jfile}`);
-    let model = await response.json();
+    const jfile = modelFileName[sceneCnt];
+    const response = await fetch(`./models/${jfile}`);
+    const model = await response.json();
     loadedScene = loader.parse(model);
     renderScene();
   }
@@ -377,8 +381,8 @@ async function mainEntrance() {
     $(id).append(`<p>${title}</p>`);
     sbtn = Math.min(sbtn, nbtn);
     for (let value = 0; value < nbtn + 1; ++value) {
-      let checked = value == sbtn ? "checked" : "";
-      let vid = `v${value + offset}`;
+      const checked = value == sbtn ? "checked" : "";
+      const vid = `v${value + offset}`;
       $(id)
         .append(`<label for=${vid}>${value}</label>`)
         .append(
@@ -391,7 +395,7 @@ async function mainEntrance() {
     }
 
     // listen to events on every checkbox of the radio buttons
-    let matches = document.querySelectorAll(`input[name=${name}]`);
+    const matches = document.querySelectorAll(`input[name=${name}]`);
     matches.forEach((elem) => {
       /**
        * <p>Appends an event listener for events whose type attribute value is change.
@@ -499,15 +503,8 @@ async function mainEntrance() {
   });
 
   /**
-   * Orbit controls allow the camera to orbit around a target.
-   * @class OrbitControls
-   * @memberof external:OrbitControls
-   * @see https://threejs.org/docs/#examples/en/controls/OrbitControls
-   */
-
-  /**
    * OrbitControls object.
-   * @var {external:OrbitControls.OrbitControls}
+   * @type {external:THREE.OrbitControls}
    * @global
    */
   const controls = new OrbitControls(camera, renderer.domElement);
