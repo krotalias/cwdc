@@ -2,20 +2,23 @@
  * @file
  *
  * Summary.
- * <p>Demo of matrix transformations.</p>
+ * <p>Demo of {@link https://en.wikipedia.org/wiki/Transformation_matrix transformation matrices}</p>
  *
  * <ul>
+ * <li>Matrix multiplication is used to apply transformations to geometry
+ * and transformations can be composed easily by multiplying their matrices.</li>
  * <li>An output area in the HTML page
  * shows the matrices that were multiplied together to get the
  * current transformation being applied to a triangle.</li>
  *
- * <li>The drawing and shader code are the same as in
+ * <li>The {@link draw drawing} and shader code are the same as in
  * <a href="/cwdc/13-webgl/examples/transformations/content/Transformations.js">Transformations.js</a><br>
  * What's been added are the HTML controls for selecting the
  * transformation and the corresponding event handling code
  * to update the transformation matrix.</li>
  *
- * <li>Instead of explicitly listing 16 numbers to represent a matrix,
+ * <li>Instead of explicitly listing 16 numbers to represent a matrix as a
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array/Float32Array Float32Array},
  * we use the types {@link Matrix4} and {@link Vector4} from
  * the {@link https://uniguld.dk/wp-content/guld/DTU/webgrafik/0321902920_WebGL.pdf teal book}
  * utilities to perform {@link https://www.cuemath.com/algebra/matrix-operations/ matrix operations}.
@@ -34,6 +37,9 @@
  * <mark>const</mark>, and where not possible, <mark>let</mark>.</li>
  * <li>Do not spare {@link https://javascript.info/object objects} in Javascript.
  * They come for free and are very helpful, in general.</li>
+ * <li>Understand the <a href="/cwdc/3-javascript/arrow/doc-arrow/index.html">difference</a>
+ * between functions and
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions arrow functions}.</li>
  * </ul>
  * Usage example of a {@link Matrix4}:
  * <pre>
@@ -41,7 +47,7 @@
  *   m.setTranslate(0.3, 0.0, 0.0);   // make it into a {@link Matrix4#setTranslate translation} matrix
  *   var m2 = new Matrix4().          // create and make {@link Matrix4#setRotate rotation} in one step
  *     setRotate(90, 0, 0, 1);        // (rotate 90 degrees in xy-plane)
- *   m.multiply(m2);                  // {@link Matrix4#multiply multiply} m on right by m2, i.e., m = m * m2;
+ *   m.multiply(m2);                  // {@link Matrix4#multiply multiply} m on right by m2: m = m * m2
  *   var theRealData = m.elements;    // get the {@link Matrix4#elements underlying} Float32Array
  *   var projection = new Matrix4().
  *     ortho(-1, 1, -1, 1, -1, 1);    // default {@link Matrix4#ortho projection}
