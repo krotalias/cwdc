@@ -196,7 +196,7 @@ async function mainEntrance() {
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  let jfile = urlParams.get("file") || "sierpinski3.json";
+  let jfile = urlParams.get("file");
 
   // default scene
   const defScene = document
@@ -207,7 +207,9 @@ async function mainEntrance() {
    * Array holding model file names to create scenes from.
    * @type {Array<String>}
    */
-  const sceneFilename = [defScene ? defScene.text : jfile];
+  const sceneFilename = [
+    jfile ? jfile : defScene ? defScene.text : "sierpinski3.json",
+  ];
 
   jfile = sceneFilename[0];
 
