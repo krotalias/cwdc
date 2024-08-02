@@ -107,16 +107,34 @@
                     <label for="v8">On</label>
                     <input type="radio" id="v8" name="animate" value="1" />
                 </div>
+
+                <div style="margin-top: 1em">
+                    <label for="scenes">Scene</label><br />
+                    <select
+                        name="scenes"
+                        id="scenes"
+                        style="
+                            font-size: 120%;
+                            background-color: wheat;
+                            color: black;
+                            border: solid 5px lightsteelblue;
+                            border-radius: 10%;
+                        "
+                    >
+                        <option value="0">crystal.json</option>
+                        <option value="1">Pentagonal_de_Durer.json</option>
+                        <option value="2" selected>sierpinski3.json</option>
+                        <option value="3">tree.json</option>
+                    </select>
+                </div>
+
                 <div class="radiobtn">
-                    <p>
-                        Scene
-                        <button class="button" onclick="nextScene()">
-                            <span class="fa fa-plus"></span>
-                        </button>
-                        <button class="button" onclick="previousScene()">
-                            <span class="fa fa-minus"></span>
-                        </button>
-                    </p>
+                    <button class="button" onclick="nextScene()">
+                        <span class="fa fa-plus"></span>
+                    </button>
+                    <button class="button" onclick="previousScene()">
+                        <span class="fa fa-minus"></span>
+                    </button>
                 </div>
             </div>
         </div>

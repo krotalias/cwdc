@@ -50,6 +50,14 @@ let THREE;
 let OrbitControls;
 
 /**
+ * This is the base class for most objects in three.js and provides
+ * a set of properties and methods for manipulating objects in 3D space.
+ * @memberof external:THREE
+ * @class Object3D
+ * @see {@link https://threejs.org/docs/#api/en/core/Object3D Object3D}
+ */
+
+/**
  * Creates an IFS (Iterated Function System) fractal given a json object with
  * n objects (called copy1 ... copyn).
  *
@@ -64,10 +72,10 @@ let OrbitControls;
  *  <li>4**3 copy1 4**3 copy2 4**3 copy3 4**3 copy4 ... 02 blocks (color level 3)</li>
  * </ul>
  *
- * @param {THREE.Object3D} loadedScene json object.
+ * @param {external:THREE.Object3D} loadedScene json object.
  * @param {Number} maxLevel maximum recursion level.
  * @param {Number} colorLevel all objects of level colorLevel will have the same color.
- * @returns {THREE.Object3D} a new scene with a fractal at the given level.
+ * @returns {external:THREE.Object3D} a new scene with a fractal at the given level.
  * @see https://en.wikipedia.org/wiki/Sierpiński_triangle
  * @see https://threejs.org/docs/#api/en/core/Object3D
  * @see https://www.codingem.com/javascript-clone-object/
@@ -181,40 +189,96 @@ async function mainEntrance() {
 
   /**
    * ObjectLoader object.
-   * @var {external:THREE.ObjectLoader}
+   * @type {external:THREE.ObjectLoader}
    * @global
    */
   const loader = new THREE.ObjectLoader();
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const jfile = urlParams.get("file") || "sierpinski3.json";
+  let jfile = urlParams.get("file") || "sierpinski3.json";
+
+  // default scene
+  const defScene = document
+    .getElementById("scenes")
+    .querySelector("[selected]");
+
+  /**
+   * Array holding model file names to create scenes from.
+   * @type {Array<String>}
+   */
+  const sceneFilename = [defScene ? defScene.text : jfile];
+
+  jfile = sceneFilename[0];
+
+  /**
+   * Current scene index.
+   * @type {Number}
+   * @global
+   */
+  let sceneCnt = defScene ? +defScene.value : 0;
+
+  /**
+   * Get model file names from an html &lt;select&gt; element
+   * identified by "models".
+   * @param {Array<String>} optionNames array of model file names.
+   * @global
+   */
+  function getModels(optionNames) {
+    optionNames.length = 0;
+    const selectElement = document.getElementById("scenes");
+    [...selectElement.options].map((o) => optionNames.push(o.text));
+  }
+
+  /**
+   * Set model file names of an html &lt;select&gt; element identified by "scenes".
+   * @param {Array<String>} optionNames array of model file names.
+   * @global
+   */
+  function setModels(optionNames) {
+    const sel = document.getElementById("scenes");
+
+    let options_str = "";
+
+    optionNames.forEach((img, index) => {
+      options_str += `<option value="${index}">${img}</option>`;
+    });
+
+    sel.innerHTML = options_str;
+  }
 
   /**
    * Array holding model file names to create scenes.
-   * @var {Array<String>} modelFileName
+   * @type  {Array<String>}
    * @global
    */
   const modelFileName = await readFileNames
     .then((arr) => {
-      return arr.length > 0 ? arr : ["sierpinski3.json"];
+      const initialScene = sceneFilename[0];
+      if (arr.length > 0) arr = arr.sort();
+      setModels(arr);
+      sceneCnt = arr.indexOf(initialScene);
+      document.getElementById("scenes").value = arr.indexOf(jfile);
+      return arr;
     })
     .catch((error) => {
       console.log(`${error}`);
       // don't need to return anything => execution goes the normal way
-      return [
-        "crystal.json",
-        "Pentagonal_de_Durer.json",
-        "sierpinski3.json",
-        "tree.json",
-      ];
+      getModels(sceneFilename);
+      return sceneFilename;
     });
 
+  /**
+   * Represents the response to a fetch request.
+   * @type {Response}
+   * @global
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Response
+   */
   const response = await fetch(`./models/${jfile}`);
 
   /**
    * Javascript object holding the current loaded model ready to be parsed.
-   * @var {Object}
+   * @type {Object}
    * @global
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/json
    */
@@ -222,7 +286,7 @@ async function mainEntrance() {
 
   /**
    * Current loaded model parsed from a json file.
-   * @var {Object3D}
+   * @type {external:THREE.Object3D}
    * @global
    * @see https://threejs.org/docs/#api/en/loaders/ObjectLoader.parse
    */
@@ -230,7 +294,7 @@ async function mainEntrance() {
 
   /**
    * Canvas aspect ratio.
-   * @var {Number}
+   * @type {Number}
    * @global
    */
   let aspect = canvas.clientWidth / canvas.clientHeight;
@@ -244,7 +308,7 @@ async function mainEntrance() {
 
   /**
    * WebGLRenderer object.
-   * @var {external:THREE.WebGLRenderer}
+   * @type {external:THREE.WebGLRenderer}
    * @global
    */
   const renderer = new THREE.WebGLRenderer({
@@ -263,18 +327,11 @@ async function mainEntrance() {
 
   /**
    * PerspectiveCamera object.
-   * @var {external:THREE.PerspectiveCamera}
+   * @type {external:THREE.PerspectiveCamera}
    * @global
    */
   const camera = new THREE.PerspectiveCamera(45, aspect, 1, 10000);
   handleWindowResize();
-
-  /**
-   * Current scene index.
-   * @var {Number}
-   * @global
-   */
-  let sceneCnt = 0;
 
   /**
    * Select next scene.
@@ -287,6 +344,7 @@ async function mainEntrance() {
     const response = await fetch(`./models/${jfile}`);
     const model = await response.json();
     loadedScene = loader.parse(model);
+    document.getElementById("scenes").value = sceneCnt;
     renderScene();
   }
   window.nextScene = nextScene;
@@ -303,6 +361,7 @@ async function mainEntrance() {
     const response = await fetch(`./models/${jfile}`);
     const model = await response.json();
     loadedScene = loader.parse(model);
+    document.getElementById("scenes").value = sceneCnt;
     renderScene();
   }
   window.previousScene = previousScene;
@@ -336,6 +395,24 @@ async function mainEntrance() {
    * @event resize - executed when the window is resized.
    */
   window.addEventListener("resize", handleWindowResize, false);
+
+  const scenes = document.getElementById("scenes");
+
+  /**
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event change - executed when the scenes &lt;select&gt; is changed.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   */
+  scenes.addEventListener("change", async (event) => {
+    const jfile = modelFileName[scenes.value];
+    const response = await fetch(`./models/${jfile}`);
+    const model = await response.json();
+    loadedScene = loader.parse(model);
+    renderScene();
+  });
 
   /**
    * <p>Create radio buttons for nbtn color levels.</p>
@@ -438,24 +515,24 @@ async function mainEntrance() {
   /**
    * Maximum level using JQuery to get it from the interface.
    *
+   * @type {Number}
    * @global
-   * @var
    */
   let mlevel = +$("input[type='radio'][name='mlevel']:checked").val();
 
   /**
    * Color level being used, which has the same range as the selected maximum level.
    *
+   * @type {Number}
    * @global
-   * @var
    */
   let clevel = createRadioBtns({ nbtn: mlevel, cbfunc: renderScene });
 
   /**
    * Current scene with the fractal at the current maximum level.
    *
+   * @type {external:THREE.Object3D}
    * @global
-   * @var
    */
   let scene = fractalScene(loadedScene, mlevel, clevel);
 
