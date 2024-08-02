@@ -41,13 +41,21 @@
 
 "use strict";
 
-import * as THREE from "three";
-import { STLLoader } from "three/addons/loaders/STLLoader.js";
-import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
-import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
-import { TrackballControls } from "three/addons/controls/TrackballControls.js";
-import Stats from "three/addons/libs/stats.module.js";
+//import * as THREE from "three";
+//import { STLLoader } from "three/addons/loaders/STLLoader.js";
+//import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
+//import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+//import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+//import { TrackballControls } from "three/addons/controls/TrackballControls.js";
+//import Stats from "three/addons/libs/stats.module.js";
+
+import * as THREE from "/cwdc/13-webgl/lib/three.r163/build/three.module.js";
+import { STLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/STLLoader.js";
+import { VTKLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/VTKLoader.js";
+import { OBJLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/OBJLoader.js";
+import { MTLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/MTLLoader.js";
+import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/TrackballControls.js";
+import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
 
 /**
  * Three.js module.
@@ -114,6 +122,23 @@ function init() {
     optionNames.length = 0;
     const selectElement = document.getElementById("models");
     [...selectElement.options].map((o) => optionNames.push(o.text));
+  }
+
+  /**
+   * Set model file names of an html &lt;select&gt; element identified by "models".
+   * @param {Array<String>} optionNames array of model file names.
+   * @global
+   */
+  function setModels(optionNames) {
+    const sel = document.getElementById("models");
+
+    let options_str = "";
+
+    optionNames.forEach((img, index) => {
+      options_str += `<option value="${index}">${img}</option>`;
+    });
+
+    sel.innerHTML = options_str;
   }
 
   /**
@@ -287,9 +312,9 @@ function init() {
       diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
     } else {
       // OBJ file
-      let bb = new THREE.Box3().setFromObject(geometry);
+      const bb = new THREE.Box3().setFromObject(geometry);
       diag = bb.max.distanceTo(bb.min);
-      let center = new THREE.Vector3(0);
+      const center = new THREE.Vector3(0);
       bb.getCenter(center);
       geometry.position.set(-center.x, -center.y, -center.z);
       geometry.traverse(function (child) {
@@ -432,7 +457,7 @@ function init() {
    * @returns {KeyboardEvent} a keyboard event.
    */
   const createEvent = (key) => {
-    let code = key.charCodeAt();
+    const code = key.charCodeAt();
     return new KeyboardEvent("keydown", {
       key: key,
       which: code,
@@ -506,7 +531,12 @@ function init() {
     .getElementById("reset")
     .addEventListener("click", (event) => handleKeyPress(createEvent("o")));
 
+  const initialModel = models[0];
   getModels(models);
+  models.sort();
+  setModels(models);
+  modelCnt = models.indexOf(initialModel);
+  document.getElementById("models").value = modelCnt;
   handleKeyPress(createEvent("k"));
 }
 
