@@ -498,9 +498,10 @@ async function mainEntrance() {
   }
 
   /**
-   * Recreates the current scene from the loadedScene,
+   * Recreates the current scene from the {@link loadedScene},
+   * scaled to fit the window,
    * with the current mlevel and clevel,
-   * and renders it using the current camera.
+   * and renders it using the current {@link camera}.
    *
    * <p>Displays the number of children (mesh objects) in the scene.</p>
    *
@@ -508,8 +509,20 @@ async function mainEntrance() {
    * @function
    */
   const renderScene = () => {
-    // global variables and arguments
     scene = fractalScene(loadedScene, mlevel, clevel);
+
+    // scale to fit the window
+    const box3 = new THREE.Box3().setFromObject(scene);
+    const size = new THREE.Vector3();
+    box3.getSize(size);
+
+    const sc = Math.min(...size) / 2;
+    scene.scale.divideScalar(sc);
+
+    const centre = new THREE.Vector3();
+    box3.getCenter(centre);
+    scene.position.sub(centre);
+
     renderer.render(scene, camera);
     $("#animate").html(`Animate (${scene.children.length - 4})`);
   };
@@ -536,9 +549,8 @@ async function mainEntrance() {
    * @type {external:THREE.Object3D}
    * @global
    */
-  let scene = fractalScene(loadedScene, mlevel, clevel);
-
-  $("#animate").html(`Animate (${scene.children.length - 4})`);
+  let scene;
+  renderScene();
 
   // listen to events on every checkbox of the radio buttons
   let matches = document.querySelectorAll('input[name="mlevel"]');
@@ -600,6 +612,7 @@ async function mainEntrance() {
   controls.minDistance = 2.0;
   controls.maxDistance = 15.0;
   controls.listenToKeyEvents(window);
+
   /**
    * <p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
@@ -619,7 +632,7 @@ async function mainEntrance() {
   /**
    * <p>A built in function that can be used instead of
    * {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}.</p>
-   * The {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.setAnimationLoop renderer.setAnimationLoop}
+   * The {@link renderer}.{@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.setAnimationLoop setAnimationLoop}
    * parameter is a callback, which
    * will be called every available frame.<br>
    * If null is passed it will stop any already ongoing animation.
