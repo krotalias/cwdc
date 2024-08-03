@@ -367,7 +367,7 @@ async function mainEntrance() {
     const model = await response.json();
     loadedScene = loader.parse(model);
     document.getElementById("scenes").value = sceneCnt;
-    renderScene();
+    renderScene(true);
   }
   window.nextScene = nextScene;
 
@@ -384,7 +384,7 @@ async function mainEntrance() {
     const model = await response.json();
     loadedScene = loader.parse(model);
     document.getElementById("scenes").value = sceneCnt;
-    renderScene();
+    renderScene(true);
   }
   window.previousScene = previousScene;
 
@@ -433,7 +433,7 @@ async function mainEntrance() {
     const response = await fetch(`./models/${jfile}`);
     const model = await response.json();
     loadedScene = loader.parse(model);
-    renderScene();
+    renderScene(true);
   });
 
   /**
@@ -524,11 +524,12 @@ async function mainEntrance() {
    * and renders it using the current {@link camera}.
    *
    * <p>Displays the number of children (mesh objects) in the scene.</p>
+   * @param {Boolean} reset_camera sets camera to its initial state.
    *
    * @global
    * @function
    */
-  const renderScene = () => {
+  const renderScene = (reset_camera = false) => {
     scene = fractalScene(loadedScene, mlevel, clevel);
 
     // scale to fit the window
@@ -543,10 +544,12 @@ async function mainEntrance() {
     box3.getCenter(centre);
     scene.position.sub(centre);
 
-    camera.position.set(2, 2, 5);
-    camera.rotation.set(0, 0, 0);
-    controls.target.set(0, 0, 0);
-    controls.update();
+    if (reset_camera) {
+      camera.position.set(2, 2, 5);
+      camera.rotation.set(0, 0, 0);
+      controls.target.set(0, 0, 0);
+      controls.update();
+    }
 
     renderer.render(scene, camera);
     $("#animate").html(`Animate (${scene.children.length - 4})`);
