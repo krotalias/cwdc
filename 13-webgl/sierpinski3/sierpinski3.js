@@ -336,6 +336,26 @@ async function mainEntrance() {
   handleWindowResize();
 
   /**
+   * OrbitControls object.
+   * @type {external:THREE.OrbitControls}
+   * @global
+   */
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.screenSpacePanning = true;
+  controls.autoRotate = !!+$(
+    "input[type='radio'][name='animate']:checked",
+  ).val();
+  controls.autoRotateSpeed = 15.0;
+  controls.minPolarAngle = 0; // radians
+  // don't let go below the ground
+  controls.maxPolarAngle = Math.PI / 2;
+  controls.enableDamping = false;
+  controls.enablePan = true;
+  controls.minDistance = 2.0;
+  controls.maxDistance = 15.0;
+  controls.listenToKeyEvents(window);
+
+  /**
    * Select next scene.
    * @async
    * @global
@@ -523,6 +543,11 @@ async function mainEntrance() {
     box3.getCenter(centre);
     scene.position.sub(centre);
 
+    camera.position.set(2, 2, 5);
+    camera.rotation.set(0, 0, 0);
+    controls.target.set(0, 0, 0);
+    controls.update();
+
     renderer.render(scene, camera);
     $("#animate").html(`Animate (${scene.children.length - 4})`);
   };
@@ -592,26 +617,6 @@ async function mainEntrance() {
       controls.autoRotate = !!+event.target.value;
     });
   });
-
-  /**
-   * OrbitControls object.
-   * @type {external:THREE.OrbitControls}
-   * @global
-   */
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.screenSpacePanning = true;
-  controls.autoRotate = !!+$(
-    "input[type='radio'][name='animate']:checked",
-  ).val();
-  controls.autoRotateSpeed = 15.0;
-  controls.minPolarAngle = 0; // radians
-  // don't let go below the ground
-  controls.maxPolarAngle = Math.PI / 2;
-  controls.enableDamping = false;
-  controls.enablePan = true;
-  controls.minDistance = 2.0;
-  controls.maxDistance = 15.0;
-  controls.listenToKeyEvents(window);
 
   /**
    * <p>Appends an event listener for events whose type attribute value is change.
