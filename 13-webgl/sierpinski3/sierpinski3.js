@@ -82,6 +82,7 @@ let OrbitControls;
  */
 const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   const scene = loadedScene.clone();
+  const NIGHTHAWK = new THREE.Color(0x605252);
 
   // create an array with the n initial copies
   const copies = scene.children.filter(
@@ -129,6 +130,9 @@ const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
     currentLevel = nextLevel;
   }
   scene.add(...currentLevel);
+  if (!scene.background) {
+    scene.background = NIGHTHAWK;
+  }
   return scene;
 };
 
