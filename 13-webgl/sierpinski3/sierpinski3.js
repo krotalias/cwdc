@@ -64,14 +64,13 @@ let OrbitControls;
  *
  * <p>The fractal will have n<sup>mlevel+1</sup>objects.</p>
  *
- * E.g., for a Sierpiński gastket, the objects are just
- * <a href="https://www.qfbox.info/4d/tetrahedron">tetrahedra</a>.
- * <ul>
- *  <li>4**0 copy1 4**0 copy2 4**0 copy3 4**0 copy4 ... 16 blocks (color level 0)</li>
- *  <li>4**1 copy1 4**1 copy2 4**1 copy3 4**1 copy4 ... 08 blocks (color level 1)</li>
- *  <li>4**2 copy1 4**2 copy2 4**2 copy3 4**2 copy4 ... 04 blocks (color level 2)</li>
- *  <li>4**3 copy1 4**3 copy2 4**3 copy3 4**3 copy4 ... 02 blocks (color level 3)</li>
- * </ul>
+ * @example
+ * // For a Sierpiński gastket, the objects are just {@link https://www.qfbox.info/4d/tetrahedron tetrahedra}.
+ *
+ *    4**0 copy1 4**0 copy2 4**0 copy3 4**0 copy4 ... 16 blocks (color level 0)
+ *    4**1 copy1 4**1 copy2 4**1 copy3 4**1 copy4 ... 08 blocks (color level 1)
+ *    4**2 copy1 4**2 copy2 4**2 copy3 4**2 copy4 ... 04 blocks (color level 2)
+ *    4**3 copy1 4**3 copy2 4**3 copy3 4**3 copy4 ... 02 blocks (color level 3)
  *
  * @param {external:THREE.Object3D} loadedScene json object.
  * @param {Number} maxLevel maximum recursion level.
@@ -224,7 +223,7 @@ async function mainEntrance() {
   let sceneCnt = defScene ? +defScene.value : 0;
 
   /**
-   * Get model file names from an html &lt;select&gt; element
+   * Get model file names from an HTML &lt;select&gt; element
    * identified by "models".
    * @param {Array<String>} optionNames array of model file names.
    * @global
@@ -236,7 +235,7 @@ async function mainEntrance() {
   }
 
   /**
-   * Set model file names of an html &lt;select&gt; element identified by "scenes".
+   * Set model file names of an HTML &lt;select&gt; element identified by "scenes".
    * @param {Array<String>} optionNames array of model file names.
    * @global
    */
@@ -253,7 +252,10 @@ async function mainEntrance() {
   }
 
   /**
-   * Array holding model file names to create scenes from.
+   * <p>Array holding model file names to create scenes from.</p>
+   * If the Apache server runs PHP, then all file names in directory './models'
+   * are considered. Otherwise, only the {@link getModels file names}
+   * in the HTML &lt;select&gt; element.
    * @type  {Array<String>}
    * @global
    */
@@ -263,7 +265,7 @@ async function mainEntrance() {
       if (arr.length > 0) arr = arr.sort();
       setModels(arr);
       sceneCnt = arr.indexOf(initialScene);
-      document.getElementById("scenes").value = arr.indexOf(jfile);
+      document.getElementById("scenes").value = sceneCnt;
       return arr;
     })
     .catch((error) => {
@@ -444,7 +446,7 @@ async function mainEntrance() {
    * <input type="radio" id="v9" name="clevel" value="0">
    * <label for="v10">1</label>
    * <input type="radio" id="v10" name="clevel" value="1">
-   * <label for="v11>2</label>
+   * <label for="v11">2</label>
    * <input type="radio" id="v11" name="clevel" value="2" checked>
    *
    * @global
@@ -516,7 +518,8 @@ async function mainEntrance() {
    * with the current mlevel and clevel,
    * and renders it using the current {@link camera}.
    *
-   * <p>Displays the number of children (mesh objects) in the scene.</p>
+   * <p>Displays the number of children (mesh objects) in the scene,
+   * and sets global variable {@link scene} to the {@link fractalScene recreated scene}.</p>
    * @param {Boolean} reset_camera sets camera to its initial state.
    *
    * @global
@@ -562,7 +565,7 @@ async function mainEntrance() {
   let scene;
 
   /**
-   * Maximum level using JQuery to get it from the interface.
+   * Maximum level using {@link https://jquery.com JQuery} to get it from the interface.
    *
    * @type {Number}
    * @global
