@@ -37,6 +37,7 @@
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://en.threejs-university.com Three.js University}
  */
 let THREE;
 
@@ -76,9 +77,8 @@ let OrbitControls;
  * @param {Number} maxLevel maximum recursion level.
  * @param {Number} colorLevel all objects of level colorLevel will have the same color.
  * @returns {external:THREE.Object3D} a new scene with a fractal at the given level.
- * @see https://en.wikipedia.org/wiki/Sierpiński_triangle
- * @see https://threejs.org/docs/#api/en/core/Object3D
- * @see https://www.codingem.com/javascript-clone-object/
+ * @see {@link https://en.wikipedia.org/wiki/Sierpiński_triangle Sierpiński triangle}
+ * @see {@link https://www.codingem.com/javascript-clone-object/ 4 Ways to Clone an Object in JavaScript}
  */
 const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
   const scene = loadedScene.clone();
@@ -141,9 +141,8 @@ const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
  * created by the Three.js editor, and rendering a 3D IFS fractal.
  *
  * @async
- * @see https://threejs.org/docs/#examples/en/controls/OrbitControls
- * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
- * @see https://en.threejs-university.com
+ * @see {@link external:THREE.OrbitControls}
+ * @see {@link external:THREE.WebGLRenderer}
  */
 async function mainEntrance() {
   const canvas = document.querySelector("#theCanvas");
@@ -157,8 +156,8 @@ async function mainEntrance() {
    * @global
    * @function
    * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
-   * @see https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript
-   * @see https://api.jquery.com/jquery.ajax/
+   * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
+   * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
    */
   const readFileNames = new Promise((resolve, reject) => {
     $.ajax({
@@ -254,7 +253,7 @@ async function mainEntrance() {
   }
 
   /**
-   * Array holding model file names to create scenes.
+   * Array holding model file names to create scenes from.
    * @type  {Array<String>}
    * @global
    */
@@ -275,28 +274,16 @@ async function mainEntrance() {
     });
 
   /**
-   * Represents the response to a fetch request.
-   * @type {Response}
-   * @global
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Response
-   */
-  const response = await fetch(`./models/${jfile}`);
-
-  /**
-   * Javascript object holding the current loaded model ready to be parsed.
-   * @type {Object}
-   * @global
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/json
-   */
-  const model = await response.json();
-
-  /**
    * Current loaded model parsed from a json file.
    * @type {external:THREE.Object3D}
    * @global
-   * @see https://threejs.org/docs/#api/en/loaders/ObjectLoader.parse
+   * @see {@link https://threejs.org/docs/#api/en/loaders/ObjectLoader.load ObjectLoader.load}
    */
-  let loadedScene = loader.parse(model);
+  let loadedScene;
+  loader.load(`./models/${jfile}`, (geometry) => {
+    loadedScene = geometry;
+    renderScene(true);
+  });
 
   /**
    * Canvas aspect ratio.
@@ -360,37 +347,40 @@ async function mainEntrance() {
   controls.listenToKeyEvents(window);
 
   /**
-   * Select next scene.
-   * @async
+   * <p>Gets the {@link https://en.wikipedia.org/wiki/Modulo modulo} of a division operation.</p>
+   * In most computer languages, the modulo operation returns the remainder or signed remainder of a division,
+   * after one number is divided by another (called the modulus of the operation).
+   * In Javascript '%' is a remainder operator and not a modulo operator.
+   * <p>Modulo is defined as
+   *    k = n - m * q,
+   * where q is the integer such that k has the same sign
+   * as the divisor m while being as close to 0 as possible.</p>
+   * @example
+   * mod(-1,5) → 4
+   * -1 % 5 → -1
+   * @param {Number} n dividend.
+   * @param {Number} m divisor.
+   * @returns {Number} modulo.
    * @global
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder Remainder (%)}
    */
-  async function nextScene() {
-    sceneCnt = (sceneCnt + 1) % modelFileName.length;
-    const jfile = modelFileName[sceneCnt];
-    const response = await fetch(`./models/${jfile}`);
-    const model = await response.json();
-    loadedScene = loader.parse(model);
-    document.getElementById("scenes").value = sceneCnt;
-    renderScene(true);
-  }
-  window.nextScene = nextScene;
+  const mod = (n, m) => ((n % m) + m) % m;
 
   /**
-   * Select previous scene.
-   * @async
+   * Select next/previous scene.
+   * @param {Number} inc 1 for next, -1 for previous.
    * @global
    */
-  async function previousScene() {
-    --sceneCnt;
-    if (sceneCnt < 0) sceneCnt = modelFileName.length - 1;
-    const jfile = modelFileName[sceneCnt];
-    const response = await fetch(`./models/${jfile}`);
-    const model = await response.json();
-    loadedScene = loader.parse(model);
+  function nextScene(inc = 1) {
+    sceneCnt = mod(sceneCnt + inc, modelFileName.length);
     document.getElementById("scenes").value = sceneCnt;
-    renderScene(true);
+    const jfile = modelFileName[sceneCnt];
+    loader.load(`./models/${jfile}`, (geometry) => {
+      loadedScene = geometry;
+      renderScene(true);
+    });
   }
-  window.previousScene = previousScene;
+  window.nextScene = nextScene;
 
   /**
    * <p>Fires when the document view (window) has been resized.</p>
@@ -432,12 +422,12 @@ async function mainEntrance() {
    * @event change - executed when the scenes &lt;select&gt; is changed.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
    */
-  scenes.addEventListener("change", async (event) => {
+  scenes.addEventListener("change", (event) => {
     const jfile = modelFileName[scenes.value];
-    const response = await fetch(`./models/${jfile}`);
-    const model = await response.json();
-    loadedScene = loader.parse(model);
-    renderScene(true);
+    loader.load(`./models/${jfile}`, (geometry) => {
+      loadedScene = geometry;
+      renderScene(true);
+    });
   });
 
   /**
@@ -446,7 +436,6 @@ async function mainEntrance() {
    * The number of buttons may be smaller than the current selected button.
    * In this case, the returned selected button will be the number of buttons.
    *
-   * e.g.:
    * @example
    * nbtn = 3, sbtn = 2, offset = 9, name="clevel", title = "Color Level"
    *
@@ -468,8 +457,8 @@ async function mainEntrance() {
    * @param {String} radio.name input name.
    * @param {String} radio.title input title.
    * @return {Number} a valid selected button.
-   * @see https://www.javascripttutorial.net/es6/javascript-default-parameters/
-   * @see https://simonsmith.io/destructuring-objects-as-function-parameters-in-es6
+   * @see {@link https://www.javascripttutorial.net/es6/javascript-default-parameters/ JavaScript Default Parameters}
+   * @see {@link https://simonsmith.io/destructuring-objects-as-function-parameters-in-es6 Destructuring objects as function parameters in ES6}
    */
   function createRadioBtns({
     id = "#radiobtn2",
@@ -534,6 +523,10 @@ async function mainEntrance() {
    * @function
    */
   const renderScene = (reset_camera = false) => {
+    if (!loadedScene) {
+      return;
+    }
+
     scene = fractalScene(loadedScene, mlevel, clevel);
 
     // scale to fit the window
@@ -552,12 +545,21 @@ async function mainEntrance() {
       camera.position.set(2, 2, 5);
       camera.rotation.set(0, 0, 0);
       controls.target.set(0, 0, 0);
+      // controls.update() must be called after any manual changes to the camera's transform
       controls.update();
     }
 
     renderer.render(scene, camera);
     $("#animate").html(`Animate (${scene.children.length - 4})`);
   };
+
+  /**
+   * Current scene with the fractal at the current maximum level.
+   *
+   * @type {external:THREE.Object3D}
+   * @global
+   */
+  let scene;
 
   /**
    * Maximum level using JQuery to get it from the interface.
@@ -574,15 +576,6 @@ async function mainEntrance() {
    * @global
    */
   let clevel = createRadioBtns({ nbtn: mlevel, cbfunc: renderScene });
-
-  /**
-   * Current scene with the fractal at the current maximum level.
-   *
-   * @type {external:THREE.Object3D}
-   * @global
-   */
-  let scene;
-  renderScene();
 
   // listen to events on every checkbox of the radio buttons
   let matches = document.querySelectorAll('input[name="mlevel"]');
@@ -636,10 +629,6 @@ async function mainEntrance() {
   controls.addEventListener("change", () => {
     if (!controls.autoRotate) renderer.render(scene, camera);
   });
-
-  // controls.update() must be called after any manual changes to the camera's transform
-  camera.position.set(2, 2, 5);
-  controls.update();
 
   /**
    * <p>A built in function that can be used instead of
