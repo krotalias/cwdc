@@ -271,7 +271,10 @@ async function mainEntrance() {
     .catch((error) => {
       console.log(`${error}`);
       // don't need to return anything => execution goes the normal way
+      const initialScene = sceneFilename[0];
       getModels(sceneFilename);
+      sceneCnt = sceneFilename.indexOf(initialScene);
+      document.getElementById("scenes").value = sceneCnt;
       return sceneFilename;
     });
 
