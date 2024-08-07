@@ -186,6 +186,8 @@ function init() {
   controls.noPan = false;
   controls.staticMoving = true;
   controls.dynamicDampingFactor = 0.3;
+  controls.maxDistance = 3000;
+  controls.minDistance = 0;
   controls.handleResize();
 
   /**
@@ -300,21 +302,22 @@ function init() {
       geometry.center();
       geometry.computeVertexNormals();
       geometry.computeBoundingBox();
+      diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
 
       mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(0, 0, 0);
+      handleKeyPress(createEvent("o"));
       scene.add(mesh);
 
       const edges = new THREE.EdgesGeometry(geometry);
       line = new THREE.LineSegments(edges, edgeMaterial);
       scene.add(line);
       line.visible = vis ? vis : false;
-      diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
     } else {
       // OBJ file
       const bb = new THREE.Box3().setFromObject(geometry);
       diag = bb.max.distanceTo(bb.min);
-      const center = new THREE.Vector3(0);
+      const center = new THREE.Vector3();
       bb.getCenter(center);
       geometry.position.set(-center.x, -center.y, -center.z);
       geometry.traverse(function (child) {
@@ -328,6 +331,7 @@ function init() {
           line.visible = vis ? vis : false;
         }
       });
+      handleKeyPress(createEvent("o"));
       scene.add(geometry);
       object = geometry;
     }
@@ -444,7 +448,11 @@ function init() {
           break;
         case "o":
           controls.reset();
+          // 1.6 is enough, but dont't forget the zoom out
+          camera.far = diag * 5;
+          camera.near = diag * 0.05;
           camera.position.set(0, 0, diag * 1.1);
+          controls.maxDistance = camera.far;
           break;
       }
     };
