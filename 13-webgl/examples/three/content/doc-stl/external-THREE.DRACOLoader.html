@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: TrackballControls</title>
+    <title>JSDoc: Class: DRACOLoader</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: TrackballControls</h1>
+    <h1 class="page-title">Class: DRACOLoader</h1>
 
     
 
@@ -29,7 +29,7 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="external-THREE.html">THREE</a>.</span>TrackballControls<span class="signature">()</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="external-THREE.html">THREE</a>.</span>DRACOLoader<span class="signature">()</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -42,7 +42,7 @@
     
 
     
-    <h4 class="name" id="TrackballControls"><span class="type-signature"></span>new TrackballControls<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DRACOLoader"><span class="type-signature"></span>new DRACOLoader<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -50,10 +50,9 @@
 
 
 <div class="description">
-    <p>TrackballControls is similar to OrbitControls.</p>
-However, it does not maintain a constant camera up vector.
-That means if the camera orbits over the “north” and “south” poles,
-it does not flip to stay "right side up".
+    <p>A loader for geometry compressed with the Draco library.</p>
+Draco is an open source library for compressing and decompressing 3D meshes and point clouds.
+Compressed geometry can be significantly smaller, at the cost of additional decoding time on the client device.
 </div>
 
 
@@ -97,7 +96,7 @@ it does not flip to stay "right side up".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stl.js.html">stl.js</a>, <a href="stl.js.html#line189">line 189</a>
+        <a href="stl.js.html">stl.js</a>, <a href="stl.js.html#line279">line 279</a>
     </li></ul></dd>
     
 
@@ -107,7 +106,7 @@ it does not flip to stay "right side up".
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://threejs.org/docs/#examples/en/controls/TrackballControls">https://threejs.org/docs/#examples/en/controls/TrackballControls</a></li>
+            <li><a href="https://threejs.org/docs/#examples/en/loaders/DRACOLoader">DRACO Loader</a></li>
         </ul>
     </dd>
     

@@ -28,6 +28,12 @@
  * The main reason for creating yet another data file format is to offer a consistent data representation scheme
  * for a variety of dataset types, and to provide a simple method to communicate data between software.</li>
  *
+ * <li>{@link https://en.wikipedia.org/wiki/GlTF GLTF}
+ * glTF (Graphics Library Transmission Format or GL Transmission Format and formerly known as WebGL Transmissions Format or WebGL TF)
+ * is a standard file format for three-dimensional scenes and models.
+ * A glTF file uses one of two possible file extensions: .gltf (JSON/ASCII) or .glb (binary).
+ * Both .gltf and .glb files may reference external binary and texture resources.</li>
+ *
  * </ol>
  *
  * @author Paulo Roma Cavalcanti
@@ -41,21 +47,32 @@
 
 "use strict";
 
-//import * as THREE from "three";
-//import { STLLoader } from "three/addons/loaders/STLLoader.js";
-//import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
-//import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-//import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
-//import { TrackballControls } from "three/addons/controls/TrackballControls.js";
-//import Stats from "three/addons/libs/stats.module.js";
+/*
+import * as THREE from "three";
+import { STLLoader } from "three/addons/loaders/STLLoader.js";
+import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
+import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { TrackballControls } from "three/addons/controls/TrackballControls.js";
+import Stats from "three/addons/libs/stats.module.js";
+
+const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/"
+*/
 
 import * as THREE from "/cwdc/13-webgl/lib/three.r163/build/three.module.js";
 import { STLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/STLLoader.js";
 import { VTKLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/VTKLoader.js";
 import { OBJLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/OBJLoader.js";
 import { MTLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/MTLLoader.js";
+import { GLTFLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/DRACOLoader.js";
 import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/TrackballControls.js";
 import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
+
+const drpath = "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/draco/gltf/";
 
 /**
  * Three.js module.
@@ -259,6 +276,30 @@ function init() {
   const mtl_loader = new MTLLoader();
   mtl_loader.setMaterialOptions({ side: THREE.DoubleSide });
 
+  /**
+   * <p>A loader for geometry compressed with the Draco library.</p>
+   * Draco is an open source library for compressing and decompressing 3D meshes and point clouds.
+   * Compressed geometry can be significantly smaller, at the cost of additional decoding time on the client device.
+   * @class DRACOLoader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#examples/en/loaders/DRACOLoader DRACO Loader}
+   */
+  const draco_loader = new DRACOLoader();
+  draco_loader.setDecoderPath(drpath);
+
+  /**
+   * <p>A loader for glTF 2.0 resources.</p>
+   glTF (GL Transmission Format) is an open format specification for efficient delivery and loading of 3D content.
+   Assets may be provided either in JSON (.gltf) or binary (.glb) format. External files store textures (.jpg, .png)
+   and additional binary data (.bin). A glTF asset may deliver one or more scenes,
+   including meshes, materials, textures, skins, skeletons, morph targets, animations, lights, and/or cameras.
+   * @class GLTFLoader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#examples/en/loaders/GLTFLoader GLTF Loader}
+   */
+  const gltfl_loader = new GLTFLoader();
+  gltfl_loader.setDRACOLoader(draco_loader);
+
   let diag = 0;
   let mesh = undefined;
   let line = undefined;
@@ -312,6 +353,16 @@ function init() {
       line = new THREE.LineSegments(edges, edgeMaterial);
       scene.add(line);
       line.visible = vis ? vis : false;
+    } else if (geometry.scene) {
+      // gltf file
+      const model = geometry.scene;
+      const bb = new THREE.Box3().setFromObject(model);
+      diag = bb.max.distanceTo(bb.min);
+      const center = new THREE.Vector3();
+      bb.getCenter(center);
+      model.position.set(-center.x, -center.y, -center.z);
+      scene.add(model);
+      object = model;
     } else {
       // OBJ file
       const bb = new THREE.Box3().setFromObject(geometry);
@@ -417,6 +468,11 @@ function init() {
             vtk_loader.load(`${modelPath}/vtk/${models[modelCnt]}`, loadModel);
           } else if (models[modelCnt].includes(".stl")) {
             stl_loader.load(`${modelPath}/stl/${models[modelCnt]}`, loadModel);
+          } else if (models[modelCnt].includes(".glb")) {
+            gltfl_loader.load(
+              `${modelPath}/glb/${models[modelCnt]}`,
+              loadModel,
+            );
           } else {
             mtl_loader.load(
               `${modelPath}/obj/${models[modelCnt]}`.replace(".obj", ".mtl"),
