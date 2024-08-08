@@ -220,7 +220,7 @@ function init() {
   controls.panSpeed = 2;
   controls.noZoom = false;
   controls.noPan = false;
-  controls.staticMoving = true;
+  controls.staticMoving = false;
   controls.dynamicDampingFactor = 0.3;
   controls.maxDistance = 3000;
   controls.minDistance = 0;
@@ -237,8 +237,10 @@ function init() {
   scene.add(camera);
 
   // light
-  const dirLight = new THREE.DirectionalLight(colorTable.white);
-  dirLight.position.set(200, 200, 1000).normalize();
+  const ambLight = new THREE.AmbientLight(colorTable.white, 3);
+
+  const dirLight = new THREE.DirectionalLight(colorTable.white, 1.5);
+  dirLight.position.set(200, 200, 1000);
   camera.add(dirLight);
   camera.add(dirLight.target);
 
@@ -357,6 +359,7 @@ function init() {
     if (object) {
       scene.remove(object);
       object = undefined;
+      scene.remove(ambLight);
     }
     if (geometry.isBufferGeometry) {
       geometry.center();
@@ -381,6 +384,7 @@ function init() {
       bb.getCenter(center);
       model.position.set(-center.x, -center.y, -center.z);
       scene.add(model);
+      scene.add(ambLight);
       object = model;
       mixer = new THREE.AnimationMixer(model);
       mixer.clipAction(geometry.animations[0]).play();
