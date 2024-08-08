@@ -306,7 +306,6 @@ function init() {
 
       mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(0, 0, 0);
-      handleKeyPress(createEvent("o"));
       scene.add(mesh);
 
       const edges = new THREE.EdgesGeometry(geometry);
@@ -331,7 +330,6 @@ function init() {
           line.visible = vis ? vis : false;
         }
       });
-      handleKeyPress(createEvent("o"));
       scene.add(geometry);
       object = geometry;
     }
@@ -453,6 +451,7 @@ function init() {
           camera.near = diag * 0.05;
           camera.position.set(0, 0, diag * 1.1);
           controls.maxDistance = camera.far;
+          camera.updateProjectionMatrix();
           break;
       }
     };
