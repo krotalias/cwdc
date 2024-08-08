@@ -130,6 +130,25 @@ function init() {
   let modelCnt = defModel ? +defModel.value : 0;
 
   /**
+   * The AnimationMixer is a player for animations on a particular object in the scene.
+   * When multiple objects in the scene are animated independently,
+   * one AnimationMixer may be used for each object.
+   * @class AnimationMixer
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/animation/AnimationMixer Animation Mixer}
+   */
+  let mixer;
+
+  /**
+   * Object for keeping track of time. This uses performance.now if it is available,
+   * otherwise it reverts to the less accurate Date.now.
+   * @class Clock
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/core/Clock Clock}
+   */
+  const clock = new THREE.Clock();
+
+  /**
    * Get model file names from an html &lt;select&gt; element
    * identified by "models".
    * @param {Array<String>} optionNames array of model file names.
@@ -363,6 +382,8 @@ function init() {
       model.position.set(-center.x, -center.y, -center.z);
       scene.add(model);
       object = model;
+      mixer = new THREE.AnimationMixer(model);
+      mixer.clipAction(geometry.animations[0]).play();
     } else {
       // OBJ file
       const bb = new THREE.Box3().setFromObject(geometry);
@@ -427,6 +448,8 @@ function init() {
    * @global
    */
   function runAnimation() {
+    const delta = clock.getDelta();
+    if (mixer) mixer.update(delta);
     controls.update();
     renderer.render(scene, camera);
     stats.update();
