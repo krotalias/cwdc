@@ -220,7 +220,7 @@ function init() {
   controls.panSpeed = 2;
   controls.noZoom = false;
   controls.noPan = false;
-  controls.staticMoving = false;
+  controls.staticMoving = true;
   controls.dynamicDampingFactor = 0.3;
   controls.maxDistance = 3000;
   controls.minDistance = 0;
@@ -362,6 +362,7 @@ function init() {
       scene.remove(ambLight);
     }
     if (geometry.isBufferGeometry) {
+      // stl, vtk
       geometry.center();
       geometry.computeVertexNormals();
       geometry.computeBoundingBox();
@@ -386,8 +387,10 @@ function init() {
       scene.add(model);
       scene.add(ambLight);
       object = model;
-      mixer = new THREE.AnimationMixer(model);
-      mixer.clipAction(geometry.animations[0]).play();
+      if (geometry.animations[0]) {
+        mixer = new THREE.AnimationMixer(model);
+        mixer.clipAction(geometry.animations[0]).play();
+      }
     } else {
       // OBJ file
       const bb = new THREE.Box3().setFromObject(geometry);
@@ -495,7 +498,10 @@ function init() {
             vtk_loader.load(`${modelPath}/vtk/${models[modelCnt]}`, loadModel);
           } else if (models[modelCnt].includes(".stl")) {
             stl_loader.load(`${modelPath}/stl/${models[modelCnt]}`, loadModel);
-          } else if (models[modelCnt].includes(".glb")) {
+          } else if (
+            models[modelCnt].includes(".glb") ||
+            models[modelCnt].includes(".gltf")
+          ) {
             gltfl_loader.load(
               `${modelPath}/glb/${models[modelCnt]}`,
               loadModel,
