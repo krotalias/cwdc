@@ -47,7 +47,6 @@
 
 "use strict";
 
-/*
 import * as THREE from "three";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
@@ -59,9 +58,9 @@ import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 
-const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/"
-*/
+const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
 
+/*
 import * as THREE from "/cwdc/13-webgl/lib/three.r163/build/three.module.js";
 import { STLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/STLLoader.js";
 import { VTKLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/VTKLoader.js";
@@ -73,6 +72,7 @@ import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/co
 import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
 
 const drpath = "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/draco/gltf/";
+*/
 
 /**
  * Three.js module.
@@ -384,6 +384,17 @@ function init() {
       const center = new THREE.Vector3();
       bb.getCenter(center);
       model.position.set(-center.x, -center.y, -center.z);
+      model.traverse(function (child) {
+        if (child.isMesh) {
+          //child.material = material;
+          const edges = new THREE.EdgesGeometry(child.geometry);
+          const line = new THREE.LineSegments(edges, edgeMaterial);
+          line.position.set(-center.x, -center.y, -center.z);
+          scene.add(line);
+          lines.push(line);
+          line.visible = vis ? vis : false;
+        }
+      });
       scene.add(model);
       scene.add(ambLight);
       object = model;
