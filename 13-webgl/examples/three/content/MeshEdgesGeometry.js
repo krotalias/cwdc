@@ -18,6 +18,8 @@
  * @author {@link https://github.com/boytchev Pavel Boytchev}
  * @see <a href="/cwdc/13-webgl/examples/three/content/MeshEdgesGeometry.js">source</a>
  * @see {@link https://github.com/boytchev/MeshEdgesGeometry github}
+ * @see <img src="../LittlestTokyo.png" HEIGHT="320">
+ *      <img src="../LittlestTokyo.jpg" HEIGHT="320">
  */
 
 import { BufferGeometry, EdgesGeometry } from "three";
@@ -68,7 +70,7 @@ class MeshEdgesGeometry extends BufferGeometry {
    * @param {Number} thresholdAngle An edge is only rendered if the angle (in degrees) between<br>
    * the face normals of the adjoining faces exceeds this value. <br> default = 1 degree.
    * @return {external:THREE.BufferAttribute} position buffer.
-   * @see {@link https://threejs.org/docs/#examples/en/utils/BufferGeometryUtils.mergeBufferGeometries mergeBufferGeometries}
+   * @see {@link https://threejs.org/docs/#examples/en/utils/BufferGeometryUtils.mergeAttributes mergeAttributes}
    */
   extractEdges(object, thresholdAngle) {
     const attributes = [];

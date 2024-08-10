@@ -3,7 +3,7 @@
  *
  * Summary.
  *
- * <p>STL, OBJ and VTK Viewer.</p>
+ * <p>STL, OBJ, VTK and GLTF Viewer.</p>
  * Uses {@link external:THREE Three.js} to load, display, and manipulate a model read from a file.
  * The center of the model bounding box is translated to the origin so a trackball can rotate the model.
  * <p>Three file formats are currently supported:</p>
@@ -385,7 +385,15 @@ function init() {
       const center = new THREE.Vector3();
       bb.getCenter(center);
       model.position.set(-center.x, -center.y, -center.z);
-      line = new THREE.LineSegments(new MeshEdgesGeometry(model), edgeMaterial);
+      try {
+        line = new THREE.LineSegments(
+          new MeshEdgesGeometry(model),
+          edgeMaterial,
+        );
+      } catch (error) {
+        console.error(error);
+        return;
+      }
       line.visible = vis ? vis : false;
       scene.add(line);
       scene.add(model);
