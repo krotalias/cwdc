@@ -188,6 +188,14 @@ function init() {
     canvas: canvas,
     antialias: true,
   });
+
+  /**
+   * Canvas aspect ratio.
+   * @type {Number}
+   * @global
+   */
+  const aspect = canvas.clientWidth / canvas.clientHeight;
+
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setClearColor(colorTable.antiqueWhite, 1.0);
   // to avoid aliasing
@@ -199,12 +207,8 @@ function init() {
    * @memberof external:THREE
    * @see https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
    */
-  const camera = new THREE.PerspectiveCamera(
-    45,
-    canvas.clientWidth / canvas.clientHeight,
-    0.01,
-    1000,
-  );
+  const camera = new THREE.PerspectiveCamera(45, aspect, 0.01, 1000);
+  handleWindowResize();
 
   /**
    * <p>TrackballControls is similar to OrbitControls.</p>
@@ -384,7 +388,7 @@ function init() {
       diag = bb.max.distanceTo(bb.min);
       const center = new THREE.Vector3();
       bb.getCenter(center);
-      model.position.set(-center.x, -center.y, -center.z);
+      model.position.set(...center.negate());
       try {
         line = new THREE.LineSegments(
           new MeshEdgesGeometry(model),
@@ -409,18 +413,18 @@ function init() {
       diag = bb.max.distanceTo(bb.min);
       const center = new THREE.Vector3();
       bb.getCenter(center);
-      geometry.position.set(-center.x, -center.y, -center.z);
-      geometry.traverse(function (child) {
-        if (child.isMesh) {
-          //child.material = material;
-          const edges = new THREE.EdgesGeometry(child.geometry);
-          const line = new THREE.LineSegments(edges, edgeMaterial);
-          line.position.set(-center.x, -center.y, -center.z);
-          scene.add(line);
-          lines.push(line);
-          line.visible = vis ? vis : false;
-        }
-      });
+      geometry.position.set(...center.negate());
+      try {
+        line = new THREE.LineSegments(
+          new MeshEdgesGeometry(geometry),
+          edgeMaterial,
+        );
+      } catch (error) {
+        console.error(error);
+        return;
+      }
+      line.visible = vis ? vis : false;
+      scene.add(line);
       scene.add(geometry);
       object = geometry;
     }
@@ -573,6 +577,36 @@ function init() {
       keyCode: code,
     });
   };
+
+  /**
+   * <p>Fires when the document view (window) has been resized.</p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   */
+  function handleWindowResize() {
+    let h = window.innerHeight - 20;
+    let w = window.innerWidth - 20;
+    if (h > w) {
+      h = w / aspect;
+    } else {
+      w = h * aspect;
+    }
+    renderer.setSize(w, h);
+    camera.aspect = aspect;
+    camera.updateProjectionMatrix();
+  }
+
+  /**
+   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * <p>The {@link handleWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @param {Event} event the document view is resized.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize - executed when the window is resized.
+   */
+  window.addEventListener("resize", handleWindowResize, false);
 
   /**
    * <p>Appends an event listener for events whose type attribute value is keydown.<br>

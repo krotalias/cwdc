@@ -2,27 +2,38 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>STL Viewer</title>
+    <title>STL/VTK/OBJ/GLTF Viewer</title>
     <style>
         body {
             background-color: #ffffed;
             margin: 0;
             padding: 0;
             user-select: none;
-            -webkit-user-select: none; /* Safari */
-            overflow: hidden; /* Disable pull-to-refresh */
+        }
+        @media (max-width: 700px) {
+            body {
+                /* Disable pull-to-refresh */
+                --webkit-user-select: none; /* safari */
+                overflow: hidden;
+            }
         }
         #canvasid {
             background-color: antiquewhite;
-            width: 380px;
-            height: 380px;
-            display: block;
             border: #ccc solid 3px;
-            margin: 0 auto;
         }
         .container {
+            display: block;
+            cursor: move;
             text-align: center;
-            margin-top: 20px;
+            margin-left: 0%;
+        }
+        .interface {
+            /* display block allows width and height */
+            display: block;
+            width: fit-content;
+            text-align: center;
+            margin: 0 auto;
+            cursor: pointer;
         }
         details {
             margin-top: 20px;
@@ -44,68 +55,71 @@
 </head>
 <html>
     <body>
-        <canvas id="canvasid"></canvas>
-
         <div class="container">
-            <select
-                name="models"
-                id="models"
-                style="
-                    font-size: 120%;
-                    background-color: burlywood;
-                    color: black;
-                    border: solid 5px lightsteelblue;
-                    border-radius: 10%;
-                "
-            >
-                <option value="0">Dodecahedron_Cube_A.stl</option>
-                <option value="1">Dodecahedron_Cube_B.stl</option>
-                <option value="2">Dodecahedron_Cube_C.stl</option>
-                <option value="3" selected>Dodecahedron_Cube_D.stl</option>
-                <option value="4">Dodecahedron_Cube_E.stl</option>
-                <option value="5">Utah_teapot_(solid).stl</option>
-                <option value="6">scene_NIH3D.stl</option>
-                <option value="7">hubble_model_kit.stl</option>
-                <option value="8">bunny.vtk</option>
-                <option value="9">IronMan.obj</option>
-                <option value="10">Belly_dancer.obj</option>
-                <option value="11">House.obj</option>
-                <option value="12">bugatti.obj</option>
-                <option value="13">LittlestTokyo.obj</option>
-                <option value="14">LittlestTokyo.glb</option>
-                <option value="14">supermarine_spitfire.gltf</option>
-            </select>
+            <canvas id="canvasid" width="380" height="380"></canvas>
 
-            <p>
-                <label>
-                    <a
-                        href="/cwdc/13-webgl/examples/three/content/doc-stl/index.html"
-                    >
-                        Documentation
-                    </a>
-                </label>
-            </p>
+            <div class="interface">
+                <select
+                    name="models"
+                    id="models"
+                    style="
+                        font-size: 120%;
+                        background-color: burlywood;
+                        color: black;
+                        border: solid 5px lightsteelblue;
+                        border-radius: 10%;
+                        margin-top: 20px;
+                    "
+                >
+                    <option value="0">Dodecahedron_Cube_A.stl</option>
+                    <option value="1">Dodecahedron_Cube_B.stl</option>
+                    <option value="2">Dodecahedron_Cube_C.stl</option>
+                    <option value="3" selected>Dodecahedron_Cube_D.stl</option>
+                    <option value="4">Dodecahedron_Cube_E.stl</option>
+                    <option value="5">Utah_teapot_(solid).stl</option>
+                    <option value="6">scene_NIH3D.stl</option>
+                    <option value="7">hubble_model_kit.stl</option>
+                    <option value="8">bunny.vtk</option>
+                    <option value="9">IronMan.obj</option>
+                    <option value="10">Belly_dancer.obj</option>
+                    <option value="11">House.obj</option>
+                    <option value="12">bugatti.obj</option>
+                    <option value="13">LittlestTokyo.obj</option>
+                    <option value="14">LittlestTokyo.glb</option>
+                    <option value="14">supermarine_spitfire.gltf</option>
+                </select>
 
-            <input type="checkbox" id="mesh" name="mesh" value="mesh" />
-            <label for="mesh">Mesh</label>
+                <p>
+                    <label>
+                        <a
+                            href="/cwdc/13-webgl/examples/three/content/doc-stl/index.html"
+                        >
+                            Documentation
+                        </a>
+                    </label>
+                </p>
 
-            <input type="checkbox" id="stats" name="stats" value="stats" />
-            <label for="stats">Stats</label>
+                <input type="checkbox" id="mesh" name="mesh" value="mesh" />
+                <label for="mesh">Mesh</label>
 
-            <button id="reset">Reset</button>
+                <input type="checkbox" id="stats" name="stats" value="stats" />
+                <label for="stats">Stats</label>
 
-            <details>
-                <summary style="font-size: 100%">
-                    Keyboard controls (drag on the object to rotate it):
-                </summary>
+                <button id="reset">Reset</button>
 
-                <ul style="list-style: none">
-                    <li>n, N - next/previous model</li>
-                    <li>m - toggle mesh on/off</li>
-                    <li>s - toggle stats on/off</li>
-                    <li>o - reset camera controls</li>
-                </ul>
-            </details>
+                <details>
+                    <summary style="font-size: 100%">
+                        Keyboard controls (drag on the object to rotate it):
+                    </summary>
+
+                    <ul style="list-style: none">
+                        <li>n, N - next/previous model</li>
+                        <li>m - toggle mesh on/off</li>
+                        <li>s - toggle stats on/off</li>
+                        <li>o - reset camera controls</li>
+                    </ul>
+                </details>
+            </div>
         </div>
 
         <script type="importmap">
