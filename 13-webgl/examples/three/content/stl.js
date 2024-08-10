@@ -52,11 +52,11 @@ import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
+import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
 
 const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
 
@@ -70,6 +70,7 @@ import { GLTFLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/G
 import { DRACOLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/DRACOLoader.js";
 import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/TrackballControls.js";
 import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
+import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
 
 const drpath = "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/draco/gltf/";
 */
@@ -384,17 +385,9 @@ function init() {
       const center = new THREE.Vector3();
       bb.getCenter(center);
       model.position.set(-center.x, -center.y, -center.z);
-      model.traverse(function (child) {
-        if (child.isMesh) {
-          //child.material = material;
-          const edges = new THREE.EdgesGeometry(child.geometry);
-          const line = new THREE.LineSegments(edges, edgeMaterial);
-          line.position.set(-center.x, -center.y, -center.z);
-          scene.add(line);
-          lines.push(line);
-          line.visible = vis ? vis : false;
-        }
-      });
+      line = new THREE.LineSegments(new MeshEdgesGeometry(model), edgeMaterial);
+      line.visible = vis ? vis : false;
+      scene.add(line);
       scene.add(model);
       scene.add(ambLight);
       object = model;
