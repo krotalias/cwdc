@@ -293,6 +293,8 @@ function init() {
    * @class DRACOLoader
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/DRACOLoader DRACO Loader}
+   * @see {@link https://opensource.googleblog.com/2017/01/introducing-draco-compression-for-3d.html Google Open Source Blog}
+   * @see {@link https://github.com/google/draco github}
    */
   const draco_loader = new DRACOLoader();
   draco_loader.setDecoderPath(drpath);
