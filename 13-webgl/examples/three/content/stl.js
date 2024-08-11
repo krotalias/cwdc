@@ -61,22 +61,6 @@ import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
 
 const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
 
-/*
-import * as THREE from "/cwdc/13-webgl/lib/three.r163/build/three.module.js";
-import { STLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/STLLoader.js";
-import { VTKLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/VTKLoader.js";
-import { OBJLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/OBJLoader.js";
-import { MTLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/MTLLoader.js";
-import { GLTFLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/GLTFLoader.js";
-import { RoomEnvironment } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/environments/RoomEnvironment.js";
-import { DRACOLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/DRACOLoader.js";
-import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/TrackballControls.js";
-import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
-import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
-
-const drpath = "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/draco/gltf/";
-*/
-
 /**
  * Three.js module.
  * @external THREE
@@ -199,7 +183,6 @@ function init() {
   const aspect = canvas.clientWidth / canvas.clientHeight;
 
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setClearColor(colorTable.antiqueWhite, 1.0);
   // to avoid aliasing
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
@@ -341,6 +324,7 @@ function init() {
    * @see {@link https://threejs.org/docs/#api/en/extras/PMREMGenerator PMREMGenerator}
    */
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  scene.background = new THREE.Color(colorTable.antiqueWhite);
   scene.environment = pmremGenerator.fromScene(
     new RoomEnvironment(renderer),
     0.04,
