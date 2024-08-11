@@ -82,6 +82,7 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
@@ -95,6 +96,7 @@ import { VTKLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/VT
 import { OBJLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/OBJLoader.js";
 import { MTLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/MTLLoader.js";
 import { GLTFLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/GLTFLoader.js";
+import { RoomEnvironment } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/environments/RoomEnvironment.js";
 import { DRACOLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/DRACOLoader.js";
 import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/TrackballControls.js";
 import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
@@ -274,7 +276,6 @@ function init() {
 
   const dirLight = new THREE.DirectionalLight(colorTable.white, 1.5);
   dirLight.position.set(200, 200, 1000);
-  camera.add(dirLight);
   camera.add(dirLight.target);
 
   // model material
@@ -354,6 +355,25 @@ function init() {
   const gltfl_loader = new GLTFLoader();
   gltfl_loader.setDRACOLoader(draco_loader);
 
+  /**
+   * This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM)
+   * from a cubeMap environment texture.
+   * This allows different levels of blur to be quickly accessed based on material roughness.
+   * Unlike a traditional mipmap chain, it only goes down to the LOD_MIN level (above),
+   * and then creates extra even more filtered 'mips' at the same LOD_MIN resolution,
+   * associated with higher roughness levels.
+   * In this way we maintain resolution to smoothly interpolate diffuse lighting while
+   * limiting sampling computation.
+   * @class PMREMGenerator
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/extras/PMREMGenerator PMREMGenerator}
+   */
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmremGenerator.fromScene(
+    new RoomEnvironment(renderer),
+    0.04,
+  ).texture;
+
   let diag = 0;
   let mesh = undefined;
   let line = undefined;
@@ -394,6 +414,7 @@ function init() {
       object = undefined;
       scene.remove(ambLight);
     }
+    camera.remove(dirLight);
     if (geometry.isBufferGeometry) {
       // stl, vtk
       geometry.center();
@@ -408,6 +429,7 @@ function init() {
       const edges = new THREE.EdgesGeometry(geometry);
       line = new THREE.LineSegments(edges, edgeMaterial);
       scene.add(line);
+      camera.add(dirLight);
       line.visible = vis ? vis : false;
     } else if (geometry.scene) {
       // gltf file
@@ -454,6 +476,7 @@ function init() {
       line.visible = vis ? vis : false;
       scene.add(line);
       scene.add(geometry);
+      camera.add(dirLight);
       object = geometry;
     }
     handleKeyPress(createEvent("o"));
@@ -730,13 +753,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="external-THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.Clock.html">Clock</a></li><li><a href="external-THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="external-THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="external-THREE.MTLLoader.html">MTLLoader</a></li><li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="external-THREE.STLLoader.html">STLLoader</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.Stats.html">Stats</a></li><li><a href="external-THREE.TrackballControls.html">TrackballControls</a></li><li><a href="external-THREE.VTKLoader.html">VTKLoader</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenthemeshcheckboxisischeckedorunchecked.">change - executed when the mesh checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodels&lt;select&gt;ischanged.">change - executed when the models &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-executedwhenthestatscheckboxisischeckedorunchecked.">change - executed when the stats checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:click-resetbutton:firesafterboththemousedownandmouseupeventshavefired(inthatorder).">click - reset button: fires after both the mousedown and mouseup events have fired (in that order).</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="external-THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.Clock.html">Clock</a></li><li><a href="external-THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="external-THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="external-THREE.MTLLoader.html">MTLLoader</a></li><li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="external-THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="external-THREE.STLLoader.html">STLLoader</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.Stats.html">Stats</a></li><li><a href="external-THREE.TrackballControls.html">TrackballControls</a></li><li><a href="external-THREE.VTKLoader.html">VTKLoader</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenthemeshcheckboxisischeckedorunchecked.">change - executed when the mesh checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodels&lt;select&gt;ischanged.">change - executed when the models &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-executedwhenthestatscheckboxisischeckedorunchecked.">change - executed when the stats checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:click-resetbutton:firesafterboththemousedownandmouseupeventshavefired(inthatorder).">click - reset button: fires after both the mousedown and mouseup events have fired (in that order).</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Aug 10 2024 19:09:55 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Aug 10 2024 22:22:46 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

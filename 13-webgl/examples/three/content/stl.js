@@ -54,6 +54,7 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
@@ -67,6 +68,7 @@ import { VTKLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/VT
 import { OBJLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/OBJLoader.js";
 import { MTLLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/MTLLoader.js";
 import { GLTFLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/GLTFLoader.js";
+import { RoomEnvironment } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/environments/RoomEnvironment.js";
 import { DRACOLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/DRACOLoader.js";
 import { TrackballControls } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/controls/TrackballControls.js";
 import Stats from "/cwdc/13-webgl/lib/three.r163/examples/jsm/libs/stats.module.js";
@@ -246,7 +248,6 @@ function init() {
 
   const dirLight = new THREE.DirectionalLight(colorTable.white, 1.5);
   dirLight.position.set(200, 200, 1000);
-  camera.add(dirLight);
   camera.add(dirLight.target);
 
   // model material
@@ -326,6 +327,25 @@ function init() {
   const gltfl_loader = new GLTFLoader();
   gltfl_loader.setDRACOLoader(draco_loader);
 
+  /**
+   * This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM)
+   * from a cubeMap environment texture.
+   * This allows different levels of blur to be quickly accessed based on material roughness.
+   * Unlike a traditional mipmap chain, it only goes down to the LOD_MIN level (above),
+   * and then creates extra even more filtered 'mips' at the same LOD_MIN resolution,
+   * associated with higher roughness levels.
+   * In this way we maintain resolution to smoothly interpolate diffuse lighting while
+   * limiting sampling computation.
+   * @class PMREMGenerator
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/extras/PMREMGenerator PMREMGenerator}
+   */
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmremGenerator.fromScene(
+    new RoomEnvironment(renderer),
+    0.04,
+  ).texture;
+
   let diag = 0;
   let mesh = undefined;
   let line = undefined;
@@ -366,6 +386,7 @@ function init() {
       object = undefined;
       scene.remove(ambLight);
     }
+    camera.remove(dirLight);
     if (geometry.isBufferGeometry) {
       // stl, vtk
       geometry.center();
@@ -380,6 +401,7 @@ function init() {
       const edges = new THREE.EdgesGeometry(geometry);
       line = new THREE.LineSegments(edges, edgeMaterial);
       scene.add(line);
+      camera.add(dirLight);
       line.visible = vis ? vis : false;
     } else if (geometry.scene) {
       // gltf file
@@ -426,6 +448,7 @@ function init() {
       line.visible = vis ? vis : false;
       scene.add(line);
       scene.add(geometry);
+      camera.add(dirLight);
       object = geometry;
     }
     handleKeyPress(createEvent("o"));
