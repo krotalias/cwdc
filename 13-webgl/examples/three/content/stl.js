@@ -549,6 +549,7 @@ function init() {
           visible = !visible;
           if (visible) stats.dom.style.display = "block";
           else stats.dom.style.display = "none";
+          document.getElementById("stats").checked = visible;
           break;
         case "m":
           if (line) line.visible = !line.visible;
@@ -557,6 +558,7 @@ function init() {
               line.visible = !line.visible;
             }
           }
+          document.getElementById("mesh").checked = line.visible;
           break;
         case "o":
           controls.reset();
