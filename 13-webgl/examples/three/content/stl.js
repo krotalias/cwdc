@@ -424,7 +424,24 @@ function init() {
       object = model;
       if (geometry.animations[0]) {
         mixer = new THREE.AnimationMixer(model);
-        mixer.clipAction(geometry.animations[0]).play();
+
+        if (geometry.animations[3]) {
+          // Soldier.glb
+          mixer
+            .clipAction(geometry.animations[0])
+            .setEffectiveWeight(0.0)
+            .play();
+          mixer
+            .clipAction(geometry.animations[3])
+            .setEffectiveWeight(1.0)
+            .play();
+          mixer
+            .clipAction(geometry.animations[1])
+            .setEffectiveWeight(0.0)
+            .play();
+        } else {
+          mixer.clipAction(geometry.animations[0]).play();
+        }
       }
     } else {
       // OBJ file
