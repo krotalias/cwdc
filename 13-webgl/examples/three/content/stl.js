@@ -396,6 +396,17 @@ function init() {
       diag = bb.max.distanceTo(bb.min);
       const center = new THREE.Vector3();
       bb.getCenter(center);
+      // Nerfertiti.glb - what a hack!!
+      if (geometry.asset.generator.includes("MOPS CLI")) {
+        model.traverse(function (child) {
+          if (child.isMesh) {
+            child.material.normalMapType = THREE.ObjectSpaceNormalMap;
+            child.geometry.deleteAttribute("normal");
+            child.material.side = THREE.DoubleSide;
+            console.log(child.name);
+          }
+        });
+      }
       model.position.set(...center.negate());
       try {
         line = new THREE.LineSegments(
@@ -519,28 +530,20 @@ function init() {
             modelCnt = mod(modelCnt + incr, models.length);
             document.getElementById("models").value = modelCnt;
           }
-          if (models[modelCnt].includes(".vtk")) {
-            vtk_loader.load(`${modelPath}/vtk/${models[modelCnt]}`, loadModel);
-          } else if (models[modelCnt].includes(".stl")) {
-            stl_loader.load(`${modelPath}/stl/${models[modelCnt]}`, loadModel);
-          } else if (
-            models[modelCnt].includes(".glb") ||
-            models[modelCnt].includes(".gltf")
-          ) {
-            gltfl_loader.load(
-              `${modelPath}/glb/${models[modelCnt]}`,
-              loadModel,
-            );
+          const model = models[modelCnt];
+          if (model.includes(".vtk")) {
+            vtk_loader.load(`${modelPath}/vtk/${model}`, loadModel);
+          } else if (model.includes(".stl")) {
+            stl_loader.load(`${modelPath}/stl/${model}`, loadModel);
+          } else if (model.includes(".glb") || model.includes(".gltf")) {
+            gltfl_loader.load(`${modelPath}/glb/${model}`, loadModel);
           } else {
             mtl_loader.load(
-              `${modelPath}/obj/${models[modelCnt]}`.replace(".obj", ".mtl"),
+              `${modelPath}/obj/${model}`.replace(".obj", ".mtl"),
               (materials) => {
                 materials.preload();
                 obj_loader.setMaterials(materials);
-                obj_loader.load(
-                  `${modelPath}/obj/${models[modelCnt]}`,
-                  loadModel,
-                );
+                obj_loader.load(`${modelPath}/obj/${model}`, loadModel);
               },
             );
           }
