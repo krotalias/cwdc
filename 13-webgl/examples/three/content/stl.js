@@ -369,6 +369,11 @@ function init() {
     }
     if (object) {
       scene.remove(object);
+      object.traverse(function (child) {
+        if (child.isMesh) {
+          child.geometry.dispose();
+        }
+      });
       object = undefined;
       scene.remove(ambLight);
     }
@@ -449,6 +454,7 @@ function init() {
       diag = bb.max.distanceTo(bb.min);
       const center = new THREE.Vector3();
       bb.getCenter(center);
+
       geometry.position.set(...center.negate());
       try {
         line = new THREE.LineSegments(
@@ -463,6 +469,14 @@ function init() {
       scene.add(line);
       scene.add(geometry);
       if (geometry.materialLibraries[0] === "male02.mtl") scene.add(ambLight);
+      if (geometry.materialLibraries[0] === "littlesttokyo.mtl") {
+        geometry.traverse(function (child) {
+          if (child.isMesh) {
+            child.material.side = THREE.Back;
+          }
+        });
+        scene.add(ambLight);
+      }
       camera.add(dirLight);
       object = geometry;
     }
