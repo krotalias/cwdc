@@ -462,6 +462,7 @@ function init() {
       line.visible = vis ? vis : false;
       scene.add(line);
       scene.add(geometry);
+      if (geometry.materialLibraries[0] === "male02.mtl") scene.add(ambLight);
       camera.add(dirLight);
       object = geometry;
     }
