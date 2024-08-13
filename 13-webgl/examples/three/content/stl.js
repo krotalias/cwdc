@@ -469,8 +469,9 @@ function init() {
       scene.add(line);
       scene.add(geometry);
       if (
-        geometry.materialLibraries[0] === "male02.mtl" ||
-        geometry.materialLibraries[0] === "littlesttokyo.mtl"
+        ["male02.mtl", "littlesttokyo.mtl"].some(
+          (str) => str === geometry.materialLibraries[0],
+        )
       ) {
         scene.add(ambLight);
       }
@@ -567,7 +568,9 @@ function init() {
           } else if (model.includes(".glb") || model.includes(".gltf")) {
             gltfl_loader.load(`${modelPath}/glb/${model}`, loadModel);
           } else {
-            if (model !== "LittlestTokyo.obj") {
+            if (model === "LittlestTokyo.obj") {
+              mtl_loader.setMaterialOptions({ side: THREE.FrontSide });
+            } else {
               mtl_loader.setMaterialOptions({ side: THREE.DoubleSide });
             }
             mtl_loader.load(
