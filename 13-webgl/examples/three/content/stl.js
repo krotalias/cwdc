@@ -270,6 +270,7 @@ function init() {
    * @class OBJLoader
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/OBJLoader obj_loader Model Loader}
+   * @see {@link https://imagetostl.com/convert/file/glb/to/obj Convert Your 3D Mesh/Model GLB Files to OBJ}
    */
   const obj_loader = new OBJLoader();
 
@@ -284,7 +285,6 @@ function init() {
    * @see {@link https://paulbourke.net/dataformats/mtl/ MTL material format (Lightwave, OBJ)}
    */
   const mtl_loader = new MTLLoader();
-  mtl_loader.setMaterialOptions({ side: THREE.DoubleSide });
 
   /**
    * <p>A loader for geometry compressed with the Draco library.</p>
@@ -468,13 +468,10 @@ function init() {
       line.visible = vis ? vis : false;
       scene.add(line);
       scene.add(geometry);
-      if (geometry.materialLibraries[0] === "male02.mtl") scene.add(ambLight);
-      if (geometry.materialLibraries[0] === "littlesttokyo.mtl") {
-        geometry.traverse(function (child) {
-          if (child.isMesh) {
-            child.material.side = THREE.Back;
-          }
-        });
+      if (
+        geometry.materialLibraries[0] === "male02.mtl" ||
+        geometry.materialLibraries[0] === "littlesttokyo.mtl"
+      ) {
         scene.add(ambLight);
       }
       camera.add(dirLight);
@@ -570,6 +567,9 @@ function init() {
           } else if (model.includes(".glb") || model.includes(".gltf")) {
             gltfl_loader.load(`${modelPath}/glb/${model}`, loadModel);
           } else {
+            if (model !== "LittlestTokyo.obj") {
+              mtl_loader.setMaterialOptions({ side: THREE.DoubleSide });
+            }
             mtl_loader.load(
               `${modelPath}/obj/${model}`.replace(".obj", ".mtl"),
               (materials) => {
