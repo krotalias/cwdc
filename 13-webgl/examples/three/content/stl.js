@@ -427,7 +427,14 @@ function init() {
       line.visible = vis ? vis : false;
       scene.add(line);
       scene.add(model);
-      scene.add(ambLight);
+      if (
+        // DamagedHelmet
+        geometry.asset.generator !== "Khronos Blender glTF 2.0 exporter" &&
+        "asset.extras.title" in geometry &&
+        geometry.asset.extras.title !== "Supermarine Spitfire"
+      ) {
+        scene.add(ambLight);
+      }
       object = model;
       if (geometry.animations[0]) {
         mixer = new THREE.AnimationMixer(model);
