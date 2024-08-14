@@ -4,9 +4,11 @@
  * Summary.
  *
  * <p>STL, OBJ, VTK and GLTF Viewer.</p>
- * Uses {@link external:THREE Three.js} to load, display, and manipulate a model read from a file.
- * The center of the model bounding box is translated to the origin so a trackball can rotate the model.
- * <p>Three file formats are currently supported:</p>
+ * Uses {@link external:THREE Three.js} to load, display, and manipulate a model read from a
+ * {@link https://threejs.org/examples/ file}.
+ * The center of the model {@link https://threejs.org/docs/#api/en/math/Box3 bounding box}
+ * is translated to the origin so a trackball can rotate the model.
+ * <p>Four file formats are currently supported:</p>
  * <ol>
  * <li>{@link https://en.wikipedia.org/wiki/STL_(file_format) STL}
  * is a file format commonly used for 3D printing and computer-aided design (CAD).
@@ -42,7 +44,7 @@
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
  * @see {@link https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html#what-is-an-stl-file STL files}
  * @see {@link https://docs.fileformat.com/3d/mtl/ What is an MTL file?}
- * @see <iframe title="Cube in a Dodecahedron" src="/cwdc/13-webgl/examples/three/content/stl.html" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
+ * @see <iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Soldier.glb" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
  */
 
 "use strict";
@@ -80,7 +82,7 @@ const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
  */
 
 /**
- * Loads the viewer and starts the animation.
+ * Loads the viewer and starts the {@link runAnimation animation}.
  */
 function init() {
   const canvas = document.getElementById("canvasid");
@@ -240,7 +242,7 @@ function init() {
   });
 
   // edge material
-  const edgeMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+  const edgeMaterial = new THREE.LineBasicMaterial({ color: colorTable.white });
 
   /**
    * The STL model format is widely used for rapid prototyping, 3D printing and computer-aided manufacturing.
@@ -722,11 +724,15 @@ function init() {
     .getElementById("reset")
     .addEventListener("click", (event) => handleKeyPress(createEvent("o")));
 
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  let dfile = urlParams.get("file");
+
   const initialModel = models[0];
   getModels(models);
   models.sort();
   setModels(models);
-  modelCnt = models.indexOf(initialModel);
+  modelCnt = models.indexOf(dfile ? dfile : initialModel);
   document.getElementById("models").value = modelCnt;
   handleKeyPress(createEvent("k"));
 }
