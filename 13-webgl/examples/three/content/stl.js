@@ -430,8 +430,11 @@ function init() {
       if (
         // DamagedHelmet
         geometry.asset.generator !== "Khronos Blender glTF 2.0 exporter" &&
-        "asset.extras.title" in geometry &&
-        geometry.asset.extras.title !== "Supermarine Spitfire"
+        !(
+          geometry.asset.extras !== undefined &&
+          geometry.asset.extras.title !== undefined &&
+          geometry.asset.extras.title === "Supermarine Spitfire"
+        )
       ) {
         scene.add(ambLight);
       }
