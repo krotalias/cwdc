@@ -456,12 +456,12 @@ function init() {
       scene.add(line);
       scene.add(model);
       if (
-        // DamagedHelmet
-        geometry.asset.generator !== "Khronos Blender glTF 2.0 exporter" &amp;&amp;
          !(
           geometry.asset.extras !== undefined &amp;&amp;
           geometry.asset.extras.title !== undefined &amp;&amp;
-          geometry.asset.extras.title === "Supermarine Spitfire"
+          ["Supermarine Spitfire", "Battle Damaged Sci-fi Helmet"].some(
+            (str) => str === geometry.asset.extras.title,
+          )
         )
       ) {
         scene.add(ambLight);
