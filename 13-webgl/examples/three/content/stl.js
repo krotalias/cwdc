@@ -330,6 +330,16 @@ function init() {
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
   scene.background = new THREE.Color(colorTable.antiqueWhite);
   scene.environment = pmremGenerator.fromScene(
+    /**
+     * This is an easy way of lighting a scene
+     * by creating six light sources with different intensities using an "area light material".
+     * @class RoomEnvironment
+     * @extends {external:THREE.Scene}
+     * @memberof external:THREE
+     * @see {@link https://github.com/mrdoob/three.js/blob/master/examples/jsm/environments/RoomEnvironment.js RoomEnvironment}
+     * @see {@link https://threejs.org/docs/#api/en/extras/PMREMGenerator.fromScene PMREMGenerator}
+     * @see {@link https://threejs.org/examples/#misc_exporter_usdz USDZ exporter}
+     */
     new RoomEnvironment(renderer),
     0.04,
   ).texture;
