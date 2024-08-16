@@ -4,6 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>STL/VTK/OBJ/GLTF Viewer</title>
     <style>
+        :root {
+            --canvasw: 380px;
+            --canvash: 380px;
+        }
         body {
             background-color: #ffffed;
             margin: 0;
@@ -51,12 +55,42 @@
             margin-right: 0.5em;
             touch-action: manipulation;
         }
+        .progress-bar-container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: var(--canvasw);
+            height: var(--canvash);
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #progress-bar {
+            width: 30%;
+            margin-top: 0.5%;
+            height: 2%;
+        }
+        #labelp {
+            color: white;
+            font-size: 2rem;
+            padding-top: 50%;
+        }
     </style>
 </head>
 <html>
     <body>
         <div class="container">
             <canvas id="canvasid" width="380" height="380"></canvas>
+
+            <div class="progress-bar-container">
+                <div id="labelp">
+                    <label for="progress-bar">Loading...</label>
+                </div>
+                <progress id="progress-bar" value="0" max="100"></progress>
+            </div>
 
             <div class="interface">
                 <select
@@ -94,7 +128,7 @@
                     <option value="19">Soldier.glb</option>
                     <option value="20">male02.obj</option>
                     <option value="21">DamagedHelmet.gltf</option>
-                    <option value="21">IronMan.glb</option>
+                    <option value="22">IronMan.glb</option>
                 </select>
 
                 <p>

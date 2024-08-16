@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: MTLLoader</title>
+    <title>JSDoc: Class: LoadingManager</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: MTLLoader</h1>
+    <h1 class="page-title">Class: LoadingManager</h1>
 
     
 
@@ -29,7 +29,7 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="external-THREE.html">THREE</a>.</span>MTLLoader<span class="signature">()</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="external-THREE.html">THREE</a>.</span>LoadingManager<span class="signature">()</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -42,7 +42,7 @@
     
 
     
-    <h4 class="name" id="MTLLoader"><span class="type-signature"></span>new MTLLoader<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="LoadingManager"><span class="type-signature"></span>new LoadingManager<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -50,10 +50,9 @@
 
 
 <div class="description">
-    <p>A loader for loading an .mtl resource, used internally by OBJLoader.</p>
-The Material Template Library format (MTL) or .MTL File Format is a
-companion file format to .OBJ that describes surface shading (material)
-properties of objects within one or more .OBJ files.
+    <p>Handles and keeps track of loaded and pending data.</p>
+A default global instance of this class is created and used by loaders
+if not supplied <a href="https://threejs.org/docs/#api/en/loaders/managers/DefaultLoadingManager">manually</a>.
 </div>
 
 
@@ -97,7 +96,7 @@ properties of objects within one or more .OBJ files.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stl.js.html">stl.js</a>, <a href="stl.js.html#line316">line 316</a>
+        <a href="stl.js.html">stl.js</a>, <a href="stl.js.html#line247">line 247</a>
     </li></ul></dd>
     
 
@@ -107,9 +106,7 @@ properties of objects within one or more .OBJ files.
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://threejs.org/docs/#examples/en/loaders/MTLLoader">mtl_loader Material Loader</a></li>
-        
-            <li><a href="https://paulbourke.net/dataformats/mtl/">MTL material format (Lightwave, OBJ)</a></li>
+            <li><a href="https://threejs.org/docs/#api/en/loaders/managers/LoadingManager">Loading Manager</a></li>
         </ul>
     </dd>
     

@@ -273,13 +273,50 @@ function init() {
   const edgeMaterial = new THREE.LineBasicMaterial({ color: colorTable.white });
 
   /**
+   * &lt;p>Handles and keeps track of loaded and pending data.&lt;/p>
+   * A default global instance of this class is created and used by loaders
+   * if not supplied {@link https://threejs.org/docs/#api/en/loaders/managers/DefaultLoadingManager manually}.
+   * @class LoadingManager
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/loaders/managers/LoadingManager Loading Manager}
+   */
+  const manager = new THREE.LoadingManager();
+  const progressBar = document.getElementById("progress-bar");
+  const progressBarContainer = document.querySelector(
+    ".progress-bar-container",
+  );
+
+  manager.onStart = (url, itemsLoaded, itemsTotal) => {
+    progressBarContainer.style.display = "block";
+    console.log(
+      `Started loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
+    );
+  };
+
+  manager.onLoad = () => {
+    progressBarContainer.style.display = "none";
+    console.log("Loading Complete!");
+  };
+
+  manager.onProgress = (url, itemsLoaded, itemsTotal) => {
+    progressBar.value = (itemsLoaded / itemsTotal) * 100;
+    console.log(
+      `Loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
+    );
+  };
+
+  manager.onError = (url) => {
+    console.log(`There was an error loading ${url}`);
+  };
+
+  /**
    * The STL model format is widely used for rapid prototyping, 3D printing and computer-aided manufacturing.
    * @class STLLoader
    * @memberof external:THREE
    * @see {@link https://sbcode.net/threejs/loaders-stl/ STL Model Loader}
    * @see {@link https://blog.arashtad.com/blog/load-stl-3d-models-in-three-js/ How to load STL 3d models in Three JS}
    */
-  const stl_loader = new STLLoader();
+  const stl_loader = new STLLoader(manager);
 
   /**
    * VTK data sets can contain several types of lattice data and/or geometric figures.
@@ -289,7 +326,7 @@ function init() {
    * @memberof external:THREE
    * @see {@link https://threejs.org/examples/webgl_loader_vtk.html VTK Model Loader}
    */
-  const vtk_loader = new VTKLoader();
+  const vtk_loader = new VTKLoader(manager);
 
   /**
    * &lt;p>A loader for loading a .obj resource.&lt;/p>
@@ -302,7 +339,7 @@ function init() {
    * @see {@link https://threejs.org/docs/#examples/en/loaders/OBJLoader obj_loader Model Loader}
    * @see {@link https://imagetostl.com/convert/file/glb/to/obj Convert Your 3D Mesh/Model GLB Files to OBJ}
    */
-  const obj_loader = new OBJLoader();
+  const obj_loader = new OBJLoader(manager);
 
   /**
    * &lt;p>A loader for loading an .mtl resource, used internally by OBJLoader.&lt;/p>
@@ -339,7 +376,7 @@ function init() {
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/GLTFLoader GLTF Loader}
    */
-  const gltfl_loader = new GLTFLoader();
+  const gltfl_loader = new GLTFLoader(manager);
   gltfl_loader.setDRACOLoader(draco_loader);
 
   /**
@@ -686,6 +723,7 @@ function init() {
   function handleWindowResize() {
     let h = window.innerHeight - 20;
     let w = window.innerWidth - 20;
+    const r = document.querySelector(":root");
     if (h > w) {
       h = w / aspect;
     } else {
@@ -694,6 +732,8 @@ function init() {
     renderer.setSize(w, h);
     camera.aspect = aspect;
     camera.updateProjectionMatrix();
+    r.style.setProperty("--canvasw", `${w}px`);
+    r.style.setProperty("--canvash", `${h}px`);
   }
 
   /**
@@ -805,13 +845,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="external-THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.Clock.html">Clock</a></li><li><a href="external-THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="external-THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="external-THREE.MTLLoader.html">MTLLoader</a></li><li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="external-THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="external-THREE.RoomEnvironment.html">RoomEnvironment</a></li><li><a href="external-THREE.STLLoader.html">STLLoader</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.Stats.html">Stats</a></li><li><a href="external-THREE.TrackballControls.html">TrackballControls</a></li><li><a href="external-THREE.VTKLoader.html">VTKLoader</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenthemeshcheckboxisischeckedorunchecked.">change - executed when the mesh checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodels&lt;select&gt;ischanged.">change - executed when the models &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-executedwhenthestatscheckboxisischeckedorunchecked.">change - executed when the stats checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:click-resetbutton:firesafterboththemousedownandmouseupeventshavefired(inthatorder).">click - reset button: fires after both the mousedown and mouseup events have fired (in that order).</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="external-THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.Clock.html">Clock</a></li><li><a href="external-THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="external-THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="external-THREE.LoadingManager.html">LoadingManager</a></li><li><a href="external-THREE.MTLLoader.html">MTLLoader</a></li><li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="external-THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="external-THREE.RoomEnvironment.html">RoomEnvironment</a></li><li><a href="external-THREE.STLLoader.html">STLLoader</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.Stats.html">Stats</a></li><li><a href="external-THREE.TrackballControls.html">TrackballControls</a></li><li><a href="external-THREE.VTKLoader.html">VTKLoader</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenthemeshcheckboxisischeckedorunchecked.">change - executed when the mesh checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodels&lt;select&gt;ischanged.">change - executed when the models &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-executedwhenthestatscheckboxisischeckedorunchecked.">change - executed when the stats checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:click-resetbutton:firesafterboththemousedownandmouseupeventshavefired(inthatorder).">click - reset button: fires after both the mousedown and mouseup events have fired (in that order).</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Aug 15 2024 09:01:48 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Aug 16 2024 13:11:03 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

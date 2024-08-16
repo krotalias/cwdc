@@ -245,13 +245,50 @@ function init() {
   const edgeMaterial = new THREE.LineBasicMaterial({ color: colorTable.white });
 
   /**
+   * <p>Handles and keeps track of loaded and pending data.</p>
+   * A default global instance of this class is created and used by loaders
+   * if not supplied {@link https://threejs.org/docs/#api/en/loaders/managers/DefaultLoadingManager manually}.
+   * @class LoadingManager
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/loaders/managers/LoadingManager Loading Manager}
+   */
+  const manager = new THREE.LoadingManager();
+  const progressBar = document.getElementById("progress-bar");
+  const progressBarContainer = document.querySelector(
+    ".progress-bar-container",
+  );
+
+  manager.onStart = (url, itemsLoaded, itemsTotal) => {
+    progressBarContainer.style.display = "block";
+    console.log(
+      `Started loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
+    );
+  };
+
+  manager.onLoad = () => {
+    progressBarContainer.style.display = "none";
+    console.log("Loading Complete!");
+  };
+
+  manager.onProgress = (url, itemsLoaded, itemsTotal) => {
+    progressBar.value = (itemsLoaded / itemsTotal) * 100;
+    console.log(
+      `Loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
+    );
+  };
+
+  manager.onError = (url) => {
+    console.log(`There was an error loading ${url}`);
+  };
+
+  /**
    * The STL model format is widely used for rapid prototyping, 3D printing and computer-aided manufacturing.
    * @class STLLoader
    * @memberof external:THREE
    * @see {@link https://sbcode.net/threejs/loaders-stl/ STL Model Loader}
    * @see {@link https://blog.arashtad.com/blog/load-stl-3d-models-in-three-js/ How to load STL 3d models in Three JS}
    */
-  const stl_loader = new STLLoader();
+  const stl_loader = new STLLoader(manager);
 
   /**
    * VTK data sets can contain several types of lattice data and/or geometric figures.
@@ -261,7 +298,7 @@ function init() {
    * @memberof external:THREE
    * @see {@link https://threejs.org/examples/webgl_loader_vtk.html VTK Model Loader}
    */
-  const vtk_loader = new VTKLoader();
+  const vtk_loader = new VTKLoader(manager);
 
   /**
    * <p>A loader for loading a .obj resource.</p>
@@ -274,7 +311,7 @@ function init() {
    * @see {@link https://threejs.org/docs/#examples/en/loaders/OBJLoader obj_loader Model Loader}
    * @see {@link https://imagetostl.com/convert/file/glb/to/obj Convert Your 3D Mesh/Model GLB Files to OBJ}
    */
-  const obj_loader = new OBJLoader();
+  const obj_loader = new OBJLoader(manager);
 
   /**
    * <p>A loader for loading an .mtl resource, used internally by OBJLoader.</p>
@@ -311,7 +348,7 @@ function init() {
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/GLTFLoader GLTF Loader}
    */
-  const gltfl_loader = new GLTFLoader();
+  const gltfl_loader = new GLTFLoader(manager);
   gltfl_loader.setDRACOLoader(draco_loader);
 
   /**
@@ -658,6 +695,7 @@ function init() {
   function handleWindowResize() {
     let h = window.innerHeight - 20;
     let w = window.innerWidth - 20;
+    const r = document.querySelector(":root");
     if (h > w) {
       h = w / aspect;
     } else {
@@ -666,6 +704,8 @@ function init() {
     renderer.setSize(w, h);
     camera.aspect = aspect;
     camera.updateProjectionMatrix();
+    r.style.setProperty("--canvasw", `${w}px`);
+    r.style.setProperty("--canvash", `${h}px`);
   }
 
   /**
