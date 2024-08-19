@@ -262,6 +262,7 @@ function init() {
   manager.onStart = (url, itemsLoaded, itemsTotal) => {
     progressBarContainer.style.display = "block";
     progressBar.value = percentage(itemsLoaded, itemsTotal);
+    progressBar.innerHTML = `Loading ${itemsLoaded} in ${itemsTotal} ...`;
     console.log(
       `Started loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
     );
@@ -274,6 +275,7 @@ function init() {
 
   manager.onProgress = (url, itemsLoaded, itemsTotal) => {
     progressBar.value = percentage(itemsLoaded, itemsTotal);
+    progressBar.innerHTML = `Loading ${itemsLoaded} in ${itemsTotal} ...`;
     console.log(
       `Loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
     );
