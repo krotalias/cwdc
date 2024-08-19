@@ -257,9 +257,11 @@ function init() {
   const progressBarContainer = document.querySelector(
     ".progress-bar-container",
   );
+  const percentage = (n, total) => Math.min(Math.round((n / total) * 100), 100);
 
   manager.onStart = (url, itemsLoaded, itemsTotal) => {
     progressBarContainer.style.display = "block";
+    progressBar.value = percentage(itemsLoaded, itemsTotal);
     console.log(
       `Started loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
     );
@@ -271,7 +273,7 @@ function init() {
   };
 
   manager.onProgress = (url, itemsLoaded, itemsTotal) => {
-    progressBar.value = (itemsLoaded / itemsTotal) * 100;
+    progressBar.value = percentage(itemsLoaded, itemsTotal);
     console.log(
       `Loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
     );
