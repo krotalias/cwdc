@@ -44,6 +44,9 @@
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
  * @see {@link https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html#what-is-an-stl-file STL files}
  * @see {@link https://docs.fileformat.com/3d/mtl/ What is an MTL file?}
+ * @see {@link https://www.donmccurdy.com/ Contact}
+ * @see {@link https://free3d.com Free3D}
+ * @see {@link https://sketchfab.com/feed Sketchfab}
  * @see <iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Soldier.glb" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
  */
 
@@ -248,9 +251,18 @@ function init() {
    * <p>Handles and keeps track of loaded and pending data.</p>
    * A default global instance of this class is created and used by loaders
    * if not supplied {@link https://threejs.org/docs/#api/en/loaders/managers/DefaultLoadingManager manually}.
+   * <p>The main reason for using this class is to be able to implement a
+   * {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress progress bar}
+   * as feedback to the user. Unfortunately, the manager reports the total number of files
+   * loaded since its creation and not the number of files per model loaded.
+   * Furthermore, this information passed along to
+   * {@link https://threejs.org/docs/#api/en/loaders/managers/LoadingManager.onProgress onProress}
+   * is not even trustworthy.
+   * The best we can do is shadow the old image while the new one is being loaded.</p>
    * @class LoadingManager
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#api/en/loaders/managers/LoadingManager Loading Manager}
+   * @see <img src="../Nefertiti.png" width="256">
    */
   const manager = new THREE.LoadingManager();
   const progressBar = document.getElementById("progress-bar");
@@ -263,7 +275,7 @@ function init() {
   manager.onStart = (url, itemsLoaded, itemsTotal) => {
     progressBarContainer.style.display = "block";
     progressBar.value = percentage(itemsLoaded, itemsTotal);
-    progressBarLabel.innerHTML = `Loading ${itemsLoaded} in ${itemsTotal} ...`;
+    progressBarLabel.innerHTML = `Start loading ${itemsLoaded} in ${itemsTotal} ...`;
     console.log(
       `Started loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
     );
@@ -328,7 +340,7 @@ function init() {
    * @see {@link https://threejs.org/docs/#examples/en/loaders/MTLLoader mtl_loader Material Loader}
    * @see {@link https://paulbourke.net/dataformats/mtl/ MTL material format (Lightwave, OBJ)}
    */
-  const mtl_loader = new MTLLoader();
+  const mtl_loader = new MTLLoader(manager);
 
   /**
    * <p>A loader for geometry compressed with the Draco library.</p>
@@ -394,7 +406,12 @@ function init() {
   let object = undefined;
 
   /**
-   * Callback to load a model from a file to the scene.
+   * <p>Callback to load a model from a file to the scene.<p>
+   * The previous model loaded is
+   * {@link https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects disposed}
+   * of; that is, we try to release its geometry and material objects since they are no longer used.
+   * {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderTarget Render Targets}
+   * allocate some resources needed by the shader and should also be released.
    * @param {external:THREE.BufferGeometry} geometry model.
    * @global
    */
