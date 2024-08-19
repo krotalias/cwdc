@@ -254,6 +254,7 @@ function init() {
    */
   const manager = new THREE.LoadingManager();
   const progressBar = document.getElementById("progress-bar");
+  const progressBarLabel = document.getElementById("barLabel");
   const progressBarContainer = document.querySelector(
     ".progress-bar-container",
   );
@@ -262,7 +263,7 @@ function init() {
   manager.onStart = (url, itemsLoaded, itemsTotal) => {
     progressBarContainer.style.display = "block";
     progressBar.value = percentage(itemsLoaded, itemsTotal);
-    progressBar.innerHTML = `Loading ${itemsLoaded} in ${itemsTotal} ...`;
+    progressBarLabel.innerHTML = `Loading ${itemsLoaded} in ${itemsTotal} ...`;
     console.log(
       `Started loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
     );
@@ -275,7 +276,7 @@ function init() {
 
   manager.onProgress = (url, itemsLoaded, itemsTotal) => {
     progressBar.value = percentage(itemsLoaded, itemsTotal);
-    progressBar.innerHTML = `Loading ${itemsLoaded} in ${itemsTotal} ...`;
+    progressBarLabel.innerHTML = `Loading ${itemsLoaded} in ${itemsTotal} ...`;
     console.log(
       `Loading file: ${url} \nLoaded ${itemsLoaded} of ${itemsTotal} files.`,
     );
