@@ -476,7 +476,7 @@ function init() {
       // stl, vtk
       if (
         !geometry.index &&
-        ["Utah_teapot_(solid).stl", "scene_NIH3D.stl"].some(
+        ["Utah_teapot_(solid).stl", "Skull.stl"].some(
           (str) => str == loadedModelName,
         )
       ) {
