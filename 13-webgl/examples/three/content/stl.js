@@ -15,6 +15,19 @@
  * The name STL is an acronym that stands for stereolithography — a popular 3D printing technology.
  * You might also hear it referred to as Standard Triangle Language or Standard Tessellation Language.</li>
  *
+ * <p>STL does not support an indexed geometry. That is why it has multiple very close vertices
+ * (duplicates) on all triangles, and
+ * each vertex borrows its normal from the triangle it belongs to. As a consequence, at the same position,
+ * there are multiple normal vectors. This leads to a non-smooth surface
+ * when using the normal attribute for lighting calculation.
+ * Therefore, some {@link loadModel magic} is necessary to
+ * <a href="/cwdc/13-webgl/examples/three/content/stl.html?file=Skull.stl">smooth</a>
+ * the model by
+ * applying {@link https://threejs.org/docs/#examples/en/utils/BufferGeometryUtils.mergeVertices mergeVertices}
+ * to its {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry} and
+ * {@link https://threejs.org/docs/#api/en/core/BufferGeometry.computeVertexNormals recalculate}
+ * their normals.<p>
+ *
  * <li>{@link https://en.wikipedia.org/wiki/Wavefront_.obj_file OBJ}
  * (or .OBJ) is a geometry definition file format first developed by Wavefront Technologies
  * for its Advanced Visualizer animation package.
@@ -312,6 +325,9 @@ function init() {
    * @memberof external:THREE
    * @see {@link https://sbcode.net/threejs/loaders-stl/ STL Model Loader}
    * @see {@link https://blog.arashtad.com/blog/load-stl-3d-models-in-three-js/ How to load STL 3d models in Three JS}
+   * @see {@link https://stl-viewer.dualbox.com/ Free STL Viewer}
+   * @see {@link https://www.dualbox.com/apps/myminifactory-ranger/production miniature configurators}
+   * @see {@link https://www.dualbox.com DualBox}
    */
   const stl_loader = new STLLoader(manager);
 
@@ -419,7 +435,7 @@ function init() {
    * {@link https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects disposed}
    * of; that is, we try to release its geometry and material objects since they are no longer used.
    * {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderTarget Render Targets}
-   * allocate some resources needed by the shader and should also be released.
+   * allocate some resources needed by the shaders and should also be released.
    * @param {external:THREE.BufferGeometry} geometry model.
    * @global
    */
