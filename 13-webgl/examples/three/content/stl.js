@@ -62,6 +62,7 @@ import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
+import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
 
 const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
@@ -120,6 +121,13 @@ function init() {
    * @global
    */
   let modelCnt = defModel ? +defModel.value : 0;
+
+  /**
+   * Loaded model name.
+   * @type {String}
+   * @global
+   */
+  let loadedModelName = "";
 
   /**
    * The AnimationMixer is a player for animations on a particular object in the scene.
@@ -417,7 +425,6 @@ function init() {
    */
   function loadModel(geometry) {
     // console.log(geometry);
-
     let vis = undefined;
     if (mesh) {
       scene.remove(mesh);
@@ -451,13 +458,25 @@ function init() {
     camera.remove(dirLight);
     if (geometry.isBufferGeometry) {
       // stl, vtk
+      if (
+        !geometry.index &&
+        ["Utah_teapot_(solid).stl", "scene_NIH3D.stl"].some(
+          (str) => str == loadedModelName,
+        )
+      ) {
+        geometry.deleteAttribute("normal");
+        geometry = BufferGeometryUtils.mergeVertices(geometry, 1e-4);
+      }
+      if (!geometry.getAttribute("normal")) {
+        geometry.computeVertexNormals();
+      }
       geometry.center();
-      geometry.computeVertexNormals();
       geometry.computeBoundingBox();
       diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
 
       mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(0, 0, 0);
+
       scene.add(mesh);
 
       const edges = new THREE.EdgesGeometry(geometry);
@@ -642,6 +661,7 @@ function init() {
             document.getElementById("models").value = modelCnt;
           }
           const model = models[modelCnt];
+          loadedModelName = model;
           if (model.includes(".vtk")) {
             vtk_loader.load(`${modelPath}/vtk/${model}`, loadModel);
           } else if (model.includes(".stl")) {
