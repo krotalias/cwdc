@@ -261,6 +261,8 @@ function init() {
   dirLight.position.set(200, 200, 1000);
   camera.add(dirLight.target);
 
+  const mat = {};
+
   /**
    * <p>A material for non-shiny surfaces, without specular highlights.</p>
    *
@@ -274,7 +276,7 @@ function init() {
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/MeshLambertMaterial MeshLambertMaterial}
    */
-  const lambertMaterial = new THREE.MeshLambertMaterial({
+  mat["d"] = new THREE.MeshLambertMaterial({
     color: colorTable.gold,
     reflectivity: 2,
     side: THREE.DoubleSide,
@@ -293,10 +295,11 @@ function init() {
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/MeshPhongMaterial MeshPhongMaterial}
    */
-  const phongMaterial = new THREE.MeshPhongMaterial({
+  mat["p"] = new THREE.MeshPhongMaterial({
     color: colorTable.gold,
     shininess: 120,
     specular: 0xffffff,
+    side: THREE.DoubleSide,
   });
 
   /**
@@ -315,10 +318,11 @@ function init() {
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/MeshStandardMaterial MeshStandardMaterial}
    */
-  const standardMaterial = new THREE.MeshStandardMaterial({
+  mat["g"] = new THREE.MeshStandardMaterial({
     color: colorTable.gold,
     roughness: 0.3,
     metalness: 0.8,
+    side: THREE.DoubleSide,
   });
 
   /**
@@ -346,13 +350,8 @@ function init() {
    * @type {external:THREE.Material}
    * @global
    */
-  let material = document.querySelector('input[name="material"]:checked').value;
-  material =
-    material == "d"
-      ? lambertMaterial
-      : material == "p"
-        ? phongMaterial
-        : standardMaterial;
+  let material =
+    mat[document.querySelector('input[name="material"]:checked').value];
 
   /**
    * <p>Handles and keeps track of loaded and pending data.</p>
@@ -813,12 +812,7 @@ function init() {
         case "d":
         case "g":
         case "p":
-          material =
-            ch == "d"
-              ? lambertMaterial
-              : ch == "p"
-                ? phongMaterial
-                : standardMaterial;
+          material = mat[ch];
           document.getElementById(ch).checked = true;
           if (mesh) {
             mesh.material = material;
