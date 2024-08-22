@@ -791,8 +791,8 @@ function init() {
           metal = !metal;
           material = metal ? standardMaterial : lambertMaterial;
           document.getElementById("metal").checked = metal;
-          if (loadedModelName.includes(".stl")) {
-            handleKeyPress(createEvent("k"));
+          if (mesh) {
+            mesh.material = material;
           }
           break;
       }
