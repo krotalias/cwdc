@@ -15,18 +15,20 @@
  * The name STL is an acronym that stands for stereolithography — a popular 3D printing technology.
  * You might also hear it referred to as Standard Triangle Language or Standard Tessellation Language.</li>
  *
- * <p>STL does not support an indexed geometry. That is why it has multiple very close vertices
- * (duplicates) on all triangles, and
- * each vertex borrows its normal from the triangle it belongs to. As a consequence, at the same position,
+ * <p>STL does not support an indexed geometry. That is why it has multiple
+ * duplicate vertices on all triangles ({@link https://www.geeksforgeeks.org/polygon-mesh-in-computer-graphics/ explicit representation}),
+ * and each vertex borrows its normal from the triangle it belongs to.
+ * As a consequence, at the same position,
  * there are multiple normal vectors. This leads to a non-smooth surface
  * when using the normal attribute for lighting calculation.
  * Therefore, some {@link loadModel magic} is necessary to
  * <a href="/cwdc/13-webgl/examples/three/content/stl.html?file=Skull.stl">smooth</a>
  * the model by
  * applying {@link https://threejs.org/docs/#examples/en/utils/BufferGeometryUtils.mergeVertices mergeVertices}
- * to its {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry} and
- * {@link https://threejs.org/docs/#api/en/core/BufferGeometry.computeVertexNormals recalculate}
- * their normals.<p>
+ * to its {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
+ * followed by a
+ * {@link https://threejs.org/docs/#api/en/core/BufferGeometry.computeVertexNormals recalculation}
+ * of their normals.<p>
  *
  * <li>{@link https://en.wikipedia.org/wiki/Wavefront_.obj_file OBJ}
  * (or .OBJ) is a geometry definition file format first developed by Wavefront Technologies
@@ -259,14 +261,74 @@ function init() {
   dirLight.position.set(200, 200, 1000);
   camera.add(dirLight.target);
 
-  // model material
-  const material = new THREE.MeshLambertMaterial({
+  /**
+   * <p>A material for non-shiny surfaces, without specular highlights.</p>
+   *
+   * The material uses a non-physically based Lambertian model for calculating reflectance.
+   * This can simulate some surfaces (such as untreated wood or stone) well,
+   * but cannot simulate shiny surfaces with specular highlights (such as varnished wood).
+   *
+   * <p>MeshLambertMaterial uses per-fragment shading.</p>
+   *
+   * @class MeshLambertMaterial
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/materials/MeshLambertMaterial MeshLambertMaterial}
+   */
+  const lambertMaterial = new THREE.MeshLambertMaterial({
     color: colorTable.gold,
+    reflectivity: 2,
     side: THREE.DoubleSide,
   });
 
-  // edge material
-  const edgeMaterial = new THREE.LineBasicMaterial({ color: colorTable.white });
+  /**
+   * <p>A standard physically based material, using Metallic-Roughness workflow.<p>
+   *
+   * <p>Physically based rendering (PBR) has recently become the standard in many 3D applications.
+   * This approach differs from older approaches in that instead of using approximations
+   * The idea is that, instead of tweaking materials to look good under specific lighting,
+   * material can be created that will react 'correctly' under all lighting scenarios.</p>
+   *
+   * In practice this gives a more accurate and realistic looking result
+   * than the MeshLambertMaterial at the cost of being somewhat more computationally expensive.
+   *
+   * <p>MeshStandardMaterial uses per-fragment shading.</p>
+   * @class MeshStandardMaterial
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/materials/MeshStandardMaterial MeshStandardMaterial}
+   */
+  const standardMaterial = new THREE.MeshStandardMaterial({
+    color: colorTable.gold,
+    roughness: 0.3,
+    metalness: 0.8,
+    side: THREE.DoubleSide,
+  });
+
+  /**
+   * <p>A material for drawing wireframe-style geometries.<p>
+   * @class LineBasicMaterial
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/materials/LineBasicMaterial LineBasicMaterial}
+   */
+  const edgeMaterial = new THREE.LineBasicMaterial({
+    color: colorTable.white,
+    linewidth: 1,
+  });
+
+  /**
+   * <p>Materials describe the appearance of objects.</p>
+   * They are defined in a (mostly) renderer-independent way,
+   * so you don't have to rewrite materials if you decide to use a different renderer.
+   * @class external:THREE.Material
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/materials/Material Material}
+   */
+
+  /**
+   * <p>Current material for STL files.</p>
+   * @type{external:THREE.Material}
+   * @global
+   */
+  let material = lambertMaterial;
 
   /**
    * <p>Handles and keeps track of loaded and pending data.</p>
@@ -653,6 +715,7 @@ function init() {
   const handleKeyPress = (() => {
     const mod = (n, m) => ((n % m) + m) % m;
     let visible = false;
+    let metal = false;
     const modelPath = "models";
 
     /**
@@ -723,6 +786,13 @@ function init() {
           camera.position.set(0, 0, diag * 1.1);
           controls.maxDistance = camera.far;
           camera.updateProjectionMatrix();
+          break;
+        case "M":
+          metal = !metal;
+          material = metal ? standardMaterial : lambertMaterial;
+          if (loadedModelName.includes(".stl")) {
+            handleKeyPress(createEvent("k"));
+          }
           break;
       }
     };
@@ -818,6 +888,18 @@ function init() {
   document
     .getElementById("mesh")
     .addEventListener("change", (event) => handleKeyPress(createEvent("m")));
+
+  /**
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event change - executed when the metal checkbox is is checked or unchecked.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   */
+  document
+    .getElementById("metal")
+    .addEventListener("change", (event) => handleKeyPress(createEvent("M")));
 
   /**
    * <p>Appends an event listener for events whose type attribute value is change.<br>

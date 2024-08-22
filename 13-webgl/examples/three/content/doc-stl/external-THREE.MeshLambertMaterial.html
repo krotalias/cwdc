@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Clock</title>
+    <title>JSDoc: Class: MeshLambertMaterial</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Clock</h1>
+    <h1 class="page-title">Class: MeshLambertMaterial</h1>
 
     
 
@@ -29,7 +29,7 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="external-THREE.html">THREE</a>.</span>Clock<span class="signature">()</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="external-THREE.html">THREE</a>.</span>MeshLambertMaterial<span class="signature">()</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -42,7 +42,7 @@
     
 
     
-    <h4 class="name" id="Clock"><span class="type-signature"></span>new Clock<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="MeshLambertMaterial"><span class="type-signature"></span>new MeshLambertMaterial<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -50,8 +50,13 @@
 
 
 <div class="description">
-    Object for keeping track of time. This uses performance.now if it is available,
-otherwise it reverts to the less accurate Date.now.
+    <p>A material for non-shiny surfaces, without specular highlights.</p>
+
+The material uses a non-physically based Lambertian model for calculating reflectance.
+This can simulate some surfaces (such as untreated wood or stone) well,
+but cannot simulate shiny surfaces with specular highlights (such as varnished wood).
+
+<p>MeshLambertMaterial uses per-fragment shading.</p>
 </div>
 
 
@@ -95,7 +100,7 @@ otherwise it reverts to the less accurate Date.now.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stl.js.html">stl.js</a>, <a href="stl.js.html#line157">line 157</a>
+        <a href="stl.js.html">stl.js</a>, <a href="stl.js.html#line264">line 264</a>
     </li></ul></dd>
     
 
@@ -105,7 +110,7 @@ otherwise it reverts to the less accurate Date.now.
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://threejs.org/docs/#api/en/core/Clock">Clock</a></li>
+            <li><a href="https://threejs.org/docs/#api/en/materials/MeshLambertMaterial">MeshLambertMaterial</a></li>
         </ul>
     </dd>
     
