@@ -325,7 +325,7 @@ function init() {
 
   /**
    * <p>Current material for STL files.</p>
-   * @type{external:THREE.Material}
+   * @type {external:THREE.Material}
    * @global
    */
   let material = lambertMaterial;
