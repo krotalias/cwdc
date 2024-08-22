@@ -281,6 +281,25 @@ function init() {
   });
 
   /**
+   * <p>A material for shiny surfaces with specular highlights.</p>
+   *
+   * The material uses a non-physically based Blinn-Phong model for calculating reflectance.
+   * Unlike the Lambertian model used in the MeshLambertMaterial this can simulate
+   * shiny surfaces with specular highlights (such as varnished wood).
+   *
+   * <p>MeshPhongMaterial uses per-fragment shading.</p>
+   *
+   * @class MeshPhongMaterial
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/materials/MeshPhongMaterial MeshPhongMaterial}
+   */
+  const phongMaterial = new THREE.MeshPhongMaterial({
+    color: colorTable.gold,
+    shininess: 120,
+    specular: 0xffffff,
+  });
+
+  /**
    * <p>A standard physically based material, using Metallic-Roughness workflow.<p>
    *
    * <p>Physically based rendering (PBR) has recently become the standard in many 3D applications.
@@ -300,7 +319,6 @@ function init() {
     color: colorTable.gold,
     roughness: 0.3,
     metalness: 0.8,
-    side: THREE.DoubleSide,
   });
 
   /**
@@ -324,11 +342,17 @@ function init() {
    */
 
   /**
-   * <p>Current material for STL files.</p>
+   * <p>Current material for STL or VTK files.</p>
    * @type {external:THREE.Material}
    * @global
    */
-  let material = lambertMaterial;
+  let material = document.querySelector('input[name="material"]:checked').value;
+  material =
+    material == "d"
+      ? lambertMaterial
+      : material == "p"
+        ? phongMaterial
+        : standardMaterial;
 
   /**
    * <p>Handles and keeps track of loaded and pending data.</p>
@@ -715,7 +739,6 @@ function init() {
   const handleKeyPress = (() => {
     const mod = (n, m) => ((n % m) + m) % m;
     let visible = false;
-    let metal = false;
     const modelPath = "models";
 
     /**
@@ -787,10 +810,16 @@ function init() {
           controls.maxDistance = camera.far;
           camera.updateProjectionMatrix();
           break;
-        case "M":
-          metal = !metal;
-          material = metal ? standardMaterial : lambertMaterial;
-          document.getElementById("metal").checked = metal;
+        case "d":
+        case "g":
+        case "p":
+          material =
+            ch == "d"
+              ? lambertMaterial
+              : ch == "p"
+                ? phongMaterial
+                : standardMaterial;
+          document.getElementById(ch).checked = true;
           if (mesh) {
             mesh.material = material;
           }
@@ -890,17 +919,22 @@ function init() {
     .getElementById("mesh")
     .addEventListener("change", (event) => handleKeyPress(createEvent("m")));
 
-  /**
-   * <p>Appends an event listener for events whose type attribute value is change.<br>
-   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
-   * the event is dispatched.</p>
-   *
-   * @event change - executed when the metal checkbox is is checked or unchecked.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
-   */
-  document
-    .getElementById("metal")
-    .addEventListener("change", (event) => handleKeyPress(createEvent("M")));
+  if (document.querySelector('input[name="material"]')) {
+    document.querySelectorAll('input[name="material"]').forEach((elem) => {
+      /**
+       * <p>Appends an event listener for events whose type attribute value is change.<br>
+       * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+       * the event is dispatched.</p>
+       *
+       * @event change - executed when the material input radio is checked (but not when unchecked).
+       * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+       */
+      elem.addEventListener("change", function (event) {
+        const item = event.target.value;
+        handleKeyPress(createEvent(item));
+      });
+    });
+  }
 
   /**
    * <p>Appends an event listener for events whose type attribute value is change.<br>
