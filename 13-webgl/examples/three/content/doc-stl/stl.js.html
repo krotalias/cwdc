@@ -818,6 +818,7 @@ function init() {
         case "M":
           metal = !metal;
           material = metal ? standardMaterial : lambertMaterial;
+          document.getElementById("metal").checked = metal;
           if (loadedModelName.includes(".stl")) {
             handleKeyPress(createEvent("k"));
           }
