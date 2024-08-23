@@ -665,6 +665,9 @@ function init() {
           ["Supermarine Spitfire", "Battle Damaged Sci-fi Helmet"].some(
             (str) => str === geometry.asset.extras.title,
           )
+        ) &&
+        !["UpperAbdomen/model.gltf", "GastrointestinalTract/model.gltf"].some(
+          (str) => str === loadedModelName,
         )
       ) {
         scene.add(ambLight);
