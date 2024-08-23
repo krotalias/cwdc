@@ -815,7 +815,7 @@ function init() {
           } else if (model.includes(".glb") || model.includes(".gltf")) {
             gltfl_loader.load(`${modelPath}/glb/${model}`, loadModel);
           } else {
-            if (model === "LittlestTokyo.obj") {
+            if (model === "LittlestTokyo/LittlestTokyo.obj") {
               mtl_loader.setMaterialOptions({ side: THREE.FrontSide });
             } else {
               mtl_loader.setMaterialOptions({ side: THREE.DoubleSide });
