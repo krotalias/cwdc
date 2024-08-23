@@ -4,6 +4,9 @@
  * Summary.
  *
  * <p>STL, OBJ, VTK and GLTF Viewer.</p>
+ *
+ * <p><b>For educational purposes only.</b></p>
+ *
  * Uses {@link external:THREE Three.js} to load, display, and manipulate a model read from a
  * {@link https://threejs.org/examples/ file}.
  * The center of the model {@link https://threejs.org/docs/#api/en/math/Box3 bounding box}
@@ -21,7 +24,7 @@
  * As a consequence, at the same position,
  * there are multiple normal vectors. This leads to a non-smooth surface
  * when using the normal attribute for lighting calculation.
- * Therefore, some {@link loadModel magic} is necessary to
+ * Therefore, some {@link loadModel magical} code is necessary to
  * <a href="/cwdc/13-webgl/examples/three/content/stl.html?file=Skull.stl">smooth</a>
  * the model by
  * applying {@link https://threejs.org/docs/#examples/en/utils/BufferGeometryUtils.mergeVertices mergeVertices}
@@ -42,8 +45,9 @@
  * <li>{@link https://docs.vtk.org/en/latest/design_documents/VTKFileFormats.html VTK}
  * provides a number of source and writer objects to read and write popular data file formats.
  * The Visualization Toolkit also provides some of its own file formats.
- * The main reason for creating yet another data file format is to offer a consistent data representation scheme
- * for a variety of dataset types, and to provide a simple method to communicate data between software.</li>
+ * <p>The main reason for creating yet another data file format is to offer a consistent data representation scheme
+ * for a variety of dataset types, and to provide a simple method to communicate data between software.</p>
+ * </li>
  *
  * <li>{@link https://en.wikipedia.org/wiki/GlTF GLTF}
  * glTF (Graphics Library Transmission Format or GL Transmission Format and formerly known as WebGL Transmissions Format or WebGL TF)
@@ -298,7 +302,7 @@ function init() {
   mat["p"] = new THREE.MeshPhongMaterial({
     color: colorTable.gold,
     shininess: 120,
-    specular: 0xffffff,
+    specular: colorTable.white,
     side: THREE.DoubleSide,
   });
 
@@ -322,6 +326,43 @@ function init() {
     color: colorTable.gold,
     roughness: 0.3,
     metalness: 0.8,
+    side: THREE.DoubleSide,
+  });
+
+  /**
+   * An extension of the MeshStandardMaterial, providing more advanced
+   * physically-based rendering properties:
+   * <ul>
+   * <li>Anisotropy: Ability to represent the anisotropic property of materials as observable
+   * with brushed metals.</li>
+   * <li>Clearcoat: Some materials — like car paints, carbon fiber, and wet surfaces -
+   *    require a clear, reflective layer on top of another layer that may be irregular or rough.
+   *    Clearcoat approximates this effect, without the need for a separate transparent surface.</li>
+   * <li>Iridescence: Allows to render the effect where hue varies depending on
+   *   the viewing angle and illumination angle.
+   *   This can be seen on soap bubbles, oil films, or on the wings of many insects.</li>
+   * <li>Physically-based transparency: One limitation of .opacity is that
+   *   highly transparent materials are less reflective. </li>
+   * <li>Physically-based .transmission provides a more realistic option for thin,
+   *   transparent surfaces like glass.</li>
+   * <li>Advanced reflectivity: More flexible reflectivity for non-metallic materials.</li>
+   * <li>Sheen: Can be used for representing cloth and fabric materials.</li>
+   * </ul>
+   *
+   * <p>MeshPhysicalMaterial uses per-fragment shading.</p>
+   * @class MeshPhysicalMaterial
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/materials/MeshPhysicalMaterial MeshPhysicaldMaterial}
+   * @see {@link https://www.youtube.com/watch?v=q63VhC3vYI0 Glass Objects with Physical Material}
+   */
+  mat["P"] = new THREE.MeshPhysicalMaterial({
+    color: colorTable.white,
+    transmission: 1.0,
+    roughness: 0.0,
+    ior: 1.7,
+    thickness: 0.5,
+    specularIntensity: 1.0,
+    clearcoat: 1.0,
     side: THREE.DoubleSide,
   });
 
@@ -473,6 +514,7 @@ function init() {
    * @class GLTFLoader
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/GLTFLoader GLTF Loader}
+   * @see {@link https://gltf-viewer.donmccurdy.com glTF Viewer}
    */
   const gltfl_loader = new GLTFLoader(manager);
   gltfl_loader.setDRACOLoader(draco_loader);
@@ -812,6 +854,7 @@ function init() {
         case "d":
         case "g":
         case "p":
+        case "P":
           material = mat[ch];
           document.getElementById(ch).checked = true;
           if (mesh) {

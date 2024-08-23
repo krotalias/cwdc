@@ -32,6 +32,9 @@
  * Summary.
  *
  * &lt;p>STL, OBJ, VTK and GLTF Viewer.&lt;/p>
+ *
+ * &lt;p>&lt;b>For educational purposes only.&lt;/b>&lt;/p>
+ *
  * Uses {@link external:THREE Three.js} to load, display, and manipulate a model read from a
  * {@link https://threejs.org/examples/ file}.
  * The center of the model {@link https://threejs.org/docs/#api/en/math/Box3 bounding box}
@@ -49,7 +52,7 @@
  * As a consequence, at the same position,
  * there are multiple normal vectors. This leads to a non-smooth surface
  * when using the normal attribute for lighting calculation.
- * Therefore, some {@link loadModel magic} is necessary to
+ * Therefore, some {@link loadModel magical} code is necessary to
  * &lt;a href="/cwdc/13-webgl/examples/three/content/stl.html?file=Skull.stl">smooth&lt;/a>
  * the model by
  * applying {@link https://threejs.org/docs/#examples/en/utils/BufferGeometryUtils.mergeVertices mergeVertices}
@@ -70,8 +73,9 @@
  * &lt;li>{@link https://docs.vtk.org/en/latest/design_documents/VTKFileFormats.html VTK}
  * provides a number of source and writer objects to read and write popular data file formats.
  * The Visualization Toolkit also provides some of its own file formats.
- * The main reason for creating yet another data file format is to offer a consistent data representation scheme
- * for a variety of dataset types, and to provide a simple method to communicate data between software.&lt;/li>
+ * &lt;p>The main reason for creating yet another data file format is to offer a consistent data representation scheme
+ * for a variety of dataset types, and to provide a simple method to communicate data between software.&lt;/p>
+ * &lt;/li>
  *
  * &lt;li>{@link https://en.wikipedia.org/wiki/GlTF GLTF}
  * glTF (Graphics Library Transmission Format or GL Transmission Format and formerly known as WebGL Transmissions Format or WebGL TF)
@@ -326,7 +330,7 @@ function init() {
   mat["p"] = new THREE.MeshPhongMaterial({
     color: colorTable.gold,
     shininess: 120,
-    specular: 0xffffff,
+    specular: colorTable.white,
     side: THREE.DoubleSide,
   });
 
@@ -350,6 +354,43 @@ function init() {
     color: colorTable.gold,
     roughness: 0.3,
     metalness: 0.8,
+    side: THREE.DoubleSide,
+  });
+
+  /**
+   * An extension of the MeshStandardMaterial, providing more advanced
+   * physically-based rendering properties:
+   * &lt;ul>
+   * &lt;li>Anisotropy: Ability to represent the anisotropic property of materials as observable
+   * with brushed metals.&lt;/li>
+   * &lt;li>Clearcoat: Some materials — like car paints, carbon fiber, and wet surfaces -
+   *    require a clear, reflective layer on top of another layer that may be irregular or rough.
+   *    Clearcoat approximates this effect, without the need for a separate transparent surface.&lt;/li>
+   * &lt;li>Iridescence: Allows to render the effect where hue varies depending on
+   *   the viewing angle and illumination angle.
+   *   This can be seen on soap bubbles, oil films, or on the wings of many insects.&lt;/li>
+   * &lt;li>Physically-based transparency: One limitation of .opacity is that
+   *   highly transparent materials are less reflective. &lt;/li>
+   * &lt;li>Physically-based .transmission provides a more realistic option for thin,
+   *   transparent surfaces like glass.&lt;/li>
+   * &lt;li>Advanced reflectivity: More flexible reflectivity for non-metallic materials.&lt;/li>
+   * &lt;li>Sheen: Can be used for representing cloth and fabric materials.&lt;/li>
+   * &lt;/ul>
+   *
+   * &lt;p>MeshPhysicalMaterial uses per-fragment shading.&lt;/p>
+   * @class MeshPhysicalMaterial
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/materials/MeshPhysicalMaterial MeshPhysicaldMaterial}
+   * @see {@link https://www.youtube.com/watch?v=q63VhC3vYI0 Glass Objects with Physical Material}
+   */
+  mat["P"] = new THREE.MeshPhysicalMaterial({
+    color: colorTable.white,
+    transmission: 1.0,
+    roughness: 0.0,
+    ior: 1.7,
+    thickness: 0.5,
+    specularIntensity: 1.0,
+    clearcoat: 1.0,
     side: THREE.DoubleSide,
   });
 
@@ -501,6 +542,7 @@ function init() {
    * @class GLTFLoader
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/GLTFLoader GLTF Loader}
+   * @see {@link https://gltf-viewer.donmccurdy.com glTF Viewer}
    */
   const gltfl_loader = new GLTFLoader(manager);
   gltfl_loader.setDRACOLoader(draco_loader);
@@ -840,6 +882,7 @@ function init() {
         case "d":
         case "g":
         case "p":
+        case "P":
           material = mat[ch];
           document.getElementById(ch).checked = true;
           if (mesh) {
@@ -1014,13 +1057,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="external-THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.Clock.html">Clock</a></li><li><a href="external-THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="external-THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="external-THREE.LineBasicMaterial.html">LineBasicMaterial</a></li><li><a href="external-THREE.LoadingManager.html">LoadingManager</a></li><li><a href="external-THREE.MTLLoader.html">MTLLoader</a></li><li><a href="external-THREE.Material.html">Material</a></li><li><a href="external-THREE.MeshLambertMaterial.html">MeshLambertMaterial</a></li><li><a href="external-THREE.MeshPhongMaterial.html">MeshPhongMaterial</a></li><li><a href="external-THREE.MeshStandardMaterial.html">MeshStandardMaterial</a></li><li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="external-THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="external-THREE.RoomEnvironment.html">RoomEnvironment</a></li><li><a href="external-THREE.STLLoader.html">STLLoader</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.Stats.html">Stats</a></li><li><a href="external-THREE.TrackballControls.html">TrackballControls</a></li><li><a href="external-THREE.VTKLoader.html">VTKLoader</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenthematerialinputradioischecked(butnotwhenunchecked).">change - executed when the material input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxisischeckedorunchecked.">change - executed when the mesh checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodels&lt;select&gt;ischanged.">change - executed when the models &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-executedwhenthestatscheckboxisischeckedorunchecked.">change - executed when the stats checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:click-resetbutton:firesafterboththemousedownandmouseupeventshavefired(inthatorder).">click - reset button: fires after both the mousedown and mouseup events have fired (in that order).</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#loadedModelName">loadedModelName</a></li><li><a href="global.html#material">material</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="external-THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.Clock.html">Clock</a></li><li><a href="external-THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="external-THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="external-THREE.LineBasicMaterial.html">LineBasicMaterial</a></li><li><a href="external-THREE.LoadingManager.html">LoadingManager</a></li><li><a href="external-THREE.MTLLoader.html">MTLLoader</a></li><li><a href="external-THREE.Material.html">Material</a></li><li><a href="external-THREE.MeshLambertMaterial.html">MeshLambertMaterial</a></li><li><a href="external-THREE.MeshPhongMaterial.html">MeshPhongMaterial</a></li><li><a href="external-THREE.MeshPhysicalMaterial.html">MeshPhysicalMaterial</a></li><li><a href="external-THREE.MeshStandardMaterial.html">MeshStandardMaterial</a></li><li><a href="external-THREE.OBJLoader.html">OBJLoader</a></li><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="external-THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="external-THREE.RoomEnvironment.html">RoomEnvironment</a></li><li><a href="external-THREE.STLLoader.html">STLLoader</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.Stats.html">Stats</a></li><li><a href="external-THREE.TrackballControls.html">TrackballControls</a></li><li><a href="external-THREE.VTKLoader.html">VTKLoader</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenthematerialinputradioischecked(butnotwhenunchecked).">change - executed when the material input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxisischeckedorunchecked.">change - executed when the mesh checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodels&lt;select&gt;ischanged.">change - executed when the models &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-executedwhenthestatscheckboxisischeckedorunchecked.">change - executed when the stats checkbox is is checked or unchecked.</a></li><li><a href="global.html#event:click-resetbutton:firesafterboththemousedownandmouseupeventshavefired(inthatorder).">click - reset button: fires after both the mousedown and mouseup events have fired (in that order).</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#loadedModelName">loadedModelName</a></li><li><a href="global.html#material">material</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Aug 22 2024 20:02:07 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Aug 23 2024 06:07:47 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

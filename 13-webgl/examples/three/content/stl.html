@@ -144,17 +144,27 @@
                 <input type="checkbox" id="mesh" name="mesh" value="mesh" />
                 <label for="mesh">Mesh</label>
 
-                <input type="radio" id="d" name="material" checked value="d" />
-                <label for="d">Dull</label>
-                <input type="radio" id="g" name="material" value="g" />
-                <label for="g">Metal</label>
-                <input type="radio" id="p" name="material" value="p" />
-                <label for="p">Phong</label>
-
                 <input type="checkbox" id="stats" name="stats" value="stats" />
                 <label for="stats">Stats</label>
 
                 <button id="reset">Reset</button>
+
+                <div style="margin-top: 1em">
+                    <input
+                        type="radio"
+                        id="d"
+                        name="material"
+                        checked
+                        value="d"
+                    />
+                    <label for="d">Dull</label>
+                    <input type="radio" id="g" name="material" value="g" />
+                    <label for="g">Metal</label>
+                    <input type="radio" id="p" name="material" value="p" />
+                    <label for="p">Gloss</label>
+                    <input type="radio" id="P" name="material" value="P" />
+                    <label for="P">Glass</label>
+                </div>
 
                 <details>
                     <summary style="font-size: 100%">
