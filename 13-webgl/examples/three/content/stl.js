@@ -66,6 +66,7 @@
  * @see {@link https://www.donmccurdy.com/ Contact}
  * @see {@link https://free3d.com Free3D}
  * @see {@link https://sketchfab.com/feed Sketchfab}
+ * @see {@link https://www.body3d.eu/3D/Navigation/ body3d}
  * @see <iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Soldier.glb" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
  */
 
@@ -694,8 +695,8 @@ function init() {
             (str) => str === geometry.asset.extras.title,
           )
         ) &&
-        !["UpperAbdomen/model.gltf", "GastrointestinalTract/model.gltf"].some(
-          (str) => str === loadedModelName,
+        !["model.gltf", "Brain", "Lungs", "Uro"].some((str) =>
+          loadedModelName.includes(str),
         )
       ) {
         scene.add(ambLight);
