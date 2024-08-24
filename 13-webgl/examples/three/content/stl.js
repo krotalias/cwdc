@@ -79,6 +79,7 @@ import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
@@ -539,10 +540,12 @@ function init() {
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/GLTFLoader GLTF Loader}
    * @see {@link https://gltf-viewer.donmccurdy.com glTF Viewer}
+   * @see {@link https://gltf.report gltf Report}
    */
   const gltfl_loader = new GLTFLoader(manager);
   gltfl_loader.setDRACOLoader(draco_loader);
   gltfl_loader.setKTX2Loader(ktx2Loader);
+  gltfl_loader.setMeshoptDecoder(MeshoptDecoder);
 
   /**
    * This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM)
