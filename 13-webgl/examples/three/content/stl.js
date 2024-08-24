@@ -78,6 +78,7 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
@@ -85,6 +86,7 @@ import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js"
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
 
 const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
+const ktpath = "https://unpkg.com/three@latest/examples/jsm/libs/basis/";
 
 /**
  * Three.js module.
@@ -506,6 +508,28 @@ function init() {
   draco_loader.setDecoderPath(drpath);
 
   /**
+   * <p>Loader for KTX 2.0 GPU Texture containers.</p>
+   * KTX 2.0 is a container format for various GPU texture formats.
+   * The loader supports Basis Universal GPU textures, which can be quickly
+   * transcoded to a wide variety of GPU texture compression formats.
+   * While KTX 2.0 also allows other hardware-specific formats,
+   * this loader does not yet parse them.
+   * <p>This loader parses the KTX 2.0 container and transcodes to a
+   * supported GPU compressed texture format.
+   * The required WASM transcoder and JS wrapper are available from
+   * the examples/jsm/libs/basis directory.</p>
+   * @class KTX2Loader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#examples/en/loaders/KTX2Loader KTX2 Loader}
+   * @see {@link https://gdal.org/drivers/raster/ktx2.html GDAL KTX2}
+   * @see {@link https://github.com/BinomialLLC/basis_universal github}
+   * @see {@link https://threejs.org/examples/?q=gltf#webgl_loader_gltf_compressed GLTFLoader}
+   */
+  const ktx2Loader = new KTX2Loader()
+    .setTranscoderPath(ktpath)
+    .detectSupport(renderer);
+
+  /**
    * <p>A loader for glTF 2.0 resources.</p>
    glTF (GL Transmission Format) is an open format specification for efficient delivery and loading of 3D content.
    Assets may be provided either in JSON (.gltf) or binary (.glb) format. External files store textures (.jpg, .png)
@@ -518,6 +542,7 @@ function init() {
    */
   const gltfl_loader = new GLTFLoader(manager);
   gltfl_loader.setDRACOLoader(draco_loader);
+  gltfl_loader.setKTX2Loader(ktx2Loader);
 
   /**
    * This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM)
