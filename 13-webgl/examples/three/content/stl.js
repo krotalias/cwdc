@@ -541,6 +541,8 @@ function init() {
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/GLTFLoader GLTF Loader}
    * @see {@link https://gltf-viewer.donmccurdy.com glTF Viewer}
+   * @see {@link https://github.khronos.org/glTF-Sample-Viewer-Release/ glTF Sample Viewer}
+   * @see {@link https://github.com/KhronosGroup/glTF-Sample-Viewer github}
    * @see {@link https://gltf.report gltf Report}
    */
   const gltfl_loader = new GLTFLoader(manager);
@@ -663,14 +665,16 @@ function init() {
       diag = bb.max.distanceTo(bb.min);
       const center = new THREE.Vector3();
       bb.getCenter(center);
-      // Nerfertiti.glb - what a hack!!
-      if (geometry.asset.generator.includes("MOPS CLI")) {
+
+      if (["Nerfertiti", "Lieu"].some((str) => loadedModelName.includes(str))) {
         model.traverse(function (child) {
           if (child.isMesh) {
-            child.material.normalMapType = THREE.ObjectSpaceNormalMap;
-            child.geometry.deleteAttribute("normal");
+            if (geometry.asset.generator.includes("MOPS CLI")) {
+              // Nerfertiti.glb - what a hack!!
+              child.material.normalMapType = THREE.ObjectSpaceNormalMap;
+              child.geometry.deleteAttribute("normal");
+            }
             child.material.side = THREE.DoubleSide;
-            console.log(child.name);
           }
         });
       }
@@ -695,7 +699,7 @@ function init() {
             (str) => str === geometry.asset.extras.title,
           )
         ) &&
-        !["model.gltf", "Brain", "Lungs", "Uro"].some((str) =>
+        !["model.gl", "Brain", "Lungs", "Uro"].some((str) =>
           loadedModelName.includes(str),
         )
       ) {
@@ -879,7 +883,7 @@ function init() {
           // 1.6 is enough, but dont't forget the zoom out
           camera.far = diag * 5;
           camera.near = diag * 0.05;
-          camera.position.set(0, 0, diag * 1.1);
+          camera.position.set(0, 0, diag * 1.2);
           controls.maxDistance = camera.far;
           camera.updateProjectionMatrix();
           break;
