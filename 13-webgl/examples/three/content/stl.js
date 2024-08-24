@@ -666,11 +666,11 @@ function init() {
       const center = new THREE.Vector3();
       bb.getCenter(center);
 
-      if (["Nerfertiti", "Lieu"].some((str) => loadedModelName.includes(str))) {
+      if (["Nefertiti", "Lieu"].some((str) => loadedModelName.includes(str))) {
         model.traverse(function (child) {
           if (child.isMesh) {
             if (geometry.asset.generator.includes("MOPS CLI")) {
-              // Nerfertiti.glb - what a hack!!
+              // Nefertiti.glb - what a hack!!
               child.material.normalMapType = THREE.ObjectSpaceNormalMap;
               child.geometry.deleteAttribute("normal");
             }
