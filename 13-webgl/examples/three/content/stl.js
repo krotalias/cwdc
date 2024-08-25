@@ -7,10 +7,15 @@
  *
  * <p><b>For educational purposes only.</b></p>
  *
- * Uses {@link external:THREE Three.js} to load, display, and manipulate a model read from a
+ * <p>Uses {@link external:THREE Three.js} to load, display, and manipulate a model read from a
  * {@link https://threejs.org/examples/ file}.
  * The center of the model {@link https://threejs.org/docs/#api/en/math/Box3 bounding box}
  * is translated to the origin so a trackball can rotate the model.
+ * The app interface was designed for mobile devices,
+ * and the whole (vastly commented) code is only about a thousand lines of
+ * {@link http://vanilla-js.com Vanilla JS} code.<p>
+ * I am not a designer, and none of the models used here were made by me. The sources of the models
+ * are in the links below, and I would like to thank their authors.
  * <p>Four file formats are currently supported:</p>
  * <ol>
  * <li>{@link https://en.wikipedia.org/wiki/STL_(file_format) STL}
@@ -63,11 +68,14 @@
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
  * @see {@link https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html#what-is-an-stl-file STL files}
  * @see {@link https://docs.fileformat.com/3d/mtl/ What is an MTL file?}
- * @see {@link https://www.donmccurdy.com/ Contact}
+ * @see {@link https://www.donmccurdy.com/ Contact} (He's the man)
  * @see {@link https://free3d.com Free3D}
  * @see {@link https://sketchfab.com/feed Sketchfab}
  * @see {@link https://www.body3d.eu/3D/Navigation/ body3d}
+ * @see {@link https://www.zygotebody.com Zygote Body}
+ * @see {@link https://threejs.org/examples/ threejs examples}
  * @see <iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Soldier.glb" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
+ * @see <iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Skeleton/model.gltf" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
  */
 
 "use strict";
