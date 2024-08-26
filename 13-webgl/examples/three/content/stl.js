@@ -63,6 +63,7 @@
  * </ol>
  *
  * @author Paulo Roma Cavalcanti
+ * @since 18/07/24
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2024 Paulo R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html">link</a>
@@ -639,6 +640,8 @@ function init() {
       object.traverse(function (child) {
         if (child.isMesh) {
           child.geometry.dispose();
+          if (child.material.map) child.material.map.dispose();
+          child.material.dispose();
         }
       });
       object = undefined;
