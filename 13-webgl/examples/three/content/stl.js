@@ -64,6 +64,7 @@
  *
  * @author Paulo Roma Cavalcanti
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
+ * @copyright © 2024 Paulo R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html">link</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
  * @see {@link https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html#what-is-an-stl-file STL files}
@@ -74,8 +75,14 @@
  * @see {@link https://www.body3d.eu/3D/Navigation/ body3d}
  * @see {@link https://www.zygotebody.com Zygote Body}
  * @see {@link https://threejs.org/examples/ threejs examples}
- * @see <iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Soldier.glb" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
- * @see <iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Skeleton/model.gltf" style="transform: scale(0.85); width: 380px; height: 380px"></iframe>
+ * @see <figure>
+ *     <iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Soldier.glb" style="position: relative; right: 40px; margin-bottom: 0px; transform: scale(0.85); width: 380px; height: 380px"></iframe>
+ *     <figcaption style="font-size: 150%">Model by {@link https://www.mixamo.com/#/ Mixamo}</figcaption>
+ *     </figure>
+ * @see <figure>
+ *     <iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Skeleton/model.gltf" style="position: relative; right: 40px; margin-bottom: 0px; transform: scale(0.85); width: 380px; height: 380px"></iframe>
+ *     <figcaption style="font-size: 150%">Model by {@link https://discourse.threejs.org/u/neofelis/summary Neofelis}</figcaption>
+ *     </figure>
  */
 
 "use strict";
