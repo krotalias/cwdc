@@ -614,6 +614,21 @@ function init() {
    * @global
    */
   function loadModel(geometry) {
+    // Dispose material and its texture
+    function delMaterial(mat) {
+      if (mat) {
+        if (mat.map) {
+          mat.map.dispose();
+        }
+        if (mat.normalMap) {
+          mat.normalMap.dispose();
+        }
+        if (mat.envMap) {
+          mat.envMap.dispose();
+        }
+        mat.dispose();
+      }
+    }
     // console.log(geometry);
     let vis = undefined;
     if (mesh) {
@@ -640,8 +655,13 @@ function init() {
       object.traverse(function (child) {
         if (child.isMesh) {
           child.geometry.dispose();
-          if (child.material.map) child.material.map.dispose();
-          child.material.dispose();
+          if (Array.isArray(child.material)) {
+            child.material.forEach((material) => {
+              delMaterial(material);
+            });
+          } else {
+            delMaterial(child.material);
+          }
         }
       });
       object = undefined;
