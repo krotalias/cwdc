@@ -62,6 +62,14 @@
  *
  * </ol>
  *
+ * <b>Note</b>: I strongly recommend using texture sizes of at most 4k (4096 bytes) for mobile devices.
+ * There is an excellent {@link https://gltf-transform.dev/ tool}
+ * for rezizing all textures at once:
+ * <pre>
+ *    # Resize textures.
+ *    gltf-transform resize input.glb output.glb --width 1024 --height 1024
+ * </pre>
+ *
  * @author Paulo Roma Cavalcanti
  * @since 18/07/24
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
@@ -559,7 +567,9 @@ function init() {
    * @see {@link https://gltf-viewer.donmccurdy.com glTF Viewer}
    * @see {@link https://github.khronos.org/glTF-Sample-Viewer-Release/ glTF Sample Viewer}
    * @see {@link https://github.com/KhronosGroup/glTF-Sample-Viewer github}
+   * @see {@link https://github.khronos.org/glTF-Compressor-Release/ glTF Compressor}
    * @see {@link https://gltf.report gltf Report}
+   * @see {@link https://gltf-transform.dev/ glTF Transform}
    */
   const gltfl_loader = new GLTFLoader(manager);
   gltfl_loader.setDRACOLoader(draco_loader);
