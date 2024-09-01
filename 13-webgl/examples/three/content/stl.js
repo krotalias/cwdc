@@ -106,7 +106,8 @@ import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { TrackballControls } from "three/addons/controls/TrackballControls.js";
+import { ArcballControls } from "three/addons/controls/ArcballControls.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
@@ -177,6 +178,13 @@ function init() {
   let loadedModelName = "";
 
   /**
+   * ArcballControls x OrbitControls.
+   * @type {Boolean}
+   * @global
+   */
+  let useArcball = false;
+
+  /**
    * The AnimationMixer is a player for animations on a particular object in the scene.
    * When multiple objects in the scene are animated independently,
    * one AnimationMixer may be used for each object.
@@ -185,6 +193,28 @@ function init() {
    * @see {@link https://threejs.org/docs/#api/en/animation/AnimationMixer Animation Mixer}
    */
   let mixer;
+
+  /**
+   * Helper object to graphically show the world-axis-aligned bounding box around an object.
+   * The actual bounding box is handled with Box3, this is just a visual helper for debugging.
+   * It can be automatically resized with the BoxHelper.update method when
+   * the object it's created from is transformed.
+   * Note that the object must have a BufferGeometry for this to work,
+   * so it won't work with Sprites.
+   * @class BoxHelper
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/helpers/BoxHelper Box Helper}
+   */
+  let boxh = undefined;
+
+  /**
+   * An axis object to visualize the 3 axes in a simple way.
+   * The X axis is red. The Y axis is green. The Z axis is blue.
+   * @class AxesHelper
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/helpers/AxesHelper Axes Helper}
+   */
+  let axesHelper = undefined;
 
   /**
    * Object for keeping track of time. This uses performance.now if it is available,
@@ -253,28 +283,6 @@ function init() {
    * @see https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
    */
   const camera = new THREE.PerspectiveCamera(45, aspect, 0.01, 1000);
-  handleWindowResize();
-
-  /**
-   * <p>TrackballControls is similar to OrbitControls.</p>
-   * However, it does not maintain a constant camera up vector.
-   * That means if the camera orbits over the “north” and “south” poles,
-   * it does not flip to stay "right side up".
-   * @class TrackballControls
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#examples/en/controls/TrackballControls
-   */
-  const controls = new TrackballControls(camera, canvas);
-  controls.rotateSpeed = 5.0;
-  controls.zoomSpeed = 5;
-  controls.panSpeed = 2;
-  controls.noZoom = false;
-  controls.noPan = false;
-  controls.staticMoving = true;
-  controls.dynamicDampingFactor = 0.3;
-  controls.maxDistance = 3000;
-  controls.minDistance = 0;
-  controls.handleResize();
 
   /**
    * <p>Scenes allow you to set up what and where is to be rendered by three.js.</p>
@@ -285,6 +293,53 @@ function init() {
    */
   const scene = new THREE.Scene();
   scene.add(camera);
+
+  //const helper = new THREE.CameraHelper(camera);
+  //scene.add(helper);
+
+  /**
+   * Arcball controls allow the camera to be controlled by a virtual trackball
+   * with full touch support and advanced navigation functionality.
+   * Cursor/finger positions and movements are mapped over a virtual trackball surface
+   * represented by a gizmo and mapped in intuitive and consistent camera movements.
+   * Dragging cursor/fingers will cause camera to orbit around the center of the trackball
+   * in a conservative way (returning to the starting point will make the camera
+   * to return to its starting orientation).
+   * @class ArcballControls
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#examples/en/controls/ArcballControls ArcballControls}
+   */
+
+  /**
+   * Orbit controls allow the camera to orbit around a target.
+   * To use this, as with all files in the /examples directory,
+   * you will have to include the file separately in your HTML.
+   * @class OrbitControls
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#examples/en/controls/OrbitControls OrbitControls}
+   */
+  const controls = useArcball
+    ? new ArcballControls(camera, canvas, scene)
+    : new OrbitControls(camera, canvas);
+  controls.enableRotate = true;
+  controls.enableZoom = true;
+  controls.enablePan = true;
+  controls.maxDistance = 3000;
+  controls.minDistance = 0;
+  if (useArcball) {
+    controls.dampingFactor = 5;
+    controls.wMax = 10;
+    controls.rotateSpeed = 1.0;
+    controls.scaleFactor = 1.1;
+    controls.adjustNearFar = true;
+    controls.cursorZoom = true;
+    controls.setGizmosVisible(false);
+  } else {
+    controls.enableDamping = true;
+    controls.autoRotateSpeed = 5.0;
+    controls.dampingFactor = 0.1;
+    controls.autoRotate = false;
+  }
 
   // light
   const ambLight = new THREE.AmbientLight(colorTable.white, 3);
@@ -639,6 +694,22 @@ function init() {
         mat.dispose();
       }
     }
+    // Create a box helper for the object.
+    function createBoxHelper(object) {
+      if (boxh) {
+        scene.remove(boxh);
+        boxh.dispose();
+        scene.remove(axesHelper);
+        axesHelper.dispose();
+      }
+      boxh = new THREE.BoxHelper(object, 0xa52a2a);
+      axesHelper = new THREE.AxesHelper(diag / 2);
+      scene.add(axesHelper);
+      scene.add(boxh);
+      boxh.visible = document.getElementById("stats").checked;
+      axesHelper.visible = document.getElementById("stats").checked;
+    }
+
     // console.log(geometry);
     let vis = undefined;
     if (mesh) {
@@ -698,6 +769,7 @@ function init() {
 
       mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(0, 0, 0);
+      createBoxHelper(mesh);
 
       scene.add(mesh);
 
@@ -726,7 +798,10 @@ function init() {
           }
         });
       }
+
       model.position.set(...center.negate());
+      createBoxHelper(model);
+
       try {
         line = new THREE.LineSegments(
           new MeshEdgesGeometry(model),
@@ -783,6 +858,8 @@ function init() {
       bb.getCenter(center);
 
       geometry.position.set(...center.negate());
+      createBoxHelper(geometry);
+
       try {
         line = new THREE.LineSegments(
           new MeshEdgesGeometry(geometry),
@@ -849,10 +926,12 @@ function init() {
    */
   function runAnimation() {
     const delta = clock.getDelta();
-    if (mixer) mixer.update(delta);
-    controls.update();
-    renderer.render(scene, camera);
+    if (mixer) {
+      mixer.update(delta);
+      renderer.render(scene, camera);
+    }
     stats.update();
+    if (controls.autoRotate) controls.update();
   }
 
   /**
@@ -916,6 +995,10 @@ function init() {
           if (visible) stats.dom.style.display = "block";
           else stats.dom.style.display = "none";
           document.getElementById("stats").checked = visible;
+          if (useArcball) controls.setGizmosVisible(visible);
+          boxh.visible = visible;
+          axesHelper.visible = visible;
+          controls.autoRotate = visible;
           break;
         case "m":
           if (line) line.visible = !line.visible;
@@ -934,6 +1017,7 @@ function init() {
           camera.position.set(0, 0, diag * 1.2);
           controls.maxDistance = camera.far;
           camera.updateProjectionMatrix();
+          controls.update();
           break;
         case "d":
         case "g":
@@ -945,7 +1029,16 @@ function init() {
             mesh.material = material;
           }
           break;
+        case "c":
+          controls.copyState();
+          break;
+        case "v":
+          controls.pasteState();
+          break;
+        default:
+          return;
       }
+      renderer.render(scene, camera);
     };
   })();
 
@@ -983,6 +1076,7 @@ function init() {
     renderer.setSize(w, h);
     camera.aspect = aspect;
     camera.updateProjectionMatrix();
+    renderer.render(scene, camera);
     r.style.setProperty("--canvasw", `${w}px`);
     r.style.setProperty("--canvash", `${h}px`);
   }
@@ -1003,7 +1097,7 @@ function init() {
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event keydown
+   * @event keydown - executed when a key is pressed.
    */
   window.addEventListener("keydown", (event) => {
     if (
@@ -1024,9 +1118,10 @@ function init() {
    * @event change - executed when the models &lt;select&gt; is changed.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
    */
-  document
-    .getElementById("models")
-    .addEventListener("change", (event) => handleKeyPress(createEvent("k")));
+  document.getElementById("models").addEventListener("change", (event) => {
+    event.target.blur();
+    handleKeyPress(createEvent("k"));
+  });
 
   /**
    * <p>Appends an event listener for events whose type attribute value is change.<br>
@@ -1080,6 +1175,17 @@ function init() {
     .getElementById("reset")
     .addEventListener("click", (event) => handleKeyPress(createEvent("o")));
 
+  /**
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.render callback}
+   * argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event change - executed when the controls change.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   */
+  controls.addEventListener("change", () => renderer.render(scene, camera));
+
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   let dfile = urlParams.get("file");
@@ -1091,6 +1197,7 @@ function init() {
   modelCnt = models.indexOf(dfile ? dfile : initialModel);
   document.getElementById("models").value = modelCnt;
   handleKeyPress(createEvent("k"));
+  handleWindowResize();
 }
 
 /**
@@ -1098,7 +1205,7 @@ function init() {
  * @param {Event} event load event.
  * @callback WindowLoadCallback
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event load event}
- * @event load
+ * @event load - select the entry point of the application.
  */
 window.addEventListener("load", (event) => {
   init();

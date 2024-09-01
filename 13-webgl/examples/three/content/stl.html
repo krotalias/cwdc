@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>STL/VTK/OBJ/GLTF Viewer</title>
     <style>
@@ -12,6 +12,7 @@
             background-color: #ffffed;
             margin: 0;
             padding: 0;
+            /* controls whether the user can select text. */
             user-select: none;
         }
         @media only screen and (max-width: 768px) {
@@ -42,6 +43,7 @@
         details {
             margin-top: 20px;
         }
+        #models,
         button {
             font-size: 80%;
             margin-right: 30px;
@@ -83,7 +85,12 @@
 <html>
     <body>
         <div class="container">
-            <canvas id="canvasid" width="380" height="380"></canvas>
+            <canvas
+                id="canvasid"
+                width="380"
+                height="380"
+                tabindex="0"
+            ></canvas>
 
             <div class="progress-bar-container">
                 <div id="labelp">
@@ -201,7 +208,10 @@
                         <li>n, N - next/previous model</li>
                         <li>m - toggle mesh on/off</li>
                         <li>s - toggle stats on/off</li>
-                        <li>o - reset camera controls</li>
+                        <li>d - Lambert Material for STL/VTK</li>
+                        <li>g - Standard material for STL/VTK</li>
+                        <li>p - Phong material for STL/VTK</li>
+                        <li>P - Physical material for STL/VTK</li>
                     </ul>
                 </details>
             </div>
