@@ -178,11 +178,20 @@ function init() {
   let loadedModelName = "";
 
   /**
+   * ArcballControls zoom and pan do not work on mobile devices.
+   * @type {Bolean}
+   * @global
+   */
+  const mobile =
+    Math.min(window.screen.width, window.screen.height) < 768 ||
+    navigator.userAgent.indexOf("Mobi") > -1;
+
+  /**
    * ArcballControls x OrbitControls.
    * @type {Boolean}
    * @global
    */
-  let useArcball = false;
+  let useArcball = !mobile;
 
   /**
    * The AnimationMixer is a player for animations on a particular object in the scene.
