@@ -689,22 +689,54 @@ function init() {
    * @global
    */
   function loadModel(geometry) {
-    // Dispose material and its texture
+    /**
+     * <p>Dispose material and its texture.</p>
+     * TO BE FINISHED.
+     * @param {external:THREE.Material} mat material.
+     * @global
+     * @see https://discourse.threejs.org/t/when-to-dispose-how-to-completely-clean-up-a-three-js-scene/1549/24
+     */
     function delMaterial(mat) {
+      const texture_maps = [
+        "map",
+        "aoMap",
+        "alphaMap",
+        "bumpMap",
+        "displacementMap",
+        "envMap",
+        "lightMap",
+        "emissiveMap",
+        "normalMap",
+        "metalnessMap",
+        "roughnessMap",
+        "anisotropyMap",
+        "clearcoatMap",
+        "clearcoatNormalMap",
+        "clearcoatRoughnessMap",
+        "iridescenceMap",
+        "iridescenceThicknessMap",
+        "sheenColorMap",
+        "sheenRoughnessMap",
+        "specularMap",
+        "specularColorMap",
+        "specularIntensityMap",
+        "thicknessMap",
+        "transmissionMap",
+      ];
       if (mat) {
-        if (mat.map) {
-          mat.map.dispose();
-        }
-        if (mat.normalMap) {
-          mat.normalMap.dispose();
-        }
-        if (mat.envMap) {
-          mat.envMap.dispose();
-        }
+        texture_maps.forEach((tex_map) => {
+          if (mat[tex_map]) {
+            mat[tex_map].dispose();
+          }
+        });
         mat.dispose();
       }
     }
-    // Create a box helper for the object.
+    /**
+     * Create a box and axes helpers for the object.
+     * @param {external:THREE.Object3D} object a three.js object.
+     * @global
+     */
     function createBoxHelper(object) {
       if (boxh) {
         scene.remove(boxh);
@@ -1058,6 +1090,7 @@ function init() {
    * @param {String} key char code.
    * @param {Boolean} ctrl control key.
    * @returns {KeyboardEvent} a keyboard event.
+   * @global
    */
   const createEvent = (key, ctrl = false) => {
     const code = key.charCodeAt();
