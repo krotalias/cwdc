@@ -1040,10 +1040,10 @@ function init() {
           }
           break;
         case "c":
-          controls.copyState();
+          if (event.ctrlKey) controls.copyState();
           break;
         case "v":
-          controls.pasteState();
+          if (event.ctrlKey) controls.pasteState();
           break;
         default:
           return;
@@ -1056,15 +1056,17 @@ function init() {
    * Returns a new keyboard event
    * that can be passed to {@link handleKeyPress}.
    * @param {String} key char code.
+   * @param {Boolean} ctrl control key.
    * @returns {KeyboardEvent} a keyboard event.
    */
-  const createEvent = (key) => {
+  const createEvent = (key, ctrl = false) => {
     const code = key.charCodeAt();
     return new KeyboardEvent("keydown", {
       key: key,
       which: code,
       charCode: code,
       keyCode: code,
+      ctrlKey: ctrl,
     });
   };
 
