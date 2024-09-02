@@ -179,7 +179,7 @@ function init() {
 
   /**
    * ArcballControls zoom and pan do not work on mobile devices.
-   * @type {Bolean}
+   * @type {Boolean}
    * @global
    */
   const mobile =
@@ -187,7 +187,8 @@ function init() {
     navigator.userAgent.indexOf("Mobi") > -1;
 
   /**
-   * ArcballControls x OrbitControls.
+   * {@link external:THREE.ArcballControls ArcballControls} x
+   * {@link external:THREE.OrbitControls OrbitControls}
    * @type {Boolean}
    * @global
    */
