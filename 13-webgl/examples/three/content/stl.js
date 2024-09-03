@@ -74,7 +74,8 @@
  * @since 18/07/24
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2024 Paulo R Cavalcanti.
- * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html">link</a>
+ * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=arcball">link (ArcballControls)</a>
+ * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=orbit">link (OrbitControls)</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
  * @see {@link https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html#what-is-an-stl-file STL files}
  * @see {@link https://docs.fileformat.com/3d/mtl/ What is an MTL file?}
@@ -116,6 +117,23 @@ const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
 const ktpath = "https://unpkg.com/three@latest/examples/jsm/libs/basis/";
 
 /**
+ * ArcballControls zoom and pan do not work on mobile devices.
+ * @type {Boolean}
+ * @global
+ */
+const mobile =
+  Math.min(window.screen.width, window.screen.height) < 768 ||
+  navigator.userAgent.indexOf("Mobi") > -1;
+
+/**
+ * {@link external:THREE.ArcballControls ArcballControls} x
+ * {@link external:THREE.OrbitControls OrbitControls}
+ * @type {Boolean}
+ * @global
+ */
+let useArcball = !mobile;
+
+/**
  * Three.js module.
  * @external THREE
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
@@ -135,8 +153,9 @@ const ktpath = "https://unpkg.com/three@latest/examples/jsm/libs/basis/";
 
 /**
  * Loads the viewer and starts the {@link runAnimation animation}.
+ * @param {String} dfile initial model name.
  */
-function init() {
+function init(dfile) {
   const canvas = document.getElementById("canvasid");
 
   /**
@@ -176,23 +195,6 @@ function init() {
    * @global
    */
   let loadedModelName = "";
-
-  /**
-   * ArcballControls zoom and pan do not work on mobile devices.
-   * @type {Boolean}
-   * @global
-   */
-  const mobile =
-    Math.min(window.screen.width, window.screen.height) < 768 ||
-    navigator.userAgent.indexOf("Mobi") > -1;
-
-  /**
-   * {@link external:THREE.ArcballControls ArcballControls} x
-   * {@link external:THREE.OrbitControls OrbitControls}
-   * @type {Boolean}
-   * @global
-   */
-  let useArcball = !mobile;
 
   /**
    * The AnimationMixer is a player for animations on a particular object in the scene.
@@ -318,6 +320,10 @@ function init() {
    * @class ArcballControls
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/controls/ArcballControls ArcballControls}
+   * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html?gui=1">Cerberus</a>
+   * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html">Cerberus (no Gui)</a>
+   * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.js">source</a>
+   * @see <a href="/cwdc/13-webgl/showCode.php?f=examples/three/content/misc_controls_arcball">html</a>
    */
 
   /**
@@ -336,13 +342,13 @@ function init() {
   controls.enablePan = true;
   controls.maxDistance = 3000;
   controls.minDistance = 0;
+  controls.cursorZoom = true;
   if (useArcball) {
     controls.dampingFactor = 5;
     controls.wMax = 10;
     controls.rotateSpeed = 1.0;
     controls.scaleFactor = 1.1;
     controls.adjustNearFar = true;
-    controls.cursorZoom = true;
     controls.setGizmosVisible(false);
   } else {
     controls.enableDamping = true;
@@ -1118,9 +1124,9 @@ function init() {
     } else {
       w = h * aspect;
     }
-    renderer.setSize(w, h);
     camera.aspect = aspect;
     camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
     renderer.render(scene, camera);
     r.style.setProperty("--canvasw", `${w}px`);
     r.style.setProperty("--canvash", `${h}px`);
@@ -1231,10 +1237,6 @@ function init() {
    */
   controls.addEventListener("change", () => renderer.render(scene, camera));
 
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  let dfile = urlParams.get("file");
-
   const initialModel = models[0];
   getModels(models);
   models.sort();
@@ -1253,5 +1255,13 @@ function init() {
  * @event load - select the entry point of the application.
  */
 window.addEventListener("load", (event) => {
-  init();
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const dfile = urlParams.get("file");
+  const ctrls = urlParams.get("controls");
+
+  if (ctrls) {
+    useArcball = ctrls === "arcball";
+  }
+  init(dfile);
 });
