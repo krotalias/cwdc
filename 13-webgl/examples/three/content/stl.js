@@ -74,8 +74,9 @@
  * @since 18/07/24
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2024 Paulo R Cavalcanti.
- * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=arcball">link (ArcballControls)</a>
- * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=orbit">link (OrbitControls)</a>
+ * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=arcball&file=Nefertiti.glb">link (ArcballControls)</a>
+ * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=orbit&file=Heart/model.glb">link (OrbitControls)</a>
+ * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=trackball&file=Spitfire/scene.glb">link (TrackballControls)</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
  * @see {@link https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html#what-is-an-stl-file STL files}
  * @see {@link https://docs.fileformat.com/3d/mtl/ What is an MTL file?}
@@ -109,6 +110,7 @@ import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { ArcballControls } from "three/addons/controls/ArcballControls.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
@@ -119,19 +121,29 @@ const ktpath = "https://unpkg.com/three@latest/examples/jsm/libs/basis/";
 /**
  * ArcballControls zoom and pan do not work on mobile devices.
  * @type {Boolean}
- * @global
  */
 const mobile =
   Math.min(window.screen.width, window.screen.height) < 768 ||
   navigator.userAgent.indexOf("Mobi") > -1;
 
 /**
- * {@link external:THREE.ArcballControls ArcballControls} x
- * {@link external:THREE.OrbitControls OrbitControls}
- * @type {Boolean}
- * @global
+ * Enum for types of {@link https://threejs.org/docs/#api/en/extras/Controls controls}.
+ * @readonly
+ * @enum {number}
  */
-let useArcball = !mobile;
+const ctype = Object.freeze({
+  ARCBALL: 0,
+  ORBIT: 1,
+  TRACKBALL: 2,
+});
+
+/**
+ * {@link external:THREE.ArcballControls ArcballControls} x
+ * {@link external:THREE.OrbitControls OrbitControls} x
+ * {@link external:THREE.OrbitControls TrackControls}
+ * @type {Number}
+ */
+let ctrlType = mobile ? ctype.ORBIT : ctype.ARCBALL;
 
 /**
  * Three.js module.
@@ -334,27 +346,51 @@ function init(dfile) {
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/controls/OrbitControls OrbitControls}
    */
-  const controls = useArcball
-    ? new ArcballControls(camera, canvas, scene)
-    : new OrbitControls(camera, canvas);
-  controls.enableRotate = true;
-  controls.enableZoom = true;
-  controls.enablePan = true;
+
+  /**
+   * <p>TrackballControls is similar to OrbitControls.</p>
+   * However, it does not maintain a constant camera up vector.
+   * That means if the camera orbits over the “north” and “south” poles,
+   * it does not flip to stay "right side up".
+   * @class TrackballControls
+   * @memberof external:THREE
+   * @see https://threejs.org/docs/#examples/en/controls/TrackballControls
+   */
+  const controls =
+    ctrlType == ctype.ARCBALL
+      ? new ArcballControls(camera, canvas, scene)
+      : ctrlType == ctype.ORBIT
+        ? new OrbitControls(camera, canvas)
+        : new TrackballControls(camera, canvas);
   controls.maxDistance = 3000;
   controls.minDistance = 0;
-  controls.cursorZoom = true;
-  if (useArcball) {
-    controls.dampingFactor = 5;
-    controls.wMax = 10;
-    controls.rotateSpeed = 1.0;
-    controls.scaleFactor = 1.1;
-    controls.adjustNearFar = true;
-    controls.setGizmosVisible(false);
+  if (ctrlType === ctype.TRACKBALL) {
+    controls.rotateSpeed = 5.0;
+    controls.zoomSpeed = 5;
+    controls.panSpeed = 2;
+    controls.noZoom = false;
+    controls.noPan = false;
+    controls.staticMoving = true;
+    controls.dynamicDampingFactor = 0.3;
+    controls.handleResize();
   } else {
-    controls.enableDamping = true;
-    controls.autoRotateSpeed = 5.0;
-    controls.dampingFactor = 0.1;
-    controls.autoRotate = false;
+    controls.enableRotate = true;
+    controls.enableZoom = true;
+    controls.enablePan = true;
+    controls.cursorZoom = true;
+    if (ctrlType === ctype.ARCBALL) {
+      controls.dampingFactor = 5;
+      controls.wMax = 10;
+      controls.rotateSpeed = 1.0;
+      controls.scaleFactor = 1.1;
+      controls.adjustNearFar = true;
+      controls.setGizmosVisible(false);
+    } else if (ctrlType === ctype.ORBIT) {
+      controls.enableDamping = true;
+      controls.autoRotateSpeed = 5.0;
+      controls.dampingFactor = 0.1;
+      controls.autoRotate = false;
+    }
   }
 
   // light
@@ -979,7 +1015,7 @@ function init(dfile) {
       renderer.render(scene, camera);
     }
     stats.update();
-    if (controls.autoRotate) controls.update();
+    if (controls.autoRotate || ctrlType === ctype.TRACKBALL) controls.update();
   }
 
   /**
@@ -1043,7 +1079,7 @@ function init(dfile) {
           if (visible) stats.dom.style.display = "block";
           else stats.dom.style.display = "none";
           document.getElementById("stats").checked = visible;
-          if (useArcball) controls.setGizmosVisible(visible);
+          if (ctrlType === ctype.ARCBALL) controls.setGizmosVisible(visible);
           boxh.visible = visible;
           axesHelper.visible = visible;
           controls.autoRotate = visible;
@@ -1259,9 +1295,14 @@ window.addEventListener("load", (event) => {
   const urlParams = new URLSearchParams(queryString);
   const dfile = urlParams.get("file");
   const ctrls = urlParams.get("controls");
+  const dtype = {
+    arcball: ctype.ARCBALL,
+    orbit: ctype.ORBIT,
+    trackball: ctype.TRACKBALL,
+  };
 
   if (ctrls) {
-    useArcball = ctrls === "arcball";
+    ctrlType = dtype[ctrls] || ctype.ARCBALL;
   }
   init(dfile);
 });
