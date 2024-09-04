@@ -140,7 +140,7 @@ const ctype = Object.freeze({
 /**
  * {@link external:THREE.ArcballControls ArcballControls} x
  * {@link external:THREE.OrbitControls OrbitControls} x
- * {@link external:THREE.OrbitControls TrackControls}
+ * {@link external:THREE.TrackballControls TrackballControls}
  * @type {Number}
  */
 let ctrlType = mobile ? ctype.ORBIT : ctype.ARCBALL;
@@ -317,9 +317,6 @@ function init(dfile) {
    */
   const scene = new THREE.Scene();
   scene.add(camera);
-
-  //const helper = new THREE.CameraHelper(camera);
-  //scene.add(helper);
 
   /**
    * Arcball controls allow the camera to be controlled by a virtual trackball
