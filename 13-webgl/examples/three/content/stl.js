@@ -954,7 +954,7 @@ function init(dfile) {
       scene.add(line);
       scene.add(geometry);
       if (
-        ["male02.mtl", "littlesttokyo.mtl"].some(
+        ["male02.mtl", "littlesttokyo.mtl", "Cerberus.mtl"].some(
           (str) => str === geometry.materialLibraries[0],
         )
       ) {
