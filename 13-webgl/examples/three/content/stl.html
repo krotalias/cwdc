@@ -77,7 +77,7 @@
         #labelp {
             color: white;
             font-size: 2rem;
-            padding-top: 50%;
+            padding-top: 30%;
         }
     </style>
 </head>
@@ -99,6 +99,9 @@
             </div>
 
             <div class="interface">
+                <div style="font-size: 70%; padding-bottom: 0; color: red">
+                    (drag on the object to rotate it)
+                </div>
                 <select
                     name="models"
                     id="models"
@@ -108,7 +111,7 @@
                         color: black;
                         border: solid 5px lightsteelblue;
                         border-radius: 10%;
-                        margin-top: 20px;
+                        margin-top: 5px;
                         max-width: 90%;
                     "
                 >
@@ -202,12 +205,7 @@
                 </div>
 
                 <details>
-                    <summary style="font-size: 100%">
-                        Keyboard controls <br />
-                        <span style="font-size: 70%">
-                            (drag on the object to rotate it)
-                        </span>
-                    </summary>
+                    <summary style="font-size: 100%">Keyboard controls</summary>
 
                     <ul style="list-style: none">
                         <li>n, N - next/previous model</li>
