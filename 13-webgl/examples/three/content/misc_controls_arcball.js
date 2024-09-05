@@ -1,10 +1,10 @@
 "use strict";
 
-import * as THREE from "three";
-import { GUI } from "three/addons/libs/lil-gui.module.min.js";
-import { ArcballControls } from "three/addons/controls/ArcballControls.js";
-import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
+import * as THREE from "https://unpkg.com/three@latest/build/three.module.js?module";
+import { GUI } from "https://unpkg.com/three@latest/examples/jsm/libs/lil-gui.module.min.js?module";
+import { ArcballControls } from "https://unpkg.com/three@latest/examples/jsm/controls/ArcballControls.js?module";
+import { OBJLoader } from "https://unpkg.com/three@latest/examples/jsm/loaders/OBJLoader.js?module";
+import { RGBELoader } from "https://unpkg.com/three@latest/examples/jsm/loaders/RGBELoader.js?module";
 
 const cameras = ["Orthographic", "Perspective"];
 const cameraType = { type: "Perspective" };
@@ -78,6 +78,26 @@ function init() {
 
   const material = new THREE.MeshStandardMaterial();
 
+  window.addEventListener("keydown", onKeyDown);
+  window.addEventListener("resize", onWindowResize);
+
+  if (arcballGui.useGUI) {
+    gui = new GUI();
+
+    gui
+      .add(cameraType, "type", cameras)
+      .name("Choose Camera")
+      .onChange(function () {
+        setCamera(cameraType.type);
+      });
+
+    folderOptions = gui.addFolder("Arcball parameters");
+    folderAnimations = folderOptions.addFolder("Animations");
+  }
+
+  arcballGui.setArcballControls();
+  render();
+
   new OBJLoader()
     .setPath("models/obj/cerberus/")
     .load("Cerberus.obj", function (group) {
@@ -118,39 +138,16 @@ function init() {
         .setPath("textures/equirectangular/")
         .load("venice_sunset_1k.hdr", function (hdrEquirect) {
           hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-
           scene.environment = hdrEquirect;
-
           render();
         });
-
-      window.addEventListener("keydown", onKeyDown);
-      window.addEventListener("resize", onWindowResize);
-
-      if (arcballGui.useGUI) {
-        gui = new GUI();
-
-        gui
-          .add(cameraType, "type", cameras)
-          .name("Choose Camera")
-          .onChange(function () {
-            setCamera(cameraType.type);
-          });
-
-        folderOptions = gui.addFolder("Arcball parameters");
-        folderAnimations = folderOptions.addFolder("Animations");
-      }
-
-      arcballGui.setArcballControls();
-      render();
     });
 }
 
 function makeOrthographicCamera() {
   const halfFovV = THREE.MathUtils.DEG2RAD * 45 * 0.5;
-  const halfFovH = Math.atan(
-    (window.innerWidth / window.innerHeight) * Math.tan(halfFovV),
-  );
+  const aspect = window.innerWidth / window.innerHeight;
+  const halfFovH = Math.atan(aspect * Math.tan(halfFovV));
 
   const halfW = perspectiveDistance * Math.tan(halfFovH);
   const halfH = perspectiveDistance * Math.tan(halfFovV);
@@ -177,11 +174,12 @@ function makePerspectiveCamera() {
 }
 
 function onWindowResize() {
+  const h = window.innerHeight;
+  const w = window.innerWidth;
+  const aspect = w / h;
   if (camera.type == "OrthographicCamera") {
     const halfFovV = THREE.MathUtils.DEG2RAD * 45 * 0.5;
-    const halfFovH = Math.atan(
-      (window.innerWidth / window.innerHeight) * Math.tan(halfFovV),
-    );
+    const halfFovH = Math.atan(aspect * Math.tan(halfFovV));
 
     const halfW = perspectiveDistance * Math.tan(halfFovH);
     const halfH = perspectiveDistance * Math.tan(halfFovV);
@@ -190,11 +188,11 @@ function onWindowResize() {
     camera.top = halfH;
     camera.bottom = -halfH;
   } else if (camera.type == "PerspectiveCamera") {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = aspect;
   }
 
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(w, h);
   render();
 }
 

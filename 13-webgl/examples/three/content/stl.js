@@ -294,11 +294,15 @@ function init(dfile) {
    * @type {Number}
    * @global
    */
-  const aspect = canvas.clientWidth / canvas.clientHeight;
-
+  let aspect;
+  if (mobile) {
+    aspect = canvas.clientWidth / canvas.clientHeight;
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  } else {
+    aspect = window.innerWidth / window.innerHeight;
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
   renderer.setPixelRatio(window.devicePixelRatio);
-  // to avoid aliasing
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
   /**
    * Camera that uses perspective projection.
@@ -1153,9 +1157,9 @@ function init(dfile) {
     let w = window.innerWidth - 20;
     const r = document.querySelector(":root");
     if (h > w) {
-      h = w / aspect;
+      h = w / aspect; // aspect < 1
     } else {
-      w = h * aspect;
+      w = h * aspect; // aspect > 1
     }
     camera.aspect = aspect;
     camera.updateProjectionMatrix();
@@ -1184,13 +1188,6 @@ function init(dfile) {
    * @event keydown - executed when a key is pressed.
    */
   window.addEventListener("keydown", (event) => {
-    if (
-      ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
-        event.code,
-      ) > -1
-    ) {
-      event.preventDefault();
-    }
     handleKeyPress(event);
   });
 
