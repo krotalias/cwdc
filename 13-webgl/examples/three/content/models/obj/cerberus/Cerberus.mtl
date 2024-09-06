@@ -7,5 +7,5 @@ Ke 0 0 0
 illum 1
 map_kd Cerberus_A.jpg
 map_norm Cerberus_N.jpg
-map_Pm 1 1 Cerberus_RM.jpg
-map_Pr 1 1 Cerberus_RM.jpg 
+map_Pm Cerberus_RM.jpg
+map_Pr Cerberus_RM.jpg 

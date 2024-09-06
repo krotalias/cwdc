@@ -74,7 +74,7 @@
  * @since 18/07/24
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2024 Paulo R Cavalcanti.
- * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=arcball&file=Nefertiti.glb">link (ArcballControls)</a>
+ * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=arcball&file=cerberus/Cerberus.obj">link (ArcballControls)</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=orbit&file=Heart/model.glb">link (OrbitControls)</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=trackball&file=Spitfire/scene.glb">link (TrackballControls)</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
@@ -625,6 +625,9 @@ function init(dfile) {
    * @memberof external:THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/MTLLoader mtl_loader Material Loader}
    * @see {@link https://paulbourke.net/dataformats/mtl/ MTL material format (Lightwave, OBJ)}
+   * @see {@link https://people.sc.fsu.edu/~jburkardt/data/mtl/mtl.html Material Definitions for OBJ Files}
+   * @see {@link https://en.wikipedia.org/wiki/Wavefront_.obj_file Wavefront .obj file}
+   * @see {@link https://www.fileformat.info/format/material/ Alias/WaveFront Material (.mtl) File Format}
    */
   const mtl_loader = new MTLLoader(manager);
 
@@ -1158,10 +1161,11 @@ function init(dfile) {
     const r = document.querySelector(":root");
     if (h > w) {
       h = w / aspect; // aspect < 1
+      camera.aspect = aspect;
     } else {
-      w = h * aspect; // aspect > 1
+      //w = h * aspect; // aspect > 1
+      camera.aspect = w / h;
     }
-    camera.aspect = aspect;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
     renderer.render(scene, camera);
