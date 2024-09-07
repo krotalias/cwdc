@@ -4,7 +4,8 @@ Ka 1 1 1
 Kd 1 1 1
 Ks 0.5 0.5 0.5
 Ke 0 0 0
-illum 1
+Ns 50
+illum 3
 map_kd Cerberus_A.jpg
 map_norm Cerberus_N.jpg
 map_Pm Cerberus_RM.jpg

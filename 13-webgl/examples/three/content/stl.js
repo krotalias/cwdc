@@ -723,6 +723,13 @@ function init(dfile) {
   ).texture;
 
   /**
+   * Creates a texture directly from raw data, width and height.
+   * @class DataTexture
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/textures/DataTexture DataTexture}
+   */
+
+  /**
    * {@link https://en.wikipedia.org/wiki/High_dynamic_range HDR} image loader
    * for creating environment maps.
    * @class RGBELoader
@@ -731,7 +738,7 @@ function init(dfile) {
    * @see {@link https://www.adobe.com/creativecloud/photography/discover/hdr.html What is HDR?}
    */
   const rgbe_loader = new RGBELoader().setPath("textures/equirectangular/");
-  let hdrEnvironment, hdrEnvironment2;
+  let hdrEnvironment, hdrEnvironment2, hdrEnvironment3;
   rgbe_loader.load("san_giuseppe_bridge_2k.hdr", function (hdrEquirect) {
     hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
     hdrEnvironment = hdrEquirect;
@@ -739,6 +746,10 @@ function init(dfile) {
   rgbe_loader.load("spot1Lux.hdr", function (hdrEquirect) {
     hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
     hdrEnvironment2 = hdrEquirect;
+  });
+  rgbe_loader.load("blouberg_sunrise_2_1k.hdr", function (hdrEquirect) {
+    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+    hdrEnvironment3 = hdrEquirect;
   });
 
   let diag = 0;
@@ -758,6 +769,17 @@ function init(dfile) {
    * @global
    */
   function loadModel(geometry) {
+    /**
+     * Maps a model to its environment.
+     * @type {Object<String,external:THREE.DataTexture>}
+     * @global
+     */
+    const environment = {
+      Helmet: hdrEnvironment,
+      Falcon: hdrEnvironment2,
+      enterprise: hdrEnvironment2,
+      Spitfire: hdrEnvironment3,
+    };
     /**
      * <p>Dispose material and its texture.</p>
      * TO BE FINISHED.
@@ -924,14 +946,16 @@ function init(dfile) {
         return;
       }
       line.visible = vis ? vis : false;
-      if (loadedModelName.includes("Helmet")) {
-        scene.environment = hdrEnvironment;
-        scene.background = hdrEnvironment;
-      } else if (
-        ["enterprise", "Falcon"].some((str) => loadedModelName.includes(str))
-      ) {
-        scene.environment = hdrEnvironment2;
-        scene.background = hdrEnvironment2;
+      let value = undefined;
+      Object.keys(environment).some((str) => {
+        if (loadedModelName.includes(str)) {
+          value = str;
+          return true;
+        }
+      });
+      if (value) {
+        scene.environment = environment[value];
+        scene.background = environment[value];
       } else {
         scene.environment = roomEnvironment;
       }
