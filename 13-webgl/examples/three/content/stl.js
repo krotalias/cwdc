@@ -113,6 +113,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
+import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
 
 const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
@@ -337,6 +338,10 @@ function init(dfile) {
    * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html">Cerberus (no Gui)</a>
    * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.js">source</a>
    * @see <a href="/cwdc/13-webgl/showCode.php?f=examples/three/content/misc_controls_arcball">html</a>
+   * @see <figure>
+   * <img src="../textures/equirectangular/venice_sunset_1k.jpg" width="256">
+   * <figcaption>Venice Sunset {@link https://en.wikipedia.org/wiki/High_dynamic_range hdr} image</figcaption>
+   * @see </figure>
    */
 
   /**
@@ -701,8 +706,8 @@ function init(dfile) {
    * @see {@link https://threejs.org/docs/#api/en/extras/PMREMGenerator PMREMGenerator}
    */
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
-  scene.background = new THREE.Color(colorTable.antiqueWhite);
-  scene.environment = pmremGenerator.fromScene(
+  const background = new THREE.Color(colorTable.antiqueWhite);
+  const roomEnvironment = pmremGenerator.fromScene(
     /**
      * This is an easy way of lighting a scene
      * by creating six light sources with different intensities using an "area light material".
@@ -717,10 +722,28 @@ function init(dfile) {
     0.04,
   ).texture;
 
+  /**
+   * {@link https://en.wikipedia.org/wiki/High_dynamic_range HDR} image loader
+   * for creating environment maps.
+   * @class RGBELoader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
+   * @see {@link https://www.adobe.com/creativecloud/photography/discover/hdr.html What is HDR?}
+   */
+  const rgbe_loader = new RGBELoader().setPath("textures/equirectangular/");
+  let hdrEnvironment, hdrEnvironment2;
+  rgbe_loader.load("san_giuseppe_bridge_2k.hdr", function (hdrEquirect) {
+    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+    hdrEnvironment = hdrEquirect;
+  });
+  rgbe_loader.load("spot1Lux.hdr", function (hdrEquirect) {
+    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+    hdrEnvironment2 = hdrEquirect;
+  });
+
   let diag = 0;
   let mesh = undefined;
   let line = undefined;
-  // .obj file
   let lines = [];
   let object = undefined;
 
@@ -837,6 +860,7 @@ function init(dfile) {
       scene.remove(ambLight);
     }
     camera.remove(dirLight);
+    scene.background = background;
     if (geometry.isBufferGeometry) {
       // stl, vtk
       if (
@@ -900,6 +924,17 @@ function init(dfile) {
         return;
       }
       line.visible = vis ? vis : false;
+      if (loadedModelName.includes("Helmet")) {
+        scene.environment = hdrEnvironment;
+        scene.background = hdrEnvironment;
+      } else if (
+        ["enterprise", "Falcon"].some((str) => loadedModelName.includes(str))
+      ) {
+        scene.environment = hdrEnvironment2;
+        scene.background = hdrEnvironment2;
+      } else {
+        scene.environment = roomEnvironment;
+      }
       scene.add(line);
       scene.add(model);
       if (
