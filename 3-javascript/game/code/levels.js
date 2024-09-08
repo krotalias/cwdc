@@ -34,9 +34,9 @@
  *  - jsdoc -d doc-level code/level.js
  *  </pre>
  *
- *  @see <a href="/eloquentJavascript/game/game.html?driver=d">Game</a>
- *  @see <a href="/eloquentJavascript/game/canvas.html?driver=c">Canvas</a>
- *  @see <a href="/eloquentJavascript/game/code/levels.js">source</a>
+ *  @see <a href="/cwdc/3-javascript/game/game.html?driver=d">Game</a>
+ *  @see <a href="/cwdc/3-javascript/game/canvas.html?driver=c">Canvas</a>
+ *  @see <a href="/cwdc/3-javascript/game/code/levels.js">source</a>
  *  @see https://www.contentful.com/blog/2017/01/17/the-global-object-in-javascript/
  *  @see https://javascript.info/global-object
  *  @see <a href="../game.js">game in node</a>
