@@ -163,7 +163,66 @@ const ctype = Object.freeze({
  * {@link external:THREE.TrackballControls TrackballControls}
  * @type {Number}
  */
+
 let ctrlType = mobile ? ctype.ORBIT : ctype.ARCBALL;
+/**
+ * Maps a model to its environment.
+ * @type {Object<String,external:THREE.DataTexture>}
+ * @global
+ */
+const environment = {};
+
+/**
+ * Load textures (before models) then call {@link init}.
+ * @param {String} dfile dfile initial model name.
+ */
+function loadTextures(dfile) {
+  /**
+   * Creates a texture directly from raw data, width and height.
+   * @class DataTexture
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/textures/DataTexture DataTexture}
+   */
+
+  /**
+   * {@link https://en.wikipedia.org/wiki/High_dynamic_range HDR} image loader
+   * for creating environment maps.
+   * @class RGBELoader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
+   * @see {@link https://www.adobe.com/creativecloud/photography/discover/hdr.html What is HDR?}
+   */
+  const rgbe_loader = new RGBELoader().setPath("textures/equirectangular/");
+
+  /**
+   * {@link https://en.wikipedia.org/wiki/OpenEXR EXR} texture loader
+   * for creating environments.
+   * @class EXRLoader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
+   * @see {@link https://massive.io/file-transfer/what-is-an-exr-file/ What is an EXR File?}
+   */
+  const exr_loader = new EXRLoader().setPath("textures/");
+
+  rgbe_loader.load("san_giuseppe_bridge_2k.hdr", function (hdrEquirect) {
+    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+    environment["Helmet"] = hdrEquirect;
+    rgbe_loader.load("spot1Lux.hdr", function (hdrEquirect) {
+      hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+      environment["Falcon"] = hdrEquirect;
+      rgbe_loader.load("blouberg_sunrise_2_1k.hdr", function (hdrEquirect) {
+        hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+        environment["Spitfire"] = hdrEquirect;
+        exr_loader.load("starmap_2020_4k.exr", function (texture) {
+          texture.mapping = THREE.EquirectangularReflectionMapping;
+          environment["enterprise"] = texture;
+          //environment["target"] = pmremGenerator.fromEquirectangular(texture);
+          init(dfile);
+        });
+      });
+    });
+  });
+}
 
 /**
  * Three.js module.
@@ -740,53 +799,7 @@ function init(dfile) {
     new RoomEnvironment(renderer),
     0.04,
   ).texture;
-  pmremGenerator.dispose();
-
-  /**
-   * Creates a texture directly from raw data, width and height.
-   * @class DataTexture
-   * @memberof external:THREE
-   * @see {@link https://threejs.org/docs/#api/en/textures/DataTexture DataTexture}
-   */
-
-  /**
-   * {@link https://en.wikipedia.org/wiki/High_dynamic_range HDR} image loader
-   * for creating environment maps.
-   * @class RGBELoader
-   * @memberof external:THREE
-   * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
-   * @see {@link https://www.adobe.com/creativecloud/photography/discover/hdr.html What is HDR?}
-   */
-  const rgbe_loader = new RGBELoader().setPath("textures/equirectangular/");
-  let hdrEnvironment, hdrEnvironment2, hdrEnvironment3;
-  rgbe_loader.load("san_giuseppe_bridge_2k.hdr", function (hdrEquirect) {
-    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-    hdrEnvironment = hdrEquirect;
-  });
-  rgbe_loader.load("spot1Lux.hdr", function (hdrEquirect) {
-    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-    hdrEnvironment2 = hdrEquirect;
-  });
-  rgbe_loader.load("blouberg_sunrise_2_1k.hdr", function (hdrEquirect) {
-    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-    hdrEnvironment3 = hdrEquirect;
-  });
-
-  /**
-   * {@link https://en.wikipedia.org/wiki/OpenEXR EXR} texture loader
-   * for creating environments.
-   * @class EXRLoader
-   * @memberof external:THREE
-   * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
-   * @see {@link https://massive.io/file-transfer/what-is-an-exr-file/ What is an EXR File?}
-   */
-  const exr_loader = new EXRLoader();
-  let exrEnvironment, exrCubeRenderTarget;
-  exr_loader.load("textures/starmap_2020_4k.exr", function (texture) {
-    texture.mapping = THREE.EquirectangularReflectionMapping;
-    exrEnvironment = texture;
-    //exrCubeRenderTarget = pmremGenerator.fromEquirectangular(texture);
-  });
+  //pmremGenerator.dispose();
 
   let diag = 0;
   let mesh = undefined;
@@ -805,17 +818,6 @@ function init(dfile) {
    * @global
    */
   function loadModel(geometry) {
-    /**
-     * Maps a model to its environment.
-     * @type {Object<String,external:THREE.DataTexture>}
-     * @global
-     */
-    const environment = {
-      Helmet: hdrEnvironment,
-      Falcon: hdrEnvironment2,
-      enterprise: exrEnvironment,
-      Spitfire: hdrEnvironment3,
-    };
     /**
      * <p>Dispose material and its texture.</p>
      * TO BE FINISHED.
@@ -1397,5 +1399,5 @@ window.addEventListener("load", (event) => {
   if (ctrls) {
     ctrlType = dtype[ctrls] || ctype.ARCBALL;
   }
-  init(dfile);
+  loadTextures(dfile);
 });
