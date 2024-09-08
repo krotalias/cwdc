@@ -62,13 +62,31 @@
  *
  * </ol>
  *
- * <b>Note</b>: I strongly recommend using texture sizes of at most 4k (4096 bytes) for mobile devices.
+ * <b>Notes</b>:
+ * <ul>
+ * <li>I strongly recommend using texture sizes of at most 4k (4096 bytes) for mobile devices.<br>
  * There is an excellent {@link https://gltf-transform.dev/ tool}
  * for resizing all textures at once:
  * <pre>
  *    # Resize textures.
  *    gltf-transform resize input.glb output.glb --width 1024 --height 1024
  * </pre>
+ * <li>Zoom and Pan when using an {@link external:THREE.ArcballControls arcball}
+ * on a mobile device do not work. I have no idea why.</li>
+ * </li>
+ * <li>
+ * {@link https://www.youtube.com/watch?v=ShVKVn7p_4Q Visual Effects} and
+ * {@link https://lowepost.com/courses/insider/finishing_and_vfx/introduction-to-visual-effects-in-after-effects-r48/ Finishing} is everything.
+ * Therefore, I created a few cool environment maps for some
+ * <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=trackball&file=uss_enterprise_ncc-1701.glb">models</a>.
+ * <ul>
+ * <li>{@link https://cseweb.ucsd.edu/classes/wi18/cse167-a/lec13.pdf Environment Mapping}</li>
+ * <li>{@link https://developer.download.nvidia.com/CgTutorial/cg_tutorial_chapter07.html nvidia Developer Zone}</li>
+ * <li>{@link https://www.youtube.com/watch?v=PeAvKApuAuA Cem Yuksel}</li>
+ * <li style="list-style-type:none;"><img src="../Spitifire.png" width="256">
+ * </ul>
+ * </li>
+ * </uL
  *
  * @author Paulo Roma Cavalcanti
  * @since 18/07/24
@@ -722,6 +740,7 @@ function init(dfile) {
     new RoomEnvironment(renderer),
     0.04,
   ).texture;
+  pmremGenerator.dispose();
 
   /**
    * Creates a texture directly from raw data, width and height.
@@ -761,9 +780,9 @@ function init(dfile) {
    * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
    * @see {@link https://massive.io/file-transfer/what-is-an-exr-file/ What is an EXR File?}
    */
-  const exr_loader = new EXRLoader();
+  const exr_loader = new EXRLoader().setPath("textures/");
   let exrEnvironment, exrCubeRenderTarget;
-  exr_loader.load("textures/starmap_2020_4k.exr", function (texture) {
+  exr_loader.load("starmap_2020_4k.exr", function (texture) {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     exrEnvironment = texture;
     //exrCubeRenderTarget = pmremGenerator.fromEquirectangular(texture);
