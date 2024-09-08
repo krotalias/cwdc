@@ -780,9 +780,9 @@ function init(dfile) {
    * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
    * @see {@link https://massive.io/file-transfer/what-is-an-exr-file/ What is an EXR File?}
    */
-  const exr_loader = new EXRLoader().setPath("textures/");
+  const exr_loader = new EXRLoader();
   let exrEnvironment, exrCubeRenderTarget;
-  exr_loader.load("starmap_2020_4k.exr", function (texture) {
+  exr_loader.load("textures/starmap_2020_4k.exr", function (texture) {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     exrEnvironment = texture;
     //exrCubeRenderTarget = pmremGenerator.fromEquirectangular(texture);
