@@ -30,9 +30,9 @@
  *
  *  @author Marijn Haverbeke ({@link https://marijnhaverbeke.nl}), adapted to ES6 by Paulo Roma
  *  @since 06/07/2021
- *  @see <a href="/eloquentJavascript/game/game.html?driver=d">Game</a>
- *  @see <a href="/eloquentJavascript/game/code/chapter/16_game.js">source</a>
- *  @see <a href="/eloquentJavascript/game/code/levels.js">levels</a>
+ *  @see <a href="/cwdc/3-javascript/game/game.html?driver=d">Game</a>
+ *  @see <a href="/cwdc/3-javascript/game/code/chapter/16_game.js">source</a>
+ *  @see <a href="/cwdc/3-javascript/game/code/levels.js">levels</a>
  *  @see https://eloquentjavascript.net/16_game.html
  *  @see https://flexiple.com/associative-array-javascript/
  *  @see https://www.lessmilk.com/game/dark-blue/
@@ -461,9 +461,9 @@ function drawGrid(level) {
       elt(
         "tr",
         { style: `height: ${scale}px` },
-        ...row.map((type) => elt("td", { class: type }))
-      )
-    )
+        ...row.map((type) => elt("td", { class: type })),
+      ),
+    ),
   );
 }
 
@@ -489,7 +489,7 @@ function drawActors(actors) {
       rect.style.left = `${actor.pos.x * scale}px`;
       rect.style.top = `${actor.pos.y * scale}px`;
       return rect;
-    })
+    }),
   );
 }
 
@@ -689,7 +689,7 @@ Coin.prototype.update = function (time) {
   return new Coin(
     this.basePos.plus(new Vec(0, wobblePos)),
     this.basePos,
-    wobble
+    wobble,
   );
 };
 
@@ -857,7 +857,7 @@ function runLevel(level, Display) {
           resolve(state.status);
           return false; // stop running rAF() in runAnimation()
         }
-      }
+      },
     );
   });
 }

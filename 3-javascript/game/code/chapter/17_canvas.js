@@ -21,10 +21,10 @@
  *
  *  @author Marijn Haverbeke ({@link https://marijnhaverbeke.nl}), adapted to ES6 by Paulo Roma
  *  @since 06/07/2021
- *  @see <a href="/eloquentJavascript/game/game.html?driver=c">Game</a>
- *  @see <a href="/eloquentJavascript/game/code/chapter/17_canvas.js">source canvas</a>
- *  @see <a href="/eloquentJavascript/game/code/chapter/16_game.js">source game</a>
- *  @see <a href="/eloquentJavascript/game/code/levels.js">levels</a>
+ *  @see <a href="/cwdc/3-javascript/game/game.html?driver=c">Game</a>
+ *  @see <a href="/cwdc/3-javascript/game/code/chapter/17_canvas.js">source canvas</a>
+ *  @see <a href="/cwdc/3-javascript/game/code/chapter/16_game.js">source game</a>
+ *  @see <a href="/cwdc/3-javascript/game/code/levels.js">levels</a>
  *  @see https://eloquentjavascript.net/17_canvas.html
  *  @see <img src="../game.png" width="512">
  */
@@ -142,7 +142,7 @@ CanvasDisplay.prototype.updateViewport = function (state) {
     // beyond third third
     view.left = Math.min(
       center.x + margin - view.width, // keep the distance from the player to the left border = 2/3
-      state.level.width - view.width
+      state.level.width - view.width,
     );
   }
   if (center.y < view.top + margin) {
@@ -150,7 +150,7 @@ CanvasDisplay.prototype.updateViewport = function (state) {
   } else if (center.y > view.top + view.height - margin) {
     view.top = Math.min(
       center.y + margin - view.height,
-      state.level.height - view.height
+      state.level.height - view.height,
     );
   }
 };
@@ -205,7 +205,7 @@ CanvasDisplay.prototype.drawBackground = function (level) {
         screenX,
         screenY,
         scale,
-        scale
+        scale,
       );
     }
   }
@@ -287,7 +287,7 @@ CanvasDisplay.prototype.drawPlayer = function (player, x, y, width, height) {
     x,
     y,
     width,
-    height
+    height,
   );
   this.cx.restore();
 };
@@ -323,7 +323,7 @@ CanvasDisplay.prototype.drawActors = function (actors) {
         x,
         y,
         width,
-        height
+        height,
       );
     }
   }
