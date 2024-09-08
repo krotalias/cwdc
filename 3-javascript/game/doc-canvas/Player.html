@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: Player</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: Player</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>Player<span class="signature">(pos, speed)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>The player class.</p>
+Because a player is one-and-a-half squares high, its initial position is set to be half a square
+above the position where the @ character appeared.
+This way, its bottom aligns with the bottom of the square it appeared in.</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="Player"><span class="type-signature"></span>new Player<span class="signature">(pos, speed)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pos</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Vec.html">Vec</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">position.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>speed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Vec.html">Vec</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">current velocity to simulate momentum and gravity.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line242">line 242</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="size"><span class="type-signature"></span>size<span class="type-signature"> :<a href="Vec.html">Vec</a></span></h4>
+
+
+
+
+<div class="description">
+    <p>Size: 0.8 x 1.5 </p>
+The size property is the same for all instances of Player,
+so we store it on the prototype rather than on the instances themselves.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Vec.html">Vec</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line274">line 274</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="type"><span class="type-signature"></span>type<span class="type-signature"> :String</span></h4>
+
+
+
+
+<div class="description">
+    Getter: "player".
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">String</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line253">line 253</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(time, state, keys)</span><span class="type-signature"> &rarr; {<a href="Player.html">Player</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Actor objects’ update methods take as arguments the time step, the state object, and a keys object. </p>
+
+E.g.: <br>
+• keys: {ArrowRight: false, ArrowLeft: true, ArrowUp: false} <br>
+• two keys can be pressed simoutaneously.
+
+<p> Actions performed:</p>
+<ul>
+ <li> Increases/decreases speed based on the key received. </li>
+ <li> Gets new player position X: px = vx * t </li>
+ <li> Gets new player position Y: py = vy + g*t </li>
+ <li> Updates position x and/or y, if he does not touch any wall. </li>
+ <li> Return a new player with new position and speed. </li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>time</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">time step.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="State.html">State</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a given game state.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>keys</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object.&lt;key:Boolean></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with key pressed.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line732">line 732</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    new player object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Player.html">Player</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".create"><span class="type-signature">(static) </span>create<span class="signature">(pos)</span><span class="type-signature"> &rarr; {<a href="Player.html">Player</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    An static Player translated by (0,-0.5).
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pos</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Vec.html">Vec</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">position.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line263">line 263</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    a Player translated by -0.5 in y.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Player.html">Player</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CanvasDisplay.html">CanvasDisplay</a></li><li><a href="Coin.html">Coin</a></li><li><a href="DOMDisplay.html">DOMDisplay</a></li><li><a href="Lava.html">Lava</a></li><li><a href="Level.html">Level</a></li><li><a href="Player.html">Player</a></li><li><a href="State.html">State</a></li><li><a href="Vec.html">Vec</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li><li><a href="global.html#arrowKeys">arrowKeys</a></li><li><a href="global.html#drawActors">drawActors</a></li><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#elt">elt</a></li><li><a href="global.html#flipHorizontally">flipHorizontally</a></li><li><a href="global.html#gravity">gravity</a></li><li><a href="global.html#jumpSpeed">jumpSpeed</a></li><li><a href="global.html#levelChars">levelChars</a></li><li><a href="global.html#overlap">overlap</a></li><li><a href="global.html#playerXSpeed">playerXSpeed</a></li><li><a href="global.html#results">results</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#runGame">runGame</a></li><li><a href="global.html#runLevel">runLevel</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#simpleLevel">simpleLevel</a></li><li><a href="global.html#simpleLevelPlan">simpleLevelPlan</a></li><li><a href="global.html#sprites">sprites</a></li><li><a href="global.html#trackKeys">trackKeys</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 08 2024 10:36:18 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

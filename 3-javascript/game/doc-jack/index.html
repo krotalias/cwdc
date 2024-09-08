@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>jack.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Draws an animated character, called Jack Walker, running on a mostly sunny day.
+
+<p>When <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">drawImage</a>
+is given nine arguments, it can be used to draw only a fragment of an image.
+The second through fifth arguments indicate the rectangle (x, y, width, and height) in the source image that should be copied,
+and the sixth to ninth arguments give the rectangle (on the canvas) into which it should be copied.</p>
+
+<p>We know that each <a href="global.html#sprite">sprite</a>, each sub-picture, is 48 pixels wide and 60 pixels high.
+The code in <a href="global.html#animation">animation</a> draws a single image sprite for each frame, which is then called
+continuously by <a href="global.html#runAnimation">runAnimation</a>.</p>
+
+<p>The cycle binding in <a href="global.html#pose">pose</a> tracks our position in the animation. For each frame,
+it is incremented and then clipped back to the 0 to 7 range, by using the
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder">remainder</a> operator.
+This binding is then used to compute, for the current pose, the x-coordinate that the sprite has in the picture.</p>
+
+<p>We have used two canvases (two layers): one for the foreground (Jack) and the other for the background.
+The two canvases are stacked and have different z-indexes (Jack's z-index is higher). For being able to keep
+the two canvases on top of each other, we have put them in a container with
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">relative position</a>,
+and the canvas use <a href="https://www.freecodecamp.org/news/css-positioning-position-absolute-and-relative/">absolute position</a>.</p>
+
+<p>The implementation made use of a lot of
+<a href="https://www.freecodecamp.org/news/here-are-some-practical-javascript-objects-that-have-encapsulation-fc4c1a79c655/">closures</a>,
+instead of classes, and
+<a href="https://www.freecodecamp.org/news/learn-es6-the-dope-way-part-ii-arrow-functions-and-the-this-keyword-381ac7a32881/">arrow functions</a>.
+The goal was just to show how closures can be useful.
+A closure is an example of encapsulation: it encapsulates the body of code together
+with the <a href="https://www.techtarget.com/whatis/definition/lexical-scoping-static-scoping">lexical scope</a>.</p>
+The only means of access into the capsule is through the function:
+<ul>
+ <li>the function is like a "method", </li>
+ <li>and the elements of the captured lexical environment are like "slots" in an object.</li>
+</ul>
+Lexical scoping defines how variable names are resolved in nested functions:
+<ul>
+ <li>inner functions contain the scope of parent functions even if the parent function <b>has returned</b>.</li>
+ <li>functions are executed using the scope chain that was in effect when they were defined.</li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>11/08/2021</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/eloquentJavascript/game/jack.html">Jack</a></li>
+        
+            <li><a href="/eloquentJavascript/game/jack.js">source</a></li>
+        
+            <li><a href="https://eloquentjavascript.net/17_canvas.html">Drawing on canvas</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas">https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas</a></li>
+        
+            <li><a href="https://www.freecodecamp.org/news/how-to-understand-css-position-absolute-once-and-for-all-b71ca10cd3fd/">https://www.freecodecamp.org/news/how-to-understand-css-position-absolute-once-and-for-all-b71ca10cd3fd/</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">https://developer.mozilla.org/en-US/docs/Web/CSS/position</a></li>
+        
+            <li><img src="../img/player_big.png"></li>
+        
+            <li><img src="../img/jack.png" title="Two Canvases"></li>
+        
+            <li><img src="../img/jack4.png" title="Two Canvases"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#flipHorizontally">flipHorizontally</a></li><li><a href="global.html#gDown">gDown</a></li><li><a href="global.html#gUp">gUp</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#key_event">key_event</a></li><li><a href="global.html#kinematics">kinematics</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#pose">pose</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#speed">speed</a></li><li><a href="global.html#speedDown">speedDown</a></li><li><a href="global.html#speedUp">speedUp</a></li><li><a href="global.html#sprite">sprite</a></li><li><a href="global.html#stop">stop</a></li><li><a href="global.html#timer">timer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 08 2024 10:36:19 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

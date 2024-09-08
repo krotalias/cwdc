@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: DOMDisplay</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: DOMDisplay</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>DOMDisplay<span class="signature">(parent, level)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">A display is created by giving it a parent element to which it should append itself and a level object.
+It uses DOM elements to show the level.</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="DOMDisplay"><span class="type-signature"></span>new DOMDisplay<span class="signature">(parent, level)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">parent element.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>level</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Level.html">Level</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">geometry of the level to be drawn.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line423">line 423</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="clear"><span class="type-signature"></span>clear<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Removes this dom game element.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line433">line 433</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="scrollPlayerIntoView"><span class="type-signature"></span>scrollPlayerIntoView<span class="signature">(state)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Find the player’s position and update the wrapping element’s scroll position.
+We change the scroll position by manipulating that element’s scrollLeft and
+scrollTop properties when the player is too close to the edge.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="State.html">State</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">state of a running game.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line521">line 521</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="syncState"><span class="type-signature"></span>syncState<span class="signature">(state)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    The syncState method is used to make the display show a given state. It first removes the old actor graphics,
+if any, and then redraws the actors in their new positions.
+It may be tempting to try to reuse the DOM elements for actors, but to make that work,
+we would need a lot of additional bookkeeping to associate actors with DOM elements and to make sure
+we remove elements when their actors vanish.
+Since there will typically be only a handful of actors in the game, redrawing all of them is not expensive.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="State.html">State</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">game state to be shown.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line506">line 506</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Coin.html">Coin</a></li><li><a href="DOMDisplay.html">DOMDisplay</a></li><li><a href="Lava.html">Lava</a></li><li><a href="Level.html">Level</a></li><li><a href="Player.html">Player</a></li><li><a href="State.html">State</a></li><li><a href="Vec.html">Vec</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li><li><a href="global.html#arrowKeys">arrowKeys</a></li><li><a href="global.html#drawActors">drawActors</a></li><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#elt">elt</a></li><li><a href="global.html#gravity">gravity</a></li><li><a href="global.html#jumpSpeed">jumpSpeed</a></li><li><a href="global.html#levelChars">levelChars</a></li><li><a href="global.html#overlap">overlap</a></li><li><a href="global.html#playerXSpeed">playerXSpeed</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#runGame">runGame</a></li><li><a href="global.html#runLevel">runLevel</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#simpleLevel">simpleLevel</a></li><li><a href="global.html#simpleLevelPlan">simpleLevelPlan</a></li><li><a href="global.html#trackKeys">trackKeys</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 08 2024 10:36:17 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
