@@ -43,8 +43,8 @@
  *
  * @author Paulo Roma
  * @since 11/08/2021
- * @see <a href="/eloquentJavascript/game/jack.html">Jack</a>
- * @see <a href="/eloquentJavascript/game/jack.js">source</a>
+ * @see <a href="/cwdc/3-javascript/game/jack.html">Jack</a>
+ * @see <a href="/cwdc/3-javascript/game/jack.js">source</a>
  * @see <a href="https://eloquentjavascript.net/17_canvas.html">Drawing on canvas</a>
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
@@ -182,7 +182,7 @@ function mainEntrance() {
    */
   const fancyFont = new FontFace(
     "Tangerina",
-    "url(https://fonts.gstatic.com/s/tangerine/v15/IurY6Y5j_oScZZow4VOxCZZMprNA4A.woff2)"
+    "url(https://fonts.gstatic.com/s/tangerine/v15/IurY6Y5j_oScZZow4VOxCZZMprNA4A.woff2)",
   );
   fancyFont.load().then((font) => {
     document.fonts.add(font);
@@ -195,7 +195,7 @@ function mainEntrance() {
     cx.fillText(
       "DCC / UFRJ",
       cx.canvas.width - text.width,
-      cx.canvas.height - canvas.theight
+      cx.canvas.height - canvas.theight,
     );
     cx.fillText("   Jack Walker", 0, cx.canvas.height - canvas.theight);
     text = cx.measureText("topLine  ");
@@ -367,7 +367,7 @@ const animation = (() => {
       Math.floor(x),
       y,
       sprite.w,
-      sprite.h
+      sprite.h,
     );
 
     // print the statistics
@@ -598,7 +598,7 @@ function stop() {
 window.addEventListener("keydown", (event) => {
   if (
     ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(
-      event.code
+      event.code,
     )
   ) {
     event.preventDefault();

@@ -37,8 +37,8 @@
  * @author Paulo Roma
  * @since 11/08/2021
  * @see https://eloquentjavascript.net/17_canvas.html
- * @see <a href="/eloquentJavascript/game/ball.html">Pinball</a>
- * @see <a href="/eloquentJavascript/game/ball.js">source</a>
+ * @see <a href="/cwdc/3-javascript/game/ball.html">Pinball</a>
+ * @see <a href="/cwdc/3-javascript/game/ball.js">source</a>
  * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
  * @see https://www.freecodecamp.org/news/how-to-understand-css-position-absolute-once-and-for-all-b71ca10cd3fd/
@@ -262,7 +262,7 @@ const updateAnimation = (() => {
 window.addEventListener("keydown", (event) => {
   if (
     ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(
-      event.code
+      event.code,
     )
   ) {
     event.preventDefault();
