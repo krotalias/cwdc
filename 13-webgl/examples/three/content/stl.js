@@ -114,6 +114,7 @@ import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
+import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
 
 const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
@@ -752,6 +753,22 @@ function init(dfile) {
     hdrEnvironment3 = hdrEquirect;
   });
 
+  /**
+   * {@link https://en.wikipedia.org/wiki/OpenEXR EXR} texture loader
+   * for creating environments.
+   * @class EXRLoader
+   * @memberof external:THREE
+   * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
+   * @see {@link https://massive.io/file-transfer/what-is-an-exr-file/ What is an EXR File?}
+   */
+  const exr_loader = new EXRLoader();
+  let exrEnvironment, exrCubeRenderTarget;
+  exr_loader.load("textures/starmap_2020_4k.exr", function (texture) {
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    exrEnvironment = texture;
+    //exrCubeRenderTarget = pmremGenerator.fromEquirectangular(texture);
+  });
+
   let diag = 0;
   let mesh = undefined;
   let line = undefined;
@@ -777,7 +794,7 @@ function init(dfile) {
     const environment = {
       Helmet: hdrEnvironment,
       Falcon: hdrEnvironment2,
-      enterprise: hdrEnvironment2,
+      enterprise: exrEnvironment,
       Spitfire: hdrEnvironment3,
     };
     /**
