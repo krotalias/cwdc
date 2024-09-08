@@ -41,7 +41,7 @@
 
 /** Simple level plan.
  * @type {String}
- * @see <a href="/eloquentJavascript/game/game2.html">Simple Level Plan</a>
+ * @see <a href="/cwdc/3-javascript/game/game2.html">Simple Level Plan</a>
  */
 var simpleLevelPlan = `
 ......................
