@@ -72,7 +72,8 @@
  *    gltf-transform resize input.glb output.glb --width 1024 --height 1024
  * </pre>
  * <li>Zoom and Pan when using an {@link external:THREE.ArcballControls arcball}
- * on a mobile device do not work. I have no idea why.</li>
+ * on a mobile device do not work, and I have no idea why.
+ * As matter of fact, Three.js has some nasty idiosyncrasies.</li>
  * </li>
  * <li>
  * {@link https://www.youtube.com/watch?v=ShVKVn7p_4Q Visual Effects} and
@@ -173,8 +174,13 @@ let ctrlType = mobile ? ctype.ORBIT : ctype.ARCBALL;
 const environment = {};
 
 /**
- * Load textures (before models) then call {@link init}.
+ * <p>Load textures (before models), then call {@link init}.</p>
+ * To be sure everything has been loaded, one can either use
+ * a series of nested load calls or, as I do, simply use
+ * {@link https://threejs.org/docs/#api/en/loaders/Loader.loadAsync loadAsync}
+ * to avoid the so-called {@link http://callbackhell.com/ callback hell}.
  * @param {String} dfile dfile initial model name.
+ * @see {@link https://medium.com/@yuantiffanyzhang/6-solutions-for-taming-nested-callbacks-in-javascript-8a2a13d72085 6 Solutions for Taming Nested Callbacks in JavaScript}
  */
 function loadTextures(dfile) {
   /**
@@ -204,24 +210,29 @@ function loadTextures(dfile) {
    */
   const exr_loader = new EXRLoader().setPath("textures/");
 
-  rgbe_loader.load("san_giuseppe_bridge_2k.hdr", function (hdrEquirect) {
-    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-    environment["Helmet"] = hdrEquirect;
-    rgbe_loader.load("spot1Lux.hdr", function (hdrEquirect) {
+  rgbe_loader
+    .loadAsync("san_giuseppe_bridge_2k.hdr")
+    .then((hdrEquirect) => {
+      hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+      environment["Helmet"] = hdrEquirect;
+      return rgbe_loader.loadAsync("spot1Lux.hdr");
+    })
+    .then((hdrEquirect) => {
       hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
       environment["Falcon"] = hdrEquirect;
-      rgbe_loader.load("blouberg_sunrise_2_1k.hdr", function (hdrEquirect) {
-        hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-        environment["Spitfire"] = hdrEquirect;
-        exr_loader.load("starmap_2020_4k.exr", function (texture) {
-          texture.mapping = THREE.EquirectangularReflectionMapping;
-          environment["enterprise"] = texture;
-          //environment["target"] = pmremGenerator.fromEquirectangular(texture);
-          init(dfile);
-        });
-      });
+      return rgbe_loader.loadAsync("blouberg_sunrise_2_1k.hdr");
+    })
+    .then((hdrEquirect) => {
+      hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+      environment["Spitfire"] = hdrEquirect;
+      return exr_loader.loadAsync("starmap_2020_4k.exr");
+    })
+    .then((texture) => {
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      environment["enterprise"] = texture;
+      //environment["target"] = pmremGenerator.fromEquirectangular(texture);
+      init(dfile);
     });
-  });
 }
 
 /**
