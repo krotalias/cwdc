@@ -225,7 +225,9 @@ function loadTextures(dfile) {
     .then((hdrEquirect) => {
       hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
       environment["Spitfire"] = hdrEquirect;
-      return exr_loader.loadAsync("starmap_2020_4k.exr");
+      return exr_loader.loadAsync(
+        mobile ? "starmap_2020_2k.exr" : "starmap_2020_4k.exr",
+      );
     })
     .then((texture) => {
       texture.mapping = THREE.EquirectangularReflectionMapping;
