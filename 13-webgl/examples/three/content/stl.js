@@ -87,6 +87,28 @@
  * <li style="list-style-type:none;"><img src="../Spitifire.png" width="256">
  * </ul>
  * </li>
+ * <li>
+ * This script has been tested on:
+ * <ul>
+ * <li>iPhone 6E, </li>
+ * <li>iPhone 7+, </li>
+ * <li>iPhone 11, </li>
+ * <li>iPhone 13, </li>
+ * <li>iPad mini 3, </li>
+ * <li>Windows 11, </li>
+ * <li>macOS Monterey, </li>
+ * <li>and Ubuntu, </li>
+ * </ul>
+ * running Safari, Firefox, Chrome and Edge.
+ * </li>
+ * <li>
+ * All mobile devices have a very limited amount of resources, such as texture memory.<br>
+ * In this case, the application may crash and restart by itself, depending on the hardware capabilities.
+ * </li>
+ * <li>
+ * For hiding a browser's toolbar on iOS, just touch the <small>A</small>A symbol
+ * on the left of the address bar, and select the option: "Hide Toolbar".
+ * </li>
  * </uL
  *
  * @author Paulo Roma Cavalcanti
@@ -179,7 +201,7 @@ const environment = {};
  * a series of nested load calls or, as I do, simply use
  * {@link https://threejs.org/docs/#api/en/loaders/Loader.loadAsync loadAsync}
  * to avoid the so-called {@link http://callbackhell.com/ callback hell}.
- * @param {String} dfile dfile initial model name.
+ * @param {String} dfile initial model name.
  * @see {@link https://medium.com/@yuantiffanyzhang/6-solutions-for-taming-nested-callbacks-in-javascript-8a2a13d72085 6 Solutions for Taming Nested Callbacks in JavaScript}
  */
 function loadTextures(dfile) {
@@ -234,7 +256,34 @@ function loadTextures(dfile) {
       environment["enterprise"] = texture;
       //environment["target"] = pmremGenerator.fromEquirectangular(texture);
       init(dfile);
+    })
+    .catch((error) => {
+      console.log(`${error} - enterprise`);
+      // don't return anything → execution goes the normal way
     });
+}
+
+/**
+ * An Async alternative to loadTextures.
+ * @param {String} dfile initial model name.
+ */
+async function loadTexturesAsync(dfile) {
+  const fnames = {
+    Helmet: "san_giuseppe_bridge_2k.hdr",
+    Falcon: "spot1Lux.hdr",
+    Spitfire: "blouberg_sunrise_2_1k.hdr",
+    enterprise: mobile ? "starmap_2020_2k.exr" : "starmap_2020_4k.exr",
+  };
+  const rgbe_loader = new RGBELoader().setPath("textures/equirectangular/");
+  const exr_loader = new EXRLoader().setPath("textures/");
+
+  for (const f of Object.keys(fnames)) {
+    const loader = fnames[f].includes(".exr") ? exr_loader : rgbe_loader;
+    const hdrEquirect = await loader.loadAsync(fnames[f]);
+    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+    environment[f] = hdrEquirect;
+  }
+  init(dfile);
 }
 
 /**
