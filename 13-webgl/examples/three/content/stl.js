@@ -196,13 +196,15 @@ let ctrlType = mobile ? ctype.ORBIT : ctype.ARCBALL;
 const environment = {};
 
 /**
- * <p>Load textures (before models), then call {@link init}.</p>
+ * <p>Load textures (before any model), then call {@link init}.</p>
  * To be sure everything has been loaded, one can either use
- * a series of nested load calls or, as I do, simply use
+ * a series of nested load calls or, as
+ * <a href="/cwdc/3-javascript/doc-promises/">I do</a>, simply use
  * {@link https://threejs.org/docs/#api/en/loaders/Loader.loadAsync loadAsync}
  * to avoid the so-called {@link http://callbackhell.com/ callback hell}.
  * @param {String} dfile initial model name.
  * @see {@link https://medium.com/@yuantiffanyzhang/6-solutions-for-taming-nested-callbacks-in-javascript-8a2a13d72085 6 Solutions for Taming Nested Callbacks in JavaScript}
+ * @see <a href="/cwdc/3-javascript/doc-promises2/">Promises</a>
  */
 function loadTextures(dfile) {
   /**
@@ -258,14 +260,18 @@ function loadTextures(dfile) {
       init(dfile);
     })
     .catch((error) => {
-      console.log(`${error} - enterprise`);
+      console.error(
+        `${error.name}: loadTextures (enterprise)\n${error.message}`,
+      );
+      // the last one is the slowest promise
       // don't return anything → execution goes the normal way
     });
 }
 
 /**
- * An Async alternative to loadTextures.
+ * An Async alternative to {@link loadTextures}.
  * @param {String} dfile initial model name.
+ * @see {@link https://codedamn.com/news/javascript/javascript-async-await-error Mastering Async Await Error Handling}
  */
 async function loadTexturesAsync(dfile) {
   const fnames = {
@@ -279,9 +285,15 @@ async function loadTexturesAsync(dfile) {
 
   for (const f of Object.keys(fnames)) {
     const loader = fnames[f].includes(".exr") ? exr_loader : rgbe_loader;
-    const hdrEquirect = await loader.loadAsync(fnames[f]);
-    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-    environment[f] = hdrEquirect;
+    try {
+      const hdrEquirect = await loader.loadAsync(fnames[f]);
+      hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+      environment[f] = hdrEquirect;
+    } catch (error) {
+      console.error(
+        `${error.name}: loadTexturesAsync (${fnames[f]})\n${error.message}`,
+      );
+    }
   }
   init(dfile);
 }
@@ -1461,5 +1473,5 @@ window.addEventListener("load", (event) => {
   if (ctrls) {
     ctrlType = dtype[ctrls] || ctype.ARCBALL;
   }
-  loadTextures(dfile);
+  loadTexturesAsync(dfile);
 });
