@@ -78,70 +78,66 @@ function init() {
 
   const material = new THREE.MeshStandardMaterial();
 
-  window.addEventListener("keydown", onKeyDown);
-  window.addEventListener("resize", onWindowResize);
+  const rgbeLoader = new RGBELoader().setPath("textures/equirectangular/");
+  (async () => {
+    const hdrEquirect = await rgbeLoader.loadAsync("venice_sunset_1k.hdr");
+    hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+    scene.environment = hdrEquirect;
+  })();
 
-  if (arcballGui.useGUI) {
-    gui = new GUI();
+  const objLoader = new OBJLoader().setPath("models/obj/cerberus/");
+  objLoader.loadAsync("Cerberus.obj").then((group) => {
+    const textureLoader = new THREE.TextureLoader().setPath(
+      "models/obj/cerberus/",
+    );
 
-    gui
-      .add(cameraType, "type", cameras)
-      .name("Choose Camera")
-      .onChange(function () {
-        setCamera(cameraType.type);
-      });
+    material.roughness = 1;
+    material.metalness = 1;
 
-    folderOptions = gui.addFolder("Arcball parameters");
-    folderAnimations = folderOptions.addFolder("Animations");
-  }
+    const diffuseMap = textureLoader.load("Cerberus_A.jpg", render);
+    diffuseMap.colorSpace = THREE.SRGBColorSpace;
+    material.map = diffuseMap;
 
-  arcballGui.setArcballControls();
-  render();
+    material.metalnessMap = material.roughnessMap = textureLoader.load(
+      "Cerberus_RM.jpg",
+      render,
+    );
+    material.normalMap = textureLoader.load("Cerberus_N.jpg", render);
 
-  new OBJLoader()
-    .setPath("models/obj/cerberus/")
-    .load("Cerberus.obj", function (group) {
-      const textureLoader = new THREE.TextureLoader().setPath(
-        "models/obj/cerberus/",
-      );
+    material.map.wrapS = THREE.RepeatWrapping;
+    material.roughnessMap.wrapS = THREE.RepeatWrapping;
+    material.metalnessMap.wrapS = THREE.RepeatWrapping;
+    material.normalMap.wrapS = THREE.RepeatWrapping;
 
-      material.roughness = 1;
-      material.metalness = 1;
-
-      const diffuseMap = textureLoader.load("Cerberus_A.jpg", render);
-      diffuseMap.colorSpace = THREE.SRGBColorSpace;
-      material.map = diffuseMap;
-
-      material.metalnessMap = material.roughnessMap = textureLoader.load(
-        "Cerberus_RM.jpg",
-        render,
-      );
-      material.normalMap = textureLoader.load("Cerberus_N.jpg", render);
-
-      material.map.wrapS = THREE.RepeatWrapping;
-      material.roughnessMap.wrapS = THREE.RepeatWrapping;
-      material.metalnessMap.wrapS = THREE.RepeatWrapping;
-      material.normalMap.wrapS = THREE.RepeatWrapping;
-
-      group.traverse(function (child) {
-        if (child.isMesh) {
-          child.material = material;
-        }
-      });
-
-      group.rotation.y = Math.PI / 2;
-      group.position.x += 0.25;
-      scene.add(group);
-      render();
-
-      new RGBELoader()
-        .setPath("textures/equirectangular/")
-        .load("venice_sunset_1k.hdr", function (hdrEquirect) {
-          hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-          scene.environment = hdrEquirect;
-          render();
-        });
+    group.traverse(function (child) {
+      if (child.isMesh) {
+        child.material = material;
+      }
     });
+
+    group.rotation.y = Math.PI / 2;
+    group.position.x += 0.25;
+    scene.add(group);
+
+    if (arcballGui.useGUI) {
+      gui = new GUI();
+
+      gui
+        .add(cameraType, "type", cameras)
+        .name("Choose Camera")
+        .onChange(function () {
+          setCamera(cameraType.type);
+        });
+
+      folderOptions = gui.addFolder("Arcball parameters");
+      folderAnimations = folderOptions.addFolder("Animations");
+    }
+
+    arcballGui.setArcballControls();
+
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("resize", onWindowResize);
+  });
 }
 
 function makeOrthographicCamera() {
