@@ -1140,7 +1140,7 @@ function init(dfile) {
     handleKeyPress(createEvent("o"));
     const { geometries, textures } = renderer.info.memory;
     document.getElementById("info").innerHTML =
-      `geometries: ${geometries}, textures: ${textures}`;
+      `programs: ${renderer.info.programs.length}, geometries: ${geometries}, textures: ${textures}`;
   }
 
   /**
