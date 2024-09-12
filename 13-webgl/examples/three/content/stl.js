@@ -1074,12 +1074,8 @@ function init(dfile) {
       scene.add(line);
       scene.add(model);
       if (
-        !(
-          geometry.asset.extras !== undefined &&
-          geometry.asset.extras.title !== undefined &&
-          ["Supermarine Spitfire", "Battle Damaged Sci-fi Helmet"].some(
-            (str) => str === geometry.asset.extras.title,
-          )
+        !["Supermarine Spitfire", "Battle Damaged Sci-fi Helmet"].some(
+          (str) => str === geometry.asset?.extras?.title,
         ) &&
         !["model.gl", "Brain", "Lungs", "Uro"].some((str) =>
           loadedModelName.includes(str),

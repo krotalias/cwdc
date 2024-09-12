@@ -189,7 +189,6 @@ function onWindowResize() {
 
   camera.updateProjectionMatrix();
   renderer.setSize(w, h);
-  render();
 }
 
 function render() {
