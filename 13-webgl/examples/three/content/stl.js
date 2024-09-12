@@ -1138,6 +1138,9 @@ function init(dfile) {
       object = geometry;
     }
     handleKeyPress(createEvent("o"));
+    const { geometries, textures } = renderer.info.memory;
+    document.getElementById("info").innerHTML =
+      `geometries: ${geometries}, textures: ${textures}`;
   }
 
   /**
