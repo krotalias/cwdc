@@ -995,6 +995,8 @@ function init(dfile) {
     }
     camera.remove(dirLight);
     scene.background = background;
+    scene.environment = roomEnvironment;
+
     if (geometry.isBufferGeometry) {
       // stl, vtk
       if (
@@ -1045,7 +1047,7 @@ function init(dfile) {
         });
       }
 
-      model.position.set(...center.negate());
+      model.position.set(...center.negate().toArray());
       createBoxHelper(model);
 
       try {
@@ -1068,8 +1070,6 @@ function init(dfile) {
       if (value) {
         scene.environment = environment[value];
         scene.background = environment[value];
-      } else {
-        scene.environment = roomEnvironment;
       }
       scene.add(line);
       scene.add(model);
@@ -1112,7 +1112,7 @@ function init(dfile) {
       const center = new THREE.Vector3();
       bb.getCenter(center);
 
-      geometry.position.set(...center.negate());
+      geometry.position.set(...center.negate().toArray());
       createBoxHelper(geometry);
 
       try {
