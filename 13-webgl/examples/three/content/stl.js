@@ -1238,14 +1238,22 @@ function init(dfile) {
             } else {
               mtl_loader.setMaterialOptions({ side: THREE.DoubleSide });
             }
-            mtl_loader.load(
-              `${modelPath}/obj/${model}`.replace(".obj", ".mtl"),
-              (materials) => {
+            const objName = `${modelPath}/obj/${model}`;
+            const mtlName = objName.replace(".obj", ".mtl");
+            mtl_loader
+              .loadAsync(mtlName)
+              .then((materials) => {
                 materials.preload();
                 obj_loader.setMaterials(materials);
-                obj_loader.load(`${modelPath}/obj/${model}`, loadModel);
-              },
-            );
+              })
+              .catch((error) => {
+                console.error(
+                  `${error.name}: handleKeyPress (no "${mtlName}" found)\n${error.message}`,
+                );
+              })
+              .finally(() => {
+                obj_loader.load(objName, loadModel);
+              });
           }
           break;
         case "s":
