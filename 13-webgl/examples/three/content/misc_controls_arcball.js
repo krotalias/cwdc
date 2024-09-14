@@ -1,10 +1,10 @@
 "use strict";
 
 import * as THREE from "https://unpkg.com/three@latest/build/three.module.js?module";
-import { GUI } from "https://unpkg.com/three@latest/examples/jsm/libs/lil-gui.module.min.js?module";
 import { ArcballControls } from "https://unpkg.com/three@latest/examples/jsm/controls/ArcballControls.js?module";
 import { OBJLoader } from "https://unpkg.com/three@latest/examples/jsm/loaders/OBJLoader.js?module";
 import { RGBELoader } from "https://unpkg.com/three@latest/examples/jsm/loaders/RGBELoader.js?module";
+import { GUI } from "https://unpkg.com/three@latest/examples/jsm/libs/lil-gui.module.min.js?module";
 
 const cameras = ["Orthographic", "Perspective"];
 const cameraType = { type: "Perspective" };
@@ -220,6 +220,9 @@ function setCamera(type) {
   render();
 }
 
+document.querySelector(".buttonToLink").addEventListener("click", () => {
+  controls.reset();
+});
 window.addEventListener("load", () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
