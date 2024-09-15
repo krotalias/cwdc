@@ -10,11 +10,13 @@
  * <p>Uses {@link external:THREE Three.js} to load, display, and manipulate a model read from a
  * {@link https://threejs.org/examples/ file}.
  * The center of the model {@link https://threejs.org/docs/#api/en/math/Box3 bounding box}
- * is translated to the origin so a trackball can rotate the model.
+ * is translated to the origin so an <a href="/cwdc/13-webgl/extras/doc/ArcBallPresentation.pdf">arcball like</a>
+ * contoller can rotate the model.
  * The app interface was designed for mobile devices,
  * and the whole (vastly commented) code is only about a thousand lines of
  * {@link http://vanilla-js.com Vanilla JS} code.<p>
- * I am not a designer, and none of the models used here were made by me. The sources of the models
+ * I am not a designer, and none of the models used here were made by me.
+ * The sources of the <a href="/cwdc/13-webgl/examples/three/content/models">models</a>
  * are in the links below, and I would like to thank their authors.
  * <p>Four file formats are currently supported:</p>
  * <ol>
@@ -71,7 +73,7 @@
  *    # Resize textures.
  *    gltf-transform resize input.glb output.glb --width 1024 --height 1024
  * </pre>
- * <li>Zoom and Pan when using an {@link external:THREE.ArcballControls arcball}
+ * <li>Zoom and Pan when using an {@link external:THREE.ArcballControls ArcballControls}
  * on a mobile device do not work, and I have no idea why.
  * As matter of fact, Three.js has some nasty idiosyncrasies.</li>
  * </li>
@@ -301,9 +303,15 @@ async function loadTexturesAsync(dfile) {
 /**
  * Three.js module.
  * @external THREE
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
  */
 
 /**
@@ -492,7 +500,7 @@ function init(dfile) {
    * @see <a href="/cwdc/13-webgl/showCode.php?f=examples/three/content/misc_controls_arcball">html</a>
    * @see <figure>
    * <img src="../textures/equirectangular/venice_sunset_1k.jpg" width="256">
-   * <figcaption>Venice Sunset {@link https://en.wikipedia.org/wiki/High_dynamic_range hdr} image</figcaption>
+   * <figcaption>Venice Sunset {@link https://en.wikipedia.org/wiki/High_dynamic_range Hdr} image</figcaption>
    * @see </figure>
    */
 
