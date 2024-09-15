@@ -1128,9 +1128,12 @@ function init(dfile) {
       scene.add(line);
       scene.add(geometry);
       if (
-        ["male02.mtl", "littlesttokyo.mtl", "Cerberus.mtl"].some(
-          (str) => str === geometry.materialLibraries[0],
-        )
+        [
+          "male02.mtl",
+          "littlesttokyo.mtl",
+          "Cerberus.mtl",
+          "windmill.mtl",
+        ].some((str) => str === geometry.materialLibraries[0])
       ) {
         scene.add(ambLight);
       }
@@ -1140,7 +1143,7 @@ function init(dfile) {
     handleKeyPress(createEvent("o"));
     const { geometries, textures } = renderer.info.memory;
     document.getElementById("info").innerHTML =
-      `programs: ${renderer.info.programs.length}, geometries: ${geometries}, textures: ${textures}`;
+      `programs:${renderer.info.programs.length}, geometries:${geometries}, textures:${textures}`;
   }
 
   /**

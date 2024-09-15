@@ -7,6 +7,9 @@
         :root {
             --canvasw: 380px;
             --canvash: 380px;
+            /* disable zoom */
+            touch-action: pan-x pan-y;
+            height: 100%;
         }
         body {
             background-color: #ffffed;
@@ -14,12 +17,16 @@
             padding: 0;
             /* controls whether the user can select text. */
             user-select: none;
+            -webkit-user-select: none; /* safari */
         }
         @media only screen and (max-width: 768px) {
             body {
+                /*
+                When a target is touched and held on iOS,
+                Safari displays a callout information about the link.
+                This property allows disabling that behavior.
+                */
                 -webkit-touch-callout: none;
-                user-select: none;
-                -webkit-user-select: none; /* safari */
                 /* Disable pull-to-refresh */
                 overflow: hidden;
                 -webkit-overflow: hidden;
@@ -28,6 +35,8 @@
         #canvasid {
             background-color: antiquewhite;
             border: #ccc solid 3px;
+            width: var(--canvasw);
+            height: var(--canvash);
         }
         .container {
             display: block;
@@ -87,12 +96,7 @@
 <html>
     <body>
         <div class="container">
-            <canvas
-                id="canvasid"
-                width="380"
-                height="380"
-                tabindex="0"
-            ></canvas>
+            <canvas id="canvasid" tabindex="0"></canvas>
 
             <div class="progress-bar-container">
                 <div id="labelp">
@@ -102,8 +106,16 @@
             </div>
 
             <div class="interface">
-                <div style="font-size: 70%; padding-bottom: 0; color: red">
-                    (drag to rotate): <span id="info"></span>
+                <div
+                    style="
+                        font-size: 70%;
+                        padding-bottom: 0;
+                        margin-top: -5px;
+                        color: red;
+                    "
+                >
+                    drag:<img src="rotation.png" width="10px" />,
+                    <span id="info"></span>
                 </div>
                 <select
                     name="models"
@@ -170,6 +182,7 @@
                     <option value="41">uss_enterprise_ncc-1701.glb</option>
                     <option value="42">cerberus/Cerberus.obj</option>
                     <option value="43">Spitfire/scene.glb</option>
+                    <option value="44">windmill/windmill.obj</option>
                 </select>
 
                 <p>
