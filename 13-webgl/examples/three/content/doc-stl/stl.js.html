@@ -1322,6 +1322,7 @@ function init(dfile) {
           camera.position.set(0, 0, diag * 1.2);
           controls.maxDistance = camera.far;
           camera.updateProjectionMatrix();
+          controls.setCamera(camera);
           controls.update();
           break;
         case "d":
