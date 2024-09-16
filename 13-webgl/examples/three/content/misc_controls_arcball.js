@@ -74,7 +74,7 @@ function init() {
   scene = new THREE.Scene();
 
   camera = makePerspectiveCamera();
-  camera.position.set(0, 0, perspectiveDistance);
+  ////// camera.position.set(0, 0, perspectiveDistance);  <---------------------
 
   const material = new THREE.MeshStandardMaterial();
 
@@ -134,6 +134,8 @@ function init() {
     }
 
     arcballGui.setArcballControls();
+    camera.position.set(0, 0, perspectiveDistance); //// <------
+    controls.update(); //// <----------
 
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("resize", onWindowResize);
