@@ -74,8 +74,10 @@
  *    gltf-transform resize input.glb output.glb --width 1024 --height 1024
  * </pre>
  * <li>Zoom and Pan when using an {@link external:THREE.ArcballControls ArcballControls}
- * on a mobile device do not work, and I have no idea why.
- * As matter of fact, Three.js has some nasty idiosyncrasies.</li>
+ * on a mobile device only work by calling
+ * {@link https://threejs.org/docs/#examples/en/controls/ArcballControls.setCamera setCamera()}
+ * every time the camera position changes.
+ * As a matter of fact, Three.js has some nasty idiosyncrasies.</li>
  * </li>
  * <li>
  * {@link https://www.youtube.com/watch?v=ShVKVn7p_4Q Visual Effects} and
@@ -1211,8 +1213,16 @@ function init(dfile) {
    */
   const handleKeyPress = (() => {
     const mod = (n, m) => ((n % m) + m) % m;
+    const getFileExtension = (filename) => filename.split(".").pop();
     let visible = false;
     const modelPath = "models";
+    const loader = {
+      vtk: vtk_loader,
+      obj: obj_loader,
+      stl: stl_loader,
+      glb: gltfl_loader,
+      gltf: gltfl_loader,
+    };
 
     /**
      * <p>Handler for keydown events.</p>
@@ -1236,21 +1246,19 @@ function init(dfile) {
             document.getElementById("models").value = modelCnt;
           }
           const model = models[modelCnt];
+          let ext = getFileExtension(model);
+          if (ext === "gltf") ext = "glb";
+          const fileName = `${modelPath}/${ext}/${model}`;
           loadedModelName = model;
-          if (model.includes(".vtk")) {
-            vtk_loader.load(`${modelPath}/vtk/${model}`, loadModel);
-          } else if (model.includes(".stl")) {
-            stl_loader.load(`${modelPath}/stl/${model}`, loadModel);
-          } else if (model.includes(".glb") || model.includes(".gltf")) {
-            gltfl_loader.load(`${modelPath}/glb/${model}`, loadModel);
+          if (ext !== "obj") {
+            loader[ext].load(fileName, loadModel);
           } else {
             if (model === "LittlestTokyo/LittlestTokyo.obj") {
               mtl_loader.setMaterialOptions({ side: THREE.FrontSide });
             } else {
               mtl_loader.setMaterialOptions({ side: THREE.DoubleSide });
             }
-            const objName = `${modelPath}/obj/${model}`;
-            const mtlName = objName.replace(".obj", ".mtl");
+            const mtlName = fileName.replace(".obj", ".mtl");
             mtl_loader
               .loadAsync(mtlName)
               .then((materials) => {
@@ -1263,7 +1271,7 @@ function init(dfile) {
                 );
               })
               .finally(() => {
-                obj_loader.load(objName, loadModel);
+                obj_loader.load(fileName, loadModel);
               });
           }
           break;
