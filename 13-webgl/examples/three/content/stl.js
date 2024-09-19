@@ -1245,11 +1245,15 @@ function init(dfile) {
             modelCnt = mod(modelCnt + incr, models.length);
             document.getElementById("models").value = modelCnt;
           }
+
           const model = models[modelCnt];
           let ext = getFileExtension(model);
           if (ext === "gltf") ext = "glb";
-          const fileName = `${modelPath}/${ext}/${model}`;
+          const fileName = model.includes("https")
+            ? model
+            : `${modelPath}/${ext}/${model}`;
           loadedModelName = model;
+
           if (ext !== "obj") {
             loader[ext].load(fileName, loadModel);
           } else {
