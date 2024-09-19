@@ -91,6 +91,15 @@
             font-size: 2rem;
             padding-top: 30%;
         }
+        #models {
+            font-size: 100%;
+            background-color: burlywood;
+            color: black;
+            border: solid 5px lightsteelblue;
+            border-radius: 10%;
+            margin-top: 5px;
+            max-width: calc(var(--canvasw) * 0.9);
+        }
     </style>
 </head>
 <html>
@@ -117,19 +126,7 @@
                     drag:<img src="rotation.png" width="10px" />,
                     <span id="info"></span>
                 </div>
-                <select
-                    name="models"
-                    id="models"
-                    style="
-                        font-size: 100%;
-                        background-color: burlywood;
-                        color: black;
-                        border: solid 5px lightsteelblue;
-                        border-radius: 10%;
-                        margin-top: 5px;
-                        max-width: 90%;
-                    "
-                >
+                <select name="models" id="models">
                     <option value="0">Dodecahedron_Cube_A.stl</option>
                     <option value="1">Dodecahedron_Cube_B.stl</option>
                     <option value="2">Dodecahedron_Cube_C.stl</option>
