@@ -1326,7 +1326,7 @@ function init(dfile) {
           camera.updateProjectionMatrix();
           // ArcballControls bug!! (when camera.position==camera.target → nearPos0 < 0)
           // this._nearPos0 = camera.position.distanceTo( this.target ) - camera.near;
-          controls.setCamera(camera);
+          if (ctrlType === ctype.ARCBALL) controls.setCamera(camera);
           controls.update();
           break;
         case "d":
