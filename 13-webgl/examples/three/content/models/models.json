@@ -4,8 +4,8 @@
             "menuitem": [
                 {
                     "id": "46",
-                    "title": "coffemug.glb",
-                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/coffemug.glb"
+                    "title": "coffeMug.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/coffeMug.glb"
                 },
                 {
                     "id": "47",
