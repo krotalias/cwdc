@@ -404,6 +404,13 @@ function init(dfile) {
   let axesHelper = undefined;
 
   /**
+   * Maps model names to URLs, which were read from a <a href="../models/models.json">json file</a>.
+   * @type {Object}
+   * @global
+   */
+  let modelj = undefined;
+
+  /**
    * Object for keeping track of time. This uses performance.now if it is available,
    * otherwise it reverts to the less accurate Date.now.
    * @class Clock
@@ -1140,6 +1147,7 @@ function init(dfile) {
       if (
         [
           "male02.mtl",
+          "female02.mtl",
           "littlesttokyo.mtl",
           "Cerberus.mtl",
           "windmill.mtl",
@@ -1246,7 +1254,17 @@ function init(dfile) {
             document.getElementById("models").value = modelCnt;
           }
 
-          const model = models[modelCnt];
+          // search models that came from the json file
+          let model = models[modelCnt];
+          if (modelj) {
+            modelj.menu.popup.menuitem.some((elem) => {
+              if (elem.title == model) {
+                model = encodeURI(elem.url);
+                return true;
+              }
+            });
+          }
+
           let ext = getFileExtension(model);
           if (ext === "gltf") ext = "glb";
           const fileName = model.includes("https")
@@ -1483,6 +1501,10 @@ function init(dfile) {
   document.getElementById("models").value = modelCnt;
   handleKeyPress(createEvent("k"));
   handleWindowResize();
+  (async () => {
+    const response = await fetch("./models/models.json");
+    modelj = await response.json();
+  })();
 }
 
 /**

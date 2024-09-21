@@ -1,0 +1,43 @@
+{
+    "menu": {
+        "popup": {
+            "menuitem": [
+                {
+                    "id": "46",
+                    "title": "coffemug.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/coffemug.glb"
+                },
+                {
+                    "id": "47",
+                    "title": "small_city.gltf",
+                    "url": "https://threejsfundamentals.org/threejs/resources/models/cartoon_lowpoly_small_city_free_pack/scene.gltf"
+                },
+                {
+                    "id": "48",
+                    "title": "bread.glb",
+                    "url": "https://global.discourse-cdn.com/flex035/uploads/threejs/original/2X/b/bd341cf6e9771bd22804fcb82020beaf2243139d.glb"
+                },
+                {
+                    "id": "49",
+                    "title": "WaltHead.obj",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/obj/walt/WaltHead.obj"
+                },
+                {
+                    "id": "51",
+                    "title": "female02.obj",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/obj/female02/female02.obj"
+                },
+                {
+                    "id": "52",
+                    "title": "SheenChair.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/SheenChair.glb"
+                },
+                {
+                    "id": "53",
+                    "title": "Flamingo.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Flamingo.glb"
+                }
+            ]
+        }
+    }
+}
