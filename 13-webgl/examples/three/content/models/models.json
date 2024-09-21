@@ -3,6 +3,11 @@
         "popup": {
             "menuitem": [
                 {
+                    "id": "45",
+                    "title": "coffeemat.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/coffeemat.glb"
+                },
+                {
                     "id": "46",
                     "title": "coffeeMug.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/coffeeMug.glb"
