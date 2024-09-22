@@ -200,6 +200,19 @@ let ctrlType = mobile ? ctype.ORBIT : ctype.ARCBALL;
 const environment = {};
 
 /**
+ * Maps models to their environments given in the form of either
+ * {@link https://www.lifewire.com/hdr-file-2621550 HDR} or
+ * {@link https://massive.io/file-transfer/what-is-an-exr-file/ EXR} images.
+ * @type {Object<String,String>}
+ */
+const fnames = {
+  Helmet: "san_giuseppe_bridge_2k.hdr",
+  Falcon: "spot1Lux.hdr",
+  Spitfire: "blouberg_sunrise_2_1k.hdr",
+  enterprise: mobile ? "starmap_2020_2k.exr" : "starmap_2020_4k.exr",
+};
+
+/**
  * <p>Load textures (before any model), then call {@link init}.</p>
  * To be sure everything has been loaded, one can either use
  * a series of nested load calls or, as
@@ -209,6 +222,7 @@ const environment = {};
  * @param {String} dfile initial model name.
  * @see {@link https://medium.com/@yuantiffanyzhang/6-solutions-for-taming-nested-callbacks-in-javascript-8a2a13d72085 6 Solutions for Taming Nested Callbacks in JavaScript}
  * @see <a href="/cwdc/3-javascript/doc-promises2/">Promises</a>
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all Promise.all()}
  */
 function loadTextures(dfile) {
   /**
@@ -238,36 +252,29 @@ function loadTextures(dfile) {
    */
   const exr_loader = new EXRLoader().setPath("textures/");
 
-  rgbe_loader
-    .loadAsync("san_giuseppe_bridge_2k.hdr")
-    .then((hdrEquirect) => {
-      hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-      environment["Helmet"] = hdrEquirect;
-      return rgbe_loader.loadAsync("spot1Lux.hdr");
-    })
-    .then((hdrEquirect) => {
-      hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-      environment["Falcon"] = hdrEquirect;
-      return rgbe_loader.loadAsync("blouberg_sunrise_2_1k.hdr");
-    })
-    .then((hdrEquirect) => {
-      hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
-      environment["Spitfire"] = hdrEquirect;
-      return exr_loader.loadAsync(
-        mobile ? "starmap_2020_2k.exr" : "starmap_2020_4k.exr",
-      );
-    })
-    .then((texture) => {
-      texture.mapping = THREE.EquirectangularReflectionMapping;
-      environment["enterprise"] = texture;
-      //environment["target"] = pmremGenerator.fromEquirectangular(texture);
+  const promises = [];
+  for (const f of Object.keys(fnames)) {
+    const loader = fnames[f].includes(".exr") ? exr_loader : rgbe_loader;
+    promises.push(
+      loader.loadAsync(fnames[f]).then((hdrEquirect) => {
+        hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+        environment[f] = hdrEquirect;
+        console.log(`loaded: ${f}`);
+        return f;
+      }),
+    );
+  }
+  // wait for all promises to be fulfilled or any of them to be rejected
+  Promise.all(promises)
+    .then((results) => {
+      console.log("All done", results);
       init(dfile);
     })
     .catch((error) => {
       console.error(
         `${error.name}: loadTextures (enterprise)\n${error.message}`,
       );
-      // the last one is the slowest promise
+      // EXR is the slowest promise
       // don't return anything → execution goes the normal way
     });
 }
@@ -278,12 +285,6 @@ function loadTextures(dfile) {
  * @see {@link https://codedamn.com/news/javascript/javascript-async-await-error Mastering Async Await Error Handling}
  */
 async function loadTexturesAsync(dfile) {
-  const fnames = {
-    Helmet: "san_giuseppe_bridge_2k.hdr",
-    Falcon: "spot1Lux.hdr",
-    Spitfire: "blouberg_sunrise_2_1k.hdr",
-    enterprise: mobile ? "starmap_2020_2k.exr" : "starmap_2020_4k.exr",
-  };
   const rgbe_loader = new RGBELoader().setPath("textures/equirectangular/");
   const exr_loader = new EXRLoader().setPath("textures/");
 
@@ -923,7 +924,7 @@ function init(dfile) {
      * TO BE FINISHED.
      * @param {external:THREE.Material} mat material.
      * @global
-     * @see https://discourse.threejs.org/t/when-to-dispose-how-to-completely-clean-up-a-three-js-scene/1549/24
+     * @see {@link https://discourse.threejs.org/t/when-to-dispose-how-to-completely-clean-up-a-three-js-scene/1549/24 When to dispose: How to completely clean up a Three.js scene}
      */
     function delMaterial(mat) {
       const texture_maps = [
@@ -1561,5 +1562,5 @@ window.addEventListener("load", (event) => {
   if (ctrls) {
     ctrlType = dtype[ctrls] || ctype.ARCBALL;
   }
-  loadTexturesAsync(dfile);
+  loadTextures(dfile);
 });
