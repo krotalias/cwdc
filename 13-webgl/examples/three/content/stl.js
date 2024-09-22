@@ -1028,8 +1028,8 @@ function init(dfile) {
       // stl, vtk
       if (
         !geometry.index &&
-        ["Utah_teapot_(solid).stl", "Skull.stl"].some(
-          (str) => str == loadedModelName,
+        ["Utah_teapot_(solid).stl", "Skull.stl", "colored.stl"].some((str) =>
+          loadedModelName.includes(str),
         )
       ) {
         geometry.deleteAttribute("normal");
