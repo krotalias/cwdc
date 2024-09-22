@@ -11,7 +11,7 @@
  * {@link https://threejs.org/examples/ file}.
  * The center of the model {@link https://threejs.org/docs/#api/en/math/Box3 bounding box}
  * is translated to the origin so an <a href="/cwdc/13-webgl/extras/doc/ArcBallPresentation.pdf">arcball like</a>
- * contoller can rotate the model.
+ * controller can rotate the model.
  * The app interface was designed for mobile devices,
  * and the whole (vastly commented) code is only about a thousand lines of
  * {@link http://vanilla-js.com Vanilla JS} code.<p>
@@ -420,8 +420,11 @@ function init(dfile) {
   const clock = new THREE.Clock();
 
   /**
-   * Get model file names from an html &lt;select&gt; element
-   * identified by "models".
+   * Populate the given array with model file names from an
+   * html &lt;select&gt; element
+   * identified by "models" and appends to it the
+   * extra models from
+   * {@link modelj}.
    * @param {Array<String>} optionNames array of model file names.
    * @global
    */
@@ -429,6 +432,12 @@ function init(dfile) {
     optionNames.length = 0;
     const selectElement = document.getElementById("models");
     [...selectElement.options].map((o) => optionNames.push(o.text));
+
+    if (modelj) {
+      modelj.menu.popup.menuitem.map((elem) => {
+        optionNames.push(elem.title);
+      });
+    }
   }
 
   /**
@@ -1493,17 +1502,41 @@ function init(dfile) {
    */
   controls.addEventListener("change", () => renderer.render(scene, camera));
 
-  const initialModel = models[0];
-  getModels(models);
-  models.sort();
-  setModels(models);
-  modelCnt = models.indexOf(dfile ? dfile : initialModel);
-  document.getElementById("models").value = modelCnt;
-  handleKeyPress(createEvent("k"));
-  handleWindowResize();
-  (async () => {
+  /**
+   * Read the json file with the URLs for loading models.
+   * @async
+   * @global
+   * @returns {Object} object for mapping model names to URLs.
+   * @see {@link https://casual-effects.com/data/ Meshes}
+   */
+  async function loadModelj() {
     const response = await fetch("./models/models.json");
-    modelj = await response.json();
+    return await response.json();
+  }
+
+  /**
+   * <p>Self-invoking anonymous function.</p>
+   * <ul>
+   * <li>Appends the models read from the json file to the &lt;select&gt; element.</li>
+   * <li>Sorts the list of models from the &lt;select&gt; element.</li>
+   * <li>Displays the default model.</li>
+   * <li>Resizes the window to occupy the maximum area of the device's viewport.</li>
+   * </ul>
+   * @global
+   * @async
+   * @function anonymous
+   */
+  (async () => {
+    modelj = await loadModelj();
+
+    const initialModel = models[0];
+    getModels(models);
+    models.sort();
+    setModels(models);
+    modelCnt = models.indexOf(dfile ? dfile : initialModel);
+    document.getElementById("models").value = modelCnt;
+    handleKeyPress(createEvent("k"));
+    handleWindowResize();
   })();
 }
 

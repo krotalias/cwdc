@@ -41,6 +41,16 @@
                     "id": "53",
                     "title": "Flamingo.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Flamingo.glb"
+                },
+                {
+                    "id": "54",
+                    "title": "colored.stl",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/stl/binary/colored.stl"
+                },
+                {
+                    "id": "55",
+                    "title": "AnisotropyBarnLamp.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/AnisotropyBarnLamp.glb"
                 }
             ]
         }
