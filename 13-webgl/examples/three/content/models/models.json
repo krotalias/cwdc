@@ -3,59 +3,74 @@
         "popup": {
             "menuitem": [
                 {
-                    "id": "47",
+                    "id": "100",
                     "title": "coffeemat.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/coffeemat.glb"
                 },
                 {
-                    "id": "48",
+                    "id": "101",
                     "title": "coffeeMug.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/coffeeMug.glb"
                 },
                 {
-                    "id": "49",
+                    "id": "102",
                     "title": "small_city.gltf",
                     "url": "https://threejsfundamentals.org/threejs/resources/models/cartoon_lowpoly_small_city_free_pack/scene.gltf"
                 },
                 {
-                    "id": "50",
+                    "id": "103",
                     "title": "bread.glb",
                     "url": "https://global.discourse-cdn.com/flex035/uploads/threejs/original/2X/b/bd341cf6e9771bd22804fcb82020beaf2243139d.glb"
                 },
                 {
-                    "id": "51",
+                    "id": "104",
                     "title": "WaltHead.obj",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/obj/walt/WaltHead.obj"
                 },
                 {
-                    "id": "52",
+                    "id": "105",
                     "title": "Female/female02.obj",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/obj/female02/female02.obj"
                 },
                 {
-                    "id": "53",
+                    "id": "106",
                     "title": "SheenChair.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/SheenChair.glb"
                 },
                 {
-                    "id": "54",
+                    "id": "107",
                     "title": "Flamingo.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Flamingo.glb"
                 },
                 {
-                    "id": "55",
+                    "id": "108",
                     "title": "colored.stl",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/stl/binary/colored.stl"
                 },
                 {
-                    "id": "56",
+                    "id": "109",
                     "title": "AnisotropyBarnLamp.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/AnisotropyBarnLamp.glb"
                 },
                 {
-                    "id": "57",
+                    "id": "110",
                     "title": "Cars/ferrari.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/ferrari.glb"
+                },
+                {
+                    "id": "111",
+                    "title": "liver.vtk",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/vtk/liver.vtk"
+                },
+                {
+                    "id": "112",
+                    "title": "Parrot.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Parrot.glb"
+                },
+                {
+                    "id": "113",
+                    "title": "dungeon_warkarma.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/dungeon_warkarma.glb"
                 }
             ]
         }

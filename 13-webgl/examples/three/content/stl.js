@@ -451,8 +451,8 @@ function init(dfile) {
 
     let options_str = "";
 
-    optionNames.forEach((img, index) => {
-      options_str += `<option value="${index}">${img}</option>`;
+    optionNames.forEach((md, index) => {
+      options_str += `<option value="${index}">${md}</option>`;
     });
 
     sel.innerHTML = options_str;
@@ -1087,19 +1087,17 @@ function init(dfile) {
         return;
       }
       line.visible = vis ? vis : false;
-      let value = undefined;
-      Object.keys(environment).some((str) => {
-        if (loadedModelName.includes(str)) {
-          value = str;
-          return true;
-        }
-      });
+
+      const value = Object.keys(environment).find((str) =>
+        loadedModelName.includes(str),
+      );
       if (value) {
         scene.environment = environment[value];
         scene.background = environment[value];
       }
       scene.add(line);
       scene.add(model);
+
       if (
         !["Supermarine Spitfire", "Battle Damaged Sci-fi Helmet"].some(
           (str) => str === geometry.asset?.extras?.title,
@@ -1265,15 +1263,10 @@ function init(dfile) {
           }
 
           // search models that came from the json file
-          let model = models[modelCnt];
-          if (modelj) {
-            modelj.menu.popup.menuitem.some((elem) => {
-              if (elem.title == model) {
-                model = encodeURI(elem.url);
-                return true;
-              }
-            });
-          }
+          const md = modelj.menu.popup.menuitem.find(
+            ({ title }) => title === models[modelCnt],
+          );
+          const model = md ? encodeURI(md.url) : models[modelCnt];
 
           let ext = getFileExtension(model);
           if (ext === "gltf") ext = "glb";
