@@ -77,7 +77,12 @@
  * on a mobile device only work by calling
  * {@link https://threejs.org/docs/#examples/en/controls/ArcballControls.setCamera setCamera()}
  * every time the camera position changes.
- * As a matter of fact, Three.js has some nasty idiosyncrasies.</li>
+ * As a matter of fact, Three.js has some nasty idiosyncrasies,
+ * such as ignoring the <a href="../models/obj/ninja/ninjaHead_Low.mtl">disp</a>
+ * (displacement map)
+ * <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=trackball&file=ninja/ninjaHead_Low.obj">directive</a>
+ * in {@link https://paulbourke.net/dataformats/mtl/ MTL}
+ * files and having distinct APIs for the three types of controls supported.</li>
  * </li>
  * <li>
  * {@link https://www.youtube.com/watch?v=ShVKVn7p_4Q Visual Effects} and
@@ -92,16 +97,22 @@
  * </ul>
  * </li>
  * <li>
+ * There is a <a href="../models/models.json">JSON</a> file for loading models hosted somewhere else.
+ * Unless a {@link https://portswigger.net/web-security/cors CORS}-related issue denials the access,
+ * the loaders are able to bring all referenced files.
+ * </li>
+ * <li>
  * This script has been tested on:
  * <ul>
  * <li>iPhone 6E, </li>
  * <li>iPhone 7+, </li>
+ * <li>iPhone 8, </li>
  * <li>iPhone 11, </li>
  * <li>iPhone 13, </li>
- * <li>iPad mini 3, </li>
+ * <li>iPad mini 5, </li>
  * <li>Windows 11, </li>
- * <li>macOS Monterey, </li>
- * <li>and Ubuntu, </li>
+ * <li>macOS Catalina/Monterey, </li>
+ * <li>and Ubuntu 22.04, </li>
  * </ul>
  * running Safari, Firefox, Chrome and Edge.
  * </li>
@@ -1321,7 +1332,7 @@ function init(dfile) {
           break;
         case "o":
           controls.reset();
-          // 1.6 is enough, but dont't forget the zoom out
+          // 1.6 is enough, but don't forget the zoom out
           camera.far = diag * 5;
           camera.near = diag * 0.05;
           camera.position.set(0, 0, diag * 1.2);
