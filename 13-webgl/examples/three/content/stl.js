@@ -1319,7 +1319,7 @@ function init(dfile) {
           if (ctrlType === ctype.ARCBALL) controls.setGizmosVisible(visible);
           boxh.visible = visible;
           axesHelper.visible = visible;
-          controls.autoRotate = visible;
+          if (ctrlType === ctype.ORBIT) controls.autoRotate = visible;
           break;
         case "m":
           if (line) line.visible = !line.visible;
