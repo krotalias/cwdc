@@ -71,6 +71,16 @@
                     "id": "113",
                     "title": "dungeon_warkarma.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/dungeon_warkarma.glb"
+                },
+                {
+                    "id": "114",
+                    "title": "IridescentDishWithOlives.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/IridescentDishWithOlives.glb"
+                },
+                {
+                    "id": "115",
+                    "title": "DragonAttenuation.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/DragonAttenuation.glb"
                 }
             ]
         }
