@@ -103,7 +103,7 @@
                  */
                 useEffect(() => {
                     const cor =
-                        color === false ? color[false] : (+color + 1) % ncolors;
+                        color === isNaN(color) ? color : (+color + 1) % ncolors;
                     setColor(cor);
                     root.style.setProperty("--txtColor", colors[cor]);
                     output.innerHTML = `Clicked (useEffect): ${clicked} <br /> color: ${cor} → ${colors[cor]}`;

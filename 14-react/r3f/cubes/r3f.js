@@ -77,7 +77,7 @@ function Box(props) {
    * @see {@link https://dev.to/shareef/react-usestate-hook-is-asynchronous-1hia React useState hook is asynchronous!}
    */
   useEffect(() => {
-    const cor = color === false ? color[false] : (+color + 1) % ncolors;
+    const cor = isNaN(color) ? color : (+color + 1) % ncolors;
     setColor(cor);
     root.style.setProperty("--txtColor", colors[cor]);
     output.innerHTML = `Clicked (useEffect): ${clicked} <br /> color: ${cor} → ${colors[cor]}`;
