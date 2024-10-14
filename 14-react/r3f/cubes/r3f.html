@@ -105,14 +105,16 @@
                  */
                 useEffect(() => {
                     const cor =
-                        typeof color === "boolean"
+                        color === false
                             ? ncolors
-                            : (+color + 1) % ncolors;
+                            : color === true
+                              ? 0
+                              : (+color + 1) % ncolors;
                     setColor(cor);
                     root.style.setProperty("--txtColor", colors[cor]);
                     output.innerHTML = `Clicked (useEffect): ${clicked} <br /> name: cube1, color: ${cor} → ${colors[cor]}`;
                     console.log(
-                        `Clicked (useEffect): name: cube1, ${clicked} color: ${cor} → ${colors[cor]}`,
+                        `Clicked (useEffect): ${clicked}, name: cube1, color: ${cor} → ${colors[cor]}`,
                     );
                 }, [clicked]);
 
