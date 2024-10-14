@@ -29,6 +29,7 @@ import { Bounds } from "@react-three/drei";
  * Box component.
  * @param {Object} props information that you pass to a JSX tag.
  * @param {Array<Number>} props.position box position.
+ * @param {String} props.name box name.
  * @returns {ThreeElements} view as regular three.js elements expressed in JSX.
  */
 function Box(props) {
@@ -92,27 +93,30 @@ function Box(props) {
       ref={meshRef}
       scale={active ? 1.5 : 1}
       onClick={(event) => {
+        const cubeName = event.eventObject.name;
         setActive(!active);
         // either way does work
-        if (true) {
+        if (cubeName === "cube1") {
           setClick(!clicked);
         } else {
           // functional update
           setColor((prevColor) => (+prevColor + 1) % ncolors);
           const cor = (+color + 1) % ncolors;
           root.style.setProperty("--txtColor", colors[cor]);
-          output.innerHTML = `Clicked (functional update): ${true} <br\ > color: ${cor} → ${colors[cor]}`;
+          output.innerHTML = `Clicked (functional update): ${true} <br\ > name: ${cubeName}, color: ${cor} → ${colors[cor]}`;
         }
       }}
       onPointerOver={(event) => {
+        const cubeName = event.eventObject.name;
         setColor(true);
         root.style.setProperty("--txtColor", colors[true]);
-        output.innerHTML = `Hovered: ${true} <br \> color: ${true} → ${colors[true]}`;
+        output.innerHTML = `Hovered: ${true} <br \> name: ${cubeName}, color: ${true} → ${colors[true]}`;
       }}
       onPointerOut={(event) => {
+        const cubeName = event.eventObject.name;
         setColor(false);
         root.style.setProperty("--txtColor", colors[false]);
-        output.innerHTML = `Hovered: ${false} <br \> color: ${false} → ${colors[false]}`;
+        output.innerHTML = `Hovered: ${false} <br \> name: ${cubeName}, color: ${false} → ${colors[false]}`;
       }}
     >
       <boxGeometry args={[1, 1, 1]} />
@@ -145,8 +149,8 @@ const App = () => {
         intensity={Math.PI}
       />
       <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-      <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
+      <Box position={[-1.2, 0, 0]} name={"cube1"} />
+      <Box position={[1.2, 0, 0]} name={"cube2"} />
     </Canvas>
   );
 };
