@@ -81,9 +81,9 @@ function Box(props) {
     const cor = isNaN(color) ? color : (+color + 1) % ncolors;
     setColor(cor);
     root.style.setProperty("--txtColor", colors[cor]);
-    output.innerHTML = `Clicked (useEffect): ${clicked} <br /> color: ${cor} → ${colors[cor]}`;
+    output.innerHTML = `Clicked (useEffect): ${clicked} <br /> name: cube1, color: ${cor} → ${colors[cor]}`;
     console.log(
-      `Clicked (useEffect): ${clicked} color: ${cor} → ${colors[cor]}`,
+      `Clicked (useEffect): name: cube1, ${clicked} color: ${cor} → ${colors[cor]}`,
     );
   }, [clicked]);
 
