@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: r3f.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: r3f.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file
+ *
+ * Summary.
+ * &lt;p>Two rotating cubes using {@link https://react.dev React}
+ * without {@link https://nodejs.org/en Nodejs}.&lt;/p>
+ * When the mouse is hovered onto a cube, its color changes from orange to hotpink.&lt;br>
+ * When a cube is clicked, its scale is toggled from 1 to 1.5 and its color changes.
+ *
+ * &lt;p>This is a very simple script, and for running it the "normal" way,
+ * it would be necessary to install the React ecosystem
+ * (downloading at least 400 Mb of {@link https://www.npmjs.com npm} packages) and
+ * either deploying it elsewhere, or having a local
+ * {@link https://www.apache.org Apache} server configured.&lt;/p>
+ *
+ * @author Paulo Roma
+ * @since 10/10/2024
+ * @see &lt;a href="/cwdc/14-react/r3f/cubes/r3f.js">source&lt;/a>
+ * @see &lt;a href="/cwdc/14-react/r3f/cubes/r3f.html">link&lt;/a>
+ * @see {@link https://codesandbox.io/p/sandbox/sfypdx original code}
+ */
+
+import { createRoot } from "react-dom/client";
+import React, { useRef, useState, useEffect } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Bounds } from "@react-three/drei";
+
+/**
+ * Box component.
+ * @param {Object} props information that you pass to a JSX tag.
+ * @param {Array&lt;Number>} props.position box position.
+ * @returns {ThreeElements} view as regular three.js elements expressed in JSX.
+ */
+function Box(props) {
+  // This reference will give us direct access to the mesh
+  const meshRef = useRef();
+
+  // Set up state for the clicked and active state
+  const [clicked, setClick] = useState(false);
+  const [active, setActive] = useState(false);
+  const colors = {
+    true: "hotpink",
+    false: "orange",
+    0: "red",
+    2: "green",
+    4: "blue",
+    1: "cyan",
+    3: "magenta",
+    5: "yellow",
+  };
+  const ncolors = Object.keys(colors).length - 2;
+  const [color, setColor] = useState(false);
+  const root = document.querySelector(":root");
+  const output = document.querySelector("#output");
+
+  // Subscribe this component to the render-loop, to rotate the mesh in each frame.
+  useFrame((state, delta) => (meshRef.current.rotation.x += delta));
+
+  /**
+   * &lt;p>React {@link https://react.dev/reference/react/useState useState}
+   * hook is asynchronous!&lt;/p>
+   * &lt;p>Basically, you don't get update value right after updating state.&lt;/p>
+   *
+   * The {@link https://react.dev/reference/react/useEffect useEffect}
+   * hook executes after the function returns
+   * the generated component instance within it,
+   * which means that any ref or state will be assigned before
+   * the useEffect hook gets called.
+   *
+   * &lt;p>This code will always use the latest value of clicked,
+   * which will be used in the next draw.&lt;/p>
+   *
+   * @function useEffect
+   * @global
+   *
+   * @see {@link https://making.close.com/posts/state-management-with-async-functions The Pitfalls of useState with Asynchronous Functions in React}
+   * @see {@link https://dev.to/shareef/react-usestate-hook-is-asynchronous-1hia React useState hook is asynchronous!}
+   */
+  useEffect(() => {
+    const cor = color === false ? color[false] : (+color + 1) % ncolors;
+    setColor(cor);
+    root.style.setProperty("--txtColor", colors[cor]);
+    output.innerHTML = `Clicked (useEffect): ${clicked} &lt;br /> color: ${cor} → ${colors[cor]}`;
+    console.log(
+      `Clicked (useEffect): ${clicked} color: ${cor} → ${colors[cor]}`,
+    );
+  }, [clicked]);
+
+  return (
+    &lt;mesh
+      {...props}
+      ref={meshRef}
+      scale={active ? 1.5 : 1}
+      onClick={(event) => {
+        setActive(!active);
+        // either way does work
+        if (true) {
+          setClick(!clicked);
+        } else {
+          // functional update
+          setColor((prevColor) => (+prevColor + 1) % ncolors);
+          const cor = (+color + 1) % ncolors;
+          root.style.setProperty("--txtColor", colors[cor]);
+          output.innerHTML = `Clicked (functional update): ${true} &lt;br\ > color: ${cor} → ${colors[cor]}`;
+        }
+      }}
+      onPointerOver={(event) => {
+        setColor(true);
+        root.style.setProperty("--txtColor", colors[true]);
+        output.innerHTML = `Hovered: ${true} &lt;br \> color: ${true} → ${colors[true]}`;
+      }}
+      onPointerOut={(event) => {
+        setColor(false);
+        root.style.setProperty("--txtColor", colors[false]);
+        output.innerHTML = `Hovered: ${false} &lt;br \> color: ${false} → ${colors[false]}`;
+      }}
+    >
+      &lt;boxGeometry args={[1, 1, 1]} />
+      &lt;meshStandardMaterial color={colors[color]} />
+    &lt;/mesh>
+  );
+}
+
+/**
+ * &lt;p>Returns a {@link https://legacy.reactjs.org/docs/introducing-jsx.html JSX}
+ * element with a R3F canvas.&lt;/p>
+ * In R3F, {@link external:react.useRef useRef()}
+ * can be used to encapsulate a reference to an instance
+ * of an object, as its current value.&lt;br>
+ * This reference can then be passed to a component as a
+ * {@link https://react.dev/learn/passing-props-to-a-component prop}.
+ * @module
+ * @function App
+ * @returns {HTMLCanvasElement} R3F {@link external:react-three/fiber Canvas}.
+ */
+const App = () => {
+  return (
+    &lt;Canvas camera={{ fov: 35, position: [0, 0, 4] }}>
+      &lt;ambientLight intensity={Math.PI / 2} />
+      &lt;spotLight
+        position={[10, 10, 10]}
+        angle={0.15}
+        penumbra={1}
+        decay={0}
+        intensity={Math.PI}
+      />
+      &lt;pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+      &lt;Box position={[-1.2, 0, 0]} />
+      &lt;Box position={[1.2, 0, 0]} />
+    &lt;/Canvas>
+  );
+};
+
+createRoot(document.getElementById("root")).render(&lt;App />);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#useEffect">useEffect</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 14 2024 10:38:38 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

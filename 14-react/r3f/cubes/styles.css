@@ -1,0 +1,25 @@
+:root {
+    --txtColor: red;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#output {
+    color: var(--txtColor);
+    text-align: center;
+    margin: 20px auto 50px auto;
+}
+
+body {
+    background: #f0f0f0;
+}

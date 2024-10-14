@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="./styles.css" />
+        <title>R3F without nodejs</title>
+    </head>
+    <body>
+        <div id="output"></div>
+
+        <div id="root"></div>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "react": "https://esm.sh/react@18.2.0",
+                    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+                    "leva": "https://esm.sh/leva@0.9.35",
+                    "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.19",
+                    "@react-three/drei": "https://esm.sh/@react-three/drei?@9.114.0"
+                }
+            }
+        </script>
+        <script type="module" src="https://esm.sh/run"></script>
+
+        <script type="text/babel">
+            /**
+             * @file
+             *
+             * Summary.
+             * <p>Two rotating cubes using {@link https://react.dev React}
+             * without {@link https://nodejs.org/en Nodejs}.</p>
+             * When the mouse is hovered onto a cube, its color changes from orange to hotpink.<br>
+             * When a cube is clicked, its scale is toggled from 1 to 1.5 and its color changes.
+             *
+             * <p>This is a very simple script, and for running it the "normal" way,
+             * it would be necessary to install the React ecosystem
+             * (downloading at least 400 Mb of {@link https://www.npmjs.com npm} packages) and
+             * either deploying it elsewhere, or having a local
+             * {@link https://www.apache.org Apache} server configured.</p>
+             *
+             * @author Paulo Roma
+             * @since 10/10/2024
+             * @see <a href="/cwdc/14-react/r3f/cubes/r3f.js">source</a>
+             * @see <a href="/cwdc/14-react/r3f/cubes/r3f.html">link</a>
+             * @see {@link https://codesandbox.io/p/sandbox/sfypdx original code}
+             */
+            import { createRoot } from "react-dom/client";
+            import React, { useRef, useState, useEffect } from "react";
+            import { Canvas, useFrame } from "@react-three/fiber";
+            import { Bounds } from "@react-three/drei";
+
+            /**
+             * Box component.
+             * @param {Object} props information that you pass to a JSX tag.
+             * @param {Array<Number>} props.position box position.
+             * @returns {ThreeElements} view as regular three.js elements expressed in JSX.
+             */
+            function Box(props) {
+                // This reference will give us direct access to the mesh
+                const meshRef = useRef();
+
+                // Set up state for the clicked and active state
+                const [clicked, setClick] = useState(false);
+                const [active, setActive] = useState(false);
+                const colors = {
+                    true: "hotpink",
+                    false: "orange",
+                    0: "red",
+                    2: "green",
+                    4: "blue",
+                    1: "cyan",
+                    3: "magenta",
+                    5: "yellow",
+                };
+                const ncolors = Object.keys(colors).length - 2;
+                const [color, setColor] = useState(false);
+                const root = document.querySelector(":root");
+                const output = document.querySelector("#output");
+
+                // Subscribe this component to the render-loop, to rotate the mesh in each frame.
+                useFrame(
+                    (state, delta) => (meshRef.current.rotation.x += delta),
+                );
+
+                /**
+                 * <p>React {@link https://react.dev/reference/react/useState useState}
+                 * hook is asynchronous!</p>
+                 * <p>Basically, you don't get update value right after updating state.</p>
+                 *
+                 * The {@link https://react.dev/reference/react/useEffect useEffect}
+                 * hook executes after the function returns
+                 * the generated component instance within it,
+                 * which means that any ref or state will be assigned before
+                 * the useEffect hook gets called.
+                 *
+                 * <p>This code will always use the latest value of clicked,
+                 * which will be used in the next draw.</p>
+                 *
+                 * @see {@link https://making.close.com/posts/state-management-with-async-functions The Pitfalls of useState with Asynchronous Functions in React}
+                 * @see {@link https://dev.to/shareef/react-usestate-hook-is-asynchronous-1hia React useState hook is asynchronous!}
+                 */
+                useEffect(() => {
+                    const cor =
+                        color === false ? color[false] : (+color + 1) % ncolors;
+                    setColor(cor);
+                    root.style.setProperty("--txtColor", colors[cor]);
+                    output.innerHTML = `Clicked (useEffect): ${clicked} <br /> color: ${cor} → ${colors[cor]}`;
+                    console.log(
+                        `Clicked (useEffect): ${clicked} color: ${cor} → ${colors[cor]}`,
+                    );
+                }, [clicked]);
+
+                return (
+                    <mesh
+                        {...props}
+                        ref={meshRef}
+                        scale={active ? 1.5 : 1}
+                        onClick={(event) => {
+                            setActive(!active);
+                            // either way does work
+                            if (false) {
+                                setClick(!clicked);
+                            } else {
+                                // functional update
+                                setColor(
+                                    (prevColor) => (+prevColor + 1) % ncolors,
+                                );
+                                const cor = (+color + 1) % ncolors;
+                                root.style.setProperty(
+                                    "--txtColor",
+                                    colors[cor],
+                                );
+                                output.innerHTML = `Clicked (functional update): ${true} <br\ > color: ${cor} → ${colors[cor]}`;
+                            }
+                        }}
+                        onPointerOver={(event) => {
+                            setColor(true);
+                            root.style.setProperty("--txtColor", colors[true]);
+                            output.innerHTML = `Hovered: ${true} <br \> color: ${true} → ${colors[true]}`;
+                        }}
+                        onPointerOut={(event) => {
+                            setColor(false);
+                            root.style.setProperty("--txtColor", colors[false]);
+                            output.innerHTML = `Hovered: ${false} <br \> color: ${false} → ${colors[false]}`;
+                        }}
+                    >
+                        <boxGeometry args={[1, 1, 1]} />
+                        <meshStandardMaterial color={colors[color]} />
+                    </mesh>
+                );
+            }
+
+            /**
+             * <p>Returns a {@link https://legacy.reactjs.org/docs/introducing-jsx.html JSX}
+             * element with a R3F canvas.</p>
+             * In R3F, {@link external:react.useRef useRef()}
+             * can be used to encapsulate a reference to an instance
+             * of an object, as its current value.<br>
+             * This reference can then be passed to a component as a
+             * {@link https://react.dev/learn/passing-props-to-a-component prop}.
+             * @module
+             * @function App
+             * @returns {HTMLCanvasElement} R3F {@link external:react-three/fiber Canvas}.
+             */
+            const App = () => {
+                return (
+                    <Canvas camera={{ fov: 35, position: [0, 0, 4] }}>
+                        <ambientLight intensity={Math.PI / 2} />
+                        <spotLight
+                            position={[10, 10, 10]}
+                            angle={0.15}
+                            penumbra={1}
+                            decay={0}
+                            intensity={Math.PI}
+                        />
+                        <pointLight
+                            position={[-10, -10, -10]}
+                            decay={0}
+                            intensity={Math.PI}
+                        />
+                        <Box position={[-1.2, 0, 0]} />
+                        <Box position={[1.2, 0, 0]} />
+                    </Canvas>
+                );
+            };
+
+            createRoot(document.getElementById("root")).render(<App />);
+        </script>
+    </body>
+</html>
