@@ -77,8 +77,9 @@ function Box(props) {
     1: "cyan",
     3: "magenta",
     5: "yellow",
+    6: "orange",
   };
-  const ncolors = Object.keys(colors).length - 2;
+  const ncolors = Object.keys(colors).length - 3;
   const [color, setColor] = useState(false);
   const root = document.querySelector(":root");
   const output = document.querySelector("#output");
@@ -107,7 +108,7 @@ function Box(props) {
    * @see {@link https://dev.to/shareef/react-usestate-hook-is-asynchronous-1hia React useState hook is asynchronous!}
    */
   useEffect(() => {
-    const cor = color === false ? color : (+color + 1) % ncolors;
+    const cor = typeof color === "boolean" ? ncolors : (+color + 1) % ncolors;
     setColor(cor);
     root.style.setProperty("--txtColor", colors[cor]);
     output.innerHTML = `Clicked (useEffect): ${clicked} &lt;br /> name: cube1, color: ${cor} → ${colors[cor]}`;
