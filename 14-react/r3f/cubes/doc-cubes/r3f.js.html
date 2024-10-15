@@ -1,33 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>JSDoc: Source: r3f.js</title>
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: r3f.js</title>
 
-        <script src="scripts/prettify/prettify.js"></script>
-        <script src="scripts/prettify/lang-css.js"></script>
-        <!--[if lt IE 9]>
-            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-        <link
-            type="text/css"
-            rel="stylesheet"
-            href="styles/prettify-tomorrow.css"
-        />
-        <link
-            type="text/css"
-            rel="stylesheet"
-            href="styles/jsdoc-default.css"
-        />
-    </head>
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
 
-    <body>
-        <div id="main">
-            <h1 class="page-title">Source: r3f.js</h1>
+<body>
 
-            <section>
-                <article>
-                    <pre class="prettyprint source linenums"><code>/**
+<div id="main">
+
+    <h1 class="page-title">Source: r3f.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file
  *
  * Summary.
@@ -69,8 +68,6 @@ function Box(props) {
   const [clicked, setClick] = useState(false);
   const [active, setActive] = useState(false);
   const colors = {
-    true: "hotpink",
-    false: "orange",
     0: "red",
     2: "green",
     4: "blue",
@@ -78,11 +75,14 @@ function Box(props) {
     3: "magenta",
     5: "yellow",
     6: "orange",
+    7: "hotpink",
   };
-  const ncolors = Object.keys(colors).length - 3;
+  const ncolors = Object.keys(colors).length - 2;
   const [color, setColor] = useState(false);
   const root = document.querySelector(":root");
   const output = document.querySelector("#output");
+
+  const nextColor = (c) => (c >= ncolors ? 0 : (+c + 1) % ncolors);
 
   // Subscribe this component to the render-loop, to rotate the mesh in each frame.
   useFrame((state, delta) => (meshRef.current.rotation.x += delta));
@@ -108,8 +108,7 @@ function Box(props) {
    * @see {@link https://dev.to/shareef/react-usestate-hook-is-asynchronous-1hia React useState hook is asynchronous!}
    */
   useEffect(() => {
-    const cor =
-      color === false ? ncolors : color === true ? 0 : (+color + 1) % ncolors;
+    const cor = color === false ? ncolors : nextColor(color);
     setColor(cor);
     root.style.setProperty("--txtColor", colors[cor]);
     output.innerHTML = `Clicked (useEffect): ${clicked} &lt;br /> name: cube1, color: ${cor} → ${colors[cor]}`;
@@ -131,23 +130,25 @@ function Box(props) {
           setClick(!clicked);
         } else {
           // functional update
-          setColor((prevColor) => (+prevColor + 1) % ncolors);
-          const cor = (+color + 1) % ncolors;
+          setColor((prevColor) => nextColor(prevColor));
+          const cor = nextColor(color);
           root.style.setProperty("--txtColor", colors[cor]);
           output.innerHTML = `Clicked (functional update): ${true} &lt;br\ > name: ${cubeName}, color: ${cor} → ${colors[cor]}`;
         }
       }}
       onPointerOver={(event) => {
         const cubeName = event.eventObject.name;
-        setColor(true);
-        root.style.setProperty("--txtColor", colors[true]);
-        output.innerHTML = `Hovered: ${true} &lt;br \> name: ${cubeName}, color: ${true} → ${colors[true]}`;
+        setColor(ncolors + 1);
+        root.style.setProperty("--txtColor", colors[ncolors + 1]);
+        output.innerHTML = `Hovered: ${true} &lt;br \> name: ${cubeName}, color: ${
+          ncolors + 1
+        } → ${colors[ncolors + 1]}`;
       }}
       onPointerOut={(event) => {
         const cubeName = event.eventObject.name;
-        setColor(false);
-        root.style.setProperty("--txtColor", colors[false]);
-        output.innerHTML = `Hovered: ${false} &lt;br \> name: ${cubeName}, color: ${false} → ${colors[false]}`;
+        setColor(ncolors);
+        root.style.setProperty("--txtColor", colors[ncolors]);
+        output.innerHTML = `Hovered: ${false} &lt;br \> name: ${cubeName}, color: ${ncolors} → ${colors[ncolors]}`;
       }}
     >
       &lt;boxGeometry args={[1, 1, 1]} />
@@ -188,31 +189,25 @@ const App = () => {
 
 createRoot(document.getElementById("root")).render(&lt;App />);
 </code></pre>
-                </article>
-            </section>
-        </div>
+        </article>
+    </section>
 
-        <nav>
-            <h2><a href="index.html">Home</a></h2>
-            <h3>Global</h3>
-            <ul>
-                <li><a href="global.html#App">App</a></li>
-                <li><a href="global.html#Box">Box</a></li>
-                <li><a href="global.html#useEffect">useEffect</a></li>
-            </ul>
-        </nav>
 
-        <br class="clear" />
 
-        <footer>
-            Documentation generated by
-            <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct
-            14 2024 18:05:43 GMT-0300 (Brasilia Standard Time)
-        </footer>
 
-        <script>
-            prettyPrint();
-        </script>
-        <script src="scripts/linenumber.js"></script>
-    </body>
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#Box">Box</a></li><li><a href="global.html#useEffect">useEffect</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Oct 14 2024 22:39:44 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
 </html>

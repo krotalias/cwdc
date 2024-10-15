@@ -40,8 +40,6 @@ function Box(props) {
   const [clicked, setClick] = useState(false);
   const [active, setActive] = useState(false);
   const colors = {
-    true: "hotpink",
-    false: "orange",
     0: "red",
     2: "green",
     4: "blue",
@@ -49,11 +47,14 @@ function Box(props) {
     3: "magenta",
     5: "yellow",
     6: "orange",
+    7: "hotpink",
   };
-  const ncolors = Object.keys(colors).length - 3;
+  const ncolors = Object.keys(colors).length - 2;
   const [color, setColor] = useState(false);
   const root = document.querySelector(":root");
   const output = document.querySelector("#output");
+
+  const nextColor = (c) => (c >= ncolors ? 0 : (+c + 1) % ncolors);
 
   // Subscribe this component to the render-loop, to rotate the mesh in each frame.
   useFrame((state, delta) => (meshRef.current.rotation.x += delta));
@@ -79,8 +80,7 @@ function Box(props) {
    * @see {@link https://dev.to/shareef/react-usestate-hook-is-asynchronous-1hia React useState hook is asynchronous!}
    */
   useEffect(() => {
-    const cor =
-      color === false ? ncolors : color === true ? 0 : (+color + 1) % ncolors;
+    const cor = color === false ? ncolors : nextColor(color);
     setColor(cor);
     root.style.setProperty("--txtColor", colors[cor]);
     output.innerHTML = `Clicked (useEffect): ${clicked} <br /> name: cube1, color: ${cor} → ${colors[cor]}`;
@@ -102,23 +102,25 @@ function Box(props) {
           setClick(!clicked);
         } else {
           // functional update
-          setColor((prevColor) => (+prevColor + 1) % ncolors);
-          const cor = (+color + 1) % ncolors;
+          setColor((prevColor) => nextColor(prevColor));
+          const cor = nextColor(color);
           root.style.setProperty("--txtColor", colors[cor]);
           output.innerHTML = `Clicked (functional update): ${true} <br\ > name: ${cubeName}, color: ${cor} → ${colors[cor]}`;
         }
       }}
       onPointerOver={(event) => {
         const cubeName = event.eventObject.name;
-        setColor(true);
-        root.style.setProperty("--txtColor", colors[true]);
-        output.innerHTML = `Hovered: ${true} <br \> name: ${cubeName}, color: ${true} → ${colors[true]}`;
+        setColor(ncolors + 1);
+        root.style.setProperty("--txtColor", colors[ncolors + 1]);
+        output.innerHTML = `Hovered: ${true} <br \> name: ${cubeName}, color: ${
+          ncolors + 1
+        } → ${colors[ncolors + 1]}`;
       }}
       onPointerOut={(event) => {
         const cubeName = event.eventObject.name;
-        setColor(false);
-        root.style.setProperty("--txtColor", colors[false]);
-        output.innerHTML = `Hovered: ${false} <br \> name: ${cubeName}, color: ${false} → ${colors[false]}`;
+        setColor(ncolors);
+        root.style.setProperty("--txtColor", colors[ncolors]);
+        output.innerHTML = `Hovered: ${false} <br \> name: ${cubeName}, color: ${ncolors} → ${colors[ncolors]}`;
       }}
     >
       <boxGeometry args={[1, 1, 1]} />
