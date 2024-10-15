@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="./styles.css" />
+        <title>R3F without nodejs</title>
+    </head>
+    <body>
+        <div id="output"></div>
+
+        <div id="root"></div>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "react": "https://esm.sh/react@18.2.0?dev",
+                    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client?dev",
+                    "leva": "https://esm.sh/leva@0.9.35?dev",
+                    "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.19?dev",
+                    "@react-three/drei": "https://esm.sh/@react-three/drei?@9.114.0?dev"
+                }
+            }
+        </script>
+
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <script type="text/babel" data-type="module" src="r3f.js"></script>
+    </body>
+</html>
