@@ -16,14 +16,13 @@
                 "imports": {
                     "react": "https://esm.sh/react@18.2.0",
                     "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-                    "leva": "https://esm.sh/leva@0.9.35",
-                    "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.19",
-                    "@react-three/drei": "https://esm.sh/@react-three/drei?@9.99.4"
+                    "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.16",
+                    "@react-three/drei": "https://esm.sh/@react-three/drei@9.99.4"
                 }
             }
         </script>
 
-        <script type="module" src="https://esm.sh/run"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
         <script type="text/babel" data-type="module" data-presets="react">
             /**
@@ -50,7 +49,7 @@
             import { createRoot } from "react-dom/client";
             import React, { useRef, useState, useEffect } from "react";
             import { Canvas, useFrame } from "@react-three/fiber";
-            import { Bounds } from "@react-three/drei";
+            import { Bounds, OrbitControls } from "@react-three/drei";
 
             /**
              * Box component.
@@ -182,7 +181,8 @@
              */
             const App = () => {
                 return (
-                    <Canvas camera={{ fov: 35, position: [0, 0, 4] }}>
+                    <Canvas camera={{ fov: 35, position: [0, 0, 8] }}>
+                        <OrbitControls />
                         <ambientLight intensity={Math.PI / 2} />
                         <spotLight
                             position={[10, 10, 10]}
@@ -196,8 +196,10 @@
                             decay={0}
                             intensity={Math.PI}
                         />
-                        <Box position={[-1.2, 0, 0]} name={"cube1"} />
-                        <Box position={[1.2, 0, 0]} name={"cube2"} />
+                        <Bounds fit clip margin={1.2} damping={0}>
+                            <Box position={[-1.2, 0, 0]} name={"cube1"} />
+                            <Box position={[1.2, 0, 0]} name={"cube2"} />
+                        </Bounds>
                     </Canvas>
                 );
             };

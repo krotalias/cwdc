@@ -9,6 +9,7 @@
 html,
 body,
 #root {
+    height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -17,7 +18,7 @@ body,
 #output {
     color: var(--txtColor);
     text-align: center;
-    margin: 20px auto 50px auto;
+    margin: 20px 0 0 auto;
 }
 
 body {

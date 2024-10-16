@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="Sean Bradley" />
+        <title>R3F Starter</title>
+        <meta
+            name="description"
+            content="React Three Fiber Tutorials by Sean Bradley : https://sbcode.net/react-three-fiber"
+        />
+        <style>
+            html,
+            body,
+            #root {
+                height: 100%;
+                margin: 0;
+                background: #000000;
+                color: white;
+            }
+        </style>
+        <script type="importmap">
+            {
+                "imports": {
+                    "react": "https://esm.sh/react@18.2.0",
+                    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+                    "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.16",
+                    "@react-three/drei": "https://esm.sh/@react-three/drei@9.99.4",
+                    "dat.gui": "https://esm.sh/dat.gui@0.7.9"
+                }
+            }
+        </script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel" data-type="module" data-presets="react">
+            import React, { useRef, useState, useEffect } from "react";
+            import { createRoot } from "react-dom/client";
+            import { Canvas, useFrame } from "@react-three/fiber";
+            import { Stats, OrbitControls } from "@react-three/drei";
+            import { GUI } from "dat.gui";
+
+            function Polygon() {
+                const ref = useRef();
+
+                useEffect(() => {
+                    const gui = new GUI();
+                    gui.add(ref.current.material, "wireframe");
+                    return () => {
+                        gui.destroy();
+                    };
+                }, []);
+
+                useFrame((_, delta) => {
+                    ref.current.rotation.x += delta;
+                    ref.current.rotation.y += 0.5 * delta;
+                });
+
+                return (
+                    <mesh ref={ref}>
+                        <dodecahedronGeometry />
+                        <meshNormalMaterial wireframe />
+                    </mesh>
+                );
+            }
+
+            function App() {
+                return (
+                    <Canvas camera={{ position: [0, 0, 3] }}>
+                        <Polygon />
+                        <OrbitControls />
+                        <Stats />
+                    </Canvas>
+                );
+            }
+
+            createRoot(document.getElementById("root")).render(<App />);
+        </script>
+    </body>
+</html>

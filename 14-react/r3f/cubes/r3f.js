@@ -23,7 +23,7 @@
 import { createRoot } from "react-dom/client";
 import React, { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Bounds } from "@react-three/drei";
+import { Bounds, OrbitControls } from "@react-three/drei";
 
 /**
  * Box component.
@@ -144,6 +144,7 @@ function Box(props) {
 const App = () => {
   return (
     <Canvas camera={{ fov: 35, position: [0, 0, 4] }}>
+      <OrbitControls />
       <ambientLight intensity={Math.PI / 2} />
       <spotLight
         position={[10, 10, 10]}
@@ -153,8 +154,10 @@ const App = () => {
         intensity={Math.PI}
       />
       <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-      <Box position={[-1.2, 0, 0]} name={"cube1"} />
-      <Box position={[1.2, 0, 0]} name={"cube2"} />
+      <Bounds fit clip margin={1.2} damping={0}>
+        <Box position={[-1.2, 0, 0]} name={"cube1"} />
+        <Box position={[1.2, 0, 0]} name={"cube2"} />
+      </Bounds>
     </Canvas>
   );
 };
