@@ -18,13 +18,14 @@
                     "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
                     "leva": "https://esm.sh/leva@0.9.35",
                     "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.19",
-                    "@react-three/drei": "https://esm.sh/@react-three/drei?@9.114.0"
+                    "@react-three/drei": "https://esm.sh/@react-three/drei?@9.99.4"
                 }
             }
         </script>
+
         <script type="module" src="https://esm.sh/run"></script>
 
-        <script type="text/babel" data-type="module">
+        <script type="text/babel" data-type="module" data-presets="react">
             /**
              * @file
              *
@@ -112,9 +113,9 @@
                     const cor = color === false ? ncolors : nextColor(color);
                     setColor(cor);
                     root.style.setProperty("--txtColor", colors[cor]);
-                    output.innerHTML = `Clicked (useEffect): ${clicked} <br /> name: cube1, color: ${cor} → ${colors[cor]}`;
+                    output.innerHTML = `Clicked (useEffect): ${clicked} <br /> name: ${meshRef.current.name}, color: ${cor} → ${colors[cor]}`;
                     console.log(
-                        `Clicked (useEffect): ${clicked}, name: cube1, color: ${cor} → ${colors[cor]}`,
+                        `Clicked (useEffect): ${clicked}, name: ${meshRef.current.name}, color: ${cor} → ${colors[cor]}`,
                     );
                 }, [clicked]);
 
@@ -124,7 +125,7 @@
                         ref={meshRef}
                         scale={active ? 1.5 : 1}
                         onClick={(event) => {
-                            const cubeName = event.eventObject.name;
+                            const cubeName = event.object.name;
                             setActive(!active);
                             // either way does work
                             if (cubeName === "cube1") {
@@ -141,7 +142,7 @@
                             }
                         }}
                         onPointerOver={(event) => {
-                            const cubeName = event.eventObject.name;
+                            const cubeName = event.object.name;
                             setColor(ncolors + 1);
                             root.style.setProperty(
                                 "--txtColor",
@@ -152,7 +153,7 @@
                             } → ${colors[ncolors + 1]}`;
                         }}
                         onPointerOut={(event) => {
-                            const cubeName = event.eventObject.name;
+                            const cubeName = event.object.name;
                             setColor(ncolors);
                             root.style.setProperty(
                                 "--txtColor",

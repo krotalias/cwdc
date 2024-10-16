@@ -83,9 +83,9 @@ function Box(props) {
     const cor = color === false ? ncolors : nextColor(color);
     setColor(cor);
     root.style.setProperty("--txtColor", colors[cor]);
-    output.innerHTML = `Clicked (useEffect): ${clicked} <br /> name: cube1, color: ${cor} → ${colors[cor]}`;
+    output.innerHTML = `Clicked (useEffect): ${clicked} <br /> name: ${meshRef.current.name}, color: ${cor} → ${colors[cor]}`;
     console.log(
-      `Clicked (useEffect): ${clicked}, name: cube1, color: ${cor} → ${colors[cor]}`,
+      `Clicked (useEffect): ${clicked}, name: ${meshRef.current.name}, color: ${cor} → ${colors[cor]}`,
     );
   }, [clicked]);
 
@@ -95,7 +95,7 @@ function Box(props) {
       ref={meshRef}
       scale={active ? 1.5 : 1}
       onClick={(event) => {
-        const cubeName = event.eventObject.name;
+        const cubeName = event.object.name;
         setActive(!active);
         // either way does work
         if (cubeName === "cube1") {
@@ -109,7 +109,7 @@ function Box(props) {
         }
       }}
       onPointerOver={(event) => {
-        const cubeName = event.eventObject.name;
+        const cubeName = event.object.name;
         setColor(ncolors + 1);
         root.style.setProperty("--txtColor", colors[ncolors + 1]);
         output.innerHTML = `Hovered: ${true} <br \> name: ${cubeName}, color: ${
@@ -117,7 +117,7 @@ function Box(props) {
         } → ${colors[ncolors + 1]}`;
       }}
       onPointerOut={(event) => {
-        const cubeName = event.eventObject.name;
+        const cubeName = event.object.name;
         setColor(ncolors);
         root.style.setProperty("--txtColor", colors[ncolors]);
         output.innerHTML = `Hovered: ${false} <br \> name: ${cubeName}, color: ${ncolors} → ${colors[ncolors]}`;
