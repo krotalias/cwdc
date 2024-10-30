@@ -49,8 +49,9 @@
  *  </ul>
  *
  *  <li>To run the version with modules and Node.js version
- *     {@link https://nodejs.org/en/blog/release/v18.19.0 18} or
- *     {@link https://nodejs.org/en/blog/release/v20.10.0 20}:</li>
+ *     {@link https://nodejs.org/en/blog/release/v18.19.0 18},
+ *     {@link https://nodejs.org/en/blog/release/v20.18.0 20} or
+ *     {@link https://nodejs.org/en/blog/release/v22.11.0 22}:</li>
  *  <ul>
  *    <li>cd tic-tac-toe</li>
  *    <li>{@link https://www.npmjs.com npm} or {@link https://yarnpkg.com yarn} install</li>
@@ -58,55 +59,83 @@
  *  </ul>
  * </ul>
  *
- * @author Paulo Roma based on {@link https://opensource.fb.com|Facebook Open Source}
+ * @author Paulo Roma based on {@link https://opensource.fb.com|Meta Open Source}
  * @since 17/09/2021
  * @see <a href="../src/tic-tac-toe.js">source</a>
  * @see <a href="../tic-tac-toe.js">source compiled (Babel)</a>
  * @see <a href="/cwdc/14-react/tic-tac-toe/tic-tac-toe.html">link</a>
- * @see https://reactjs.org/tutorial/tutorial.html#overview
- * @see https://flarnie.github.io/react/tutorial/tutorial.html
- * @see https://reactjs.org/docs/react-dom.html
- * @see https://reactjs.org/docs/react-api.html#createelement
- * @see https://reactjs.org/docs/add-react-to-a-website.html
- * @see https://legacy.reactjs.org/docs/faq-build.html
- * @see <iframe width="400" height=320" src="/cwdc/14-react/tic-tac-toe/tic-tac-toe.html"></iframe>
+ * @see {@link https://reactjs.org/tutorial/tutorial.html Tutorial: Tic-Tac-Toe}
+ * @see {@link https://flarnie.github.io/react/tutorial/tutorial.html Tutorial: Intro To React}
+ * @see {@link external:react-dom react-dom}
+ * @see {@link https://react.dev/reference/react/createElement createElement}
+ * @see {@link https://reactjs.org/docs/add-react-to-a-website.html Add React to an Existing Project}
+ * @see {@link https://legacy.reactjs.org/docs/faq-build.html Babel, JSX, and Build Steps}
+ * @see  <iframe width="400" height=320" src="/cwdc/14-react/tic-tac-toe/tic-tac-toe.html"></iframe>
  */
 
 "use strict";
 
 /**
- * React module.
+ * <p>React is the library for web and native user interfaces.</p>
+ * React lets you build user interfaces out of individual pieces called
+ * {@link React.Component components} written in JavaScript.
+ *
+ * <p>Elements are the smallest building blocks of React apps.
+ * An {@link https://react.dev/reference/react/createElement element}
+ * describes what you want to see on the screen.</p>
+ *
  * @external react
- * @see https://legacy.reactjs.org/docs/react-api.html
+ * @see {@link https://react.dev/reference/react React Reference Overview}
+ * @see {@link https://legacy.reactjs.org/docs/react-api.html React Top-Level API}
  */
 
 /**
  * React DOM module.
  * @external react-dom
- * @see https://legacy.reactjs.org/docs/react-dom.html
+ * @see {@link https://react.dev/reference/react-dom React DOM APIs}
  */
 
 /**
- * Create React App is a comfortable environment for learning React,
- * and is the best way to start building a new single-page application in React.
- * It sets up your development environment so that you can use the latest JavaScript features,
- * provides a nice developer experience, and optimizes your app for production.
- * @class React
+ * <p>You don’t need to install {@link https://react.dev/learn/installation#try-react anything}
+ * to play with React.</p>
+ *
+ * To try React locally on your computer, download this
+ * {@link https://gist.githubusercontent.com/gaearon/0275b1e1518599bbeafcde4722e79ed1/raw/db72dcbf3384ee1708c4a07d3be79860db04bff0/example.html HTML page}
+ * and open it in your editor and in your browser!
+ *
+ * <p>This is how this application does it.</p>
+ *
+ * The other option is {@link https://react.dev/learn/add-react-to-an-existing-project seting up}
+ * a modular JavaScript environment,
+ * e.g., by using {@link https://vite.dev/ Vite} or
+ * {@link https://create-react-app.dev/ CRA}.
+ * However, React's new documentation, released on March 16, 2023,
+ * no longer recommends CRA as the go-to solution for creating React applications.
+ *
+ * @namespace React
  * @memberof external:react
- * @see https://legacy.reactjs.org/docs/create-a-new-react-app.html
+ * @see {@link https://react.dev/learn/start-a-new-react-project Start a New React Project}
+ * @see {@link https://legacy.reactjs.org/docs/create-a-new-react-app.html Create a New React App}
+ * @see {@link https://www.epicweb.dev/why-i-wont-use-nextjs Why I Won't Use Next.js}
  */
 
 /**
+ * <p>{@link https://react.dev/reference/react/Component Component}
+ * is the base class for the React components
+ * defined as JavaScript classes.
+ * Class components are still supported by React,
+ * but we don’t recommend using them in new code.</p>
+ *
  * React lets you define components as classes or functions.
- * Components defined as classes currently provide more features which are described in detail on this page.
+ * Components defined as classes currently provide more features
+ * which are described in detail on this page.
  * To define a React component class, you need to extend React.Component.
  *
  * <p>The only method you must define in a React.Component subclass is called render().
  * All the other methods described on this page are optional.</p>
  * @class React.Component
  * @memberof React
- * @see https://legacy.reactjs.org/docs/react-component.html
- * @see https://react.dev/reference/react/Component
+ * @see {@link https://legacy.reactjs.org/docs/react-component.html React.Component}
  */
 
 /**
@@ -121,13 +150,14 @@
  * {@link https://stackoverflow.com/questions/42522515/what-are-react-controlled-components-and-uncontrolled-components controlled components}.
  * The Board has full control over them.
  *
+ * @component
  * @param {Object} props React Props.
  * @param {Number} props.value an index ∈ [0..8].
  * @param {Game#handleClick} props.onClick button onClick callback.
- * @returns {HTMLButtonElement} a &lt;button&gt; tag with the given props.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
- * @see https://indepth.dev/posts/1360/getting-started-with-modern-javascript-destructuring
- * @see https://javascript.info/destructuring-assignment
+ * @returns {React.JSX.Element} a &lt;button&gt; tag with the given props.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment Destructuring assignment}
+ * @see {@link https://michael-karen.medium.com/getting-started-with-modern-javascript-destructuring-assignment-140d0adc37da Getting Started with Modern JavaScript — Destructuring}
+ * @see {@link https://javascript.info/destructuring-assignment Destructuring assignment}
  */
 function Square({ value, onClick } = props) {
   return (
@@ -158,7 +188,7 @@ class Board extends React.Component {
    * @param {Array<String>} props.squares current array with their 9 squares.
    * @param {Game#handleClick} props.onClick button onClick callback.
    * @extends {React.Component<Props>}
-   * @see https://reactjs.org/docs/react-component.html
+   * @see {@link https://reactjs.org/docs/react-component.html React.Component}
    */
   constructor(props) {
     super(props);
@@ -183,11 +213,10 @@ class Board extends React.Component {
   }
 
   /**
-   * Renders the 9 squares of the board.
-   * @returns {HTMLDivElement} a &lt;div&gt; tag with a 3 × 3 grid layout, with 3
+   * {@link Board#renderSquare Renders} the 9 squares of the board.
+   * @returns {React.JSX.Elementt} a &lt;div&gt; tag with a 3 × 3 grid layout, with 3
    * buttons per row, each of which with value 'X', 'O' or null.
-   * @memberof React.Component
-   * @see https://legacy.reactjs.org/docs/react-component.html#render
+   * @see {@link https://legacy.reactjs.org/docs/react-component.html#render render()}
    */
   render() {
     return (
@@ -243,7 +272,7 @@ class Game extends React.Component {
    *
    * @param {Object} props component input.
    * @extends {React.Component<Props>}
-   * @see https://reactjs.org/docs/react-component.html
+   * @see {@link https://reactjs.org/docs/react-component.html React.Component}
    */
   constructor(props) {
     super(props);
@@ -251,7 +280,7 @@ class Game extends React.Component {
 
     /**
      * The state of the game.
-     * @type {Object}
+     * @member {Object}
      * @property {Array<Object<{squares: Array<String>}>>} state.history history array.
      * @property {Number} state.stepNumber step number.
      * @property {Boolean} state.xIsNext player turn.
@@ -301,9 +330,8 @@ class Game extends React.Component {
    * </ul>
    *
    * @param {Number} i an index ∈ [0..8] corresponding to the button clicked.
-   * @see https://reactjs.org/docs/react-component.html#setstate
-   * @see https://www.codecademy.com/resources/docs/javascript/arrays/slice
-   * @see <img src="../tic-tac-toe.png">
+   * @see {@link https://reactjs.org/docs/react-component.html#setstate setState()}
+   * @see {@link https://www.codecademy.com/resources/docs/javascript/arrays/slice .slice()}
    */
   handleClick(i) {
     // a copy of the current history up to stepNumber.
@@ -336,8 +364,8 @@ class Game extends React.Component {
      * When you call {@link https://react.dev/reference/react/useState setState} in a component,
      * React automatically updates the child components inside of it too.
      * @callback state_setter
-     * @see https://www.geeksforgeeks.org/reactjs-setstate/
-     * @see https://dev.to/johnstonlogan/react-hooks-barney-style-1hk7
+     * @see {@link https://www.geeksforgeeks.org/reactjs-setstate/ ReactJS setState()}
+     * @see {@link https://dev.to/johnstonlogan/react-hooks-barney-style-1hk7 useState() vs setState() - Strings, Objects, and Arrays}
      */
     this.setState({
       // creates a new array that contains all the items in history,
@@ -358,7 +386,7 @@ class Game extends React.Component {
    * to event handlers and server responses.
    *
    * @param {Number} step position into the history array.
-   * @see https://reactjs.org/docs/react-component.html#setstate
+   * @see {@link https://react.dev/reference/react/useState useState}
    */
   jumpTo(step) {
     this.setState({
@@ -370,11 +398,10 @@ class Game extends React.Component {
   /**
    * Renders the grid layout and an ordered list of buttons for each move in this game history.
    *
-   * @returns {HTMLDivElement} a tag &lt;game&gt;, with the 3 × 3 {@link Board} grid layout and
+   * @returns {React.JSX.Element} a tag &lt;game&gt;, with the 3 × 3 {@link Board} grid layout and
    * an ordered list of buttons for the time travel.
-   * @memberof React.Component
-   * @see https://legacy.reactjs.org/docs/react-component.html#render
-   * @see https://www.w3schools.com/react/react_props.asp
+   * @see {@link https://legacy.reactjs.org/docs/react-component.html#render render()}
+   * @see {@link https://www.w3schools.com/react/react_props.asp React Props}
    */
   render() {
     const history = this.state.history;
@@ -388,7 +415,8 @@ class Game extends React.Component {
      *    1: {$$typeof: Symbol(react.element), type: "li", key: "1", ref: null, props: Object, …}
      *    ...
      * </pre>
-     * @type {Array<react.element>}
+     * @type {Array<React.JSX.Element>}
+     * @memberof Game#
      */
     const moves = history.map((step, move) => {
       //                      go to   #move     or   when move is 0
@@ -452,8 +480,8 @@ class Game extends React.Component {
  * <p>Deprecated.</p>
  * @method render
  * @memberof external:react-dom
- * @see https://reactjs.org/docs/react-dom.html#render
- * @see https://react.dev/reference/react-dom/render
+ * @see {@link https://reactjs.org/docs/react-dom.html#render render()}
+ * @see {@link https://react.dev/reference/react-dom/render render}
  */
 
 /**
@@ -461,8 +489,9 @@ class Game extends React.Component {
  * After you’ve created a root, you need to call root.render to display a React component inside of it.
  * @method createRoot
  * @memberof external:react-dom
- * @see https://react.dev/reference/react-dom/client/createRoot
+ * @see {@link https://react.dev/reference/react-dom/client/createRoot createRoot}
  */
+
 if (React.version < "18") {
   ReactDOM.render(<Game />, document.getElementById("tic-tac-toe"));
   console.log(`Using ReactDOM.render: ${React.version}`);

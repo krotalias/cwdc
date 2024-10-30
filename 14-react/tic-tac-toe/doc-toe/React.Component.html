@@ -49,8 +49,15 @@
 
 
 <div class="description">
-    React lets you define components as classes or functions.
-Components defined as classes currently provide more features which are described in detail on this page.
+    <p><a href="https://react.dev/reference/react/Component">Component</a>
+is the base class for the React components
+defined as JavaScript classes.
+Class components are still supported by React,
+but we don’t recommend using them in new code.</p>
+
+React lets you define components as classes or functions.
+Components defined as classes currently provide more features
+which are described in detail on this page.
 To define a React component class, you need to extend React.Component.
 
 <p>The only method you must define in a React.Component subclass is called render().
@@ -98,7 +105,7 @@ All the other methods described on this page are optional.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line99">line 99</a>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line122">line 122</a>
     </li></ul></dd>
     
 
@@ -108,9 +115,7 @@ All the other methods described on this page are optional.</p>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://legacy.reactjs.org/docs/react-component.html">https://legacy.reactjs.org/docs/react-component.html</a></li>
-        
-            <li><a href="https://react.dev/reference/react/Component">https://react.dev/reference/react/Component</a></li>
+            <li><a href="https://legacy.reactjs.org/docs/react-component.html">React.Component</a></li>
         </ul>
     </dd>
     
@@ -155,248 +160,6 @@ All the other methods described on this page are optional.</p>
     
 
     
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="render"><span class="type-signature">(static) </span>Board#render<span class="signature">()</span><span class="type-signature"> &rarr; {HTMLDivElement}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Renders the 9 squares of the board.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line192">line 192</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://legacy.reactjs.org/docs/react-component.html#render">https://legacy.reactjs.org/docs/react-component.html#render</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    a &lt;div&gt; tag with a 3 × 3 grid layout, with 3
-buttons per row, each of which with value 'X', 'O' or null.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">HTMLDivElement</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="render"><span class="type-signature">(static) </span>Game#render<span class="signature">()</span><span class="type-signature"> &rarr; {HTMLDivElement}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Renders the grid layout and an ordered list of buttons for each move in this game history.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line379">line 379</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://legacy.reactjs.org/docs/react-component.html#render">https://legacy.reactjs.org/docs/react-component.html#render</a></li>
-        
-            <li><a href="https://www.w3schools.com/react/react_props.asp">https://www.w3schools.com/react/react_props.asp</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    a tag &lt;game&gt;, with the 3 × 3 <a href="Board.html">Board</a> grid layout and
-an ordered list of buttons for the time travel.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">HTMLDivElement</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
 
     
 
@@ -411,13 +174,13 @@ an ordered list of buttons for the time travel.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-react.html">react</a></li><li><a href="external-react-dom.html">react-dom</a></li></ul><h3>Classes</h3><ul><li><a href="Board.html">Board</a></li><li><a href="Game.html">Game</a></li><li><a href="React.Component.html">Component</a></li><li><a href="external-react.React.html">React</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Square">Square</a></li><li><a href="global.html#calculateWinner">calculateWinner</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-react.html">react</a></li><li><a href="external-react-dom.html">react-dom</a></li></ul><h3>Namespaces</h3><ul><li><a href="external-react.React.html">React</a></li></ul><h3>Classes</h3><ul><li><a href="Board.html">Board</a></li><li><a href="Game.html">Game</a></li><li><a href="React.Component.html">Component</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Square">Square</a></li><li><a href="global.html#calculateWinner">calculateWinner</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Dec 24 2023 16:51:34 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Oct 30 2024 09:08:11 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
