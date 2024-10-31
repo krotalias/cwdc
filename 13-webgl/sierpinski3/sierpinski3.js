@@ -26,24 +26,33 @@
  * @see {@link https://observablehq.com/@esperanc/iterated-function-systems?collection=@esperanc/computacao-grafica Iterated Function Systems}
  * @see {@link https://observablehq.com/d/1e035729ed562001 3D IFS with three.js}
  * @see {@link https://threejs.org/editor three.js Editor}
- * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
- * @see {@link https://dplatz.de/blog/2019/es6-bare-imports.html How to handle ES6 bare module imports for local Development}
  * @see <iframe title="Sierpinks 3D" style="width: 800px; height: 600px; transform-origin: 0px 100px; transform: scale(0.8);"  src="/cwdc/13-webgl/sierpinski3/sierpinski3.html"></iframe>
  */
 
 /**
  * Three.js module.
- * @external THREE
+ * @external three
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
  * @see {@link https://en.threejs-university.com Three.js University}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
  */
 let THREE;
 
 /**
+ * <p>Main three.js namespace.</p>
+ * {@link event:load Imported} from {@link external:three three.module.js}
+ * @namespace THREE
+ * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
+ * @see {@link https://dplatz.de/blog/2019/es6-bare-imports.html How to handle ES6 bare module imports for local Development}
+ */
+
+/**
  * Orbit controls allow the camera to orbit around a target.
- * @memberof external:THREE
+ * @memberof THREE
  * @class OrbitControls
  * @see {@link https://threejs.org/docs/#examples/en/controls/OrbitControls OrbitControls}
  * @see {@link https://raw.githubusercontent.com/mrdoob/three.js/master/examples/jsm/controls/OrbitControls.js github}
@@ -53,7 +62,7 @@ let OrbitControls;
 /**
  * This is the base class for most objects in three.js and provides
  * a set of properties and methods for manipulating objects in 3D space.
- * @memberof external:THREE
+ * @memberof THREE
  * @class Object3D
  * @see {@link https://threejs.org/docs/#api/en/core/Object3D Object3D}
  */
@@ -72,10 +81,10 @@ let OrbitControls;
  *    4**2 copy1 4**2 copy2 4**2 copy3 4**2 copy4 ... 04 blocks (color level 2)
  *    4**3 copy1 4**3 copy2 4**3 copy3 4**3 copy4 ... 02 blocks (color level 3)
  *
- * @param {external:THREE.Object3D} loadedScene json object.
+ * @param {THREE.Object3D} loadedScene json object.
  * @param {Number} maxLevel maximum recursion level.
  * @param {Number} colorLevel all objects of level colorLevel will have the same color.
- * @returns {external:THREE.Object3D} a new scene with a fractal at the given level.
+ * @returns {THREE.Object3D} a new scene with a fractal at the given level.
  * @see {@link https://en.wikipedia.org/wiki/Sierpiński_triangle Sierpiński triangle}
  * @see {@link https://www.codingem.com/javascript-clone-object/ 4 Ways to Clone an Object in JavaScript}
  */
@@ -140,8 +149,8 @@ const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
  * created by the Three.js editor, and rendering a 3D IFS fractal.
  *
  * @async
- * @see {@link external:THREE.OrbitControls}
- * @see {@link external:THREE.WebGLRenderer}
+ * @see {@link THREE.OrbitControls}
+ * @see {@link THREE.WebGLRenderer}
  */
 async function mainEntrance() {
   const canvas = document.querySelector("#theCanvas");
@@ -185,13 +194,13 @@ async function mainEntrance() {
   /**
    * A loader for loading a JSON resource in the JSON Object/Scene format.
    * @class ObjectLoader
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/loaders/ObjectLoader
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/loaders/ObjectLoader ObjectLoader}
    */
 
   /**
    * ObjectLoader object.
-   * @type {external:THREE.ObjectLoader}
+   * @type {THREE.ObjectLoader}
    * @global
    */
   const loader = new THREE.ObjectLoader();
@@ -280,7 +289,7 @@ async function mainEntrance() {
 
   /**
    * Current loaded model parsed from a json file.
-   * @type {external:THREE.Object3D}
+   * @type {THREE.Object3D}
    * @global
    * @see {@link https://threejs.org/docs/#api/en/loaders/ObjectLoader.load ObjectLoader.load}
    */
@@ -300,13 +309,13 @@ async function mainEntrance() {
   /**
    * The WebGL renderer displays your beautifully crafted scenes using WebGL.
    * @class WebGLRenderer
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer WebGLRenderer}
    */
 
   /**
    * WebGLRenderer object.
-   * @type {external:THREE.WebGLRenderer}
+   * @type {THREE.WebGLRenderer}
    * @global
    */
   const renderer = new THREE.WebGLRenderer({
@@ -319,13 +328,13 @@ async function mainEntrance() {
   /**
    * Camera that uses perspective projection.
    * @class PerspectiveCamera
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/cameras/PerspectiveCamera PerspectiveCamera}
    */
 
   /**
    * PerspectiveCamera object.
-   * @type {external:THREE.PerspectiveCamera}
+   * @type {THREE.PerspectiveCamera}
    * @global
    */
   const camera = new THREE.PerspectiveCamera(45, aspect, 1, 10000);
@@ -333,7 +342,7 @@ async function mainEntrance() {
 
   /**
    * OrbitControls object.
-   * @type {external:THREE.OrbitControls}
+   * @type {THREE.OrbitControls}
    * @global
    */
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -391,7 +400,7 @@ async function mainEntrance() {
    * <p>Fires when the document view (window) has been resized.</p>
    * Also resizes the canvas and viewport.
    * @callback handleWindowResize
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   function handleWindowResize() {
     let h = window.innerHeight - 20;
@@ -407,13 +416,15 @@ async function mainEntrance() {
   }
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * Fires when the document view (window) has been resized.
    * <p>The {@link handleWindowResize callback} argument sets the callback
    * that will be invoked when the event is dispatched.</p>
-   * @param {Event} event the document view is resized.
+   * @summary Appends an event listener for events whose type attribute value is resize.
+   * @param {Event} event a generic event.
    * @param {callback} function function to run when the event occurs.
    * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-   * @event resize - executed when the window is resized.
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", handleWindowResize, false);
 
@@ -425,7 +436,7 @@ async function mainEntrance() {
    * the event is dispatched.</p>
    *
    * @event change - executed when the scenes &lt;select&gt; is changed.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   scenes.addEventListener("change", (event) => {
     const jfile = modelFileName[scenes.value];
@@ -501,7 +512,7 @@ async function mainEntrance() {
        *
        * @event change - executed when any
        * {@link renderScene clevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
-       * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+       * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
        */
       elem.addEventListener("change", (event) => {
         // global variable to receive the clicked button
@@ -562,7 +573,7 @@ async function mainEntrance() {
   /**
    * Current scene with the fractal at the current maximum level.
    *
-   * @type {external:THREE.Object3D}
+   * @type {THREE.Object3D}
    * @global
    */
   let scene;
@@ -593,7 +604,7 @@ async function mainEntrance() {
      *
      * @event change - executed when any
      * {@link renderScene mlevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", (event) => {
       mlevel = +event.target.value;
@@ -617,7 +628,7 @@ async function mainEntrance() {
      * @event change - executed when any
      * {@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate}
      * &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", (event) => {
       controls.autoRotate = !!+event.target.value;
@@ -630,7 +641,7 @@ async function mainEntrance() {
    * the event is dispatched.</p>
    *
    * @event change - fires when the camera has been transformed by the controls.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   controls.addEventListener("change", () => {
     if (!controls.autoRotate) renderer.render(scene, camera);
@@ -658,7 +669,8 @@ async function mainEntrance() {
 }
 
 /**
- * <p>Loads the theejs module and the {@link mainEntrance application}.</p>
+ * <p>Fired when the whole page has loaded, including all dependent resources
+ * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.</p>
  * Unfortunately, importmap is only supported by Safari version 16.4 and later.<br>
  * Since I still use macOS Catalina, my Safari version is 15.6.1, which obliges me
  * to conditionally and dynamically load the threejs module.
@@ -670,14 +682,17 @@ async function mainEntrance() {
  * <li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"</li>
  * <li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 OPR/105.0.0.0"</li>
  * </ul>
- * @param {Event} event an object has loaded.
+ *
+ * @summary Loads the theejs module and the {@link mainEntrance application}.
+ *
+ * @param {Event} event a generic event.
  * @param {callback} function function to run when the event occurs.
  * @event load
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import import()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap &lt;script type="importmap"&gt;}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent Navigator: userAgent property}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent Browser detection using the user agent}
  */
 window.addEventListener("load", (event) => {
   const { userAgent } = navigator;

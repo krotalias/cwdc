@@ -54,24 +54,33 @@
  * @see {@link https://observablehq.com/@esperanc/iterated-function-systems?collection=@esperanc/computacao-grafica Iterated Function Systems}
  * @see {@link https://observablehq.com/d/1e035729ed562001 3D IFS with three.js}
  * @see {@link https://threejs.org/editor three.js Editor}
- * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
- * @see {@link https://dplatz.de/blog/2019/es6-bare-imports.html How to handle ES6 bare module imports for local Development}
  * @see &lt;iframe title="Sierpinks 3D" style="width: 800px; height: 600px; transform-origin: 0px 100px; transform: scale(0.8);"  src="/cwdc/13-webgl/sierpinski3/sierpinski3.html">&lt;/iframe>
  */
 
 /**
  * Three.js module.
- * @external THREE
+ * @external three
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
  * @see {@link https://en.threejs-university.com Three.js University}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
  */
 let THREE;
 
 /**
+ * &lt;p>Main three.js namespace.&lt;/p>
+ * {@link event:load Imported} from {@link external:three three.module.js}
+ * @namespace THREE
+ * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
+ * @see {@link https://dplatz.de/blog/2019/es6-bare-imports.html How to handle ES6 bare module imports for local Development}
+ */
+
+/**
  * Orbit controls allow the camera to orbit around a target.
- * @memberof external:THREE
+ * @memberof THREE
  * @class OrbitControls
  * @see {@link https://threejs.org/docs/#examples/en/controls/OrbitControls OrbitControls}
  * @see {@link https://raw.githubusercontent.com/mrdoob/three.js/master/examples/jsm/controls/OrbitControls.js github}
@@ -81,7 +90,7 @@ let OrbitControls;
 /**
  * This is the base class for most objects in three.js and provides
  * a set of properties and methods for manipulating objects in 3D space.
- * @memberof external:THREE
+ * @memberof THREE
  * @class Object3D
  * @see {@link https://threejs.org/docs/#api/en/core/Object3D Object3D}
  */
@@ -100,10 +109,10 @@ let OrbitControls;
  *    4**2 copy1 4**2 copy2 4**2 copy3 4**2 copy4 ... 04 blocks (color level 2)
  *    4**3 copy1 4**3 copy2 4**3 copy3 4**3 copy4 ... 02 blocks (color level 3)
  *
- * @param {external:THREE.Object3D} loadedScene json object.
+ * @param {THREE.Object3D} loadedScene json object.
  * @param {Number} maxLevel maximum recursion level.
  * @param {Number} colorLevel all objects of level colorLevel will have the same color.
- * @returns {external:THREE.Object3D} a new scene with a fractal at the given level.
+ * @returns {THREE.Object3D} a new scene with a fractal at the given level.
  * @see {@link https://en.wikipedia.org/wiki/Sierpiński_triangle Sierpiński triangle}
  * @see {@link https://www.codingem.com/javascript-clone-object/ 4 Ways to Clone an Object in JavaScript}
  */
@@ -168,8 +177,8 @@ const fractalScene = (loadedScene, maxLevel = 0, colorLevel = 0) => {
  * created by the Three.js editor, and rendering a 3D IFS fractal.
  *
  * @async
- * @see {@link external:THREE.OrbitControls}
- * @see {@link external:THREE.WebGLRenderer}
+ * @see {@link THREE.OrbitControls}
+ * @see {@link THREE.WebGLRenderer}
  */
 async function mainEntrance() {
   const canvas = document.querySelector("#theCanvas");
@@ -213,13 +222,13 @@ async function mainEntrance() {
   /**
    * A loader for loading a JSON resource in the JSON Object/Scene format.
    * @class ObjectLoader
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/loaders/ObjectLoader
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/loaders/ObjectLoader ObjectLoader}
    */
 
   /**
    * ObjectLoader object.
-   * @type {external:THREE.ObjectLoader}
+   * @type {THREE.ObjectLoader}
    * @global
    */
   const loader = new THREE.ObjectLoader();
@@ -308,7 +317,7 @@ async function mainEntrance() {
 
   /**
    * Current loaded model parsed from a json file.
-   * @type {external:THREE.Object3D}
+   * @type {THREE.Object3D}
    * @global
    * @see {@link https://threejs.org/docs/#api/en/loaders/ObjectLoader.load ObjectLoader.load}
    */
@@ -328,13 +337,13 @@ async function mainEntrance() {
   /**
    * The WebGL renderer displays your beautifully crafted scenes using WebGL.
    * @class WebGLRenderer
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer WebGLRenderer}
    */
 
   /**
    * WebGLRenderer object.
-   * @type {external:THREE.WebGLRenderer}
+   * @type {THREE.WebGLRenderer}
    * @global
    */
   const renderer = new THREE.WebGLRenderer({
@@ -347,13 +356,13 @@ async function mainEntrance() {
   /**
    * Camera that uses perspective projection.
    * @class PerspectiveCamera
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/cameras/PerspectiveCamera PerspectiveCamera}
    */
 
   /**
    * PerspectiveCamera object.
-   * @type {external:THREE.PerspectiveCamera}
+   * @type {THREE.PerspectiveCamera}
    * @global
    */
   const camera = new THREE.PerspectiveCamera(45, aspect, 1, 10000);
@@ -361,7 +370,7 @@ async function mainEntrance() {
 
   /**
    * OrbitControls object.
-   * @type {external:THREE.OrbitControls}
+   * @type {THREE.OrbitControls}
    * @global
    */
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -419,7 +428,7 @@ async function mainEntrance() {
    * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
    * Also resizes the canvas and viewport.
    * @callback handleWindowResize
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   function handleWindowResize() {
     let h = window.innerHeight - 20;
@@ -435,13 +444,15 @@ async function mainEntrance() {
   }
 
   /**
-   * &lt;p>Appends an event listener for events whose type attribute value is resize.&lt;/p>
+   * Fires when the document view (window) has been resized.
    * &lt;p>The {@link handleWindowResize callback} argument sets the callback
    * that will be invoked when the event is dispatched.&lt;/p>
-   * @param {Event} event the document view is resized.
+   * @summary Appends an event listener for events whose type attribute value is resize.
+   * @param {Event} event a generic event.
    * @param {callback} function function to run when the event occurs.
    * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-   * @event resize - executed when the window is resized.
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", handleWindowResize, false);
 
@@ -453,7 +464,7 @@ async function mainEntrance() {
    * the event is dispatched.&lt;/p>
    *
    * @event change - executed when the scenes &amp;lt;select&amp;gt; is changed.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   scenes.addEventListener("change", (event) => {
     const jfile = modelFileName[scenes.value];
@@ -529,7 +540,7 @@ async function mainEntrance() {
        *
        * @event change - executed when any
        * {@link renderScene clevel} &amp;lt;input radio&amp;gt;'s checkbox is checked (but not when unchecked).
-       * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+       * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
        */
       elem.addEventListener("change", (event) => {
         // global variable to receive the clicked button
@@ -590,7 +601,7 @@ async function mainEntrance() {
   /**
    * Current scene with the fractal at the current maximum level.
    *
-   * @type {external:THREE.Object3D}
+   * @type {THREE.Object3D}
    * @global
    */
   let scene;
@@ -621,7 +632,7 @@ async function mainEntrance() {
      *
      * @event change - executed when any
      * {@link renderScene mlevel} &amp;lt;input radio&amp;gt;'s checkbox is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", (event) => {
       mlevel = +event.target.value;
@@ -645,7 +656,7 @@ async function mainEntrance() {
      * @event change - executed when any
      * {@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate}
      * &amp;lt;input radio&amp;gt;'s checkbox is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", (event) => {
       controls.autoRotate = !!+event.target.value;
@@ -658,7 +669,7 @@ async function mainEntrance() {
    * the event is dispatched.&lt;/p>
    *
    * @event change - fires when the camera has been transformed by the controls.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   controls.addEventListener("change", () => {
     if (!controls.autoRotate) renderer.render(scene, camera);
@@ -686,7 +697,8 @@ async function mainEntrance() {
 }
 
 /**
- * &lt;p>Loads the theejs module and the {@link mainEntrance application}.&lt;/p>
+ * &lt;p>Fired when the whole page has loaded, including all dependent resources
+ * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.&lt;/p>
  * Unfortunately, importmap is only supported by Safari version 16.4 and later.&lt;br>
  * Since I still use macOS Catalina, my Safari version is 15.6.1, which obliges me
  * to conditionally and dynamically load the threejs module.
@@ -698,14 +710,17 @@ async function mainEntrance() {
  * &lt;li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"&lt;/li>
  * &lt;li>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 OPR/105.0.0.0"&lt;/li>
  * &lt;/ul>
- * @param {Event} event an object has loaded.
+ *
+ * @summary Loads the theejs module and the {@link mainEntrance application}.
+ *
+ * @param {Event} event a generic event.
  * @param {callback} function function to run when the event occurs.
  * @event load
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import import()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap &amp;lt;script type="importmap"&amp;gt;}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent Navigator: userAgent property}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent Browser detection using the user agent}
  */
 window.addEventListener("load", (event) => {
   const { userAgent } = navigator;
@@ -752,17 +767,17 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.Object3D.html">Object3D</a></li><li><a href="external-THREE.ObjectLoader.html">ObjectLoader</a></li><li><a href="external-THREE.OrbitControls.html">OrbitControls</a></li><li><a href="external-THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenany%257B@linkhttps://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotateanimate%257D&lt;inputradio&gt;'scheckboxischecked(butnotwhenunchecked).">change - executed when any
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.Object3D.html">Object3D</a></li><li><a href="THREE.ObjectLoader.html">ObjectLoader</a></li><li><a href="THREE.OrbitControls.html">OrbitControls</a></li><li><a href="THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenany%257B@linkhttps://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotateanimate%257D&lt;inputradio&gt;'scheckboxischecked(butnotwhenunchecked).">change - executed when any
 {@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate}
 &lt;input radio&gt;'s checkbox is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenany%257B@linkrenderSceneclevel%257D&lt;inputradio&gt;'scheckboxischecked(butnotwhenunchecked).">change - executed when any
 {@link renderScene clevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenany%257B@linkrenderScenemlevel%257D&lt;inputradio&gt;'scheckboxischecked(butnotwhenunchecked).">change - executed when any
-{@link renderScene mlevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthescenes&lt;select&gt;ischanged.">change - executed when the scenes &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-fireswhenthecamerahasbeentransformedbythecontrols.">change - fires when the camera has been transformed by the controls.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#clevel">clevel</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#createRadioBtns">createRadioBtns</a></li><li><a href="global.html#fractalScene">fractalScene</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#loadedScene">loadedScene</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#mlevel">mlevel</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#modelFileName">modelFileName</a></li><li><a href="global.html#nextScene">nextScene</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#renderScene">renderScene</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#sceneCnt">sceneCnt</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
+{@link renderScene mlevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthescenes&lt;select&gt;ischanged.">change - executed when the scenes &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-fireswhenthecamerahasbeentransformedbythecontrols.">change - fires when the camera has been transformed by the controls.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#clevel">clevel</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#createRadioBtns">createRadioBtns</a></li><li><a href="global.html#fractalScene">fractalScene</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#loadedScene">loadedScene</a></li><li><a href="global.html#loader">loader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#mlevel">mlevel</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#modelFileName">modelFileName</a></li><li><a href="global.html#nextScene">nextScene</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#renderScene">renderScene</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#sceneCnt">sceneCnt</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Aug 05 2024 16:08:04 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Oct 31 2024 08:42:23 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
