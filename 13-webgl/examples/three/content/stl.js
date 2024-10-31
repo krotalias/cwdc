@@ -7,7 +7,7 @@
  *
  * <p><b>For educational purposes only.</b></p>
  *
- * <p>Uses {@link external:THREE Three.js} to load, display, and manipulate a model read from a
+ * <p>Uses {@link THREE Three.js} to load, display, and manipulate a model read from a
  * {@link https://threejs.org/examples/ file}.
  * The center of the model {@link https://threejs.org/docs/#api/en/math/Box3 bounding box}
  * is translated to the origin so an <a href="/cwdc/13-webgl/extras/doc/ArcBallPresentation.pdf">arcball like</a>
@@ -44,7 +44,7 @@
  * (or .OBJ) is a geometry definition file format first developed by Wavefront Technologies
  * for its Advanced Visualizer animation package.
  * The file format is open and has been adopted by other 3D graphics application vendors.
- * <p>{@link external:THREE.MTLLoader MTL file}, short for Material Template Library, is companion file format used in 3D computer graphics and modeling.
+ * <p>{@link THREE.MTLLoader MTL file}, short for Material Template Library, is companion file format used in 3D computer graphics and modeling.
  * It is often associated with Wavefront OBJ file format,
  * which is common format for storing 3D models and their associated materials and textures.</p>
  * </li>
@@ -73,7 +73,7 @@
  *    # Resize textures.
  *    gltf-transform resize input.glb output.glb --width 1024 --height 1024
  * </pre>
- * <li>Zoom and Pan when using an {@link external:THREE.ArcballControls ArcballControls}
+ * <li>Zoom and Pan when using an {@link THREE.ArcballControls ArcballControls}
  * on a mobile device only work by calling
  * {@link https://threejs.org/docs/#examples/en/controls/ArcballControls.setCamera setCamera()}
  * every time the camera position changes.
@@ -196,16 +196,16 @@ const ctype = Object.freeze({
 });
 
 /**
- * {@link external:THREE.ArcballControls ArcballControls} x
- * {@link external:THREE.OrbitControls OrbitControls} x
- * {@link external:THREE.TrackballControls TrackballControls}
+ * {@link THREE.ArcballControls ArcballControls} x
+ * {@link THREE.OrbitControls OrbitControls} x
+ * {@link THREE.TrackballControls TrackballControls}
  * @type {Number}
  */
 
 let ctrlType = mobile ? ctype.ORBIT : ctype.ARCBALL;
 /**
  * Maps a model to its environment.
- * @type {Object<String,external:THREE.DataTexture>}
+ * @type {Object<String,THREE.DataTexture>}
  * @global
  */
 const environment = {};
@@ -239,7 +239,7 @@ function loadTextures(dfile) {
   /**
    * Creates a texture directly from raw data, width and height.
    * @class DataTexture
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/textures/DataTexture DataTexture}
    */
 
@@ -247,7 +247,7 @@ function loadTextures(dfile) {
    * {@link https://en.wikipedia.org/wiki/High_dynamic_range HDR} image loader
    * for creating environment maps.
    * @class RGBELoader
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
    * @see {@link https://www.adobe.com/creativecloud/photography/discover/hdr.html What is HDR?}
    */
@@ -257,7 +257,7 @@ function loadTextures(dfile) {
    * {@link https://en.wikipedia.org/wiki/OpenEXR EXR} texture loader
    * for creating environments.
    * @class EXRLoader
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
    * @see {@link https://massive.io/file-transfer/what-is-an-exr-file/ What is an EXR File?}
    */
@@ -316,7 +316,7 @@ async function loadTexturesAsync(dfile) {
 
 /**
  * Three.js module.
- * @external THREE
+ * @external three
  * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
  * @since 24/04/2010
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}
@@ -329,12 +329,40 @@ async function loadTexturesAsync(dfile) {
  */
 
 /**
+ * <p>Main three.js namespace.</p>
+ * Imported from {@link external:three three.module.js}
+ *
+ * @example
+ * <!-- The recommended way of importing three.js is by using an importmap in the HTML file -->
+ * <script type="importmap">
+ *    {
+ *      "imports": {
+ *          "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
+ *          "three/addons/": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/"
+ *      }
+ *    }
+ * </script>
+ *
+ * @example
+ * // Then, in the javascript file:
+ * import * as THREE from "three";
+ * import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+ *
+ * @example
+ * // Or, if you do not want an importmap:
+ * import * as THREE from "https://unpkg.com/three@latest/build/three.module.js?module";
+ * import { OrbitControls } from "https://unpkg.com/three@latest/examples/jsm/controls/OrbitControls.js?module";
+ *
+ * @namespace THREE
+ */
+
+/**
  * <p>A representation of mesh, line, or point geometry.</p>
  * Includes vertex positions, face indices, normals, colors, UVs,
  * and custom attributes within buffers, reducing the cost of
  * passing all this data to the GPU.
  * @class BufferGeometry
- * @memberof external:THREE
+ * @memberof THREE
  * @see https://threejs.org/docs/#api/en/core/BufferGeometry
  */
 
@@ -388,7 +416,7 @@ function init(dfile) {
    * When multiple objects in the scene are animated independently,
    * one AnimationMixer may be used for each object.
    * @class AnimationMixer
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/animation/AnimationMixer Animation Mixer}
    */
   let mixer;
@@ -401,7 +429,7 @@ function init(dfile) {
    * Note that the object must have a BufferGeometry for this to work,
    * so it won't work with Sprites.
    * @class BoxHelper
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/helpers/BoxHelper Box Helper}
    */
   let boxh = undefined;
@@ -410,7 +438,7 @@ function init(dfile) {
    * An axis object to visualize the 3 axes in a simple way.
    * The X axis is red. The Y axis is green. The Z axis is blue.
    * @class AxesHelper
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/helpers/AxesHelper Axes Helper}
    */
   let axesHelper = undefined;
@@ -426,7 +454,7 @@ function init(dfile) {
    * Object for keeping track of time. This uses performance.now if it is available,
    * otherwise it reverts to the less accurate Date.now.
    * @class Clock
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/core/Clock Clock}
    */
   const clock = new THREE.Clock();
@@ -472,7 +500,7 @@ function init(dfile) {
   /**
    * The WebGL renderer displays your beautifully crafted scenes using WebGL.
    * @class WebGLRenderer
-   * @memberof external:THREE
+   * @memberof THREE
    * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
    */
   const renderer = new THREE.WebGLRenderer({
@@ -498,7 +526,7 @@ function init(dfile) {
   /**
    * Camera that uses perspective projection.
    * @class PerspectiveCamera
-   * @memberof external:THREE
+   * @memberof THREE
    * @see https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
    */
   const camera = new THREE.PerspectiveCamera(45, aspect, 0.01, 1000);
@@ -507,7 +535,7 @@ function init(dfile) {
    * <p>Scenes allow you to set up what and where is to be rendered by three.js.</p>
    * This is where you place objects, lights and cameras.
    * @class Scene
-   * @memberof external:THREE
+   * @memberof THREE
    * @see https://threejs.org/docs/#api/en/scenes/Scene
    */
   const scene = new THREE.Scene();
@@ -522,7 +550,7 @@ function init(dfile) {
    * in a conservative way (returning to the starting point will make the camera
    * to return to its starting orientation).
    * @class ArcballControls
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#examples/en/controls/ArcballControls ArcballControls}
    * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html?gui=1">Cerberus</a>
    * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html">Cerberus (no Gui)</a>
@@ -539,7 +567,7 @@ function init(dfile) {
    * To use this, as with all files in the /examples directory,
    * you will have to include the file separately in your HTML.
    * @class OrbitControls
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#examples/en/controls/OrbitControls OrbitControls}
    */
 
@@ -549,7 +577,7 @@ function init(dfile) {
    * That means if the camera orbits over the “north” and “south” poles,
    * it does not flip to stay "right side up".
    * @class TrackballControls
-   * @memberof external:THREE
+   * @memberof THREE
    * @see https://threejs.org/docs/#examples/en/controls/TrackballControls
    */
   const controls =
@@ -608,7 +636,7 @@ function init(dfile) {
    * <p>MeshLambertMaterial uses per-fragment shading.</p>
    *
    * @class MeshLambertMaterial
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/MeshLambertMaterial MeshLambertMaterial}
    */
   mat["d"] = new THREE.MeshLambertMaterial({
@@ -627,7 +655,7 @@ function init(dfile) {
    * <p>MeshPhongMaterial uses per-fragment shading.</p>
    *
    * @class MeshPhongMaterial
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/MeshPhongMaterial MeshPhongMaterial}
    */
   mat["p"] = new THREE.MeshPhongMaterial({
@@ -650,7 +678,7 @@ function init(dfile) {
    *
    * <p>MeshStandardMaterial uses per-fragment shading.</p>
    * @class MeshStandardMaterial
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/MeshStandardMaterial MeshStandardMaterial}
    */
   mat["g"] = new THREE.MeshStandardMaterial({
@@ -682,7 +710,7 @@ function init(dfile) {
    *
    * <p>MeshPhysicalMaterial uses per-fragment shading.</p>
    * @class MeshPhysicalMaterial
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/MeshPhysicalMaterial MeshPhysicaldMaterial}
    * @see {@link https://www.youtube.com/watch?v=q63VhC3vYI0 Glass Objects with Physical Material}
    */
@@ -700,7 +728,7 @@ function init(dfile) {
   /**
    * <p>A material for drawing wireframe-style geometries.<p>
    * @class LineBasicMaterial
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/LineBasicMaterial LineBasicMaterial}
    */
   const edgeMaterial = new THREE.LineBasicMaterial({
@@ -712,14 +740,14 @@ function init(dfile) {
    * <p>Materials describe the appearance of objects.</p>
    * They are defined in a (mostly) renderer-independent way,
    * so you don't have to rewrite materials if you decide to use a different renderer.
-   * @class external:THREE.Material
-   * @memberof external:THREE
+   * @class THREE.Material
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/Material Material}
    */
 
   /**
    * <p>Current material for STL or VTK files.</p>
-   * @type {external:THREE.Material}
+   * @type {THREE.Material}
    * @global
    */
   let material =
@@ -738,7 +766,7 @@ function init(dfile) {
    * is not even trustworthy.
    * The best we can do is shadow the old image while the new one is being loaded.</p>
    * @class LoadingManager
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/loaders/managers/LoadingManager Loading Manager}
    * @see <img src="../Nefertiti.png" width="256">
    */
@@ -779,7 +807,7 @@ function init(dfile) {
   /**
    * The STL model format is widely used for rapid prototyping, 3D printing and computer-aided manufacturing.
    * @class STLLoader
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://sbcode.net/threejs/loaders-stl/ STL Model Loader}
    * @see {@link https://blog.arashtad.com/blog/load-stl-3d-models-in-three-js/ How to load STL 3d models in Three JS}
    * @see {@link https://stl-viewer.dualbox.com/ Free STL Viewer}
@@ -793,7 +821,7 @@ function init(dfile) {
    * The content of VTK files can be in ASCII text format or a mixed binary/ASCII format
    * in which headers and parameters are in ASCII format but the data values are in binary format.
    * @class VTKLoader
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/examples/webgl_loader_vtk.html VTK Model Loader}
    */
   const vtk_loader = new VTKLoader(manager);
@@ -805,7 +833,7 @@ function init(dfile) {
    * the UV position of each texture coordinate vertex, vertex normals,
    * and the faces that make each polygon defined as a list of vertices, and texture vertices.
    * @class OBJLoader
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/OBJLoader obj_loader Model Loader}
    * @see {@link https://imagetostl.com/convert/file/glb/to/obj Convert Your 3D Mesh/Model GLB Files to OBJ}
    */
@@ -817,7 +845,7 @@ function init(dfile) {
    * companion file format to .OBJ that describes surface shading (material)
    * properties of objects within one or more .OBJ files.
    * @class MTLLoader
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/MTLLoader mtl_loader Material Loader}
    * @see {@link https://paulbourke.net/dataformats/mtl/ MTL material format (Lightwave, OBJ)}
    * @see {@link https://people.sc.fsu.edu/~jburkardt/data/mtl/mtl.html Material Definitions for OBJ Files}
@@ -831,7 +859,7 @@ function init(dfile) {
    * Draco is an open source library for compressing and decompressing 3D meshes and point clouds.
    * Compressed geometry can be significantly smaller, at the cost of additional decoding time on the client device.
    * @class DRACOLoader
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/DRACOLoader DRACO Loader}
    * @see {@link https://opensource.googleblog.com/2017/01/introducing-draco-compression-for-3d.html Google Open Source Blog}
    * @see {@link https://github.com/google/draco github}
@@ -851,7 +879,7 @@ function init(dfile) {
    * The required WASM transcoder and JS wrapper are available from
    * the examples/jsm/libs/basis directory.</p>
    * @class KTX2Loader
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/KTX2Loader KTX2 Loader}
    * @see {@link https://gdal.org/drivers/raster/ktx2.html GDAL KTX2}
    * @see {@link https://github.com/BinomialLLC/basis_universal github}
@@ -868,7 +896,7 @@ function init(dfile) {
    and additional binary data (.bin). A glTF asset may deliver one or more scenes,
    including meshes, materials, textures, skins, skeletons, morph targets, animations, lights, and/or cameras.
    * @class GLTFLoader
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#examples/en/loaders/GLTFLoader GLTF Loader}
    * @see {@link https://gltf-viewer.donmccurdy.com glTF Viewer}
    * @see {@link https://github.khronos.org/glTF-Sample-Viewer-Release/ glTF Sample Viewer}
@@ -892,7 +920,7 @@ function init(dfile) {
    * In this way we maintain resolution to smoothly interpolate diffuse lighting while
    * limiting sampling computation.
    * @class PMREMGenerator
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/extras/PMREMGenerator PMREMGenerator}
    */
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
@@ -902,8 +930,8 @@ function init(dfile) {
      * This is an easy way of lighting a scene
      * by creating six light sources with different intensities using an "area light material".
      * @class RoomEnvironment
-     * @extends {external:THREE.Scene}
-     * @memberof external:THREE
+     * @extends {THREE.Scene}
+     * @memberof THREE
      * @see {@link https://github.com/mrdoob/three.js/blob/master/examples/jsm/environments/RoomEnvironment.js RoomEnvironment}
      * @see {@link https://threejs.org/docs/#api/en/extras/PMREMGenerator.fromScene PMREMGenerator}
      * @see {@link https://threejs.org/examples/#misc_exporter_usdz USDZ exporter}
@@ -926,14 +954,14 @@ function init(dfile) {
    * of; that is, we try to release its geometry and material objects since they are no longer used.
    * {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderTarget Render Targets}
    * allocate some resources needed by the shaders and should also be released.
-   * @param {external:THREE.BufferGeometry} geometry model.
+   * @param {THREE.BufferGeometry} geometry model.
    * @global
    */
   function loadModel(geometry) {
     /**
      * <p>Dispose material and its texture.</p>
      * TO BE FINISHED.
-     * @param {external:THREE.Material} mat material.
+     * @param {THREE.Material} mat material.
      * @global
      * @see {@link https://discourse.threejs.org/t/when-to-dispose-how-to-completely-clean-up-a-three-js-scene/1549/24 When to dispose: How to completely clean up a Three.js scene}
      */
@@ -975,7 +1003,7 @@ function init(dfile) {
     }
     /**
      * Create a box and axes helpers for the object.
-     * @param {external:THREE.Object3D} object a three.js object.
+     * @param {THREE.Object3D} object a three.js object.
      * @global
      */
     function createBoxHelper(object) {
@@ -1189,7 +1217,7 @@ function init(dfile) {
    * To achieve this purpose, a statistics panel can be added to the HTML document that outlines several properties,
    * such as the frames per second and how long a section of code takes to execute.
    * @class Stats
-   * @memberof external:THREE
+   * @memberof THREE
    * @see {@link https://sbcode.net/threejs/stats-panel/ Stats Panel}
    * @see {@link https://www.tutorialspoint.com/threejs/threejs_stats.htm Three.js - Stats}
    */
@@ -1218,8 +1246,8 @@ function init(dfile) {
 
   /**
    * <p>Animation loop.</p>
-   * Updates {@link external:THREE.TrackballControls controls},
-   * renders the {@link external:THREE.Scene scene} and updates {@link external:THREE.Stats statistics}.
+   * Updates {@link THREE.TrackballControls controls},
+   * renders the {@link THREE.Scene scene} and updates {@link THREE.Stats statistics}.
    * @global
    */
   function runAnimation() {
@@ -1254,7 +1282,7 @@ function init(dfile) {
     /**
      * <p>Handler for keydown events.</p>
      * Selects the next/previous {@link models model}
-     * or turns {@link external:THREE.Stats stats} and mesh visible/invisible
+     * or turns {@link THREE.Stats stats} and mesh visible/invisible
      * when pressing keys ("n","N") or ("s","m"), respectively.<br>
      * @param {KeyboardEvent} event keyboard event.
      * @callback key_event callback to handle a key pressed.
@@ -1389,7 +1417,7 @@ function init(dfile) {
    * <p>Fires when the document view (window) has been resized.</p>
    * Also resizes the canvas and viewport.
    * @callback handleWindowResize
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   function handleWindowResize() {
     let h = window.innerHeight - 20;
@@ -1437,7 +1465,7 @@ function init(dfile) {
    * the event is dispatched.</p>
    *
    * @event change - executed when the models &lt;select&gt; is changed.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("models").addEventListener("change", (event) => {
     event.target.blur();
@@ -1450,7 +1478,7 @@ function init(dfile) {
    * the event is dispatched.</p>
    *
    * @event change - executed when the mesh checkbox is is checked or unchecked.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document
     .getElementById("mesh")
@@ -1464,7 +1492,7 @@ function init(dfile) {
        * the event is dispatched.</p>
        *
        * @event change - executed when the material input radio is checked (but not when unchecked).
-       * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+       * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
        */
       elem.addEventListener("change", function (event) {
         const item = event.target.value;
@@ -1479,7 +1507,7 @@ function init(dfile) {
    * the event is dispatched.</p>
    *
    * @event change - executed when the stats checkbox is is checked or unchecked.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document
     .getElementById("stats")
@@ -1490,7 +1518,7 @@ function init(dfile) {
    * the event is dispatched.</p>
    *
    * @event click - reset button: fires after both the mousedown and mouseup events have fired (in that order).
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   document
     .getElementById("reset")
@@ -1503,7 +1531,7 @@ function init(dfile) {
    * the event is dispatched.</p>
    *
    * @event change - executed when the controls change.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   controls.addEventListener("change", () => renderer.render(scene, camera));
 
@@ -1549,7 +1577,7 @@ function init(dfile) {
  * <p>Sets the {@link init load callback function}.</p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event load event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  * @event load - select the entry point of the application.
  */
 window.addEventListener("load", (event) => {
