@@ -6,6 +6,7 @@
  *
  * @author Paulo Roma
  * @author Flavia Cavalcanti
+ * @copyright © 2022-2024 Paulo R Cavalcanti.
  * @since 10/02/2024
  *
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
@@ -26,8 +27,44 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 
 /**
  * Three.js module.
- * @external THREE
- * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ * @external three
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}
+ * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
+ * @see {@link https://discoverthreejs.com DISCOVER three.js}
+ * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ */
+
+/**
+ * <p>Main three.js namespace.</p>
+ * Imported from {@link THREE three.module.js}
+ *
+ * @example
+ * <!-- The recommended way of importing three.js is by using an importmap in the HTML file -->
+ * <script type="importmap">
+ *    {
+ *      "imports": {
+ *          "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
+ *          "three/addons/": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/"
+ *      }
+ *    }
+ * </script>
+ *
+ * @example
+ * // Then, in the javascript file:
+ * import * as THREE from "three";
+ * import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+ *
+ * @example
+ * // Or, if you do not want an importmap:
+ * import * as THREE from "https://unpkg.com/three@latest/build/three.module.js?module";
+ * import { OrbitControls } from "https://unpkg.com/three@latest/examples/jsm/controls/OrbitControls.js?module";
+ *
+ * @namespace THREE
  */
 
 /**
@@ -37,8 +74,8 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
  * and the faces that make each polygon defined as a list of vertices, and texture vertices.
  *
  * @class OBJLoader
- * @memberof external:THREE
- * @see https://threejs.org/docs/#examples/en/loaders/OBJLoader
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#examples/en/loaders/OBJLoader OBJLoader}
  */
 
 /**
@@ -46,8 +83,8 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
  * provides a set of properties and methods for manipulating objects in 3D space.
  *
  * @class Object3D
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/core/Object3D
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/core/Object3D Object3D}
  */
 
 /**
@@ -55,8 +92,8 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
  * Its purpose is to make working with groups of objects syntactically clearer.
  *
  * @class Group
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/objects/Group
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/objects/Group Group}
  */
 
 /**
@@ -64,17 +101,19 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
  * This is where you place objects, lights and cameras.
  *
  * @class Scene
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/scenes/Scene
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/scenes/Scene Scene}
  */
 
 /**
- * Abstract base class for cameras.
- * This class should always be inherited when you build a new camera.
+ * <p>Camera that uses perspective projection.</p>
  *
- * @class Camera
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/cameras/Camera
+ * This projection mode is designed to mimic the way the human eye sees.
+ * It is the most common projection mode used for rendering a 3D scene.
+ *
+ * @class PerspectiveCamera
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/cameras/PerspectiveCamera PerspectiveCamera}
  */
 
 /**
@@ -84,8 +123,8 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
  * in the corresponding order.
  *
  * @class Color
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/math/Color
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/math/Color Color}
  */
 
 /**
@@ -96,45 +135,50 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
  * so you don't have to rewrite materials if you decide to use a different renderer.
  *
  * @class Material
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/materials/Material
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/materials/Material Material}
+ * @see {@link https://threejs.org/docs/#api/en/materials/MeshBasicMaterial MeshBasicMaterial}
+ * @see {@link https://threejs.org/docs/#api/en/materials/MeshLambertMaterial MeshLambertMaterial}
+ * @see {@link https://threejs.org/docs/#api/en/materials/MeshPhongMaterial MeshPhongMaterial}
+ * @see {@link https://threejs.org/docs/#api/en/materials/MeshStandardMaterial MeshStandardMaterial}
+ * @see {@link https://threejs.org/docs/#api/en/materials/PointsMaterial PointsMaterial}
  */
 
 /**
  * The WebGL renderer displays your beautifully crafted scenes using WebGL.
  *
  * @class WebGLRenderer
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer WebGLRenderer}
  */
 
 /**
  * Three.js group.
- * @type {external:THREE.Group}
+ * @type {THREE.Group}
  */
 let group;
 
 /**
  * Three.js group.
- * @type {external:THREE.Group}
+ * @type {THREE.Group}
  */
 let teaPotGroup;
 
 /**
  * Three.js scene.
- * @type {external:THREE.Scene}
+ * @type {THREE.Scene}
  */
 let scene;
 
 /**
  * Three.js camera.
- * @type {external:THREE.Camera}
+ * @type {THREE.PerspectiveCamera}
  */
 let camera;
 
 /**
  * Three.js renderer.
- * @type {external:THREE.WebGLRenderer}
+ * @type {THREE.WebGLRenderer}
  */
 let renderer;
 
@@ -158,13 +202,13 @@ let targetRotation = 0;
 let targetRotationOnMouseDown = 0;
 
 /**
- * An event (clientX - windowHalfX).
+ * An event (clientX - {@link windowHalfX}).
  * @type {Number}
  */
 let mouseX = 0;
 
 /**
- * An event (clientX - windowHalfX) when a movement starts.
+ * An event (clientX - {@link windowHalfX}) when a movement starts.
  * @type {Number}
  */
 let mouseXOnMouseDown = 0;
@@ -213,9 +257,9 @@ let showHelpers = false;
 
 /**
  * Color table.
- * @type {Object<String,external:THREE.Color>}
+ * @type {Object<String,THREE.Color>}
  */
-let colorTable = {
+const colorTable = {
   white: new THREE.Color(0xffffff),
   red: new THREE.Color(0xff0000),
   green: new THREE.Color(0x008800),
@@ -238,13 +282,13 @@ let colorTable = {
 /**
  * Light helpers.
  * @property {Object} lightHelpers - container for helpers.
- * @property {external:THREE.DirectionalLightHelper} lightHelpers.dhelper -
+ * @property {THREE.DirectionalLightHelper} lightHelpers.dhelper -
  *    {@link https://threejs.org/docs/#api/en/helpers/DirectionalLightHelper directional light} helper.
- * @property {external:THREE.SpotLightHelper} lightHelpers.shelper -
+ * @property {THREE.SpotLightHelper} lightHelpers.shelper -
  *    {@link https://threejs.org/docs/#api/en/helpers/SpotLightHelper spot light} helper.
- * @property {external:THREE.PointlLightHelper} lightHelpers.phelper -
+ * @property {THREE.PointlLightHelper} lightHelpers.phelper -
  *    {@link https://threejs.org/docs/#api/en/helpers/PointLightHelper point light} helper.
- * @property {external:THREE.CameraHelper} lightHelpers.chelper -
+ * @property {THREE.CameraHelper} lightHelpers.chelper -
  *    {@link https://threejs.org/docs/#api/en/helpers/CameraHelper camera} helper.
  */
 const lightHelpers = {
@@ -300,7 +344,7 @@ function onWindowResize() {
  * <p>Add listeners for "mousemove", "mouseup", and "mouseout".
  * @param {MouseEvent} event mouse event.
  * @event
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event Element: mousedown event}
  */
 function onDocumentMouseDown(event) {
   event.preventDefault();
@@ -318,7 +362,7 @@ function onDocumentMouseDown(event) {
  * (usually a mouse) is moved while the cursor's hotspot is inside it.
  * @param {MouseEvent} event mouse event.
  * @event
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event Element: mousemove event}
  */
 function onDocumentMouseMove(event) {
   mouseX = event.clientX - windowHalfX;
@@ -333,7 +377,7 @@ function onDocumentMouseMove(event) {
  * <p>Remove listeners for "mousemove", "mouseup", and "mouseout".
  * @param {MouseEvent} event mouse event.
  * @event
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event Element: mouseup event}
  */
 function onDocumentMouseUp(event) {
   renderer.domElement.removeEventListener(
@@ -357,7 +401,7 @@ function onDocumentMouseUp(event) {
  * <p>Removes the listeners for "mousemove", "mouseup", and "mouseout".
  * @param {MouseEvent} event mouse event.
  * @event
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseout_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseout_event Element: mouseout event}
  */
 function onDocumentMouseOut(event) {
   renderer.domElement.removeEventListener(
@@ -378,7 +422,7 @@ function onDocumentMouseOut(event) {
  * are placed on the touch surface.
  * @param {TouchEvent} event touch event.
  * @event
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/touchstart_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/touchstart_event Element: touchstart event}
  */
 function onDocumentTouchStart(event) {
   if (event.touches.length == 1) {
@@ -394,7 +438,7 @@ function onDocumentTouchStart(event) {
  * are moved along the touch surface.
  * @param {TouchEvent} event touch event.
  * @event
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/touchmove_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/touchmove_event Element: touchmove event}
  */
 function onDocumentTouchMove(event) {
   if (event.touches.length == 1) {
@@ -409,7 +453,7 @@ function onDocumentTouchMove(event) {
 /**
  * Set the {@link camera} and add it to the given scene.
  *
- * @param {external:THREE.Scene} scene given scene.
+ * @param {THREE.Scene} scene given scene.
  */
 function makeCamera(scene) {
   camera = new THREE.PerspectiveCamera(
@@ -426,21 +470,21 @@ function makeCamera(scene) {
  * Translate keydown events to strings.
  *
  * @param {KeyboardEvent} event keyboard event.
- * @see http://javascript.info/tutorial/keyboard-events
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
  */
 function getChar(event) {
   event = event || window.event;
-  let charCode = event.key || String.fromCharCode(event.which);
+  const charCode = event.key || String.fromCharCode(event.which);
   return charCode;
 }
 
 /**
  * The camera control.
- * @param {external:THREE.Camera} c the given camera.
+ * @param {THREE.Camera} c the given camera.
  * @param {String} ch a given character.
  */
 function cameraControl(c, ch) {
-  let distance = c.position.length();
+  const distance = c.position.length();
   let q, q2;
 
   switch (ch) {
@@ -544,7 +588,7 @@ function cameraControl(c, ch) {
  * @param {KeyboardEvent} event keydown event.
  */
 function handleKeyPress(event) {
-  let ch = getChar(event);
+  const ch = getChar(event);
   cameraControl(camera, ch);
   switch (ch) {
     case " ":
@@ -585,7 +629,7 @@ function handleKeyPress(event) {
 
 /**
  * Prepare materials and creates the {@link makeTree tree}.
- * @param {external:THREE.Group} group - the given group.
+ * @param {THREE.Group} group - the given group.
  */
 function prepareMaterials(group) {
   // prettier-ignore
@@ -607,13 +651,13 @@ function prepareMaterials(group) {
   const tLoader = new THREE.TextureLoader();
 
   imgs.forEach((img, index) => {
-    let texture = tLoader.load(path + img);
+    const texture = tLoader.load(path + img);
     texture.repeat.set(1, 1);
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.anisotropy = 16;
     texture.colorSpace = THREE.SRGBColorSpace;
 
-    let key = img.split(".")[0];
+    const key = img.split(".")[0];
 
     if (index == 0) {
       mats[`${key}0`] = new THREE.MeshPhongMaterial({
@@ -656,15 +700,15 @@ function prepareMaterials(group) {
  *
  * Why not, am I right? No specification were given saying that the
  * skyboxes had to be used as the 'environment'.
- * @param {external:THREE.Group} group - the given group to add the presents to.
+ * @param {THREE.Group} group - the given group to add the presents to.
  * @param {Number} size - the size of the box -- will correspond to width, length, and height.
  * @param {Number} x - position x
  * @param {Number} y - position y
  * @param {Number} z - position z
  * @param {Array<String>} images - image array to use.
  * @param {String} imgpath - path to the image array.
- * @see https://threejs.org/examples/?q=cube#webgpu_cubemap_adjustments
- * @see https://threejs.org/docs/#api/en/materials/MeshStandardMaterial
+ * @see {@link https://threejs.org/examples/?q=cube#webgpu_cubemap_adjustments Env. Adjustments example}
+ * @see {@link https://threejs.org/docs/#api/en/materials/MeshStandardMaterial MeshStandardMaterial}
  */
 function addPresent(group, size, x, y, z, images, imgpath = path) {
   // load the six images
@@ -733,8 +777,8 @@ function addPresent(group, size, x, y, z, images, imgpath = path) {
  * (including scans and photos taken with a digital camera) are not linear,
  * so they should not be used as texture maps by shaders that assume linear input.
  *
- * @param {external:THREE.Group} group - the given group to add the ground to.
- * @see https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear
+ * @param {THREE.Group} group - the given group to add the ground to.
+ * @see {@link https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-24-importance-being-linear The Importance of Being Linear}
  */
 function addGround(group) {
   const groundColor = colorTable.veryLightBlue;
@@ -772,7 +816,7 @@ function addGround(group) {
  * <p>Christmas needs frigging snowflakes.</p>
  * Except Christmas in Brazil, then it is just palm trees...
  * Based on a tutorial found on {@link https://script-tutorials.com/tag/webgl/ huzzah}
- * @param {external:THREE.Group} group - the given group to add the snowflakes to.
+ * @param {THREE.Group} group - the given group to add the snowflakes to.
  */
 function addSnowflakes(group) {
   const sfGeometry = new THREE.BufferGeometry();
@@ -785,7 +829,7 @@ function addSnowflakes(group) {
 
   const vertices = [];
   for (let i = 0; i < 3700; i++) {
-    let vertex = new THREE.Vector3();
+    const vertex = new THREE.Vector3();
     vertex.x = Math.random() * 2000 - 1000;
     vertex.y = Math.random() * 2000 - 1000;
     vertex.z = Math.random() * 2000 - 1000;
@@ -807,7 +851,7 @@ function addSnowflakes(group) {
   ];
 
   states.forEach((state) => {
-    let i = sfMats.push(
+    const i = sfMats.push(
       new THREE.PointsMaterial({
         size: state.size,
         map: state.sprite,
@@ -840,9 +884,9 @@ function addSnowflakes(group) {
 
 /**
  * Make the Christmas tree, which is just a bunch of stacked cones (cylinders).
- * @param {external:THREE.Object3D} group - the given group to add the tree to.
- * @param {Object<String,external:THREE.Material>} materials - the given material object.
- * @see https://threejs.org/docs/#api/en/geometries/CylinderGeometry
+ * @param {THREE.Object3D} group - the given group to add the tree to.
+ * @param {Object<String,THREE.Material>} materials - the given material object.
+ * @see {@link https://threejs.org/docs/#api/en/geometries/CylinderGeometry CylinderGeometry}
  */
 function makeTree(group, materials) {
   // radius top, radius bottom, height, radial segments, height segments.
@@ -886,8 +930,8 @@ function makeTree(group, materials) {
  * <p>Yeah, kind of hardcoded... no, I'm not proud.</p>
  * But this was the most straightforward way to add trinkets
  * to the tree that actually looked like they were on the tree.
- * @param {external:THREE.Group} group - the given group to add the baubles to.
- * @param {Object<String,external:THREE.Material>} materials - the given material object.
+ * @param {THREE.Group} group - the given group to add the baubles to.
+ * @param {Object<String,THREE.Material>} materials - the given material object.
  */
 function addBaubles(group, materials) {
   const bauble = [
@@ -941,14 +985,14 @@ function addBaubles(group, materials) {
  * Frigging bunnies all around, everyone loves bunnies.
  * Teapot is our new Christmas tree star.
  *
- * @param {external:THREE.Group} group - the given group to add the object to.
+ * @param {THREE.Group} group - the given group to add the object to.
  * @param {String} objectFile - the object file to be read.
  * @param {Number} x - position x
  * @param {Number} y - position y
  * @param {Number} z - position z
  * @param {Number} size - the object's size.
  * @param {Number} rotate - rotation amount.
- * @param {external:THREE.Color} color - the objects's color.
+ * @param {THREE.Color} color - the objects's color.
  */
 function addObject(group, objectFile, x, y, z, size, rotate, color) {
   if (typeof addObject.counter == "undefined") {
@@ -957,7 +1001,7 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
 
   /**
    * ObjectLoader object.
-   * @var {external:THREE.OBJLoader}
+   * @var {THREE.OBJLoader}
    * @global
    */
   const oLoader = new OBJLoader();
@@ -978,7 +1022,7 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
         child.castShadow = true;
         child.receiveShadow = true;
 
-        let obj = `o${++addObject.counter}helper`;
+        const obj = `o${++addObject.counter}helper`;
         lightHelpers[obj] = new VertexNormalsHelper(child, 5, colorTable.white);
         lightHelpers[obj].update();
         lightHelpers[obj].name = objectFile;
@@ -998,8 +1042,10 @@ function addObject(group, objectFile, x, y, z, size, rotate, color) {
 function displayHelpers() {
   showHelpers = !showHelpers;
   // because of strict mode, "this" is undefined
-  let action = showHelpers ? group.add.bind(group) : group.remove.bind(group);
-  let action2 = showHelpers ? scene.add.bind(scene) : scene.remove.bind(scene);
+  const action = showHelpers ? group.add.bind(group) : group.remove.bind(group);
+  const action2 = showHelpers
+    ? scene.add.bind(scene)
+    : scene.remove.bind(scene);
 
   Object.keys(lightHelpers).forEach((key) => {
     if (["teapot.obj", "bunny.obj"].includes(lightHelpers[key].name)) {
@@ -1061,8 +1107,8 @@ function displayHelpers() {
  *  <li>spotLight.decay = 0;</li>
  * </ul>
  *
- * @param {external:THREE.Scene} scene - the given scene.
- * @see https://discourse.threejs.org/t/shadow-and-color-problems-going-from-v64-to-v161/61640/3
+ * @param {THREE.Scene} scene - the given scene.
+ * @see {@link https://discourse.threejs.org/t/shadow-and-color-problems-going-from-v64-to-v161/61640/3 Shadow and color problems going from v64 to v161}
  */
 function addLight(scene) {
   scene.add(new THREE.AmbientLight(colorTable.black, 2));
@@ -1225,6 +1271,7 @@ function init() {
 
   /**
    * <p>Key handler.</p>
+   * <p>Fired when a key is pressed.</p>
    * Calls {@link handleKeyPress} when pressing assigned keys:
    * <ul>
    *  <li>Space - pause</li>
@@ -1237,17 +1284,20 @@ function init() {
    *  <li>n - move camera close/farther away wile rotating, or not</li>
    * </ul>
    * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   document.addEventListener("keydown", handleKeyPress, false);
 
   /**
    * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * Fires when the document view (window) has been resized.
    * <p>The {@link onWindowResize callback} argument sets the callback
    * that will be invoked when the event is dispatched.</p>
    * @param {Event} event the document view is resized.
    * @param {callback} function function to run when the event occurs.
    * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-   * @event resize - executed when the window is resized.
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", onWindowResize, false);
 
@@ -1275,7 +1325,7 @@ function init() {
  * @return {animate} animation callback.
  * @function
  * @global
- * @see https://threejs.org/docs/#api/en/core/Object3D.rotation
+ * @see {@link https://threejs.org/docs/#api/en/core/Object3D.rotation Object3D.rotation}
  */
 const render = (() => {
   let ang = 0;
@@ -1314,9 +1364,12 @@ const render = (() => {
 
 /**
  * <p>Load the applicarion.</p>
+ * Fired when the whole page has loaded, including all dependent resources
+ * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.
  * {@link init Initialize} and start {@link animate animation}.
- * @param {Event} event an object has loaded.
+ * @param {Event} event a generic Event.
  * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => {
   init();

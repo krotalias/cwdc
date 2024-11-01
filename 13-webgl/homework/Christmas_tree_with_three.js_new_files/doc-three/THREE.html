@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Namespace: THREE</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,35 +17,9 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Namespace: THREE</h1>
 
     
-
-
-
-    
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
 
 
 
@@ -54,7 +28,7 @@
 
 <header>
     
-        <h2>script.js</h2>
+        <h2>THREE</h2>
         
     
 </header>
@@ -63,8 +37,8 @@
     <div class="container-overview">
     
         
-            <div class="description">Summary.
-<p>Renders a Christmas scene - Merry (Early) Christmas.</p></div>
+            <div class="description"><p>Main three.js namespace.</p>
+Imported from <a href="THREE.html">three.module.js</a></div>
         
 
         
@@ -75,9 +49,6 @@
     
 
     
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>10/02/2024</li></ul></dd>
-    
 
     
 
@@ -92,24 +63,9 @@
     
 
     
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Paulo Roma</li>
-        
-            <li>Flavia Cavalcanti</li>
-        </ul>
-    </dd>
-    
 
     
-    <dt class="tag-copyright">Copyright:</dt>
-    <dd class="tag-copyright"><ul class="dummy"><li>© 2022-2024 Paulo R Cavalcanti.</li></ul></dd>
-    
 
-    
-    <dt class="tag-license">License:</dt>
-    <dd class="tag-license"><ul class="dummy"><li>Licensed under the <a href="https://www.opensource.org/licenses/mit-license.php">MIT license</a>.</li></ul></dd>
     
 
     
@@ -117,34 +73,38 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1">line 1</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
     
 
     
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_new_files/script.js">source</a></li>
-        
-            <li><a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_new.html">link</a></li>
-        
-            <li><a href="/cwdc/13-webgl/homework/img">images</a></li>
-        
-            <li><a href="/cwdc/13-webgl/homework/textures/cube">cube textures</a></li>
-        
-            <li><a href="../../img/tree.png"><img src="../../img/tree.png" width="512"></a></li>
-        
-            <li><a href="../../img/tree.shadow.png"><img src="../../img/tree.shadow.png" width="512"></a></li>
-        </ul>
-    </dd>
-    
 
     
 </dl>
 
+
+        
+            <h3>Examples</h3>
+            
+    <pre class="prettyprint"><code>&lt;!-- The recommended way of importing three.js is by using an importmap in the HTML file -->
+&lt;script type="importmap">
+   {
+     "imports": {
+         "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
+         "three/addons/": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/"
+     }
+   }
+&lt;/script></code></pre>
+
+    <pre class="prettyprint"><code>// Then, in the javascript file:
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";</code></pre>
+
+    <pre class="prettyprint"><code>// Or, if you do not want an importmap:
+import * as THREE from "https://unpkg.com/three@latest/build/three.module.js?module";
+import { OrbitControls } from "https://unpkg.com/three@latest/examples/jsm/controls/OrbitControls.js?module";</code></pre>
 
         
     
@@ -154,6 +114,34 @@
 
     
 
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="THREE.Color.html">Color</a></dt>
+            <dd></dd>
+        
+            <dt><a href="THREE.Group.html">Group</a></dt>
+            <dd></dd>
+        
+            <dt><a href="THREE.Material.html">Material</a></dt>
+            <dd></dd>
+        
+            <dt><a href="THREE.OBJLoader.html">OBJLoader</a></dt>
+            <dd></dd>
+        
+            <dt><a href="THREE.Object3D.html">Object3D</a></dt>
+            <dd></dd>
+        
+            <dt><a href="THREE.PerspectiveCamera.html">PerspectiveCamera</a></dt>
+            <dd></dd>
+        
+            <dt><a href="THREE.Scene.html">Scene</a></dt>
+            <dd></dd>
+        
+            <dt><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></dt>
+            <dd></dd>
+        </dl>
     
 
     
