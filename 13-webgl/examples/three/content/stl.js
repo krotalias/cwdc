@@ -330,28 +330,7 @@ async function loadTexturesAsync(dfile) {
 
 /**
  * <p>Main three.js namespace.</p>
- * Imported from {@link external:three three.module.js}
- *
- * @example
- * <!-- The recommended way of importing three.js is by using an importmap in the HTML file -->
- * <script type="importmap">
- *    {
- *      "imports": {
- *          "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
- *          "three/addons/": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/"
- *      }
- *    }
- * </script>
- *
- * @example
- * // Then, in the javascript file:
- * import * as THREE from "three";
- * import { OrbitControls } from "three/addons/controls/OrbitControls.js";
- *
- * @example
- * // Or, if you do not want an importmap:
- * import * as THREE from "https://unpkg.com/three@latest/build/three.module.js?module";
- * import { OrbitControls } from "https://unpkg.com/three@latest/examples/jsm/controls/OrbitControls.js?module";
+ * <a href="/cwdc/13-webgl/examples/three/content/doc-example/index.html">Imported</a> from {@link external:three three.module.js}
  *
  * @namespace THREE
  */
@@ -1399,7 +1378,7 @@ function init(dfile) {
    * that can be passed to {@link handleKeyPress}.
    * @param {String} key char code.
    * @param {Boolean} ctrl control key.
-   * @returns {KeyboardEvent} a keyboard event.
+   * @fires keydown
    * @global
    */
   const createEvent = (key, ctrl = false) => {
@@ -1438,33 +1417,42 @@ function init(dfile) {
   }
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is resize.</p>
+   * <p>Fires when the document view (window) has been resized.</p>
    * <p>The {@link handleWindowResize callback} argument sets the callback
    * that will be invoked when the event is dispatched.</p>
-   * @param {Event} event the document view is resized.
+   * @summary Appends an event listener for events whose type attribute value is resize.
+   * @param {Event} event a generic event.
    * @param {callback} function function to run when the event occurs.
    * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-   * @event resize - executed when the window is resized.
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", handleWindowResize, false);
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is keydown.<br>
-   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * <p>Fired when a key is pressed.</p>
+   * <p>The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event keydown - executed when a key is pressed.
+   * @summary Appends an event listener for events whose type attribute value is keydown.
+   * @param {KeyboardEvent} event a UIEvent.
+   * @param {callback} function function to run when the event occurs.
+   * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   window.addEventListener("keydown", (event) => {
     handleKeyPress(event);
   });
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * <p>Fired for models &lt;select&gt; element
+   * when the user modifies its value. </p>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
-   *
-   * @event change - executed when the models &lt;select&gt; is changed.
+   * @summary Appends an event listener for events whose type attribute value is change.
+   * @param {Event} event a generic event.
+   * @param {callback} function function to run when the event occurs.
+   * @event modelsSelect
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("models").addEventListener("change", (event) => {
@@ -1473,11 +1461,14 @@ function init(dfile) {
   });
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * <p>Fired when the mesh  &lt;input type="checkbox"&gt; is checked or unchecked
+   * (by clicking or using the keyboard).</p>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
-   *
-   * @event change - executed when the mesh checkbox is is checked or unchecked.
+   * @summary Appends an event listener for events whose type attribute value is change.
+   * @param {Event} event a generic event.
+   * @param {callback} function function to run when the event occurs.
+   * @event meshChkBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document
@@ -1487,11 +1478,14 @@ function init(dfile) {
   if (document.querySelector('input[name="material"]')) {
     document.querySelectorAll('input[name="material"]').forEach((elem) => {
       /**
-       * <p>Appends an event listener for events whose type attribute value is change.<br>
+       * <p>Fired when the material &lt;input type="radio"&gt;
+       * is checked (but not when unchecked).</p>
        * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
        * the event is dispatched.</p>
-       *
-       * @event change - executed when the material input radio is checked (but not when unchecked).
+       * @summary Appends an event listener for events whose type attribute value is change.
+       * @param {Event} event a generic event.
+       * @param {callback} function function to run when the event occurs.
+       * @event materialRadio
        * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
        */
       elem.addEventListener("change", function (event) {
@@ -1502,22 +1496,28 @@ function init(dfile) {
   }
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * <p>Fired when the stats &lt;input type="checkbox"&gt; is checked or unchecked
+   * (by clicking or using the keyboard).</p>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
-   *
-   * @event change - executed when the stats checkbox is is checked or unchecked.
+   * @summary Appends an event listener for events whose type attribute value is change.
+   * @param {Event} event a generic event.
+   * @param {callback} function function to run when the event occurs.
+   * @event statsChkBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document
     .getElementById("stats")
     .addEventListener("change", (event) => handleKeyPress(createEvent("s")));
 
-  /** <p>Appends an event listener for events whose type attribute value is click.<br>
-   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+  /**
+   * <p>Fires after both the mousedown and
+   * mouseup events have fired (in that order).</p>
+   * Reset button must be pressed and released while the pointer is located inside it.
+   * <p>The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
-   *
-   * @event click - reset button: fires after both the mousedown and mouseup events have fired (in that order).
+   * @summary Appends an event listener for events whose type attribute value is click.
+   * @event click
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   document
@@ -1525,13 +1525,17 @@ function init(dfile) {
     .addEventListener("click", (event) => handleKeyPress(createEvent("o")));
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * <p>Fires when the camera has been transformed by the controls.</p>
    * The {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.render callback}
    * argument sets the callback that will be invoked when
    * the event is dispatched.</p>
-   *
-   * @event change - executed when the controls change.
+   * @summary Appends an event listener for events whose type attribute value is change.
+   * @param {Event} event a generic event.
+   * @param {callback} function function to run when the event occurs.
+   * @event controls
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   * @see {@link THREE.OrbitControls}
+   * @see {@link THREE.ArcballControls}
    */
   controls.addEventListener("change", () => renderer.render(scene, camera));
 
@@ -1574,11 +1578,13 @@ function init(dfile) {
 }
 
 /**
- * <p>Sets the {@link init load callback function}.</p>
+ * <p>Fired when the whole page has loaded, including all dependent resources
+ * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.</p>
+ * @summary Sets the {@link init entry point} of the application.
  * @param {Event} event load event.
  * @callback WindowLoadCallback
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
- * @event load - select the entry point of the application.
+ * @event load
  */
 window.addEventListener("load", (event) => {
   const queryString = window.location.search;
