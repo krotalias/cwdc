@@ -113,7 +113,6 @@
  * no longer recommends CRA as the go-to solution for creating React applications.
  *
  * @namespace React
- * @memberof external:react
  * @see {@link https://react.dev/learn/start-a-new-react-project Start a New React Project}
  * @see {@link https://legacy.reactjs.org/docs/create-a-new-react-app.html Create a New React App}
  * @see {@link https://www.epicweb.dev/why-i-wont-use-nextjs Why I Won't Use Next.js}
@@ -139,6 +138,17 @@
  */
 
 /**
+ * Color table for winner color and background.
+ * @type {Object<String,String>}
+ */
+const cTable = {
+  winner: "red",
+  backw: "lightgrey",
+  normal: "black",
+  backn: "white"
+};
+
+/**
  * <p>A function component.</p>
  * <p>In React, {@link https://legacy.reactjs.org/docs/components-and-props.html function components}
  * are a simpler way to write components that
@@ -150,9 +160,10 @@
  * {@link https://stackoverflow.com/questions/42522515/what-are-react-controlled-components-and-uncontrolled-components controlled components}.
  * The Board has full control over them.
  *
- * @component
  * @param {Object} props React Props.
  * @param {Number} props.value an index ∈ [0..8].
+ * @param {String} props.color square color.
+ * @param {String} props.backg square background color.
  * @param {Game#handleClick} props.onClick button onClick callback.
  * @returns {React.JSX.Element} a &lt;button&gt; tag with the given props.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment Destructuring assignment}
@@ -161,12 +172,36 @@
  */
 function Square({
   value,
+  color,
+  backg,
   onClick
 } = props) {
   return /*#__PURE__*/React.createElement("button", {
     className: "square",
+    style: {
+      color: color,
+      background: backg
+    },
     onClick: onClick
   }, value);
+}
+
+/**
+ * Function component to render a row of the board.
+ * @param {Object} props React Props.
+ * @param {Array<Number>} props.arr three row indices.
+ * @param {function} props.renderSquare function for rendering a square.
+ * @returns {React.JSX.Element} &lt;div&gt; tag with three {@link Board#renderSquare squares}.
+ */
+function Row({
+  arr,
+  renderSquare
+} = props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "board-row"
+  }, arr.map(item => {
+    return renderSquare(item);
+  }));
 }
 
 /**
@@ -198,16 +233,22 @@ class Board extends React.Component {
   }
 
   /**
-   * We’ll pass down a prop, from the Board to the Square,
-   * with a value and function, and we’ll have Square call
+   * We'll pass down a prop, from the Board to the Square,
+   * with a value and function, and we'll have Square call
    * that function when a square is clicked.
    *
    * @param {Number} i square index ∈ [0..8].
-   * @returns {Square} the i-th square with its value and click callback.
+   * @returns {React.JSX.Element} the i-th square with its value and click callback.
    */
   renderSquare(i) {
+    const winner_square = this.props.winner && this.props.winner.line.includes(i);
+    const color = winner_square ? cTable.winner : cTable.normal;
+    const backg = winner_square ? cTable.backw : cTable.backn;
     return /*#__PURE__*/React.createElement(Square, {
+      key: i,
       value: this.props.squares[i],
+      color: color,
+      backg: backg,
       onClick: () => this.props.onClick(i)
     });
   }
@@ -219,20 +260,24 @@ class Board extends React.Component {
    * @see {@link https://legacy.reactjs.org/docs/react-component.html#render render()}
    */
   render() {
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      className: "board-row"
-    }, this.renderSquare(0), this.renderSquare(1), this.renderSquare(2)), /*#__PURE__*/React.createElement("div", {
-      className: "board-row"
-    }, this.renderSquare(3), this.renderSquare(4), this.renderSquare(5)), /*#__PURE__*/React.createElement("div", {
-      className: "board-row"
-    }, this.renderSquare(6), this.renderSquare(7), this.renderSquare(8)));
+    const rSquare = i => this.renderSquare(i);
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Row, {
+      arr: [0, 1, 2],
+      renderSquare: rSquare
+    }), /*#__PURE__*/React.createElement(Row, {
+      arr: [3, 4, 5],
+      renderSquare: rSquare
+    }), /*#__PURE__*/React.createElement(Row, {
+      arr: [6, 7, 8],
+      renderSquare: rSquare
+    }));
   }
 }
 
 /**
  * <p>Game class.</p>
  *
- * To “remember” things, components use {@link https://legacy.reactjs.org/docs/faq-state.html state}.
+ * To “remember” things, components maintain a {@link https://legacy.reactjs.org/docs/faq-state.html state}.
  * React components can have state by setting <strong>this.state</strong>
  * in their constructors, which should be considered as private
  * to a React component that it’s defined in.
@@ -313,6 +358,21 @@ class Game extends React.Component {
    * <ul>
    *  <li>if the immutable object that is being referenced is different than the previous one,
    *  then the object has changed.</li>
+   * </ul>
+   *
+   * <ul>
+   * <li>When you set state in React, a new value must be passed or
+   * React will bail-out and not *re-render your component.
+   * React uses something similar to === to compare the old and new state
+   * to see if they're the same.</li>
+   * </ul>
+   * <ul>
+   * <li>It does shallow equality checks and this is why objects and arrays
+   * cannot simply be mutated to create a state change because a
+   * mutation will not create a new reference for React to notice a change.
+   * React requires immutability because you'll create a whole new copy
+   * of objects and arrays
+   * with your changes in order to satisfy a shallow equality check.</li>
    * </ul>
    *
    * @param {Number} i an index ∈ [0..8] corresponding to the button clicked.
@@ -417,7 +477,7 @@ class Game extends React.Component {
     });
     let status;
     if (winner) {
-      status = `Winner: ${winner}`;
+      status = `Winner: ${winner.winner}`;
     } else if (this.state.stepNumber > 8) {
       status = "Game Over: Draw";
     } else {
@@ -435,13 +495,13 @@ class Game extends React.Component {
     }, /*#__PURE__*/React.createElement("div", {
       className: "game-logo"
     }, /*#__PURE__*/React.createElement("a", {
-      href: "https://github.com/krotalias/cwdc/tree/main/14-react/tic-tac-toe"
+      href: "https://javascript.info"
     }, /*#__PURE__*/React.createElement("img", {
-      src: "./src/github.png",
+      src: "./src/javascript.png",
       style: {
         height: "32px"
       },
-      alt: "github"
+      alt: "javascript"
     }))), /*#__PURE__*/React.createElement("div", {
       className: "game-board"
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
@@ -450,6 +510,7 @@ class Game extends React.Component {
       }
     }, status)), /*#__PURE__*/React.createElement(Board, {
       squares: current.squares,
+      winner: winner,
       onClick: i => this.handleClick(i)
     })), /*#__PURE__*/React.createElement("div", {
       className: "game-info"
@@ -482,11 +543,11 @@ class Game extends React.Component {
  */
 
 if (React.version < "18") {
-  ReactDOM.render( /*#__PURE__*/React.createElement(Game, null), document.getElementById("tic-tac-toe"));
+  ReactDOM.render(/*#__PURE__*/React.createElement(Game, null), document.getElementById("tic-tac-toe"));
   console.log(`Using ReactDOM.render: ${React.version}`);
 } else {
   const root = ReactDOM.createRoot(document.getElementById("tic-tac-toe"));
-  root.render( /*#__PURE__*/React.createElement(Game, null));
+  root.render(/*#__PURE__*/React.createElement(Game, null));
   console.log(`Using ReactDOM.createRoot: ${React.version}`);
 }
 
@@ -494,15 +555,23 @@ if (React.version < "18") {
  * Given an array of 9 squares, this function will check
  * for a winner and return 'X', 'O', or null as appropriate.
  *
- * @param {Array<String>} squares a given array of 9 squares.
- * @returns {String} <p>the winner: "X", "O", or null if there is not a winner.</p>
+ * @param {Array<String>} squares a given array with 9 "X" / "O".
+ * @returns {Object<winner:String, line:Array<Number>>}
+ * the winner: "X" or "O", and the configuration: line, column or diagonal, <br>
+ * or null, if there is no winner.
  */
 function calculateWinner(squares) {
-  // The eight winner configurations: rows, columns and diagonals.
+  /**
+   * The eight winner configurations: rows, columns and diagonals.
+   * @type {Array<Array<Number>>}
+   */
   const lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
   for (const [a, b, c] of lines) {
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return {
+        winner: squares[a],
+        line: [a, b, c]
+      };
     }
   }
   return null;

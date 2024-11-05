@@ -113,7 +113,6 @@
  * no longer recommends CRA as the go-to solution for creating React applications.
  *
  * @namespace React
- * @memberof external:react
  * @see {@link https://react.dev/learn/start-a-new-react-project Start a New React Project}
  * @see {@link https://legacy.reactjs.org/docs/create-a-new-react-app.html Create a New React App}
  * @see {@link https://www.epicweb.dev/why-i-wont-use-nextjs Why I Won't Use Next.js}
@@ -139,6 +138,17 @@
  */
 
 /**
+ * Color table for winner color and background.
+ * @type {Object<String,String>}
+ */
+const cTable = {
+  winner: "red",
+  backw: "lightgrey",
+  normal: "black",
+  backn: "white",
+};
+
+/**
  * <p>A function component.</p>
  * <p>In React, {@link https://legacy.reactjs.org/docs/components-and-props.html function components}
  * are a simpler way to write components that
@@ -150,20 +160,42 @@
  * {@link https://stackoverflow.com/questions/42522515/what-are-react-controlled-components-and-uncontrolled-components controlled components}.
  * The Board has full control over them.
  *
- * @component
  * @param {Object} props React Props.
  * @param {Number} props.value an index ∈ [0..8].
+ * @param {String} props.color square color.
+ * @param {String} props.backg square background color.
  * @param {Game#handleClick} props.onClick button onClick callback.
  * @returns {React.JSX.Element} a &lt;button&gt; tag with the given props.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment Destructuring assignment}
  * @see {@link https://michael-karen.medium.com/getting-started-with-modern-javascript-destructuring-assignment-140d0adc37da Getting Started with Modern JavaScript — Destructuring}
  * @see {@link https://javascript.info/destructuring-assignment Destructuring assignment}
  */
-function Square({ value, onClick } = props) {
+function Square({ value, color, backg, onClick } = props) {
   return (
-    <button className="square" onClick={onClick}>
+    <button
+      className="square"
+      style={{ color: color, background: backg }}
+      onClick={onClick}
+    >
       {value}
     </button>
+  );
+}
+
+/**
+ * Function component to render a row of the board.
+ * @param {Object} props React Props.
+ * @param {Array<Number>} props.arr three row indices.
+ * @param {function} props.renderSquare function for rendering a square.
+ * @returns {React.JSX.Element} &lt;div&gt; tag with three {@link Board#renderSquare squares}.
+ */
+function Row({ arr, renderSquare } = props) {
+  return (
+    <div className="board-row">
+      {arr.map((item) => {
+        return renderSquare(item);
+      })}
+    </div>
   );
 }
 
@@ -196,17 +228,24 @@ class Board extends React.Component {
   }
 
   /**
-   * We’ll pass down a prop, from the Board to the Square,
-   * with a value and function, and we’ll have Square call
+   * We'll pass down a prop, from the Board to the Square,
+   * with a value and function, and we'll have Square call
    * that function when a square is clicked.
    *
    * @param {Number} i square index ∈ [0..8].
-   * @returns {Square} the i-th square with its value and click callback.
+   * @returns {React.JSX.Element} the i-th square with its value and click callback.
    */
   renderSquare(i) {
+    const winner_square =
+      this.props.winner && this.props.winner.line.includes(i);
+    const color = winner_square ? cTable.winner : cTable.normal;
+    const backg = winner_square ? cTable.backw : cTable.backn;
     return (
       <Square
+        key={i}
         value={this.props.squares[i]}
+        color={color}
+        backg={backg}
         onClick={() => this.props.onClick(i)}
       />
     );
@@ -219,23 +258,12 @@ class Board extends React.Component {
    * @see {@link https://legacy.reactjs.org/docs/react-component.html#render render()}
    */
   render() {
+    const rSquare = (i) => this.renderSquare(i);
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        <Row arr={[0, 1, 2]} renderSquare={rSquare} />
+        <Row arr={[3, 4, 5]} renderSquare={rSquare} />
+        <Row arr={[6, 7, 8]} renderSquare={rSquare} />
       </div>
     );
   }
@@ -244,7 +272,7 @@ class Board extends React.Component {
 /**
  * <p>Game class.</p>
  *
- * To “remember” things, components use {@link https://legacy.reactjs.org/docs/faq-state.html state}.
+ * To “remember” things, components maintain a {@link https://legacy.reactjs.org/docs/faq-state.html state}.
  * React components can have state by setting <strong>this.state</strong>
  * in their constructors, which should be considered as private
  * to a React component that it’s defined in.
@@ -327,6 +355,21 @@ class Game extends React.Component {
    * <ul>
    *  <li>if the immutable object that is being referenced is different than the previous one,
    *  then the object has changed.</li>
+   * </ul>
+   *
+   * <ul>
+   * <li>When you set state in React, a new value must be passed or
+   * React will bail-out and not *re-render your component.
+   * React uses something similar to === to compare the old and new state
+   * to see if they're the same.</li>
+   * </ul>
+   * <ul>
+   * <li>It does shallow equality checks and this is why objects and arrays
+   * cannot simply be mutated to create a state change because a
+   * mutation will not create a new reference for React to notice a change.
+   * React requires immutability because you'll create a whole new copy
+   * of objects and arrays
+   * with your changes in order to satisfy a shallow equality check.</li>
    * </ul>
    *
    * @param {Number} i an index ∈ [0..8] corresponding to the button clicked.
@@ -430,7 +473,7 @@ class Game extends React.Component {
 
     let status;
     if (winner) {
-      status = `Winner: ${winner}`;
+      status = `Winner: ${winner.winner}`;
     } else if (this.state.stepNumber > 8) {
       status = "Game Over: Draw";
     } else {
@@ -446,11 +489,11 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-logo">
-          <a href="https://github.com/krotalias/cwdc/tree/main/14-react/tic-tac-toe">
+          <a href="https://javascript.info">
             <img
-              src="./src/github.png"
+              src="./src/javascript.png"
               style={{ height: "32px" }}
-              alt="github"
+              alt="javascript"
             />
           </a>
         </div>
@@ -460,6 +503,7 @@ class Game extends React.Component {
           </div>
           <Board
             squares={current.squares}
+            winner={winner}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
@@ -505,11 +549,16 @@ if (React.version < "18") {
  * Given an array of 9 squares, this function will check
  * for a winner and return 'X', 'O', or null as appropriate.
  *
- * @param {Array<String>} squares a given array of 9 squares.
- * @returns {String} <p>the winner: "X", "O", or null if there is not a winner.</p>
+ * @param {Array<String>} squares a given array with 9 "X" / "O".
+ * @returns {Object<winner:String, line:Array<Number>>}
+ * the winner: "X" or "O", and the configuration: line, column or diagonal, <br>
+ * or null, if there is no winner.
  */
 function calculateWinner(squares) {
-  // The eight winner configurations: rows, columns and diagonals.
+  /**
+   * The eight winner configurations: rows, columns and diagonals.
+   * @type {Array<Array<Number>>}
+   */
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -522,7 +571,7 @@ function calculateWinner(squares) {
   ];
   for (const [a, b, c] of lines) {
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return { winner: squares[a], line: [a, b, c] };
     }
   }
   return null;

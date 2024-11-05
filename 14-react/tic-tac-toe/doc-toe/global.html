@@ -94,9 +94,316 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="cTable"><span class="type-signature">(constant) </span>cTable<span class="type-signature"> :Object.&lt;String, String></span></h4>
+
+
+
+
+<div class="description">
+    Color table for winner color and background.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object.&lt;String, String></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="Row"><span class="type-signature"></span>Row<span class="signature">(props)</span><span class="type-signature"> &rarr; {React.JSX.Element}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function component to render a row of the board.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>props</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">React Props.
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>arr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Number></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">three row indices.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>renderSquare</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">function for rendering a square.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line192">line 192</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    &lt;div&gt; tag with three <a href="Board.html#renderSquare">squares</a>.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">React.JSX.Element</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
 
         
             
@@ -222,6 +529,52 @@ The Board has full control over them.
 
         <tr>
             
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">square color.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>backg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">square background color.</td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>onClick</code></td>
             
 
@@ -286,7 +639,7 @@ The Board has full control over them.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line162">line 162</a>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line173">line 173</a>
     </li></ul></dd>
     
 
@@ -355,7 +708,7 @@ The Board has full control over them.
     
 
     
-    <h4 class="name" id="calculateWinner"><span class="type-signature"></span>calculateWinner<span class="signature">(squares)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="calculateWinner"><span class="type-signature"></span>calculateWinner<span class="signature">(squares)</span><span class="type-signature"> &rarr; {Object.&lt;winner:String, line:Array.&lt;Number>>}</span></h4>
     
 
     
@@ -416,7 +769,7 @@ for a winner and return 'X', 'O', or null as appropriate.
 
             
 
-            <td class="description last">a given array of 9 squares.</td>
+            <td class="description last">a given array with 9 "X" / "O".</td>
         </tr>
 
     
@@ -457,7 +810,7 @@ for a winner and return 'X', 'O', or null as appropriate.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line511">line 511</a>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line557">line 557</a>
     </li></ul></dd>
     
 
@@ -486,7 +839,8 @@ for a winner and return 'X', 'O', or null as appropriate.
 
         
 <div class="param-desc">
-    <p>the winner: "X", "O", or null if there is not a winner.</p>
+    the winner: "X" or "O", and the configuration: line, column or diagonal, <br>
+or null, if there is no winner.
 </div>
 
 
@@ -497,7 +851,7 @@ for a winner and return 'X', 'O', or null as appropriate.
     </dt>
     <dd>
         
-<span class="param-type">String</span>
+<span class="param-type">Object.&lt;winner:String, line:Array.&lt;Number>></span>
 
 
     </dd>
@@ -588,7 +942,7 @@ React automatically updates the child components inside of it too.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line349">line 349</a>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line392">line 392</a>
     </li></ul></dd>
     
 
@@ -641,13 +995,13 @@ React automatically updates the child components inside of it too.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-react.html">react</a></li><li><a href="external-react-dom.html">react-dom</a></li></ul><h3>Namespaces</h3><ul><li><a href="external-react.React.html">React</a></li></ul><h3>Classes</h3><ul><li><a href="Board.html">Board</a></li><li><a href="Game.html">Game</a></li><li><a href="React.Component.html">Component</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Square">Square</a></li><li><a href="global.html#calculateWinner">calculateWinner</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-react.html">react</a></li><li><a href="external-react-dom.html">react-dom</a></li></ul><h3>Namespaces</h3><ul><li><a href="React.html">React</a></li></ul><h3>Classes</h3><ul><li><a href="Board.html">Board</a></li><li><a href="Game.html">Game</a></li><li><a href="React.Component.html">Component</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Row">Row</a></li><li><a href="global.html#Square">Square</a></li><li><a href="global.html#cTable">cTable</a></li><li><a href="global.html#calculateWinner">calculateWinner</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Oct 30 2024 09:08:11 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Nov 05 2024 08:18:21 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

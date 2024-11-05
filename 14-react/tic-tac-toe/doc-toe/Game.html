@@ -32,7 +32,7 @@
         
             <div class="class-description"><p>Game class.</p>
 
-To “remember” things, components use <a href="https://legacy.reactjs.org/docs/faq-state.html">state</a>.
+To “remember” things, components maintain a <a href="https://legacy.reactjs.org/docs/faq-state.html">state</a>.
 React components can have state by setting <strong>this.state</strong>
 in their constructors, which should be considered as private
 to a React component that it’s defined in.
@@ -168,7 +168,7 @@ from the first to the last move.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line259">line 259</a>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line287">line 287</a>
     </li></ul></dd>
     
 
@@ -295,7 +295,7 @@ from the first to the last move.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line421">line 421</a>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line464">line 464</a>
     </li></ul></dd>
     
 
@@ -488,7 +488,7 @@ from the first to the last move.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line289">line 289</a>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line317">line 317</a>
     </li></ul></dd>
     
 
@@ -553,6 +553,21 @@ Detecting changes in immutable objects is considerably easier:
 <ul>
  <li>if the immutable object that is being referenced is different than the previous one,
  then the object has changed.</li>
+</ul>
+
+<ul>
+<li>When you set state in React, a new value must be passed or
+React will bail-out and not *re-render your component.
+React uses something similar to === to compare the old and new state
+to see if they're the same.</li>
+</ul>
+<ul>
+<li>It does shallow equality checks and this is why objects and arrays
+cannot simply be mutated to create a state change because a
+mutation will not create a new reference for React to notice a change.
+React requires immutability because you'll create a whole new copy
+of objects and arrays
+with your changes in order to satisfy a shallow equality check.</li>
 </ul>
 </div>
 
@@ -646,7 +661,7 @@ Detecting changes in immutable objects is considerably easier:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line336">line 336</a>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line379">line 379</a>
     </li></ul></dd>
     
 
@@ -798,7 +813,7 @@ to event handlers and server responses.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line391">line 391</a>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line434">line 434</a>
     </li></ul></dd>
     
 
@@ -893,7 +908,7 @@ to event handlers and server responses.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line406">line 406</a>
+        <a href="tic-tac-toe.js.html">tic-tac-toe.js</a>, <a href="tic-tac-toe.js.html#line449">line 449</a>
     </li></ul></dd>
     
 
@@ -971,13 +986,13 @@ an ordered list of buttons for the time travel.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-react.html">react</a></li><li><a href="external-react-dom.html">react-dom</a></li></ul><h3>Namespaces</h3><ul><li><a href="external-react.React.html">React</a></li></ul><h3>Classes</h3><ul><li><a href="Board.html">Board</a></li><li><a href="Game.html">Game</a></li><li><a href="React.Component.html">Component</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Square">Square</a></li><li><a href="global.html#calculateWinner">calculateWinner</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-react.html">react</a></li><li><a href="external-react-dom.html">react-dom</a></li></ul><h3>Namespaces</h3><ul><li><a href="React.html">React</a></li></ul><h3>Classes</h3><ul><li><a href="Board.html">Board</a></li><li><a href="Game.html">Game</a></li><li><a href="React.Component.html">Component</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Row">Row</a></li><li><a href="global.html#Square">Square</a></li><li><a href="global.html#cTable">cTable</a></li><li><a href="global.html#calculateWinner">calculateWinner</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Oct 30 2024 09:08:11 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Nov 05 2024 08:18:21 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
