@@ -218,6 +218,7 @@ class Board extends React.Component {
    * Board constructor.
    * @param {Object} props component input.
    * @param {Array<String>} props.squares current array with their 9 squares.
+   * @param {Object<String, Array<Number>>} props.winner winner and configuration.
    * @param {Game#handleClick} props.onClick button onClick callback.
    * @extends {React.Component<Props>}
    * @see {@link https://reactjs.org/docs/react-component.html React.Component}
@@ -253,7 +254,7 @@ class Board extends React.Component {
 
   /**
    * {@link Board#renderSquare Renders} the 9 squares of the board.
-   * @returns {React.JSX.Elementt} a &lt;div&gt; tag with a 3 × 3 grid layout, with 3
+   * @returns {React.JSX.Element} a &lt;div&gt; tag with a 3 × 3 grid layout, with 3
    * buttons per row, each of which with value 'X', 'O' or null.
    * @see {@link https://legacy.reactjs.org/docs/react-component.html#render render()}
    */

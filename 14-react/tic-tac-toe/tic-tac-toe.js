@@ -141,7 +141,20 @@
  * Color table for winner color and background.
  * @type {Object<String,String>}
  */
-const cTable = {
+
+var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x3, _x4, _x5) { var _again = true; _function: while (_again) { var object = _x3, property = _x4, receiver = _x5; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x3 = parent; _x4 = property; _x5 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var cTable = {
   winner: "red",
   backw: "lightgrey",
   normal: "black",
@@ -170,20 +183,23 @@ const cTable = {
  * @see {@link https://michael-karen.medium.com/getting-started-with-modern-javascript-destructuring-assignment-140d0adc37da Getting Started with Modern JavaScript — Destructuring}
  * @see {@link https://javascript.info/destructuring-assignment Destructuring assignment}
  */
-function Square({
-  value,
-  color,
-  backg,
-  onClick
-} = props) {
-  return /*#__PURE__*/React.createElement("button", {
-    className: "square",
-    style: {
-      color: color,
-      background: backg
+function Square() {
+  var _ref = arguments.length <= 0 || arguments[0] === undefined ? props : arguments[0];
+
+  var value = _ref.value;
+  var color = _ref.color;
+  var backg = _ref.backg;
+  var onClick = _ref.onClick;
+
+  return React.createElement(
+    "button",
+    {
+      className: "square",
+      style: { color: color, background: backg },
+      onClick: onClick
     },
-    onClick: onClick
-  }, value);
+    value
+  );
 }
 
 /**
@@ -193,15 +209,19 @@ function Square({
  * @param {function} props.renderSquare function for rendering a square.
  * @returns {React.JSX.Element} &lt;div&gt; tag with three {@link Board#renderSquare squares}.
  */
-function Row({
-  arr,
-  renderSquare
-} = props) {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "board-row"
-  }, arr.map(item => {
-    return renderSquare(item);
-  }));
+function Row() {
+  var _ref2 = arguments.length <= 0 || arguments[0] === undefined ? props : arguments[0];
+
+  var arr = _ref2.arr;
+  var renderSquare = _ref2.renderSquare;
+
+  return React.createElement(
+    "div",
+    { className: "board-row" },
+    arr.map(function (item) {
+      return renderSquare(item);
+    })
+  );
 }
 
 /**
@@ -218,19 +238,42 @@ function Row({
  * All of this is possible because of {@link https://levelup.gitconnected.com/unlocking-the-power-of-closures-in-react-components-ba5903f4710a closures}.
  * @extends {React.Component}
  */
-class Board extends React.Component {
+
+var Board = (function (_React$Component) {
+  _inherits(Board, _React$Component);
+
   /**
    * Board constructor.
    * @param {Object} props component input.
    * @param {Array<String>} props.squares current array with their 9 squares.
+   * @param {Object<String, Array<Number>>} props.winner winner and configuration.
    * @param {Game#handleClick} props.onClick button onClick callback.
    * @extends {React.Component<Props>}
    * @see {@link https://reactjs.org/docs/react-component.html React.Component}
    */
-  constructor(props) {
-    super(props);
+
+  function Board(props) {
+    _classCallCheck(this, Board);
+
+    _get(Object.getPrototypeOf(Board.prototype), "constructor", this).call(this, props);
     console.log("Board props: ", props);
   }
+
+  /**
+   * <p>Game class.</p>
+   *
+   * To “remember” things, components maintain a {@link https://legacy.reactjs.org/docs/faq-state.html state}.
+   * React components can have state by setting <strong>this.state</strong>
+   * in their constructors, which should be considered as private
+   * to a React component that it’s defined in.
+   *
+   * <p>To add a Time Travel, to “go back in time” to the previous moves in the game,
+   * we need a History of Moves.</p>
+   *
+   * We’ll store the past squares arrays in another array called {@link Game#state history}.
+   * The history array represents all board states,
+   * from the first to the last move.
+   */
 
   /**
    * We'll pass down a prop, from the Board to the Square,
@@ -240,56 +283,56 @@ class Board extends React.Component {
    * @param {Number} i square index ∈ [0..8].
    * @returns {React.JSX.Element} the i-th square with its value and click callback.
    */
-  renderSquare(i) {
-    const winner_square = this.props.winner && this.props.winner.line.includes(i);
-    const color = winner_square ? cTable.winner : cTable.normal;
-    const backg = winner_square ? cTable.backw : cTable.backn;
-    return /*#__PURE__*/React.createElement(Square, {
-      key: i,
-      value: this.props.squares[i],
-      color: color,
-      backg: backg,
-      onClick: () => this.props.onClick(i)
-    });
-  }
 
-  /**
-   * {@link Board#renderSquare Renders} the 9 squares of the board.
-   * @returns {React.JSX.Elementt} a &lt;div&gt; tag with a 3 × 3 grid layout, with 3
-   * buttons per row, each of which with value 'X', 'O' or null.
-   * @see {@link https://legacy.reactjs.org/docs/react-component.html#render render()}
-   */
-  render() {
-    const rSquare = i => this.renderSquare(i);
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Row, {
-      arr: [0, 1, 2],
-      renderSquare: rSquare
-    }), /*#__PURE__*/React.createElement(Row, {
-      arr: [3, 4, 5],
-      renderSquare: rSquare
-    }), /*#__PURE__*/React.createElement(Row, {
-      arr: [6, 7, 8],
-      renderSquare: rSquare
-    }));
-  }
-}
+  _createClass(Board, [{
+    key: "renderSquare",
+    value: function renderSquare(i) {
+      var _this = this;
 
-/**
- * <p>Game class.</p>
- *
- * To “remember” things, components maintain a {@link https://legacy.reactjs.org/docs/faq-state.html state}.
- * React components can have state by setting <strong>this.state</strong>
- * in their constructors, which should be considered as private
- * to a React component that it’s defined in.
- *
- * <p>To add a Time Travel, to “go back in time” to the previous moves in the game,
- * we need a History of Moves.</p>
- *
- * We’ll store the past squares arrays in another array called {@link Game#state history}.
- * The history array represents all board states,
- * from the first to the last move.
- */
-class Game extends React.Component {
+      var winner_square = this.props.winner && this.props.winner.line.includes(i);
+      var color = winner_square ? cTable.winner : cTable.normal;
+      var backg = winner_square ? cTable.backw : cTable.backn;
+      return React.createElement(Square, {
+        key: i,
+        value: this.props.squares[i],
+        color: color,
+        backg: backg,
+        onClick: function () {
+          return _this.props.onClick(i);
+        }
+      });
+    }
+
+    /**
+     * {@link Board#renderSquare Renders} the 9 squares of the board.
+     * @returns {React.JSX.Element} a &lt;div&gt; tag with a 3 × 3 grid layout, with 3
+     * buttons per row, each of which with value 'X', 'O' or null.
+     * @see {@link https://legacy.reactjs.org/docs/react-component.html#render render()}
+     */
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var rSquare = function rSquare(i) {
+        return _this2.renderSquare(i);
+      };
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(Row, { arr: [0, 1, 2], renderSquare: rSquare }),
+        React.createElement(Row, { arr: [3, 4, 5], renderSquare: rSquare }),
+        React.createElement(Row, { arr: [6, 7, 8], renderSquare: rSquare })
+      );
+    }
+  }]);
+
+  return Board;
+})(React.Component);
+
+var Game = (function (_React$Component2) {
+  _inherits(Game, _React$Component2);
+
   /**
    * <ul>
    *    <li>Set up the initial state of the game: board configuration,
@@ -307,8 +350,11 @@ class Game extends React.Component {
    * @extends {React.Component<Props>}
    * @see {@link https://reactjs.org/docs/react-component.html React.Component}
    */
-  constructor(props) {
-    super(props);
+
+  function Game(props) {
+    _classCallCheck(this, Game);
+
+    _get(Object.getPrototypeOf(Game.prototype), "constructor", this).call(this, props);
     console.log("Game props: ", props);
 
     /**
@@ -327,6 +373,26 @@ class Game extends React.Component {
       xIsNext: true
     };
   }
+
+  // ========================================
+
+  /**
+   * Render a React element into the DOM in the supplied container and
+   * return a reference to the component (or returns null for stateless components).
+   * <p>Deprecated.</p>
+   * @method render
+   * @memberof external:react-dom
+   * @see {@link https://reactjs.org/docs/react-dom.html#render render()}
+   * @see {@link https://react.dev/reference/react-dom/render render}
+   */
+
+  /**
+   * Create a root to display React components inside a browser DOM node.
+   * After you’ve created a root, you need to call root.render to display a React component inside of it.
+   * @method createRoot
+   * @memberof external:react-dom
+   * @see {@link https://react.dev/reference/react-dom/client/createRoot createRoot}
+   */
 
   /**
    * <p>The {@link Square} calls this.handleClick(i) when clicked.</p>
@@ -379,176 +445,195 @@ class Game extends React.Component {
    * @see {@link https://reactjs.org/docs/react-component.html#setstate setState()}
    * @see {@link https://www.codecademy.com/resources/docs/javascript/arrays/slice .slice()}
    */
-  handleClick(i) {
-    // a copy of the current history up to stepNumber.
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    // the last configuration.
-    const current = history[history.length - 1];
-    // a copy of the last array of "X"s and "O"s from the copied history.
-    const nextSquares = current.squares.slice();
-    // check for a winner or if the i-th square has been already marked.
-    if (calculateWinner(nextSquares) || nextSquares[i]) {
-      return;
-    }
-    nextSquares[i] = this.state.xIsNext ? "X" : "O";
 
-    /**
-     * <p>Add the new configuration (another square array) to {@link Game#state history}.</p>
-     * <pre>
-     * History: Array (5) = $2
-     *  0 {squares: Array}
-     *      squares: [null, null, null, null, null, null, null, null, null] (9)
-     *  1 {squares: Array}
-     *      squares: ["X", null, null, null, null, null, null, null, null] (9)
-     *  2 {squares: Array}
-     *      squares: ["X", null, null, null, null, null, null, null, "O"] (9)
-     *  3 {squares: Array}
-     *      squares: ["X", null, null, null, "X", null, null, null, "O"] (9)
-     *  4 {squares: Array}
-     *      squares: ["X", null, "O", null, "X", null, null, null, "O"] (9)
-     * </pre>
-     * When you call {@link https://react.dev/reference/react/useState setState} in a component,
-     * React automatically updates the child components inside of it too.
-     * @callback state_setter
-     * @see {@link https://www.geeksforgeeks.org/reactjs-setstate/ ReactJS setState()}
-     * @see {@link https://dev.to/johnstonlogan/react-hooks-barney-style-1hk7 useState() vs setState() - Strings, Objects, and Arrays}
-     */
-    this.setState({
-      // creates a new array that contains all the items in history,
-      // followed by nextSquares (could have been used concat instead of spread).
-      history: [...history, {
-        squares: nextSquares
-      }],
-      stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
-    });
-  }
+  _createClass(Game, [{
+    key: "handleClick",
+    value: function handleClick(i) {
+      // a copy of the current history up to stepNumber.
+      var history = this.state.history.slice(0, this.state.stepNumber + 1);
+      // the last configuration.
+      var current = history[history.length - 1];
+      // a copy of the last array of "X"s and "O"s from the copied history.
+      var nextSquares = current.squares.slice();
+      // check for a winner or if the i-th square has been already marked.
+      if (calculateWinner(nextSquares) || nextSquares[i]) {
+        return;
+      }
+      nextSquares[i] = this.state.xIsNext ? "X" : "O";
 
-  /**
-   * <p>Go to the step-th move in the game.</p>
-   *
-   * <p>Enqueues changes to the component state and tells React that this component and
-   * its children need to be re-rendered with the updated state.</p>
-   *
-   * This is the primary method you use to update the user interface in response
-   * to event handlers and server responses.
-   *
-   * @param {Number} step position into the history array.
-   * @see {@link https://react.dev/reference/react/useState useState}
-   */
-  jumpTo(step) {
-    this.setState({
-      stepNumber: step,
-      xIsNext: step % 2 === 0
-    });
-  }
-
-  /**
-   * Renders the grid layout and an ordered list of buttons for each move in this game history.
-   *
-   * @returns {React.JSX.Element} a tag &lt;game&gt;, with the 3 × 3 {@link Board} grid layout and
-   * an ordered list of buttons for the time travel.
-   * @see {@link https://legacy.reactjs.org/docs/react-component.html#render render()}
-   * @see {@link https://www.w3schools.com/react/react_props.asp React Props}
-   */
-  render() {
-    const history = this.state.history;
-    const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
-
-    /**
-     * <p>Creates buttons for each move in history.</p>
-     * <pre>
-     *    0: {$$typeof: Symbol(react.element), type: "li", key: "0", ref: null, props: Object, …}
-     *    1: {$$typeof: Symbol(react.element), type: "li", key: "1", ref: null, props: Object, …}
-     *    ...
-     * </pre>
-     * @type {Array<React.JSX.Element>}
-     * @memberof Game#
-     */
-    const moves = history.map((step, move) => {
-      //                      go to   #move     or   when move is 0
-      const desc = move ? `Go to move #${move}` : "Go to game start";
-      return /*#__PURE__*/React.createElement("li", {
-        key: move
-      }, /*#__PURE__*/React.createElement("button", {
-        onClick: () => this.jumpTo(move)
-      }, desc));
-    });
-    let status;
-    if (winner) {
-      status = `Winner: ${winner.winner}`;
-    } else if (this.state.stepNumber > 8) {
-      status = "Game Over: Draw";
-    } else {
-      status = `Next player: ${this.state.xIsNext ? "X" : "O"}`;
+      /**
+       * <p>Add the new configuration (another square array) to {@link Game#state history}.</p>
+       * <pre>
+       * History: Array (5) = $2
+       *  0 {squares: Array}
+       *      squares: [null, null, null, null, null, null, null, null, null] (9)
+       *  1 {squares: Array}
+       *      squares: ["X", null, null, null, null, null, null, null, null] (9)
+       *  2 {squares: Array}
+       *      squares: ["X", null, null, null, null, null, null, null, "O"] (9)
+       *  3 {squares: Array}
+       *      squares: ["X", null, null, null, "X", null, null, null, "O"] (9)
+       *  4 {squares: Array}
+       *      squares: ["X", null, "O", null, "X", null, null, null, "O"] (9)
+       * </pre>
+       * When you call {@link https://react.dev/reference/react/useState setState} in a component,
+       * React automatically updates the child components inside of it too.
+       * @callback state_setter
+       * @see {@link https://www.geeksforgeeks.org/reactjs-setstate/ ReactJS setState()}
+       * @see {@link https://dev.to/johnstonlogan/react-hooks-barney-style-1hk7 useState() vs setState() - Strings, Objects, and Arrays}
+       */
+      this.setState({
+        // creates a new array that contains all the items in history,
+        // followed by nextSquares (could have been used concat instead of spread).
+        history: [].concat(_toConsumableArray(history), [{ squares: nextSquares }]),
+        stepNumber: history.length,
+        xIsNext: !this.state.xIsNext
+      });
     }
 
     /**
-     * This is really beautiful.
-     * {@link Board} is going to draw the configuration indicated by stepNumber,
-     * used to get the current entry into the history array.
-     * The Board component receives the arguments (squares, onClick) as a props object.
+     * <p>Go to the step-th move in the game.</p>
+     *
+     * <p>Enqueues changes to the component state and tells React that this component and
+     * its children need to be re-rendered with the updated state.</p>
+     *
+     * This is the primary method you use to update the user interface in response
+     * to event handlers and server responses.
+     *
+     * @param {Number} step position into the history array.
+     * @see {@link https://react.dev/reference/react/useState useState}
      */
-    return /*#__PURE__*/React.createElement("div", {
-      className: "game"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "game-logo"
-    }, /*#__PURE__*/React.createElement("a", {
-      href: "https://javascript.info"
-    }, /*#__PURE__*/React.createElement("img", {
-      src: "./src/javascript.png",
-      style: {
-        height: "32px"
-      },
-      alt: "javascript"
-    }))), /*#__PURE__*/React.createElement("div", {
-      className: "game-board"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
-      style: {
-        textAlign: "center"
+  }, {
+    key: "jumpTo",
+    value: function jumpTo(step) {
+      this.setState({
+        stepNumber: step,
+        xIsNext: step % 2 === 0
+      });
+    }
+
+    /**
+     * Renders the grid layout and an ordered list of buttons for each move in this game history.
+     *
+     * @returns {React.JSX.Element} a tag &lt;game&gt;, with the 3 × 3 {@link Board} grid layout and
+     * an ordered list of buttons for the time travel.
+     * @see {@link https://legacy.reactjs.org/docs/react-component.html#render render()}
+     * @see {@link https://www.w3schools.com/react/react_props.asp React Props}
+     */
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      var history = this.state.history;
+      var current = history[this.state.stepNumber];
+      var winner = calculateWinner(current.squares);
+
+      /**
+       * <p>Creates buttons for each move in history.</p>
+       * <pre>
+       *    0: {$$typeof: Symbol(react.element), type: "li", key: "0", ref: null, props: Object, …}
+       *    1: {$$typeof: Symbol(react.element), type: "li", key: "1", ref: null, props: Object, …}
+       *    ...
+       * </pre>
+       * @type {Array<React.JSX.Element>}
+       * @memberof Game#
+       */
+      var moves = history.map(function (step, move) {
+        //                      go to   #move     or   when move is 0
+        var desc = move ? "Go to move #" + move : "Go to game start";
+        return React.createElement(
+          "li",
+          { key: move },
+          React.createElement(
+            "button",
+            { onClick: function () {
+                return _this3.jumpTo(move);
+              } },
+            desc
+          )
+        );
+      });
+
+      var status = undefined;
+      if (winner) {
+        status = "Winner: " + winner.winner;
+      } else if (this.state.stepNumber > 8) {
+        status = "Game Over: Draw";
+      } else {
+        status = "Next player: " + (this.state.xIsNext ? "X" : "O");
       }
-    }, status)), /*#__PURE__*/React.createElement(Board, {
-      squares: current.squares,
-      winner: winner,
-      onClick: i => this.handleClick(i)
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "game-info"
-    }, /*#__PURE__*/React.createElement("p", {
-      style: {
-        textAlign: "center"
-      }
-    }, "History"), /*#__PURE__*/React.createElement("ol", null, moves)));
-  }
-}
 
-// ========================================
+      /**
+       * This is really beautiful.
+       * {@link Board} is going to draw the configuration indicated by stepNumber,
+       * used to get the current entry into the history array.
+       * The Board component receives the arguments (squares, onClick) as a props object.
+       */
+      return React.createElement(
+        "div",
+        { className: "game" },
+        React.createElement(
+          "div",
+          { className: "game-logo" },
+          React.createElement(
+            "a",
+            { href: "https://github.com/krotalias/cwdc/tree/main/14-react/tic-tac-toe" },
+            React.createElement("img", {
+              src: "./src/github.png",
+              style: { height: "32px" },
+              alt: "github"
+            })
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "game-board" },
+          React.createElement(
+            "div",
+            null,
+            React.createElement(
+              "p",
+              { style: { textAlign: "center" } },
+              status
+            )
+          ),
+          React.createElement(Board, {
+            squares: current.squares,
+            winner: winner,
+            onClick: function (i) {
+              return _this3.handleClick(i);
+            }
+          })
+        ),
+        React.createElement(
+          "div",
+          { className: "game-info" },
+          React.createElement(
+            "p",
+            { style: { textAlign: "center" } },
+            "History"
+          ),
+          React.createElement(
+            "ol",
+            null,
+            moves
+          )
+        )
+      );
+    }
+  }]);
 
-/**
- * Render a React element into the DOM in the supplied container and
- * return a reference to the component (or returns null for stateless components).
- * <p>Deprecated.</p>
- * @method render
- * @memberof external:react-dom
- * @see {@link https://reactjs.org/docs/react-dom.html#render render()}
- * @see {@link https://react.dev/reference/react-dom/render render}
- */
-
-/**
- * Create a root to display React components inside a browser DOM node.
- * After you’ve created a root, you need to call root.render to display a React component inside of it.
- * @method createRoot
- * @memberof external:react-dom
- * @see {@link https://react.dev/reference/react-dom/client/createRoot createRoot}
- */
+  return Game;
+})(React.Component);
 
 if (React.version < "18") {
-  ReactDOM.render(/*#__PURE__*/React.createElement(Game, null), document.getElementById("tic-tac-toe"));
-  console.log(`Using ReactDOM.render: ${React.version}`);
+  ReactDOM.render(React.createElement(Game, null), document.getElementById("tic-tac-toe"));
+  console.log("Using ReactDOM.render: " + React.version);
 } else {
-  const root = ReactDOM.createRoot(document.getElementById("tic-tac-toe"));
-  root.render(/*#__PURE__*/React.createElement(Game, null));
-  console.log(`Using ReactDOM.createRoot: ${React.version}`);
+  var root = ReactDOM.createRoot(document.getElementById("tic-tac-toe"));
+  root.render(React.createElement(Game, null));
+  console.log("Using ReactDOM.createRoot: " + React.version);
 }
 
 /**
@@ -565,14 +650,37 @@ function calculateWinner(squares) {
    * The eight winner configurations: rows, columns and diagonals.
    * @type {Array<Array<Number>>}
    */
-  const lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
-  for (const [a, b, c] of lines) {
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return {
-        winner: squares[a],
-        line: [a, b, c]
-      };
+  var lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = lines[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var _step$value = _slicedToArray(_step.value, 3);
+
+      var a = _step$value[0];
+      var b = _step$value[1];
+      var c = _step$value[2];
+
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+        return { winner: squares[a], line: [a, b, c] };
+      }
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator["return"]) {
+        _iterator["return"]();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
     }
   }
+
   return null;
 }
