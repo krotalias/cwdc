@@ -50,75 +50,62 @@
  * @see &lt;a href="../doc-counter/Counter.html"> Counter component &lt;/a>
  */
 class Counters extends React.Component {
-    /**
-     * Class components always need to call the base constructor with props.
-     * Moreover, ES6 classes need to call super in case they are subclasses.
-     * Thus, if you wish to use it in the constructor, you need to pass it to super().
-     *
-     * In case we omit it, we can always find props available inside render function.
-     * @param {Object} props component input.
-     * @param props.counters {Array&lt;Object&lt;id:Number,value:Number>>} array of counter objects.
-     * @param props.onReset {Function} callback to reset all counters.
-     * @param props.onIncrement {Function} callback to increment a counter.
-     * @param props.onDecrement {Function} callback to decrement a counter.
-     * @param props.onDelete {Function} callback to delete a counter.
-     * @param props.onInsert {Function} callback to insert a new counter.
-     * @extends {React.Component&lt;Props>}
-     * @see https://reactjs.org/docs/react-component.html
-     * @see https://www.digitalocean.com/community/tutorials/react-constructors-with-react-components
-     */
-    constructor(props) {
-        super(props);
-        console.log("Counters constructor: props", props);
-    }
+  /**
+   * Class components always need to call the base constructor with props.
+   * Moreover, ES6 classes need to call super in case they are subclasses.
+   * Thus, if you wish to use it in the constructor, you need to pass it to super().
+   *
+   * In case we omit it, we can always find props available inside render function.
+   * @param {Object} props component input.
+   * @param props.counters {Array&lt;Object&lt;id:Number,value:Number>>} array of counter objects.
+   * @param props.onReset {Function} callback to reset all counters.
+   * @param props.onIncrement {Function} callback to increment a counter.
+   * @param props.onDecrement {Function} callback to decrement a counter.
+   * @param props.onDelete {Function} callback to delete a counter.
+   * @param props.onInsert {Function} callback to insert a new counter.
+   * @extends {React.Component&lt;Props>}
+   * @see https://reactjs.org/docs/react-component.html
+   * @see https://www.digitalocean.com/community/tutorials/react-constructors-with-react-components
+   */
+  constructor(props) {
+    super(props);
+    console.log("Counters constructor: props", props);
+  }
 
-    /**
-     * &lt;p>Using a special prop called children to pass something between the opening and closing tag
-     * of an element. Counter could be self closed, but here we pass an &amp;lt;h6&amp;gt; tag.&lt;/p>
-     *
-     * This is useful when using dialog boxes to allow the consumer of that component
-     * to pass content to be rendered on the dialog box.
-     * @memberof React.Component
-     * @return {HTMLDivElement} a reset button plus a number of Counter components.
-     */
-    render() {
-        const {
-            counters,
-            onReset,
-            onDelete,
-            onIncrement,
-            onDecrement,
-            onInsert,
-        } = this.props;
-        return (
-            &lt;div>
-                &lt;button
-                    onClick={onReset}
-                    className="btn btn-primary btn-sm m-2"
-                >
-                    Reset
-                &lt;/button>
-                &lt;button
-                    onClick={onInsert}
-                    className="btn btn-primary btn-sm m-2"
-                >
-                    Insert
-                &lt;/button>
-                {counters.map((counter) => (
-                    &lt;Counter
-                        key={counter.id}
-                        // Counter component raises these events and we are bubbling them up to its parent
-                        onDelete={onDelete}
-                        onIncrement={onIncrement}
-                        onDecrement={onDecrement}
-                        counter={counter}
-                    >
-                        &lt;h6>{counter.id})&lt;/h6>
-                    &lt;/Counter>
-                ))}
-            &lt;/div>
-        );
-    }
+  /**
+   * &lt;p>Using a special prop called children to pass something between the opening and closing tag
+   * of an element. Counter could be self closed, but here we pass an &amp;lt;h6&amp;gt; tag.&lt;/p>
+   *
+   * This is useful when using dialog boxes to allow the consumer of that component
+   * to pass content to be rendered on the dialog box.
+   * @return {React.JSX.Element} a reset button plus a number of Counter components.
+   */
+  render() {
+    const { counters, onReset, onDelete, onIncrement, onDecrement, onInsert } =
+      this.props;
+    return (
+      &lt;div>
+        &lt;button onClick={onReset} className="btn btn-primary btn-sm m-2">
+          Reset
+        &lt;/button>
+        &lt;button onClick={onInsert} className="btn btn-primary btn-sm m-2">
+          Insert
+        &lt;/button>
+        {counters.map((counter) => (
+          &lt;Counter
+            key={counter.id}
+            // Counter component raises these events and we are bubbling them up to its parent
+            onDelete={onDelete}
+            onIncrement={onIncrement}
+            onDecrement={onDecrement}
+            counter={counter}
+          >
+            &lt;h6>{counter.id})&lt;/h6>
+          &lt;/Counter>
+        ))}
+      &lt;/div>
+    );
+  }
 }
 </code></pre>
         </article>
@@ -130,13 +117,13 @@ class Counters extends React.Component {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-react.html">react</a></li><li><a href="external-react-dom.html">react-dom</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Counter.html">Counter</a></li><li><a href="Counters.html">Counters</a></li><li><a href="React.Component.html">Component</a></li><li><a href="external-react.React.html">React</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NavBar">NavBar</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-react.html">react</a></li><li><a href="external-react-dom.html">react-dom</a></li></ul><h3>Namespaces</h3><ul><li><a href="React.html">React</a></li></ul><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Counter.html">Counter</a></li><li><a href="Counters.html">Counters</a></li><li><a href="React.Component.html">Component</a></li></ul><h3>Global</h3><ul><li><a href="global.html#NavBar">NavBar</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Dec 24 2023 17:20:07 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Nov 07 2024 07:08:28 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

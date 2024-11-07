@@ -19,47 +19,45 @@
  * To simplify this code, we use object destructuring, to avoid using this.props, but
  * just totalCounters.
  *
- * @return {HTMLElement} a &lt;nav&gt; tag with the total of non-zero counters.
- * @see https://getbootstrap.com/docs/5.0/components/navbar/
- * @see https://getbootstrap.com/docs/5.0/components/badge/
+ * @return {React.JSX.Element} a &lt;nav&gt; tag with the total of non-zero counters.
+ * @see {@link https://getbootstrap.com/docs/5.0/components/navbar/ Navbar}
+ * @see {@link https://getbootstrap.com/docs/5.0/components/badge/ Badges}
  */
 const NavBar = ({ totalCounters }) => {
-    return (
-        <nav className="navbar navbar-light bg-light">
-            <div style={{ fontSize: "32px" }}>
-                {" Total "}
-                <span className="badge rounded-pill bg-secondary">
-                    {totalCounters}
-                </span>
-            </div>
-            <a href="https://react.dev">
-                <img
-                    className="App-logo"
-                    src="/cwdc/14-react/counter/src/logo.svg"
-                    style={{ height: "48px" }}
-                    alt="logo"
-                />
-            </a>
-            <a href="https://github.com/krotalias/cwdc/tree/main/14-react">
-                <img
-                    src="src/github.png"
-                    style={{ height: "48px" }}
-                    alt="github"
-                />
-            </a>
-            <a href="https://getbootstrap.com/docs/5.2/getting-started/introduction/">
-                <img
-                    src="/cwdc/14-react/counter/src/Bootstrap_logo.svg"
-                    style={{ height: "48px" }}
-                    alt="logo"
-                />
-            </a>
-            <a
-                className="navbar-brand"
-                href="https://www.youtube.com/watch?v=Ke90Tje7VS0"
-            >
-                Watch: "React for Beginners"
-            </a>
-        </nav>
-    );
+  return (
+    <nav className="navbar navbar-light bg-light">
+      <div style={{ fontSize: "32px" }}>
+        {" Total "}
+        <span className="badge rounded-pill bg-secondary">{totalCounters}</span>
+      </div>
+
+      <a href="https://react.dev">
+        <img
+          className="App-logo"
+          src="/cwdc/14-react/counter/src/logo.svg"
+          style={{ height: "48px" }}
+          alt="logo"
+        />
+      </a>
+
+      <a href="https://github.com/krotalias/cwdc/tree/main/14-react">
+        <img src="src/github.png" style={{ height: "48px" }} alt="github" />
+      </a>
+
+      <a href="https://getbootstrap.com/docs/5.2/getting-started/introduction/">
+        <img
+          src="/cwdc/14-react/counter/src/Bootstrap_logo.svg"
+          style={{ height: "48px" }}
+          alt="logo"
+        />
+      </a>
+
+      <a
+        className="navbar-brand"
+        href="https://www.youtube.com/watch?v=Ke90Tje7VS0"
+      >
+        Watch: "React for Beginners"
+      </a>
+    </nav>
+  );
 };
