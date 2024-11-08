@@ -20,6 +20,8 @@
  *
  * @extends {React.Component}
  * @see <a href="../doc-counter/Counter.html"> Counter component </a>
+ * @see {@link https://reactjs.org/docs/react-component.html React.Component}
+ * @see {@link https://www.digitalocean.com/community/tutorials/react-constructors-with-react-components Understanding Constructors with React Components}
  */
 "use strict";
 
@@ -47,9 +49,6 @@ var Counters = (function (_React$Component) {
    * @param props.onDecrement {Function} callback to decrement a counter.
    * @param props.onDelete {Function} callback to delete a counter.
    * @param props.onInsert {Function} callback to insert a new counter.
-   * @extends {React.Component<Props>}
-   * @see https://reactjs.org/docs/react-component.html
-   * @see https://www.digitalocean.com/community/tutorials/react-constructors-with-react-components
    */
 
   function Counters(props) {

@@ -19,6 +19,8 @@
  *
  * Also define some life cycle hooks.
  * @extends {React.Component}
+ * @see {@link https://reactjs.org/docs/react-component.html React.Component}
+ * @see {@link https://www.digitalocean.com/community/tutorials/react-constructors-with-react-components Understanding Constructors with React Components}
  * @see <img src="../row.png" width="256">
  */
 "use strict";
@@ -46,9 +48,6 @@ var Counter = (function (_React$Component) {
    * @param props.onIncrement {Function} callback to increment a counter.
    * @param props.onDecrement {Function} callback to decrement a counter.
    * @param props.counter {Object<id:Number,value:Number>} counter object.
-   * @extends {React.Component<Props>}
-   * @see https://reactjs.org/docs/react-component.html
-   * @see https://www.digitalocean.com/community/tutorials/react-constructors-with-react-components
    */
 
   function Counter(props) {

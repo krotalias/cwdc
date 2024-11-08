@@ -80,8 +80,18 @@
 
 /**
  * React module.
+ *
+ * <p>React is the library for web and native user interfaces.</p>
+ * React lets you build user interfaces out of individual pieces called
+ * {@link React.Component components} written in JavaScript.
+ *
+ * <p>Elements are the smallest building blocks of React apps.
+ * An {@link https://react.dev/reference/react/createElement element}
+ * describes what you want to see on the screen.</p>
+ *
  * @external react
  * @see {@link https://legacy.reactjs.org/docs/react-api.html React Top-Level API}
+ * @see {@link https://legacy.reactjs.org/docs/create-a-new-react-app.html Create a New React App}
  */
 
 /**
@@ -91,12 +101,29 @@
  */
 
 /**
- * Create React App is a comfortable environment for learning React,
- * and is the best way to start building a new single-page application in React.
- * It sets up your development environment so that you can use the latest JavaScript features,
- * provides a nice developer experience, and optimizes your app for production.
+ * <p>You don’t need to install {@link https://react.dev/learn/installation#try-react anything}
+ * to play with React.</p>
+ *
+ * <p>To try React locally on your computer, download this
+ * {@link https://gist.githubusercontent.com/gaearon/0275b1e1518599bbeafcde4722e79ed1/raw/db72dcbf3384ee1708c4a07d3be79860db04bff0/example.html HTML page}
+ * and open it in your editor and in your browser!</p>
+ *
+ * This is how this application does it.
+ *
+ * <p>The other option is {@link https://react.dev/learn/add-react-to-an-existing-project seting up}
+ * a modular JavaScript environment,
+ * e.g., by using {@link https://vite.dev/ Vite} or
+ * {@link https://create-react-app.dev/ CRA}.
+ *
+ * However, React's new {@link https://dev.to/ag2byte/create-react-app-is-officially-dead-h7o documentation},
+ * released on March 16, 2023,
+ * no longer recommends CRA as the go-to solution for creating React applications.</p>
  * @namespace React
+ * @see {@link https://react.dev/learn/start-a-new-react-project Start a New React Project}
  * @see {@link https://legacy.reactjs.org/docs/create-a-new-react-app.html Create a New React App}
+ * @see {@link https://www.epicweb.dev/why-i-wont-use-nextjs Why I Won't Use Next.js}
+ * @see {@link https://www.uptech.team/blog/why-use-react WHEN AND WHY YOU SHOULD USE REACT?}
+ * @see {@link https://dev.to/sayanide/the-what-why-and-how-of-javascript-bundlers-4po9 The What, Why and How of JavaScript bundlers}
  */
 
 /**
