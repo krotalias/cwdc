@@ -63,15 +63,35 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Sample solution for homework 3,
-<a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html">problem 3</a>, done in <a href="https://threejs.org">Three.js</a></p>
+            <div class="description">Summary.
 
-<p>Here we are setting the objects' scale, rotation, and position
+<p>Tracing Closed Curves with Epicycles
+(see <a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html">WebGL version</a>),
+done in <a href="https://threejs.org">Three.js</a></p>
+
+<p>This application traces the path of the combined motion of the center
+of a small square orbit (<a href="https://www.ufrgs.br/amlef/glossario/orbita-deferente/">deferent</a>)
+around the center of a circle
+and within the orbit itself
+(<a href="https://www.creativescala.org/creative-scala/cycles/epicycles.html">epicycle</a>).</p>
+
+<ul>
+<li>An <a href="https://en.wikipedia.org/wiki/Deferent_and_epicycle">epicycle</a>
+means a circle moving on another circle.</li>
+
+<li>The number (rpc) of revolutions of the square (epicycles)
+per orbit cycle (deferent) is passed
+as a <a href="https://ahrefs.com/blog/url-parameters/">URL parameter</a> (query string).</li>
+
+<li>Here we are setting the objects' scale, rotation, and position
 properties, with <a href="https://threejs.org/docs/#api/en/core/Object3D.matrixAutoUpdate">matrixAutoUpdate</a>
-set to true (default).</p>
+set to true (default).</li>
 
-Internally, Three.js uses these values to set the object's model matrix to
-Translate * Rotate * Scale based on these properties.</div>
+<li>Internally, Three.js uses these values to set the object's model matrix to
+Translate * Rotate * Scale based on these properties.</li>
+</ul>
+
+<img src="/cwdc/13-webgl/homework/hw3/Epicycle.png" width="256"></div>
         
 
         
@@ -108,7 +128,13 @@ Translate * Rotate * Scale based on these properties.</div>
     
 
     
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>© 2024 Paulo R Cavalcanti.</li></ul></dd>
+    
 
+    
+    <dt class="tag-license">License:</dt>
+    <dd class="tag-license"><ul class="dummy"><li>Licensed under the <a href="https://www.opensource.org/licenses/mit-license.php">MIT license</a>.</li></ul></dd>
     
 
     
@@ -129,6 +155,10 @@ Translate * Rotate * Scale based on these properties.</div>
             <li><a href="/cwdc/13-webgl/examples/three/content/RotatingSquare.html?rpc=2">link</a></li>
         
             <li><a href="/cwdc/13-webgl/examples/three/content/RotatingSquare.js">source</a></li>
+        
+            <li><a href="https://sciencedemonstrations.fas.harvard.edu/presentations/ptolemaic-epicycle-machine">Ptolemaic Epicycle Machine</a></li>
+        
+            <li><a href="https://study.com/learn/lesson/epicycle-ptolemy-astronomy-diagrams.html">Epicycle in Astronomy & Meaning of Ptolemy</a></li>
         
             <li><iframe width="420" height="650" src="/cwdc/13-webgl/examples/three/content/RotatingSquare.html?rpc=4"></iframe></li>
         </ul>
@@ -172,13 +202,13 @@ Translate * Rotate * Scale based on these properties.</div>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.CircleGeometry.html">CircleGeometry</a></li><li><a href="external-THREE.Line.html">Line</a></li><li><a href="external-THREE.Mesh.html">Mesh</a></li><li><a href="external-THREE.OrthographicCamera.html">OrthographicCamera</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#camera">camera</a></li><li><a href="global.html#getFractionalPart">getFractionalPart</a></li><li><a href="global.html#hCircle">hCircle</a></li><li><a href="global.html#hCircleGeom">hCircleGeom</a></li><li><a href="global.html#loadThreejs">loadThreejs</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#roundNumber">roundNumber</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#sCircle">sCircle</a></li><li><a href="global.html#sCircleGeom">sCircleGeom</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#updatePositions">updatePositions</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="THREE.CircleGeometry.html">CircleGeometry</a></li><li><a href="THREE.Line.html">Line</a></li><li><a href="THREE.Mesh.html">Mesh</a></li><li><a href="THREE.OrthographicCamera.html">OrthographicCamera</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#camera">camera</a></li><li><a href="global.html#getFractionalPart">getFractionalPart</a></li><li><a href="global.html#hCircle">hCircle</a></li><li><a href="global.html#hCircleGeom">hCircleGeom</a></li><li><a href="global.html#loadThreejs">loadThreejs</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#roundNumber">roundNumber</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#sCircle">sCircle</a></li><li><a href="global.html#sCircleGeom">sCircleGeom</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#updatePositions">updatePositions</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Feb 02 2024 08:36:25 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Nov 10 2024 07:21:25 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

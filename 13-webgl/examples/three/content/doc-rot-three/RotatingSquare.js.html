@@ -29,20 +29,45 @@
             <pre class="prettyprint source linenums"><code>/**
  * @file
  *
- * &lt;p>Sample solution for homework 3,
- * &lt;a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html">problem 3&lt;/a>, done in {@link https://threejs.org Three.js}&lt;/p>
+ * Summary.
  *
- * &lt;p>Here we are setting the objects' scale, rotation, and position
+ * &lt;p>Tracing Closed Curves with Epicycles
+ * (see &lt;a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html">WebGL version&lt;/a>),
+ * done in {@link https://threejs.org Three.js}&lt;/p>
+ *
+ * &lt;p>This application traces the path of the combined motion of the center
+ * of a small square orbit ({@link https://www.ufrgs.br/amlef/glossario/orbita-deferente/ deferent})
+ * around the center of a circle
+ * and within the orbit itself
+ * ({@link https://www.creativescala.org/creative-scala/cycles/epicycles.html epicycle}).&lt;/p>
+ *
+ * &lt;ul>
+ * &lt;li>An {@link https://en.wikipedia.org/wiki/Deferent_and_epicycle epicycle}
+ * means a circle moving on another circle.&lt;/li>
+ *
+ * &lt;li>The number (rpc) of revolutions of the square (epicycles)
+ * per orbit cycle (deferent) is passed
+ * as a {@link https://ahrefs.com/blog/url-parameters/ URL parameter} (query string).&lt;/li>
+ *
+ * &lt;li>Here we are setting the objects' scale, rotation, and position
  * properties, with {@link https://threejs.org/docs/#api/en/core/Object3D.matrixAutoUpdate matrixAutoUpdate}
- * set to true (default).&lt;/p>
+ * set to true (default).&lt;/li>
  *
- * Internally, Three.js uses these values to set the object's model matrix to
- * Translate * Rotate * Scale based on these properties.
+ * &lt;li>Internally, Three.js uses these values to set the object's model matrix to
+ * Translate * Rotate * Scale based on these properties.&lt;/li>
+ * &lt;/ul>
+ *
+ * &lt;img src="/cwdc/13-webgl/homework/hw3/Epicycle.png" width="256">
+ *
  *
  * @author Paulo Roma
  * @since 10/11/2014
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
+ * @copyright © 2024 Paulo R Cavalcanti.
  * @see &lt;a href="/cwdc/13-webgl/examples/three/content/RotatingSquare.html?rpc=2">link&lt;/a>
  * @see &lt;a href="/cwdc/13-webgl/examples/three/content/RotatingSquare.js">source&lt;/a>
+ * @see {@link https://sciencedemonstrations.fas.harvard.edu/presentations/ptolemaic-epicycle-machine Ptolemaic Epicycle Machine}
+ * @see {@link https://study.com/learn/lesson/epicycle-ptolemy-astronomy-diagrams.html Epicycle in Astronomy &amp; Meaning of Ptolemy}
  * @see &lt;iframe width="420" height="650" src="/cwdc/13-webgl/examples/three/content/RotatingSquare.html?rpc=4">&lt;/iframe>
  */
 
@@ -50,8 +75,23 @@
 
 /**
  * Three.js module.
- * @external THREE
- * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ * @external three
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}
+ * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
+ * @see {@link https://discoverthreejs.com DISCOVER three.js}
+ * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ */
+
+/**
+ * &lt;p>Main three.js namespace.&lt;/p>
+ * &lt;a href="/cwdc/13-webgl/examples/three/content/doc-example/index.html">Imported&lt;/a> from {@link external:three three.module.js}
+ *
+ * @namespace THREE
  */
 let THREE;
 
@@ -59,7 +99,7 @@ let THREE;
  * Returns a number fractional part and its number of digits.
  * @param {Number} n float number.
  * @returns {Object&lt;fractional:String,ndigits:Number>} fractional part and number of digits.
- * @see https://en.wikipedia.org/wiki/Decimal#Decimal_fractions
+ * @see {@link https://en.wikipedia.org/wiki/Decimal#Decimal_fractions Decimal fractions}
  */
 function getFractionalPart(n) {
   if (Number.isInteger(+n)) return { fractional: "0", ndigits: 0 };
@@ -72,7 +112,7 @@ function getFractionalPart(n) {
  * @param {Number} n float number.
  * @param {Number} dig number of digits.
  * @returns {Number} n with dig decimal places.
- * @see https://en.wikipedia.org/wiki/Decimal_separator
+ * @see {@link https://en.wikipedia.org/wiki/Decimal_separator Decimal separator}
  */
 function roundNumber(n, dig) {
   const limit = 10 ** dig;
@@ -83,8 +123,8 @@ function roundNumber(n, dig) {
  * &lt;p>Entry point when page is loaded.&lt;/p>
  * @param {Number} rpc revolutions per cycle.
  * @see &lt;img src="../cross-4.png" width="256">
- * @see https://threejs.org/docs/#api/en/geometries/PlaneGeometry
- * @see https://threejs.org/docs/#api/en/materials/MeshBasicMaterial
+ * @see {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry PlaneGeometry}
+ * @see {@link https://threejs.org/docs/#api/en/materials/MeshBasicMaterial MeshBasicMaterial}
  */
 function mainEntrance(rpc = 2) {
   /**
@@ -92,13 +132,13 @@ function mainEntrance(rpc = 2) {
    * we need three things: scene, camera and renderer,
    * so that we can render the scene with camera.
    * @class Scene
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene Creating a scene}
    */
 
   /**
    * &lt;p>A scene.&lt;/p>
-   * @var {external:THREE.Scene}
+   * @var {THREE.Scene}
    * @global
    */
   const scene = new THREE.Scene();
@@ -111,14 +151,14 @@ function mainEntrance(rpc = 2) {
    *
    * This can be useful for rendering 2D scenes and UI elements, amongst other things.
    * @class OrthographicCamera
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/cameras/OrthographicCamera
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/cameras/OrthographicCamera OrthographicCamera}
    */
 
   /**
    * &lt;p>An orthographic camera.&lt;/p>
    * Ortho args are: left, right, top, bottom (backwards!), near, far.
-   * @var {external:THREE.PerspectiveCamera}
+   * @var {THREE.PerspectiveCamera}
    * @global
    */
   const camera = new THREE.OrthographicCamera(-1.2, 1.2, 1.2, -1.2, -1, 1);
@@ -132,13 +172,13 @@ function mainEntrance(rpc = 2) {
   /**
    * The WebGL renderer displays your beautifully crafted scenes using WebGL.
    * @class WebGLRenderer
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer WebGLRenderer}
    */
 
   /**
    * &lt;p>A renderer.&lt;/p>
-   * @var {external:THREE.WebGLRenderer}
+   * @var {THREE.WebGLRenderer}
    * @global
    */
   const renderer = new THREE.WebGLRenderer({
@@ -170,13 +210,13 @@ function mainEntrance(rpc = 2) {
   /**
    * This is a filled (solid) circle.
    * @class CircleGeometry
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/geometries/CircleGeometry
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/geometries/CircleGeometry CircleGeometry}
    */
 
   /**
    * &lt;p>A circle geometry.&lt;/p>
-   * @var {external:THREE.CircleGeometry}
+   * @var {THREE.CircleGeometry}
    * @global
    */
   const sCircleGeom = new THREE.CircleGeometry(1, 32);
@@ -186,13 +226,13 @@ function mainEntrance(rpc = 2) {
    * Also serves as a base for other classes such as
    * {@link https://threejs.org/docs/#api/en/objects/SkinnedMesh SkinnedMesh}.
    * @class Mesh
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/objects/Mesh
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/objects/Mesh Mesh}
    */
 
   /**
    * &lt;p>A solid circle.&lt;/p>
-   * @var {external:THREE.Mesh}
+   * @var {THREE.Mesh}
    * @global
    */
   const sCircle = new THREE.Mesh(sCircleGeom, material);
@@ -205,13 +245,13 @@ function mainEntrance(rpc = 2) {
    * and custom attributes within buffers, reducing the cost of
    * passing all this data to the GPU.
    * @class BufferGeometry
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
    */
 
   /**
    * &lt;p>A hollow circle geometry.&lt;/p>
-   * @var {external:THREE.BufferGeometry}
+   * @var {THREE.BufferGeometry}
    * @global
    */
   const hCircleGeom = new THREE.BufferGeometry().setFromPoints(
@@ -225,13 +265,13 @@ function mainEntrance(rpc = 2) {
    * This is nearly the same as LineSegments;
    * the only difference is that it is rendered using gl.LINE_STRIP instead of gl.LINES
    * @class Line
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/objects/Line
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/objects/Line Line}
    */
 
   /**
    * &lt;p>A hollow circle.&lt;/p>
-   * @var {external:THREE.Line}
+   * @var {THREE.Line}
    * @global
    */
   const hCircle = new THREE.Line(hCircleGeom, m);
@@ -243,7 +283,7 @@ function mainEntrance(rpc = 2) {
 
   /**
    * &lt;p>Add a new point to the position attribute of the BufferGeometry.&lt;/p>
-   * @param {external:THREE.Line} line a line object.
+   * @param {THREE.Line} line a line object.
    * @param {Number} x point abscissa.
    * @param {Number} y point ordinate.
    * @function
@@ -346,9 +386,9 @@ function mainEntrance(rpc = 2) {
      * Increments the rotation angle by "increment" in each frame
      * and renders the scene.
      * @callback render
-     * @see https://threejs.org/docs/#manual/en/introduction/How-to-update-things
-     * @see https://threejs.org/docs/#api/en/materials/LineBasicMaterial.linewidth
-     * @see https://threejs.org/docs/#api/en/math/MathUtils.degToRad
+     * @see {@link https://threejs.org/docs/#manual/en/introduction/How-to-update-things How to update things}
+     * @see {@link https://threejs.org/docs/#api/en/materials/LineBasicMaterial.linewidth linewidth}
+     * @see {@link https://threejs.org/docs/#api/en/math/MathUtils.degToRad degToRad}
      */
     return () => {
       let angr = rpc == 0 ? 0 : THREE.MathUtils.degToRad(angle / rpc);
@@ -415,17 +455,17 @@ function mainEntrance(rpc = 2) {
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
  * @event load
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import import()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap &amp;lt;script type="importmap"&amp;gt;}
  */
 addEventListener("load", (event) => {
   /**
    * &lt;p>Self invoking function to load threejs module dynamically based on safari version.&lt;/p>
    * @function loadThreejs
    * @async
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
-   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap &amp;lt;script type="importmap"&amp;gt;}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import import()}
    */
 
   const queryString = window.location.search;
@@ -479,13 +519,13 @@ addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="external-THREE.CircleGeometry.html">CircleGeometry</a></li><li><a href="external-THREE.Line.html">Line</a></li><li><a href="external-THREE.Mesh.html">Mesh</a></li><li><a href="external-THREE.OrthographicCamera.html">OrthographicCamera</a></li><li><a href="external-THREE.Scene.html">Scene</a></li><li><a href="external-THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#camera">camera</a></li><li><a href="global.html#getFractionalPart">getFractionalPart</a></li><li><a href="global.html#hCircle">hCircle</a></li><li><a href="global.html#hCircleGeom">hCircleGeom</a></li><li><a href="global.html#loadThreejs">loadThreejs</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#roundNumber">roundNumber</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#sCircle">sCircle</a></li><li><a href="global.html#sCircleGeom">sCircleGeom</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#updatePositions">updatePositions</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="THREE.CircleGeometry.html">CircleGeometry</a></li><li><a href="THREE.Line.html">Line</a></li><li><a href="THREE.Mesh.html">Mesh</a></li><li><a href="THREE.OrthographicCamera.html">OrthographicCamera</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#camera">camera</a></li><li><a href="global.html#getFractionalPart">getFractionalPart</a></li><li><a href="global.html#hCircle">hCircle</a></li><li><a href="global.html#hCircleGeom">hCircleGeom</a></li><li><a href="global.html#loadThreejs">loadThreejs</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#roundNumber">roundNumber</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#sCircle">sCircle</a></li><li><a href="global.html#sCircleGeom">sCircleGeom</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#updatePositions">updatePositions</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Feb 02 2024 08:36:25 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Nov 10 2024 07:21:25 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
