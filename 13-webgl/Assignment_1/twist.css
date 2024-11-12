@@ -18,10 +18,10 @@ body {
 @media only screen and (max-width: 768px) {
     body {
         /*
-                When a target is touched and held on iOS,
-                Safari displays a callout information about the link.
-                This property allows disabling that behavior.
-                */
+            When a target is touched and held on iOS,
+            Safari displays a callout information about the link.
+            This property allows disabling that behavior.
+        */
         -webkit-touch-callout: none;
         /* Disable pull-to-refresh */
         overflow: hidden;
