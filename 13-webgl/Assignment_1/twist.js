@@ -5,7 +5,7 @@
  *
  * <p>Draw a fractal known as
  * <a href="https://en.wikipedia.org/wiki/Sierpiński_triangle">Sierpińsk</a> Gasket
- * (with an optional {@link rotateAndTwist twist factor} controlled using a slider)
+ * (with an optional {@link rotateAndTwist twist factor})
  * by {@link divideTriangle recursively dividing} in half
  * the edges of an {@link vertices initial triangle}.</p>
  *
@@ -56,14 +56,14 @@ const mat2 = glMatrix.mat2;
 /**
  * WebGL canvas.
  * @type {HTMLCanvasElement}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API Canvas API}
  */
 let canvas;
 
 /**
  * The OpenGL context.
  * @type {WebGLRenderingContext}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext WebGLRenderingContext}
  */
 let gl;
 
@@ -134,9 +134,8 @@ let deform = true;
  * They can only be changed within a javascript/C++ program.</p>
  *
  * @type {WebGLUniformLocation}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getUniformLocation
- * @see http://www.opengl.org/sdk/docs/tutorials/ClockworkCoders/uniform.php
- * @see http://en.wikibooks.org/wiki/GLSL_Programming/Vector_and_Matrix_Operations
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getUniformLocation getUniformLocation() method}
+ * @see {@link http://en.wikibooks.org/wiki/GLSL_Programming/Vector_and_Matrix_Operations GLSL Programming/Vector and Matrix Operations}
  */
 let theta;
 
@@ -195,18 +194,22 @@ function infoBtn() {
   const btn = document.querySelector("button");
 
   /**
-   * Appends an event listener for button events whose type
-   * attribute value is click.<br>
-   * Displays the Date and WebGL/GLSL versions,
-   * whenever the "Date/Time" button is clicked.
-   * @param {MouseEvent} event a mouse event.
-   * @event click - date/time button: fires after both the mousedown and mouseup events have fired (in that order).
+   * <p>Fires after both the mousedown and
+   * mouseup events have fired (in that order).</p>
+   * "Date/Time" button must be pressed and released while the pointer is located inside it.
+   * <p>The argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   * @summary Appends an event listener for events whose type attribute value is click.
+   * @param {PointerEvent} event a pointer event.
+   * @event click
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   btn.addEventListener("click", (event) => {
     demo.innerHTML += `${Date()}<br />${gl.getParameter(
       gl.SHADING_LANGUAGE_VERSION,
     )}<br />${gl.getParameter(gl.VERSION)}<br />`;
     btn.disabled = true;
+    btn.style.display = "none";
     event.preventDefault();
     // avoid double tap for zoom, after the button is clicked
     btn.addEventListener("touchstart", (event) => event.preventDefault());
@@ -230,11 +233,17 @@ function init() {
   const input = document.getElementById("subdiv");
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is keydown.<br>
-   * The {@link clickCallBack callback} argument sets the callback that will be invoked
-   * when the event is dispatched.</p>
+   * <p>Fired when a key is pressed.</p>
+   * <p>The {@link clickCallBack callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
    *
-   * @event keydown - &lt;Enter&gt; key pressed in &lt;input&gt; subdiv.
+   * &lt;Enter&gt; key pressed in &lt;input&gt; subdiv.
+   *
+   * @summary Appends an event listener for events whose type attribute value is keydown.
+   * @param {KeyboardEvent} event a UIEvent.
+   * @param {callback} function function to run when the event occurs.
+   * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   input.addEventListener("keydown", function (event) {
     // If the user presses the "Enter" key on the keyboard
@@ -247,6 +256,7 @@ function init() {
   });
 
   setUpShaders();
+  handleWindowResize();
   clickCallBack();
   infoBtn();
   animation();
@@ -256,8 +266,8 @@ function init() {
  * Convert an hex color to RGB.
  * @param {String} hex a color in the format #RRGGBB
  * @returns {Object<{r: Number, g:Number, b:Number}>}
- * @see https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+ * @see {@link https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb RGB to hex and hex to RGB}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt parseInt()}
  */
 function hexToRgb(hex) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -336,12 +346,20 @@ function setUpShaders() {
   // Initialize event handlers
 
   /**
-   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * <p>Fired when a &lt;input type="range"&gt; is in the
+   * {@link https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range) Range state}
+   * (by clicking or using the keyboard).</p>
+   *
    * The {@link clickCallBack callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event change - executed when the &lt;input&gt; slider is changed.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * Executed when the slider is changed.
+   *
+   * @summary Appends an event listener for events whose type attribute value is change.
+   *
+   * @param {Event} event a generic event.
+   * @event slider
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("slider").onchange = function (event) {
     document.getElementById("subdiv").value = event.target.value.toString();
@@ -352,16 +370,55 @@ function setUpShaders() {
 if (document.querySelector('input[type="checkbox"]')) {
   document.querySelectorAll("input[type=checkbox]").forEach((elem) => {
     /**
-     * <p>Appends an event listener for events whose type attribute value is change.<br>
+     * <p>Fired when a &lt;input type="checkbox"&gt; is checked or unchecked
+     * (by clicking or using the keyboard).</p>
      * The {@link clickCallBack callback} argument sets the callback that will be invoked when
      * the event is dispatched.</p>
-     *
-     * @event change - executed when a checkbox is checked or unchecked.
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @summary Appends an event listener for events whose type attribute value is change.
+     * @param {Event} event a generic event.
+     * @param {callback} function function to run when the event occurs.
+     * @event chkBox
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", () => clickCallBack());
   });
 }
+
+/**
+ * <p>Fires when the document view (window) has been resized.</p>
+ * Also resizes the canvas and viewport.
+ * @callback handleWindowResize
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+ */
+function handleWindowResize() {
+  let h = window.innerHeight - 20;
+  let w = window.innerWidth - 20;
+  const r = document.querySelector(":root");
+  const aspect = 1;
+  if (h > w) {
+    h = w / aspect; // aspect < 1
+  } else {
+    w = h * aspect; // aspect > 1
+  }
+  canvas.width = w;
+  canvas.height = h;
+  r.style.setProperty("--canvasw", `${w}px`);
+  r.style.setProperty("--canvash", `${h}px`);
+  gl.viewport(0, 0, w, h);
+}
+
+/**
+ * <p>Fires when the document view (window) has been resized.</p>
+ * <p>The {@link handleWindowResize callback} argument sets the callback
+ * that will be invoked when the event is dispatched.</p>
+ * @summary Appends an event listener for events whose type attribute value is resize.
+ * @param {Event} event a generic event.
+ * @param {callback} function function to run when the event occurs.
+ * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+ * @event resize
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+ */
+window.addEventListener("resize", handleWindowResize, false);
 
 /**
  * <p>Draws the gasket.</p>
@@ -395,7 +452,7 @@ function drawTriangle(ndiv = 5, doTwist = true, useGPU = true, angle = 0) {
    *  <li>side length 2 </li>
    * </ul>
    *
-   * @see https://en.wikipedia.org/wiki/Equilateral_triangle
+   * @see {@link https://en.wikipedia.org/wiki/Equilateral_triangle Equilateral triangle}
    * @type {Array<vec2>}
    * @global
    */
@@ -519,7 +576,7 @@ function rotateAndTwist(theta, center, twist) {
  * <p>What to do when the left mouse button is clicked.</p>
  * This {@link drawTriangle callback} is fired whenever an &lt;input&gt; checkbox
  * is checked/unchecked, a button is clicked or the &lt;Enter&gt; key is pressed.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  */
 function clickCallBack() {
   fill = document.getElementById("fill").checked;
@@ -604,8 +661,8 @@ const animation = (function () {
    * <p>Display function.</p>
    * Renders the graphics of this assignment.
    * @callback render
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
-   * @see https://developer.mozilla.org/pt-BR/docs/Web/API/Window/requestAnimationFrame
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/setTimeout Window: setTimeout() method}
+   * @see {@link https://developer.mozilla.org/pt-BR/docs/Web/API/Window/requestAnimationFrame window.requestAnimationFrame()}
    */
   return () => {
     setTimeout(function () {
@@ -660,9 +717,12 @@ const animation = (function () {
 })();
 
 /**
- * <p>Loads the {@link init aplication}.</p>
+ * <p>Fired when the whole page has loaded, including all dependent resources
+ * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.</p>
+ * @summary Sets the {@link init entry point} of the application.
  * @param {Event} event load event.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
- * @event load - fired when the whole page has loaded.
+ * @callback WindowLoadCallback
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ * @event load
  */
 window.addEventListener("load", (event) => init());

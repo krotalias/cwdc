@@ -1,0 +1,82 @@
+:root {
+    --bgcolor: #f0f0f0;
+    --canvasw: 380px;
+    --canvash: 380px;
+    --fontsize: 120%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    background: var(--bgcolor);
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        /*
+                When a target is touched and held on iOS,
+                Safari displays a callout information about the link.
+                This property allows disabling that behavior.
+                */
+        -webkit-touch-callout: none;
+        /* Disable pull-to-refresh */
+        overflow: hidden;
+        -webkit-overflow: hidden;
+    }
+    :root {
+        --fontsize: 80%;
+    }
+}
+
+#interface {
+    width: fit-content;
+    margin: 0 auto;
+    border: solid brown 3px;
+    padding: 10px;
+    font-size: var(--fontsize);
+}
+
+#gl-canvas {
+    width: var(--canvasw);
+    height: var(--canvash);
+    display: block;
+    margin: 0 auto;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+
+button {
+    font-size: 100%;
+    margin: 10px auto;
+    display: block;
+    padding: 10px;
+    color: goldenrod;
+    border-radius: 10%;
+    background-color: brown;
+    touch-action: manipulation;
+}
+
+label {
+    font-size: 80%;
+    line-height: 100%;
+    margin-right: 20px;
+}
+
+input[type="number"] {
+    font-size: 60%;
+}
+
+input[type="button"] {
+    color: goldenrod;
+    display: none;
+}
+
+#demo {
+    margin-top: 10px;
+    font-size: 80%;
+}

@@ -33,7 +33,7 @@
  *
  * &lt;p>Draw a fractal known as
  * &lt;a href="https://en.wikipedia.org/wiki/Sierpiński_triangle">Sierpińsk&lt;/a> Gasket
- * (with an optional {@link rotateAndTwist twist factor} controlled using a slider)
+ * (with an optional {@link rotateAndTwist twist factor})
  * by {@link divideTriangle recursively dividing} in half
  * the edges of an {@link vertices initial triangle}.&lt;/p>
  *
@@ -84,14 +84,14 @@ const mat2 = glMatrix.mat2;
 /**
  * WebGL canvas.
  * @type {HTMLCanvasElement}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API Canvas API}
  */
 let canvas;
 
 /**
  * The OpenGL context.
  * @type {WebGLRenderingContext}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext WebGLRenderingContext}
  */
 let gl;
 
@@ -162,9 +162,8 @@ let deform = true;
  * They can only be changed within a javascript/C++ program.&lt;/p>
  *
  * @type {WebGLUniformLocation}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getUniformLocation
- * @see http://www.opengl.org/sdk/docs/tutorials/ClockworkCoders/uniform.php
- * @see http://en.wikibooks.org/wiki/GLSL_Programming/Vector_and_Matrix_Operations
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getUniformLocation getUniformLocation() method}
+ * @see {@link http://en.wikibooks.org/wiki/GLSL_Programming/Vector_and_Matrix_Operations GLSL Programming/Vector and Matrix Operations}
  */
 let theta;
 
@@ -223,18 +222,22 @@ function infoBtn() {
   const btn = document.querySelector("button");
 
   /**
-   * Appends an event listener for button events whose type
-   * attribute value is click.&lt;br>
-   * Displays the Date and WebGL/GLSL versions,
-   * whenever the "Date/Time" button is clicked.
-   * @param {MouseEvent} event a mouse event.
-   * @event click - date/time button: fires after both the mousedown and mouseup events have fired (in that order).
+   * &lt;p>Fires after both the mousedown and
+   * mouseup events have fired (in that order).&lt;/p>
+   * "Date/Time" button must be pressed and released while the pointer is located inside it.
+   * &lt;p>The argument sets the callback that will be invoked when
+   * the event is dispatched.&lt;/p>
+   * @summary Appends an event listener for events whose type attribute value is click.
+   * @param {PointerEvent} event a pointer event.
+   * @event click
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   btn.addEventListener("click", (event) => {
     demo.innerHTML += `${Date()}&lt;br />${gl.getParameter(
       gl.SHADING_LANGUAGE_VERSION,
     )}&lt;br />${gl.getParameter(gl.VERSION)}&lt;br />`;
     btn.disabled = true;
+    btn.style.display = "none";
     event.preventDefault();
     // avoid double tap for zoom, after the button is clicked
     btn.addEventListener("touchstart", (event) => event.preventDefault());
@@ -258,11 +261,17 @@ function init() {
   const input = document.getElementById("subdiv");
 
   /**
-   * &lt;p>Appends an event listener for events whose type attribute value is keydown.&lt;br>
-   * The {@link clickCallBack callback} argument sets the callback that will be invoked
-   * when the event is dispatched.&lt;/p>
+   * &lt;p>Fired when a key is pressed.&lt;/p>
+   * &lt;p>The {@link clickCallBack callback} argument sets the callback that will be invoked when
+   * the event is dispatched.&lt;/p>
    *
-   * @event keydown - &amp;lt;Enter&amp;gt; key pressed in &amp;lt;input&amp;gt; subdiv.
+   * &amp;lt;Enter&amp;gt; key pressed in &amp;lt;input&amp;gt; subdiv.
+   *
+   * @summary Appends an event listener for events whose type attribute value is keydown.
+   * @param {KeyboardEvent} event a UIEvent.
+   * @param {callback} function function to run when the event occurs.
+   * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   input.addEventListener("keydown", function (event) {
     // If the user presses the "Enter" key on the keyboard
@@ -275,6 +284,7 @@ function init() {
   });
 
   setUpShaders();
+  handleWindowResize();
   clickCallBack();
   infoBtn();
   animation();
@@ -284,8 +294,8 @@ function init() {
  * Convert an hex color to RGB.
  * @param {String} hex a color in the format #RRGGBB
  * @returns {Object&lt;{r: Number, g:Number, b:Number}>}
- * @see https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+ * @see {@link https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb RGB to hex and hex to RGB}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt parseInt()}
  */
 function hexToRgb(hex) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -364,12 +374,20 @@ function setUpShaders() {
   // Initialize event handlers
 
   /**
-   * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
+   * &lt;p>Fired when a &amp;lt;input type="range"&amp;gt; is in the
+   * {@link https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range) Range state}
+   * (by clicking or using the keyboard).&lt;/p>
+   *
    * The {@link clickCallBack callback} argument sets the callback that will be invoked when
    * the event is dispatched.&lt;/p>
    *
-   * @event change - executed when the &amp;lt;input&amp;gt; slider is changed.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * Executed when the slider is changed.
+   *
+   * @summary Appends an event listener for events whose type attribute value is change.
+   *
+   * @param {Event} event a generic event.
+   * @event slider
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("slider").onchange = function (event) {
     document.getElementById("subdiv").value = event.target.value.toString();
@@ -380,16 +398,55 @@ function setUpShaders() {
 if (document.querySelector('input[type="checkbox"]')) {
   document.querySelectorAll("input[type=checkbox]").forEach((elem) => {
     /**
-     * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
+     * &lt;p>Fired when a &amp;lt;input type="checkbox"&amp;gt; is checked or unchecked
+     * (by clicking or using the keyboard).&lt;/p>
      * The {@link clickCallBack callback} argument sets the callback that will be invoked when
      * the event is dispatched.&lt;/p>
-     *
-     * @event change - executed when a checkbox is checked or unchecked.
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @summary Appends an event listener for events whose type attribute value is change.
+     * @param {Event} event a generic event.
+     * @param {callback} function function to run when the event occurs.
+     * @event chkBox
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", () => clickCallBack());
   });
 }
+
+/**
+ * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
+ * Also resizes the canvas and viewport.
+ * @callback handleWindowResize
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+ */
+function handleWindowResize() {
+  let h = window.innerHeight - 20;
+  let w = window.innerWidth - 20;
+  const r = document.querySelector(":root");
+  const aspect = 1;
+  if (h > w) {
+    h = w / aspect; // aspect &lt; 1
+  } else {
+    w = h * aspect; // aspect > 1
+  }
+  canvas.width = w;
+  canvas.height = h;
+  r.style.setProperty("--canvasw", `${w}px`);
+  r.style.setProperty("--canvash", `${h}px`);
+  gl.viewport(0, 0, w, h);
+}
+
+/**
+ * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
+ * &lt;p>The {@link handleWindowResize callback} argument sets the callback
+ * that will be invoked when the event is dispatched.&lt;/p>
+ * @summary Appends an event listener for events whose type attribute value is resize.
+ * @param {Event} event a generic event.
+ * @param {callback} function function to run when the event occurs.
+ * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+ * @event resize
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+ */
+window.addEventListener("resize", handleWindowResize, false);
 
 /**
  * &lt;p>Draws the gasket.&lt;/p>
@@ -423,7 +480,7 @@ function drawTriangle(ndiv = 5, doTwist = true, useGPU = true, angle = 0) {
    *  &lt;li>side length 2 &lt;/li>
    * &lt;/ul>
    *
-   * @see https://en.wikipedia.org/wiki/Equilateral_triangle
+   * @see {@link https://en.wikipedia.org/wiki/Equilateral_triangle Equilateral triangle}
    * @type {Array&lt;vec2>}
    * @global
    */
@@ -547,7 +604,7 @@ function rotateAndTwist(theta, center, twist) {
  * &lt;p>What to do when the left mouse button is clicked.&lt;/p>
  * This {@link drawTriangle callback} is fired whenever an &amp;lt;input&amp;gt; checkbox
  * is checked/unchecked, a button is clicked or the &amp;lt;Enter&amp;gt; key is pressed.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  */
 function clickCallBack() {
   fill = document.getElementById("fill").checked;
@@ -632,8 +689,8 @@ const animation = (function () {
    * &lt;p>Display function.&lt;/p>
    * Renders the graphics of this assignment.
    * @callback render
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
-   * @see https://developer.mozilla.org/pt-BR/docs/Web/API/Window/requestAnimationFrame
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/setTimeout Window: setTimeout() method}
+   * @see {@link https://developer.mozilla.org/pt-BR/docs/Web/API/Window/requestAnimationFrame window.requestAnimationFrame()}
    */
   return () => {
     setTimeout(function () {
@@ -688,10 +745,13 @@ const animation = (function () {
 })();
 
 /**
- * &lt;p>Loads the {@link init aplication}.&lt;/p>
+ * &lt;p>Fired when the whole page has loaded, including all dependent resources
+ * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.&lt;/p>
+ * @summary Sets the {@link init entry point} of the application.
  * @param {Event} event load event.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
- * @event load - fired when the whole page has loaded.
+ * @callback WindowLoadCallback
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ * @event load
  */
 window.addEventListener("load", (event) => init());
 </code></pre>
@@ -704,13 +764,13 @@ window.addEventListener("load", (event) => init());
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenacheckboxischeckedorunchecked.">change - executed when a checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthe&lt;input&gt;sliderischanged.">change - executed when the &lt;input&gt; slider is changed.</a></li><li><a href="global.html#event:click-date/timebutton:firesafterboththemousedownandmouseupeventshavefired(inthatorder).">click - date/time button: fires after both the mousedown and mouseup events have fired (in that order).</a></li><li><a href="global.html#event:keydown-&lt;Enter&gt;keypressedin&lt;input&gt;subdiv.">keydown - &lt;Enter&gt; key pressed in &lt;input&gt; subdiv.</a></li><li><a href="global.html#event:load-firedwhenthewholepagehasloaded.">load - fired when the whole page has loaded.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#bufferId">bufferId</a></li><li><a href="global.html#bufferLineId">bufferLineId</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#centroid">centroid</a></li><li><a href="global.html#clickCallBack">clickCallBack</a></li><li><a href="global.html#cpu">cpu</a></li><li><a href="global.html#deform">deform</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#divideTriangle">divideTriangle</a></li><li><a href="global.html#drawTriangle">drawTriangle</a></li><li><a href="global.html#fColor">fColor</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#flattenArray">flattenArray</a></li><li><a href="global.html#fpsCounter">fpsCounter</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpu">gpu</a></li><li><a href="global.html#hexToRgb">hexToRgb</a></li><li><a href="global.html#infoBtn">infoBtn</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#mat2">mat2</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#origin">origin</a></li><li><a href="global.html#points">points</a></li><li><a href="global.html#radians">radians</a></li><li><a href="global.html#rotateAndTwist">rotateAndTwist</a></li><li><a href="global.html#setUpShaders">setUpShaders</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#triangle">triangle</a></li><li><a href="global.html#twist">twist</a></li><li><a href="global.html#vPosition">vPosition</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vertices">vertices</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:chkBox">chkBox</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li><li><a href="global.html#event:slider">slider</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#bufferId">bufferId</a></li><li><a href="global.html#bufferLineId">bufferLineId</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#centroid">centroid</a></li><li><a href="global.html#clickCallBack">clickCallBack</a></li><li><a href="global.html#cpu">cpu</a></li><li><a href="global.html#deform">deform</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#divideTriangle">divideTriangle</a></li><li><a href="global.html#drawTriangle">drawTriangle</a></li><li><a href="global.html#fColor">fColor</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#flattenArray">flattenArray</a></li><li><a href="global.html#fpsCounter">fpsCounter</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpu">gpu</a></li><li><a href="global.html#hexToRgb">hexToRgb</a></li><li><a href="global.html#infoBtn">infoBtn</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#mat2">mat2</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#origin">origin</a></li><li><a href="global.html#points">points</a></li><li><a href="global.html#radians">radians</a></li><li><a href="global.html#rotateAndTwist">rotateAndTwist</a></li><li><a href="global.html#setUpShaders">setUpShaders</a></li><li><a href="global.html#theta">theta</a></li><li><a href="global.html#triangle">triangle</a></li><li><a href="global.html#twist">twist</a></li><li><a href="global.html#vPosition">vPosition</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vertices">vertices</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jul 31 2024 07:46:53 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Nov 12 2024 10:21:57 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

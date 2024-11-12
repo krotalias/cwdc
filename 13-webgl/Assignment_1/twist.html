@@ -6,136 +6,104 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0,  maximum-scale=1"
         />
+        <link href="twist.css" type="text/css" rel="stylesheet" />
         <title>2D Sierpinski Gasket</title>
-        <style>
-            :root {
-                --bgcolor: #f0f0f0;
-            }
-            body {
-                background: var(--bgcolor);
-            }
-            #interface {
-                width: fit-content;
-                margin: 0 auto;
-                border: solid brown 3px;
-                padding: 10px;
-                font-size: 80%;
-            }
-            canvas {
-                display: block;
-                margin: 0 auto;
-            }
-            button {
-                font-size: 100%;
-                margin: 0 auto;
-                display: block;
-                padding: 10px;
-                color: goldenrod;
-                border-radius: 10%;
-                background-color: brown;
-                touch-action: manipulation;
-            }
-            label {
-                font-size: 80%;
-                line-height: 100%;
-                margin-right: 20px;
-            }
-            input[type="number"] {
-                font-size: 60%;
-            }
-            input[type="button"] {
-                color: goldenrod;
-                display: none;
-            }
-        </style>
     </head>
 
     <body>
-        <canvas id="gl-canvas" width="380" height="380">
-            Oops ... your browser doesn't support the HTML5 canvas element
-        </canvas>
+        <div id="container">
+            <canvas id="gl-canvas">
+                Oops ... your browser doesn't support the HTML5 canvas element
+            </canvas>
 
-        <div id="interface">
-            <p>
-                <label id="lblslider" for="slider">Subdivisions</label>
-                <span id="ang" style="margin-left: 50px">Rotation Angle:</span>
-                <br />
+            <div id="interface">
+                <p>
+                    <label id="lblslider" for="slider">Subdivisions</label>
+                    <span id="ang" style="margin-left: 50px"
+                        >Rotation Angle:</span
+                    >
+                    <br />
+                    <input
+                        id="slider"
+                        name="slider"
+                        type="range"
+                        min="0"
+                        max="7"
+                        step="1"
+                        value="5"
+                        style="width: 8em"
+                    />
+                    <span id="fps" style="margin-left: 40px">FPS:</span>
+                </p>
+
+                <label for="subdiv" style="margin-right: 65px">
+                    Recursion Level
+                </label>
                 <input
-                    id="slider"
-                    name="slider"
-                    type="range"
+                    name="txtboxDiv"
+                    id="subdiv"
+                    type="number"
                     min="0"
                     max="7"
                     step="1"
+                    maxlength="1"
+                    oninput="this.value = Math.max(Math.min(this.value.replace(/[^0-9]/g,''),7),0)"
                     value="5"
-                    style="width: 8em"
+                    style="width: 30px"
                 />
-                <span id="fps" style="margin-left: 40px">FPS:</span>
-            </p>
+                <input
+                    name="btnDiv"
+                    id="btnDiv"
+                    type="button"
+                    onclick="clickCallBack()"
+                />
 
-            <label for="subdiv" style="margin-right: 65px">
-                Recursion Level
-            </label>
-            <input
-                name="txtboxDiv"
-                id="subdiv"
-                type="number"
-                min="0"
-                max="7"
-                step="1"
-                maxlength="1"
-                oninput="this.value = Math.max(Math.min(this.value.replace(/[^0-9]/g,''),7),0)"
-                value="5"
-                style="width: 30px"
-            />
-            <input
-                name="btnDiv"
-                id="btnDiv"
-                type="button"
-                onclick="clickCallBack()"
-            />
+                <div style="display: inline; margin-left: 1em">
+                    🔺 = <span id="red">1</span>, △ = <span id="white">0</span>
+                </div>
 
-            <div style="display: inline; margin-left: 1em">
-                🔺 = <span id="red">1</span>, △ = <span id="white">0</span>
+                <br /><br />
+                <input
+                    id="twist"
+                    name="twist"
+                    type="checkbox"
+                    checked
+                    required="required"
+                />
+                <label for="twist">Twist</label>
+
+                <input
+                    id="fill"
+                    name="fill"
+                    type="checkbox"
+                    required="required"
+                />
+                <label for="fill">Fill</label>
+
+                <input
+                    id="gpu"
+                    name="gpu"
+                    type="checkbox"
+                    checked
+                    required="required"
+                />
+                <label for="gpu">GPU(Rotate)</label>
+
+                <input
+                    id="spin"
+                    name="spin"
+                    type="checkbox"
+                    checked
+                    required="required"
+                />
+                <label for="spin">Spin Fast</label>
+
+                <p>
+                    <button>Get date/time</button>
+                </p>
+                <p id="demo"></p>
             </div>
-
-            <br /><br />
-            <input
-                id="twist"
-                name="twist"
-                type="checkbox"
-                checked
-                required="required"
-            />
-            <label for="twist">Twist</label>
-
-            <input id="fill" name="fill" type="checkbox" required="required" />
-            <label for="fill">Fill</label>
-
-            <input
-                id="gpu"
-                name="gpu"
-                type="checkbox"
-                checked
-                required="required"
-            />
-            <label for="gpu">GPU(Rotate)</label>
-
-            <input
-                id="spin"
-                name="spin"
-                type="checkbox"
-                checked
-                required="required"
-            />
-            <label for="spin">Spin Fast</label>
-
-            <p>
-                <button>Get date/time</button>
-            </p>
-            <p id="demo"></p>
         </div>
-        <br /><br />
 
         <script id="vertex-shader" type="x-shader/x-vertex">
             attribute vec4 vPosition;
