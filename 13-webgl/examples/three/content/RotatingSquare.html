@@ -2,22 +2,28 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="RotatingSquare.css" type="text/css" rel="stylesheet" />
         <title>Curves with Epicycles</title>
     </head>
 
     <body>
-        <canvas id="theCanvas" width="400" height="400">
-            Please use a browser that supports "canvas"
-        </canvas>
+        <div
+            class="flex portrait:flex-col landscape:flex-row justify-center items-center select-none overflow-hidden"
+        >
+            <canvas id="theCanvas" class="w-400 h-400">
+                Please use a browser that supports "canvas"
+            </canvas>
 
-        <div style="padding-left: 30px">
-            <p>
-                Three.js with <span id="rpc"></span> revolutions per cycle (rpc)
-            </p>
-            <p>Set rpc as URL parameter: rpc=n or rpc=-n (1/n)</p>
-            <p>Total Angle = <span id="tang">?</span></p>
-            <p>Angle = <span id="ang"></span></p>
+            <div class="pl-6 mt-4 leading-loose text-xs lg:text-xl">
+                <p>
+                    Three.js with <span id="rpc"></span> revolutions per cycle
+                    (rpc)
+                </p>
+                <p>Set rpc as URL parameter: rpc=n or rpc=-n (1/n)</p>
+                <p>Total Angle = <span id="tang">?</span></p>
+                <p>Angle = <span id="ang"></span></p>
+            </div>
         </div>
 
         <script type="importmap">

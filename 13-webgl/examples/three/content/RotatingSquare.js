@@ -273,6 +273,42 @@ function mainEntrance(rpc = 2) {
   }
 
   /**
+   * <p>Fires when the document view (window) has been resized.</p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+   */
+  function handleWindowResize() {
+    let h = window.innerHeight - 20;
+    let w = window.innerWidth - 20;
+    const aspect = 1;
+    if (h > w) {
+      h = w / aspect; // aspect < 1
+    } else {
+      w = h * aspect; // aspect > 1
+    }
+    camera.aspect = aspect;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+    renderer.render(scene, camera);
+  }
+
+  /**
+   * <p>Fires when the document view (window) has been resized.</p>
+   * <p>The {@link handleWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @summary Appends an event listener for events whose type attribute value is resize.
+   * @param {Event} event a generic event.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+   */
+  window.addEventListener("resize", handleWindowResize, false);
+
+  handleWindowResize();
+
+  /**
    * <p>A built in function that can be used instead of
    * {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}.</p>
    * The {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.setAnimationLoop renderer.setAnimationLoop}
