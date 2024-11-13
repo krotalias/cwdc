@@ -2,7 +2,8 @@
     --bgcolor: #f0f0f0;
     --canvasw: 380px;
     --canvash: 380px;
-    --fontsize: 120%;
+    --fontsize: 80%;
+    --direction: row;
 }
 
 * {
@@ -15,7 +16,7 @@ body {
     background: var(--bgcolor);
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) and (orientation: portrait) {
     body {
         /*
             When a target is touched and held on iOS,
@@ -29,12 +30,14 @@ body {
     }
     :root {
         --fontsize: 80%;
+        --direction: column;
     }
 }
 
 #interface {
     width: fit-content;
-    margin: 0 auto;
+    height: fit-content;
+    margin: auto auto;
     border: solid brown 3px;
     padding: 10px;
     font-size: var(--fontsize);
@@ -43,8 +46,7 @@ body {
 #gl-canvas {
     width: var(--canvasw);
     height: var(--canvash);
-    display: block;
-    margin: 0 auto;
+    margin: auto auto;
     top: 0;
     left: 0;
     outline: none;
@@ -67,6 +69,10 @@ label {
     margin-right: 20px;
 }
 
+label[for="spin"] {
+    margin-right: 0;
+}
+
 input[type="number"] {
     font-size: 60%;
 }
@@ -79,4 +85,9 @@ input[type="button"] {
 #demo {
     margin-top: 10px;
     font-size: 80%;
+}
+
+#container {
+    display: flex;
+    flex-direction: var(--direction);
 }
