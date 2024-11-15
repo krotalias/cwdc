@@ -32,9 +32,11 @@
  * Summary.
  * &lt;p>Codeplayer is a sandbox for writing HTML/CSS/JAVASCRIPT code.&lt;/p>
  *
- *  Description.
- *  &lt;p>There are three panels (textarea) to input the code
- *     and a fourth output panel (iframe) to display the result.&lt;/p>
+ * Description.
+ * &lt;p>There are three panels (textarea) to input the code
+ * and a fourth output panel
+ * ({@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe iframe})
+ * to display the result.&lt;/p>
  * &lt;ul>
  *  &lt;li> HTML panel&lt;/li>
  *  &lt;li> CSS panel. &lt;/li>
@@ -42,34 +44,40 @@
  *  &lt;li> Output panel.&lt;/li>
  * &lt;/ul>
  *
- *  &lt;pre>
+ * &lt;pre>
  *  Documentation:
  *  - Ubuntu:
  *     - sudo apt install jsdoc-toolkit
  *  - MacOS:
- *     - sudo port install npm8 (or npm9)
+ *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
  *  - jsdoc -d doc-codeplayer codeplayer.js
- *  &lt;/pre>
+ * &lt;/pre>
  *
- *  @see &lt;a href="/cwdc/4-jquery/4.15.html">link&lt;/a>
- *  @see &lt;a href="/cwdc/4-jquery/codeplayer.js">source&lt;/a>
- *  @author Paulo Roma Cavalcanti
- *  @since 20/01/2021
+ * @author Paulo Roma Cavalcanti
+ * @since 20/01/2021
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
+ * @copyright © 2021-2024 Paulo R Cavalcanti.
+ * @see &lt;a href="/cwdc/4-jquery/4.15.html">link&lt;/a>
+ * @see &lt;a href="/cwdc/4-jquery/codeplayer.js">source&lt;/a>
+ * @see {@link http://jsbin.com/?html,css,js,output JS Bin}
  */
 
-/** Create a page with the html and css from the first two panels and run it on the iframe panel. &lt;br>
- *  Then, inject javascript code from the javascript panel (to modify the html from the htmlPanel)
- *  into the iframe.
+/**
+ * Create a page with the html and css from the first two panels
+ * and run it on the iframe panel. &lt;br>
+ * Then, inject javascript code from the javascript panel
+ * (to modify the html from the htmlPanel) into the iframe.
  *
- *  &lt;p>The eval() function evaluates JavaScript code represented as a string (dangerous!).&lt;/p>
- *  &lt;ul>
- *      &lt;li>$("#javascriptPanel").val() -> "document.getElementById(\"paragraph\").innerHTML = \"Hello World!\";"
- *      &lt;li>eval() -> "Hello My World!"
- *  &lt;/ul>
+ * &lt;p>The eval() function evaluates JavaScript code
+ * represented as a string (dangerous!).&lt;/p>
+ * &lt;ul>
+ *    &lt;li>$("#javascriptPanel").val() -> "document.getElementById(\"paragraph\").innerHTML = \"Hello World!\";"
+ *    &lt;li>eval() -> "Hello My World!"
+ * &lt;/ul>
  *
- *  @see https://api.jquery.com/contents/
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval
+ * @see {@link https://api.jquery.com/contents/ .contents()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval eval()}
  */
 function updateOutput() {
   $("iframe")
@@ -80,7 +88,7 @@ function updateOutput() {
         $("#cssPanel").val() + // get the code in cssPanel
         "&lt;/style>&lt;/head>&lt;body>" +
         $("#htmlPanel").val() + // get the code in htmlPanel
-        "&lt;/body>&lt;/html>"
+        "&lt;/body>&lt;/html>",
     );
 
   // Inject javascript code.
@@ -89,14 +97,15 @@ function updateOutput() {
     .contentWindow.eval($("#javascriptPanel").val());
 }
 
-/**  @name hover
- *   @function
+/**
+ * &lt;p>Bind one or two handlers to the matched elements, to be executed
+ * when the mouse pointer enters and leaves the elements.&lt;/p>
  *
- *   @description
- *   Bind one or two handlers to the matched elements, to be executed
- *   when the mouse pointer enters and leaves the elements.
+ * A "highlightedButton" class is added / removed when entering / leaving.
  *
- *   @see https://api.jquery.com/hover/
+ * @event hover
+ *
+ * @see {@link https://api.jquery.com/hover/ .hover()}
  */
 $(".toggleButton").hover(
   function () {
@@ -104,92 +113,119 @@ $(".toggleButton").hover(
   },
   function () {
     $(this).removeClass("highlightedButton");
-  }
+  },
 );
 
-/** @name anonymous function
- *  @function
+/**
+ * &lt;p>Display the size of the browser window.&lt;/p>
  *
- *  @description
- *  Define the callbacks for the events of page load and page resize,
- *  so the size of the browser viewport is continuously displayed on screen.
+ * The size of the browser viewport (the user's visible area of a web page)
+ * is continuously displayed on screen.
+ *
+ * &lt;p>The innerWidth is width (in pixels) of the browser window viewport including,
+ * if rendered, the vertical scrollbar.&lt;/p>
+ *
+ * &lt;p>The outerWidth property returns the outer width of the browser window
+ * (width of the client window),
+ * including all interface elements (like toolbars/scrollbars).&lt;/p>
+ *
+ * Therefore outerWidth can be less than innerWidth when your page is just
+ * zoomed in, or page view is scaled up.
+ *
+ * &lt;p>Uses an ID "screen" to display the values.&lt;/p>
+ * &lt;ul>
+ *   &lt;li> document.getElementById("screen").innerHTML = "(" + iWidth + " &amp;times; " + iHeight + ")";
+ * &lt;/ul>
  */
-(function () {
-  window.onresize = displayWindowSize;
-  window.onload = displayWindowSize;
+function displayWindowSize() {
+  const iWidth = window.innerWidth;
+  const iHeight = window.innerHeight;
+  const oWidth = window.outerWidth;
+  const oHeight = window.outerHeight;
+  $("#screen").html(
+    `(${iWidth} &amp;times; ${iHeight}) - (${oWidth} &amp;times; ${oHeight})`,
+  );
+}
 
-  /** @name displayWindowSize
-   *  @function
-   *
-   *  @description
-   *  Display the size of the browser window.
-   *
-   *  &lt;p>The innerWidth is width (in pixels) of the browser window viewport including,
-   *  if rendered, the vertical scrollbar.&lt;/p>
-   *
-   *  &lt;p>The outerWidth property returns the outer width of the browser window
-   *  (width of the client window),
-   *  including all interface elements (like toolbars/scrollbars).&lt;/p>
-   *
-   *  Therefore outerWidth can be less than innerWidth when your page is just
-   *  zoomed in, or page view is scaled up.
-   *
-   *  &lt;p>Uses an ID "screen" to display the values.&lt;/p>
-   *  &lt;ul>
-   *      &lt;li> document.getElementById("screen").innerHTML = "(" + iWidth + " &amp;times; " + iHeight + ")";
-   *  &lt;/ul>
-   */
-  function displayWindowSize() {
-    let iWidth = window.innerWidth;
-    let iHeight = window.innerHeight;
-    let oWidth = window.outerWidth;
-    let oHeight = window.outerHeight;
-    $("#screen").html(
-      `(${iWidth} &amp;times; ${iHeight}) - (${oWidth} &amp;times; ${oHeight})`
-    );
-  }
-})();
+/**
+ * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
+ * &lt;p>The {@link displayWindowSize callback} argument sets the callback
+ * that will be invoked when the event is dispatched.&lt;/p>
+ * @summary Appends an event listener for events whose type attribute value is resize.
+ * @param {Event} event a generic event.
+ * @param {callback} function function to run when the event occurs.
+ * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+ * @event resize
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+ */
+window.addEventListener("resize", displayWindowSize, false);
 
-/** Textarea background color. */
-var txtbgcolor = "antiquewhite";
+/**
+ * &lt;p>Fired when the whole page has loaded, including all dependent resources
+ * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.&lt;/p>
+ * &lt;p>The {@link displayWindowSize callback} argument sets the callback
+ * that will be invoked when the event is dispatched.&lt;/p>
+ * @summary Sets the {@link displayWindowSize entry point} of the application.
+ * @param {Event} event a generic event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ * @event load
+ */
+window.addEventListener("load", (event) => displayWindowSize());
 
-var previousId = "html";
-/** A global CSS variable holding the textarea color.
+/**
+ * Textarea background color.
+ * @type {String}
+ */
+const txtbgcolor = "antiquewhite";
+
+/**
+ * Previous {@link panels panel} Id.
+ * @type {String}
+ */
+let previousId = "html";
+
+/**
+ * A global CSS variable holding the textarea color.
  * The variable can be accessed using DOM:
  * &lt;ul>
  *    &lt;li>getComputedStyle(document.querySelector(':root')).getPropertyValue('--txtcolor');
  * &lt;/ul>
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
+ * @type {String}
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector Document: querySelector() method}
  */
-var txtcolor = $(":root").css("--txtcolor");
+const txtcolor = $(":root").css("--txtcolor");
 
-/** Associate a button id to its corresponding panel #id selector.
+/**
+ * Associate a button id to its corresponding panel #id selector.
+ * @type {Array&lt;String,String>}
  */
-var panels = [];
+const panels = [];
 panels["html"] = "#htmlPanel";
 panels["css"] = "#cssPanel";
 panels["javascript"] = "#javascriptPanel";
 panels["output"] = "#outputPanel";
 
-/** @name click
- *  @function
+/**
+ * &lt;p>Bind an event handler to the "click" event, or trigger that event on an element.&lt;/p>
  *
- *  @description
- *  Callback for a button click event.
+ * &lt;p>If the output button is clicked, the initial iframe contents is reloaded.&lt;/p>
  *
- *  &lt;p>If the output button is clicked, the initial iframe contents is reloaded.&lt;/p>
- *
- *  Going back to the inital page after following an external link,
- *  generates a cross-origin error.&lt;br>
- *  It is necessary to load a blank page to reset the iframe element, which
- *  can be accomplished this way:
- *  &lt;ul>
+ * Going back to the initial page after following an external link,
+ * generates a cross-origin error.&lt;br>
+ * It is necessary to load a blank page to reset the iframe element, which
+ * can be accomplished this way:
+ * &lt;ul>
  *     &lt;li> document.getElementById("outputPanel").src = "about:blank";
- *  &lt;/ul>
+ * &lt;/ul>
  *
- *  @see https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
- *  @see https://api.jquery.com/toggleclass/
+ * @event click
+ *
+ * @see {@link https://api.jquery.com/click/ click event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy Same-origin policy}
+ * @see {@link https://api.jquery.com/toggleclass/ .toggleClass()}
  */
 $(".toggleButton").click(function () {
   // change the color of the clicked button.
@@ -197,7 +233,7 @@ $(".toggleButton").click(function () {
   // remove highlight of the clicked button.
   $(this).removeClass("highlightedButton");
   // Button id: html, css, javascript or output
-  var panelId = $(this).attr("id");
+  const panelId = $(this).attr("id");
   // hide or show the clicked panel.
   $(panels[panelId]).toggleClass("hidden");
 
@@ -205,7 +241,7 @@ $(".toggleButton").click(function () {
     $(panels[previousId]).css("background-color", txtcolor);
 
     if ($(panels[panelId]).hasClass("hidden")) {
-      for (var key in panels) {
+      for (const key in panels) {
         // look for the first visible panel
         if (!$(panels[key]).hasClass("hidden")) {
           $(panels[key]).css("background-color", txtbgcolor);
@@ -226,7 +262,7 @@ $(".toggleButton").click(function () {
     else $("iframe").attr("src", "about:blank");
   }
   // visible panels = number of panels less the number of hidden panels.
-  var numberOfActivePanels = 4 - $(".hidden").length;
+  const numberOfActivePanels = 4 - $(".hidden").length;
 
   // set the width of the remaining panels.
   $(".panel").width($(window).width() / numberOfActivePanels - 10);
@@ -242,7 +278,7 @@ $(panels["html"]).css("background-color", txtbgcolor);
 
 updateOutput();
 
-// If text is changed, or pasted something, into any textarea.
+// If text is changed, or pasted something into any textarea.
 $("textarea").on("change keyup paste", function () {
   updateOutput();
 });
@@ -256,13 +292,13 @@ $("textarea").on("change keyup paste", function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#anonymousfunction">anonymous function</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#displayWindowSize">displayWindowSize</a></li><li><a href="global.html#hover">hover</a></li><li><a href="global.html#panels">panels</a></li><li><a href="global.html#txtbgcolor">txtbgcolor</a></li><li><a href="global.html#txtcolor">txtcolor</a></li><li><a href="global.html#updateOutput">updateOutput</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:hover">hover</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#displayWindowSize">displayWindowSize</a></li><li><a href="global.html#panels">panels</a></li><li><a href="global.html#previousId">previousId</a></li><li><a href="global.html#txtbgcolor">txtbgcolor</a></li><li><a href="global.html#txtcolor">txtcolor</a></li><li><a href="global.html#updateOutput">updateOutput</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Aug 23 2023 22:27:03 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Nov 15 2024 06:15:37 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
