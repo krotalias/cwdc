@@ -22,7 +22,7 @@
  * @author {@link https://marijnhaverbeke.nl Marijn Haverbeke}, adapted to ES6 by Paulo Roma
  * @since 06/07/2021
  * @see <a href="../robot.html">Robot</a>
- * @see <a href="../animateVillage.js">source</a>
+ * @see <a href="../animatevillage.js">source</a>
  * @see {@link https://eloquentjavascript.net/07_robot.html Project: A Robot}
  */
 
