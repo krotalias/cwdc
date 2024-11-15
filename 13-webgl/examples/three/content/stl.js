@@ -1181,6 +1181,12 @@ function init(dfile) {
       ) {
         scene.add(ambLight);
       }
+      if (geometry.materialLibraries[0].includes("Dog")) {
+        const mesh = geometry.children.find((element) =>
+          element.name.includes("Final"),
+        );
+        if (mesh) mesh.material.shininess = 0.0;
+      }
       camera.add(dirLight);
       object = geometry;
     }
