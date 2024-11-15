@@ -13,9 +13,9 @@
  *
  * @author Paulo Roma
  * @since 24/07/2021
- * @see <a href="/eloquentJavascript/robot/robot.mjs">source</a>
- * @see https://techsparx.com/nodejs/esnext/dynamic-import-2.html
- * @see https://nodejs.medium.com/announcing-core-node-js-support-for-ecmascript-modules-c5d6dc29b663
+ * @see <a href="../robot.mjs">source</a>
+ * @see {@link https://techsparx.com/nodejs/esnext/dynamic-import-2.html Using Dynamic import in Node.js}
+ * @see {@link https://nodejs.medium.com/announcing-core-node-js-support-for-ecmascript-modules-c5d6dc29b663 Announcing core Node.js support for ECMAScript modules}
  */
 
 import * as readlineSync from "readline-sync";
@@ -60,7 +60,7 @@ function compareRobots(r, n, t) {
         console.log(
             `Robot ${robot.prototype.constructor.name} needed ${
                 total[index] / t
-            } steps per task`
+            } steps per task`,
         );
     });
 }
@@ -108,12 +108,12 @@ function compareRobots(r, n, t) {
                 nparcels: 15,
                 type: 2,
             },
-        }
+        },
     );
 
     if (options.help) {
         console.log(
-            `Usage robot.mjs -p <#parcels> -t <robot type> -d <debugging>`
+            `Usage robot.mjs -p <#parcels> -t <robot type> -d <debugging>`,
         );
         return 1;
     }
@@ -128,8 +128,8 @@ function compareRobots(r, n, t) {
         console.log(
             `\nGraph = ${JSON.stringify(robot.roadGraph, null, "\t").replaceAll(
                 '],\n\t"',
-                '],\n\n\t"'
-            )}\n`
+                '],\n\n\t"',
+            )}\n`,
         );
 
     console.log(`Robot Type: ${rtypes[type].prototype.constructor.name} `);
@@ -149,10 +149,10 @@ function compareRobots(r, n, t) {
 
     let [kin, kout] = robot.maxNode(nodes);
     console.log(
-        `Node with more parcels to send: ${kin} (${nodes[kin].index}) → ${nodes[kin].in}`
+        `Node with more parcels to send: ${kin} (${nodes[kin].index}) → ${nodes[kin].in}`,
     );
     console.log(
-        `Node with more parcels addressed to: ${kout} (${nodes[kout].index}) ← ${nodes[kout].out}`
+        `Node with more parcels addressed to: ${kout} (${nodes[kout].index}) ← ${nodes[kout].out}`,
     );
 
     argv = [];

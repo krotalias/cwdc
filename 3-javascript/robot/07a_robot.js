@@ -44,13 +44,13 @@
  *  - node robot.mjs [nparcels] [rtype]
  *  </pre>
  *
- *  @see <a href="/eloquentJavascript/robot/robot.html">Robot</a>
- *  @see <a href="/eloquentJavascript/robot/07a_robot.js">source</a>
- *  @see https://eloquentjavascript.net/07_robot.html
- *  @see https://www.i-programmer.info/programming/javascript/1441-javascript-data-structures-the-associative-array.html
- *  @see <a href="../doc-robot-node">robot in node</a>
- *  @author Marijn Haverbeke ({@link https://marijnhaverbeke.nl}), adapted to ES6 by Paulo Roma
- *  @since 06/07/2021
+ * @author {@link https://marijnhaverbeke.nl Marijn Haverbeke}, adapted to ES6 by Paulo Roma
+ * @since 06/07/2021
+ * @see <a href="../robot.html">Robot</a>
+ * @see <a href="../07a_robot.js">source</a>
+ * @see <a href="../doc-robot-node">robot in node</a>
+ * @see {@link https://eloquentjavascript.net/07_robot.html Project: A Robot}
+ * @see {@link https://www.i-programmer.info/programming/javascript/1441-javascript-data-structures-the-associative-array.html JavaScript Data Structures - The Associative Array}
  */
 const roads = [
   "Alice's House-Bob's House",

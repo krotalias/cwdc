@@ -19,11 +19,11 @@
  *  - jsdoc -d doc-village animatevillage.js
  *  </pre>
  *
- *  @see <a href="/eloquentJavascript/robot/robot.html">Robot</a>
- *  @see <a href="/eloquentJavascript/robot/animateVillage.js">source</a>
- *  @see https://eloquentjavascript.net/07_robot.html
- *  @author Marijn Haverbeke ({@link https://marijnhaverbeke.nl}), adapted to ES6 by Paulo Roma
- *  @since 06/07/2021
+ * @author {@link https://marijnhaverbeke.nl Marijn Haverbeke}, adapted to ES6 by Paulo Roma
+ * @since 06/07/2021
+ * @see <a href="../robot.html">Robot</a>
+ * @see <a href="../animateVillage.js">source</a>
+ * @see {@link https://eloquentjavascript.net/07_robot.html Project: A Robot}
  */
 
 /// <reference path="07a_robot.js" />
@@ -174,7 +174,7 @@
       this.updateParcels();
       // when the robot reaches its final position, then update its parcels.
       this.robotElt.addEventListener("transitionend", () =>
-        this.updateParcels()
+        this.updateParcels(),
       );
     }
 
