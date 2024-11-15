@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>07a_robot.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>A mail-delivery robot picking up and dropping off parcels.</p>
+
+ Description.
+ <p>The village of Meadowfield isn’t very big. </p>
+ <ul>
+   <li>It consists of 11 places with 14 roads between them.</li>
+   <li>It can be described with this array of roads:</li>
+   <br>
+   const roads = [
+   <ul style="list-style-type:none">
+     <li> "Alice's House-Bob's House",   "Alice's House-Cabin", </li>
+     <li> "Alice's House-Post Office",   "Bob's House-Town Hall", </li>
+     <li> "Daria's House-Ernie's House", "Daria's House-Town Hall", </li>
+     <li> "Ernie's House-Grete's House", "Grete's House-Farm", </li>
+     <li> "Grete's House-Shop",          "Marketplace-Farm", </li>
+     <li> "Marketplace-Post Office",     "Marketplace-Shop", </li>
+     <li> "Marketplace-Town Hall",       "Shop-Town Hall" </li>
+   </ul>
+   ]
+ </ul>
+
+<p>The village's road network (topology) will be represented by a graph. </p>
+Each node of the graph represents a place, which is associated with its set of edges,<br>
+that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
+<p> <img src="../img/village2x.png"></p>
+
+ <pre>
+ Documentation:
+ - Ubuntu:
+    - sudo apt install jsdoc-toolkit or
+    - sudo npm install -g jsdoc
+ - MacOS:
+    - sudo port install npm7 (or npm8)
+    - sudo npm install -g jsdoc
+ - jsdoc -d doc-robot 07a_robot.js
+
+ Usage:
+ - npm init
+ - npm install readline-sync getopts
+ - node robot.mjs [nparcels] [rtype]
+ </pre></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>06/07/2021</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Marijn Haverbeke (<a href="https://marijnhaverbeke.nl">https://marijnhaverbeke.nl</a>), adapted to ES6 by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/eloquentJavascript/robot/robot.html">Robot</a></li>
+        
+            <li><a href="/eloquentJavascript/robot/07a_robot.js">source</a></li>
+        
+            <li><a href="https://eloquentjavascript.net/07_robot.html">https://eloquentjavascript.net/07_robot.html</a></li>
+        
+            <li><a href="https://www.i-programmer.info/programming/javascript/1441-javascript-data-structures-the-associative-array.html">https://www.i-programmer.info/programming/javascript/1441-javascript-data-structures-the-associative-array.html</a></li>
+        
+            <li><a href="../doc-robot-node">robot in node</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>animatevillage.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Animation module for the robot.</p>
+
+ Description.
+ <p>The class Animation aims at providing the methods for animating the robot movement
+    during its task of delivering parcels.</p>
+
+ <pre>
+ Documentation:
+ - Ubuntu:
+    - sudo apt install jsdoc-toolkit or
+    - sudo npm install -g jsdoc
+ - MacOS:
+    - sudo port install npm7 (or npm8)
+    - sudo npm install -g jsdoc
+ - jsdoc -d doc-village animatevillage.js
+ </pre></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>06/07/2021</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Marijn Haverbeke (<a href="https://marijnhaverbeke.nl">https://marijnhaverbeke.nl</a>), adapted to ES6 by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="animatevillage.js.html">animatevillage.js</a>, <a href="animatevillage.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/eloquentJavascript/robot/robot.html">Robot</a></li>
+        
+            <li><a href="/eloquentJavascript/robot/animateVillage.js">source</a></li>
+        
+            <li><a href="https://eloquentjavascript.net/07_robot.html">https://eloquentjavascript.net/07_robot.html</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Animation.html">Animation</a></li><li><a href="VillageState.html">VillageState</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Anonymousself-invokedfunction">Anonymous self-invoked function</a></li><li><a href="global.html#active">active</a></li><li><a href="global.html#buildGraph">buildGraph</a></li><li><a href="global.html#findRoute">findRoute</a></li><li><a href="global.html#goalOrientedRobot">goalOrientedRobot</a></li><li><a href="global.html#lazyRobot">lazyRobot</a></li><li><a href="global.html#mailRoute">mailRoute</a></li><li><a href="global.html#maxNode">maxNode</a></li><li><a href="global.html#parcelsNode">parcelsNode</a></li><li><a href="global.html#placeKeys">placeKeys</a></li><li><a href="global.html#places">places</a></li><li><a href="global.html#randomPick">randomPick</a></li><li><a href="global.html#randomRobot">randomRobot</a></li><li><a href="global.html#roadGraph">roadGraph</a></li><li><a href="global.html#routeRobot">routeRobot</a></li><li><a href="global.html#runRobot">runRobot</a></li><li><a href="global.html#runRobotAnimation">runRobotAnimation</a></li><li><a href="global.html#speed">speed</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Nov 15 2024 08:10:58 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
