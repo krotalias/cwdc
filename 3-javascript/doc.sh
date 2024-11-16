@@ -3,7 +3,7 @@ jsdoc -d doc-reaction reaction_tester.js
 #jsdoc -r ./jewels -d doc-jewels
 jsdoc -c jsdoc.conf.json
 jsdoc -d doc-gcd bigint/gcd.js
-jsdoc -d doc-factorize bigint/gcd.js bigint/factorize.js
+jsdoc -d doc-factorize bigint/gcd.js bigint/factorize.js bigint/bitset.js
 jsdoc -c jsdoc.conf -d doc-factorize-node bigint/factorize.mjs
 jsdoc -c jsdoc.conf -d doc-factorize-ui-node bigint/factorize-ui.mjs
 jsdoc -d doc-roman roman/roman.js roman/roman-storage.js
