@@ -4,12 +4,27 @@
     --bgcolor: antiquewhite;
     --fsize: 120%;
 }
+html {
+    overscroll-behavior: none;
+}
+body {
+    background-color: lightgray;
+    margin-left: 20px;
+    padding: 0;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+}
 @font-face {
     font-family: "Source Sans Pro";
     /* https://www.fontsquirrel.com/fonts/source-sans-pro */
     src: url("source-sans-pro/SourceSansPro-Regular.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
+}
+.centered {
+    text-align: center;
+    font-size: var(--fsize);
 }
 .eqnFont {
     font-family: "Source Sans Pro";
@@ -29,14 +44,6 @@ mark {
     background-color: var(--bgcolor);
     color: green;
 }
-html {
-    overscroll-behavior: none;
-}
-body {
-    background-color: lightgray;
-    margin: 50px 8px;
-    padding: 0;
-}
 .container_bi {
     width: var(--length);
     border: 4px solid brown;
@@ -44,10 +51,6 @@ body {
     text-align: justify;
     background-color: var(--bgcolor);
     cursor: move;
-    font-size: var(--fsize);
-}
-.centered {
-    text-align: center;
     font-size: var(--fsize);
 }
 label {
@@ -62,4 +65,13 @@ span.subsup sub {
     position: absolute;
     left: 0em;
     bottom: -0.4em;
+}
+
+@media only screen and (max-width: 768px) {
+    .centered {
+        font-size: 80%;
+    }
+    .eqnFont {
+        font-size: x-small;
+    }
 }
