@@ -22,10 +22,10 @@
  * @author Paulo Roma
  * @since 30/12/2021
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/API/console/time
- * @see https://dmitripavlutin.com/javascript-defined-variable-checking/
- * @see https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
- * @see https://www.npmjs.com/package/readline-sync
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/console/time console: time() static method}
+ * @see {@link https://dmitripavlutin.com/javascript-defined-variable-checking/ 3 Ways to Check if a Variable is Defined in JavaScript}
+ * @see {@link https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797 ANSI Escape Sequences}
+ * @see {@link https://www.npmjs.com/package/readline-sync readline-sync}
  * @see <a href="/cwdc/3-javascript/bigint/factorize-ui.mjs">source</a>
  */
 
@@ -34,9 +34,9 @@ import { factorization, bitLength } from "./factorize.js";
 import { LCM } from "./gcd.js";
 
 var MAX = 100,
-    MIN = 1,
-    value = 40,
-    key;
+  MIN = 1,
+  value = 40,
+  key;
 
 /*
  *      ANSI Escape Sequences
@@ -58,38 +58,38 @@ let unblink = "\x1B[25m";
 
 console.log(`\n\n${new Array(20).join(" ")}[Z] ← → [X]  FIX: [SPACE]\n`);
 while (true) {
-    let factors = LCM(value);
-    let bits = bitLength(factors);
-    let color = factors > Number.MAX_SAFE_INTEGER ? red : green;
-    let highlight = factors > Number.MAX_SAFE_INTEGER ? blink : unblink;
+  let factors = LCM(value);
+  let bits = bitLength(factors);
+  let color = factors > Number.MAX_SAFE_INTEGER ? red : green;
+  let highlight = factors > Number.MAX_SAFE_INTEGER ? blink : unblink;
 
-    console.log(
-        `${up}${erase}${reset}|${new Array(value + 1).join("-")}O${new Array(
-            MAX - value + 1
-        ).join("-")}| ${value} = ${color}${bits} bits`
-    );
+  console.log(
+    `${up}${erase}${reset}|${new Array(value + 1).join("-")}O${new Array(
+      MAX - value + 1,
+    ).join("-")}| ${value} = ${color}${bits} bits`,
+  );
 
-    console.log(
-        `${go}${erase}${reset} LCM(${highlight}${value}${reset}) = ${factorization(
-            factors
-        )} ${up}`
-    );
+  console.log(
+    `${go}${erase}${reset} LCM(${highlight}${value}${reset}) = ${factorization(
+      factors,
+    )} ${up}`,
+  );
 
-    key = readlineSync.keyIn("", {
-        hideEchoBack: true,
-        mask: "",
-        limit: "zx ",
-    });
-    if (key === "z") {
-        if (value > MIN) {
-            value--;
-        }
-    } else if (key === "x") {
-        if (value < MAX) {
-            value++;
-        }
-    } else {
-        break;
+  key = readlineSync.keyIn("", {
+    hideEchoBack: true,
+    mask: "",
+    limit: "zx ",
+  });
+  if (key === "z") {
+    if (value > MIN) {
+      value--;
     }
+  } else if (key === "x") {
+    if (value < MAX) {
+      value++;
+    }
+  } else {
+    break;
+  }
 }
 console.log(`\n${reset}A value the user requested: ${value}`);

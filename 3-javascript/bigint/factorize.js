@@ -7,7 +7,7 @@
  * <p>The fundamental theorem of arithmetic states that every positive integer
  * (except the number 1) can be represented in exactly one way, apart from
  * rearrangement, as a product of one or more primes
- * <a href="https://blngcc.files.wordpress.com/2008/11/hardy-wright-theory_of_numbers.pdf">
+ * <a href="https://blngcc.files.wordpress.com/2008/11/hardy-wright-theory_of_numbers.pdf#page=18">
  * (Hardy and Wright 1979, pp 2-3)</a>.</p>
  *
  * <p>This is a "fast" algorithm, which can factorize large numbers in a
@@ -17,11 +17,11 @@
  * @since 27/12/2021
  * @see <a href="/cwdc/3-javascript/bigint/gcd.html">link</a>
  * @see <a href="/cwdc/3-javascript/bigint/factorize.js">source</a>
- * @see https://mathworld.wolfram.com/PrimeFactorizationAlgorithms.html
- * @see https://academickids.com/encyclopedia/index.php/Prime_factorization_algorithm
- * @see https://en.wikipedia.org/wiki/Integer_factorization
- * @see https://javascript.info/modules-dynamic-imports
- * @see https://www.scriptol.com/javascript/include.php
+ * @see {@link https://mathworld.wolfram.com/PrimeFactorizationAlgorithms.html Prime Factorization Algorithms}
+ * @see {@link https://academickids.com/encyclopedia/index.php/Prime_factorization_algorithm Prime factorization algorithm}
+ * @see {@link https://en.wikipedia.org/wiki/Integer_factorization Integer factorization}
+ * @see {@link https://javascript.info/modules-dynamic-imports Dynamic imports}
+ * @see {@link https://www.scriptol.com/javascript/include.php Loading a JavaScript file into another with Node.js}
  * @see <a href="../doc-factorize-node">factorize in node</a>
  * @see <a href="../doc-factorize-ui-node">factorize UI in node</a>
  * @see <img src="../bigint/bigint.png" width="512">
@@ -30,13 +30,18 @@
 "use strict";
 
 /**
- * Load bitset for node.
- * @name Call load bitset
- * @description <p>Load bitset.js for node. </p>
- * @global
+ * <p>Fired when the whole page has loaded, including all dependent resources
+ * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.</p>
+ * <p>The callback argument sets the {@link loadScript callback}
+ * that will be invoked when the event is dispatched.</p>
+ * @summary Load bitset.js for node.
+ * @event load
+ * @param {Event} event a generic event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  * @see <a href="/cwdc/3-javascript/doc-factorize/global.html#loadScript">loadScript</a>
  */
-await loadScript("bitset.js");
+addEventListener("load", async () => await loadScript("bitset.js"));
 
 /**
  * A cache array with the first 15 primes to speed up factorization.
@@ -62,16 +67,16 @@ const cachedPrimes = sieve(47);
  *   <li>Running code does not have access to local scope, but does have access to
  *   the current global object.</li>
  * </ul>
- *
+ * @async
  * @param {String} jscript script file name.
  * @return {Promise<void>}
- * @see https://javascript.info/modules-dynamic-imports
- * @see https://nodejs.org/api/vm.html#vmruninthiscontextcode-options
+ * @see {@link https://javascript.info/modules-dynamic-imports Dynamic imports}
+ * @see {@link https://nodejs.org/api/vm.html#vmruninthiscontextcode-options vm.runInThisContext(code[, options])}
  */
 export async function loadScript(jscript) {
   if (typeof window === "undefined") {
-    let fs = await import("fs");
-    let vm = await import("vm");
+    const fs = await import("fs");
+    const vm = await import("vm");
     try {
       vm.runInThisContext(fs.readFileSync(jscript));
     } catch (err) {
@@ -90,19 +95,19 @@ export async function loadScript(jscript) {
  * @function
  *
  * @returns {map_typography} callback for mapping subscript and superscript digits.
- * @see https://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts
+ * @see {@link https://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts Unicode subscripts and superscripts}
  */
 export const translate = (function () {
-  let superscript = [];
-  let subscript = [];
+  const superscript = [];
+  const subscript = [];
 
   const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 
-  for (let t of zip("0123456789".split(""), "⁰¹²³⁴⁵⁶⁷⁸⁹".split(""))) {
+  for (const t of zip("0123456789".split(""), "⁰¹²³⁴⁵⁶⁷⁸⁹".split(""))) {
     superscript[t[0]] = t[1];
   }
 
-  for (let t of zip("0123456789".split(""), "₀₁₂₃₄₅₆₇₈₉".split(""))) {
+  for (const t of zip("0123456789".split(""), "₀₁₂₃₄₅₆₇₈₉".split(""))) {
     subscript[t[0]] = t[1];
   }
 
@@ -111,7 +116,7 @@ export const translate = (function () {
    * @param {String} c digit.
    * @returns {Object<{sub:String, sup:String}>} subscript and superscript digits.
    * @callback map_typography
-   * @see https://en.wikipedia.org/wiki/Subscript_and_superscript
+   * @see {@link https://en.wikipedia.org/wiki/Subscript_and_superscript Subscript and superscript}
    */
   return (c) => {
     return {
@@ -169,12 +174,12 @@ export const translate = (function () {
  * @function
  * @global
  * @return {BigInt} int(sqrt(this)).
- * @see https://www.freecodecamp.org/news/all-you-need-to-know-to-understand-javascripts-prototype-a2bff2d28f03/
- * @see https://en.wikipedia.org/wiki/Newton's_method
- * @see http://en.wikipedia.org/wiki/Integer_square_root
- * @see https://stackoverflow.com/questions/15390807/integer-square-root-in-python
- * @see https://stackoverflow.com/questions/15390807/integer-square-root-in-python/31224469#31224469
- * @see https://www.mathsisfun.com/algebra/quadratic-equation-graph.html
+ * @see {@link https://www.freecodecamp.org/news/all-you-need-to-know-to-understand-javascripts-prototype-a2bff2d28f03/ All you need to know to understand JavaScript’s Prototype}
+ * @see {@link https://en.wikipedia.org/wiki/Newton's_method Newton's method}
+ * @see {@link http://en.wikipedia.org/wiki/Integer_square_root Integer square root}
+ * @see {@link https://stackoverflow.com/questions/15390807/integer-square-root-in-python Integer square root in python}
+ * @see {@link https://stackoverflow.com/questions/15390807/integer-square-root-in-python/31224469#31224469 Here's a very straightforward implementation}
+ * @see {@link https://www.mathsisfun.com/algebra/quadratic-equation-graph.html Explore the Quadratic Equation}
  * @see <a href="/python/labs/doc/html/namespace__04b__intsqrt.html">intsqrt</a>
  */
 BigInt.prototype.isqrt = function () {
@@ -207,11 +212,11 @@ BigInt.prototype.isqrt = function () {
  * @function
  * @global
  * @return {Number} int(sqrt(this)).
- * @see https://www.freecodecamp.org/news/all-you-need-to-know-to-understand-javascripts-prototype-a2bff2d28f03/
- * @see https://en.wikipedia.org/wiki/Newton's_method
- * @see http://en.wikipedia.org/wiki/Integer_square_root
- * @see https://stackoverflow.com/questions/15390807/integer-square-root-in-python
- * @see https://www.mathsisfun.com/algebra/quadratic-equation-graph.html
+ * @see {@link https://www.freecodecamp.org/news/all-you-need-to-know-to-understand-javascripts-prototype-a2bff2d28f03/ All you need to know to understand JavaScript’s Prototype}
+ * @see {@link https://en.wikipedia.org/wiki/Newton's_method Newton's method}
+ * @see {@link http://en.wikipedia.org/wiki/Integer_square_root Integer square root}
+ * @see {@link https://stackoverflow.com/questions/15390807/integer-square-root-in-python Integer square root in python}
+ * @see {@link https://www.mathsisfun.com/algebra/quadratic-equation-graph.html Explore the Quadratic Equation}
  * @see <a href="/python/labs/doc/html/namespace__04b__intsqrt.html">intsqrt</a>
  */
 Number.prototype.isqrt = function () {
@@ -244,8 +249,8 @@ export function typeCast(x, n) {
  *
  * @param {Number | BigInt} x given number.
  * @returns {Number} amount of bits.
- * @see https://en.wikipedia.org/wiki/Bit-length
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString
+ * @see {@link https://en.wikipedia.org/wiki/Bit-length Bit-length}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString Object.prototype.toString()}
  */
 export function bitLength(x) {
   return typeof x == "bigint"
@@ -258,8 +263,8 @@ export function bitLength(x) {
  *
  * @param {Number | BigInt} x given number.
  * @returns {Number} amount of digits.
- * @see https://en.wikipedia.org/wiki/Bit-length
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString
+ * @see {@link https://en.wikipedia.org/wiki/Bit-length Bit-length}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString Object.prototype.toString()}
  */
 export function decLength(x) {
   return typeof x == "bigint"
@@ -272,7 +277,7 @@ export function decLength(x) {
  *
  * @param {String} d given string.
  * @returns {Boolean} true if d can be converted to a number, and false otherwise.
- * @see https://stackoverflow.com/questions/8935632/check-if-character-is-number
+ * @see {@link https://stackoverflow.com/questions/8935632/check-if-character-is-number Check if character is number?}
  */
 export function isDigit(d) {
   return +d == d;
@@ -314,8 +319,8 @@ export function factorization(n) {
  *
  * @param {Number | BigInt} n a given positive whole number.
  * @return {Array<Number>} array holding the primes up to n.
- * @see https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+ * @see {@link https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes Divergence of the sum of the reciprocals of the primes}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from Array.from()}
  * @see <a href="/python/laboratorios.html#sieve">sieve</a>
  */
 export function sieve(n) {
@@ -325,9 +330,9 @@ export function sieve(n) {
 
   // For an Array the maximum length is 4GB-1 (2^32-1 = 4294967295).
   // This is a waste of space, because we need just n bits.
-  let l = Array.from({ length: n + 1 }, (_, index) => index);
+  const l = Array.from({ length: n + 1 }, (_, index) => index);
   l[0] = l[1] = null;
-  for (let i of l) // in fact, this loop ends when i == int(sqrt(n)) - see below
+  for (const i of l) // in fact, this loop ends when i == int(sqrt(n)) - see below
     if (i != null) {
       // it's enough to eliminate multiples starting at
       // the square of the number, because all factors
@@ -358,7 +363,7 @@ export function sieve(n) {
  * @param {Boolean} arr whether to return an array with primes or just the bitset.
  * @return {Array<Number> | BitSet} array of primes, or a bitarray indicating the primes up to n.
  *
- * @see https://www.xarg.org/2014/03/javascript-bit-array/
+ * @see {@link https://www.xarg.org/2014/03/javascript-bit-array/ JavaScript Bit Array}
  * @see <a href="/python/labs/doc/html/__04d__sieve_8py.html">sieve</a>
  */
 export function sieve2(n, arr = false) {
@@ -411,13 +416,13 @@ export function sieve2(n, arr = false) {
  * @param {Number | BigInt} n given whole number.
  * @returns {Boolean} true if n is a prime, and false otherwise.
  * @see <a href="/python/laboratorios.html#prime">prime</a>
- * @see https://literateprograms.org/miller-rabin_primality_test__python_.html
+ * @see {@link https://literateprograms.org/miller-rabin_primality_test__python_.html Miller-Rabin primality test (Python)}
  *
  */
 export function isPrime(n) {
   if (n <= 1) return false;
   const high = n.isqrt();
-  for (let x of cachedPrimes) {
+  for (const x of cachedPrimes) {
     if (x > high) {
       return true;
     }
@@ -426,7 +431,7 @@ export function isPrime(n) {
     }
   }
   // the last prime in the cachedPrimes
-  let maxprimeinlist = cachedPrimes[cachedPrimes.length - 1];
+  const maxprimeinlist = cachedPrimes[cachedPrimes.length - 1];
   let bigX = typeCast(maxprimeinlist + 2, n);
   const two = typeCast(2, n);
   while (bigX <= high) {
@@ -474,15 +479,15 @@ export function isPrime(n) {
  *
  * @param {Number | BigInt} n given whole number.
  * @returns {Array<Number|BigInt>} an array with the prime factors of n.
- * @see https://sciencing.com/factor-negative-numbers-8170436.html
- * @see https://en.wikipedia.org/wiki/Integer_factorization
- * @see https://betterprogramming.pub/the-downsides-of-bigints-in-javascript-6350fd807d
+ * @see {@link https://sciencing.com/factor-negative-numbers-8170436.html How To Factor Negative Numbers}
+ * @see {@link https://en.wikipedia.org/wiki/Integer_factorization Integer factorization}
+ * @see {@link https://betterprogramming.pub/the-downsides-of-bigints-in-javascript-6350fd807d The Downsides of BigInts in JavaScript}
  */
 export function factorize(n) {
   let primes = [];
   let index = 0;
   let candidate = cachedPrimes[index];
-  let neg = n < 0;
+  const neg = n < 0;
 
   if (n == 0 || n == 1) return [n];
 
@@ -491,7 +496,7 @@ export function factorize(n) {
 
   if (neg) n = -n;
 
-  let high = n.isqrt();
+  const high = n.isqrt();
 
   if (isPrime(n)) {
     primes = [n];
@@ -500,7 +505,7 @@ export function factorize(n) {
   }
 
   while (candidate <= high) {
-    let bigCandidate = typeCast(candidate, n);
+    const bigCandidate = typeCast(candidate, n);
     if (n % bigCandidate == 0) {
       // All factors of "n", lesser than "candidate", have been found before.
       // Therefore, "candidate" cannot be composite.
@@ -566,10 +571,10 @@ function exponent(val, type = false) {
 function condense(lst) {
   let prime = null;
   let count = 0;
-  let list = [];
+  const list = [];
   let neg = false;
 
-  for (let x of lst) {
+  for (const x of lst) {
     if (x < 0) {
       // skip negative factors
       neg = true;
@@ -602,13 +607,13 @@ function condense(lst) {
 export function test() {
   console.log(
     `BigInt(2305843009213693951).isqrt() = ${BigInt(
-      2305843009213693951
-    ).isqrt()}`
+      2305843009213693951,
+    ).isqrt()}`,
   );
   console.log(
     `factorization(BigInt(2305843009213693951)) = ${factorization(
-      BigInt(2305843009213693951)
-    )}`
+      BigInt(2305843009213693951),
+    )}`,
   );
   console.log(`sieve(BigInt(256)) = ${sieve(BigInt(256))}`);
 }
