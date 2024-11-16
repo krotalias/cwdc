@@ -1,8 +1,16 @@
 /**
  * @file
  *
- * @summary.
- * BitSet.js
+ * Summary.
+ * <p>BitSet.js</p>
+ *
+ * <p>This library makes it easy to work with bit vectors of any size:</p>
+ * <ul>
+ *  <li>Integers on the other hand have the limitation of 32 or 64 bit -
+ *  and in JavaScript just 31 usable bits. </li>
+ *  <li>In fact, it's really the same as working with integers directly,
+ *  but with the benefit of not worrying about the size of the bit-range.</li>
+ * </ul>
  *
  * @version v5.1.1
  * @since 2/1/2020

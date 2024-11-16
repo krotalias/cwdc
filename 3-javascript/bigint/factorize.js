@@ -24,7 +24,7 @@
  * @see {@link https://www.scriptol.com/javascript/include.php Loading a JavaScript file into another with Node.js}
  * @see <a href="../doc-factorize-node">factorize in node</a>
  * @see <a href="../doc-factorize-ui-node">factorize UI in node</a>
- * @see <img src="../bigint/bigint.png" width="512">
+ * @see <iframe title="bigint" src="/cwdc/3-javascript/bigint/gcd.html" style="position: relative; right: 40px; margin-bottom: 0px; transform: scale(0.85); width: 650px; height: 850px"></iframe>
  */
 
 "use strict";
@@ -41,7 +41,11 @@
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  * @see <a href="/cwdc/3-javascript/doc-factorize/global.html#loadScript">loadScript</a>
  */
-addEventListener("load", async () => await loadScript("bitset.js"));
+if (typeof window === "undefined") {
+  await loadScript("bitset.js");
+} else {
+  window.addEventListener("load", async () => await loadScript("bitset.js"));
+}
 
 /**
  * A cache array with the first 15 primes to speed up factorization.
