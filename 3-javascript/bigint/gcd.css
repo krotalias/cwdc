@@ -40,7 +40,6 @@ body {
 .container_bi {
     width: var(--length);
     border: 4px solid brown;
-    margin: 0 auto;
     padding: 1em;
     text-align: justify;
     background-color: var(--bgcolor);
