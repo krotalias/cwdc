@@ -32,12 +32,14 @@ body {
     font-size: large;
     margin: 2em 0 2em 0;
     width: var(--length);
-    word-break: break-all;
+    word-break: break-word;
     display: inline-block;
     text-align: left;
 }
 textarea {
-    width: var(--length);
+    background-color: orange;
+    width: calc(var(--length) - 10px);
+    height: calc(var(--length) / 10);
     resize: vertical;
 }
 mark {
@@ -67,9 +69,10 @@ span.subsup sub {
     bottom: -0.4em;
 }
 
-@media only screen and (max-width: 768px) {
+/* just for jsdoc */
+@media only screen and (width: 650px) {
     .centered {
-        font-size: 80%;
+        font-size: calc(var(--fsize) / 1.5);
     }
     .eqnFont {
         font-size: x-small;

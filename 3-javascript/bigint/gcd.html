@@ -19,24 +19,28 @@
 
     <body>
         <div class="container_bi">
-            <p class="centered">
-                Every Number in Javascript is float
-                <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a>
-            </p>
-            <p class="centered">
-                <mark>i</mark> can go beyond 40 (53 bits) by using
-                <a
-                    href="https://www.geeksforgeeks.org/javascript-bigint-complete-reference/?ref=rp"
-                >
-                    BigInt.
-                </a>
-            </p>
-            <p class="centered">
-                The smallest integer divisible by all integers <br />
-                in the range[1,
-                <mark>i</mark>+1=<span id="i1"> </span>) is:
-            </p>
-            <p class="eqnFont">
+            <div class="centered">
+                <p>
+                    Every Number in Javascript is float
+                    <a href="https://en.wikipedia.org/wiki/IEEE_754">
+                        IEEE 754
+                    </a>
+                </p>
+                <p>
+                    <mark>i</mark> can go beyond 40 (53 bits) by using
+                    <a
+                        href="https://www.geeksforgeeks.org/javascript-bigint-complete-reference/?ref=rp"
+                    >
+                        BigInt.
+                    </a>
+                </p>
+                <p>
+                    The smallest integer divisible by all integers <br />
+                    in the range[1,
+                    <mark>i</mark>+1=<span id="i1"> </span>) is:
+                </p>
+            </div>
+            <div class="eqnFont">
                 LCM(<mark><span id="i">i</span></mark
                 >) =
                 <span id="prod"></span>
@@ -45,10 +49,10 @@
                     width="20"
                     style="vertical-align: middle"
                 />
-                <br /><br />
+
                 <label
                     for="factors"
-                    style="display: block; color: goldenrod; font-weight: bold"
+                    style="font-weight: bold; margin-top: 30px"
                 >
                     <a
                         href="https://www.mathsisfun.com/prime-factorization.html"
@@ -56,14 +60,8 @@
                         Prime Factorization
                     </a>
                 </label>
-                <textarea
-                    id="factors"
-                    name="factors"
-                    rows="4"
-                    style="background-color: orange"
-                >
-                </textarea>
-            </p>
+                <textarea id="factors" name="factors"> </textarea>
+            </div>
 
             <form id="form" class="centered" method="post">
                 <label for="n"><mark>i </mark><span id="range"></span></label>
