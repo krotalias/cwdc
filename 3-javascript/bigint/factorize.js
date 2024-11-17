@@ -184,7 +184,7 @@ export const translate = (function () {
  * @see {@link https://stackoverflow.com/questions/15390807/integer-square-root-in-python Integer square root in python}
  * @see {@link https://stackoverflow.com/questions/15390807/integer-square-root-in-python/31224469#31224469 Here's a very straightforward implementation}
  * @see {@link https://www.mathsisfun.com/algebra/quadratic-equation-graph.html Explore the Quadratic Equation}
- * @see <a href="/python/labs/doc/html/namespace__04b__intsqrt.html">intsqrt</a>
+ * @see <a href="/cwdc/downloads/python/labs/doc/html/namespace__04b__intsqrt.html">intsqrt</a>
  */
 BigInt.prototype.isqrt = function () {
   if (this < 0) return NaN;
@@ -325,7 +325,7 @@ export function factorization(n) {
  * @return {Array<Number>} array holding the primes up to n.
  * @see {@link https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes Divergence of the sum of the reciprocals of the primes}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from Array.from()}
- * @see <a href="/python/laboratorios.html#sieve">sieve</a>
+ * @see <a href="/cwdc/downloads/python/laboratorios.html#sieve">sieve</a>
  */
 export function sieve(n) {
   if (n < 2 || n > 4294967295) return [];
@@ -419,7 +419,7 @@ export function sieve2(n, arr = false) {
  *
  * @param {Number | BigInt} n given whole number.
  * @returns {Boolean} true if n is a prime, and false otherwise.
- * @see <a href="/python/laboratorios.html#prime">prime</a>
+ * @see <a href="/cwdc/downloads/python/laboratorios.html#prime">prime</a>
  * @see {@link https://literateprograms.org/miller-rabin_primality_test__python_.html Miller-Rabin primality test (Python)}
  *
  */
