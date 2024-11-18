@@ -25,7 +25,7 @@
  *
  * @author Paulo Roma Cavalcanti
  * @since 26/04/2021
- * @see <a href="/cwdc/11-python/functions.py?15+5">Python</a>
+ * @see <a href="/cwdc/11-python/functions/functions.py?15+5">Python</a>
  * @see <a href="/cwdc/3-javascript/bigint/gcd.html">link</a>
  * @see <a href="/cwdc/3-javascript/bigint/gcd.js">source</a>
  * @see <img src="../bigint/bigint.png" width="512">
