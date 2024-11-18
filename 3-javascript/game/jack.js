@@ -46,10 +46,10 @@
  * @see <a href="/cwdc/3-javascript/game/jack.html">Jack</a>
  * @see <a href="/cwdc/3-javascript/game/jack.js">source</a>
  * @see <a href="https://eloquentjavascript.net/17_canvas.html">Drawing on canvas</a>
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
- * @see https://www.freecodecamp.org/news/how-to-understand-css-position-absolute-once-and-for-all-b71ca10cd3fd/
- * @see https://developer.mozilla.org/en-US/docs/Web/CSS/position
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage CanvasRenderingContext2D: drawImage() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas Optimizing canvas}
+ * @see {@link https://www.freecodecamp.org/news/how-to-understand-css-position-absolute-once-and-for-all-b71ca10cd3fd/ How to understand CSS Position Absolute once and for all}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
  * @see <img src="../img/player_big.png">
  * @see <img src="../img/jack.png" title="Two Canvases">
  * @see <img src="../img/jack4.png" title="Two Canvases">
@@ -162,23 +162,39 @@ const kinematics = {
 };
 
 /**
- * Entry point when page is loaded.
+ * <p>Entry point when page is loaded.</p>
+ *
+ * <p>Set the dimensions of the canvas coordinate system, because
+ * CSS canvas size is related only to the rectangle holding the canvas
+ * (default 300px X 150px).</p>
+ *
+ * The other option is setting the size directly in the canvas tag element
+ * in the HTML file, e.g.:
+ * <ul>
+ * <li> &lt;canvas id="JackCanvas" width="400" height="250"&gt;&lt;/canvas&gt; </li>
+ * </ul>
  */
 function mainEntrance() {
+  const r = getComputedStyle(document.documentElement);
+  for (const canvas of document.querySelectorAll("canvas")) {
+    canvas.width = r.getPropertyValue("--cwidth").replace("px", "");
+    canvas.height = r.getPropertyValue("--cheight").replace("px", "");
+  }
+
   /**
    * Canvas context for the background.
    * @type {CanvasRenderingContext2D}
    */
-  let cx = canvas.elem.getContext("2d");
+  const cx = canvas.elem.getContext("2d");
 
   /**
    * <p>A fancy font to draw labels.</p>
    *
    * The font is downloaded asynchronously and added before being used.
    * @type {FontFace}
-   *
-   * @see https://tipsfordev.com/drawing-text-to-canvas-with-font-face-does-not-work-at-the-first-time
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/font
+   * @global
+   * @see {@link https://www.tutorialspoint.com/drawing-text-to-html5-canvas-with-fontface-does-not-work-at-the-first-time Drawing text to HTML5}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/font CanvasRenderingContext2D: font property}
    */
   const fancyFont = new FontFace(
     "Tangerina",
@@ -189,7 +205,7 @@ function mainEntrance() {
     console.log("Font loaded");
     cx.font = `lighter ${canvas.theight}px Tangerina`;
     let text = cx.measureText("DCC / UFRJ  ");
-    let t = cx.getTransform();
+    const t = cx.getTransform();
     cx.setTransform();
     cx.fillStyle = "#FF7F50";
     cx.fillText(
@@ -210,7 +226,7 @@ function mainEntrance() {
    * Jack's floor.
    * @type {Number}
    */
-  let baseLine = canvas.topLine + sprite.h;
+  const baseLine = canvas.topLine + sprite.h;
 
   // draw canvas border.
   cx.strokeRect(0, 0, cx.canvas.width, cx.canvas.height);
@@ -305,7 +321,7 @@ const animation = (() => {
 
   // distance to be walked before flipping.
   // this is set when the function is loaded.
-  let runningTrack = canvas.w - 2 * sprite.w;
+  const runningTrack = canvas.w - 2 * sprite.w;
 
   // flip coordinate.
   let flipLimit = runningTrack + sprite.w;
@@ -315,7 +331,7 @@ const animation = (() => {
    *
    * @param {Number} timestep elapsed time in ms since last call.
    * @param {CanvasRenderingContext2D} ctx canvas context.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect CanvasRenderingContext2D: clearRect() method}
    * @callback frame
    */
   return (timestep, ctx) => {
@@ -323,7 +339,7 @@ const animation = (() => {
     ctx.clearRect(Math.floor(x), y, sprite.w, sprite.h);
 
     // px = vx * t
-    let dx = speed.x * timestep;
+    const dx = speed.x * timestep;
     x += dx; // px/frame
 
     // jump control
@@ -336,11 +352,11 @@ const animation = (() => {
     }
 
     x = Math.min(Math.max(0, x), flipLimit);
-    let tnow = performance.now();
+    const tnow = performance.now();
 
     // hit wall control
     if (x >= flipLimit) {
-      let dt = (tnow - lapTimeStamp) / 1000;
+      const dt = (tnow - lapTimeStamp) / 1000;
       document.getElementById("time").innerHTML = `${dt.toFixed(1)}s or
       ${(runningTrack / dt).toFixed()} px/s`;
       lapTimeStamp = tnow;
@@ -355,7 +371,7 @@ const animation = (() => {
       document.getElementById("time").innerHTML = `∞ s or 0 px/s`;
 
     // if jumping, use the last sprite, otherwise keep cycling the sprites in the gif.
-    let tile = speed.y > 0 ? 9 : pose(timestep);
+    const tile = speed.y > 0 ? 9 : pose(timestep);
     ctx.drawImage(
       sprite.img,
       // source rectangle
@@ -412,8 +428,8 @@ const animation = (() => {
  * </ol>
  *
  * @return {loop} a callback loop for drawing a single frame.
- * @see https://developer.mozilla.org/en-US/docs/Tools/Performance/Scenarios/Intensive_JavaScript
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
+ * @see {@link https://developer.mozilla.org/en-US/docs/Tools/Performance/Scenarios/Intensive_JavaScript User Guide}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Performance/now Performance: now() method}
  * @function
  */
 const runAnimation = (() => {
@@ -424,9 +440,9 @@ const runAnimation = (() => {
   // frame counter.
   let fcounter = 0;
 
-  let JackCtx = document.querySelector("#JackCanvas").getContext("2d");
+  const JackCtx = document.querySelector("#JackCanvas").getContext("2d");
 
-  let fpsCounter = document.querySelector("#fpsCounter");
+  const fpsCounter = document.querySelector("#fpsCounter");
 
   /**
    * <p>A callback function to draw a single frame.</p>
@@ -444,10 +460,10 @@ const runAnimation = (() => {
    * since time origin). </p>
    * @callback loop
    * @param {DOMHighResTimeStamp} time timestamp.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp DOMHighResTimeStamp}
    */
   return (time = 0) => {
-    let timestep = Math.min(time - lastTime, 100);
+    const timestep = Math.min(time - lastTime, 100);
     if (time - lastTimeStamp >= 1000) {
       // more than 1s has elapsed?
       // Count the number of frames per second (1000/frameDelay).
@@ -463,15 +479,26 @@ const runAnimation = (() => {
 })();
 
 /**
- * Handle keydown events that will update the kinematics
+ * Callback handler fot keydown events that will update the kinematics
  * based on key pressed.
+ *
+ * <ul>
+ * <li>space, ⏹: pause / resume animation.
+ * <li> ArrowRight, → : increase speed.
+ * <li> ArrowLeft, ← : decrease speed.
+ * <li> ArrowUp, ↑ : jump.
+ * <li>g, -: decrease gravity.
+ * <li>G, +: increase gravity.
+ * <li>c: send background canvas to the right.
+ * <li>C: bring background canvas back.
+ * </ul>
  * @param {KeyboardEvent} event keyboard event.
- * @return {key_event}
  * @function
  */
 const handleKeyPress = (event) => {
   switch (event.key) {
     case " ":
+    case "⏹":
       if (timer) {
         cancelAnimationFrame(timer);
         timer = 0;
@@ -480,14 +507,17 @@ const handleKeyPress = (event) => {
       }
       break;
     case "ArrowRight":
+    case "→":
       speed.x += kinematics.vinc;
       speed.x = Math.min(10 * kinematics.vinc, speed.x);
       break;
     case "ArrowLeft":
+    case "←":
       speed.x -= kinematics.vinc;
       speed.x = Math.max(0, speed.x);
       break;
     case "ArrowUp":
+    case "↑":
       if (speed.y <= 0) {
         // jump is over?
         speed.y = 1;
@@ -495,17 +525,20 @@ const handleKeyPress = (event) => {
       }
       break;
     case "ArrowDown":
+    case "↓":
       if (speed.y <= 0) {
         speed.y = 0;
       }
       break;
     case "g":
+    case "-":
       if (speed.y <= 0) {
         kinematics.gravity -= kinematics.ginc;
         kinematics.gravity = Math.max(kinematics.gravity, 1);
       }
       break;
     case "G":
+    case "+":
       if (speed.y <= 0) {
         kinematics.gravity += kinematics.ginc;
         kinematics.gravity = Math.min(kinematics.gravity, 7 * kinematics.ginc);
@@ -527,7 +560,7 @@ const handleKeyPress = (event) => {
  * @function
  */
 const createEvent = (key) => {
-  let code = key.charCodeAt();
+  const code = key.charCodeAt();
   return new KeyboardEvent("keydown", {
     key: key,
     which: code,
@@ -537,63 +570,17 @@ const createEvent = (key) => {
 };
 
 /**
- * Increase speed.
- */
-function speedUp() {
-  handleKeyPress(createEvent("ArrowRight"));
-}
-
-/**
- * Decrease speed.
- */
-function speedDown() {
-  handleKeyPress(createEvent("ArrowLeft"));
-}
-
-/**
- * Increase gravity.
- */
-function gUp() {
-  handleKeyPress(createEvent("G"));
-}
-
-/**
- * Decrease gravity
- */
-function gDown() {
-  handleKeyPress(createEvent("g"));
-}
-
-/**
- * Jump.
- */
-function jump() {
-  handleKeyPress(createEvent("ArrowUp"));
-}
-
-/**
- * Halt Jack.
- */
-function stop() {
-  handleKeyPress(createEvent(" "));
-}
-
-/**
- * Control the animation when a key is pressed.
+ * <p>Control the animation when a key is pressed.</p>
  *
- * <ul>
- * <li>space: pause / resume animation.
- * <li> → : increase speed.
- * <li> ← : decrease speed.
- * <li>↑ : jump.
- * <li>g: decrease gravity.
- * <li>G: increase gravity.
- * <li>c: send background canvas to the right.
- * <li>C: bring background canvas back.
- * </ul>
- * @function key_event
- * @global
+ * <p>The keydown event is fired when a key is pressed.</p>
+ *
+ * <p>The callback argument sets the {@link handleKeyPress callback}
+ * that will be invoked when the event is dispatched.</p>
+ *
+ * @event keydown
  * @param {KeyboardEvent} event keyboard event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
  */
 window.addEventListener("keydown", (event) => {
   if (
@@ -606,4 +593,39 @@ window.addEventListener("keydown", (event) => {
   handleKeyPress(event);
 });
 
+/**
+ * <p>Loads the application.</p>
+ * <p>The load event is fired when the whole page has loaded,
+ * including all dependent resources such as stylesheets,
+ * scripts, iframes, and images, except those that are loaded lazily.</p>
+ *
+ * <p>The callback argument sets the {@link mainEntrance callback}
+ * that will be invoked when the event is dispatched.</p>
+ * @event load
+ * @param {event} event a generic event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ */
 addEventListener("load", (event) => mainEntrance());
+
+/**
+ * <p>Control the animation when a button is clicked.</p>
+ *
+ * <p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
+ * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).</p>
+ *
+ * <p>The callback argument sets the {@link handleKeyPress callback}
+ * that will be invoked when the event is dispatched.</p>
+ *
+ * @event click
+ * @param {PointerEvent} event a mouse or touch event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link hhttps://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ */
+if (document.querySelector("button")) {
+  document.querySelectorAll("button").forEach((elem) => {
+    elem.addEventListener("click", function (event) {
+      handleKeyPress(createEvent(elem.textContent));
+    });
+  });
+}

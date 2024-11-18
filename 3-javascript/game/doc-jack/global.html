@@ -337,6 +337,89 @@
 
         
             
+<h4 class="name" id="fancyFont"><span class="type-signature">(constant) </span>fancyFont<span class="type-signature"> :FontFace</span></h4>
+
+
+
+
+<div class="description">
+    <p>A fancy font to draw labels.</p>
+
+The font is downloaded asynchronously and added before being used.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">FontFace</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line199">line 199</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://www.tutorialspoint.com/drawing-text-to-html5-canvas-with-fontface-does-not-work-at-the-first-time">Drawing text to HTML5</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/font">CanvasRenderingContext2D: font property</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="kinematics"><span class="type-signature">(constant) </span>kinematics<span class="type-signature"> :Object</span></h4>
 
 
@@ -1053,7 +1136,7 @@ the entry in the callback list.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line293">line 293</a>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line309">line 309</a>
     </li></ul></dd>
     
 
@@ -1212,7 +1295,7 @@ the entry in the callback list.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line529">line 529</a>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line562">line 562</a>
     </li></ul></dd>
     
 
@@ -1394,7 +1477,7 @@ the entry in the callback list.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line251">line 251</a>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line267">line 267</a>
     </li></ul></dd>
     
 
@@ -1430,7 +1513,7 @@ the entry in the callback list.
     
 
     
-    <h4 class="name" id="gDown"><span class="type-signature"></span>gDown<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="handleKeyPress"><span class="type-signature"></span>handleKeyPress<span class="signature">(event)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1438,435 +1521,16 @@ the entry in the callback list.
 
 
 <div class="description">
-    Decrease gravity
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line563">line 563</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="gUp"><span class="type-signature"></span>gUp<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Increase gravity.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line556">line 556</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="handleKeyPress"><span class="type-signature"></span>handleKeyPress<span class="signature">(event)</span><span class="type-signature"> &rarr; {<a href="global.html#key_event">key_event</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Handle keydown events that will update the kinematics
+    Callback handler fot keydown events that will update the kinematics
 based on key pressed.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>event</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">KeyboardEvent</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">keyboard event.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line472">line 472</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#key_event">key_event</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="jump"><span class="type-signature"></span>jump<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Jump.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line570">line 570</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="key_event"><span class="type-signature"></span>key_event<span class="signature">(event)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Control the animation when a key is pressed.
 
 <ul>
-<li>space: pause / resume animation.
-<li> → : increase speed.
-<li> ← : decrease speed.
-<li>↑ : jump.
-<li>g: decrease gravity.
-<li>G: increase gravity.
+<li>space, ⏹: pause / resume animation.
+<li> ArrowRight, → : increase speed.
+<li> ArrowLeft, ← : decrease speed.
+<li> ArrowUp, ↑ : jump.
+<li>g, -: decrease gravity.
+<li>G, +: increase gravity.
 <li>c: send background canvas to the right.
 <li>C: bring background canvas back.
 </ul>
@@ -1962,7 +1626,7 @@ based on key pressed.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line581">line 581</a>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line498">line 498</a>
     </li></ul></dd>
     
 
@@ -2006,7 +1670,17 @@ based on key pressed.
 
 
 <div class="description">
-    Entry point when page is loaded.
+    <p>Entry point when page is loaded.</p>
+
+<p>Set the dimensions of the canvas coordinate system, because
+CSS canvas size is related only to the rectangle holding the canvas
+(default 300px X 150px).</p>
+
+The other option is setting the size directly in the canvas tag element
+in the HTML file, e.g.:
+<ul>
+<li> &lt;canvas id="JackCanvas" width="400" height="250"&gt;&lt;/canvas&gt; </li>
+</ul>
 </div>
 
 
@@ -2050,7 +1724,7 @@ based on key pressed.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line167">line 167</a>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line177">line 177</a>
     </li></ul></dd>
     
 
@@ -2144,7 +1818,7 @@ This way, each sprite will hold for 4.8 frames (80/(1000/60)):<br>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line268">line 268</a>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line284">line 284</a>
     </li></ul></dd>
     
 
@@ -2280,7 +1954,7 @@ compared to setTimeout(), for three reasons: </p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line419">line 419</a>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line435">line 435</a>
     </li></ul></dd>
     
 
@@ -2290,9 +1964,9 @@ compared to setTimeout(), for three reasons: </p>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Tools/Performance/Scenarios/Intensive_JavaScript">https://developer.mozilla.org/en-US/docs/Tools/Performance/Scenarios/Intensive_JavaScript</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Tools/Performance/Scenarios/Intensive_JavaScript">User Guide</a></li>
         
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now">https://developer.mozilla.org/en-US/docs/Web/API/Performance/now</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now">Performance: now() method</a></li>
         </ul>
     </dd>
     
@@ -2336,270 +2010,6 @@ compared to setTimeout(), for three reasons: </p>
 </dl>
 
     
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="speedDown"><span class="type-signature"></span>speedDown<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Decrease speed.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line549">line 549</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="speedUp"><span class="type-signature"></span>speedUp<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Increase speed.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line542">line 542</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="stop"><span class="type-signature"></span>stop<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Halt Jack.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line577">line 577</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2741,7 +2151,7 @@ compared to setTimeout(), for three reasons: </p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line313">line 313</a>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line329">line 329</a>
     </li></ul></dd>
     
 
@@ -2751,7 +2161,7 @@ compared to setTimeout(), for three reasons: </p>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect">https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect">CanvasRenderingContext2D: clearRect() method</a></li>
         </ul>
     </dd>
     
@@ -2897,7 +2307,7 @@ since time origin). </p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line431">line 431</a>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line447">line 447</a>
     </li></ul></dd>
     
 
@@ -2907,7 +2317,7 @@ since time origin). </p>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp">https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp">DOMHighResTimeStamp</a></li>
         </ul>
     </dd>
     
@@ -3041,7 +2451,7 @@ since time origin). </p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line275">line 275</a>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line291">line 291</a>
     </li></ul></dd>
     
 
@@ -3097,6 +2507,528 @@ since time origin). </p>
     
 
     
+        <h3 class="subsection-title">Events</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:click">click</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Control the animation when a button is clicked.</p>
+
+<p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
+a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).</p>
+
+<p>The callback argument sets the <a href="global.html#handleKeyPress">callback</a>
+that will be invoked when the event is dispatched.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">PointerEvent</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a mouse or touch event.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>function</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">function to run when the event occurs.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line611">line 611</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>Element: click event</li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:keydown">keydown</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Control the animation when a key is pressed.</p>
+
+<p>The keydown event is fired when a key is pressed.</p>
+
+<p>The callback argument sets the <a href="global.html#handleKeyPress">callback</a>
+that will be invoked when the event is dispatched.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">KeyboardEvent</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">keyboard event.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>function</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">function to run when the event occurs.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line572">line 572</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event">Element: keydown event</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:load">load</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Loads the application.</p>
+<p>The load event is fired when the whole page has loaded,
+including all dependent resources such as stylesheets,
+scripts, iframes, and images, except those that are loaded lazily.</p>
+
+<p>The callback argument sets the <a href="global.html#mainEntrance">callback</a>
+that will be invoked when the event is dispatched.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">event</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a generic event.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>function</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">function to run when the event occurs.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jack.js.html">jack.js</a>, <a href="jack.js.html#line596">line 596</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event">Window: load event</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
 </article>
 
 </section>
@@ -3107,13 +3039,13 @@ since time origin). </p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#flipHorizontally">flipHorizontally</a></li><li><a href="global.html#gDown">gDown</a></li><li><a href="global.html#gUp">gUp</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#jump">jump</a></li><li><a href="global.html#key_event">key_event</a></li><li><a href="global.html#kinematics">kinematics</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#pose">pose</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#speed">speed</a></li><li><a href="global.html#speedDown">speedDown</a></li><li><a href="global.html#speedUp">speedUp</a></li><li><a href="global.html#sprite">sprite</a></li><li><a href="global.html#stop">stop</a></li><li><a href="global.html#timer">timer</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animation">animation</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#fancyFont">fancyFont</a></li><li><a href="global.html#flipHorizontally">flipHorizontally</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#kinematics">kinematics</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#pose">pose</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#speed">speed</a></li><li><a href="global.html#sprite">sprite</a></li><li><a href="global.html#timer">timer</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 08 2024 11:09:36 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Nov 18 2024 10:40:10 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

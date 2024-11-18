@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -13,7 +13,7 @@
         <title>Jack Walker</title>
         <style>
             :root {
-                --cwidth: 400px; /* canvas dimension */
+                --cwidth: 390px; /* canvas dimension */
                 --cheight: 250px;
             }
             body {
@@ -22,6 +22,11 @@
                 font-size: 14px;
                 font-weight: 700;
                 font-style: bold;
+                overflow: hidden;
+                -webkit-user-select: none;
+                user-select: none;
+                margin: 0;
+                padding: 0;
             }
             .legenda {
                 font-family: "Tangerine", cursive;
@@ -47,6 +52,8 @@
             }
             canvas {
                 position: absolute;
+                width: var(--cwidth);
+                height: var(--cheight);
             }
             #JackCanvas {
                 z-index: 2;
@@ -67,6 +74,10 @@
                 font-size: 140%;
                 margin-right: 0px;
                 padding: 0 10px 0 10px;
+                touch-action: manipulation;
+            }
+            #btns :first-child {
+                margin-left: 10px;
             }
             .sideBySide {
                 float: left;
@@ -79,13 +90,11 @@
         <img id="jack" src="img/player_big.png" width="480" hidden />
         <div id="JackContainer">
             <div id="container">
-                <canvas id="JackCanvas" width="400" height="250"></canvas>
+                <canvas id="JackCanvas"></canvas>
                 <canvas
                     id="backgroundCanvas"
-                    width="400"
-                    height="250"
                     style="
-                        background: url('./img/sky.jpg');
+                        background: url(&quot;./img/sky.jpg&quot;);
                         background-size: var(--cwidth) var(--cheight);
                     "
                 ></canvas>
@@ -97,12 +106,14 @@
                 <p>
                     <label><b>Kinematics:</b></label>
                 </p>
-                <button onclick="speedDown()">←</button>
-                <button onclick="jump()">↑</button>
-                <button onclick="speedUp()">→</button>
-                <button onclick="gUp()">+</button>
-                <button onclick="gDown()">–</button>
-                <button onclick="stop()">⏹</button>
+                <div id="btns">
+                    <button>←</button>
+                    <button>↑</button>
+                    <button>→</button>
+                    <button>+</button>
+                    <button>–</button>
+                    <button>⏹</button>
+                </div>
             </div>
             <div style="clear: both"></div>
 
