@@ -307,6 +307,8 @@ const pose = (() => {
  * @function
  */
 const animation = (() => {
+  // these are set when the function is loaded.
+
   // initial horizontal position.
   let x = sprite.w;
 
@@ -320,11 +322,10 @@ const animation = (() => {
   let lapTimeStamp = 0;
 
   // distance to be walked before flipping.
-  // this is set when the function is loaded.
-  const runningTrack = canvas.w - 2 * sprite.w;
+  let runningTrack = null;
 
   // flip coordinate.
-  let flipLimit = runningTrack + sprite.w;
+  let flipLimit = null;
 
   /**
    * Draws a single frame.
@@ -354,8 +355,13 @@ const animation = (() => {
     x = Math.min(Math.max(0, x), flipLimit);
     const tnow = performance.now();
 
-    // hit wall control
+    if (runningTrack === null) {
+      runningTrack = canvas.w - 2 * sprite.w;
+      flipLimit = runningTrack + sprite.w;
+    }
+
     if (x >= flipLimit) {
+      // hit wall control
       const dt = (tnow - lapTimeStamp) / 1000;
       document.getElementById("time").innerHTML = `${dt.toFixed(1)}s or
       ${(runningTrack / dt).toFixed()} px/s`;
@@ -480,7 +486,7 @@ const runAnimation = (() => {
 
 /**
  * Callback handler fot keydown events that will update the kinematics
- * based on key pressed.
+ * based on key/button pressed.
  *
  * <ul>
  * <li>space, ⏹: pause / resume animation.
