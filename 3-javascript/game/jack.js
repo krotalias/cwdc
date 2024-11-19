@@ -493,7 +493,7 @@ const runAnimation = (() => {
  * <li> ArrowRight, → : increase speed.
  * <li> ArrowLeft, ← : decrease speed.
  * <li> ArrowUp, ↑ : jump.
- * <li>g, -: decrease gravity.
+ * <li>g, –: decrease gravity.
  * <li>G, +: increase gravity.
  * <li>c: send background canvas to the right.
  * <li>C: bring background canvas back.
@@ -537,7 +537,7 @@ const handleKeyPress = (event) => {
       }
       break;
     case "g":
-    case "-":
+    case "–":
       if (speed.y <= 0) {
         kinematics.gravity -= kinematics.ginc;
         kinematics.gravity = Math.max(kinematics.gravity, 1);
