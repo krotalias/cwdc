@@ -35,10 +35,14 @@
                 font-style: bold;
             }
             details,
-            p {
-                margin-left: 10px;
+            .info {
+                margin: 20px 10px;
                 width: calc(var(--cwidth) * 0.9);
                 text-align: justify;
+            }
+            #container-wrapper {
+                width: var(--cwidth);
+                margin: 0 auto;
             }
             /*
              * It is possible to set absolute positioning of a child element relative to the parent container.
@@ -61,6 +65,7 @@
             #JackInterface {
                 cursor: move;
                 padding-top: 5px;
+                margin-left: 10px;
             }
             #backgroundCanvas {
                 z-index: 1;
@@ -71,91 +76,107 @@
                 line-height: 200%;
             }
             button {
-                font-size: 140%;
-                margin-right: 0px;
-                padding: 0 10px 0 10px;
+                font-size: 120%;
+                background-color: #70483c;
+                color: #ff7f50;
+                border: none;
+                width: 2rem;
+                margin-right: 10px;
+                padding: 5px 5px;
+                text-align: center;
+                text-decoration: none;
+                border-radius: 30%;
                 touch-action: manipulation;
             }
             #btns :first-child {
                 margin-left: 10px;
             }
             .sideBySide {
-                float: left;
-                margin-right: 0px;
+                display: flex;
+                flex-wrap: wrap;
+                width: var(--wsize);
+                height: auto;
+            }
+            li {
+                margin: 10px;
+            }
+            @media only screen and (max-width: 320px) {
+                :root {
+                    --cwidth: 320px; /* canvas dimension */
+                    --cheight: 250px;
+                }
             }
         </style>
     </head>
 
     <body>
         <img id="jack" src="img/player_big.png" width="480" hidden />
-        <div id="JackContainer">
-            <div id="container">
-                <canvas id="JackCanvas"></canvas>
-                <canvas
-                    id="backgroundCanvas"
-                    style="
-                        background: url(&quot;./img/sky.jpg&quot;);
-                        background-size: var(--cwidth) var(--cheight);
-                    "
-                ></canvas>
-            </div>
-        </div>
-
-        <div id="JackInterface">
-            <div class="sideBySide">
-                <p>
-                    <label><b>Kinematics:</b></label>
-                </p>
-                <div id="btns">
-                    <button>←</button>
-                    <button>↑</button>
-                    <button>→</button>
-                    <button>+</button>
-                    <button>–</button>
-                    <button>⏹</button>
+        <div id="container-wrapper">
+            <div id="JackContainer">
+                <div id="container">
+                    <canvas id="JackCanvas"></canvas>
+                    <canvas
+                        id="backgroundCanvas"
+                        style="
+                            background: url(&quot;./img/sky.jpg&quot;);
+                            background-size: var(--cwidth) var(--cheight);
+                        "
+                    ></canvas>
                 </div>
             </div>
-            <div style="clear: both"></div>
 
-            <p>
-                <span class="legenda">Jack</span> travelled
-                <span id="px">---</span> pixels, and turned
-                <span id="turn">---</span> times, so far.
-            </p>
-            <p>
-                <span class="legenda">Jack</span>'s speed is
-                <span id="speed">---</span> and lap time is
-                <spam id="time">0s</spam>
-            </p>
-            <p>Gravity is <span id="gravity">---</span></p>
-            <br />
+            <div id="JackInterface">
+                <label><b>Kinematics:</b></label>
+                <div class="sideBySide">
+                    <div id="btns">
+                        <button>←</button>
+                        <button>↑</button>
+                        <button>→</button>
+                        <button>+</button>
+                        <button>–</button>
+                        <button>⏹</button>
+                    </div>
+                </div>
 
-            <details>
-                <summary style="font-size: 150%">
-                    Keyboard controls<span id="kbd">:</span>
-                </summary>
-                <ul style="list-style: none">
-                    <li>
-                        Spacebar pause/resume
-                        <span class="legenda">Jack</span>'s strolling, so he can
-                        rest a little bit.
-                    </li>
-                    <li>
-                        Arrows make <span class="legenda">Jack</span> speed up,
-                        slow down or jump.
-                    </li>
-                    <li>
-                        G/g increase/decrease
-                        <span class="legenda">Jack</span>'s gravity.
-                    </li>
-                    <li>
-                        C/c glue/split <span class="legenda">Jack</span>'s
-                        canvases.
-                    </li>
-                </ul>
-            </details>
+                <div class="info">
+                    <span class="legenda">Jack</span> travelled
+                    <span id="px">---</span> pixels <br />
+                    and turned <span id="turn">---</span> times, so far.
+                </div>
+                <div class="info">
+                    <span class="legenda">Jack</span>'s speed is
+                    <span id="speed">---</span> <br />and lap time is
+                    <spam id="time">0s</spam>
+                </div>
+                <div class="info">Gravity is <span id="gravity">---</span></div>
 
-            <p>FPS: <spam id="fpsCounter">---</spam></p>
+                <details>
+                    <summary style="font-size: 150%">
+                        Keyboard controls<span id="kbd">:</span>
+                    </summary>
+                    <ul style="list-style: none">
+                        <li>
+                            Spacebar pause/resume
+                            <span class="legenda">Jack</span>'s strolling,
+                            <br />so he can rest a little bit.
+                        </li>
+                        <li>
+                            Arrows make <span class="legenda">Jack</span> speed
+                            up, slow down or jump.
+                        </li>
+                        <li>
+                            G/g increase/decrease
+                            <span class="legenda">Jack</span>'s gravity.
+                        </li>
+                        <li>
+                            C/c glue/split <span class="legenda">Jack</span>'s
+                            canvases.
+                        </li>
+                    </ul>
+                </details>
+
+                <div id="info">FPS: <spam id="fpsCounter">---</spam></div>
+            </div>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
