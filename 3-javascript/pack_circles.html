@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width initial-scale=1.0" />
         <title>Pack Circles</title>
 
         <style>
@@ -23,6 +23,9 @@
 
             body {
                 background-color: lightgrey;
+                overflow: hidden;
+                -webkit-user-select: none;
+                user-select: none;
             }
 
             header {
@@ -80,6 +83,7 @@
                 float: left; /* Float the buttons side by side */
                 margin: 10px 10px; /* Some margin to separate buttons */
                 padding: 5px 15px 5px 15px;
+                touch-action: manipulation;
             }
 
             .ctrl-group {
@@ -89,7 +93,7 @@
                 background-color: var(--bgcolor);
                 width: var(--wsize);
                 justify-content: center;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
 
             /* All but the last child */
@@ -110,6 +114,7 @@
                 width: var(--wsize);
                 flex-direction: column;
                 justify-content: center;
+                margin-bottom: 10px;
             }
         </style>
     </head>
@@ -119,12 +124,8 @@
 
         <div class="flexbox-container">
             <div class="flex-item">
-                <button class="ctrl-button" id="btn" onclick="animation(poll)">
-                    Start
-                </button>
-                <button class="ctrl-button" id="reset" onclick="reset()">
-                    Reset
-                </button>
+                <button class="ctrl-button" id="btn">Start</button>
+                <button class="ctrl-button" id="reset">Reset</button>
             </div>
         </div>
 
@@ -137,29 +138,15 @@
         https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items
         -->
         <main>
-            <div
-                id="canvas"
-                onclick="getCircleAttr(event)"
-                ondblclick="deleteCircle(event)"
-            ></div>
+            <div id="canvas"></div>
             <div class="ctrl-group">
-                <button class="ctrl-button" id="mode" onclick="mode()">
-                    Dark
-                </button>
-                <button class="ctrl-button" id="layout" onclick="layout()">
-                    Portrait
-                </button>
-                <button
-                    class="ctrl-button"
-                    id="download"
-                    onclick="downloadImage()"
-                >
-                    Download
-                </button>
+                <button class="ctrl-button" id="mode">Dark</button>
+                <button class="ctrl-button" id="layout">Portrait</button>
+                <button class="ctrl-button" id="download">Download</button>
             </div>
             <div class="ctrl-debug">
                 <div id="counter">0</div>
-                <p>Double Click to delete a circle</p>
+                <div>Click for info, Double Click to delete</div>
             </div>
         </main>
 
