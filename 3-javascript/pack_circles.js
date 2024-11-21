@@ -293,7 +293,9 @@ function redraw() {
   if (circles.length > 0) {
     document.getElementById("canvas").innerHTML = "";
     for (const [x, y, r, c] of circles) {
-      drawCircle(x - r, y - r, 2 * r, c);
+      if (x >= r && x <= wsize - r && y >= r && y <= hsize - r) {
+        drawCircle(x - r, y - r, 2 * r, c);
+      }
     }
   }
 }
@@ -508,6 +510,7 @@ function resize() {
   }
   r.style.setProperty("--wsize", `${w}px`);
   r.style.setProperty("--hsize", `${hc}px`);
+  redraw();
 }
 
 /**
