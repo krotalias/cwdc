@@ -496,14 +496,12 @@ function resize() {
   if (layout.landscape) {
     document.getElementById("layout").innerHTML = "Landscape";
     if (h > w) {
-      reset();
       layout.landscape = false;
       document.getElementById("layout").innerHTML = "Portrait";
     }
   } else {
     document.getElementById("layout").innerHTML = "Portrait";
     if (w > h) {
-      reset();
       layout.landscape = true;
       document.getElementById("layout").innerHTML = "Landscape";
     }
