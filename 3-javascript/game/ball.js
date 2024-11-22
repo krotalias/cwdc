@@ -4,8 +4,8 @@
  * <p>Draws an animated pinball table.
  *
  * <p>Use the {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}
- * technique that we saw in {@link https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=250 Chapter 14}
- * and {@link https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=292 Chapter 16} to draw a box
+ * technique that we saw in {@link https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=240 Chapter 14}
+ * and {@link https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=281 Chapter 16} to draw a box
  * with a bouncing ball in it.
  * The ball moves at a constant speed and bounces off the box’s sides when it hits them.</p>
  *
@@ -16,7 +16,7 @@
  * which creates an arc going from zero to more than a whole circle. Then fill the path.</p>
  *
  * <p>To model the ball’s position and speed, you can use the Vec class from
- * {@link https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=277 Chapter 16}.
+ * {@link https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=267 Chapter 16}.
  * Give it a starting speed, preferably one that is not purely vertical or horizontal,
  * and for every frame multiply that speed by the amount of time that elapsed.
  * When the ball gets too close to a vertical wall, invert the x component in its speed.
@@ -31,18 +31,20 @@
  *  r = v - 2 &#60;v.n&#62; n = (vx,vy) - 2 &#60;(vx,vy),(0,1)&#62; (0,1) = (vx,vy) - (0,2vy) = (vx,-vy)</li>
  * </ul>
  *
- * <p>After finding the ball’s new position and speed, use clearRect to delete the scene and redraw it
+ * <p>After finding the ball’s new position and speed, use
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect clearRect}
+ * to delete the scene and redraw it
  * using the new position.</p>
  *
  * @author Paulo Roma
  * @since 11/08/2021
- * @see https://eloquentjavascript.net/17_canvas.html
  * @see <a href="/cwdc/3-javascript/game/ball.html">Pinball</a>
  * @see <a href="/cwdc/3-javascript/game/ball.js">source</a>
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
- * @see https://www.freecodecamp.org/news/how-to-understand-css-position-absolute-once-and-for-all-b71ca10cd3fd/
- * @see https://developer.mozilla.org/en-US/docs/Web/CSS/position
+ * @see {@link https://eloquentjavascript.net/17_canvas.html Drawing on Canvas}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage CanvasRenderingContext2D: drawImage() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas Optimizing canvas}
+ * @see {@link https://www.freecodecamp.org/news/how-to-understand-css-position-absolute-once-and-for-all-b71ca10cd3fd/ How to understand CSS Position Absolute once and for all}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
  * @see <img src="../img/pinball.png">.
  */
 
@@ -72,6 +74,12 @@ let speedX = vx || 100;
 let speedY = vy || 60;
 
 /**
+ * Canvas element.
+ * @type {HTMLCanvasElement}
+ */
+const canvas = document.querySelector("canvas");
+
+/**
  * <p>A closure to draw a single frame, by returning a function, which triggers the animation.</p>
  * <p>We use requestAnimationFrame that takes a callback as an argument
  * to be invoked before the repaint. <br>
@@ -79,14 +87,14 @@ let speedY = vy || 60;
  * if you want to animate another frame at the next repaint,<br>
  * that is, requestAnimationFrame() is 1 shot.</p>
  * @return {loop} a callback loop for drawing a single frame.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
  * @function
  */
 const runAnimation = (() => {
   let lastTime = 0;
   let lastTimeStamp = 0;
   let numberOfFramesForFPS = 0;
-  let fpsCounter = document.getElementById("fps");
+  const fpsCounter = document.getElementById("fps");
 
   /**
    * <p>A callback function to draw a single frame.</p>
@@ -96,7 +104,7 @@ const runAnimation = (() => {
    * since time origin). </p>
    * @callback loop
    * @param {DOMHighResTimeStamp} time timestamp.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp DOMHighResTimeStamp}
    */
   return (time = 0) => {
     updateAnimation(Math.min(100, time - lastTime) / 1000);
@@ -117,7 +125,7 @@ const runAnimation = (() => {
 /**
  * A closure for updating the ball animation.
  * @return {frame}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D CanvasRenderingContext2D}
 
  * @function
  */
@@ -147,10 +155,10 @@ const updateAnimation = (() => {
   const clamp = (num, min, max, tol = 1.0) =>
     Math.min(Math.max(num, tol * min), tol * max);
 
-  let velocity = document.getElementById("vel");
+  const velocity = document.getElementById("vel");
 
   // canvas context.
-  let ctx = document.querySelector("canvas").getContext("2d");
+  const ctx = canvas.getContext("2d");
 
   // minimum ball speed.
   const speedMin = 300;
@@ -162,22 +170,22 @@ const updateAnimation = (() => {
   const radius = 10;
 
   // canvas width.
-  let w = ctx.canvas.clientWidth;
+  const w = ctx.canvas.clientWidth;
 
   // canvas height.
-  let h = ctx.canvas.clientHeight;
+  const h = ctx.canvas.clientHeight;
 
   // width of the pinball table.
-  let recw = (9 / 10) * w;
+  const recw = (9 / 10) * w;
 
   // height of the pinball table.
-  let rech = (8 / 10) * h;
+  const rech = (8 / 10) * h;
 
   // lower left corner abscissa of the pinball table.
-  let ox = (w - recw) / 2;
+  const ox = (w - recw) / 2;
 
   // lower left corner ordinate of the pinball table.
-  let oy = (h - rech) / 2 - 30;
+  const oy = (h - rech) / 2 - 30;
 
   // a random initial abscissa for the ball position.
   let x = random(0, recw) + ox;
@@ -197,20 +205,23 @@ const updateAnimation = (() => {
   ];
 
   /**
-   * Throw a ball with a random speed, when pointing on the spring,
+   * <p>Throw a ball with a random speed, when pointing on the spring,</p>
+   * The pointerdown event is fired when a pointer becomes active.
+   * For mouse, it is fired when the device transitions from no buttons pressed to at least one button pressed.
+   * For touch, it is fired when physical contact is made with the digitizer.
+   * For pen, it is fired when the stylus makes physical contact with the digitizer.
+   * @event onpointerdown
    * @param {PointerEvent} event a pointer event.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/pageX
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event
-   * @see https://caniuse.com/pointer
-   * @function onpointerdown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/pageX MouseEvent: pageX property}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
+   * @see {@link https://caniuse.com/pointer Pointer events}
    */
-  window.onpointerdown = (event) => {
+  canvas.onpointerdown = (event) => {
     if (
-      event.button == 0 && // left button
-      event.pageX <= w &&
-      event.pageX > w - 25 &&
-      event.pageY <= h &&
-      event.pageY > h - 25
+      (event.button == 0 && // left button
+        event.pageX > w - 25 &&
+        event.pageY > h - 25) ||
+      (event.pageX > w + 25 && event.pageY < 25)
     ) {
       // a random initial ball velocity
       speedX = -random(speedMin, speedMax);
@@ -225,7 +236,7 @@ const updateAnimation = (() => {
    * The ball position and velocity are updated at each time step.
    *
    * @param {Number} step time elapsed since last call (> 0.1s)
-   * @see https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector
+   * @see {@link https://math.stackexchange.com/questions/13261/how-to-get-a-reflection-vector How to get a reflection vector?}
    * @callback frame
    */
   return (step) => {
@@ -256,8 +267,17 @@ const updateAnimation = (() => {
 
 /**
  * Control the animation when a key is pressed.
+ * <p>The keydown event is fired when a key is pressed.</p>
+ *
+ * <p>The callback argument sets the {@link handleKeyPress callback}
+ * that will be invoked when the event is dispatched.</p>
+ *
+ * @event keydown
+ * @param {KeyboardEvent} event keyboard event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
+ *
  * @param {KeyboardEvent} event a keyboard event.
- * @function keydown_event
  */
 window.addEventListener("keydown", (event) => {
   if (
@@ -268,8 +288,8 @@ window.addEventListener("keydown", (event) => {
     event.preventDefault();
   }
 
-  let vincx = 10 * Math.sign(speedX);
-  let vincy = 10 * Math.sign(speedY);
+  const vincx = 10 * Math.sign(speedX);
+  const vincy = 10 * Math.sign(speedY);
 
   switch (event.key) {
     case " ":
@@ -305,4 +325,17 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
+/**
+ * <p>Loads the application.</p>
+ * <p>The load event is fired when the whole page has loaded,
+ * including all dependent resources such as stylesheets,
+ * scripts, iframes, and images, except those that are loaded lazily.</p>
+ *
+ * <p>The callback argument sets the {@link runAnimation callback}
+ * that will be invoked when the event is dispatched.</p>
+ * @event load
+ * @param {event} event a generic event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ */
 addEventListener("load", (event) => runAnimation());

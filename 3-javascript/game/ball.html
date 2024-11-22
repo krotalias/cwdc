@@ -1,53 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Ball</title>
+        <title>PinBall</title>
 
         <style>
+            :root {
+                --cwidth: 252px; /* canvas dimension */
+                --cheight: 479px;
+                --space: 30px;
+            }
+
             body {
                 background-color: lightgrey;
+                overflow: hidden;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
+            #container-wrapper {
+                width: var(--cwidth);
+                margin: 0 auto;
+            }
+
+            .interface {
+                padding: 0;
+            }
+
+            canvas {
+                background: url("./img/pinball");
+            }
+
+            details {
+                margin: var(--space) 0;
+            }
+
+            #fps-counter {
+                font-family: monospace;
+                margin: var(--space) 0;
+            }
+
+            @media only screen and (max-width: 768px) and (orientation: landscape) {
+                canvas {
+                    transform-origin: left;
+                    transform: translate(100%, 2%) rotate(-90deg);
+                }
+                #container-wrapper {
+                    width: var(--cheight);
+                    margin: 0 auto;
+                }
+                .interface {
+                    position: absolute;
+                    top: calc(var(--cwidth) + var(--space));
+                    left: 50%; /* position the left edge of the element at the middle of the parent */
+                    transform: translateX(-50%);
+                }
+            }
+
+            @media only screen and (max-width: 768px) and(orientation: portrait) {
+                canvas {
+                    transform: rotate(0deg);
+                }
             }
         </style>
     </head>
 
     <body>
-        <canvas
-            width="252"
-            height="479"
-            style="background: url('./img/pinball.png')"
-        ></canvas>
-        <div id="fps-counter" style="font-family: monospace">
-            <p>Vel: <span id="vel">--</span> px/s</p>
-            <p>FPS: <span id="fps">--</span></p>
-        </div>
-        <br />
-        <details>
-            <summary style="font-size: 150%">
-                Keyboard controls<span id="kbd">:</span>
-            </summary>
-            <ul style="list-style: none">
-                <li>→ increase ball horizontal velocity</li>
-                <li>← decrease ball horizontal velocity</li>
-                <li>↑ increase ball vertical velocity</li>
-                <li>↓ decrease ball vertical velocity</li>
-                <li>Spacebar pause/resume animation</li>
-                <li>
-                    Clicking on the spring throws a ball with a random speed
-                </li>
-            </ul>
-        </details>
+        <div id="container-wrapper">
+            <canvas width="252" height="479"></canvas>
 
-        <iframe
-            width="266"
-            height="150"
-            title="The Who"
-            src="https://www.youtube.com/embed/-J03yCE15rg"
-            frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-        ></iframe>
+            <div class="interface">
+                <div id="fps-counter">
+                    <p>Vel: <span id="vel">--</span> px/s</p>
+                    <p>FPS: <span id="fps">--</span></p>
+                </div>
+
+                <details>
+                    <summary style="font-size: 150%">
+                        Keyboard controls<span id="kbd">:</span>
+                    </summary>
+                    <ul style="list-style: none">
+                        <li>→ increase ball horizontal velocity</li>
+                        <li>← decrease ball horizontal velocity</li>
+                        <li>↑ increase ball vertical velocity</li>
+                        <li>↓ decrease ball vertical velocity</li>
+                        <li>Spacebar pause/resume animation</li>
+                        <li>
+                            Clicking on the spring throws a ball with a random
+                            speed
+                        </li>
+                    </ul>
+                </details>
+
+                <video
+                    width="266"
+                    height="150"
+                    title="The Who"
+                    src="img/The Who - Pinball Wizard (Live at the Isle of Wight, 1970).mp4"
+                    controls
+                    autoplay
+                    muted
+                ></video>
+            </div>
+        </div>
 
         <script src="ball.js"></script>
     </body>

@@ -66,8 +66,8 @@
             <div class="description"><p>Draws an animated pinball table.
 
 <p>Use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">requestAnimationFrame</a>
-technique that we saw in <a href="https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=250">Chapter 14</a>
-and <a href="https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=292">Chapter 16</a> to draw a box
+technique that we saw in <a href="https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=240">Chapter 14</a>
+and <a href="https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=281">Chapter 16</a> to draw a box
 with a bouncing ball in it.
 The ball moves at a constant speed and bounces off the box’s sides when it hits them.</p>
 
@@ -78,7 +78,7 @@ To create a round ball, start a path and call
 which creates an arc going from zero to more than a whole circle. Then fill the path.</p>
 
 <p>To model the ball’s position and speed, you can use the Vec class from
-<a href="https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=277">Chapter 16</a>.
+<a href="https://eloquentjavascript.net/Eloquent_JavaScript.pdf#page=267">Chapter 16</a>.
 Give it a starting speed, preferably one that is not purely vertical or horizontal,
 and for every frame multiply that speed by the amount of time that elapsed.
 When the ball gets too close to a vertical wall, invert the x component in its speed.
@@ -93,7 +93,9 @@ the velocity vector against the wall normal vector:
  r = v - 2 &#60;v.n&#62; n = (vx,vy) - 2 &#60;(vx,vy),(0,1)&#62; (0,1) = (vx,vy) - (0,2vy) = (vx,-vy)</li>
 </ul>
 
-<p>After finding the ball’s new position and speed, use clearRect to delete the scene and redraw it
+<p>After finding the ball’s new position and speed, use
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect">clearRect</a>
+to delete the scene and redraw it
 using the new position.</p></div>
         
 
@@ -149,19 +151,19 @@ using the new position.</p></div>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://eloquentjavascript.net/17_canvas.html">https://eloquentjavascript.net/17_canvas.html</a></li>
-        
             <li><a href="/cwdc/3-javascript/game/ball.html">Pinball</a></li>
         
             <li><a href="/cwdc/3-javascript/game/ball.js">source</a></li>
         
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage</a></li>
+            <li><a href="https://eloquentjavascript.net/17_canvas.html">Drawing on Canvas</a></li>
         
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas">https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">CanvasRenderingContext2D: drawImage() method</a></li>
         
-            <li><a href="https://www.freecodecamp.org/news/how-to-understand-css-position-absolute-once-and-for-all-b71ca10cd3fd/">https://www.freecodecamp.org/news/how-to-understand-css-position-absolute-once-and-for-all-b71ca10cd3fd/</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas">Optimizing canvas</a></li>
         
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">https://developer.mozilla.org/en-US/docs/Web/CSS/position</a></li>
+            <li><a href="https://www.freecodecamp.org/news/how-to-understand-css-position-absolute-once-and-for-all-b71ca10cd3fd/">How to understand CSS Position Absolute once and for all</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">position</a></li>
         
             <li><img src="../img/pinball.png">.</li>
         </ul>
@@ -205,13 +207,13 @@ using the new position.</p></div>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#keydown_event">keydown_event</a></li><li><a href="global.html#onpointerdown">onpointerdown</a></li><li><a href="global.html#random">random</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#speedX">speedX</a></li><li><a href="global.html#speedY">speedY</a></li><li><a href="global.html#timer">timer</a></li><li><a href="global.html#updateAnimation">updateAnimation</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onpointerdown">onpointerdown</a></li></ul><h3>Global</h3><ul><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#random">random</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#speedX">speedX</a></li><li><a href="global.html#speedY">speedY</a></li><li><a href="global.html#timer">timer</a></li><li><a href="global.html#updateAnimation">updateAnimation</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 08 2024 11:09:26 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Nov 22 2024 10:20:49 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
