@@ -1,0 +1,2380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: 07a_robot</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: 07a_robot</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="VillageState.html">VillageState</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".roadGraph"><span class="type-signature">(static, constant) </span>roadGraph<span class="type-signature"> :<a href="global.html#graph">graph</a></span></h4>
+
+
+
+
+<div class="description">
+    The graph of roads of the village of Meadowfield.
+
+<br>
+{
+<ul style="list-style-type:none">
+ <li> Alice's House: ["Bob's House", "Cabin", "Post Office"] </li>
+ <li> Bob's House: ["Alice's House", "Town Hall"] </li>
+ <li> Cabin: ["Alice's House"] </li>
+ <li> Daria's House: ["Ernie's House", "Town Hall"] </li>
+ <li> Ernie's House: ["Daria's House", "Grete's House"] </li>
+ <li> Farm: ["Grete's House", "Marketplace"] </li>
+ <li> Grete's House: ["Ernie's House", "Farm", "Shop"] </li>
+ <li> Marketplace: ["Farm", "Post Office", "Shop", "Town Hall"] </li>
+ <li> Post Office: ["Alice's House", "Marketplace"] </li>
+</ul>
+}
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="global.html#graph">graph</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line125">line 125</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~mailRoute"><span class="type-signature">(inner, constant) </span>mailRoute<span class="type-signature"> :Array.&lt;String></span></h4>
+
+
+
+
+<div class="description">
+    <p>A predefined route. </p>
+We should be able to do a lot better than the
+<a href="module-07a_robot.html#.randomRobot">random robot</a>.<br>
+An easy improvement would be to take a hint from the way real-world mail delivery works.<br>
+If we find a route that passes all places in the village, the robot could run that route twice,<br>
+at which point it is guaranteed to be done.<br>
+<p>Here is one such route (starting from the post office):</p>
+
+[
+<ul style="list-style-type:none">
+<li> "Alice's House", </li>
+<li> "Cabin", </li>
+<li> "Alice's House", </li>
+<li> "Bob's House", </li>
+<li> "Town Hall", </li>
+<li> "Daria's House", </li>
+<li> "Ernie's House", </li>
+<li> "Grete's House", </li>
+<li> "Shop",  </li>
+<li> "Grete's House", </li>
+<li> "Farm",  </li>
+<li> "Marketplace",  </li>
+<li> "Post Office" </li>
+</ul>
+]
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;String></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line363">line 363</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".goalOrientedRobot"><span class="type-signature">(static) </span>goalOrientedRobot<span class="signature">(state, route)</span><span class="type-signature"> &rarr; {<a href="global.html#RobotState">RobotState</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>This robot uses its memory value as a list of directions to move in,
+just like the <a href="module-07a_robot.html#.routeRobot">route-following</a> robot. <br>
+Whenever that list is empty, it has to figure out what to do next. </p>
+It could take the first undelivered parcel in the set,
+but it is better go to the place with more parcels to send and:
+<ul>
+ <li> if that parcel hasn’t been picked up yet, plots a route toward it. </li>
+ <li> If the parcel has been picked up, it still needs to be delivered,
+      so the robot creates a route toward the delivery address instead.</li>
+</ul>
+This robot usually finishes the task of delivering 5 parcels in about 16 turns (or 13,
+if not always taking the first parcel).
+<p>That’s slightly better than <a href="module-07a_robot.html#.routeRobot">routeRobot</a>
+(for a small number of packages),
+but still definitely not optimal.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="VillageState.html">VillageState</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">village state (a destructuring parameter).
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>place</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">robot location.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parcels</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#parcel">parcel</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">collection (place-address pairs) of undelivered parcels.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>route</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the route to follow.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line471">line 471</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-07a_robot.html#~mailRoute">mailRoute</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    a map (associative array): destination and new route.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#RobotState">RobotState</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".lazyRobot"><span class="type-signature">(static) </span>lazyRobot<span class="signature">(state, route)</span><span class="type-signature"> &rarr; {<a href="global.html#RobotState">RobotState</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The main limitation of <a href="module-07a_robot.html#.goalOrientedRobot">goalOrientedRobot</a>
+is that it considers only one parcel at a time.<br>
+It will often walk back and forth across the village, because the parcel it happens to be looking at,<br>
+happens to be at the other side of the map, even if there are others much closer.</p>
+
+One possible solution would be to compute routes for all packages and then take the shortest one.<br>
+Even better results can be obtained, if there are multiple shortest routes,<br>
+by preferring the ones that go to pick up a package instead of delivering a package.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="VillageState.html">VillageState</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">village state (a destructuring parameter).
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>place</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">robot location.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parcels</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#parcel">parcel</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">collection (place-address pairs) of undelivered parcels.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>route</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the route to follow.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line517">line 517</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Dijkstra's_algorithm">Dijkstra's algorithm</a></li>
+        
+            <li><a href="https://levelup.gitconnected.com/finding-the-shortest-path-in-javascript-dijkstras-algorithm-8d16451eea34">Finding the Shortest Path in Javascript: Dijkstra’s Algorithm</a></li>
+        
+            <li><a href="https://medium.com/@jpena91/dijkstras-algorithm-finding-the-shortest-path-in-javascript-a7247afe93b2">Dijkstra’s algorithm, finding the shortest path in JavaScript.</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    a map (associative array): destination and new route.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#RobotState">RobotState</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".maxNode"><span class="type-signature">(static) </span>maxNode<span class="signature">(nodes)</span><span class="type-signature"> &rarr; {Array.&lt;Number, Number>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Gets the nodes of the graph with the maximum number of parcels to send
+and the maximum number of parcels addressed to.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>nodes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object.&lt;String:Object.&lt;Number, Number, Number>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number of parcels in a node, and parcels to a node.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line598">line 598</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    key of the nodes with maximum 'in' and 'out' values.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Number, Number></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".parcelsNode"><span class="type-signature">(static) </span>parcelsNode<span class="signature">(place, parcels, graph)</span><span class="type-signature"> &rarr; {Object.&lt;String:Object.&lt;Number, Number, Number>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create an object to totalize the number of parcels in a node to send to another node (in) and
+parcels to the node addressed from another node (out).</p>
+
+We could have used here a Map, instead of an Object, but in this case we should have replace indexing,
+such as nodes[p.place], for nodes.get(p.place).
+<pre>
+  // Map keys can be anything: Objects, arrays, etc.
+  var nodes = new Map(
+    Object.keys(graph).map((place) => {
+      return [place, { in: 0, out: 0 }];
+    })
+  );
+  console.log(nodes);
+  console.log(nodes.get("Cabin").in);
+</pre>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>place</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">robot location.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parcels</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#parcel">parcel</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">collection of undeliverd parcels.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>graph</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#graph">graph</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">road graph.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line573">line 573</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://flexiple.com/loop-through-object-javascript/">How to loop through objects keys and values in Javascript?</a></li>
+        
+            <li><a href="https://www.javascripttutorial.net/es6/javascript-map/">JavaScript Map Object</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a></li>
+        
+            <li><a href="https://oieduardorabelo.medium.com/javascript-map-vs-object-quando-e-como-usar-5457677b001b">JavaScript: Map vs Object, quando e como usar?</a></li>
+        
+            <li><a href="https://webmobtuts.com/javascript/javascript-keyed-and-indexed-collections-array-map-and-set/">Javascript Keyed and Indexed Collections Array, Map and Set</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    in, out counters for each node
+          and the last index in parcels where the node was found.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object.&lt;String:Object.&lt;Number, Number, Number>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".randomRobot"><span class="type-signature">(static) </span>randomRobot<span class="signature">(state)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    A robot that chooses a random edge of the graph emanating from the current place.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="VillageState.html">VillageState</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a place + a parcel set.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line306">line 306</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-07a_robot.html#~randomPick">randomPick</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    a random destination.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".routeRobot"><span class="type-signature">(static) </span>routeRobot<span class="signature">(state, memory)</span><span class="type-signature"> &rarr; {<a href="global.html#RobotState">RobotState</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>To implement the route-following robot, we’ll need to make use of robot memory.</p>
+The robot keeps the rest of its route in its memory and drops the first element every turn.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="VillageState.html">VillageState</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">of the village.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>memory</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">route to follow.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line389">line 389</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">Array.prototype.slice()</a></li>
+        
+            <li><a href="module-07a_robot.html#~mailRoute">mailRoute</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    a map (associative array): destination and new route.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#RobotState">RobotState</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".runRobot"><span class="type-signature">(static) </span>runRobot<span class="signature">(state, robot, memory)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Runs the robot simulation. All movements are printed on the screen.</p>
+
+<p>A delivery robot looks at the world and decides in which direction it wants to move. <br>
+As such, we could say that a robot is a function that takes a VillageState object
+and returns the name of a nearby place.</p>
+
+<p>Because we want robots to be able to remember things, so that they can make and execute plans,<br>
+we also pass them their memory and allow them to return a new memory.<br>
+Thus, the thing a robot returns is an object containing both the direction it wants to move in<br>
+and a memory value that will be given back to it the next time it is called.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="VillageState.html">VillageState</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">village state.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>robot</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#robotCallback">robotCallback</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">returns the direction to follow based on the robot type.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>memory</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">route to follow.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line250">line 250</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-07a_robot.html#~mailRoute">mailRoute</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~buildGraph"><span class="type-signature">(inner) </span>buildGraph<span class="signature">(edges)</span><span class="type-signature"> &rarr; {<a href="global.html#graph">graph</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Given an array of edges, creates a map object that,
+for each node, stores an array of connected nodes.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>edges</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"source - destination" pairs.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line84">line 84</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-07a_robot.html#.roadGraph">roadGraph</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    a graph.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#graph">graph</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~findRoute"><span class="type-signature">(inner) </span>findRoute<span class="signature">(graph, from, to)</span><span class="type-signature"> &rarr; {Array.&lt;Object.&lt;at:String, from:String>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Look at short routes before we look at longer ones.
+A good approach would be to “grow” routes from the starting point,<br>
+exploring every reachable place that hasn’t been visited yet, until a route reaches the goal.<br>
+That way, we’ll only explore routes that are potentially interesting, and we’ll find the shortest route<br>
+(or one of the shortest routes, if there are more than one) to the goal.</p>
+
+<p>Basically, this is a breath-first traversal until the destination node is reached.
+Therefore, it is kept a work list (a queue). <br>
+This is an array of places that should be explored next, along with the route that got us there.
+It starts with just the start position and an empty route. </p>
+
+
+<p>The search then operates by taking the next item in the list and exploring that,
+which means all roads going from that place are looked at.<br>
+If one of them is the goal, a finished route can be returned.
+Otherwise, if we haven’t looked at this place before, a new item is added to the list.<br>
+If we have looked at it before, since we are looking at short routes first,
+we’ve found either a longer route to that place or one precisely,<br>
+as long as the existing one, and we don’t need to explore it.</p>
+
+<p>You can visually imagine this as a web of known routes crawling out from the start location,
+growing evenly on all sides (but never tangling back into itself).<br>
+As soon as the first thread reaches the goal location, that thread is traced back to the start,
+giving us our route.</p>
+
+e.g.: <a href="module-07a_robot.html#~findRoute">findRoute</a>
+(roadGraph, "Grete's House", "Post Office") → ["Farm", "Marketplace", "Post Office"]
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>graph</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#graph">graph</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the village graph.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>from</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">origin.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>to</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">destination.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line433">line 433</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-07a_robot.html#~buildGraph">buildGraph</a></li>
+        
+            <li><a href="https://en.wikipedia.org/wiki/Breadth-first_search">Breadth-first search</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some">Array.prototype.some()</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    a map (associative array): destination and new route.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Object.&lt;at:String, from:String>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~randomPick"><span class="type-signature">(inner) </span>randomPick<span class="signature">(array)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Choose a random element of an array.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>array</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">given array.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line294">line 294</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    random element.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-07a_robot.html">07a_robot</a></li></ul><h3>Classes</h3><ul><li><a href="VillageState.html">VillageState</a></li></ul><h3>Global</h3><ul><li><a href="global.html#compareRobots">compareRobots</a></li><li><a href="global.html#countSteps">countSteps</a></li><li><a href="global.html#main">main</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat Nov 23 2024 10:32:33 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: runrobot.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: runrobot.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module */
+
+/**
+ *
+ *
+ * @file
+ *
+ * Summary.
+ * &lt;p>Run the robot code on the browser.&lt;/p>
+ *
+ * This version differs from the original code of the {@link https://eloquentjavascript.net/code/ book},
+ * mainly because it uses ES6 modules and cookies for saving the state of
+ * the application.
+ *
+ * &lt;pre>
+ *  Documentation:
+ *  - jsdoc -d doc-robot 07a_robot.js animatevillage.js runrobot.js
+ * &lt;/pre>
+ *
+ * @author Paulo Roma
+ * @since 22/11/2024
+ * @see &lt;a href="../robot.html">Robot&lt;/a>
+ * @see &lt;a href="../runrobot.js">source&lt;/a>
+ * @see {@link https://eloquentjavascript.net/07_robot.html Project: A Robot}
+ * @see &lt;iframe title="Robot" style="width: 600px; height: 450px; transform-origin: 0px 20px; transform: scale(0.8);" src="/cwdc/3-javascript/robot/robot.html">&lt;/iframe>
+ */
+import {
+  roadGraph,
+  VillageState,
+  randomRobot,
+  routeRobot,
+  goalOrientedRobot,
+  lazyRobot,
+  runRobot,
+} from "./07a_robot.js";
+
+import { runRobotAnimation } from "./animatevillage.js";
+
+console.log(roadGraph);
+
+/**
+ * The village state: robot place and parcels.
+ * @type {VillageState}
+ */
+let task;
+
+/**
+ * Animation object.
+ * @type {Animation}
+ */
+let anim = null;
+
+/**
+ * Array of robot strategies.
+ * @type {Array&lt;function>}
+ */
+const rtypes = [randomRobot, routeRobot, goalOrientedRobot, lazyRobot];
+
+/**
+ * &lt;p>Creates a new task with a random {@link VillageState village state} and the selected number of parcels.&lt;/p>
+ * If a &amp;lt;select&amp;gt; element is given, its selectedIndex is saved in the cookie "nparcels".&lt;br>
+ * Otherwise, the number of parcels and robot type are read from the cookies "nparcels" and "robots":&lt;br>
+ *
+ * &lt;pre>
+ *      document.cookie → "nparcels=0; robots=1;"
+ * &lt;code>
+ *      Name        Value     Domain                  Path    Expires     Size
+ *      nparcels    0         krotalias.github.io     /       Session     9 B
+ *      robot       1         krotalias.github.io     /       Session     7 B
+ * &lt;/code>
+ * &lt;/pre>
+ * @param {HTMLSelectElement} selectedOption select element.
+ */
+function newTask(selectedOption) {
+  // save the current selection in a cookie
+  if (selectedOption) {
+    document.cookie = `nparcels = ${selectedOption.selectedIndex}; path=/;`;
+  } else {
+    ["nparcels", "robots"].forEach((elmt) => {
+      const cind = document.cookie.indexOf(elmt);
+      if (cind != -1) {
+        const semicolon = `${document.cookie};`.indexOf(";", cind);
+        document.getElementById(elmt).selectedIndex = document.cookie.substring(
+          cind + elmt.length + 1,
+          semicolon,
+        );
+      }
+    });
+  }
+  const nparcels = document.getElementById("nparcels").value;
+  task = VillageState.random(nparcels);
+  if (anim == null) {
+    const type = document.getElementById("robots").value;
+    anim = runRobotAnimation(task, rtypes[type], [], false);
+  }
+}
+
+/**
+ * Run the animation for the {@link module:runrobot~task task} selected.
+ */
+function RobotCode() {
+  const type = document.getElementById("robots").value;
+  if (anim) anim.deleteNode();
+  anim = runRobotAnimation(task, rtypes[type], []);
+}
+
+/**
+ * Run the code with a textual output for the {@link module:runrobot~task task} selected.
+ */
+function runRobotCode() {
+  const type = document.getElementById("robots").value;
+  const nparcels = document.getElementById("nparcels").value;
+  document.write(`Robot Type: ${rtypes[type].prototype.constructor.name} &lt;br>`);
+  document.write(`Number of Parcels: ${nparcels} &lt;br>`);
+  runRobot(task, rtypes[type], []);
+}
+
+/**
+ * &lt;p>Executed when the "Animate Robot" button is clicked.&lt;/p>
+ *
+ * &lt;p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
+ * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).&lt;/p>
+ *
+ * &lt;p>The callback argument sets the {@link module:runrobot~RobotCode callback}
+ * that will be invoked when the event is dispatched.&lt;/p>
+ *
+ * @event click-oriented
+ * @param {PointerEvent} event a mouse or touch event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ */
+document
+  .querySelector("#oriented")
+  .addEventListener("click", (event) => RobotCode());
+
+/**
+ * &lt;p>Executed when the "Run Robot" button is clicked.&lt;/p>
+ *
+ * &lt;p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
+ * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).&lt;/p>
+ *
+ * &lt;p>The callback argument sets the {@link module:runrobot~runRobotCode callback}
+ * that will be invoked when the event is dispatched.&lt;/p>
+ *
+ * @event click-run
+ * @param {PointerEvent} event a mouse or touch event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ */
+document
+  .querySelector("#run")
+  .addEventListener("click", (event) => runRobotCode());
+
+/**
+ * &lt;p>Executed when the "New Task" button is clicked.&lt;/p>
+ *
+ * &lt;p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
+ * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).&lt;/p>
+ *
+ * &lt;p>The callback argument sets the
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/Location/reload callback}
+ * that will be invoked when the event is dispatched.&lt;/p>
+ *
+ * @event click-task
+ * @param {PointerEvent} event a mouse or touch event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ */
+document
+  .querySelector("#task")
+  .addEventListener("click", (event) => location.reload());
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
+ * The callback argument sets the {@link module:runrobot~newTask callback} that will be invoked when
+ * the event is dispatched.&lt;/p>
+ * @summary Executed when the nparcels &amp;lt;select&amp;gt; is changed.
+ *
+ * @event change-nparcels
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+ */
+document
+  .querySelector("#nparcels")
+  .addEventListener("change", (event) => newTask(event.target));
+
+/**
+ * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
+ * The argument sets the
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie callback}
+ * that will be invoked when
+ * the event is dispatched.&lt;/p>
+ * @summary Executed when the robots &amp;lt;select&amp;gt; is changed.
+ *
+ * @event change-robots
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+ */
+document.querySelector("#robots").addEventListener("change", (event) => {
+  document.cookie = `robots = ${event.target.selectedIndex}; path=/;`;
+});
+
+/**
+ * &lt;p>Loads the application.&lt;/p>
+ * &lt;p>The load event is fired when the whole page has loaded,
+ * including all dependent resources such as stylesheets,
+ * scripts, iframes, and images, except those that are loaded lazily.&lt;/p>
+ *
+ * &lt;p>The callback argument sets the {@link module:runrobot~newTask callback}
+ * that will be invoked when the event is dispatched.&lt;/p>
+ * @event load
+ * @param {event} event a generic event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ */
+addEventListener("load", (event) => newTask());
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-07a_robot.html">07a_robot</a></li><li><a href="module-animatevillage.html">animatevillage</a></li><li><a href="module-runrobot.html">runrobot</a></li></ul><h3>Classes</h3><ul><li><a href="Animation.html">Animation</a></li><li><a href="VillageState.html">VillageState</a></li></ul><h3>Events</h3><ul><li><a href="module-runrobot.html#~event:change-nparcels">change-nparcels</a></li><li><a href="module-runrobot.html#~event:change-robots">change-robots</a></li><li><a href="module-runrobot.html#~event:click-oriented">click-oriented</a></li><li><a href="module-runrobot.html#~event:click-run">click-run</a></li><li><a href="module-runrobot.html#~event:click-task">click-task</a></li><li><a href="module-runrobot.html#~event:load">load</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat Nov 23 2024 10:32:32 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -30,12 +30,12 @@ import getopts from "getopts";
  * @param {VillageState} state village state.
  * @param {robotCallback} robot returns the direction to follow based on the robot type.
  * @param {Array<string>} memory robot route.
- * @returns {number} steps.
+ * @returns {Number} steps.
  */
 function countSteps(state, robot, memory) {
     for (let steps = 0; ; steps++) {
         if (state.parcels.length == 0) return steps;
-        let action = robot(state, memory);
+        const action = robot(state, memory);
         state = state.move(action.direction);
         memory = action.memory;
     }
@@ -45,14 +45,14 @@ function countSteps(state, robot, memory) {
  * Prints the average number of steps of running a given number of random tasks for each robot to solve.
  *
  * @param {Array<robot>} r robots to be compared.
- * @param {number} n number of parcels in each task.
- * @param {number} t number of random tasks.
+ * @param {Number} n number of parcels in each task.
+ * @param {Number} t number of random tasks.
  */
 function compareRobots(r, n, t) {
-    let total = Array(r.length).fill(0);
+    const total = Array(r.length).fill(0);
     for (let i = 0; i < t; i++) {
-        let state = robot.VillageState.random(n);
-        for (let [index, robot] of r.entries()) {
+        const state = robot.VillageState.random(n);
+        for (const [index, robot] of r.entries()) {
             total[index] += countSteps(state, robot, []);
         }
     }
@@ -79,7 +79,7 @@ function compareRobots(r, n, t) {
  * <li> -d verbose mode</li>
  * </ul>
  *
- * @see https://npm.io/package/getopts
+ * @see {@link https://npm.io/package/getopts getopts v2.3.0}
  */
 (function main(argv) {
     const rtypes = [
@@ -136,18 +136,18 @@ function compareRobots(r, n, t) {
     console.log(`Number of Parcels: ${nparcels}`);
     console.log(`debug = ${debug}\n`);
 
-    let task = robot.VillageState.random(nparcels);
+    const task = robot.VillageState.random(nparcels);
     if (debug) robot.runRobot(task, rtypes[type], []);
 
     compareRobots(rtypes, nparcels, 100);
     console.log();
 
-    let nodes = robot.parcelsNode(task.place, task.parcels, robot.roadGraph);
+    const nodes = robot.parcelsNode(task.place, task.parcels, robot.roadGraph);
     if (debug) console.log(task);
     console.log(`Robot location: ${task.place}`);
     if (debug) console.log(nodes);
 
-    let [kin, kout] = robot.maxNode(nodes);
+    const [kin, kout] = robot.maxNode(nodes);
     console.log(
         `Node with more parcels to send: ${kin} (${nodes[kin].index}) → ${nodes[kin].in}`,
     );

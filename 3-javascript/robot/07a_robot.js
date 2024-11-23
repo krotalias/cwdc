@@ -1,3 +1,5 @@
+/** @module */
+
 /**
  * @file
  *
@@ -25,7 +27,7 @@
  *
  * <p>The village's road network (topology) will be represented by a graph. </p>
  * Each node of the graph represents a place, which is associated with its set of edges,<br>
- * that is, the set of {@link roadGraph roads} emanating from it.
+ * that is, the set of {@link module:07a_robot.roadGraph roads} emanating from it.
  * <p> <img src="../img/village2x.png"></p>
  *
  *  <pre>
@@ -34,7 +36,7 @@
  *     - sudo apt install jsdoc-toolkit or
  *     - sudo npm install -g jsdoc
  *  - MacOS:
- *     - sudo port install npm7 (or npm8)
+ *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
  *  - jsdoc -d doc-robot 07a_robot.js
  *
@@ -44,10 +46,12 @@
  *  - node robot.mjs [nparcels] [rtype]
  *  </pre>
  *
- * @author {@link https://marijnhaverbeke.nl Marijn Haverbeke}, adapted to ES6 by Paulo Roma
+ * @author {@link https://marijnhaverbeke.nl Marijn Haverbeke}
+ * @author Paulo Roma (ES6 version)
  * @since 06/07/2021
  * @see <a href="../robot.html">Robot</a>
  * @see <a href="../07a_robot.js">source</a>
+ * @see {@link https://eloquentjavascript.net/code/chapter/07_robot.js source from the book}
  * @see <a href="../doc-robot-node">robot in node</a>
  * @see {@link https://eloquentjavascript.net/07_robot.html Project: A Robot}
  * @see {@link https://www.i-programmer.info/programming/javascript/1441-javascript-data-structures-the-associative-array.html JavaScript Data Structures - The Associative Array}
@@ -75,10 +79,10 @@ const roads = [
  *
  * @param {Array<String>} edges "source - destination" pairs.
  * @returns {graph} a graph.
- * @see roadGraph
+ * @see {@link module:07a_robot.roadGraph roadGraph}
  */
 function buildGraph(edges) {
-  let graph = Object.create(null);
+  const graph = Object.create(null);
   function addEdge(from, to) {
     if (graph[from] == null) {
       graph[from] = [to];
@@ -86,7 +90,7 @@ function buildGraph(edges) {
       graph[from].push(to);
     }
   }
-  for (let [from, to] of edges.map((r) => r.split("-"))) {
+  for (const [from, to] of edges.map((r) => r.split("-"))) {
     addEdge(from, to);
     addEdge(to, from);
   }
@@ -96,6 +100,7 @@ function buildGraph(edges) {
 /**
  * A graph: a set of vertices (nodes) and edges.
  * @typedef {Object<String:Array<String>>} graph
+ * @global
  */
 
 /**
@@ -123,7 +128,7 @@ export const roadGraph = buildGraph(roads);
  * Let’s condense the village’s state down to the minimal set of values that define it.
  * There’s the robot’s current location and the collection of undelivered parcels,
  * each of which has a current location and a destination address. That’s it.
- *
+ * @global
  * @param {String} place robot location name.
  * @param {Array<parcel>} parcels collection (place-address pairs) of undelivered parcels.
  */
@@ -164,14 +169,14 @@ export class VillageState {
    *
    * @param {String} destination where the robot should go.
    * @returns {VillageState} new state.
-   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter Array.prototype.filter()}
    */
   move(destination) {
     if (!roadGraph[this.place].includes(destination)) {
       return this; // invalid move
     } else {
       // create a new parcel list
-      let parcels = this.parcels
+      const parcels = this.parcels
         .map((p) => {
           // keep parcels from other locations (places)
           if (p.place != this.place) return p;
@@ -189,7 +194,8 @@ export class VillageState {
 /**
  * A direction to go, and the rest of the route as the memory.
  * @typedef {Object<direction:String,memory:Array<String>>} RobotState
- * @see mailRoute
+ * @global
+ * @see {@link module:07a_robot~mailRoute mailRoute}
  */
 
 /**
@@ -207,6 +213,7 @@ export class VillageState {
  * ]
  *
  * @typedef {Object<{place:String,address:String}>} parcel
+ * @global
  */
 
 /**
@@ -217,6 +224,7 @@ export class VillageState {
  *
  * @typedef {function(state,route):RobotState} robotCallback
  * @callback robotCallback
+ * @global
  * @param {VillageState} state village state.
  * @param {Array<String>} route route to be followed (memory).
  * @returns {RobotState} new route.
@@ -237,7 +245,7 @@ export class VillageState {
  * @param {VillageState} state village state.
  * @param {robotCallback} robot returns the direction to follow based on the robot type.
  * @param {Array<String>} memory route to follow.
- * @see mailRoute
+ * @see {@link module:07a_robot~mailRoute mailRoute}
  */
 export function runRobot(state, robot, memory) {
   log("Post Office");
@@ -247,7 +255,7 @@ export function runRobot(state, robot, memory) {
       log(`Done in ${turn} turns`);
       break;
     }
-    let action = robot(state, memory);
+    const action = robot(state, memory);
     state = state.move(action.direction);
     memory = action.memory;
     log(`Moved to ${action.direction}`);
@@ -284,7 +292,7 @@ export function runRobot(state, robot, memory) {
  * @returns random element.
  */
 function randomPick(array) {
-  let choice = Math.floor(Math.random() * array.length);
+  const choice = Math.floor(Math.random() * array.length);
   return array[choice];
 }
 
@@ -293,7 +301,7 @@ function randomPick(array) {
  *
  * @param {VillageState} state a place + a parcel set.
  * @returns {String} a random destination.
- * @see randomPick
+ * @see {@link module:07a_robot~randomPick randomPick}
  */
 export function randomRobot(state) {
   return { direction: randomPick(roadGraph[state.place]) };
@@ -312,9 +320,9 @@ export function randomRobot(state) {
  * @returns {VillageState} created state.
  */
 VillageState.random = function (parcelCount = 5) {
-  let parcels = [];
+  const parcels = [];
   for (let i = 0; i < parcelCount; i++) {
-    let address = randomPick(Object.keys(roadGraph)); // where to deliver the parcel (destination)
+    const address = randomPick(Object.keys(roadGraph)); // where to deliver the parcel (destination)
     let place;
     do {
       place = randomPick(Object.keys(roadGraph)); // where the parcel is (origin)
@@ -326,7 +334,8 @@ VillageState.random = function (parcelCount = 5) {
 
 /**
  * <p>A predefined route. </p>
- * We should be able to do a lot better than the random robot.<br>
+ * We should be able to do a lot better than the
+ * {@link module:07a_robot.randomRobot random robot}.<br>
  * An easy improvement would be to take a hint from the way real-world mail delivery works.<br>
  * If we find a route that passes all places in the village, the robot could run that route twice,<br>
  * at which point it is guaranteed to be done.<br>
@@ -374,8 +383,8 @@ const mailRoute = [
  * @param {VillageState} state of the village.
  * @param {Array<String>} memory route to follow.
  * @returns {RobotState} a map (associative array): destination and new route.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
- * @see mailRoute
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice Array.prototype.slice()}
+ * @see {@link module:07a_robot~mailRoute mailRoute}
  */
 export function routeRobot(state, memory) {
   if (memory.length == 0) {
@@ -410,21 +419,22 @@ export function routeRobot(state, memory) {
  * As soon as the first thread reaches the goal location, that thread is traced back to the start,
  * giving us our route.</p>
  *
- * e.g.: {@link findRoute}(roadGraph, "Grete's House", "Post Office") → ["Farm", "Marketplace", "Post Office"]
+ * e.g.: {@link module:07a_robot~findRoute findRoute}
+ * (roadGraph, "Grete's House", "Post Office") → ["Farm", "Marketplace", "Post Office"]
  *
  * @param {graph} graph the village graph.
  * @param {String} from origin.
  * @param {String} to destination.
  * @returns {Array<Object<at:String, from:String>>} a map (associative array): destination and new route.
- * @see buildGraph
- * @see https://en.wikipedia.org/wiki/Breadth-first_search
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+ * @see {@link module:07a_robot~buildGraph buildGraph}
+ * @see {@link https://en.wikipedia.org/wiki/Breadth-first_search Breadth-first search}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some Array.prototype.some()}
  */
 function findRoute(graph, from, to) {
-  let work = [{ at: from, route: [] }];
+  const work = [{ at: from, route: [] }];
   for (let i = 0; i < work.length; i++) {
-    let { at, route } = work[i];
-    for (let place of graph[at]) {
+    const { at, route } = work[i];
+    for (const place of graph[at]) {
       if (place == to) return route.concat(place);
       if (!work.some((w) => w.at == place)) {
         // if the vertex has not been visited yet (not in work already)
@@ -436,7 +446,7 @@ function findRoute(graph, from, to) {
 
 /**
  * <p>This robot uses its memory value as a list of directions to move in,
- * just like the route-following robot. <br>
+ * just like the {@link module:07a_robot.routeRobot route-following} robot. <br>
  * Whenever that list is empty, it has to figure out what to do next. </p>
  * It could take the first undelivered parcel in the set,
  * but it is better go to the place with more parcels to send and:
@@ -447,7 +457,8 @@ function findRoute(graph, from, to) {
  * </ul>
  * This robot usually finishes the task of delivering 5 parcels in about 16 turns (or 13,
  * if not always taking the first parcel).
- * <p>That’s slightly better than {@link routeRobot} (for a small number of packages),
+ * <p>That’s slightly better than {@link module:07a_robot.routeRobot routeRobot}
+ * (for a small number of packages),
  * but still definitely not optimal.</p>
  *
  * @param {VillageState} state village state (a destructuring parameter).
@@ -455,7 +466,7 @@ function findRoute(graph, from, to) {
  * @param {Array<parcel>} state.parcels collection (place-address pairs) of undelivered parcels.
  * @param {Array<String>} route the route to follow.
  * @returns {RobotState} a map (associative array): destination and new route.
- * @see mailRoute
+ * @see {@link module:07a_robot~mailRoute mailRoute}
  */
 export function goalOrientedRobot({ place, parcels }, route) {
   if (route.length == 0) {
@@ -463,8 +474,8 @@ export function goalOrientedRobot({ place, parcels }, route) {
 
     // this is optional, but provides some improvement over the original code from the book
     if (true) {
-      let nodes = parcelsNode(place, parcels, roadGraph);
-      let [kin, kout] = maxNode(nodes);
+      const nodes = parcelsNode(place, parcels, roadGraph);
+      const [kin, kout] = maxNode(nodes);
       if (nodes[kin].in > 0) {
         parcel = parcels[nodes[kin].index]; // parcels.find(x => x.place == kin);
       } else {
@@ -485,7 +496,8 @@ export function goalOrientedRobot({ place, parcels }, route) {
 }
 
 /**
- * <p>The main limitation of {@link goalOrientedRobot} is that it considers only one parcel at a time.<br>
+ * <p>The main limitation of {@link module:07a_robot.goalOrientedRobot goalOrientedRobot}
+ * is that it considers only one parcel at a time.<br>
  * It will often walk back and forth across the village, because the parcel it happens to be looking at,<br>
  * happens to be at the other side of the map, even if there are others much closer.</p>
  *
@@ -498,14 +510,14 @@ export function goalOrientedRobot({ place, parcels }, route) {
  * @param {Array<parcel>} state.parcels collection (place-address pairs) of undelivered parcels.
  * @param {Array<String>} route the route to follow.
  * @returns {RobotState} a map (associative array): destination and new route.
- * @see https://en.wikipedia.org/wiki/Dijkstra's_algorithm
- * @see https://levelup.gitconnected.com/finding-the-shortest-path-in-javascript-dijkstras-algorithm-8d16451eea34
- * @see https://medium.com/@jpena91/dijkstras-algorithm-finding-the-shortest-path-in-javascript-a7247afe93b2
+ * @see {@link https://en.wikipedia.org/wiki/Dijkstra's_algorithm Dijkstra's algorithm}
+ * @see {@link https://levelup.gitconnected.com/finding-the-shortest-path-in-javascript-dijkstras-algorithm-8d16451eea34 Finding the Shortest Path in Javascript: Dijkstra’s Algorithm}
+ * @see {@link https://medium.com/@jpena91/dijkstras-algorithm-finding-the-shortest-path-in-javascript-a7247afe93b2 Dijkstra’s algorithm, finding the shortest path in JavaScript.}
  */
 export function lazyRobot({ place, parcels }, route) {
   if (route.length == 0) {
     // Describe a route for every parcel
-    let routes = parcels.map((parcel) => {
+    const routes = parcels.map((parcel) => {
       if (parcel.place != place) {
         return {
           route: findRoute(roadGraph, place, parcel.place),
@@ -552,19 +564,19 @@ export function lazyRobot({ place, parcels }, route) {
  * @param {graph} graph road graph.
  * @returns {Object<String:Object<Number,Number,Number>>} in, out counters for each node
  *           and the last index in parcels where the node was found.
- * @see https://flexiple.com/loop-through-object-javascript/
- * @see https://www.javascripttutorial.net/es6/javascript-map/
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
- * @see https://oieduardorabelo.medium.com/javascript-map-vs-object-quando-e-como-usar-5457677b001b
- * @see https://webmobtuts.com/javascript/javascript-keyed-and-indexed-collections-array-map-and-set/
+ * @see {@link https://flexiple.com/loop-through-object-javascript/ How to loop through objects keys and values in Javascript?}
+ * @see {@link https://www.javascripttutorial.net/es6/javascript-map/ JavaScript Map Object}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map Map}
+ * @see {@link https://oieduardorabelo.medium.com/javascript-map-vs-object-quando-e-como-usar-5457677b001b JavaScript: Map vs Object, quando e como usar?}
+ * @see {@link https://webmobtuts.com/javascript/javascript-keyed-and-indexed-collections-array-map-and-set/ Javascript Keyed and Indexed Collections Array, Map and Set}
  */
 export function parcelsNode(place, parcels, graph) {
-  let nodes = {};
+  const nodes = {};
   Object.keys(graph).forEach((place) => {
     nodes[place] = { in: 0, out: 0 };
   });
 
-  for (let [i, p] of parcels.entries()) {
+  for (const [i, p] of parcels.entries()) {
     if (p.place != place) {
       // not on robot's hand
       nodes[p.place].in += 1;
@@ -584,7 +596,7 @@ export function parcelsNode(place, parcels, graph) {
  * @returns {Array<Number,Number>} key of the nodes with maximum 'in' and 'out' values.
  */
 export function maxNode(nodes) {
-  let keys = Object.keys(nodes);
+  const keys = Object.keys(nodes);
   return [
     keys.reduce((a, b) => (nodes[a].in > nodes[b].in ? a : b)),
     keys.reduce((a, b) => (nodes[a].out > nodes[b].out ? a : b)),

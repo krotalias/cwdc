@@ -54,7 +54,8 @@
 
 <header>
     
-        <h2>07a_robot.js</h2>
+        <h2>
+            <span class="ancestors"><a href="module-07a_robot.html">07a_robot</a>~</span>07a_robot.js</h2>
         
     
 </header>
@@ -87,7 +88,7 @@
 
 <p>The village's road network (topology) will be represented by a graph. </p>
 Each node of the graph represents a place, which is associated with its set of edges,<br>
-that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
+that is, the set of <a href="module-07a_robot.html#.roadGraph">roads</a> emanating from it.
 <p> <img src="../img/village2x.png"></p>
 
  <pre>
@@ -96,7 +97,7 @@ that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
     - sudo apt install jsdoc-toolkit or
     - sudo npm install -g jsdoc
  - MacOS:
-    - sudo port install npm7 (or npm8)
+    - sudo port install npm9 (or npm10)
     - sudo npm install -g jsdoc
  - jsdoc -d doc-robot 07a_robot.js
 
@@ -135,7 +136,9 @@ that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li><a href="https://marijnhaverbeke.nl">Marijn Haverbeke</a>, adapted to ES6 by Paulo Roma</li>
+            <li><a href="https://marijnhaverbeke.nl">Marijn Haverbeke</a></li>
+        
+            <li>Paulo Roma (ES6 version)</li>
         </ul>
     </dd>
     
@@ -149,7 +152,7 @@ that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line1">line 1</a>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -162,6 +165,8 @@ that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
             <li><a href="../robot.html">Robot</a></li>
         
             <li><a href="../07a_robot.js">source</a></li>
+        
+            <li><a href="https://eloquentjavascript.net/code/chapter/07_robot.js">source from the book</a></li>
         
             <li><a href="../doc-robot-node">robot in node</a></li>
         
@@ -213,7 +218,8 @@ that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
 
 <header>
     
-        <h2>animatevillage.js</h2>
+        <h2>
+            <span class="ancestors"><a href="module-animatevillage.html">animatevillage</a>~</span>animatevillage.js</h2>
         
     
 </header>
@@ -235,7 +241,7 @@ that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
     - sudo apt install jsdoc-toolkit or
     - sudo npm install -g jsdoc
  - MacOS:
-    - sudo port install npm7 (or npm8)
+    - sudo port install npm9 (or npm10)
     - sudo npm install -g jsdoc
  - jsdoc -d doc-village animatevillage.js
  </pre></div>
@@ -269,7 +275,9 @@ that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
     <dt class="tag-author">Author:</dt>
     <dd class="tag-author">
         <ul>
-            <li><a href="https://marijnhaverbeke.nl">Marijn Haverbeke</a>, adapted to ES6 by Paulo Roma</li>
+            <li><a href="https://marijnhaverbeke.nl">Marijn Haverbeke</a></li>
+        
+            <li>Paulo Roma (ES6 version)</li>
         </ul>
     </dd>
     
@@ -283,7 +291,7 @@ that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="animatevillage.js.html">animatevillage.js</a>, <a href="animatevillage.js.html#line1">line 1</a>
+        <a href="animatevillage.js.html">animatevillage.js</a>, <a href="animatevillage.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -297,7 +305,136 @@ that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
         
             <li><a href="../animatevillage.js">source</a></li>
         
+            <li><a href="https://eloquentjavascript.net/code/animatevillage.js">source from the book</a></li>
+        
             <li><a href="https://eloquentjavascript.net/07_robot.html">Project: A Robot</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-runrobot.html">runrobot</a>~</span>runrobot.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Run the robot code on the browser.</p>
+
+This version differs from the original code of the <a href="https://eloquentjavascript.net/code/">book</a>,
+mainly because it uses ES6 modules and cookies for saving the state of
+the application.
+
+<pre>
+ Documentation:
+ - jsdoc -d doc-robot 07a_robot.js animatevillage.js runrobot.js
+</pre></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>22/11/2024</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="runrobot.js.html">runrobot.js</a>, <a href="runrobot.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="../robot.html">Robot</a></li>
+        
+            <li><a href="../runrobot.js">source</a></li>
+        
+            <li><a href="https://eloquentjavascript.net/07_robot.html">Project: A Robot</a></li>
+        
+            <li><iframe title="Robot" style="width: 600px; height: 450px; transform-origin: 0px 20px; transform: scale(0.8);" src="/cwdc/3-javascript/robot/robot.html"></iframe></li>
         </ul>
     </dd>
     
@@ -339,13 +476,13 @@ that is, the set of <a href="global.html#roadGraph">roads</a> emanating from it.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Animation.html">Animation</a></li><li><a href="VillageState.html">VillageState</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Anonymousself-invokedfunction">Anonymous self-invoked function</a></li><li><a href="global.html#active">active</a></li><li><a href="global.html#buildGraph">buildGraph</a></li><li><a href="global.html#findRoute">findRoute</a></li><li><a href="global.html#goalOrientedRobot">goalOrientedRobot</a></li><li><a href="global.html#lazyRobot">lazyRobot</a></li><li><a href="global.html#mailRoute">mailRoute</a></li><li><a href="global.html#maxNode">maxNode</a></li><li><a href="global.html#parcelsNode">parcelsNode</a></li><li><a href="global.html#placeKeys">placeKeys</a></li><li><a href="global.html#places">places</a></li><li><a href="global.html#randomPick">randomPick</a></li><li><a href="global.html#randomRobot">randomRobot</a></li><li><a href="global.html#roadGraph">roadGraph</a></li><li><a href="global.html#routeRobot">routeRobot</a></li><li><a href="global.html#runRobot">runRobot</a></li><li><a href="global.html#runRobotAnimation">runRobotAnimation</a></li><li><a href="global.html#speed">speed</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-07a_robot.html">07a_robot</a></li><li><a href="module-animatevillage.html">animatevillage</a></li><li><a href="module-runrobot.html">runrobot</a></li></ul><h3>Classes</h3><ul><li><a href="Animation.html">Animation</a></li><li><a href="VillageState.html">VillageState</a></li></ul><h3>Events</h3><ul><li><a href="module-runrobot.html#~event:change-nparcels">change-nparcels</a></li><li><a href="module-runrobot.html#~event:change-robots">change-robots</a></li><li><a href="module-runrobot.html#~event:click-oriented">click-oriented</a></li><li><a href="module-runrobot.html#~event:click-run">click-run</a></li><li><a href="module-runrobot.html#~event:click-task">click-task</a></li><li><a href="module-runrobot.html#~event:load">load</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Nov 15 2024 08:37:15 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat Nov 23 2024 10:32:32 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <title>JSDoc: Module: animatevillage</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Module: animatevillage</h1>
 
     
 
@@ -27,9 +27,6 @@
 <section>
 
 <header>
-    
-        <h2></h2>
-        
     
 </header>
 
@@ -68,6 +65,11 @@
     
 
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="animatevillage.js.html">animatevillage.js</a>, <a href="animatevillage.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
 
     
 
@@ -86,7 +88,12 @@
     
 
     
+        <h3 class="subsection-title">Classes</h3>
 
+        <dl>
+            <dt><a href="Animation.html">Animation</a></dt>
+            <dd></dd>
+        </dl>
     
 
     
@@ -96,19 +103,17 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
+        <h3 class="subsection-title">Members</h3>
 
         
-                
-<h4 class="name" id="RobotState">RobotState</h4>
+            
+<h4 class="name" id="~active"><span class="type-signature">(inner) </span>active<span class="type-signature"> :<a href="Animation.html">Animation</a></span></h4>
 
 
 
 
 <div class="description">
-    A direction to go, and the rest of the route as the memory.
+    Animation instance exposed to the window object as a property.
 </div>
 
 
@@ -117,7 +122,7 @@
     <ul>
         <li>
             
-<span class="param-type">Object.&lt;direction:String, memory:Array.&lt;String>></span>
+<span class="param-type"><a href="Animation.html">Animation</a></span>
 
 
         </li>
@@ -156,19 +161,12 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line194">line 194</a>
+        <a href="animatevillage.js.html">animatevillage.js</a>, <a href="animatevillage.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
     
 
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="module-07a_robot.html#~mailRoute">mailRoute</a></li>
-        </ul>
-    </dd>
     
 
     
@@ -179,15 +177,15 @@
 
 
 
+        
             
-                
-<h4 class="name" id="graph">graph</h4>
+<h4 class="name" id="~placeKeys"><span class="type-signature">(inner, constant) </span>placeKeys<span class="type-signature"> :String</span></h4>
 
 
 
 
 <div class="description">
-    A graph: a set of vertices (nodes) and edges.
+    The places of the village.
 </div>
 
 
@@ -196,7 +194,7 @@
     <ul>
         <li>
             
-<span class="param-type">Object.&lt;String:Array.&lt;String>></span>
+<span class="param-type">String</span>
 
 
         </li>
@@ -235,7 +233,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line100">line 100</a>
+        <a href="animatevillage.js.html">animatevillage.js</a>, <a href="animatevillage.js.html#line65">line 65</a>
     </li></ul></dd>
     
 
@@ -251,26 +249,15 @@
 
 
 
+        
             
-                
-<h4 class="name" id="parcel">parcel</h4>
+<h4 class="name" id="~places"><span class="type-signature">(inner, constant) </span>places<span class="type-signature"> :Object.&lt;{String:Object.&lt;{x:Number, y:Number}>}></span></h4>
 
 
 
 
 <div class="description">
-    <p>Parcel current location and destination.</p>
-
-E.g.: <p>Array holding undelivered parcels.</p>
-[
-<ul style="list-style-type:none">
- <li> {place: "Grete's House", address: "Marketplace"}, </li>
- <li> {place: "Town Hall", address: "Daria's House"}, </li>
- <li> {place: "Bob's House", address: "Shop"}, </li>
- <li> {place: "Cabin", address: "Bob's House"}, </li>
- <li> {place: "Marketplace", address: "Post Office"} </li>
-</ul>
-]
+    A dictionary for associating coordinates to the locations of the village.
 </div>
 
 
@@ -279,7 +266,7 @@ E.g.: <p>Array holding undelivered parcels.</p>
     <ul>
         <li>
             
-<span class="param-type">Object.&lt;{place:String, address:String}></span>
+<span class="param-type">Object.&lt;{String:Object.&lt;{x:Number, y:Number}>}></span>
 
 
         </li>
@@ -318,7 +305,7 @@ E.g.: <p>Array holding undelivered parcels.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line201">line 201</a>
+        <a href="animatevillage.js.html">animatevillage.js</a>, <a href="animatevillage.js.html#line47">line 47</a>
     </li></ul></dd>
     
 
@@ -334,13 +321,91 @@ E.g.: <p>Array holding undelivered parcels.</p>
 
 
 
+        
             
-                
+<h4 class="name" id="~speed"><span class="type-signature">(inner, constant) </span>speed<span class="type-signature"> :Number</span></h4>
+
+
+
+
+<div class="description">
+    Animation speed in fps.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
 
     
 
     
-    <h4 class="name" id="robotCallback"><span class="type-signature"></span>robotCallback<span class="signature">(state, route)</span><span class="type-signature"> &rarr; {<a href="global.html#RobotState">RobotState</a>}</span></h4>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="animatevillage.js.html">animatevillage.js</a>, <a href="animatevillage.js.html#line71">line 71</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".runRobotAnimation"><span class="type-signature">(static) </span>runRobotAnimation<span class="signature">(worldState, robot, robotState, start)</span><span class="type-signature"> &rarr; {<a href="Animation.html">Animation</a>}</span></h4>
     
 
     
@@ -348,10 +413,8 @@ E.g.: <p>Array holding undelivered parcels.</p>
 
 
 <div class="description">
-    <p>Consider what a robot has to do to “solve” a given state.</p>
-It must pick up all parcels by visiting every location that has a parcel,<br>
-and deliver them by visiting every location that a parcel is addressed to,<br>
-but only after picking up the parcel.
+    Function added to the window object as a property to
+trigger the animation process.
 </div>
 
 
@@ -387,7 +450,7 @@ but only after picking up the parcel.
 
         <tr>
             
-                <td class="name"><code>state</code></td>
+                <td class="name"><code>worldState</code></td>
             
 
             <td class="type">
@@ -403,14 +466,37 @@ but only after picking up the parcel.
 
             
 
-            <td class="description last">village state.</td>
+            <td class="description last">state of the village.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>route</code></td>
+                <td class="name"><code>robot</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#robotCallback">robotCallback</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a robot type (algorithm).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>robotState</code></td>
             
 
             <td class="type">
@@ -427,6 +513,29 @@ but only after picking up the parcel.
             
 
             <td class="description last">route to be followed (memory).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">whether the animation should begin immediately.</td>
         </tr>
 
     
@@ -467,7 +576,7 @@ but only after picking up the parcel.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line219">line 219</a>
+        <a href="animatevillage.js.html">animatevillage.js</a>, <a href="animatevillage.js.html#line274">line 274</a>
     </li></ul></dd>
     
 
@@ -496,7 +605,7 @@ but only after picking up the parcel.
 
         
 <div class="param-desc">
-    new route.
+    animation object.
 </div>
 
 
@@ -507,7 +616,7 @@ but only after picking up the parcel.
     </dt>
     <dd>
         
-<span class="param-type"><a href="global.html#RobotState">RobotState</a></span>
+<span class="param-type"><a href="Animation.html">Animation</a></span>
 
 
     </dd>
@@ -519,7 +628,9 @@ but only after picking up the parcel.
 
 
 
-            
+        
+    
+
     
 
     

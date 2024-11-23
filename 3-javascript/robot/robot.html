@@ -1,18 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Robot</title>
         <style>
+            * {
+                margin: 0;
+                padding: 0;
+                -webkit-user-select: none;
+                user-select: none;
+            }
             body {
                 padding-top: 20px; /* center elements */
-                margin: 0 auto;
                 box-sizing: border-box; /* padding and border included in the width and height */
                 background: seagreen;
             }
             .control {
                 margin-left: 10px;
+                padding: 3px 5px;
                 color: white;
                 border: none;
                 background-color: brown;
@@ -30,114 +36,35 @@
         </style>
     </head>
 
-    <body onload="newTask()">
+    <body>
         <div id="robotUI">
             <label for="robots">Choose a robot:</label>
-            <select
-                name="robots"
-                id="robots"
-                onchange="document.cookie=`robots = ${this.selectedIndex}; path=/;`"
-            >
+            <select name="robots" id="robots">
                 <option value="0">Random</option>
                 <option value="1">Route</option>
                 <option value="2" selected="selected">Oriented</option>
                 <option value="3">Lazy</option>
             </select>
             <label for="nparcels">#parcels:</label>
-            <select name="nparcels" id="nparcels" onchange="newTask(this)">
+            <select name="nparcels" id="nparcels">
                 <option value="5">5</option>
                 <option value="15" selected="selected">15</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
             </select>
-            <br />
-            <button id="oriented" class="control" onclick="RobotCode()">
-                Animate Robot
-            </button>
-            <button id="run" class="control" onclick="runRobotCode()">
-                Run Robot
-            </button>
-            <button id="task" class="control" onclick="location.reload()">
-                New Task
-            </button>
+            <div style="margin: 20px 0 10px 0">
+                <button id="oriented" class="control">Animate Robot</button>
+                <button id="run" class="control">Run Robot</button>
+                <button id="task" class="control">New Task</button>
+            </div>
         </div>
-        <script src="./animatevillage.js"></script>
-        <script type="module">
-            import {
-                roadGraph,
-                VillageState,
-                randomRobot,
-                routeRobot,
-                goalOrientedRobot,
-                lazyRobot,
-                runRobot,
-            } from "./07a_robot.js";
-            console.log(roadGraph);
-
-            // Module creates a scope to avoid name collisions.
-            // Either expose your function to the global window object or use addEventListener to bind handler.
-            window.RobotCode = RobotCode;
-            window.runRobotCode = runRobotCode;
-            window.newTask = newTask;
-
-            let task,
-                anim = null;
-            const rtypes = [
-                randomRobot,
-                routeRobot,
-                goalOrientedRobot,
-                lazyRobot,
-            ];
-
-            function newTask(selectedOption) {
-                // save the current selection in a cookie
-                if (selectedOption) {
-                    document.cookie = `nparcels = ${selectedOption.selectedIndex}; path=/;`;
-                } else {
-                    ["nparcels", "robots"].forEach((elmt) => {
-                        let cind = document.cookie.indexOf(elmt);
-                        if (cind != -1) {
-                            let semicolon = `${document.cookie};`.indexOf(
-                                ";",
-                                cind
-                            );
-                            document.getElementById(elmt).selectedIndex =
-                                document.cookie.substring(
-                                    cind + elmt.length + 1,
-                                    semicolon
-                                );
-                        }
-                    });
-                }
-                let nparcels = document.getElementById("nparcels").value;
-                task = VillageState.random(nparcels);
-                if (anim == null) {
-                    let type = document.getElementById("robots").value;
-                    anim = runRobotAnimation(task, rtypes[type], [], false);
-                }
-            }
-
-            function RobotCode() {
-                let type = document.getElementById("robots").value;
-                if (anim) anim.deleteNode();
-                anim = runRobotAnimation(task, rtypes[type], []);
-            }
-
-            function runRobotCode() {
-                let type = document.getElementById("robots").value;
-                let nparcels = document.getElementById("nparcels").value;
-                document.write(
-                    `Robot Type: ${rtypes[type].prototype.constructor.name} <br>`
-                );
-                document.write(`Number of Parcels: ${nparcels} <br>`);
-                runRobot(task, rtypes[type], []);
-            }
-        </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="module" src="./animatevillage.js"></script>
+        <script type="module" src="./runrobot.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script
-            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"
+            integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI="
             crossorigin="anonymous"
         ></script>
         <script src="/cwdc/mainPage/LCG.js"></script>
