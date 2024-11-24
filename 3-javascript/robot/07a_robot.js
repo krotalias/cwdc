@@ -26,7 +26,7 @@
  *  </ul>
  *
  * <p>The village's road network (topology) will be represented by a graph. </p>
- * Each node of the graph represents a place, which is associated with its set of edges,<br>
+ * Each node of the graph represents a place, which is associated with its set of edges,
  * that is, the set of {@link module:07a_robot.roadGraph roads} emanating from it.
  * <p> <img src="../img/village2x.png"></p>
  *
@@ -218,8 +218,8 @@ export class VillageState {
 
 /**
  * <p>Consider what a robot has to do to “solve” a given state.</p>
- * It must pick up all parcels by visiting every location that has a parcel,<br>
- * and deliver them by visiting every location that a parcel is addressed to,<br>
+ * It must pick up all parcels by visiting every location that has a parcel,
+ * and deliver them by visiting every location that a parcel is addressed to,
  * but only after picking up the parcel.
  *
  * @typedef {function(state,route):RobotState} robotCallback
@@ -233,13 +233,13 @@ export class VillageState {
 /**
  * <p>Runs the robot simulation. All movements are printed on the screen.</p>
  *
- * <p>A delivery robot looks at the world and decides in which direction it wants to move. <br>
+ * <p>A delivery robot looks at the world and decides in which direction it wants to move.
  * As such, we could say that a robot is a function that takes a VillageState object
  * and returns the name of a nearby place.</p>
  *
- * <p>Because we want robots to be able to remember things, so that they can make and execute plans,<br>
- * we also pass them their memory and allow them to return a new memory.<br>
- * Thus, the thing a robot returns is an object containing both the direction it wants to move in<br>
+ * <p>Because we want robots to be able to remember things, so that they can make and execute plans,
+ * we also pass them their memory and allow them to return a new memory.
+ * Thus, the thing a robot returns is an object containing both the direction it wants to move in
  * and a memory value that will be given back to it the next time it is called.</p>
  *
  * @param {VillageState} state village state.
@@ -335,10 +335,10 @@ VillageState.random = function (parcelCount = 5) {
 /**
  * <p>A predefined route. </p>
  * We should be able to do a lot better than the
- * {@link module:07a_robot.randomRobot random robot}.<br>
- * An easy improvement would be to take a hint from the way real-world mail delivery works.<br>
- * If we find a route that passes all places in the village, the robot could run that route twice,<br>
- * at which point it is guaranteed to be done.<br>
+ * {@link module:07a_robot.randomRobot random robot}.
+ * An easy improvement would be to take a hint from the way real-world mail delivery works.
+ * If we find a route that passes all places in the village, the robot could run that route twice,
+ * at which point it is guaranteed to be done.
  * <p>Here is one such route (starting from the post office):</p>
  *
  * [
@@ -394,28 +394,28 @@ export function routeRobot(state, memory) {
 }
 
 /**
- * <p>Look at short routes before we look at longer ones.
- * A good approach would be to “grow” routes from the starting point,<br>
- * exploring every reachable place that hasn’t been visited yet, until a route reaches the goal.<br>
- * That way, we’ll only explore routes that are potentially interesting, and we’ll find the shortest route<br>
+ * <p>Look at short routes before we look at longer ones.</p>
+ * <p>A good approach would be to “grow” routes from the starting point,
+ * exploring every reachable place that hasn’t been visited yet, until a route reaches the goal.
+ * That way, we’ll only explore routes that are potentially interesting, and we’ll find the shortest route
  * (or one of the shortest routes, if there are more than one) to the goal.</p>
  *
  * <p>Basically, this is a breath-first traversal until the destination node is reached.
- * Therefore, it is kept a work list (a queue). <br>
+ * Therefore, it is kept a work list (a queue).
  * This is an array of places that should be explored next, along with the route that got us there.
  * It starts with just the start position and an empty route. </p>
  *
  *
  * <p>The search then operates by taking the next item in the list and exploring that,
- * which means all roads going from that place are looked at.<br>
+ * which means all roads going from that place are looked at.
  * If one of them is the goal, a finished route can be returned.
- * Otherwise, if we haven’t looked at this place before, a new item is added to the list.<br>
+ * Otherwise, if we haven’t looked at this place before, a new item is added to the list.
  * If we have looked at it before, since we are looking at short routes first,
- * we’ve found either a longer route to that place or one precisely,<br>
+ * we’ve found either a longer route to that place or one precisely,
  * as long as the existing one, and we don’t need to explore it.</p>
  *
  * <p>You can visually imagine this as a web of known routes crawling out from the start location,
- * growing evenly on all sides (but never tangling back into itself).<br>
+ * growing evenly on all sides (but never tangling back into itself).
  * As soon as the first thread reaches the goal location, that thread is traced back to the start,
  * giving us our route.</p>
  *
@@ -446,8 +446,8 @@ function findRoute(graph, from, to) {
 
 /**
  * <p>This robot uses its memory value as a list of directions to move in,
- * just like the {@link module:07a_robot.routeRobot route-following} robot. <br>
- * Whenever that list is empty, it has to figure out what to do next. </p>
+ * just like the {@link module:07a_robot.routeRobot route-following} robot.</p>
+ * <p>Whenever that list is empty, it has to figure out what to do next. </p>
  * It could take the first undelivered parcel in the set,
  * but it is better go to the place with more parcels to send and:
  * <ul>
@@ -497,12 +497,12 @@ export function goalOrientedRobot({ place, parcels }, route) {
 
 /**
  * <p>The main limitation of {@link module:07a_robot.goalOrientedRobot goalOrientedRobot}
- * is that it considers only one parcel at a time.<br>
- * It will often walk back and forth across the village, because the parcel it happens to be looking at,<br>
+ * is that it considers only one parcel at a time.</p>
+ * <p>It will often walk back and forth across the village, because the parcel it happens to be looking at,
  * happens to be at the other side of the map, even if there are others much closer.</p>
  *
- * One possible solution would be to compute routes for all packages and then take the shortest one.<br>
- * Even better results can be obtained, if there are multiple shortest routes,<br>
+ * One possible solution would be to compute routes for all packages and then take the shortest one.
+ * Even better results can be obtained, if there are multiple shortest routes,
  * by preferring the ones that go to pick up a package instead of delivering a package.
  *
  * @param {VillageState} state village state (a destructuring parameter).

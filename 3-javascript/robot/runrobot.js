@@ -22,7 +22,7 @@
  * @see <a href="../robot.html">Robot</a>
  * @see <a href="../runrobot.js">source</a>
  * @see {@link https://eloquentjavascript.net/07_robot.html Project: A Robot}
- * @see <iframe title="Robot" style="width: 600px; height: 450px; transform-origin: 0px 20px; transform: scale(0.8);" src="/cwdc/3-javascript/robot/robot.html"></iframe>
+ * @see <iframe title="Robot" style="width: 580px; height: 450px; transform-origin: 0px 20px; transform: scale(0.8);" src="/cwdc/3-javascript/robot/robot.html"></iframe>
  */
 import {
   roadGraph,
@@ -57,7 +57,8 @@ let anim = null;
 const rtypes = [randomRobot, routeRobot, goalOrientedRobot, lazyRobot];
 
 /**
- * <p>Creates a new task with a random {@link VillageState village state} and the selected number of parcels.</p>
+ * <p>Creates a new task with a random {@link VillageState village state}
+ * with the selected number of parcels and run the {@link module:animatevillage.runRobotAnimation animation}.</p>
  * If a &lt;select&gt; element is given, its selectedIndex is saved in the cookie "nparcels".<br>
  * Otherwise, the number of parcels and robot type are read from the cookies "nparcels" and "robots":<br>
  *
@@ -96,7 +97,8 @@ function newTask(selectedOption) {
 }
 
 /**
- * Run the animation for the {@link module:runrobot~task task} selected.
+ * Run the {@link module:animatevillage.runRobotAnimation animation} for the
+ * {@link module:runrobot~task task} selected.
  */
 function RobotCode() {
   const type = document.getElementById("robots").value;
@@ -105,7 +107,8 @@ function RobotCode() {
 }
 
 /**
- * Run the code with a textual output for the {@link module:runrobot~task task} selected.
+ * Run the code with a {@link module:07a_robot.runRobot textual output} for the
+ * {@link module:runrobot~task task} selected.
  */
 function runRobotCode() {
   const type = document.getElementById("robots").value;

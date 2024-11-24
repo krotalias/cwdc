@@ -12,48 +12,75 @@
                 user-select: none;
             }
             body {
-                padding-top: 20px; /* center elements */
-                box-sizing: border-box; /* padding and border included in the width and height */
+                padding-top: 20px;
+                /* padding and border included in the width and height */
+                box-sizing: border-box;
                 background: seagreen;
             }
             .control {
-                margin-left: 10px;
                 padding: 3px 5px;
                 color: white;
                 border: none;
                 background-color: brown;
                 cursor: pointer;
                 border-radius: 10%;
+                flex: initial;
             }
             label {
                 color: white;
-                margin-left: 10px;
                 background-color: Transparent;
             }
+            #btns,
+            #lbls {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 60px;
+                width: 410px;
+                margin: 20px 10px 10px 0px;
+            }
+            #lbls {
+                gap: 10px;
+            }
             #robotUI {
+                /* center on the screen */
+                width: 400px;
+                margin: 0 auto;
                 cursor: move;
+            }
+            @media only screen and (max-width: 320px) and (orientation: portrait) {
+                #robotUI {
+                    transform: translateX(-11%) scale(0.77);
+                }
+            }
+            @media only screen and (max-width: 600px) and (orientation: portrait) {
+                #robotUI {
+                    transform: translateX(-2.5%) scale(0.92);
+                }
             }
         </style>
     </head>
 
     <body>
         <div id="robotUI">
-            <label for="robots">Choose a robot:</label>
-            <select name="robots" id="robots">
-                <option value="0">Random</option>
-                <option value="1">Route</option>
-                <option value="2" selected="selected">Oriented</option>
-                <option value="3">Lazy</option>
-            </select>
-            <label for="nparcels">#parcels:</label>
-            <select name="nparcels" id="nparcels">
-                <option value="5">5</option>
-                <option value="15" selected="selected">15</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-            </select>
-            <div style="margin: 20px 0 10px 0">
+            <div id="lbls">
+                <label for="robots">Choose a robot:</label>
+                <select name="robots" id="robots">
+                    <option value="0">Random</option>
+                    <option value="1">Route</option>
+                    <option value="2" selected="selected">Oriented</option>
+                    <option value="3">Lazy</option>
+                </select>
+                <label for="nparcels">#parcels:</label>
+                <select name="nparcels" id="nparcels">
+                    <option value="5">5</option>
+                    <option value="15" selected="selected">15</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+            <div id="btns">
                 <button id="oriented" class="control">Animate Robot</button>
                 <button id="run" class="control">Run Robot</button>
                 <button id="task" class="control">New Task</button>
