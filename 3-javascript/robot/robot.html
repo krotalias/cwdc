@@ -47,15 +47,15 @@
                 width: 400px;
                 margin: 0 auto;
                 cursor: move;
-            }
-            @media only screen and (max-width: 320px) and (orientation: portrait) {
-                #robotUI {
-                    transform: translateX(-11%) scale(0.77);
-                }
-            }
+            } /* iphone 7+, iphone 13 */
             @media only screen and (max-width: 600px) and (orientation: portrait) {
                 #robotUI {
                     transform: translateX(-2.5%) scale(0.92);
+                }
+            } /* iphone SE */
+            @media only screen and (max-width: 320px) and (orientation: portrait) {
+                #robotUI {
+                    transform: translateX(-11%) scale(0.77);
                 }
             }
         </style>
