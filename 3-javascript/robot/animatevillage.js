@@ -74,6 +74,8 @@ const speed = 2;
  * <p>Class for building the html elements necessary to depict
  * the village of Meadowfield, the parcels, and the robot.</p>
  * It also schedules the animation process.
+ * @class
+ * @alias module:animatevillage.Animation
  * @global
  */
 class Animation {
@@ -166,7 +168,9 @@ class Animation {
     this.robotElt.addEventListener("transitionend", () => this.updateParcels());
   }
 
-  /** Deletes all created elements. */
+  /**
+   * Deletes all created elements.
+   */
   deleteNode() {
     this.node.remove();
   }

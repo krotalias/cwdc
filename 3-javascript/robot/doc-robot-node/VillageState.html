@@ -214,7 +214,509 @@ each of which has a current location and a destination address. That’s it.</di
     
 
     
+        <h3 class="subsection-title">Members</h3>
 
+        
+            
+<h4 class="name" id="parcels"><span class="type-signature"></span>parcels<span class="type-signature"> :Array.&lt;<a href="global.html#parcel">parcel</a>></span></h4>
+
+
+
+
+<div class="description">
+    Collection of undelivered parcels.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;<a href="global.html#parcel">parcel</a>></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line152">line 152</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="place"><span class="type-signature"></span>place<span class="type-signature"> :String</span></h4>
+
+
+
+
+<div class="description">
+    Robot's current location.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">String</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line146">line 146</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="move"><span class="type-signature"></span>move<span class="signature">(destination)</span><span class="type-signature"> &rarr; {<a href="VillageState.html">VillageState</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>First checks whether there is a road going from the current place to the destination,
+and if not, it returns the old state since this is not a valid move.</p>
+
+Then it creates a new state with the destination as the robot’s new place.</p>
+<ul>
+   <li>But it also needs to create a new set of parcels — parcels that the robot is carrying
+   (that are at the robot’s current place) need to be moved along to the new place.</li>
+
+   <li>And parcels that are addressed to the new place need to be delivered—that is,
+   they need to be removed from the set of undelivered parcels.</li>
+
+   <li>The call to map takes care of the moving, and the call to filter does the delivering.</li>
+</ul>
+
+<p>This method does not change the state when the robot moves,
+but rather computes a new state for the situation after the move.</p>
+
+Data structures that don't change are called immutable or persistent.
+They behave a lot like strings and numbers in that they are what they are,
+and stay that way, rather than containing different things at different times.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>destination</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">where the robot should go.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter">Array.prototype.filter()</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    new state.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="VillageState.html">VillageState</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".random"><span class="type-signature">(static) </span>random<span class="signature">(parcelCount)</span><span class="type-signature"> &rarr; {<a href="VillageState.html">VillageState</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Create a new state with some parcels.
+A static method (written here by directly adding a property to the constructor)
+is a good place to put that functionality.
+A number of randon parcels {place,destination} with the robot at the "Post Office".
+
+We don’t want any parcels that are sent from the same place that they are addressed to.
+For this reason, the do loop keeps picking new places when it gets one that’s equal to the address.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>parcelCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number of parcels to create.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line329">line 329</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    created state.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="VillageState.html">VillageState</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
     
 
     
@@ -236,7 +738,7 @@ each of which has a current location and a destination address. That’s it.</di
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Nov 24 2024 08:58:30 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Nov 24 2024 19:05:17 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -1,8 +1,6 @@
 /** @module */
 
 /**
- *
- *
  * @file
  *
  * Summary.
@@ -157,11 +155,14 @@ document
 /**
  * <p>Executed when the "New Task" button is clicked.</p>
  *
+ * The created nodes are {@link Animation#deleteNode deleted}
+ * and {@link module:runrobot~anim anim} is set to null.
+ *
  * <p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
  * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).</p>
  *
  * <p>The callback argument sets the
- * {@link https://developer.mozilla.org/en-US/docs/Web/API/Location/reload callback}
+ * {@link module:runrobot~newTask callback}
  * that will be invoked when the event is dispatched.</p>
  *
  * @event click-task
@@ -169,9 +170,11 @@ document
  * @param {callback} function function to run when the event occurs.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  */
-document
-  .querySelector("#task")
-  .addEventListener("click", (event) => location.reload());
+document.querySelector("#task").addEventListener("click", (event) => {
+  if (anim) anim.deleteNode();
+  anim = null;
+  newTask();
+});
 
 /**
  * <p>Appends an event listener for events whose type attribute value is change.<br>

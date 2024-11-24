@@ -124,23 +124,30 @@ function buildGraph(edges) {
  */
 export const roadGraph = buildGraph(roads);
 
-/** @class
+/**
  * Let’s condense the village’s state down to the minimal set of values that define it.
  * There’s the robot’s current location and the collection of undelivered parcels,
  * each of which has a current location and a destination address. That’s it.
+ * @class
+ * @alias module:07a_robot.VillageState
  * @global
- * @param {String} place robot location name.
- * @param {Array<parcel>} parcels collection (place-address pairs) of undelivered parcels.
  */
-export class VillageState {
+class VillageState {
+  /**
+   * @constructor
+   * @param {String} place robot location name.
+   * @param {Array<parcel>} parcels collection (place-address pairs) of undelivered parcels.
+   */
   constructor(place, parcels) {
-    /** Robot's current location.
-     * @type {String}
+    /**
+     * Robot's current location.
+     * @member {String}
      */
     this.place = place;
 
-    /** Collection of undelivered parcels.
-     * @type {Array<parcel>}
+    /**
+     * Collection of undelivered parcels.
+     * @member {Array<parcel>}
      */
     this.parcels = parcels;
   }
@@ -602,3 +609,6 @@ export function maxNode(nodes) {
     keys.reduce((a, b) => (nodes[a].out > nodes[b].out ? a : b)),
   ];
 }
+
+// otherwise, jsdoc mess everything up
+export { VillageState };
