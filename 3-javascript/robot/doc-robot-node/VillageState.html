@@ -31,9 +31,25 @@
         <h2><span class="attribs"><span class="type-signature"></span></span>
             <span class="ancestors"><a href="module-07a_robot.html">07a_robot</a></span>VillageState<span class="signature">(place, parcels)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Let’s condense the village’s state down to the minimal set of values that define it.
-There’s the robot’s current location and the collection of undelivered parcels,
-each of which has a current location and a destination address. That’s it.</div>
+            <div class="class-description"><p>Let’s condense the village’s state down to the minimal set of values that define it.</p>
+<ul>
+  <li>There’s the robot’s current location and </li>
+  <li>the collection of undelivered parcels,
+     each of which has a current location and a destination address.</li>
+</ul>
+That’s it.
+
+<pre>
+VillageState
+   parcels: Array(5)
+     0 {place: "Shop", address: "Town Hall"}
+     1 {place: "Shop", address: "Town Hall"}
+     2 {place: "Marketplace", address: "Alice's House"}
+     3 {place: "Ernie's House", address: "Shop"}
+     4 {place: "Bob's House", address: "Alice's House"}
+
+   place: "Marketplace" ← Robot's current location
+</pre></div>
         
     
 </header>
@@ -168,7 +184,7 @@ each of which has a current location and a destination address. That’s it.</di
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line135">line 135</a>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line151">line 151</a>
     </li></ul></dd>
     
 
@@ -272,7 +288,7 @@ each of which has a current location and a destination address. That’s it.</di
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line152">line 152</a>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line168">line 168</a>
     </li></ul></dd>
     
 
@@ -344,7 +360,7 @@ each of which has a current location and a destination address. That’s it.</di
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line146">line 146</a>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line162">line 162</a>
     </li></ul></dd>
     
 
@@ -380,7 +396,8 @@ each of which has a current location and a destination address. That’s it.</di
 
 
 <div class="description">
-    <p>First checks whether there is a road going from the current place to the destination,
+    <p>Move the robot to a new destination.</p>
+<p>First checks whether there is a road going from the current place to the destination,
 and if not, it returns the old state since this is not a valid move.</p>
 
 Then it creates a new state with the destination as the robot’s new place.</p>
@@ -492,7 +509,7 @@ and stay that way, rather than containing different things at different times.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line181">line 181</a>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line198">line 198</a>
     </li></ul></dd>
     
 
@@ -565,13 +582,13 @@ and stay that way, rather than containing different things at different times.
 
 
 <div class="description">
-    Create a new state with some parcels.
+    <p>Create a new state with some parcels.</p>
 A static method (written here by directly adding a property to the constructor)
 is a good place to put that functionality.
 A number of randon parcels {place,destination} with the robot at the "Post Office".
 
-We don’t want any parcels that are sent from the same place that they are addressed to.
-For this reason, the do loop keeps picking new places when it gets one that’s equal to the address.
+<p>We don’t want any parcels that are sent from the same place that they are addressed to.
+For this reason, the do loop keeps picking new places when it gets one that’s equal to the address.</p>
 </div>
 
 
@@ -664,7 +681,7 @@ For this reason, the do loop keeps picking new places when it gets one that’s 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line329">line 329</a>
+        <a href="07a_robot.js.html">07a_robot.js</a>, <a href="07a_robot.js.html#line346">line 346</a>
     </li></ul></dd>
     
 
@@ -738,7 +755,7 @@ For this reason, the do loop keeps picking new places when it gets one that’s 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Nov 24 2024 19:05:17 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Nov 25 2024 08:51:39 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

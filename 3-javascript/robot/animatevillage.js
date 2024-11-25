@@ -35,7 +35,7 @@
 "use strict";
 
 /**
- * Animation instance exposed to the window object as a property.
+ * Animation instance.
  * @type {Animation}
  */
 let active = null;
@@ -43,6 +43,7 @@ let active = null;
 /**
  * A dictionary for associating coordinates to the locations of the village.
  * @type {Object<{String:Object<{x:Number,y:Number}>}>}
+ * @var
  */
 const places = {
   "Alice's House": { x: 279, y: 100 },
@@ -61,6 +62,7 @@ const places = {
 /**
  * The places of the village.
  * @type {String}
+ * @var
  */
 const placeKeys = Object.keys(places);
 
@@ -117,10 +119,22 @@ class Animation {
      */
     this.parcels = [];
 
+    /**
+     * Controls where the is the &lt;div&gt; holding the output: sandbox.output.div X #robotUI.
+     * @type {HTMLDivElement}
+     * @memberof Animation
+     */
     const outer = window.__sandbox
-        ? window.__sandbox.output.div
-        : document.querySelector("#robotUI"),
-      doc = outer.ownerDocument;
+      ? window.__sandbox.output.div
+      : document.querySelector("#robotUI");
+
+    /**
+     * The top-level document object of the outer node.
+     * @type {Document}
+     * @memberof Animation
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Node/ownerDocument Node: ownerDocument property}
+     */
+    const doc = outer.ownerDocument;
 
     /**
      * Node holding the image background, robot, parcels, and button.
@@ -175,7 +189,10 @@ class Animation {
     this.node.remove();
   }
 
-  /** Updates the robot position in the village. */
+  /**
+   * Updates the robot position in the village.
+   * @see {@link module:animatevillage~places places}
+   */
   updateView() {
     const pos = places[this.worldState.place];
     this.robotElt.style.top = pos.y - 38 + "px";
@@ -230,7 +247,10 @@ class Animation {
     }
   }
 
-  /** Draws a frame of the animation. */
+  /**
+   * Draws a frame of the animation.
+   * @see {@link Animation#updateView updateView}
+   */
   tick() {
     const { direction, memory } = this.robot(this.worldState, this.robotState);
     this.worldState = this.worldState.move(direction);
@@ -246,12 +266,18 @@ class Animation {
     }
   }
 
-  /** Schedules one frame of the animation. */
+  /**
+   * Schedules one frame of the animation.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout Window: setTimeout() method}
+   */
   schedule() {
     this.timeout = setTimeout(() => this.tick(), 1000 / speed);
   }
 
-  /** Start / Stop the animation. */
+  /**
+   * Start / Stop the animation.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/clearTimeout Window: clearTimeout() method}
+   */
   clicked() {
     if (this.timeout == null) {
       this.schedule();

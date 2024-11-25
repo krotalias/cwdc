@@ -125,9 +125,25 @@ function buildGraph(edges) {
 export const roadGraph = buildGraph(roads);
 
 /**
- * Let’s condense the village’s state down to the minimal set of values that define it.
- * There’s the robot’s current location and the collection of undelivered parcels,
- * each of which has a current location and a destination address. That’s it.
+ * <p>Let’s condense the village’s state down to the minimal set of values that define it.</p>
+ * <ul>
+ *   <li>There’s the robot’s current location and </li>
+ *   <li>the collection of undelivered parcels,
+ *      each of which has a current location and a destination address.</li>
+ * </ul>
+ * That’s it.
+ *
+ * <pre>
+ * VillageState
+ *    parcels: Array(5)
+ *      0 {place: "Shop", address: "Town Hall"}
+ *      1 {place: "Shop", address: "Town Hall"}
+ *      2 {place: "Marketplace", address: "Alice's House"}
+ *      3 {place: "Ernie's House", address: "Shop"}
+ *      4 {place: "Bob's House", address: "Alice's House"}
+ *
+ *    place: "Marketplace" ← Robot's current location
+ * </pre>
  * @class
  * @alias module:07a_robot.VillageState
  * @global
@@ -153,6 +169,7 @@ class VillageState {
   }
 
   /**
+   * <p>Move the robot to a new destination.</p>
    * <p>First checks whether there is a road going from the current place to the destination,
    * and if not, it returns the old state since this is not a valid move.</p>
    *
@@ -315,13 +332,13 @@ export function randomRobot(state) {
 }
 
 /**
- * Create a new state with some parcels.
+ * <p>Create a new state with some parcels.</p>
  * A static method (written here by directly adding a property to the constructor)
  * is a good place to put that functionality.
  * A number of randon parcels {place,destination} with the robot at the "Post Office".
  *
- * We don’t want any parcels that are sent from the same place that they are addressed to.
- * For this reason, the do loop keeps picking new places when it gets one that’s equal to the address.
+ * <p>We don’t want any parcels that are sent from the same place that they are addressed to.
+ * For this reason, the do loop keeps picking new places when it gets one that’s equal to the address.</p>
  *
  * @param {Number} parcelCount number of parcels to create.
  * @returns {VillageState} created state.

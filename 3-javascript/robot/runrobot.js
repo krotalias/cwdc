@@ -56,7 +56,9 @@ const rtypes = [randomRobot, routeRobot, goalOrientedRobot, lazyRobot];
 
 /**
  * <p>Creates a new task with a random {@link VillageState village state}
- * with the selected number of parcels and run the {@link module:animatevillage.runRobotAnimation animation}.</p>
+ * with the selected number of parcels, sets {@link module:runrobot~anim anim} to a new
+ * {@link module:animatevillage.runRobotAnimation animation}
+ * object but do not start the animation.</p>
  * If a &lt;select&gt; element is given, its selectedIndex is saved in the cookie "nparcels".<br>
  * Otherwise, the number of parcels and robot type are read from the cookies "nparcels" and "robots":<br>
  *
