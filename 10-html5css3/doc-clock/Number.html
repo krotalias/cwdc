@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: date.js</title>
+    <title>JSDoc: Class: Number</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,41 +17,321 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: date.js</h1>
+    <h1 class="page-title">Class: Number</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @file
- *
- * Summary.
- * &lt;p>Calculates the elapsed number of years since a given date.&lt;/p>
- * @author Paulo Roma Cavalcanti
- * @since 26/08/2023
- * @see &lt;a href="/cwdc/10-html5css3/clock/date.js">source&lt;/a>
- */
+        <h2><span class="attribs"><span class="type-signature"></span></span>Number<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+    
+</header>
 
-"use strict";
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * Returns the number of years since a given date.
- *
- * @param {String} past a date in the past.
- * @returns {Date} elapsed number of years since past.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date Date}
- */
-function elapsedYears(past) {
-  let date = new Date();
-  return date.getFullYear() - new Date(past).getFullYear();
-}
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+    <h4 class="name" id="Number"><span class="type-signature"></span>new Number<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Numbers are most commonly expressed in literal forms like 255 or 3.14159.</p>
+Values represent floating-point numbers like 37 or -9.25.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line665">line 665</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="mod"><span class="type-signature"></span>mod<span class="signature">(b)</span><span class="type-signature"> &rarr; {<a href="Number.html">Number</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>A modulo function added to Number's
+<a href="https://www.freecodecamp.org/news/a-beginners-guide-to-javascripts-prototype/">prototype</a>
+that works for negative numbers.</p>
+The modulo is calculated from remainder using the modular property:<br/>
+• (a + b) mod c = (a mod c + b mod c) mod c.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Number.html">Number</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">divisor.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line685">line 685</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Modulo_operation">Modulo</a></li>
+        
+            <li><a href="https://www.geeksforgeeks.org/how-to-get-negative-result-using-modulo-operator-in-javascript/">How to get negative result using modulo operator in JavaScript ?</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    this modulo b.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Number.html">Number</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

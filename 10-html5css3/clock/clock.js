@@ -54,8 +54,8 @@
  * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/New_York">New York</a>
  * @see <a href="/cwdc/10-html5css3/clock/clock.js">source</a>
  * @see <a href="/cwdc/10-html5css3/clock/clock-then.js">source (then)</a>
- * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
- * @see https://github.com/mourner/suncalc
+ * @see {@link https://en.wikipedia.org/wiki/List_of_tz_database_time_zones List of tz database time zones}
+ * @see {@link https://github.com/mourner/suncalc SunCalc}
  * @see <img src="../clock/clock.png" width="256"> <img src="../clock/reversed-clock.png" width="256">
  * @see <img src="../clock/clock2.png" width="512">
  */
@@ -65,17 +65,17 @@
 /**
  * @var {HTMLElement} canvas HTML Canvas.
  */
-var canvas = document.getElementById("clock");
+const canvas = document.getElementById("clock");
 
 /**
  * @var {Boolean} _USE_LOCAL_TIME_ sets the use of local time.
  */
-var _USE_LOCAL_TIME_ = true;
+let _USE_LOCAL_TIME_ = true;
 
 /**
  * @var {Object<{city: String, country: String}>} localRegion holds local city and country.
  */
-var localRegion = {
+const localRegion = {
   city: "unknown",
   country: "unknown",
 };
@@ -83,33 +83,33 @@ var localRegion = {
 /**
  * @var {HTMLElement} legend HTML Canvas.
  */
-let legend = document.getElementById("legend");
+const legend = document.getElementById("legend");
 
 /**
  * @var {Number} aspect canvas apsct ratio.
  */
-let aspect = canvas.width / canvas.height;
+const aspect = canvas.width / canvas.height;
 
 /**
  * @var {HTMLElement} tzonesList HTML &lt;select&gt; element.
  */
-let tzonesList = document.getElementById("tzones");
+const tzonesList = document.getElementById("tzones");
 
 /**
  * @var {CanvasRenderingContext2D} context Clock canvas context.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D CanvasRenderingContext2D}
  */
-var context = canvas.getContext("2d");
+const context = canvas.getContext("2d");
 
 /**
  * @var {CanvasRenderingContext2D} ctx Handle canvas context.
  */
-var ctx = document.getElementById("handles").getContext("2d");
+const ctx = document.getElementById("handles").getContext("2d");
 
 /**
  * @var {CanvasRenderingContext2D} lctx Legend canvas context.
  */
-var lctx = document.getElementById("legend").getContext("2d");
+const lctx = document.getElementById("legend").getContext("2d");
 
 /** π */
 const pi = Math.PI;
@@ -118,12 +118,12 @@ const pi = Math.PI;
 const fiveMin = pi / 6;
 
 /** Document's head. */
-var style = getComputedStyle(document.head);
+const style = getComputedStyle(document.head);
 
 /**
  * @var {Number} cpadd padding added to the clock.
  */
-let cpadd = +style.getPropertyValue("--cpadd").replace("px", "");
+const cpadd = +style.getPropertyValue("--cpadd").replace("px", "");
 
 /**
  * Color table.
@@ -135,7 +135,7 @@ let cpadd = +style.getPropertyValue("--cpadd").replace("px", "");
  * @property {hex-color} color.white1 - Roman numbers and date color.
  * @property {hex-color} color.white2 - Decimal numbers color.
  * @property {hex-color} color.white3 - 6, 18 and 24h handle color.
- * @see https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color &lt;hex-color&gt;}
  */
 const color = {
   grena: style.getPropertyValue("--cgrena"),
@@ -151,18 +151,18 @@ const color = {
  * Clock radius.
  * @type {Number}
  */
-var clockRadius = Math.min(canvas.width, canvas.height) / 3.1;
+let clockRadius = Math.min(canvas.width, canvas.height) / 3.1;
 
 /**
  * Canvas center.
  * @type {point}
  */
-var center = [canvas.width / 2, canvas.height / 2];
+let center = [canvas.width / 2, canvas.height / 2];
 
 /**
  * Clock location UTC offset.
  */
-var cityOffset = null;
+let cityOffset = null;
 
 /**
  * Get the image scale.
@@ -173,7 +173,7 @@ var cityOffset = null;
  * @return {Number[]} scale to fit the image in the clock without distortion.
  */
 function imgSize(w, h, r) {
-  let d = 2 * r * 0.8;
+  const d = 2 * r * 0.8;
   return [(d * w) / h, d];
 }
 
@@ -205,7 +205,7 @@ function setFont(size) {
  * @property {Object} tz.geodetic
  * @property {Number} tz.geodetic.latitude - latitude.
  * @property {Number} tz.geodetic.longitude - longitude.
- * @see https://en.wikipedia.org/wiki/Geographic_coordinate_system
+ * @see {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system Geographic coordinate system}
  */
 
 /**
@@ -261,9 +261,9 @@ function scale(pos, vec) {
  * @param {point} center center of the circle.
  * @param {Number} radius radius of the circle.
  * @param {Boolean} fill draws a solid or hollow circle.
- * @see https://riptutorial.com/html5-canvas/example/11126/beginpath--a-path-command-
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/closePath
+ * @see {@link https://riptutorial.com/html5-canvas/example/11126/beginpath--a-path-command- beginPath (a path command)}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke CanvasRenderingContext2D: stroke() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/closePath CanvasRenderingContext2D: closePath() method}
  */
 function circle(center, radius, fill = true) {
   context.beginPath();
@@ -281,14 +281,14 @@ function circle(center, radius, fill = true) {
  * @param {String} t2 time of end of the arc.
  * @param {Boolean} fill draws a solid or hollow arc.
  * @param {Boolean} reflect whether angles should be reflected.
- * @see https://riptutorial.com/html5-canvas/example/11126/beginpath--a-path-command-
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/closePath
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
+ * @see {@link https://riptutorial.com/html5-canvas/example/11126/beginpath--a-path-command- beginPath (a path command)}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke CanvasRenderingContext2D: stroke() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/closePath CanvasRenderingContext2D: closePath() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc CanvasRenderingContext2D: arc() method}
  */
 function arc(center, radius, t1, t2, fill = true, reflect = false) {
   let [arcInit, arcEnd] = [t1, t2].map((t) => {
-    let [hour, minutes] = t.split(":").map((q) => Number(q));
+    const [hour, minutes] = t.split(":").map((q) => Number(q));
     return 0.5 * (fiveMin * (hour + minutes / 60) - pi);
   });
 
@@ -329,7 +329,7 @@ async function readZones() {
  * @param {Number} long longitude.
  * @async
  * @returns {Promise<Array<String>>} <a href="../clock/Fluminense-reverse.json">address array</a>: [house_number, road, city, suburb, country].
- * @see https://operations.osmfoundation.org/policies/nominatim/
+ * @see {@link https://operations.osmfoundation.org/policies/nominatim/ Nominatim Usage Policy }
  * @see https://nominatim.openstreetmap.org/reverse?format=json&lat=-22.9369&lon=-43.1857&zoom=18&addressdetails=1
  * @see <iframe width="512" height="350"
  * src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-22.93755445951262%2C-43.18112701177598%2C-22.934424772219046&amp;layer=mapnik" style="border: 1px solid black"></iframe>
@@ -364,9 +364,9 @@ async function reverseGeoCoding(lat, long) {
  * @param {String} address location.
  * @async
  * @returns {Promise<Array<Number>>} <a href="../clock/Fluminense.json">geodetic array</a>: [latitude, longitude].
- * @see https://operations.osmfoundation.org/policies/nominatim/
+ * @see {@link https://operations.osmfoundation.org/policies/nominatim/ Nominatim Usage Policy}
  * @see https://nominatim.openstreetmap.org/search?format=json&q="Fluminense Football Club"
- * @see https://leafletjs.com
+ * @see {@link https://leafletjs.com Leaflet}
  * @see <a href="../clock/Flusao.png"><img src="../clock/Flusao-512.png"></a>
  * @see <a href="../clock/Fluminense.html">Laranjeiras</a>
  */
@@ -391,8 +391,8 @@ async function geoCoding(address) {
  * @async
  * @param {String} name TZ identifier.
  * @returns {Promise<tz>} promise for getting a time zone descriptor.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function async function}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter Array.prototype.filter()}
  */
 async function findCity(name) {
   if (typeof name !== "string" && typeof name !== "undefined") {
@@ -403,7 +403,7 @@ async function findCity(name) {
   }
   let city;
   if (name === undefined) {
-    let index = localStorage.getItem("placeIndex");
+    const index = localStorage.getItem("placeIndex");
     if (index !== null) {
       tzonesList.value = index;
       city = drawClock.tz.cities[index];
@@ -438,9 +438,9 @@ async function findCity(name) {
  * @param {String} region Africa | America | Asia | Atlantic | Australia | Europe | Indian | Pacific
  */
 async function displayLocation(latitude, longitude, dayLight, city, region) {
-  let tag = document.querySelector("#address");
+  const tag = document.querySelector("#address");
   const geopos = (pos, lat, lng) => {
-    let [h, m, s] = longitude2UTC(longitude);
+    const [h, m, s] = longitude2UTC(longitude);
     return `${pos.filter((str) => str !== undefined).join(", ")}<br>
       Latitude: ${Number(lat).toFixed(5)},
       Longitude: ${Number(lng).toFixed(5)}<br>
@@ -448,13 +448,13 @@ async function displayLocation(latitude, longitude, dayLight, city, region) {
       ${dayLight}`;
   };
 
-  let pos = await reverseGeoCoding(latitude, longitude);
+  const pos = await reverseGeoCoding(latitude, longitude);
   localRegion.city = pos[2];
   localRegion.country = pos[4];
 
   if (city !== undefined && region !== undefined) {
     try {
-      let geocode = await geoCoding(`${city},${region}`);
+      const geocode = await geoCoding(`${city},${region}`);
       tag.innerHTML = geopos(pos, geocode[0], geocode[1]);
     } catch (e) {
       console.error(e);
@@ -483,18 +483,18 @@ async function displayLocation(latitude, longitude, dayLight, city, region) {
  * </ul>
  * @param {Number} lng longitude in degrees.
  * @return {Array<Number>} [hr, min, sec]
- * @see http://cs4fn.org/mobile/owntimezone.php
- * @see https://en.wikipedia.org/wiki/Time_in_France
- * @see https://www.excelbanter.com/excel-programming/378044-decimalising-ra-dec-values.html
- * @see https://astro.unl.edu/naap/motion1/tc_units.html
- * @see https://dayspedia.com/time-zone-map/
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc
+ * @see {@link http://cs4fn.org/mobile/owntimezone.php CS$FN}
+ * @see {@link https://en.wikipedia.org/wiki/Time_in_France Time in France}
+ * @see {@link https://www.excelbanter.com/excel-programming/378044-decimalising-ra-dec-values.html decimalising}
+ * @see {@link https://astro.unl.edu/naap/motion1/tc_units.html Interactive Time Zone Map}
+ * @see {@link https://dayspedia.com/time-zone-map/ Interactive Time Zone Map}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc Math.trunc()}
  */
 function longitude2UTC(lng) {
   let sec = lng * 240;
-  let hr = Math.trunc(sec / 3600);
-  let remainder = sec % 3600;
-  let min = Math.trunc(remainder / 60);
+  const hr = Math.trunc(sec / 3600);
+  const remainder = sec % 3600;
+  const min = Math.trunc(remainder / 60);
   sec = remainder - min * 60;
   return [hr, min, sec];
 }
@@ -506,8 +506,8 @@ function longitude2UTC(lng) {
  *
  * @param {String[]} urls array of Image URLs.
  * @returns {Promise<HTMLImageElement[]>} promise that resolves when all images are loaded, or rejects if any image fails to load.
- * @see https://www.freecodecamp.org/portuguese/news/tudo-o-que-voce-precisa-saber-sobre-promise-all/
- * @see https://dev.to/alejandroakbal/how-to-preload-images-for-canvas-in-javascript-251c
+ * @see {@link https://www.freecodecamp.org/portuguese/news/tudo-o-que-voce-precisa-saber-sobre-promise-all/ Tudo o que você precisa saber sobre Promise.all}
+ * @see {@link https://dev.to/alejandroakbal/how-to-preload-images-for-canvas-in-javascript-251c How to preload images for canvas in JavaScript}
  */
 function preloadImages(urls) {
   const promises = urls.map((url) => {
@@ -534,7 +534,7 @@ function preloadImages(urls) {
  *  <li>the {@link drawArc sun light arc}, </li>
  *  <li>and the ticks.</li>
  * </ul>
- *
+ * @namespace
  * @param {String} place a location name.
  * @property {function} drawClock
  * @property {function} drawClock.location Increment/decrement the clock location.
@@ -543,11 +543,11 @@ function preloadImages(urls) {
  * @property {Array<{txt: String, c: hex-color}>} drawClock.romans Clock roman x color.
  * @property {Array<{txt: String, c: hex-color}>} drawClock.decimals Clock number x color.
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
- * @see https://en.wikipedia.org/wiki/Solar_time
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage CanvasRenderingContext2D: drawImage() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images Using images}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode HTMLImageElement: decode() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API Using the Geolocation API}
+ * @see {@link https://en.wikipedia.org/wiki/Solar_time Solar time}
  */
 function drawClock(place) {
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -556,16 +556,16 @@ function drawClock(place) {
 
   preloadImages(urls)
     .then((image) => {
-      let bezel = image[0];
+      const bezel = image[0];
       // Translate the center of the bezel
       // to the center of the canvas.
       let size = imgSize(bezel.width, bezel.height, 1.8 * clockRadius);
-      var coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
+      let coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
       context.rotate = pi;
       context.drawImage(bezel, coord.x, coord.y, size[0], size[1]);
       context.setTransform(1, 0, 0, 1, 0, 0);
 
-      let flu = image[1];
+      const flu = image[1];
       // Translate the center of the flu logo
       // to the center of the canvas.
       size = imgSize(flu.width, flu.height, 0.9 * clockRadius);
@@ -593,9 +593,9 @@ function drawClock(place) {
   navigator.geolocation.getCurrentPosition(
     (position) => {
       // this is an asynchronous callback
-      let lat = position.coords.latitude;
-      let lng = position.coords.longitude;
-      let srss = drawArc({
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      const srss = drawArc({
         latitude: lat,
         longitude: lng,
       });
@@ -604,12 +604,12 @@ function drawClock(place) {
     },
     async () => {
       // safari blocks geolocation unless using a secure connection
-      let city = await findCity(drawClock.place);
+      const city = await findCity(drawClock.place);
       _USE_LOCAL_TIME_ = false;
       if (city) {
-        let lat = city.coordinates.latitude;
-        let lng = city.coordinates.longitude;
-        let srss = drawArc({ latitude: lat, longitude: lng }, city);
+        const lat = city.coordinates.latitude;
+        const lng = city.coordinates.longitude;
+        const srss = drawArc({ latitude: lat, longitude: lng }, city);
         displayLocation(lat, lng, srss, city.city, city.region);
       } else {
         console.error(`${drawClock.place} not in localtime.json`);
@@ -646,31 +646,41 @@ function drawClock(place) {
     } else if (event.key == "b") {
       window.location.href = "/cwdc";
     } else if (event.key == "B") {
-      let path = window.location.pathname;
+      const path = window.location.pathname;
       window.location.href = path.split("/", 3).join("/");
     }
   };
 
   /**
-   * <p>A modulo function, added to Number's
-   * {@link https://www.freecodecamp.org/news/a-beginners-guide-to-javascripts-prototype/ prototype},
+   * <p>Numbers are most commonly expressed in literal forms like 255 or 3.14159.</p>
+   * Values represent floating-point numbers like 37 or -9.25.
+   * @class Number
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number Number}
+   */
+
+  /**
+   * <p>A modulo function added to Number's
+   * {@link https://www.freecodecamp.org/news/a-beginners-guide-to-javascripts-prototype/ prototype}
    * that works for negative numbers.</p>
    * The modulo is calculated from remainder using the modular property:<br/>
    * • (a + b) mod c = (a mod c + b mod c) mod c.
    *
-   * @function
    * @param {Number} b divisor.
    * @returns {Number} this modulo b.
    * @memberof Number
-   * @global
-   * @see https://en.wikipedia.org/wiki/Modulo_operation
-   * @see https://www.geeksforgeeks.org/how-to-get-negative-result-using-modulo-operator-in-javascript/
+   * @see {@link https://en.wikipedia.org/wiki/Modulo_operation Modulo}
+   * @see {@link https://www.geeksforgeeks.org/how-to-get-negative-result-using-modulo-operator-in-javascript/ How to get negative result using modulo operator in JavaScript ?}
    */
   Number.prototype.mod = function (b) {
     return ((this % b) + b) % b;
   };
 
-  let invertedClock = style.getPropertyValue("--inverted-clock") == "true";
+  /**
+   * Whether the clock should run counter-clockwise.
+   * @type {Boolean}
+   * @global
+   */
+  const invertedClock = style.getPropertyValue("--inverted-clock") == "true";
 
   /**
    * <p>Draw the sun light arc.</p>
@@ -695,15 +705,15 @@ function drawClock(place) {
    * @param {Object<{latitude, longitude}>} loc location.
    * @param {tz} city time zone.
    * @return {String} Sunrise - Sunset hours.
-   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset
-   * @see https://wtfjs.com/wtfs/2010-02-15-undefined-is-mutable
-   * @see https://www.timeanddate.com/sun/canada/edmonton
-   * @see https://time.is/Paris
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset Date.prototype.getTimezoneOffset()}
+   * @see {@link https://wtfjs.com/wtfs/2010-02-15-undefined-is-mutable 2010 02 15 undefined is mutable}
+   * @see {@link https://www.timeanddate.com/sun/canada/edmonton Edmonton, Alberta, Canada — Sunrise, Sunset, and Daylength}
+   * @see {@link https://time.is/Paris Time zone info for Paris}
    */
   function drawArc(loc, city) {
-    let today = new Date();
-    let h0 = today.getUTCHours(); // STD time
-    let m0 = today.getUTCMinutes(); // STD time
+    const today = new Date();
+    const h0 = today.getUTCHours(); // STD time
+    const m0 = today.getUTCMinutes(); // STD time
     let offset = 0;
     let moffset = 0;
     try {
@@ -721,7 +731,7 @@ function drawClock(place) {
 
     // your local timezone offset in minutes (e.g. -180).
     // NOT the timezone offset of the date object.
-    let timezoneOffset = today.getTimezoneOffset() / 60;
+    const timezoneOffset = today.getTimezoneOffset() / 60;
     if (typeof city === "undefined") {
       offset = 0;
       cityOffset = -timezoneOffset;
@@ -734,7 +744,7 @@ function drawClock(place) {
       if (moffset != 0) cityOffset += 0.5;
     }
 
-    let times = SunCalc.getTimes(today, loc.latitude, loc.longitude);
+    const times = SunCalc.getTimes(today, loc.latitude, loc.longitude);
 
     // format sunrise time from the Date object
     let m = times.sunrise.getMinutes();
@@ -744,7 +754,7 @@ function drawClock(place) {
       m += moffset;
       m = m.mod(60);
     }
-    let sunriseStr = (h + offset).mod(12) + ":" + m;
+    const sunriseStr = (h + offset).mod(12) + ":" + m;
 
     // format sunset time from the Date object
     m = times.sunset.getMinutes();
@@ -754,7 +764,7 @@ function drawClock(place) {
       m += moffset;
       m = m.mod(60);
     }
-    let sunsetStr = (h + offset).mod(24) + ":" + m;
+    const sunsetStr = (h + offset).mod(24) + ":" + m;
 
     context.strokeStyle = color.orange;
 
@@ -771,7 +781,7 @@ function drawClock(place) {
   context.font = setFont(clockRadius / 10);
   drawClock.romans.map((n, i) => {
     context.fillStyle = n.c;
-    var coord = polar2Cartesian(0.85 * clockRadius, i * fiveMin);
+    let coord = polar2Cartesian(0.85 * clockRadius, i * fiveMin);
     if (invertedClock) coord.x *= -1;
     // translate to the center of the canvas
     coord = translate(coord, center);
@@ -783,7 +793,7 @@ function drawClock(place) {
   drawClock.decimals.map((n, i) => {
     context.fillStyle = n.c;
     // runs at half the speed
-    var coord = polar2Cartesian(1.01 * clockRadius, i * fiveMin * 0.5);
+    let coord = polar2Cartesian(1.01 * clockRadius, i * fiveMin * 0.5);
     if (invertedClock) coord.x *= -1;
     // translate to the center of the canvas
     coord = translate(coord, center);
@@ -795,8 +805,8 @@ function drawClock(place) {
  * <p>Clock roman x color.</p>
  * Each roman number may have a different color, so it does not
  * interfere with the background color.
- * @memberof {drawClock}
- * @member {Array<{txt: String, c: hex-color}>} roman clock numbers.
+ * @memberof drawClock
+ * @member {Array<{txt: String, c: hex-color}>}
  */
 drawClock.romans = [
   { txt: "XII", c: color.white1 },
@@ -817,8 +827,8 @@ drawClock.romans = [
  * <p>Clock number x color.</p>
  * Each number may have a different color, so it does not
  * interfere with the background color.
- * @memberof {drawClock}
- * @member {Array<{txt: String, c: hex-color}>} decimal clock numbers.
+ * @memberof drawClock
+ * @member {Array<{txt: String, c: hex-color}>}
  */
 drawClock.decimals = Array.from(Array(24), (_, i) => {
   return { txt: String(i), c: color.white2 };
@@ -830,6 +840,7 @@ drawClock.decimals[18].c = color.white3;
 /**
  * Get the current place in local storage, increment or decrement it,
  * and redirects to the new location.
+ * @memberof drawClock
  * @param {String} key key "n" for next or "N" for previous.
  */
 drawClock.storage = (key) => {
@@ -838,19 +849,22 @@ drawClock.storage = (key) => {
   else
     index = (+index + (key === "n" ? 1 : -1)).mod(drawClock.tz.cities.length);
   localStorage.setItem("placeIndex", String(index));
-  let city = drawClock.tz.cities[index];
+  const city = drawClock.tz.cities[index];
   tzonesList.value = index;
   // reload everything
-  window.location.href =
-    window.location.href.split("?")[0] +
-    `?timeZone=${city.region}/${city.city}`;
+  if (false) {
+    window.location.href =
+      window.location.href.split("?")[0] +
+      `?timeZone=${city.region}/${city.city}`;
+  } else {
+    runAnimation.setLocation(`${city.region}/${city.city}`);
+  }
 };
 
 /**
  * Increment/decrement the clock location.
  * @async
- * @memberof {drawClock}
- * @global
+ * @memberof drawClock
  * @param {String} key "n" for next or "N" for previous.
  */
 drawClock.location = async (key) => {
@@ -868,11 +882,13 @@ drawClock.location = async (key) => {
 const handles = document.querySelector("#handles");
 
 /**
- * <p>Appends an event listener for events whose type attribute value is mouseenter.
- * The callback argument sets the callback that will be invoked when
+ * <p>Appends an event listener for events whose type attribute value is mouseenter.</p>
+ * <p>The callback argument sets the {@link  drawClock callback} that will be invoked when
  * the event is dispatched.</p>
+ * @summary Executed only once when the cursor moves over the canvas.
  *
- * @event mouseenter - executed only once when the cursor moves over the canvas.
+ * @event mouseenter
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event Element: mouseenter event}
  */
 handles.addEventListener(
   "mouseenter",
@@ -884,11 +900,13 @@ handles.addEventListener(
 );
 
 /**
- * <p>Appends an event listener for events whose type attribute value is mouseleave.
- * The callback argument sets the callback that will be invoked when
+ * <p>Appends an event listener for events whose type attribute value is mouseleave.</p>
+ * <p>The callback argument sets the {@link drawClock callback} that will be invoked when
  * the event is dispatched.</p>
+ * @summary Executed only once when the cursor leaves the canvas.
  *
- * @event mouseleave - executed only once when the cursor leaves the canvas.
+ * @event mouseleave
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event Element: mouseleave event}
  */
 handles.addEventListener(
   "mouseleave",
@@ -900,11 +918,13 @@ handles.addEventListener(
 );
 
 /**
- * <p>Appends an event listener for events whose type attribute value is change.
- * The callback argument sets the callback that will be invoked when
+ * <p>Appends an event listener for events whose type attribute value is change.</p>
+ * <p>>he callback argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed only once when the tzonesList selection is changed.
+ * @summary Executed only once when the tzonesList selection is changed.
+ *
+ * @event changeTzones
  */
 tzonesList.addEventListener(
   "change",
@@ -943,8 +963,8 @@ function previousLocation() {
  * @returns {Array<String>} [day, month, year, hours, minutes, seconds]
  */
 function getLocaleDate(tz) {
-  let today = new Date();
-  let [day, month, year, hours, minutes, seconds] = today
+  const today = new Date();
+  const [day, month, year, hours, minutes, seconds] = today
     .toLocaleString("en-GB", { timeZone: tz })
     .slice()
     .split(/:|\/|,/);
@@ -957,14 +977,14 @@ function getLocaleDate(tz) {
  * @returns {Array<Number>} the local date and time of the browser.
  */
 function getLocalDateAndTime() {
-  let today = new Date();
+  const today = new Date();
 
-  let day = today.getDate();
-  let month = today.getMonth() + 1;
-  let year = today.getFullYear();
-  let hours = today.getHours();
-  let minutes = today.getMinutes();
-  let seconds = today.getSeconds();
+  const day = today.getDate();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const hours = today.getHours();
+  const minutes = today.getMinutes();
+  const seconds = today.getSeconds();
   return [day, month, year, hours, minutes, seconds];
 }
 
@@ -996,11 +1016,11 @@ async function createSelect(city) {
  *
  * @function
  * @return {drawHandles}
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
- * @see https://javascript.plainenglish.io/better-understanding-of-timers-in-javascript-settimeout-vs-requestanimationframe-bf7f99b9ff9b
- * @see https://attacomsian.com/blog/javascript-current-timezone
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date Date}
+ * @see {@link https://javascript.plainenglish.io/better-understanding-of-timers-in-javascript-settimeout-vs-requestanimationframe-bf7f99b9ff9b SetTimeout vs RequestAnimationFrame}
+ * @see {@link https://attacomsian.com/blog/javascript-current-timezone How to get current time zone in JavaScript}
  */
-var runAnimation = (() => {
+const runAnimation = (() => {
   // clock handles width x length X color
   const clock_handles = [
     { width: 8, length: 0.5, c: color.orange },
@@ -1016,39 +1036,56 @@ var runAnimation = (() => {
   const urlParams = new URLSearchParams(queryString);
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   let tz = urlParams.get("timeZone") || timezone;
-  let city = tz.split("/")[1];
-  let tz2 = tz;
 
   // add the padding from #clock and #handles
   legend.width += cpadd;
   legend.height += cpadd;
 
-  (async () => {
-    try {
-      let ct = await findCity();
-      if (ct !== undefined) {
-        tz = `${ct.region}/${ct.city}`;
-        // lets make a copy in case this is an invalid time zone,
-        // so we can keep using the original string
-        tz2 = tz;
-        city = ct; // ct.city;
+  let city = "";
+  let tz2 = null;
+  function reset(tz_) {
+    city = tz.split("/")[1];
+    tz = tz_;
+    tz2 = tz;
+    delta = 0;
+
+    (async () => {
+      try {
+        const ct = await findCity();
+        if (ct !== undefined) {
+          tz = `${ct.region}/${ct.city}`;
+          // lets make a copy in case this is an invalid time zone,
+          // so we can keep using the original string
+          tz2 = tz;
+          city = ct; // ct.city;
+        }
+      } catch (e) {
+        console.error(e);
+      } finally {
+        drawClock(city);
+        await createSelect(city);
       }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      drawClock(city);
-      await createSelect(city);
-    }
-  })();
+    })();
+  }
+
+  reset(tz);
 
   /**
    * <p>A callback to redraw the four handles and the legend of the clock.</p>
    * @callback drawHandles
-   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/measureText
-   * @see https://www.iana.org/time-zones
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString Date.prototype.toLocaleString()}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/measureText CanvasRenderingContext2D: measureText() method}
+   * @see {@link https://www.iana.org/time-zones Time Zone Database}
    */
   return () => {
+    /**
+     * Function for changing the closure state.
+     * @param {String} tz
+     * @global
+     */
+    runAnimation.setLocation = function (tz) {
+      reset(tz || timezone);
+    };
     while (true) {
       try {
         var [day, month, year, hours, minutes, seconds] = _USE_LOCAL_TIME_
@@ -1072,10 +1109,10 @@ var runAnimation = (() => {
     }
 
     // 12 hours format: AM / PM
-    let hours12 = (+hours + delta) % 12 || 12;
+    const hours12 = (+hours + delta) % 12 || 12;
 
     // 24 hours format: AM / PM
-    let hours24 = (+hours + delta) % 24 || 24;
+    const hours24 = (+hours + delta) % 24 || 24;
 
     clock_handles[0].time2Angle = fiveMin * (+hours12 + minutes / 60);
     clock_handles[1].time2Angle = oneMin * (+minutes + seconds / 60);
@@ -1089,14 +1126,11 @@ var runAnimation = (() => {
     clock_handles.map((handle) => {
       ctx.strokeStyle = handle.c;
       ctx.beginPath();
-      coord = polar2Cartesian(0.057 * clockRadius, handle.time2Angle);
+      let coord = polar2Cartesian(0.057 * clockRadius, handle.time2Angle);
       coord = translate(coord, center);
       ctx.moveTo(coord.x, coord.y);
 
-      var coord = polar2Cartesian(
-        handle.length * clockRadius,
-        handle.time2Angle,
-      );
+      coord = polar2Cartesian(handle.length * clockRadius, handle.time2Angle);
       coord = translate(coord, center);
       ctx.lineTo(coord.x, coord.y);
       ctx.lineWidth = handle.width;
@@ -1106,18 +1140,18 @@ var runAnimation = (() => {
     // Clear screen.
     lctx.clearRect(0, 0, legend.width, legend.height);
 
-    let theight = legend.width / 45;
+    const theight = legend.width / 45;
     lctx.font = setFont(theight);
     lctx.fillStyle = color.white1;
 
     // Draw the legend: UTC, Region, City, Date.
-    let date = `${day} / ${month} / ${year}`;
-    let utc = `UTC ${cityOffset}`;
+    const date = `${day} / ${month} / ${year}`;
+    const utc = `UTC ${cityOffset}`;
     let [region, lcity] = _USE_LOCAL_TIME_
       ? [localRegion.country, localRegion.city]
       : tz2.split("/");
     lcity = lcity.replaceAll("_", " ");
-    let [tcity, tregion, tlen, tutc] = [lcity, region, date, utc].map((p) =>
+    const [tcity, tregion, tlen, tutc] = [lcity, region, date, utc].map((p) =>
       lctx.measureText(p),
     );
 
@@ -1142,10 +1176,10 @@ var runAnimation = (() => {
 })();
 
 /**
- * Triggers the {@link runAnimation animation}.
+ * <p>Triggers the {@link runAnimation animation}.</p>
  *
- * @event load - run the animation.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => runAnimation());
 
@@ -1182,8 +1216,8 @@ if (screen.width <= 800) {
    * Triggers the {@link handleWindowResize resize event}.
    * <p>The resize event fires when the document view (window) has been resized.</p>
    *
-   * @event resize - resize the application.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", handleWindowResize, false);
   handleWindowResize();

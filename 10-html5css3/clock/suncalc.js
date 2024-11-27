@@ -8,7 +8,7 @@
  *         {@link https://github.com/mourner (@mourner)}
  * @copyright © 2011-2015, Vladimir Agafonkin
  * @see <a href="/cwdc/10-html5css3/clock/suncalc.js">source</a>
- * @see https://github.com/mourner/suncalc
+ * @see {@link https://github.com/mourner/suncalc SunCalc}
  */
 
 (function () {
@@ -252,12 +252,12 @@
       m = moonCoords(d),
       sdist = 149598000, // distance from Earth to Sun in km
       phi = acos(
-        sin(s.dec) * sin(m.dec) + cos(s.dec) * cos(m.dec) * cos(s.ra - m.ra)
+        sin(s.dec) * sin(m.dec) + cos(s.dec) * cos(m.dec) * cos(s.ra - m.ra),
       ),
       inc = atan(sdist * sin(phi), m.dist - sdist * cos(phi)),
       angle = atan(
         cos(s.dec) * sin(s.ra - m.ra),
-        sin(s.dec) * cos(m.dec) - cos(s.dec) * sin(m.dec) * cos(s.ra - m.ra)
+        sin(s.dec) * cos(m.dec) - cos(s.dec) * sin(m.dec) * cos(s.ra - m.ra),
       );
 
     return {

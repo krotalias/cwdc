@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: drawClock</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: drawClock</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>drawClock<span class="signature">(place)</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    
+
+    
+
+
+
+<div class="description">
+    Draw the clock background:
+<ul>
+ <li>a <a href="../clock/rolex_bezel.png">bezel</a> image,</li>
+ <li>a <a href="../clock/fluminense.png">team</a> logo,</li>
+ <li>a <a href="global.html#circle">circle</a>, </li>
+ <li>the <a href="global.html#drawArc">sun light arc</a>, </li>
+ <li>and the ticks.</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>place</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a location name.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>drawClock</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>location</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Increment/decrement the clock location.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">update local storage with the clock location.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tz</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#tz">tz</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">time zone array.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>romans</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;{txt: String, c: hex-color}></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Clock roman x color.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>decimals</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;{txt: String, c: hex-color}></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Clock number x color.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line564">line 564</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">CanvasRenderingContext2D: drawImage() method</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images">Using images</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode">HTMLImageElement: decode() method</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API">Using the Geolocation API</a></li>
+        
+            <li><a href="https://en.wikipedia.org/wiki/Solar_time">Solar time</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".decimals"><span class="type-signature">(static) </span>decimals<span class="type-signature"> :Array.&lt;{txt: String, c: hex-color}></span></h4>
+
+
+
+
+<div class="description">
+    <p>Clock number x color.</p>
+Each number may have a different color, so it does not
+interfere with the background color.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;{txt: String, c: hex-color}></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line839">line 839</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".romans"><span class="type-signature">(static) </span>romans<span class="type-signature"> :Array.&lt;{txt: String, c: hex-color}></span></h4>
+
+
+
+
+<div class="description">
+    <p>Clock roman x color.</p>
+Each roman number may have a different color, so it does not
+interfere with the background color.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;{txt: String, c: hex-color}></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line817">line 817</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".location"><span class="type-signature">(static) </span>location<span class="signature">(key)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Increment/decrement the clock location.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"n" for next or "N" for previous.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line874">line 874</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".storage"><span class="type-signature">(static) </span>storage<span class="signature">(key)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get the current place in local storage, increment or decrement it,
+and redirects to the new location.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">key "n" for next or "N" for previous.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clock-then.js.html">clock-then.js</a>, <a href="clock-then.js.html#line852">line 852</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="drawClock.html">drawClock</a></li></ul><h3>Classes</h3><ul><li><a href="Number.html">Number</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:changeTzones">changeTzones</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:mouseenter">mouseenter</a></li><li><a href="global.html#event:mouseleave">mouseleave</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_USE_LOCAL_TIME_">_USE_LOCAL_TIME_</a></li><li><a href="global.html#arc">arc</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#cpadd">cpadd</a></li><li><a href="global.html#createSelect">createSelect</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocalDateAndTime">getLocalDateAndTime</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#handleWindowResize">handleWindowResize</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#localRegion">localRegion</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#realOffset">realOffset</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#setLocation">setLocation</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#tzonesList">tzonesList</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Nov 27 2024 10:09:35 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
