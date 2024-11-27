@@ -662,35 +662,6 @@ function drawClock(place) {
   );
 
   /**
-   * &lt;p>Callback for key pressed.&lt;/p>
-   * Valid keys:
-   * &lt;ul>
-   *  &lt;li>n: next city.&lt;/li>
-   *  &lt;li>N: previous city.&lt;/li>
-   *  &lt;li>b: back to cwdc&lt;/li>
-   *  &lt;li>B: back to 10-html5css3&lt;/li>
-   *  &lt;li>⌘-esc or ⌘-e: clear local storage&lt;/li>
-   * &lt;/ul>
-   * @event KeyboardEvent
-   * @param {KeyboardEvent} event keyboard event.
-   */
-  window.onkeydown = function (event) {
-    if (event.key === "n" || event.key === "N") {
-      drawClock.location(event.key);
-    } else if (event.key === "Escape" || event.key === "e") {
-      if (event.metaKey || event.ctrlKey) {
-        localStorage.clear();
-        alert("Local storage has been cleared");
-      }
-    } else if (event.key == "b") {
-      window.location.href = "/cwdc";
-    } else if (event.key == "B") {
-      const path = window.location.pathname;
-      window.location.href = path.split("/", 3).join("/");
-    }
-  };
-
-  /**
    * &lt;p>Numbers are most commonly expressed in literal forms like 255 or 3.14159.&lt;/p>
    * Values represent floating-point numbers like 37 or -9.25.
    * @class Number
@@ -936,7 +907,7 @@ handles.addEventListener(
 );
 
 /**
- * &lt;p>Appends an event listener for events whose type attribute value is mouseenter.&lt;/p>
+ * &lt;p>Appends an event listener for events whose type attribute value is mouseleave.&lt;/p>
  * &lt;p>The callback argument sets the {@link drawClock callback} that will be invoked when
  * the event is dispatched.&lt;/p>
  * @summary Executed only once when the cursor leaves the canvas.
@@ -1209,6 +1180,101 @@ const runAnimation = (() => {
 })();
 
 /**
+ * &lt;p>Callback for key pressed.&lt;/p>
+ * Valid keys:
+ * &lt;ul>
+ *  &lt;li>n, +: next city.&lt;/li>
+ *  &lt;li>N, -: previous city.&lt;/li>
+ *  &lt;li>b: back to cwdc&lt;/li>
+ *  &lt;li>B: back to 10-html5css3&lt;/li>
+ *  &lt;li>⌘-esc or ⌘-e: clear local storage&lt;/li>
+ * &lt;/ul>
+ * @param {KeyboardEvent} event keydown event.
+ */
+const handleKeyPress = (event) => {
+  let key = event.key;
+  switch (key) {
+    case "+":
+      key = "n";
+    case "n":
+      drawClock.location(key);
+      break;
+    case "-":
+      key = "N";
+    case "N":
+      drawClock.location(key);
+      break;
+    case "Escape":
+    case "e":
+      if (event.metaKey || event.ctrlKey) {
+        localStorage.clear();
+        alert("Local storage has been cleared");
+      }
+      break;
+    case "b":
+      window.location.href = "/cwdc";
+      break;
+    case "B":
+      const path = window.location.pathname;
+      window.location.href = path.split("/", 3).join("/");
+      break;
+  }
+};
+
+/**
+ * Returns a new keyboard event.
+ * @param {String} key char code.
+ * @returns {KeyboardEvent} a keyboard event.
+ * @function
+ */
+const createEvent = (key) => {
+  const code = key.charCodeAt();
+  return new KeyboardEvent("keydown", {
+    key: key,
+    which: code,
+    charCode: code,
+    keyCode: code,
+  });
+};
+
+/**
+ * &lt;p>Choose next/previous location when a button is clicked.&lt;/p>
+ *
+ * &lt;p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
+ * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).&lt;/p>
+ *
+ * &lt;p>The callback argument sets the {@link handleKeyPress callback}
+ * that will be invoked when the event is dispatched.&lt;/p>
+ *
+ * @event click
+ * @param {PointerEvent} event a mouse or touch event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link hhttps://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ */
+if (document.querySelector("button")) {
+  document.querySelectorAll(".btnz").forEach((elem) => {
+    elem.addEventListener("click", function (event) {
+      handleKeyPress(createEvent(elem.textContent));
+    });
+  });
+}
+
+/**
+ * &lt;p>Choose next/previous location when a key is pressed.&lt;/p>
+ *
+ * &lt;p>The keydown event is fired when a key is pressed.&lt;/p>
+ *
+ * &lt;p>The callback argument sets the {@link handleKeyPress callback}
+ * that will be invoked when the event is dispatched.&lt;/p>
+ *
+ * @event keydown
+ * @param {KeyboardEvent} event keyboard event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
+ */
+window.addEventListener("keydown", (event) => handleKeyPress(event));
+
+/**
  * &lt;p>Triggers the {@link runAnimation animation}.&lt;/p>
  *
  * @event load
@@ -1264,13 +1330,13 @@ if (screen.width &lt;= 800) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="drawClock.html">drawClock</a></li></ul><h3>Classes</h3><ul><li><a href="Number.html">Number</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:changeTzones">changeTzones</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:mouseenter">mouseenter</a></li><li><a href="global.html#event:mouseleave">mouseleave</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_USE_LOCAL_TIME_">_USE_LOCAL_TIME_</a></li><li><a href="global.html#arc">arc</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#cpadd">cpadd</a></li><li><a href="global.html#createSelect">createSelect</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocalDateAndTime">getLocalDateAndTime</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#handleWindowResize">handleWindowResize</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#localRegion">localRegion</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#realOffset">realOffset</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#setLocation">setLocation</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#tzonesList">tzonesList</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="drawClock.html">drawClock</a></li></ul><h3>Classes</h3><ul><li><a href="Number.html">Number</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeTzones">changeTzones</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:mouseenter">mouseenter</a></li><li><a href="global.html#event:mouseleave">mouseleave</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_USE_LOCAL_TIME_">_USE_LOCAL_TIME_</a></li><li><a href="global.html#arc">arc</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#cpadd">cpadd</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createSelect">createSelect</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocalDateAndTime">getLocalDateAndTime</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handleWindowResize">handleWindowResize</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#localRegion">localRegion</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#realOffset">realOffset</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#setLocation">setLocation</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#tzonesList">tzonesList</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Nov 27 2024 10:09:35 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Nov 27 2024 19:24:04 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

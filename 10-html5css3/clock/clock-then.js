@@ -634,35 +634,6 @@ function drawClock(place) {
   );
 
   /**
-   * <p>Callback for key pressed.</p>
-   * Valid keys:
-   * <ul>
-   *  <li>n: next city.</li>
-   *  <li>N: previous city.</li>
-   *  <li>b: back to cwdc</li>
-   *  <li>B: back to 10-html5css3</li>
-   *  <li>⌘-esc or ⌘-e: clear local storage</li>
-   * </ul>
-   * @event KeyboardEvent
-   * @param {KeyboardEvent} event keyboard event.
-   */
-  window.onkeydown = function (event) {
-    if (event.key === "n" || event.key === "N") {
-      drawClock.location(event.key);
-    } else if (event.key === "Escape" || event.key === "e") {
-      if (event.metaKey || event.ctrlKey) {
-        localStorage.clear();
-        alert("Local storage has been cleared");
-      }
-    } else if (event.key == "b") {
-      window.location.href = "/cwdc";
-    } else if (event.key == "B") {
-      const path = window.location.pathname;
-      window.location.href = path.split("/", 3).join("/");
-    }
-  };
-
-  /**
    * <p>Numbers are most commonly expressed in literal forms like 255 or 3.14159.</p>
    * Values represent floating-point numbers like 37 or -9.25.
    * @class Number
@@ -908,7 +879,7 @@ handles.addEventListener(
 );
 
 /**
- * <p>Appends an event listener for events whose type attribute value is mouseenter.</p>
+ * <p>Appends an event listener for events whose type attribute value is mouseleave.</p>
  * <p>The callback argument sets the {@link drawClock callback} that will be invoked when
  * the event is dispatched.</p>
  * @summary Executed only once when the cursor leaves the canvas.
@@ -1179,6 +1150,101 @@ const runAnimation = (() => {
     timer = requestAnimationFrame(runAnimation);
   };
 })();
+
+/**
+ * <p>Callback for key pressed.</p>
+ * Valid keys:
+ * <ul>
+ *  <li>n, +: next city.</li>
+ *  <li>N, -: previous city.</li>
+ *  <li>b: back to cwdc</li>
+ *  <li>B: back to 10-html5css3</li>
+ *  <li>⌘-esc or ⌘-e: clear local storage</li>
+ * </ul>
+ * @param {KeyboardEvent} event keydown event.
+ */
+const handleKeyPress = (event) => {
+  let key = event.key;
+  switch (key) {
+    case "+":
+      key = "n";
+    case "n":
+      drawClock.location(key);
+      break;
+    case "-":
+      key = "N";
+    case "N":
+      drawClock.location(key);
+      break;
+    case "Escape":
+    case "e":
+      if (event.metaKey || event.ctrlKey) {
+        localStorage.clear();
+        alert("Local storage has been cleared");
+      }
+      break;
+    case "b":
+      window.location.href = "/cwdc";
+      break;
+    case "B":
+      const path = window.location.pathname;
+      window.location.href = path.split("/", 3).join("/");
+      break;
+  }
+};
+
+/**
+ * Returns a new keyboard event.
+ * @param {String} key char code.
+ * @returns {KeyboardEvent} a keyboard event.
+ * @function
+ */
+const createEvent = (key) => {
+  const code = key.charCodeAt();
+  return new KeyboardEvent("keydown", {
+    key: key,
+    which: code,
+    charCode: code,
+    keyCode: code,
+  });
+};
+
+/**
+ * <p>Choose next/previous location when a button is clicked.</p>
+ *
+ * <p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
+ * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).</p>
+ *
+ * <p>The callback argument sets the {@link handleKeyPress callback}
+ * that will be invoked when the event is dispatched.</p>
+ *
+ * @event click
+ * @param {PointerEvent} event a mouse or touch event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link hhttps://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ */
+if (document.querySelector("button")) {
+  document.querySelectorAll(".btnz").forEach((elem) => {
+    elem.addEventListener("click", function (event) {
+      handleKeyPress(createEvent(elem.textContent));
+    });
+  });
+}
+
+/**
+ * <p>Choose next/previous location when a key is pressed.</p>
+ *
+ * <p>The keydown event is fired when a key is pressed.</p>
+ *
+ * <p>The callback argument sets the {@link handleKeyPress callback}
+ * that will be invoked when the event is dispatched.</p>
+ *
+ * @event keydown
+ * @param {KeyboardEvent} event keyboard event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
+ */
+window.addEventListener("keydown", (event) => handleKeyPress(event));
 
 /**
  * <p>Triggers the {@link runAnimation animation}.</p>
