@@ -168,6 +168,32 @@ let cityOffset = null;
 let realOffset = null;
 
 /**
+ * <p>Numbers are most commonly expressed in literal forms like 255 or 3.14159.</p>
+ * Values represent floating-point numbers like 37 or -9.25.
+ * @class Number
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number Number}
+ */
+
+/**
+ * <p>A modulo function added to Number's
+ * {@link https://www.freecodecamp.org/news/a-beginners-guide-to-javascripts-prototype/ prototype}
+ * that works for negative numbers.</p>
+ * The modulo is calculated from remainder using the modular property:
+ * <ul>
+ *  <li>(a + b) mod c = (a mod c + b mod c) mod c</li>
+ * </ul>
+ *
+ * @param {Number} b divisor.
+ * @returns {Number} this modulo b.
+ * @memberof Number
+ * @see {@link https://en.wikipedia.org/wiki/Modulo_operation Modulo}
+ * @see {@link https://www.geeksforgeeks.org/how-to-get-negative-result-using-modulo-operator-in-javascript/ How to get negative result using modulo operator in JavaScript ?}
+ */
+Number.prototype.mod = function (b) {
+  return ((this % b) + b) % b;
+};
+
+/**
  * Get the image scale.
  *
  * @param {Number} w image width.
@@ -632,30 +658,6 @@ function drawClock(place) {
       maximumAge: 0,
     },
   );
-
-  /**
-   * <p>Numbers are most commonly expressed in literal forms like 255 or 3.14159.</p>
-   * Values represent floating-point numbers like 37 or -9.25.
-   * @class Number
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number Number}
-   */
-
-  /**
-   * <p>A modulo function added to Number's
-   * {@link https://www.freecodecamp.org/news/a-beginners-guide-to-javascripts-prototype/ prototype}
-   * that works for negative numbers.</p>
-   * The modulo is calculated from remainder using the modular property:<br/>
-   * • (a + b) mod c = (a mod c + b mod c) mod c.
-   *
-   * @param {Number} b divisor.
-   * @returns {Number} this modulo b.
-   * @memberof Number
-   * @see {@link https://en.wikipedia.org/wiki/Modulo_operation Modulo}
-   * @see {@link https://www.geeksforgeeks.org/how-to-get-negative-result-using-modulo-operator-in-javascript/ How to get negative result using modulo operator in JavaScript ?}
-   */
-  Number.prototype.mod = function (b) {
-    return ((this % b) + b) % b;
-  };
 
   const invertedClock = style.getPropertyValue("--inverted-clock") == "true";
 
@@ -1210,7 +1212,7 @@ const createEvent = (key) => {
 };
 
 /**
- * <p>Choose next/previous location when a button is clicked.</p>
+ * <p>Choose next/previous location when a button with class .btnz is clicked.</p>
  *
  * <p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
  * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).</p>
@@ -1221,9 +1223,9 @@ const createEvent = (key) => {
  * @event click
  * @param {PointerEvent} event a mouse or touch event.
  * @param {callback} function function to run when the event occurs.
- * @see {@link hhttps://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  */
-if (document.querySelector("button")) {
+if (document.querySelector(".btnz")) {
   document.querySelectorAll(".btnz").forEach((elem) => {
     elem.addEventListener("click", function (event) {
       handleKeyPress(createEvent(elem.textContent));
