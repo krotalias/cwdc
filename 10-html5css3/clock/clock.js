@@ -120,13 +120,23 @@ const ctx = document.getElementById("handles").getContext("2d");
  */
 const lctx = document.getElementById("legend").getContext("2d");
 
-/** π */
+/**
+ * π
+ * @type {Number}
+ */
 const pi = Math.PI;
 
-/** Each 5 min is 30 degrees. */
+/**
+ * Each 5 min is 30 degrees.
+ * @type {Number}
+ */
 const fiveMin = pi / 6;
 
-/** Document's head. */
+/**
+ * Document's head.
+ * @type {CSSStyleDeclaration}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle Window: getComputedStyle() method}
+ */
 const style = getComputedStyle(document.head);
 
 /**
