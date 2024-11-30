@@ -61,17 +61,20 @@
 "use strict";
 
 /**
- * @var {HTMLElement} canvas HTML Canvas.
+ * HTML Canvas.
+ * @type {HTMLElement}
  */
 const canvas = document.getElementById("clock");
 
 /**
- * @var {Boolean} _USE_LOCAL_TIME_ sets the use of local time.
+ * Sets the use of local time.
+ * @type {Boolean}
  */
 let _USE_LOCAL_TIME_ = true;
 
 /**
- * @var {Object<{city: String, country: String}>} localRegion holds local city and country.
+ * Holds local city and country.
+ * @type {Object<{city: String, country: String}>}
  */
 const localRegion = {
   city: "unknown",
@@ -79,33 +82,39 @@ const localRegion = {
 };
 
 /**
- * @var {HTMLElement} legend HTML Canvas.
+ * HTML Canvas.
+ * @type {HTMLElement}
  */
 const legend = document.getElementById("legend");
 
 /**
- * @var {Number} aspect canvas apsct ratio.
+ * Canvas aspect ratio.
+ * @type {Number}
  */
 const aspect = canvas.width / canvas.height;
 
 /**
- * @var {HTMLElement} tzonesList HTML &lt;select&gt; element.
+ * HTML &lt;select&gt; element.
+ * @type {HTMLElement}
  */
 const tzonesList = document.getElementById("tzones");
 
 /**
- * @var {CanvasRenderingContext2D} context Clock canvas context.
+ * Clock canvas context.
+ * @type {CanvasRenderingContext2D}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D CanvasRenderingContext2D}
  */
 const context = canvas.getContext("2d");
 
 /**
- * @var {CanvasRenderingContext2D} ctx Handle canvas context.
+ * Handle canvas context.
+ * @type {CanvasRenderingContext2D}
  */
 const ctx = document.getElementById("handles").getContext("2d");
 
 /**
- * @var {CanvasRenderingContext2D} lctx Legend canvas context.
+ * Legend canvas context.
+ * @type {CanvasRenderingContext2D}
  */
 const lctx = document.getElementById("legend").getContext("2d");
 
@@ -119,7 +128,8 @@ const fiveMin = pi / 6;
 const style = getComputedStyle(document.head);
 
 /**
- * @var {Number} cpadd padding added to the clock.
+ * Padding added to the clock.
+ * @type {Number}
  */
 const cpadd = +style.getPropertyValue("--cpadd").replace("px", "");
 
@@ -640,7 +650,7 @@ function drawClock(place) {
       displayLocation(lat, lng, srss);
       _USE_LOCAL_TIME_ = true;
     },
-    () => {
+    (error) => {
       // safari blocks geolocation unless using a secure connection
       _USE_LOCAL_TIME_ = false;
       findCity(drawClock.place).then((city) => {
@@ -856,7 +866,8 @@ drawClock.location = (key) => {
 };
 
 /**
- * @var {HTMLElement} handles canvas holding the handles.
+ * Canvas holding the handles.
+ * @type {HTMLElement}
  * @listens mouseenter
  * @listens mouseleave
  */
@@ -1064,9 +1075,11 @@ const runAnimation = (() => {
     runAnimation.setLocation = function (tz) {
       reset(tz || timezone);
     };
+
+    let day, month, year, hours, minutes, seconds;
     while (true) {
       try {
-        var [day, month, year, hours, minutes, seconds] = _USE_LOCAL_TIME_
+        [day, month, year, hours, minutes, seconds] = _USE_LOCAL_TIME_
           ? getLocalDateAndTime()
           : getLocaleDate(tz);
         break;
