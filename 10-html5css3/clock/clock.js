@@ -1057,7 +1057,7 @@ const runAnimation = (() => {
         console.error(e);
       } finally {
         drawClock(city);
-        await createSelect(city);
+        createSelect(city);
       }
     })();
   }
