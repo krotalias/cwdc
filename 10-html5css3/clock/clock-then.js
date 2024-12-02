@@ -60,6 +60,8 @@
 
 "use strict";
 
+import "./suncalc.js";
+
 /**
  * HTML Canvas.
  * @type {HTMLElement}
@@ -949,6 +951,9 @@ function nextLocation() {
 function previousLocation() {
   drawClock.location("N");
 }
+
+window.nextLocation = nextLocation;
+window.previousLocation = previousLocation;
 
 /**
  * Return the date and time in a given time zone.
