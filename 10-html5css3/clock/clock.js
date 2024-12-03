@@ -62,6 +62,8 @@
 
 "use strict";
 
+import "./suncalc.js";
+
 /**
  * HTML Canvas.
  * @type {HTMLElement}
@@ -503,7 +505,6 @@ async function displayLocation(latitude, longitude, dayLight, city, region) {
       const geocode = await geoCoding(`${city},${region}`);
       tag.innerHTML = geopos(pos, geocode[0], geocode[1]);
     } catch (e) {
-      console.error(e);
       console.error(`${city},${region}: not found`);
       tag.innerHTML = geopos(pos, latitude, longitude);
     }
@@ -941,6 +942,9 @@ function nextLocation() {
 function previousLocation() {
   drawClock.location("N");
 }
+
+window.nextLocation = nextLocation;
+window.previousLocation = previousLocation;
 
 /**
  * Return the date and time in a given time zone.
