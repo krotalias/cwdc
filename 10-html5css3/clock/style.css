@@ -24,7 +24,7 @@
     margin-bottom: calc(var(--cpadd) + 40px);
 }
 #flu {
-    width: var(--width);
+    width: calc(var(--width) + 2 * var(--cpadd));
     font-family: cursive;
     text-align: center;
     font-size: calc(var(--width) * 8 / 100);
@@ -68,7 +68,7 @@ canvas {
     width: var(--width);
     margin-bottom: 3em;
     text-align: center;
-    font-size: 100%;
+    font-size: calc(var(--width) * 4 / 100);
     height: 5em;
 }
 .sideBySide button {
