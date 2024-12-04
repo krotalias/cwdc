@@ -24,14 +24,13 @@
     <body>
         <div w3-include-html="navbar.html"></div>
 
-        <div class="wrap-content ms-1">
-            <div id="flu">
-                <a href="https://www.fluminense.com.br/site/">
-                    Fluminense Football Club
-                </a>
-            </div>
-
+        <div class="wrap-content d-inline-flex flex-row">
             <div class="clock-container">
+                <div id="flu">
+                    <a href="https://www.fluminense.com.br/site/">
+                        Fluminense Football Club
+                    </a>
+                </div>
                 <canvas id="clock" width="480" height="480">
                     Please upgrade your browser.
                 </canvas>
@@ -43,54 +42,62 @@
                 </canvas>
             </div>
 
-            <div id="address" class="ms-3"></div>
+            <div class="d-inline-flex my-5 flex-column justify-content-center">
+                <div id="address" class="ms-4"></div>
 
-            <div class="tzone">
-                <button class="btnz">+</button>
-                <div style="display: inline-block">
+                <div class="tzone">
+                    <button class="btnz">+</button>
+                    <div style="display: inline-block">
+                        <button
+                            type="button"
+                            class="btn mx-3 text-dark fw-bold"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            data-bs-html="true"
+                            data-bs-title="Either use the unencrypted<br><em>http protocol</em> <br>or deny access<br><em>to your current location</em>"
+                            id="myTooltip"
+                        >
+                            Time Zone
+                        </button>
+                        <div id="selection">
+                            <select id="tzones" name="select"></select>
+                        </div>
+                    </div>
+                    <button class="btnz">-</button>
+                </div>
+
+                <div class="tzone mt-4 fs-6">
                     <button
                         type="button"
-                        class="btn mx-3 text-dark fw-bold"
+                        class="btn mr-1 text-dark fw-bold"
                         data-bs-toggle="tooltip"
                         data-bs-placement="bottom"
                         data-bs-html="true"
-                        data-bs-title="Either use the unencrypted<br><em>http protocol</em> <br>or deny access<br><em>to your current location</em>"
-                        id="myTooltip"
+                        data-bs-title="Lamartine Babo (1949)"
+                        id="hinoTooltip"
                     >
-                        Time Zone
+                        Hino:
                     </button>
-                    <br />
-                    <select id="tzones" name="select"></select>
-                </div>
-                <button class="btnz">-</button>
-            </div>
 
-            <div class="tzone mt-4 mr-0 fs-6">
-                <button
-                    type="button"
-                    class="btn mr-1 text-dark fw-bold"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    data-bs-html="true"
-                    data-bs-title="Lamartine Babo (1949)"
-                    id="hinoTooltip"
-                >
-                    Hino:
-                </button>
-
-                <audio id="player" title="Hino do Fluminense" loop>
-                    <source src="hino-fluminense-fc.mp3" type="audio/mpeg" />
-                    Please upgrade your browser!
-                </audio>
-                <div style="display: inline-block">
-                    <button onclick="document.getElementById('player').play()">
-                        <span class="fa fa-volume-up"></span>
-                    </button>
-                    <button
-                        onclick="document.getElementById('player').muted=!document.getElementById('player').muted"
-                    >
-                        <span class="fa fa-pause"></span>
-                    </button>
+                    <audio id="player" title="Hino do Fluminense" loop>
+                        <source
+                            src="hino-fluminense-fc.mp3"
+                            type="audio/mpeg"
+                        />
+                        Please upgrade your browser!
+                    </audio>
+                    <div style="display: inline-block">
+                        <button
+                            onclick="document.getElementById('player').play()"
+                        >
+                            <span class="fa fa-volume-up"></span>
+                        </button>
+                        <button
+                            onclick="document.getElementById('player').muted=!document.getElementById('player').muted"
+                        >
+                            <span class="fa fa-pause"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -98,15 +105,17 @@
         <script>
             includeHTML();
         </script>
-        <script src="../clock-then.js" type="module"></script>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
-        <script src="/cwdc/mainPage/LCG.js"></script>
+
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
         ></script>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+
+        <script src="/cwdc/mainPage/LCG.js"></script>
         <script>
             dragAndSave(".wrap-content");
             const tooltipTriggerList = [].slice.call(
@@ -118,5 +127,7 @@
                 },
             );
         </script>
+
+        <script src="../clock-then.js" type="module"></script>
     </body>
 </html>

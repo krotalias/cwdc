@@ -1307,6 +1307,20 @@ function handleWindowResize() {
 
   document.documentElement.style.setProperty("--width", `${w}px`);
   document.documentElement.style.setProperty("--height", `${h}px`);
+
+  const container = document.querySelector(".wrap-content");
+
+  const mediaQueryList = window.matchMedia("(orientation: portrait)");
+  if (mediaQueryList.matches) {
+    /* The viewport is currently in portrait orientation */
+    container.classList.remove("flex-row");
+    container.classList.add("flex-column");
+  } else {
+    /* The viewport is not currently in portrait orientation, therefore landscape */
+    container.classList.remove("flex-column");
+    container.classList.add("flex-row");
+  }
+
   drawClock();
 }
 

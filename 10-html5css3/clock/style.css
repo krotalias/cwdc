@@ -18,17 +18,16 @@
     margin: 0px;
 }
 .clock-container {
-    width: var(--width);
-    height: var(--height);
+    width: calc(var(--width) + 2 * var(--cpadd));
+    height: calc(var(--height) + 2 * var(--cpadd));
     position: relative;
-    margin-bottom: calc(var(--cpadd) + 40px);
+    margin-bottom: calc(var(--cpadd) + var(--width) * 6 / 100);
 }
 #flu {
     width: calc(var(--width) + 2 * var(--cpadd));
     font-family: cursive;
     text-align: center;
     font-size: calc(var(--width) * 8 / 100);
-    margin-bottom: 10px;
 }
 canvas {
     position: absolute;
@@ -77,8 +76,9 @@ canvas {
     padding: 10px 10px;
 }
 .tzone {
-    width: var(--width);
+    width: calc(var(--width) + 2 * var(--cpadd) + 10px);
     text-align: center;
+    margin: 0 auto;
 }
 .sideBySide.tzone {
     margin: 0;

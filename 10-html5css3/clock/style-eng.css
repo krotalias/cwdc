@@ -18,18 +18,16 @@
     margin: 0px;
 }
 .clock-container {
-    width: var(--width);
-    height: var(--height);
+    width: calc(var(--width) + 2 * var(--cpadd));
+    height: calc(var(--height) + 2 * var(--cpadd));
     position: relative;
-    margin-bottom: calc(var(--cpadd) + 40px);
+    margin-bottom: calc(var(--cpadd) + var(--width) * 6 / 100);
 }
 #flu {
-    width: var(--width);
+    width: calc(var(--width) + 2 * var(--cpadd));
     font-family: cursive;
     text-align: center;
-    font-size: 30px;
-    margin-left: 20px;
-    margin-bottom: 0px;
+    font-size: calc(var(--width) * 8 / 100);
 }
 canvas {
     position: absolute;
@@ -60,7 +58,7 @@ button {
     width: var(--width);
     margin-bottom: 3em;
     text-align: center;
-    font-size: 100%;
+    font-size: calc(var(--width) * 4 / 100);
     height: 5em;
 }
 .sideBySide button {
@@ -71,6 +69,10 @@ button {
 .tzone {
     width: var(--width);
     text-align: center;
+    margin: 0 auto;
+}
+.sideBySide.tzone {
+    margin: 0;
 }
 
 .player {
