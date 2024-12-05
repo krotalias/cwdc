@@ -602,6 +602,7 @@ function preloadImages(urls) {
  * @property {Array<tz>} drawClock.tz time zone array.
  * @property {Array<{txt: String, c: hex-color}>} drawClock.romans Clock roman x color.
  * @property {Array<{txt: String, c: hex-color}>} drawClock.decimals Clock number x color.
+ * @property {tz} drawClock.place clock location.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage CanvasRenderingContext2D: drawImage() method}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images Using images}
@@ -650,36 +651,50 @@ function drawClock(place) {
 
   if (place !== undefined) drawClock.place = place;
 
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      // this is an asynchronous callback
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
-      const srss = drawArc({
-        latitude: lat,
-        longitude: lng,
-      });
-      displayLocation(lat, lng, srss);
-      _USE_LOCAL_TIME_ = true;
-    },
-    (error) => {
-      // safari blocks geolocation unless using a secure connection
-      _USE_LOCAL_TIME_ = false;
-      findCity(drawClock.place).then((city) => {
-        if (city) {
-          const lat = city.coordinates.latitude;
-          const lng = city.coordinates.longitude;
-          const srss = drawArc({ latitude: lat, longitude: lng }, city);
-          displayLocation(lat, lng, srss, city.city, city.region);
-        }
-      });
-    },
-    {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-    },
-  );
+  if (_USE_LOCAL_TIME_) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        // this is an asynchronous callback
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        const srss = drawArc({
+          latitude: lat,
+          longitude: lng,
+        });
+        displayLocation(lat, lng, srss);
+        _USE_LOCAL_TIME_ = true;
+      },
+      (error) => {
+        getLocation();
+        _USE_LOCAL_TIME_ = false;
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      },
+    );
+  } else {
+    getLocation();
+    _USE_LOCAL_TIME_ = false;
+  }
+
+  /**
+   * <p>Displays the location in {@link drawClock drawClock.place}</p>
+   * Safari blocks geolocation unless using a secure connection.
+   * @global
+   * @see {@link displayLocation}
+   */
+  function getLocation() {
+    findCity(drawClock.place).then((city) => {
+      if (city) {
+        const lat = city.coordinates.latitude;
+        const lng = city.coordinates.longitude;
+        const srss = drawArc({ latitude: lat, longitude: lng }, city);
+        displayLocation(lat, lng, srss, city.city, city.region);
+      }
+    });
+  }
 
   const invertedClock = style.getPropertyValue("--inverted-clock") == "true";
 
