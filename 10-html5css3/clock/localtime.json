@@ -2,6 +2,15 @@
     "timeZones": "Time Zones around the world",
     "cities": [
         {
+            "city": "Local_Time",
+            "region": "Europe",
+            "offset": 0,
+            "coordinates": {
+                "latitude": 51.5073509,
+                "longitude": -0.1277583
+            }
+        },
+        {
             "city": "Azores",
             "region": "Atlantic",
             "offset": -1,
