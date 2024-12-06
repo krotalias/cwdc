@@ -359,6 +359,10 @@ function arc(center, radius, t1, t2, fill = true, reflect = false) {
  * @returns {Promise<Array<tz>>} array of time zones.
  */
 function readZones() {
+  if (drawClock.tz !== undefined) {
+    return Promise.resolve(drawClock.tz);
+  }
+
   const requestURL = `${location.protocol}/cwdc/10-html5css3/clock/localtime.json`;
 
   return fetch(requestURL).then((response) => {
@@ -657,12 +661,18 @@ function drawClock(place) {
         // this is an asynchronous callback
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
-        const srss = drawArc({
-          latitude: lat,
-          longitude: lng,
+        reverseGeoCoding(lat, lng).then((pos) => {
+          const place = drawClock.tz.cities[0];
+          place.city = pos[2];
+          place.region = pos[4];
+          place.coordinates.latitude = lat;
+          place.coordinates.longitude = lng;
+          const today = new Date();
+          const timezoneOffset = today.getTimezoneOffset() / 60;
+          place.offset = -timezoneOffset;
+          getLocation();
         });
-        displayLocation(lat, lng, srss);
-        _USE_LOCAL_TIME_ = true;
+        _USE_LOCAL_TIME_ = false;
       },
       (error) => {
         getLocation();

@@ -640,16 +640,21 @@ function drawClock(place) {
 
   if (_USE_LOCAL_TIME_) {
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      async (position) => {
         // this is an asynchronous callback
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
-        const srss = drawArc({
-          latitude: lat,
-          longitude: lng,
-        });
-        displayLocation(lat, lng, srss);
-        _USE_LOCAL_TIME_ = true;
+        const pos = await reverseGeoCoding(lat, lng);
+        const place = drawClock.tz.cities[0];
+        place.city = pos[2];
+        place.region = pos[4];
+        place.coordinates.latitude = lat;
+        place.coordinates.longitude = lng;
+        const today = new Date();
+        const timezoneOffset = today.getTimezoneOffset() / 60;
+        place.offset = -timezoneOffset;
+        getLocation();
+        _USE_LOCAL_TIME_ = false;
       },
       (error) => {
         getLocation();
