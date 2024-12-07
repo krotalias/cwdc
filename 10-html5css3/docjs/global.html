@@ -1176,7 +1176,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line898">line 898</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line930">line 930</a>
     </li></ul></dd>
     
 
@@ -1248,7 +1248,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line698">line 698</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line730">line 730</a>
     </li></ul></dd>
     
 
@@ -2321,7 +2321,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1247">line 1247</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1279">line 1279</a>
     </li></ul></dd>
     
 
@@ -2480,7 +2480,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1016">line 1016</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1048">line 1048</a>
     </li></ul></dd>
     
 
@@ -2721,7 +2721,7 @@ e.g.:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line488">line 488</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line514">line 514</a>
     </li></ul></dd>
     
 
@@ -2897,7 +2897,7 @@ The Indian problem - UTC offset 5:30:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line728">line 728</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line760">line 760</a>
     </li></ul></dd>
     
 
@@ -3134,6 +3134,201 @@ The Indian problem - UTC offset 5:30:
     
 
     
+    <h4 class="name" id="fetchWithTimeout"><span class="type-signature">(async) </span>fetchWithTimeout<span class="signature">(resource, options)</span><span class="type-signature"> &rarr; {Response}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>An improved version of fetch() that creates requests with a configurable timeout.</p>
+fetch() API by itself doesn't allow canceling programmatically a request.
+To stop a request at the desired time you also need an abort controller.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>resource</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">URL to fetch.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">optional argument to configure the request.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line363">line 363</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Using the Fetch API</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Response">Response</a></li>
+        
+            <li><a href="https://dmitripavlutin.com/timeout-fetch-request/">Timeout a fetch() request</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    represents the response to a request.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Response</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="findCity"><span class="type-signature">(async) </span>findCity<span class="signature">(name)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#tz">tz</a>>}</span></h4>
     
 
@@ -3236,7 +3431,7 @@ The <a href="global.html#readZones">json file</a> is read and searched for.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line445">line 445</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line471">line 471</a>
     </li></ul></dd>
     
 
@@ -3406,7 +3601,7 @@ given an address, e.g. "sao_paulo,brazil" or "london,england".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line421">line 421</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line447">line 447</a>
     </li></ul></dd>
     
 
@@ -3531,7 +3726,7 @@ given an address, e.g. "sao_paulo,brazil" or "london,england".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line998">line 998</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1030">line 1030</a>
     </li></ul></dd>
     
 
@@ -3699,7 +3894,7 @@ given an address, e.g. "sao_paulo,brazil" or "london,england".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line984">line 984</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1016">line 1016</a>
     </li></ul></dd>
     
 
@@ -3810,7 +4005,7 @@ Safari blocks geolocation unless using a secure connection.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line681">line 681</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line713">line 713</a>
     </li></ul></dd>
     
 
@@ -3962,7 +4157,7 @@ Valid keys:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1211">line 1211</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1243">line 1243</a>
     </li></ul></dd>
     
 
@@ -4050,7 +4245,7 @@ Valid keys:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1305">line 1305</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1337">line 1337</a>
     </li></ul></dd>
     
 
@@ -4405,7 +4600,7 @@ Negative values are west to Greenwich prime meridian and positive values, east.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line540">line 540</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line571">line 571</a>
     </li></ul></dd>
     
 
@@ -4532,7 +4727,7 @@ Negative values are west to Greenwich prime meridian and positive values, east.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line956">line 956</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line988">line 988</a>
     </li></ul></dd>
     
 
@@ -4857,7 +5052,7 @@ then decode it, and finally paint it.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line559">line 559</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line590">line 590</a>
     </li></ul></dd>
     
 
@@ -4976,7 +5171,7 @@ then decode it, and finally paint it.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line963">line 963</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line995">line 995</a>
     </li></ul></dd>
     
 
@@ -5065,7 +5260,7 @@ then decode it, and finally paint it.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line359">line 359</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line385">line 385</a>
     </li></ul></dd>
     
 
@@ -5249,7 +5444,7 @@ given a geodetic location.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line388">line 388</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line414">line 414</a>
     </li></ul></dd>
     
 
@@ -5374,7 +5569,7 @@ src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-2
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1042">line 1042</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1074">line 1074</a>
     </li></ul></dd>
     
 
@@ -5881,7 +6076,7 @@ src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-2
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1105">line 1105</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1137">line 1137</a>
     </li></ul></dd>
     
 
@@ -6157,7 +6352,7 @@ src="https://www.openstreetmap.org/export/embed.html?bbox=-43.1879934668541%2C-2
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1092">line 1092</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1124">line 1124</a>
     </li></ul></dd>
     
 
@@ -6684,7 +6879,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line936">line 936</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line968">line 968</a>
     </li></ul></dd>
     
 
@@ -6850,7 +7045,7 @@ that will be invoked when the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1257">line 1257</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1289">line 1289</a>
     </li></ul></dd>
     
 
@@ -7022,7 +7217,7 @@ that will be invoked when the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1279">line 1279</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1311">line 1311</a>
     </li></ul></dd>
     
 
@@ -7117,7 +7312,7 @@ that will be invoked when the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1294">line 1294</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1326">line 1326</a>
     </li></ul></dd>
     
 
@@ -7216,7 +7411,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line900">line 900</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line932">line 932</a>
     </li></ul></dd>
     
 
@@ -7320,7 +7515,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line918">line 918</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line950">line 950</a>
     </li></ul></dd>
     
 
@@ -7421,7 +7616,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1331">line 1331</a>
+        <a href="clock.js.html">clock.js</a>, <a href="clock.js.html#line1363">line 1363</a>
     </li></ul></dd>
     
 
@@ -7470,13 +7665,13 @@ the event is dispatched.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="drawClock.html">drawClock</a></li></ul><h3>Classes</h3><ul><li><a href="Number.html">Number</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeTzones">changeTzones</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:mouseenter">mouseenter</a></li><li><a href="global.html#event:mouseleave">mouseleave</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_USE_LOCAL_TIME_">_USE_LOCAL_TIME_</a></li><li><a href="global.html#arc">arc</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#cpadd">cpadd</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createSelect">createSelect</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocalDateAndTime">getLocalDateAndTime</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#getLocation">getLocation</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handleWindowResize">handleWindowResize</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#invertedClock">invertedClock</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#localRegion">localRegion</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#setLocation">setLocation</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#tzonesList">tzonesList</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="drawClock.html">drawClock</a></li></ul><h3>Classes</h3><ul><li><a href="Number.html">Number</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeTzones">changeTzones</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:mouseenter">mouseenter</a></li><li><a href="global.html#event:mouseleave">mouseleave</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_USE_LOCAL_TIME_">_USE_LOCAL_TIME_</a></li><li><a href="global.html#arc">arc</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#cpadd">cpadd</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createSelect">createSelect</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#fetchWithTimeout">fetchWithTimeout</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocalDateAndTime">getLocalDateAndTime</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#getLocation">getLocation</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handleWindowResize">handleWindowResize</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#invertedClock">invertedClock</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#localRegion">localRegion</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#setLocation">setLocation</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#tzonesList">tzonesList</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Dec 06 2024 18:15:50 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat Dec 07 2024 09:34:24 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

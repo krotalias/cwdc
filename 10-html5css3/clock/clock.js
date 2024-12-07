@@ -350,6 +350,32 @@ function arc(center, radius, t1, t2, fill = true, reflect = false) {
 }
 
 /**
+ * <p>An improved version of fetch() that creates requests with a configurable timeout.</p>
+ * fetch() API by itself doesn't allow canceling programmatically a request.
+ * To stop a request at the desired time you also need an abort controller.
+ * @param {String} resource URL to fetch.
+ * @param {Object} options optional argument to configure the request.
+ * @returns {Response} represents the response to a request.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch Using the Fetch API}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Response Response}
+ * @see {@link https://dmitripavlutin.com/timeout-fetch-request/ Timeout a fetch() request}
+ */
+async function fetchWithTimeout(resource, options = {}) {
+  const { timeout = 8000 } = options;
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  const response = await fetch(resource, {
+    ...options,
+    signal: controller.signal,
+  });
+  clearTimeout(id);
+
+  return response;
+}
+
+/**
  * Read the time zone descriptors of a set of locations from a
  * <a href="../clock/localtime.json">json file</a>.
  *
@@ -496,20 +522,25 @@ async function displayLocation(latitude, longitude, dayLight, city, region) {
       ${dayLight}`;
   };
 
-  const pos = await reverseGeoCoding(latitude, longitude);
-  localRegion.city = pos[2];
-  localRegion.country = pos[4];
+  try {
+    const pos = await reverseGeoCoding(latitude, longitude);
+    localRegion.city = pos[2];
+    localRegion.country = pos[4];
 
-  if (city !== undefined && region !== undefined) {
-    try {
-      const geocode = await geoCoding(`${city},${region}`);
-      tag.innerHTML = geopos(pos, geocode[0], geocode[1]);
-    } catch (e) {
-      console.error(`${city},${region}: not found`);
+    if (city !== undefined && region !== undefined) {
+      try {
+        const geocode = await geoCoding(`${city},${region}`);
+        tag.innerHTML = geopos(pos, geocode[0], geocode[1]);
+      } catch (e) {
+        console.error(`${city},${region}: not found`);
+        tag.innerHTML = geopos(pos, latitude, longitude);
+      }
+    } else {
       tag.innerHTML = geopos(pos, latitude, longitude);
     }
-  } else {
-    tag.innerHTML = geopos(pos, latitude, longitude);
+  } catch (err) {
+    console.log(err);
+    tag.innerHTML = err.message;
   }
 }
 
@@ -657,6 +688,7 @@ function drawClock(place) {
         _USE_LOCAL_TIME_ = false;
       },
       (error) => {
+        console.log("Location service has been denied.");
         getLocation();
         _USE_LOCAL_TIME_ = false;
       },
