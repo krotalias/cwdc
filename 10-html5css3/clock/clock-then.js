@@ -671,10 +671,11 @@ function drawClock(place) {
           const timezoneOffset = today.getTimezoneOffset() / 60;
           place.offset = -timezoneOffset;
           getLocation();
+          _USE_LOCAL_TIME_ = false;
         });
-        _USE_LOCAL_TIME_ = false;
       },
       (error) => {
+        console.log("Location service has been denied.");
         getLocation();
         _USE_LOCAL_TIME_ = false;
       },
