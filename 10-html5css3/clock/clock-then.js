@@ -509,22 +509,27 @@ function displayLocation(latitude, longitude, dayLight, city, region) {
       ${dayLight}`;
   };
 
-  reverseGeoCoding(latitude, longitude).then((pos) => {
-    localRegion.city = pos[2];
-    localRegion.country = pos[4];
-    if (city !== undefined && region !== undefined) {
-      geoCoding(`${city},${region}`)
-        .then((geocode) => {
-          tag.innerHTML = geopos(pos, geocode[0], geocode[1]);
-        })
-        .catch((err) => {
-          console.log(err);
-          tag.innerHTML = geopos(pos, latitude, longitude);
-        });
-    } else {
-      tag.innerHTML = geopos(pos, latitude, longitude);
-    }
-  });
+  reverseGeoCoding(latitude, longitude)
+    .then((pos) => {
+      localRegion.city = pos[2];
+      localRegion.country = pos[4];
+      if (city !== undefined && region !== undefined) {
+        geoCoding(`${city},${region}`)
+          .then((geocode) => {
+            tag.innerHTML = geopos(pos, geocode[0], geocode[1]);
+          })
+          .catch((err) => {
+            console.log(err);
+            tag.innerHTML = geopos(pos, latitude, longitude);
+          });
+      } else {
+        tag.innerHTML = geopos(pos, latitude, longitude);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      tag.innerHTML = err.message;
+    });
 
   const [h, m, s] = longitude2UTC(longitude);
   realOffset = h;
