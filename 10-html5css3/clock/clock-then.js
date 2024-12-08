@@ -46,6 +46,8 @@
  *
  * @author Paulo Roma Cavalcanti
  * @since 14/11/2020
+ * @license Licensed under the {@link https://www.gnu.org/licenses/gpl-3.0.html GPLv3}.
+ * @copyright © 2020-2024 Paulo R Cavalcanti.
  *
  * @see <a href="/cwdc/10-html5css3/clock/11.5-then.html">Local Time</a>
  * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton</a>
