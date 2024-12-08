@@ -8,30 +8,28 @@
  * </p>
  *
  * Description.
- * <p>Here, it has been used three canvases: one for the clock's background
- * another for the legend and the other for its four handles.
+ * <p>Three canvases were used: one for the clock's background,
+ * one for the legend, and one for its four handles.
  *
- * A simple method for drawing a handle consists in mapping
- * hours, minutes and seconds from the computer into angles,
- * and then mapping {@link https://en.wikipedia.org/wiki/Polar_coordinate_system polar coordinates}
- * to {@link https://en.wikipedia.org/wiki/Cartesian_coordinate_system cartesian coordinates},
- * considering 0° at three o'clock.
+ * The simplest way to draw a handle is to convert computer-generated
+ * hours, minutes, and seconds into angles,
+ * then convert {@link https://en.wikipedia.org/wiki/Polar_coordinate_system polar coordinates}
+ * to {@link https://en.wikipedia.org/wiki/Cartesian_coordinate_system Cartesian coordinates},
+ * taking into account that 0° is at three o'clock.
  * </p>
  *
  * <p>A series of locations is read from a
  * <a href="../clock/localtime.json">localtime.json</a> file,
- * and the time of each location can
- * be set by pressing the "n" or "N" keys, which cycles forward or backward between them.
+ * and the time of each place is
+ * shown by using the "n" or "N" keys, which cycle forward or backward between them.
  * </p>
  *
- * <p>If the browser allows querying the
+ * <p>A bright curve is placed on top of the clock's circular border to indicate
+ * the daylight hours, and if
+ * the browser alows querying the
  * {@link https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting current geographic location}
- * (requires using a secure connection - https), then the local time is
- * the {@link https://www.timeanddate.com/time/map/ time zone}
- * of the browser.</p>
- *
- * <p>The day light hours are indicated by means of a bright curve drawn
- * on top of the clock's circular border.</p>
+ * (which requires using a secure connection—https),
+ * the local time is the browser's {@link https://www.timeanddate.com/time/map/ time zone}.</p>
  *
  * <p>Whenever the mouse cursor is in the canvas, a reversed clock
  * <a href="../clock/Backwards-Clock.jpg">running backwards</a> is drawn.</p>
