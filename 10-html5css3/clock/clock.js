@@ -18,16 +18,17 @@
  * considering 0° at three o'clock.
  * </p>
  *
- * <p>If the browser allows querying the
- * {@link https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting current geographic location}
- * (sometimes only when using a secure connection - https),
- * the {@link https://www.timeanddate.com/time/map/ time zone} of the clock is the local time
- * from the browser.
- * Otherwise, a series of locations is read from a
+ * <p>A series of locations is read from a
  * <a href="../clock/localtime.json">localtime.json</a> file,
  * and the time of each location can
  * be set by pressing the "n" or "N" keys, which cycles forward or backward between them.
  * </p>
+ *
+ * <p>If the browser allows querying the
+ * {@link https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting current geographic location}
+ * (requires using a secure connection - https), then the local time is
+ * the {@link https://www.timeanddate.com/time/map/ time zone}
+ * of the browser.</p>
  *
  * <p>The day light hours are indicated by means of a bright curve drawn
  * on top of the clock's circular border.</p>
@@ -55,6 +56,7 @@
  * @see <a href="/cwdc/10-html5css3/clock/clock.js">source</a>
  * @see <a href="/cwdc/10-html5css3/clock/clock-then.js">source (then)</a>
  * @see {@link https://en.wikipedia.org/wiki/List_of_tz_database_time_zones List of tz database time zones}
+ * @see {@link https://www.latlong.net/place/prime-meridian-greenwich-30835.html Prime Meridian (Greenwich)}
  * @see {@link https://github.com/mourner/suncalc SunCalc}
  * @see <img src="../clock/clock.png" width="256"> <img src="../clock/reversed-clock.png" width="256">
  * @see <img src="../clock/clock2.png" width="512">
