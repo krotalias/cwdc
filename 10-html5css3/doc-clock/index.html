@@ -80,16 +80,17 @@ to <a href="https://en.wikipedia.org/wiki/Cartesian_coordinate_system">cartesian
 considering 0° at three o'clock.
 </p>
 
-<p>If the browser allows querying the
-<a href="https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting">current geographic location</a>
-(sometimes only when using a secure connection - https),
-the <a href="https://www.timeanddate.com/time/map/">time zone</a> of the clock is the local time
-from the browser.
-Otherwise, a series of locations is read from a
+<p>A series of locations is read from a
 <a href="../clock/localtime.json">localtime.json</a> file,
 and the time of each location can
 be set by pressing the "n" or "N" keys, which cycles forward or backward between them.
 </p>
+
+<p>If the browser allows querying the
+<a href="https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting">current geographic location</a>
+(requires using a secure connection - https), then the local time is
+the <a href="https://www.timeanddate.com/time/map/">time zone</a>
+of the browser.</p>
 
 <p>The day light hours are indicated by means of a bright curve drawn
 on top of the clock's circular border.</p>
@@ -169,6 +170,8 @@ Documentation:
             <li><a href="/cwdc/10-html5css3/clock/clock-then.js">source</a></li>
         
             <li><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of tz database time zones</a></li>
+        
+            <li><a href="https://www.latlong.net/place/prime-meridian-greenwich-30835.html">Prime Meridian (Greenwich)</a></li>
         
             <li><a href="https://github.com/mourner/suncalc">SunCalc</a></li>
         
@@ -441,13 +444,13 @@ Documentation:
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="drawClock.html">drawClock</a></li></ul><h3>Classes</h3><ul><li><a href="Number.html">Number</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeTzones">changeTzones</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:mouseenter">mouseenter</a></li><li><a href="global.html#event:mouseleave">mouseleave</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_USE_LOCAL_TIME_">_USE_LOCAL_TIME_</a></li><li><a href="global.html#arc">arc</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#cpadd">cpadd</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createSelect">createSelect</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocalDateAndTime">getLocalDateAndTime</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#getLocation">getLocation</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handleWindowResize">handleWindowResize</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#localRegion">localRegion</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#realOffset">realOffset</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#setLocation">setLocation</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#tzonesList">tzonesList</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="drawClock.html">drawClock</a></li></ul><h3>Classes</h3><ul><li><a href="Number.html">Number</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeTzones">changeTzones</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:mouseenter">mouseenter</a></li><li><a href="global.html#event:mouseleave">mouseleave</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_USE_LOCAL_TIME_">_USE_LOCAL_TIME_</a></li><li><a href="global.html#arc">arc</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#cpadd">cpadd</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createSelect">createSelect</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocalDateAndTime">getLocalDateAndTime</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#getLocation">getLocation</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handleWindowResize">handleWindowResize</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#invertedClock">invertedClock</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#localRegion">localRegion</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#realOffset">realOffset</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#setLocation">setLocation</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#tzonesList">tzonesList</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat Dec 07 2024 07:43:34 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 08 2024 06:09:34 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
