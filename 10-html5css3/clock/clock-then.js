@@ -673,7 +673,10 @@ function drawImages() {
  * @see {@link https://en.wikipedia.org/wiki/Solar_time Solar time}
  */
 function drawClock(place) {
-  //context.clearRect(0, 0, canvas.width, canvas.height);
+  // need to redraw the ticks
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  drawImages();
 
   if (place !== undefined) drawClock.place = place;
 
@@ -737,7 +740,7 @@ function drawClock(place) {
   const invertedClock = style.getPropertyValue("--inverted-clock") == "true";
 
   /**
-   * <p>Draw the sun light arc.</p>
+   * <p>Draw the sun light arc and the ticks.</p>
    *
    * <p>Apparently, suncalc returns the sunset and sunrise hours using
    * the local time from the browser. <br>
@@ -1130,7 +1133,6 @@ const runAnimation = (() => {
   preloadImages(urls).then((image) => {
     bezel = image[0];
     flu = image[1];
-    drawImages();
     reset(tz);
   });
 
@@ -1383,7 +1385,6 @@ function handleWindowResize() {
     container.classList.add("flex-row");
   }
 
-  drawImages();
   drawClock();
 }
 
