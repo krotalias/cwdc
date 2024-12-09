@@ -70,12 +70,12 @@ using the HTML5
 </p>
 
 Description.
-<p>Three canvases were used: one for the clock's background,
-one for the legend, and one for its four handles.
+<p>Three canvases were used: one for the clock's <a href="global.html#canvas">background</a>,
+one for the <a href="global.html#lctx">legend</a>, and one for its four <a href="global.html#ctx">handles</a>.
 
 The simplest way to draw a handle is to convert computer-generated
 hours, minutes, and seconds into angles,
-then convert <a href="https://en.wikipedia.org/wiki/Polar_coordinate_system">polar coordinates</a>
+then convert <a href="https://en.wikipedia.org/wiki/Polar_coordinate_system">Polar coordinates</a>
 to <a href="https://en.wikipedia.org/wiki/Cartesian_coordinate_system">Cartesian coordinates</a>,
 taking into account that 0° is at three o'clock.
 </p>
@@ -86,11 +86,12 @@ and the time of each place is
 shown by using the "n" or "N" keys, which cycle forward or backward between them.
 </p>
 
-<p>A bright curve is placed on top of the clock's circular border to indicate
+<p>A bright <a href="global.html#drawArc">curve</a>  is placed on top of the clock's
+<a href="global.html#drawImages">circular border</a> to indicate
 the daylight hours, and if
 the browser allows querying the
 <a href="https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting">current geographic location</a>
-(which requires using a secure connection—https),
+(which requires using a secure connection — <a href="https://en.wikipedia.org/wiki/HTTPS">https</a>),
 the local time is the browser's <a href="https://www.timeanddate.com/time/map/">time zone</a>.</p>
 
 <p>Whenever the mouse cursor is in the canvas, a reversed clock
@@ -101,7 +102,7 @@ Documentation:
 - Ubuntu:
    - sudo apt install jsdoc-toolkit
 - MacOS:
-   - sudo port install npm8 (or npm9)
+   - sudo port install npm9 (or npm10)
    - sudo npm install -g jsdoc
 - jsdoc -d docjs clock/clock.js clock/suncalc.js clock/date.js
 </pre></div>
@@ -141,7 +142,13 @@ Documentation:
     
 
     
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>© 2020-2024 Paulo R Cavalcanti.</li></ul></dd>
+    
 
+    
+    <dt class="tag-license">License:</dt>
+    <dd class="tag-license"><ul class="dummy"><li>Licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPLv3</a>.</li></ul></dd>
     
 
     
@@ -159,9 +166,9 @@ Documentation:
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="/cwdc/10-html5css3/clock/11.5.html">Local Time</a></li>
+            <li><a href="/cwdc/10-html5css3/clock/11.5.html">link</a></li>
         
-            <li><a href="/cwdc/10-html5css3/clock/11.5-then.html">Local Time (then)</a></li>
+            <li><a href="/cwdc/10-html5css3/clock/11.5-then.html">link (then)</a></li>
         
             <li><a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton</a></li>
         
@@ -446,13 +453,13 @@ Documentation:
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="drawClock.html">drawClock</a></li></ul><h3>Classes</h3><ul><li><a href="Number.html">Number</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeTzones">changeTzones</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:mouseenter">mouseenter</a></li><li><a href="global.html#event:mouseleave">mouseleave</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_USE_LOCAL_TIME_">_USE_LOCAL_TIME_</a></li><li><a href="global.html#arc">arc</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#cpadd">cpadd</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createSelect">createSelect</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#fetchWithTimeout">fetchWithTimeout</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocalDateAndTime">getLocalDateAndTime</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#getLocation">getLocation</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handleWindowResize">handleWindowResize</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#invertedClock">invertedClock</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#localRegion">localRegion</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#setLocation">setLocation</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#tzonesList">tzonesList</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="drawClock.html">drawClock</a></li></ul><h3>Classes</h3><ul><li><a href="Number.html">Number</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeTzones">changeTzones</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:mouseenter">mouseenter</a></li><li><a href="global.html#event:mouseleave">mouseleave</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_USE_LOCAL_TIME_">_USE_LOCAL_TIME_</a></li><li><a href="global.html#arc">arc</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#bezel">bezel</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#center">center</a></li><li><a href="global.html#circle">circle</a></li><li><a href="global.html#cityOffset">cityOffset</a></li><li><a href="global.html#clockRadius">clockRadius</a></li><li><a href="global.html#color">color</a></li><li><a href="global.html#context">context</a></li><li><a href="global.html#cpadd">cpadd</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createSelect">createSelect</a></li><li><a href="global.html#ctx">ctx</a></li><li><a href="global.html#displayLocation">displayLocation</a></li><li><a href="global.html#drawArc">drawArc</a></li><li><a href="global.html#drawImages">drawImages</a></li><li><a href="global.html#elapsedYears">elapsedYears</a></li><li><a href="global.html#fetchWithTimeout">fetchWithTimeout</a></li><li><a href="global.html#findCity">findCity</a></li><li><a href="global.html#fiveMin">fiveMin</a></li><li><a href="global.html#flu">flu</a></li><li><a href="global.html#geoCoding">geoCoding</a></li><li><a href="global.html#getLocalDateAndTime">getLocalDateAndTime</a></li><li><a href="global.html#getLocaleDate">getLocaleDate</a></li><li><a href="global.html#getLocation">getLocation</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#handleWindowResize">handleWindowResize</a></li><li><a href="global.html#handles">handles</a></li><li><a href="global.html#imgSize">imgSize</a></li><li><a href="global.html#invertedClock">invertedClock</a></li><li><a href="global.html#lctx">lctx</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#localRegion">localRegion</a></li><li><a href="global.html#longitude2UTC">longitude2UTC</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#pi">pi</a></li><li><a href="global.html#polar2Cartesian">polar2Cartesian</a></li><li><a href="global.html#preloadImages">preloadImages</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#readZones">readZones</a></li><li><a href="global.html#realOffset">realOffset</a></li><li><a href="global.html#reverseGeoCoding">reverseGeoCoding</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#setFont">setFont</a></li><li><a href="global.html#setLocation">setLocation</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#tzonesList">tzonesList</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 08 2024 07:35:40 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Dec 09 2024 08:02:14 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
