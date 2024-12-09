@@ -8,12 +8,12 @@
  * </p>
  *
  * Description.
- * <p>Three canvases were used: one for the clock's background,
- * one for the legend, and one for its four handles.
+ * <p>Three canvases were used: one for the clock's {@link canvas background},
+ * one for the {@link lctx legend}, and one for its four {@link ctx handles}.
  *
  * The simplest way to draw a handle is to convert computer-generated
  * hours, minutes, and seconds into angles,
- * then convert {@link https://en.wikipedia.org/wiki/Polar_coordinate_system polar coordinates}
+ * then convert {@link https://en.wikipedia.org/wiki/Polar_coordinate_system Polar coordinates}
  * to {@link https://en.wikipedia.org/wiki/Cartesian_coordinate_system Cartesian coordinates},
  * taking into account that 0° is at three o'clock.
  * </p>
@@ -24,14 +24,15 @@
  * shown by using the "n" or "N" keys, which cycle forward or backward between them.
  * </p>
  *
- * <p>A bright curve is placed on top of the clock's circular border to indicate
+ * <p>A bright {@link drawArc curve} is placed on top of the clock's
+ * {@link drawImages circular border} to indicate
  * the daylight hours, and if
  * the browser allows querying the
  * {@link https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting current geographic location}
- * (which requires using a secure connection—https),
+ * (which requires using a secure connection — {@link https://en.wikipedia.org/wiki/HTTPS https}),
  * the local time is the browser's {@link https://www.timeanddate.com/time/map/ time zone}.</p>
  *
- * <p>Whenever the mouse cursor is in the canvas, a reversed clock
+ * <p>Whenever the mouse cursor is on the canvas, a reversed clock
  * <a href="../clock/Backwards-Clock.jpg">running backwards</a> is drawn.</p>
  *
  * <pre>
@@ -49,10 +50,10 @@
  * @license Licensed under the {@link https://www.gnu.org/licenses/gpl-3.0.html GPLv3}.
  * @copyright © 2020-2024 Paulo R Cavalcanti.
  *
- * @see <a href="/cwdc/10-html5css3/clock/11.5-then.html">Local Time</a>
+ * @see <a href="/cwdc/10-html5css3/clock/bootstrap/index.html">link</a>
+ * @see <a href="/cwdc/10-html5css3/clock/clock-then.js">source</a>
  * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/Edmonton">Edmonton</a>
  * @see <a href="/cwdc/10-html5css3/clock/11.5.eng.html?timeZone=America/New_York">New York</a>
- * @see <a href="/cwdc/10-html5css3/clock/clock-then.js">source</a>
  * @see {@link https://en.wikipedia.org/wiki/List_of_tz_database_time_zones List of tz database time zones}
  * @see {@link https://www.latlong.net/place/prime-meridian-greenwich-30835.html Prime Meridian (Greenwich)}
  * @see {@link https://github.com/mourner/suncalc SunCalc}
@@ -183,13 +184,27 @@ let center = [canvas.width / 2, canvas.height / 2];
 
 /**
  * Clock location UTC offset.
+ * @type {Number}
  */
 let cityOffset = null;
 
 /**
  * Clock location UTC real offset.
+ * @type {Number}
  */
 let realOffset = null;
+
+/**
+ * Bezel image.
+ * @type {HTMLImageElement}
+ */
+let bezel;
+
+/**
+ * Fluminense logo.
+ * @type {HTMLImageElement}
+ */
+let flu;
 
 /**
  * <p>Numbers are most commonly expressed in literal forms like 255 or 3.14159.</p>
@@ -579,6 +594,7 @@ function longitude2UTC(lng) {
  * @returns {Promise<HTMLImageElement[]>} promise that resolves when all images are loaded, or rejects if any image fails to load.
  * @see {@link https://www.freecodecamp.org/portuguese/news/tudo-o-que-voce-precisa-saber-sobre-promise-all/ Tudo o que você precisa saber sobre Promise.all}
  * @see {@link https://dev.to/alejandroakbal/how-to-preload-images-for-canvas-in-javascript-251c How to preload images for canvas in JavaScript}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image HTMLImageElement: Image() constructor}
  */
 function preloadImages(urls) {
   const promises = urls.map((url) => {
@@ -597,13 +613,48 @@ function preloadImages(urls) {
 }
 
 /**
- * Draw the clock background:
+ * <p>Draw clock border, bezel and flu images.</p>
+ * Translate the center of the images
+ * to the center of the canvas.
  * <ul>
  *  <li>a <a href="../clock/rolex_bezel.png">bezel</a> image,</li>
  *  <li>a <a href="../clock/fluminense.png">team</a> logo,</li>
- *  <li>a {@link circle}, </li>
+ *  <li>a {@link circle}.</li>
+ * </ul>
+ * @global
+ */
+function drawImages() {
+  let size = imgSize(bezel.width, bezel.height, 1.8 * clockRadius);
+  let coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
+  context.rotate = pi;
+  context.drawImage(bezel, coord.x, coord.y, size[0], size[1]);
+  context.setTransform(1, 0, 0, 1, 0, 0);
+
+  // Translate the center of the flu logo
+  // to the center of the canvas.
+  size = imgSize(flu.width, flu.height, 0.9 * clockRadius);
+  coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
+  context.drawImage(flu, coord.x, coord.y, size[0], size[1]);
+
+  // Handle origin.
+  context.strokeStyle = color.grena;
+  context.fillStyle = color.white;
+  circle(center, 10);
+  circle(center, 10, false);
+
+  // context.globalAlpha = 0.3; // set global alpha
+
+  // Draw clock border.
+  context.strokeStyle = color.grena;
+  context.lineWidth = 3;
+  circle(center, clockRadius - 8, false);
+}
+
+/**
+ * Draw the clock {@link context background}:
+ * <ul>
  *  <li>the {@link drawArc sun light arc}, </li>
- *  <li>and the ticks.</li>
+ *  <li>and the {@link drawClock.romans ticks}.</li>
  * </ul>
  * @namespace
  * @param {String} place a location name.
@@ -622,43 +673,7 @@ function preloadImages(urls) {
  * @see {@link https://en.wikipedia.org/wiki/Solar_time Solar time}
  */
 function drawClock(place) {
-  context.clearRect(0, 0, canvas.width, canvas.height);
-
-  const urls = ["./rolex_bezel.png", "./fluminense.png"];
-
-  preloadImages(urls)
-    .then((image) => {
-      const bezel = image[0];
-      // Translate the center of the bezel
-      // to the center of the canvas.
-      let size = imgSize(bezel.width, bezel.height, 1.8 * clockRadius);
-      let coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
-      context.rotate = pi;
-      context.drawImage(bezel, coord.x, coord.y, size[0], size[1]);
-      context.setTransform(1, 0, 0, 1, 0, 0);
-
-      const flu = image[1];
-      // Translate the center of the flu logo
-      // to the center of the canvas.
-      size = imgSize(flu.width, flu.height, 0.9 * clockRadius);
-      coord = translate(scale(size, [-1 / 2, -1 / 2]), center);
-      context.drawImage(flu, coord.x, coord.y, size[0], size[1]);
-      // Handle origin.
-      context.strokeStyle = color.grena;
-      context.fillStyle = color.white;
-      circle(center, 10);
-      circle(center, 10, false);
-    })
-    .catch((error) => {
-      console.log(`Could not load image: ${error}`);
-    });
-
-  // context.globalAlpha = 0.3; // set global alpha
-
-  // Draw clock border.
-  context.strokeStyle = color.grena;
-  context.lineWidth = 3;
-  circle(center, clockRadius - 8, false);
+  //context.clearRect(0, 0, canvas.width, canvas.height);
 
   if (place !== undefined) drawClock.place = place;
 
@@ -1110,10 +1125,18 @@ const runAnimation = (() => {
       });
   }
 
-  reset(tz);
+  const urls = ["./rolex_bezel.png", "./fluminense.png"];
+
+  preloadImages(urls).then((image) => {
+    bezel = image[0];
+    flu = image[1];
+    drawImages();
+    reset(tz);
+  });
 
   /**
-   * <p>A callback to redraw the four handles and the legend of the clock.</p>
+   * <p>A callback to redraw the four {@link ctx handles}
+   * and the {@link lctx legend} of the clock.</p>
    * @callback drawHandles
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString Date.prototype.toLocaleString()}
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/measureText CanvasRenderingContext2D: measureText() method}
@@ -1315,7 +1338,8 @@ if (document.querySelector(".btnz")) {
 window.addEventListener("keydown", (event) => handleKeyPress(event));
 
 /**
- * <p>Triggers the {@link runAnimation animation}.</p>
+ * <p>{@link preloadImages Preloads} images and triggers the
+ * {@link runAnimation animation}.</p>
  *
  * @event load
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
@@ -1359,6 +1383,7 @@ function handleWindowResize() {
     container.classList.add("flex-row");
   }
 
+  drawImages();
   drawClock();
 }
 
