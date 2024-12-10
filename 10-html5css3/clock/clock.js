@@ -672,6 +672,7 @@ function drawImages() {
  *  <li>and the {@link drawClock.romans ticks}.</li>
  * </ul>
  * @namespace
+ * @async
  * @param {String} place a location name.
  * @property {function} drawClock
  * @property {function} drawClock.location Increment/decrement the clock location.
@@ -687,24 +688,20 @@ function drawImages() {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API Using the Geolocation API}
  * @see {@link https://en.wikipedia.org/wiki/Solar_time Solar time}
  */
-function drawClock(place) {
+async function drawClock(place) {
   context.clearRect(0, 0, canvas.width, canvas.height);
 
   const urls = ["./rolex_bezel.png", "./fluminense.png"];
 
-  if (bezel) {
-    drawImages();
-  } else {
-    preloadImages(urls)
-      .then((image) => {
-        bezel = image[0];
-        flu = image[1];
-        drawImages();
-      })
-      .catch((error) => {
-        console.log(`Could not load image: ${error}`);
-      });
+  if (!bezel) {
+    try {
+      [bezel, flu] = await preloadImages(urls);
+    } catch (error) {
+      console.log(`Could not load image: ${error}`);
+    }
   }
+
+  drawImages();
 
   // Draw clock border.
   context.strokeStyle = color.grena;
@@ -1136,8 +1133,8 @@ const runAnimation = (() => {
   legend.width += cpadd;
   legend.height += cpadd;
 
-  let city = "";
-  let tz2 = null;
+  let city = tz.split("/")[1];
+  let tz2 = tz;
   function reset(tz_) {
     city = tz.split("/")[1];
     tz = tz_;
@@ -1163,7 +1160,12 @@ const runAnimation = (() => {
     })();
   }
 
-  reset(tz);
+  if (tz === timezone) {
+    reset(tz);
+  } else {
+    drawClock(city);
+    createSelect(city);
+  }
 
   /**
    * <p>A callback to redraw the four {@link ctx handles}
