@@ -4,7 +4,7 @@
  * Summary.
  *
  * <p>Tracing Closed Curves with Epicycles
- * (see <a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html">WebGL version</a>),
+ * (see the <a href="/cwdc/13-webgl/homework/hw3/RotatingSquare.html">WebGL version</a>),
  * done in {@link https://threejs.org Three.js}</p>
  *
  * <p>This application traces the path of the combined motion of the center
@@ -336,7 +336,7 @@ function mainEntrance(rpc = 2) {
     let increment = rpc > 1 ? 2 : 1;
 
     let cycles = 1;
-    let { fractional, ndigits } = getFractionalPart(rpc);
+    const { fractional, ndigits } = getFractionalPart(rpc);
     if (!Number.isInteger(rpc)) {
       const limit = 10 ** ndigits;
       // these numbers do not have any common factor with 10
@@ -347,13 +347,13 @@ function mainEntrance(rpc = 2) {
       } else {
         for (cycles = 2; cycles < limit; ++cycles) {
           // if (Number.isInteger(rpc * cycles)) break;
-          let n = (rpc * 360 * cycles) % 360;
+          const n = (rpc * 360 * cycles) % 360;
           if (n < 1 || n > 359) break;
         }
       }
     }
 
-    let totalAngle = rpc == 0 ? 360 : 360 * rpc * cycles;
+    const totalAngle = rpc == 0 ? 360 : 360 * rpc * cycles;
 
     // holds the curve points. Could be used positions buffer, instead.
     const points = [];
@@ -364,7 +364,7 @@ function mainEntrance(rpc = 2) {
     // trying to set a reasonable speed
     increment *= rpc != 0 ? (rpc > 1 ? rpc : rpc * 3) : 2;
     // maximum number of points to close the curve
-    let npoints = Math.ceil(totalAngle / increment);
+    const npoints = Math.ceil(totalAngle / increment);
     // number of vertices (points) so far in the curve
     let drawCount = 0;
     const material = new THREE.LineBasicMaterial({
@@ -388,7 +388,7 @@ function mainEntrance(rpc = 2) {
     const tang = document.getElementById("tang");
     tang.innerHTML = `${Number(totalAngle.toFixed(2))}° = ${Number(
       (rpc * cycles).toFixed(2),
-    )} revolutions = ${Number(cycles)} cycles`;
+    )} revolutions = ${Number(cycles)} cycles<br \>Speed = ${increment}`;
 
     /**
      * Increments the rotation angle by "increment" in each frame
@@ -399,11 +399,11 @@ function mainEntrance(rpc = 2) {
      * @see {@link https://threejs.org/docs/#api/en/math/MathUtils.degToRad degToRad}
      */
     return () => {
-      let angr = rpc == 0 ? 0 : THREE.MathUtils.degToRad(angle / rpc);
-      let angs = THREE.MathUtils.degToRad(angle);
-      let tx = 0.65 * Math.cos(angr);
-      let ty = 0.65 * Math.sin(angr);
-      let d = 0.4;
+      const angr = rpc == 0 ? 0 : THREE.MathUtils.degToRad(angle / rpc);
+      const angs = THREE.MathUtils.degToRad(angle);
+      const tx = 0.65 * Math.cos(angr);
+      const ty = 0.65 * Math.sin(angr);
+      const d = 0.4;
 
       // vertical
       rect1.position.set(tx, ty, 0.0);
@@ -414,8 +414,8 @@ function mainEntrance(rpc = 2) {
 
       ang.innerHTML = `${angle.toFixed(0)}°`;
 
-      let x = d * Math.cos(angs + Math.PI / 2) + tx;
-      let y = d * Math.sin(angs + Math.PI / 2) + ty;
+      const x = d * Math.cos(angs + Math.PI / 2) + tx;
+      const y = d * Math.sin(angs + Math.PI / 2) + ty;
 
       if (points.length < npoints) {
         points.push(new THREE.Vector2(x, y));
@@ -436,7 +436,7 @@ function mainEntrance(rpc = 2) {
       }
 
       if (finished && !added) {
-        let material = new THREE.LineBasicMaterial({
+        const material = new THREE.LineBasicMaterial({
           color: "yellow",
           linewidth: 3,
         });
@@ -482,7 +482,7 @@ addEventListener("load", (event) => {
   let rpc = urlParams.get("rpc") || "2";
 
   let ndigits = getFractionalPart(rpc).ndigits;
-  let negative = rpc < 0;
+  const negative = rpc < 0;
   rpc = rpc >= 0 ? +rpc : -1 / rpc;
   if (negative && ndigits == 0) ndigits = 2;
   if (ndigits > 0) {
