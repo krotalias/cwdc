@@ -388,7 +388,7 @@ function mainEntrance(rpc = 2) {
     const tang = document.getElementById("tang");
     tang.innerHTML = `${Number(totalAngle.toFixed(2))}° = ${Number(
       (rpc * cycles).toFixed(2),
-    )} revolutions = ${Number(cycles)} cycles<br \>Speed = ${increment} (${totalAngle / (60 * increment)}s/cycle)`;
+    )} revolutions = ${Number(cycles)} cycles<br \>Speed = ${increment.toFixed(2)} (${(totalAngle / (60 * increment)).toFixed(2)}s/cycle)`;
 
     /**
      * Increments the rotation angle by "increment" in each frame
