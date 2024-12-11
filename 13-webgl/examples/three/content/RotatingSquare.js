@@ -110,7 +110,7 @@ function mainEntrance(rpc = 2) {
 
   /**
    * <p>A scene.</p>
-   * @var {THREE.Scene}
+   * @type {THREE.Scene}
    * @global
    */
   const scene = new THREE.Scene();
@@ -130,7 +130,7 @@ function mainEntrance(rpc = 2) {
   /**
    * <p>An orthographic camera.</p>
    * Ortho args are: left, right, top, bottom (backwards!), near, far.
-   * @var {THREE.PerspectiveCamera}
+   * @type {THREE.OrthographicCamera}
    * @global
    */
   const camera = new THREE.OrthographicCamera(-1.2, 1.2, 1.2, -1.2, -1, 1);
@@ -150,7 +150,7 @@ function mainEntrance(rpc = 2) {
 
   /**
    * <p>A renderer.</p>
-   * @var {THREE.WebGLRenderer}
+   * @type {THREE.WebGLRenderer}
    * @global
    */
   const renderer = new THREE.WebGLRenderer({
@@ -188,7 +188,7 @@ function mainEntrance(rpc = 2) {
 
   /**
    * <p>A circle geometry.</p>
-   * @var {THREE.CircleGeometry}
+   * @type {THREE.CircleGeometry}
    * @global
    */
   const sCircleGeom = new THREE.CircleGeometry(1, 32);
@@ -204,7 +204,7 @@ function mainEntrance(rpc = 2) {
 
   /**
    * <p>A solid circle.</p>
-   * @var {THREE.Mesh}
+   * @type {THREE.Mesh}
    * @global
    */
   const sCircle = new THREE.Mesh(sCircleGeom, material);
@@ -223,7 +223,7 @@ function mainEntrance(rpc = 2) {
 
   /**
    * <p>A hollow circle geometry.</p>
-   * @var {THREE.BufferGeometry}
+   * @type {THREE.BufferGeometry}
    * @global
    */
   const hCircleGeom = new THREE.BufferGeometry().setFromPoints(
@@ -243,7 +243,7 @@ function mainEntrance(rpc = 2) {
 
   /**
    * <p>A hollow circle.</p>
-   * @var {THREE.Line}
+   * @type {THREE.Line}
    * @global
    */
   const hCircle = new THREE.Line(hCircleGeom, m);
