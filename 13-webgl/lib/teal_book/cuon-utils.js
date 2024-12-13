@@ -36,7 +36,7 @@ function initShaders(gl, vshader, fshader) {
  * @param {String} vshader a vertex shader program.
  * @param {String} fshader a fragment shader program.
  * @return {WebGLProgram} created program object, or null if the creation has failed.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram WebGLRenderingContext: createProgram() method}
  */
 function createProgram(gl, vshader, fshader) {
   // Create shader object
@@ -78,8 +78,8 @@ function createProgram(gl, vshader, fshader) {
  * @param {gl.VERTEX_SHADER | gl.FRAGMENT_SHADER} type the type of the shader object to be created,
  * @param {DOMString} source shader program.
  * @return {WebGLShader} created shader object, or null if the creation has failed.
- * @see https://udn.realityripple.com/docs/Web/API/WebGLRenderingContext/shaderSource
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createShader
+ * @see {@link https://udn.realityripple.com/docs/Web/API/WebGLRenderingContext/shaderSource WebGLRenderingContext.shaderSource()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createShader WebGLRenderingContext: createShader() method}
  */
 function loadShader(gl, type, source) {
   // Create shader object

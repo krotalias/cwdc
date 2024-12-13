@@ -82,14 +82,14 @@ const numPoints = vertices.length / 2;
 /**
  * The OpenGL context.
  * @type {WebGL2RenderingContext}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext WebGLRenderingContext}
  */
 let gl;
 
 /**
  * Handle to a <a href="/cwdc/13-webgl/homework/hw3/enableVertexAttribPointer.png">buffer</a> on the GPU.
  * @type {WebGLBuffer}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createBuffer
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createBuffer WebGLRenderingContext: createBuffer() method}
  */
 let vertexbuffer;
 
@@ -98,14 +98,14 @@ let vertexbuffer;
  * This is a number indicating the location of the variable name if found,
  * or -1 otherwise.
  * @type {GLint}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation WebGLRenderingContext: getAttribLocation() method}
  */
 let positionIndex;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLProgram}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLProgram
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLProgram WebGLProgram}
  */
 let shader;
 
@@ -364,7 +364,7 @@ function mainEntrance(r) {
    * @return {render}
    * @function
    * @global
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/lineWidth
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/lineWidth WebGLRenderingContext: lineWidth() method}
    * @see {@link https://www.informit.com/articles/article.aspx?p=2111395 Figure 3.11}
    */
   const runAnimation = (() => {
@@ -446,7 +446,7 @@ function mainEntrance(r) {
     // display the total angle.
     tAngle.innerHTML = `${Number(totalAng.toFixed(2))}° = ${Number(
       (rpc * cycles).toFixed(2),
-    )} revolutions = ${cycles} cycles`;
+    )} revolutions = ${cycles} cycles <br \>Speed = ${increment.toFixed(2)} (${(totalAng / (60 * increment)).toFixed(2)}s/cycle)`;
 
     gl.lineWidth(3);
 
@@ -575,7 +575,7 @@ function mainEntrance(r) {
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
  * @event load
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 addEventListener("load", (event) => {
   const queryString = window.location.search;
