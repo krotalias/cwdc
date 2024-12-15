@@ -47,6 +47,18 @@
  * per orbit cycle (deferent) is passed
  * as a {@link https://ahrefs.com/blog/url-parameters/ URL parameter} (query string).&lt;/li>
  *
+ * &lt;li>The total angle for completing a deferent cycle is rpc * 360°. The
+ * challenge is when rpc is not an integer. In this case, multiplying rpc
+ * by the {@link toNaturalFactor smallest integer}
+ * (cycles) that turns it into a natural number results in an integer
+ * multiple of revolutions, closing the curve. E.g.:&lt;/li>
+ *
+ * &lt;ul>
+ * &lt;li>rpc = 2.14, cycles = 50, then 2.14 * 360 * 50 / 360 = 107 revolutions.&lt;/li>
+ * &lt;li>rpc = 2.114, cycles = 500, then 2.114 * 360 * 500 / 360 = 1057 revolutions.&lt;/li>
+ * &lt;li>rpc = 0.114, cycles = 500, then 0.114 * 360 * 500 / 360 = 57 revolutions.&lt;/li>
+ * &lt;/ul>
+ *
  * &lt;li>Applies a transformation by passing a {@link modelMatrix matrix} to the vertex shader.&lt;/li>
  *
  * &lt;li>Uses the class {@link Matrix4} from the
@@ -285,6 +297,45 @@ function draw(ang) {
 }
 
 /**
+ * Greatest Common Divisor, which returns the highest
+ * number that divides into two other numbers exactly.
+ * @param {Number} x first integer.
+ * @param {Number} y second integer.
+ * @return {Number} GCD.
+ * @see {@link https://dmitripavlutin.com/swap-variables-javascript/ 4 Ways to Swap Variables in JavaScript}
+ * @see {@link https://www.mathsisfun.com/greatest-common-factor.html Greatest Common Factor}
+ */
+function gcd(x, y) {
+  while (x) {
+    [x, y] = [y % x, x];
+  }
+  return y;
+}
+
+/**
+ * &lt;p>Given a rational number f = n/d (float), returns the
+ * smallest integer k such that k * f becomes a natural number.&lt;/p>
+ * &lt;p>Write f in fraction form,
+ * then divide denominator by {@link gcd}(numerator, denominator).&lt;/p>
+ * &lt;ul>
+ * &lt;li>E.g., for 30.25 = 3025/100, gcd is 25&lt;/li>
+ * &lt;li>Then return 100/25 = 4, that is,&lt;/li>
+ * &lt;li>30.25 = 3025/25 / 100/25 = 121/4 ⇒ 30.25 * 4 = 121.&lt;/li>
+ * &lt;/ul>
+ * @param {Number} f float number.
+ * @return {Number} integer multiplier.
+ */
+function toNaturalFactor(f) {
+  const { ndigits } = getFractionalPart(f);
+  if (!Number.isInteger(f)) {
+    const denominator = 10 ** ndigits;
+    const numerator = Math.trunc(f * denominator);
+    return denominator / gcd(numerator, denominator);
+  }
+  return 1;
+}
+
+/**
  * &lt;p>Entry point when page is loaded.&lt;/p>
  *
  * Basically this function does setup that
@@ -399,16 +450,7 @@ function mainEntrance(r) {
     let ang = 0.0;
     const increment = rpc > 1 ? 4 : 2;
 
-    let cycles = 1;
-    const { ndigits } = getFractionalPart(rpc);
-    if (!Number.isInteger(rpc)) {
-      const limit = 10 ** ndigits;
-      for (cycles = 2; cycles &lt; limit; ++cycles) {
-        // if (Number.isInteger(rpc * cycles)) break;
-        const n = (rpc * 360 * cycles) % 360;
-        if (n &lt; 1 || n > 359) break;
-      }
-    }
+    const cycles = toNaturalFactor(rpc);
 
     // maximum angle - used to reset angle to zero
     const totalAng = rpc == 0 ? 360 : 360 * rpc * cycles;
@@ -632,13 +674,13 @@ addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#angle">angle</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getFractionalPart">getFractionalPart</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#numPoints">numPoints</a></li><li><a href="global.html#positionIndex">positionIndex</a></li><li><a href="global.html#roundNumber">roundNumber</a></li><li><a href="global.html#rpc">rpc</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#u_color">u_color</a></li><li><a href="global.html#vertexbuffer">vertexbuffer</a></li><li><a href="global.html#vertices">vertices</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#angle">angle</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#gcd">gcd</a></li><li><a href="global.html#getFractionalPart">getFractionalPart</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#numPoints">numPoints</a></li><li><a href="global.html#positionIndex">positionIndex</a></li><li><a href="global.html#roundNumber">roundNumber</a></li><li><a href="global.html#rpc">rpc</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#toNaturalFactor">toNaturalFactor</a></li><li><a href="global.html#u_color">u_color</a></li><li><a href="global.html#vertexbuffer">vertexbuffer</a></li><li><a href="global.html#vertices">vertices</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Dec 13 2024 04:00:38 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 15 2024 05:52:24 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

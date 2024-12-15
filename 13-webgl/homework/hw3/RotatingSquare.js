@@ -19,6 +19,18 @@
  * per orbit cycle (deferent) is passed
  * as a {@link https://ahrefs.com/blog/url-parameters/ URL parameter} (query string).</li>
  *
+ * <li>The total angle for completing a deferent cycle is rpc * 360°. The
+ * challenge is when rpc is not an integer. In this case, multiplying rpc
+ * by the {@link toNaturalFactor smallest integer}
+ * (cycles) that turns it into a natural number results in an integer
+ * multiple of revolutions, closing the curve. E.g.:</li>
+ *
+ * <ul>
+ * <li>rpc = 2.14, cycles = 50, then 2.14 * 360 * 50 / 360 = 107 revolutions.</li>
+ * <li>rpc = 2.114, cycles = 500, then 2.114 * 360 * 500 / 360 = 1057 revolutions.</li>
+ * <li>rpc = 0.114, cycles = 500, then 0.114 * 360 * 500 / 360 = 57 revolutions.</li>
+ * </ul>
+ *
  * <li>Applies a transformation by passing a {@link modelMatrix matrix} to the vertex shader.</li>
  *
  * <li>Uses the class {@link Matrix4} from the
@@ -257,6 +269,45 @@ function draw(ang) {
 }
 
 /**
+ * Greatest Common Divisor, which returns the highest
+ * number that divides into two other numbers exactly.
+ * @param {Number} x first integer.
+ * @param {Number} y second integer.
+ * @return {Number} GCD.
+ * @see {@link https://dmitripavlutin.com/swap-variables-javascript/ 4 Ways to Swap Variables in JavaScript}
+ * @see {@link https://www.mathsisfun.com/greatest-common-factor.html Greatest Common Factor}
+ */
+function gcd(x, y) {
+  while (x) {
+    [x, y] = [y % x, x];
+  }
+  return y;
+}
+
+/**
+ * <p>Given a rational number f = n/d (float), returns the
+ * smallest integer k such that k * f becomes a natural number.</p>
+ * <p>Write f in fraction form,
+ * then divide denominator by {@link gcd}(numerator, denominator).</p>
+ * <ul>
+ * <li>E.g., for 30.25 = 3025/100, gcd is 25</li>
+ * <li>Then return 100/25 = 4, that is,</li>
+ * <li>30.25 = 3025/25 / 100/25 = 121/4 ⇒ 30.25 * 4 = 121.</li>
+ * </ul>
+ * @param {Number} f float number.
+ * @return {Number} integer multiplier.
+ */
+function toNaturalFactor(f) {
+  const { ndigits } = getFractionalPart(f);
+  if (!Number.isInteger(f)) {
+    const denominator = 10 ** ndigits;
+    const numerator = Math.trunc(f * denominator);
+    return denominator / gcd(numerator, denominator);
+  }
+  return 1;
+}
+
+/**
  * <p>Entry point when page is loaded.</p>
  *
  * Basically this function does setup that
@@ -371,16 +422,7 @@ function mainEntrance(r) {
     let ang = 0.0;
     const increment = rpc > 1 ? 4 : 2;
 
-    let cycles = 1;
-    const { ndigits } = getFractionalPart(rpc);
-    if (!Number.isInteger(rpc)) {
-      const limit = 10 ** ndigits;
-      for (cycles = 2; cycles < limit; ++cycles) {
-        // if (Number.isInteger(rpc * cycles)) break;
-        const n = (rpc * 360 * cycles) % 360;
-        if (n < 1 || n > 359) break;
-      }
-    }
+    const cycles = toNaturalFactor(rpc);
 
     // maximum angle - used to reset angle to zero
     const totalAng = rpc == 0 ? 360 : 360 * rpc * cycles;
