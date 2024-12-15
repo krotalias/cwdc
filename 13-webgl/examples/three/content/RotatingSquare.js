@@ -21,6 +21,18 @@
  * per orbit cycle (deferent) is passed
  * as a {@link https://ahrefs.com/blog/url-parameters/ URL parameter} (query string).</li>
  *
+ * <li>The total angle for completing a deferent cycle is rpc * 360°. The
+ * challenge is when rpc is not an integer. In this case, multiplying rpc
+ * by the {@link toNaturalFactor smallest integer}
+ * (cycles) that turns it into a natural number results in an integer
+ * multiple of revolutions, closing the curve. E.g.:</li>
+ *
+ * <ul>
+ * <li>rpc = 2.14, cycles = 50, then 2.14 * 360 * 50 / 360 = 107 revolutions.</li>
+ * <li>rpc = 2.114, cycles = 500, then 2.114 * 360 * 500 / 360 = 1057 revolutions.</li>
+ * <li>rpc = 0.114, cycles = 500, then 0.114 * 360 * 500 / 360 = 57 revolutions.</li>
+ * </ul>
+ *
  * <li>Here we are setting the objects' scale, rotation, and position
  * properties, with {@link https://threejs.org/docs/#api/en/core/Object3D.matrixAutoUpdate matrixAutoUpdate}
  * set to true (default).</li>
@@ -89,6 +101,72 @@ function getFractionalPart(n) {
 function roundNumber(n, dig) {
   const limit = 10 ** dig;
   return Math.round(n * limit) / limit;
+}
+
+/**
+ * Greatest Common Divisor, which returns the highest
+ * number that divides into two other numbers exactly.
+ * @param {Number} x first integer.
+ * @param {Number} y second integer.
+ * @return {Number} GCD.
+ * @see {@link https://dmitripavlutin.com/swap-variables-javascript/ 4 Ways to Swap Variables in JavaScript}
+ * @see {@link https://www.mathsisfun.com/greatest-common-factor.html Greatest Common Factor}
+ */
+function gcd(x, y) {
+  while (x) {
+    [x, y] = [y % x, x];
+  }
+  return y;
+}
+
+/**
+ * <p>Given a rational number f = n/d (float), returns the
+ * smallest integer k such that k * f becomes a natural number.</p>
+ * <p>Write f in fraction form,
+ * then divide denominator by {@link gcd}(numerator, denominator).</p>
+ * <ul>
+ * <li>E.g., for 30.25 = 3025/100, gcd is 25</li>
+ * <li>Then return 100/25 = 4, that is,</li>
+ * <li>30.25 = 3025/25 / 100/25 = 121/4 ⇒ 30.25 * 4 = 121.</li>
+ * </ul>
+ * @param {Number} f float number.
+ * @return {Number} integer multiplier.
+ */
+function toNaturalFactor(f) {
+  const { ndigits } = getFractionalPart(f);
+  if (!Number.isInteger(f)) {
+    const denominator = 10 ** ndigits;
+    const numerator = Math.trunc(f * denominator);
+    return denominator / gcd(numerator, denominator);
+  }
+  return 1;
+}
+
+/**
+ * Alternative version to {@link toNaturalFactor}.
+ * @param {Number} f float number.
+ * @returns {Number} integer multiplier.
+ */
+function toNaturalFactor2(f) {
+  const { fractional, ndigits } = getFractionalPart(f);
+  if (!Number.isInteger(f)) {
+    const limit = 10 ** ndigits;
+    let factor;
+    // these numbers do not have any common factor with 10
+    // e.g, (4 * n) % 10 == 0 or (2 * n) % 5 == 0 => n = 5
+    // 2 -> [5], 4 -> [5], 5 -> [2,4], 6 -> [5], 8 -> [5]
+    if (["1", "3", "7", "9"].includes(fractional[ndigits - 1])) {
+      factor = limit;
+    } else {
+      for (factor = 2; factor < limit; ++factor) {
+        // if (Number.isInteger(f * factor)) break;
+        const n = (f * 360 * factor) % 360;
+        if (n === 0 || n === 360) break;
+      }
+    }
+    return factor;
+  }
+  return 1;
 }
 
 /**
@@ -335,23 +413,7 @@ function mainEntrance(rpc = 2) {
     let angle = 0.0;
     let increment = rpc > 1 ? 2 : 1;
 
-    let cycles = 1;
-    const { fractional, ndigits } = getFractionalPart(rpc);
-    if (!Number.isInteger(rpc)) {
-      const limit = 10 ** ndigits;
-      // these numbers do not have any common factor with 10
-      // e.g, (4 * n) % 10 == 0 or (2 * n) % 5 == 0 => n = 5
-      // 2 -> [5], 4 -> [5], 5 -> [2,4], 6 -> [5], 8 -> [5]
-      if (["1", "3", "7", "9"].includes(fractional[ndigits - 1])) {
-        cycles = limit;
-      } else {
-        for (cycles = 2; cycles < limit; ++cycles) {
-          // if (Number.isInteger(rpc * cycles)) break;
-          const n = (rpc * 360 * cycles) % 360;
-          if (n < 1 || n > 359) break;
-        }
-      }
-    }
+    const cycles = toNaturalFactor(rpc);
 
     const totalAngle = rpc == 0 ? 360 : 360 * rpc * cycles;
 
