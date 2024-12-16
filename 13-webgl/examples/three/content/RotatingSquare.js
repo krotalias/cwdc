@@ -143,7 +143,13 @@ function toNaturalFactor(f) {
 }
 
 /**
- * Alternative version to {@link toNaturalFactor}.
+ * <p>Dumb version to {@link toNaturalFactor}.</p>
+ * [2,4,5,6,8] have a common factor with 10:
+ * <ul>
+ *  <li> (4 * n) % 10 == 0 or (2 * n) % 5 == 0 ⇒ n = 5</li>
+ *  <li> 2 → [5], 4 → [5], 5 → [2,4], 6 → [5], 8 → [5]</li>
+ * </ul>
+ * [1,3,7,9] do not have any common factor with 10
  * @param {Number} f float number.
  * @returns {Number} integer multiplier.
  */
@@ -151,20 +157,17 @@ function toNaturalFactor2(f) {
   const { fractional, ndigits } = getFractionalPart(f);
   if (!Number.isInteger(f)) {
     const limit = 10 ** ndigits;
-    let factor;
-    // these numbers do not have any common factor with 10
-    // e.g, (4 * n) % 10 == 0 or (2 * n) % 5 == 0 => n = 5
-    // 2 -> [5], 4 -> [5], 5 -> [2,4], 6 -> [5], 8 -> [5]
     if (["1", "3", "7", "9"].includes(fractional[ndigits - 1])) {
-      factor = limit;
+      return limit;
     } else {
-      for (factor = 2; factor < limit; ++factor) {
-        // if (Number.isInteger(f * factor)) break;
-        const n = (f * 360 * factor) % 360;
-        if (n === 0 || n === 360) break;
+      for (let factor = 2; factor < limit; ++factor) {
+        const n = f * factor;
+        // if (Number.isInteger(n))
+        // if (Math.trunc(n) === n)
+        // if ((n * 360) % 360 === 0)
+        if (n % 1 === 0) return factor;
       }
     }
-    return factor;
   }
   return 1;
 }
