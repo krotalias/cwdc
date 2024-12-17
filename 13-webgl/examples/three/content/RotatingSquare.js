@@ -146,27 +146,46 @@ function toNaturalFactor(f) {
  * <p>Dumb version to {@link toNaturalFactor}.</p>
  * [2,4,5,6,8] have a common factor with 10:
  * <ul>
- *  <li> (4 * n) % 10 == 0 or (2 * n) % 5 == 0 ⇒ n = 5</li>
+ *  <li> (4 * x) % 10 == 0 or (2 * x) % 5 == 0 ⇒ x = 5</li>
  *  <li> 2 → [5], 4 → [5], 5 → [2,4], 6 → [5], 8 → [5]</li>
  * </ul>
  * [1,3,7,9] do not have any common factor with 10
+ *
+ * <p>E.g:</p>
+ * <ul>
+ *  <li>3.25 * f = int</li>
+ *  <li>325/100 * f = int</li>
+ *  <li>325 = int * 100/f</li>
+ *  <li>100/f must be also an int ⇒ f must be a factor of 100 </li>
+ *  <li>3.25 * 4 = 13</li>
+ *  <li>325 * 0.04 = 13</li>
+ *  <li>325 / 13 = 25 = gcd(325,100)</li>
+ * </ul>
  * @param {Number} f float number.
  * @returns {Number} integer multiplier.
+ * @see {@link https://byjus.com/maths/factors-of-100/ Factors of 100}
+ * @see {@link https://byjus.com/gcd-calculator/ GCD Calculator}
  */
 function toNaturalFactor2(f) {
   const { fractional, ndigits } = getFractionalPart(f);
+  const factors = {
+    1: [2, 5, 10],
+    2: [2, 4, 5, 10, 20, 25, 50, 100],
+    3: [2, 4, 5, 8, 10, 20, 25, 40, 50, 100, 125, 200, 250, 500, 1000],
+  };
   if (!Number.isInteger(f)) {
     const limit = 10 ** ndigits;
     if (["1", "3", "7", "9"].includes(fractional[ndigits - 1])) {
       return limit;
     } else {
-      for (let factor = 2; factor < limit; ++factor) {
+      for (const factor of factors[ndigits]) {
         const n = f * factor;
         // if (Number.isInteger(n))
         // if (Math.trunc(n) === n)
         // if ((n * 360) % 360 === 0)
         if (n % 1 === 0) return factor;
       }
+      return limit;
     }
   }
   return 1;
