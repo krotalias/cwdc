@@ -132,7 +132,8 @@ function roundNumber(n, dig) {
 }
 
 /**
- * Greatest Common Divisor, which returns the highest
+ * &lt;p>Greatest Common Divisor.&lt;/p>
+ * Returns the highest
  * number that divides into two other numbers exactly.
  * @param {Number} x first integer.
  * @param {Number} y second integer.
@@ -145,6 +146,33 @@ function gcd(x, y) {
     [x, y] = [y % x, x];
   }
   return y;
+}
+
+/**
+ * &lt;p>Least Common Multiple.&lt;/p>
+ * Returns the smallest
+ * number that can be divided by x and y without any remainder.
+ * @function
+ * @param {Number} x first integer.
+ * @param {Number} y second integer.
+ * @return {Number} LCM.
+ * @see {@link https://en.wikipedia.org/wiki/Least_common_multiple Least common multiple}
+ * @see {@link https://www.w3resource.com/python-exercises/challenges/1/python-challenges-1-exercise-37.php Find the smallest positive number that is evenly divisible by all of the numbers from 1 to 30}
+ */
+const lcm = (x, y) => (x * y) / gcd(x, y);
+
+/**
+ * &lt;p>Get all common factors of a set of numbers.&lt;/p>
+ * getCommonFactors(18, 36, 90) → [1, 2, 3, 6, 9, 18]
+ * @param {...Number} args set of integers.
+ * @returns {Array&lt;Number>} commom factors.
+ */
+function getCommonFactors(...args) {
+  let common_factors = [1];
+  let min_val = Math.min(...args);
+  for (let fx = 2; fx &lt;= min_val; fx++)
+    if (args.every((arg) => (arg / fx) % 1 === 0)) common_factors.push(fx);
+  return common_factors;
 }
 
 /**
@@ -171,20 +199,22 @@ function toNaturalFactor(f) {
 }
 
 /**
- * &lt;p>Dumb version to {@link toNaturalFactor}.&lt;/p>
- * [2,4,5,6,8] have a common factor with 10:
+ * &lt;p>Dumb version of {@link toNaturalFactor}.&lt;/p>
+ * [2,4,5,6,8] have a common multiple
+ * with 10 lesser than 10
  * &lt;ul>
  *  &lt;li> (4 * x) % 10 == 0 or (2 * x) % 5 == 0 ⇒ x = 5&lt;/li>
  *  &lt;li> 2 → [5], 4 → [5], 5 → [2,4], 6 → [5], 8 → [5]&lt;/li>
  * &lt;/ul>
- * [1,3,7,9] do not have any common factor with 10
+ * [1,3,7,9] have all common multiples with 10 greater or equal than 10
  *
  * &lt;p>E.g:&lt;/p>
  * &lt;ul>
- *  &lt;li>3.25 * f = int&lt;/li>
- *  &lt;li>325/100 * f = int&lt;/li>
- *  &lt;li>325 = int * 100/f&lt;/li>
- *  &lt;li>100/f must be also an int ⇒ f must be a factor of 100 &lt;/li>
+ *  &lt;li>3.25 * f = i ∈ ℕ&lt;/li>
+ *  &lt;li>3.25 * f = i ∈ ℕ&lt;/li>
+ *  &lt;li>325/100 * f = i&lt;/li>
+ *  &lt;li>325 = i * 100/f&lt;/li>
+ *  &lt;li>100/f ∈ ℕ ⇒ f is a factor of 100 &lt;/li>
  *  &lt;li>3.25 * 4 = 13&lt;/li>
  *  &lt;li>325 * 0.04 = 13&lt;/li>
  *  &lt;li>325 / 13 = 25 = gcd(325,100)&lt;/li>
@@ -193,6 +223,7 @@ function toNaturalFactor(f) {
  * @returns {Number} integer multiplier.
  * @see {@link https://byjus.com/maths/factors-of-100/ Factors of 100}
  * @see {@link https://byjus.com/gcd-calculator/ GCD Calculator}
+ * @see {@link https://www.cuemath.com/numbers/common-multiples/ Common Multiples}
  */
 function toNaturalFactor2(f) {
   const { fractional, ndigits } = getFractionalPart(f);
@@ -207,11 +238,13 @@ function toNaturalFactor2(f) {
       return limit;
     } else {
       for (const factor of factors[ndigits]) {
-        const n = f * factor;
-        // if (Number.isInteger(n))
-        // if (Math.trunc(n) === n)
-        // if ((n * 360) % 360 === 0)
-        if (n % 1 === 0) return factor;
+        const n = (f * factor).toFixed(6);
+        // if (Number.isInteger(n)) {
+        // if (Math.trunc(n) === n) {
+        // if ((n * 360) % 360 === 0) {
+        if (n % 1 === 0) {
+          return factor;
+        }
       }
       return limit;
     }
@@ -639,13 +672,13 @@ addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="THREE.CircleGeometry.html">CircleGeometry</a></li><li><a href="THREE.Line.html">Line</a></li><li><a href="THREE.Mesh.html">Mesh</a></li><li><a href="THREE.OrthographicCamera.html">OrthographicCamera</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#camera">camera</a></li><li><a href="global.html#gcd">gcd</a></li><li><a href="global.html#getFractionalPart">getFractionalPart</a></li><li><a href="global.html#hCircle">hCircle</a></li><li><a href="global.html#hCircleGeom">hCircleGeom</a></li><li><a href="global.html#loadThreejs">loadThreejs</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#roundNumber">roundNumber</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#sCircle">sCircle</a></li><li><a href="global.html#sCircleGeom">sCircleGeom</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#toNaturalFactor">toNaturalFactor</a></li><li><a href="global.html#toNaturalFactor2">toNaturalFactor2</a></li><li><a href="global.html#updatePositions">updatePositions</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="THREE.CircleGeometry.html">CircleGeometry</a></li><li><a href="THREE.Line.html">Line</a></li><li><a href="THREE.Mesh.html">Mesh</a></li><li><a href="THREE.OrthographicCamera.html">OrthographicCamera</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#camera">camera</a></li><li><a href="global.html#gcd">gcd</a></li><li><a href="global.html#getCommonFactors">getCommonFactors</a></li><li><a href="global.html#getFractionalPart">getFractionalPart</a></li><li><a href="global.html#hCircle">hCircle</a></li><li><a href="global.html#hCircleGeom">hCircleGeom</a></li><li><a href="global.html#lcm">lcm</a></li><li><a href="global.html#loadThreejs">loadThreejs</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#roundNumber">roundNumber</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#sCircle">sCircle</a></li><li><a href="global.html#sCircleGeom">sCircleGeom</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#toNaturalFactor">toNaturalFactor</a></li><li><a href="global.html#toNaturalFactor2">toNaturalFactor2</a></li><li><a href="global.html#updatePositions">updatePositions</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Dec 17 2024 07:24:41 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Dec 18 2024 06:16:18 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

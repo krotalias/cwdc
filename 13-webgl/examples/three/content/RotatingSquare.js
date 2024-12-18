@@ -104,7 +104,8 @@ function roundNumber(n, dig) {
 }
 
 /**
- * Greatest Common Divisor, which returns the highest
+ * <p>Greatest Common Divisor.</p>
+ * Returns the highest
  * number that divides into two other numbers exactly.
  * @param {Number} x first integer.
  * @param {Number} y second integer.
@@ -117,6 +118,33 @@ function gcd(x, y) {
     [x, y] = [y % x, x];
   }
   return y;
+}
+
+/**
+ * <p>Least Common Multiple.</p>
+ * Returns the smallest
+ * number that can be divided by x and y without any remainder.
+ * @function
+ * @param {Number} x first integer.
+ * @param {Number} y second integer.
+ * @return {Number} LCM.
+ * @see {@link https://en.wikipedia.org/wiki/Least_common_multiple Least common multiple}
+ * @see {@link https://www.w3resource.com/python-exercises/challenges/1/python-challenges-1-exercise-37.php Find the smallest positive number that is evenly divisible by all of the numbers from 1 to 30}
+ */
+const lcm = (x, y) => (x * y) / gcd(x, y);
+
+/**
+ * <p>Get all common factors of a set of numbers.</p>
+ * getCommonFactors(18, 36, 90) → [1, 2, 3, 6, 9, 18]
+ * @param {...Number} args set of integers.
+ * @returns {Array<Number>} commom factors.
+ */
+function getCommonFactors(...args) {
+  let common_factors = [1];
+  let min_val = Math.min(...args);
+  for (let fx = 2; fx <= min_val; fx++)
+    if (args.every((arg) => (arg / fx) % 1 === 0)) common_factors.push(fx);
+  return common_factors;
 }
 
 /**
@@ -143,20 +171,22 @@ function toNaturalFactor(f) {
 }
 
 /**
- * <p>Dumb version to {@link toNaturalFactor}.</p>
- * [2,4,5,6,8] have a common factor with 10:
+ * <p>Dumb version of {@link toNaturalFactor}.</p>
+ * [2,4,5,6,8] have a common multiple
+ * with 10 lesser than 10
  * <ul>
  *  <li> (4 * x) % 10 == 0 or (2 * x) % 5 == 0 ⇒ x = 5</li>
  *  <li> 2 → [5], 4 → [5], 5 → [2,4], 6 → [5], 8 → [5]</li>
  * </ul>
- * [1,3,7,9] do not have any common factor with 10
+ * [1,3,7,9] have all common multiples with 10 greater or equal than 10
  *
  * <p>E.g:</p>
  * <ul>
- *  <li>3.25 * f = int</li>
- *  <li>325/100 * f = int</li>
- *  <li>325 = int * 100/f</li>
- *  <li>100/f must be also an int ⇒ f must be a factor of 100 </li>
+ *  <li>3.25 * f = i ∈ ℕ</li>
+ *  <li>3.25 * f = i ∈ ℕ</li>
+ *  <li>325/100 * f = i</li>
+ *  <li>325 = i * 100/f</li>
+ *  <li>100/f ∈ ℕ ⇒ f is a factor of 100 </li>
  *  <li>3.25 * 4 = 13</li>
  *  <li>325 * 0.04 = 13</li>
  *  <li>325 / 13 = 25 = gcd(325,100)</li>
@@ -165,6 +195,7 @@ function toNaturalFactor(f) {
  * @returns {Number} integer multiplier.
  * @see {@link https://byjus.com/maths/factors-of-100/ Factors of 100}
  * @see {@link https://byjus.com/gcd-calculator/ GCD Calculator}
+ * @see {@link https://www.cuemath.com/numbers/common-multiples/ Common Multiples}
  */
 function toNaturalFactor2(f) {
   const { fractional, ndigits } = getFractionalPart(f);
@@ -179,11 +210,13 @@ function toNaturalFactor2(f) {
       return limit;
     } else {
       for (const factor of factors[ndigits]) {
-        const n = f * factor;
-        // if (Number.isInteger(n))
-        // if (Math.trunc(n) === n)
-        // if ((n * 360) % 360 === 0)
-        if (n % 1 === 0) return factor;
+        const n = (f * factor).toFixed(6);
+        // if (Number.isInteger(n)) {
+        // if (Math.trunc(n) === n) {
+        // if ((n * 360) % 360 === 0) {
+        if (n % 1 === 0) {
+          return factor;
+        }
       }
       return limit;
     }
