@@ -176,9 +176,21 @@ function toNaturalFactor(f) {
  * with 10 lesser than 10
  * <ul>
  *  <li> (4 * x) % 10 == 0 or (2 * x) % 5 == 0 ⇒ x = 5</li>
+ *  <li> (4 * x) ☰ 0 (mod 10) or (2 * x) ☰ 0 (mod 5) ⇒ x = 5</li>
  *  <li> 2 → [5], 4 → [5], 5 → [2,4], 6 → [5], 8 → [5]</li>
  * </ul>
- * [1,3,7,9] have all common multiples with 10 greater or equal than 10
+ * [1,3,7,9] have all common multiples with 10 greater than or equal to 10
+ * <ul>
+ *  <li> (3 * x) % 10 == 0 or (7 * x) % 10 == 0 ⇒ x ≥ 10</li>
+ *  <li> (3 * x) ☰ 0 (mod 10) or (7 * x) ☰ 0 (mod 10) ⇒ x ≥ 10</li>
+ * </ul>
+ *
+ * Threfore, we can use the last digit of the float number to determine
+ * the smallest integer multiplier that turns it into a natural number.
+ *
+ * Of course the same rationale holds for 100, 1000, etc., and we only need
+ * to search for smaller factors when the number ends in 2,4,6,8. The other
+ * cases will always have a the smallest factor equal to 10, 100, 1000, etc.
  *
  * <p>E.g:</p>
  * <ul>
@@ -196,6 +208,7 @@ function toNaturalFactor(f) {
  * @see {@link https://byjus.com/maths/factors-of-100/ Factors of 100}
  * @see {@link https://byjus.com/gcd-calculator/ GCD Calculator}
  * @see {@link https://www.cuemath.com/numbers/common-multiples/ Common Multiples}
+ * @see {@link https://www.reddit.com/r/askscience/comments/4p8aqu/why_are_1_3_7_and_9_the_only_numbers_whose/ Why are 1, 3, 7, and 9 the only numbers whose multiples can end in any digit?}
  */
 function toNaturalFactor2(f) {
   const { fractional, ndigits } = getFractionalPart(f);
