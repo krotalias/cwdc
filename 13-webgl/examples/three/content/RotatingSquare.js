@@ -172,14 +172,14 @@ function toNaturalFactor(f) {
 
 /**
  * <p>Dumb version of {@link toNaturalFactor}.</p>
- * [2,4,5,6,8] have a common multiple
- * with 10 lesser than 10
+ * [2,4,5,6,8] and 10 have at least a common multiple
+ * with x < 10
  * <ul>
- *  <li> (4 * x) % 10 == 0 or (2 * x) % 5 == 0 ⇒ x = 5</li>
- *  <li> (4 * x) ☰ 0 (mod 10) or (2 * x) ☰ 0 (mod 5) ⇒ x = 5</li>
+ *  <li> (4 * x) % 10 == 0 ⇒ (2 * x) % 5 == 0 ⇒ x = 5 < 10</li>
+ *  <li> (4 * x) ☰ 0 (mod 10) ⇒ (2 * x) ☰ 0 (mod 5) ⇒ x = 5 < 10</li>
  *  <li> 2 → [5], 4 → [5], 5 → [2,4], 6 → [5], 8 → [5]</li>
  * </ul>
- * [1,3,7,9] have all common multiples with 10 greater than or equal to 10
+ * [1,3,7,9] and 10 have all common multiples with x ≥ 10
  * <ul>
  *  <li> (3 * x) % 10 == 0 or (7 * x) % 10 == 0 ⇒ x ≥ 10</li>
  *  <li> (3 * x) ☰ 0 (mod 10) or (7 * x) ☰ 0 (mod 10) ⇒ x ≥ 10</li>
