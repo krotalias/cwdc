@@ -34,10 +34,14 @@
 let start = new Date().getTime();
 
 /**
- * Generate a random color.
+ * <p>Generate a random color code in the format #rrggbb.</p>
  *
- * @return {string} a 6 hexadecimal digit color code preceded by character '#'.<br><br>
+ * <p>The {@link https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color &lt;hexcolor&gt;} is a 6 hexadecimal digit color
+ * code preceded by character '#'.</p>
+ * Each pair is in the range [0, ff (255)],
+ * and represents the amount of red, green and blue components of the <a href="/cwdc/downloads/apostila.pdf#page=13">color</a>.
  *
+ * @return {String} a random color in the format #rrggbb.
  */
 function getRandomColor() {
   const letters = "0123456789ABCDEF".split("");
@@ -79,15 +83,17 @@ function makeShapeAppear() {
  * The window object allows execution of code at specified time intervals.<br>
  *
  * <ul>
- *  <li>The window.setTimeout() method can be written without the window prefix.</li>
+ *  <li>The {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout window.setTimeout()}
+ *      method can be written without the window prefix.</li>
  *  <li>The first parameter is a function to be executed.</li>
  *  <li>The second parameter indicates the number of milliseconds before execution.</li>
  * </ul>
  *
- *  @see {@link https://www.w3schools.com/js/js_timing.asp JavaScript Timing Events}
+ * @param {Number} delay time interval in ms.
+ * @see {@link https://www.w3schools.com/js/js_timing.asp JavaScript Timing Events}
  */
-function appearAfterDelay() {
-  setTimeout(makeShapeAppear, Math.random() * 2000);
+function appearAfterDelay(delay = 2000) {
+  setTimeout(makeShapeAppear, Math.random() * delay);
 }
 
 /**
