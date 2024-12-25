@@ -6,15 +6,16 @@
  *    onto two different shapes (circles and squares), generated with random sizes and positions.
  * </p>
  *
- *  Description.
- *  <p>Math.random() is used to generated random data.</p>
+ * Description.
+ * <p>{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random Math.random()}
+ * is used to generated random data.</p>
  *
  *  <pre>
  *  Documentation:
  *  - Ubuntu:
  *     - sudo apt install jsdoc-toolkit
  *  - MacOS:
- *     - sudo port install npm5 (or npm6)
+ *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
  *  - jsdoc -d doc-reaction reaction_tester.js
  *  </pre>
@@ -26,35 +27,37 @@
  */
 "use strict";
 
-/** Mark the starting time.
- *  @type {DateTime}
+/**
+ * Mark the starting {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime time}.
+ * @type {DateTime}
  */
-var start = new Date().getTime();
+let start = new Date().getTime();
 
 /**
- *   Generate a random color.
+ * Generate a random color.
  *
- *   @return {string} a 6 hexadecimal digit color code preceded by character '#'.<br><br>
+ * @return {string} a 6 hexadecimal digit color code preceded by character '#'.<br><br>
  *
  */
 function getRandomColor() {
-  var letters = "0123456789ABCDEF".split("");
-  var color = "#";
+  const letters = "0123456789ABCDEF".split("");
+  let color = "#";
 
-  for (var i = 0; i < 6; i++) {
+  for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
 }
 
 /**
- *   Create a random shape and reset the starting time.
+ * Create a {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random random}
+ * shape and reset the starting time.
  */
 function makeShapeAppear() {
-  var top = Math.random() * 400;
-  var left = Math.random() * 400;
-  var width = Math.random() * 200 + 100;
-  var shape = document.getElementById("shape");
+  const top = Math.random() * 400;
+  const left = Math.random() * 400;
+  const width = Math.random() * 200 + 100;
+  const shape = document.getElementById("shape");
 
   if (Math.random() > 0.5) {
     shape.style.borderRadius = "50%";
@@ -73,7 +76,7 @@ function makeShapeAppear() {
 }
 
 /**
- *  The window object allows execution of code at specified time intervals.<br>
+ * The window object allows execution of code at specified time intervals.<br>
  *
  * <ul>
  *  <li>The window.setTimeout() method can be written without the window prefix.</li>
@@ -81,27 +84,43 @@ function makeShapeAppear() {
  *  <li>The second parameter indicates the number of milliseconds before execution.</li>
  * </ul>
  *
- *  @see https://www.w3schools.com/js/js_timing.asp
+ *  @see {@link https://www.w3schools.com/js/js_timing.asp JavaScript Timing Events}
  */
 function appearAfterDelay() {
   setTimeout(makeShapeAppear, Math.random() * 2000);
 }
 
-appearAfterDelay();
-
 /**
- *  Callback function called when an element with id "shape" is clicked. <br>
- *  Change the display property to "none" to make the shape disappear and
- *  update the reaction time.
+ * <p>Callback function {@link appearAfterDelay invoked} when an element with id "shape" is clicked. </p>
+ * <p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
+ * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).</p>
+ * Change the display property to "none" to make the shape disappear and
+ * update the reaction time.
+ * @event click
  */
 document.getElementById("shape").onclick = function () {
   document.getElementById("shape").style.display = "none";
 
-  var end = new Date().getTime();
+  const end = new Date().getTime();
 
-  var timeTaken = (end - start) / 1000;
+  const timeTaken = (end - start) / 1000;
 
   document.getElementById("timeTaken").innerHTML = timeTaken + "s";
 
   appearAfterDelay();
 };
+
+/**
+ * <p>Loads the application.</p>
+ * <p>The load event is fired when the whole page has loaded,
+ * including all dependent resources such as stylesheets,
+ * scripts, iframes, and images, except those that are loaded lazily.</p>
+ *
+ * <p>The callback argument sets the {@link appearAfterDelay callback}
+ * that will be invoked when the event is dispatched.</p>
+ * @event load
+ * @param {event} event a generic event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ */
+addEventListener("load", (event) => appearAfterDelay());
