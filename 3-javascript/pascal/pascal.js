@@ -1,3 +1,5 @@
+/** @module */
+
 /**
  *  @file
  *
@@ -5,10 +7,12 @@
  * <p>A Pascal triangle generator using yield.</p>
  *
  * Description.
- * <p>When you call a generator, it returns an iterator, and <br>
+ * <p>When you call a {@link https://en.wikipedia.org/wiki/Generator_(computer_science) generator},
+ * it returns an {@link https://en.wikipedia.org/wiki/Iterator iterator}, and <br>
  * writing iterators is often much easier when you use generator functions.</p>
- * Initially, when you call {@link pascal}, the function is frozen at its start.<br>
- * Every time you call next on the iterator, the function runs until it hits a yield expression,<br>
+ * Initially, when you call {@link module:pascal~pascal pascal}, the function is frozen at its start.<br>
+ * Every time you call next on the iterator, the function runs until it hits a
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield yield expression},<br>
  * which pauses it and causes the yielded value to become the next value produced by the iterator.<br>
  * When the function returns (sometimes it never does), the iterator is done.
  *
@@ -17,9 +21,9 @@
  *  - Ubuntu:
  *     - sudo apt install jsdoc-toolkit
  *  - MacOS:
- *     - sudo port install npm7 (or npm8)
+ *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
- *  - jsdoc -d doc-pascal pascal.js
+ *  - jsdoc -d doc-pascal pascal/pascal.js pascal/pascal2.js pascal/pascal3.js
  *
  *  Usage:
  *  - npm init
@@ -31,8 +35,7 @@
  *  @since 18/06/2021
  *  @see <a href="/cwdc/3-javascript/pascal/pascal.html?level=20">link</a>
  *  @see <a href="/cwdc/3-javascript/pascal/pascal.js">source</a>
- *  @see https://en.wikipedia.org/wiki/Generator_(computer_science)
- *  @see https://eloquentjavascript.net/11_async.html
+ *  @see {@link https://eloquentjavascript.net/11_async.html Asynchronous Programming}
  *  @see <a href="/cwdc/downloads/python/labs/doc/html/__03d__pascal__zip_8py.html">pascal</a>
  *  @see <a href="../pascal/pascal3.js">js code</a>
  *  @see <a href="../pascal/pascal.mjs">pascal in node</a>
@@ -44,7 +47,7 @@
  *  @param {Array<number>} a first array.
  *  @param {Array<number>} b second array.
  *  @return {Array<Array<number>>} an array of arrays: [ [a0,b0], [a1,b1], [a2,b2], ... ].
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map Array.prototype.map()}
  */
 const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 

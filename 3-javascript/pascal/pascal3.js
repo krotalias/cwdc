@@ -1,12 +1,25 @@
 /**
- * A wrapping function, so we can print its source to an element of a document.
+ * @file
+ *
+ * Summary.
+ * <p>A wrapping function, so we can print its source to an element of a document.</p>
  *
  * @author Paulo Roma
- * @since 06/08/2021
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString
+ * @since 18/06/2021
+ *
+ * @see <a href="/cwdc/3-javascript/pascal/pascal3.js">source</a>
+ */
+
+/**
+ * <p>A wrapping function, so we can print its source to an element of a document
+ * by using {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString toString()}.</p>
+ *
+ * @global
  */
 function displayCode() {
+  // prettier-ignore
   const zip = (a, b) => a.map((k, i) => [k, b[i]]), level = 20;
+  // prettier-ignore
   const center = (str, len) => str.padStart(str.length + Math.floor((len - str.length) / 2), " ").padEnd(len, " ");
 
   function* pascal(nlines, line = [1]) {

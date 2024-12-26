@@ -12,7 +12,7 @@ jsdoc -d doc-storage roman/roman.js
 jsdoc -d doc-cookies cookies.js
 jsdoc -c jsdoc.conf -d doc-cookies-module cookies.mjs
 jsdoc -d doc-closure closure/closure.js
-jsdoc -d doc-pascal pascal/pascal.js
+jsdoc -d doc-pascal pascal/pascal.js pascal/pascal2.js pascal/pascal3.js
 jsdoc -d doc-promises promises/promise.js
 jsdoc -d doc-promises2 promises/promise2.js DOM.js
 jsdoc -d doc-nodes nodes.js DOM.js
