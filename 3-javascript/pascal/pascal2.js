@@ -79,18 +79,39 @@ function displayPascal(level) {
  * The {@link displayPascal callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * Executed when the slider is changed.
+ * Only fires when the value is committed, such as by pressing the enter key or releasing the mouse button.
  *
  * @summary Appends an event listener for events whose type attribute value is change.
  *
  * @param {Event} event a generic event.
- * @event slider
+ * @event change
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
-document.getElementById("slider").onchange = function (event) {
+document.getElementById("slider").addEventListener("change", (event) => {
   const level = event.target.value.toString();
   displayPascal(+level, codeElement);
-};
+});
+
+/**
+ * <p>Fired when a &lt;input type="range"&gt; is in the
+ * {@link https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range) Range state}
+ * (by clicking or using the keyboard).</p>
+ *
+ * The {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML callback} argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * The input event is fired every time the value of the element changes.
+ *
+ * @summary Appends an event listener for events whose type attribute value is input.
+ *
+ * @param {Event} event a generic event.
+ * @event input
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+ */
+document.getElementById("slider").addEventListener("input", (event) => {
+  const level = event.target.value.toString();
+  document.querySelector("#range").innerHTML = level;
+});
 
 /**
  * <p>Loads the application.</p>
