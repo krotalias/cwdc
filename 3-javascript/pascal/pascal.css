@@ -73,6 +73,8 @@ body {
     height: auto;
     width: auto;
     white-space: nowrap; /* Thanks to Herb Caudill comment */
+    font-family: monospace;
+    font-size: 22px;
 }
 
 #testTri {

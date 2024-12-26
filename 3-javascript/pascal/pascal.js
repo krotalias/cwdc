@@ -79,21 +79,22 @@ function* pascal(nrows, row = [1]) {
 }
 
 /**
- * Display the pascal triangle.
+ * Display the pascal triangle in an HTML element identified by "#tri".
  *
  * @param {number} level last row index.
  * @returns {Array<Array<number>>} pascal triangle.
  */
 export function display(level = 20) {
-  let pascalTri = [...pascal(level)];
-  let mrow = pascalTri[level - 1].map(String);
+  const pascalTri = [...pascal(level)];
+  const mrow = pascalTri[level - 1].map(String);
   // length of the last row
-  let mlen = mrow.join(" ").length;
+  const mlen = mrow.join(" ").length;
+  const triElement = document.getElementById("tri");
+  triElement.innerHTML = "";
 
   pascalTri.forEach((p) => {
     if (typeof document != "undefined") {
-      document.getElementById("tri").innerHTML +=
-        center(p.map(String).join(" "), mlen) + "<br>";
+      triElement.innerHTML += center(p.map(String).join(" "), mlen) + "<br>";
     } else console.log(center(p.map(String).join(" "), mlen));
   });
   return pascalTri;

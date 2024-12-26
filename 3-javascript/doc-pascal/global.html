@@ -94,6 +94,154 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="codeElement"><span class="type-signature"></span>codeElement<span class="type-signature"> :HTMLElement</span></h4>
+
+
+
+
+<div class="description">
+    Element used to calculate the code width.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">HTMLElement</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pascal2.js.html">pascal2.js</a>, <a href="pascal2.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="triElement"><span class="type-signature"></span>triElement<span class="type-signature"> :HTMLElement</span></h4>
+
+
+
+
+<div class="description">
+    Element used to calculate the triangle width.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">HTMLElement</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pascal2.js.html">pascal2.js</a>, <a href="pascal2.js.html#line37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -188,10 +336,568 @@ by using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="displayPascal"><span class="type-signature"></span>displayPascal<span class="signature">(level)</span><span class="type-signature"></span></h4>
     
 
     
 
+
+
+<div class="description">
+    Display the Pascal triangle.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>level</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">pascal triangle level.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pascal2.js.html">pascal2.js</a>, <a href="pascal2.js.html#line60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showCode"><span class="type-signature"></span>showCode<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Display the code in 12 lines.</p>
+<p>We need to remove the wrapping function at the first line, and the comments.</p>
+The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString">toString()</a>
+method returns a string representing the source code of the function.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pascal2.js.html">pascal2.js</a>, <a href="pascal2.js.html#line45">line 45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+        <h3 class="subsection-title">Events</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:load">load</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Loads the application.</p>
+<p>The load event is fired when the whole page has loaded,
+including all dependent resources such as stylesheets,
+scripts, iframes, and images, except those that are loaded lazily.</p>
+
+<p>The callback argument sets the <a href="global.html#displayPascal">callback</a>
+that will be invoked when the event is dispatched.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">event</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a generic event.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>function</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">function to run when the event occurs.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pascal2.js.html">pascal2.js</a>, <a href="pascal2.js.html#line95">line 95</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event">Window: load event</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:slider">slider</h4>
+    
+
+    
+    <p class="summary">Appends an event listener for events whose type attribute value is change.</p>
+    
+
+
+
+<div class="description">
+    <p>Fired when a &lt;input type="range"&gt; is in the
+<a href="https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range)">Range state</a>
+(by clicking or using the keyboard).</p>
+
+The <a href="global.html#displayPascal">callback</a> argument sets the callback that will be invoked when
+the event is dispatched.</p>
+
+Executed when the slider is changed.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a generic event.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pascal2.js.html">pascal2.js</a>, <a href="pascal2.js.html#line74">line 74</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event">HTMLElement: change event</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
 </article>
 
@@ -203,13 +909,13 @@ by using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-pascal.html">pascal</a></li></ul><h3>Global</h3><ul><li><a href="global.html#displayCode">displayCode</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-pascal.html">pascal</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:slider">slider</a></li></ul><h3>Global</h3><ul><li><a href="global.html#codeElement">codeElement</a></li><li><a href="global.html#displayCode">displayCode</a></li><li><a href="global.html#displayPascal">displayPascal</a></li><li><a href="global.html#showCode">showCode</a></li><li><a href="global.html#triElement">triElement</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Dec 26 2024 08:12:16 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Dec 26 2024 11:09:58 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

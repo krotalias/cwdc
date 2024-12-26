@@ -52,33 +52,98 @@
 
 import { display } from "./pascal.js";
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const level = urlParams.get("level");
+/**
+ * Element used to calculate the code width.
+ * @type {HTMLElement}
+ */
+let codeElement;
 
-// display the triangle
-let mrow = display(parseInt(level) || 10);
-const testTri = document.querySelector("#testTri");
-testTri.innerHTML = mrow.slice(-1).join(" ");
+/**
+ * Element used to calculate the triangle width.
+ * @type {HTMLElement}
+ */
+let triElement;
 
-// the toString() method returns a string representing the source code of the function.
-const testCode = document.querySelector("#testCode");
-let code = displayCode.toString();
-testCode.innerHTML = code.split("\n")[2]; // longest line of code
+/**
+ * &lt;p>Display the code in 12 lines.&lt;/p>
+ * &lt;p>We need to remove the wrapping function at the first line, and the comments.&lt;/p>
+ * The {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString toString()}
+ * method returns a string representing the source code of the function.
+ */
+function showCode() {
+  const code = displayCode.toString();
+  codeElement.innerHTML = code.split("\n")[2]; // longest line of code
 
-// calculate the size of the boxes for the code and triangle.
-let wTri = testTri.clientWidth + 1 + "px";
-let wCode = testCode.clientWidth + 1 + "px";
-document.documentElement.style.setProperty("--wTri", wTri);
-document.documentElement.style.setProperty("--wCode", wCode);
+  const lines = code.split("\n");
+  lines.splice(0, 2); // first two lines
+  lines.splice(1, 1); // remove fourth line
+  lines.splice(-1, 1); // remove last line
+  document.getElementById("code").innerHTML = lines.join("\n");
+}
 
-// display the code
-// we need to remove the wrapping function at the first line
-const lines = code.split("\n");
-lines.splice(0, 2); // first two lines
-lines.splice(1, 1); // remove fourth line
-lines.splice(-1, 1); // remove last line
-document.getElementById("code").innerHTML = lines.join("\n");
+/**
+ * Display the Pascal triangle.
+ * @param {Number} level pascal triangle level.
+ */
+function displayPascal(level) {
+  // display the triangle
+  const mrow = display(level);
+  triElement.innerHTML = mrow.slice(-1)[0].join(" ");
+
+  // calculate the size of the boxes for the code and triangle.
+  const wTri = `${triElement.clientWidth + 1}px`;
+  const wCode = `${codeElement.clientWidth + 1}px`;
+  document.documentElement.style.setProperty("--wTri", wTri);
+  document.documentElement.style.setProperty("--wCode", wCode);
+  document.querySelector("#range").innerHTML = level;
+  document.querySelector("#slider").value = level;
+}
+
+/**
+ * &lt;p>Fired when a &amp;lt;input type="range"&amp;gt; is in the
+ * {@link https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range) Range state}
+ * (by clicking or using the keyboard).&lt;/p>
+ *
+ * The {@link displayPascal callback} argument sets the callback that will be invoked when
+ * the event is dispatched.&lt;/p>
+ *
+ * Executed when the slider is changed.
+ *
+ * @summary Appends an event listener for events whose type attribute value is change.
+ *
+ * @param {Event} event a generic event.
+ * @event slider
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+ */
+document.getElementById("slider").onchange = function (event) {
+  const level = event.target.value.toString();
+  displayPascal(+level, codeElement);
+};
+
+/**
+ * &lt;p>Loads the application.&lt;/p>
+ * &lt;p>The load event is fired when the whole page has loaded,
+ * including all dependent resources such as stylesheets,
+ * scripts, iframes, and images, except those that are loaded lazily.&lt;/p>
+ *
+ * &lt;p>The callback argument sets the {@link displayPascal callback}
+ * that will be invoked when the event is dispatched.&lt;/p>
+ * @event load
+ * @param {event} event a generic event.
+ * @param {callback} function function to run when the event occurs.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ */
+window.addEventListener("load", () => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const level = urlParams.get("level");
+
+  codeElement = document.querySelector("#testCode");
+  triElement = document.querySelector("#testTri");
+
+  showCode();
+  displayPascal(parseInt(level) || 10);
+});
 </code></pre>
         </article>
     </section>
@@ -89,13 +154,13 @@ document.getElementById("code").innerHTML = lines.join("\n");
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-pascal.html">pascal</a></li></ul><h3>Global</h3><ul><li><a href="global.html#displayCode">displayCode</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-pascal.html">pascal</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:slider">slider</a></li></ul><h3>Global</h3><ul><li><a href="global.html#codeElement">codeElement</a></li><li><a href="global.html#displayCode">displayCode</a></li><li><a href="global.html#displayPascal">displayPascal</a></li><li><a href="global.html#showCode">showCode</a></li><li><a href="global.html#triElement">triElement</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Dec 26 2024 08:12:16 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Dec 26 2024 11:09:58 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
