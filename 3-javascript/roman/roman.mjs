@@ -33,7 +33,7 @@ import * as romano from "./roman.js";
   // argv is (not defined) OR (defined AND uninitialized)
   if (typeof argv === "undefined") argv = process.argv;
 
-  var n, a, roman;
+  let n, a, roman;
   if (argv.length > 2) {
     a = argv[2];
     argv = [];
@@ -45,8 +45,8 @@ import * as romano from "./roman.js";
     roman = romano.int2romanFast(n);
   } else {
     roman = a;
-    let s = romano.validateRoman(roman);
-    let t = romano.reRoman(roman);
+    const s = romano.validateRoman(roman);
+    const t = romano.reRoman(roman);
     console.log(`Roman ${roman} is ${t ? "" : "in"}valid`);
     if (s) roman = `Exception ${s} : Invalid roman "${roman}"`;
     n = s.length == 0 ? romano.roman2int(roman) : 0;

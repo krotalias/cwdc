@@ -102,7 +102,7 @@ roman_button.onclick = (e) => {
  * @see {@link https://api.jquery.com/keyup/#on1 .on( "keyup" [, eventData ], handler )}
  */
 $('[name="decimal"]').on("change keyup", function (e) {
-  let value = $(this).val();
+  const value = $(this).val();
   $('[name="roman"]').val(int2romanFast(value));
 });
 
@@ -131,7 +131,7 @@ roman.oninput = (e) => {
  */
 decimal_button.onclick = (e) => {
   e.preventDefault(); // there is no server - nothing to submit
-  var val = validateRoman(roman.value);
+  const val = validateRoman(roman.value);
   decimal.value = val.length == 0 ? roman2int(roman.value) : 0;
   if (decimal.value == 0) {
     alert(`Exception ${val} : Invalid roman "${roman.value}"`);

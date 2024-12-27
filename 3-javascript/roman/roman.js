@@ -51,20 +51,20 @@
  * @return {String} a string with num represented as a roman numeral.
  */
 export function int2roman(num) {
-  var roman = ""; // Empty string
+  let roman = ""; // Empty string
   if (num >= 4000000 || num < 1) {
     roman = "N/A";
   } else {
     // prettier-ignore
-    var symbols = [ "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
-    var decimals = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+    const symbols = [ "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
+    const decimals = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
 
-    var ptr = 0;
+    let ptr = 0;
 
     // The part of the number above 4000
     // should be between parentheses.
     if (num >= 4000) {
-      let excess = Math.floor(num / 1000);
+      const excess = Math.floor(num / 1000);
       // What is less than 4000 should be
       // outside the parentheses.
       if (excess % 10 < 4) {
@@ -78,7 +78,7 @@ export function int2roman(num) {
     while (num > 0) {
       // See how many of the currently selected value can
       // fit in the remaining input.
-      let temp = Math.floor(num / decimals[ptr]);
+      const temp = Math.floor(num / decimals[ptr]);
 
       // Append a number of Roman characters depending
       // on the value of "temp".
@@ -114,7 +114,7 @@ export function int2roman(num) {
  */
 export function int2romanFast(num) {
   // prettier-ignore
-  var symbols = [
+  const symbols = [
     ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"], // units
     ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"], // tens
     ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"], // hundreds
@@ -124,21 +124,21 @@ export function int2romanFast(num) {
     ["", "(M)", "(MM)", "(MMM)", "", "", "", "", "", ""]          // millions
   ];
 
-  var roman = "";
+  let roman = "";
   if (num >= 4000000 || num < 1) roman = roman.concat("N/A");
   else {
     // Convert num to String.
-    var cnum = num.toString();
+    const cnum = num.toString();
     // Find out how many digits are in
     // the input number (magnitude).
-    var strlen = cnum.length - 1;
+    let strlen = cnum.length - 1;
 
     // The loop is executed at most 7 times, and
     // it uses no division or multiplication.
     // Loop forward  (0,1,...,len-1).
-    for (let c of cnum) {
+    for (const c of cnum) {
       // dig between [0,9]: parseInt(c) == c.charCodeAt(0) - '0'.charCodeAt(0)
-      let dig = parseInt(c);
+      const dig = parseInt(c);
       // Loop backward (len-1,len-2,len-3,...,0).
       roman = roman.concat(symbols[strlen][dig]);
       strlen -= 1;
@@ -157,15 +157,15 @@ export function int2romanFast(num) {
  */
 export function roman2int(roman) {
   // An associative array for mapping roman literals to numbers.
-  var d = { M: 1000, D: 500, C: 100, L: 50, X: 10, V: 5, I: 1 };
+  const d = { M: 1000, D: 500, C: 100, L: 50, X: 10, V: 5, I: 1 };
 
-  var total = 0,
+  let total = 0,
     pptr = 0,
     cptr = 0,
     m = false;
-  var validc = "MDCLXVImdclxvi()";
+  const validc = "MDCLXVImdclxvi()";
   /*
-  var len = roman.length;
+  const len = roman.length;
   for ( let i = 0; i < len; i++ ) {
      let c = roman[len-i-1];  // traverse the string backward
   */
@@ -195,31 +195,31 @@ export function roman2int(roman) {
  */
 export function validateRoman(romano) {
   romano = romano.toUpperCase();
-  var s = [romano, ""];
+  const s = [romano, ""];
   // An associative array for mapping roman literals to numbers.
-  var d = { M: 1000, D: 500, C: 100, L: 50, X: 10, V: 5, I: 1 };
+  const d = { M: 1000, D: 500, C: 100, L: 50, X: 10, V: 5, I: 1 };
 
-  var position = romano.indexOf("("); // find first occurrence
+  const position = romano.indexOf("("); // find first occurrence
   if (position >= 0) {
-    var position2 = romano.indexOf(")");
+    const position2 = romano.indexOf(")");
     s[0] = romano.substring(position + 1, position2);
     s[1] = romano.substring(position2 + 1, romano.length);
   }
 
   for (let j = 0; j < 2; ++j) {
-    var r = s[j];
-    var lr = r.length;
+    const r = s[j];
+    const lr = r.length;
     if (lr == 0) continue;
     if ("MDCLXVI".indexOf(r[lr - 1]) < 0) return String.fromCharCode(r[lr - 1]);
     for (let i = 0; i < lr - 1; ++i) {
-      var c = r[i];
-      var c1 = r[i + 1];
+      const c = r[i];
+      const c1 = r[i + 1];
 
       if ("MDCLXVI".indexOf(c) < 0) return String.fromCharCode(c);
       if (i + 2 < lr) {
-        var c2 = r[i + 2];
+        const c2 = r[i + 2];
         if (i + 3 < lr) {
-          var c3 = r[i + 3];
+          const c3 = r[i + 3];
           if (c == c1 && c == c2 && c == c3)
             return "0: " + r.substring(i, i + 4);
         }
@@ -260,8 +260,8 @@ export function validateRoman(romano) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test RegExp.prototype.test()}
  */
 export function reRoman(romano) {
-  let regex = /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i;
-  let regex2 =
+  const regex = /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i;
+  const regex2 =
     /^(?=[MDCLXVI])M*(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})$/i;
 
   console.assert(regex.test(romano) === regex2.test(romano));
