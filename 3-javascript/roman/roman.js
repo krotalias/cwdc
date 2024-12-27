@@ -3,10 +3,11 @@
 /**
  *  @file
  *
- *  <p>Converting decimal numbers to roman numerals and vice versa.</p>
+ * <p><a href="/cwdc/downloads/python/laboratorios.html#roman">Converting</a> decimal numbers to roman numerals and vice versa.</p>
  *
- *  <p>Roman numerals, the numeric system in ancient Rome, uses combinations of letters
- *  from the Latin alphabet to signify values. </p>
+ * <p>{@link https://en.wikipedia.org/wiki/Roman_numerals Roman numerals},
+ * the numeric system in ancient Rome, uses combinations of letters
+ * from the Latin alphabet to signify values. </p>
  *
  * <p>The numbers 1 to 10, 50, 100, 500 e 1000
  * can be expressed in Roman numerals as follows: </p>
@@ -27,7 +28,7 @@
  *  - Ubuntu:
  *     - sudo apt install jsdoc-toolkit
  *  - MacOS:
- *     - sudo port install npm8 (or npm9)
+ *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
  *  - jsdoc -d doc-roman roman.js
  *
@@ -37,18 +38,17 @@
  *  - node roman.mjs [number|string]
  *  </pre>
  *
- *  @author Paulo Roma
- *  @since 04/05/2021
- *  @see https://en.wikipedia.org/wiki/Roman_numerals
- *  @see <a href="/cwdc/3-javascript/roman/roman.js">source</a>
- *  @see <a href="../doc-roman-node">roman in node</a>
- *  @see <img src="../roman/roman.png" width="340">
+ * @author Paulo Roma
+ * @since 04/05/2021
+ * @see <a href="/cwdc/3-javascript/roman/roman.js">source</a>
+ * @see <a href="../doc-roman-node">roman in node</a>
+ * @see <img src="../roman/roman.png" width="340">
  */
 
 /**
- *   Converts an integer number to its roman numeral representation.
- *   @param {Number} num given number.
- *   @return {String} a string with num represented as a roman numeral.
+ * Converts an integer number to its roman numeral representation.
+ * @param {Number} num given number.
+ * @return {String} a string with num represented as a roman numeral.
  */
 export function int2roman(num) {
   var roman = ""; // Empty string
@@ -98,19 +98,19 @@ export function int2roman(num) {
 }
 
 /**
- *   Converts an integer number to roman.
- *   <p>
+ * Converts an integer number to roman.
+ * <p>
  *   The decimal numeral system (also called base ten or occasionally denary)
  *   has ten as its base. It is the numerical base most widely used by modern civilizations.
- *   <p>
- *   Decimal notation often refers to a base-10 positional notation,
- *   such as the Hindu-Arabic numeral system; however, it can also
- *   be used more generally to refer to non-positional systems, such as Roman.
+ * <p>
+ * Decimal notation often refers to a base-10 positional notation,
+ * such as the Hindu-Arabic numeral system; however, it can also
+ * be used more generally to refer to non-positional systems, such as Roman.
  *
- *   @param {Number} num integer to be converted to roman.
- *   @return {String} string representing the given integer as a roman numeral.
- *   @see https://www.javascripttutorial.net/es6/javascript-const/
- *   @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt
+ * @param {Number} num integer to be converted to roman.
+ * @return {String} string representing the given integer as a roman numeral.
+ * @see {@link https://www.javascripttutorial.net/es6/javascript-const/ JavaScript const: Declaring Constants in ES6}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt String.prototype.charCodeAt()}
  */
 export function int2romanFast(num) {
   // prettier-ignore
@@ -149,11 +149,11 @@ export function int2romanFast(num) {
 }
 
 /**
- *   Converts a roman numeral to decimal.
+ * Converts a roman numeral to decimal.
  *
- *   @param {String} roman roman numeral to be converted to decimal.
- *   @return {Number} integer equivalent to the given roman numeral.
- *   @throws {Error} an error if the given roman numeral is invalid.
+ * @param {String} roman roman numeral to be converted to decimal.
+ * @return {Number} integer equivalent to the given roman numeral.
+ * @throws {Error} an error if the given roman numeral is invalid.
  */
 export function roman2int(roman) {
   // An associative array for mapping roman literals to numbers.
@@ -188,10 +188,10 @@ export function roman2int(roman) {
 }
 
 /**
- *   Validates a roman numeral.
+ * Validates a roman numeral.
  *
- *   @param {String} romano roman numeral to be validated.
- *   @return {String} error code string.
+ * @param {String} romano roman numeral to be validated.
+ * @return {String} error code string.
  */
 export function validateRoman(romano) {
   romano = romano.toUpperCase();
@@ -255,9 +255,9 @@ export function validateRoman(romano) {
  * @param {String} romano roman numeral to be validated.
  * @return {Boolean} true if there is a match between the regular expression and the string romano.
  *                   Otherwise, false.
- * @see https://regexr.com/3a406
- * @see https://www.oreilly.com/library/view/regular-expressions-cookbook/9780596802837/ch06s09.html
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
+ * @see {@link https://regexr.com/3a406 Roman Numerals}
+ * @see {@link https://www.oreilly.com/library/view/regular-expressions-cookbook/9780596802837/ch06s09.html 6.9 Roman Numerals}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test RegExp.prototype.test()}
  */
 export function reRoman(romano) {
   let regex = /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i;
