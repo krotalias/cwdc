@@ -13,8 +13,6 @@
 /**
  * <p>A wrapping function, so we can print its source to an element of a document
  * by using {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString toString()}.</p>
- *
- * @global
  */
 function displayCode() {
   // prettier-ignore
@@ -34,5 +32,3 @@ function displayCode() {
   const mlen = pascalTri.slice(-1).map(String).join(" ").length;
   pascalTri.forEach((p) => console.log(center(p.map(String).join(" "), mlen)));
 }
-
-displayCode();

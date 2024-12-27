@@ -44,9 +44,10 @@ let triElement;
  */
 function showCode() {
   const code = displayCode.toString();
-  codeElement.innerHTML = code.split("\n")[2]; // longest line of code
-
   const lines = code.split("\n");
+
+  codeElement.innerHTML = lines[2]; // longest line of code
+
   lines.splice(0, 2); // first two lines
   lines.splice(1, 1); // remove fourth line
   lines.splice(-1, 1); // remove last line
@@ -54,7 +55,8 @@ function showCode() {
 }
 
 /**
- * Display the Pascal triangle.
+ * Display the Pascal triangle and calculate the width of the boxes,
+ * so we can set the slider length.
  * @param {Number} level pascal triangle level.
  */
 function displayPascal(level) {

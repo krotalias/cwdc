@@ -4,7 +4,8 @@
  *  @file
  *
  * Summary.
- * <p>A Pascal triangle generator using yield.</p>
+ * <p>A <a href="/cwdc/downloads/python/laboratorios.html#pascal">Pascal triangle</a>
+ * generator using yield.</p>
  *
  * Description.
  * <p>When you call a {@link https://en.wikipedia.org/wiki/Generator_(computer_science) generator},
@@ -89,11 +90,15 @@ export function display(level = 20) {
   const mrow = pascalTri[level - 1].map(String);
   // length of the last row
   const mlen = mrow.join(" ").length;
-  const triElement = document.getElementById("tri");
-  triElement.innerHTML = "";
+
+  let triElement = null;
+  if (typeof document != "undefined") {
+    triElement = document.getElementById("tri");
+    triElement.innerHTML = "";
+  }
 
   pascalTri.forEach((p) => {
-    if (typeof document != "undefined") {
+    if (triElement) {
       triElement.innerHTML += center(p.map(String).join(" "), mlen) + "<br>";
     } else console.log(center(p.map(String).join(" "), mlen));
   });
