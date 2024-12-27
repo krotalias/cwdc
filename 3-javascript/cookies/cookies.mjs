@@ -1,53 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: cookies.mjs</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
-
-<body>
-
-<div id="main">
-
-    <h1 class="page-title">Source: cookies.mjs</h1>
-
-    
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
+/**
  *  @file
  *
  *  Cookies are data, stored in small text files, on your computer.
- *  &lt;p>
+ *  <p>
  *  When a web server has sent a web page to a browser, the connection is shut down, and the server forgets everything about the user.
- *  &lt;/p>
+ *  </p>
  *  Cookies were invented to solve the problem "how to remember information about the user":
- *  &lt;p>
+ *  <p>
  *  When a user visits a web page, his/her name can be stored in a cookie.
- *  Next time the user visits the page, the cookie "remembers" his/her name.&lt;br>
+ *  Next time the user visits the page, the cookie "remembers" his/her name.<br>
  *  Cookies are saved in name-value pairs like:
- *  &lt;/p>
+ *  </p>
  *  username = John Doe
- *  &lt;p>
- *  When a browser requests a web page from a server, cookies belonging to the page are added to the request. &lt;br>
+ *  <p>
+ *  When a browser requests a web page from a server, cookies belonging to the page are added to the request. <br>
  *  This way the server gets the necessary data to "remember" information about users.
- *  &lt;/p>
+ *  </p>
  *  @author Paulo Roma.
  *  @since 05/05/2021
- *  @see &lt;a href="/cwdc/3-javascript/cookies/cookies.mjs">source&lt;/a>
- *  @see &lt;a href="../../7-mysql/showcode.php?f=8.7">php&lt;/a>
+ *  @see <a href="/cwdc/3-javascript/cookies/cookies.mjs">source</a>
+ *  @see <a href="../../7-mysql/showcode.php?f=8.7">php</a>
  *  @see {@link https://www.w3schools.com/js/js_cookies.asp JavaScript Cookies}
  *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie Document: cookie property}
  *  @see {@link https://clearcode.cc/blog/browsers-first-third-party-cookies/ How Different Browsers Handle First-Party and Third-Party Cookies}
@@ -87,16 +59,16 @@ export function deleteCookie(cname) {
   // console.log(document.cookie);
 }
 
-/** &lt;p>Returns the value of a specified cookie.&lt;/p>
+/** <p>Returns the value of a specified cookie.</p>
  *
- * console.log(decodeURIComponent(document.cookie).split(';'));&lt;br>
+ * console.log(decodeURIComponent(document.cookie).split(';'));<br>
  * Array (4)
- * &lt;ul style="list-style-type:none;">
- *  &lt;li> 0 "username=Paulo Roma" &lt;/li>
- *  &lt;li> 1 " __utma=30314110.38272483.1627839402.1627839402.1627839402.1" &lt;/li>
- *  &lt;li> 2 " __utmc=30314110" &lt;/li>
- *  &lt;li> 3 " __utmz=30314110.1627839402.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)" &lt;/li>
- * &lt;/ul>
+ * <ul style="list-style-type:none;">
+ *  <li> 0 "username=Paulo Roma" </li>
+ *  <li> 1 " __utma=30314110.38272483.1627839402.1627839402.1627839402.1" </li>
+ *  <li> 2 " __utmc=30314110" </li>
+ *  <li> 3 " __utmz=30314110.1627839402.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)" </li>
+ * </ul>
  *
  *  @param {String} cname name of the cookie.
  *  @return {String} the value of the cookie.
@@ -116,10 +88,10 @@ export function getCookie(cname) {
 
 /** Check a Cookie.
  *  If the cookie is set it will display a greeting.
- *  &lt;p>
+ *  <p>
  *  If the cookie is not set, it will display a prompt box, asking for the value of the cookie,
  *  and stores the cookie for 30 days, by calling setCookie.
- *  &lt;/p>
+ *  </p>
  * @param {String} cname name of the cookie.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/prepend Element: prepend() method}]
  */
@@ -134,7 +106,7 @@ export function checkCookie(cname) {
     div.prepend(para);
   } else {
     user = prompt("Please enter your name:", "");
-    if (user != "" &amp;&amp; user != null) {
+    if (user != "" && user != null) {
       setCookie(cname, user, 30);
       displayAllCookies();
     }
@@ -147,24 +119,24 @@ export function checkCookie(cname) {
 export function displayCookies() {
   const ca = document.cookie.split(";");
 
-  document.write('&lt;div class="square">');
-  document.write("&lt;p>Press ctrl-Esc to delete the 'username' cookie!&lt;/p>");
+  document.write('<div class="square">');
+  document.write("<p>Press ctrl-Esc to delete the 'username' cookie!</p>");
   document.write(
-    `&lt;h2>Found the following ${ca.length} cookies:&lt;/h2>\n&lt;ul style="margin-left:em;">`,
+    `<h2>Found the following ${ca.length} cookies:</h2>\n<ul style="margin-left:em;">`,
   );
   for (const c of ca) {
     const cookie = c.split("=")[0].trimStart();
     const value = getCookie(cookie);
     if (cookie == "username")
-      document.write(`&lt;li style="color: red;">${cookie}: ${value}&lt;/li>`);
-    else document.write(`&lt;li>${cookie}: ${value}&lt;/li>`);
+      document.write(`<li style="color: red;">${cookie}: ${value}</li>`);
+    else document.write(`<li>${cookie}: ${value}</li>`);
   }
-  document.write("&lt;/ul>");
+  document.write("</ul>");
   if (ca.length > 0) {
-    document.write(`&lt;p>Click &lt;a href=${window.location.pathname}>here&lt;/a> to go back
-        and &lt;a href="https://klauslaube.com.br/2012/04/05/entendendo-os-cookies-e-sessoes.html">here&lt;/a> to know more.&lt;/p>`);
+    document.write(`<p>Click <a href=${window.location.pathname}>here</a> to go back
+        and <a href="https://klauslaube.com.br/2012/04/05/entendendo-os-cookies-e-sessoes.html">here</a> to know more.</p>`);
   }
-  document.write("&lt;/div>");
+  document.write("</div>");
 }
 
 /**
@@ -182,41 +154,18 @@ export function displayAllCookies() {
   if (div == undefined) document.body.appendChild(newdiv);
   else document.body.replaceChild(newdiv, div);
   newdiv.className = "square";
-  newdiv.innerHTML += "&lt;p>Press ctrl-Esc to delete the 'username' cookie!&lt;/p>";
-  newdiv.innerHTML += `&lt;h2>Found the following ${ca.length} cookies:&lt;/h2>\n&lt;ul style="margin-left:em;">`;
+  newdiv.innerHTML += "<p>Press ctrl-Esc to delete the 'username' cookie!</p>";
+  newdiv.innerHTML += `<h2>Found the following ${ca.length} cookies:</h2>\n<ul style="margin-left:em;">`;
   for (const c of ca) {
     const cookie = c.split("=")[0].trimStart();
     const value = getCookie(cookie);
     if (cookie == "username")
-      newdiv.innerHTML += `&lt;li style="color: red;">${cookie}: ${value}&lt;/li>`;
-    else newdiv.innerHTML += `&lt;li>${cookie}: ${value}&lt;/li>`;
+      newdiv.innerHTML += `<li style="color: red;">${cookie}: ${value}</li>`;
+    else newdiv.innerHTML += `<li>${cookie}: ${value}</li>`;
   }
   if (ca.length > 0) {
-    newdiv.innerHTML += `&lt;p>Click &lt;a href=${window.location.pathname}>here&lt;/a>
-      to go back and &lt;a href="https://klauslaube.com.br/2012/04/05/entendendo-os-cookies-e-sessoes.html">here&lt;/a>
-      to know more.&lt;/p>`;
+    newdiv.innerHTML += `<p>Click <a href=${window.location.pathname}>here</a>
+      to go back and <a href="https://klauslaube.com.br/2012/04/05/entendendo-os-cookies-e-sessoes.html">here</a>
+      to know more.</p>`;
   }
 }
-</code></pre>
-        </article>
-    </section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkCookie">checkCookie</a></li><li><a href="global.html#deleteCookie">deleteCookie</a></li><li><a href="global.html#displayAllCookies">displayAllCookies</a></li><li><a href="global.html#displayCookies">displayCookies</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#setCookie">setCookie</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Dec 27 2024 09:46:44 GMT-0300 (Brasilia Standard Time)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
-</body>
-</html>

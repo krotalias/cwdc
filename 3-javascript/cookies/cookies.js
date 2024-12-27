@@ -18,12 +18,12 @@
  *  </p>
  *  @author Paulo Roma.
  *  @since 05/05/2021
- *  @see <a href="/cwdc/3-javascript/cookies.html">link</a>
- *  @see <a href="/cwdc/3-javascript/cookies.js">source</a>
+ *  @see <a href="/cwdc/3-javascript/cookies/cookies.html">link</a>
+ *  @see <a href="/cwdc/3-javascript/cookies/cookies.js">source</a>
  *  @see <a href="../../7-mysql/showcode.php?f=8.7">php</a>
- *  @see https://www.w3schools.com/js/js_cookies.asp
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
- *  @see https://alightanalytics.com/alight-insights/safari-first-party-cookies/
+ *  @see {@link https://www.w3schools.com/js/js_cookies.asp JavaScript Cookies}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie Document: cookie property}
+ *  @see {@link https://clearcode.cc/blog/browsers-first-third-party-cookies/ How Different Browsers Handle First-Party and Third-Party Cookies Safari}
  */
 "use strict";
 
@@ -32,16 +32,16 @@
  *  @param {String} cname name of the cookie.
  *  @param {String} cvalue the value of the cookie.
  *  @param {Number} exdays the number of days until the cookie should expire.
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toUTCString
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toUTCString Date.prototype.toUTCString()}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie Document: cookie property}
  */
 function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
+  const d = new Date();
   // Default at 365 days.
   exdays = exdays || 365;
   // Get unix milliseconds at current time plus number of days
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  var expires = "expires=" + d.toUTCString();
+  const expires = "expires=" + d.toUTCString();
   // cvalue must be encoded because it can be utf-8
   document.cookie = `${cname}=${encodeURIComponent(cvalue)};${expires};path=/`; // cname + "=" + cvalue + ";" + expires + ";path=/";
   // console.log(document.cookie);
@@ -73,17 +73,17 @@ function deleteCookie(cname) {
  *
  *  @param {String} cname name of the cookie.
  *  @return {String} the value of the cookie.
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring String.prototype.substring()}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith String.prototype.startsWith()}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf String.prototype.indexOf()}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find Array.prototype.find()}
  */
 function getCookie(cname) {
-  var name = cname.trimStart() + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(";");
+  const name = cname.trimStart() + "=";
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(";");
 
-  let cookie = ca.find((row) => row.trim().startsWith(name));
+  const cookie = ca.find((row) => row.trim().startsWith(name));
   return cookie == undefined ? "" : cookie.split("=")[1];
 }
 
@@ -94,13 +94,13 @@ function getCookie(cname) {
  *  and stores the cookie for 30 days, by calling setCookie.
  *  </p>
  * @param {String} cname name of the cookie.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/prepend
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/prepend Element: prepend() method}
  */
 function checkCookie(cname) {
-  var user = getCookie(cname);
+  let user = getCookie(cname);
   if (user != "") {
     //alert(`Welcome back ${user}`);
-    let div = document.querySelector(".square");
+    const div = document.querySelector(".square");
     const para = document.createElement("h2");
     const node = document.createTextNode(`Welcome back ${user}`);
     para.appendChild(node);
@@ -118,16 +118,16 @@ function checkCookie(cname) {
  * Display all cookies.
  */
 function displayCookies() {
-  var ca = document.cookie.split(";");
+  const ca = document.cookie.split(";");
 
   document.write('<div class="square">');
   document.write("<p>Press ctrl-Esc to delete the 'username' cookie!</p>");
   document.write(
-    `<h2>Found the following ${ca.length} cookies:</h2>\n<ul style="margin-left:em;">`
+    `<h2>Found the following ${ca.length} cookies:</h2>\n<ul style="margin-left:em;">`,
   );
-  for (let c of ca) {
-    let cookie = c.split("=")[0].trimStart();
-    let value = getCookie(cookie);
+  for (const c of ca) {
+    const cookie = c.split("=")[0].trimStart();
+    const value = getCookie(cookie);
     if (cookie == "username")
       document.write(`<li style="color: red;">${cookie}: ${value}</li>`);
     else document.write(`<li>${cookie}: ${value}</li>`);
@@ -143,24 +143,24 @@ function displayCookies() {
 /**
  * Display all cookies by creating new DOM nodes.
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
- * @see https://www.javatpoint.com/javascript-queryselector
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement Document: createElement() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild Node: appendChild() method}
+ * @see {@link https://www.javatpoint.com/javascript-queryselector JavaScript querySelector}
  */
 function displayAllCookies() {
-  var ca = document.cookie.split(";");
+  const ca = document.cookie.split(";");
 
   // search and return the first element for the given CSS selector within the document
-  let div = document.querySelector(".square");
-  let newdiv = document.createElement("div");
+  const div = document.querySelector(".square");
+  const newdiv = document.createElement("div");
   if (div == undefined) document.body.appendChild(newdiv);
   else document.body.replaceChild(newdiv, div);
   newdiv.className = "square";
   newdiv.innerHTML += "<p>Press ctrl-Esc to delete the 'username' cookie!</p>";
   newdiv.innerHTML += `<h2>Found the following ${ca.length} cookies:</h2>\n<ul style="margin-left:em;">`;
-  for (let c of ca) {
-    let cookie = c.split("=")[0].trimStart();
-    let value = getCookie(cookie);
+  for (const c of ca) {
+    const cookie = c.split("=")[0].trimStart();
+    const value = getCookie(cookie);
     if (cookie == "username")
       newdiv.innerHTML += `<li style="color: red;">${cookie}: ${value}</li>`;
     else newdiv.innerHTML += `<li>${cookie}: ${value}</li>`;
@@ -171,3 +171,27 @@ function displayAllCookies() {
       to know more.</p>`;
   }
 }
+
+/**
+ * <p>Appends an event listener for events whose type attribute value is keydown.</p>
+ * The callback argument sets the {@link deleteCookie callback} that will be invoked when the event is dispatched.
+ * <p>If the key ctrl-Escape is pressed, the cookie "username" is deleted and a new one is created.</p>
+ * @event keydown
+ */
+window.addEventListener("keydown", function (event) {
+  if (event.ctrlKey && event.key === "Escape") {
+    deleteCookie("username");
+    alert("Cookie deleted");
+    checkCookie("username");
+  }
+});
+
+/**
+ * <p>Loads the appication.</p>
+ * {@link displayAllCookies} and {@link checkCookie}.
+ * @event load
+ */
+window.addEventListener("load", () => {
+  displayAllCookies();
+  checkCookie("username");
+});

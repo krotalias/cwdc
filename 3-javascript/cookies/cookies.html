@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -25,16 +25,5 @@
 
     <body>
         <script src="./cookies.js"></script>
-        <script>
-            window.onkeydown = function (event) {
-                if (event.ctrlKey && event.key === "Escape") {
-                    deleteCookie("username");
-                    alert("Cookie deleted");
-                    checkCookie("username");
-                }
-            };
-            displayAllCookies();
-            checkCookie("username");
-        </script>
     </body>
 </html>
