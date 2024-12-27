@@ -1,28 +1,32 @@
 /**
- *  @file
+ * @file
  *
- *  Cookies are data, stored in small text files, on your computer.
- *  <p>
- *  When a web server has sent a web page to a browser, the connection is shut down, and the server forgets everything about the user.
- *  </p>
- *  Cookies were invented to solve the problem "how to remember information about the user":
- *  <p>
- *  When a user visits a web page, his/her name can be stored in a cookie.
- *  Next time the user visits the page, the cookie "remembers" his/her name.<br>
- *  Cookies are saved in name-value pairs like:
- *  </p>
- *  username = John Doe
- *  <p>
- *  When a browser requests a web page from a server, cookies belonging to the page are added to the request. <br>
- *  This way the server gets the necessary data to "remember" information about users.
- *  </p>
- *  @author Paulo Roma.
- *  @since 05/05/2021
- *  @see <a href="/cwdc/3-javascript/cookies/cookies.mjs">source</a>
- *  @see <a href="../../7-mysql/showcode.php?f=8.7">php</a>
- *  @see {@link https://www.w3schools.com/js/js_cookies.asp JavaScript Cookies}
- *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie Document: cookie property}
- *  @see {@link https://clearcode.cc/blog/browsers-first-third-party-cookies/ How Different Browsers Handle First-Party and Third-Party Cookies}
+ * {@link https://en.wikipedia.org/wiki/HTTP_cookie Cookies} are data stored in small text files on your computer.
+ * <p>
+ * When a web server has sent a web page to a browser, the connection is shut down, and the server forgets everything about the user.
+ * </p>
+ * Cookies were invented to solve the problem "how to remember information about the user":
+ * <ul>
+ *  <li>
+ *    When a user visits a web page, his/her name can be stored in a cookie.
+ *    Next time the user visits the page, the cookie "remembers" his/her name.<br>
+ *    Cookies are saved in name-value pairs like:
+ *  </li>
+ *    <ul>
+ *      <li>username = John Doe</li>
+ *    </ul>
+ *  <li>
+ *    When a browser requests a web page from a server, cookies belonging to the page are added to the request. <br>
+ *    This way the server gets the necessary data to "remember" information about users.
+ *  </li>
+ * </ul>
+ * @author Paulo Roma.
+ * @since 05/05/2021
+ * @see <a href="/cwdc/3-javascript/cookies/cookies.mjs">source</a>
+ * @see <a href="../../7-mysql/showcode.php?f=8.7">php</a>
+ * @see {@link https://www.w3schools.com/js/js_cookies.asp JavaScript Cookies}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie Document: cookie property}
+ * @see {@link https://clearcode.cc/blog/browsers-first-third-party-cookies/ How Different Browsers Handle First-Party and Third-Party Cookies}
  */
 "use strict";
 
