@@ -1,3 +1,5 @@
+/** @module cookies */
+
 /**
  * @file
  *
