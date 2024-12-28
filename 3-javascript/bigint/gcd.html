@@ -82,7 +82,6 @@
             </form>
 
             <script src="/cwdc/mainPage/LCG.js"></script>
-            <script src="/cwdc/3-javascript/cookies/cookies.js"></script>
             <script src="./bitset.js"></script>
             <script type="module">
                 import {
@@ -91,6 +90,7 @@
                     decLength,
                 } from "./factorize.js";
                 import { LCM } from "./gcd.js";
+                import { setCookie, getCookie } from "../cookies/cookies.mjs";
                 window.getFactors = getFactors;
 
                 function getFactors() {
