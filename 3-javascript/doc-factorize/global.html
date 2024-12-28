@@ -94,82 +94,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="cachedPrimes"><span class="type-signature">(constant) </span>cachedPrimes<span class="type-signature"> :Array.&lt;Number></span></h4>
-
-
-
-
-<div class="description">
-    A cache array with the first 15 primes to speed up factorization.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Array.&lt;Number></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line54">line 54</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -180,7 +104,7 @@
     
 
     
-    <h4 class="name" id="bitLength"><span class="type-signature"></span>bitLength<span class="signature">(x)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id="checkCookie"><span class="type-signature"></span>checkCookie<span class="signature">(cname)</span><span class="type-signature"></span></h4>
     
 
     
@@ -188,7 +112,12 @@
 
 
 <div class="description">
-    Return the amount of bits of a whole number.
+    Check a Cookie.
+ If the cookie is set it will display a greeting.
+ <p>
+ If the cookie is not set, it will display a prompt box, asking for the value of the cookie,
+ and stores the cookie for 30 days, by calling setCookie.
+ </p>
 </div>
 
 
@@ -224,16 +153,13 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>cname</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">BigInt</span>
+<span class="param-type">String</span>
 
 
             
@@ -243,7 +169,7 @@
 
             
 
-            <td class="description last">given number.</td>
+            <td class="description last">name of the cookie.</td>
         </tr>
 
     
@@ -284,7 +210,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line259">line 259</a>
+        <a href="cookies_cookies.mjs.html">cookies/cookies.mjs</a>, <a href="cookies_cookies.mjs.html#line102">line 102</a>
     </li></ul></dd>
     
 
@@ -294,9 +220,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://en.wikipedia.org/wiki/Bit-length">Bit-length</a></li>
-        
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString">Object.prototype.toString()</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/prepend">Element: prepend() method</a>]</li>
         </ul>
     </dd>
     
@@ -318,28 +242,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    amount of bits.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Number</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -351,7 +253,7 @@
     
 
     
-    <h4 class="name" id="condense"><span class="type-signature"></span>condense<span class="signature">(lst)</span><span class="type-signature"> &rarr; {Array.&lt;String>}</span></h4>
+    <h4 class="name" id="deleteCookie"><span class="type-signature"></span>deleteCookie<span class="signature">(cname)</span><span class="type-signature"></span></h4>
     
 
     
@@ -359,15 +261,342 @@
 
 
 <div class="description">
-    <p>Condenses the array of prime factors of a whole number,
-so that each factor appears just once,
-in the format prime<sup>nth<sub>power</sub></sup>.</p>
+    Deleting a cookie is very simple.
 
-e.g., node factorize.mjs 173248246132375748867198458668657948626531982421875
-<ul>
-  <li>['3²⁴', '5¹⁴', '7³³', '13'] (unicode translation table)</li>
-  <li>['3<sup>24</sup>', '5<sup>14</sup>', '7<sup>33</sup>', '13'] (html)</li>
-  <li>['3^24', '5^14', '7^33', '13'] (None)</li>
+ You don't have to specify a cookie value when you delete a cookie.
+ Just set the expires parameter to a passed date.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cname</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">name of the cookie.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cookies_cookies.mjs.html">cookies/cookies.mjs</a>, <a href="cookies_cookies.mjs.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="displayAllCookies"><span class="type-signature"></span>displayAllCookies<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Display all cookies by creating new DOM nodes.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cookies_cookies.mjs.html">cookies/cookies.mjs</a>, <a href="cookies_cookies.mjs.html#line153">line 153</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement">Document: createElement() method</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild">Node: appendChild() method</a></li>
+        
+            <li><a href="https://www.javatpoint.com/javascript-queryselector">JavaScript querySelector</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="displayCookies"><span class="type-signature"></span>displayCookies<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Display all cookies.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cookies_cookies.mjs.html">cookies/cookies.mjs</a>, <a href="cookies_cookies.mjs.html#line123">line 123</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getCookie"><span class="type-signature"></span>getCookie<span class="signature">(cname)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns the value of a specified cookie.</p>
+
+console.log(decodeURIComponent(document.cookie).split(';'));<br>
+Array (4)
+<ul style="list-style-type:none;">
+ <li> 0 "username=Paulo Roma" </li>
+ <li> 1 " __utma=30314110.38272483.1627839402.1627839402.1627839402.1" </li>
+ <li> 2 " __utmc=30314110" </li>
+ <li> 3 " __utmz=30314110.1627839402.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)" </li>
 </ul>
 </div>
 
@@ -404,13 +633,13 @@ e.g., node factorize.mjs 173248246132375748867198458668657948626531982421875
 
         <tr>
             
-                <td class="name"><code>lst</code></td>
+                <td class="name"><code>cname</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;(Number|BigInt)></span>
+<span class="param-type">String</span>
 
 
             
@@ -420,7 +649,7 @@ e.g., node factorize.mjs 173248246132375748867198458668657948626531982421875
 
             
 
-            <td class="description last">an array with the prime factors of a whole number.</td>
+            <td class="description last">name of the cookie.</td>
         </tr>
 
     
@@ -461,169 +690,7 @@ e.g., node factorize.mjs 173248246132375748867198458668657948626531982421875
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line575">line 575</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    a condensed array.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;String></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="decLength"><span class="type-signature"></span>decLength<span class="signature">(x)</span><span class="type-signature"> &rarr; {Number}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Return the amount of decimal digits of a whole number.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">BigInt</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">given number.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line273">line 273</a>
+        <a href="cookies_cookies.mjs.html">cookies/cookies.mjs</a>, <a href="cookies_cookies.mjs.html#line84">line 84</a>
     </li></ul></dd>
     
 
@@ -633,9 +700,13 @@ e.g., node factorize.mjs 173248246132375748867198458668657948626531982421875
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://en.wikipedia.org/wiki/Bit-length">Bit-length</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring">String.prototype.substring()</a></li>
         
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString">Object.prototype.toString()</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith">String.prototype.startsWith()</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf">String.prototype.indexOf()</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find">Array.prototype.find()</a></li>
         </ul>
     </dd>
     
@@ -661,204 +732,7 @@ e.g., node factorize.mjs 173248246132375748867198458668657948626531982421875
 
         
 <div class="param-desc">
-    amount of digits.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Number</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="exponent"><span class="type-signature"></span>exponent<span class="signature">(val, type)</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Return a superscript in unicode (e.g.: 12 → ¹²), or an HTML &lt;sup&gt;12&lt;/sup&gt;,
-for the given digits.
-
-<p>If type is false, and no translate function is available, it is returned '^12'</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>val</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">a sequence of decimal digits.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last">select the superscript method.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line545">line 545</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    superscript digits.
+    the value of the cookie.
 </div>
 
 
@@ -887,7 +761,7 @@ for the given digits.
     
 
     
-    <h4 class="name" id="factorization"><span class="type-signature"></span>factorization<span class="signature">(n)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="getFactors"><span class="type-signature"></span>getFactors<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -895,19 +769,14 @@ for the given digits.
 
 
 <div class="description">
-    <p>Stringify a condensed array of factors of a given whole number.<p>
-
-<p>Each factor is separated by an '×' symbol:</p>
-
-345
+    <p>Uses <a href="https://jquery.com">jQuery</a> to display:
 <ul>
-  <li>3 × 5 × 23</li>
+ <li>the <a href="module-gcd.html#.LCM">LCM</a> of the slider value in a &lt;span&gt; identified by "#prod".</li>
+ <li>all of the <a href="module-factorize.html#.factorization">factors</a>
+ up to the value of the slider identified by "#n"
+ on a textArea element identified by "#factors".</li>
 </ul>
-
-173248246132375748867198458668657948626531982421875
-<ul>
-  <li>3²⁴ × 5¹⁴ × 7³³ × 13</li>
-</ul>
+The value of the slider is saved as a cookie "slider".
 </div>
 
 
@@ -916,58 +785,6 @@ for the given digits.
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>n</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">BigInt</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a given whole number.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -1003,7 +820,7 @@ for the given digits.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line308">line 308</a>
+        <a href="bigint_factors.js.html">bigint/factors.js</a>, <a href="bigint_factors.js.html#line24">line 24</a>
     </li></ul></dd>
     
 
@@ -1028,585 +845,6 @@ for the given digits.
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    string of factors of n.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="factorize"><span class="type-signature"></span>factorize<span class="signature">(n)</span><span class="type-signature"> &rarr; {Array.&lt;(Number|BigInt)>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Factorizes a whole number.</p>
-
-In number theory, integer factorization is the decomposition of a composite number
-into a product of smaller integers.<br />
-If these factors are further restricted to prime numbers,
-the process is called prime factorization.
-
-<p>Essentially, to factor a negative number, find all of its positive factors,
-then duplicate them and write a negative sign in front of the duplicates.</p>
-
-<p>Prime factorization or integer factorization of a number is breaking a number
-down into the set of prime numbers, which multiply together to result in the original number.
-This is also known as prime decomposition.</p>
-
-<p>If we know that one of the prime factors of x is p,
-then all the prime factors of x are p plus the decomposition of x/p.</p>
-
-<p>Number x cannot have more than log x prime factors, because every prime factor is ≥ 2.
-Factorization by the above method works in O(log x) time complexity.</p>
-
-Note that consecutive factors will be presented in non-decreasing order.
-The amount of memory needed for large numbers is prohibitive.
-
-<pre>
- For x = 20,         F[20] = 2 → [2]
-     x = 20/2 = 10,  F[10] = 2 → [2,2]
-     x = 10/2 = 5,   F[5]  = 0 → [2,2,5]
-</pre>
-
-E.g.:
-<ul>
- <li>factorize(12) → [2, 2, 3]</li>
- <li>factorize(-12) → [2, 2, 3, -1]</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>n</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">BigInt</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">given whole number.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line490">line 490</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://sciencing.com/factor-negative-numbers-8170436.html">How To Factor Negative Numbers</a></li>
-        
-            <li><a href="https://en.wikipedia.org/wiki/Integer_factorization">Integer factorization</a></li>
-        
-            <li><a href="https://betterprogramming.pub/the-downsides-of-bigints-in-javascript-6350fd807d">The Downsides of BigInts in JavaScript</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    an array with the prime factors of n.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;(Number|BigInt)></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="isDigit"><span class="type-signature"></span>isDigit<span class="signature">(d)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Returns whether a given string represents a numerical value.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>d</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">given string.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line286">line 286</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://stackoverflow.com/questions/8935632/check-if-character-is-number">Check if character is number?</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    true if d can be converted to a number, and false otherwise.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="isPrime"><span class="type-signature"></span>isPrime<span class="signature">(n)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Checks if a given whole number is prime.</p>
-
-<p>A prime number (or a prime) is a natural number
-which has exactly two distinct natural number divisors:
-1 and itself.</p>
-
-Only divisors up to ⌊√n⌋ (where ⌊x⌋ is the floor function) need to be tested.
-This is true since if all integers less than this had been tried, then
-n / (⌊√n⌋+1) < √n.
-In other words, all possible factors have had their cofactors already tested.
-Given a factor a of a number n=ab, the cofactor of a is b=n/a.
-
-<p>Trial division, used here, is hopeless for finding any but small prime numbers.
-Mathematica versions 2.2 and later have implemented the multiple
-Rabin-Miller test combined with a Lucas pseudoprime test.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>n</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">BigInt</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">given whole number.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line426">line 426</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="/cwdc/downloads/python/laboratorios.html#prime">prime</a></li>
-        
-            <li><a href="https://literateprograms.org/miller-rabin_primality_test__python_.html">Miller-Rabin primality test (Python)</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    true if n is a prime, and false otherwise.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -1712,7 +950,7 @@ the smallest power of 2 that exceed its isqrt:</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line189">line 189</a>
+        <a href="bigint_factorize.js.html">bigint/factorize.js</a>, <a href="bigint_factorize.js.html#line191">line 191</a>
     </li></ul></dd>
     
 
@@ -1853,7 +1091,7 @@ the integer part of its square root.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line226">line 226</a>
+        <a href="bigint_factorize.js.html">bigint/factorize.js</a>, <a href="bigint_factorize.js.html#line228">line 228</a>
     </li></ul></dd>
     
 
@@ -1928,7 +1166,7 @@ the integer part of its square root.</p>
     
 
     
-    <h4 class="name" id="loadScript"><span class="type-signature">(async) </span>loadScript<span class="signature">(jscript)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+    <h4 class="name" id="setCookie"><span class="type-signature"></span>setCookie<span class="signature">(cname, cvalue, exdays)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1936,23 +1174,7 @@ the integer part of its square root.</p>
 
 
 <div class="description">
-    <p>Load a script for running nodejs.</p>
-
-Export and import statements are static.
-<ul>
-<li>The import(module) expression loads the module and returns a promise<br>
-that resolves into a module object, which contains all its exports.</li>
-<li>It can be called from any place in the code.</li>
-</ul>
-
-<p>We can use it dynamically in any place of the code, for instance, to load
-bitset.js when using nodejs:</p>
-<ul>
-  <li>vm.runInThisContext() compiles code, runs it within the context of the current
-  global and returns the result.</li>
-  <li>Running code does not have access to local scope, but does have access to
-  the current global object.</li>
-</ul>
+    Set a Cookie.
 </div>
 
 
@@ -1988,7 +1210,7 @@ bitset.js when using nodejs:</p>
 
         <tr>
             
-                <td class="name"><code>jscript</code></td>
+                <td class="name"><code>cname</code></td>
             
 
             <td class="type">
@@ -2004,945 +1226,14 @@ bitset.js when using nodejs:</p>
 
             
 
-            <td class="description last">script file name.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line80">line 80</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://javascript.info/modules-dynamic-imports">Dynamic imports</a></li>
-        
-            <li><a href="https://nodejs.org/api/vm.html#vmruninthiscontextcode-options">vm.runInThisContext(code[, options])</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="sieve"><span class="type-signature"></span>sieve<span class="signature">(n)</span><span class="type-signature"> &rarr; {Array.&lt;Number>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Returns an array with all primes up to n.</p>
-<p>We're iterating through n numbers. Whenever we reach a prime p,
-we start iterating through the multiples of p up to n.</p>
-
-<p>For each prime, this takes n/p operations.</p>
-
-n ∑<sub>p<sub>prime</sub> ≤ n</sub> 1/p = n (ln(ln(n)) + M)
-
-<p>So we end up with the prime harmonic series up to n, which actually evaluates out to log(log(n)).
-The total complexity is then: O(n log(log(n)).</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>n</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">BigInt</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a given positive whole number.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line330">line 330</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes">Divergence of the sum of the reciprocals of the primes</a></li>
-        
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from">Array.from()</a></li>
-        
-            <li><a href="/cwdc/downloads/python/laboratorios.html#sieve">sieve</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    array holding the primes up to n.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;Number></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="sieve2"><span class="type-signature"></span>sieve2<span class="signature">(n, arr)</span><span class="type-signature"> &rarr; {Array.&lt;Number>|BitSet}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Memory efficient version using bitset.</p>
-
-I do not know the real limit of this function in node:
-<ul>
-<li>FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory</li>
-<ul>
-<li>node -e 'console.log(v8.getHeapStatistics().heap_size_limit/(1024*1024))'</li>
-<li>export NODE_OPTIONS="--max-old-space-size=8192"</li>
-</ul>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>n</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">BigInt</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a given positive whole number.</td>
+            <td class="description last">name of the cookie.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>arr</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">whether to return an array with primes or just the bitset.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line373">line 373</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://www.xarg.org/2014/03/javascript-bit-array/">JavaScript Bit Array</a></li>
-        
-            <li><a href="/python/labs/doc/html/__04d__sieve_8py.html">sieve</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    array of primes, or a bitarray indicating the primes up to n.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;Number></span>
-|
-
-<span class="param-type">BitSet</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="test"><span class="type-signature"></span>test<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Print on the console the returned value of some functions.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line611">line 611</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="translate"><span class="type-signature"></span>translate<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="global.html#map_typography">map_typography</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    A closure to map a decimal digit to its utf8 subscript or superscript equivalent.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line104">line 104</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts">Unicode subscripts and superscripts</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    callback for mapping subscript and superscript digits.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#map_typography">map_typography</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="typeCast"><span class="type-signature"></span>typeCast<span class="signature">(x, n)</span><span class="type-signature"> &rarr; {Number|BigInt}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Type casts a variable to the type of another variable.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">BigInt</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">given variable.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>n</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">BigInt</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the other variable.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line247">line 247</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    cast variable.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Number</span>
-|
-
-<span class="param-type">BigInt</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-
-    
-
-    
-    <h4 class="name" id="map_typography"><span class="type-signature"></span>map_typography<span class="signature">(c)</span><span class="type-signature"> &rarr; {Object.&lt;{sub:String, sup:String}>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Map a decimal digit to its utf8 subscript or superscript equivalent.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>c</code></td>
+                <td class="name"><code>cvalue</code></td>
             
 
             <td class="type">
@@ -2958,7 +1249,30 @@ I do not know the real limit of this function in node:
 
             
 
-            <td class="description last">digit.</td>
+            <td class="description last">the value of the cookie.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>exdays</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the number of days until the cookie should expire.</td>
         </tr>
 
     
@@ -2999,7 +1313,7 @@ I do not know the real limit of this function in node:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line118">line 118</a>
+        <a href="cookies_cookies.mjs.html">cookies/cookies.mjs</a>, <a href="cookies_cookies.mjs.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -3009,7 +1323,9 @@ I do not know the real limit of this function in node:
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://en.wikipedia.org/wiki/Subscript_and_superscript">Subscript and superscript</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toUTCString">Date.prototype.toUTCString()</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie">Document: cookie property</a></li>
         </ul>
     </dd>
     
@@ -3031,34 +1347,14 @@ I do not know the real limit of this function in node:
 
 
 
-<h5>Returns:</h5>
+
+
+
+
 
         
-<div class="param-desc">
-    subscript and superscript digits.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object.&lt;{sub:String, sup:String}></span>
-
-
-    </dd>
-</dl>
-
     
 
-
-
-
-
-            
     
 
     
@@ -3070,20 +1366,24 @@ I do not know the real limit of this function in node:
     
 
     
-    <h4 class="name" id="event:load">load</h4>
+    <h4 class="name" id="event:input">input</h4>
     
 
     
-    <p class="summary">Load bitset.js for node.</p>
+    <p class="summary">Appends an event listener for events whose type attribute value is input.</p>
     
 
 
 
 <div class="description">
-    <p>Fired when the whole page has loaded, including all dependent resources
-such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.</p>
-<p>The callback argument sets the <a href="global.html#loadScript">callback</a>
-that will be invoked when the event is dispatched.</p>
+    <p>Fired when a &lt;input type="range"&gt; is in the
+<a href="https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range)">Range state</a>
+(by clicking or using the keyboard).</p>
+
+The callback  argument sets the <a href="global.html#getFactors">callback</a>  that will be invoked when
+the event is dispatched.</p>
+
+The input event is fired every time the value of the element changes.
 </div>
 
 
@@ -3126,6 +1426,156 @@ that will be invoked when the event is dispatched.</p>
             
                 
 <span class="param-type">Event</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a generic event.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bigint_factors.js.html">bigint/factors.js</a>, <a href="bigint_factors.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event">HTMLElement: change event</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~event:load">load</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Loads the application and restores the slider value from the cookie "slider".</p>
+<p>The load event is fired when the whole page has loaded,
+including all dependent resources such as stylesheets,
+scripts, iframes, and images, except those that are loaded lazily.</p>
+
+<p>The callback argument sets the <a href="global.html#getFactors">callback</a>
+that will be invoked when the event is dispatched.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">event</span>
 
 
             
@@ -3199,7 +1649,7 @@ that will be invoked when the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line32">line 32</a>
+        <a href="bigint_factors.js.html">bigint/factors.js</a>, <a href="bigint_factors.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -3210,8 +1660,6 @@ that will be invoked when the event is dispatched.</p>
     <dd class="tag-see">
         <ul>
             <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event">Window: load event</a></li>
-        
-            <li><a href="/cwdc/3-javascript/doc-factorize/global.html#loadScript">loadScript</a></li>
         </ul>
     </dd>
     
@@ -3250,13 +1698,13 @@ that will be invoked when the event is dispatched.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-gcd.html">gcd</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bitLength">bitLength</a></li><li><a href="global.html#cachedPrimes">cachedPrimes</a></li><li><a href="global.html#condense">condense</a></li><li><a href="global.html#decLength">decLength</a></li><li><a href="global.html#exponent">exponent</a></li><li><a href="global.html#factorization">factorization</a></li><li><a href="global.html#factorize">factorize</a></li><li><a href="global.html#isDigit">isDigit</a></li><li><a href="global.html#isPrime">isPrime</a></li><li><a href="global.html#isqrt">isqrt</a></li><li><a href="global.html#loadScript">loadScript</a></li><li><a href="global.html#sieve">sieve</a></li><li><a href="global.html#sieve2">sieve2</a></li><li><a href="global.html#test">test</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#typeCast">typeCast</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-factorize.html">factorize</a></li><li><a href="module-gcd.html">gcd</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:input">input</a></li><li><a href="global.html#~event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkCookie">checkCookie</a></li><li><a href="global.html#deleteCookie">deleteCookie</a></li><li><a href="global.html#displayAllCookies">displayAllCookies</a></li><li><a href="global.html#displayCookies">displayCookies</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#getFactors">getFactors</a></li><li><a href="global.html#isqrt">isqrt</a></li><li><a href="global.html#setCookie">setCookie</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Nov 17 2024 11:14:00 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat Dec 28 2024 09:14:29 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

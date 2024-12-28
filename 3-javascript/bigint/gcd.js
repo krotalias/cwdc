@@ -1,10 +1,10 @@
-/** @module */
+/** @module gcd */
 
 /**
  * @file
  *
  * Summary.
- * <p>Package for calculating the Greatest Common Divisor and
+ * <p>Package for calculating the <a href="/cwdc/downloads/python/laboratorios.html#gcd">Greatest Common Divisor</a> and
  * Least Common Multiple of whole numbers.</p>
  *
  *  Description.
@@ -18,14 +18,14 @@
  *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
  *  - jsdoc -d doc-gcd gcd.js
- *  - jsdoc -d doc-factorize bigint/gcd.js bigint/factorize.js bigint/bitset.js
+ *  - jsdoc -c jsdoc.conf -d doc-factorize bigint/gcd.js bigint/factorize.js bigint/bitset.js bigint/factors.js cookies/cookies.mjs
  *  - jsdoc -c jsdoc.conf -d doc-factorize-node bigint/factorize.mjs
  *  - jsdoc -c jsdoc.conf -d doc-factorize-ui-node bigint/factorize-ui.mjs
  *  </pre>
  *
  * @author Paulo Roma Cavalcanti
  * @since 26/04/2021
- * @see <a href="/cwdc/11-python/functions/functions.py?15+5">Python</a>
+ * @see <a href="/cwdc/11-python/functions.py?15+5">Python</a>
  * @see <a href="/cwdc/3-javascript/bigint/gcd.html">link</a>
  * @see <a href="/cwdc/3-javascript/bigint/gcd.js">source</a>
  * @see <img src="../bigint/bigint.png" width="512">

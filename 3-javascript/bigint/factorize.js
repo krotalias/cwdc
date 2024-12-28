@@ -1,3 +1,5 @@
+/** @module factorize */
+
 /**
  * @file
  *
@@ -192,7 +194,7 @@ BigInt.prototype.isqrt = function () {
   // smallest power of 2 that exceed the square root
   let r = 1n << (BigInt(bitLength(this) + 1) >> 1n);
   while (true) {
-    var rnew = (r + this / r) >> 1n; // integer division
+    const rnew = (r + this / r) >> 1n; // integer division
     if (rnew >= r) return r;
     r = rnew;
   }
@@ -230,7 +232,7 @@ Number.prototype.isqrt = function () {
   // two to the power of the number of bits of its isqrt.
   let r = 2 ** Math.floor((bitLength(this) + 1) / 2);
   while (true) {
-    var rnew = (r + this / r) / 2;
+    let rnew = (r + this / r) / 2;
     rnew = Math.trunc(rnew); // integer division
     if (rnew >= r) return r;
     r = rnew;
@@ -374,12 +376,12 @@ export function sieve2(n, arr = false) {
   if (n < 2 || n > Number.MAX_SAFE_INTEGER) return [];
   n = Number(n);
 
-  var bs = new BitSet();
+  const bs = new BitSet();
   // set size to n and all bits ∈ [2,n] to 1
   // "111111111111111111111111111111100"
   bs.flip(2, n);
 
-  var j,
+  let j,
     i = 2;
   while ((j = i * i) <= n) {
     // in fact, this loop ends when i > n.isqrt() - see below

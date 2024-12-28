@@ -54,7 +54,7 @@
 
 <header>
     
-        <h2>bitset.js</h2>
+        <h2>bigint/bitset.js</h2>
         
     
 </header>
@@ -126,7 +126,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="bitset.js.html">bitset.js</a>, <a href="bitset.js.html#line1">line 1</a>
+        <a href="bigint_bitset.js.html">bigint/bitset.js</a>, <a href="bigint_bitset.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -182,7 +182,8 @@
 
 <header>
     
-        <h2>factorize.js</h2>
+        <h2>
+            <span class="ancestors"><a href="module-factorize.html">factorize</a>~</span>bigint/factorize.js</h2>
         
     
 </header>
@@ -246,7 +247,7 @@ reasonably small time.</p></div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="factorize.js.html">factorize.js</a>, <a href="factorize.js.html#line1">line 1</a>
+        <a href="bigint_factorize.js.html">bigint/factorize.js</a>, <a href="bigint_factorize.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -320,8 +321,7 @@ reasonably small time.</p></div>
 
 <header>
     
-        <h2>
-            <span class="ancestors"><a href="module-gcd.html">gcd</a>~</span>gcd.js</h2>
+        <h2>bigint/factors.js</h2>
         
     
 </header>
@@ -331,7 +331,112 @@ reasonably small time.</p></div>
     
         
             <div class="description">Summary.
-<p>Package for calculating the Greatest Common Divisor and
+<p>Manages the HTML elements of the interface to display all factors.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>28/12/2024</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bigint_factors.js.html">bigint/factors.js</a>, <a href="bigint_factors.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-gcd.html">gcd</a>~</span>bigint/gcd.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Package for calculating the <a href="/cwdc/downloads/python/laboratorios.html#gcd">Greatest Common Divisor</a> and
 Least Common Multiple of whole numbers.</p>
 
  Description.
@@ -345,7 +450,7 @@ Least Common Multiple of whole numbers.</p>
     - sudo port install npm9 (or npm10)
     - sudo npm install -g jsdoc
  - jsdoc -d doc-gcd gcd.js
- - jsdoc -d doc-factorize bigint/gcd.js bigint/factorize.js bigint/bitset.js
+ - jsdoc -c jsdoc.conf -d doc-factorize bigint/gcd.js bigint/factorize.js bigint/bitset.js bigint/factors.js cookies/cookies.mjs
  - jsdoc -c jsdoc.conf -d doc-factorize-node bigint/factorize.mjs
  - jsdoc -c jsdoc.conf -d doc-factorize-ui-node bigint/factorize-ui.mjs
  </pre></div>
@@ -393,7 +498,7 @@ Least Common Multiple of whole numbers.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="gcd.js.html">gcd.js</a>, <a href="gcd.js.html#line3">line 3</a>
+        <a href="bigint_gcd.js.html">bigint/gcd.js</a>, <a href="bigint_gcd.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -403,7 +508,7 @@ Least Common Multiple of whole numbers.</p>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="/cwdc/11-python/functions/functions.py?15+5">Python</a></li>
+            <li><a href="/cwdc/11-python/functions.py?15+5">Python</a></li>
         
             <li><a href="/cwdc/3-javascript/bigint/gcd.html">link</a></li>
         
@@ -448,16 +553,152 @@ Least Common Multiple of whole numbers.</p>
 
 
 
+
+
+
+<section>
+
+<header>
+    
+        <h2>cookies/cookies.mjs</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><a href="https://en.wikipedia.org/wiki/HTTP_cookie">Cookies</a> are data stored in small text files on your computer.
+<p>
+When a web server has sent a web page to a browser, the connection is shut down, and the server forgets everything about the user.
+</p>
+Cookies were invented to solve the problem "how to remember information about the user":
+<ul>
+ <li>
+   When a user visits a web page, his/her name can be stored in a cookie.
+   Next time the user visits the page, the cookie "remembers" his/her name.<br>
+   Cookies are saved in name-value pairs like:
+ </li>
+   <ul>
+     <li>username = John Doe</li>
+   </ul>
+ <li>
+   When a browser requests a web page from a server, cookies belonging to the page are added to the request. <br>
+   This way the server gets the necessary data to "remember" information about users.
+ </li>
+</ul></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>05/05/2021</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Paulo Roma.</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cookies_cookies.mjs.html">cookies/cookies.mjs</a>, <a href="cookies_cookies.mjs.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/cookies/cookies.mjs">source</a></li>
+        
+            <li><a href="../../7-mysql/showcode.php?f=8.7">php</a></li>
+        
+            <li><a href="https://www.w3schools.com/js/js_cookies.asp">JavaScript Cookies</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie">Document: cookie property</a></li>
+        
+            <li><a href="https://clearcode.cc/blog/browsers-first-third-party-cookies/">How Different Browsers Handle First-Party and Third-Party Cookies</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-gcd.html">gcd</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#bitLength">bitLength</a></li><li><a href="global.html#cachedPrimes">cachedPrimes</a></li><li><a href="global.html#condense">condense</a></li><li><a href="global.html#decLength">decLength</a></li><li><a href="global.html#exponent">exponent</a></li><li><a href="global.html#factorization">factorization</a></li><li><a href="global.html#factorize">factorize</a></li><li><a href="global.html#isDigit">isDigit</a></li><li><a href="global.html#isPrime">isPrime</a></li><li><a href="global.html#isqrt">isqrt</a></li><li><a href="global.html#loadScript">loadScript</a></li><li><a href="global.html#sieve">sieve</a></li><li><a href="global.html#sieve2">sieve2</a></li><li><a href="global.html#test">test</a></li><li><a href="global.html#translate">translate</a></li><li><a href="global.html#typeCast">typeCast</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-factorize.html">factorize</a></li><li><a href="module-gcd.html">gcd</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:input">input</a></li><li><a href="global.html#~event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkCookie">checkCookie</a></li><li><a href="global.html#deleteCookie">deleteCookie</a></li><li><a href="global.html#displayAllCookies">displayAllCookies</a></li><li><a href="global.html#displayCookies">displayCookies</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#getFactors">getFactors</a></li><li><a href="global.html#isqrt">isqrt</a></li><li><a href="global.html#setCookie">setCookie</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Nov 17 2024 11:14:00 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat Dec 28 2024 09:14:29 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
