@@ -31,22 +31,8 @@
 
 "use strict";
 
-/**
- * <p>Fired when the whole page has loaded, including all dependent resources
- * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.</p>
- * <p>The callback argument sets the {@link loadScript callback}
- * that will be invoked when the event is dispatched.</p>
- * @summary Load bitset.js for node.
- * @event load
- * @param {Event} event a generic event.
- * @param {callback} function function to run when the event occurs.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
- * @see <a href="/cwdc/3-javascript/doc-factorize/global.html#loadScript">loadScript</a>
- */
 if (typeof window === "undefined") {
   await loadScript("bitset.js");
-} else {
-  window.addEventListener("load", async () => await loadScript("bitset.js"));
 }
 
 /**

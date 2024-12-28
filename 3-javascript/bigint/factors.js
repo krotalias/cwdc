@@ -6,6 +6,7 @@
  *
  * @author Paulo Roma
  * @since 28/12/2024
+ * @see <a href="/cwdc/3-javascript/bigint/factors.js">source</a>
  */
 import { factorization, bitLength, decLength } from "./factorize.js";
 import { LCM } from "./gcd.js";
@@ -67,7 +68,7 @@ function getFactors() {
  * @event input
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
-window.addEventListener("input", () => getFactors());
+window.addEventListener("input", (event) => getFactors());
 
 /**
  * <p>Loads the application and restores the slider value from the cookie "slider".</p>
@@ -82,7 +83,7 @@ window.addEventListener("input", () => getFactors());
  * @param {callback} function function to run when the event occurs.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
-window.addEventListener("load", () => {
+window.addEventListener("load", (event) => {
   $("#n")[0].value = getCookie("slider");
   getFactors();
 });
