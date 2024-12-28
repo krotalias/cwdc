@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -81,7 +81,7 @@
             </form>
 
             <script src="/cwdc/mainPage/LCG.js"></script>
-            <script src="/cwdc/3-javascript/cookies.js"></script>
+            <script src="/cwdc/3-javascript/cookies/cookies.js"></script>
             <script type="module">
                 import { LCM } from "./gcd.js";
                 window.getFactors = getFactors;
@@ -99,7 +99,7 @@
                         let bits = lcmValue.toString(2).length;
                         let decs = lcmValue.toString(10).length;
                         $("#range").html(
-                            `(${bits.toString()} bits or ${decs.toString()} digits)`
+                            `(${bits.toString()} bits or ${decs.toString()} digits)`,
                         );
                         for (let i of m) {
                             i.style.color = mcolor;
@@ -120,8 +120,8 @@
                                     `[jqResponse: ${JSON.stringify(
                                         jqXHR,
                                         null,
-                                        4
-                                    )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`
+                                        4,
+                                    )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`,
                                 );
                                 console.log("Could not get data");
                             });

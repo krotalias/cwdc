@@ -28,7 +28,7 @@
  * @see <a href="../../7-mysql/showcode.php?f=8.7">php</a>
  * @see {@link https://www.w3schools.com/js/js_cookies.asp JavaScript Cookies}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie Document: cookie property}
- * @see {@link https://clearcode.cc/blog/browsers-first-third-party-cookies/ How Different Browsers Handle First-Party and Third-Party Cookies Safari}
+ * @see {@link https://clearcode.cc/blog/browsers-first-third-party-cookies/ How Different Browsers Handle First-Party and Third-Party Cookies}
  */
 "use strict";
 
