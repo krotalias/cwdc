@@ -82,8 +82,17 @@ window.addEventListener("input", (event) => getFactors());
  * @param {event} event a generic event.
  * @param {callback} function function to run when the event occurs.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState Document: readyState property}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event Document: DOMContentLoaded event}
  */
-window.addEventListener("load", (event) => {
+// document.readyState in Safari returns complete.
+// Therefore, the page was loaded even before it added the load event listener.
+if (document.readyState === "complete") {
   $("#n")[0].value = getCookie("slider");
   getFactors();
-});
+} else {
+  window.addEventListener("load", (event) => {
+    $("#n")[0].value = getCookie("slider");
+    getFactors();
+  });
+}
