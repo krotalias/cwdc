@@ -5,6 +5,18 @@
  * Summary.
  * <p>Factorize UI main function for testing.</p>
  *
+ * <p>Calculates the {@link module:gcd.LCM Least Common Multiple} up to the current MIN ≤ <mark>value</mark> ≤ MAX
+ * and displays its prime factors.</p>
+ *
+ * Output:
+ * <pre>
+ *
+ *                   [Z] ← → [X]  FIX: [SPACE]
+ * |-------------------------------------O---------------------------------------------------------------| 37 = <b style="color:green;">53 bits</b>
+ *   LCM(37) = 2⁵ × 3³ × 5² × 7 × 11 × 13 × 17 × 19 × 23 × 29 × 31 × 37
+ * A value the user requested: 37
+ * </pre>
+ *
  * <pre>
  * Usage:
  *  - npm init
@@ -33,35 +45,56 @@ import * as readlineSync from "readline-sync";
 import { factorization, bitLength } from "./factorize.js";
 import { LCM } from "./gcd.js";
 
-var MAX = 100,
-  MIN = 1,
-  value = 40,
-  key;
-
-/*
- *      ANSI Escape Sequences
- * "Esc[#A" - moves cursor up # lines
- * "ESC[#B"	- moves cursor down # lines
- * "Esc[K"  - erase in line (same as ESC[0K)
- * "ESC[#G"	- moves cursor to column #
- * "ESC[H"  - moves cursor to home position (0, 0)
+/**
+ * Maximum integer value.
+ * @type {Number}
  */
+const MAX = 100;
 
-let up = "\x1B[1A";
-let erase = "\x1B[K";
-let go = "\x1B[2G";
-let reset = "\x1B[0m";
-let red = "\x1B[1;31m";
-let green = "\x1B[1;32m";
-let blink = "\x1B[5m";
-let unblink = "\x1B[25m";
+/**
+ * Minimum integer value.
+ * @type {Number}
+ */
+const MIN = 1;
+
+/**
+ * Current value.
+ * @type {Number}
+ */
+let value = 40;
+
+/**
+ * Key pressed on keyboard.
+ * @type {String}
+ */
+let key;
+
+/**
+ * <ul>
+ *      ANSI Escape Sequences
+ * <li>"Esc[#A" - moves cursor up # lines
+ * <li>"ESC[#B"	- moves cursor down # lines
+ * <li>"Esc[K"  - erase in line (same as ESC[0K)
+ * <li>"ESC[#G"	- moves cursor to column #
+ * <li>"ESC[H"  - moves cursor to home position (0, 0)
+ * </ul>
+ * @type {String}
+ */
+const up = "\x1B[1A";
+const erase = "\x1B[K";
+const go = "\x1B[2G";
+const reset = "\x1B[0m";
+const red = "\x1B[1;31m";
+const green = "\x1B[1;32m";
+const blink = "\x1B[5m";
+const unblink = "\x1B[25m";
 
 console.log(`\n\n${new Array(20).join(" ")}[Z] ← → [X]  FIX: [SPACE]\n`);
 while (true) {
-  let factors = LCM(value);
-  let bits = bitLength(factors);
-  let color = factors > Number.MAX_SAFE_INTEGER ? red : green;
-  let highlight = factors > Number.MAX_SAFE_INTEGER ? blink : unblink;
+  const factors = LCM(value);
+  const bits = bitLength(factors);
+  const color = factors > Number.MAX_SAFE_INTEGER ? red : green;
+  const highlight = factors > Number.MAX_SAFE_INTEGER ? blink : unblink;
 
   console.log(
     `${up}${erase}${reset}|${new Array(value + 1).join("-")}O${new Array(
