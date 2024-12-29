@@ -31,9 +31,7 @@
 
 "use strict";
 
-if (typeof window === "undefined") {
-  await loadScript("bitset.js");
-}
+import { BitSet } from "./bitset.mjs";
 
 /**
  * A cache array with the first 15 primes to speed up factorization.
@@ -58,6 +56,7 @@ const cachedPrimes = sieve(47);
  *   global and returns the result.</li>
  *   <li>Running code does not have access to local scope, but does have access to
  *   the current global object.</li>
+ *   <li>await loadScript("bitset.js");</li>
  * </ul>
  * @async
  * @param {String} jscript script file name.
