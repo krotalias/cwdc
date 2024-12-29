@@ -33,10 +33,9 @@
  *
  * @author Paulo Roma
  * @since 29/12/2021
- *
+ * @see <a href="/cwdc/3-javascript/bigint/factorize.mjs">source</a>
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/console/time console: time() static method}
  * @see {@link https://dmitripavlutin.com/javascript-defined-variable-checking/ 3 Ways to Check if a Variable is Defined in JavaScript}
- * @see <a href="/cwdc/3-javascript/bigint/factorize.mjs">source</a>
  */
 
 import * as readlineSync from "readline-sync";
@@ -57,7 +56,7 @@ import {
 
   test();
 
-  var n,
+  let n,
     debug = false;
   if (argv.length < 3 || argv[2] === "") {
     n = readlineSync.question("An integer argument is needed: ") || 256;
