@@ -1,3 +1,5 @@
+/** @module bitset */
+
 /**
  * @file
  *
