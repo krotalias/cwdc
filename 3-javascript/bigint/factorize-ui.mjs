@@ -5,8 +5,8 @@
  * Summary.
  * <p>Factorize UI main function for testing.</p>
  *
- * <p>Calculates the {@link module:gcd.LCM Least Common Multiple} up to the current MIN ≤ <mark>value</mark> ≤ MAX
- * and displays its prime factors.</p>
+ * <p>Calculates the {@link module:gcd.LCM Least Common Multiple} up to the current
+ * MIN ≤ <mark>value</mark> ≤ MAX and displays its prime factors.</p>
  *
  * Output:
  * <pre>
@@ -33,12 +33,11 @@
  *
  * @author Paulo Roma
  * @since 30/12/2021
- *
+ * @see <a href="/cwdc/3-javascript/bigint/factorize-ui.mjs">source</a>
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/console/time console: time() static method}
  * @see {@link https://dmitripavlutin.com/javascript-defined-variable-checking/ 3 Ways to Check if a Variable is Defined in JavaScript}
  * @see {@link https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797 ANSI Escape Sequences}
  * @see {@link https://www.npmjs.com/package/readline-sync readline-sync}
- * @see <a href="/cwdc/3-javascript/bigint/factorize-ui.mjs">source</a>
  */
 
 import * as readlineSync from "readline-sync";
@@ -71,12 +70,17 @@ let key;
 
 /**
  * <ul>
- *      ANSI Escape Sequences
- * <li>"Esc[#A" - moves cursor up # lines
- * <li>"ESC[#B"	- moves cursor down # lines
- * <li>"Esc[K"  - erase in line (same as ESC[0K)
- * <li>"ESC[#G"	- moves cursor to column #
- * <li>"ESC[H"  - moves cursor to home position (0, 0)
+ *      {@link https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797 ANSI Escape Sequences}
+ * <li>up: "Esc[#A" - moves cursor up # lines</li>
+ * <li>down: "ESC[#B"	- moves cursor down # lines</li>
+ * <li>erase: "Esc[K" - erase in line (same as ESC[0K)</li>
+ * <li>go: "ESC[#G"	- moves cursor to column #</li>
+ * <li>reset: "ESC[H" - moves cursor to home position (0, 0)</li>
+ * <li>blink: "ESC[5m" - set blinking mode</li>
+ * <li>unblink: "ESC[25m" - unset blinking mode</li>
+ * <li>red: "ESC[31m" - red</li>
+ * <li>green: "ESC[32m" - green</li>
+ * <li>blue: "ESC[34m" - blue</li>
  * </ul>
  * @type {String}
  */
