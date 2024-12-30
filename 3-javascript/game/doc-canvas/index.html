@@ -54,7 +54,154 @@
 
 <header>
     
-        <h2>17_canvas.js</h2>
+        <h2>chapter/16_game.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>A small platform game. </p>
+
+ Description.
+ <p>The game consists of a static background, laid out like a grid, with the moving elements overlaid on that background.
+ Each field on the grid is either empty, solid, or lava. The moving elements are the player, coins, and certain pieces of lava.
+ The positions of these elements are not constrained to the grid — their coordinates may be fractional, allowing smooth motion.</p>
+
+ <p>The main data structure is a matrix of cells (each one is a 20x20 square), which make it easier to intersect the objects of the game,
+ such as the player against lava, or detect collisions of the player against the walls.
+ Each one of these cells can be empty (background), or be a convex object (union of cells), such as lava, coin, wall or the player.</p>
+
+ <p>The <a href="../test/table.html">matrix</a> of cells is created based on strings on a <a href="../code/levels.js">file</a> (defining the geometry of the levels of the game),
+ where each character represents either an empty space (a dot) or an object.
+ As the player moves, the background slides to the right or to the left,
+ so the player is always in the middle third of the canvas. Therefore, there is a moving window to map
+ a portion of the current level, to the canvas.</p>
+ <pre>
+ Documentation:
+ - Ubuntu:
+    - sudo apt install jsdoc-toolkit
+ - MacOS:
+    - sudo port install npm7 (or npm8)
+    - sudo npm install -g jsdoc
+ - jsdoc -d doc-game code/chapter/16_game.js
+ </pre></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>06/07/2021</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Marijn Haverbeke (<a href="https://marijnhaverbeke.nl">https://marijnhaverbeke.nl</a>), adapted to ES6 by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/game/game.html?driver=d">Game</a></li>
+        
+            <li><a href="/cwdc/3-javascript/game/code/chapter/16_game.js">source</a></li>
+        
+            <li><a href="/cwdc/3-javascript/game/code/levels.js">levels</a></li>
+        
+            <li><a href="https://eloquentjavascript.net/16_game.html">https://eloquentjavascript.net/16_game.html</a></li>
+        
+            <li><a href="https://flexiple.com/associative-array-javascript/">https://flexiple.com/associative-array-javascript/</a></li>
+        
+            <li><a href="https://www.lessmilk.com/game/dark-blue/">https://www.lessmilk.com/game/dark-blue/</a></li>
+        
+            <li><img src="../DOM.png" width="512"></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>chapter/17_canvas.js</h2>
         
     
 </header>
@@ -124,7 +271,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="17_canvas.js.html">17_canvas.js</a>, <a href="17_canvas.js.html#line1">line 1</a>
+        <a href="chapter_17_canvas.js.html">chapter/17_canvas.js</a>, <a href="chapter_17_canvas.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -183,16 +330,167 @@
 
 
 
+
+
+
+<section>
+
+<header>
+    
+        <h2>levels.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>Game LEVEL strings for the platform game. </p>
+
+ Description.
+ <p>The game consists of a static background, laid out like a grid, with the moving elements overlaid on that background.
+ Each field on the grid is either empty, solid, or lava.
+ The moving elements are the player, coins, and certain pieces of lava.
+ The positions of these elements are not constrained to the grid — their coordinates may be fractional,
+ allowing smooth motion. The grid of the game is created based on strings available globally.</p>
+
+ <p>The global object provides variables and functions that are available anywhere.
+ By default, those that are built into the language or the environment.</p>
+
+ <ul>
+ <li>In a browser it is named window, for Node.js it is global, for other environments it may have another name. </li>
+
+ <li>Recently, globalThis was added to the language, as a standardized name for a global object,
+ that should be supported across all environments. It’s supported in all major browsers.</li>
+
+ <li>We’ll use window here, assuming that our environment is a browser.
+ If your script may run in other environments, it’s better to use globalThis instead.</li>
+ </ul>
+
+ <pre>
+ Documentation:
+ - Ubuntu:
+    - sudo apt install jsdoc-toolkit
+ - MacOS:
+    - sudo port install npm7 (or npm8)
+    - sudo npm install -g jsdoc
+ - jsdoc -d doc-level code/level.js
+ </pre></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>02/08/2021</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Marijn Haverbeke, adapted to Vanilla Javascript by Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="levels.js.html">levels.js</a>, <a href="levels.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/game/game.html?driver=d">Game</a></li>
+        
+            <li><a href="/cwdc/3-javascript/game/canvas.html?driver=c">Canvas</a></li>
+        
+            <li><a href="/cwdc/3-javascript/game/code/levels.js">source</a></li>
+        
+            <li><a href="https://www.contentful.com/blog/2017/01/17/the-global-object-in-javascript/">https://www.contentful.com/blog/2017/01/17/the-global-object-in-javascript/</a></li>
+        
+            <li><a href="https://javascript.info/global-object">https://javascript.info/global-object</a></li>
+        
+            <li><a href="../game.js">game in node</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CanvasDisplay.html">CanvasDisplay</a></li></ul><h3>Global</h3><ul><li><a href="global.html#flipHorizontally">flipHorizontally</a></li><li><a href="global.html#results">results</a></li><li><a href="global.html#sprites">sprites</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CanvasDisplay.html">CanvasDisplay</a></li><li><a href="Coin.html">Coin</a></li><li><a href="DOMDisplay.html">DOMDisplay</a></li><li><a href="Lava.html">Lava</a></li><li><a href="Level.html">Level</a></li><li><a href="Player.html">Player</a></li><li><a href="State.html">State</a></li><li><a href="Vec.html">Vec</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li><li><a href="global.html#arrowKeys">arrowKeys</a></li><li><a href="global.html#drawActors">drawActors</a></li><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#elt">elt</a></li><li><a href="global.html#flipHorizontally">flipHorizontally</a></li><li><a href="global.html#gravity">gravity</a></li><li><a href="global.html#jumpSpeed">jumpSpeed</a></li><li><a href="global.html#levelChars">levelChars</a></li><li><a href="global.html#overlap">overlap</a></li><li><a href="global.html#playerXSpeed">playerXSpeed</a></li><li><a href="global.html#results">results</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#runGame">runGame</a></li><li><a href="global.html#runLevel">runLevel</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#simpleLevel">simpleLevel</a></li><li><a href="global.html#simpleLevelPlan">simpleLevelPlan</a></li><li><a href="global.html#sprites">sprites</a></li><li><a href="global.html#trackKeys">trackKeys</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 08 2024 11:43:09 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Dec 30 2024 08:20:15 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

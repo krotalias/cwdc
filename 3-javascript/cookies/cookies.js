@@ -193,10 +193,13 @@ window.addEventListener("keydown", function (event) {
 
 /**
  * <p>Loads the appication.</p>
- * {@link displayAllCookies} and {@link checkCookie}.
+ * If global variable "window.noLoad" is true, nothing is executed.
+ * Otherwise, {@link displayAllCookies} and {@link checkCookie}.
  * @event load
  */
 window.addEventListener("load", () => {
-  displayAllCookies();
-  checkCookie("username");
+  if (!window.noLoad) {
+    displayAllCookies();
+    checkCookie("username");
+  }
 });
