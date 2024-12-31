@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: Number</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: Number</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>
+            <span class="ancestors"><a href="module-factorize.html">factorize</a>~</span>Number<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    
+    <h4 class="name" id="Number"><span class="type-signature"></span>new Number<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Numbers are most commonly expressed in literal forms like 255 or 3.14159.</p>
+Values represent floating-point numbers like 37 or -9.25.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bigint_factorize.js.html">bigint/factorize.js</a>, <a href="bigint_factorize.js.html#line202">line 202</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="isqrt"><span class="type-signature">(static) </span>Number#isqrt<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Add a new method to Number's prototype to calculate
+the integer part of its square root.</p>
+
+<p>It is applied the <a href="https://raw.org/book/optimization/newtons-method/">Newton method</a> for solving: x² - this = 0</p>
+
+<ul>
+<li>r<sub>new</sub> = r - f(r)/f'(r) = r - (r² - this)/2r ≊ ⌊(r + ⌊this/r⌋)/2⌋ = ⌊(r + this/r)/2⌋, r<sub>0</sub> > 0, r<sub>0</sub> ∈ ℤ.</li>
+<li>initial estimate should be greater than the real root, such as:</li>
+ <ul>
+   <li>r<sub>0</sub> = this or</li>
+   <li>r<sub>0</sub> = 2 ** Math.floor((bitLength(this) + 1) / 2)</li>
+ </ul>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bigint_factorize.js.html">bigint/factorize.js</a>, <a href="bigint_factorize.js.html#line234">line 234</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://www.freecodecamp.org/news/all-you-need-to-know-to-understand-javascripts-prototype-a2bff2d28f03/">All you need to know to understand JavaScript’s Prototype</a></li>
+        
+            <li><a href="https://en.wikipedia.org/wiki/Newton's_method">Newton's method</a></li>
+        
+            <li><a href="http://en.wikipedia.org/wiki/Integer_square_root">Integer square root</a></li>
+        
+            <li><a href="https://stackoverflow.com/questions/15390807/integer-square-root-in-python">Integer square root in python</a></li>
+        
+            <li><a href="https://www.mathsisfun.com/algebra/quadratic-equation-graph.html">Explore the Quadratic Equation</a></li>
+        
+            <li><a href="/python/labs/doc/html/namespace__04b__intsqrt.html">intsqrt</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    int(sqrt(this)).
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-bitset.html">bitset</a></li><li><a href="module-cookies.html">cookies</a></li><li><a href="module-factorize.html">factorize</a></li><li><a href="module-gcd.html">gcd</a></li></ul><h3>Classes</h3><ul><li><a href="module-bitset-BitSet.html">BitSet</a></li><li><a href="module-factorize-BigInt.html">BigInt</a></li><li><a href="module-factorize-Number.html">Number</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:input">input</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getFactors">getFactors</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Dec 31 2024 08:50:06 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

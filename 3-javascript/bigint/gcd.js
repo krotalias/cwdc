@@ -34,10 +34,10 @@
 /**
  * {@link https://en.wikipedia.org/wiki/Greatest_common_divisor Greatest Common Divisor},
  * which returns the highest
- * number that divides into two other numbers exactly.
- * @param {Number} x first integer.
- * @param {Number} y second integer.
- * @return {Number} GCD.
+ * number that divides both x and y exactly.
+ * @param {Number|BigInt} x first integer.
+ * @param {Number|BigInt} y second integer.
+ * @return {Number|BigInt} |x * y| / {@link module:gcd.lcm lcm}(x, y)
  * @see {@link https://dmitripavlutin.com/swap-variables-javascript/ 4 Ways to Swap Variables in JavaScript}
  * @see {@link https://www.mathsisfun.com/greatest-common-factor.html Greatest Common Factor}
  */
@@ -46,39 +46,51 @@ export function gcd(x, y) {
     [x, y] = [y % x, x];
   }
 
-  return y;
+  return y < 0 ? -y : y;
 }
 
 /**
- * Greatest Common Divisor of an array of numbers.
+ * Greatest Common Divisor of a set of numbers.
  * @function
- * @param {Array<Number>} arr array of numbers.
- * @return {Number} GCD.
+ * @param {Array<Number|BigInt>} arr array of numbers.
+ * @return {Number|BigInt}arr.{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce reduce} ({@link module:gcd.gcd gcd})
  */
 export const GCD = (arr) => arr.reduce(gcd);
 
 /**
  * {@link https://en.wikipedia.org/wiki/Least_common_multiple Least Common Multiple},
- * which returns the smallest
+ * which returns the smallest (positive)
  * number that can be divided by x and y without any remainder.
  * @function
- * @param {Number} x first integer.
- * @param {Number} y second integer.
- * @return {Number} LCM.
+ * @param {Number|BigInt} x first integer.
+ * @param {Number|BigInt} y second integer.
+ * @return {Number|BigInt} |x * y| / {@link module:gcd.gcd gcd}(x, y)
  * @see {@link https://www.cuemath.com/numbers/lcm-least-common-multiple/ Least common multiple}
  * @see {@link https://www.w3resource.com/python-exercises/challenges/1/python-challenges-1-exercise-37.php Find the smallest positive number that is evenly divisible by all of the numbers from 1 to 30}
  */
 export const lcm = (x, y) => (x * y) / gcd(x, y);
 
 /**
- * The smallest integer number with all factors from 1 to n
- * is their Least Common Multiple.
- * Using javascript BigInt to avoid the 64-bit limit.
+ * <p>The smallest integer number with all factors from 1 to n
+ * is their Least Common Multiple.</p>
+ * Created an array arr=[1,2,..n] of {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt BigInt}
+ * to avoid the 64-bit limit.
+ * <ul>
+ *   <li>LCM(10) = 2³ × 3² × 5 × 7 = 2520</li>
+ *   <li>2520/2=1260</li>
+ *   <li>2520/3=840</li>
+ *   <li>2520/4=630</li>
+ *   <li>2520/5=504</li>
+ *   <li>2520/6=420</li>
+ *   <li>2520/7=360</li>
+ *   <li>2520/8=315</li>
+ *   <li>2520/9=280</li>
+ *   <li>2520/10=252</li>
+ * </ul>
  * @param {Number} n limit.
- * @return {BigInt} smallest integer.
+ * @return {BigInt} arr.{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce reduce} ({@link module:gcd.lcm lcm})
  * @see {@link https://en.wikipedia.org/wiki/2520_(number) 2520 (number)}
  * @see {@link https://www.techiedelight.com/create-array-from-1-n-javascript/ Create an array sequence from 1 to N in a single line in JavaScript}
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt BigInt}
  * @see {@link https://betterprogramming.pub/using-javascript-bigint-to-represent-large-numbers-d1ad9f6e0079 Using JavaScript BigInt to Represent Large Numbers}
  */
 export function LCM(n) {

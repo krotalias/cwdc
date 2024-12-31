@@ -118,6 +118,20 @@ export const translate = (function () {
 })();
 
 /**
+ * <p>JavaScript BigInt is a built-in object that represents whole numbers larger than (2<sup>53</sup> – 1). </p>
+ * A BigInt value, also sometimes just called a BigInt, is a bigint primitive,
+ * created by appending n to the end of an integer literal,
+ * or by calling the BigInt() function (without the new operator)
+ * and giving it an integer value or string value.
+ * <p>BigInt values are similar to Number values in some ways, but also differ in a few key matters:
+ * A BigInt value cannot be used with methods in the built-in Math object and cannot be mixed with a
+ * Number value in operations; they must be coerced to the same type. Be careful coercing values back and forth, however,
+ * as the precision of a BigInt value may be lost when it is coerced to a Number value.</p>
+ * @class BigInt
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt BigInt}
+ */
+
+/**
  * <p>JavaScript is a prototype based language.
  * Therefore, whenever we create a function,
  * JavaScript engine adds a prototype property inside that function.</p>
@@ -143,7 +157,7 @@ export const translate = (function () {
  * <p>Add a new method to BigInt's prototype to calculate
  * the integer part of its square root.</p>
  *
- * <p>It is applied the Newton method for solving: x² - this = 0,
+ * <p>It is applied the {@link https://raw.org/book/optimization/newtons-method/ Newton method} for solving: x² - this = 0,
  * using only integer divisions.</p>
  *
  * Although sqrt(n) is irrational for many n, the sequence
@@ -163,7 +177,7 @@ export const translate = (function () {
  * </ul>
  *
  * @function
- * @global
+ * @memberof module:factorize~BigInt
  * @return {BigInt} int(sqrt(this)).
  * @see {@link https://www.freecodecamp.org/news/all-you-need-to-know-to-understand-javascripts-prototype-a2bff2d28f03/ All you need to know to understand JavaScript’s Prototype}
  * @see {@link https://en.wikipedia.org/wiki/Newton's_method Newton's method}
@@ -186,10 +200,17 @@ BigInt.prototype.isqrt = function () {
 };
 
 /**
+ * <p>Numbers are most commonly expressed in literal forms like 255 or 3.14159.</p>
+ * Values represent floating-point numbers like 37 or -9.25.
+ * @class Number
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number Number}
+ */
+
+/**
  * <p>Add a new method to Number's prototype to calculate
  * the integer part of its square root.</p>
  *
- * <p>It is applied the Newton method for solving: x² - this = 0</p>
+ * <p>It is applied the {@link https://raw.org/book/optimization/newtons-method/ Newton method} for solving: x² - this = 0</p>
  *
  * <ul>
  * <li>r<sub>new</sub> = r - f(r)/f'(r) = r - (r² - this)/2r ≊ ⌊(r + ⌊this/r⌋)/2⌋ = ⌊(r + this/r)/2⌋, r<sub>0</sub> > 0, r<sub>0</sub> ∈ ℤ.</li>
@@ -201,7 +222,7 @@ BigInt.prototype.isqrt = function () {
  * </ul>
  *
  * @function
- * @global
+ * @memberof module:factorize~Number
  * @return {Number} int(sqrt(this)).
  * @see {@link https://www.freecodecamp.org/news/all-you-need-to-know-to-understand-javascripts-prototype-a2bff2d28f03/ All you need to know to understand JavaScript’s Prototype}
  * @see {@link https://en.wikipedia.org/wiki/Newton's_method Newton's method}
