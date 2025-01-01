@@ -40,7 +40,8 @@
  *  @see {@link https://www.contentful.com/blog/2017/01/17/the-global-object-in-javascript/ What is the global object in JavaScript?}
  *  @see {@link https://javascript.info/global-object Global object}
  *  @see <a href="../game.js">game in node</a>
- *  @author Marijn Haverbeke, adapted to Vanilla Javascript by Paulo Roma
+ *  @author Marijn Haverbeke
+ *  @author Paulo Roma (adapted to Vanilla Javascript)
  *  @since 02/08/2021
  */
 

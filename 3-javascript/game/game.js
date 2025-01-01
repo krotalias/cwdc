@@ -16,7 +16,7 @@ const readlineSync = require("readline-sync");
 
 const levels = require("./code/levels.js");
 
-var ind,
+let ind,
   argv = process.argv;
 if (argv.length > 2) {
   ind = Math.min(argv[2], global.GAME_LEVELS.length - 1);
@@ -37,11 +37,11 @@ console.log(rows);
 console.log(`height = ${rows.length}`);
 console.log(`width = ${rows[0].length}`);
 
-let Player = Object();
-let Coin = Object();
-let Lava = Object();
+const Player = Object();
+const Coin = Object();
+const Lava = Object();
 
-var levelChars = {
+const levelChars = {
   ".": "empty",
   "#": "wall",
   "+": "lava",

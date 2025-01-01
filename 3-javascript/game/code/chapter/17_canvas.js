@@ -1,4 +1,4 @@
-/** @module 17_game */
+/** @module 17_canvas */
 
 /**
  * @file
@@ -59,7 +59,7 @@ const sprites = {
  *
  * @param {CanvasRenderingContext2D} context 2d graphical context.
  * @param {Number} around a vertical line abscissa.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D CanvasRenderingContext2D}
  */
 function flipHorizontally(context, around) {
   context.translate(around, 0);
