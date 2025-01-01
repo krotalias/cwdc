@@ -228,7 +228,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rectangles.js.html">rectangles.js</a>, <a href="rectangles.js.html#line68">line 68</a>
+        <a href="10-html5css3_rectangles_rectangles.js.html">10-html5css3/rectangles/rectangles.js</a>, <a href="10-html5css3_rectangles_rectangles.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -240,11 +240,11 @@
         <ul>
             <li><a href="/cwdc/10-html5css3/rectangles.html?w=100&h=500">rectangles</a></li>
         
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes">https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes">Drawing shapes with canvas</a></li>
         
-            <li><a href="https://observablehq.com/d/739e346d3d918358">https://observablehq.com/d/739e346d3d918358</a></li>
+            <li><a href="https://observablehq.com/d/739e346d3d918358">Circles in a rectangle solution</a></li>
         
-            <li><a href="https://stackoverflow.com/questions/12627449/pack-squares-into-a-rectangle#:~:text=If%2520you%2520need%2520the%2520squares,and%2520width%2520of%2520the%2520rectangle.">https://stackoverflow.com/questions/12627449/pack-squares-into-a-rectangle#:~:text=If%20you%20need%20the%20squares,and%20width%20of%20the%20rectangle.</a></li>
+            <li><a href="https://stackoverflow.com/questions/12627449/pack-squares-into-a-rectangle">Pack squares into a rectangle</a></li>
         </ul>
     </dd>
     
@@ -307,7 +307,8 @@
 
 
 <div class="description">
-    Set the callback when the slider is moved.
+    Set the callback when the slider is moved and
+save its value (number of circles) in a cookie "sval".
 </div>
 
 
@@ -423,7 +424,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rectangles.js.html">rectangles.js</a>, <a href="rectangles.js.html#line44">line 44</a>
+        <a href="10-html5css3_rectangles_rectangles.js.html">10-html5css3/rectangles/rectangles.js</a>, <a href="10-html5css3_rectangles_rectangles.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -583,7 +584,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rectangles.js.html">rectangles.js</a>, <a href="rectangles.js.html#line33">line 33</a>
+        <a href="10-html5css3_rectangles_rectangles.js.html">10-html5css3/rectangles/rectangles.js</a>, <a href="10-html5css3_rectangles_rectangles.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -619,6 +620,163 @@
     
 
     
+        <h3 class="subsection-title">Events</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:input">input</h4>
+    
+
+    
+    <p class="summary">Appends an event listener for events whose type attribute value is input.</p>
+    
+
+
+
+<div class="description">
+    <p>Fired when a &lt;input type="range"&gt; is in the
+<a href="https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range)">Range state</a>
+(by clicking or using the keyboard).</p>
+
+The callback argument sets the <a href="global.html#updateSliderLabel">callback</a> that will be invoked when
+the event is dispatched.</p>
+
+The input event is fired every time the value of the element changes.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a generic event.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="10-html5css3_rectangles_rectangles.js.html">10-html5css3/rectangles/rectangles.js</a>, <a href="10-html5css3_rectangles_rectangles.js.html#line49">line 49</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event">HTMLElement: input event</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
 </article>
 
 </section>
@@ -629,13 +787,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#drawRects">drawRects</a></li><li><a href="global.html#setSlider">setSlider</a></li><li><a href="global.html#updateSliderLabel">updateSliderLabel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-cookies.html">cookies</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:input">input</a></li></ul><h3>Global</h3><ul><li><a href="global.html#drawRects">drawRects</a></li><li><a href="global.html#setSlider">setSlider</a></li><li><a href="global.html#updateSliderLabel">updateSliderLabel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jan 25 2024 09:08:11 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 01 2025 07:49:35 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

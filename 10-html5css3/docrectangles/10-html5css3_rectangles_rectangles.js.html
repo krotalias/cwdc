@@ -1,33 +1,61 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: 10-html5css3/rectangles/rectangles.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: 10-html5css3/rectangles/rectangles.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file
  *
  * Summary.
  *
- * <p>In the same vein as shown in the Canvas primer II, we want to fill a rectangle,
- * as uniformly as possible, with a number of circles.</p>
+ * &lt;p>In the same vein as shown in the Canvas primer II, we want to fill a rectangle,
+ * as uniformly as possible, with a number of circles.&lt;/p>
  *
  * The idea is to lay out the circles from top to bottom and from left to right, organizing them in rows,
- * where the last row may be incomplete. <br>
+ * where the last row may be incomplete. &lt;br>
  * It is perhaps best to first consider that the canvas is a square
  * rather than a rectangle, and then try to figure out how to adapt the code for a non-square rectangle.
  *
- * <p>Incidentally, a perfect solution to this problem is not straightforward!<br>
+ * &lt;p>Incidentally, a perfect solution to this problem is not straightforward!&lt;br>
  * There's an old discussion on
- * <a href="https://stackoverflow.com/questions/12627449/pack-squares-into-a-rectangle">StackOverflow</a>
- * about it, but I found both answers not completely satisfactory.</p>
+ * &lt;a href="https://stackoverflow.com/questions/12627449/pack-squares-into-a-rectangle">StackOverflow&lt;/a>
+ * about it, but I found both answers not completely satisfactory.&lt;/p>
  *
  * @author Paulo Roma
  * @since 21/01/2021
- * @see <a href="/cwdc/10-html5css3/rectangles/rectangles.html?w=640&h=480">link</a>
- * @see <a href="/cwdc/10-html5css3/rectangles/rectangles.js">source</a>
+ * @see &lt;a href="/cwdc/10-html5css3/rectangles/rectangles.html?w=640&amp;h=480">link&lt;/a>
+ * @see &lt;a href="/cwdc/10-html5css3/rectangles/rectangles.js">source&lt;/a>
  * @see {@link https://observablehq.com/@esperanc/canvas-primer-ii Canvas primer II}
- * @see <img src="../rectangles/rectangles.png" width="512">
+ * @see &lt;img src="../rectangles/rectangles.png" width="512">
  */
 
 /**
  * Update the slider label.
  *
- * @param {Object<Number,Number>} {nrow,ncol} number of rows and columns.
+ * @param {Object&lt;Number,Number>} {nrow,ncol} number of rows and columns.
  * @param {String} val number of circles.
  */
 function updateSliderLabel({ nrow, ncol }, val) {
@@ -47,12 +75,12 @@ function setSlider(gCookie, sCookie) {
   const slider = document.querySelector("#ncircles");
   slider.value = val;
   /**
-   * <p>Fired when a &lt;input type="range"&gt; is in the
+   * &lt;p>Fired when a &amp;lt;input type="range"&amp;gt; is in the
    * {@link https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range) Range state}
-   * (by clicking or using the keyboard).</p>
+   * (by clicking or using the keyboard).&lt;/p>
    *
    * The callback argument sets the {@link updateSliderLabel callback} that will be invoked when
-   * the event is dispatched.</p>
+   * the event is dispatched.&lt;/p>
    *
    * The input event is fired every time the value of the element changes.
    *
@@ -76,8 +104,8 @@ function setSlider(gCookie, sCookie) {
  *
  * @param {String} val number of circles.
  * @param {HTMLElement} cnv canvas for drawing.
- * @return {Object<Number,Number>} number of rows and columns.
- * @see <a href="/cwdc/10-html5css3/rectangles.html?w=100&h=500">rectangles</a>
+ * @return {Object&lt;Number,Number>} number of rows and columns.
+ * @see &lt;a href="/cwdc/10-html5css3/rectangles.html?w=100&amp;h=500">rectangles&lt;/a>
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes Drawing shapes with canvas}
  * @see {@link https://observablehq.com/d/739e346d3d918358 Circles in a rectangle solution}
  * @see {@link https://stackoverflow.com/questions/12627449/pack-squares-into-a-rectangle Pack squares into a rectangle}
@@ -102,7 +130,7 @@ function drawRects(val, cnv) {
     let r = Math.ceil(Math.sqrt(n / ratio));
     let side = height / r;
     const width = height * ratio;
-    while (width / side < Math.ceil(n / r)) {
+    while (width / side &lt; Math.ceil(n / r)) {
       side = height / ++r;
     }
 
@@ -139,7 +167,7 @@ function drawRects(val, cnv) {
     dist = squareSide;
 
   // draw a square with a circle in it at each grid position.
-  for (let i = 0; i < ncircles; i++) {
+  for (let i = 0; i &lt; ncircles; i++) {
     const x = squareSide * col;
     const y = squareSide * row;
 
@@ -178,3 +206,26 @@ function drawRects(val, cnv) {
   }
   return { nrow: trow, ncol: tcol };
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-cookies.html">cookies</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:input">input</a></li></ul><h3>Global</h3><ul><li><a href="global.html#drawRects">drawRects</a></li><li><a href="global.html#setSlider">setSlider</a></li><li><a href="global.html#updateSliderLabel">updateSliderLabel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 01 2025 07:49:35 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

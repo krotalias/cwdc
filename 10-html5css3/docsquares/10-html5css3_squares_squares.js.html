@@ -1,44 +1,72 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: 10-html5css3/squares/squares.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: 10-html5css3/squares/squares.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file
  *
  * Summary.
  *
- * <p>In the same vein as shown in the <a href="/cwdc/10-html5css3/rectangles.html?w=640&h=480">
- * Fill Rectangle</a>, we want to rotate and scale a set of squares,
- * about one of its vertices. However, here we used SVG instead of a Canvas.</p>
+ * &lt;p>In the same vein as shown in the &lt;a href="/cwdc/10-html5css3/rectangles.html?w=640&amp;h=480">
+ * Fill Rectangle&lt;/a>, we want to rotate and scale a set of squares,
+ * about one of its vertices. However, here we used SVG instead of a Canvas.&lt;/p>
  *
  * The idea is to parametrize the rotation (about a horizontal line), and the size of the squares, by a number, called ratio ∈ [0,1].
  * The corresponding angle ∈ [0,90°] and scale factor ∈ [1,√2].
- * <p>
+ * &lt;p>
  * To each square it is applied a rotation followed by a scale (and a translation to change the fixed point and center it on the screen).
- * The size increases until ratio reaches 0.5. Then it decreases back to its original value, when ratio is 1.0.</p>
+ * The size increases until ratio reaches 0.5. Then it decreases back to its original value, when ratio is 1.0.&lt;/p>
  *
- * <p>Note that the easiest approach is <a href="../squares/svg.png">nesting</a> the transformations,
- * which are always the same:</p>
- * <ul>
- * <li>a rotation, followed by a scale, followed by a translation,</li>
- * <pre>
- *  &lt;g transform="translate(80,0) scale(1.3588230201170424) rotate(42.61405596961119)"&gt;
- *     &lt;rect fill="yellow" x="0" y="0" width="80" height="80" opacity="0.7"&gt;
- *     &lt;/rect&gt;
- * </pre>
- * <li>and of course, an initial translation for taking the graphics to the center of the window.</li>
- * <pre>
- *  &lt;g transform="translate(400, 300)"&gt;
- * </pre>
- * </ul>
+ * &lt;p>Note that the easiest approach is &lt;a href="../squares/svg.png">nesting&lt;/a> the transformations,
+ * which are always the same:&lt;/p>
+ * &lt;ul>
+ * &lt;li>a rotation, followed by a scale, followed by a translation,&lt;/li>
+ * &lt;pre>
+ *  &amp;lt;g transform="translate(80,0) scale(1.3588230201170424) rotate(42.61405596961119)"&amp;gt;
+ *     &amp;lt;rect fill="yellow" x="0" y="0" width="80" height="80" opacity="0.7"&amp;gt;
+ *     &amp;lt;/rect&amp;gt;
+ * &lt;/pre>
+ * &lt;li>and of course, an initial translation for taking the graphics to the center of the window.&lt;/li>
+ * &lt;pre>
+ *  &amp;lt;g transform="translate(400, 300)"&amp;gt;
+ * &lt;/pre>
+ * &lt;/ul>
  *
  * The transformations are post-multiplied to the current transformation matrix, and therefore, are applied backwards,
  * that is, the translation to the center of the window is the last transformation applied.
  *
- * <p>Be sure you fully understand the order of the transformations, and that initially vertex 0 is at the origin (the only case there is no translation).</p>
+ * &lt;p>Be sure you fully understand the order of the transformations, and that initially vertex 0 is at the origin (the only case there is no translation).&lt;/p>
  *
  * @author Paulo Roma
  * @since 19/04/2022
  *
- * @see <a href="/cwdc/10-html5css3/squares/squares.html?w=800&h=600">link</a>
- * @see <a href="/cwdc/10-html5css3/squares/squares.js">source</a>
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg &lt;svg&gt;}
+ * @see &lt;a href="/cwdc/10-html5css3/squares/squares.html?w=800&amp;h=600">link&lt;/a>
+ * @see &lt;a href="/cwdc/10-html5css3/squares/squares.js">source&lt;/a>
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg &amp;lt;svg&amp;gt;}
  * @see {@link https://www.sitepoint.com/canvas-vs-svg/ Canvas vs SVG: Choosing the Right Tool for the Job}
  * @see {@link https://d3js.org D3}
  */
@@ -62,7 +90,7 @@ function updateSliderLabel(slider) {
     lblvalue = (+lblvalue).toFixed(2);
   } else {
     lblvalue = lblvalue.padStart(2, "0");
-    extra = "&#9634;";
+    extra = "&amp;#9634;";
   }
 
   label.innerHTML = `${lblstr} = ${lblvalue} ${extra}`;
@@ -153,13 +181,13 @@ function setSlider(gCookie, sCookie, selector = "body") {
   // Callback for each radio button.
   variation.forEach((elem) => {
     /**
-     * <p>Executed when the "variation" radio button is checked/unchecked.</p>
+     * &lt;p>Executed when the "variation" radio button is checked/unchecked.&lt;/p>
      *
-     * <p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
-     * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).</p>
+     * &lt;p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
+     * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).&lt;/p>
      *
-     * <p>The callback argument sets the {@link drawSqrs callback}
-     * that will be invoked when the event is dispatched.</p>
+     * &lt;p>The callback argument sets the {@link drawSqrs callback}
+     * that will be invoked when the event is dispatched.&lt;/p>
      *
      * @event radioClick
      * @param {PointerEvent} event a mouse or touch event.
@@ -176,7 +204,7 @@ function setSlider(gCookie, sCookie, selector = "body") {
   });
 
   /**
-   * <p>Callback for the "ratio" slider.</p>
+   * &lt;p>Callback for the "ratio" slider.&lt;/p>
    * {@link updateSliderLabel}, {@link drawSqrs} and
    * save its value (ratio) in the "squares_cookies".
    * @event ratioSlider
@@ -190,7 +218,7 @@ function setSlider(gCookie, sCookie, selector = "body") {
   });
 
   /**
-   * <p>Callback for the "nsqr" slider.</p>
+   * &lt;p>Callback for the "nsqr" slider.&lt;/p>
    * {@link updateSliderLabel}, {@link drawSqrs} and
    * save its value (number of squares) in the "squares_cookies".
    * @event nsqrSlider
@@ -248,7 +276,7 @@ function drawSqrs(svg, ratio, n, variation) {
   // translate to the center of the viewport.
   let g = svg.append("g").attr("transform", `translate(${p[0]}, ${p[1]})`);
 
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i &lt; n; i++) {
     g.append("rect")
       .attr("fill", colors[i % colors.length])
       .attr("x", 0)
@@ -261,3 +289,26 @@ function drawSqrs(svg, ratio, n, variation) {
       .attr("transform", `${trans} scale(${len}) rotate(${rad2deg(ang)})`);
   }
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-cookies.html">cookies</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:nsqrSlider">nsqrSlider</a></li><li><a href="global.html#event:radioClick">radioClick</a></li><li><a href="global.html#event:ratioSlider">ratioSlider</a></li></ul><h3>Global</h3><ul><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#drawSqrs">drawSqrs</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#setSlider">setSlider</a></li><li><a href="global.html#toAngle">toAngle</a></li><li><a href="global.html#toLength">toLength</a></li><li><a href="global.html#updateSliderLabel">updateSliderLabel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 01 2025 07:47:33 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
