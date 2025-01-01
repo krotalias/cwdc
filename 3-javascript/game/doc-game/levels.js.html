@@ -265,6 +265,7 @@ if (
   module.exports = GAME_LEVELS;
 if (typeof global != "undefined" &amp;&amp; !global.GAME_LEVELS)
   global.GAME_LEVELS = GAME_LEVELS;
+else window.GAME_LEVELS = GAME_LEVELS;
 </code></pre>
         </article>
     </section>
