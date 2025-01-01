@@ -37,8 +37,8 @@
  *  @see <a href="/cwdc/3-javascript/game/game.html?driver=d">Game</a>
  *  @see <a href="/cwdc/3-javascript/game/canvas.html?driver=c">Canvas</a>
  *  @see <a href="/cwdc/3-javascript/game/code/levels.js">source</a>
- *  @see https://www.contentful.com/blog/2017/01/17/the-global-object-in-javascript/
- *  @see https://javascript.info/global-object
+ *  @see {@link https://www.contentful.com/blog/2017/01/17/the-global-object-in-javascript/ What is the global object in JavaScript?}
+ *  @see {@link https://javascript.info/global-object Global object}
  *  @see <a href="../game.js">game in node</a>
  *  @author Marijn Haverbeke, adapted to Vanilla Javascript by Paulo Roma
  *  @since 02/08/2021
@@ -48,7 +48,7 @@
  * Set of strings defining each level of the game (its environment geometry).
  * @type {Array<string>}
  */
-var GAME_LEVELS = [
+const GAME_LEVELS = [
   `
 ................................................................................
 ................................................................................

@@ -28,7 +28,8 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Level<span class="signature">(plan)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>
+            <span class="ancestors"><a href="module-16_game.html">16_game</a>~</span>Level<span class="signature">(plan)</span><span class="type-signature"></span></h2>
         
             <div class="class-description"><p>Stores a level object. Its argument should be the string that defines the level.</p>
 So rows holds an array of arrays of characters, the rows of the plan.
@@ -37,7 +38,7 @@ But we must still separate the moving elements from the background grid.
 We’ll call moving elements actors. They’ll be stored in an array of objects.
 The background will be an array of arrays of strings, holding field types such as "empty", "wall", or "lava".
 
-<p> <a href="global.html#levelChars">levelChars</a> </p>
+<p> <a href="module-16_game.html#~levelChars">levelChars</a> </p>
 {
 <ul style="list-style-type:none">
   <li> ".": "empty", </li>
@@ -54,11 +55,11 @@ The background will be an array of arrays of strings, holding field types such a
 <p> Going from an array of strings to an object: </p>
 
 <pre>
-  <a href="global.html#simpleLevelPlan">simpleLevelPlan</a> [6]
+  <a href="module-16_game.html#~simpleLevelPlan">simpleLevelPlan</a> [6]
    . . . . . . # + + + + + + + + + + + + # . . <br>
                       ⬇
 
-  <a href="Level.html#rows">Background Matrix</a> - Line 6: Array (22)
+  <a href="module-16_game-Level.html#rows">Background Matrix</a> - Line 6: Array (22)
   [
    "empty", "empty", "empty", "empty", "empty", "empty",
    "wall",  "lava",  "lava",  "lava",  "lava",  "lava",  "lava",
@@ -68,7 +69,7 @@ The background will be an array of arrays of strings, holding field types such a
 </pre>
 
 <pre>
-  <a href="Level.html#startActors">startActors</a>
+  <a href="module-16_game-Level.html#startActors">startActors</a>
   [
 </pre>
    <ul style="list-style-type:none">
@@ -206,7 +207,7 @@ The background will be an array of arrays of strings, holding field types such a
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line129">line 129</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -323,7 +324,7 @@ The background will be an array of arrays of strings, holding field types such a
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line143">line 143</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line146">line 146</a>
     </li></ul></dd>
     
 
@@ -395,7 +396,7 @@ The background will be an array of arrays of strings, holding field types such a
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line159">line 159</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line162">line 162</a>
     </li></ul></dd>
     
 
@@ -413,7 +414,7 @@ The background will be an array of arrays of strings, holding field types such a
 
         
             
-<h4 class="name" id="startActors"><span class="type-signature"></span>startActors<span class="type-signature"> :Array.&lt;(<a href="Player.html">Player</a>|<a href="Coin.html">Coin</a>|<a href="Lava.html">Lava</a>)></span></h4>
+<h4 class="name" id="startActors"><span class="type-signature"></span>startActors<span class="type-signature"> :Array.&lt;(Player|Coin|Lava)></span></h4>
 
 
 
@@ -428,7 +429,7 @@ The background will be an array of arrays of strings, holding field types such a
     <ul>
         <li>
             
-<span class="param-type">Array.&lt;(<a href="Player.html">Player</a>|<a href="Coin.html">Coin</a>|<a href="Lava.html">Lava</a>)></span>
+<span class="param-type">Array.&lt;(Player|Coin|Lava)></span>
 
 
         </li>
@@ -467,7 +468,7 @@ The background will be an array of arrays of strings, holding field types such a
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line153">line 153</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line156">line 156</a>
     </li></ul></dd>
     
 
@@ -539,7 +540,7 @@ The background will be an array of arrays of strings, holding field types such a
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line148">line 148</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line151">line 151</a>
     </li></ul></dd>
     
 
@@ -618,7 +619,7 @@ touches a grid element of the given type.
             <td class="type">
             
                 
-<span class="param-type"><a href="Vec.html">Vec</a></span>
+<span class="param-type">Vec</span>
 
 
             
@@ -641,7 +642,7 @@ touches a grid element of the given type.
             <td class="type">
             
                 
-<span class="param-type"><a href="Vec.html">Vec</a></span>
+<span class="param-type">Vec</span>
 
 
             
@@ -715,7 +716,7 @@ touches a grid element of the given type.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line557">line 557</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line561">line 561</a>
     </li></ul></dd>
     
 
@@ -783,13 +784,13 @@ touches a grid element of the given type.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Coin.html">Coin</a></li><li><a href="DOMDisplay.html">DOMDisplay</a></li><li><a href="Lava.html">Lava</a></li><li><a href="Level.html">Level</a></li><li><a href="Player.html">Player</a></li><li><a href="State.html">State</a></li><li><a href="Vec.html">Vec</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li><li><a href="global.html#arrowKeys">arrowKeys</a></li><li><a href="global.html#drawActors">drawActors</a></li><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#elt">elt</a></li><li><a href="global.html#gravity">gravity</a></li><li><a href="global.html#jumpSpeed">jumpSpeed</a></li><li><a href="global.html#levelChars">levelChars</a></li><li><a href="global.html#overlap">overlap</a></li><li><a href="global.html#playerXSpeed">playerXSpeed</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#runGame">runGame</a></li><li><a href="global.html#runLevel">runLevel</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#simpleLevel">simpleLevel</a></li><li><a href="global.html#simpleLevelPlan">simpleLevelPlan</a></li><li><a href="global.html#trackKeys">trackKeys</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-16_game.html">16_game</a></li><li><a href="module-17_game.html">17_game</a></li></ul><h3>Classes</h3><ul><li><a href="module-16_game-Coin.html">Coin</a></li><li><a href="module-16_game-Lava.html">Lava</a></li><li><a href="module-16_game-Level.html">Level</a></li><li><a href="module-16_game-Player.html">Player</a></li><li><a href="module-16_game-State.html">State</a></li><li><a href="module-16_game-Vec.html">Vec</a></li></ul><h3>Events</h3><ul><li><a href="module-16_game.html#~event:keydown">keydown</a></li><li><a href="module-16_game.html#~event:keyup">keyup</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 08 2024 11:44:43 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 01 2025 10:32:49 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Coin</title>
+    <title>JSDoc: Class: Lava</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Coin</h1>
+    <h1 class="page-title">Class: Lava</h1>
 
     
 
@@ -28,17 +28,13 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Coin<span class="signature">(pos, basePos, wobble)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>
+            <span class="ancestors"><a href="module-16_game.html">16_game</a>~</span>Lava<span class="signature">(pos, speed, reset)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Coin actors are relatively simple. They mostly just sit in their place.
-But to liven up the game a little, they are given a “wobble”, a slight vertical back-and-forth motion.
-
-<p>To avoid a situation where all coins move up and down synchronously, the starting phase of each coin is randomized.
-The period of Math.sin’s wave, the width of a wave it produces, is 2π.
-We multiply the value returned by Math.random by that number to give the coin a random starting position on the wave.</p>
-
-To track this, a coin object stores a base position as well as a wobble property that tracks the phase of the bouncing motion.
-Together, these determine the coin’s actual position (stored in the pos property).</div>
+            <div class="class-description">Lava actor, we need to initialize the object differently depending on the character it is based on.
+Dynamic lava moves along at its current speed until it hits an obstacle.
+At that point, if it has a reset property, it will jump back to its start position (dripping).
+If it does not, it will invert its speed and continue in the other direction (bouncing).</div>
         
     
 </header>
@@ -53,7 +49,7 @@ Together, these determine the coin’s actual position (stored in the pos proper
     
 
     
-    <h4 class="name" id="Coin"><span class="type-signature"></span>new Coin<span class="signature">(pos, basePos, wobble)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Lava"><span class="type-signature"></span>new Lava<span class="signature">(pos, speed, reset)</span><span class="type-signature"></span></h4>
     
 
     
@@ -99,7 +95,7 @@ Together, these determine the coin’s actual position (stored in the pos proper
             <td class="type">
             
                 
-<span class="param-type"><a href="Vec.html">Vec</a></span>
+<span class="param-type">Vec</span>
 
 
             
@@ -109,20 +105,20 @@ Together, these determine the coin’s actual position (stored in the pos proper
 
             
 
-            <td class="description last">coin position.</td>
+            <td class="description last">position.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>basePos</code></td>
+                <td class="name"><code>speed</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Vec.html">Vec</a></span>
+<span class="param-type">Vec</span>
 
 
             
@@ -132,20 +128,20 @@ Together, these determine the coin’s actual position (stored in the pos proper
 
             
 
-            <td class="description last">base position for the wooble movement.</td>
+            <td class="description last">lava velocity.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>wobble</code></td>
+                <td class="name"><code>reset</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">Boolean</span>
 
 
             
@@ -155,7 +151,7 @@ Together, these determine the coin’s actual position (stored in the pos proper
 
             
 
-            <td class="description last">phase for an unsteady movement from side to side.</td>
+            <td class="description last">flag to indicate a jump back to its start position.</td>
         </tr>
 
     
@@ -196,7 +192,7 @@ Together, these determine the coin’s actual position (stored in the pos proper
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line341">line 341</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line289">line 289</a>
     </li></ul></dd>
     
 
@@ -246,26 +242,16 @@ Together, these determine the coin’s actual position (stored in the pos proper
 
         
             
-<h4 class="name" id="size"><span class="type-signature"></span>size<span class="type-signature"> :<a href="Vec.html">Vec</a></span></h4>
+<h4 class="name" id="size"><span class="type-signature"></span>size<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Size: 0.6 x 0.6
+    Size: 1 x 1
 </div>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><a href="Vec.html">Vec</a></span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -300,7 +286,7 @@ Together, these determine the coin’s actual position (stored in the pos proper
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line373">line 373</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line327">line 327</a>
     </li></ul></dd>
     
 
@@ -324,7 +310,7 @@ Together, these determine the coin’s actual position (stored in the pos proper
 
 
 <div class="description">
-    Getter: "coin"
+    Getter: "lava"
 </div>
 
 
@@ -372,7 +358,7 @@ Together, these determine the coin’s actual position (stored in the pos proper
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line353">line 353</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line301">line 301</a>
     </li></ul></dd>
     
 
@@ -400,7 +386,7 @@ Together, these determine the coin’s actual position (stored in the pos proper
     
 
     
-    <h4 class="name" id="collide"><span class="type-signature"></span>collide<span class="signature">(state)</span><span class="type-signature"> &rarr; {<a href="State.html">State</a>}</span></h4>
+    <h4 class="name" id="collide"><span class="type-signature"></span>collide<span class="signature">(state)</span><span class="type-signature"> &rarr; {State}</span></h4>
     
 
     
@@ -452,7 +438,7 @@ Coins vanish when you touch them and set the status to "won" when they are the l
             <td class="type">
             
                 
-<span class="param-type"><a href="State.html">State</a></span>
+<span class="param-type">State</span>
 
 
             
@@ -503,7 +489,7 @@ Coins vanish when you touch them and set the status to "won" when they are the l
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line639">line 639</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line631">line 631</a>
     </li></ul></dd>
     
 
@@ -532,7 +518,7 @@ Coins vanish when you touch them and set the status to "won" when they are the l
 
         
 <div class="param-desc">
-    new state (with status "won" if there is no more coins).
+    new state with a "lost" status.
 </div>
 
 
@@ -543,7 +529,7 @@ Coins vanish when you touch them and set the status to "won" when they are the l
     </dt>
     <dd>
         
-<span class="param-type"><a href="State.html">State</a></span>
+<span class="param-type">State</span>
 
 
     </dd>
@@ -561,7 +547,7 @@ Coins vanish when you touch them and set the status to "won" when they are the l
     
 
     
-    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(time)</span><span class="type-signature"> &rarr; {<a href="Coin.html">Coin</a>}</span></h4>
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(time, state)</span><span class="type-signature"> &rarr; {Lava}</span></h4>
     
 
     
@@ -569,8 +555,19 @@ Coins vanish when you touch them and set the status to "won" when they are the l
 
 
 <div class="description">
-    Coin objects’ update method take as argument the time step
-to wobble the coin position.
+    Lava objects’ update method take as arguments the time step, and the state object.
+
+<p> Actions performed:</p>
+<ul>
+ <li> Gets new lava position X: px = vx * t </li>
+ <li> Gets new lava position Y: py = vy * t </li>
+ <li> Return a new lava object: </li>
+ <ul>
+ <li> If it does not touch any wall: new Lava(newPos, this.speed, this.reset); </li>
+ <li> else if it touches, and this.reset: return new Lava(this.reset, this.speed, this.reset);
+ <li> else return new Lava(this.pos: this.speed.times(-1));
+ </ul>
+</ul>
 </div>
 
 
@@ -626,6 +623,29 @@ to wobble the coin position.
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">State</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a given game state.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -663,7 +683,7 @@ to wobble the coin position.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line686">line 686</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line669">line 669</a>
     </li></ul></dd>
     
 
@@ -692,7 +712,7 @@ to wobble the coin position.
 
         
 <div class="param-desc">
-    new coin object.
+    new lava object.
 </div>
 
 
@@ -703,7 +723,7 @@ to wobble the coin position.
     </dt>
     <dd>
         
-<span class="param-type"><a href="Coin.html">Coin</a></span>
+<span class="param-type">Lava</span>
 
 
     </dd>
@@ -721,7 +741,7 @@ to wobble the coin position.
     
 
     
-    <h4 class="name" id=".create"><span class="type-signature">(static) </span>create<span class="signature">(pos)</span><span class="type-signature"> &rarr; {<a href="Coin.html">Coin</a>}</span></h4>
+    <h4 class="name" id=".create"><span class="type-signature">(static) </span>create<span class="signature">(pos, ch)</span><span class="type-signature"> &rarr; {Lava}</span></h4>
     
 
     
@@ -729,7 +749,7 @@ to wobble the coin position.
 
 
 <div class="description">
-    Coin translated by 0.2 x 0.1 and with a random wobble.
+    Lava with velocity: "=" -> (2,0), "|" -> (0,2), "v" -> (0,3)
 </div>
 
 
@@ -771,7 +791,7 @@ to wobble the coin position.
             <td class="type">
             
                 
-<span class="param-type"><a href="Vec.html">Vec</a></span>
+<span class="param-type">Vec</span>
 
 
             
@@ -782,6 +802,35 @@ to wobble the coin position.
             
 
             <td class="description last">position.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ch</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">"="</span>
+|
+
+<span class="param-type">"|"</span>
+|
+
+<span class="param-type">"v"</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">character representing lava.</td>
         </tr>
 
     
@@ -822,7 +871,7 @@ to wobble the coin position.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line363">line 363</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line312">line 312</a>
     </li></ul></dd>
     
 
@@ -851,7 +900,7 @@ to wobble the coin position.
 
         
 <div class="param-desc">
-    a coin object.
+    lava object at the given position.
 </div>
 
 
@@ -862,7 +911,7 @@ to wobble the coin position.
     </dt>
     <dd>
         
-<span class="param-type"><a href="Coin.html">Coin</a></span>
+<span class="param-type">Lava</span>
 
 
     </dd>
@@ -890,13 +939,13 @@ to wobble the coin position.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Coin.html">Coin</a></li><li><a href="DOMDisplay.html">DOMDisplay</a></li><li><a href="Lava.html">Lava</a></li><li><a href="Level.html">Level</a></li><li><a href="Player.html">Player</a></li><li><a href="State.html">State</a></li><li><a href="Vec.html">Vec</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li><li><a href="global.html#arrowKeys">arrowKeys</a></li><li><a href="global.html#drawActors">drawActors</a></li><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#elt">elt</a></li><li><a href="global.html#gravity">gravity</a></li><li><a href="global.html#jumpSpeed">jumpSpeed</a></li><li><a href="global.html#levelChars">levelChars</a></li><li><a href="global.html#overlap">overlap</a></li><li><a href="global.html#playerXSpeed">playerXSpeed</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#runGame">runGame</a></li><li><a href="global.html#runLevel">runLevel</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#simpleLevel">simpleLevel</a></li><li><a href="global.html#simpleLevelPlan">simpleLevelPlan</a></li><li><a href="global.html#trackKeys">trackKeys</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-16_game.html">16_game</a></li><li><a href="module-17_game.html">17_game</a></li></ul><h3>Classes</h3><ul><li><a href="module-16_game-Coin.html">Coin</a></li><li><a href="module-16_game-Lava.html">Lava</a></li><li><a href="module-16_game-Level.html">Level</a></li><li><a href="module-16_game-Player.html">Player</a></li><li><a href="module-16_game-State.html">State</a></li><li><a href="module-16_game-Vec.html">Vec</a></li></ul><h3>Events</h3><ul><li><a href="module-16_game.html#~event:keydown">keydown</a></li><li><a href="module-16_game.html#~event:keyup">keyup</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Sep 08 2024 11:44:43 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 01 2025 10:32:49 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

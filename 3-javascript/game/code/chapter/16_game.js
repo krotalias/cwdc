@@ -1,3 +1,5 @@
+/** @module 16_game */
+
 /**
  * @file
  *
@@ -23,19 +25,20 @@
  *  - Ubuntu:
  *     - sudo apt install jsdoc-toolkit
  *  - MacOS:
- *     - sudo port install npm7 (or npm8)
+ *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
  *  - jsdoc -d doc-game code/chapter/16_game.js
  *  </pre>
  *
- *  @author Marijn Haverbeke ({@link https://marijnhaverbeke.nl}), adapted to ES6 by Paulo Roma
+ *  @author Marijn Haverbeke ({@link https://marijnhaverbeke.nl})
+ *  @author Paulo Roma (adapted to ES6)
  *  @since 06/07/2021
  *  @see <a href="/cwdc/3-javascript/game/game.html?driver=d">Game</a>
  *  @see <a href="/cwdc/3-javascript/game/code/chapter/16_game.js">source</a>
  *  @see <a href="/cwdc/3-javascript/game/code/levels.js">levels</a>
- *  @see https://eloquentjavascript.net/16_game.html
- *  @see https://flexiple.com/associative-array-javascript/
- *  @see https://www.lessmilk.com/game/dark-blue/
+ *  @see {@link https://eloquentjavascript.net/16_game.html Project: A Platform Game}
+ *  @see {@link https://flexiple.com/associative-array-javascript/ Associative array in JavaScript}
+ *  @see {@link https://www.lessmilk.com/game/dark-blue/ Game: Dark Blue}
  *  @see <img src="../DOM.png" width="512">
  */
 
@@ -43,7 +46,7 @@
  * @type {String}
  * @see <a href="/cwdc/3-javascript/game/game2.html">Simple Level Plan</a>
  */
-var simpleLevelPlan = `
+const simpleLevelPlan = `
 ......................
 ..#................#..
 ..#..............=.#..
@@ -62,7 +65,7 @@ var simpleLevelPlan = `
  * We’ll call moving elements actors. They’ll be stored in an array of objects.
  * The background will be an array of arrays of strings, holding field types such as "empty", "wall", or "lava".
  *
- * <p> {@link levelChars} </p>
+ * <p> {@link module:16_game~levelChars levelChars} </p>
  * {
  * <ul style="list-style-type:none">
  *   <li> ".": "empty", </li>
@@ -79,11 +82,11 @@ var simpleLevelPlan = `
  * <p> Going from an array of strings to an object: </p>
  *
  * <pre>
- *   {@link simpleLevelPlan} [6]
+ *   {@link module:16_game~simpleLevelPlan simpleLevelPlan} [6]
  *    . . . . . . # + + + + + + + + + + + + # . . <br>
  *                       ⬇
  *
- *   {@link Level#rows Background Matrix} - Line 6: Array (22)
+ *   {@link module:16_game~Level#rows Background Matrix} - Line 6: Array (22)
  *   [
  *    "empty", "empty", "empty", "empty", "empty", "empty",
  *    "wall",  "lava",  "lava",  "lava",  "lava",  "lava",  "lava",
@@ -93,7 +96,7 @@ var simpleLevelPlan = `
  * </pre>
  *
  * <pre>
- *   {@link Level#startActors startActors}
+ *   {@link module:16_game~Level#startActors startActors}
  *   [
  * </pre>
  *    <ul style="list-style-type:none">
@@ -126,7 +129,7 @@ var simpleLevelPlan = `
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
  * @see https://dev.to/sagar/three-dots---in-javascript-26ci
  */
-var Level = class Level {
+const Level = class Level {
   /**
    * @constructs Level
    * @param {String} plan level geometry.
@@ -175,7 +178,7 @@ var Level = class Level {
  * @param {Array<Lava|Coin|Player>} actors actors in this level.
  * @param {"lost" | "won" | "playing"} status game situation.
  */
-var State = class State {
+const State = class State {
   constructor(level, actors, status) {
     this.level = level;
     this.actors = actors;
@@ -207,7 +210,7 @@ var State = class State {
  * @param {Number} x abscissa.
  * @param {Number} y ordinate.
  */
-var Vec = class Vec {
+const Vec = class Vec {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -239,7 +242,7 @@ var Vec = class Vec {
  * @param {Vec} pos position.
  * @param {Vec} speed current velocity to simulate momentum and gravity.
  */
-var Player = class Player {
+const Player = class Player {
   constructor(pos, speed) {
     this.pos = pos;
     this.speed = speed;
@@ -283,7 +286,7 @@ Player.prototype.size = new Vec(0.8, 1.5);
  * @param {Vec} speed lava velocity.
  * @param {Boolean} reset flag to indicate a jump back to its start position.
  */
-var Lava = class Lava {
+const Lava = class Lava {
   constructor(pos, speed, reset) {
     this.pos = pos;
     this.speed = speed;
@@ -338,7 +341,7 @@ Lava.prototype.size = new Vec(1, 1);
  * @param {Vec} basePos base position for the wooble movement.
  * @param {Number} wobble phase for an unsteady movement from side to side.
  */
-var Coin = class Coin {
+const Coin = class Coin {
   constructor(pos, basePos, wobble) {
     this.pos = pos;
     this.basePos = basePos;
@@ -376,7 +379,7 @@ Coin.prototype.size = new Vec(0.6, 0.6);
  * Maps plan characters to either background grid types or actor classes.
  * @type {Object<String:String|Player|Lava|Coin>}
  */
-var levelChars = {
+const levelChars = {
   ".": "empty",
   "#": "wall",
   "+": "lava",
@@ -391,7 +394,7 @@ var levelChars = {
  * Create a Level instance.
  * @type {Level}
  */
-var simpleLevel = new Level(simpleLevelPlan);
+const simpleLevel = new Level(simpleLevelPlan);
 
 /**
  * Helper function providing a succinct way to create an element and give it some attributes and child nodes.
@@ -420,7 +423,7 @@ function elt(name, attrs, ...children) {
  * @param {HTMLElement} parent parent element.
  * @param {Level} level geometry of the level to be drawn.
  */
-var DOMDisplay = class DOMDisplay {
+export const DOMDisplay = class DOMDisplay {
   constructor(parent, level) {
     this.dom = elt("div", { class: "game" }, drawGrid(level));
     this.actorLayer = null;
@@ -439,7 +442,8 @@ var DOMDisplay = class DOMDisplay {
  * The amount of pixels that a single unit takes up on the screen.
  * @type {Number}
  */
-var scale = 20;
+const scale = 20;
+window.scale = scale;
 
 /**
  * <p>The level’s background grid, which never changes, is drawn once.</p>
@@ -470,7 +474,7 @@ function drawGrid(level) {
 /**
  * We draw each actor by creating a DOM element for it and
  * setting that element’s position and size based on the actor’s properties.
- * <p>The values have to be multiplied by {@link scale} to go from game units to pixels.</p>
+ * <p>The values have to be multiplied by {@link module:16_game~scale scale} to go from game units to pixels.</p>
  *
  * <p>Each actor has a css class attribute, defining its position, width and height, and is basically a rectangle</p>
  *
@@ -673,7 +677,7 @@ Lava.prototype.update = function (time, state) {
   }
 };
 
-var wobbleSpeed = 8,
+const wobbleSpeed = 8,
   wobbleDist = 0.07;
 
 /**
@@ -696,17 +700,17 @@ Coin.prototype.update = function (time) {
 /** Player horizontal speed.
  * @type {Number}
  */
-var playerXSpeed = 7;
+const playerXSpeed = 7;
 
 /** Player gravity.
  * @type {Number}
  */
-var gravity = 30;
+const gravity = 30;
 
 /** Player jump speed.
  * @type {Number}
  */
-var jumpSpeed = 17;
+const jumpSpeed = 17;
 
 /**
  * <p>Actor objects’ update methods take as arguments the time step, the state object, and a keys object. </p>
@@ -760,7 +764,7 @@ Player.prototype.update = function (time, state, keys) {
  * @param {Array<String>} keys array of key names.
  * @returns {Array<{KeyboardEvent.key:Boolean}>} a value will be true, when a tracked key is pressed,
  *                                and eventually will be false, when it is released.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key KeyboardEvent: key property}
  */
 function trackKeys(keys) {
   let down = Object.create(null);
@@ -776,7 +780,17 @@ function trackKeys(keys) {
       event.preventDefault();
     }
   }
+  /**
+   * The keydown event is fired when a key is pressed.
+   * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
+   */
   window.addEventListener("keydown", track);
+  /**
+   * The keyup event is fired when a key is released.
+   * @event keyup
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event Element: keyup event}
+   */
   window.addEventListener("keyup", track);
   return down;
 }
@@ -786,14 +800,14 @@ function trackKeys(keys) {
  * @type {Array<{KeyboardEvent.key:Boolean}>}
  * @see trackKeys
  */
-var arrowKeys = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"]);
+const arrowKeys = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"]);
 
 /**
- * <p>A closure to draw a single frame, by calling a function {@link frame}
+ * <p>A closure to draw a single frame, by calling a function {@link module:16_game~frame frame}
  * that expects a time as an argument. </p>
  *
  * @param {function} frameFunc draws a single frame.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
  */
 function runAnimation(frameFunc) {
   let lastTime = null;
@@ -801,7 +815,7 @@ function runAnimation(frameFunc) {
    * To keep a frame rate of 60 frames per second (16.7 ms per frame),<br>
    * {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame|requestAnimationFrame}
    * keep calling this function.<br>
-   * When {@link frameFunct} returns false, the animation stops.
+   * When {@link module:16_game~frameFunct frameFunc} returns false, the animation stops.
    * @param {DOMHighResTimeStamp} time current time.
    * @returns {void}
    * @callback frame
@@ -824,9 +838,9 @@ function runAnimation(frameFunc) {
  * @param {Level} level a Level object.
  * @param {DOMDisplay|CanvasDisplay} Display a Display object.
  * @returns {Promise<Boolean>}
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
- * @see https://eloquentjavascript.net/11_async.html
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise Promise}
+ * @see {@link https://eloquentjavascript.net/11_async.html Asynchronous Programming}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises Using promises}
  */
 function runLevel(level, Display) {
   let display = new Display(document.body, level);
@@ -836,7 +850,7 @@ function runLevel(level, Display) {
     runAnimation(
       /**
        * When the level is finished (lost or won),
-       * {@link runLevel} waits one more second
+       * {@link module:16_game~runLevel runLevel} waits one more second
        * (to let the user see what happens) <br>
        * and then clears the display, stops the animation,
        * and resolves the promise to the game’s end status.
@@ -882,10 +896,10 @@ function runLevel(level, Display) {
  * @param {Array<String>} plans array of Level plans (strings).
  * @param {DOMDisplay|CanvasDisplay} Display a Display constructor.
  * @returns {Promise<String>} a promise which resolves when the player finishes the game.
- * @see https://eloquentjavascript.net/11_async.html
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+ * @see {@link https://eloquentjavascript.net/11_async.html Asynchronous Programming}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function async function}
  */
-async function runGame(plans, Display) {
+export async function runGame(plans, Display) {
   let cind = document.cookie.indexOf("level");
   // firefox and chrome do not add a ; after the last cookie value
   let semicolon = `${document.cookie};`.indexOf(";", cind);

@@ -28,7 +28,8 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>State<span class="signature">(level, actors, status)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>
+            <span class="ancestors"><a href="module-16_game.html">16_game</a>~</span>State<span class="signature">(level, actors, status)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">As the game runs, actors will end up in different places or even disappear entirely (as coins do when collected).
 <p>We’ll use a State class to track the state of a running game.</p></div>
@@ -92,7 +93,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="Level.html">Level</a></span>
+<span class="param-type">Level</span>
 
 
             
@@ -115,7 +116,7 @@
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;(<a href="Lava.html">Lava</a>|<a href="Coin.html">Coin</a>|<a href="Player.html">Player</a>)></span>
+<span class="param-type">Array.&lt;(Lava|Coin|Player)></span>
 
 
             
@@ -195,7 +196,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line178">line 178</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line181">line 181</a>
     </li></ul></dd>
     
 
@@ -245,7 +246,7 @@
 
         
             
-<h4 class="name" id="player"><span class="type-signature"></span>player<span class="type-signature"> :<a href="Player.html">Player</a></span></h4>
+<h4 class="name" id="player"><span class="type-signature"></span>player<span class="type-signature"> :Player</span></h4>
 
 
 
@@ -260,7 +261,7 @@
     <ul>
         <li>
             
-<span class="param-type"><a href="Player.html">Player</a></span>
+<span class="param-type">Player</span>
 
 
         </li>
@@ -299,7 +300,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line200">line 200</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line203">line 203</a>
     </li></ul></dd>
     
 
@@ -334,7 +335,7 @@
     
 
     
-    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(time, keys)</span><span class="type-signature"> &rarr; {<a href="State.html">State</a>}</span></h4>
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(time, keys)</span><span class="type-signature"> &rarr; {State}</span></h4>
     
 
     
@@ -461,7 +462,7 @@ By rounding the sides of a box up and down, we get the range of background squar
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line583">line 583</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line587">line 587</a>
     </li></ul></dd>
     
 
@@ -501,7 +502,7 @@ By rounding the sides of a box up and down, we get the range of background squar
     </dt>
     <dd>
         
-<span class="param-type"><a href="State.html">State</a></span>
+<span class="param-type">State</span>
 
 
     </dd>
@@ -519,7 +520,7 @@ By rounding the sides of a box up and down, we get the range of background squar
     
 
     
-    <h4 class="name" id=".start"><span class="type-signature">(static) </span>start<span class="signature">(level)</span><span class="type-signature"> &rarr; {<a href="State.html">State</a>}</span></h4>
+    <h4 class="name" id=".start"><span class="type-signature">(static) </span>start<span class="signature">(level)</span><span class="type-signature"> &rarr; {State}</span></h4>
     
 
     
@@ -569,7 +570,7 @@ By rounding the sides of a box up and down, we get the range of background squar
             <td class="type">
             
                 
-<span class="param-type"><a href="Level.html">Level</a></span>
+<span class="param-type">Level</span>
 
 
             
@@ -620,7 +621,7 @@ By rounding the sides of a box up and down, we get the range of background squar
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line190">line 190</a>
+        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line193">line 193</a>
     </li></ul></dd>
     
 
@@ -660,7 +661,7 @@ By rounding the sides of a box up and down, we get the range of background squar
     </dt>
     <dd>
         
-<span class="param-type"><a href="State.html">State</a></span>
+<span class="param-type">State</span>
 
 
     </dd>
@@ -688,13 +689,13 @@ By rounding the sides of a box up and down, we get the range of background squar
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CanvasDisplay.html">CanvasDisplay</a></li><li><a href="Coin.html">Coin</a></li><li><a href="DOMDisplay.html">DOMDisplay</a></li><li><a href="Lava.html">Lava</a></li><li><a href="Level.html">Level</a></li><li><a href="Player.html">Player</a></li><li><a href="State.html">State</a></li><li><a href="Vec.html">Vec</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li><li><a href="global.html#arrowKeys">arrowKeys</a></li><li><a href="global.html#drawActors">drawActors</a></li><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#elt">elt</a></li><li><a href="global.html#flipHorizontally">flipHorizontally</a></li><li><a href="global.html#gravity">gravity</a></li><li><a href="global.html#jumpSpeed">jumpSpeed</a></li><li><a href="global.html#levelChars">levelChars</a></li><li><a href="global.html#overlap">overlap</a></li><li><a href="global.html#playerXSpeed">playerXSpeed</a></li><li><a href="global.html#results">results</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#runGame">runGame</a></li><li><a href="global.html#runLevel">runLevel</a></li><li><a href="global.html#scale">scale</a></li><li><a href="global.html#simpleLevel">simpleLevel</a></li><li><a href="global.html#simpleLevelPlan">simpleLevelPlan</a></li><li><a href="global.html#sprites">sprites</a></li><li><a href="global.html#trackKeys">trackKeys</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-16_game.html">16_game</a></li></ul><h3>Classes</h3><ul><li><a href="module-16_game-Coin.html">Coin</a></li><li><a href="module-16_game-Lava.html">Lava</a></li><li><a href="module-16_game-Level.html">Level</a></li><li><a href="module-16_game-Player.html">Player</a></li><li><a href="module-16_game-State.html">State</a></li><li><a href="module-16_game-Vec.html">Vec</a></li></ul><h3>Events</h3><ul><li><a href="module-16_game.html#~event:keydown">keydown</a></li><li><a href="module-16_game.html#~event:keyup">keyup</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Dec 30 2024 08:20:15 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 01 2025 10:32:44 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

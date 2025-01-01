@@ -1,3 +1,5 @@
+/** @module 17_game */
+
 /**
  * @file
  *
@@ -14,18 +16,19 @@
  *  - Ubuntu:
  *     - sudo apt install jsdoc-toolkit
  *  - MacOS:
- *     - sudo port install npm7 (or npm8)
+ *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
  *  - jsdoc -d doc-game code/chapter/17_canvas.js
  *  </pre>
  *
- *  @author Marijn Haverbeke ({@link https://marijnhaverbeke.nl}), adapted to ES6 by Paulo Roma
+ *  @author Marijn Haverbeke ({@link https://marijnhaverbeke.nl}),
+ *  @author Paulo Roma (adapted to ES6)
  *  @since 06/07/2021
  *  @see <a href="/cwdc/3-javascript/game/game.html?driver=c">Game</a>
  *  @see <a href="/cwdc/3-javascript/game/code/chapter/17_canvas.js">source canvas</a>
  *  @see <a href="/cwdc/3-javascript/game/code/chapter/16_game.js">source game</a>
  *  @see <a href="/cwdc/3-javascript/game/code/levels.js">levels</a>
- *  @see https://eloquentjavascript.net/17_canvas.html
+ *  @see {@link https://eloquentjavascript.net/17_canvas.html Drawing on Canvas}
  *  @see <img src="../game.png" width="512">
  */
 
@@ -33,7 +36,7 @@
  * The results binding contains an array of objects that represent the survey responses.
  * @type {Array<Object<name:String, count:Number, color:String>>}
  */
-var results = [
+const results = [
   { name: "Satisfied", count: 1043, color: "lightblue" },
   { name: "Neutral", count: 563, color: "lightgreen" },
   { name: "Unsatisfied", count: 510, color: "pink" },
@@ -45,7 +48,7 @@ var results = [
  * and the amount of pixels overlapping in the x direction.
  * @type {Object<other:HTMLImageElement,player:HTMLImageElement,xOverlap:Number>}
  */
-var sprites = {
+const sprites = {
   other: document.createElement("img"),
   player: document.createElement("img"),
   xOverlap: 4,
@@ -74,7 +77,7 @@ function flipHorizontally(context, around) {
  * @param {HTMLElement} parent parent element.
  * @param {Level} level geometry of the current level of the game.
  */
-var CanvasDisplay = class CanvasDisplay {
+export const CanvasDisplay = class CanvasDisplay {
   constructor(parent, level) {
     this.canvas = document.createElement("canvas");
     this.canvas.width = Math.min(600, level.width * scale);
