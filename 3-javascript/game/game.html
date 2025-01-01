@@ -3,9 +3,6 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="code/chapter/16_game.js"></script>
-        <script src="code/chapter/17_canvas.js"></script>
-        <script src="code/levels.js"></script>
         <link rel="stylesheet" href="css/game.css" />
         <style>
             .control {
@@ -20,16 +17,19 @@
     </head>
 
     <body>
-        <script>
-            window.noLoad = true;
-        </script>
-        <script src="/cwdc/3-javascript/cookies/cookies.js"></script>
-        <script>
+        <script src="code/levels.js"></script>
+        <script src="code/chapter/16_game.js"></script>
+        <script src="code/chapter/17_canvas.js"></script>
+        <script type="module">
+            import {
+                getCookie,
+                setCookie,
+            } from "/cwdc/3-javascript/cookies/cookies.mjs";
             /**
              * Maps driver characters to either DOMDisplay or CanvasDisplay classes.
              * @type {Object<string:DOMDisplay|CanvasDisplay>}
              */
-            var displayDriver = {
+            const displayDriver = {
                 d: DOMDisplay,
                 c: CanvasDisplay,
             };
@@ -51,6 +51,7 @@
                     location.reload();
                 }
             }
+            window.incLevel = incLevel;
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const driver = urlParams.get("driver");
