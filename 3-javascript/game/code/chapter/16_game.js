@@ -27,7 +27,7 @@
  *  - MacOS:
  *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
- *  - jsdoc -d doc-game code/chapter/16_game.js
+ *  - jsdoc -d doc-game code/chapter/16_game.js code/levels.mjs canvas.js
  *  </pre>
  *
  *  @author Marijn Haverbeke ({@link https://marijnhaverbeke.nl})

@@ -4,9 +4,18 @@
  * Summary.
  * <p>This file is the entry point for the game.</p>
  *
- * It imports the <a href="/cwdc/3-javascript/game/doc-level/index.html">levels</a>,
- * the game, the display drivers and runs the game with
- * the CanvasDisplay or DOMDisplay class.
+ * <ul>
+ * <li>It imports the <a href="/cwdc/3-javascript/game/doc-level/index.html">levels</a>,
+ * the game, and the display drivers and runs the game with
+ * the CanvasDisplay or DOMDisplay class.</li>
+ *
+ * <li>It also uses a cookie "level" to remember the level of the game
+ * and allow the user to cheat by advancing/retreating levels by pressing a button.</li>
+ *
+ * <li>Differently from the original version of the game, we use ES6 modules, which is the
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules standard way}
+ * of loading modules in Javascript.</li>
+ * </ul>
  *
  * @author Paulo Roma
  * @since 03/01/2025
@@ -14,6 +23,7 @@
  * @see <a href="/cwdc/3-javascript/game/canvas.js">source</a>
  * @see <a href="/cwdc/3-javascript/game/game.html?driver=c">link</a>
  * @see {@link https://eloquentjavascript.net/16_game.html Project: A Platform Game}
+ * @see {@link https://dev.to/iggredible/what-the-heck-are-cjs-amd-umd-and-esm-ikm What the heck are CJS, AMD, UMD, and ESM in Javascript?}
  */
 // import "./code/levels.js";
 import GAME_LEVELS from "./code/levels.mjs";
