@@ -17,50 +17,6 @@
     </head>
 
     <body>
-        <script type="module">
-            import "./code/levels.js";
-            import { runGame, DOMDisplay } from "./code/chapter/16_game.js";
-            import { CanvasDisplay } from "./code/chapter/17_canvas.js";
-            import {
-                getCookie,
-                setCookie,
-            } from "/cwdc/3-javascript/cookies/cookies.mjs";
-            /**
-             * Maps driver characters to either DOMDisplay or CanvasDisplay classes.
-             * @type {Object<string:DOMDisplay|CanvasDisplay>}
-             */
-            const displayDriver = {
-                d: DOMDisplay,
-                c: CanvasDisplay,
-            };
-            /**
-             * A modulo function that returns a positive value.
-             * @returns {number} this mod n.
-             * @see https://en.wikipedia.org/wiki/Modulo_operation
-             * @see https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
-             * @see https://web.archive.org/web/20090717035140if_/javascript.about.com/od/problemsolving/a/modulobug.htm
-             */
-            Number.prototype.mod = function (n) {
-                return ((this % n) + n) % n;
-            };
-            function incLevel(val) {
-                let level = getCookie("level");
-                if (level != "") {
-                    level = (+level + val).mod(GAME_LEVELS.length);
-                    setCookie("level", String(level), 365);
-                    location.reload();
-                }
-            }
-            window.incLevel = incLevel;
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const driver = urlParams.get("driver");
-            runGame(GAME_LEVELS, displayDriver[driver]).then((value) => {
-                console.log(value);
-                document.getElementById("level").innerHTML = value;
-            });
-        </script>
-
         <div id="level">
             <button id="level-" class="control" onclick="incLevel(-1)">
                 -
@@ -80,5 +36,6 @@
                 Change Level
             </span>
         </div>
+        <script type="module" src="canvas.js"></script>
     </body>
 </html>

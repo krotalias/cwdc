@@ -1,17 +1,45 @@
-/** @module 17_canvas */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: code/chapter/17_canvas.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: code/chapter/17_canvas.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module 17_canvas */
 
 /**
  * @file
  *
  * Summary.
- * <p>A small platform game. </p>
+ * &lt;p>A small platform game. &lt;/p>
  *
  *  Description.
- *  <p>The game consists of a static background, laid out like a grid, with the moving elements overlaid on that background.
+ *  &lt;p>The game consists of a static background, laid out like a grid, with the moving elements overlaid on that background.
  *  Each field on the grid is either empty, solid, or lava. The moving elements are the player, coins, and certain pieces of lava.
- *  The positions of these elements are not constrained to the grid — their coordinates may be fractional, allowing smooth motion.</p>
+ *  The positions of these elements are not constrained to the grid — their coordinates may be fractional, allowing smooth motion.&lt;/p>
  *
- *  <pre>
+ *  &lt;pre>
  *  Documentation:
  *  - Ubuntu:
  *     - sudo apt install jsdoc-toolkit
@@ -19,22 +47,22 @@
  *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
  *  - jsdoc -d doc-game code/chapter/17_canvas.js code/chapter/16_game.js code/levels.mjs
- *  </pre>
+ *  &lt;/pre>
  *
  *  @author Marijn Haverbeke ({@link https://marijnhaverbeke.nl}),
  *  @author Paulo Roma (adapted to ES6)
  *  @since 06/07/2021
- *  @see <a href="/cwdc/3-javascript/game/game.html?driver=c">Game</a>
- *  @see <a href="/cwdc/3-javascript/game/code/chapter/17_canvas.js">source canvas</a>
- *  @see <a href="/cwdc/3-javascript/game/code/chapter/16_game.js">source game</a>
- *  @see <a href="/cwdc/3-javascript/game/code/levels.js">levels</a>
+ *  @see &lt;a href="/cwdc/3-javascript/game/game.html?driver=c">Game&lt;/a>
+ *  @see &lt;a href="/cwdc/3-javascript/game/code/chapter/17_canvas.js">source canvas&lt;/a>
+ *  @see &lt;a href="/cwdc/3-javascript/game/code/chapter/16_game.js">source game&lt;/a>
+ *  @see &lt;a href="/cwdc/3-javascript/game/code/levels.js">levels&lt;/a>
  *  @see {@link https://eloquentjavascript.net/17_canvas.html Drawing on Canvas}
- *  @see <img src="../game.png" width="512">
+ *  @see &lt;img src="../game.png" width="512">
  */
 
 /**
  * The results binding contains an array of objects that represent the survey responses.
- * @type {Array<Object<name:String, count:Number, color:String>>}
+ * @type {Array&lt;Object&lt;name:String, count:Number, color:String>>}
  */
 const results = [
   { name: "Satisfied", count: 1043, color: "lightblue" },
@@ -46,7 +74,7 @@ const results = [
 /**
  * Object with the sprites for the wall, lava, coin, player
  * and the amount of pixels overlapping in the x direction.
- * @type {Object<other:HTMLImageElement,player:HTMLImageElement,xOverlap:Number>}
+ * @type {Object&lt;other:HTMLImageElement,player:HTMLImageElement,xOverlap:Number>}
  */
 const sprites = {
   other: document.createElement("img"),
@@ -119,16 +147,16 @@ CanvasDisplay.prototype.syncState = function (state) {
 };
 
 /**
- * <p>The updateViewport method is similar to DOMDisplay’s scrollPlayerIntoView method.
- * It checks whether the player is too close to the edge of the screen and moves the viewport when this is the case.</p>
+ * &lt;p>The updateViewport method is similar to DOMDisplay’s scrollPlayerIntoView method.
+ * It checks whether the player is too close to the edge of the screen and moves the viewport when this is the case.&lt;/p>
  *
  * The canvas is divided into three parts, and a margin is defined as 1/3 of its width.
  * Whenever the player enters the third third, the viewport is translated
  * to the right, so the difference between the player position, and the right edge of the viewport,
  * is the margin (of course speed matters).
  *
- * <p>If the player turns back, whenever the player enters the first third, the viewport is translated
- * to the left, so the difference between the player position and the left edge of the viewport, is the margin.</p>
+ * &lt;p>If the player turns back, whenever the player enters the first third, the viewport is translated
+ * to the left, so the difference between the player position and the left edge of the viewport, is the margin.&lt;/p>
  *
  * @param {State} state state of a running game.
  */
@@ -138,7 +166,7 @@ CanvasDisplay.prototype.updateViewport = function (state) {
   let player = state.player;
   let center = player.pos.plus(player.size.times(0.5)); // position of the middle of the player
 
-  if (center.x < view.left + margin) {
+  if (center.x &lt; view.left + margin) {
     // before first third
     view.left = Math.max(center.x - margin, 0); // keep the distance from the player to the left border = 1/3
   } else if (center.x > view.left + view.width - margin) {
@@ -148,7 +176,7 @@ CanvasDisplay.prototype.updateViewport = function (state) {
       state.level.width - view.width,
     );
   }
-  if (center.y < view.top + margin) {
+  if (center.y &lt; view.top + margin) {
     view.top = Math.max(center.y - margin, 0);
   } else if (center.y > view.top + view.height - margin) {
     view.top = Math.min(
@@ -179,9 +207,9 @@ CanvasDisplay.prototype.clearDisplay = function (status) {
  * To draw the background, we run through the tiles that are visible in the current viewport,
  * using the same trick used in the touches method from the previous chapter.
  *
- * <ul> <li>map: [left,right] → [0,this.canvas.width] or screenX = (x - left) / (right-left) * this.canvas.width </li>
- * <li> map: [top,bottom] → [0,this.canvas.height]    or screenY = (y - top)  / (top-bottom) * this.canvas.height </li>
- * <li> scale = this.canvas.width/width = this.canvas.height/height = 20</li></ul>
+ * &lt;ul> &lt;li>map: [left,right] → [0,this.canvas.width] or screenX = (x - left) / (right-left) * this.canvas.width &lt;/li>
+ * &lt;li> map: [top,bottom] → [0,this.canvas.height]    or screenY = (y - top)  / (top-bottom) * this.canvas.height &lt;/li>
+ * &lt;li> scale = this.canvas.width/width = this.canvas.height/height = 20&lt;/li>&lt;/ul>
  *
  * @param {Level} level geometry of the current level of the game.
  */
@@ -192,8 +220,8 @@ CanvasDisplay.prototype.drawBackground = function (level) {
   let yStart = Math.floor(top);
   let yEnd = Math.ceil(top + height);
 
-  for (let y = yStart; y < yEnd; y++) {
-    for (let x = xStart; x < xEnd; x++) {
+  for (let y = yStart; y &lt; yEnd; y++) {
+    for (let x = xStart; x &lt; xEnd; x++) {
       let tile = level.rows[y][x];
       if (tile == "empty") continue;
       let screenX = (x - left) * scale; // map: [left,right] -> [0,this.canvas.width]
@@ -230,31 +258,31 @@ CanvasDisplay.prototype.drawBackground = function (level) {
 };
 
 /**
- * <p>Tiles that are not empty are drawn with drawImage.
+ * &lt;p>Tiles that are not empty are drawn with drawImage.
  * The otherSprites image contains the pictures used for elements other than the player.
- * It contains, from left to right, the wall tile, the lava tile, and the sprite for a coin.</p>
+ * It contains, from left to right, the wall tile, the lava tile, and the sprite for a coin.&lt;/p>
 
- * <p>Sprites for our game
+ * &lt;p>Sprites for our game
  * Background tiles are 20 by 20 pixels, since we will use the same scale (20) that we used in DOMDisplay.
- * Thus, the offset for lava tiles is 20 (the value of the scale binding), and the offset for walls is 0. </p>
+ * Thus, the offset for lava tiles is 20 (the value of the scale binding), and the offset for walls is 0. &lt;/p>
  *
- * <p>We don’t bother waiting for the sprite image to load.
+ * &lt;p>We don’t bother waiting for the sprite image to load.
  * Calling drawImage with an image that hasn’t been loaded yet will simply do nothing.
  * Thus, we might fail to draw the game properly for the first few frames, while the image is still loading,
  * but that is not a serious problem.
- * Since we keep updating the screen, the correct scene will appear as soon as the loading finishes. </p>
+ * Since we keep updating the screen, the correct scene will appear as soon as the loading finishes. &lt;/p>
  *
- * <p>The walking character shown earlier will be used to represent the player.
+ * &lt;p>The walking character shown earlier will be used to represent the player.
  * The code that draws it needs to pick the right sprite and direction based on the player’s current motion.
  * The first eight sprites contain a walking animation. When the player is moving along a floor,
  * we cycle through them based on the current time.
  * We want to switch frames every 16.7 milliseconds (60 fps), so the time is divided by 60 first.
  * When the player is standing still, we draw the ninth sprite.
- * During jumps, which are recognized by the fact that the vertical speed is not zero, we use the tenth, rightmost sprite.</p>
+ * During jumps, which are recognized by the fact that the vertical speed is not zero, we use the tenth, rightmost sprite.&lt;/p>
  *
- * <p>Because the sprites are slightly wider than the player object,
+ * &lt;p>Because the sprites are slightly wider than the player object,
  * 24 instead of 16 pixels to allow some space for feet and arms,
- * the method has to adjust the x-coordinate and width by a given amount (sprites.xOverlap).</p>
+ * the method has to adjust the x-coordinate and width by a given amount (sprites.xOverlap).&lt;/p>
  *
  * @param {Player} player player object.
  * @param {Number} x abscissa coordinate.
@@ -266,7 +294,7 @@ CanvasDisplay.prototype.drawPlayer = function (player, x, y, width, height) {
   width += sprites.xOverlap * 2;
   x -= sprites.xOverlap;
   if (player.speed.x != 0) {
-    this.flipPlayer = player.speed.x < 0;
+    this.flipPlayer = player.speed.x &lt; 0;
   }
 
   let tile = 8;
@@ -296,16 +324,16 @@ CanvasDisplay.prototype.drawPlayer = function (player, x, y, width, height) {
 };
 
 /**
- * <p>The drawPlayer method is called by drawActors, which is responsible for drawing all the actors in the game.</p>
+ * &lt;p>The drawPlayer method is called by drawActors, which is responsible for drawing all the actors in the game.&lt;/p>
  *
- * When drawing something that is not the player, we look at its type to find the offset of the correct sprite. <br>
- * The lava tile is found at offset 20, and the coin sprite is found at 40 (two times scale). <br>
+ * When drawing something that is not the player, we look at its type to find the offset of the correct sprite. &lt;br>
+ * The lava tile is found at offset 20, and the coin sprite is found at 40 (two times scale). &lt;br>
  *
- * <p>We have to subtract the viewport’s position when computing the actor’s position,
- * since (0,0) on our canvas corresponds to the top left of the viewport, <br>
- * not the top left of the level. We could also have used translate for this. Either way works.</p>
+ * &lt;p>We have to subtract the viewport’s position when computing the actor’s position,
+ * since (0,0) on our canvas corresponds to the top left of the viewport, &lt;br>
+ * not the top left of the level. We could also have used translate for this. Either way works.&lt;/p>
  *
- * @param {Array<Lava|Coin|Player>} actors actors of the game.
+ * @param {Array&lt;Lava|Coin|Player>} actors actors of the game.
  */
 CanvasDisplay.prototype.drawActors = function (actors) {
   for (let actor of actors) {
@@ -331,3 +359,26 @@ CanvasDisplay.prototype.drawActors = function (actors) {
     }
   }
 };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-16_game.html">16_game</a></li><li><a href="module-17_canvas.html">17_canvas</a></li><li><a href="module-levels.html">levels</a></li></ul><h3>Classes</h3><ul><li><a href="module-16_game-Coin.html">Coin</a></li><li><a href="module-16_game-Lava.html">Lava</a></li><li><a href="module-16_game-Level.html">Level</a></li><li><a href="module-16_game-Player.html">Player</a></li><li><a href="module-16_game-State.html">State</a></li><li><a href="module-16_game-Vec.html">Vec</a></li></ul><h3>Events</h3><ul><li><a href="module-16_game.html#~event:keydown">keydown</a></li><li><a href="module-16_game.html#~event:keyup">keyup</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#displayDriver">displayDriver</a></li><li><a href="global.html#incLevel">incLevel</a></li><li><a href="global.html#mod">mod</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Jan 03 2025 07:07:03 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

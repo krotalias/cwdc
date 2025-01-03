@@ -54,8 +54,127 @@
 
 <header>
     
+        <h2>canvas.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Summary.
+<p>This file is the entry point for the game.</p>
+
+It imports the <a href="/cwdc/3-javascript/game/doc-level/index.html">levels</a>,
+the game, the display drivers and runs the game with
+the CanvasDisplay or DOMDisplay class.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>03/01/2025</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Paulo Roma</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="canvas.js.html">canvas.js</a>, <a href="canvas.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="/cwdc/3-javascript/game/canvas.js">source</a></li>
+        
+            <li><a href="/cwdc/3-javascript/game/game.html?driver=c">link</a></li>
+        
+            <li><a href="https://eloquentjavascript.net/16_game.html">Project: A Platform Game</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
         <h2>
-            <span class="ancestors"><a href="module-16_game.html">16_game</a>~</span>chapter/16_game.js</h2>
+            <span class="ancestors"><a href="module-16_game.html">16_game</a>~</span>code/chapter/16_game.js</h2>
         
     
 </header>
@@ -136,7 +255,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_16_game.js.html">chapter/16_game.js</a>, <a href="chapter_16_game.js.html#line3">line 3</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -205,7 +324,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-17_canvas.html">17_canvas</a>~</span>chapter/17_canvas.js</h2>
+            <span class="ancestors"><a href="module-17_canvas.html">17_canvas</a>~</span>code/chapter/17_canvas.js</h2>
         
     
 </header>
@@ -229,7 +348,7 @@
  - MacOS:
     - sudo port install npm9 (or npm10)
     - sudo npm install -g jsdoc
- - jsdoc -d doc-game code/chapter/17_canvas.js
+ - jsdoc -d doc-game code/chapter/17_canvas.js code/chapter/16_game.js code/levels.mjs
  </pre></div>
         
 
@@ -277,7 +396,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="chapter_17_canvas.js.html">chapter/17_canvas.js</a>, <a href="chapter_17_canvas.js.html#line3">line 3</a>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -343,7 +462,8 @@
 
 <header>
     
-        <h2>levels.js</h2>
+        <h2>
+            <span class="ancestors"><a href="module-levels.html">levels</a>~</span>code/levels.mjs</h2>
         
     
 </header>
@@ -380,9 +500,9 @@
  - Ubuntu:
     - sudo apt install jsdoc-toolkit
  - MacOS:
-    - sudo port install npm7 (or npm8)
+    - sudo port install npm9 (or npm10)
     - sudo npm install -g jsdoc
- - jsdoc -d doc-level code/level.js
+ - jsdoc -d doc-level code/level.mjs
  </pre></div>
         
 
@@ -395,7 +515,7 @@
 
     
     <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>02/08/2021</li></ul></dd>
+    <dd class="tag-since"><ul class="dummy"><li>02/01/2025</li></ul></dd>
     
 
     
@@ -416,7 +536,7 @@
         <ul>
             <li>Marijn Haverbeke</li>
         
-            <li>Paulo Roma (adapted to Vanilla Javascript)</li>
+            <li>Paulo Roma (adapted to ES6)</li>
         </ul>
     </dd>
     
@@ -430,7 +550,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="levels.js.html">levels.js</a>, <a href="levels.js.html#line1">line 1</a>
+        <a href="code_levels.mjs.html">code/levels.mjs</a>, <a href="code_levels.mjs.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -444,11 +564,13 @@
         
             <li><a href="/cwdc/3-javascript/game/canvas.html?driver=c">Canvas</a></li>
         
-            <li><a href="/cwdc/3-javascript/game/code/levels.js">source</a></li>
+            <li><a href="/cwdc/3-javascript/game/code/levels.mjs">source</a></li>
         
             <li><a href="https://www.contentful.com/blog/2017/01/17/the-global-object-in-javascript/">What is the global object in JavaScript?</a></li>
         
             <li><a href="https://javascript.info/global-object">Global object</a></li>
+        
+            <li><a href="https://nodejs.org/api/packages.html#conditional-exports">Conditional exports</a></li>
         
             <li><a href="../game.js">game in node</a></li>
         </ul>
@@ -492,13 +614,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-16_game.html">16_game</a></li><li><a href="module-17_canvas.html">17_canvas</a></li></ul><h3>Classes</h3><ul><li><a href="module-16_game-Coin.html">Coin</a></li><li><a href="module-16_game-Lava.html">Lava</a></li><li><a href="module-16_game-Level.html">Level</a></li><li><a href="module-16_game-Player.html">Player</a></li><li><a href="module-16_game-State.html">State</a></li><li><a href="module-16_game-Vec.html">Vec</a></li></ul><h3>Events</h3><ul><li><a href="module-16_game.html#~event:keydown">keydown</a></li><li><a href="module-16_game.html#~event:keyup">keyup</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-16_game.html">16_game</a></li><li><a href="module-17_canvas.html">17_canvas</a></li><li><a href="module-levels.html">levels</a></li></ul><h3>Classes</h3><ul><li><a href="module-16_game-Coin.html">Coin</a></li><li><a href="module-16_game-Lava.html">Lava</a></li><li><a href="module-16_game-Level.html">Level</a></li><li><a href="module-16_game-Player.html">Player</a></li><li><a href="module-16_game-State.html">State</a></li><li><a href="module-16_game-Vec.html">Vec</a></li></ul><h3>Events</h3><ul><li><a href="module-16_game.html#~event:keydown">keydown</a></li><li><a href="module-16_game.html#~event:keyup">keyup</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#displayDriver">displayDriver</a></li><li><a href="global.html#incLevel">incLevel</a></li><li><a href="global.html#mod">mod</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 01 2025 11:07:41 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Jan 03 2025 07:07:03 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

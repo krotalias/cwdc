@@ -1,84 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: levels.js</title>
+/** @module levels */
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
-
-<body>
-
-<div id="main">
-
-    <h1 class="page-title">Source: levels.js</h1>
-
-    
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
+/**
  * @file
  *
  * Summary.
- * &lt;p>Game LEVEL strings for the platform game. &lt;/p>
+ * <p>Game LEVEL strings for the platform game. </p>
  *
  *  Description.
- *  &lt;p>The game consists of a static background, laid out like a grid, with the moving elements overlaid on that background.
+ *  <p>The game consists of a static background, laid out like a grid, with the moving elements overlaid on that background.
  *  Each field on the grid is either empty, solid, or lava.
  *  The moving elements are the player, coins, and certain pieces of lava.
  *  The positions of these elements are not constrained to the grid — their coordinates may be fractional,
- *  allowing smooth motion. The grid of the game is created based on strings available globally.&lt;/p>
+ *  allowing smooth motion. The grid of the game is created based on strings available globally.</p>
  *
- *  &lt;p>The global object provides variables and functions that are available anywhere.
- *  By default, those that are built into the language or the environment.&lt;/p>
+ *  <p>The global object provides variables and functions that are available anywhere.
+ *  By default, those that are built into the language or the environment.</p>
  *
- *  &lt;ul>
- *  &lt;li>In a browser it is named window, for Node.js it is global, for other environments it may have another name. &lt;/li>
+ *  <ul>
+ *  <li>In a browser it is named window, for Node.js it is global, for other environments it may have another name. </li>
  *
- *  &lt;li>Recently, globalThis was added to the language, as a standardized name for a global object,
- *  that should be supported across all environments. It’s supported in all major browsers.&lt;/li>
+ *  <li>Recently, globalThis was added to the language, as a standardized name for a global object,
+ *  that should be supported across all environments. It’s supported in all major browsers.</li>
  *
- *  &lt;li>We’ll use window here, assuming that our environment is a browser.
- *  If your script may run in other environments, it’s better to use globalThis instead.&lt;/li>
- *  &lt;/ul>
+ *  <li>We’ll use window here, assuming that our environment is a browser.
+ *  If your script may run in other environments, it’s better to use globalThis instead.</li>
+ *  </ul>
  *
- *  &lt;pre>
+ *  <pre>
  *  Documentation:
  *  - Ubuntu:
  *     - sudo apt install jsdoc-toolkit
  *  - MacOS:
  *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
- *  - jsdoc -d doc-level code/level.js
- *  &lt;/pre>
+ *  - jsdoc -d doc-level code/level.mjs
+ *  </pre>
  *
- *  @see &lt;a href="/cwdc/3-javascript/game/game.html?driver=d">Game&lt;/a>
- *  @see &lt;a href="/cwdc/3-javascript/game/canvas.html?driver=c">Canvas&lt;/a>
- *  @see &lt;a href="/cwdc/3-javascript/game/code/levels.js">source&lt;/a>
+ *  @see <a href="/cwdc/3-javascript/game/game.html?driver=d">Game</a>
+ *  @see <a href="/cwdc/3-javascript/game/canvas.html?driver=c">Canvas</a>
+ *  @see <a href="/cwdc/3-javascript/game/code/levels.mjs">source</a>
  *  @see {@link https://www.contentful.com/blog/2017/01/17/the-global-object-in-javascript/ What is the global object in JavaScript?}
  *  @see {@link https://javascript.info/global-object Global object}
- *  @see &lt;a href="../game.js">game in node&lt;/a>
+ *  @see {@link https://nodejs.org/api/packages.html#conditional-exports Conditional exports}
+ *  @see <a href="../game.js">game in node</a>
  *  @author Marijn Haverbeke
- *  @author Paulo Roma (adapted to Vanilla Javascript)
- *  @since 02/08/2021
+ *  @author Paulo Roma (adapted to ES6)
+ *  @since 02/01/2025
  */
 
 /**
  * Set of strings defining each level of the game (its environment geometry).
- * @type {Array&lt;string>}
+ * @type {Array<string>}
  */
 const GAME_LEVELS = [
-  `
+    `
 ................................................................................
 ................................................................................
 ................................................................................
@@ -104,7 +79,7 @@ const GAME_LEVELS = [
 ................................................................................
 ................................................................................
 `,
-  `
+    `
 ................................................................................
 ................................................................................
 ....###############################.............................................
@@ -138,7 +113,7 @@ const GAME_LEVELS = [
 ...........................................##########...........................
 ................................................................................
 `,
-  `
+    `
 ......................................#++#........................#######....................................#+#..
 ......................................#++#.....................####.....####.................................#+#..
 ......................................#++##########...........##...........##................................#+#..
@@ -170,7 +145,7 @@ const GAME_LEVELS = [
 ++++#.#++++++#.........#++++++#########++++++++++++++++++##....+..................................................
 ++++#.#++++++#.........#++++++++++++++++++++++++++++++++##.....+..................................................
 `,
-  `
+    `
 ..............................................................................................................
 ..............................................................................................................
 ..............................................................................................................
@@ -219,7 +194,7 @@ const GAME_LEVELS = [
 ..............................................................................................................
 ..............................................................................................................
 `,
-  `
+    `
 ..................................................................................................###.#.......
 ......................................................................................................#.......
 ..................................................................................................#####.......
@@ -257,36 +232,4 @@ const GAME_LEVELS = [
 `,
 ];
 
-// for node.js
-if (
-  typeof module != "undefined" &amp;&amp;
-  module.exports &amp;&amp;
-  (typeof window == "undefined" || window.exports != exports)
-)
-  module.exports = GAME_LEVELS;
-if (typeof global != "undefined" &amp;&amp; !global.GAME_LEVELS)
-  global.GAME_LEVELS = GAME_LEVELS;
-else window.GAME_LEVELS = GAME_LEVELS;
-</code></pre>
-        </article>
-    </section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Jan 03 2025 07:06:45 GMT-0300 (Brasilia Standard Time)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
-</body>
-</html>
+export default GAME_LEVELS;

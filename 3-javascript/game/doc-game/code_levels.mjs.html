@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: levels.js</title>
+    <title>JSDoc: Source: code/levels.mjs</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: levels.js</h1>
+    <h1 class="page-title">Source: code/levels.mjs</h1>
 
     
 
@@ -26,7 +26,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>/** @module levels */
+
+/**
  * @file
  *
  * Summary.
@@ -59,18 +61,19 @@
  *  - MacOS:
  *     - sudo port install npm9 (or npm10)
  *     - sudo npm install -g jsdoc
- *  - jsdoc -d doc-level code/level.js
+ *  - jsdoc -d doc-level code/level.mjs
  *  &lt;/pre>
  *
  *  @see &lt;a href="/cwdc/3-javascript/game/game.html?driver=d">Game&lt;/a>
  *  @see &lt;a href="/cwdc/3-javascript/game/canvas.html?driver=c">Canvas&lt;/a>
- *  @see &lt;a href="/cwdc/3-javascript/game/code/levels.js">source&lt;/a>
+ *  @see &lt;a href="/cwdc/3-javascript/game/code/levels.mjs">source&lt;/a>
  *  @see {@link https://www.contentful.com/blog/2017/01/17/the-global-object-in-javascript/ What is the global object in JavaScript?}
  *  @see {@link https://javascript.info/global-object Global object}
+ *  @see {@link https://nodejs.org/api/packages.html#conditional-exports Conditional exports}
  *  @see &lt;a href="../game.js">game in node&lt;/a>
  *  @author Marijn Haverbeke
- *  @author Paulo Roma (adapted to Vanilla Javascript)
- *  @since 02/08/2021
+ *  @author Paulo Roma (adapted to ES6)
+ *  @since 02/01/2025
  */
 
 /**
@@ -78,7 +81,7 @@
  * @type {Array&lt;string>}
  */
 const GAME_LEVELS = [
-  `
+    `
 ................................................................................
 ................................................................................
 ................................................................................
@@ -104,7 +107,7 @@ const GAME_LEVELS = [
 ................................................................................
 ................................................................................
 `,
-  `
+    `
 ................................................................................
 ................................................................................
 ....###############################.............................................
@@ -138,7 +141,7 @@ const GAME_LEVELS = [
 ...........................................##########...........................
 ................................................................................
 `,
-  `
+    `
 ......................................#++#........................#######....................................#+#..
 ......................................#++#.....................####.....####.................................#+#..
 ......................................#++##########...........##...........##................................#+#..
@@ -170,7 +173,7 @@ const GAME_LEVELS = [
 ++++#.#++++++#.........#++++++#########++++++++++++++++++##....+..................................................
 ++++#.#++++++#.........#++++++++++++++++++++++++++++++++##.....+..................................................
 `,
-  `
+    `
 ..............................................................................................................
 ..............................................................................................................
 ..............................................................................................................
@@ -219,7 +222,7 @@ const GAME_LEVELS = [
 ..............................................................................................................
 ..............................................................................................................
 `,
-  `
+    `
 ..................................................................................................###.#.......
 ......................................................................................................#.......
 ..................................................................................................#####.......
@@ -257,16 +260,7 @@ const GAME_LEVELS = [
 `,
 ];
 
-// for node.js
-if (
-  typeof module != "undefined" &amp;&amp;
-  module.exports &amp;&amp;
-  (typeof window == "undefined" || window.exports != exports)
-)
-  module.exports = GAME_LEVELS;
-if (typeof global != "undefined" &amp;&amp; !global.GAME_LEVELS)
-  global.GAME_LEVELS = GAME_LEVELS;
-else window.GAME_LEVELS = GAME_LEVELS;
+export default GAME_LEVELS;
 </code></pre>
         </article>
     </section>
@@ -277,13 +271,13 @@ else window.GAME_LEVELS = GAME_LEVELS;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#GAME_LEVELS">GAME_LEVELS</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-16_game.html">16_game</a></li><li><a href="module-levels.html">levels</a></li></ul><h3>Classes</h3><ul><li><a href="module-16_game-Coin.html">Coin</a></li><li><a href="module-16_game-Lava.html">Lava</a></li><li><a href="module-16_game-Level.html">Level</a></li><li><a href="module-16_game-Player.html">Player</a></li><li><a href="module-16_game-State.html">State</a></li><li><a href="module-16_game-Vec.html">Vec</a></li></ul><h3>Events</h3><ul><li><a href="module-16_game.html#~event:keydown">keydown</a></li><li><a href="module-16_game.html#~event:keyup">keyup</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#displayDriver">displayDriver</a></li><li><a href="global.html#incLevel">incLevel</a></li><li><a href="global.html#mod">mod</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Jan 03 2025 07:06:45 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Jan 03 2025 07:06:55 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
