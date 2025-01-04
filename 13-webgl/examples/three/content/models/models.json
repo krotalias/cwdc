@@ -81,6 +81,26 @@
                     "id": "115",
                     "title": "DragonAttenuation.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/DragonAttenuation.glb"
+                },
+                {
+                    "id": "116",
+                    "title": "cats/GR_Cat_04.obj",
+                    "url": "https://storage.googleapis.com/purina-virtual-experience/05-extending-a-healthy-life/cat-model/GR_Cat_04/GR_Cat_04.obj"
+                },
+                {
+                    "id": "117",
+                    "title": "dogs/GR_Dog_04.obj",
+                    "url": "https://storage.googleapis.com/purina-virtual-experience/05-extending-a-healthy-life/dog-model/GR_Dog_04/GR_Dog_04.obj"
+                },
+                {
+                    "id": "118",
+                    "title": "dogs/GR_Dog_05.obj",
+                    "url": "https://storage.googleapis.com/purina-virtual-experience/05-extending-a-healthy-life/dog-model/GR_Dog_05/GR_Dog_05.obj"
+                },
+                {
+                    "id": "119",
+                    "title": "dogs/GR_Dog_06.obj",
+                    "url": "https://storage.googleapis.com/purina-virtual-experience/05-extending-a-healthy-life/dog-model/GR_Dog_06/GR_Dog_06.obj"
                 }
             ]
         }
