@@ -419,11 +419,13 @@ function elt(name, attrs, ...children) {
 /**
  * A display is created by giving it a parent element to which it should append itself and a level object.
  * It uses DOM elements to show the level.
- *
- * @param {HTMLElement} parent parent element.
- * @param {Level} level geometry of the level to be drawn.
  */
 export const DOMDisplay = class DOMDisplay {
+  /**
+   * @constructor
+   * @param {HTMLElement} parent parent element.
+   * @param {Level} level geometry of the level to be drawn.
+   */
   constructor(parent, level) {
     this.dom = elt("div", { class: "game" }, drawGrid(level));
     this.actorLayer = null;
@@ -892,7 +894,7 @@ function runLevel(level, Display) {
  * by suspending execution until the returned promise is fulfilled or rejected.<br>
  * The resolved value of the promise is treated as the return value of the await expression.<br>
  * Use of async and await enables the use of ordinary try / catch blocks around asynchronous code.
- *
+ * @async
  * @param {Array<String>} plans array of Level plans (strings).
  * @param {DOMDisplay|CanvasDisplay} Display a Display constructor.
  * @returns {Promise<String>} a promise which resolves when the player finishes the game.

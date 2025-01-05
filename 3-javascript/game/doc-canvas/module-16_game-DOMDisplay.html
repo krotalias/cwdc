@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Vec</title>
+    <title>JSDoc: Class: DOMDisplay</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Vec</h1>
+    <h1 class="page-title">Class: DOMDisplay</h1>
 
     
 
@@ -29,9 +29,7 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-16_game.html">16_game</a>~</span>Vec<span class="signature">(x, y)</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description">Used for our two-dimensional values, such as the position and size of actors.</div>
+            <span class="ancestors"><a href="module-16_game.html">16_game</a>~</span>DOMDisplay<span class="signature">(parent, level)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -42,11 +40,9 @@
         
 
     
-    <h2>Constructor</h2>
-    
 
     
-    <h4 class="name" id="Vec"><span class="type-signature"></span>new Vec<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DOMDisplay"><span class="type-signature"></span>new DOMDisplay<span class="signature">(parent, level)</span><span class="type-signature"></span></h4>
     
 
     
@@ -86,13 +82,13 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>parent</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">HTMLElement</span>
 
 
             
@@ -102,20 +98,20 @@
 
             
 
-            <td class="description last">abscissa.</td>
+            <td class="description last">parent element.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>y</code></td>
+                <td class="name"><code>level</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">Level</span>
 
 
             
@@ -125,7 +121,7 @@
 
             
 
-            <td class="description last">ordinate.</td>
+            <td class="description last">geometry of the level to be drawn.</td>
         </tr>
 
     
@@ -166,7 +162,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line213">line 213</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line429">line 429</a>
     </li></ul></dd>
     
 
@@ -222,7 +218,7 @@
     
 
     
-    <h4 class="name" id="plus"><span class="type-signature"></span>plus<span class="signature">(other)</span><span class="type-signature"> &rarr; {Vec}</span></h4>
+    <h4 class="name" id="clear"><span class="type-signature"></span>clear<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -230,7 +226,97 @@
 
 
 <div class="description">
-    Translates a vector by another vector.
+    Removes this dom game element.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line438">line 438</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="scrollPlayerIntoView"><span class="type-signature"></span>scrollPlayerIntoView<span class="signature">(state)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Find the player’s position and update the wrapping element’s scroll position.
+We change the scroll position by manipulating that element’s scrollLeft and
+scrollTop properties when the player is too close to the edge.
 </div>
 
 
@@ -266,13 +352,13 @@
 
         <tr>
             
-                <td class="name"><code>other</code></td>
+                <td class="name"><code>state</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Vec</span>
+<span class="param-type">State</span>
 
 
             
@@ -282,7 +368,7 @@
 
             
 
-            <td class="description last">translation vector.</td>
+            <td class="description last">state of a running game.</td>
         </tr>
 
     
@@ -323,7 +409,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line223">line 223</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line527">line 527</a>
     </li></ul></dd>
     
 
@@ -348,28 +434,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    a new translated vector.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Vec</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -381,7 +445,7 @@
     
 
     
-    <h4 class="name" id="times"><span class="type-signature"></span>times<span class="signature">(factor)</span><span class="type-signature"> &rarr; {Vec}</span></h4>
+    <h4 class="name" id="syncState"><span class="type-signature"></span>syncState<span class="signature">(state)</span><span class="type-signature"></span></h4>
     
 
     
@@ -389,7 +453,12 @@
 
 
 <div class="description">
-    Scales a vector by a given amount.
+    The syncState method is used to make the display show a given state. It first removes the old actor graphics,
+if any, and then redraws the actors in their new positions.
+It may be tempting to try to reuse the DOM elements for actors, but to make that work,
+we would need a lot of additional bookkeeping to associate actors with DOM elements and to make sure
+we remove elements when their actors vanish.
+Since there will typically be only a handful of actors in the game, redrawing all of them is not expensive.
 </div>
 
 
@@ -425,13 +494,13 @@
 
         <tr>
             
-                <td class="name"><code>factor</code></td>
+                <td class="name"><code>state</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">State</span>
 
 
             
@@ -441,7 +510,7 @@
 
             
 
-            <td class="description last">scale factor.</td>
+            <td class="description last">game state to be shown.</td>
         </tr>
 
     
@@ -482,7 +551,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line231">line 231</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line512">line 512</a>
     </li></ul></dd>
     
 
@@ -507,28 +576,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    a new scaled vector.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Vec</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 

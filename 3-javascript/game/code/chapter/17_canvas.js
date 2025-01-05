@@ -73,11 +73,13 @@ function flipHorizontally(context, around) {
  * which tells us what part of the level we are currently looking at.
  * Finally, it keeps a flipPlayer property so that even when the player is standing still,
  * it keeps facing the direction it last moved in.
- *
- * @param {HTMLElement} parent parent element.
- * @param {Level} level geometry of the current level of the game.
  */
 export const CanvasDisplay = class CanvasDisplay {
+  /**
+   * @constructor
+   * @param {HTMLElement} parent parent element.
+   * @param {Level} level geometry of the current level of the game.
+   */
   constructor(parent, level) {
     this.canvas = document.createElement("canvas");
     this.canvas.width = Math.min(600, level.width * scale);
