@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: State</title>
+    <title>JSDoc: Class: DOMDisplay</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: State</h1>
+    <h1 class="page-title">Class: DOMDisplay</h1>
 
     
 
@@ -29,10 +29,10 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-16_game.html">16_game</a>~</span>State<span class="signature">(level, actors, status)</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="module-16_game.html">16_game</a>.</span>DOMDisplay<span class="signature">(parent, level)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">As the game runs, actors will end up in different places or even disappear entirely (as coins do when collected).
-<p>We’ll use a State class to track the state of a running game.</p></div>
+            <div class="class-description">A display is created by giving it a parent element to which it should append itself and a level object.
+It uses DOM elements to show the level.</div>
         
     
 </header>
@@ -47,7 +47,7 @@
     
 
     
-    <h4 class="name" id="State"><span class="type-signature"></span>new State<span class="signature">(level, actors, status)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DOMDisplay"><span class="type-signature"></span>new DOMDisplay<span class="signature">(parent, level)</span><span class="type-signature"></span></h4>
     
 
     
@@ -87,6 +87,29 @@
 
         <tr>
             
+                <td class="name"><code>parent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">parent element.</td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>level</code></td>
             
 
@@ -103,59 +126,7 @@
 
             
 
-            <td class="description last">game level.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>actors</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;(Lava|Coin|Player)></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">actors in this level.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>status</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">"lost"</span>
-|
-
-<span class="param-type">"won"</span>
-|
-
-<span class="param-type">"playing"</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">game situation.</td>
+            <td class="description last">geometry of the level to be drawn.</td>
         </tr>
 
     
@@ -196,7 +167,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line206">line 206</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line594">line 594</a>
     </li></ul></dd>
     
 
@@ -242,89 +213,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="player"><span class="type-signature"></span>player<span class="type-signature"> :Player</span></h4>
-
-
-
-
-<div class="description">
-    Getter: the first actor in this.actors that is a player.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Player</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line228">line 228</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -335,7 +223,7 @@
     
 
     
-    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(time, keys)</span><span class="type-signature"> &rarr; {State}</span></h4>
+    <h4 class="name" id="clear"><span class="type-signature"></span>clear<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -343,10 +231,97 @@
 
 
 <div class="description">
-    Uses touches to figure out whether the player is touching lava and
-computes the set of grid squares that the body overlaps with by using Math.floor and Math.ceil on its coordinates.
-Remember that grid squares are 1 by 1 units in size.
-By rounding the sides of a box up and down, we get the range of background squares that the box touches.
+    Removes this dom game element.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line609">line 609</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="scrollPlayerIntoView"><span class="type-signature"></span>scrollPlayerIntoView<span class="signature">(state)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Find the player’s position and update the wrapping element’s scroll position.
+We change the scroll position by manipulating that element’s scrollLeft and
+scrollTop properties when the player is too close to the edge.
 </div>
 
 
@@ -382,13 +357,13 @@ By rounding the sides of a box up and down, we get the range of background squar
 
         <tr>
             
-                <td class="name"><code>time</code></td>
+                <td class="name"><code>state</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Number</span>
+<span class="param-type">State</span>
 
 
             
@@ -398,30 +373,7 @@ By rounding the sides of a box up and down, we get the range of background squar
 
             
 
-            <td class="description last">time step.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>keys</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object.&lt;key:Boolean></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">object with key pressed.</td>
+            <td class="description last">state of a running game.</td>
         </tr>
 
     
@@ -462,7 +414,7 @@ By rounding the sides of a box up and down, we get the range of background squar
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line242">line 242</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line638">line 638</a>
     </li></ul></dd>
     
 
@@ -487,28 +439,6 @@ By rounding the sides of a box up and down, we get the range of background squar
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    a new state.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">State</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -520,7 +450,7 @@ By rounding the sides of a box up and down, we get the range of background squar
     
 
     
-    <h4 class="name" id=".start"><span class="type-signature">(static) </span>start<span class="signature">(level)</span><span class="type-signature"> &rarr; {State}</span></h4>
+    <h4 class="name" id="syncState"><span class="type-signature"></span>syncState<span class="signature">(state)</span><span class="type-signature"></span></h4>
     
 
     
@@ -528,7 +458,12 @@ By rounding the sides of a box up and down, we get the range of background squar
 
 
 <div class="description">
-    Return the starting state of a given level of the game.
+    The syncState method is used to make the display show a given state. It first removes the old actor graphics,
+if any, and then redraws the actors in their new positions.
+It may be tempting to try to reuse the DOM elements for actors, but to make that work,
+we would need a lot of additional bookkeeping to associate actors with DOM elements and to make sure
+we remove elements when their actors vanish.
+Since there will typically be only a handful of actors in the game, redrawing all of them is not expensive.
 </div>
 
 
@@ -564,13 +499,13 @@ By rounding the sides of a box up and down, we get the range of background squar
 
         <tr>
             
-                <td class="name"><code>level</code></td>
+                <td class="name"><code>state</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Level</span>
+<span class="param-type">State</span>
 
 
             
@@ -580,7 +515,7 @@ By rounding the sides of a box up and down, we get the range of background squar
 
             
 
-            <td class="description last">a given level.</td>
+            <td class="description last">game state to be shown.</td>
         </tr>
 
     
@@ -621,7 +556,7 @@ By rounding the sides of a box up and down, we get the range of background squar
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line218">line 218</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line623">line 623</a>
     </li></ul></dd>
     
 
@@ -646,28 +581,6 @@ By rounding the sides of a box up and down, we get the range of background squar
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    new state with status "playing".
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">State</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 

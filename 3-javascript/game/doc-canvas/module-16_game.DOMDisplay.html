@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Player</title>
+    <title>JSDoc: Class: DOMDisplay</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Player</h1>
+    <h1 class="page-title">Class: DOMDisplay</h1>
 
     
 
@@ -29,12 +29,10 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-16_game.html">16_game</a>~</span>Player<span class="signature">(pos, speed)</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="module-16_game.html">16_game</a>.</span>DOMDisplay<span class="signature">(parent, level)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>The player class.</p>
-Because a player is one-and-a-half squares high, its initial position is set to be half a square
-above the position where the @ character appeared.
-This way, its bottom aligns with the bottom of the square it appeared in.</div>
+            <div class="class-description">A display is created by giving it a parent element to which it should append itself and a level object.
+It uses DOM elements to show the level.</div>
         
     
 </header>
@@ -49,7 +47,7 @@ This way, its bottom aligns with the bottom of the square it appeared in.</div>
     
 
     
-    <h4 class="name" id="Player"><span class="type-signature"></span>new Player<span class="signature">(pos, speed)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DOMDisplay"><span class="type-signature"></span>new DOMDisplay<span class="signature">(parent, level)</span><span class="type-signature"></span></h4>
     
 
     
@@ -89,13 +87,13 @@ This way, its bottom aligns with the bottom of the square it appeared in.</div>
 
         <tr>
             
-                <td class="name"><code>pos</code></td>
+                <td class="name"><code>parent</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Vec</span>
+<span class="param-type">HTMLElement</span>
 
 
             
@@ -105,20 +103,20 @@ This way, its bottom aligns with the bottom of the square it appeared in.</div>
 
             
 
-            <td class="description last">position.</td>
+            <td class="description last">parent element.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>speed</code></td>
+                <td class="name"><code>level</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Vec</span>
+<span class="param-type">Level</span>
 
 
             
@@ -128,7 +126,7 @@ This way, its bottom aligns with the bottom of the square it appeared in.</div>
 
             
 
-            <td class="description last">current velocity to simulate momentum and gravity.</td>
+            <td class="description last">geometry of the level to be drawn.</td>
         </tr>
 
     
@@ -169,7 +167,7 @@ This way, its bottom aligns with the bottom of the square it appeared in.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line299">line 299</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line594">line 594</a>
     </li></ul></dd>
     
 
@@ -215,156 +213,6 @@ This way, its bottom aligns with the bottom of the square it appeared in.</div>
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="size"><span class="type-signature"></span>size<span class="type-signature"> :Vec</span></h4>
-
-
-
-
-<div class="description">
-    <p>Size: 0.8 x 1.5 </p>
-The size property is the same for all instances of Player,
-so we store it on the prototype rather than on the instances themselves.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Vec</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line374">line 374</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="type"><span class="type-signature"></span>type<span class="type-signature"> :String</span></h4>
-
-
-
-
-<div class="description">
-    Getter: "player".
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">String</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line310">line 310</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -375,7 +223,7 @@ so we store it on the prototype rather than on the instances themselves.
     
 
     
-    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(time, state, keys)</span><span class="type-signature"> &rarr; {Player}</span></h4>
+    <h4 class="name" id="clear"><span class="type-signature"></span>clear<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -383,20 +231,97 @@ so we store it on the prototype rather than on the instances themselves.
 
 
 <div class="description">
-    <p>Actor objects’ update methods take as arguments the time step, the state object, and a keys object. </p>
+    Removes this dom game element.
+</div>
 
-E.g.: <br>
-• keys: {ArrowRight: false, ArrowLeft: true, ArrowUp: false} <br>
-• two keys can be pressed simoutaneously.
 
-<p> Actions performed:</p>
-<ul>
- <li> Increases/decreases speed based on the key received. </li>
- <li> Gets new player position X: px = vx * t </li>
- <li> Gets new player position Y: py = vy + g*t </li>
- <li> Updates position x and/or y, if he does not touch any wall. </li>
- <li> Return a new player with new position and speed. </li>
-</ul>
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line609">line 609</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="scrollPlayerIntoView"><span class="type-signature"></span>scrollPlayerIntoView<span class="signature">(state)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Find the player’s position and update the wrapping element’s scroll position.
+We change the scroll position by manipulating that element’s scrollLeft and
+scrollTop properties when the player is too close to the edge.
 </div>
 
 
@@ -428,29 +353,6 @@ E.g.: <br>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>time</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">time step.</td>
-        </tr>
-
     
 
         <tr>
@@ -471,30 +373,7 @@ E.g.: <br>
 
             
 
-            <td class="description last">a given game state.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>keys</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object.&lt;key:Boolean></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">object with key pressed.</td>
+            <td class="description last">state of a running game.</td>
         </tr>
 
     
@@ -535,7 +414,7 @@ E.g.: <br>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line345">line 345</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line638">line 638</a>
     </li></ul></dd>
     
 
@@ -560,28 +439,6 @@ E.g.: <br>
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    new player object.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Player</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -593,7 +450,7 @@ E.g.: <br>
     
 
     
-    <h4 class="name" id=".create"><span class="type-signature">(static) </span>create<span class="signature">(pos)</span><span class="type-signature"> &rarr; {Player}</span></h4>
+    <h4 class="name" id="syncState"><span class="type-signature"></span>syncState<span class="signature">(state)</span><span class="type-signature"></span></h4>
     
 
     
@@ -601,7 +458,12 @@ E.g.: <br>
 
 
 <div class="description">
-    An static Player translated by (0,-0.5).
+    The syncState method is used to make the display show a given state. It first removes the old actor graphics,
+if any, and then redraws the actors in their new positions.
+It may be tempting to try to reuse the DOM elements for actors, but to make that work,
+we would need a lot of additional bookkeeping to associate actors with DOM elements and to make sure
+we remove elements when their actors vanish.
+Since there will typically be only a handful of actors in the game, redrawing all of them is not expensive.
 </div>
 
 
@@ -637,13 +499,13 @@ E.g.: <br>
 
         <tr>
             
-                <td class="name"><code>pos</code></td>
+                <td class="name"><code>state</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Vec</span>
+<span class="param-type">State</span>
 
 
             
@@ -653,7 +515,7 @@ E.g.: <br>
 
             
 
-            <td class="description last">position.</td>
+            <td class="description last">game state to be shown.</td>
         </tr>
 
     
@@ -694,7 +556,7 @@ E.g.: <br>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line320">line 320</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line623">line 623</a>
     </li></ul></dd>
     
 
@@ -719,28 +581,6 @@ E.g.: <br>
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    a Player translated by -0.5 in y.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Player</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 

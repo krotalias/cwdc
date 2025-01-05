@@ -102,7 +102,7 @@ function flipHorizontally(context, around) {
  * Finally, it keeps a flipPlayer property so that even when the player is standing still,
  * it keeps facing the direction it last moved in.
  */
-export const CanvasDisplay = class CanvasDisplay {
+export class CanvasDisplay {
   /**
    * @constructor
    * @param {HTMLElement} parent parent element.
@@ -134,132 +134,131 @@ export const CanvasDisplay = class CanvasDisplay {
   clear() {
     this.canvas.remove();
   }
-};
 
-/**
- * The syncState method first computes a new viewport and then draws the game scene at the appropriate position.
- *
- * @param {State} state state of a running game.
- */
-CanvasDisplay.prototype.syncState = function (state) {
-  this.updateViewport(state);
-  this.clearDisplay(state.status);
-  this.drawBackground(state.level);
-  this.drawActors(state.actors);
-};
-
-/**
- * &lt;p>The updateViewport method is similar to DOMDisplay’s scrollPlayerIntoView method.
- * It checks whether the player is too close to the edge of the screen and moves the viewport when this is the case.&lt;/p>
- *
- * The canvas is divided into three parts, and a margin is defined as 1/3 of its width.
- * Whenever the player enters the third third, the viewport is translated
- * to the right, so the difference between the player position, and the right edge of the viewport,
- * is the margin (of course speed matters).
- *
- * &lt;p>If the player turns back, whenever the player enters the first third, the viewport is translated
- * to the left, so the difference between the player position and the left edge of the viewport, is the margin.&lt;/p>
- *
- * @param {State} state state of a running game.
- */
-CanvasDisplay.prototype.updateViewport = function (state) {
-  let view = this.viewport,
-    margin = view.width / 3;
-  let player = state.player;
-  let center = player.pos.plus(player.size.times(0.5)); // position of the middle of the player
-
-  if (center.x &lt; view.left + margin) {
-    // before first third
-    view.left = Math.max(center.x - margin, 0); // keep the distance from the player to the left border = 1/3
-  } else if (center.x > view.left + view.width - margin) {
-    // beyond third third
-    view.left = Math.min(
-      center.x + margin - view.width, // keep the distance from the player to the left border = 2/3
-      state.level.width - view.width,
-    );
+  /**
+   * The syncState method first computes a new viewport and then draws the game scene at the appropriate position.
+   *
+   * @param {State} state state of a running game.
+   */
+  syncState(state) {
+    this.updateViewport(state);
+    this.clearDisplay(state.status);
+    this.drawBackground(state.level);
+    this.drawActors(state.actors);
   }
-  if (center.y &lt; view.top + margin) {
-    view.top = Math.max(center.y - margin, 0);
-  } else if (center.y > view.top + view.height - margin) {
-    view.top = Math.min(
-      center.y + margin - view.height,
-      state.level.height - view.height,
-    );
-  }
-};
 
-/**
- * When clearing the display, we’ll use a slightly different color depending on
- * whether the game is won (brighter) or lost (darker).
- *
- * @param {"won" | "lost" | "playing"} status current condition of the game.
- */
-CanvasDisplay.prototype.clearDisplay = function (status) {
-  if (status == "won") {
-    this.cx.fillStyle = "rgb(68, 191, 255)";
-  } else if (status == "lost") {
-    this.cx.fillStyle = "rgb(44, 136, 214)";
-  } else {
-    this.cx.fillStyle = "rgb(52, 166, 251)";
-  }
-  this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-};
+  /**
+   * &lt;p>The updateViewport method is similar to DOMDisplay’s scrollPlayerIntoView method.
+   * It checks whether the player is too close to the edge of the screen and moves the viewport when this is the case.&lt;/p>
+   *
+   * The canvas is divided into three parts, and a margin is defined as 1/3 of its width.
+   * Whenever the player enters the third third, the viewport is translated
+   * to the right, so the difference between the player position, and the right edge of the viewport,
+   * is the margin (of course speed matters).
+   *
+   * &lt;p>If the player turns back, whenever the player enters the first third, the viewport is translated
+   * to the left, so the difference between the player position and the left edge of the viewport, is the margin.&lt;/p>
+   *
+   * @param {State} state state of a running game.
+   */
+  updateViewport(state) {
+    const view = this.viewport,
+      margin = view.width / 3;
+    const player = state.player;
+    const center = player.pos.plus(player.size.times(0.5)); // position of the middle of the player
 
-/**
- * To draw the background, we run through the tiles that are visible in the current viewport,
- * using the same trick used in the touches method from the previous chapter.
- *
- * &lt;ul> &lt;li>map: [left,right] → [0,this.canvas.width] or screenX = (x - left) / (right-left) * this.canvas.width &lt;/li>
- * &lt;li> map: [top,bottom] → [0,this.canvas.height]    or screenY = (y - top)  / (top-bottom) * this.canvas.height &lt;/li>
- * &lt;li> scale = this.canvas.width/width = this.canvas.height/height = 20&lt;/li>&lt;/ul>
- *
- * @param {Level} level geometry of the current level of the game.
- */
-CanvasDisplay.prototype.drawBackground = function (level) {
-  let { left, top, width, height } = this.viewport;
-  let xStart = Math.floor(left);
-  let xEnd = Math.ceil(left + width);
-  let yStart = Math.floor(top);
-  let yEnd = Math.ceil(top + height);
-
-  for (let y = yStart; y &lt; yEnd; y++) {
-    for (let x = xStart; x &lt; xEnd; x++) {
-      let tile = level.rows[y][x];
-      if (tile == "empty") continue;
-      let screenX = (x - left) * scale; // map: [left,right] -> [0,this.canvas.width]
-      let screenY = (y - top) * scale; // map: [top,bottom] -> [0,this.canvas.height]
-      let tileX = tile == "lava" ? scale : 0; // wall is the first sprite (offset 0)
-      this.cx.drawImage(
-        sprites.other,
-        tileX,
-        0,
-        scale,
-        scale,
-        screenX,
-        screenY,
-        scale,
-        scale,
+    if (center.x &lt; view.left + margin) {
+      // before first third
+      view.left = Math.max(center.x - margin, 0); // keep the distance from the player to the left border = 1/3
+    } else if (center.x > view.left + view.width - margin) {
+      // beyond third third
+      view.left = Math.min(
+        center.x + margin - view.width, // keep the distance from the player to the left border = 2/3
+        state.level.width - view.width,
+      );
+    }
+    if (center.y &lt; view.top + margin) {
+      view.top = Math.max(center.y - margin, 0);
+    } else if (center.y > view.top + view.height - margin) {
+      view.top = Math.min(
+        center.y + margin - view.height,
+        state.level.height - view.height,
       );
     }
   }
-  // roma: draw one and two third lines
-  this.cx.beginPath();
-  this.cx.moveTo((width / 3) * scale, 0);
-  this.cx.lineTo((width / 3) * scale, height * scale);
-  this.cx.stroke();
-  this.cx.beginPath();
-  this.cx.setLineDash([3, 7]);
-  this.cx.moveTo(((2 * width) / 3) * scale, 0);
-  this.cx.lineTo(((2 * width) / 3) * scale, height * scale);
-  this.cx.strokeStyle = "lightblue";
-  this.cx.fillStyle = "lightblue";
-  this.cx.fillText(" (2/3)", ((2 * width) / 3) * scale, scale);
-  this.cx.fillText(" (1/3)", (width / 3) * scale, scale);
-  this.cx.stroke();
-  // console.log(this.canvas.width/width); // 20 (scale)
-};
 
-/**
+  /**
+   * When clearing the display, we’ll use a slightly different color depending on
+   * whether the game is won (brighter) or lost (darker).
+   *
+   * @param {"won" | "lost" | "playing"} status current condition of the game.
+   */
+  clearDisplay(status) {
+    if (status == "won") {
+      this.cx.fillStyle = "rgb(68, 191, 255)";
+    } else if (status == "lost") {
+      this.cx.fillStyle = "rgb(44, 136, 214)";
+    } else {
+      this.cx.fillStyle = "rgb(52, 166, 251)";
+    }
+    this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  /**
+   * To draw the background, we run through the tiles that are visible in the current viewport,
+   * using the same trick used in the touches method from the previous chapter.
+   *
+   * &lt;ul> &lt;li>map: [left,right] → [0,this.canvas.width] or screenX = (x - left) / (right-left) * this.canvas.width &lt;/li>
+   * &lt;li> map: [top,bottom] → [0,this.canvas.height]    or screenY = (y - top)  / (top-bottom) * this.canvas.height &lt;/li>
+   * &lt;li> scale = this.canvas.width/width = this.canvas.height/height = 20&lt;/li>&lt;/ul>
+   *
+   * @param {Level} level geometry of the current level of the game.
+   */
+  drawBackground(level) {
+    const { left, top, width, height } = this.viewport;
+    const xStart = Math.floor(left);
+    const xEnd = Math.ceil(left + width);
+    const yStart = Math.floor(top);
+    const yEnd = Math.ceil(top + height);
+
+    for (let y = yStart; y &lt; yEnd; y++) {
+      for (let x = xStart; x &lt; xEnd; x++) {
+        const tile = level.rows[y][x];
+        if (tile == "empty") continue;
+        const screenX = (x - left) * scale; // map: [left,right] -> [0,this.canvas.width]
+        const screenY = (y - top) * scale; // map: [top,bottom] -> [0,this.canvas.height]
+        const tileX = tile == "lava" ? scale : 0; // wall is the first sprite (offset 0)
+        this.cx.drawImage(
+          sprites.other,
+          tileX,
+          0,
+          scale,
+          scale,
+          screenX,
+          screenY,
+          scale,
+          scale,
+        );
+      }
+    }
+    // roma: draw one and two third lines
+    this.cx.beginPath();
+    this.cx.moveTo((width / 3) * scale, 0);
+    this.cx.lineTo((width / 3) * scale, height * scale);
+    this.cx.stroke();
+    this.cx.beginPath();
+    this.cx.setLineDash([3, 7]);
+    this.cx.moveTo(((2 * width) / 3) * scale, 0);
+    this.cx.lineTo(((2 * width) / 3) * scale, height * scale);
+    this.cx.strokeStyle = "lightblue";
+    this.cx.fillStyle = "lightblue";
+    this.cx.fillText(" (2/3)", ((2 * width) / 3) * scale, scale);
+    this.cx.fillText(" (1/3)", (width / 3) * scale, scale);
+    this.cx.stroke();
+    // console.log(this.canvas.width/width); // 20 (scale)
+  }
+
+  /**
  * &lt;p>Tiles that are not empty are drawn with drawImage.
  * The otherSprites image contains the pictures used for elements other than the player.
  * It contains, from left to right, the wall tile, the lava tile, and the sprite for a coin.&lt;/p>
@@ -292,75 +291,76 @@ CanvasDisplay.prototype.drawBackground = function (level) {
  * @param {Number} width actor width times scale.
  * @param {Number} height actor height times scale.
  */
-CanvasDisplay.prototype.drawPlayer = function (player, x, y, width, height) {
-  width += sprites.xOverlap * 2;
-  x -= sprites.xOverlap;
-  if (player.speed.x != 0) {
-    this.flipPlayer = player.speed.x &lt; 0;
+  drawPlayer(player, x, y, width, height) {
+    width += sprites.xOverlap * 2;
+    x -= sprites.xOverlap;
+    if (player.speed.x != 0) {
+      this.flipPlayer = player.speed.x &lt; 0;
+    }
+
+    let tile = 8;
+    if (player.speed.y != 0) {
+      tile = 9;
+    } else if (player.speed.x != 0) {
+      tile = Math.floor(Date.now() / 60) % 8;
+    }
+
+    this.cx.save();
+    if (this.flipPlayer) {
+      flipHorizontally(this.cx, x + width / 2);
+    }
+    const tileX = tile * width;
+    this.cx.drawImage(
+      sprites.player,
+      tileX,
+      0,
+      width,
+      height,
+      x,
+      y,
+      width,
+      height,
+    );
+    this.cx.restore();
   }
 
-  let tile = 8;
-  if (player.speed.y != 0) {
-    tile = 9;
-  } else if (player.speed.x != 0) {
-    tile = Math.floor(Date.now() / 60) % 8;
-  }
-
-  this.cx.save();
-  if (this.flipPlayer) {
-    flipHorizontally(this.cx, x + width / 2);
-  }
-  let tileX = tile * width;
-  this.cx.drawImage(
-    sprites.player,
-    tileX,
-    0,
-    width,
-    height,
-    x,
-    y,
-    width,
-    height,
-  );
-  this.cx.restore();
-};
-
-/**
- * &lt;p>The drawPlayer method is called by drawActors, which is responsible for drawing all the actors in the game.&lt;/p>
- *
- * When drawing something that is not the player, we look at its type to find the offset of the correct sprite. &lt;br>
- * The lava tile is found at offset 20, and the coin sprite is found at 40 (two times scale). &lt;br>
- *
- * &lt;p>We have to subtract the viewport’s position when computing the actor’s position,
- * since (0,0) on our canvas corresponds to the top left of the viewport, &lt;br>
- * not the top left of the level. We could also have used translate for this. Either way works.&lt;/p>
- *
- * @param {Array&lt;Lava|Coin|Player>} actors actors of the game.
- */
-CanvasDisplay.prototype.drawActors = function (actors) {
-  for (let actor of actors) {
-    let width = actor.size.x * scale;
-    let height = actor.size.y * scale;
-    let x = (actor.pos.x - this.viewport.left) * scale;
-    let y = (actor.pos.y - this.viewport.top) * scale;
-    if (actor.type == "player") {
-      this.drawPlayer(actor, x, y, width, height);
-    } else {
-      let tileX = (actor.type == "coin" ? 2 : 1) * scale;
-      this.cx.drawImage(
-        sprites.other,
-        tileX,
-        0,
-        width,
-        height,
-        x,
-        y,
-        width,
-        height,
-      );
+  /**
+   * &lt;p>The drawPlayer method is called by drawActors, which is responsible for drawing all the actors in the game.&lt;/p>
+   *
+   * When drawing something that is not the player, we look at its type to find the offset of the correct sprite. &lt;br>
+   * The lava tile is found at offset 20, and the coin sprite is found at 40 (two times scale). &lt;br>
+   *
+   * &lt;p>We have to subtract the viewport’s position when computing the actor’s position,
+   * since (0,0) on our canvas corresponds to the top left of the viewport, &lt;br>
+   * not the top left of the level. We could also have used translate for this. Either way works.&lt;/p>
+   *
+   * @param {Array&lt;Lava|Coin|Player>} actors actors of the game.
+   */
+  drawActors(actors) {
+    for (const actor of actors) {
+      const width = actor.size.x * scale;
+      const height = actor.size.y * scale;
+      const x = (actor.pos.x - this.viewport.left) * scale;
+      const y = (actor.pos.y - this.viewport.top) * scale;
+      if (actor.type == "player") {
+        this.drawPlayer(actor, x, y, width, height);
+      } else {
+        const tileX = (actor.type == "coin" ? 2 : 1) * scale;
+        this.cx.drawImage(
+          sprites.other,
+          tileX,
+          0,
+          width,
+          height,
+          x,
+          y,
+          width,
+          height,
+        );
+      }
     }
   }
-};
+}
 </code></pre>
         </article>
     </section>
@@ -371,13 +371,13 @@ CanvasDisplay.prototype.drawActors = function (actors) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-16_game.html">16_game</a></li><li><a href="module-17_canvas.html">17_canvas</a></li><li><a href="module-levels.html">levels</a></li></ul><h3>Classes</h3><ul><li><a href="module-16_game-Coin.html">Coin</a></li><li><a href="module-16_game-DOMDisplay.html">DOMDisplay</a></li><li><a href="module-16_game-Lava.html">Lava</a></li><li><a href="module-16_game-Level.html">Level</a></li><li><a href="module-16_game-Player.html">Player</a></li><li><a href="module-16_game-State.html">State</a></li><li><a href="module-16_game-Vec.html">Vec</a></li><li><a href="module-17_canvas-CanvasDisplay.html">CanvasDisplay</a></li></ul><h3>Events</h3><ul><li><a href="module-16_game.html#~event:keydown">keydown</a></li><li><a href="module-16_game.html#~event:keyup">keyup</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#displayDriver">displayDriver</a></li><li><a href="global.html#incLevel">incLevel</a></li><li><a href="global.html#mod">mod</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-16_game.html">16_game</a></li><li><a href="module-17_canvas.html">17_canvas</a></li><li><a href="module-levels.html">levels</a></li></ul><h3>Classes</h3><ul><li><a href="module-16_game.DOMDisplay.html">DOMDisplay</a></li><li><a href="module-16_game-Coin.html">Coin</a></li><li><a href="module-16_game-Lava.html">Lava</a></li><li><a href="module-16_game-Level.html">Level</a></li><li><a href="module-16_game-Player.html">Player</a></li><li><a href="module-16_game-State.html">State</a></li><li><a href="module-16_game-Vec.html">Vec</a></li><li><a href="module-17_canvas.CanvasDisplay.html">CanvasDisplay</a></li></ul><h3>Events</h3><ul><li><a href="module-16_game.html#~event:keydown">keydown</a></li><li><a href="module-16_game.html#~event:keyup">keyup</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#displayDriver">displayDriver</a></li><li><a href="global.html#incLevel">incLevel</a></li><li><a href="global.html#mod">mod</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Jan 05 2025 03:38:41 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Jan 05 2025 09:04:08 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

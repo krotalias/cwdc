@@ -129,13 +129,13 @@ const simpleLevelPlan = `
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
  * @see https://dev.to/sagar/three-dots---in-javascript-26ci
  */
-const Level = class Level {
+class Level {
   /**
    * @constructs Level
    * @param {String} plan level geometry.
    */
   constructor(plan) {
-    let rows = plan
+    const rows = plan
       .trim()
       .split("\n")
       .map((l) => [...l]); // spread operator
@@ -161,14 +161,39 @@ const Level = class Level {
      */
     this.rows = rows.map((row, y) => {
       return row.map((ch, x) => {
-        let type = levelChars[ch];
+        const type = levelChars[ch];
         if (typeof type == "string") return type; // "empty" | "wall" | "lava"
         this.startActors.push(type.create(new Vec(x, y), ch)); // Player | Coin | Lava
         return "empty";
       });
     });
   }
-};
+  /**
+   * This method tells us whether a rectangle (specified by a position and a size)
+   * touches a grid element of the given type.
+   *
+   * @param {Vec} pos rectangle position.
+   * @param {Vec} size rectangle size.
+   * @param {String} type grid element type.
+   * @returns {Boolean} whether the element intersects the given rectangle.
+   */
+
+  touches(pos, size, type) {
+    const xStart = Math.floor(pos.x);
+    const xEnd = Math.ceil(pos.x + size.x);
+    const yStart = Math.floor(pos.y);
+    const yEnd = Math.ceil(pos.y + size.y);
+
+    for (let y = yStart; y < yEnd; y++) {
+      for (let x = xStart; x < xEnd; x++) {
+        const isOutside = x < 0 || x >= this.width || y < 0 || y >= this.height;
+        const here = isOutside ? "wall" : this.rows[y][x];
+        if (here == type) return true;
+      }
+    }
+    return false;
+  }
+}
 
 /**
  * As the game runs, actors will end up in different places or even disappear entirely (as coins do when collected).
@@ -178,7 +203,7 @@ const Level = class Level {
  * @param {Array<Lava|Coin|Player>} actors actors in this level.
  * @param {"lost" | "won" | "playing"} status game situation.
  */
-const State = class State {
+class State {
   constructor(level, actors, status) {
     this.level = level;
     this.actors = actors;
@@ -203,14 +228,43 @@ const State = class State {
   get player() {
     return this.actors.find((a) => a.type == "player");
   }
-};
+
+  /**
+   * Uses touches to figure out whether the player is touching lava and
+   * computes the set of grid squares that the body overlaps with by using Math.floor and Math.ceil on its coordinates.
+   * Remember that grid squares are 1 by 1 units in size.
+   * By rounding the sides of a box up and down, we get the range of background squares that the box touches.
+   *
+   * @param {Number} time time step.
+   * @param {Object<key:Boolean>} keys object with key pressed.
+   * @returns {State} a new state.
+   */
+  update(time, keys) {
+    const actors = this.actors.map((actor) => actor.update(time, this, keys));
+    let newState = new State(this.level, actors, this.status);
+
+    if (newState.status != "playing") return newState;
+
+    const player = newState.player;
+    if (this.level.touches(player.pos, player.size, "lava")) {
+      return new State(this.level, actors, "lost");
+    }
+
+    for (const actor of actors) {
+      if (actor != player && overlap(actor, player)) {
+        newState = actor.collide(newState);
+      }
+    }
+    return newState;
+  }
+}
 
 /**
  * Used for our two-dimensional values, such as the position and size of actors.
  * @param {Number} x abscissa.
  * @param {Number} y ordinate.
  */
-const Vec = class Vec {
+class Vec {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -231,7 +285,7 @@ const Vec = class Vec {
   times(factor) {
     return new Vec(this.x * factor, this.y * factor);
   }
-};
+}
 
 /**
  * <p>The player class.</p>
@@ -242,7 +296,7 @@ const Vec = class Vec {
  * @param {Vec} pos position.
  * @param {Vec} speed current velocity to simulate momentum and gravity.
  */
-const Player = class Player {
+class Player {
   constructor(pos, speed) {
     this.pos = pos;
     this.speed = speed;
@@ -266,7 +320,50 @@ const Player = class Player {
   static create(pos) {
     return new Player(pos.plus(new Vec(0, -0.5)), new Vec(0, 0));
   }
-};
+
+  /**
+   * <p>Actor objects’ update methods take as arguments the time step, the state object, and a keys object. </p>
+   *
+   * E.g.: <br>
+   * • keys: {ArrowRight: false, ArrowLeft: true, ArrowUp: false} <br>
+   * • two keys can be pressed simoutaneously.
+   *
+   * <p> Actions performed:</p>
+   * <ul>
+   *  <li> Increases/decreases speed based on the key received. </li>
+   *  <li> Gets new player position X: px = vx * t </li>
+   *  <li> Gets new player position Y: py = vy + g*t </li>
+   *  <li> Updates position x and/or y, if he does not touch any wall. </li>
+   *  <li> Return a new player with new position and speed. </li>
+   * </ul>
+   *
+   * @param {Number} time time step.
+   * @param {State} state a given game state.
+   * @param {Object<key:Boolean>} keys object with key pressed.
+   * @returns {Player} new player object.
+   */
+  update(time, state, keys) {
+    let xSpeed = 0;
+    if (keys.ArrowLeft) xSpeed -= playerXSpeed;
+    if (keys.ArrowRight) xSpeed += playerXSpeed;
+    let pos = this.pos;
+    const movedX = pos.plus(new Vec(xSpeed * time, 0));
+    if (!state.level.touches(movedX, this.size, "wall")) {
+      pos = movedX;
+    }
+
+    let ySpeed = this.speed.y + time * gravity;
+    const movedY = pos.plus(new Vec(0, ySpeed * time));
+    if (!state.level.touches(movedY, this.size, "wall")) {
+      pos = movedY;
+    } else if (keys.ArrowUp && ySpeed > 0) {
+      ySpeed = -jumpSpeed;
+    } else {
+      ySpeed = 0;
+    }
+    return new Player(pos, new Vec(xSpeed, ySpeed));
+  }
+}
 
 /**
  * <p>Size: 0.8 x 1.5 </p>
@@ -286,7 +383,7 @@ Player.prototype.size = new Vec(0.8, 1.5);
  * @param {Vec} speed lava velocity.
  * @param {Boolean} reset flag to indicate a jump back to its start position.
  */
-const Lava = class Lava {
+class Lava {
   constructor(pos, speed, reset) {
     this.pos = pos;
     this.speed = speed;
@@ -318,7 +415,49 @@ const Lava = class Lava {
       return new Lava(pos, new Vec(0, 3), pos);
     }
   }
-};
+
+  /**
+   * If any actor does overlap, its collide method gets a chance to update the state.
+   * Touching a lava actor sets the game status to "lost".
+   * Coins vanish when you touch them and set the status to "won" when they are the last coin of the level.
+   *
+   * @param {State} state a given game state.
+   * @returns {State} new state with a "lost" status.
+   */
+  collide(state) {
+    return new State(state.level, state.actors, "lost");
+  }
+
+  /**
+   * Lava objects’ update method take as arguments the time step, and the state object.
+   *
+   * <p> Actions performed:</p>
+   * <ul>
+   *  <li> Gets new lava position X: px = vx * t </li>
+   *  <li> Gets new lava position Y: py = vy * t </li>
+   *  <li> Return a new lava object: </li>
+   *  <ul>
+   *  <li> If it does not touch any wall: new Lava(newPos, this.speed, this.reset); </li>
+   *  <li> else if it touches, and this.reset: return new Lava(this.reset, this.speed, this.reset);
+   *  <li> else return new Lava(this.pos: this.speed.times(-1));
+   *  </ul>
+   * </ul>
+   *
+   * @param {Number} time time step.
+   * @param {State} state a given game state.
+   * @returns {Lava} new lava object.
+   */
+  update(time, state) {
+    const newPos = this.pos.plus(this.speed.times(time));
+    if (!state.level.touches(newPos, this.size, "wall")) {
+      return new Lava(newPos, this.speed, this.reset);
+    } else if (this.reset) {
+      return new Lava(this.reset, this.speed, this.reset);
+    } else {
+      return new Lava(this.pos, this.speed.times(-1));
+    }
+  }
+}
 
 /**
  * Size: 1 x 1
@@ -341,7 +480,7 @@ Lava.prototype.size = new Vec(1, 1);
  * @param {Vec} basePos base position for the wooble movement.
  * @param {Number} wobble phase for an unsteady movement from side to side.
  */
-const Coin = class Coin {
+class Coin {
   constructor(pos, basePos, wobble) {
     this.pos = pos;
     this.basePos = basePos;
@@ -364,10 +503,42 @@ const Coin = class Coin {
    * @returns {Coin} a coin object.
    */
   static create(pos) {
-    let basePos = pos.plus(new Vec(0.2, 0.1));
+    const basePos = pos.plus(new Vec(0.2, 0.1));
     return new Coin(basePos, basePos, Math.random() * Math.PI * 2);
   }
-};
+
+  /**
+   * Coin objects’ update method take as argument the time step
+   * to wobble the coin position.
+   *
+   * @param {Number} time time step.
+   * @returns {Coin} new coin object.
+   */
+  update(time) {
+    const wobble = this.wobble + time * wobbleSpeed;
+    const wobblePos = Math.sin(wobble) * wobbleDist;
+    return new Coin(
+      this.basePos.plus(new Vec(0, wobblePos)),
+      this.basePos,
+      wobble,
+    );
+  }
+
+  /**
+   * If any actor does overlap, its collide method gets a chance to update the state.
+   * Touching a lava actor sets the game status to "lost".
+   * Coins vanish when you touch them and set the status to "won" when they are the last coin of the level.
+   *
+   * @param {State} state a given game state.
+   * @returns {State} new state (with status "won" if there is no more coins).
+   */
+  collide(state) {
+    const filtered = state.actors.filter((a) => a != this);
+    let status = state.status;
+    if (!filtered.some((a) => a.type == "coin")) status = "won";
+    return new State(state.level, filtered, status);
+  }
+}
 
 /**
  * Size: 0.6 x 0.6
@@ -406,11 +577,11 @@ const simpleLevel = new Level(simpleLevelPlan);
  * @see <a href="../test/table.html">table</a>
  */
 function elt(name, attrs, ...children) {
-  let dom = document.createElement(name);
-  for (let attr of Object.keys(attrs)) {
+  const dom = document.createElement(name);
+  for (const attr of Object.keys(attrs)) {
     dom.setAttribute(attr, attrs[attr]);
   }
-  for (let child of children) {
+  for (const child of children) {
     dom.appendChild(child);
   }
   return dom;
@@ -420,7 +591,7 @@ function elt(name, attrs, ...children) {
  * A display is created by giving it a parent element to which it should append itself and a level object.
  * It uses DOM elements to show the level.
  */
-export const DOMDisplay = class DOMDisplay {
+export class DOMDisplay {
   /**
    * @constructor
    * @param {HTMLElement} parent parent element.
@@ -438,7 +609,58 @@ export const DOMDisplay = class DOMDisplay {
   clear() {
     this.dom.remove();
   }
-};
+
+  /**
+   * The syncState method is used to make the display show a given state. It first removes the old actor graphics,
+   * if any, and then redraws the actors in their new positions.
+   * It may be tempting to try to reuse the DOM elements for actors, but to make that work,
+   * we would need a lot of additional bookkeeping to associate actors with DOM elements and to make sure
+   * we remove elements when their actors vanish.
+   * Since there will typically be only a handful of actors in the game, redrawing all of them is not expensive.
+   *
+   * @param {State} state game state to be shown.
+   */
+  syncState(state) {
+    if (this.actorLayer) this.actorLayer.remove();
+    this.actorLayer = drawActors(state.actors);
+    this.dom.appendChild(this.actorLayer);
+    this.dom.className = `game ${state.status}`;
+    this.scrollPlayerIntoView(state);
+  }
+
+  /**
+   * Find the player’s position and update the wrapping element’s scroll position.
+   * We change the scroll position by manipulating that element’s scrollLeft and
+   * scrollTop properties when the player is too close to the edge.
+   *
+   * @param {State} state state of a running game.
+   */
+  scrollPlayerIntoView(state) {
+    const width = this.dom.clientWidth;
+    const height = this.dom.clientHeight;
+    const margin = width / 3;
+
+    // The viewport
+    const left = this.dom.scrollLeft,
+      right = left + width;
+    const top = this.dom.scrollTop,
+      bottom = top + height;
+
+    const player = state.player;
+    const center = player.pos.plus(player.size.times(0.5)).times(scale);
+
+    if (center.x < left + margin) {
+      this.dom.scrollLeft = center.x - margin;
+    } else if (center.x > right - margin) {
+      this.dom.scrollLeft = center.x + margin - width;
+    }
+    if (center.y < top + margin) {
+      this.dom.scrollTop = center.y - margin;
+    } else if (center.y > bottom - margin) {
+      this.dom.scrollTop = center.y + margin - height;
+    }
+  }
+}
 
 /**
  * The amount of pixels that a single unit takes up on the screen.
@@ -489,7 +711,7 @@ function drawActors(actors) {
     "div",
     {},
     ...actors.map((actor) => {
-      let rect = elt("div", { class: `actor ${actor.type}` });
+      const rect = elt("div", { class: `actor ${actor.type}` });
       rect.style.width = `${actor.size.x * scale}px`;
       rect.style.height = `${actor.size.y * scale}px`;
       rect.style.left = `${actor.pos.x * scale}px`;
@@ -498,112 +720,6 @@ function drawActors(actors) {
     }),
   );
 }
-
-/**
- * The syncState method is used to make the display show a given state. It first removes the old actor graphics,
- * if any, and then redraws the actors in their new positions.
- * It may be tempting to try to reuse the DOM elements for actors, but to make that work,
- * we would need a lot of additional bookkeeping to associate actors with DOM elements and to make sure
- * we remove elements when their actors vanish.
- * Since there will typically be only a handful of actors in the game, redrawing all of them is not expensive.
- *
- * @param {State} state game state to be shown.
- */
-DOMDisplay.prototype.syncState = function (state) {
-  if (this.actorLayer) this.actorLayer.remove();
-  this.actorLayer = drawActors(state.actors);
-  this.dom.appendChild(this.actorLayer);
-  this.dom.className = `game ${state.status}`;
-  this.scrollPlayerIntoView(state);
-};
-
-/**
- * Find the player’s position and update the wrapping element’s scroll position.
- * We change the scroll position by manipulating that element’s scrollLeft and
- * scrollTop properties when the player is too close to the edge.
- *
- * @param {State} state state of a running game.
- */
-DOMDisplay.prototype.scrollPlayerIntoView = function (state) {
-  let width = this.dom.clientWidth;
-  let height = this.dom.clientHeight;
-  let margin = width / 3;
-
-  // The viewport
-  let left = this.dom.scrollLeft,
-    right = left + width;
-  let top = this.dom.scrollTop,
-    bottom = top + height;
-
-  let player = state.player;
-  let center = player.pos.plus(player.size.times(0.5)).times(scale);
-
-  if (center.x < left + margin) {
-    this.dom.scrollLeft = center.x - margin;
-  } else if (center.x > right - margin) {
-    this.dom.scrollLeft = center.x + margin - width;
-  }
-  if (center.y < top + margin) {
-    this.dom.scrollTop = center.y - margin;
-  } else if (center.y > bottom - margin) {
-    this.dom.scrollTop = center.y + margin - height;
-  }
-};
-
-/**
- * This method tells us whether a rectangle (specified by a position and a size)
- * touches a grid element of the given type.
- *
- * @param {Vec} pos rectangle position.
- * @param {Vec} size rectangle size.
- * @param {String} type grid element type.
- * @returns {Boolean} whether the element intersects the given rectangle.
- */
-
-Level.prototype.touches = function (pos, size, type) {
-  let xStart = Math.floor(pos.x);
-  let xEnd = Math.ceil(pos.x + size.x);
-  let yStart = Math.floor(pos.y);
-  let yEnd = Math.ceil(pos.y + size.y);
-
-  for (let y = yStart; y < yEnd; y++) {
-    for (let x = xStart; x < xEnd; x++) {
-      let isOutside = x < 0 || x >= this.width || y < 0 || y >= this.height;
-      let here = isOutside ? "wall" : this.rows[y][x];
-      if (here == type) return true;
-    }
-  }
-  return false;
-};
-
-/**
- * Uses touches to figure out whether the player is touching lava and
- * computes the set of grid squares that the body overlaps with by using Math.floor and Math.ceil on its coordinates.
- * Remember that grid squares are 1 by 1 units in size.
- * By rounding the sides of a box up and down, we get the range of background squares that the box touches.
- *
- * @param {Number} time time step.
- * @param {Object<key:Boolean>} keys object with key pressed.
- * @returns {State} a new state.
- */
-State.prototype.update = function (time, keys) {
-  let actors = this.actors.map((actor) => actor.update(time, this, keys));
-  let newState = new State(this.level, actors, this.status);
-
-  if (newState.status != "playing") return newState;
-
-  let player = newState.player;
-  if (this.level.touches(player.pos, player.size, "lava")) {
-    return new State(this.level, actors, "lost");
-  }
-
-  for (let actor of actors) {
-    if (actor != player && overlap(actor, player)) {
-      newState = actor.collide(newState);
-    }
-  }
-  return newState;
-};
 
 /**
  * Takes two actor objects and returns true when they touch,<br>
@@ -622,82 +738,8 @@ function overlap(actor1, actor2) {
   );
 }
 
-/**
- * If any actor does overlap, its collide method gets a chance to update the state.
- * Touching a lava actor sets the game status to "lost".
- * Coins vanish when you touch them and set the status to "won" when they are the last coin of the level.
- *
- * @param {State} state a given game state.
- * @returns {State} new state with a "lost" status.
- */
-Lava.prototype.collide = function (state) {
-  return new State(state.level, state.actors, "lost");
-};
-
-/**
- * If any actor does overlap, its collide method gets a chance to update the state.
- * Touching a lava actor sets the game status to "lost".
- * Coins vanish when you touch them and set the status to "won" when they are the last coin of the level.
- *
- * @param {State} state a given game state.
- * @returns {State} new state (with status "won" if there is no more coins).
- */
-Coin.prototype.collide = function (state) {
-  let filtered = state.actors.filter((a) => a != this);
-  let status = state.status;
-  if (!filtered.some((a) => a.type == "coin")) status = "won";
-  return new State(state.level, filtered, status);
-};
-
-/**
- * Lava objects’ update method take as arguments the time step, and the state object.
- *
- * <p> Actions performed:</p>
- * <ul>
- *  <li> Gets new lava position X: px = vx * t </li>
- *  <li> Gets new lava position Y: py = vy * t </li>
- *  <li> Return a new lava object: </li>
- *  <ul>
- *  <li> If it does not touch any wall: new Lava(newPos, this.speed, this.reset); </li>
- *  <li> else if it touches, and this.reset: return new Lava(this.reset, this.speed, this.reset);
- *  <li> else return new Lava(this.pos: this.speed.times(-1));
- *  </ul>
- * </ul>
- *
- * @param {Number} time time step.
- * @param {State} state a given game state.
- * @returns {Lava} new lava object.
- */
-Lava.prototype.update = function (time, state) {
-  let newPos = this.pos.plus(this.speed.times(time));
-  if (!state.level.touches(newPos, this.size, "wall")) {
-    return new Lava(newPos, this.speed, this.reset);
-  } else if (this.reset) {
-    return new Lava(this.reset, this.speed, this.reset);
-  } else {
-    return new Lava(this.pos, this.speed.times(-1));
-  }
-};
-
 const wobbleSpeed = 8,
   wobbleDist = 0.07;
-
-/**
- * Coin objects’ update method take as argument the time step
- * to wobble the coin position.
- *
- * @param {Number} time time step.
- * @returns {Coin} new coin object.
- */
-Coin.prototype.update = function (time) {
-  let wobble = this.wobble + time * wobbleSpeed;
-  let wobblePos = Math.sin(wobble) * wobbleDist;
-  return new Coin(
-    this.basePos.plus(new Vec(0, wobblePos)),
-    this.basePos,
-    wobble,
-  );
-};
 
 /** Player horizontal speed.
  * @type {Number}
@@ -715,49 +757,6 @@ const gravity = 30;
 const jumpSpeed = 17;
 
 /**
- * <p>Actor objects’ update methods take as arguments the time step, the state object, and a keys object. </p>
- *
- * E.g.: <br>
- * • keys: {ArrowRight: false, ArrowLeft: true, ArrowUp: false} <br>
- * • two keys can be pressed simoutaneously.
- *
- * <p> Actions performed:</p>
- * <ul>
- *  <li> Increases/decreases speed based on the key received. </li>
- *  <li> Gets new player position X: px = vx * t </li>
- *  <li> Gets new player position Y: py = vy + g*t </li>
- *  <li> Updates position x and/or y, if he does not touch any wall. </li>
- *  <li> Return a new player with new position and speed. </li>
- * </ul>
- *
- * @param {Number} time time step.
- * @param {State} state a given game state.
- * @param {Object<key:Boolean>} keys object with key pressed.
- * @returns {Player} new player object.
- */
-Player.prototype.update = function (time, state, keys) {
-  let xSpeed = 0;
-  if (keys.ArrowLeft) xSpeed -= playerXSpeed;
-  if (keys.ArrowRight) xSpeed += playerXSpeed;
-  let pos = this.pos;
-  let movedX = pos.plus(new Vec(xSpeed * time, 0));
-  if (!state.level.touches(movedX, this.size, "wall")) {
-    pos = movedX;
-  }
-
-  let ySpeed = this.speed.y + time * gravity;
-  let movedY = pos.plus(new Vec(0, ySpeed * time));
-  if (!state.level.touches(movedY, this.size, "wall")) {
-    pos = movedY;
-  } else if (keys.ArrowUp && ySpeed > 0) {
-    ySpeed = -jumpSpeed;
-  } else {
-    ySpeed = 0;
-  }
-  return new Player(pos, new Vec(xSpeed, ySpeed));
-};
-
-/**
  * <p>Given an array of key names, will return an object that tracks the current position of those keys.</p>
  * It registers event handlers for "keydown" and "keyup" events and,<br>
  * when the key code in the event is present in the set of codes that it is tracking, <br>
@@ -769,7 +768,7 @@ Player.prototype.update = function (time, state, keys) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key KeyboardEvent: key property}
  */
 function trackKeys(keys) {
-  let down = Object.create(null);
+  const down = Object.create(null);
   /**
    * Callback for tracking key pressed.
    * A closure that holds "keys" and "down" from trackKeys.
@@ -824,7 +823,7 @@ function runAnimation(frameFunc) {
    */
   function frame(time) {
     if (lastTime != null) {
-      let timeStep = Math.min(time - lastTime, 100) / 1000;
+      const timeStep = Math.min(time - lastTime, 100) / 1000;
       if (frameFunc(timeStep) === false) return;
     }
     lastTime = time;
@@ -845,7 +844,7 @@ function runAnimation(frameFunc) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises Using promises}
  */
 function runLevel(level, Display) {
-  let display = new Display(document.body, level);
+  const display = new Display(document.body, level);
   let state = State.start(level);
   let ending = 1;
   return new Promise((resolve) => {
@@ -902,16 +901,16 @@ function runLevel(level, Display) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function async function}
  */
 export async function runGame(plans, Display) {
-  let cind = document.cookie.indexOf("level");
+  const cind = document.cookie.indexOf("level");
   // firefox and chrome do not add a ; after the last cookie value
-  let semicolon = `${document.cookie};`.indexOf(";", cind);
-  let clevel =
+  const semicolon = `${document.cookie};`.indexOf(";", cind);
+  const clevel =
     cind != -1
       ? document.cookie.substring(cind + "level".length + 1, semicolon)
       : 0;
   for (let level = clevel; level < plans.length; ) {
     document.cookie = `level = ${level}; max-age=31536000; path=/;`;
-    let status = await runLevel(new Level(plans[level]), Display);
+    const status = await runLevel(new Level(plans[level]), Display);
     if (status == "won") level++;
   }
   return "You've won!";

@@ -7,7 +7,8 @@
  * <ul>
  * <li>It imports the <a href="/cwdc/3-javascript/game/doc-level/index.html">levels</a>,
  * the game, and the display drivers and runs the game with
- * the CanvasDisplay or DOMDisplay class.</li>
+ * the {@link module:17_canvas.CanvasDisplay CanvasDisplay} or
+ * {@link module:16_game.DOMDisplay DOMDisplay} class.</li>
  *
  * <li>It also uses a cookie "level" to remember the level of the game
  * and allow the user to cheat by advancing/retreating levels by pressing a button.</li>
@@ -31,7 +32,8 @@ import { runGame, DOMDisplay } from "./code/chapter/16_game.js";
 import { CanvasDisplay } from "./code/chapter/17_canvas.js";
 import { getCookie, setCookie } from "/cwdc/3-javascript/cookies/cookies.mjs";
 /**
- * Maps driver characters to either DOMDisplay or CanvasDisplay classes.
+ * Maps driver characters to either {@link module:16_game.DOMDisplay DOMDisplay}
+ * or {@link module:17_canvas.CanvasDisplay CanvasDisplay} classes.
  * @type {Object<string:DOMDisplay|CanvasDisplay>}
  */
 const displayDriver = {
