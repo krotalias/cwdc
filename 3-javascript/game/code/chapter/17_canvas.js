@@ -120,7 +120,8 @@ export class CanvasDisplay {
   }
 
   /**
-   * <p>The updateViewport method is similar to DOMDisplay’s scrollPlayerIntoView method.
+   * <p>The updateViewport method is similar to DOMDisplay’s
+   * {@link module:16_game.DOMDisplay#scrollPlayerIntoView scrollPlayerIntoView} method.
    * It checks whether the player is too close to the edge of the screen and moves the viewport when this is the case.</p>
    *
    * The canvas is divided into three parts, and a margin is defined as 1/3 of its width.
@@ -231,7 +232,8 @@ export class CanvasDisplay {
   }
 
   /**
- * <p>Tiles that are not empty are drawn with drawImage.
+ * <p>Tiles that are not empty are drawn with
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage drawImage}.
  * The otherSprites image contains the pictures used for elements other than the player.
  * It contains, from left to right, the wall tile, the lava tile, and the sprite for a coin.</p>
 

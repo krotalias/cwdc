@@ -246,13 +246,157 @@
 
         
             
+<h4 class="name" id="actors"><span class="type-signature"></span>actors<span class="type-signature"> :Array.&lt;(Lava|Coin|Player)></span></h4>
+
+
+
+
+<div class="description">
+    Actors in this level.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;(Lava|Coin|Player)></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line217">line 217</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="level"><span class="type-signature"></span>level<span class="type-signature"> :Level</span></h4>
+
+
+
+
+<div class="description">
+    Game level.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Level</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line212">line 212</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="player"><span class="type-signature"></span>player<span class="type-signature"> :Player</span></h4>
 
 
 
 
 <div class="description">
-    Getter: the first actor in this.actors that is a player.
+    Getter: the first actor in <a href="module-16_game-State.html#actors">this.actors</a> that is a player.
 </div>
 
 
@@ -300,7 +444,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line228">line 228</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line240">line 240</a>
     </li></ul></dd>
     
 
@@ -310,9 +454,87 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get">get</a></li>
         </ul>
     </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="status"><span class="type-signature"></span>status<span class="type-signature"> :"lost"|"won"|"playing"</span></h4>
+
+
+
+
+<div class="description">
+    Game situation.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">"lost"</span>
+|
+
+<span class="param-type">"won"</span>
+|
+
+<span class="param-type">"playing"</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line222">line 222</a>
+    </li></ul></dd>
+    
+
+    
+
     
 
     
@@ -343,7 +565,7 @@
 
 
 <div class="description">
-    Uses touches to figure out whether the player is touching lava and
+    Uses <a href="module-16_game-Level.html#touches">touches</a> to figure out whether the player is touching lava and
 computes the set of grid squares that the body overlaps with by using Math.floor and Math.ceil on its coordinates.
 Remember that grid squares are 1 by 1 units in size.
 By rounding the sides of a box up and down, we get the range of background squares that the box touches.
@@ -462,7 +684,7 @@ By rounding the sides of a box up and down, we get the range of background squar
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line242">line 242</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line254">line 254</a>
     </li></ul></dd>
     
 
@@ -621,7 +843,7 @@ By rounding the sides of a box up and down, we get the range of background squar
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line218">line 218</a>
+        <a href="code_chapter_16_game.js.html">code/chapter/16_game.js</a>, <a href="code_chapter_16_game.js.html#line230">line 230</a>
     </li></ul></dd>
     
 
@@ -695,7 +917,7 @@ By rounding the sides of a box up and down, we get the range of background squar
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Jan 05 2025 09:04:04 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jan 06 2025 07:29:52 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

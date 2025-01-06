@@ -124,14 +124,14 @@ const simpleLevelPlan = `
  *   >
  * </pre>
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
- * @see https://dev.to/sagar/three-dots---in-javascript-26ci
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim String.prototype.trim()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split String.prototype.split()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax Spread syntax (...)}
+ * @see {@link https://dev.to/sagar/three-dots---in-javascript-26ci Three dots ( … ) in JavaScript}
  */
 class Level {
   /**
-   * @constructs Level
+   * @constructor
    * @param {String} plan level geometry.
    */
   constructor(plan) {
@@ -141,17 +141,17 @@ class Level {
       .map((l) => [...l]); // spread operator
     /**
      * Matrix height.
-     * @Type {Number}
+     * @type {Number}
      */
     this.height = rows.length;
     /**
      * Matrix width.
-     * @Type {Number}
+     * @type {Number}
      */
     this.width = rows[0].length;
     /**
      * Array of actors (moving elements).
-     * @Type {Array<Player|Coin|Lava>}
+     * @type {Array<Player|Coin|Lava>}
      */
     this.startActors = [];
 
@@ -168,6 +168,7 @@ class Level {
       });
     });
   }
+
   /**
    * This method tells us whether a rectangle (specified by a position and a size)
    * touches a grid element of the given type.
@@ -177,7 +178,6 @@ class Level {
    * @param {String} type grid element type.
    * @returns {Boolean} whether the element intersects the given rectangle.
    */
-
   touches(pos, size, type) {
     const xStart = Math.floor(pos.x);
     const xEnd = Math.ceil(pos.x + size.x);
@@ -205,8 +205,20 @@ class Level {
  */
 class State {
   constructor(level, actors, status) {
+    /**
+     * Game level.
+     * @type {Level}
+     */
     this.level = level;
+    /**
+     * Actors in this level.
+     * @type {Array<Lava|Coin|Player>}
+     */
     this.actors = actors;
+    /**
+     * Game situation.
+     * @type {"lost" | "won" | "playing"}
+     */
     this.status = status;
   }
 
@@ -220,17 +232,17 @@ class State {
   }
 
   /**
-   * Getter: the first actor in this.actors that is a player.
+   * Getter: the first actor in {@link module:16_game~State#actors this.actors} that is a player.
    *
    * @type {Player}
-   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get get}
    */
   get player() {
     return this.actors.find((a) => a.type == "player");
   }
 
   /**
-   * Uses touches to figure out whether the player is touching lava and
+   * Uses {@link module:16_game~Level#touches touches} to figure out whether the player is touching lava and
    * computes the set of grid squares that the body overlaps with by using Math.floor and Math.ceil on its coordinates.
    * Remember that grid squares are 1 by 1 units in size.
    * By rounding the sides of a box up and down, we get the range of background squares that the box touches.
@@ -261,12 +273,21 @@ class State {
 
 /**
  * Used for our two-dimensional values, such as the position and size of actors.
+ *
  * @param {Number} x abscissa.
  * @param {Number} y ordinate.
  */
 class Vec {
   constructor(x, y) {
+    /**
+     * Abscissa.
+     * @type {Number}
+     */
     this.x = x;
+    /**
+     * Ordinate.
+     * @type {Number}
+     */
     this.y = y;
   }
   /**
@@ -289,7 +310,8 @@ class Vec {
 
 /**
  * <p>The player class.</p>
- * Because a player is one-and-a-half squares high, its initial position is set to be half a square
+ * Because a player is one-and-a-half squares high,
+ * its initial position is set to be half a square
  * above the position where the @ character appeared.
  * This way, its bottom aligns with the bottom of the square it appeared in.
  *
@@ -298,7 +320,15 @@ class Vec {
  */
 class Player {
   constructor(pos, speed) {
+    /**
+     * Player position.
+     * @type {module:16_game~Vec}
+     */
     this.pos = pos;
+    /**
+     * Player speed.
+     * @type {module:16_game~Vec}
+     */
     this.speed = speed;
   }
 
@@ -322,7 +352,8 @@ class Player {
   }
 
   /**
-   * <p>Actor objects’ update methods take as arguments the time step, the state object, and a keys object. </p>
+   * <p>Actor objects’ update methods take as arguments the time step,
+   * the state object, and a keys object. </p>
    *
    * E.g.: <br>
    * • keys: {ArrowRight: false, ArrowLeft: true, ArrowUp: false} <br>
@@ -400,7 +431,7 @@ class Lava {
   }
 
   /**
-   * Lava with velocity: "=" -> (2,0), "|" -> (0,2), "v" -> (0,3)
+   * Lava with velocity: "=" → (2,0), "|" → (0,2), "v" → (0,3)
    *
    * @param {Vec} pos position.
    * @param {"=" | "|" | "v"} ch character representing lava.
@@ -461,7 +492,7 @@ class Lava {
 
 /**
  * Size: 1 x 1
- * @type{Vec}
+ * @type {Vec}
  */
 Lava.prototype.size = new Vec(1, 1);
 
@@ -482,8 +513,20 @@ Lava.prototype.size = new Vec(1, 1);
  */
 class Coin {
   constructor(pos, basePos, wobble) {
+    /**
+     * Coin position.
+     * @type {Vec}
+     */
     this.pos = pos;
+    /**
+     * Base position for the wobble movement.
+     * @type {Vec}
+     */
     this.basePos = basePos;
+    /**
+     * Phase for an unsteady movement from side to side.
+     * @type {Number}
+     */
     this.wobble = wobble;
   }
 
@@ -588,7 +631,8 @@ function elt(name, attrs, ...children) {
 }
 
 /**
- * A display is created by giving it a parent element to which it should append itself and a level object.
+ * A display is created by giving it a parent element to which
+ * it should append itself and a level object.
  * It uses DOM elements to show the level.
  */
 export class DOMDisplay {
@@ -611,12 +655,15 @@ export class DOMDisplay {
   }
 
   /**
-   * The syncState method is used to make the display show a given state. It first removes the old actor graphics,
+   * The syncState method is used to make the display show a given state.
+   * It first removes the old actor graphics,
    * if any, and then redraws the actors in their new positions.
    * It may be tempting to try to reuse the DOM elements for actors, but to make that work,
-   * we would need a lot of additional bookkeeping to associate actors with DOM elements and to make sure
+   * we would need a lot of additional bookkeeping to associate actors with
+   * DOM elements and to make sure
    * we remove elements when their actors vanish.
-   * Since there will typically be only a handful of actors in the game, redrawing all of them is not expensive.
+   * Since there will typically be only a handful of actors in the game,
+   * redrawing all of them is not expensive.
    *
    * @param {State} state game state to be shown.
    */
@@ -797,9 +844,9 @@ function trackKeys(keys) {
 }
 
 /**
- * Array of pressed keys.
+ * Array of tracked keys.
  * @type {Array<{KeyboardEvent.key:Boolean}>}
- * @see trackKeys
+ * @see {@link module:16_game~trackKeys trackKeys}
  */
 const arrowKeys = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"]);
 
@@ -878,7 +925,8 @@ function runLevel(level, Display) {
 }
 
 /**
- * A game is a sequence of levels. Whenever the player dies, the current level is restarted.<br>
+ * A game is a sequence of levels. Whenever the player dies,
+ * the current level is restarted.<br>
  * When a level is completed, we move on to the next level.
  *
  * <p>Because we made runLevel return a promise, runGame can be written using an async function,
