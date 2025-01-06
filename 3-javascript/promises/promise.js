@@ -12,7 +12,7 @@
  *  @since 18/08/2021
  *  @see <a href="/cwdc/3-javascript/promises/promise.html">link</a>
  *  @see <a href="/cwdc/3-javascript/promises/promise.js">source</a>
- *  @see <a href="/nodejs/books/javascript-beginner-handbook.pdf#page=60">Book</a>
+ *  @see <a href="https://www.freecodecamp.org/news/the-complete-javascript-handbook-f26b2c71719c/#heading-promises">Book</a>
  *  @see {@link https://javascript.info/promise-basics Promise basics}
  *  @see {@link https://javascript.info/async-await Async/await}
  *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise Promise}

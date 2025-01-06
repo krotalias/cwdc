@@ -12,7 +12,7 @@
  *  @since 24/12/2021
  *  @see <a href="/cwdc/3-javascript/promises/promise2.html">link</a>
  *  @see <a href="/cwdc/3-javascript/promises/promise2.js">source</a>
- *  @see <a href="/nodejs/books/javascript-beginner-handbook.pdf#page=60">Book</a>
+ *  @see <a href="https://www.freecodecamp.org/news/the-complete-javascript-handbook-f26b2c71719c/#heading-promises">Book</a>
  *  @see {@link https://javascript.info/promise-basics Promise basics}
  *  @see {@link https://javascript.info/async-await Async/await}
  *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise Promise}
@@ -146,10 +146,10 @@ export function setDOM() {
  * Promise.all() uses Promise.resolve() to ensure that all Array elements are Promises
  * and fulfills its result with an Array of their fulfillment values (if none of the Promises is rejected).
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/json
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/text
- * @see https://2ality.com/2017/08/promise-callback-data-flow.html
- * @see https://medium.com/teamzerolabs/start-here-zero-to-javascript-callback-fetching-data-working-with-json-4f68e48668ce
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Response/json Response: json() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Response/text Response: text() method}
+ * @see {@link https://2ality.com/2017/08/promise-callback-data-flow.html Passing data between Promise callbacks}
+ * @see {@link https://medium.com/teamzerolabs/start-here-zero-to-javascript-callback-fetching-data-working-with-json-4f68e48668ce Start Here: Zero to JavaScript — Callback/Fetching data/Working}
  */
 export function showAvatar() {
   return fetch("./user.json") // read the JSON file
