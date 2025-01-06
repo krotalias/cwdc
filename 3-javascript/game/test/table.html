@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        .background { 
+            background: rgb(52, 166, 251);
+            table-layout: fixed;
+            border-spacing: 0;   
+        }
+
+        /* roma - display border */ 		
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        .background td { padding: 0;          }
+        .lava          { background: rgb(255, 100, 100); border-style: solid;}
+        .wall          { background: white;   }
+
+        .actor  { position: absolute;  }
+        .coin   { background: rgb(241, 229, 89); border-style: solid; }
+        .player { background: rgb(64, 64, 64); }
+
+        .game {
+            overflow: hidden;
+            max-width: 600px;
+            max-height: 450px;
+            position: relative;
+        }
+
+        .lost .player {
+            background: rgb(160, 64, 64);
+        }
+        .won .player {
+            box-shadow: -4px -7px 8px white, 4px -7px 8px white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game">
+    <table class="background" style="width:1600px">
+        <tr style="height: 20px">
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td> 
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+            <td class="empty"></td>
+        </tr>
+</table>
+</div>
+
+<div>
+  <div class="actor coin" style="width: 12px; height: 12px; left: 724px; top: 163.31569908385535px;"></div>
+  <div class="actor coin" style="width: 12px; height: 12px; left: 764px; top: 163.387632960509px;"></div>
+  <div class="actor lava" style="width: 20px; height: 20px; left: 1340px; top: 200.24px;"></div>
+  <div class="actor coin" style="width: 12px; height: 12px; left: 844px; top: 243.3574918997881px;"></div>
+  <div class="actor coin" style="width: 12px; height: 12px; left: 884px; top: 243.19612614902752px;"></div>
+  <div class="actor coin" style="width: 12px; height: 12px; left: 484px; top: 260.8697714942803px;"></div>
+  <div class="actor coin" style="width: 12px; height: 12px; left: 1504px; top: 282.2565183580323px;"></div>
+  <div class="actor coin" style="width: 12px; height: 12px; left: 484px; top: 300.62713238151997px;"></div>
+  <div class="actor player" style="width: 16px; height: 30px; left: 100px; top: 310px;"></div>
+</div>
+
+</body>
+</html>
