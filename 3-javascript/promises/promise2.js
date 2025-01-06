@@ -13,17 +13,17 @@
  *  @see <a href="/cwdc/3-javascript/promises/promise2.html">link</a>
  *  @see <a href="/cwdc/3-javascript/promises/promise2.js">source</a>
  *  @see <a href="/nodejs/books/javascript-beginner-handbook.pdf#page=60">Book</a>
- *  @see https://javascript.info/promise-basics
- *  @see https://javascript.info/async-await
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
- *  @see https://gomakethings.com/promises-in-javascript/
- *  @see https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
- *  @see https://eloquentjavascript.net/11_async.html
- *  @see https://www.techiediaries.com/convert-promise-async-await-vscode/
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation/createDocument
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Document/body
- *  @see https://dev.to/kylejb/a-key-difference-between-then-and-async-await-in-javascript-53e9
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ *  @see {@link https://javascript.info/promise-basics Promise basics}
+ *  @see {@link https://javascript.info/async-await Async/await}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise Promise}
+ *  @see {@link https://gomakethings.com/promises-in-javascript/ Promises in JavaScript}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await How to use promises}
+ *  @see {@link https://eloquentjavascript.net/11_async.html Asynchronous Programming}
+ *  @see {@link https://www.techiediaries.com/convert-promise-async-await-vscode/ Convert Promise-Based Chain to Async/Await with VS Code}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation/createDocument DOMImplementation: createDocument() method}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/body Document: body property}
+ *  @see {@link https://dev.to/kylejb/a-key-difference-between-then-and-async-await-in-javascript-53e9 A key difference between .then() and async-await in JavaScript}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  *
  */
 "use strict";
@@ -59,8 +59,8 @@ if (document.body.children.length === 0) {
  */
 export function setDOM() {
   // Create the text node for anchor element.
-  var a = document.createElement("a");
-  var tnode = document.createTextNode("youtube");
+  const a = document.createElement("a");
+  const tnode = document.createTextNode("youtube");
 
   // Append the text node to anchor element.
   a.appendChild(tnode);
@@ -74,17 +74,17 @@ export function setDOM() {
   document.body.appendChild(a);
   console.log(
     "anchor has been created:",
-    document.getElementsByTagName("a")[0]
+    document.getElementsByTagName("a")[0],
   );
 
   // create the div
-  var div = document.createElement("div");
+  const div = document.createElement("div");
   div.setAttribute("id", "user");
   document.body.appendChild(div);
   console.log("div has been created:", document.getElementById("user"));
 
   // create a script to call showAvatar()
-  var script = document.createElement("script");
+  const script = document.createElement("script");
   script.type = "text/javascript"; // "module";
   script.onload = function () {
     console.log("Script loaded and ready");
@@ -92,7 +92,7 @@ export function setDOM() {
   };
   script.setAttribute("id", "avatar");
 
-  var code = `showAvatar().then((githubUser) => {
+  const code = `showAvatar().then((githubUser) => {
     document.getElementById("user").innerHTML =
     \`<a href="https://github.com/\${githubUser.login}">\${githubUser.login}</a>\`;
     console.log(githubUser);
@@ -173,7 +173,7 @@ export function showAvatar() {
     })
     .then((githubUser) => {
       // show the avatar
-      let img = document.createElement("img");
+      const img = document.createElement("img");
       img.src = githubUser.avatar_url;
       img.className = "promise-avatar-example";
       document.body.append(img);
@@ -181,7 +181,7 @@ export function showAvatar() {
     })
     .then((data) => {
       // wait data.sec seconds
-      let p = new Promise((resolve, reject) => {
+      const p = new Promise((resolve, reject) => {
         setTimeout(resolve, data.sec);
       });
       return Promise.all([p, data.user, data.avatar]); // (A)

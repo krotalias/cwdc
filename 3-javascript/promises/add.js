@@ -8,7 +8,7 @@
  *  <li>resolve is used for delivering a result (in case of success).</li>
  *  <li>reject is used for delivering an error (in case of failure).</li>
  * </ul>
- * @see https://exploringjs.com/impatient-js/ch_promises.html#the-basics-of-using-promises
+ * @see {@link https://exploringjs.com/js/book/ch_promises.html Promises for asynchronous programming}
  */
 function addAsync(x, y) {
   return new Promise((resolve, reject) => {
@@ -44,5 +44,5 @@ addAsync(2).then(
   },
   (err) => {
     console.error(`Error: ${err.message}`);
-  }
+  },
 );

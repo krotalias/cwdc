@@ -13,14 +13,14 @@
  *  @see <a href="/cwdc/3-javascript/promises/promise.html">link</a>
  *  @see <a href="/cwdc/3-javascript/promises/promise.js">source</a>
  *  @see <a href="/nodejs/books/javascript-beginner-handbook.pdf#page=60">Book</a>
- *  @see https://javascript.info/promise-basics
- *  @see https://javascript.info/async-await
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
- *  @see https://gomakethings.com/promises-in-javascript/
- *  @see https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
- *  @see https://eloquentjavascript.net/11_async.html
- *  @see https://www.techiediaries.com/convert-promise-async-await-vscode/
- *  @see https://dev.to/masteringjs/using-then-vs-async-await-in-javascript-2pma
+ *  @see {@link https://javascript.info/promise-basics Promise basics}
+ *  @see {@link https://javascript.info/async-await Async/await}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise Promise}
+ *  @see {@link https://gomakethings.com/promises-in-javascript/ Promises in JavaScript}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await How to use promises}
+ *  @see {@link https://eloquentjavascript.net/11_async.html Asynchronous Programming}
+ *  @see {@link https://www.techiediaries.com/convert-promise-async-await-vscode/ Convert Promise-Based Chain to Async/Await with VS Code}
+ *  @see {@link https://dev.to/masteringjs/using-then-vs-async-await-in-javascript-2pma Using `then()` vs Async/Await in JavaScript}
  */
 
 "use strict";
@@ -44,12 +44,12 @@
  * It contains the producing code which should eventually produce the result.
  *
  * @returns {Promise<String>} a promise for returning a string after at most 12 seconds.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve Promise.resolve()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject Promise.reject()}
  */
 const getData = () => {
   return new Promise((resolve, reject) => {
-    let delay = Math.floor(12000 * Math.random());
+    const delay = Math.floor(12000 * Math.random());
     if (delay < 11000)
       setTimeout(() => resolve(`some data (after ${delay / 1000}s)`), delay);
     else reject(`took too long (${delay / 1000}s)`);
@@ -62,7 +62,7 @@ const getData = () => {
  * since it is returning a promise, we could use a .then() block.</p>
  * If the promise gets rejected, it will jump to the catch( ) method
  * and this time we will see a different message on the console.
- * @see https://www.freecodecamp.org/news/javascript-es6-promises-for-beginners-resolve-reject-and-chaining-explained/
+ * @see {@link https://www.freecodecamp.org/news/javascript-es6-promises-for-beginners-resolve-reject-and-chaining-explained/ Resolve, Reject, and Chaining in JS and ES6}
  * @function call_1_getData
  * @global
  */
@@ -79,7 +79,7 @@ getData()
  *
  * @async
  * @returns {Promise<Number>} returned value 3 wrapped as a promise.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await await}
  */
 const doSomething = async () => {
   try {
@@ -135,7 +135,7 @@ doSomething().then((value) => {
  *  <li>resolve is used for delivering a result (in case of success).</li>
  *  <li>reject is used for delivering an error (in case of failure).</li>
  * </ul>
- * @see https://exploringjs.com/impatient-js/ch_promises.html#the-basics-of-using-promises
+ * @see {@link https://exploringjs.com/js/book/ch_promises.html Promises for asynchronous programming}
  */
 function addAsync(x, y) {
   return new Promise((resolve, reject) => {
@@ -179,7 +179,7 @@ addAsync(2).then(
   },
   (err) => {
     console.error(`Error: ${err.message}`);
-  }
+  },
 );
 
 /**
@@ -220,21 +220,23 @@ addAsync(2).then(
  *    }
  *  </pre>
  *
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Response/json
- *  @see https://api.github.com/users/jimblin
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch Using the Fetch API}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Response/json Response: json() method}
+ *  @see {@link https://api.github.com/users/jimblin jimblin}
  */
 export async function showAvatar() {
   // read the JSON file
-  let response = await fetch("./user.json");
-  let user = await response.json();
+  const response = await fetch("./user.json");
+  const user = await response.json();
 
   // read github user
-  let githubResponse = await fetch(`https://api.github.com/users/${user.name}`);
-  let githubUser = await githubResponse.json();
+  const githubResponse = await fetch(
+    `https://api.github.com/users/${user.name}`,
+  );
+  const githubUser = await githubResponse.json();
 
   // show the avatar
-  let img = document.createElement("img");
+  const img = document.createElement("img");
   img.src = githubUser.avatar_url;
   img.className = "promise-avatar-example";
   document.body.append(img);
