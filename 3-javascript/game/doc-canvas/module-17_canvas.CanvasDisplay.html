@@ -31,11 +31,14 @@
         <h2><span class="attribs"><span class="type-signature"></span></span>
             <span class="ancestors"><a href="module-17_canvas.html">17_canvas</a>.</span>CanvasDisplay<span class="signature">(parent, level)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">This object keeps a little more information than DOMDisplay.
-Rather than using the scroll position of its DOM element, it tracks its own viewport,
+            <div class="class-description"><p>This object keeps a little more information than <a href="module-16_game.DOMDisplay.html">DOMDisplay</a>.</p>
+Rather than using the scroll position of its DOM element, it tracks its own <a href="module-17_canvas.CanvasDisplay.html#viewport">viewport</a>,
 which tells us what part of the level we are currently looking at.
-Finally, it keeps a flipPlayer property so that even when the player is standing still,
-it keeps facing the direction it last moved in.</div>
+<p>Finally, it keeps a <a href="module-17_canvas.CanvasDisplay.html#flipPlayer">flipPlayer</a> property so that even when the player is standing still,
+it keeps facing the direction it last moved in.</p>
+<p>A word of caution: although the numerical values of the scale and sprites offset are the same,
+they are different things. In order to change the global scale in the game, the offset information
+was also saved in the <a href="module-17_canvas.html#~sprites">sprites</a> object.</p></div>
         
     
 </header>
@@ -170,7 +173,7 @@ it keeps facing the direction it last moved in.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line77">line 77</a>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line84">line 84</a>
     </li></ul></dd>
     
 
@@ -215,6 +218,618 @@ it keeps facing the direction it last moved in.</div>
 
     
 
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="canvas"><span class="type-signature"></span>canvas<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Canvas object.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>this</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>canvas</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLCanvasElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="cx"><span class="type-signature"></span>cx<span class="type-signature"> :CanvasRenderingContext2D</span></h4>
+
+
+
+
+<div class="description">
+    2D rendering context for the drawing surface of a &lt;canvas&gt; element
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">CanvasRenderingContext2D</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line108">line 108</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="flipPlayer"><span class="type-signature"></span>flipPlayer<span class="type-signature"> :Boolean</span></h4>
+
+
+
+
+<div class="description">
+    Flip toggle, so player looks at the direction he has last moved in.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line114">line 114</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="viewport"><span class="type-signature"></span>viewport<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Viewport.
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>left</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">left corner horizontal position</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>top</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">left corner vertical position</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">width</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">height</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line127">line 127</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
     
 
     
@@ -278,7 +893,7 @@ it keeps facing the direction it last moved in.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line106">line 106</a>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line138">line 138</a>
     </li></ul></dd>
     
 
@@ -422,7 +1037,7 @@ whether the game is won (brighter) or lost (darker).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line169">line 169</a>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line201">line 201</a>
     </li></ul></dd>
     
 
@@ -566,7 +1181,7 @@ not the top left of the level. We could also have used translate for this. Eithe
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line313">line 313</a>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line351">line 351</a>
     </li></ul></dd>
     
 
@@ -708,7 +1323,7 @@ using the same trick used in the touches method from the previous chapter.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line190">line 190</a>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line222">line 222</a>
     </li></ul></dd>
     
 
@@ -754,7 +1369,7 @@ using the same trick used in the touches method from the previous chapter.
 <div class="description">
     <p>Tiles that are not empty are drawn with
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">drawImage</a>.
-The otherSprites image contains the pictures used for elements other than the player.
+The other Sprites image contains the pictures used for elements other than the player.
 It contains, from left to right, the wall tile, the lava tile, and the sprite for a coin.</p>
 <p>Sprites for our game
 Background tiles are 20 by 20 pixels, since we will use the same scale (20) that we used in DOMDisplay.
@@ -897,7 +1512,7 @@ the method has to adjust the x-coordinate and width by a given amount (sprites.x
 
             
 
-            <td class="description last">actor width times scale.</td>
+            <td class="description last">actor width times sprites.lavaOffset.</td>
         </tr>
 
     
@@ -920,7 +1535,8 @@ the method has to adjust the x-coordinate and width by a given amount (sprites.x
 
             
 
-            <td class="description last">actor height times scale.</td>
+            <td class="description last">actor height times sprites.lavaOffset.
+<figure></td>
         </tr>
 
     
@@ -961,12 +1577,21 @@ the method has to adjust the x-coordinate and width by a given amount (sprites.x
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line268">line 268</a>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line306">line 306</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><img style="position: relative; right: 40px; margin-bottom: 0px;" src="../img/canvas_drawimage.jpg">
+ <figcaption style="font-size: 100%"><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">drawImage</a> parameters</figcaption>
+</figure></li>
+        </ul>
+    </dd>
     
 
     
@@ -1098,7 +1723,7 @@ the method has to adjust the x-coordinate and width by a given amount (sprites.x
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line115">line 115</a>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line147">line 147</a>
     </li></ul></dd>
     
 
@@ -1245,7 +1870,7 @@ to the left, so the difference between the player position and the left edge of 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line137">line 137</a>
+        <a href="code_chapter_17_canvas.js.html">code/chapter/17_canvas.js</a>, <a href="code_chapter_17_canvas.js.html#line169">line 169</a>
     </li></ul></dd>
     
 
@@ -1297,7 +1922,7 @@ to the left, so the difference between the player position and the left edge of 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jan 06 2025 07:29:56 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Jan 07 2025 09:39:46 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

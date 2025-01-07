@@ -45,13 +45,17 @@ const results = [
 
 /**
  * Object with the sprites for the wall, lava, coin, player
- * and the amount of pixels overlapping in the x direction.
+ * and the amount of pixels overlapping in the x direction and offsets.
  * @type {Object<other:HTMLImageElement,player:HTMLImageElement,xOverlap:Number>}
  */
 const sprites = {
   other: document.createElement("img"),
   player: document.createElement("img"),
   xOverlap: 4,
+  lavaOffset: 20,
+  coinOffset: 40,
+  playerHeight: 30,
+  coinWidth: 12,
 };
 
 /**
@@ -68,11 +72,14 @@ function flipHorizontally(context, around) {
 }
 
 /**
- * This object keeps a little more information than DOMDisplay.
- * Rather than using the scroll position of its DOM element, it tracks its own viewport,
+ * <p>This object keeps a little more information than {@link module:16_game.DOMDisplay DOMDisplay}.</p>
+ * Rather than using the scroll position of its DOM element, it tracks its own {@link module:17_canvas.CanvasDisplay#viewport viewport},
  * which tells us what part of the level we are currently looking at.
- * Finally, it keeps a flipPlayer property so that even when the player is standing still,
- * it keeps facing the direction it last moved in.
+ * <p>Finally, it keeps a {@link module:17_canvas.CanvasDisplay#flipPlayer flipPlayer} property so that even when the player is standing still,
+ * it keeps facing the direction it last moved in.</p>
+ * <p>A word of caution: although the numerical values of the scale and sprites offset are the same,
+ * they are different things. In order to change the global scale in the game, the offset information
+ * was also saved in the {@link module:17_canvas~sprites sprites} object.</p>
  */
 export class CanvasDisplay {
   /**
@@ -81,17 +88,42 @@ export class CanvasDisplay {
    * @param {Level} level geometry of the current level of the game.
    */
   constructor(parent, level) {
+    /**
+     * Canvas object.
+     * @property {Object} this
+     * @property {HTMLCanvasElement} this.canvas
+     * @property {Number} this.canvas.width
+     * @property {Number} this.canvas.height
+     */
     this.canvas = document.createElement("canvas");
     this.canvas.width = Math.min(600, level.width * scale);
     this.canvas.height = Math.min(450, level.height * scale);
+
     parent.appendChild(this.canvas);
+
+    /**
+     * 2D rendering context for the drawing surface of a &lt;canvas&gt; element
+     * @type {CanvasRenderingContext2D}
+     */
     this.cx = this.canvas.getContext("2d");
 
+    /**
+     * Flip toggle, so player looks at the direction he has last moved in.
+     * @type {Boolean}
+     */
     this.flipPlayer = false;
 
     sprites.other.src = "img/sprites.png";
     sprites.player.src = "img/player.png";
 
+    /**
+     * Viewport.
+     * @property {Object} viewport
+     * @property {Number} viewport.left left corner horizontal position
+     * @property {Number} viewport.top left corner vertical position
+     * @property {Number} viewport.width width
+     * @property {Number} viewport.height height
+     */
     this.viewport = {
       left: 0,
       top: 0,
@@ -193,6 +225,8 @@ export class CanvasDisplay {
     const xEnd = Math.ceil(left + width);
     const yStart = Math.floor(top);
     const yEnd = Math.ceil(top + height);
+    const sWidth = sprites.lavaOffset;
+    const sHeight = sprites.lavaOffset;
 
     for (let y = yStart; y < yEnd; y++) {
       for (let x = xStart; x < xEnd; x++) {
@@ -200,13 +234,13 @@ export class CanvasDisplay {
         if (tile == "empty") continue;
         const screenX = (x - left) * scale; // map: [left,right] -> [0,this.canvas.width]
         const screenY = (y - top) * scale; // map: [top,bottom] -> [0,this.canvas.height]
-        const tileX = tile == "lava" ? scale : 0; // wall is the first sprite (offset 0)
+        const tileX = tile == "lava" ? sprites.lavaOffset : 0; // wall is the first sprite (offset 0)
         this.cx.drawImage(
           sprites.other,
           tileX,
           0,
-          scale,
-          scale,
+          sWidth,
+          sHeight,
           screenX,
           screenY,
           scale,
@@ -234,7 +268,7 @@ export class CanvasDisplay {
   /**
  * <p>Tiles that are not empty are drawn with
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage drawImage}.
- * The otherSprites image contains the pictures used for elements other than the player.
+ * The other Sprites image contains the pictures used for elements other than the player.
  * It contains, from left to right, the wall tile, the lava tile, and the sprite for a coin.</p>
 
  * <p>Sprites for our game
@@ -262,8 +296,12 @@ export class CanvasDisplay {
  * @param {Player} player player object.
  * @param {Number} x abscissa coordinate.
  * @param {Number} y ordinate coordinate.
- * @param {Number} width actor width times scale.
- * @param {Number} height actor height times scale.
+ * @param {Number} width actor width times sprites.lavaOffset.
+ * @param {Number} height actor height times sprites.lavaOffset.
+ * <figure>
+ *  @see <img style="position: relative; right: 40px; margin-bottom: 0px;" src="../img/canvas_drawimage.jpg">
+ *  <figcaption style="font-size: 100%">{@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage drawImage} parameters</figcaption>
+ * </figure>
  */
   drawPlayer(player, x, y, width, height) {
     width += sprites.xOverlap * 2;
@@ -291,7 +329,7 @@ export class CanvasDisplay {
       width,
       height,
       x,
-      y,
+      y + 1.5 * scale - 30,
       width,
       height,
     );
@@ -312,20 +350,23 @@ export class CanvasDisplay {
    */
   drawActors(actors) {
     for (const actor of actors) {
+      const sWidth = actor.size.x * sprites.lavaOffset;
+      const sHeight = actor.size.y * sprites.lavaOffset;
       const width = actor.size.x * scale;
       const height = actor.size.y * scale;
       const x = (actor.pos.x - this.viewport.left) * scale;
       const y = (actor.pos.y - this.viewport.top) * scale;
       if (actor.type == "player") {
-        this.drawPlayer(actor, x, y, width, height);
+        this.drawPlayer(actor, x, y, sWidth, sHeight);
       } else {
-        const tileX = (actor.type == "coin" ? 2 : 1) * scale;
+        const tileX =
+          actor.type == "coin" ? sprites.coinOffset : sprites.lavaOffset;
         this.cx.drawImage(
           sprites.other,
           tileX,
           0,
-          width,
-          height,
+          sWidth,
+          sHeight,
           x,
           y,
           width,
