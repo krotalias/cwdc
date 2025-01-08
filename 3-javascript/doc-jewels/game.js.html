@@ -131,8 +131,9 @@ function createSquare(i, j) {
   /** create the element to represent the icon and apply some styles */
   const symbol = document.createElement("div");
   /**
-   * &lt;p>Executed when an icon is clicked.&lt;/p>
+   * &lt;p>Executed when an icon (jewel) is clicked.&lt;/p>
    * @event clickIcon
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   symbol.onclick = function () {
     let col = this.style.left;
@@ -443,15 +444,16 @@ function reset() {
   refresh();
 }
 
-/** Get URL Parameters using jQuery.
+/**
+ * Get URL Parameters using jQuery.
  *
- *  &lt;p>Parses a list of parameters of the form: &lt;/p>
- *  - url?param1=val1&amp;#38;param2=val2&amp;#38;param3=val3 ...
+ * &lt;p>Parses a list of parameters of the form: &lt;/p>
+ * - url?param1=val1&amp;#38;param2=val2&amp;#38;param3=val3 ...
  *
- *  @param {String} sParam parameter name.
- *  @return {String} parameter value associated to parameter name, or false, if no parameter with the given name was found.
+ * @param {String} sParam parameter name.
+ * @return {String} parameter value associated to parameter name, or false, if no parameter with the given name was found.
  *
- *  @see https://www.learningjquery.com/2012/06/get-url-parameters-using-jquery
+ * @see https://www.learningjquery.com/2012/06/get-url-parameters-using-jquery
  */
 const getUrlParameter = function getUrlParameter(sParam) {
   const sPageURL = window.location.search.substring(1);
@@ -484,6 +486,7 @@ export function gamePanel() {
    * &lt;p>The callback argument sets the {@link reset callback} that
    * will be invoked when the event is dispatched.&lt;/p>
    * @event clickReset
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   resetbt.addEventListener("click", reset);
 
@@ -515,7 +518,19 @@ export function gamePanel() {
   reset();
   game.setDebug(d);
 }
-gamePanel();
+
+/**
+ * &lt;p>Load the game.&lt;/p>
+ * The load event is fired when the whole page has loaded,
+ * including all dependent resources such as stylesheets, scripts,
+ * iframes, and images, except those that are loaded lazily.
+ *
+ * &lt;p>The callback argument sets the {@link gamePanel callback}
+ * that will be invoked when the event is dispatched.&lt;/p>
+ * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ */
+addEventListener("load", (event) => gamePanel());
 </code></pre>
         </article>
     </section>
@@ -526,13 +541,13 @@ gamePanel();
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicGenerator.html">BasicGenerator</a></li><li><a href="BasicIcon.html">BasicIcon</a></li><li><a href="GameImpl.html">GameImpl</a></li><li><a href="cell.html">cell</a></li></ul><h3>Interfaces</h3><ul><li><a href="IGame.html">IGame</a></li><li><a href="IGenerator.html">IGenerator</a></li><li><a href="Icon.html">Icon</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickIcon">clickIcon</a></li><li><a href="global.html#event:clickReset">clickReset</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cellPos">cellPos</a></li><li><a href="global.html#cells">cells</a></li><li><a href="global.html#clicked">clicked</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createSquare">createSquare</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#displayBoard">displayBoard</a></li><li><a href="global.html#drop">drop</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#game">game</a></li><li><a href="global.html#gameLoop">gameLoop</a></li><li><a href="global.html#gamePanel">gamePanel</a></li><li><a href="global.html#gen">gen</a></li><li><a href="global.html#getUrlParameter">getUrlParameter</a></li><li><a href="global.html#grid">grid</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#img">img</a></li><li><a href="global.html#mainGame">mainGame</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#move_swp">move_swp</a></li><li><a href="global.html#nico">nico</a></li><li><a href="global.html#refresh">refresh</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#swap">swap</a></li><li><a href="global.html#swap_pos">swap_pos</a></li><li><a href="global.html#width">width</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicGenerator.html">BasicGenerator</a></li><li><a href="BasicIcon.html">BasicIcon</a></li><li><a href="GameImpl.html">GameImpl</a></li><li><a href="cell.html">cell</a></li></ul><h3>Interfaces</h3><ul><li><a href="IGame.html">IGame</a></li><li><a href="IGenerator.html">IGenerator</a></li><li><a href="Icon.html">Icon</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickIcon">clickIcon</a></li><li><a href="global.html#event:clickReset">clickReset</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cellPos">cellPos</a></li><li><a href="global.html#cells">cells</a></li><li><a href="global.html#clicked">clicked</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createSquare">createSquare</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#displayBoard">displayBoard</a></li><li><a href="global.html#drop">drop</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#game">game</a></li><li><a href="global.html#gameLoop">gameLoop</a></li><li><a href="global.html#gamePanel">gamePanel</a></li><li><a href="global.html#gen">gen</a></li><li><a href="global.html#getUrlParameter">getUrlParameter</a></li><li><a href="global.html#grid">grid</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#img">img</a></li><li><a href="global.html#mainGame">mainGame</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#move_swp">move_swp</a></li><li><a href="global.html#nico">nico</a></li><li><a href="global.html#refresh">refresh</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#swap">swap</a></li><li><a href="global.html#swap_pos">swap_pos</a></li><li><a href="global.html#width">width</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 08 2025 10:36:34 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 08 2025 17:28:47 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

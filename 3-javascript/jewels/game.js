@@ -103,8 +103,9 @@ function createSquare(i, j) {
   /** create the element to represent the icon and apply some styles */
   const symbol = document.createElement("div");
   /**
-   * <p>Executed when an icon is clicked.</p>
+   * <p>Executed when an icon (jewel) is clicked.</p>
    * @event clickIcon
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   symbol.onclick = function () {
     let col = this.style.left;
@@ -415,15 +416,16 @@ function reset() {
   refresh();
 }
 
-/** Get URL Parameters using jQuery.
+/**
+ * Get URL Parameters using jQuery.
  *
- *  <p>Parses a list of parameters of the form: </p>
- *  - url?param1=val1&#38;param2=val2&#38;param3=val3 ...
+ * <p>Parses a list of parameters of the form: </p>
+ * - url?param1=val1&#38;param2=val2&#38;param3=val3 ...
  *
- *  @param {String} sParam parameter name.
- *  @return {String} parameter value associated to parameter name, or false, if no parameter with the given name was found.
+ * @param {String} sParam parameter name.
+ * @return {String} parameter value associated to parameter name, or false, if no parameter with the given name was found.
  *
- *  @see https://www.learningjquery.com/2012/06/get-url-parameters-using-jquery
+ * @see https://www.learningjquery.com/2012/06/get-url-parameters-using-jquery
  */
 const getUrlParameter = function getUrlParameter(sParam) {
   const sPageURL = window.location.search.substring(1);
@@ -456,6 +458,7 @@ export function gamePanel() {
    * <p>The callback argument sets the {@link reset callback} that
    * will be invoked when the event is dispatched.</p>
    * @event clickReset
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   resetbt.addEventListener("click", reset);
 
@@ -487,4 +490,16 @@ export function gamePanel() {
   reset();
   game.setDebug(d);
 }
-gamePanel();
+
+/**
+ * <p>Load the game.</p>
+ * The load event is fired when the whole page has loaded,
+ * including all dependent resources such as stylesheets, scripts,
+ * iframes, and images, except those that are loaded lazily.
+ *
+ * <p>The callback argument sets the {@link gamePanel callback}
+ * that will be invoked when the event is dispatched.</p>
+ * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ */
+addEventListener("load", (event) => gamePanel());
