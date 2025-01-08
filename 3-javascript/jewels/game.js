@@ -102,6 +102,10 @@ function createSquare(i, j) {
 
   /** create the element to represent the icon and apply some styles */
   const symbol = document.createElement("div");
+  /**
+   * <p>Executed when an icon is clicked.</p>
+   * @event clickIcon
+   */
   symbol.onclick = function () {
     let col = this.style.left;
     col = parseInt(col.substring(0, col.length - 2));
@@ -186,8 +190,10 @@ function cellPos(cell) {
   return cell.row() * width + cell.col();
 }
 
-/** Clear cells in a given list.
- *  @param {Array<cell>} list array of cells.
+/**
+ * Clear cells in a given list.
+ * @async
+ * @param {Array<cell>} list array of cells.
  */
 async function destroy(changed) {
   const c = bg.childNodes;
@@ -223,8 +229,10 @@ function drop(changed) {
   if (game.getDebug()) console.log("finish drop");
 }
 
-/** Fill the grid based on a given list of cells.
- *  @param {Array<cell>} changed list of cells.
+/**
+ * Fill the grid based on a given list of cells.
+ * @async
+ * @param {Array<cell>} changed list of cells.
  */
 async function fill(changed) {
   const c = bg.childNodes;
@@ -330,6 +338,7 @@ function swap_pos(i, j, k, l, uns) {
 
 /**
  * Swap two cells.
+ * @async
  * @param {cell} cellA first cell.
  * @param {cell} cellB second cell.
  * @return {Number} 0 if the cells are not adjacent.
@@ -437,6 +446,17 @@ const getUrlParameter = function getUrlParameter(sParam) {
 export function gamePanel() {
   /** Reset button */
   const resetbt = document.getElementById("resetbt");
+  /**
+   * <p>Executed when the "Reset" button is clicked.</p>
+   *
+   * The click event is fired when a point-device button is pressed,
+   * a touch gesture is performed or a user interaction that is equivalent
+   * to a click is performed by pressing a key (Enter or Space).
+   *
+   * <p>The callback argument sets the {@link reset callback} that
+   * will be invoked when the event is dispatched.</p>
+   * @event clickReset
+   */
   resetbt.addEventListener("click", reset);
 
   // start a new game

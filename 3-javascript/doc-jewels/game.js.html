@@ -130,6 +130,10 @@ function createSquare(i, j) {
 
   /** create the element to represent the icon and apply some styles */
   const symbol = document.createElement("div");
+  /**
+   * &lt;p>Executed when an icon is clicked.&lt;/p>
+   * @event clickIcon
+   */
   symbol.onclick = function () {
     let col = this.style.left;
     col = parseInt(col.substring(0, col.length - 2));
@@ -214,8 +218,10 @@ function cellPos(cell) {
   return cell.row() * width + cell.col();
 }
 
-/** Clear cells in a given list.
- *  @param {Array&lt;cell>} list array of cells.
+/**
+ * Clear cells in a given list.
+ * @async
+ * @param {Array&lt;cell>} list array of cells.
  */
 async function destroy(changed) {
   const c = bg.childNodes;
@@ -251,8 +257,10 @@ function drop(changed) {
   if (game.getDebug()) console.log("finish drop");
 }
 
-/** Fill the grid based on a given list of cells.
- *  @param {Array&lt;cell>} changed list of cells.
+/**
+ * Fill the grid based on a given list of cells.
+ * @async
+ * @param {Array&lt;cell>} changed list of cells.
  */
 async function fill(changed) {
   const c = bg.childNodes;
@@ -358,6 +366,7 @@ function swap_pos(i, j, k, l, uns) {
 
 /**
  * Swap two cells.
+ * @async
  * @param {cell} cellA first cell.
  * @param {cell} cellB second cell.
  * @return {Number} 0 if the cells are not adjacent.
@@ -465,6 +474,17 @@ const getUrlParameter = function getUrlParameter(sParam) {
 export function gamePanel() {
   /** Reset button */
   const resetbt = document.getElementById("resetbt");
+  /**
+   * &lt;p>Executed when the "Reset" button is clicked.&lt;/p>
+   *
+   * The click event is fired when a point-device button is pressed,
+   * a touch gesture is performed or a user interaction that is equivalent
+   * to a click is performed by pressing a key (Enter or Space).
+   *
+   * &lt;p>The callback argument sets the {@link reset callback} that
+   * will be invoked when the event is dispatched.&lt;/p>
+   * @event clickReset
+   */
   resetbt.addEventListener("click", reset);
 
   // start a new game
@@ -506,13 +526,13 @@ gamePanel();
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicGenerator.html">BasicGenerator</a></li><li><a href="BasicIcon.html">BasicIcon</a></li><li><a href="GameImpl.html">GameImpl</a></li><li><a href="cell.html">cell</a></li></ul><h3>Interfaces</h3><ul><li><a href="IGame.html">IGame</a></li><li><a href="IGenerator.html">IGenerator</a></li><li><a href="Icon.html">Icon</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cellPos">cellPos</a></li><li><a href="global.html#cells">cells</a></li><li><a href="global.html#clicked">clicked</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createSquare">createSquare</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#displayBoard">displayBoard</a></li><li><a href="global.html#drop">drop</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#game">game</a></li><li><a href="global.html#gameLoop">gameLoop</a></li><li><a href="global.html#gamePanel">gamePanel</a></li><li><a href="global.html#gen">gen</a></li><li><a href="global.html#getUrlParameter">getUrlParameter</a></li><li><a href="global.html#grid">grid</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#img">img</a></li><li><a href="global.html#mainGame">mainGame</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#move_swp">move_swp</a></li><li><a href="global.html#nico">nico</a></li><li><a href="global.html#refresh">refresh</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#swap">swap</a></li><li><a href="global.html#swap_pos">swap_pos</a></li><li><a href="global.html#width">width</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicGenerator.html">BasicGenerator</a></li><li><a href="BasicIcon.html">BasicIcon</a></li><li><a href="GameImpl.html">GameImpl</a></li><li><a href="cell.html">cell</a></li></ul><h3>Interfaces</h3><ul><li><a href="IGame.html">IGame</a></li><li><a href="IGenerator.html">IGenerator</a></li><li><a href="Icon.html">Icon</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickIcon">clickIcon</a></li><li><a href="global.html#event:clickReset">clickReset</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cellPos">cellPos</a></li><li><a href="global.html#cells">cells</a></li><li><a href="global.html#clicked">clicked</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createSquare">createSquare</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#displayBoard">displayBoard</a></li><li><a href="global.html#drop">drop</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#game">game</a></li><li><a href="global.html#gameLoop">gameLoop</a></li><li><a href="global.html#gamePanel">gamePanel</a></li><li><a href="global.html#gen">gen</a></li><li><a href="global.html#getUrlParameter">getUrlParameter</a></li><li><a href="global.html#grid">grid</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#img">img</a></li><li><a href="global.html#mainGame">mainGame</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#move_swp">move_swp</a></li><li><a href="global.html#nico">nico</a></li><li><a href="global.html#refresh">refresh</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#swap">swap</a></li><li><a href="global.html#swap_pos">swap_pos</a></li><li><a href="global.html#width">width</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 08 2025 10:07:46 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 08 2025 10:36:34 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
