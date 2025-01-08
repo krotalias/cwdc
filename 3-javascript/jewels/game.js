@@ -19,7 +19,7 @@ import { BasicGenerator } from "./BasicGenerator.js";
  * Colors of the gems.
  * @type {Array<String>}
  */
-var colors = [
+const colors = [
   "rgb(255,0,0)",
   "rgb(0,255,0)",
   "rgb(0,0,255)",
@@ -31,7 +31,7 @@ var colors = [
  * Images for the jewels (gems).
  * @type {Array<String>}
  */
-var img = [
+const img = [
   "url(gemas/red.png)",
   "url(gemas/blue.png)",
   "url(gemas/green.png)",
@@ -43,56 +43,49 @@ var img = [
  * The matrix of icons.
  * @type {Array<Array<cell>>}
  */
-var grid = [];
+const grid = [];
 
 /**
  * Number of columns.
  * @type {Number}
  */
 
-var width = 10;
+let width = 10;
 /**
  * Number of rows.
  * @type {Number}
  */
 
-var height = 10;
+let height = 10;
 /**
  * Number of icons.
  * @type {Number}
  */
-var nico = 5;
+let nico = 5;
 
 /**
  * Icon generator.
  * @type {BasicGenerator}
  */
-var gen = null;
+let gen = null;
 
 /**
  * The game.
  * @type {GameImpl}
  */
-var game = null;
+let game = null;
 
 /**
  * When clicked cells should swap positions.
  * @type {Boolean}
  */
-var clicked = false;
+let clicked = false;
 
 /**
  * List of cells for keeping track of icon movements.
  * @type {Array<cell>}
  */
-var cells = [];
-
-/**
- * The board element that includes all cells.
- * @type {HTMLElement}
- */
-var bd = document.getElementById("bd");
-bd.style.cssText = "width:" + 1300 + "px; height:" + 470 + "px;";
+let cells = [];
 
 /** Create an Icon on the screen.
  *  @param {Number} i row.
@@ -100,32 +93,29 @@ bd.style.cssText = "width:" + 1300 + "px; height:" + 470 + "px;";
  *  @return {Icon} the new icon created at position (i,j).
  */
 function createSquare(i, j) {
-  var color;
-  var image = "";
-
   // get the color
-  color = colors[game.getIcon(i, j).getType() % colors.length];
-  image = img[game.getIcon(i, j).getType() % img.length];
+  const color = colors[game.getIcon(i, j).getType() % colors.length];
+  const image = img[game.getIcon(i, j).getType() % img.length];
 
   // create the cell in this position
   grid[i][j] = new cell(i, j, game.getIcon(i, j));
 
   /** create the element to represent the icon and apply some styles */
-  var symbol = document.createElement("div");
+  const symbol = document.createElement("div");
   symbol.onclick = function () {
-    var col = this.style.left;
+    let col = this.style.left;
     col = parseInt(col.substring(0, col.length - 2));
     col = col / 50;
-    var row = this.style.top;
+    let row = this.style.top;
     row = parseInt(row.substring(0, row.length - 2));
     row = row / 50;
 
     if (!clicked) {
-      var _cell = new cell(i, col, game.getIcon(row, col));
+      let _cell = new cell(i, col, game.getIcon(row, col));
       cells = [_cell];
       clicked = true;
     } else {
-      var _cell = new cell(i, col, game.getIcon(row, col));
+      let _cell = new cell(i, col, game.getIcon(row, col));
       swap(cells[0], _cell);
       cells = [];
       clicked = false;
@@ -148,9 +138,9 @@ function createSquare(i, j) {
  */
 function move(element, dest) {
   // get the current position and remove the "px" in the end
-  var pos = element.style.top;
+  let pos = element.style.top;
   pos = parseInt(pos.substring(0, pos.length - 2));
-  var id = setInterval(frame, 0.5);
+  const id = setInterval(frame, 0.5);
 
   // move the element to the position
   function frame() {
@@ -169,13 +159,13 @@ function move(element, dest) {
  */
 function move_swp(element1, element2) {
   // get the current position of elements
-  var pos1 = element.style.left;
+  let pos1 = element1.style.left;
   pos1 = parseInt(pos1.substring(0, pos1.length - 2));
-  var pos2 = element.style.left;
+  let pos2 = element2.style.left;
   pos2 = parseInt(pos2.substring(0, pos2.length - 2));
 
   // move both elements together
-  var id = setInterval(frame, 1);
+  const id = setInterval(frame, 1);
   function frame() {
     if (pos >= dest) {
       clearInterval(id);
@@ -200,10 +190,10 @@ function cellPos(cell) {
  *  @param {Array<cell>} list array of cells.
  */
 async function destroy(changed) {
-  var c = bg.childNodes;
+  const c = bg.childNodes;
   // just set the display to none
   for (let i = 0; i < changed.length; i++) {
-    var cell = changed[i];
+    const cell = changed[i];
     // disappear(c[cellPos(cell)]);
     c[cellPos(cell)].style.display = "none";
   }
@@ -214,14 +204,14 @@ async function destroy(changed) {
  *  @param {Array<cell>} changed list of cells.
  */
 function drop(changed) {
-  var c = bg.childNodes;
+  const c = bg.childNodes;
 
   // set the position to the start of movement and calls the move function
   for (let i = 0; i < changed.length; i++) {
-    var cell = changed[i];
+    const cell = changed[i];
     if (cell.row() != cell.getPreviousRow()) {
-      var cell = changed[i];
-      var elem = c[cellPos(cell)];
+      const cell = changed[i];
+      const elem = c[cellPos(cell)];
       elem.style.backgroundImage = img[cell.getIcon().getType()];
       elem.style.top = cell.getPreviousRow() * 50 + "px";
       elem.style.display = "block";
@@ -237,12 +227,12 @@ function drop(changed) {
  *  @param {Array<cell>} changed list of cells.
  */
 async function fill(changed) {
-  var c = bg.childNodes;
+  const c = bg.childNodes;
 
   // set the start position and calls move function
   for (let i = 0; i < changed.length; i++) {
-    var cell = changed[i];
-    var elem = c[cellPos(cell)];
+    const cell = changed[i];
+    const elem = c[cellPos(cell)];
     elem.style.backgroundImage = img[cell.getIcon().getType()];
     elem.style.top = cell.getPreviousRow() * 50 + "px";
     elem.style.display = "block";
@@ -269,11 +259,11 @@ function sleep(ms) {
  *  @param {Boolean} uns whether to set a background image for the icons.
  */
 function swap_pos(i, j, k, l, uns) {
-  var c = bg.childNodes;
-  var iconA = game.getIcon(i, j);
-  var iconB = game.getIcon(k, l);
-  var A = c[i * width + j];
-  var B = c[k * width + l];
+  const c = bg.childNodes;
+  const iconA = game.getIcon(i, j);
+  const iconB = game.getIcon(k, l);
+  const A = c[i * width + j];
+  const B = c[k * width + l];
 
   A.style.backgroundImage = img[game.getIcon(i, j).getType()];
   B.style.backgroundImage = img[game.getIcon(k, l).getType()];
@@ -284,20 +274,20 @@ function swap_pos(i, j, k, l, uns) {
   }
 
   if (i == k) {
-    var a = 1;
-    var b = -1;
+    let a = 1;
+    let b = -1;
     A.style.left = l * 50 + "px";
     B.style.left = j * 50 + "px";
     if (j < l) {
       a = -1;
       b = 1;
     }
-    var posA = A.style.left;
+    let posA = A.style.left;
     posA = parseInt(posA.substring(0, posA.length - 2));
-    var posB = B.style.left;
+    let posB = B.style.left;
     posB = parseInt(posB.substring(0, posB.length - 2));
 
-    var id = setInterval(frame, 1);
+    const id = setInterval(frame, 1);
     function frame() {
       if (posA == j * 50) {
         clearInterval(id);
@@ -309,8 +299,8 @@ function swap_pos(i, j, k, l, uns) {
       }
     }
   } else {
-    var a = 1;
-    var b = -1;
+    let a = 1;
+    let b = -1;
     A.style.top = k * 50 + "px";
     B.style.top = i * 50 + "px";
 
@@ -319,12 +309,12 @@ function swap_pos(i, j, k, l, uns) {
       b = 1;
     }
 
-    var posA = A.style.top;
+    let posA = A.style.top;
     posA = parseInt(posA.substring(0, posA.length - 2));
-    var posB = B.style.top;
+    let posB = B.style.top;
     posB = parseInt(posB.substring(0, posB.length - 2));
 
-    var id = setInterval(frame, 1);
+    const id = setInterval(frame, 1);
     function frame() {
       if (posA == i * 50) {
         clearInterval(id);
@@ -346,13 +336,13 @@ function swap_pos(i, j, k, l, uns) {
  */
 async function swap(cellA, cellB) {
   // get the cell coords
-  var i = cellA.row();
-  var j = cellA.col();
-  var k = cellB.row();
-  var l = cellB.col();
+  const i = cellA.row();
+  const j = cellA.col();
+  const k = cellB.row();
+  const l = cellB.col();
 
   // get the changed cells
-  var changed = [];
+  let changed = [];
 
   // do not try the change if they are not adjacent
   if (!cellA.isAdjacent(cellB)) {
@@ -366,7 +356,7 @@ async function swap(cellA, cellB) {
   swap_pos(i, j, k, l, true);
 
   // check if this move creates any run
-  var cond = game.select([grid[i][j], grid[k][l]]);
+  const cond = game.select([grid[i][j], grid[k][l]]);
 
   await sleep(500);
 
@@ -397,8 +387,8 @@ async function swap(cellA, cellB) {
 function refresh() {
   //clear all the icons
   document.getElementById("bg").innerHTML = "";
-  for (var i = 0; i < height; i++) {
-    for (var j = 0; j < width; j++) {
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
       //create new icons based on the game grid
       document.getElementById("bg").appendChild(createSquare(i, j));
     }
@@ -426,13 +416,12 @@ function reset() {
  *
  *  @see https://www.learningjquery.com/2012/06/get-url-parameters-using-jquery
  */
-var getUrlParameter = function getUrlParameter(sParam) {
-  var sPageURL = window.location.search.substring(1),
-    sURLVariables = sPageURL.split("&"),
-    sParameterName,
-    i;
+const getUrlParameter = function getUrlParameter(sParam) {
+  const sPageURL = window.location.search.substring(1);
+  const sURLVariables = sPageURL.split("&");
+  let sParameterName;
 
-  for (i = 0; i < sURLVariables.length; i++) {
+  for (let i = 0; i < sURLVariables.length; i++) {
     sParameterName = sURLVariables[i].split("=");
 
     if (sParameterName[0] === sParam) {
@@ -447,14 +436,14 @@ var getUrlParameter = function getUrlParameter(sParam) {
 /** Game panel interface. */
 export function gamePanel() {
   /** Reset button */
-  var resetbt = document.getElementById("resetbt");
+  const resetbt = document.getElementById("resetbt");
   resetbt.addEventListener("click", reset);
 
   // start a new game
 
-  let w = getUrlParameter("width");
-  let h = getUrlParameter("height");
-  let d = getUrlParameter("debug");
+  const w = getUrlParameter("width");
+  const h = getUrlParameter("height");
+  const d = getUrlParameter("debug");
 
   if (w && h) {
     document.documentElement.style.setProperty("--nrow", h);
@@ -462,15 +451,15 @@ export function gamePanel() {
   }
 
   height = getComputedStyle(document.documentElement).getPropertyValue(
-    "--nrow"
+    "--nrow",
   );
   width = getComputedStyle(document.documentElement).getPropertyValue("--ncol");
   nico = getComputedStyle(document.documentElement).getPropertyValue("--nico");
 
   // grid to simulate the game
-  for (var i = 0; i < height; i++) {
+  for (let i = 0; i < height; i++) {
     grid[i] = [];
-    for (var j = 0; j < width; j++) {
+    for (let j = 0; j < width; j++) {
       grid[i][j] = null;
     }
   }

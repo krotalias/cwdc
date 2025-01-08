@@ -1,39 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <title>Bejeweled</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script
-            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-            crossorigin="anonymous"
-        ></script>
         <link
             rel="stylesheet"
-            href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css"
+            href="//code.jquery.com/ui/1.14.1/themes/base/jquery-ui.min.css"
         />
         <link rel="stylesheet" href="game.css" />
-        <script type="module" src="game.js"></script>
     </head>
 
-    <body id="bd">
+    <body>
         <div id="header">
-            <div id="center"></div>
-        </div>
-
-        <div id="sidebar">
-            <div id="scorebg">
-                <h3 id="score">0</h3>
-            </div>
-            <div id="resetbt"></div>
+            <img src="imgs/logo.png" alt="Bejeweled" width="256px" />
         </div>
 
         <div id="bg"></div>
 
-        <script src="../../mainPage/LCG.js"></script>
+        <div id="sidebar">
+            <div id="score">0</div>
+            <div id="resetbt"></div>
+        </div>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script
+            src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"
+            integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI="
+            crossorigin="anonymous"
+        ></script>
+        <script type="module" src="game.js"></script>
+        <script src="/cwdc/mainPage/LCG.js"></script>
         <script>
             dragAndSave("#bg");
             dragAndSave("#sidebar");

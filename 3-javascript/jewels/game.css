@@ -5,56 +5,36 @@
 }
 
 body {
-    width: 1000px;
-    height: 750px;
     margin: 0px;
     padding: 0px;
-    align-content: center;
-    margin: auto;
     background: rgba(0, 0, 0, 255);
-    /* background-image: url("imgs/space.jpg"); */
+    /*overflow: hidden;*/
 }
 
 #header {
-    margin-top: -05px;
-    padding-top: 30px;
-    height: 90px;
-    width: 100%;
-    font-family: "Oi", cursive;
-    background: rgba(0, 0, 0, 255);
-    background-image: url("imgs/logo.png");
-    background-repeat: no-repeat;
-    background-position-y: 25px;
-    background-position: center;
-    background-size: contain;
-    z-index: 0;
-}
-
-#center {
-    width: 300px;
-    background-image: url("imgs/logo.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-}
-
-#scorebg {
-    position: relative;
-    margin-left: 30px;
-    width: 100%;
-    height: 420px;
     text-align: center;
-    float: left;
+    margin-top: 50px;
+    background: rgba(0, 0, 0, 255);
+}
+
+#sidebar {
+    position: relative;
+    text-align: center;
+    cursor: move;
+    width: 150px;
+    height: 200px;
+    margin: 0 auto;
     background-image: url("imgs/score2.png");
     background-repeat: no-repeat;
     background-size: 100%;
 }
 
 #resetbt {
+    position: absolute;
     height: 80px;
     width: 50%;
-    margin-left: 132px;
-    position: absolute;
-    top: 392px;
+    left: 25%;
+    top: 70%;
     background-image: url("imgs/reset.png");
     background-repeat: no-repeat;
     background-size: 100%;
@@ -68,41 +48,12 @@ body {
 #score {
     font-family: "unispace", cursive;
     font-weight: bold;
-    margin-top: 250px;
-    font-size: 50px;
+    font-size: 20px;
     color: white;
-}
-
-#header h1,
-#header h3 {
-    margin-bottom: 10px;
+    position: absolute;
     text-align: center;
-    color: white;
-    margin-top: 5px;
-}
-
-#sidebar {
-    position: relative;
-    height: 100%;
-    width: 30%;
-    text-align: center;
-    float: left;
-    cursor: move;
-    /* color: white;
-    background-image: url("imgs/score2.png");
-    background-repeat: no-repeat;
-    background-size: 100%; */
-}
-
-#sidebarb {
-    height: 100%;
-    width: 30%;
-    text-align: center;
-    float: right;
-}
-
-#bd {
-    overflow: hidden;
+    top: 90px;
+    left: 50px;
 }
 
 #draggable {
@@ -110,7 +61,7 @@ body {
 }
 
 #bg {
-    margin: auto;
+    margin: 0 auto;
     width: calc(var(--ncol) * 50px);
     height: calc(var(--nrow) * 50px);
     position: relative;
@@ -119,6 +70,7 @@ body {
     border-radius: 3%;
     border-color: rgb(45, 37, 92);
     background-image: url("imgs/bg2.png");
+    transform: scale(0.8);
 }
 
 .shape {
