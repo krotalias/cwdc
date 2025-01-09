@@ -30,7 +30,7 @@
     
         <h2><span class="attribs"><span class="type-signature"></span></span>GameImpl<span class="signature">(width, height, generator)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Concrete implementation of the IGame interface. This implementationhas the following behavior:<ul>   <li> Moves are allowed via the select() method for pairs of adjacent cells        only.  The cells must have different types.  The move must create        at least one run.   <li> A run is defined to be three or more adjacent cells of the same        type, horizontally or vertically. A given cell may be part        of a horizontal run or a vertical run at the same time.   <li> Points are awarded for runs based on their length.  A run of length        3 is awarded BASE_SCORE points, and a run of length (3 + n)        points gets BASE_SCORE &times 2<sup>n</sup>.</ul></div>
+            <div class="class-description">Concrete implementation of the IGame interface. This implementationhas the following behavior:<ul>   <li> Moves are allowed via the <a href="GameImpl.html#select">select()</a> method for pairs of adjacent cells        only.  The cells must have different types.  The move must create        at least one run.   <li> A run is defined to be three or more adjacent cells of the same        type, horizontally or vertically. A given cell may be part        of a horizontal run or a vertical run at the same time.   <li> Points are awarded for runs based on their length.  A run of length        3 is awarded <a href="GameImpl.html#BASE_SCORE">BASE_SCORE</a> points, and a run of length (3 + n)        points gets BASE_SCORE &times 2<sup>n</sup>.</ul></div>
         
     
 </header>
@@ -209,7 +209,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from">Array.from()</a></li>
         </ul>
     </dd>
     
@@ -934,7 +934,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line368">line 368</a>
+        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line372">line 372</a>
     </li></ul></dd>
     
 
@@ -1100,7 +1100,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line417">line 417</a>
+        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line421">line 421</a>
     </li></ul></dd>
     
 
@@ -1166,7 +1166,7 @@
 
 
 <div class="description">
-    Fills the null locations (if any) at the top of the given column in the current game grid. The returned list contains Cells representing new icons added to this column in their new locations. The list is in no particular order.
+    <p>Fills the null locations (if any) at the top of the given column in the current game grid.</p>The returned list contains Cells representing new icons added to this column in their new locations.The list is in no particular order
 </div>
 
 
@@ -1266,7 +1266,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line465">line 465</a>
+        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line470">line 470</a>
     </li></ul></dd>
     
 
@@ -1295,7 +1295,7 @@
 
         
 <div class="param-desc">
-    list of new cells for icons added to the column, in the form: [c_1, c_2, c_3,...], where c_i = Cell(row_i, col_i, iconType_i)
+    list of new cells for icons added to the column, in the form:[c_1, c_2, c_3,...], where c_i = Cell(row_i, col_i, iconType_i)
 </div>
 
 
@@ -1332,7 +1332,7 @@
 
 
 <div class="description">
-    Returns a list of all cells forming part of a vertical or horizontal run. The list is in no particular order and may contain duplicates. If the argument is False, no modification is made to the game state; if the argument is True, grid locations for all cells in the list are nulled, and the score is updated.
+    <p>Returns a list of all cells forming part of a vertical or horizontal run.</p>The list is in no particular order and may contain duplicates.If the argument is False, no modification is made to the game state;if the argument is True, grid locations for all cells in the list arenulled, and the score is updated.
 </div>
 
 
@@ -1432,7 +1432,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line269">line 269</a>
+        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line272">line 272</a>
     </li></ul></dd>
     
 
@@ -1461,7 +1461,7 @@
 
         
 <div class="param-desc">
-    list of all cells forming runs, in the form: [c_1, c_2, c_3,...], where c_i = Cell(row_i, col_i, iconType_i)
+    list of all cells forming runs, in the form:[c_1, c_2, c_3,...], where c_i = Cell(row_i, col_i, iconType_i)
 </div>
 
 
@@ -2250,7 +2250,7 @@
 
 
 <div class="description">
-    Removes an element at index pos, in a given column col, from the grid.All elements above the given position are shifted down, and the firstcell of the column is set to null.
+    <p>Removes an element at index pos, in a given column col, from the grid.</p>All elements above the given position are shifted down, and the firstcell of the column is set to null.
 </div>
 
 
@@ -2373,7 +2373,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line349">line 349</a>
+        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line353">line 353</a>
     </li></ul></dd>
     
 
@@ -2468,7 +2468,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line517">line 517</a>
+        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line524">line 524</a>
     </li></ul></dd>
     
 
@@ -2534,7 +2534,7 @@
 
 
 <div class="description">
-    In this implementation, the only possible move is a swapof two adjacent cells.  In order for move to be made, thefollowing must be True.<ul>  <li>The given array has length 2  <li>The two given cell positions must be adjacent  <li>The two given cell positions must have different icon types  <li>Swapping the two icons must result in at least one run.</ul>If the conditions above are satisfied, the icons for the twopositions are exchanged and the method returns True otherwise,the method returns False.  No other aspects of the game stateare modified.
+    <p>In this implementation, the only possible move is a swapof two adjacent cells.</p>In order for move to be made, thefollowing must be True:<ul>  <li>The given array has length 2  <li>The two given cell positions must be adjacent  <li>The two given cell positions must have different icon types  <li>Swapping the two icons must result in at least one run.</ul>If the conditions above are satisfied, the icons for the twopositions are exchanged and the method returns True.<br>Otherwise, the method returns False.No other aspects of the game state are modified.
 </div>
 
 
@@ -2634,7 +2634,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line233">line 233</a>
+        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line235">line 235</a>
     </li></ul></dd>
     
 
@@ -3034,7 +3034,7 @@
 
 
 <div class="description">
-    Returns a String representation of the grid for this game, with rows delimited by newlines.
+    Returns a String representation of the grid for this game,with rows delimited by newlines.
 </div>
 
 
@@ -3085,7 +3085,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line496">line 496</a>
+        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line502">line 502</a>
     </li></ul></dd>
     
 
@@ -3569,7 +3569,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line551">line 551</a>
+        <a href="GameImpl.js.html">GameImpl.js</a>, <a href="GameImpl.js.html#line558">line 558</a>
     </li></ul></dd>
     
 
@@ -3643,7 +3643,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 08 2025 17:28:47 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Jan 09 2025 09:29:33 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -20,27 +20,34 @@ import { IGame } from "./IGame.js";
  * Concrete implementation of the IGame interface. This implementation
  * has the following behavior:
  * <ul>
- *    <li> Moves are allowed via the {@link GameImpl#select select()} method for pairs of adjacent cells
+ *    <li> Moves are allowed via the select() method for pairs of adjacent cells
  *         only.  The cells must have different types.  The move must create
  *         at least one run.
  *    <li> A run is defined to be three or more adjacent cells of the same
  *         type, horizontally or vertically. A given cell may be part
  *         of a horizontal run or a vertical run at the same time.
  *    <li> Points are awarded for runs based on their length.  A run of length
- *         3 is awarded {@link GameImpl#BASE_SCORE BASE_SCORE} points, and a run of length (3 + n)
+ *         3 is awarded BASE_SCORE points, and a run of length (3 + n)
  *         points gets BASE_SCORE &times 2<sup>n</sup>.
  * </ul>
  * @implements {GameImpl}
  */
 export class GameImpl extends IGame {
-  /** Constructs a game with the given Number of columns and rows
+  #width;
+  #height;
+  #generator;
+  #grid;
+  #score;
+
+  /**
+   *  Constructs a game with the given Number of columns and rows
    *  that will use the given <code>IGenerator</code> instance
    *  to create new icons.
    *
    *  @param {Number} width Number of columns.
    *  @param {Number} height Number of rows.
    *  @param {BasicGenerator} generator generator for new icons.
-   *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from Array.from()}
+   *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
    */
   constructor(width, height, generator) {
     super();
@@ -64,56 +71,56 @@ export class GameImpl extends IGame {
      * Number of columns.
      * @type {Number}
      */
-    this.__width = width;
+    this.#width = width;
 
     /**
      * Number of rows.
      * @type {Number}
      */
-    this.__height = height;
+    this.#height = height;
 
     /**
      * The grid of icons for this game.
      * @type {Array<Number>}
      */
-    this.__grid = new Array(height);
+    this.#grid = new Array(height);
 
     for (let i = 0; i < height; ++i) {
-      this.__grid[i] = Array.from({ length: width }, () => null);
+      this.#grid[i] = Array.from({ length: width }, () => null);
     }
 
     /**
      * Icon generator.
      * @type {BasicGenerator}
      */
-    this.__generator = generator;
+    this.#generator = generator;
 
     /** Initialize the grid. */
-    generator.initialize(this.__grid);
+    generator.initialize(this.#grid);
 
     /**
      * Current score of the game.
      * @type {Number}
      */
-    this.__score = 0;
+    this.#score = 0;
 
     while (this.findRuns(false).length > 0) {
       this.removeAllRuns();
     }
 
     // Reset score.
-    this.__score = 0;
+    this.#score = 0;
   }
 
   /** Remove all runs from the grid. */
   removeAllRuns() {
-    const c = [];
-    const rem = this.findRuns(true);
+    var c = [];
+    var rem = this.findRuns(true);
     c.push(rem);
     if (rem.length > 0) {
-      let a = [];
-      let b = [];
-      for (let i = 0; i < this.getWidth(); i++) {
+      var a = [];
+      var b = [];
+      for (var i = 0; i < this.getWidth(); i++) {
         a = a.concat(this.collapseColumn(i));
         b = b.concat(this.fillColumn(i));
       }
@@ -122,7 +129,7 @@ export class GameImpl extends IGame {
     }
     if (this.getDebug()) {
       console.log(`Cells = ${this.toString(c)}`);
-      console.log("Score = %d", this.__score);
+      console.log("Score = %d", this.#score);
     }
     return c;
   }
@@ -148,7 +155,7 @@ export class GameImpl extends IGame {
    *  @return {Icon} Icon at the given row and column
    */
   getIcon(row, col) {
-    return this.__grid[row][col];
+    return this.#grid[row][col];
   }
 
   /** Sets the Icon at the given location in the game grid.
@@ -158,7 +165,7 @@ export class GameImpl extends IGame {
    *  @param {Icon} icon to be set in (row,col).
    */
   setIcon(row, col, icon) {
-    return (this.__grid[row][col] = icon);
+    return (this.#grid[row][col] = icon);
   }
 
   /** Returns the Number of columns in the game grid.
@@ -166,7 +173,7 @@ export class GameImpl extends IGame {
    *  @return {Number} the width of the grid.
    */
   getWidth() {
-    return this.__width;
+    return this.#width;
   }
 
   /** Returns the Number of rows in the game grid.
@@ -175,7 +182,7 @@ export class GameImpl extends IGame {
    *  @return {Number} the height of the grid.
    */
   getHeight() {
-    return this.__height;
+    return this.#height;
   }
 
   /** Returns the current score.
@@ -183,7 +190,7 @@ export class GameImpl extends IGame {
    * @return {Number} current score for the game.
    */
   getScore() {
-    return this.__score;
+    return this.#score;
   }
 
   /** Swap the icons contained in two cells.
@@ -196,7 +203,7 @@ export class GameImpl extends IGame {
       cells[0].row(),
       cells[0].col(),
       cells[1].row(),
-      cells[1].col(),
+      cells[1].col()
     );
   }
 
@@ -206,18 +213,13 @@ export class GameImpl extends IGame {
    *  @param {Number} (k,l) second icon.
    */
   swapIcons(i, j, k, l) {
-    [this.__grid[i][j], this.__grid[k][l]] = [
-      this.__grid[k][l],
-      this.__grid[i][j],
-    ];
+    [this.#grid[i][j], this.#grid[k][l]] = [this.#grid[k][l], this.#grid[i][j]];
   }
 
   /**
-   * <p>In this implementation, the only possible move is a swap
-   * of two adjacent cells.</p>
-   *
-   * In order for move to be made, the
-   * following must be True:
+   * In this implementation, the only possible move is a swap
+   * of two adjacent cells.  In order for move to be made, the
+   * following must be True.
    * <ul>
    *   <li>The given array has length 2
    *   <li>The two given cell positions must be adjacent
@@ -225,9 +227,9 @@ export class GameImpl extends IGame {
    *   <li>Swapping the two icons must result in at least one run.
    * </ul>
    * If the conditions above are satisfied, the icons for the two
-   * positions are exchanged and the method returns True.<br>
-   * Otherwise, the method returns False.
-   * No other aspects of the game state are modified.
+   * positions are exchanged and the method returns True otherwise,
+   * the method returns False.  No other aspects of the game state
+   * are modified.
    *
    * @param {Array<cell>} cells cells to select.
    * @return {Boolean} True if the selected cells were modified, False otherwise.
@@ -239,7 +241,7 @@ export class GameImpl extends IGame {
       console.log("Cell 1 = %s", cells[1].toString());
     }
 
-    const validSelection =
+    var validSelection =
       cells.length == 2 && // check if there are two cells in "cells"
       cells[0].isAdjacent(cells[1]) && // verify if they are adjacent
       !cells[0].getIcon().equal(cells[1].getIcon()) && // verify if the icons are different
@@ -258,32 +260,31 @@ export class GameImpl extends IGame {
     return validSelection;
   }
 
-  /**
-   * <p>Returns a list of all cells forming part of a vertical or horizontal run.</p>
-   * The list is in no particular order and may contain duplicates.
-   * If the argument is False, no modification is made to the game state;
-   * if the argument is True, grid locations for all cells in the list are
-   * nulled, and the score is updated.
+  /** Returns a list of all cells forming part of a vertical or horizontal run.
+   *  The list is in no particular order and may contain duplicates.
+   *  If the argument is False, no modification is made to the game state;
+   *  if the argument is True, grid locations for all cells in the list are
+   *  nulled, and the score is updated.
    *
-   * @param {Boolean} doMarkAndUpdateScore if False, game state is not modified.
-   * @return {Array<cell>} list of all cells forming runs, in the form:
-   * [c_1, c_2, c_3,...], where c_i = Cell(row_i, col_i, iconType_i)
+   *  @param {Boolean} doMarkAndUpdateScore if False, game state is not modified.
+   *  @return {Array<cell>} list of all cells forming runs, in the form:
+   *  [c_1, c_2, c_3,...], where c_i = Cell(row_i, col_i, iconType_i)
    */
   findRuns(doMarkAndUpdateScore) {
-    const c = [];
+    var c = [];
     // Keeps runs by size, e.g., runs[4] holds the Number of runs of size 4.
-    const runs = Array(Math.max(this.getWidth(), this.getHeight()) + 1).fill(0);
+    var runs = Array(Math.max(this.getWidth(), this.getHeight()) + 1).fill(0);
 
     // Get runs on a row or column.
     function getRuns(w, h, gIcon, nCell) {
-      for (let i = 0; i < h; ++i) {
-        let j = 0;
+      for (var i = 0; i < h; ++i) {
+        var j = 0;
         while (j < w - 2) {
           if (
             gIcon(i, j).equal(gIcon(i, j + 1)) &&
             gIcon(i, j).equal(gIcon(i, j + 2))
           ) {
-            let run_size = 0;
+            var run_size = 0;
             while (j < w - 1 && gIcon(i, j).equal(gIcon(i, j + 1))) {
               c.push(nCell(i, j, gIcon(i, j)));
               j += 1;
@@ -300,20 +301,20 @@ export class GameImpl extends IGame {
     }
 
     // Creates a new function that, when called, has its 'this' keyword set to the provided value.
-    const gIcon = this.getIcon.bind(this);
+    var gIcon = this.getIcon.bind(this);
     // find runs on a row
     getRuns(
       this.getWidth(),
       this.getHeight(),
       gIcon,
-      (i, j, k) => new cell(i, j, k),
+      (i, j, k) => new cell(i, j, k)
     );
     // find runs on a column - transpose
     getRuns(
       this.getHeight(),
       this.getWidth(),
       (i, j) => gIcon(j, i),
-      (i, j, k) => new cell(j, i, k),
+      (i, j, k) => new cell(j, i, k)
     );
 
     if (doMarkAndUpdateScore) {
@@ -324,9 +325,9 @@ export class GameImpl extends IGame {
       // A run of length 3 is awarded BASE_SCORE points, and
       // a run of length (3 + n) points gets BASE_SCORE times 2 to the power n.
       //
-      for (let i = 3; i < runs.length; ++i) {
+      for (var i = 3; i < runs.length; ++i) {
         if (runs[i] > 0) {
-          this.__score += this.BASE_SCORE * Math.pow(2, i - 3) * runs[i];
+          this.#score += this.BASE_SCORE * Math.pow(2, i - 3) * runs[i];
         }
       }
     }
@@ -335,15 +336,14 @@ export class GameImpl extends IGame {
       console.log("\nfindRuns %s", doMarkAndUpdateScore);
       console.log("Cells = " + this.toString(c));
       console.log("Grid = \n%s", this.str());
-      console.log("Score = %d", this.__score);
+      console.log("Score = %d", this.#score);
       console.log("Runs = " + this.toString(runs));
     }
 
     return c;
   }
 
-  /**
-   * <p>Removes an element at index pos, in a given column col, from the grid.</p>
+  /** Removes an element at index pos, in a given column col, from the grid.
    * All elements above the given position are shifted down, and the first
    * cell of the column is set to null.
    *
@@ -352,7 +352,7 @@ export class GameImpl extends IGame {
    */
   removeAndShiftUp(pos, col) {
     // for each row above the given position
-    for (let i = pos; i > 0; i--) {
+    for (var i = pos; i > 0; i--) {
       this.setIcon(i, col, this.getIcon(i - 1, col));
     }
     this.setIcon(0, col, null);
@@ -370,7 +370,7 @@ export class GameImpl extends IGame {
    *  [c_1, c_2, c_3,...], where c_i = Cell(row_i, col_i, iconType_i)
    */
   collapseColumn(col) {
-    const c = [];
+    var c = [];
 
     let n = 1;
     let i = 0;
@@ -383,7 +383,7 @@ export class GameImpl extends IGame {
       }
       if (n > 0 && this.getIcon(i, col) != null) {
         // the icon goes down the Number of nulls found below it
-        const Cell = new cell(i + n, col, this.getIcon(i, col)); // new icon position
+        let Cell = new cell(i + n, col, this.getIcon(i, col)); // new icon position
         Cell.previousRow(i); // previous row
         c.push(Cell);
       }
@@ -420,13 +420,13 @@ export class GameImpl extends IGame {
    */
   collapseColumn2(col) {
     // Array that contains all the changed cells.
-    const c = [];
+    var c = [];
 
     // Get the last column index.
-    let i = this.getHeight() - 1;
+    var i = this.getHeight() - 1;
 
     // Holds how many cells were removed to shift down the cells above it.
-    let j = 0;
+    var j = 0;
 
     // Check i >= j, because every cell from 0 to j is null (the ones on the top).
     // As such, there is no need to proceed.
@@ -434,7 +434,7 @@ export class GameImpl extends IGame {
       // if the cell is not null
       if (this.getIcon(i, col) != null) {
         // create a changed cell, that was moved "j" rows
-        const a = new cell(i, col, this.getIcon(i, col));
+        var a = new cell(i, col, this.getIcon(i, col));
         a.previousRow(i - j);
         // check if a was moved, if so, add it to "c"
         if (a.row() != a.getPreviousRow()) {
@@ -451,35 +451,34 @@ export class GameImpl extends IGame {
         this.removeAndShiftUp(i, col);
       }
       // Increase j, if the cell was null.
-      const a = new cell(j, col, null);
+      var a = new cell(j, col, null);
       c.push(a);
       j += 1;
     }
     return c;
   }
 
-  /**
-   * <p>Fills the null locations (if any) at the top of the given column in the current game grid.</p>
-   * The returned list contains Cells representing new icons added to this column in their new locations.
-   * The list is in no particular order
+  /** Fills the null locations (if any) at the top of the given column in the current game grid.
+   *  The returned list contains Cells representing new icons added to this column in their new locations.
+   *  The list is in no particular order.
    *
-   * @param {Number} col column to be filled.
-   * @return {Array<cell>} list of new cells for icons added to the column, in the form:
-   * [c_1, c_2, c_3,...], where c_i = Cell(row_i, col_i, iconType_i)
+   *  @param {Number} col column to be filled.
+   *  @return {Array<cell>} list of new cells for icons added to the column, in the form:
+   *  [c_1, c_2, c_3,...], where c_i = Cell(row_i, col_i, iconType_i)
    */
   fillColumn(col) {
     /** variable that contains all changed cells */
-    const c = [];
+    var c = [];
 
-    let n = 0;
+    var n = 0;
 
     // for each row in column
-    for (let i = this.getHeight() - 1; i >= 0; --i) {
+    for (var i = this.getHeight() - 1; i >= 0; --i) {
       // check if the icon is null, if so, generate a new random icon to fill the position
       if (this.getIcon(i, col) == null) {
-        let icon = this.__generator.generate();
+        let icon = this.#generator.generate();
         this.setIcon(i, col, icon);
-        const a = new cell(i, col, icon);
+        let a = new cell(i, col, icon);
         a.previousRow(--n);
         c.push(a);
       }
@@ -494,16 +493,15 @@ export class GameImpl extends IGame {
     return c;
   }
 
-  /**
-   * Returns a String representation of the grid for this game,
-   * with rows delimited by newlines.
+  /** Returns a String representation of the grid for this game,
+   *  with rows delimited by newlines.
    * @return {String} string representation of the grid.
    */
   str() {
-    let sb = "";
-    for (let row = 0; row < this.getHeight(); row++) {
-      for (let col = 0; col < this.getWidth(); col++) {
-        const icon = this.getIcon(row, col);
+    var sb = "";
+    for (var row = 0; row < this.getHeight(); row++) {
+      for (var col = 0; col < this.getWidth(); col++) {
+        var icon = this.getIcon(row, col);
         if (icon == null) {
           sb += "   *";
         } else {
@@ -515,34 +513,33 @@ export class GameImpl extends IGame {
     return sb;
   }
 
-  /**
-   * Return a string representation of the grid using symbols:
+  /** Return a string representation of the grid using symbols:
    *  -  0123456789
    *  - '!@+#$%*.&='
-   * @return {String} string representaion of the grid.
+   *  @return {String} string representaion of the grid.
    */
   repr() {
-    let sb = "";
-    const w = this.getWidth();
-    const h = this.getHeight();
+    var sb = "";
+    let w = this.getWidth();
+    let h = this.getHeight();
     function n(i) {
-      const n = `${i.toString()} `;
+      let n = `${i.toString()} `;
       return i > 9 ? n : "0" + n;
     }
     for (let i = 0; i < w; ++i) {
       sb = sb.concat(w > 10 ? n(i) : i.toString() + " ");
     }
     sb += "   \n\n";
-    const symbols = "!@+#$%*.&=";
-    const separator = w > 10 ? "  " : " ";
-    for (let row = 0; row < h; row++) {
-      for (let col = 0; col < w; col++) {
-        const icon = this.getIcon(row, col);
+    let symbols = "!@+#$%*.&=";
+    let separator = w > 10 ? "  " : " ";
+    for (var row = 0; row < h; row++) {
+      for (var col = 0; col < w; col++) {
+        let icon = this.getIcon(row, col);
         if (icon)
           sb +=
             symbols[
               icon.getType() %
-                Math.min(symbols.length, this.__generator.getJewelTypes())
+                Math.min(symbols.length, this.#generator.getJewelTypes())
             ] + separator;
       }
       sb += "  " + row.toString() + "\n";
@@ -556,7 +553,7 @@ export class GameImpl extends IGame {
    *  @return {String} string with cells.
    */
   toString(lcells) {
-    let s = "";
+    var s = "";
     lcells.forEach((c) => {
       s += c.toString() + " ";
     });

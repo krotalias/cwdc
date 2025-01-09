@@ -19,6 +19,13 @@ import { Icon } from "./Icon.js";
  *  row for the icon.
  */
 export class cell {
+  // Like public fields, private fields are added before the constructor runs in a base class,
+  // or immediately after super() is invoked in a subclass.
+  #row;
+  #col;
+  #icon;
+  #previousRow;
+
   /** Constructs a Cell with the given row, column, and Icon.
    *  The previous row is the same as the given row.
    *
@@ -31,25 +38,25 @@ export class cell {
      * Row for this cell.
      * @type {Number}
      */
-    this.__row = row;
+    this.#row = row;
 
     /**
      * Column for this cell.
      * @type {Number}
      */
-    this.__col = col;
+    this.#col = col;
 
     /**
      * Icon in this cell.
      * @type {Icon}
      */
-    this.__icon = icon;
+    this.#icon = icon;
 
     /**
      * Previous row for this cell, if applicable.
      * @type {Number}
      */
-    this.__previousRow = row;
+    this.#previousRow = row;
   }
 
   /** Returns the previous row for this cell.
@@ -57,7 +64,7 @@ export class cell {
    *    previous row for this cell
    */
   getPreviousRow() {
-    return this.__previousRow;
+    return this.#previousRow;
   }
 
   /** Sets the previous row for this cell.
@@ -65,7 +72,7 @@ export class cell {
    *    previous row for this cell
    */
   previousRow(row) {
-    this.__previousRow = row;
+    this.#previousRow = row;
   }
 
   /** Returns the Icon in this cell.
@@ -73,7 +80,7 @@ export class cell {
    *    the Icon in this cell
    */
   getIcon() {
-    return this.__icon;
+    return this.#icon;
   }
 
   /** Returns the row of this cell
@@ -81,7 +88,7 @@ export class cell {
    *    row of this cell
    */
   row() {
-    return this.__row;
+    return this.#row;
   }
 
   /** Returns the column of this cell
@@ -89,7 +96,7 @@ export class cell {
    *    column of this cell
    */
   col() {
-    return this.__col;
+    return this.#col;
   }
 
   /** Determines whether this cell has the same position
@@ -101,7 +108,7 @@ export class cell {
    *    as this one
    */
   samePosition(other) {
-    return this.__row == other.__row && this.__col == other.__col;
+    return this.#row == other.#row && this.#col == other.#col;
   }
 
   /** Determines whether this cell is adjacent by row or column
@@ -152,9 +159,9 @@ export class cell {
    * @return {String} this cell representation.
    */
   toString() {
-    const icon =
+    var icon =
       this.getIcon() == null ? "*" : this.getIcon().getType().toString();
-    let stx = "(" + this.row() + "," + this.col() + ") " + icon;
+    var stx = "(" + this.row() + "," + this.col() + ") " + icon;
     if (this.row() != this.getPreviousRow()) {
       stx += "(" + this.getPreviousRow() + ")";
     }

@@ -25,6 +25,8 @@ import { IGenerator } from "./IGenerator.js";
  * @implements {IGenerator}
  */
 export class BasicGenerator extends IGenerator {
+  #numtypes;
+
   /** Constructs a BasicGenerator that will create random icons with
    *  types 0 through numtypes - 1, by calling generate().
    *
@@ -37,7 +39,7 @@ export class BasicGenerator extends IGenerator {
      * Number of different jewel types.
      * @type {Number}
      */
-    this.__numtypes = numtypes;
+    this.#numtypes = numtypes;
   }
 
   /** Return the number of jewel types.
@@ -45,7 +47,7 @@ export class BasicGenerator extends IGenerator {
    *  @return {Number} number of different jewels.
    */
   getJewelTypes() {
-    return this.__numtypes;
+    return this.#numtypes;
   }
 
   /** Returns a randow icon.
@@ -53,7 +55,7 @@ export class BasicGenerator extends IGenerator {
    *  @return {Icon} random icon.
    */
   generate() {
-    return new BasicIcon(Math.floor(Math.random() * this.__numtypes));
+    return new BasicIcon(Math.floor(Math.random() * this.#numtypes));
   }
 
   /** Initializes a given 2D array of Icons with new values.
@@ -69,7 +71,7 @@ export class BasicGenerator extends IGenerator {
     let pattern = false;
     let icon1 = 0;
     let icon2 = 1;
-    for (let i = 0; i < grid.length; i++) {
+    for (var i = 0; i < grid.length; i++) {
       pattern = !pattern;
 
       // this pattern locks the game!
@@ -82,7 +84,7 @@ export class BasicGenerator extends IGenerator {
         if (icon1 == icon2) icon2 = (icon1 + 1) % n;
       }
 
-      for (let j = 0; j < grid[0].length; j++) {
+      for (var j = 0; j < grid[0].length; j++) {
         if (!randIcons) {
           grid[i][j] = new BasicIcon(pattern ? icon1 : icon2);
         } else {

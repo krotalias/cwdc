@@ -1,32 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: game.js</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
-
-<body>
-
-<div id="main">
-
-    <h1 class="page-title">Source: game.js</h1>
-
-    
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/** @file
+/** @file
  *
  * Javascript API for animating a Bejeweled game.
  *
@@ -34,9 +6,9 @@
  * @since 10/03/2021
  *
  * @see https://thebayerl.github.io/DesWeb/trab4/game.html
- * @see &lt;a href="/cwdc/3-javascript/jewels/game.html?height=10&amp;width=10&amp;debug">link&lt;/a>
- * @see &lt;a href="/cwdc/3-javascript/jewels/game.js">source&lt;/a>
- * @see &lt;img src="../jewels/jewels.png" width="512">
+ * @see <a href="/cwdc/3-javascript/jewels/game.html?height=10&width=10&debug">link</a>
+ * @see <a href="/cwdc/3-javascript/jewels/game.js">source</a>
+ * @see <img src="../jewels/jewels.png" width="512">
  */
 
 import { GameImpl } from "./GameImpl.js";
@@ -45,7 +17,7 @@ import { BasicGenerator } from "./BasicGenerator.js";
 
 /**
  * Colors of the gems.
- * @type {Array&lt;String>}
+ * @type {Array<String>}
  */
 const colors = [
   "rgb(255,0,0)",
@@ -57,7 +29,7 @@ const colors = [
 ];
 /**
  * Images for the jewels (gems).
- * @type {Array&lt;String>}
+ * @type {Array<String>}
  */
 const img = [
   "url(gemas/red.png)",
@@ -69,7 +41,7 @@ const img = [
 
 /**
  * The matrix of icons.
- * @type {Array&lt;Array&lt;cell>>}
+ * @type {Array<Array<cell>>}
  */
 const grid = [];
 
@@ -111,7 +83,7 @@ let clicked = false;
 
 /**
  * List of cells for keeping track of icon movements.
- * @type {Array&lt;cell>}
+ * @type {Array<cell>}
  */
 let cells = [];
 
@@ -131,7 +103,7 @@ function createSquare(i, j) {
   /** create the element to represent the icon and apply some styles */
   const symbol = document.createElement("div");
   /**
-   * &lt;p>Executed when an icon (jewel) is clicked.&lt;/p>
+   * <p>Executed when an icon (jewel) is clicked.</p>
    * @event clickIcon
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
@@ -222,12 +194,12 @@ function cellPos(cell) {
 /**
  * Clear cells in a given list.
  * @async
- * @param {Array&lt;cell>} list array of cells.
+ * @param {Array<cell>} list array of cells.
  */
 async function destroy(changed) {
   const c = bg.childNodes;
   // just set the display to none
-  for (let i = 0; i &lt; changed.length; i++) {
+  for (let i = 0; i < changed.length; i++) {
     const cell = changed[i];
     // disappear(c[cellPos(cell)]);
     c[cellPos(cell)].style.display = "none";
@@ -236,13 +208,13 @@ async function destroy(changed) {
 }
 
 /** Drop a list of cells.
- *  @param {Array&lt;cell>} changed list of cells.
+ *  @param {Array<cell>} changed list of cells.
  */
 function drop(changed) {
   const c = bg.childNodes;
 
   // set the position to the start of movement and calls the move function
-  for (let i = 0; i &lt; changed.length; i++) {
+  for (let i = 0; i < changed.length; i++) {
     const cell = changed[i];
     if (cell.row() != cell.getPreviousRow()) {
       const cell = changed[i];
@@ -261,13 +233,13 @@ function drop(changed) {
 /**
  * Fill the grid based on a given list of cells.
  * @async
- * @param {Array&lt;cell>} changed list of cells.
+ * @param {Array<cell>} changed list of cells.
  */
 async function fill(changed) {
   const c = bg.childNodes;
 
   // set the start position and calls move function
-  for (let i = 0; i &lt; changed.length; i++) {
+  for (let i = 0; i < changed.length; i++) {
     const cell = changed[i];
     const elem = c[cellPos(cell)];
     elem.style.backgroundImage = img[cell.getIcon().getType()];
@@ -282,7 +254,7 @@ async function fill(changed) {
 /**
  * Sleep is used to wait a certain time interval before resuming a task.
  * @param {Number} ms time interval in milliseconds.
- * @return {Promise&lt;Number>} promise to be resolved after ms milliseconds.
+ * @return {Promise<Number>} promise to be resolved after ms milliseconds.
  * @see https://www.geeksforgeeks.org/how-to-wrap-settimeout-method-in-a-promise/
  * @see https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
  */
@@ -315,7 +287,7 @@ function swap_pos(i, j, k, l, uns) {
     let b = -1;
     A.style.left = l * 50 + "px";
     B.style.left = j * 50 + "px";
-    if (j &lt; l) {
+    if (j < l) {
       a = -1;
       b = 1;
     }
@@ -341,7 +313,7 @@ function swap_pos(i, j, k, l, uns) {
     A.style.top = k * 50 + "px";
     B.style.top = i * 50 + "px";
 
-    if (i &lt; k) {
+    if (i < k) {
       a = -1;
       b = 1;
     }
@@ -425,8 +397,8 @@ async function swap(cellA, cellB) {
 function refresh() {
   //clear all the icons
   document.getElementById("bg").innerHTML = "";
-  for (let i = 0; i &lt; height; i++) {
-    for (let j = 0; j &lt; width; j++) {
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
       //create new icons based on the game grid
       document.getElementById("bg").appendChild(createSquare(i, j));
     }
@@ -447,8 +419,8 @@ function reset() {
 /**
  * Get URL Parameters using jQuery.
  *
- * &lt;p>Parses a list of parameters of the form: &lt;/p>
- * - url?param1=val1&amp;#38;param2=val2&amp;#38;param3=val3 ...
+ * <p>Parses a list of parameters of the form: </p>
+ * - url?param1=val1&#38;param2=val2&#38;param3=val3 ...
  *
  * @param {String} sParam parameter name.
  * @return {String} parameter value associated to parameter name, or false, if no parameter with the given name was found.
@@ -457,10 +429,10 @@ function reset() {
  */
 const getUrlParameter = function getUrlParameter(sParam) {
   const sPageURL = window.location.search.substring(1);
-  const sURLVariables = sPageURL.split("&amp;");
+  const sURLVariables = sPageURL.split("&");
   let sParameterName;
 
-  for (let i = 0; i &lt; sURLVariables.length; i++) {
+  for (let i = 0; i < sURLVariables.length; i++) {
     sParameterName = sURLVariables[i].split("=");
 
     if (sParameterName[0] === sParam) {
@@ -477,14 +449,14 @@ export function gamePanel() {
   /** Reset button */
   const resetbt = document.getElementById("resetbt");
   /**
-   * &lt;p>Executed when the "Reset" button is clicked.&lt;/p>
+   * <p>Executed when the "Reset" button is clicked.</p>
    *
    * The click event is fired when a point-device button is pressed,
    * a touch gesture is performed or a user interaction that is equivalent
    * to a click is performed by pressing a key (Enter or Space).
    *
-   * &lt;p>The callback argument sets the {@link reset callback} that
-   * will be invoked when the event is dispatched.&lt;/p>
+   * <p>The callback argument sets the {@link reset callback} that
+   * will be invoked when the event is dispatched.</p>
    * @event clickReset
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
@@ -496,7 +468,7 @@ export function gamePanel() {
   const h = getUrlParameter("height");
   const d = getUrlParameter("debug");
 
-  if (w &amp;&amp; h) {
+  if (w && h) {
     document.documentElement.style.setProperty("--nrow", h);
     document.documentElement.style.setProperty("--ncol", w);
   }
@@ -508,9 +480,9 @@ export function gamePanel() {
   nico = getComputedStyle(document.documentElement).getPropertyValue("--nico");
 
   // grid to simulate the game
-  for (let i = 0; i &lt; height; i++) {
+  for (let i = 0; i < height; i++) {
     grid[i] = [];
-    for (let j = 0; j &lt; width; j++) {
+    for (let j = 0; j < width; j++) {
       grid[i][j] = null;
     }
   }
@@ -520,37 +492,14 @@ export function gamePanel() {
 }
 
 /**
- * &lt;p>Load the game.&lt;/p>
+ * <p>Load the game.</p>
  * The load event is fired when the whole page has loaded,
  * including all dependent resources such as stylesheets, scripts,
  * iframes, and images, except those that are loaded lazily.
  *
- * &lt;p>The callback argument sets the {@link gamePanel callback}
- * that will be invoked when the event is dispatched.&lt;/p>
+ * <p>The callback argument sets the {@link gamePanel callback}
+ * that will be invoked when the event is dispatched.</p>
  * @event load
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 addEventListener("load", (event) => gamePanel());
-</code></pre>
-        </article>
-    </section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicGenerator.html">BasicGenerator</a></li><li><a href="BasicIcon.html">BasicIcon</a></li><li><a href="GameImpl.html">GameImpl</a></li><li><a href="cell.html">cell</a></li></ul><h3>Interfaces</h3><ul><li><a href="IGame.html">IGame</a></li><li><a href="IGenerator.html">IGenerator</a></li><li><a href="Icon.html">Icon</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickIcon">clickIcon</a></li><li><a href="global.html#event:clickReset">clickReset</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cellPos">cellPos</a></li><li><a href="global.html#cells">cells</a></li><li><a href="global.html#clicked">clicked</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createSquare">createSquare</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#displayBoard">displayBoard</a></li><li><a href="global.html#drop">drop</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#game">game</a></li><li><a href="global.html#gameLoop">gameLoop</a></li><li><a href="global.html#gamePanel">gamePanel</a></li><li><a href="global.html#gen">gen</a></li><li><a href="global.html#getUrlParameter">getUrlParameter</a></li><li><a href="global.html#grid">grid</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#img">img</a></li><li><a href="global.html#mainGame">mainGame</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#move_swp">move_swp</a></li><li><a href="global.html#nico">nico</a></li><li><a href="global.html#refresh">refresh</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#swap">swap</a></li><li><a href="global.html#swap_pos">swap_pos</a></li><li><a href="global.html#width">width</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Jan 09 2025 09:29:33 GMT-0300 (Brasilia Standard Time)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
-</body>
-</html>

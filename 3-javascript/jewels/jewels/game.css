@@ -1,0 +1,81 @@
+:root {
+    --nrow: 8;
+    --ncol: 8;
+    --nico: 5;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    background: rgba(0, 0, 0, 255);
+    /*overflow: hidden;*/
+}
+
+#header {
+    text-align: center;
+    margin-top: 50px;
+    background: rgba(0, 0, 0, 255);
+}
+
+#sidebar {
+    position: relative;
+    text-align: center;
+    cursor: move;
+    width: 150px;
+    height: 200px;
+    margin: 0 auto;
+    background-image: url("imgs/score2.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#resetbt {
+    position: absolute;
+    height: 80px;
+    width: 50%;
+    left: 25%;
+    top: 70%;
+    background-image: url("imgs/reset.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
+#resetbt:hover {
+    background-image: url("imgs/reset-hover.png");
+}
+
+#score {
+    font-family: "unispace", cursive;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    text-align: center;
+    top: 90px;
+    left: 50px;
+}
+
+#draggable {
+    cursor: n-resize;
+}
+
+#bg {
+    margin: 0 auto;
+    width: calc(var(--ncol) * 50px);
+    height: calc(var(--nrow) * 50px);
+    position: relative;
+    z-index: 0;
+    border-style: groove;
+    border-radius: 3%;
+    border-color: rgb(45, 37, 92);
+    background-image: url("imgs/bg2.png");
+    transform: scale(0.8);
+}
+
+.shape {
+    position: absolute;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
