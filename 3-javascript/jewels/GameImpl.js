@@ -17,30 +17,31 @@ import { cell } from "./Cell.js";
 import { IGame } from "./IGame.js";
 
 /**
- * Concrete implementation of the IGame interface. This implementation
+ * Concrete implementation of the {@link IGame IGame} interface. This implementation
  * has the following behavior:
  * <ul>
  *    <li> Moves are allowed via the {@link GameImpl#select select()} method for pairs of adjacent cells
- *         only.  The cells must have different types.  The move must create
+ *         only. The cells must have different types. The move must create
  *         at least one run.
  *    <li> A run is defined to be three or more adjacent cells of the same
  *         type, horizontally or vertically. A given cell may be part
  *         of a horizontal run or a vertical run at the same time.
- *    <li> Points are awarded for runs based on their length.  A run of length
+ *    <li> Points are awarded for runs based on their length. A run of length
  *         3 is awarded {@link GameImpl#BASE_SCORE BASE_SCORE} points, and a run of length (3 + n)
  *         points gets BASE_SCORE &times 2<sup>n</sup>.
  * </ul>
- * @implements {GameImpl}
+ * @implements {IGame}
  */
 export class GameImpl extends IGame {
-  /** Constructs a game with the given Number of columns and rows
-   *  that will use the given <code>IGenerator</code> instance
-   *  to create new icons.
+  /**
+   * Constructs a game with the given Number of columns and rows
+   * that will use the given {@link IGenerator} instance
+   * to create new icons.
    *
-   *  @param {Number} width Number of columns.
-   *  @param {Number} height Number of rows.
-   *  @param {BasicGenerator} generator generator for new icons.
-   *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from Array.from()}
+   * @param {Number} width Number of columns.
+   * @param {Number} height Number of rows.
+   * @param {BasicGenerator} generator generator for new icons.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from Array.from()}
    */
   constructor(width, height, generator) {
     super();

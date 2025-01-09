@@ -11,7 +11,7 @@
 import { Icon } from "./Icon.js";
 
 /**
- * Basic implementation of the Icon interface.
+ * Basic implementation of the {@link Icon} interface.
  * @implements {Icon}
  */
 export class BasicIcon extends Icon {
