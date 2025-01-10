@@ -21,11 +21,11 @@
  *  @since 08/08/2022
  *  @see <a href="/cwdc/10-html5css3/circRec.html">link</a>
  *  @see <a href="../circRecNoSource.js">source</a>
- *  @see https://observablehq.com/@esperanc/configurando-um-triangulo-isosceles
- *  @see https://drive.google.com/file/d/1MjlBWjBP-5ijNTaPDL7-7OOnd8906z6Y/view
- *  @see https://glmatrix.net
- *  @see https://dens.website/tutorials/webgl/gl-matrix
- *  @see https://stackoverflow.com/questions/56716154/how-to-properly-import-from-gl-matrix-js
+ *  @see {@link https://observablehq.com/@esperanc/configurando-um-triangulo-isosceles Configurando um triângulo isósceles}
+ *  @see {@link https://drive.google.com/file/d/1MjlBWjBP-5ijNTaPDL7-7OOnd8906z6Y/view Trabalho intersecao circulos e poligonos}
+ *  @see {@link https://glmatrix.net glMatrix}
+ *  @see {@link https://egghead.io/lessons/webgl-using-a-matrix-library-for-webgl Using a Matrix Library for WebGL}
+ *  @see {@link https://stackoverflow.com/questions/56716154/how-to-properly-import-from-gl-matrix-js How to properly import from gl-matrix.js?}
  *  @see <img src="../circRec/rect-circle.png" width="768">
  */
 
@@ -52,8 +52,8 @@ let vec2d = (function () {
    * @param {Array<Number,Number>} b second point.
    * @param {Array<Number,Number>} c third point.
    * @returns {Number} orientation.
-   * @see https://en.wikipedia.org/wiki/Cross_product
-   * @see http://www.cs.tufts.edu/comp/163/OrientationTests.pdf
+   * @see {@link https://en.wikipedia.org/wiki/Cross_product Cross product}
+   * @see {@link https://dccg.upc.edu/people/vera/wp-content/uploads/2012/10/DAG-OrientationTests.pdf Basic tool: orientation tests}
    * @see <img src="../circRec/orient.png" width="320">
    * @global
    * @function
@@ -92,7 +92,7 @@ let vec2d = (function () {
    * @param {Array<Number,Number>} param3 starting vertex.
    * @param {Array<Number,Number>} param4 end vertex.
    * @returns {Array<Number,Number>} intersection point.
-   * @see https://en.wikipedia.org/wiki/Line–line_intersection
+   * @see {@link https://en.wikipedia.org/wiki/Line–line_intersection Line–line intersection}
    * @global
    * @function
    */
@@ -119,7 +119,7 @@ let vec2d = (function () {
  * @param {CanvasRenderingContext2D} ctx canvas context.
  * @param {Number} w width.
  * @param {Number} h height.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D CanvasRenderingContext2D}
  */
 function fillCanvas(ctx, w, h) {
   ctx.fillStyle = "antiquewhite";
@@ -154,8 +154,8 @@ function closestPolyPoint(p, poly) {}
  * @param {Array<Array<Number,Number>>} poly first polygon.
  * @param {Array<Array<Number,Number>>} poly2 second polygon.
  * @returns {Boolean} intersect or not.
- * @see http://0x80.pl/articles/convex-polygon-intersection/article.html
- * @see <img src="../sample.png" width="196">
+ * @see {@link http://0x80.pl/notesen/2013-09-15-convex-polygon-intersection.html Detecting intersection of convex polygons in 2D}
+ * @see <img src="../circRec/sample.png" width="196">
  */
 function convexPolysIntersect(poly, poly2) {}
 
@@ -176,7 +176,7 @@ function convexPolyCircleIntersect(poly, center, radius) {}
  * @param {Array<Number,Number>} center2 second circle center.
  * @param {Number} radius2 second circle radius.
  * @returns {Boolean} intersect or not.
- * @see https://milania.de/blog/Intersection_area_of_two_circles_with_implementation_in_C%2B%2B
+ * @see {@link https://milania.de/blog/Intersection_area_of_two_circles_with_implementation_in_C%2B%2B Intersection area of two circles with implementation in C++}
  * @see <img src="../circRec/IntersectingCirclesArea_CircularSegmentsSmallAngle.png" width="320">
  */
 function circleCircleIntersect(center1, radius1, center2, radius2) {}
@@ -316,7 +316,7 @@ function midPoints(poly) {}
  * @param {Array<Number,Number>} oppositeVertex opposite vertex.
  * @return {Array<Array<Number,Number>, Array<Number,Number>, Array<Number,Number>>}
  * an isosceles triangle (a convex polygon).
- * @see https://en.wikipedia.org/wiki/Isosceles_triangle
+ * @see {@link https://en.wikipedia.org/wiki/Isosceles_triangle Isosceles triangle}
  * @see <img src="../circRec/Isosceles-Triangle.png" width="256">
  */
 function isosceles({ basePoint, oppositeVertex }) {

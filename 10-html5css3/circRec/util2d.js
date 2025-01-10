@@ -32,8 +32,8 @@
  *  @see <a href="/cwdc/10-html5css3/circRec/circRec.html">link</a>
  *  @see <a href="/cwdc/10-html5css3/circRec/util2d.js">source</a>
  *  @see <a href="/gc/download/Primitivas Geometricas.pdf">Primitivas Geometricas</a>
- *  @see https://observablehq.com/@esperanc/funcoes-2d-uteis
- *  @see https://drive.google.com/file/d/13G0A6oq7iyiXrVm1_oOYFp3gwaEErzQZ/view
+ *  @see {@link https://observablehq.com/@esperanc/funcoes-2d-uteis Funções 2D úteis}
+ *  @see {@link https://drive.google.com/file/d/13G0A6oq7iyiXrVm1_oOYFp3gwaEErzQZ/view Funcoes 2d Uteis.webm}
  */
 
 "use strict";
@@ -63,7 +63,7 @@ export function dist([x0, y0], [x1, y1]) {
  */
 export function orient(a, b, c) {
   return Math.sign(
-    mat3.determinant([1, a[0], a[1], 1, b[0], b[1], 1, c[0], c[1]])
+    mat3.determinant([1, a[0], a[1], 1, b[0], b[1], 1, c[0], c[1]]),
   );
 }
 
