@@ -70,13 +70,10 @@ function traverseDOMTree(targetDocument, currentElement, depth = 1) {
     while (currentElementChild) {
       // Formatting code (indent the tree so it looks nice on the screen)
       targetDocument.write(linefeed);
-      for (let j = 0; j < depth; j++) {
-        targetDocument.write(verticalbar);
-      }
+      targetDocument.write(verticalbar.repeat(depth));
+
       targetDocument.writeln(linefeed);
-      for (let j = 0; j < depth; j++) {
-        targetDocument.write(verticalbar);
-      }
+      targetDocument.write(verticalbar.repeat(depth));
       if (tagName) targetDocument.write(dash);
 
       // Recursively traverse the branches of the child node
@@ -86,9 +83,7 @@ function traverseDOMTree(targetDocument, currentElement, depth = 1) {
     }
     // The remaining code is mostly for formatting the tree
     targetDocument.writeln(linefeed);
-    for (let j = 0; j < depth - 1; j++) {
-      targetDocument.write(verticalbar);
-    }
+    targetDocument.write(verticalbar.repeat(depth - 1));
     targetDocument.write(space);
     if (tagName && tagName != "BR")
       targetDocument.write(`&lt;/${tagName.toLowerCase()}&gt;`);
@@ -126,13 +121,10 @@ function DOMTreeToString(currentElement, depth = 1) {
     while (currentElementChild) {
       // Formatting code (indent the tree so it looks nice on the screen)
       domStr += linefeed;
-      for (let j = 0; j < depth; j++) {
-        domStr += verticalbar;
-      }
+      domStr += verticalbar.repeat(depth);
       domStr += linefeed;
-      for (let j = 0; j < depth; j++) {
-        domStr += verticalbar;
-      }
+      domStr += verticalbar.repeat(depth);
+
       if (tagName) domStr += dash;
 
       // Recursively traverse the branches of the child node
@@ -142,9 +134,7 @@ function DOMTreeToString(currentElement, depth = 1) {
     }
     // The remaining code is mostly for formatting the tree
     domStr += linefeed;
-    for (let j = 0; j < depth - 1; j++) {
-      domStr += verticalbar;
-    }
+    domStr += verticalbar.repeat(depth - 1);
     domStr += space;
     if (tagName && tagName != "BR")
       domStr += `&lt;/${tagName.toLowerCase()}&gt;`;
