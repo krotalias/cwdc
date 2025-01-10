@@ -5,11 +5,12 @@
  *
  * <p>Print DOM tree.</p>
  *
- * @author F. Permadi and Paulo Roma
+ * @author F. Permadi ({@link https://www.permadi.com/})
+ * @author Paulo Roma (ES6 version)
  * @since 2005
- * @copyright 2005-2022
+ * @copyright 2005-2025
  * @see <a href="/cwdc/10-html5css3/DOM.js">source</a>
- * @see https://www.permadi.com/tutorial/domTree/index.html
+ * @see {@link https://www.permadi.com/tutorial/domTree/index.html Traversing & Printing The DOM TREE of an HTML Element}
  */
 "use strict";
 
@@ -40,7 +41,7 @@ const getAllAttributes = (el) =>
   }, "");
 
 /**
- * Traverses the DOM tree starting at an element and prints the tree.
+ * <p>Traverses the DOM tree starting at an element and prints the tree.</p>
  * This function is called recursively until the tree is fully traversed.
  *
  * @param {Window} targetDocument where the tree will be printed to.
@@ -49,13 +50,12 @@ const getAllAttributes = (el) =>
  */
 function traverseDOMTree(targetDocument, currentElement, depth = 1) {
   if (currentElement) {
-    var j;
-    var tagName = currentElement.tagName;
+    const tagName = currentElement.tagName;
 
     // Prints the node tagName, such as <A>, <IMG>, etc
     if (tagName) {
       targetDocument.write(
-        `&lt;${tagName}${getAllAttributes(currentElement.toLowerCase())}&gt`
+        `&lt;${tagName}${getAllAttributes(currentElement.toLowerCase())}&gt`,
       );
     } else {
       if (currentElement.nodeType === Node.TEXT_NODE)
@@ -64,17 +64,17 @@ function traverseDOMTree(targetDocument, currentElement, depth = 1) {
     }
 
     // Traverse the tree
-    var i = 0;
-    var currentElementChild = currentElement.childNodes[i];
+    let i = 0;
+    const currentElementChild = currentElement.childNodes[i];
 
     while (currentElementChild) {
       // Formatting code (indent the tree so it looks nice on the screen)
       targetDocument.write(linefeed);
-      for (j = 0; j < depth; j++) {
+      for (let j = 0; j < depth; j++) {
         targetDocument.write(verticalbar);
       }
       targetDocument.writeln(linefeed);
-      for (j = 0; j < depth; j++) {
+      for (let j = 0; j < depth; j++) {
         targetDocument.write(verticalbar);
       }
       if (tagName) targetDocument.write(dash);
@@ -86,7 +86,7 @@ function traverseDOMTree(targetDocument, currentElement, depth = 1) {
     }
     // The remaining code is mostly for formatting the tree
     targetDocument.writeln(linefeed);
-    for (j = 0; j < depth - 1; j++) {
+    for (let j = 0; j < depth - 1; j++) {
       targetDocument.write(verticalbar);
     }
     targetDocument.write(space);
@@ -96,7 +96,7 @@ function traverseDOMTree(targetDocument, currentElement, depth = 1) {
 }
 
 /**
- * Traverses the DOM tree starting at an element and returns the tree as a string.
+ * <p>Traverses the DOM tree starting at an element and returns the tree as a string.</p>
  * This function is called recursively until the tree is fully traversed.
  *
  * @param {HTMLNode} currentElement root element.
@@ -105,14 +105,13 @@ function traverseDOMTree(targetDocument, currentElement, depth = 1) {
  */
 function DOMTreeToString(currentElement, depth = 1) {
   if (currentElement) {
-    var j;
-    var tagName = currentElement.tagName;
-    var domStr = "";
+    const tagName = currentElement.tagName;
+    const domStr = "";
 
     // Prints the node tagName, such as <A>, <IMG>, etc
     if (tagName) {
       domStr += `&lt;${tagName.toLowerCase()}${getAllAttributes(
-        currentElement
+        currentElement,
       )}&gt`;
     } else {
       if (currentElement.nodeType === Node.TEXT_NODE)
@@ -121,17 +120,17 @@ function DOMTreeToString(currentElement, depth = 1) {
     }
 
     // Traverse the tree
-    var i = 0;
-    var currentElementChild = currentElement.childNodes[i];
+    let i = 0;
+    const currentElementChild = currentElement.childNodes[i];
 
     while (currentElementChild) {
       // Formatting code (indent the tree so it looks nice on the screen)
       domStr += linefeed;
-      for (j = 0; j < depth; j++) {
+      for (let j = 0; j < depth; j++) {
         domStr += verticalbar;
       }
       domStr += linefeed;
-      for (j = 0; j < depth; j++) {
+      for (let j = 0; j < depth; j++) {
         domStr += verticalbar;
       }
       if (tagName) domStr += dash;
@@ -143,7 +142,7 @@ function DOMTreeToString(currentElement, depth = 1) {
     }
     // The remaining code is mostly for formatting the tree
     domStr += linefeed;
-    for (j = 0; j < depth - 1; j++) {
+    for (let j = 0; j < depth - 1; j++) {
       domStr += verticalbar;
     }
     domStr += space;
@@ -162,12 +161,12 @@ function DOMTreeToString(currentElement, depth = 1) {
  */
 function printDOMTree(domElement, destinationWindow) {
   // Use destination window to print the tree.
-  var outputWindow = destinationWindow;
+  const outputWindow = destinationWindow;
 
   if (!outputWindow)
     outputWindow = window.open(
       `${window.location.protocol}://${window.location.hostname}/`,
-      "_blank"
+      "_blank",
     );
 
   // make a valid html page

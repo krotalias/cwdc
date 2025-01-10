@@ -30,18 +30,18 @@
  *  @param {Array<number>} arr1 an array of integers.
  *  @param {Array<string>} arr2 an array of strings.
  *  @returns {Array<string>} a new array.
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
- *  @see https://developer.mozilla.org/en-US/docs/Web/CSS/white-space
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
- *  @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce Array.prototype.reduce()}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/white-space white-space}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax Spread syntax (...)}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from Array.from()}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys Array.prototype.keys()}
  */
 function interleave(arr1, arr2) {
   return arr1.reduce((accumulator, currentValue, currentIndex) => {
     return arr2[currentIndex] == undefined
       ? accumulator // arr2 is over.
       : accumulator.concat(
-          `${currentValue.toString()} - ${arr2[currentIndex]}`
+          `${currentValue.toString()} - ${arr2[currentIndex]}`,
         );
   }, []);
 }
@@ -51,26 +51,26 @@ function interleave(arr1, arr2) {
  *  @param {string} id element id.
  */
 function del(id) {
-  let elem = document.getElementById(id);
+  const elem = document.getElementById(id);
   if (elem != null) elem.remove();
 }
 
 /**
- *  Returns all descendants of a given node.
+ *  <p>Returns all descendants of a given node.</p>
  *  Performs a shallow traverse.
  *
  *  @param {HTMLElement} element given node.
  *  @return {Object<Array<HTMLElement>,string>} object of elements.
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes
- *  @see https://developer.mozilla.org/en-US/docs/Web/API/Element/children
- *  @see https://www.oreilly.com/library/view/dom-enlightenment/9781449344498/ch01.html
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType Node: nodeType property}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Node/childNodes Node: childNodes property}
+ *  @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/children Element: children property}
+ *  @see {@link https://www.oreilly.com/library/view/dom-enlightenment/9781449344498/ch01.html DOM Enlightenment}
  */
 function getDescendants(element) {
-  var text = [];
-  var nodes = [];
-  for (var i = 0, n = element.childNodes.length; i < n; i++) {
-    var child = element.childNodes[i];
+  const text = [];
+  const nodes = [];
+  for (let i = 0, n = element.childNodes.length; i < n; i++) {
+    const child = element.childNodes[i];
     if (
       // An Element node like <p> or <div> - 1.
       child.nodeType === Node.ELEMENT_NODE &&
@@ -87,7 +87,7 @@ function getDescendants(element) {
 }
 
 /**
- * Creates some nodes using the DOM API.
+ * <p>Creates some nodes using the DOM API.</p>
  *
  * In JavaScript, functions are first-class objects,
  * because they can have properties and methods, just like any other object.
@@ -96,13 +96,13 @@ function getDescendants(element) {
  *
  * @param {string} divp the ID of the parent element.
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions Functions}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model Document Object Model (DOM)}
  */
 function createNodes(divp) {
-  var indices = [...Array(10).keys()]; // spread operator
+  const indices = [...Array(10).keys()]; // spread operator
 
-  var teams = new Array();
+  const teams = new Array();
 
   teams[0] = "Fluminense";
 
@@ -115,23 +115,22 @@ function createNodes(divp) {
     ++createNodes.counter;
   }
 
-  var x = teams.join(", ").toString();
+  const x = teams.join(", ").toString();
 
-  document.getElementById(
-    "teams"
-  ).innerHTML = `&lt;${divp}&gt;\n\nArray teams = [${x}]`;
+  document.getElementById("teams").innerHTML =
+    `&lt;${divp}&gt;\n\nArray teams = [${x}]`;
 
-  var tweets = [
+  const tweets = [
     "Joe Biden got 306 delegates!",
     "Donald Trump got 232 delegates!",
   ];
 
   tweets.push("Game over and go back to work!");
 
-  let i = createNodes.counter % tweets.length;
+  const i = createNodes.counter % tweets.length;
 
   // ["0 - Joe Biden got 306 delegates!", "1 - Donald Trump got 232 delegates!", "2 - Game over and go back to work!"]
-  var result = interleave(indices, tweets);
+  let result = interleave(indices, tweets);
   result[i] = `<mark>${result[i]}</mark>`;
 
   // "Array tweets = <br><mark>0 - Joe Biden got 306 delegates!</mark><br>1 - Donald Trump got 232 delegates!<br>2 - Game over and go back to work!"
@@ -148,19 +147,19 @@ function createNodes(divp) {
 
   // ----- create paragraph nodes with javascript -----
 
-  var para = document.createElement("p"); // Create a <p> element
+  const para = document.createElement("p"); // Create a <p> element
 
   // Create a text node
-  var textnode = document.createTextNode(
+  const textnode = document.createTextNode(
     `tweets.splice_${
       createNodes.counter
     } (${i},1,'Vice President!', 'Kamala Harris') =\n${result
       .join("\n")
-      .toString()}`
+      .toString()}`,
   );
 
   para.appendChild(textnode); // Append node to <p>
-  var element = document.getElementById(divp);
+  const element = document.getElementById(divp);
   element.appendChild(para); // Append <p> to <div id=divp>
 
   element.style.whiteSpace = "pre";
@@ -170,7 +169,7 @@ function createNodes(divp) {
   element.style.paddingLeft = "10px";
 
   // set a unique id
-  let paraid = `para${createNodes.counter.toString()}`;
+  const paraid = `para${createNodes.counter.toString()}`;
   para.setAttribute("id", paraid);
 
   para.style.border = "thick solid red";
@@ -182,20 +181,45 @@ function createNodes(divp) {
   // check that the new id has "been created
   console.assert(document.getElementById(paraid) === para);
 
-  // hide the clicked paragraph
+  /**
+   * @summary Hide the clicked paragraph.
+   * <p>Callback function {@link createNodes invoked} when the "Try it" button is clicked. </p>
+   * <p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
+   * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).</p>
+   * Change the display property to "none" to make the shape disappear and
+   * update the reaction time.</p>
+   * @event click
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onclick GlobalEventHandlers: onclick}
+   */
   para.onclick = function () {
     para.style.display = "none";
   };
 
-  // delete the last paragraph
+  /**
+   * @summary Delete the last paragraph.
+   * <p>Callback function {@link del invoked} when a paragraph element is double clicked. </p>
+   * <p>The dblclick event fires when a pointing device button
+   * (such as a mouse's primary button) is double-clicked;
+   * that is, when it's rapidly clicked twice on a single element
+   * within a very short span of time.</p>
+   * @event dblclick
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/dblclick_event GlobalEventHandlers: dblclick}
+   */
   element.ondblclick = function () {
     del(element.lastChild.id);
   };
 
+  /**
+   * @summary Make all &lt;divp&gt; paragraph {@link getDescendants children}
+   * visible again when CTRL+ESC is pressed.
+   * <p>The keydown event is fired when a key is pressed.</p
+   * @event keydown
+   * @param {KeyboardEvent} event keyboard event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
+   */
   window.onkeydown = function (event) {
     if (event.ctrlKey && event.key === "Escape") {
-      var div = document.getElementById(divp);
-      // make all divp's paragraph children visible again.
+      const div = document.getElementById(divp);
       getDescendants(div)["element node"].forEach((elem) => {
         if (elem.tagName.toLowerCase() === "p") {
           if (elem.style.display == "none") {
@@ -211,5 +235,5 @@ function createNodes(divp) {
 document.writeln(
   "<br />A new <span style='color: red'>Node</span> will be created... \
   <br />each time the button is clicked, \
-  <br />to hold the spliced output."
+  <br />to hold the spliced output.",
 );
