@@ -161,7 +161,7 @@ function DOMTreeToString(currentElement, depth = 1) {
  */
 function printDOMTree(domElement, destinationWindow) {
   // Use destination window to print the tree.
-  const outputWindow = destinationWindow;
+  let outputWindow = destinationWindow;
 
   if (!outputWindow)
     outputWindow = window.open(

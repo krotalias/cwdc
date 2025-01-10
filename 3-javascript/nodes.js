@@ -183,7 +183,8 @@ function createNodes(divp) {
 
   /**
    * @summary Hide the clicked paragraph.
-   * <p>Callback function {@link createNodes invoked} when the "Try it" button is clicked. </p>
+   * <p>Callback function {@link https://developer.mozilla.org/en-US/docs/Web/CSS/display invoked}
+   * when a paragraph &lt;p&gt; element is clicked. </p>
    * <p>The click event is fired when a point-device button is pressed, a touch gesture is performed or
    * a user interaction that is equivalent to a click is performed by pressing a key (Enter or Space).</p>
    * Change the display property to "none" to make the shape disappear and
