@@ -65,7 +65,7 @@ function traverseDOMTree(targetDocument, currentElement, depth = 1) {
 
     // Traverse the tree
     let i = 0;
-    const currentElementChild = currentElement.childNodes[i];
+    let currentElementChild = currentElement.childNodes[i];
 
     while (currentElementChild) {
       // Formatting code (indent the tree so it looks nice on the screen)
@@ -104,9 +104,9 @@ function traverseDOMTree(targetDocument, currentElement, depth = 1) {
  * @return {String} DOM tree as a string.
  */
 function DOMTreeToString(currentElement, depth = 1) {
+  let domStr = "";
   if (currentElement) {
     const tagName = currentElement.tagName;
-    const domStr = "";
 
     // Prints the node tagName, such as <A>, <IMG>, etc
     if (tagName) {
@@ -121,7 +121,7 @@ function DOMTreeToString(currentElement, depth = 1) {
 
     // Traverse the tree
     let i = 0;
-    const currentElementChild = currentElement.childNodes[i];
+    let currentElementChild = currentElement.childNodes[i];
 
     while (currentElementChild) {
       // Formatting code (indent the tree so it looks nice on the screen)
