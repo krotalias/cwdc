@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -16,14 +16,14 @@
         <script type="text/javascript">
             const magicWord = "abracadabra";
             document.getElementById("checkMagicWord").onclick = function () {
-                var magicWordEntered =
+                const magicWordEntered =
                     document.getElementById("magicWord").value;
 
                 // Conditional (ternary) operator
                 alert(
                     magicWordEntered == magicWord
                         ? "You got it!"
-                        : "Nope, try again!"
+                        : "Nope, try again!",
                 );
             };
 

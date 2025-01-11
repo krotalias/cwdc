@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -19,9 +19,15 @@
 
                 document.getElementById("text").innerHTML = textEntered;
 
-                // Hoisting is JavaScript's default behavior of moving all declarations to the top of the current scope
-                // (to the top of the current script or the current function).
-                var textEntered; // In JavaScript, a variable can be declared after it has been used.
+                /*
+                 * Hoisting is JavaScript's default behavior of moving all declarations
+                 * to the top of the current scope
+                 * (to the top of the current script or the current function).
+                 * In JavaScript, a variable can be declared after it has been used.
+                 *
+                 * The use of var is deprecated in modern JavaScript. Use let or const instead.
+                 */
+                var textEntered;
             };
         </script>
     </body>

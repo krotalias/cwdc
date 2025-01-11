@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -10,9 +10,9 @@
         <div id="tweetDiv"></div>
 
         <script type="text/javascript">
-            var tweetString = "";
+            let tweetString = "";
 
-            var tweets = [
+            const tweets = [
                 "Minha terra",
                 "tem palmeiras,",
                 "Onde canta o sábia; :)",
@@ -21,12 +21,12 @@
             ];
 
             tweetString += "<h1>Traverse backward</h1>";
-            for (var i = tweets.length - 1; i >= 0; i--) {
+            for (let i = tweets.length - 1; i >= 0; i--) {
                 tweetString += `<p> ${tweets[i]} </p>`;
             }
 
             tweetString += "<h1>Traverse forward</h1>";
-            for (let tweet of tweets) {
+            for (const tweet of tweets) {
                 tweetString += `<p> ${tweet} </p>`;
             }
 

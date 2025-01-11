@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -22,11 +22,11 @@
 
         <script type="text/javascript">
             document.getElementById("checkGuess").onclick = function () {
-                var len = Number(document.getElementById("guess").max) + 1;
-                var randomNumber = Math.floor(len * Math.random());
-                let res =
+                const len = Number(document.getElementById("guess").max) + 1;
+                const randomNumber = Math.floor(len * Math.random());
+                const res =
                     document.getElementById("guess").value == randomNumber;
-                let answer = [
+                const answer = [
                     `Nope! The number was ${randomNumber}`,
                     "Well done! You got it!",
                 ];
