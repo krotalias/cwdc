@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <title>Bejeweled</title>
@@ -134,13 +134,12 @@
         <script type="module">
             import { gameLoop, mainGame } from "./cmd-game.js";
 
-            var getUrlParameter = function getUrlParameter(sParam) {
-                var sPageURL = window.location.search.substring(1),
-                    sURLVariables = sPageURL.split("&"),
-                    sParameterName,
-                    i;
+            const getUrlParameter = function getUrlParameter(sParam) {
+                const sPageURL = window.location.search.substring(1);
+                const sURLVariables = sPageURL.split("&");
+                let sParameterName;
 
-                for (i = 0; i < sURLVariables.length; i++) {
+                for (let i = 0; i < sURLVariables.length; i++) {
                     sParameterName = sURLVariables[i].split("=");
 
                     if (sParameterName[0] === sParam) {
@@ -152,33 +151,33 @@
                 return false;
             };
 
-            let width = getUrlParameter("width");
-            let height = getUrlParameter("height");
-            let d = getUrlParameter("debug");
+            const width = getUrlParameter("width");
+            const height = getUrlParameter("height");
+            const d = getUrlParameter("debug");
 
             if (width && height) {
                 document.documentElement.style.setProperty("--nrow", height);
                 document.documentElement.style.setProperty("--ncol", width);
             }
 
-            let nrow = getComputedStyle(
-                document.documentElement
+            const nrow = getComputedStyle(
+                document.documentElement,
             ).getPropertyValue("--nrow");
-            let ncol = getComputedStyle(
-                document.documentElement
+            const ncol = getComputedStyle(
+                document.documentElement,
             ).getPropertyValue("--ncol");
-            let nico = getComputedStyle(
-                document.documentElement
+            const nico = getComputedStyle(
+                document.documentElement,
             ).getPropertyValue("--nico");
             document.getElementById("x").max = ncol - 1;
             document.getElementById("y").max = nrow - 1;
-            var game = mainGame(nrow, ncol, nico, d);
+            const game = mainGame(nrow, ncol, nico, d);
             document.getElementById("play").onclick = function () {
                 gameLoop(game);
             };
         </script>
 
-        <script src="../../mainPage/LCG.js"></script>
+        <script src="/cwdc/mainPage/LCG.js"></script>
 
         <script>
             dragAndSave(".container");

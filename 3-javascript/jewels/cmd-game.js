@@ -29,7 +29,7 @@
  */
 import { GameImpl } from "./GameImpl.js";
 import { BasicGenerator } from "./BasicGenerator.js";
-import { cell } from "./Cell.js";
+import { Cell } from "./Cell.js";
 
 /** Display the board and the score.
  *
@@ -67,16 +67,15 @@ function message(message) {
  *  @param {boolean} move movement.
  */
 export function gameLoop(game, i, j, pos) {
-  let w = game.getWidth();
-  let h = game.getHeight();
+  const w = game.getWidth();
+  const h = game.getHeight();
 
   displayBoard(game);
 
   if (typeof document !== "undefined") {
-    var bform = document.forms["bejeweled"];
-    var i = document.getElementById("y").value; // row
-    var j = document.getElementById("x").value; // column
-    var pos = document.getElementById("move").value;
+    i = document.getElementById("y").value; // row
+    j = document.getElementById("x").value; // column
+    pos = document.getElementById("move").value;
   }
   let k = 0;
   let l = 0;
@@ -102,9 +101,9 @@ export function gameLoop(game, i, j, pos) {
   if (
     game.select(
       new Array(
-        new cell(i, j, game.getIcon(i, j)),
-        new cell(k, l, game.getIcon(k, l))
-      )
+        new Cell(i, j, game.getIcon(i, j)),
+        new Cell(k, l, game.getIcon(k, l)),
+      ),
     )
   ) {
     do {
@@ -131,7 +130,7 @@ export function gameLoop(game, i, j, pos) {
  *  @return {GameImpl} the object game.
  */
 export function mainGame(nrows, ncols, nicons, debug) {
-  let gen = new BasicGenerator(nicons); // nicons different types
+  const gen = new BasicGenerator(nicons); // nicons different types
   const game = new GameImpl(ncols, nrows, gen);
   game.setDebug(debug);
   displayBoard(game);

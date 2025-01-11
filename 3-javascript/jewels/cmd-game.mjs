@@ -17,21 +17,18 @@ import * as readlineSync from "readline-sync";
 
 import * as jewel from "./cmd-game.js";
 
-var nrow,
-    ncol,
-    nico,
-    d,
-    argv = process.argv;
+let nrow, ncol, nico, d;
+const argv = process.argv;
 if (argv.length > 2) {
-    nrow = argv[2] || 8;
-    ncol = argv[3] || 8;
-    nico = argv[4] || 7;
-    d = argv[5] || false;
+  nrow = argv[2] || 8;
+  ncol = argv[3] || 8;
+  nico = argv[4] || 7;
+  d = argv[5] || false;
 } else {
-    nrow = readlineSync.question("Board height? ") || 8;
-    ncol = readlineSync.question("Board length? ") || 8;
-    nico = readlineSync.question("Number of icons? ") || 7;
-    d = readlineSync.question("Debug? ") || false;
+  nrow = readlineSync.question("Board height? ") || 8;
+  ncol = readlineSync.question("Board length? ") || 8;
+  nico = readlineSync.question("Number of icons? ") || 7;
+  d = readlineSync.question("Debug? ") || false;
 }
 
 console.log(`Board height: ${nrow}`);
@@ -39,13 +36,13 @@ console.log(`Board length: ${ncol}`);
 console.log(`Number of Icons: ${nico}`);
 console.log(`Debugging: ${d}`);
 
-var game = jewel.mainGame(nrow, ncol, nico, d);
+const game = jewel.mainGame(nrow, ncol, nico, d);
 while (true) {
-    var i = readlineSync.question("row: "); // row
-    var j = readlineSync.question("col: "); // column
-    var pos = readlineSync.question("move (up, down, right, left): "); // movement
-    i = Math.min(Math.max(0, parseInt(i)), nrow - 1);
-    j = Math.min(Math.max(0, parseInt(j)), ncol - 1);
-    console.log(i, j, pos);
-    jewel.gameLoop(game, i, j, pos);
+  let i = readlineSync.question("row: "); // row
+  let j = readlineSync.question("col: "); // column
+  const pos = readlineSync.question("move (up, down, right, left): "); // movement
+  i = Math.min(Math.max(0, parseInt(i)), nrow - 1);
+  j = Math.min(Math.max(0, parseInt(j)), ncol - 1);
+  console.log(i, j, pos);
+  jewel.gameLoop(game, i, j, pos);
 }
