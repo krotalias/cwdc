@@ -1,6 +1,6 @@
 jsdoc -d doc-pack pack_circles.js
 jsdoc -d doc-reaction reaction_tester.js
-jsdoc -d doc-jewels ./jewels 
+jsdoc -a all -d doc-jewels ./jewels 
 jsdoc -c jsdoc.conf.json
 jsdoc -d doc-gcd bigint/gcd.js
 jsdoc -c jsdoc.conf -d doc-factorize bigint/gcd.js bigint/factorize.js bigint/bitset.mjs bigint/factors.js cookies/cookies.mjs

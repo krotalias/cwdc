@@ -37,6 +37,7 @@ export class BasicGenerator extends IGenerator {
     super();
     /**
      * Number of different jewel types.
+     * @private
      * @type {Number}
      */
     this.#numtypes = numtypes;
@@ -71,7 +72,7 @@ export class BasicGenerator extends IGenerator {
     let pattern = false;
     let icon1 = 0;
     let icon2 = 1;
-    for (var i = 0; i < grid.length; i++) {
+    for (let i = 0; i < grid.length; i++) {
       pattern = !pattern;
 
       // this pattern locks the game!
@@ -84,7 +85,7 @@ export class BasicGenerator extends IGenerator {
         if (icon1 == icon2) icon2 = (icon1 + 1) % n;
       }
 
-      for (var j = 0; j < grid[0].length; j++) {
+      for (let j = 0; j < grid[0].length; j++) {
         if (!randIcons) {
           grid[i][j] = new BasicIcon(pattern ? icon1 : icon2);
         } else {

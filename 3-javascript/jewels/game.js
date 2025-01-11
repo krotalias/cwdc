@@ -12,7 +12,7 @@
  */
 
 import { GameImpl } from "./GameImpl.js";
-import { cell } from "./Cell.js";
+import { Cell } from "./Cell.js";
 import { BasicGenerator } from "./BasicGenerator.js";
 
 /**
@@ -41,7 +41,7 @@ const img = [
 
 /**
  * The matrix of icons.
- * @type {Array<Array<cell>>}
+ * @type {Array<Array<Cell>>}
  */
 const grid = [];
 
@@ -83,7 +83,7 @@ let clicked = false;
 
 /**
  * List of cells for keeping track of icon movements.
- * @type {Array<cell>}
+ * @type {Array<Cell>}
  */
 let cells = [];
 
@@ -98,7 +98,7 @@ function createSquare(i, j) {
   const image = img[game.getIcon(i, j).getType() % img.length];
 
   // create the cell in this position
-  grid[i][j] = new cell(i, j, game.getIcon(i, j));
+  grid[i][j] = new Cell(i, j, game.getIcon(i, j));
 
   /** create the element to represent the icon and apply some styles */
   const symbol = document.createElement("div");
@@ -116,11 +116,11 @@ function createSquare(i, j) {
     row = row / 50;
 
     if (!clicked) {
-      let _cell = new cell(i, col, game.getIcon(row, col));
+      let _cell = new Cell(i, col, game.getIcon(row, col));
       cells = [_cell];
       clicked = true;
     } else {
-      let _cell = new cell(i, col, game.getIcon(row, col));
+      let _cell = new Cell(i, col, game.getIcon(row, col));
       swap(cells[0], _cell);
       cells = [];
       clicked = false;
@@ -194,7 +194,7 @@ function cellPos(cell) {
 /**
  * Clear cells in a given list.
  * @async
- * @param {Array<cell>} list array of cells.
+ * @param {Array<Cell>} list array of cells.
  */
 async function destroy(changed) {
   const c = bg.childNodes;
@@ -208,7 +208,7 @@ async function destroy(changed) {
 }
 
 /** Drop a list of cells.
- *  @param {Array<cell>} changed list of cells.
+ *  @param {Array<Cell>} changed list of cells.
  */
 function drop(changed) {
   const c = bg.childNodes;
@@ -233,7 +233,7 @@ function drop(changed) {
 /**
  * Fill the grid based on a given list of cells.
  * @async
- * @param {Array<cell>} changed list of cells.
+ * @param {Array<Cell>} changed list of cells.
  */
 async function fill(changed) {
   const c = bg.childNodes;

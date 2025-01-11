@@ -25,17 +25,18 @@ export class BasicIcon extends Icon {
 
     /**
      * Type of this icon.
+     * @private
      * @type {Number}
      */
-    this.__type = type;
+    this._type = type;
   }
 
-  /** Returns the type of this icon.
-   *
-   *  @return {Number} type of this icon.
+  /**
+   * Returns the type of this icon.
+   * @return {Number} type of this icon.
    */
   getType() {
-    return this.__type;
+    return this._type;
   }
 
   /** Return whether two icons have the same type.
@@ -44,11 +45,11 @@ export class BasicIcon extends Icon {
    *  @return {Boolean} true it the types are the same.
    */
   equal(obj) {
-    if (obj == null || this.__type == null || typeof this != typeof obj) {
+    if (obj == null || this._type == null || typeof this != typeof obj) {
       return false;
     }
 
-    return this.__type == obj.__type;
+    return this._type == obj._type;
   }
 
   /** Return a string representaion of this icon.
@@ -56,6 +57,6 @@ export class BasicIcon extends Icon {
    *  @return {String} this icon representation.
    */
   repr() {
-    return self.__type.toString();
+    return this._type.toString();
   }
 }

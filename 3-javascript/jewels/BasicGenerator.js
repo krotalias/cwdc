@@ -35,9 +35,10 @@ export class BasicGenerator extends IGenerator {
     super();
     /**
      * Number of different jewel types.
+     * @private
      * @type {Number}
      */
-    this.__numtypes = numtypes;
+    this._numtypes = numtypes;
   }
 
   /** Return the number of jewel types.
@@ -45,7 +46,7 @@ export class BasicGenerator extends IGenerator {
    *  @return {Number} number of different jewels.
    */
   getJewelTypes() {
-    return this.__numtypes;
+    return this._numtypes;
   }
 
   /** Returns a randow icon.
@@ -53,7 +54,7 @@ export class BasicGenerator extends IGenerator {
    *  @return {Icon} random icon.
    */
   generate() {
-    return new BasicIcon(Math.floor(Math.random() * this.__numtypes));
+    return new BasicIcon(Math.floor(Math.random() * this._numtypes));
   }
 
   /** Initializes a given 2D array of Icons with new values.

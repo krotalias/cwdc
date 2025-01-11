@@ -18,98 +18,102 @@ import { Icon } from "./Icon.js";
  *  Optionally, it is possible to record a previous
  *  row for the icon.
  */
-export class cell {
+export class Cell {
   /** Constructs a Cell with the given row, column, and Icon.
    *  The previous row is the same as the given row.
    *
-   *  @param {Number} row row for this cell.
-   *  @param {Number} col column for this cell.
-   *  @param {Icon} icon the Icon in this cell.
+   *  @param {Number} row row for this Cell.
+   *  @param {Number} col column for this Cell.
+   *  @param {Icon} icon the Icon in this Cell.
    */
   constructor(row, col, icon) {
     /**
-     * Row for this cell.
+     * Row for this Cell.
+     * @private
      * @type {Number}
      */
-    this.__row = row;
+    this._row = row;
 
     /**
-     * Column for this cell.
+     * Column for this Cell.
+     * @private
      * @type {Number}
      */
-    this.__col = col;
+    this._col = col;
 
     /**
-     * Icon in this cell.
+     * Icon in this Cell.
+     * @private
      * @type {Icon}
      */
-    this.__icon = icon;
+    this._icon = icon;
 
     /**
-     * Previous row for this cell, if applicable.
+     * Previous row for this Cell, if applicable.
+     * @private
      * @type {Number}
      */
-    this.__previousRow = row;
+    this._previousRow = row;
   }
 
-  /** Returns the previous row for this cell.
-   *  @return {Number}
-   *    previous row for this cell
+  /**
+   * Returns the previous row for this Cell.
+   * @return {Number} previous row for this Cell
    */
   getPreviousRow() {
-    return this.__previousRow;
+    return this._previousRow;
   }
 
-  /** Sets the previous row for this cell.
-   *  @param {Number} row
-   *    previous row for this cell
+  /**
+   * Sets the previous row for this Cell.
+   * @param {Number} row previous row for this Cell
    */
   previousRow(row) {
-    this.__previousRow = row;
+    this._previousRow = row;
   }
 
-  /** Returns the Icon in this cell.
-   *  @return {Number}
-   *    the Icon in this cell
+  /**
+   * Returns the Icon in this Cell.
+   * @return {Number} the Icon in this Cell.
    */
   getIcon() {
-    return this.__icon;
+    return this._icon;
   }
 
-  /** Returns the row of this cell
-   *  @return {Number}
-   *    row of this cell
+  /**
+   * Returns the row of this Cell
+   * @return {Number} row of this Cell.
    */
   row() {
-    return this.__row;
+    return this._row;
   }
 
-  /** Returns the column of this cell
-   *  @return {Number}
-   *    column of this cell
+  /**
+   * Returns the column of this Cell
+   * @return {Number} column of this Cell.
    */
   col() {
-    return this.__col;
+    return this._col;
   }
 
-  /** Determines whether this cell has the same position
-   *  as a given cell.
-   *  @param {cell} other
-   *    the cell to compare with this one
-   *  @return {Boolean}
-   *    True if the given cell has the same row and column
+  /**
+   * Determines whether this Cell has the same position
+   * as a given Cell.
+   * @param {Cell} other the Cell to compare with this one
+   * @return {Boolean}
+   *    True if the given Cell has the same row and column
    *    as this one
    */
   samePosition(other) {
-    return this.__row == other.__row && this.__col == other.__col;
+    return this._row == other._row && this._col == other._col;
   }
 
-  /** Determines whether this cell is adjacent by row or column
-   * to a given cell.
-   * @param {cell} other
-   *   the cell to test with this one.
+  /**
+   * Determines whether this Cell is adjacent by row or column
+   * to a given Cell.
+   * @param {Cell} other the Cell to test with this one.
    * @return {Boolean}
-   *   True if the given cell is adjacent to this one.
+   *   True if the given Cell is adjacent to this one.
    */
   isAdjacent(other) {
     return (
@@ -122,7 +126,7 @@ export class cell {
    *
    *  @param {Number} w right limit.
    *  @param {Number} h bottom limit.
-   *  @return {Boolean} true if cell is in grid.
+   *  @return {Boolean} true if Cell is in grid.
    */
   inGrid(w, h) {
     return (
@@ -130,10 +134,10 @@ export class cell {
     );
   }
 
-  /** Return whether two cells have the same content.
+  /** Return whether two Cells have the same content.
    *
-   *  @param {cell} other cell to test with this one.
-   *  @return {Boolean} True if this cell is at the same position
+   *  @param {Cell} other Cell to test with this one.
+   *  @return {Boolean} True if this Cell is at the same position
    *          and has the same icon type of other.
    */
   equal(other) {
@@ -149,7 +153,7 @@ export class cell {
    * [(row, column) icon (previous row)]
    * </pre>
    * otherwise.
-   * @return {String} this cell representation.
+   * @return {String} this Cell representation.
    */
   toString() {
     const icon =

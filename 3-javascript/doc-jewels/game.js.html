@@ -40,7 +40,7 @@
  */
 
 import { GameImpl } from "./GameImpl.js";
-import { cell } from "./Cell.js";
+import { Cell } from "./Cell.js";
 import { BasicGenerator } from "./BasicGenerator.js";
 
 /**
@@ -69,7 +69,7 @@ const img = [
 
 /**
  * The matrix of icons.
- * @type {Array&lt;Array&lt;cell>>}
+ * @type {Array&lt;Array&lt;Cell>>}
  */
 const grid = [];
 
@@ -111,7 +111,7 @@ let clicked = false;
 
 /**
  * List of cells for keeping track of icon movements.
- * @type {Array&lt;cell>}
+ * @type {Array&lt;Cell>}
  */
 let cells = [];
 
@@ -126,7 +126,7 @@ function createSquare(i, j) {
   const image = img[game.getIcon(i, j).getType() % img.length];
 
   // create the cell in this position
-  grid[i][j] = new cell(i, j, game.getIcon(i, j));
+  grid[i][j] = new Cell(i, j, game.getIcon(i, j));
 
   /** create the element to represent the icon and apply some styles */
   const symbol = document.createElement("div");
@@ -144,11 +144,11 @@ function createSquare(i, j) {
     row = row / 50;
 
     if (!clicked) {
-      let _cell = new cell(i, col, game.getIcon(row, col));
+      let _cell = new Cell(i, col, game.getIcon(row, col));
       cells = [_cell];
       clicked = true;
     } else {
-      let _cell = new cell(i, col, game.getIcon(row, col));
+      let _cell = new Cell(i, col, game.getIcon(row, col));
       swap(cells[0], _cell);
       cells = [];
       clicked = false;
@@ -222,7 +222,7 @@ function cellPos(cell) {
 /**
  * Clear cells in a given list.
  * @async
- * @param {Array&lt;cell>} list array of cells.
+ * @param {Array&lt;Cell>} list array of cells.
  */
 async function destroy(changed) {
   const c = bg.childNodes;
@@ -236,7 +236,7 @@ async function destroy(changed) {
 }
 
 /** Drop a list of cells.
- *  @param {Array&lt;cell>} changed list of cells.
+ *  @param {Array&lt;Cell>} changed list of cells.
  */
 function drop(changed) {
   const c = bg.childNodes;
@@ -261,7 +261,7 @@ function drop(changed) {
 /**
  * Fill the grid based on a given list of cells.
  * @async
- * @param {Array&lt;cell>} changed list of cells.
+ * @param {Array&lt;Cell>} changed list of cells.
  */
 async function fill(changed) {
   const c = bg.childNodes;
@@ -541,13 +541,13 @@ addEventListener("load", (event) => gamePanel());
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicGenerator.html">BasicGenerator</a></li><li><a href="BasicIcon.html">BasicIcon</a></li><li><a href="GameImpl.html">GameImpl</a></li><li><a href="cell.html">cell</a></li></ul><h3>Interfaces</h3><ul><li><a href="IGame.html">IGame</a></li><li><a href="IGenerator.html">IGenerator</a></li><li><a href="Icon.html">Icon</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickIcon">clickIcon</a></li><li><a href="global.html#event:clickReset">clickReset</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cellPos">cellPos</a></li><li><a href="global.html#cells">cells</a></li><li><a href="global.html#clicked">clicked</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createSquare">createSquare</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#displayBoard">displayBoard</a></li><li><a href="global.html#drop">drop</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#game">game</a></li><li><a href="global.html#gameLoop">gameLoop</a></li><li><a href="global.html#gamePanel">gamePanel</a></li><li><a href="global.html#gen">gen</a></li><li><a href="global.html#getUrlParameter">getUrlParameter</a></li><li><a href="global.html#grid">grid</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#img">img</a></li><li><a href="global.html#mainGame">mainGame</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#move_swp">move_swp</a></li><li><a href="global.html#nico">nico</a></li><li><a href="global.html#refresh">refresh</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#swap">swap</a></li><li><a href="global.html#swap_pos">swap_pos</a></li><li><a href="global.html#width">width</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicGenerator.html">BasicGenerator</a></li><li><a href="BasicIcon.html">BasicIcon</a></li><li><a href="Cell.html">Cell</a></li><li><a href="GameImpl.html">GameImpl</a></li></ul><h3>Interfaces</h3><ul><li><a href="IGame.html">IGame</a></li><li><a href="IGenerator.html">IGenerator</a></li><li><a href="Icon.html">Icon</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickIcon">clickIcon</a></li><li><a href="global.html#event:clickReset">clickReset</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cellPos">cellPos</a></li><li><a href="global.html#cells">cells</a></li><li><a href="global.html#clicked">clicked</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createSquare">createSquare</a></li><li><a href="global.html#destroy">destroy</a></li><li><a href="global.html#displayBoard">displayBoard</a></li><li><a href="global.html#drop">drop</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#game">game</a></li><li><a href="global.html#gameLoop">gameLoop</a></li><li><a href="global.html#gamePanel">gamePanel</a></li><li><a href="global.html#gen">gen</a></li><li><a href="global.html#getUrlParameter">getUrlParameter</a></li><li><a href="global.html#grid">grid</a></li><li><a href="global.html#height">height</a></li><li><a href="global.html#img">img</a></li><li><a href="global.html#mainGame">mainGame</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#move_swp">move_swp</a></li><li><a href="global.html#nico">nico</a></li><li><a href="global.html#refresh">refresh</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#sleep">sleep</a></li><li><a href="global.html#swap">swap</a></li><li><a href="global.html#swap_pos">swap_pos</a></li><li><a href="global.html#width">width</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Jan 09 2025 10:45:01 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat Jan 11 2025 07:37:44 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

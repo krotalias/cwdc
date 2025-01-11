@@ -10,8 +10,9 @@
 
 import { Icon } from "./Icon.js";
 
-/** Basic implementation of the Icon interface.
- *
+/**
+ * Basic implementation of the {@link Icon} interface.
+ * @implements {Icon}
  */
 export class BasicIcon extends Icon {
   #type;
@@ -26,14 +27,15 @@ export class BasicIcon extends Icon {
 
     /**
      * Type of this icon.
+     * @private
      * @type {Number}
      */
     this.#type = type;
   }
 
-  /** Returns the type of this icon.
-   *
-   *  @return {Number} type of this icon.
+  /**
+   * Returns the type of this icon.
+   * @return {Number} type of this icon.
    */
   getType() {
     return this.#type;
@@ -57,6 +59,6 @@ export class BasicIcon extends Icon {
    *  @return {String} this icon representation.
    */
   repr() {
-    return self.#type.toString();
+    return this.#type.toString();
   }
 }
