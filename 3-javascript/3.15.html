@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -17,14 +17,14 @@
         <div id="shape"></div>
 
         <script type="text/javascript">
-            var start = new Date().getTime();
+            let start = new Date().getTime();
 
             function getRandomColor() {
-                var letters = "0123456789ABCDEF".split("");
+                const letters = "0123456789ABCDEF".split("");
 
-                var color = "#";
+                let color = "#";
 
-                for (var i = 0; i < 6; i++) {
+                for (let i = 0; i < 6; i++) {
                     color +=
                         letters[Math.floor(Math.random() * letters.length)];
                 }
@@ -32,9 +32,9 @@
             }
 
             function makeShapeAppear() {
-                var top = Math.random() * 400;
-                var left = Math.random() * 400;
-                var width = Math.random() * 200 + 100;
+                const top = Math.random() * 400;
+                const left = Math.random() * 400;
+                const width = Math.random() * 200 + 100;
 
                 if (Math.random() > 0.5) {
                     document.getElementById("shape").style.borderRadius = "50%";
@@ -53,11 +53,11 @@
             }
 
             /**
-             *   The window object allows execution of code at specified time intervals.
+             * The window object allows execution of code at specified time intervals.
              *
-             *   The window.setTimeout() method can be written without the window prefix.
-             *   The first parameter is a function to be executed.
-             *   The second parameter indicates the number of milliseconds before execution.
+             * The window.setTimeout() method can be written without the window prefix.
+             * The first parameter is a function to be executed.
+             * The second parameter indicates the number of milliseconds before execution.
              */
             function appearAfterDelay() {
                 setTimeout(makeShapeAppear, Math.random() * 2000);
@@ -68,9 +68,9 @@
             document.getElementById("shape").onclick = function () {
                 document.getElementById("shape").style.display = "none";
 
-                var end = new Date().getTime();
+                const end = new Date().getTime();
 
-                var timeTaken = (end - start) / 1000;
+                const timeTaken = (end - start) / 1000;
 
                 document.getElementById("timeTaken").innerHTML =
                     timeTaken + "s";

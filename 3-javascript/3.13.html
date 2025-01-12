@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -46,16 +46,16 @@
                 validateRoman,
             } from "./roman/roman.js";
 
-            let blink = document.getElementById("answer");
-            let decimal = document.getElementById("decimal");
-            let roman = document.getElementById("roman");
+            const blink = document.getElementById("answer");
+            const decimal = document.getElementById("decimal");
+            const roman = document.getElementById("roman");
             document.getElementById("decimalButton").onclick = function () {
-                let r = int2roman(decimal.value);
+                const r = int2roman(decimal.value);
                 blink.innerHTML = r;
                 roman.value = r;
             };
             document.getElementById("romanButton").onclick = function () {
-                let val = validateRoman(roman.value);
+                const val = validateRoman(roman.value);
                 let d;
                 if (val.length > 0) {
                     d = `Exception ${val} : Invalid roman "${roman.value}"`;

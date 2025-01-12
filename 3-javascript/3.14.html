@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -24,17 +24,17 @@
 
         <script type="text/javascript">
             document.getElementById("guess").onclick = function () {
-                var myNumber = document.getElementById("myNumber").value;
+                const myNumber = document.getElementById("myNumber").value;
 
                 // this is a closure.
-                var incrGuesses = (() => {
+                const incrGuesses = (() => {
                     let i = 1; // plays the role of an static variable.
                     return () => i++;
                 })();
 
                 function doAGuess(correctAnswer) {
-                    var len = document.getElementById("myNumber").length;
-                    var guess = Math.floor(len * Math.random());
+                    const len = document.getElementById("myNumber").length;
+                    const guess = Math.floor(len * Math.random());
                     incrGuesses();
                     return guess == correctAnswer;
                 }
@@ -44,7 +44,7 @@
                 alert(
                     `Got it! It was a ${myNumber}. It took me ${
                         incrGuesses() - 1
-                    } guesses.`
+                    } guesses.`,
                 );
             };
         </script>

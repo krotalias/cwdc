@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -30,18 +30,16 @@
             };
 
             document.getElementById("secondButton").onclick = function () {
-                let secondParagraph =
+                const secondParagraph =
                     document.getElementById("secondParagraph").innerHTML;
-                document.getElementById(
-                    "secondParagraph"
-                ).innerHTML = `I think ${secondParagraph} awesome!`;
+                document.getElementById("secondParagraph").innerHTML =
+                    `I think ${secondParagraph} awesome!`;
             };
 
             document.getElementById("createParagraph").onclick = function () {
-                let url = "https://wesbos.com/template-strings-html";
-                document.getElementById(
-                    "emptyParagraph"
-                ).innerHTML = `<h1><a href=${url}>JS Template String</a></h1>`;
+                const url = "https://wesbos.com/template-strings-html";
+                document.getElementById("emptyParagraph").innerHTML =
+                    `<h1><a href=${url}>JS Template String</a></h1>`;
             };
 
             document.getElementById("styleText").onclick = function () {

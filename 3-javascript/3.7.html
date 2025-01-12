@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -27,35 +27,25 @@
 
     <body>
         <div class="circle" id="red-circle"></div>
-
         <div class="circle" id="blue-circle"></div>
-
         <div class="circle" id="yellow-circle"></div>
 
         <script type="text/javascript">
-            document.getElementById("red-circle").onclick = function () {
-                document.getElementById("red-circle").style.display = "none";
-            };
+            for (const circle of document.querySelectorAll(".circle")) {
+                // make c invisible on click.
+                circle.onclick = function () {
+                    circle.style.display = "none";
+                };
 
-            document.getElementById("yellow-circle").onclick = function () {
-                document.getElementById("yellow-circle").style.display = "none";
-            };
-
-            document.getElementById("blue-circle").onclick = function () {
-                document.getElementById("blue-circle").style.display = "none";
-            };
-
-            // make all circles visible again.
-            ondblclick = (event) => {
-                document.getElementById("red-circle").style.display = "block";
-                document.getElementById("yellow-circle").style.display =
-                    "block";
-                document.getElementById("blue-circle").style.display = "block";
-            };
+                // make c visible again on double click.
+                window.addEventListener("dblclick", (event) => {
+                    circle.style.display = "block";
+                });
+            }
 
             window.onkeydown = (event) => {
                 if (event.ctrlKey && event.key === "Escape") {
-                    ondblclick(event);
+                    window.dispatchEvent(new Event("dblclick"));
                 }
             };
         </script>

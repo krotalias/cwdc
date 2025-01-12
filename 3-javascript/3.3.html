@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -11,20 +11,24 @@
 
         <script type="text/javascript">
             // This is a one line comment
+            // Strict mode makes it impossible to accidentally create global variables.
+            "use strict";
 
             /*
-             *  This is a multi-line comment!
+             * This is a multi-line comment!
+             * It is used to explain things in more detail.
              *
-             *   https://www.johndcook.com/blog/2020/11/18/smallest-n-with-h-divisors/
+             * To invoke strict mode for an entire script,
+             * put the exact statement "use strict";
+             * (or 'use strict';) before any other statements.
              */
 
-            let url =
+            const url =
                 "https://medium.com/trainingcenter/entendendo-promises-de-uma-vez-por-todas-32442ec725c2";
-            let url2 =
+            const url2 =
                 "https://www.i-programmer.info/programming/javascript/1441-javascript-data-structures-the-associative-array.html";
-            document.getElementById(
-                "text"
-            ).innerHTML = `<a title="Asynchronous Programming" href=${url}>Understanding Promises</a> <br \>
+            document.getElementById("text").innerHTML =
+                `<a title="Asynchronous Programming" href=${url}>Understanding Promises</a> <br \>
                         <a title="The Associative Array" href=${url2}>JS Data Structures</a> <br \>
                         <a title="Apache Server" href="/cwdc/downloads/cederj/AD1_2021-2.pdf#page=10">Apache Server Configuration</a>`;
         </script>

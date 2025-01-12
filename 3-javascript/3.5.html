@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8" />
@@ -26,19 +26,17 @@
             };
 
             document.getElementById("secondButton").onclick = function () {
-                let secondParagraph =
+                const secondParagraph =
                     document.getElementById("secondParagraph").innerHTML;
-                document.getElementById(
-                    "secondParagraph"
-                ).innerHTML = `I think ${secondParagraph} awesome!`;
+                document.getElementById("secondParagraph").innerHTML =
+                    `I think ${secondParagraph} awesome!`;
             };
 
             document.getElementById("createParagraph").onclick = function () {
-                let url =
+                const url =
                     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals";
-                document.getElementById(
-                    "emptyParagraph"
-                ).innerHTML = `<h1><a href=${url}>JS Template String</a></h1>`;
+                document.getElementById("emptyParagraph").innerHTML =
+                    `<h1><a href=${url}>JS Template String</a></h1>`;
             };
         </script>
     </body>
