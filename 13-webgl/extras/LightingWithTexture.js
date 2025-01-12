@@ -82,7 +82,7 @@
  * The number of edges, <i>e</i>, is simply three times the number of triangles, <i>t</i>, divided by two.</p>
  *
  * For any triangulation of a {@link https://en.wikipedia.org/wiki/Surface_(topology) compact surface},
- * the <a href="http://drhuang.com/science/mathematics/book/gtm/GTM056.Algebraic.topology..An.introduction,.Massey.W..(Springer,.1977)(ISBN.0387902716)(600dpi)(T)(282s)_MDat_.pdf#page=52">following holds</a>:
+ * the <a href="https://link.springer.com/book/9780387902715">following holds</a> (page=52):
  * <ul>
  * <li><i>2e = 3t</i>,</li>
  * <li><i>e = 3(<mark>𝑣</mark> - <a href="../doc/Eulers_Map_Theorem.pdf">χ</a>), χ(S²)=2</i>,</li>
@@ -243,10 +243,23 @@ const toRadian = glMatrix.toRadian;
 
 /**
  * Three.js module.
- * @external THREE
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}
+ * @external three
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ */
+
+/**
+ * <p>Main three.js namespace.</p>
+ * <a href="/cwdc/13-webgl/examples/three/content/doc-example/index.html">Imported</a> from {@link external:three three.module.js}
+ *
+ * @namespace THREE
  */
 
 /**
@@ -255,7 +268,7 @@ const toRadian = glMatrix.toRadian;
  * and custom attributes within buffers, reducing the cost of
  * passing all this data to the GPU.
  * @class BufferGeometry
- * @memberof external:THREE
+ * @memberof THREE
  * @see https://threejs.org/docs/#api/en/core/BufferGeometry
  */
 
@@ -566,7 +579,7 @@ let axisColorBuffer;
 /**
  * Handle to the texture object on the GPU.
  * @type {WebGLTexture}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createTexture
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createTexture createTexture() method}
  */
 let textureHandle;
 
@@ -617,7 +630,7 @@ let mercator = document.querySelector("#mercator").checked;
  * Toggle back face culling on/off.
  * @type {Boolean}
  * @see {@link https://learnopengl.com/Advanced-OpenGL/Face-culling Face culling}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/frontFace
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/frontFace frontFace() method}
  */
 let culling = true;
 
@@ -1156,60 +1169,65 @@ function zoomOut() {
 const mesh = document.getElementById("mesh");
 
 /**
+ * @summary Executed when the mesh checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the mesh checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeMeshcheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 mesh.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 
 const axes = document.getElementById("axes");
 
 /**
+ * @summary Executed when the axes checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the axes checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeAxescheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
 const equator = document.getElementById("equator");
 
 /**
+ * @summary Executed when the equator checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the equator checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeEquatorcheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 equator.addEventListener("change", (event) => handleKeyPress(createEvent("E")));
 
 const hws = document.getElementById("hws");
 
 /**
+ * @summary Executed when the hws checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the hws checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeHwscheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 hws.addEventListener("change", (event) => handleKeyPress(createEvent("Alt")));
 
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
     /**
+     * @summary Executed when the rot input radio is checked (but not when unchecked).
      * <p>Appends an event listener for events whose type attribute value is change.<br>
      * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
      * the event is dispatched.</p>
      *
-     * @event change - executed when the rot input radio is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @event changeRotInputRadio
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", function (event) {
       const item = event.target.value;
@@ -1221,12 +1239,13 @@ if (document.querySelector('input[name="rot"]')) {
 if (document.querySelector('input[name="mode"]')) {
   document.querySelectorAll('input[name="mode"]').forEach((elem) => {
     /**
+     * @summary Executed when the mode input radio is checked (but not when unchecked).
      * <p>Appends an event listener for events whose type attribute value is change.<br>
      * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
      * the event is dispatched.</p>
      *
-     * @event change - executed when the mode input radio is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @event changeModeInputRadio
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", function (event) {
       const item = event.target.value;
@@ -1238,60 +1257,65 @@ if (document.querySelector('input[name="mode"]')) {
 const fix_uv = document.getElementById("fixuv");
 
 /**
+ * @summary Executed when the fix_uv checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the fix_uv checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeFixUVcheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 fix_uv.addEventListener("change", (event) => handleKeyPress(createEvent("f")));
 
 const merc = document.getElementById("mercator");
 
 /**
+ * @summary Executed when the mercator checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the mercator checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeMercatorcheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 merc.addEventListener("change", (event) => handleKeyPress(createEvent("g")));
 
 const cull = document.getElementById("culling");
 
 /**
+ * @summary Executed when the cull checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the cull checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeCullcheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 cull.addEventListener("change", (event) => handleKeyPress(createEvent("b")));
 
 const texture = document.getElementById("texture");
 
 /**
+ * @summary Executed when the texture checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the texture checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeTexturecheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 texture.addEventListener("change", (event) => handleKeyPress(createEvent("k")));
 
 const textures = document.getElementById("textures");
 
 /**
+ * @summary Executed when the textures &lt;select&gt; is changed.
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link selectTexture} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the textures &lt;select&gt; is changed.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeTextureSelect
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 textures.addEventListener("change", (event) => {
   selectTexture();
@@ -1301,12 +1325,13 @@ textures.addEventListener("change", (event) => {
 const models = document.getElementById("models");
 
 /**
+ * Executed when the models &lt;select&gt; is changed.
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link selectModel} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the models &lt;select&gt; is changed.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeModelsSelect
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 models.addEventListener("change", (event) => selectModel());
 
@@ -1887,7 +1912,7 @@ function isPowerOf2(value) {
  * Load a new parallel and merdian into the GPU
  * corresponding to the given location.
  * @param {String} location a {@link gpsCoordinates city name}.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData bufferSubData() method}
  */
 function setPosition(location) {
   const parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
@@ -1908,10 +1933,10 @@ function setPosition(location) {
  * while {@link draw draw()} does things that have to be repeated each time the canvas is
  * redrawn.
  * @param {HTMLImageElement} image texture.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/generateMipmap
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texParameter
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL Using textures in WebGL}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/generateMipmap generateMipmap() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texParameter texParameter[fi]() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D texImage2D() method}
  * @see {@link https://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences WebGL and OpenGL Differences}
  * @see {@link https://learnopengl.com/Getting-started/Textures Textures}
  * @see {@link https://artincontext.org/shades-of-teal/ 38 Shades of Teal Color}
@@ -1930,6 +1955,7 @@ function startForReal(image) {
    * the event is dispatched.</p>
    *
    * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   window.addEventListener("keydown", (event) => {
     if (
@@ -2221,8 +2247,8 @@ const animate = (() => {
   /**
    * Callback to keep drawing frames.
    * @callback frame
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame Window: cancelAnimationFrame() method}
    */
   return () => {
     draw();

@@ -110,7 +110,7 @@
  * The number of edges, &lt;i>e&lt;/i>, is simply three times the number of triangles, &lt;i>t&lt;/i>, divided by two.&lt;/p>
  *
  * For any triangulation of a {@link https://en.wikipedia.org/wiki/Surface_(topology) compact surface},
- * the &lt;a href="http://drhuang.com/science/mathematics/book/gtm/GTM056.Algebraic.topology..An.introduction,.Massey.W..(Springer,.1977)(ISBN.0387902716)(600dpi)(T)(282s)_MDat_.pdf#page=52">following holds&lt;/a>:
+ * the &lt;a href="https://link.springer.com/book/9780387902715">following holds&lt;/a> (page=52):
  * &lt;ul>
  * &lt;li>&lt;i>2e = 3t&lt;/i>,&lt;/li>
  * &lt;li>&lt;i>e = 3(&lt;mark>𝑣&lt;/mark> - &lt;a href="../doc/Eulers_Map_Theorem.pdf">χ&lt;/a>), χ(S²)=2&lt;/i>,&lt;/li>
@@ -271,10 +271,23 @@ const toRadian = glMatrix.toRadian;
 
 /**
  * Three.js module.
- * @external THREE
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}
+ * @external three
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ */
+
+/**
+ * &lt;p>Main three.js namespace.&lt;/p>
+ * &lt;a href="/cwdc/13-webgl/examples/three/content/doc-example/index.html">Imported&lt;/a> from {@link external:three three.module.js}
+ *
+ * @namespace THREE
  */
 
 /**
@@ -283,7 +296,7 @@ const toRadian = glMatrix.toRadian;
  * and custom attributes within buffers, reducing the cost of
  * passing all this data to the GPU.
  * @class BufferGeometry
- * @memberof external:THREE
+ * @memberof THREE
  * @see https://threejs.org/docs/#api/en/core/BufferGeometry
  */
 
@@ -594,7 +607,7 @@ let axisColorBuffer;
 /**
  * Handle to the texture object on the GPU.
  * @type {WebGLTexture}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createTexture
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createTexture createTexture() method}
  */
 let textureHandle;
 
@@ -645,7 +658,7 @@ let mercator = document.querySelector("#mercator").checked;
  * Toggle back face culling on/off.
  * @type {Boolean}
  * @see {@link https://learnopengl.com/Advanced-OpenGL/Face-culling Face culling}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/frontFace
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/frontFace frontFace() method}
  */
 let culling = true;
 
@@ -1184,60 +1197,65 @@ function zoomOut() {
 const mesh = document.getElementById("mesh");
 
 /**
+ * @summary Executed when the mesh checkbox is checked or unchecked.
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the mesh checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeMeshcheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 mesh.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 
 const axes = document.getElementById("axes");
 
 /**
+ * @summary Executed when the axes checkbox is checked or unchecked.
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the axes checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeAxescheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
 const equator = document.getElementById("equator");
 
 /**
+ * @summary Executed when the equator checkbox is checked or unchecked.
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the equator checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeEquatorcheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 equator.addEventListener("change", (event) => handleKeyPress(createEvent("E")));
 
 const hws = document.getElementById("hws");
 
 /**
+ * @summary Executed when the hws checkbox is checked or unchecked.
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the hws checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeHwscheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 hws.addEventListener("change", (event) => handleKeyPress(createEvent("Alt")));
 
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
     /**
+     * @summary Executed when the rot input radio is checked (but not when unchecked).
      * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
      * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
      * the event is dispatched.&lt;/p>
      *
-     * @event change - executed when the rot input radio is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @event changeRotInputRadio
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", function (event) {
       const item = event.target.value;
@@ -1249,12 +1267,13 @@ if (document.querySelector('input[name="rot"]')) {
 if (document.querySelector('input[name="mode"]')) {
   document.querySelectorAll('input[name="mode"]').forEach((elem) => {
     /**
+     * @summary Executed when the mode input radio is checked (but not when unchecked).
      * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
      * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
      * the event is dispatched.&lt;/p>
      *
-     * @event change - executed when the mode input radio is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @event changeModeInputRadio
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", function (event) {
       const item = event.target.value;
@@ -1266,60 +1285,65 @@ if (document.querySelector('input[name="mode"]')) {
 const fix_uv = document.getElementById("fixuv");
 
 /**
+ * @summary Executed when the fix_uv checkbox is checked or unchecked.
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the fix_uv checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeFixUVcheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 fix_uv.addEventListener("change", (event) => handleKeyPress(createEvent("f")));
 
 const merc = document.getElementById("mercator");
 
 /**
+ * @summary Executed when the mercator checkbox is checked or unchecked.
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the mercator checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeMercatorcheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 merc.addEventListener("change", (event) => handleKeyPress(createEvent("g")));
 
 const cull = document.getElementById("culling");
 
 /**
+ * @summary Executed when the cull checkbox is checked or unchecked.
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the cull checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeCullcheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 cull.addEventListener("change", (event) => handleKeyPress(createEvent("b")));
 
 const texture = document.getElementById("texture");
 
 /**
+ * @summary Executed when the texture checkbox is checked or unchecked.
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the texture checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeTexturecheckBox
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 texture.addEventListener("change", (event) => handleKeyPress(createEvent("k")));
 
 const textures = document.getElementById("textures");
 
 /**
+ * @summary Executed when the textures &amp;lt;select&amp;gt; is changed.
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link selectTexture} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the textures &amp;lt;select&amp;gt; is changed.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeTextureSelect
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 textures.addEventListener("change", (event) => {
   selectTexture();
@@ -1329,12 +1353,13 @@ textures.addEventListener("change", (event) => {
 const models = document.getElementById("models");
 
 /**
+ * Executed when the models &amp;lt;select&amp;gt; is changed.
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link selectModel} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the models &amp;lt;select&amp;gt; is changed.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeModelsSelect
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 models.addEventListener("change", (event) => selectModel());
 
@@ -1915,7 +1940,7 @@ function isPowerOf2(value) {
  * Load a new parallel and merdian into the GPU
  * corresponding to the given location.
  * @param {String} location a {@link gpsCoordinates city name}.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData bufferSubData() method}
  */
 function setPosition(location) {
   const parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
@@ -1936,10 +1961,10 @@ function setPosition(location) {
  * while {@link draw draw()} does things that have to be repeated each time the canvas is
  * redrawn.
  * @param {HTMLImageElement} image texture.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/generateMipmap
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texParameter
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL Using textures in WebGL}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/generateMipmap generateMipmap() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texParameter texParameter[fi]() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D texImage2D() method}
  * @see {@link https://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences WebGL and OpenGL Differences}
  * @see {@link https://learnopengl.com/Getting-started/Textures Textures}
  * @see {@link https://artincontext.org/shades-of-teal/ 38 Shades of Teal Color}
@@ -1958,6 +1983,7 @@ function startForReal(image) {
    * the event is dispatched.&lt;/p>
    *
    * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   window.addEventListener("keydown", (event) => {
     if (
@@ -2249,8 +2275,8 @@ const animate = (() => {
   /**
    * Callback to keep drawing frames.
    * @callback frame
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame Window: cancelAnimationFrame() method}
    */
   return () => {
     draw();
@@ -2284,13 +2310,13 @@ const animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhentheaxescheckboxischeckedorunchecked.">change - executed when the axes checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthecullcheckboxischeckedorunchecked.">change - executed when the cull checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhentheequatorcheckboxischeckedorunchecked.">change - executed when the equator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthefix_uvcheckboxischeckedorunchecked.">change - executed when the fix_uv checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthehwscheckboxischeckedorunchecked.">change - executed when the hws checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemercatorcheckboxischeckedorunchecked.">change - executed when the mercator checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemeshcheckboxischeckedorunchecked.">change - executed when the mesh checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthemodeinputradioischecked(butnotwhenunchecked).">change - executed when the mode input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthemodels&lt;select&gt;ischanged.">change - executed when the models &lt;select&gt; is changed.</a></li><li><a href="global.html#event:change-executedwhentherotinputradioischecked(butnotwhenunchecked).">change - executed when the rot input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:change-executedwhenthetexturecheckboxischeckedorunchecked.">change - executed when the texture checkbox is checked or unchecked.</a></li><li><a href="global.html#event:change-executedwhenthetextures&lt;select&gt;ischanged.">change - executed when the textures &lt;select&gt; is changed.</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jul 29 2024 06:21:16 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Jan 12 2025 07:55:27 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
