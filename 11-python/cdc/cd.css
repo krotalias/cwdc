@@ -1,0 +1,33 @@
+/* base class for the three rectangles */
+.rectangle {
+    background-color: lightgrey;
+    border-style: solid;
+    border-width: 15px;
+    /* top - right, bottom, left */
+    padding: 20px 20px 20px 50px;
+    margin: 20px;
+    font-size: 100%;
+    /* same row */
+    float: left;
+    border-radius: 30%;
+}
+#greenBox {
+    width: auto;
+    border-color: green;
+}
+#blueBox {
+    width: auto;
+    border-color: blue;
+}
+#redBox {
+    width: auto;
+    height: auto;
+    border-color: red;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    margin-left: 200px;
+    clear: both;
+    text-align: center;
+    border-radius: 0.5%;
+}

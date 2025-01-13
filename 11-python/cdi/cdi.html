@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="pt" xml:lang="pt" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>CDI</title>
+        <meta charset="utf8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/webshim/1.16.0/minified/polyfiller.js"></script>
+        <style type="text/css">
+            :root {
+                --selic: 11.25;
+            }
+            .box {
+                background-color: antiquewhite;
+                box-shadow: 8px 8px 6px grey;
+                width: 350px;
+                border-style: solid;
+                border-width: 3px;
+                border-color: lightblue;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                margin-left: 2px;
+            }
+            body {
+                background-color: #f0f0f2;
+                margin: 0;
+                padding: 2em;
+                font-family: -apple-system, system-ui, BlinkMacSystemFont,
+                    "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial,
+                    sans-serif;
+            }
+            input {
+                margin: 10px 3px 10px 0px;
+                border: 1px solid grey;
+                border-radius: 5px;
+                font-size: 12px;
+                padding: 5px 5px 5px 5px;
+            }
+            label {
+                position: relative;
+                top: 12px;
+                width: 110px;
+                float: left;
+            }
+            #submitButton {
+                width: 80px;
+                margin-left: 0px;
+            }
+            .button {
+                font-size: 13px;
+                color: red;
+                background-color: #f8fad7;
+            }
+            .button:hover {
+                background-color: #fadad7;
+            }
+            #draggable {
+                cursor: n-resize;
+            }
+            #cdifieldset {
+                cursor: move;
+            }
+            input.currency {
+                text-align: left;
+                padding-right: 15px;
+            }
+            .input-group .form-control {
+                float: none;
+            }
+            .input-group .input-buttons {
+                position: relative;
+                z-index: 3;
+            }
+            .messages {
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <fieldset
+            id="cdifieldset"
+            class="draggable ui-widget-content"
+            style="
+                border: 1px black solid;
+                background-color: #cac3ba;
+                width: 400px;
+            "
+        >
+            <legend
+                style="
+                    border: 5px lightblue solid;
+                    margin-left: 1em;
+                    background-color: #ff6347;
+                    padding: 0.2em 0.8em;
+                "
+            >
+                <strong>
+                    CDBs, LCIs e LCAs indexadas por<br />
+                    Certificados de Depósitos Interbancários
+                </strong>
+            </legend>
+            <form action="cdi_output.py" method="post">
+                <div class="box">
+                    <span class="input-group-addon">$</span>
+                    <label for="cap">Capital: </label>
+                    <input
+                        id="cap"
+                        type="number"
+                        name="cap"
+                        value="1000"
+                        min="0.1"
+                        step="0.01"
+                        class="form-control currency"
+                        required
+                    /><br />
+
+                    <span class="input-group-addon" style="color: antiquewhite"
+                        >$</span
+                    >
+                    <label for="sel">Taxa Selic:</label>
+                    <input
+                        id="sel"
+                        type="number"
+                        name="sel"
+                        size="10"
+                        value="1"
+                        min="0.0"
+                        max="100.0"
+                        step="0.05"
+                        required
+                    />% ano<br />
+
+                    <span class="input-group-addon" style="color: antiquewhite"
+                        >$</span
+                    >
+                    <label for="cdi">Taxa CDI:</label>
+                    <input
+                        id="cdi"
+                        type="number"
+                        name="cdi"
+                        size="10"
+                        value="1"
+                        min="0.0"
+                        max="100.0"
+                        step="0.05"
+                        required
+                    />% ano<br />
+
+                    <span class="input-group-addon" style="color: antiquewhite"
+                        >$</span
+                    >
+                    <label for="tcdi">Rentabilidade:</label>
+                    <input
+                        id="tcdi"
+                        type="number"
+                        name="tcdi"
+                        size="5"
+                        value="100"
+                        min="1.0"
+                        max="300"
+                        step="0.5"
+                        required
+                    />% CDI<br />
+                    <span class="input-group-addon" style="color: antiquewhite"
+                        >$</span
+                    >
+                    <label for="meses">Meses:</label>
+                    <input
+                        id="meses"
+                        type="number"
+                        name="meses"
+                        size="5"
+                        value="1"
+                        min="0"
+                        max="720"
+                        step="1"
+                        required
+                    />
+                    <br />
+
+                    <label for="ir0">Alíquota IR:</label> <br /><br />
+                    <span style="padding-left: 20px; display: block">
+                        <input id="ir0" type="radio" name="ir" value="0.0" />
+                        0.0 (LCA ou LCI) <br />
+                        <input id="ir1" type="radio" name="ir" value="15.0" />
+                        15.0 (acima de 721 dias) <br />
+                        <input id="ir2" type="radio" name="ir" value="17.5" />
+                        17.5 (de 361 até 720 dias) <br />
+                        <input id="ir3" type="radio" name="ir" value="20.0" />
+                        20.0 (de 181 até 360 dias) <br />
+                        <input
+                            id="ir4"
+                            type="radio"
+                            name="ir"
+                            value="22.5"
+                            checked
+                        />
+                        22.5 (até 180 dias)<br />
+                    </span>
+                </div>
+                <div class="messages">
+                    <input
+                        id="submitButton"
+                        class="button"
+                        type="submit"
+                        value="Calcular"
+                    />
+                    <p>(arraste-me para reposicionar a janela)</p>
+                </div>
+            </form>
+        </fieldset>
+
+        <script src="/cwdc/mainPage/LCG.js"></script>
+
+        <script type="text/javascript">
+            dragAndSave("#cdifieldset"); // $("#cdifieldset").draggable()
+
+            // Attach an event handler function for one or more events to the selected elements.
+            // https://api.jquery.com/on/
+            $("#meses").on("change keyup paste", function () {
+                var period = parseInt($("#meses").val()) * 30;
+                if (period > 720) {
+                    $("#ir1").prop("checked", true);
+                } else if (period > 360) {
+                    $("#ir2").prop("checked", true);
+                } else if (period > 180) {
+                    $("#ir3").prop("checked", true);
+                } else {
+                    $("#ir4").prop("checked", true);
+                }
+            });
+
+            let docStyle = getComputedStyle(document.documentElement);
+            $("#sel").val(docStyle.getPropertyValue("--selic"));
+            $("#cdi").val(docStyle.getPropertyValue("--selic") - 0.1);
+
+            webshims.setOptions("forms-ext", {
+                replaceUI: "auto",
+                types: "number",
+            });
+            webshims.polyfill("forms forms-ext");
+        </script>
+    </body>
+</html>

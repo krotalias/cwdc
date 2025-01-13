@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt" xml:lang="pt" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>CDC</title>
+        <meta charset="utf8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/webshim/1.16.0/minified/polyfiller.js"></script>
+        <style type="text/css">
+            .box {
+                background-color: antiquewhite;
+                box-shadow: 8px 8px 6px grey;
+                width: 450px;
+                border-style: solid;
+                border-width: 3px;
+                border-color: lightblue;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                margin-left: 2px;
+            }
+            body {
+                background-color: #f0f0f2;
+                background-image: url("/cwdc/mainPage/IMAGEM/stone/yell_roc.jpg");
+                margin: 0;
+                padding: 2em;
+                font-family: -apple-system, system-ui, BlinkMacSystemFont,
+                    "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial,
+                    sans-serif;
+            }
+            input {
+                margin: 10px 3px 10px 3px;
+                border: 1px solid grey;
+                border-radius: 5px;
+                font-size: 12px;
+                padding: 5px 5px 5px 5px;
+            }
+            label {
+                position: relative;
+                top: 12px;
+                width: 190px;
+                float: left;
+            }
+            #submitButton {
+                width: 80px;
+                margin-left: 20px;
+            }
+            #errorMessage {
+                color: red;
+                font-size: 90% !important;
+            }
+            #successMessage {
+                color: green;
+                font-size: 90% !important;
+                display: block;
+                margin-top: 20px;
+            }
+            .button {
+                font-size: 13px;
+                color: red;
+                background-color: #f8fad7;
+            }
+            .button:hover {
+                background-color: #fadad7;
+            }
+            #draggable {
+                cursor: n-resize;
+            }
+            #cdcfieldset {
+                cursor: move;
+            }
+            input.currency {
+                text-align: left;
+                padding-right: 15px;
+            }
+            .input-group .form-control {
+                float: none;
+            }
+            .input-group .input-buttons {
+                position: relative;
+                z-index: 3;
+            }
+            .messages {
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <fieldset
+            id="cdcfieldset"
+            class="draggable ui-widget-content"
+            style="
+                border: 1px black solid;
+                background-color: #cac3ba;
+                width: 400px;
+            "
+        >
+            <legend
+                style="
+                    border: 5px lightblue solid;
+                    margin-left: 1em;
+                    background-color: #ff6347;
+                    padding: 0.2em 0.8em;
+                "
+            >
+                <strong>Crédito Direto ao Consumidor</strong>
+            </legend>
+            <form action="cdc.py" method="post">
+                <div class="box">
+                    <span class="input-group-addon" style="color: antiquewhite"
+                        >$</span
+                    >
+                    <label for="parc">Parcelamento:</label>
+                    <input
+                        id="parc"
+                        type="number"
+                        name="np"
+                        size="5"
+                        value="36"
+                        min="1"
+                        max="72000"
+                        step="1"
+                        required
+                    />meses<br />
+
+                    <span class="input-group-addon" style="color: antiquewhite"
+                        >$</span
+                    >
+                    <label for="itax">Taxa de juros:</label>
+                    <input
+                        id="itax"
+                        type="number"
+                        name="tax"
+                        size="10"
+                        value="0.50"
+                        min="0.0"
+                        max="100.0"
+                        step="any"
+                        required
+                    />% mês<br />
+
+                    <span class="input-group-addon">$</span>
+                    <label for="ipv">Valor Financiado: </label>
+                    <input
+                        id="ipv"
+                        type="number"
+                        name="pv"
+                        value="1000"
+                        min="0.0"
+                        step="0.01"
+                        class="form-control currency"
+                        required
+                    /><br />
+
+                    <span class="input-group-addon">$</span>
+                    <label for="ipp">Valor Final (opcional):</label>
+                    <input
+                        id="ipp"
+                        type="number"
+                        name="pp"
+                        value="0.0"
+                        min="0.0"
+                        step="0.01"
+                        class="form-control currency"
+                        required
+                    /><br />
+
+                    <span class="input-group-addon">$</span>
+                    <label for="ipb">Valor a Voltar(opcional):</label>
+                    <input
+                        id="ipb"
+                        type="number"
+                        name="pb"
+                        value="0.0"
+                        min="0.0"
+                        step="0.01"
+                        class="form-control currency"
+                        required
+                    /><br />
+
+                    <span class="input-group-addon" style="color: antiquewhite"
+                        >$</span
+                    >
+                    <label for="ipb">Meses a Voltar(opcional):</label>
+                    <input
+                        id="npb"
+                        type="number"
+                        name="nb"
+                        value="0"
+                        min="0"
+                        step="1"
+                        required
+                    /><br />
+
+                    <label for="idp">Entrada?</label>
+                    <input id="idp" type="checkbox" name="dp" value="1" /><br />
+                </div>
+                <div class="messages">
+                    <input
+                        id="submitButton"
+                        class="button"
+                        type="submit"
+                        value="Calcular"
+                    />
+                    <br />
+                    <img src="python.png" width="32" />
+                    <p>(arraste-me para reposicionar a janela)</p>
+                </div>
+            </form>
+
+            <div id="errorMessage" class="messages"></div>
+            <div id="successMessage" class="messages">
+                <p>
+                    Se não souber a taxa de juros coloque 0%, e forneça o valor
+                    final.
+                </p>
+            </div>
+        </fieldset>
+
+        <script src="/cwdc/mainPage/LCG.js"></script>
+
+        <script type="text/javascript">
+            $("#submitButton").on("click", function (event) {
+                var errorMessage = "";
+                if ($("#itax").val() == 0 && $("#ipp").val() == 0) {
+                    errorMessage +=
+                        "<p>Taxa de juros e valor final não podem ser ambos nulos.</p>";
+                }
+                if ($("#itax").val() == 0 && $("#ipv").val() == 0) {
+                    errorMessage +=
+                        "<p>Taxa de juros e valor financiado não podem ser ambos nulos.</p>";
+                }
+                if ($("#ipv").val() == 0 && $("#ipp").val() == 0) {
+                    errorMessage +=
+                        "<p>Valor financiado e valor final não podem ser ambos nulos.</p>";
+                }
+                if (errorMessage != "") {
+                    $("#errorMessage").html(errorMessage);
+                    $("#errorMessage").show();
+                    $("#successMessage").hide();
+                    event.preventDefault();
+                } else {
+                    $("#successMessage").show();
+                    $("#errorMessage").hide();
+                }
+            });
+            dragAndSave("#cdcfieldset"); // $("#cdcfieldset").draggable()
+
+            webshims.setOptions("forms-ext", {
+                replaceUI: "auto",
+                types: "number",
+            });
+            webshims.polyfill("forms forms-ext");
+        </script>
+    </body>
+</html>

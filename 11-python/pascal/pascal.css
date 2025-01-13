@@ -1,0 +1,85 @@
+:root {
+    --wTri: 822px; /* last row dimension */
+    --wCode: 550px;
+}
+
+tab1 {
+    padding-left: 2em;
+}
+tab2 {
+    padding-left: 4em;
+}
+tab3 {
+    padding-left: 8em;
+}
+
+body {
+    font-family: Tahoma, sans-serif, monospace;
+    background-color: #f0f0f2;
+    margin: 10px;
+}
+
+#draggable {
+    cursor: n-resize;
+}
+
+#tri,
+#fig,
+#code {
+    cursor: move;
+}
+
+#tri {
+    width: auto;
+    /* width: var(--wTri); */
+    display: inline-block;
+    margin-left: 0;
+    background-color: lemonchiffon;
+    border: 5px solid antiquewhite;
+    padding: 30px;
+    white-space: pre;
+    font-family: monospace;
+    font-size: 22px;
+}
+
+.clear-float {
+    clear: both;
+}
+
+#code {
+    width: auto;
+    /* width: var(--wCode); */
+    margin: 30px 0;
+    float: left;
+    border: 5px solid grey;
+    background-color: lightgrey;
+    padding: 15px;
+    font-size: 28px;
+}
+
+#fig {
+    width: 260px;
+    float: left;
+    border: 5px solid grey;
+    margin: 10px 0 40px 0;
+    padding: 15px;
+    background-color: lightgrey;
+}
+
+#testTri,
+#testCode {
+    position: absolute;
+    visibility: hidden;
+    height: auto;
+    width: auto;
+    white-space: nowrap; /* Thanks to Herb Caudill comment */
+}
+
+#testTri {
+    font-family: monospace !important;
+}
+
+pre {
+    font-family: Arial, sans-serif;
+    color: black;
+}
