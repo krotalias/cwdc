@@ -205,57 +205,6 @@ An anonymous <b><a href='/cwdc/downloads/python/laboratorios.html#lambda'>lambda
                 <li>Python 2’s long was renamed to <strong>int</strong>.</li>
             </ul>
 
-            <br>
-            <p>LCM(<ins><span id="i">i</span></ins>) = <code><span id="prod"> </span></code></p>
-
-            <form id="form">
-                <label style="z-index: 1; left: -100px; position: absolute;" for="n"><ins>i</ins> <span id="range"></span></label><br>
-                1<input type="range" min="1" max="100" value="43" step="1" id="n" name="n" style="width: 400px;" oninput="getFactors()">100
-            </form>
-        
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script>
-            /*
-             * Updates LCM's value and factors according to the slider position.
-             *
-             * Python2's long was renamed to int.
-             *
-             * Python2's sys.maxint = 9223372036854775807
-             * factors = 43-46   →    9419588158802421600
-             */
-            function getFactors() {
-                let n = $("#n")[0];
-                let m = $('ins');
-                if (n) {
-                    let factors = n.value;
-                    let mcolor = factors > 46 ? "red" : "green";
-                    for ( i of m ) {
-                        i.style.color = mcolor;
-                    }
-                    // python runs on the server, and javascript on the browser
-                    $.ajax({
-                        type: "GET",
-                        url: "./functions.py",
-                        data: factors,
-                    })
-                        .done(function(factors) {
-                            $("#prod").html(`${factors}`);
-                            let lcmValue = factors.split(" = ")[0];
-                            let bits = Math.trunc(Math.log2(lcmValue)) + 1
-                            let decs = Math.trunc(Math.log10(lcmValue)) + 1
-                            $("#range").html(`(${bits} bits or ${decs} digits)`);
-                        })
-                        .fail(function() {
-                            console.log("Could not get data");
-                        });
-                    $("#i1").html((n.valueAsNumber+1).toString());
-                    $("#i").html(n.valueAsNumber.toString());
-                }
-            }
-            getFactors();
-        </script>
-
         </body>
         </html>
         
