@@ -1,0 +1,3 @@
+#!/bin/sh
+
+grep -Fv '* @package' $1 | grep -Fv '* @category' | grep -Fv '* @license' | grep -Fv '* @link'
