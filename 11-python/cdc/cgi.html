@@ -1,0 +1,71 @@
+
+    <html>
+    <h6>Python 3.9.6 - Encoding: utf-8</h6>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CDC - Crédito Direto ao Consumidor CGI Program</title>
+        <style>
+            body {
+                background-image: url("/cwdc/mainPage/IMAGEM/stone/yell_roc.jpg");
+            }
+        </style>
+    </head>
+    <body>
+
+
+    <h4>Parcelas: 10</h4>
+    <h4>Taxa: 0.00%</h4>
+    <h4>Preço a Prazo: $500.00</h4>
+    <h4>Preço à Vista: $450.00</h4>
+
+
+    <h4>Taxa Real (8 iterações): 1.9630%</h4>
+    <h4>Coeficiente de Financiamento: 0.111111</h4>
+    <h4>Prestação: $50.00</h4>
+
+
+<table border=1>
+      <caption style='font-weight: bold; font-size:200%;'>
+        Tabela Price
+      </caption>
+      <tbody style='text-align:center;'>
+    <tr><th>Mês</th><th>Prestação</th><th>Juros</th><th>Amortização</th><th>Saldo Devedor</th></tr><tr><td style='text-align:center'>n</td><td style='text-align:center'>R = pmt</td><td style='text-align:center'>J = SD * t</td><td style='text-align:center'>U = pmt - J</td><td style='text-align:center'>SD = PV - U</td></tr><tr><td style='text-align:center'>0</td><td style='text-align:center'>0</td><td style='text-align:center'>(0.0196)</td><td style='text-align:center'>0</td><td style='text-align:center'>450.00</td></tr><tr><td style='text-align:center'>1</td><td style='text-align:center'>50.00</td><td style='text-align:center'>8.833</td><td style='text-align:center'>41.17</td><td style='text-align:center'>408.83</td></tr><tr><td style='text-align:center'>2</td><td style='text-align:center'>50.00</td><td style='text-align:center'>8.025</td><td style='text-align:center'>41.97</td><td style='text-align:center'>366.86</td></tr><tr><td style='text-align:center'>3</td><td style='text-align:center'>50.00</td><td style='text-align:center'>7.201</td><td style='text-align:center'>42.80</td><td style='text-align:center'>324.06</td></tr><tr><td style='text-align:center'>4</td><td style='text-align:center'>50.00</td><td style='text-align:center'>6.361</td><td style='text-align:center'>43.64</td><td style='text-align:center'>280.42</td></tr><tr><td style='text-align:center'>5</td><td style='text-align:center'>50.00</td><td style='text-align:center'>5.505</td><td style='text-align:center'>44.50</td><td style='text-align:center'>235.93</td></tr><tr><td style='text-align:center'>6</td><td style='text-align:center'>50.00</td><td style='text-align:center'>4.631</td><td style='text-align:center'>45.37</td><td style='text-align:center'>190.56</td></tr><tr><td style='text-align:center'>7</td><td style='text-align:center'>50.00</td><td style='text-align:center'>3.741</td><td style='text-align:center'>46.26</td><td style='text-align:center'>144.30</td></tr><tr><td style='text-align:center'>8</td><td style='text-align:center'>50.00</td><td style='text-align:center'>2.833</td><td style='text-align:center'>47.17</td><td style='text-align:center'>97.13</td></tr><tr><td style='text-align:center'>9</td><td style='text-align:center'>50.00</td><td style='text-align:center'>1.907</td><td style='text-align:center'>48.09</td><td style='text-align:center'>49.04</td></tr><tr><td style='text-align:center'>10</td><td style='text-align:center'>50.00</td><td style='text-align:center'>0.963</td><td style='text-align:center'>49.04</td><td style='text-align:center'>0</td></tr><tr><td style='text-align:center'>Total</td><td style='text-align:center'>500.00</td><td style='text-align:center'>50.000</td><td style='text-align:center'>450.00</td><td style='text-align:center'>0</td></tr></tbody></table>
+
+<br>
+O preço à vista é igual ao preço total corrigido.<br>
+Taxa Real = 1.9630%, Iterações = 8, Fator = 0.9000 <br>
+Preço à vista + juros de 1.96% ao mês = $500.00 <br>
+Preço a prazo - juros de 1.96% ao mês = $450.00 <br>
+Juros Embutidos = ($500.00 - $450.00) / $450.00 * 100 = 11.11% <br>
+Desconto = ($500.00 - $450.00) / $500.00 * 100 = 10.00% <br>
+Excesso = $450.00 - $450.00 = $-0.00 <br>
+Excesso = ($500.00 - $500.00) * 0.9000 = $-0.00 <br>
+Percentual pago a mais = -0.00% <br>
+Valor aceitável.<br>
+
+        <pre>
+        <code>
+                        Tabela Price               
+ ______________________________________________________________
+| Mês  |  Prestação  |    Juros    | Amortização |Saldo Devedor|
+|______|_____________|_____________|_____________|_____________|
+|  n   |   R = pmt   | J = SD * t  | U = pmt - J | SD = PV - U |
+|  0   |    0.00     |  (0.0196)   |    0.00     |   450.00    |
+|  1   |    50.00    |    8.83     |    41.17    |   408.83    |
+|  2   |    50.00    |    8.03     |    41.97    |   366.86    |
+|  3   |    50.00    |    7.20     |    42.80    |   324.06    |
+|  4   |    50.00    |    6.36     |    43.64    |   280.42    |
+|  5   |    50.00    |    5.50     |    44.50    |   235.93    |
+|  6   |    50.00    |    4.63     |    45.37    |   190.56    |
+|  7   |    50.00    |    3.74     |    46.26    |   144.30    |
+|  8   |    50.00    |    2.83     |    47.17    |    97.13    |
+|  9   |    50.00    |    1.91     |    48.09    |    49.04    |
+|  10  |    50.00    |    0.96     |    49.04    |    0.00     |
+|______|_____________|_____________|_____________|_____________|
+|Total |   500.00    |    50.00    |   450.00    |    0.00     |
+|______|_____________|_____________|_____________|_____________|
+        </code>
+        </pre>
+        
+</body>
+</html>
