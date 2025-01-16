@@ -14,7 +14,8 @@
 
 import sys
 import os
-sys.path.insert(0, os.path.expanduser("~roma") + "/html/python/labs")
+sys.path.insert(0, os.environ.get("DOCUMENT_ROOT") +
+                "/cwdc/downloads/python/labs")
 from _10_factorize2 import toString, factorize, condense
 
 print("Content-Type: text/html\n")

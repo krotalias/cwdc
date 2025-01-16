@@ -45,9 +45,11 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 try:
-    sys.path.append(os.environ.get("DOCUMENT_ROOT") + '/python/labs2/pandas')
+    sys.path.append(os.environ.get("DOCUMENT_ROOT") +
+                    '/cwdc/downloads/python/labs2/pandas')
 except TypeError:
-    sys.path.insert(0, os.path.expanduser("~roma") + "/html/python/labs2/pandas")
+    sys.path.insert(0, os.path.expanduser(
+        "~roma") + "/html/python/labs2/pandas")
 from bell import plot, plot2, plot3, showPlot
 from data import readSheet, toGPA
 

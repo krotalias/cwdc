@@ -27,7 +27,8 @@ from __future__ import print_function
 import sys
 import os
 
-sys.path.insert(0, os.path.expanduser("~roma") + "/html/python/labs")
+sys.path.insert(0, os.environ.get("DOCUMENT_ROOT") +
+                "/cwdc/downloads/python/labs")
 from _03d_pascal_zip import pascal
 
 ## Main program for displaying the triangle.
