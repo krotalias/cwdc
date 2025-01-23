@@ -296,13 +296,13 @@ class clock:
 
         if self.showImage:
             flu = self.fluImg.resize(
-                (int(0.65 * 0.65 * size), int(0.5 * size)), Image.ANTIALIAS)
+                (int(0.65 * 0.65 * size), int(0.5 * size)), Image.LANCZOS)
             ## Resized PIL logo image.
             self.flu = ImageTk.PhotoImage(flu)
             self.canvas.create_image(width // 2, height // 2, image=self.flu)
 
             bezel = self.bezelImg.resize(
-                (int(1.05 * size), int(1.05 * size)), Image.ANTIALIAS)
+                (int(1.05 * size), int(1.05 * size)), Image.LANCZOS)
             ## Resized PIL logo image.
             self.bezel = ImageTk.PhotoImage(bezel)
             self.canvas.create_image(width // 2, height // 2, image=self.bezel)

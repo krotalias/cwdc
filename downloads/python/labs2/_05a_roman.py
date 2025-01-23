@@ -71,7 +71,7 @@ def main(argv=None):
     if hasPIL:
         imgPath = './images/Roman_Soldier.png'
         s = Image.open(imgPath)
-        s = s.resize((262 // 4, 534 // 4), Image.ANTIALIAS)
+        s = s.resize((262 // 4, 534 // 4), Image.LANCZOS)
         soldier = ImageTk.PhotoImage(s)
     else:
         imgPath = './images/Roman_Soldier.gif'

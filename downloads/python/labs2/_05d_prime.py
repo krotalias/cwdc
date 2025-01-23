@@ -52,7 +52,7 @@ def main(argv=None):
     if hasPIL:
         imgPath = './images/Optimus.png'
         s = Image.open(imgPath)
-        s = s.resize((796 // 8, 1372 // 8), Image.ANTIALIAS)
+        s = s.resize((796 // 8, 1372 // 8), Image.LANCZOS)
         soldier = ImageTk.PhotoImage(s)
     else:
         imgPath = './images/Optimus.gif'

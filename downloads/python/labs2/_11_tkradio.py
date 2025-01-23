@@ -28,7 +28,11 @@ from PIL import Image, ImageTk
 
 try:
     from tkinter import *    # python3
-    import tkinter.tix as Tix
+    from tktooltip import ToolTip
+    try:
+        import tkinter.tix as Tix
+    except ImportError:
+        import tkinter.ttk as Tix
 except ImportError:
     try:
         from mtTkinter import *
@@ -677,8 +681,6 @@ def mouse_leave(event):
 def mouse_enter(event):
     """Respond to mouse enter events."""
 
-    global message
-    global balloon
     if (event.type != "7"):
         return
 
@@ -688,6 +690,9 @@ def mouse_enter(event):
         return
 
     def showCommand(s, f="\r%-*s", t=""):
+        global message
+        global balloon
+
         if (t):
             f = f % (s, 80, t)
         else:
@@ -696,9 +701,13 @@ def mouse_enter(event):
         msg = s
         if (t):
             msg += " - " + t
-        if (balloon):
+        try:
             balloon.bind_widget(
                 event.widget, balloonmsg=msg, statusmsg=getFreq(s))
+        except:
+            balloon = ToolTip(event.widget, msg=msg, delay=0,
+                              fg="black", bg="yellow")
+
         if (message):
             message.config(text=msg, width=60)
         else:
@@ -875,6 +884,7 @@ def main(argv=None):
         mw = Tix.Tk()
         # balloon help
         use_tix = True
+        balloon = 1
     except:
         mw = Tk()
         use_tix = False
@@ -951,6 +961,10 @@ def main(argv=None):
     ballmess.pack()
     if (use_tix):
         balloon = Tix.Balloon(mw, statusbar=ballmess)
+        print("Tix found: http://tix.sourceforge.net")
+    else:
+        balloon = ToolTip(mw, msg=ballmess.cget("text"))
+        print("ToolTip found: http://tkinter.unpythonic.net/wiki/ToolTip")
 
     # the current radio frequency
     Button(bbt, text="<", command=previous).pack(side="left", anchor=E)
