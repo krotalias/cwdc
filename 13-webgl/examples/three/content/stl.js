@@ -196,6 +196,17 @@ const ctype = Object.freeze({
 });
 
 /**
+ * Define an orthographic view type.
+ * @type {Boolean}
+ */
+const orthoView = {
+  front: false,
+  top: false,
+  side: false,
+  interpolate: false,
+};
+
+/**
  * {@link THREE.ArcballControls ArcballControls} x
  * {@link THREE.OrbitControls OrbitControls} x
  * {@link THREE.TrackballControls TrackballControls}
@@ -921,9 +932,29 @@ function init(dfile) {
   //pmremGenerator.dispose();
 
   let diag = 0;
-  let mesh = undefined;
-  let line = undefined;
   let lines = [];
+
+  /**
+   * <p>The edges of the mesh of the current loaded object.</p>
+   * @type {THREE.LineSegments}
+   * @global
+   */
+  let line = undefined;
+
+  /**
+   * <p>The mesh of the current loaded object for the formats vtk/stl.</p>
+   * Every time a new object is loaded the previous one is disposed of.
+   * @type {THREE.Mesh}
+   * @global
+   */
+  let mesh = undefined;
+
+  /**
+   * <p>The geometry of the current loaded object for the formats obj/gltf.</p>
+   * Every time a new object is loaded the previous one is disposed of.
+   * @type {THREE.Object3D}
+   * @global
+   */
   let object = undefined;
 
   /**
@@ -999,6 +1030,8 @@ function init(dfile) {
       boxh.visible = document.getElementById("stats").checked;
       axesHelper.visible = document.getElementById("stats").checked;
     }
+
+    mixer = undefined;
 
     // console.log(geometry);
     let vis = undefined;
@@ -1240,7 +1273,21 @@ function init(dfile) {
     if (mixer) {
       mixer.update(delta);
       renderer.render(scene, camera);
+    } else if (orthoView.interpolate) {
+      const speed = 2;
+      const target = new THREE.Vector3(diag * 1.2, 0, 0);
+      if (!camera.position.equals(target)) {
+        const step = speed * delta;
+        camera.position.lerp(target, step);
+        camera.lookAt(target);
+        camera.up.set(0, 1, 0);
+        controls.update();
+        renderer.render(scene, camera);
+      } else {
+        orthoView.interpolate = false;
+      }
     }
+
     stats.update();
     if (controls.autoRotate || ctrlType === ctype.TRACKBALL) controls.update();
   }
@@ -1344,11 +1391,14 @@ function init(dfile) {
           document.getElementById("mesh").checked = line.visible;
           break;
         case "o":
+        case "f":
           controls.reset();
+          orthoView.front = true;
           // 1.6 is enough, but don't forget the zoom out
           camera.far = diag * 5;
           camera.near = diag * 0.05;
           camera.position.set(0, 0, diag * 1.2);
+          camera.up.set(0, 1, 0);
           controls.maxDistance = camera.far;
           camera.updateProjectionMatrix();
           // ArcballControls bug!! (when camera.position==camera.target → nearPos0 < 0)
@@ -1371,6 +1421,23 @@ function init(dfile) {
           break;
         case "v":
           if (event.ctrlKey) controls.pasteState();
+          break;
+        case "t":
+          orthoView.top = true;
+          controls.reset();
+          camera.position.set(0, diag * 1.2, 0);
+          camera.up.set(-1, 0, 0);
+          controls.update();
+          break;
+        case "a":
+          orthoView.side = true;
+          controls.reset();
+          camera.position.set(diag * 1.2, 0, 0);
+          camera.up.set(0, 1, 0);
+          controls.update();
+          break;
+        case "i":
+          orthoView.interpolate = true;
           break;
         default:
           return;
@@ -1543,7 +1610,10 @@ function init(dfile) {
    * @see {@link THREE.OrbitControls}
    * @see {@link THREE.ArcballControls}
    */
-  controls.addEventListener("change", () => renderer.render(scene, camera));
+  controls.addEventListener("change", () => {
+    orthoView.interpolate = false;
+    renderer.render(scene, camera);
+  });
 
   /**
    * Read the json file with the URLs for loading models.
