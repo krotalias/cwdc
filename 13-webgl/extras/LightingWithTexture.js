@@ -2,7 +2,9 @@
  * @file
  *
  * Summary.
- * <p>Lighting, combined with {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}.</p>
+ * <p>Equirectangular and Mercator projection viewer using lighting combined with
+ * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
+ * written in Vanilla Javascript and WebGL.</p>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is just a <b>demo</b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},

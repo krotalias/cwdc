@@ -142,6 +142,7 @@
  * @see {@link https://www.body3d.eu/3D/Navigation/ body3d}
  * @see {@link https://www.zygotebody.com Zygote Body}
  * @see {@link https://threejs.org/examples/ threejs examples}
+ * @see {@link https://05-extending-a-healthy-life-dot-purina-institute.uc.r.appspot.com/ Purina - Extending a Healthy Life}
  * @see <figure>
  *     <iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Soldier.glb" style="position: relative; right: 40px; margin-bottom: 0px; transform: scale(0.85); width: 380px; height: 380px"></iframe>
  *     <figcaption style="font-size: 150%">Model by {@link https://www.mixamo.com/#/ Mixamo}</figcaption>
