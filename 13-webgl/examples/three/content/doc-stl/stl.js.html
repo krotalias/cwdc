@@ -170,6 +170,7 @@
  * @see {@link https://www.body3d.eu/3D/Navigation/ body3d}
  * @see {@link https://www.zygotebody.com Zygote Body}
  * @see {@link https://threejs.org/examples/ threejs examples}
+ * @see {@link https://www.purinainstitute.com/science-of-nutrition/extending-healthy-life Purina - Extending a Healthy Life}
  * @see &lt;figure>
  *     &lt;iframe title="Soldier" src="/cwdc/13-webgl/examples/three/content/stl.html?file=Soldier.glb" style="position: relative; right: 40px; margin-bottom: 0px; transform: scale(0.85); width: 380px; height: 380px">&lt;/iframe>
  *     &lt;figcaption style="font-size: 150%">Model by {@link https://www.mixamo.com/#/ Mixamo}&lt;/figcaption>
@@ -224,7 +225,9 @@ const ctype = Object.freeze({
 });
 
 /**
- * Define an orthographic view type.
+ * &lt;p>Define an orthographic view type.&lt;/p>
+ * The interpolate property is used to interpolate from the current orientation
+ * to the front, top, and side views.
  * @type {Boolean}
  */
 const orthoView = {
@@ -986,6 +989,30 @@ function init(dfile) {
   let object = undefined;
 
   /**
+   * &lt;p>Class representing a 3D vector.&lt;/p>
+   * A 3D vector is an ordered triplet of numbers (labeled x, y, and z),
+   * which can be used to represent a number of things: a point, a direction, an ordered triplet of numbers.
+   * @class Vector3
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/math/Vector3 Vector3}
+   */
+
+  /**
+   * &lt;p>Vector3 comparison must be based on distance:
+   * if the distance between two Vector3 is less than some predefined value,
+   * they are considered equal.&lt;/p>
+   * @param {THREE.Vector3} v1 first vector.
+   * @param {THREE.Vector3} v2 second vector.
+   * @param {Number} epsilon tolerance.
+   * @returns {Boolean} true if the distance between the two vectors is less than epsilon:
+   *      Math.abs(v2.distanceTo(v1)) &lt; epsilon
+   * @global
+   */
+  function isEqual(v1, v2, epsilon = Number.EPSILON) {
+    return Math.abs(v2.distanceTo(v1)) &lt; epsilon;
+  }
+
+  /**
    * &lt;p>Callback to load a model from a file to the scene.&lt;p>
    * The previous model loaded is
    * {@link https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects disposed}
@@ -1304,7 +1331,7 @@ function init(dfile) {
     } else if (orthoView.interpolate) {
       const speed = 2;
       const target = new THREE.Vector3(diag * 1.2, 0, 0);
-      if (!camera.position.equals(target)) {
+      if (!isEqual(camera.position, target, 1e-2)) {
         const step = speed * delta;
         camera.position.lerp(target, step);
         camera.lookAt(target);
@@ -1422,6 +1449,7 @@ function init(dfile) {
         case "f":
           controls.reset();
           orthoView.front = true;
+          orthoView.interpolate = false;
           // 1.6 is enough, but don't forget the zoom out
           camera.far = diag * 5;
           camera.near = diag * 0.05;
@@ -1452,6 +1480,7 @@ function init(dfile) {
           break;
         case "t":
           orthoView.top = true;
+          orthoView.interpolate = false;
           controls.reset();
           camera.position.set(0, diag * 1.2, 0);
           camera.up.set(-1, 0, 0);
@@ -1459,13 +1488,14 @@ function init(dfile) {
           break;
         case "a":
           orthoView.side = true;
+          orthoView.interpolate = false;
           controls.reset();
           camera.position.set(diag * 1.2, 0, 0);
           camera.up.set(0, 1, 0);
           controls.update();
           break;
         case "i":
-          orthoView.interpolate = true;
+          orthoView.interpolate = !controls.autoRotate;
           break;
         default:
           return;
@@ -1639,8 +1669,21 @@ function init(dfile) {
    * @see {@link THREE.ArcballControls}
    */
   controls.addEventListener("change", () => {
-    orthoView.interpolate = false;
     renderer.render(scene, camera);
+  });
+
+  /**
+   * &lt;p>Fired when the pointer is pressed on the canvas.&lt;/p>
+   * The {@link orthoView.interpolate} is set to false,
+   * so interpolation is interrupted as soon as the pointer is pressed.
+   * &lt;p>Note that adding the event to the
+   * {@link https://discourse.threejs.org/t/mouseup-problem-with-orbit-controls/64589 controls object}
+   * does not work.&lt;/p>
+   *
+   * @event pointerdown
+   */
+  renderer.domElement.addEventListener("pointerdown", () => {
+    orthoView.interpolate = false;
   });
 
   /**
@@ -1716,13 +1759,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="THREE.ArcballControls.html">ArcballControls</a></li><li><a href="THREE.AxesHelper.html">AxesHelper</a></li><li><a href="THREE.BoxHelper.html">BoxHelper</a></li><li><a href="THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="THREE.Clock.html">Clock</a></li><li><a href="THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="THREE.DataTexture.html">DataTexture</a></li><li><a href="THREE.EXRLoader.html">EXRLoader</a></li><li><a href="THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="THREE.KTX2Loader.html">KTX2Loader</a></li><li><a href="THREE.LineBasicMaterial.html">LineBasicMaterial</a></li><li><a href="THREE.LoadingManager.html">LoadingManager</a></li><li><a href="THREE.MTLLoader.html">MTLLoader</a></li><li><a href="THREE.Material.html">Material</a></li><li><a href="THREE.MeshLambertMaterial.html">MeshLambertMaterial</a></li><li><a href="THREE.MeshPhongMaterial.html">MeshPhongMaterial</a></li><li><a href="THREE.MeshPhysicalMaterial.html">MeshPhysicalMaterial</a></li><li><a href="THREE.MeshStandardMaterial.html">MeshStandardMaterial</a></li><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="THREE.Object3D.html">Object3D</a></li><li><a href="THREE.OrbitControls.html">OrbitControls</a></li><li><a href="THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="THREE.RGBELoader.html">RGBELoader</a></li><li><a href="THREE.RoomEnvironment.html">RoomEnvironment</a></li><li><a href="THREE.STLLoader.html">STLLoader</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.Stats.html">Stats</a></li><li><a href="THREE.TrackballControls.html">TrackballControls</a></li><li><a href="THREE.VTKLoader.html">VTKLoader</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:controls">controls</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:materialRadio">materialRadio</a></li><li><a href="global.html#event:meshChkBox">meshChkBox</a></li><li><a href="global.html#event:modelsSelect">modelsSelect</a></li><li><a href="global.html#event:resize">resize</a></li><li><a href="global.html#event:statsChkBox">statsChkBox</a></li></ul><h3>Global</h3><ul><li><a href="global.html#anonymous">anonymous</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#createBoxHelper">createBoxHelper</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#ctrlType">ctrlType</a></li><li><a href="global.html#ctype">ctype</a></li><li><a href="global.html#delMaterial">delMaterial</a></li><li><a href="global.html#environment">environment</a></li><li><a href="global.html#fnames">fnames</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#line">line</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#loadModelj">loadModelj</a></li><li><a href="global.html#loadTextures">loadTextures</a></li><li><a href="global.html#loadTexturesAsync">loadTexturesAsync</a></li><li><a href="global.html#loadedModelName">loadedModelName</a></li><li><a href="global.html#material">material</a></li><li><a href="global.html#mesh">mesh</a></li><li><a href="global.html#mobile">mobile</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#modelj">modelj</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#object">object</a></li><li><a href="global.html#orthoView">orthoView</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="THREE.ArcballControls.html">ArcballControls</a></li><li><a href="THREE.AxesHelper.html">AxesHelper</a></li><li><a href="THREE.BoxHelper.html">BoxHelper</a></li><li><a href="THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="THREE.Clock.html">Clock</a></li><li><a href="THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="THREE.DataTexture.html">DataTexture</a></li><li><a href="THREE.EXRLoader.html">EXRLoader</a></li><li><a href="THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="THREE.KTX2Loader.html">KTX2Loader</a></li><li><a href="THREE.LineBasicMaterial.html">LineBasicMaterial</a></li><li><a href="THREE.LoadingManager.html">LoadingManager</a></li><li><a href="THREE.MTLLoader.html">MTLLoader</a></li><li><a href="THREE.Material.html">Material</a></li><li><a href="THREE.MeshLambertMaterial.html">MeshLambertMaterial</a></li><li><a href="THREE.MeshPhongMaterial.html">MeshPhongMaterial</a></li><li><a href="THREE.MeshPhysicalMaterial.html">MeshPhysicalMaterial</a></li><li><a href="THREE.MeshStandardMaterial.html">MeshStandardMaterial</a></li><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="THREE.Object3D.html">Object3D</a></li><li><a href="THREE.OrbitControls.html">OrbitControls</a></li><li><a href="THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="THREE.RGBELoader.html">RGBELoader</a></li><li><a href="THREE.RoomEnvironment.html">RoomEnvironment</a></li><li><a href="THREE.STLLoader.html">STLLoader</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.Stats.html">Stats</a></li><li><a href="THREE.TrackballControls.html">TrackballControls</a></li><li><a href="THREE.VTKLoader.html">VTKLoader</a></li><li><a href="THREE.Vector3.html">Vector3</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:controls">controls</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:materialRadio">materialRadio</a></li><li><a href="global.html#event:meshChkBox">meshChkBox</a></li><li><a href="global.html#event:modelsSelect">modelsSelect</a></li><li><a href="global.html#event:pointerdown">pointerdown</a></li><li><a href="global.html#event:resize">resize</a></li><li><a href="global.html#event:statsChkBox">statsChkBox</a></li></ul><h3>Global</h3><ul><li><a href="global.html#anonymous">anonymous</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#createBoxHelper">createBoxHelper</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#ctrlType">ctrlType</a></li><li><a href="global.html#ctype">ctype</a></li><li><a href="global.html#delMaterial">delMaterial</a></li><li><a href="global.html#environment">environment</a></li><li><a href="global.html#fnames">fnames</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isEqual">isEqual</a></li><li><a href="global.html#line">line</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#loadModelj">loadModelj</a></li><li><a href="global.html#loadTextures">loadTextures</a></li><li><a href="global.html#loadTexturesAsync">loadTexturesAsync</a></li><li><a href="global.html#loadedModelName">loadedModelName</a></li><li><a href="global.html#material">material</a></li><li><a href="global.html#mesh">mesh</a></li><li><a href="global.html#mobile">mobile</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#modelj">modelj</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#object">object</a></li><li><a href="global.html#orthoView">orthoView</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jan 27 2025 10:35:45 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Jan 30 2025 08:41:43 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

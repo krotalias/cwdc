@@ -197,7 +197,9 @@ const ctype = Object.freeze({
 });
 
 /**
- * Define an orthographic view type.
+ * <p>Define an orthographic view type.</p>
+ * The interpolate property is used to interpolate from the current orientation
+ * to the front, top, and side views.
  * @type {Boolean}
  */
 const orthoView = {
@@ -959,6 +961,30 @@ function init(dfile) {
   let object = undefined;
 
   /**
+   * <p>Class representing a 3D vector.</p>
+   * A 3D vector is an ordered triplet of numbers (labeled x, y, and z),
+   * which can be used to represent a number of things: a point, a direction, an ordered triplet of numbers.
+   * @class Vector3
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/math/Vector3 Vector3}
+   */
+
+  /**
+   * <p>Vector3 comparison must be based on distance:
+   * if the distance between two Vector3 is less than some predefined value,
+   * they are considered equal.</p>
+   * @param {THREE.Vector3} v1 first vector.
+   * @param {THREE.Vector3} v2 second vector.
+   * @param {Number} epsilon tolerance.
+   * @returns {Boolean} true if the distance between the two vectors is less than epsilon:
+   *      Math.abs(v2.distanceTo(v1)) < epsilon
+   * @global
+   */
+  function isEqual(v1, v2, epsilon = Number.EPSILON) {
+    return Math.abs(v2.distanceTo(v1)) < epsilon;
+  }
+
+  /**
    * <p>Callback to load a model from a file to the scene.<p>
    * The previous model loaded is
    * {@link https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects disposed}
@@ -1277,7 +1303,7 @@ function init(dfile) {
     } else if (orthoView.interpolate) {
       const speed = 2;
       const target = new THREE.Vector3(diag * 1.2, 0, 0);
-      if (!camera.position.equals(target)) {
+      if (!isEqual(camera.position, target, 1e-2)) {
         const step = speed * delta;
         camera.position.lerp(target, step);
         camera.lookAt(target);
@@ -1395,6 +1421,7 @@ function init(dfile) {
         case "f":
           controls.reset();
           orthoView.front = true;
+          orthoView.interpolate = false;
           // 1.6 is enough, but don't forget the zoom out
           camera.far = diag * 5;
           camera.near = diag * 0.05;
@@ -1425,6 +1452,7 @@ function init(dfile) {
           break;
         case "t":
           orthoView.top = true;
+          orthoView.interpolate = false;
           controls.reset();
           camera.position.set(0, diag * 1.2, 0);
           camera.up.set(-1, 0, 0);
@@ -1432,13 +1460,14 @@ function init(dfile) {
           break;
         case "a":
           orthoView.side = true;
+          orthoView.interpolate = false;
           controls.reset();
           camera.position.set(diag * 1.2, 0, 0);
           camera.up.set(0, 1, 0);
           controls.update();
           break;
         case "i":
-          orthoView.interpolate = true;
+          orthoView.interpolate = !controls.autoRotate;
           break;
         default:
           return;
@@ -1612,8 +1641,21 @@ function init(dfile) {
    * @see {@link THREE.ArcballControls}
    */
   controls.addEventListener("change", () => {
-    orthoView.interpolate = false;
     renderer.render(scene, camera);
+  });
+
+  /**
+   * <p>Fired when the pointer is pressed on the canvas.</p>
+   * The {@link orthoView.interpolate} is set to false,
+   * so interpolation is interrupted as soon as the pointer is pressed.
+   * <p>Note that adding the event to the
+   * {@link https://discourse.threejs.org/t/mouseup-problem-with-orbit-controls/64589 controls object}
+   * does not work.</p>
+   *
+   * @event pointerdown
+   */
+  renderer.domElement.addEventListener("pointerdown", () => {
+    orthoView.interpolate = false;
   });
 
   /**
