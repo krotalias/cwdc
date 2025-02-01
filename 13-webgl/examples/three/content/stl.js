@@ -1406,7 +1406,10 @@ function init(dfile) {
           if (ctrlType === ctype.ARCBALL) controls.setGizmosVisible(visible);
           boxh.visible = visible;
           axesHelper.visible = visible;
-          if (ctrlType === ctype.ORBIT) controls.autoRotate = visible;
+          if (ctrlType === ctype.ORBIT) {
+            controls.autoRotate = visible;
+            orthoView.interpolate = false;
+          }
           break;
         case "m":
           if (line) line.visible = !line.visible;
@@ -1455,7 +1458,11 @@ function init(dfile) {
           orthoView.interpolate = false;
           controls.reset();
           camera.position.set(0, diag * 1.2, 0);
-          camera.up.set(-1, 0, 0);
+          if (ctrlType === ctype.ORBIT) {
+            controls.target.set(-1.0, 0.0, 0.0);
+          } else {
+            camera.up.set(-1, 0, 0);
+          }
           controls.update();
           break;
         case "a":
@@ -1467,7 +1474,8 @@ function init(dfile) {
           controls.update();
           break;
         case "i":
-          orthoView.interpolate = !controls.autoRotate;
+          if (controls.autoRotate) handleKeyPress(createEvent("s"));
+          orthoView.interpolate = true;
           break;
         default:
           return;
