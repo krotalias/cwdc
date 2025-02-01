@@ -1459,7 +1459,7 @@ function init(dfile) {
           controls.reset();
           camera.position.set(0, diag * 1.2, 0);
           if (ctrlType === ctype.ORBIT) {
-            controls.target.set(-1.0, 0.0, 0.0);
+            //controls.target.set(-1.0, 0.0, 0.0);
           } else {
             camera.up.set(-1, 0, 0);
           }
