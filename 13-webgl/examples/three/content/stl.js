@@ -985,6 +985,33 @@ function init(dfile) {
   }
 
   /**
+   * @summary Exponential Decay: THREE.MathUtils.lerp(position, target, 1 - Math.exp(-lambda * dt))
+   * <p>Linearly interpolate between the given position and a target,
+   * where delta is the percent distance along the line:</p>
+   * dt = 0 will be position and <br>
+   * dt = 1 will be target.
+   * @param {THREE.Vector3} position current point.
+   * @param {THREE.Vector3} target target point.
+   * @param {Number} lambda a higher lambda value will make the movement more sudden,<br>
+   * and a lower value will make the movement more gradual.
+   * @param {DOMHighResTimeStamp} dt delta time in seconds.
+   * @return {THREE.Vector3} the new position.
+   * @global
+   * @see {@link https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/ Frame Rate Independent Damping using Lerp}
+   * @see {@link https://threejs.org/docs/#api/en/math/MathUtils.damp damp()}
+   * @see {@link https://threejs.org/docs/#api/en/math/Vector3.lerp lerp()}
+   * @see {@link https://threejs.org/docs/#api/en/core/Clock.getDelta getDelta()}
+   */
+  function damp(position, target, lambda, dt) {
+    position.set(
+      THREE.MathUtils.damp(position.x, target.x, lambda, dt),
+      THREE.MathUtils.damp(position.y, target.y, lambda, dt),
+      THREE.MathUtils.damp(position.z, target.z, lambda, dt),
+    );
+    return position;
+  }
+
+  /**
    * <p>Callback to load a model from a file to the scene.<p>
    * The previous model loaded is
    * {@link https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects disposed}
@@ -1304,8 +1331,8 @@ function init(dfile) {
       const speed = 2;
       const target = new THREE.Vector3(diag * 1.2, 0, 0);
       if (!isEqual(camera.position, target, 1e-2)) {
-        const step = speed * delta;
-        camera.position.lerp(target, step);
+        // camera.position.lerp(target, speed * delta);
+        damp(camera.position, target, speed, delta);
         camera.lookAt(target);
         camera.up.set(0, 1, 0);
         controls.update();
@@ -1633,7 +1660,7 @@ function init(dfile) {
    */
   document
     .getElementById("reset")
-    .addEventListener("click", (event) => handleKeyPress(createEvent("o")));
+    .addEventListener("click", (event) => handleKeyPress(createEvent("i")));
 
   /**
    * <p>Fires when the camera has been transformed by the controls.</p>
