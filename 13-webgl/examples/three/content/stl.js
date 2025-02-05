@@ -210,6 +210,39 @@ const orthoView = {
 };
 
 /**
+ * <p>Camera position for the three axes.</p>
+ * @type {Object<String, THREE.Vector3>}
+ * @global
+ */
+const cameraPos = {
+  value: 0,
+  x: new THREE.Vector3(),
+  y: new THREE.Vector3(),
+  z: new THREE.Vector3(),
+
+  /**
+   * Set the camera position for the three axes.
+   * THREE.Vector3(1.2*diag, 0, 0) for the x-axis,
+   * THREE.Vector3(0, 1.2*diag, 0) for the y-axis,
+   * and THREE.Vector3(0, 0, 1.2*diag) for the z-axis.
+   * @param {Number} d length of the bounding box diagonal.
+   */
+  set diag(d) {
+    this.value = d;
+    this.x.x = 1.2 * d;
+    this.y.y = 1.2 * d;
+    this.z.z = 1.2 * d;
+  },
+
+  /**
+   * Get the length of the bounding box diagonal.
+   */
+  get diag() {
+    return this.value;
+  },
+};
+
+/**
  * {@link THREE.ArcballControls ArcballControls} x
  * {@link THREE.OrbitControls OrbitControls} x
  * {@link THREE.TrackballControls TrackballControls}
@@ -934,7 +967,6 @@ function init(dfile) {
   ).texture;
   //pmremGenerator.dispose();
 
-  let diag = 0;
   let lines = [];
 
   /**
@@ -1078,7 +1110,7 @@ function init(dfile) {
         axesHelper.dispose();
       }
       boxh = new THREE.BoxHelper(object, 0xa52a2a);
-      axesHelper = new THREE.AxesHelper(diag / 2);
+      axesHelper = new THREE.AxesHelper(cameraPos.diag / 2);
       scene.add(axesHelper);
       scene.add(boxh);
       boxh.visible = document.getElementById("stats").checked;
@@ -1145,7 +1177,9 @@ function init(dfile) {
       }
       geometry.center();
       geometry.computeBoundingBox();
-      diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
+      cameraPos.diag = geometry.boundingBox.max.distanceTo(
+        geometry.boundingBox.min,
+      );
 
       mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(0, 0, 0);
@@ -1162,7 +1196,7 @@ function init(dfile) {
       // gltf file
       const model = geometry.scene;
       const bb = new THREE.Box3().setFromObject(model);
-      diag = bb.max.distanceTo(bb.min);
+      cameraPos.diag = bb.max.distanceTo(bb.min);
       const center = new THREE.Vector3();
       bb.getCenter(center);
 
@@ -1238,7 +1272,7 @@ function init(dfile) {
     } else {
       // OBJ file
       const bb = new THREE.Box3().setFromObject(geometry);
-      diag = bb.max.distanceTo(bb.min);
+      cameraPos.diag = bb.max.distanceTo(bb.min);
       const center = new THREE.Vector3();
       bb.getCenter(center);
 
@@ -1329,8 +1363,9 @@ function init(dfile) {
       renderer.render(scene, camera);
     } else if (orthoView.interpolate) {
       const speed = 2;
-      const target = new THREE.Vector3(diag * 1.2, 0, 0);
+      const target = cameraPos.x;
       if (!isEqual(camera.position, target, 1e-2)) {
+        // I see no difference between lerp and damp
         // camera.position.lerp(target, speed * delta);
         damp(camera.position, target, speed, delta);
         camera.lookAt(target);
@@ -1453,9 +1488,9 @@ function init(dfile) {
           orthoView.front = true;
           orthoView.interpolate = false;
           // 1.6 is enough, but don't forget the zoom out
-          camera.far = diag * 5;
-          camera.near = diag * 0.05;
-          camera.position.set(0, 0, diag * 1.2);
+          camera.far = cameraPos.diag * 5;
+          camera.near = cameraPos.diag * 0.05;
+          camera.position.set(cameraPos.z.x, cameraPos.z.y, cameraPos.z.z);
           camera.up.set(0, 1, 0);
           controls.maxDistance = camera.far;
           camera.updateProjectionMatrix();
@@ -1484,7 +1519,7 @@ function init(dfile) {
           orthoView.top = true;
           orthoView.interpolate = false;
           controls.reset();
-          camera.position.set(0, diag * 1.2, 0);
+          camera.position.set(cameraPos.y.x, cameraPos.y.y, cameraPos.y.z);
           if (ctrlType === ctype.ORBIT) {
             //controls.target.set(-1.0, 0.0, 0.0);
           } else {
@@ -1496,7 +1531,7 @@ function init(dfile) {
           orthoView.side = true;
           orthoView.interpolate = false;
           controls.reset();
-          camera.position.set(diag * 1.2, 0, 0);
+          camera.position.set(cameraPos.x.x, cameraPos.x.y, cameraPos.x.z);
           camera.up.set(0, 1, 0);
           controls.update();
           break;

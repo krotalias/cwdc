@@ -238,6 +238,39 @@ const orthoView = {
 };
 
 /**
+ * &lt;p>Camera position for the three axes.&lt;/p>
+ * @type {Object&lt;String, THREE.Vector3>}
+ * @global
+ */
+const cameraPos = {
+  value: 0,
+  x: new THREE.Vector3(),
+  y: new THREE.Vector3(),
+  z: new THREE.Vector3(),
+
+  /**
+   * Set the camera position for the three axes.
+   * THREE.Vector3(1.2*diag, 0, 0) for the x-axis,
+   * THREE.Vector3(0, 1.2*diag, 0) for the y-axis,
+   * and THREE.Vector3(0, 0, 1.2*diag) for the z-axis.
+   * @param {Number} d length of the bounding box diagonal.
+   */
+  set diag(d) {
+    this.value = d;
+    this.x.x = 1.2 * d;
+    this.y.y = 1.2 * d;
+    this.z.z = 1.2 * d;
+  },
+
+  /**
+   * Get the length of the bounding box diagonal.
+   */
+  get diag() {
+    return this.value;
+  },
+};
+
+/**
  * {@link THREE.ArcballControls ArcballControls} x
  * {@link THREE.OrbitControls OrbitControls} x
  * {@link THREE.TrackballControls TrackballControls}
@@ -962,7 +995,6 @@ function init(dfile) {
   ).texture;
   //pmremGenerator.dispose();
 
-  let diag = 0;
   let lines = [];
 
   /**
@@ -1106,7 +1138,7 @@ function init(dfile) {
         axesHelper.dispose();
       }
       boxh = new THREE.BoxHelper(object, 0xa52a2a);
-      axesHelper = new THREE.AxesHelper(diag / 2);
+      axesHelper = new THREE.AxesHelper(cameraPos.diag / 2);
       scene.add(axesHelper);
       scene.add(boxh);
       boxh.visible = document.getElementById("stats").checked;
@@ -1173,7 +1205,9 @@ function init(dfile) {
       }
       geometry.center();
       geometry.computeBoundingBox();
-      diag = geometry.boundingBox.max.distanceTo(geometry.boundingBox.min);
+      cameraPos.diag = geometry.boundingBox.max.distanceTo(
+        geometry.boundingBox.min,
+      );
 
       mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(0, 0, 0);
@@ -1190,7 +1224,7 @@ function init(dfile) {
       // gltf file
       const model = geometry.scene;
       const bb = new THREE.Box3().setFromObject(model);
-      diag = bb.max.distanceTo(bb.min);
+      cameraPos.diag = bb.max.distanceTo(bb.min);
       const center = new THREE.Vector3();
       bb.getCenter(center);
 
@@ -1266,7 +1300,7 @@ function init(dfile) {
     } else {
       // OBJ file
       const bb = new THREE.Box3().setFromObject(geometry);
-      diag = bb.max.distanceTo(bb.min);
+      cameraPos.diag = bb.max.distanceTo(bb.min);
       const center = new THREE.Vector3();
       bb.getCenter(center);
 
@@ -1357,8 +1391,9 @@ function init(dfile) {
       renderer.render(scene, camera);
     } else if (orthoView.interpolate) {
       const speed = 2;
-      const target = new THREE.Vector3(diag * 1.2, 0, 0);
+      const target = cameraPos.x;
       if (!isEqual(camera.position, target, 1e-2)) {
+        // I see no difference between lerp and damp
         // camera.position.lerp(target, speed * delta);
         damp(camera.position, target, speed, delta);
         camera.lookAt(target);
@@ -1481,9 +1516,9 @@ function init(dfile) {
           orthoView.front = true;
           orthoView.interpolate = false;
           // 1.6 is enough, but don't forget the zoom out
-          camera.far = diag * 5;
-          camera.near = diag * 0.05;
-          camera.position.set(0, 0, diag * 1.2);
+          camera.far = cameraPos.diag * 5;
+          camera.near = cameraPos.diag * 0.05;
+          camera.position.set(cameraPos.z.x, cameraPos.z.y, cameraPos.z.z);
           camera.up.set(0, 1, 0);
           controls.maxDistance = camera.far;
           camera.updateProjectionMatrix();
@@ -1512,7 +1547,7 @@ function init(dfile) {
           orthoView.top = true;
           orthoView.interpolate = false;
           controls.reset();
-          camera.position.set(0, diag * 1.2, 0);
+          camera.position.set(cameraPos.y.x, cameraPos.y.y, cameraPos.y.z);
           if (ctrlType === ctype.ORBIT) {
             //controls.target.set(-1.0, 0.0, 0.0);
           } else {
@@ -1524,7 +1559,7 @@ function init(dfile) {
           orthoView.side = true;
           orthoView.interpolate = false;
           controls.reset();
-          camera.position.set(diag * 1.2, 0, 0);
+          camera.position.set(cameraPos.x.x, cameraPos.x.y, cameraPos.x.z);
           camera.up.set(0, 1, 0);
           controls.update();
           break;
@@ -1794,13 +1829,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="THREE.ArcballControls.html">ArcballControls</a></li><li><a href="THREE.AxesHelper.html">AxesHelper</a></li><li><a href="THREE.BoxHelper.html">BoxHelper</a></li><li><a href="THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="THREE.Clock.html">Clock</a></li><li><a href="THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="THREE.DataTexture.html">DataTexture</a></li><li><a href="THREE.EXRLoader.html">EXRLoader</a></li><li><a href="THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="THREE.KTX2Loader.html">KTX2Loader</a></li><li><a href="THREE.LineBasicMaterial.html">LineBasicMaterial</a></li><li><a href="THREE.LoadingManager.html">LoadingManager</a></li><li><a href="THREE.MTLLoader.html">MTLLoader</a></li><li><a href="THREE.Material.html">Material</a></li><li><a href="THREE.MeshLambertMaterial.html">MeshLambertMaterial</a></li><li><a href="THREE.MeshPhongMaterial.html">MeshPhongMaterial</a></li><li><a href="THREE.MeshPhysicalMaterial.html">MeshPhysicalMaterial</a></li><li><a href="THREE.MeshStandardMaterial.html">MeshStandardMaterial</a></li><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="THREE.Object3D.html">Object3D</a></li><li><a href="THREE.OrbitControls.html">OrbitControls</a></li><li><a href="THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="THREE.RGBELoader.html">RGBELoader</a></li><li><a href="THREE.RoomEnvironment.html">RoomEnvironment</a></li><li><a href="THREE.STLLoader.html">STLLoader</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.Stats.html">Stats</a></li><li><a href="THREE.TrackballControls.html">TrackballControls</a></li><li><a href="THREE.VTKLoader.html">VTKLoader</a></li><li><a href="THREE.Vector3.html">Vector3</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:controls">controls</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:materialRadio">materialRadio</a></li><li><a href="global.html#event:meshChkBox">meshChkBox</a></li><li><a href="global.html#event:modelsSelect">modelsSelect</a></li><li><a href="global.html#event:pointerdown">pointerdown</a></li><li><a href="global.html#event:resize">resize</a></li><li><a href="global.html#event:statsChkBox">statsChkBox</a></li></ul><h3>Global</h3><ul><li><a href="global.html#anonymous">anonymous</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#createBoxHelper">createBoxHelper</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#ctrlType">ctrlType</a></li><li><a href="global.html#ctype">ctype</a></li><li><a href="global.html#damp">damp</a></li><li><a href="global.html#delMaterial">delMaterial</a></li><li><a href="global.html#environment">environment</a></li><li><a href="global.html#fnames">fnames</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isEqual">isEqual</a></li><li><a href="global.html#line">line</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#loadModelj">loadModelj</a></li><li><a href="global.html#loadTextures">loadTextures</a></li><li><a href="global.html#loadTexturesAsync">loadTexturesAsync</a></li><li><a href="global.html#loadedModelName">loadedModelName</a></li><li><a href="global.html#material">material</a></li><li><a href="global.html#mesh">mesh</a></li><li><a href="global.html#mobile">mobile</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#modelj">modelj</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#object">object</a></li><li><a href="global.html#orthoView">orthoView</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="THREE.ArcballControls.html">ArcballControls</a></li><li><a href="THREE.AxesHelper.html">AxesHelper</a></li><li><a href="THREE.BoxHelper.html">BoxHelper</a></li><li><a href="THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="THREE.Clock.html">Clock</a></li><li><a href="THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="THREE.DataTexture.html">DataTexture</a></li><li><a href="THREE.EXRLoader.html">EXRLoader</a></li><li><a href="THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="THREE.KTX2Loader.html">KTX2Loader</a></li><li><a href="THREE.LineBasicMaterial.html">LineBasicMaterial</a></li><li><a href="THREE.LoadingManager.html">LoadingManager</a></li><li><a href="THREE.MTLLoader.html">MTLLoader</a></li><li><a href="THREE.Material.html">Material</a></li><li><a href="THREE.MeshLambertMaterial.html">MeshLambertMaterial</a></li><li><a href="THREE.MeshPhongMaterial.html">MeshPhongMaterial</a></li><li><a href="THREE.MeshPhysicalMaterial.html">MeshPhysicalMaterial</a></li><li><a href="THREE.MeshStandardMaterial.html">MeshStandardMaterial</a></li><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="THREE.Object3D.html">Object3D</a></li><li><a href="THREE.OrbitControls.html">OrbitControls</a></li><li><a href="THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="THREE.RGBELoader.html">RGBELoader</a></li><li><a href="THREE.RoomEnvironment.html">RoomEnvironment</a></li><li><a href="THREE.STLLoader.html">STLLoader</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.Stats.html">Stats</a></li><li><a href="THREE.TrackballControls.html">TrackballControls</a></li><li><a href="THREE.VTKLoader.html">VTKLoader</a></li><li><a href="THREE.Vector3.html">Vector3</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:controls">controls</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:materialRadio">materialRadio</a></li><li><a href="global.html#event:meshChkBox">meshChkBox</a></li><li><a href="global.html#event:modelsSelect">modelsSelect</a></li><li><a href="global.html#event:pointerdown">pointerdown</a></li><li><a href="global.html#event:resize">resize</a></li><li><a href="global.html#event:statsChkBox">statsChkBox</a></li></ul><h3>Global</h3><ul><li><a href="global.html#anonymous">anonymous</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#cameraPos">cameraPos</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#createBoxHelper">createBoxHelper</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#ctrlType">ctrlType</a></li><li><a href="global.html#ctype">ctype</a></li><li><a href="global.html#damp">damp</a></li><li><a href="global.html#delMaterial">delMaterial</a></li><li><a href="global.html#environment">environment</a></li><li><a href="global.html#fnames">fnames</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isEqual">isEqual</a></li><li><a href="global.html#line">line</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#loadModelj">loadModelj</a></li><li><a href="global.html#loadTextures">loadTextures</a></li><li><a href="global.html#loadTexturesAsync">loadTexturesAsync</a></li><li><a href="global.html#loadedModelName">loadedModelName</a></li><li><a href="global.html#material">material</a></li><li><a href="global.html#mesh">mesh</a></li><li><a href="global.html#mobile">mobile</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#modelj">modelj</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#object">object</a></li><li><a href="global.html#orthoView">orthoView</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Feb 04 2025 17:25:21 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Feb 05 2025 11:34:49 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
