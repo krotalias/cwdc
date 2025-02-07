@@ -1486,6 +1486,8 @@ function init(dfile) {
         case "f":
           controls.reset();
           orthoView.front = true;
+          orthoView.side = false;
+          orthoView.top = false;
           orthoView.interpolate = false;
           // 1.6 is enough, but don't forget the zoom out
           camera.far = cameraPos.diag * 5;
@@ -1517,6 +1519,8 @@ function init(dfile) {
           break;
         case "t":
           orthoView.top = true;
+          orthoView.side = false;
+          orthoView.front = false;
           orthoView.interpolate = false;
           controls.reset();
           camera.position.set(cameraPos.y.x, cameraPos.y.y, cameraPos.y.z);
@@ -1529,6 +1533,8 @@ function init(dfile) {
           break;
         case "a":
           orthoView.side = true;
+          orthoView.top = false;
+          orthoView.front = false;
           orthoView.interpolate = false;
           controls.reset();
           camera.position.set(cameraPos.x.x, cameraPos.x.y, cameraPos.x.z);
@@ -1690,12 +1696,54 @@ function init(dfile) {
    * <p>The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    * @summary Appends an event listener for events whose type attribute value is click.
-   * @event click
+   * @event clickReset
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   document
     .getElementById("reset")
     .addEventListener("click", (event) => handleKeyPress(createEvent("i")));
+
+  /**
+   * <p>Fires after both the mousedown and
+   * mouseup events have fired (in that order).</p>
+   * Top button must be pressed and released while the pointer is located inside it.
+   * <p>The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   * @summary Appends an event listener for events whose type attribute value is click.
+   * @event clickTop
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   */
+  document
+    .getElementById("top")
+    .addEventListener("click", (event) => handleKeyPress(createEvent("t")));
+
+  /**
+   * <p>Fires after both the mousedown and
+   * mouseup events have fired (in that order).</p>
+   * Front button must be pressed and released while the pointer is located inside it.
+   * <p>The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   * @summary Appends an event listener for events whose type attribute value is click.
+   * @event clickFront
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   */
+  document
+    .getElementById("front")
+    .addEventListener("click", (event) => handleKeyPress(createEvent("f")));
+
+  /**
+   * <p>Fires after both the mousedown and
+   * mouseup events have fired (in that order).</p>
+   * Side button must be pressed and released while the pointer is located inside it.
+   * <p>The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   * @summary Appends an event listener for events whose type attribute value is click.
+   * @event clickSide
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   */
+  document
+    .getElementById("side")
+    .addEventListener("click", (event) => handleKeyPress(createEvent("a")));
 
   /**
    * <p>Fires when the camera has been transformed by the controls.</p>
