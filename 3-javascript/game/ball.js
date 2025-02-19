@@ -80,8 +80,8 @@ let speedY = vy || 60;
 const canvas = document.querySelector("canvas");
 
 /**
- * Spring element.
- * @type {HTMLCanvasElement}
+ * Spring &lt;div&gt; element.
+ * @type {HTMLDivElement}
  */
 const spring = document.querySelector("#spring");
 
