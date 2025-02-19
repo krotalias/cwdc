@@ -9,6 +9,8 @@
             :root {
                 --cwidth: 252px; /* canvas dimension */
                 --cheight: 479px;
+                --swidth: 25px;
+                --sheight: 25px;
                 --space: 30px;
             }
 
@@ -41,8 +43,18 @@
                 margin: var(--space) 0;
             }
 
+            #spring {
+                top: calc(var(--cheight) - var(--sheight));
+                left: calc(var(--cwidth) - var(--swidth));
+                border: solid 2px red;
+                width: calc(var(--swidth) - 7px);
+                height: calc(var(--sheight) - 3px);
+                position: absolute;
+            }
+
             @media only screen and (max-width: 768px) and (orientation: landscape) {
-                canvas {
+                canvas,
+                #spring {
                     transform-origin: left;
                     transform: translate(100%, 2%) rotate(-90deg);
                 }
@@ -56,10 +68,16 @@
                     left: 50%; /* position the left edge of the element at the middle of the parent */
                     transform: translateX(-50%);
                 }
+                #spring {
+                    top: 2%;
+                    left: calc(var(--cheight) - var(--sheight));
+                    position: absolute;
+                }
             }
 
             @media only screen and (max-width: 768px) and(orientation: portrait) {
-                canvas {
+                canvas,
+                #spring {
                     transform: rotate(0deg);
                 }
             }
@@ -68,7 +86,10 @@
 
     <body>
         <div id="container-wrapper">
-            <canvas width="252" height="479"></canvas>
+            <div style="position: relative">
+                <canvas width="252" height="479"></canvas>
+                <div id="spring"></div>
+            </div>
 
             <div class="interface">
                 <div id="fps-counter">

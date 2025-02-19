@@ -80,6 +80,12 @@ let speedY = vy || 60;
 const canvas = document.querySelector("canvas");
 
 /**
+ * Spring element.
+ * @type {HTMLCanvasElement}
+ */
+const spring = document.querySelector("#spring");
+
+/**
  * <p>A closure to draw a single frame, by returning a function, which triggers the animation.</p>
  * <p>We use requestAnimationFrame that takes a callback as an argument
  * to be invoked before the repaint. <br>
@@ -216,19 +222,12 @@ const updateAnimation = (() => {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
    * @see {@link https://caniuse.com/pointer Pointer events}
    */
-  canvas.onpointerdown = (event) => {
-    if (
-      (event.button == 0 && // left button
-        event.pageX > w - 25 &&
-        event.pageY > h - 25) ||
-      (event.pageX > w + 25 && event.pageY < 25)
-    ) {
-      // a random initial ball velocity
-      speedX = -random(speedMin, speedMax);
-      speedY = -random(speedMin, speedMax);
-      x = ox + recw;
-      y = oy + rech;
-    }
+  spring.onpointerdown = (event) => {
+    // a random initial ball velocity
+    speedX = -random(speedMin, speedMax);
+    speedY = -random(speedMin, speedMax);
+    x = ox + recw;
+    y = oy + rech;
   };
 
   /**
