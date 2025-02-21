@@ -38,24 +38,36 @@
 
 /**
  * Three.js module.
- * @external THREE
+ * @external three
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://en.threejs-university.com Three.js University}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
  */
 let THREE;
 
 /**
- * TextGeometry module.
- * @external TextGeometry
- * @see https://threejs.org/docs/#examples/en/geometries/TextGeometry
+ * <p>Main three.js namespace.</p>
+ * {@link event:load Imported} from {@link external:three three.module.js}
+ * @namespace THREE
+ * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
+ * @see {@link https://dplatz.de/blog/2019/es6-bare-imports.html How to handle ES6 bare module imports for local Development}
+ */
+
+/**
+ * TextGeometry namespace.
+ * @namespace TextGeometry
+ * @see {@link https://threejs.org/docs/#examples/en/geometries/TextGeometry TextGeometry}
  */
 let TextGeometry;
 
 /**
- * FontLoader module.
- * @external FontLoader
- * @see https://threejs.org/docs/#examples/en/loaders/FontLoader
+ * FontLoader namespace.
+ * @namespace FontLoader
+ * @see {@link https://threejs.org/docs/#examples/en/loaders/FontLoader FontLoader}
  */
 let FontLoader;
 
@@ -65,8 +77,8 @@ let FontLoader;
  * and a set of parameters consisting of a loaded font and settings
  * for the geometry's parent ExtrudeGeometry.
  * @class TextGeometry
- * @memberof external:TextGeometry
- * @see https://threejs.org/docs/#examples/en/geometries/TextGeometry
+ * @memberof TextGeometry
+ * @see {@link https://threejs.org/docs/#examples/en/geometries/TextGeometry TextGeometry}
  */
 
 /**
@@ -74,15 +86,15 @@ let FontLoader;
  * which is an array of Shapes representing the font.
  * This uses the FileLoader internally for loading files.
  * @class FontLoader
- * @memberof external:FontLoader
- * @see https://threejs.org/docs/#examples/en/loaders/FontLoader
+ * @memberof FontLoader
+ * @see {@link https://threejs.org/docs/#examples/en/loaders/FontLoader FontLoader}
  */
 
 /**
  * Keep track of the Euler angles.
  * @type {Object<{x: Number, y: Number, z: Number}>}
  */
-var euler = {
+const euler = {
   x: 0.0, // pitch
   y: 0.0, // yaw (head)
   z: 0.0, // roll
@@ -92,26 +104,26 @@ var euler = {
  * Current rotation axis.
  * @type {String}
  */
-var axis = "y";
+let axis = "y";
 
 /**
  * Global Threejs objects in application.
  * @property {Object} objects
- * @property {external:THREE.Object3D} objects.localAxes - {@link localAxes local axes} used for intrinsic rotations.
- * @property {external:THREE.Scene} objects.scene - WebGL {@link scene}.
- * @property {external:THREE.Object3D} objects.holder - a {@link holder container} for everything:
+ * @property {THREE.Object3D} objects.localAxes - {@link localAxes local axes} used for intrinsic rotations.
+ * @property {THREE.Scene} objects.scene - WebGL {@link scene}.
+ * @property {THREE.Object3D} objects.holder - a {@link holder container} for everything:
  *  {@link AirPlane plane}, {@link Pilot pilot} and {@link localAxes local axes}.
- * @property {external:THREE.AxesHelper} objects.axesHelper - an axis object to visualize the 3 global {@link axesHelper axes}.
- * @property {external:THREE.SpotLightHelper} objects.spotLightHelper - a {@link spotLightHelper cone} shaped helper object for a
+ * @property {THREE.AxesHelper} objects.axesHelper - an axis object to visualize the 3 global {@link axesHelper axes}.
+ * @property {THREE.SpotLightHelper} objects.spotLightHelper - a {@link spotLightHelper cone} shaped helper object for a
  *  {@link https://threejs.org/docs/#api/en/lights/SpotLight SpotLight}.
- * @property {external:THREE.CameraHelper} objects.cameraHelper - depicts the {@link cameraHelper frustum} of a camera using LineSegments.
- * @property {external:THREE.Mesh} objects.shadowPlane - a {@link shadowPlane plane} for objects cast shadow to.
- * @property {external:THREE.PerspectiveCamera} objects.camera - a perspective {@link camera}.
- * @property {external:THREE.WebGLRenderer} objects.renderer - {@link renderer} to display the scene using WebGL.
- * @property {external:THREE.PointLightHelper} objects.pointLightHelper - a {@link pointLightHelper spherical Mesh} for visualizing a
+ * @property {THREE.CameraHelper} objects.cameraHelper - depicts the {@link cameraHelper frustum} of a camera using LineSegments.
+ * @property {THREE.Mesh} objects.shadowPlane - a {@link shadowPlane plane} for objects cast shadow to.
+ * @property {THREE.PerspectiveCamera} objects.camera - a perspective {@link camera}.
+ * @property {THREE.WebGLRenderer} objects.renderer - {@link renderer} to display the scene using WebGL.
+ * @property {THREE.PointLightHelper} objects.pointLightHelper - a {@link pointLightHelper spherical Mesh} for visualizing a
  *  {@link https://threejs.org/docs/#api/en/lights/PointLight PointLight}.
  */
-var objects = {
+const objects = {
   localAxes: null,
   scene: null,
   holder: null,
@@ -128,7 +140,7 @@ var objects = {
  * RGB colors in hexadecimal.
  * @type {Object<String,Number>}
  */
-var Colors = {
+const Colors = {
   red: 0xff0000,
   green: 0x00ff00,
   blue: 0x0000ff,
@@ -155,7 +167,7 @@ var Colors = {
  * Turn the display of the model axes/animation on/off.
  * @type {Object<{axes:Boolean, auto_rotate: Boolean, light: Boolean}>}
  */
-var selector = {
+const selector = {
   auto_rotate: !document.getElementById("pause").checked,
   axes: document.getElementById("axes").checked,
   light: document.getElementById("light").checked,
@@ -165,17 +177,17 @@ var selector = {
  * Convert an angle in degrees to radians.
  * @param {Number} deg angle in degrees.
  * @returns {Number} angle in radians.
- * @see https://threejs.org/docs/#api/en/math/MathUtils.degToRad
+ * @see {@link https://threejs.org/docs/#api/en/math/MathUtils.degToRad MathUtils.degToRad}
  */
-var deg2rad = (deg) => THREE.MathUtils.degToRad(deg);
+const deg2rad = (deg) => THREE.MathUtils.degToRad(deg);
 
 /**
  * Convert an angle in radians to degrees.
  * @param {Number} rad angle in radians.
  * @returns {Number} angle in degrees.
- * @see https://threejs.org/docs/#api/en/math/MathUtils.radToDeg
+ * @see {@link https://threejs.org/docs/#api/en/math/MathUtils.radToDeg MathUtils.radToDeg}
  */
-var rad2deg = (rad) => THREE.MathUtils.radToDeg(rad);
+const rad2deg = (rad) => THREE.MathUtils.radToDeg(rad);
 
 /**
  * <p>Loads the theejs module and the {@link mainEntrance application}.</p>
@@ -186,9 +198,12 @@ var rad2deg = (rad) => THREE.MathUtils.radToDeg(rad);
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
  * @event load
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import import()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await await}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/async_function async function}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import import statement}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap <script type="importmap">}
  */
 window.addEventListener("load", (event) => {
   const { userAgent } = navigator;
@@ -237,16 +252,17 @@ window.addEventListener("load", (event) => {
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
     /**
+     * @summary Executed when any
+     * {@link handleKeyPress rot} &lt;input radio&gt;'s checkbox is checked (but not unchecked).
      * <p>Appends an event listener for events whose type attribute value is change.
      * The callback argument sets the callback that will be invoked when
      * the event is dispatched.</p>
      *
-     * @event change - executed when any
-     * {@link handleKeyPress rot} &lt;input radio&gt;'s checkbox is checked (but not unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @event changeRot
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", function (event) {
-      var item = event.target.value;
+      const item = event.target.value;
       handleKeyPress(createEvent(item));
     });
   });
@@ -256,11 +272,11 @@ if (document.querySelector('input[name="rot"]')) {
  * Translate keypress events to strings.
  * @param {KeyboardEvent} event keyboard event.
  * @return {String} key pressed.
- * @see http://javascript.info/tutorial/keyboard-events
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
  */
 function getChar(event) {
   event = event || window.event;
-  let charCode = event.key || String.fromCharCode(event.which);
+  const charCode = event.key || String.fromCharCode(event.which);
   return charCode;
 }
 
@@ -269,7 +285,7 @@ function getChar(event) {
  */
 function displayAngles() {
   // update output window
-  var outputWindow = document.getElementById("displayMatrices");
+  const outputWindow = document.getElementById("displayMatrices");
   outputWindow.innerHTML = `
   RotateY(${euler["y"].toFixed(2)}) *
   RotateX(${euler["x"].toFixed(2)}) *
@@ -282,9 +298,9 @@ function displayAngles() {
  * @param {KeyboardEvent} event keyboard event.
  */
 function handleKeyPress(event) {
-  var ch = getChar(event);
-  var increment = 15;
-  var zoomfactor = 1.1;
+  const ch = getChar(event);
+  const increment = 15;
+  const zoomfactor = 1.1;
   switch (ch) {
     case "x":
     case "y":
@@ -397,13 +413,13 @@ function handleKeyPress(event) {
 }
 
 /**
- * Returns a new keyboard event.
+ * @summary Creates a keyboard keydown event.
  * @param {String} key char code.
  * @returns {KeyboardEvent} a keyboard event.
- * @event KeyboardEvent - creates a keyboard keydown event.
+ * @event KeyboardEvent
  */
-var createEvent = (key) => {
-  let code = key.charCodeAt();
+const createEvent = (key) => {
+  const code = key.charCodeAt();
   return new KeyboardEvent("keydown", {
     key: key,
     which: code,
@@ -414,23 +430,25 @@ var createEvent = (key) => {
 
 const axes = document.getElementById("axes");
 /**
+ * @summary Executed when the axes checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.
  * The callback argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the axes checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeAxes
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
 const light = document.getElementById("light");
 /**
+ * @summary Executed when the light checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.
  * The callback argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the light checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeLight
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 light.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 
@@ -453,8 +471,8 @@ function zoomOut() {
 
 /**
  * Airplane Pilot.
- * @see https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/
- * @see https://en.wikipedia.org/wiki/Aircraft_principal_axes
+ * @see {@link https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/ The Making of “The Aviator”: Animating a Basic 3D Scene with Three.js}
+ * @see {@link https://en.wikipedia.org/wiki/Aircraft_principal_axes Aircraft principal axes}
  */
 class Pilot {
   /**
@@ -465,7 +483,7 @@ class Pilot {
   constructor() {
     /**
      * Pilot's container.
-     * @var {external:THREE.Object3D}
+     * @type {THREE.Object3D}
      */
     this.mesh = new THREE.Object3D();
 
@@ -481,33 +499,33 @@ class Pilot {
      */
     this.angleHairs = 0;
 
-    var bodyGeom = new THREE.BoxGeometry(15, 15, 15);
-    var bodyMat = new THREE.MeshLambertMaterial({
+    const bodyGeom = new THREE.BoxGeometry(15, 15, 15);
+    const bodyMat = new THREE.MeshLambertMaterial({
       color: Colors.brown,
       //emissive: Colors.brown,
       flatShading: true,
     });
-    var body = new THREE.Mesh(bodyGeom, bodyMat);
+    const body = new THREE.Mesh(bodyGeom, bodyMat);
     body.position.set(2, -12, 0);
 
     this.mesh.add(body);
 
-    var faceGeom = new THREE.BoxGeometry(10, 10, 10);
-    var faceMat = new THREE.MeshLambertMaterial({
+    const faceGeom = new THREE.BoxGeometry(10, 10, 10);
+    const faceMat = new THREE.MeshLambertMaterial({
       color: Colors.pink,
       //emissive: Colors.pink,
     });
-    var face = new THREE.Mesh(faceGeom, faceMat);
+    const face = new THREE.Mesh(faceGeom, faceMat);
     this.mesh.add(face);
 
-    var hairGeom = new THREE.BoxGeometry(4, 4, 4);
-    var hairMat = new THREE.MeshLambertMaterial({
+    const hairGeom = new THREE.BoxGeometry(4, 4, 4);
+    const hairMat = new THREE.MeshLambertMaterial({
       color: Colors.brown,
       //emissive: Colors.brown,
     });
-    var hair = new THREE.Mesh(hairGeom, hairMat);
+    const hair = new THREE.Mesh(hairGeom, hairMat);
     hair.geometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0, 2, 0));
-    var hairs = new THREE.Object3D();
+    const hairs = new THREE.Object3D();
 
     /**
      * <p>Pilot's hair container.</p>
@@ -521,59 +539,59 @@ class Pilot {
      *  (8, -4)  (8, 0)  (8, 4)
      * </pre>
      *
-     * @var {external:THREE.Object3D}
+     * @type {THREE.Object3D}
      */
     this.hairsTop = new THREE.Object3D();
 
-    for (var i = 0; i < 12; i++) {
-      var h = hair.clone();
-      var col = i % 3;
-      var row = Math.floor(i / 3);
-      var startPosZ = -4;
-      var startPosX = -4;
+    for (let i = 0; i < 12; i++) {
+      const h = hair.clone();
+      const col = i % 3;
+      const row = Math.floor(i / 3);
+      const startPosZ = -4;
+      const startPosX = -4;
       h.position.set(startPosX + row * 4, 0, startPosZ + col * 4);
       h.geometry.applyMatrix4(new THREE.Matrix4().makeScale(1, 1, 1));
       this.hairsTop.add(h);
     }
     hairs.add(this.hairsTop);
 
-    var hairSideGeom = new THREE.BoxGeometry(12, 4, 2);
+    const hairSideGeom = new THREE.BoxGeometry(12, 4, 2);
     hairSideGeom.applyMatrix4(new THREE.Matrix4().makeTranslation(-6, 0, 0));
-    var hairSideR = new THREE.Mesh(hairSideGeom, hairMat);
-    var hairSideL = hairSideR.clone();
+    const hairSideR = new THREE.Mesh(hairSideGeom, hairMat);
+    const hairSideL = hairSideR.clone();
     hairSideR.position.set(8, -2, 6);
     hairSideL.position.set(8, -2, -6);
     hairs.add(hairSideR);
     hairs.add(hairSideL);
 
-    var hairBackGeom = new THREE.BoxGeometry(2, 8, 10);
-    var hairBack = new THREE.Mesh(hairBackGeom, hairMat);
+    const hairBackGeom = new THREE.BoxGeometry(2, 8, 10);
+    const hairBack = new THREE.Mesh(hairBackGeom, hairMat);
     hairBack.position.set(-1, -4, 0);
     hairs.add(hairBack);
     hairs.position.set(-5, 5, 0);
 
     this.mesh.add(hairs);
 
-    var glassGeom = new THREE.BoxGeometry(5, 5, 5);
-    var glassMat = new THREE.MeshLambertMaterial({
+    const glassGeom = new THREE.BoxGeometry(5, 5, 5);
+    const glassMat = new THREE.MeshLambertMaterial({
       color: Colors.brown,
       //emissive: Colors.brown,
     });
-    var glassR = new THREE.Mesh(glassGeom, glassMat);
+    const glassR = new THREE.Mesh(glassGeom, glassMat);
     glassR.position.set(6, 0, 3);
-    var glassL = glassR.clone();
+    const glassL = glassR.clone();
     glassL.position.z = -glassR.position.z;
 
-    var glassAGeom = new THREE.BoxGeometry(11, 1, 11);
-    var glassA = new THREE.Mesh(glassAGeom, glassMat);
+    const glassAGeom = new THREE.BoxGeometry(11, 1, 11);
+    const glassA = new THREE.Mesh(glassAGeom, glassMat);
     this.mesh.add(glassR);
     this.mesh.add(glassL);
     this.mesh.add(glassA);
 
-    var earGeom = new THREE.BoxGeometry(2, 3, 2);
-    var earL = new THREE.Mesh(earGeom, faceMat);
+    const earGeom = new THREE.BoxGeometry(2, 3, 2);
+    const earL = new THREE.Mesh(earGeom, faceMat);
     earL.position.set(0, 0, -6);
-    var earR = earL.clone();
+    const earR = earL.clone();
     earR.position.set(0, 0, 6);
     this.mesh.add(earL);
     this.mesh.add(earR);
@@ -586,7 +604,7 @@ class Pilot {
    * @param {Number} increment amount to be added in each frame.
    */
   updateHairs(increment = 0.2) {
-    var hairs = this.hairsTop.children;
+    const hairs = this.hairsTop.children;
 
     // update them according to the angle this.angleHairs
     for (const [i, h] of hairs.entries()) {
@@ -599,23 +617,23 @@ class Pilot {
 
 /**
  * A very simple airplane.
- * @see https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/
- * @see https://en.wikipedia.org/wiki/Aircraft_principal_axes
+ * @see {@link https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/ The Making of “The Aviator”: Animating a Basic 3D Scene with Three.js}
+ * @see {@link https://en.wikipedia.org/wiki/Aircraft_principal_axes Aircraft principal axes}
  */
 class AirPlane {
   /**
    * Constructs a new airplane.
-   * @see https://threejs.org/docs/#api/en/core/Object3D
+   * @see {@link https://threejs.org/docs/#api/en/core/Object3D Object3D}
    */
   constructor() {
     /**
      * Airplane's container.
-     * @var {external:THREE.Object3D}
+     * @type {THREE.Object3D}
      */
     this.mesh = new THREE.Object3D();
 
     // Create the cabin
-    var geomCockpit = new THREE.BoxGeometry(80, 50, 50, 1, 1, 1);
+    const geomCockpit = new THREE.BoxGeometry(80, 50, 50, 1, 1, 1);
 
     /**
      * <p>Self invoking anonymous function.</p>
@@ -624,7 +642,7 @@ class AirPlane {
      */
     // prettier-ignore
     (function() {
-      var pos = geomCockpit.attributes.position.array;
+      const pos = geomCockpit.attributes.position.array;
       pos[13] = 15; pos[14] = -5;
       pos[16] = 15; pos[17] =  5;
       pos[19] =  5; pos[20] = -5;
@@ -639,71 +657,71 @@ class AirPlane {
       pos[70] =  5; pos[71] = -5;
     })();
 
-    var matCockpit = new THREE.MeshLambertMaterial({
+    const matCockpit = new THREE.MeshLambertMaterial({
       color: Colors.sunsetOrange,
       //emissive: Colors.sunsetOrange,
       flatShading: true,
     });
 
-    var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
+    const cockpit = new THREE.Mesh(geomCockpit, matCockpit);
     cockpit.castShadow = true;
     cockpit.receiveShadow = true;
     this.mesh.add(cockpit);
 
     // Create the enginemake
-    var geomEngine = new THREE.BoxGeometry(20, 50, 50, 1, 1, 1);
-    var matEngine = new THREE.MeshLambertMaterial({
+    const geomEngine = new THREE.BoxGeometry(20, 50, 50, 1, 1, 1);
+    const matEngine = new THREE.MeshLambertMaterial({
       color: Colors.whiteGray,
       //emissive: Colors.whiteGray,
       flatShading: true,
     });
-    var engine = new THREE.Mesh(geomEngine, matEngine);
+    const engine = new THREE.Mesh(geomEngine, matEngine);
     engine.position.x = 50;
     engine.castShadow = true;
     engine.receiveShadow = true;
     this.mesh.add(engine);
 
     // Create the tail
-    var geomTailPlane = new THREE.BoxGeometry(15, 20, 5, 1, 1, 1);
-    var matTailPlane = new THREE.MeshLambertMaterial({
+    const geomTailPlane = new THREE.BoxGeometry(15, 20, 5, 1, 1, 1);
+    const matTailPlane = new THREE.MeshLambertMaterial({
       color: Colors.darkOrange,
       //emissive: Colors.darkOrange,
       flatShading: true,
     });
-    var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
+    const tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
     tailPlane.position.set(-45, 20, 0);
     tailPlane.castShadow = true;
     tailPlane.receiveShadow = true;
     this.mesh.add(tailPlane);
 
     // Create the wing
-    var geomSideWing = new THREE.BoxGeometry(30, 5, 150, 1, 1, 1);
-    var matSideWing = new THREE.MeshLambertMaterial({
+    const geomSideWing = new THREE.BoxGeometry(30, 5, 150, 1, 1, 1);
+    const matSideWing = new THREE.MeshLambertMaterial({
       color: Colors.darkOrange,
       //emissive: Colors.darkOrange,
       flatShading: true,
     });
-    var sideWing = new THREE.Mesh(geomSideWing, matSideWing);
+    const sideWing = new THREE.Mesh(geomSideWing, matSideWing);
     sideWing.position.set(0, 15, 0);
     sideWing.castShadow = true;
     sideWing.receiveShadow = true;
     this.mesh.add(sideWing);
 
-    var geomWindshield = new THREE.BoxGeometry(3, 15, 20, 1, 1, 1);
-    var matWindshield = new THREE.MeshPhongMaterial({
+    const geomWindshield = new THREE.BoxGeometry(3, 15, 20, 1, 1, 1);
+    const matWindshield = new THREE.MeshPhongMaterial({
       color: Colors.white,
       transparent: true,
       opacity: 0.3,
     });
-    var windshield = new THREE.Mesh(geomWindshield, matWindshield);
+    const windshield = new THREE.Mesh(geomWindshield, matWindshield);
     windshield.position.set(5, 27, 0);
     windshield.castShadow = true;
     windshield.receiveShadow = true;
     this.mesh.add(windshield);
 
     // propeller
-    var geomPropeller = new THREE.BoxGeometry(20, 10, 10, 1, 1, 1);
-    var matPropeller = new THREE.MeshLambertMaterial({
+    const geomPropeller = new THREE.BoxGeometry(20, 10, 10, 1, 1, 1);
+    const matPropeller = new THREE.MeshLambertMaterial({
       color: Colors.brown,
       //emissive: Colors.brown,
       flatShading: true,
@@ -711,26 +729,26 @@ class AirPlane {
 
     /**
      * Airplane's propeller.
-     * @var {external:THREE.Mesh}
+     * @type {THREE.Mesh}
      */
     this.propeller = new THREE.Mesh(geomPropeller, matPropeller);
     this.propeller.castShadow = true;
     this.propeller.receiveShadow = true;
 
     // blades
-    var geomBlade = new THREE.BoxGeometry(1, 80, 10, 1, 1, 1);
-    var matBlade = new THREE.MeshLambertMaterial({
+    const geomBlade = new THREE.BoxGeometry(1, 80, 10, 1, 1, 1);
+    const matBlade = new THREE.MeshLambertMaterial({
       color: Colors.darkBrown,
       //emissive: Colors.darkBrown,
       flatShading: true,
     });
 
-    var blade1 = new THREE.Mesh(geomBlade, matBlade);
+    const blade1 = new THREE.Mesh(geomBlade, matBlade);
     blade1.position.set(8, 0, 0);
     blade1.castShadow = true;
     blade1.receiveShadow = true;
 
-    var blade2 = blade1.clone();
+    const blade2 = blade1.clone();
     blade2.rotation.x = Math.PI / 2;
     blade2.castShadow = true;
     blade2.receiveShadow = true;
@@ -740,57 +758,57 @@ class AirPlane {
     this.propeller.position.set(60, 0, 0);
     this.mesh.add(this.propeller);
 
-    var wheelProtecGeom = new THREE.BoxGeometry(30, 15, 10, 1, 1, 1);
-    var wheelProtecMat = new THREE.MeshPhongMaterial({
+    const wheelProtecGeom = new THREE.BoxGeometry(30, 15, 10, 1, 1, 1);
+    const wheelProtecMat = new THREE.MeshPhongMaterial({
       color: Colors.sunsetOrange,
       //emissive: Colors.sunsetOrange,
       flatShading: true,
     });
-    var wheelProtecR = new THREE.Mesh(wheelProtecGeom, wheelProtecMat);
+    const wheelProtecR = new THREE.Mesh(wheelProtecGeom, wheelProtecMat);
     wheelProtecR.position.set(25, -20, 25);
     this.mesh.add(wheelProtecR);
 
-    var wheelTireGeom = new THREE.BoxGeometry(24, 24, 4);
-    var wheelTireMat = new THREE.MeshPhongMaterial({
+    const wheelTireGeom = new THREE.BoxGeometry(24, 24, 4);
+    const wheelTireMat = new THREE.MeshPhongMaterial({
       color: Colors.darkBrown,
       //emissive: Colors.darkBrown,
       flatShading: true,
     });
-    var wheelTireR = new THREE.Mesh(wheelTireGeom, wheelTireMat);
+    const wheelTireR = new THREE.Mesh(wheelTireGeom, wheelTireMat);
     wheelTireR.position.set(25, -28, 25);
 
-    var wheelAxisGeom = new THREE.BoxGeometry(10, 10, 6);
-    var wheelAxisMat = new THREE.MeshPhongMaterial({
+    const wheelAxisGeom = new THREE.BoxGeometry(10, 10, 6);
+    const wheelAxisMat = new THREE.MeshPhongMaterial({
       color: Colors.brown,
       //emissive: Colors.brown,
       flatShading: true,
     });
-    var wheelAxis = new THREE.Mesh(wheelAxisGeom, wheelAxisMat);
+    const wheelAxis = new THREE.Mesh(wheelAxisGeom, wheelAxisMat);
     wheelTireR.add(wheelAxis);
 
     this.mesh.add(wheelTireR);
 
-    var wheelProtecL = wheelProtecR.clone();
+    const wheelProtecL = wheelProtecR.clone();
     wheelProtecL.position.z = -wheelProtecR.position.z;
     this.mesh.add(wheelProtecL);
 
-    var wheelTireL = wheelTireR.clone();
+    const wheelTireL = wheelTireR.clone();
     wheelTireL.position.z = -wheelTireR.position.z;
     this.mesh.add(wheelTireL);
 
-    var wheelTireB = wheelTireR.clone();
+    const wheelTireB = wheelTireR.clone();
     wheelTireB.scale.set(0.5, 0.5, 0.5);
     wheelTireB.position.set(-35, -5, 0);
     this.mesh.add(wheelTireB);
 
-    var suspensionGeom = new THREE.BoxGeometry(4, 20, 4);
+    const suspensionGeom = new THREE.BoxGeometry(4, 20, 4);
     suspensionGeom.applyMatrix4(new THREE.Matrix4().makeTranslation(0, 10, 0));
-    var suspensionMat = new THREE.MeshPhongMaterial({
+    const suspensionMat = new THREE.MeshPhongMaterial({
       color: Colors.sunsetOrange,
       //emissive: Colors.sunsetOrange,
       flatShading: true,
     });
-    var suspension = new THREE.Mesh(suspensionGeom, suspensionMat);
+    const suspension = new THREE.Mesh(suspensionGeom, suspensionMat);
     suspension.position.set(-35, -5, 0);
     suspension.rotation.z = -0.3;
     this.mesh.add(suspension);
@@ -810,11 +828,11 @@ class AirPlane {
 
 /**
  * Creates an object AirPlane and adds to the scene.
- * @param {external:THREE.Object3D} parent airplane container.
+ * @param {THREE.Object3D} parent airplane container.
  * @return {AirPlane} created airplane object.
  */
 function createAirPlane(parent) {
-  var airplane = new AirPlane();
+  const airplane = new AirPlane();
   airplane.mesh.scale.set(0.01, 0.01, 0.01);
   airplane.mesh.rotation.y = deg2rad(-90.0);
   airplane.mesh.position.x = 0;
@@ -826,51 +844,51 @@ function createAirPlane(parent) {
 
 /**
  * Draw three coordinate axes.
- * @param {external:THREE.Object3D} parent axis container.
+ * @param {THREE.Object3D} parent axis container.
  */
 function drawGlobalAxes(parent) {
-  var axisMat = {
+  const axisMat = {
     0: new THREE.LineBasicMaterial({ color: Colors.sunsetOrange }),
     1: new THREE.LineBasicMaterial({ color: Colors.green }),
     2: new THREE.LineBasicMaterial({ color: Colors.blue }),
   };
-  var points = [];
+  const points = [];
   points.push(new THREE.Vector3(0, 0, 0));
 
-  let axisLen = 2.0;
+  const axisLen = 2.0;
   for (let i = 0; i < 3; ++i) {
     points[1] = new THREE.Vector3(
       i == 0 ? axisLen : 0,
       i == 1 ? axisLen : 0,
       i == 2 ? axisLen : 0,
     );
-    var geometry = new THREE.BufferGeometry().setFromPoints(points);
-    var line = new THREE.Line(geometry, axisMat[i]);
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const line = new THREE.Line(geometry, axisMat[i]);
     parent.add(line);
   }
 }
 
 /**
  * Draw three local coordinate axes.
- * @param {external:THREE.Object3D} parent axis container.
- * @param {THREE.Font} font text font.
+ * @param {THREE.Object3D} parent axis container.
+ * @param {FontLoader.FontLoader} font text font.
  */
 function drawLocalAxes(parent, font) {
   // create the three black lines
-  var material = new THREE.LineBasicMaterial({ color: Colors.black });
-  var points = [];
-  var lineLen = 1.0;
+  const material = new THREE.LineBasicMaterial({ color: Colors.black });
+  const points = [];
+  const lineLen = 1.0;
   /**
    * This is the base class for most objects in three.js and provides a set of
    * properties and methods for manipulating objects in 3D space.
    * @class Object3D
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/core/Object3D
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/core/Object3D Object3D}
    */
 
   /**
    * Local axes used for intrinsic rotations.
-   * @var {external:THREE.Object3D}
+   * @type {THREE.Object3D}
    * @global
    */
   objects.localAxes = new THREE.Object3D();
@@ -880,14 +898,14 @@ function drawLocalAxes(parent, font) {
   points.push(new THREE.Vector3(0.0, lineLen, 0));
   points.push(new THREE.Vector3(0, 0, -lineLen));
   points.push(new THREE.Vector3(0, 0, lineLen));
-  var geometry = new THREE.BufferGeometry().setFromPoints(points);
-  var line = new THREE.LineSegments(geometry, material);
+  const geometry = new THREE.BufferGeometry().setFromPoints(points);
+  const line = new THREE.LineSegments(geometry, material);
   objects.localAxes.add(line);
 
   let i = 0;
   /**
    * TextGeometry object.
-   * @var {external:TextGeometry.TextGeometry}
+   * @type {TextGeometry.TextGeometry}
    * @global
    */
   let textGeometry;
@@ -903,7 +921,7 @@ function drawLocalAxes(parent, font) {
       size: 0.1,
       depth: 0,
     });
-    var mesh = new THREE.Mesh(textGeometry, textMaterialNeg);
+    let mesh = new THREE.Mesh(textGeometry, textMaterialNeg);
     mesh.position.set(...points[i]);
     objects.localAxes.add(mesh);
     mesh = new THREE.Mesh(textGeometry, textMaterialPos);
@@ -916,21 +934,21 @@ function drawLocalAxes(parent, font) {
 
 /**
  * Draw two local auxiliary triangles.
- * @param {external:THREE.Object3D} parent triangle container.
+ * @param {THREE.Object3D} parent triangle container.
  */
 function drawTwoTriangles(parent) {
   // draw a triangle and then make the geometry from it
-  var triangleShape = new THREE.Shape();
-  let vtx = 0.45;
+  const triangleShape = new THREE.Shape();
+  const vtx = 0.45;
   triangleShape.moveTo(vtx, -vtx);
   triangleShape.lineTo(0.0, vtx);
   triangleShape.lineTo(-vtx, -vtx);
   triangleShape.lineTo(vtx, -vtx);
 
-  var geometry = new THREE.ShapeGeometry(triangleShape);
-  var material = new THREE.MeshBasicMaterial({ color: Colors.cyan });
+  const geometry = new THREE.ShapeGeometry(triangleShape);
+  const material = new THREE.MeshBasicMaterial({ color: Colors.cyan });
   material.side = THREE.DoubleSide;
-  var triangle = new THREE.Mesh(geometry, material);
+  const triangle = new THREE.Mesh(geometry, material);
   triangle.translateX(-0.76);
   triangle.rotation.y = deg2rad(-90.0);
   parent.add(triangle);
@@ -946,12 +964,12 @@ function drawTwoTriangles(parent) {
 
 /**
  * Draw two local auxiliary octagon.
- * @param {external:THREE.Object3D} parent octagon container.
+ * @param {THREE.Object3D} parent octagon container.
  */
 function drawTwoOctagons(parent) {
   // draw a triangle and then make the geometry from it
-  var octagonShape = new THREE.Shape();
-  let sqrt2 = Math.sqrt(2);
+  const octagonShape = new THREE.Shape();
+  const sqrt2 = Math.sqrt(2);
   octagonShape.moveTo(-1 + sqrt2, 1.0);
   octagonShape.lineTo(1.0, -1 + sqrt2);
   octagonShape.lineTo(1.0, 1 - sqrt2);
@@ -962,16 +980,16 @@ function drawTwoOctagons(parent) {
   octagonShape.lineTo(1 - sqrt2, 1.0);
   octagonShape.lineTo(-1 + sqrt2, 1.0);
 
-  var geometry = new THREE.ShapeGeometry(octagonShape);
-  var material = new THREE.MeshLambertMaterial({
+  const geometry = new THREE.ShapeGeometry(octagonShape);
+  let material = new THREE.MeshLambertMaterial({
     color: Colors.cyan,
     side: THREE.DoubleSide,
   });
-  var materialEdge = new THREE.MeshBasicMaterial({
+  const materialEdge = new THREE.MeshBasicMaterial({
     color: Colors.darkBrown,
     wireframe: true,
   });
-  var octagon = new THREE.Mesh(geometry, material);
+  let octagon = new THREE.Mesh(geometry, material);
   octagon.castShadow = true;
   octagon.receiveShadow = true;
   octagon.scale.set(0.5, 0.5, 0.5);
@@ -1013,7 +1031,7 @@ function drawTwoOctagons(parent) {
  * Change the vertex coordinates of a given Box geometry.
  * @param {THREE.BoxGeometry} geometry a box.
  * @param {Number} val coordinate value.
- * @see https://dustinpfister.github.io/2021/06/07/threejs-buffer-geometry-attributes-position/
+ * @see {@link https://dustinpfister.github.io/2021/06/07/threejs-buffer-geometry-attributes-position/ The position attribute for buffer geometries in threejs}
  */
 function changeBox(geometry, val = 1) {
   // set location of a vert given an index value in geometry.index
@@ -1056,7 +1074,7 @@ function changeBox(geometry, val = 1) {
 
 /**
  * Entry point when page is loaded for loading a font and {@link start} the application.
- * @see {@link external:FontLoader}
+ * @see {@link FontLoader.FontLoader}
  */
 function mainEntrance() {
   const loader = new FontLoader();
@@ -1067,10 +1085,18 @@ function mainEntrance() {
 }
 
 /**
+ * A light source positioned directly above the scene,
+ * with color fading from the sky color to the ground color.
+ * @class HemisphereLight
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/lights/HemisphereLight HemisphereLight}
+ */
+
+/**
  * A gradient colored light.
  * @type {THREE.HemisphereLight}
  */
-var hemisphereLight,
+let hemisphereLight,
   shadowLight,
   ambientLight,
   ambientLight2,
@@ -1081,11 +1107,10 @@ var hemisphereLight,
  * <p>Lighting is certainly one of the trickiest parts when it comes to setting up a scene.</p>
  * The lights will set the mood of the whole scene and must be determined carefully.<br>
  * Just make the lightning good enough to make the objects visible.
- * @param {external:THREE.Object3D} scene where you place objects, lights and cameras.
- * @see https://threejs.org/docs/#api/en/lights/DirectionalLight
- * @see https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow
- * @see https://threejs.org/docs/#api/en/lights/HemisphereLight
- * @see https://threejs.org/docs/#api/en/lights/AmbientLight
+ * @param {THREE.Object3D} scene where you place objects, lights and cameras.
+ * @see {@link https://threejs.org/docs/#api/en/lights/DirectionalLight DirectionalLight}
+ * @see {@link https://threejs.org/docs/#api/en/lights/HemisphereLight HemisphereLight}
+ * @see {@link https://threejs.org/docs/#api/en/lights/AmbientLight AmbientLight}
  */
 function createLights(scene) {
   // A hemisphere light is a gradient colored light;
@@ -1130,13 +1155,13 @@ function createLights(scene) {
    * This helps with visualizing what a camera contains in its frustum.
    * It visualizes the frustum of a camera using a LineSegments.
    * @class CameraHelper
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/helpers/CameraHelper
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/helpers/CameraHelper CameraHelper}
    */
 
   /**
    * Create a helper for the shadow camera (optional)
-   * @var {external:THREE.CameraHelper}
+   * @type {THREE.CameraHelper}
    * @global
    */
   objects.cameraHelper = new THREE.CameraHelper(shadowLight.shadow.camera);
@@ -1158,12 +1183,12 @@ function createLights(scene) {
  * Note that, without a global source of light, all surfaces will render black,
  * unless their emissive properties are also set.<br>
  * This can be avoided, by using an ambient or hemisphere light source.
- * @param {external:THREE.Object3D} scene where you place objects, lights and cameras.
- * @param {external:THREE.Object3D} target scene object target.
- * @see https://threejs.org/docs/#api/en/lights/SpotLight
- * @see https://threejs.org/docs/#api/en/lights/PointLight
- * @see https://threejs.org/docs/#api/en/helpers/SpotLightHelper
- * @see https://threejs.org/docs/#api/en/helpers/PointLightHelper
+ * @param {THREE.Object3D} scene where you place objects, lights and cameras.
+ * @param {THREE.Object3D} target scene object target.
+ * @see {@link https://threejs.org/docs/#api/en/lights/SpotLight SpotLight}
+ * @see {@link https://threejs.org/docs/#api/en/lights/PointLight PointLight}
+ * @see {@link https://threejs.org/docs/#api/en/helpers/SpotLightHelper SpotLightHelper}
+ * @see {@link https://threejs.org/docs/#api/en/helpers/PointLightHelper PointLightHelper}
  */
 function createLights2(scene, target) {
   // This light globally illuminates all objects in the scene equally.
@@ -1177,13 +1202,13 @@ function createLights2(scene, target) {
    * This displays a helper object consisting of a spherical Mesh
    * for visualizing a PointLight.
    * @class PointLightHelper
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/helpers/PointLightHelper
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/helpers/PointLightHelper PointLightHelper}
    */
 
   /**
    * Create a helper for the point light (optional)
-   * @var {external:THREE.PointLightHelper}
+   * @type {THREE.PointLightHelper}
    * @global
    */
   objects.pointLightHelper = new THREE.PointLightHelper(
@@ -1199,13 +1224,13 @@ function createLights2(scene, target) {
   /**
    * This displays a cone shaped helper object for a SpotLight.
    * @class SpotLightHelper
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/helpers/SpotLightHelper
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/helpers/SpotLightHelper SpotLightHelper}
    */
 
   /**
    * Create a helper for the spot light (optional)
-   * @var {external:THREE.SpotLightHelper}
+   * @type {THREE.SpotLightHelper}
    * @global
    */
   objects.spotLightHelper = new THREE.SpotLightHelper(spotLight);
@@ -1229,12 +1254,12 @@ function createLights2(scene, target) {
 
 /**
  * Entry point when font is loaded.
- * @param {THREE.Font} font text font.
- * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
- * @see https://threejs.org/docs/#examples/en/geometries/TextGeometry
- * @see https://threejs.org/docs/#api/en/extras/core/Shape
- * @see https://threejs.org/docs/#api/en/scenes/Scene
- * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer.toneMapping
+ * @param {FontLoader.FontLoader} font text font.
+ * @see {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer WebGLRenderer}
+ * @see {@link TextGeometry.TextGeometry}
+ * @see {@link https://threejs.org/docs/#api/en/extras/core/Shape Shape}
+ * @see {@link https://threejs.org/docs/#api/en/scenes/Scene Scene}
+ * @see {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.toneMapping WebGLRenderer.toneMapping}
  */
 function start(font) {
   /**
@@ -1267,20 +1292,20 @@ function start(font) {
    * we need three things: scene, camera and renderer,
    * so that we can render the scene with camera.
    * @class Scene
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene Creating a scene}
    */
 
   /**
    * <p>A scene.</p>
-   * @var {external:THREE.Scene}
+   * @type {THREE.Scene}
    * @global
    */
   objects.scene = new THREE.Scene();
-  let scene = objects.scene;
-  let width = canvas.width;
-  let height = canvas.height;
-  let aspect = width / height;
+  const scene = objects.scene;
+  const width = canvas.width;
+  const height = canvas.height;
+  const aspect = width / height;
 
   /**
    * <p>Camera that uses perspective projection.</p>
@@ -1288,13 +1313,13 @@ function start(font) {
    * This projection mode is designed to mimic the way the human eye sees.
    * It is the most common projection mode used for rendering a 3D scene.
    * @class PerspectiveCamera
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/cameras/PerspectiveCamera PerspectiveCamera}
    */
 
   /**
    * <p>A perspective camera.</p>
-   * @var {external:THREE.PerspectiveCamera}
+   * @type {THREE.PerspectiveCamera}
    * @global
    */
   objects.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
@@ -1308,13 +1333,13 @@ function start(font) {
   /**
    * The WebGL renderer displays your beautifully crafted scenes using WebGL.
    * @class WebGLRenderer
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer WebGLRenderer}
    */
 
   /**
    * <p>A renderer.</p>
-   * @var {external:THREE.WebGLRenderer}
+   * @type {THREE.WebGLRenderer}
    * @global
    */
   objects.renderer = new THREE.WebGLRenderer({
@@ -1336,7 +1361,7 @@ function start(font) {
    * <p>A container for everything: plane, pilot and {@link localAxes local axes}.</p>
    * Set the rotation order for Euler angles for this object container
    * to intrinsic "YZX": head (yaw), pitch, roll.
-   * @var {external:THREE.Object3D}
+   * @type {THREE.Object3D}
    * @global
    */
   objects.holder = new THREE.Object3D();
@@ -1347,7 +1372,7 @@ function start(font) {
    * <p>Fires when the document view (window) has been resized.</p>
    * Also resizes the canvas and viewport.
    * @callback handleWindowResize
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   function handleWindowResize() {
     let h = window.innerHeight;
@@ -1363,13 +1388,14 @@ function start(font) {
   }
 
   /**
+   * @summary Executed when the window is resized.
    * <p>Appends an event listener for events whose type attribute value is resize.</p>
    * <p>The {@link handleWindowResize callback} argument sets the callback
    * that will be invoked when the event is dispatched.</p>
    * @param {Event} event the document view is resized.
    * @param {callback} function function to run when the event occurs.
    * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-   * @event resize - executed when the window is resized.
+   * @event resize
    */
   window.addEventListener("resize", handleWindowResize, false);
 
@@ -1377,14 +1403,14 @@ function start(font) {
    * An axis object to visualize the 3 axes in a simple way.
    * The X axis is red. The Y axis is green. The Z axis is blue.
    * @class AxesHelper
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/helpers/AxesHelper
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/helpers/AxesHelper AxesHelper}
    */
 
   /**
    * Create a helper for the axes (optional).
    * Geometry for the global coordinate axes.
-   * @var {external:THREE.AxesHelper}
+   * @type {THREE.AxesHelper}
    * @global
    */
   objects.axesHelper = new THREE.AxesHelper(5);
@@ -1406,20 +1432,20 @@ function start(font) {
 
   // A plane to receive shadow.
   const planeGeometry = new THREE.PlaneGeometry(5000, 5000, 20, 20);
-  var material = new THREE.ShadowMaterial();
+  const material = new THREE.ShadowMaterial();
   material.opacity = 0.1;
   /**
    * <p>Class representing triangular polygon mesh based objects.</p>
    * Also serves as a base for other classes such as
    * {@link https://threejs.org/docs/#api/en/objects/SkinnedMesh SkinnedMesh}.
    * @class Mesh
-   * @memberof external:THREE
-   * @see https://threejs.org/docs/#api/en/objects/Mesh
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/objects/Mesh Mesh}
    */
 
   /**
    * <p>A plane for shadow.</p>
-   * @var {external:THREE.Mesh}
+   * @type {THREE.Mesh}
    * @global
    */
   objects.shadowPlane = new THREE.Mesh(planeGeometry, material);
@@ -1454,16 +1480,17 @@ function start(font) {
    * @return {animate} animation callback.
    * @function
    * @global
-   * @see https://threejs.org/docs/#api/en/core/Object3D.rotation
+   * @see {@link https://threejs.org/docs/#api/en/core/Object3D.rotation Object3D.rotation}
+   * @see {@link https://threejs.org/docs/#api/en/core/Object3D.rotateX Object3D.rotateX}
    */
-  var render = (function () {
-    let increment = deg2rad(0.5);
-    let rotFunc = {
+  const render = (function () {
+    const increment = deg2rad(0.5);
+    const rotFunc = {
       x: (ang) => holder.rotateX(ang),
       y: (ang) => holder.rotateY(ang),
       z: (ang) => holder.rotateZ(ang),
     };
-    let hairInc = {
+    const hairInc = {
       x: 25,
       y: 100,
       z: 50,
@@ -1474,9 +1501,9 @@ function start(font) {
      * @callback animate
      */
     return () => {
-      let x = deg2rad(euler["x"]);
-      let y = deg2rad(euler["y"]);
-      let z = deg2rad(euler["z"]);
+      const x = deg2rad(euler["x"]);
+      const y = deg2rad(euler["y"]);
+      const z = deg2rad(euler["z"]);
 
       if (selector.auto_rotate) {
         // Rotate the propeller
