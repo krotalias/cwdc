@@ -2,24 +2,31 @@
  * @file
  *
  * Summary.
- * <p>Lightly based on example <a href="/cwdc/13-webgl/examples/transformations/content/Euler.js">Euler.js</a></p>
+ * <p>Controls the orientation of an airplane using
+ * {@link https://en.wikipedia.org/wiki/Euler_angles Euler angles},
+ * and it is slightly based on example
+ * <a href="/cwdc/13-webgl/examples/transformations/content/Euler.js">Euler.js</a></p>
  *
  * Note that to use our preferred convention of
  * {@link https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd intrinsic}
- * Yaw(Head)-Pitch-Roll, we have to explicitly set
- * the rotation {@link https://threejs.org/docs/#api/en/math/Euler.order order} in the Three.js {@link holder} object to "YXZ".
+ * Yaw (Head)-Pitch-Roll, we have to explicitly set
+ * the rotation {@link https://threejs.org/docs/#api/en/math/Euler.order order}
+ * in the Three.js {@link holder} object to YXZ.
+ * Three.js uses intrinsic {@link https://en.wikipedia.org/wiki/Euler_angles Tait-Bryan} angles.
+ * This means that rotations are performed with respect to the local coordinate system.
  *
- * <p>Three.js uses intrinsic {@link https://en.wikipedia.org/wiki/Euler_angles Tait-Bryan} angles.
- * This means that rotations are performed with respect to the local coordinate system. <br>
- * That is, for order 'XYZ', the rotation is:
- * <ul>
+ * <p>For order XYZ, the three rotations are executed:</p>
+ * <ol>
  *  <li>first around the local-X axis (which is the same as the world-X axis), </li>
  *  <li>then around local-Y (which may now be different from the world Y-axis), </li>
  *  <li>then local-Z (which may be different from the world Z-axis).</li>
- * </ul>
+ * </ol>
  *
- * <p>The {@link AirPlane} and the {@link Pilot} were borrowed, and updated to a newer
- * Three.js {@link https://unpkg.com/three@0.163.0/build/three.module.js?module @163}, from:</p>
+ * <p>A more recent version
+ * {@link https://unpkg.com/three@0.163.0/build/three.module.js?module @163}
+ * of Three.js was chosen to update the
+ * {@link AirPlane airplane} and the {@link Pilot pilot},
+ * which were taken from:</p>
  * <ul>
  *  <li>{@link https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/ The Making of “The Aviator”: Animating a Basic 3D Scene with Three.js}
  * </ul>
