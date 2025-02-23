@@ -45,10 +45,23 @@ import { TeapotGeometry } from "/cwdc/13-webgl/lib/TeapotGeometry.js";
 
 /**
  * Three.js module.
- * @external THREE
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @external three
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ */
+
+/**
+ * <p>Main three.js namespace.</p>
+ * {@link event:load Imported} from {@link external:three three.module.js}
+ * @namespace THREE
+ * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
+ * @see {@link https://dplatz.de/blog/2019/es6-bare-imports.html How to handle ES6 bare module imports for local Development}
  */
 
 /**
@@ -57,8 +70,8 @@ import { TeapotGeometry } from "/cwdc/13-webgl/lib/TeapotGeometry.js";
  * and custom attributes within buffers, reducing the cost of
  * passing all this data to the GPU.
  * @class BufferGeometry
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
  */
 
 /**
@@ -253,7 +266,8 @@ var eye = [1.77, 3.54, 3.06];
  * @see <a href="/cwdc/downloads/PDFs/06_LCG_Transformacoes.pdf">Mudança de Base</a>
  * @see <a href="https://en.wikipedia.org/wiki/Change_of_basis">Change of Basis</a>
  * @see <a href="/cwdc/10-html5css3/hw2/doc-hw2">node</a>
- * @see https://learn.microsoft.com/en-us/windows/win32/direct3d9/view-transform
+ * @see {@link https://learn.microsoft.com/en-us/windows/win32/direct3d9/view-transform View Transform (Direct3D 9)}
+ * @see {@link https://learn.microsoft.com/en-us/windows/win32/direct3d9/projection-transform Projection Transform (Direct3D 9)}
  * @see <img src="../projection.png" width="256"> <img src="../projection2.png" width="256">
  */
 var viewMatrix = new Matrix4()
@@ -265,7 +279,7 @@ var viewMatrix = new Matrix4()
  * Returns the magnitude (length) of a vector.
  * @param {Array<Number>} v n-D vector.
  * @returns {Number} vector length.
- * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce Array.prototype.reduce()}
  */
 var vecLen = (v) =>
   Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
@@ -309,6 +323,7 @@ var projection = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);
 /**
  * Loads the {@link mainEntrance application}.
  * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => mainEntrance());
 
@@ -316,6 +331,8 @@ window.addEventListener("load", (event) => mainEntrance());
  * Draws the mesh and vertex normals, by generating an "l" {@link handleKeyPress event},
  * whenever the Mesh button is clicked.
  * @event click
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ * @see {@link createEvent}
  */
 document
   .querySelector("#btnMesh")
@@ -325,6 +342,8 @@ document
  * Animates the object, by generating an " " {@link handleKeyPress event},
  * whenever the Rotate button is clicked.
  * @event click
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ * @see {@link createEvent}
  */
 document
   .querySelector("#btnRot")
@@ -334,6 +353,8 @@ document
  * Animates the object, by generating an "↓" {@link handleKeyPress event},
  * whenever the Arrow Down button is clicked.
  * @event click
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ * @see {@link createEvent}
  */
 document
   .querySelector("#arrowDown")
@@ -345,6 +366,8 @@ document
  * Animates the object, by generating an "↑" {@link handleKeyPress event},
  * whenever the Arrow Up button is clicked.
  * @event click
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ * @see {@link createEvent}
  */
 document
   .querySelector("#arrowUp")
@@ -370,7 +393,7 @@ document
  * @property {Float32Array} cube.colors vertex color array (144 = 36 * 4).
  * @property {Float32Array} cube.texCoords vertex texture array (72 = 36 * 2).
  * @property {Uint16Array} cube.indices vertex index array (36 = 6 * 2 * 3).
- * @see {@link external:THREE.BufferGeometry}
+ * @see {@link THREE.BufferGeometry}
  * @see <img src="/cwdc/13-webgl/examples/images/cube.png">
  */
 function makeCube(create_indices = false) {
@@ -519,7 +542,7 @@ function makeNormalMatrixElements(model, view) {
  * Translate keypress events to strings.
  * @param {KeyboardEvent} event key pressed.
  * @return {String} typed character.
- * @see https://javascript.info/tutorial/keyboard-events
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
  */
 function getChar(event) {
   event = event || window.event;
@@ -700,7 +723,7 @@ function getModelMatrix() {
  * Otherwise, {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawArrays drawArrays}.
  * <p>Since three.js {@link https://sbcode.net/threejs/geometry-to-buffergeometry/ version 125},
  * THREE.Geometry was deprecated and replaced by
- * {@link external:THREE.BufferGeometry THREE.BufferGeometry},
+ * {@link THREE.BufferGeometry THREE.BufferGeometry},
  * which always define indices for efficiency.
  */
 function drawModel() {
@@ -986,7 +1009,7 @@ function createModel(shape, chi = 2) {
 /**
  * <p>Entry point when page is loaded.</p>
  * Load all data into the buffers (just once) before proceeding.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData bufferData}
  */
 function mainEntrance() {
   // retrieve <canvas> element
@@ -1003,6 +1026,7 @@ function mainEntrance() {
    * </ul>
    *
    * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   addEventListener("keydown", (event) => {
     if (
@@ -1123,8 +1147,8 @@ var animate = (() => {
   /**
    * Callback to keep drawing frames.
    * @callback loop
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame cancelAnimationFrame}
    */
   return () => {
     draw();

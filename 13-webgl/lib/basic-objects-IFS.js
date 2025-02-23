@@ -86,12 +86,12 @@ function setNorth(vertices, normals) {
 /**
  * Given an instance of
  * <ul>
- * <li>{@link external:THREE.BufferGeometry THREE.BufferGeometry}</li>
+ * <li>{@link THREE.BufferGeometry THREE.BufferGeometry}</li>
  * </ul>
  * returns an object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
  * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
- * @param {external:THREE.BufferGeometry} geom
+ * @param {THREE.BufferGeometry} geom
  *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry THREE.ConeGeometry},<br>

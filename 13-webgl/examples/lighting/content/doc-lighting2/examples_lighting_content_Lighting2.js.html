@@ -73,10 +73,23 @@ import { TeapotGeometry } from "/cwdc/13-webgl/lib/TeapotGeometry.js";
 
 /**
  * Three.js module.
- * @external THREE
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @external three
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ */
+
+/**
+ * &lt;p>Main three.js namespace.&lt;/p>
+ * {@link event:load Imported} from {@link external:three three.module.js}
+ * @namespace THREE
+ * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
+ * @see {@link https://dplatz.de/blog/2019/es6-bare-imports.html How to handle ES6 bare module imports for local Development}
  */
 
 /**
@@ -85,8 +98,8 @@ import { TeapotGeometry } from "/cwdc/13-webgl/lib/TeapotGeometry.js";
  * and custom attributes within buffers, reducing the cost of
  * passing all this data to the GPU.
  * @class BufferGeometry
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
  */
 
 /**
@@ -281,7 +294,8 @@ var eye = [1.77, 3.54, 3.06];
  * @see &lt;a href="/cwdc/downloads/PDFs/06_LCG_Transformacoes.pdf">Mudança de Base&lt;/a>
  * @see &lt;a href="https://en.wikipedia.org/wiki/Change_of_basis">Change of Basis&lt;/a>
  * @see &lt;a href="/cwdc/10-html5css3/hw2/doc-hw2">node&lt;/a>
- * @see https://learn.microsoft.com/en-us/windows/win32/direct3d9/view-transform
+ * @see {@link https://learn.microsoft.com/en-us/windows/win32/direct3d9/view-transform View Transform (Direct3D 9)}
+ * @see {@link https://learn.microsoft.com/en-us/windows/win32/direct3d9/projection-transform Projection Transform (Direct3D 9)}
  * @see &lt;img src="../projection.png" width="256"> &lt;img src="../projection2.png" width="256">
  */
 var viewMatrix = new Matrix4()
@@ -293,7 +307,7 @@ var viewMatrix = new Matrix4()
  * Returns the magnitude (length) of a vector.
  * @param {Array&lt;Number>} v n-D vector.
  * @returns {Number} vector length.
- * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce Array.prototype.reduce()}
  */
 var vecLen = (v) =>
   Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
@@ -337,6 +351,7 @@ var projection = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);
 /**
  * Loads the {@link mainEntrance application}.
  * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => mainEntrance());
 
@@ -344,6 +359,8 @@ window.addEventListener("load", (event) => mainEntrance());
  * Draws the mesh and vertex normals, by generating an "l" {@link handleKeyPress event},
  * whenever the Mesh button is clicked.
  * @event click
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ * @see {@link createEvent}
  */
 document
   .querySelector("#btnMesh")
@@ -353,6 +370,8 @@ document
  * Animates the object, by generating an " " {@link handleKeyPress event},
  * whenever the Rotate button is clicked.
  * @event click
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ * @see {@link createEvent}
  */
 document
   .querySelector("#btnRot")
@@ -362,6 +381,8 @@ document
  * Animates the object, by generating an "↓" {@link handleKeyPress event},
  * whenever the Arrow Down button is clicked.
  * @event click
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ * @see {@link createEvent}
  */
 document
   .querySelector("#arrowDown")
@@ -373,6 +394,8 @@ document
  * Animates the object, by generating an "↑" {@link handleKeyPress event},
  * whenever the Arrow Up button is clicked.
  * @event click
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+ * @see {@link createEvent}
  */
 document
   .querySelector("#arrowUp")
@@ -398,7 +421,7 @@ document
  * @property {Float32Array} cube.colors vertex color array (144 = 36 * 4).
  * @property {Float32Array} cube.texCoords vertex texture array (72 = 36 * 2).
  * @property {Uint16Array} cube.indices vertex index array (36 = 6 * 2 * 3).
- * @see {@link external:THREE.BufferGeometry}
+ * @see {@link THREE.BufferGeometry}
  * @see &lt;img src="/cwdc/13-webgl/examples/images/cube.png">
  */
 function makeCube(create_indices = false) {
@@ -547,7 +570,7 @@ function makeNormalMatrixElements(model, view) {
  * Translate keypress events to strings.
  * @param {KeyboardEvent} event key pressed.
  * @return {String} typed character.
- * @see https://javascript.info/tutorial/keyboard-events
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
  */
 function getChar(event) {
   event = event || window.event;
@@ -728,7 +751,7 @@ function getModelMatrix() {
  * Otherwise, {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawArrays drawArrays}.
  * &lt;p>Since three.js {@link https://sbcode.net/threejs/geometry-to-buffergeometry/ version 125},
  * THREE.Geometry was deprecated and replaced by
- * {@link external:THREE.BufferGeometry THREE.BufferGeometry},
+ * {@link THREE.BufferGeometry THREE.BufferGeometry},
  * which always define indices for efficiency.
  */
 function drawModel() {
@@ -1014,7 +1037,7 @@ function createModel(shape, chi = 2) {
 /**
  * &lt;p>Entry point when page is loaded.&lt;/p>
  * Load all data into the buffers (just once) before proceeding.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData bufferData}
  */
 function mainEntrance() {
   // retrieve &lt;canvas> element
@@ -1031,6 +1054,7 @@ function mainEntrance() {
    * &lt;/ul>
    *
    * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   addEventListener("keydown", (event) => {
     if (
@@ -1151,8 +1175,8 @@ var animate = (() => {
   /**
    * Callback to keep drawing frames.
    * @callback loop
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame cancelAnimationFrame}
    */
   return () => {
     draw();
@@ -1182,13 +1206,13 @@ var animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawModel">drawModel</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeCube">makeCube</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawModel">drawModel</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeCube">makeCube</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jul 03 2024 10:11:23 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 23 2025 05:51:03 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
