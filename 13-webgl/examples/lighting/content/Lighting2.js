@@ -13,7 +13,7 @@
  * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
  *
  * @author {@link https://stevekautz.com Steve Kautz}
- * @author modified by Paulo Roma
+ * @author modified by {@link https://krotalias.github.io Paulo Roma}
  * @since 27/09/2016
  * @see <a href="https://dl.acm.org/doi/pdf/10.1145/362736.362739">Flat shading</a> -
  * <a href="https://csl.illinois.edu/news-and-media/tech-reports">Wendell Jack Bouknight</a> (1970)
@@ -79,7 +79,7 @@ import { TeapotGeometry } from "/cwdc/13-webgl/lib/TeapotGeometry.js";
  * @type {Float32Array}
  */
 // prettier-ignore
-var axisVertices = new Float32Array([
+const axisVertices = new Float32Array([
   0.0, 0.0, 0.0,
   1.5, 0.0, 0.0,
   0.0, 0.0, 0.0,
@@ -93,7 +93,7 @@ var axisVertices = new Float32Array([
  * @type {Float32Array}
  */
 // prettier-ignore
-var axisColors = new Float32Array([
+const axisColors = new Float32Array([
   1.0, 0.0, 0.0, 1.0,
   1.0, 0.0, 0.0, 1.0,
   0.0, 1.0, 0.0, 1.0,
@@ -108,77 +108,77 @@ var axisColors = new Float32Array([
  * The OpenGL context.
  * @type {WebGLRenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * Our model data.
  * @type {modelData}
  */
-var theModel;
+let theModel;
 
 /**
  * Array with normal end points.
  * @type {Float32Array}
  */
-var normal;
+let normal;
 
 /**
  * Array with edges end points.
  * @type {Float32Array}
  */
-var lines;
+let lines;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexBuffer;
+let vertexBuffer;
 /**  @type {WebGLBuffer} */
-var indexBuffer;
+let indexBuffer;
 /**  @type {WebGLBuffer} */
-var vertexNormalBuffer;
+let vertexNormalBuffer;
 /**  @type {WebGLBuffer} */
-var axisBuffer;
+let axisBuffer;
 /**  @type {WebGLBuffer} */
-var axisColorBuffer;
+let axisColorBuffer;
 /**  @type {WebGLBuffer} */
-var normalBuffer;
+let normalBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var lineBuffer;
+let lineBuffer;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var lightingShader;
+let lightingShader;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var colorShader;
+let colorShader;
 
 /**
  * Model transformation matrix.
  * @Type {Matrix4}
  */
-var modelMatrix = new Matrix4();
+let modelMatrix = new Matrix4();
 
 /**
  * Current rotation axis.
  * @type {String}
  */
-var axis = "x";
+let axis = "x";
 
 /**
  * Scale applied to a model to make its size adequate for rendering.
  * @type {Number}
  */
-var mscale = 1;
+let mscale = 1;
 
 /**
  * Turn the display of the model mesh/texture/axes/animation on/off.
@@ -188,7 +188,7 @@ var mscale = 1;
  * @property {Boolean} axes axes visible/invisible
  * @property {Boolean} paused animation on/off
  */
-var selector = {
+const selector = {
   lines: false,
   texture: true,
   axes: false,
@@ -199,13 +199,13 @@ var selector = {
  * Arcball.
  * @type {SimpleRotator}
  */
-var rotator;
+let rotator;
 
 /**
  * Camera position.
  * @type {Array<Number>}
  */
-var eye = [1.77, 3.54, 3.06];
+const eye = [1.77, 3.54, 3.06];
 
 /**
  * <p>View matrix.</p>
@@ -248,14 +248,14 @@ var eye = [1.77, 3.54, 3.06];
  * <p>The approximate {@link eye view point} here is: <span style="color:red">[1.77, 3.54, 3.06]</span></p>
  *
  * <pre>
- *    var viewMatrix = new {@link Matrix4 Matrix4()}.setLookAt(
+ *    const viewMatrix = new {@link Matrix4 Matrix4()}.setLookAt(
  *      ...eye,   // view point
  *      0, 0, 0,  // at - looking at the origin
  *      0, 1, 0); // up vector - y axis
  *
  * or using the {@link https://glmatrix.net glmatrix} package
  *
- *    var viewMatrix = {@link https://glmatrix.net/docs/module-mat4.html mat4}.lookAt(
+ *    const viewMatrix = {@link https://glmatrix.net/docs/module-mat4.html mat4}.lookAt(
  *      [],         // mat4 frustum matrix will be written into
  *      eye,        // view point
  *      [0, 0, 0],  // look at (center)
@@ -270,7 +270,7 @@ var eye = [1.77, 3.54, 3.06];
  * @see {@link https://learn.microsoft.com/en-us/windows/win32/direct3d9/projection-transform Projection Transform (Direct3D 9)}
  * @see <img src="../projection.png" width="256"> <img src="../projection2.png" width="256">
  */
-var viewMatrix = new Matrix4()
+const viewMatrix = new Matrix4()
   .translate(0, 0, -5)
   .rotate(45, 1, 0, 0)
   .rotate(-30, 0, 1, 0);
@@ -281,14 +281,14 @@ var viewMatrix = new Matrix4()
  * @returns {Number} vector length.
  * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce Array.prototype.reduce()}
  */
-var vecLen = (v) =>
+const vecLen = (v) =>
   Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
 
 /**
  * View distance.
  * @type {Number}
  */
-var viewDistance = vecLen(eye);
+const viewDistance = vecLen(eye);
 
 /**
  * <p>For projection, we can either use:
@@ -296,7 +296,7 @@ var viewDistance = vecLen(eye);
  * <li>An orthographic projection, specifying
  * the clipping volume explicitly:
  *  <ul>
- *    <li>var <b>projection</b> = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6);</li>
+ *    <li>const <b>projection</b> = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6);</li>
  *  </ul>
  * </li>
  *
@@ -304,7 +304,7 @@ var viewDistance = vecLen(eye);
  *  <ul>
  *    <li>a 30 degree field of view, and a near plane at 4,<br>
  *    which corresponds to a view plane height of: 4 * tan(15) = 1.07</li>
- *    <li>var <b>projection</b> = new Matrix4().setFrustum(-1.5 * 1.07, 1.5 * 1.07, -1.07, 1.07, 4, 6);</li>
+ *    <li>const <b>projection</b> = new Matrix4().setFrustum(-1.5 * 1.07, 1.5 * 1.07, -1.07, 1.07, 4, 6);</li>
  *  </ul>
  * </li>
  *
@@ -312,13 +312,13 @@ var viewDistance = vecLen(eye);
  * field of view, an aspect ratio, and distance to near and far
  * clipping planes:
  *  <ul>
- *    <li>var <b>projection</b> = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);</li>
+ *    <li>const <b>projection</b> = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);</li>
  *  </ul>
  * </ul>
  * Here use aspect ratio 3/2 corresponding to canvas size 900 x 600</p>
  * @type {Matrix4}
  */
-var projection = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);
+const projection = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);
 
 /**
  * Loads the {@link mainEntrance application}.
@@ -330,7 +330,7 @@ window.addEventListener("load", (event) => mainEntrance());
 /**
  * Draws the mesh and vertex normals, by generating an "l" {@link handleKeyPress event},
  * whenever the Mesh button is clicked.
- * @event click
+ * @event clickMesh
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  * @see {@link createEvent}
  */
@@ -341,7 +341,7 @@ document
 /**
  * Animates the object, by generating an " " {@link handleKeyPress event},
  * whenever the Rotate button is clicked.
- * @event click
+ * @event clickRot
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  * @see {@link createEvent}
  */
@@ -352,7 +352,7 @@ document
 /**
  * Animates the object, by generating an "↓" {@link handleKeyPress event},
  * whenever the Arrow Down button is clicked.
- * @event click
+ * @event clickArrowDown
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  * @see {@link createEvent}
  */
@@ -365,7 +365,7 @@ document
 /**
  * Animates the object, by generating an "↑" {@link handleKeyPress event},
  * whenever the Arrow Up button is clicked.
- * @event click
+ * @event clickArrowUp
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  * @see {@link createEvent}
  */
@@ -526,7 +526,7 @@ function makeCube(create_indices = false) {
  * @see <a href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48">𝑛′=(𝑀<sup>&#8211;1</sup>)<sup>𝑇</sup>⋅𝑛</a>
  */
 function makeNormalMatrixElements(model, view) {
-  var n = new Matrix4(view).multiply(model);
+  let n = new Matrix4(view).multiply(model);
   n.transpose();
   n.invert();
   n = n.elements;
@@ -546,7 +546,7 @@ function makeNormalMatrixElements(model, view) {
  */
 function getChar(event) {
   event = event || window.event;
-  let charCode = event.key || String.fromCharCode(event.which);
+  const charCode = event.key || String.fromCharCode(event.which);
   return charCode;
 }
 
@@ -558,9 +558,9 @@ function getChar(event) {
  * @return {key_event} callback for handling a keyboard event.
  */
 const handleKeyPress = ((event) => {
-  let zoomfactor = 0.7;
+  const zoomfactor = 0.7;
   let gscale = 1;
-  let models = document.getElementById("models");
+  const models = document.getElementById("models");
 
   /**
    * <p>Handler for keydown events.</p>
@@ -568,7 +568,7 @@ const handleKeyPress = ((event) => {
    * @callback key_event callback to handle a key pressed.
    */
   return (event) => {
-    let ch = getChar(event);
+    const ch = getChar(event);
     switch (ch) {
       case " ":
         selector.paused = !selector.paused;
@@ -663,8 +663,8 @@ const handleKeyPress = ((event) => {
  * @returns {KeyboardEvent} a keyboard event.
  * @function
  */
-var createEvent = (key) => {
-  let code = key.charCodeAt();
+const createEvent = (key) => {
+  const code = key.charCodeAt();
   return new KeyboardEvent("keydown", {
     key: key,
     which: code,
@@ -677,8 +677,8 @@ var createEvent = (key) => {
  * Selects a model from a menu.
  */
 function selectModel() {
-  let val = document.getElementById("models").value;
-  let key = {
+  const val = document.getElementById("models").value;
+  const key = {
     2: "v", // cube
     5: "s", // sphere
     6: "p", // teapot
@@ -708,7 +708,7 @@ function draw() {
  * @returns {Matrix4} model matrix.
  */
 function getModelMatrix() {
-  var m = modelMatrix;
+  let m = modelMatrix;
   if (mscale != 1) {
     m = new Matrix4(modelMatrix).scale(mscale, mscale, mscale);
   }
@@ -731,13 +731,13 @@ function drawModel() {
   gl.useProgram(lightingShader);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
+  const normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
   if (normalIndex < 0) {
     console.log("Failed to get the storage location of a_Normal");
     return;
@@ -754,7 +754,7 @@ function drawModel() {
   gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
 
   // set uniform in shader for projection * view * model transformation
-  var loc = gl.getUniformLocation(lightingShader, "model");
+  let loc = gl.getUniformLocation(lightingShader, "model");
   gl.uniformMatrix4fv(loc, false, getModelMatrix().elements);
   loc = gl.getUniformLocation(lightingShader, "view");
   gl.uniformMatrix4fv(loc, false, viewMatrix.elements);
@@ -806,13 +806,13 @@ function drawAxes() {
   gl.useProgram(colorShader);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(colorShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var colorIndex = gl.getAttribLocation(colorShader, "a_Color");
+  const colorIndex = gl.getAttribLocation(colorShader, "a_Color");
   if (colorIndex < 0) {
     console.log("Failed to get the storage location of a_Color");
     return;
@@ -829,8 +829,8 @@ function drawAxes() {
   gl.vertexAttribPointer(colorIndex, 4, gl.FLOAT, false, 0, 0);
 
   // set transformation to projection * view only
-  var loc = gl.getUniformLocation(colorShader, "transform");
-  var transform = new Matrix4().multiply(projection).multiply(viewMatrix);
+  const loc = gl.getUniformLocation(colorShader, "transform");
+  const transform = new Matrix4().multiply(projection).multiply(viewMatrix);
   gl.uniformMatrix4fv(loc, false, transform.elements);
 
   // draw axes
@@ -851,13 +851,13 @@ function drawAxes() {
 function drawLines() {
   // bind the shader
   gl.useProgram(colorShader);
-  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(colorShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var a_color = gl.getAttribLocation(colorShader, "a_Color");
+  const a_color = gl.getAttribLocation(colorShader, "a_Color");
   if (a_color < 0) {
     console.log("Failed to get the storage location of a_Color");
     return;
@@ -868,8 +868,8 @@ function drawLines() {
   gl.enableVertexAttribArray(positionIndex);
   //  ------------ draw triangle borders
   // set transformation to projection * view * model
-  var loc = gl.getUniformLocation(colorShader, "transform");
-  var transform = new Matrix4()
+  const loc = gl.getUniformLocation(colorShader, "transform");
+  const transform = new Matrix4()
     .multiply(projection)
     .multiply(viewMatrix)
     .multiply(getModelMatrix());
@@ -881,7 +881,7 @@ function drawLines() {
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
   // takes too long on mobile
   /*
-    for (var i = 0; i < theModel.indices.length; i += 3) {
+    for (let i = 0; i < theModel.indices.length; i += 3) {
         // offset - two bytes per index (UNSIGNED_SHORT)
         gl.drawElements(gl.LINE_LOOP, 3, gl.UNSIGNED_SHORT, i * 2);
     }
@@ -893,7 +893,7 @@ function drawLines() {
     gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.LINES, 0, 2 * theModel.indices.length);
   } else {
-    for (var i = 0; i < theModel.vertexPositions.length; i += 3) {
+    for (let i = 0; i < theModel.vertexPositions.length; i += 3) {
       gl.drawArrays(gl.LINE_LOOP, i, 3);
     }
   }
@@ -947,10 +947,10 @@ function createModel(shape, chi = 2) {
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, shape.vertexNormals, gl.STATIC_DRAW);
 
-  let nv = shape.vertexPositions.length;
+  const nv = shape.vertexPositions.length;
   normal = new Float32Array(6 * nv);
-  for (var i = 0, k = 0; i < nv; i += 3, k += 6) {
-    for (var j = 0; j < 3; j++) {
+  for (let i = 0, k = 0; i < nv; i += 3, k += 6) {
+    for (let j = 0; j < 3; j++) {
       normal[j + k] = shape.vertexPositions[i + j];
       normal[j + k + 3] =
         normal[j + k] + (0.1 / mscale) * shape.vertexNormals[i + j];
@@ -961,13 +961,13 @@ function createModel(shape, chi = 2) {
   // number of edges: ni
   // number of endpoints: ni * 6
   if (shape.indices) {
-    let ni = shape.indices.length;
+    const ni = shape.indices.length;
     lines = new Float32Array(18 * ni);
-    for (i = 0, k = 0; i < ni; i += 3, k += 18) {
-      for (j = 0; j < 3; j++) {
-        let v1 = shape.vertexPositions[shape.indices[i] * 3 + j];
-        let v2 = shape.vertexPositions[shape.indices[i + 1] * 3 + j];
-        let v3 = shape.vertexPositions[shape.indices[i + 2] * 3 + j];
+    for (let i = 0, k = 0; i < ni; i += 3, k += 18) {
+      for (let j = 0; j < 3; j++) {
+        const v1 = shape.vertexPositions[shape.indices[i] * 3 + j];
+        const v2 = shape.vertexPositions[shape.indices[i + 1] * 3 + j];
+        const v3 = shape.vertexPositions[shape.indices[i + 2] * 3 + j];
 
         lines[j + k] = v1;
         lines[j + k + 3] = v2;
@@ -987,9 +987,9 @@ function createModel(shape, chi = 2) {
   gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, normal, gl.STATIC_DRAW);
 
-  let obj = document.getElementById("object");
+  const obj = document.getElementById("object");
   obj.innerHTML = "<b>Object:</b>";
-  let faces = shape.indices
+  const faces = shape.indices
     ? shape.indices.length / 3
     : shape.vertexPositions.length / 9;
   let edges = (faces * 3) / 2;
@@ -1013,7 +1013,7 @@ function createModel(shape, chi = 2) {
  */
 function mainEntrance() {
   // retrieve <canvas> element
-  var canvas = document.getElementById("theCanvas");
+  const canvas = document.getElementById("theCanvas");
 
   /**
    * <p>Key handler.</p>
@@ -1047,8 +1047,8 @@ function mainEntrance() {
   }
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById("vertexColorShader").textContent;
-  var fshaderSource = document.getElementById(
+  let vshaderSource = document.getElementById("vertexColorShader").textContent;
+  let fshaderSource = document.getElementById(
     "fragmentColorShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
@@ -1059,12 +1059,8 @@ function mainEntrance() {
   gl.useProgram(null);
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById(
-    "vertexLightingShader",
-  ).textContent;
-  var fshaderSource = document.getElementById(
-    "fragmentLightingShader",
-  ).textContent;
+  vshaderSource = document.getElementById("vertexLightingShader").textContent;
+  fshaderSource = document.getElementById("fragmentLightingShader").textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
     return;
@@ -1133,11 +1129,11 @@ function mainEntrance() {
  * @return {loop}
  * @function
  */
-var animate = (() => {
+const animate = (() => {
   // increase the rotation by some amount, depending on the axis chosen
-  var increment = 0.5;
+  const increment = 0.5;
   /** @type {Number} */
-  var requestID = 0;
+  let requestID = 0;
   const axes = {
     x: [1, 0, 0],
     y: [0, 1, 0],

@@ -306,7 +306,7 @@
 
         
             
-<h4 class="name" id="axisColors"><span class="type-signature"></span>axisColors<span class="type-signature"> :Float32Array</span></h4>
+<h4 class="name" id="axisColors"><span class="type-signature">(constant) </span>axisColors<span class="type-signature"> :Float32Array</span></h4>
 
 
 
@@ -378,7 +378,7 @@
 
         
             
-<h4 class="name" id="axisVertices"><span class="type-signature"></span>axisVertices<span class="type-signature"> :Float32Array</span></h4>
+<h4 class="name" id="axisVertices"><span class="type-signature">(constant) </span>axisVertices<span class="type-signature"> :Float32Array</span></h4>
 
 
 
@@ -522,7 +522,7 @@
 
         
             
-<h4 class="name" id="eye"><span class="type-signature"></span>eye<span class="type-signature"> :Array.&lt;Number></span></h4>
+<h4 class="name" id="eye"><span class="type-signature">(constant) </span>eye<span class="type-signature"> :Array.&lt;Number></span></h4>
 
 
 
@@ -1234,7 +1234,7 @@
 
         
             
-<h4 class="name" id="projection"><span class="type-signature"></span>projection<span class="type-signature"> :<a href="Matrix4.html">Matrix4</a></span></h4>
+<h4 class="name" id="projection"><span class="type-signature">(constant) </span>projection<span class="type-signature"> :<a href="Matrix4.html">Matrix4</a></span></h4>
 
 
 
@@ -1245,7 +1245,7 @@
 <li>An orthographic projection, specifying
 the clipping volume explicitly:
  <ul>
-   <li>var <b>projection</b> = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6);</li>
+   <li>const <b>projection</b> = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6);</li>
  </ul>
 </li>
 
@@ -1253,7 +1253,7 @@ the clipping volume explicitly:
  <ul>
    <li>a 30 degree field of view, and a near plane at 4,<br>
    which corresponds to a view plane height of: 4 * tan(15) = 1.07</li>
-   <li>var <b>projection</b> = new Matrix4().setFrustum(-1.5 * 1.07, 1.5 * 1.07, -1.07, 1.07, 4, 6);</li>
+   <li>const <b>projection</b> = new Matrix4().setFrustum(-1.5 * 1.07, 1.5 * 1.07, -1.07, 1.07, 4, 6);</li>
  </ul>
 </li>
 
@@ -1261,7 +1261,7 @@ the clipping volume explicitly:
 field of view, an aspect ratio, and distance to near and far
 clipping planes:
  <ul>
-   <li>var <b>projection</b> = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);</li>
+   <li>const <b>projection</b> = new Matrix4().setPerspective(30, 1.5, 0.1, 1000);</li>
  </ul>
 </ul>
 Here use aspect ratio 3/2 corresponding to canvas size 900 x 600</p>
@@ -1402,7 +1402,7 @@ Here use aspect ratio 3/2 corresponding to canvas size 900 x 600</p>
 
         
             
-<h4 class="name" id="selector"><span class="type-signature"></span>selector<span class="type-signature"> :Object</span></h4>
+<h4 class="name" id="selector"><span class="type-signature">(constant) </span>selector<span class="type-signature"> :Object</span></h4>
 
 
 
@@ -1879,7 +1879,7 @@ Here use aspect ratio 3/2 corresponding to canvas size 900 x 600</p>
 
         
             
-<h4 class="name" id="viewDistance"><span class="type-signature"></span>viewDistance<span class="type-signature"> :Number</span></h4>
+<h4 class="name" id="viewDistance"><span class="type-signature">(constant) </span>viewDistance<span class="type-signature"> :Number</span></h4>
 
 
 
@@ -1951,7 +1951,7 @@ Here use aspect ratio 3/2 corresponding to canvas size 900 x 600</p>
 
         
             
-<h4 class="name" id="viewMatrix"><span class="type-signature"></span>viewMatrix<span class="type-signature"> :<a href="Matrix4.html">Matrix4</a></span></h4>
+<h4 class="name" id="viewMatrix"><span class="type-signature">(constant) </span>viewMatrix<span class="type-signature"> :<a href="Matrix4.html">Matrix4</a></span></h4>
 
 
 
@@ -1997,14 +1997,14 @@ a point to look at, and a direction "up", for camera orientation:</p>
 <p>The approximate <a href="global.html#eye">view point</a> here is: <span style="color:red">[1.77, 3.54, 3.06]</span></p>
 
 <pre>
-   var viewMatrix = new <a href="Matrix4.html">Matrix4()</a>.setLookAt(
+   const viewMatrix = new <a href="Matrix4.html">Matrix4()</a>.setLookAt(
      ...eye,   // view point
      0, 0, 0,  // at - looking at the origin
      0, 1, 0); // up vector - y axis
 
 or using the <a href="https://glmatrix.net">glmatrix</a> package
 
-   var viewMatrix = <a href="https://glmatrix.net/docs/module-mat4.html">mat4</a>.lookAt(
+   const viewMatrix = <a href="https://glmatrix.net/docs/module-mat4.html">mat4</a>.lookAt(
      [],         // mat4 frustum matrix will be written into
      eye,        // view point
      [0, 0, 0],  // look at (center)
@@ -2229,7 +2229,7 @@ so the z-axis points outside the screen.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1136">line 1136</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1132">line 1132</a>
     </li></ul></dd>
     
 
@@ -7307,7 +7307,7 @@ and the center of the torus is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1147">line 1147</a>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line1143">line 1143</a>
     </li></ul></dd>
     
 
@@ -7556,203 +7556,7 @@ vertices, normal vectors, texture coordinates, and indices.
     
 
     
-    <h4 class="name" id="event:click">click</h4>
-    
-
-    
-
-
-
-<div class="description">
-    Draws the mesh and vertex normals, by generating an "l" <a href="global.html#handleKeyPress">event</a>,
-whenever the Mesh button is clicked.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line330">line 330</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event">Element: click event</a></li>
-        
-            <li><a href="global.html#createEvent">createEvent</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="event:click">click</h4>
-    
-
-    
-
-
-
-<div class="description">
-    Animates the object, by generating an " " <a href="global.html#handleKeyPress">event</a>,
-whenever the Rotate button is clicked.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line341">line 341</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event">Element: click event</a></li>
-        
-            <li><a href="global.html#createEvent">createEvent</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="event:click">click</h4>
+    <h4 class="name" id="event:clickArrowDown">clickArrowDown</h4>
     
 
     
@@ -7850,7 +7654,7 @@ whenever the Arrow Down button is clicked.
     
 
     
-    <h4 class="name" id="event:click">click</h4>
+    <h4 class="name" id="event:clickArrowUp">clickArrowUp</h4>
     
 
     
@@ -7904,6 +7708,202 @@ whenever the Arrow Up button is clicked.
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line365">line 365</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event">Element: click event</a></li>
+        
+            <li><a href="global.html#createEvent">createEvent</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:clickMesh">clickMesh</h4>
+    
+
+    
+
+
+
+<div class="description">
+    Draws the mesh and vertex normals, by generating an "l" <a href="global.html#handleKeyPress">event</a>,
+whenever the Mesh button is clicked.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line330">line 330</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event">Element: click event</a></li>
+        
+            <li><a href="global.html#createEvent">createEvent</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:clickRot">clickRot</h4>
+    
+
+    
+
+
+
+<div class="description">
+    Animates the object, by generating an " " <a href="global.html#handleKeyPress">event</a>,
+whenever the Rotate button is clicked.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples_lighting_content_Lighting2.js.html">examples/lighting/content/Lighting2.js</a>, <a href="examples_lighting_content_Lighting2.js.html#line341">line 341</a>
     </li></ul></dd>
     
 
@@ -8151,13 +8151,13 @@ Calls <a href="global.html#handleKeyPress">handleKeyPress</a> whenever any of th
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawModel">drawModel</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeCube">makeCube</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickArrowDown">clickArrowDown</a></li><li><a href="global.html#event:clickArrowUp">clickArrowUp</a></li><li><a href="global.html#event:clickMesh">clickMesh</a></li><li><a href="global.html#event:clickRot">clickRot</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawModel">drawModel</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeCube">makeCube</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 23 2025 05:51:03 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 23 2025 12:54:56 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
