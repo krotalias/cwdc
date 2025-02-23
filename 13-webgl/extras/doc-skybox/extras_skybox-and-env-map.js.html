@@ -88,7 +88,7 @@ var gl;
 /**
  * For drawing the skybox.
  * @type {GLint}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation WebGLRenderingContext: getAttribLocation() method}
  */
 var aCoords_SB;
 var uProjection_SB;
@@ -240,9 +240,9 @@ let loadTextureCube;
  * A closure for returning a function to load the cube texture.
  * The variable gl (webgl context) must be in the global context.
  * @return {cubemap}
- * @see https://www.pngwing.com/en/search?q=cube+map
- * @see http://paulbourke.net/panorama/cubemaps/
- * @see https://www.youtube.com/watch?v=8sVvxeKI9Pk
+ * @see {@link https://www.pngwing.com/en/search?q=cube+map Cube Map png images}
+ * @see {@link http://paulbourke.net/panorama/cubemaps/ Converting to/from cubemaps}
+ * @see {@link https://www.youtube.com/watch?v=8sVvxeKI9Pk OpenGL Tutorial 19 - Cubemaps &amp; Skyboxes}
  */
 function _loadTextureCube() {
   const img = new Array(6);
@@ -426,7 +426,7 @@ function doKey(evt) {
  * @param {String} vertexShaderSource vertex shader code.
  * @param {String} fragmentShaderSource fragment shader code.
  * @returns {WebGLProgram} WebGLProgram object.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram WebGLRenderingContext: createProgram() method}
  */
 function createProgram(gl, vertexShaderSource, fragmentShaderSource) {
   var vsh = gl.createShader(gl.VERTEX_SHADER);
@@ -455,7 +455,7 @@ function createProgram(gl, vertexShaderSource, fragmentShaderSource) {
  * Returns a shader source code.
  * @param {String} elementID element identifier.
  * @returns {String} source code.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent Node: textContent property}
  */
 function getTextContent(elementID) {
   var element = document.getElementById(elementID);
@@ -481,8 +481,8 @@ function getTextContent(elementID) {
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise&lt;Array&lt;String>>}
  * @see &lt;a href="/cwdc/6-php/reaDirectories.php">files&lt;/a>
- * @see https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript
- * @see https://api.jquery.com/jquery.ajax/
+ * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
+ * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
 var readDirectoryNames = new Promise((resolve, reject) => {
   $.ajax({
@@ -554,7 +554,7 @@ async function init(m) {
      * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
      * Also resizes the canvas and viewport.
      * @callback handleWindowResize
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
      */
     function handleWindowResize() {
       let h = window.innerHeight;
@@ -570,13 +570,14 @@ async function init(m) {
     }
 
     /**
+     * @summary Executed when the window is resized.
      * &lt;p>Appends an event listener for events whose type attribute value is resize.&lt;/p>
      * &lt;p>The {@link handleWindowResize callback} argument sets the callback
      * that will be invoked when the event is dispatched.&lt;/p>
      * @param {Event} event the document view is resized.
      * @param {callback} function function to run when the event occurs.
      * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-     * @event resize - executed when the window is resized.
+     * @event resize
      */
     window.addEventListener("resize", handleWindowResize, false);
 
@@ -636,14 +637,16 @@ async function init(m) {
    *  &lt;li>ArrowRight&lt;/li>
    * &lt;/ul>
    * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event Element: keydown event}
    */
   document.addEventListener("keydown", doKey, false);
   draw();
 }
 
 /**
- * Reset the model to its initial position.
- * @event click
+ * Reset the model to its initial position when the "Reset View" button is clicked.
+ * @event clickReset
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  */
 document.getElementById("reset").onclick = function () {
   rotX = rotY = 0;
@@ -652,8 +655,9 @@ document.getElementById("reset").onclick = function () {
 };
 
 /**
- * Move to the next texture.
- * @event click
+ * Move to the next texture when the "Next Texture" button is clicked.
+ * @event clickNext
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  */
 document.getElementById("next").onclick = function () {
   texCnt = (texCnt + 1) % texDir.length;
@@ -666,6 +670,7 @@ document.getElementById("next").onclick = function () {
  * @param {Event} event load event.
  * @callback WindowLoadCallback
  * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => {
   const mname = ["teapot", "cube", "sphere", "torus"];
@@ -685,13 +690,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_loadTextureCube">_loadTextureCube</a></li><li><a href="global.html#aCoords">aCoords</a></li><li><a href="global.html#aCoords_SB">aCoords_SB</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createModelSB">createModelSB</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeSB">cubeSB</a></li><li><a href="global.html#doKey">doKey</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getTextContent">getTextContent</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#invVT">invVT</a></li><li><a href="global.html#loadTextureCube">loadTextureCube</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readDirectoryNames">readDirectoryNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotX">rotX</a></li><li><a href="global.html#rotY">rotY</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#teapot">teapot</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCnt">texCnt</a></li><li><a href="global.html#texDir">texDir</a></li><li><a href="global.html#texID">texID</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickNext">clickNext</a></li><li><a href="global.html#event:clickReset">clickReset</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_loadTextureCube">_loadTextureCube</a></li><li><a href="global.html#aCoords">aCoords</a></li><li><a href="global.html#aCoords_SB">aCoords_SB</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createModelSB">createModelSB</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#cubeSB">cubeSB</a></li><li><a href="global.html#doKey">doKey</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getTextContent">getTextContent</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#invVT">invVT</a></li><li><a href="global.html#loadTextureCube">loadTextureCube</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readDirectoryNames">readDirectoryNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotX">rotX</a></li><li><a href="global.html#rotY">rotY</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#teapot">teapot</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCnt">texCnt</a></li><li><a href="global.html#texDir">texDir</a></li><li><a href="global.html#texID">texID</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Jul 06 2024 21:01:04 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 23 2025 07:47:43 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

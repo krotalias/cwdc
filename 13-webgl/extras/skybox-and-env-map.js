@@ -60,7 +60,7 @@ var gl;
 /**
  * For drawing the skybox.
  * @type {GLint}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation WebGLRenderingContext: getAttribLocation() method}
  */
 var aCoords_SB;
 var uProjection_SB;
@@ -212,9 +212,9 @@ let loadTextureCube;
  * A closure for returning a function to load the cube texture.
  * The variable gl (webgl context) must be in the global context.
  * @return {cubemap}
- * @see https://www.pngwing.com/en/search?q=cube+map
- * @see http://paulbourke.net/panorama/cubemaps/
- * @see https://www.youtube.com/watch?v=8sVvxeKI9Pk
+ * @see {@link https://www.pngwing.com/en/search?q=cube+map Cube Map png images}
+ * @see {@link http://paulbourke.net/panorama/cubemaps/ Converting to/from cubemaps}
+ * @see {@link https://www.youtube.com/watch?v=8sVvxeKI9Pk OpenGL Tutorial 19 - Cubemaps & Skyboxes}
  */
 function _loadTextureCube() {
   const img = new Array(6);
@@ -398,7 +398,7 @@ function doKey(evt) {
  * @param {String} vertexShaderSource vertex shader code.
  * @param {String} fragmentShaderSource fragment shader code.
  * @returns {WebGLProgram} WebGLProgram object.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram WebGLRenderingContext: createProgram() method}
  */
 function createProgram(gl, vertexShaderSource, fragmentShaderSource) {
   var vsh = gl.createShader(gl.VERTEX_SHADER);
@@ -427,7 +427,7 @@ function createProgram(gl, vertexShaderSource, fragmentShaderSource) {
  * Returns a shader source code.
  * @param {String} elementID element identifier.
  * @returns {String} source code.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent Node: textContent property}
  */
 function getTextContent(elementID) {
   var element = document.getElementById(elementID);
@@ -453,8 +453,8 @@ function getTextContent(elementID) {
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise<Array<String>>}
  * @see <a href="/cwdc/6-php/reaDirectories.php">files</a>
- * @see https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript
- * @see https://api.jquery.com/jquery.ajax/
+ * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
+ * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
 var readDirectoryNames = new Promise((resolve, reject) => {
   $.ajax({
@@ -526,7 +526,7 @@ async function init(m) {
      * <p>Fires when the document view (window) has been resized.</p>
      * Also resizes the canvas and viewport.
      * @callback handleWindowResize
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
      */
     function handleWindowResize() {
       let h = window.innerHeight;
@@ -542,13 +542,14 @@ async function init(m) {
     }
 
     /**
+     * @summary Executed when the window is resized.
      * <p>Appends an event listener for events whose type attribute value is resize.</p>
      * <p>The {@link handleWindowResize callback} argument sets the callback
      * that will be invoked when the event is dispatched.</p>
      * @param {Event} event the document view is resized.
      * @param {callback} function function to run when the event occurs.
      * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-     * @event resize - executed when the window is resized.
+     * @event resize
      */
     window.addEventListener("resize", handleWindowResize, false);
 
@@ -608,14 +609,16 @@ async function init(m) {
    *  <li>ArrowRight</li>
    * </ul>
    * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event Element: keydown event}
    */
   document.addEventListener("keydown", doKey, false);
   draw();
 }
 
 /**
- * Reset the model to its initial position.
- * @event click
+ * Reset the model to its initial position when the "Reset View" button is clicked.
+ * @event clickReset
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  */
 document.getElementById("reset").onclick = function () {
   rotX = rotY = 0;
@@ -624,8 +627,9 @@ document.getElementById("reset").onclick = function () {
 };
 
 /**
- * Move to the next texture.
- * @event click
+ * Move to the next texture when the "Next Texture" button is clicked.
+ * @event clickNext
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  */
 document.getElementById("next").onclick = function () {
   texCnt = (texCnt + 1) % texDir.length;
@@ -638,6 +642,7 @@ document.getElementById("next").onclick = function () {
  * @param {Event} event load event.
  * @callback WindowLoadCallback
  * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => {
   const mname = ["teapot", "cube", "sphere", "torus"];
