@@ -52,8 +52,23 @@ const mat3 = glMatrix.mat3;
 
 /**
  * Three.js module.
- * @external THREE
- * @see https://threejs.org/docs/#manual/en/introduction/Installation
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @external three
+ * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
+ * @see {@link https://discoverthreejs.com DISCOVER three.js}
+ * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ */
+
+/**
+ * <p>Main three.js namespace.</p>
+ * {@link event:load Imported} from {@link external:three three.module.js}
+ * @namespace THREE
+ * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
+ * @see {@link https://dplatz.de/blog/2019/es6-bare-imports.html How to handle ES6 bare module imports for local Development}
  */
 
 /**
@@ -62,15 +77,15 @@ const mat3 = glMatrix.mat3;
  * and custom attributes within buffers, reducing the cost of
  * passing all this data to the GPU.
  * @class BufferGeometry
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry THREE.BufferGeometry}
  */
 
 /**
  * Texture array.
  * @type {Array<String>}
  */
-var imageFilename = [
+const imageFilename = [
   "check64.png",
   "check64border.png",
   "clover.jpg",
@@ -83,7 +98,7 @@ var imageFilename = [
  * @type {Float32Array}
  */
 //prettier-ignore
-var axisVertices = new Float32Array([
+const axisVertices = new Float32Array([
     0.0, 0.0, 0.0,
     1.5, 0.0, 0.0,
     0.0, 0.0, 0.0,
@@ -97,7 +112,7 @@ var axisVertices = new Float32Array([
  * @type {Float32Array}
  */
 //prettier-ignore
-var axisColors = new Float32Array([
+const axisColors = new Float32Array([
     1.0, 0.0, 0.0, 1.0,
     1.0, 0.0, 0.0, 1.0,
     0.0, 1.0, 0.0, 1.0,
@@ -175,96 +190,96 @@ const matPropElements = new Float32Array([
  * The OpenGL context.
  * @type {WebGLRenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * Our model data.
  * @type {modelData}
  */
-var theModel;
+let theModel;
 
 /**
  * Array with normal end points.
  * @type {Float32Array}
  */
-var normal;
+let normal;
 
 /**
  * Array with edges end points.
  * @type {Float32Array}
  */
-var lines;
+let lines;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexBuffer;
+let vertexBuffer;
 
 /**  @type {WebGLBuffer} */
-var indexBuffer;
+let indexBuffer;
 /**  @type {WebGLBuffer} */
-var vertexNormalBuffer;
+let vertexNormalBuffer;
 /**  @type {WebGLBuffer} */
-var texCoordBuffer;
+let texCoordBuffer;
 /**  @type {WebGLBuffer} */
-var axisBuffer;
+let axisBuffer;
 /**  @type {WebGLBuffer} */
-var axisColorBuffer;
-
-/**
- * Handle to a buffer on the GPU.
- * @type {WebGLBuffer}
- */
-var normalBuffer;
+let axisColorBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var lineBuffer;
+let normalBuffer;
+
+/**
+ * Handle to a buffer on the GPU.
+ * @type {WebGLBuffer}
+ */
+let lineBuffer;
 
 /**
  * Handle to the texture object on the GPU.
  * @type {WebGLTexture}
  */
-var textureHandle;
+let textureHandle;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var lightingShader;
+let lightingShader;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var colorShader;
+let colorShader;
 
 /**
  * Model transformation matrix.
  * @Type {mat4}
  */
-var modelMatrix = mat4.create();
+let modelMatrix = mat4.create();
 
 /**
  * Current rotation axis.
  * @type {String}
  */
-var axis = "x";
+let axis = "x";
 
 /**
  * Scale applied to a model to make its size adequate for rendering.
  * @type {Number}
  */
-var mscale = 1;
+let mscale = 1;
 
 /**
  * Turn the display of the model mesh/texture/axes/animation on/off.
  * @type {Object<{lines:Boolean, texture:Boolean, axes:Boolean, paused: Boolean, intrinsic: Boolean}>}
  */
-var selector = {
+const selector = {
   lines: document.getElementById("mesh").checked,
   texture: document.getElementById("texture").checked,
   axes: document.getElementById("axes").checked,
@@ -276,13 +291,13 @@ var selector = {
  * Arcball.
  * @type {SimpleRotator}
  */
-var rotator;
+let rotator;
 
 /**
  * Camera position.
  * @type {Array<Number>}
  */
-var eye = [1.77, 3.54, 3.06];
+const eye = [1.77, 3.54, 3.06];
 
 /**
  * View matrix.
@@ -301,28 +316,28 @@ const vMatrix = mat4.lookAt(
  * @type {mat4}
  * @see <a href="/cwdc/downloads/apostila.pdf#page=109">View matrix</a>
  */
-var viewMatrix = mat4.copy([], vMatrix);
+const viewMatrix = mat4.copy([], vMatrix);
 
 /**
  * Projection matrix.
  * @type {mat4}
  */
-var projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
+const projection = mat4.perspectiveNO([], (30 * Math.PI) / 180, 1.5, 0.1, 1000);
 
 /**
  * Returns the magnitude (length) of a vector.
  * @param {Array<Number>} v n-D vector.
  * @returns {Number} vector length.
- * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce Array.prototype.reduce()}
  */
-var vecLen = (v) =>
+const vecLen = (v) =>
   Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
 
 /**
  * View distance.
  * @type {Number}
  */
-var viewDistance = vecLen(eye);
+const viewDistance = vecLen(eye);
 
 /**
  * An object containing raw data for
@@ -338,12 +353,12 @@ var viewDistance = vecLen(eye);
 /**
  * Given an instance of
  * <ul>
- * <li>{@link external:THREE.BufferGeometry THREE.BufferGeometry}</li>
+ * <li>{@link THREE.BufferGeometry THREE.BufferGeometry}</li>
  * </ul>
  * returns an object containing raw data for
  * vertices, normal vectors, texture coordinates, and indices.
  * <p>{@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry Polyhedra} have no index.</p>
- * @param {external:THREE.BufferGeometry} geom
+ * @param {THREE.BufferGeometry} geom
  *        {@link https://threejs.org/docs/#api/en/geometries/BoxGeometry THREE.BoxGeometry}<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/CapsuleGeometry THREE.CapsuleGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/ConeGeometry THREE.ConeGeometry},<br>
@@ -379,7 +394,7 @@ function getModelData(geom) {
  * @see <a href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48">𝑛′=(𝑀<sup>&#8211;1</sup>)<sup>𝑇</sup>⋅𝑛</a>
  */
 function makeNormalMatrixElements(model, view) {
-  var modelview = mat4.multiply([], view, model);
+  const modelview = mat4.multiply([], view, model);
   return mat3.normalFromMat4([], modelview);
 }
 
@@ -387,11 +402,11 @@ function makeNormalMatrixElements(model, view) {
  * Translate keydown events to strings.
  * @param {KeyboardEvent} event keyboard event.
  * @return {String} typed character.
- * @see https://javascript.info/tutorial/keyboard-events
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
  */
 function getChar(event) {
   event = event || window.event;
-  let charCode = event.key || String.fromCharCode(event.which);
+  const charCode = event.key || String.fromCharCode(event.which);
   return charCode;
 }
 
@@ -403,7 +418,7 @@ function getChar(event) {
  * @return {key_event} callback for handling a keyboard event.
  */
 const handleKeyPress = ((event) => {
-  let zoomfactor = 0.7;
+  const zoomfactor = 0.7;
   let gscale = 1;
   const models = document.getElementById("models");
 
@@ -413,7 +428,7 @@ const handleKeyPress = ((event) => {
    * @callback key_event callback to handle a key pressed.
    */
   return (event) => {
-    var ch = getChar(event);
+    const ch = getChar(event);
     switch (ch) {
       case " ":
         selector.paused = !selector.paused;
@@ -590,8 +605,8 @@ const handleKeyPress = ((event) => {
  * @returns {KeyboardEvent} a keyboard event.
  * @function
  */
-var createEvent = (key) => {
-  let code = key.charCodeAt();
+const createEvent = (key) => {
+  const code = key.charCodeAt();
   return new KeyboardEvent("keydown", {
     key: key,
     which: code,
@@ -604,8 +619,8 @@ var createEvent = (key) => {
  * Selects a model from a menu.
  */
 function selectModel() {
-  let val = document.getElementById("models").value;
-  let key = {
+  const val = document.getElementById("models").value;
+  const key = {
     0: "u", // capsule
     1: "C", // cone
     2: "v", // cube
@@ -626,51 +641,55 @@ function selectModel() {
 const mesh = document.getElementById("mesh");
 
 /**
+ * @summary Executed when the mesh checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.
  * The callback argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the mesh checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeMesh
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 mesh.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 
 const texture = document.getElementById("texture");
 
 /**
+ * @summary Executed when the texture checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.
  * The callback argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the texture checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeTexture
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 texture.addEventListener("change", (event) => handleKeyPress(createEvent("k")));
 
 const axes = document.getElementById("axes");
 
 /**
+ * @summary Executed when the axes checkbox is checked or unchecked.
  * <p>Appends an event listener for events whose type attribute value is change.
  * The callback argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the axes checkbox is checked or unchecked.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeAxes
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
 if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
     /**
+     * @summary Executed when the rot input radio is checked (but not when unchecked).
      * <p>Appends an event listener for events whose type attribute value is change.
      * The callback argument sets the callback that will be invoked when
      * the event is dispatched.</p>
      *
-     * @event change - executed when the rot input radio is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @event changeRot
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", function (event) {
-      var item = event.target.value;
+      const item = event.target.value;
       handleKeyPress(createEvent(item));
     });
   });
@@ -679,15 +698,16 @@ if (document.querySelector('input[name="rot"]')) {
 if (document.querySelector('input[name="euler"]')) {
   document.querySelectorAll('input[name="euler"]').forEach((elem) => {
     /**
+     * @summary Executed when the euler input radio is checked (but not when unchecked).
      * <p>Appends an event listener for events whose type attribute value is change.
      * The callback argument sets the callback that will be invoked when
      * the event is dispatched.</p>
      *
-     * @event change - executed when the euler input radio is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @event changeEuler
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", function (event) {
-      var item = event.target.value;
+      const item = event.target.value;
       handleKeyPress(createEvent(item));
     });
   });
@@ -696,7 +716,8 @@ if (document.querySelector('input[name="euler"]')) {
 /**
  * Animates the object, by generating an "↓" {@link handleKeyPress event},
  * whenever the Arrow Down button is clicked.
- * @event click
+ * @event clickArrowDown
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  */
 document
   .querySelector("#arrowDown")
@@ -707,7 +728,8 @@ document
 /**
  * Animates the object, by generating an "↑" {@link handleKeyPress event},
  * whenever the Arrow Up button is clicked.
- * @event click
+ * @event clickArrowUp
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
  */
 document
   .querySelector("#arrowUp")
@@ -745,7 +767,7 @@ function draw() {
  * @returns {mat4} model matrix.
  */
 function getModelMatrix() {
-  var m = modelMatrix;
+  let m = modelMatrix;
   if (mscale != 1) {
     m = mat4.multiply(
       [],
@@ -769,19 +791,19 @@ function drawTexture() {
   gl.useProgram(lightingShader);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
+  const normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
   if (normalIndex < 0) {
     console.log("Failed to get the storage location of a_Normal");
     return;
   }
 
-  var texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
+  const texCoordIndex = gl.getAttribLocation(lightingShader, "a_TexCoord");
   if (texCoordIndex < 0) {
     console.log("Failed to get the storage location of a_TexCoord");
     return;
@@ -803,7 +825,7 @@ function drawTexture() {
   //gl.bindBuffer(gl.ARRAY_BUFFER, null); <---
 
   // set uniform in shader for projection * view * model transformation
-  var loc = gl.getUniformLocation(lightingShader, "model");
+  let loc = gl.getUniformLocation(lightingShader, "model");
   gl.uniformMatrix4fv(loc, false, getModelMatrix());
   loc = gl.getUniformLocation(lightingShader, "view");
   gl.uniformMatrix4fv(loc, false, viewMatrix);
@@ -828,7 +850,7 @@ function drawTexture() {
   gl.uniform1f(loc, shininess[0]);
 
   // need to choose a texture unit, then bind the texture to TEXTURE_2D for that unit
-  var textureUnit = 1;
+  const textureUnit = 1;
   gl.activeTexture(gl.TEXTURE0 + textureUnit);
   gl.bindTexture(gl.TEXTURE_2D, textureHandle);
   loc = gl.getUniformLocation(lightingShader, "sampler");
@@ -861,13 +883,13 @@ function drawAxes() {
   gl.useProgram(colorShader);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(colorShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var colorIndex = gl.getAttribLocation(colorShader, "a_Color");
+  const colorIndex = gl.getAttribLocation(colorShader, "a_Color");
   if (colorIndex < 0) {
     console.log("Failed to get the storage location of a_Color");
     return;
@@ -886,8 +908,8 @@ function drawAxes() {
 
   // set transformation to projection * view * model for intrinsic
   // or only projection * view for extrinsic
-  var loc = gl.getUniformLocation(colorShader, "transform");
-  var transform = mat4.multiply([], projection, viewMatrix);
+  const loc = gl.getUniformLocation(colorShader, "transform");
+  const transform = mat4.multiply([], projection, viewMatrix);
   if (selector.intrinsic) {
     mat4.multiply(transform, transform, modelMatrix);
   }
@@ -911,13 +933,13 @@ function drawAxes() {
 function drawLines() {
   // bind the shader
   gl.useProgram(colorShader);
-  var positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(colorShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var a_color = gl.getAttribLocation(colorShader, "a_Color");
+  const a_color = gl.getAttribLocation(colorShader, "a_Color");
   if (a_color < 0) {
     console.log("Failed to get the storage location of a_Color");
     return;
@@ -928,8 +950,8 @@ function drawLines() {
   gl.enableVertexAttribArray(positionIndex);
   //  ------------ draw triangle borders
   // set transformation to projection * view * model
-  var loc = gl.getUniformLocation(colorShader, "transform");
-  var transform = mat4.multiply(
+  const loc = gl.getUniformLocation(colorShader, "transform");
+  const transform = mat4.multiply(
     [],
     projection,
     mat4.multiply([], viewMatrix, getModelMatrix()),
@@ -942,7 +964,7 @@ function drawLines() {
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
   // takes too long on mobile
   /*
-    for (var i = 0; i < theModel.indices.length; i += 3) {
+    for (let i = 0; i < theModel.indices.length; i += 3) {
         // offset - two bytes per index (UNSIGNED_SHORT)
         gl.drawElements(gl.LINE_LOOP, 3, gl.UNSIGNED_SHORT, i * 2);
     }
@@ -954,7 +976,7 @@ function drawLines() {
     gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.LINES, 0, 2 * theModel.indices.length);
   } else {
-    for (var i = 0; i < theModel.vertices.length; i += 3) {
+    for (let i = 0; i < theModel.vertices.length; i += 3) {
       gl.drawArrays(gl.LINE_LOOP, i, 3);
     }
   }
@@ -973,7 +995,7 @@ function drawLines() {
  * Wait for image to load before proceeding.
  */
 function mainEntrance() {
-  var image = new Image();
+  const image = new Image();
   image.onload = function () {
     // chain the next function
     startForReal(image);
@@ -994,7 +1016,7 @@ function mainEntrance() {
  */
 function startForReal(image) {
   // retrieve <canvas> element
-  var canvas = document.getElementById("theCanvas");
+  const canvas = document.getElementById("theCanvas");
 
   /**
    * <p>Appends an event listener for events whose type attribute value is keydown.
@@ -1022,8 +1044,8 @@ function startForReal(image) {
   }
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById("vertexColorShader").textContent;
-  var fshaderSource = document.getElementById(
+  let vshaderSource = document.getElementById("vertexColorShader").textContent;
+  let fshaderSource = document.getElementById(
     "fragmentColorShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
@@ -1034,12 +1056,8 @@ function startForReal(image) {
   gl.useProgram(null);
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById(
-    "vertexLightingShader",
-  ).textContent;
-  var fshaderSource = document.getElementById(
-    "fragmentLightingShader",
-  ).textContent;
+  vshaderSource = document.getElementById("vertexLightingShader").textContent;
+  fshaderSource = document.getElementById("fragmentLightingShader").textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
     return;
@@ -1168,10 +1186,10 @@ function createModel(shape, chi = 2) {
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, shape.texCoords, gl.STATIC_DRAW);
 
-  let nv = shape.vertices.length;
+  const nv = shape.vertices.length;
   normal = new Float32Array(6 * nv);
-  for (var i = 0, k = 0; i < nv; i += 3, k += 6) {
-    for (var j = 0; j < 3; j++) {
+  for (let i = 0, k = 0; i < nv; i += 3, k += 6) {
+    for (let j = 0; j < 3; j++) {
       normal[j + k] = shape.vertices[i + j];
       normal[j + k + 3] = normal[j + k] + (0.1 / mscale) * shape.normals[i + j];
     }
@@ -1184,13 +1202,13 @@ function createModel(shape, chi = 2) {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, shape.indices, gl.STATIC_DRAW);
 
-    let ni = shape.indices.length;
+    const ni = shape.indices.length;
     lines = new Float32Array(18 * ni);
-    for (i = 0, k = 0; i < ni; i += 3, k += 18) {
-      for (j = 0; j < 3; j++) {
-        let v1 = shape.vertices[shape.indices[i] * 3 + j];
-        let v2 = shape.vertices[shape.indices[i + 1] * 3 + j];
-        let v3 = shape.vertices[shape.indices[i + 2] * 3 + j];
+    for (let i = 0, k = 0; i < ni; i += 3, k += 18) {
+      for (let j = 0; j < 3; j++) {
+        const v1 = shape.vertices[shape.indices[i] * 3 + j];
+        const v2 = shape.vertices[shape.indices[i + 1] * 3 + j];
+        const v3 = shape.vertices[shape.indices[i + 2] * 3 + j];
 
         lines[j + k] = v1;
         lines[j + k + 3] = v2;
@@ -1210,9 +1228,9 @@ function createModel(shape, chi = 2) {
   gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, normal, gl.STATIC_DRAW);
 
-  let obj = document.getElementById("object");
+  const obj = document.getElementById("object");
 
-  let faces = shape.indices
+  const faces = shape.indices
     ? shape.indices.length / 3
     : shape.vertices.length / 9;
   let edges = (faces * 3) / 2;
@@ -1241,11 +1259,11 @@ function createModel(shape, chi = 2) {
  * @function
  * @see {@link https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd Extrinsic & intrinsic rotation: Do I multiply from right or left?}
  */
-var animate = (() => {
+const animate = (() => {
   // increase the rotation by some amount (30°/s), depending on the axis chosen
   const increment = (0.5 * Math.PI) / 180;
   /** @type {Number} */
-  var requestID = 0;
+  let requestID = 0;
   const rotMatrix = {
     x: mat4.fromXRotation([], increment),
     y: mat4.fromYRotation([], increment),
@@ -1255,8 +1273,8 @@ var animate = (() => {
   /**
    * Callback to keep drawing frames.
    * @callback frame
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame cancelAnimationFrame}
    */
   return () => {
     draw();
