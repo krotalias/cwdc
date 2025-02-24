@@ -14,7 +14,7 @@
  * Then, it uses a WebGL {@link https://learnopengl.com/Advanced-OpenGL/Cubemaps cubemap}
  * to reflect an {@link https://www.humus.name/index.php?page=Textures environment} onto the surface of the current rendered object.
  *
- * @author Paulo Roma Cavalcanti
+ * @author {@link https://krotalias.github.io Paulo Roma Cavalcanti}
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2016-2024 Paulo R Cavalcanti.
  * @since 15/01/2016
@@ -57,62 +57,62 @@ import { Polyhedron } from "/cwdc/13-webgl/lib/polyhedron.js";
  * The webgl context.
  * @type {WebGL2RenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * Current shader.
  * @type {WebGLProgram}
  */
-var program;
+let program;
 
 /**
  * When rotating using an arcball or Euler angles.
  * @type {Boolean}
  */
-var arcBall = true;
+let arcBall = true;
 
 /**
  * Marks the change of a rotation type, to get a smooth transition: arcball ↔ Euler angles.
  * @type {Boolean}
  */
-var rotating = false;
+let rotating = false;
 
 /**
  * Cube map texture.
  * @type {WebGLTexture}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createTexture
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createTexture WebGLRenderingContext: createTexture() method}
  */
-var cubeMap;
+let cubeMap;
 
 /**
  * Model to be rendered.
  * @type {createModel.model}
  */
-var model;
+let model;
 
 /**
  * Change coordinate system, so the camera is at the origin.
  * @type {mat4}
  */
-var modelViewMatrix = mat4.create();
+let modelViewMatrix = mat4.create();
 
 /**
  * Transform normals by the current modelView.
  * @type {mat3}
  */
-var normalMatrix = mat3.create();
+const normalMatrix = mat3.create();
 
 /**
  * Object to enable rotation by mouse dragging (arcball).
  * @type {SimpleRotator}
  */
-var rotator;
+let rotator;
 
 /**
  * Enum for identifying rotation axes.
  * @type {Object<{String: Number}>}
  */
-var axis = {
+const axis = {
   x: 0,
   y: 1,
   z: 2,
@@ -122,26 +122,26 @@ var axis = {
  * Current rotation {@link axis}.
  * @type {Number}
  */
-var rotAxis = axis.x;
+let rotAxis = axis.x;
 
 /**
  * Current rotation angles about the three coordinate axes.
  * @type {Array<Number>}
  */
-var theta = [0.0, 0.0, 0.0];
+const theta = [0.0, 0.0, 0.0];
 
 /**
  * Creates cube map textures and generates a mipmap.
  * @param {Array<GLenum>} targets binding points (targets) of the active texture.
  * @param {Array<HTMLImageElement>} images images for the six faces of the cube map.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D WebGLRenderingContext: texImage2D() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image HTMLImageElement: Image() constructor}
  */
 function configureTexture(targets, images) {
   cubeMap = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_CUBE_MAP, cubeMap);
 
-  for (var j = 0; j < 6; ++j) {
+  for (let j = 0; j < 6; ++j) {
     gl.texImage2D(targets[j], 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, images[j]);
     gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -159,6 +159,7 @@ function configureTexture(targets, images) {
  * @param {Event} event load event.
  * @callback WindowLoadCallback
  * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => {
   const queryString = window.location.search;
@@ -172,10 +173,10 @@ window.addEventListener("load", (event) => {
  * calls {@link init} only when the last image is loaded.</p>
  * We do not know the order or when the six images finish loading.
  * @param {String} imageDir directory holding the six images.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
- * @see https://sites.google.com/site/csc8820/educational/how-to-implement-texture-mapping
- * @see https://www.evl.uic.edu/pape/data/Earth/
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image HTMLImageElement: Image() constructor}
+ * @see {@link https://www.ogldev.org/www/tutorial16/tutorial16.html Basic Texture Mapping}
+ * @see {@link https://www.evl.uic.edu/pape/data/Earth/ Earth images }
  */
 function loadTexture(imageDir = "skybox") {
   const urls = [
@@ -205,26 +206,26 @@ function loadTexture(imageDir = "skybox") {
 /**
  * <p>Entry point when page and {@link WindowLoadCallback cubemap} array are loaded.</p>
  * @param {Array<HTMLImageElement>} cubeMapArr image array.
- * @see https://learnopengl.com/Advanced-OpenGL/Face-culling
+ * @see {@link https://learnopengl.com/Advanced-OpenGL/Face-culling Face culling}
  */
 function init(cubeMapArr) {
-  var m = 0;
-  var lmodel = []; // a list of pairs (model, view distance)
-  var numTimesToSubdivide = 5;
-  var canvas = document.getElementById("gl-canvas");
+  let m = 0;
+  const lmodel = []; // a list of pairs (model, view distance)
+  const numTimesToSubdivide = 5;
+  const canvas = document.getElementById("gl-canvas");
 
   gl = canvas.getContext("webgl2");
   if (!gl) {
     alert("WebGL isn't available");
   }
 
-  let aspect = canvas.width / canvas.height;
+  const aspect = canvas.width / canvas.height;
 
   /**
    * <p>Fires when the document view (window) has been resized.</p>
    * Also resizes the canvas and viewport.
    * @callback handleWindowResize
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   function handleWindowResize() {
     let h = window.innerHeight;
@@ -242,13 +243,15 @@ function init(cubeMapArr) {
   // mobile devices
   if (screen.width <= 800) {
     /**
+     * @summary Executed when the window is resized.
      * <p>Appends an event listener for events whose type attribute value is resize.</p>
      * <p>The {@link handleWindowResize callback} argument sets the callback
      * that will be invoked when the event is dispatched.</p>
      * @param {Event} event the document view is resized.
      * @param {callback} function function to run when the event occurs.
      * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-     * @event resize - executed when the window is resized.
+     * @event resize
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
      */
     window.addEventListener("resize", handleWindowResize, false);
     handleWindowResize();
@@ -267,7 +270,7 @@ function init(cubeMapArr) {
   program = initShaders(gl, "vertex-shader", "fragment-shader");
   gl.useProgram(program);
 
-  var projectionMatrix = mat4.create();
+  const projectionMatrix = mat4.create();
   mat4.perspective(projectionMatrix, Math.PI / 3, 1, 1, 100);
   gl.uniformMatrix4fv(
     gl.getUniformLocation(program, "projectionMatrix"),
@@ -277,7 +280,8 @@ function init(cubeMapArr) {
 
   /**
    * Rotate aboux the x {@link rotAxis axis}.
-   * @event click
+   * @event clickX
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   document.getElementById("ButtonX").onclick = function () {
     rotAxis = axis.x;
@@ -285,7 +289,8 @@ function init(cubeMapArr) {
 
   /**
    * Rotate aboux the y {@link rotAxis axis}.
-   * @event click
+   * @event clickY
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   document.getElementById("ButtonY").onclick = function () {
     rotAxis = axis.y;
@@ -293,7 +298,8 @@ function init(cubeMapArr) {
 
   /**
    * Rotate aboux the z {@link rotAxis axis}.
-   * @event click
+   * @event clickZ
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   document.getElementById("ButtonZ").onclick = function () {
     rotAxis = axis.z;
@@ -301,7 +307,8 @@ function init(cubeMapArr) {
 
   /**
    * Toggle {@link arcBall} rotation.
-   * @event click
+   * @event clickArcBall
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   document.getElementById("ButtonT").onclick = function () {
     arcBall = !arcBall;
@@ -317,7 +324,8 @@ function init(cubeMapArr) {
 
   /**
    * Increment the model.
-   * @event click
+   * @event clickToggleModel
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   document.getElementById("ButtonM").onclick = function () {
     m = (m + 1) % lmodel.length;
@@ -349,7 +357,7 @@ function init(cubeMapArr) {
   gl.activeTexture(gl.TEXTURE0);
   gl.uniform1i(gl.getUniformLocation(program, "texMap"), 0);
 
-  var targets = [
+  const targets = [
     gl.TEXTURE_CUBE_MAP_POSITIVE_X,
     gl.TEXTURE_CUBE_MAP_NEGATIVE_X,
     gl.TEXTURE_CUBE_MAP_POSITIVE_Y,
@@ -366,24 +374,22 @@ function init(cubeMapArr) {
  * @returns {Array<Number>} Euler angles.
  */
 function rotationMatrixToEulerAngles(R) {
-  var R00, R10, R11, R12, R20, R21, R22;
+  const R00 = R[0];
+  const R10 = R[4];
+  const R11 = R[5];
+  const R12 = R[6];
+  const R20 = R[8];
+  const R21 = R[9];
+  const R22 = R[10];
 
-  R00 = R[0];
-  R10 = R[4];
-  R11 = R[5];
-  R12 = R[6];
-  R20 = R[8];
-  R21 = R[9];
-  R22 = R[10];
-
-  var sy = Math.sqrt(R00 * R00 + R10 * R10);
+  const sy = Math.sqrt(R00 * R00 + R10 * R10);
 
   // Whether the matrix is singular or not (determinant is 0).
   // Singular matrices are NOT invertible.
-  var singular = sy < 1e-6;
+  const singular = sy < 1e-6;
 
   // Pay attention to the order in which the angles are stored
-  var x, y, z;
+  let x, y, z;
   if (!singular) {
     x = Math.atan2(R21, R22);
     y = Math.atan2(-R20, sy);
@@ -429,7 +435,7 @@ function draw() {
     }
 
     // get rotation without camera transformation.
-    var mViewMatrix = mat4.create();
+    const mViewMatrix = mat4.create();
     mat4.rotateZ(mViewMatrix, mViewMatrix, deg2rad(theta[axis.z]));
     mat4.rotateY(mViewMatrix, mViewMatrix, deg2rad(theta[axis.y]));
     mat4.rotateX(mViewMatrix, mViewMatrix, deg2rad(theta[axis.x]));
@@ -494,11 +500,11 @@ const animation = (() => {
  * @returns {model} created model.
  */
 function createModel(modelData) {
-  var model = {};
-  var aCoords = gl.getAttribLocation(program, "vPosition");
-  var aNormal = gl.getAttribLocation(program, "vNormal");
-  var uModelview = gl.getUniformLocation(program, "modelViewMatrix");
-  var uNormalMatrix = gl.getUniformLocation(program, "normalMatrix");
+  const model = {};
+  const aCoords = gl.getAttribLocation(program, "vPosition");
+  const aNormal = gl.getAttribLocation(program, "vNormal");
+  const uModelview = gl.getUniformLocation(program, "modelViewMatrix");
+  const uNormalMatrix = gl.getUniformLocation(program, "normalMatrix");
   gl.enableVertexAttribArray(aCoords);
   gl.enableVertexAttribArray(aNormal);
   model.coordsBuffer = gl.createBuffer();
