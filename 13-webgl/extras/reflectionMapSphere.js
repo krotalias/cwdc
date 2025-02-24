@@ -164,7 +164,7 @@ function configureTexture(targets, images) {
 window.addEventListener("load", (event) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  let texture = urlParams.get("texture") || "skybox";
+  const texture = urlParams.get("texture") || "skybox";
   loadTexture(`../examples/cubemaps/${texture}`);
 });
 
@@ -408,14 +408,14 @@ function rotationMatrixToEulerAngles(R) {
  * @param {Number} deg angle in degrees.
  * @returns {Number} angle in radians.
  */
-let deg2rad = (deg) => (Math.PI / 180) * deg;
+const deg2rad = (deg) => (Math.PI / 180) * deg;
 
 /**
  * Convert an angle in radians to degrees.
  * @param {Number} rad angle in radians.
  * @returns {Number} angle in degrees.
  */
-let rad2deg = (rad) => (rad * 180) / Math.PI;
+const rad2deg = (rad) => (rad * 180) / Math.PI;
 
 /**
  * Render the scene.
