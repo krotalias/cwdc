@@ -2,7 +2,8 @@
  * @file
  *
  * Summary.
- * <p>This example combines a skybox with a fully reflective object.</p>
+ * <p>This example combines a {@link https://en.wikipedia.org/wiki/Skybox_(video_games) skybox}
+ * with a fully reflective object.</p>
  * The skybox and teapot can be rotated independently.
  * The teapot seems to be reflecting its environment, <br>
  * but it's really just that the teapot and skybox use the same {@link loadTextureCube cubemap texture}.
@@ -17,7 +18,7 @@
  *
  * <p>The teapot is rotated by an additional modeling transformation.</p>
  *
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @author {@link https://math.hws.edu/eck/ David J. Eck}
  * @since 01/01/2019
  * @see <a href="/cwdc/13-webgl/extras/skybox-and-env-map.html?m=0">teapot</a>
@@ -55,99 +56,99 @@ import { mat3, mat4 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  * The webgl context.
  * @type {WebGL2RenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * For drawing the skybox.
  * @type {GLint}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation WebGLRenderingContext: getAttribLocation() method}
  */
-var aCoords_SB;
-var uProjection_SB;
-var uModelview_SB;
-var prog_SB;
+let aCoords_SB;
+let uProjection_SB;
+let uModelview_SB;
+let prog_SB;
 
 /**
  * For drawing the reflective object.
  * @type {GLint}
  */
-var aCoords;
-var aNormal;
-var uProjection;
-var uModelview;
-var uNormalMatrix;
-var uInvVT;
-var prog;
+let aCoords;
+let aNormal;
+let uProjection;
+let uModelview;
+let uNormalMatrix;
+let uInvVT;
+let prog;
 
 /**
  * Projection matrix.
  * @type {mat4}
  */
-var projection = mat4.create();
+const projection = mat4.create();
 
 /**
  * Modelview matrix.
  * @type {mat4}
  */
-var modelview;
+let modelview;
 
 /**
  * The transposed inverse of the model view matrix.
  * @type {mat3}
  */
-var normalMatrix = mat3.create();
+const normalMatrix = mat3.create();
 
 /**
  * The inverse of the view transform rotation matrix.
  * @type {mat3}
  */
-var invVT = mat3.create();
+const invVT = mat3.create();
 
 /**
  * The cubemap texture object.
  * @type {WebGLTexture}
  */
-var texID;
+let texID;
 
 /**
  * File names in the texture directory.
  * @type {Array<String>}
  */
-var texDir;
+let texDir;
 
 /**
  * The texture index.
  * @type {Number}
  */
-var texCnt = 0;
+let texCnt = 0;
 
 /**
  * The cube that is the skybox.
  * @type {createModelSB.model}
  */
-var cubeSB;
+let cubeSB;
 
 /**
  * The model (default is a teapot).
  * @type {createModel.model}
  */
-var teapot;
+let teapot;
 
 /**
  * A simpleRotator object to enable rotation by mouse dragging.
  * Provides the view transform that is applied to both skybox and teapot.
  * @type {SimpleRotator}
  */
-var rotator;
+let rotator;
 
 /**
  * Additional rotations applied as modeling transform to the reflective object.<br>
  * Modified by pressing arrow and home keys.
  * @type {Number}
  */
-var rotX = 0;
+let rotX = 0;
 /** @type {Number} */
-var rotY = 0;
+let rotY = 0;
 
 /**
  * Draw the skybox and the teapot.
@@ -293,7 +294,7 @@ function _loadTextureCube() {
  */
 function createModel(modelData) {
   // For creating the teapot model.
-  var model = {};
+  const model = {};
   model.coordsBuffer = gl.createBuffer();
   model.normalBuffer = gl.createBuffer();
   model.indexBuffer = gl.createBuffer();
@@ -333,7 +334,7 @@ function createModel(modelData) {
  */
 function createModelSB(modelData) {
   // For creating the skybox cube model.
-  var model = {};
+  const model = {};
   model.coordsBuffer = gl.createBuffer();
   model.indexBuffer = gl.createBuffer();
   model.count = modelData.indices.length;
@@ -359,7 +360,7 @@ function createModelSB(modelData) {
  * @param {KeyboardEvent} evt key pressed.
  */
 function doKey(evt) {
-  var rotationChanged = true;
+  let rotationChanged = true;
   switch (evt.code) {
     case "ArrowLeft":
       rotY -= 0.15;
@@ -401,19 +402,19 @@ function doKey(evt) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram WebGLRenderingContext: createProgram() method}
  */
 function createProgram(gl, vertexShaderSource, fragmentShaderSource) {
-  var vsh = gl.createShader(gl.VERTEX_SHADER);
+  const vsh = gl.createShader(gl.VERTEX_SHADER);
   gl.shaderSource(vsh, vertexShaderSource);
   gl.compileShader(vsh);
   if (!gl.getShaderParameter(vsh, gl.COMPILE_STATUS)) {
     throw "Error in vertex shader:  " + gl.getShaderInfoLog(vsh);
   }
-  var fsh = gl.createShader(gl.FRAGMENT_SHADER);
+  const fsh = gl.createShader(gl.FRAGMENT_SHADER);
   gl.shaderSource(fsh, fragmentShaderSource);
   gl.compileShader(fsh);
   if (!gl.getShaderParameter(fsh, gl.COMPILE_STATUS)) {
     throw "Error in fragment shader:  " + gl.getShaderInfoLog(fsh);
   }
-  var prog = gl.createProgram();
+  const prog = gl.createProgram();
   gl.attachShader(prog, vsh);
   gl.attachShader(prog, fsh);
   gl.linkProgram(prog);
@@ -430,7 +431,7 @@ function createProgram(gl, vertexShaderSource, fragmentShaderSource) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent Node: textContent property}
  */
 function getTextContent(elementID) {
-  var element = document.getElementById(elementID);
+  const element = document.getElementById(elementID);
   return element.textContent;
 
   /* completely unnecessary!!
@@ -456,7 +457,7 @@ function getTextContent(elementID) {
  * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
  * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
-var readDirectoryNames = new Promise((resolve, reject) => {
+const readDirectoryNames = new Promise((resolve, reject) => {
   $.ajax({
     type: "GET",
     url: "/cwdc/6-php/readDirectories_.php",
@@ -487,7 +488,7 @@ var readDirectoryNames = new Promise((resolve, reject) => {
  */
 async function init(m) {
   try {
-    var canvas = document.getElementById("glcanvas");
+    const canvas = document.getElementById("glcanvas");
     gl = canvas.getContext("webgl");
     if (!gl) {
       gl = canvas.getContext("experimental-webgl");
@@ -496,7 +497,7 @@ async function init(m) {
       throw "Could not create WebGL context.";
     }
 
-    let aspect = canvas.width / canvas.height;
+    const aspect = canvas.width / canvas.height;
 
     /**
      * Array holding cubemap names to create textures.
@@ -555,8 +556,8 @@ async function init(m) {
 
     handleWindowResize();
 
-    var vertexShaderSource = getTextContent("vshaderSB");
-    var fragmentShaderSource = getTextContent("fshaderSB");
+    let vertexShaderSource = getTextContent("vshaderSB");
+    let fragmentShaderSource = getTextContent("fshaderSB");
     prog_SB = createProgram(gl, vertexShaderSource, fragmentShaderSource);
     aCoords_SB = gl.getAttribLocation(prog_SB, "coords");
     uModelview_SB = gl.getUniformLocation(prog_SB, "modelview");
@@ -648,7 +649,7 @@ window.addEventListener("load", (event) => {
   const mname = ["teapot", "cube", "sphere", "torus"];
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  var model = urlParams.get("m") || "2";
+  const model = urlParams.get("m") || "2";
   init(+model);
   document.querySelector("#model").innerHTML = mname[model];
 });
