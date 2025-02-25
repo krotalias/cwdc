@@ -23,10 +23,13 @@
  * <li>or just use vscode {@link https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer live server}.
  * </ul>
  *
- * For alternatives
- * {@link https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server see}.
- *
- * @author {@link https://stevekautz.com/cs336f22/cs336f22_archived.html Steve Kautz} modified by Paulo Roma
+ * For alternatives see:
+ * <ol>
+ *  <li>{@link https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server How do you set up a local testing server?}</li>
+ *  <li>{@link https://krotalias.github.io/cwdc/downloads/cederj/AD1_2021-2.pdf#page=10 Criando o Seu Próprio Servidor HTTP}</li>
+ * </ol>
+ * @author {@link https://stevekautz.com/cs336f22/cs336f22_archived.html Steve Kautz}
+ * @author modified by {@link https://krotalias.github.io Paulo Roma}
  * @since 26/09/2016
  * @see <a href="/cwdc/13-webgl/examples/texture/content/Texture.html">link</a>
  * @see <a href="/cwdc/13-webgl/examples/texture/content/Texture.js">source</a>
@@ -115,39 +118,41 @@ const texCoords = {
  * The OpenGL context.
  *  @type {WebGLRenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexbuffer;
+let vertexbuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var texCoordBuffer;
+let texCoordBuffer;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var shader;
+let shader;
 
 /**
  * Handle to the texture object on the GPU.
  * @type {WebGLTexture}
  */
-var textureHandle;
+let textureHandle;
 
 /**
  * Translate keydown events to strings.
- * @see http://javascript.info/tutorial/keyboard-events
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
+ * @param {KeyboardEvent} event key pressed.
+ * @returns {String} character pressed.
  */
 function getChar(event) {
   event = event || window.event;
-  let charCode = event.key || String.fromCharCode(event.which);
+  const charCode = event.key || String.fromCharCode(event.which);
   return charCode;
 }
 
@@ -158,7 +163,7 @@ function getChar(event) {
  * @param {KeyboardEvent} event key pressed.
  */
 function handleKeyPress(event) {
-  var ch = getChar(event);
+  const ch = getChar(event);
 
   switch (ch) {
     case "1":
@@ -224,7 +229,7 @@ function draw() {
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexbuffer);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(shader, "a_Position");
+  const positionIndex = gl.getAttribLocation(shader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
@@ -242,7 +247,7 @@ function draw() {
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var texCoordIndex = gl.getAttribLocation(shader, "a_TexCoord");
+  const texCoordIndex = gl.getAttribLocation(shader, "a_TexCoord");
   if (texCoordIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
@@ -260,13 +265,13 @@ function draw() {
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
   // need to choose a texture unit, then bind the texture to TEXTURE_2D for that unit
-  var textureUnit = 3;
+  const textureUnit = 3;
   gl.activeTexture(gl.TEXTURE0 + textureUnit);
   gl.bindTexture(gl.TEXTURE_2D, textureHandle);
 
   gl.activeTexture(gl.TEXTURE0);
 
-  var loc = gl.getUniformLocation(shader, "sampler");
+  const loc = gl.getUniformLocation(shader, "sampler");
 
   // sampler value in shader is set to index for texture unit
   gl.uniform1i(loc, textureUnit);
@@ -286,7 +291,7 @@ function draw() {
  * Wait for image to load before {@link startForReal proceeding}.
  */
 function mainEntrance() {
-  var image = new Image();
+  const image = new Image();
   image.onload = function () {
     startForReal(image);
   };
@@ -303,13 +308,19 @@ function mainEntrance() {
  */
 function startForReal(image) {
   /**
-   * Keydown {@link handleKeyPress handler}.
+   * @summary Keydown {@link handleKeyPress handler} callback.
+   *
+   * <p>The keydown and keyup events provide a code indicating which key is pressed,
+   * while keypress (deprecated) indicates which character was entered.
+   * For example, a lowercase "a" will be reported as 65 by keydown and keyup,
+   * but as 97 by keypress. An uppercase "A" is reported as 65 by all events.</p>
    * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   window.onkeydown = handleKeyPress;
 
   // retrieve <canvas> element
-  var canvas = document.getElementById("theCanvas");
+  const canvas = document.getElementById("theCanvas");
 
   // get the rendering context for WebGL
   gl = canvas.getContext("webgl");
@@ -325,8 +336,8 @@ function startForReal(image) {
   );
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById("vertexShader").textContent;
-  var fshaderSource = document.getElementById("fragmentShader").textContent;
+  const vshaderSource = document.getElementById("vertexShader").textContent;
+  const fshaderSource = document.getElementById("fragmentShader").textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
     return;
@@ -402,6 +413,7 @@ function startForReal(image) {
    * Define an animation {@link draw loop}.
    * @function
    * @global
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame Window: requestAnimationFrame() method}
    */
   const animate = () => {
     draw();
