@@ -425,3 +425,17 @@ function startForReal(image) {
   // start drawing!
   animate();
 }
+
+/**
+ * <p>Sets the {@link mainEntrance entry point} of the application.</p>
+ * Fired when the whole page has loaded, including all dependent resources
+ * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.
+ * @param {Event} event load event.
+ * @callback WindowLoadCallback
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event load event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image Image() constructor}
+ * @see {@link https://web.cse.ohio-state.edu/~shen.94/581/Site/Slides_files/texture.pdf Texture Mapping}
+ * @see {@link https://www.evl.uic.edu/pape/data/Earth/ Earth images}
+ * @event load
+ */
+window.addEventListener("load", (event) => mainEntrance());
