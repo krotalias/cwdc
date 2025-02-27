@@ -78,11 +78,7 @@
  * {@link https://threejs.org/docs/#examples/en/controls/ArcballControls.setCamera setCamera()}
  * every time the camera position changes.
  * As a matter of fact, Three.js has some nasty idiosyncrasies,
- * such as ignoring the <a href="../models/obj/ninja/ninjaHead_Low.mtl">disp</a>
- * (displacement map)
- * <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=trackball&file=ninja/ninjaHead_Low.obj">directive</a>
- * in {@link https://paulbourke.net/dataformats/mtl/ MTL}
- * files and having distinct APIs for the three types of controls supported.</li>
+ * such as having distinct APIs for the three types of controls supported.</li>
  * </li>
  * <li>
  * {@link https://www.youtube.com/watch?v=ShVKVn7p_4Q Visual Effects} and
@@ -158,7 +154,7 @@ import * as THREE from "three";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { VTKLoader } from "three/addons/loaders/VTKLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { MTLLoader } from "./MTLLoader.js";
+import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
