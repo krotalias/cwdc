@@ -1,0 +1,8 @@
+.env
+*.err
+.DS_Store
+sql-scripts
+doc
+temp
+vendor
+compose.lock

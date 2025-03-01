@@ -1,0 +1,5 @@
+composer require ircmaxell/password-compat
+composer require vlucas/phpdotenv
+
+roma@lcg.ufrj.br - mypassword
+roma@dcc.ufrj.br - mypassword

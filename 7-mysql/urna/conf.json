@@ -1,0 +1,9 @@
+{
+  "templates": {
+    "default": {
+      "staticFiles": {
+        "include": [ "./img" ]
+      }
+    }
+  }
+}

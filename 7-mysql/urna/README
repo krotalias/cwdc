@@ -1,0 +1,11 @@
+MacOS
+cd /etc/apache2/other
+or Ubuntu
+cd /etc/apache2/conf-available
+or Fedora
+cd /etc/httpd/conf.d
+
+create apache-env-vars.conf
+
+sudo a2enconf apache-env-vars.conf
+sudo systemctl reload apache2
