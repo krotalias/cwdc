@@ -1,11 +1,39 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: misc_controls_arcball.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: misc_controls_arcball.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file
  *
  * Summary.
  *
- * <p>WebGL - {@link THREE.ArcballControls arcball controls} demo.</p>
+ * &lt;p>WebGL - {@link THREE.ArcballControls arcball controls} demo.&lt;/p>
  *
- * <p><b>For educational purposes only.</b></p>
+ * &lt;p>&lt;b>For educational purposes only.&lt;/b>&lt;/p>
  *
  * @since 17/09/2024
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
@@ -13,14 +41,14 @@
  * @author {@link https://x.com/_artisaverb?lang=en Andrew Maximov}
  * @author modified by {@link https://krotalias.github.io Paulo Roma}
  *
- * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html?gui=1">link</a>
- * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.js">source</a>
+ * @see &lt;a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html?gui=1">link&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.js">source&lt;/a>
  * @see {@link https://threejs.org/examples/misc_controls_arcball.html link threejs}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_arcball.html#L184 source threejs}
  * @see {@link https://finalfantasy.fandom.com/wiki/Cerberus_(weapon) Cerberus} (weapon)
  * @see {@link https://en.wikipedia.org/wiki/Cerberus Cerberus} (underworld guardian)
  * @see {@link https://discourse.threejs.org/t/arcballcontrol-problems-on-mobile/70160/3 ArcballControls problems on mobile}
- * @see <img src="/cwdc/13-webgl/examples/three/content/Cerberus.jpg" alt="ArcballControls" width="256">
+ * @see &lt;img src="/cwdc/13-webgl/examples/three/content/Cerberus.jpg" alt="ArcballControls" width="256">
  */
 
 "use strict";
@@ -39,7 +67,7 @@ const cameras = ["Orthographic", "Perspective"];
 
 /**
  * Object with the current camera type.
- * @type {Object<{type: String}>}
+ * @type {Object&lt;{type: String}>}
  */
 const cameraType = { type: "Perspective" };
 
@@ -73,18 +101,18 @@ let folderOptions, folderAnimations;
  */
 
 /**
- * <p>Main three.js namespace.</p>
- * <a href="/cwdc/13-webgl/examples/three/content/doc-example/index.html">Imported</a> from {@link external:three three.module.js}
+ * &lt;p>Main three.js namespace.&lt;/p>
+ * &lt;a href="/cwdc/13-webgl/examples/three/content/doc-example/index.html">Imported&lt;/a> from {@link external:three three.module.js}
  *
  * @namespace THREE
  */
 
 /**
- * <p>lil-gui module.</p>
+ * &lt;p>lil-gui module.&lt;/p>
  *
- * <p>lil-gui gives you an interface for changing the properties of any JavaScript object at runtime.
+ * &lt;p>lil-gui gives you an interface for changing the properties of any JavaScript object at runtime.
  * It's intended as a drop-in replacement for dat.gui,
- * implemented with more modern web standards and some new quality of life features.</p>
+ * implemented with more modern web standards and some new quality of life features.&lt;/p>
  * @external GUI
  * @see {@link https://lil-gui.georgealways.com lil-gui}
  */
@@ -96,7 +124,7 @@ let folderOptions, folderAnimations;
 let gui;
 
 /**
- * <p>ArcballGui is a class that contains the properties and methods for the user interface.</p>
+ * &lt;p>ArcballGui is a class that contains the properties and methods for the user interface.&lt;/p>
  * @class ArcballGui
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/Object MDN Object}
  */
@@ -169,7 +197,7 @@ const ArcballGui = {
 };
 
 /**
- * <p>Initializes the scene, camera, renderer, and the arcball controls.</p>
+ * &lt;p>Initializes the scene, camera, renderer, and the arcball controls.&lt;/p>
  * @summary Loads the viewer and starts the {@link runAnimation animation}.
  */
 function init() {
@@ -203,7 +231,7 @@ function init() {
    * @see {@link https://threejs.org/docs/#api/en/cameras/PerspectiveCamera PerspectiveCamera}
    */
   camera = makePerspectiveCamera();
-  camera.position.set(0, 0, perspectiveDistance); ///// <---------------------
+  camera.position.set(0, 0, perspectiveDistance); ///// &lt;---------------------
 
   const material = new THREE.MeshStandardMaterial();
 
@@ -215,7 +243,7 @@ function init() {
   })();
 
   /**
-   * <p>A loader for loading a .obj resource.</p>
+   * &lt;p>A loader for loading a .obj resource.&lt;/p>
    * The OBJ file format is a simple data-format that represents 3D geometry in a
    * human readable format as the position of each vertex,
    * the UV position of each texture coordinate vertex, vertex normals,
@@ -285,14 +313,14 @@ function init() {
      * One just need to move camera.position.set() after ArcballGui.setArcballControls() to trigger it.
      */
     ArcballGui.setArcballControls();
-    // camera.position.set(0, 0, perspectiveDistance); //// <------
-    // controls.update(); //// <----------
+    // camera.position.set(0, 0, perspectiveDistance); //// &lt;------
+    // controls.update(); //// &lt;----------
 
     /**
-     * <p>Fired when a key is pressed.</p>
+     * &lt;p>Fired when a key is pressed.&lt;/p>
      *
-     * <p>The {@link onKeyDown callback}
-     * argument sets the callback that will be invoked when the event is dispatched.</p>
+     * &lt;p>The {@link onKeyDown callback}
+     * argument sets the callback that will be invoked when the event is dispatched.&lt;/p>
      *
      * @summary Appends an event listener for events whose type attribute value is keydown.
      * @param {KeyboardEvent} event a UIEvent.
@@ -303,9 +331,9 @@ function init() {
     window.addEventListener("keydown", onKeyDown);
 
     /**
-     * <p>Fires when the document view (window) has been resized.</p>
-     * <p>The {@link onWindowResize callback} argument sets the callback
-     * that will be invoked when the event is dispatched.</p>
+     * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
+     * &lt;p>The {@link onWindowResize callback} argument sets the callback
+     * that will be invoked when the event is dispatched.&lt;/p>
      * @summary Appends an event listener for events whose type attribute value is resize.
      * @param {Event} event a generic event.
      * @param {callback} function function to run when the event occurs.
@@ -361,7 +389,7 @@ function makePerspectiveCamera() {
 }
 
 /**
- * <p>Fires when the document view (window) has been resized.</p>
+ * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
  * Also resizes the canvas and viewport.
  * @callback onWindowResize
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
@@ -398,9 +426,9 @@ function render() {
 }
 
 /**
- * <p>Copy the current state to clipboard (as a readable JSON text) when the "ctrl-c" key is pressed or <br>
- * set the controls state from the clipboard, assumming that the clipboard holds a JSON text file <br>
- * previously saved from .copyState when the "ctrl-v" key is pressed.</p>
+ * &lt;p>Copy the current state to clipboard (as a readable JSON text) when the "ctrl-c" key is pressed or &lt;br>
+ * set the controls state from the clipboard, assumming that the clipboard holds a JSON text file &lt;br>
+ * previously saved from .copyState when the "ctrl-v" key is pressed.&lt;/p>
  *
  * @param {KeyboardEvent} event a UIEvent.
  */
@@ -433,11 +461,11 @@ function setCamera(type) {
 }
 
 /**
- * <p>Fires after both the mousedown and
- * mouseup events have fired (in that order).</p>
+ * &lt;p>Fires after both the mousedown and
+ * mouseup events have fired (in that order).&lt;/p>
  * Reset button must be pressed and released while the pointer is located inside it.
- * <p>The {@link https://threejs.org/docs/#examples/en/controls/ArcballControls.reset callback}
- *   argument sets the callback that will be invoked when the event is dispatched.</p>
+ * &lt;p>The {@link https://threejs.org/docs/#examples/en/controls/ArcballControls.reset callback}
+ *   argument sets the callback that will be invoked when the event is dispatched.&lt;/p>
  * @summary Appends an event listener for events whose type attribute value is click.
  * @event clickReset
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
@@ -447,8 +475,8 @@ document.querySelector(".buttonToLink").addEventListener("click", () => {
 });
 
 /**
- * <p>Fired when the whole page has loaded, including all dependent resources
- * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.</p>
+ * &lt;p>Fired when the whole page has loaded, including all dependent resources
+ * such as stylesheets, scripts, iframes, and images, except those that are loaded lazily.&lt;/p>
  * @summary Sets the {@link init entry point} of the application.
  * @param {Event} event load event.
  * @callback WindowLoadCallback
@@ -461,3 +489,26 @@ window.addEventListener("load", () => {
   ArcballGui.useGUI = urlParams.get("gui");
   init();
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-GUI.html">GUI</a></li><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="ArcballGui.html">ArcballGui</a></li><li><a href="GUI.GUI.html">GUI</a></li><li><a href="THREE.ArcballControls.html">ArcballControls</a></li><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="THREE.OrthographicCamera.html">OrthographicCamera</a></li><li><a href="THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickReset">clickReset</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cameraType">cameraType</a></li><li><a href="global.html#cameras">cameras</a></li><li><a href="global.html#gui">gui</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#makeOrthographicCamera">makeOrthographicCamera</a></li><li><a href="global.html#makePerspectiveCamera">makePerspectiveCamera</a></li><li><a href="global.html#onKeyDown">onKeyDown</a></li><li><a href="global.html#orthographicDistance">orthographicDistance</a></li><li><a href="global.html#perspectiveDistance">perspectiveDistance</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#setCamera">setCamera</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Mar 02 2025 11:37:55 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
