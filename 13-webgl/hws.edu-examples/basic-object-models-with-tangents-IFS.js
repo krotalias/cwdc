@@ -3,7 +3,7 @@
  *
  * Summary.
  * <p>The functions in this file create models in an
- * {@link https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=200 IFS}
+ * {@link https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=202 IFS}
  * (Indexed Face Set) format that can be drawn using
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements gl.drawElements}
  * with primitive type {@link https://webglfundamentals.org/webgl/lessons/webgl-points-lines-triangles.html gl.TRIANGLES}.</p>
@@ -38,7 +38,7 @@
  * </ul>
  *
  * @author {@link https://math.hws.edu/eck/ David J. Eck}
- * @author modified by Paulo Roma
+ * @author modified by {@link https://krotalias.github.io Paulo Roma}
  * @authora modified by Paulo Roma
  * @since 19/11/2022
  * @see <a href="/cwdc/13-webgl/hws.edu-examples/basic-object-models-with-tangents-IFS.js">source</a>
