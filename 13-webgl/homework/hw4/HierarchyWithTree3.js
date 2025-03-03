@@ -342,7 +342,7 @@ function makeNormalMatrixElements(model, view) {
  */
 function getChar(event) {
   event = event || window.event;
-  let charCode = event.key || String.fromCharCode(event.which);
+  const charCode = event.key || String.fromCharCode(event.which);
   return charCode;
 }
 
