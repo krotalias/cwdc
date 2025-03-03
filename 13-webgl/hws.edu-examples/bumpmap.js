@@ -45,7 +45,7 @@
  * to the shader program.</p>
  *
  * @author {@link https://math.hws.edu/eck/ David J. Eck}
- * @author modified by Paulo Roma
+ * @author modified by {@link https://krotalias.github.io Paulo Roma}
  * @since 19/11/2022
  * @see <a href="/cwdc/13-webgl/hws.edu-examples/bumpmap.html">link</a>
  * @see <a href="/cwdc/13-webgl/hws.edu-examples/bumpmap.js">source</a>
@@ -101,7 +101,7 @@ let canvas;
 /**
  * Vertex coordinates location.
  * @type {GLuint}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation WebGLRenderingContext: getAttribLocation() method}
  */
 let a_coords_loc;
 
@@ -126,7 +126,7 @@ let a_texCoords_loc;
 /**
  * Holds uniform location for model view matrix.
  * @type {WebGLUniformLocation}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getUniformLocation
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getUniformLocation WebGLRenderingContext: getUniformLocation() method}
  */
 let u_modelview;
 
@@ -265,18 +265,21 @@ function draw() {
     return;
   }
 
-  let strength = Number(document.getElementById("strength").value);
+  const strength = Number(document.getElementById("strength").value);
   gl.uniform1f(u_bumpmapStrength, strength);
 
   modelview = rotator.getViewMatrix();
-  let objectNum = Number(document.getElementById("object").value);
+  const objectNum = Number(document.getElementById("object").value);
   objects[objectNum].render();
 }
 
 /**
- * <p>Create an object representing an IFS model.</p>
- * The modelData holds the data for an IFS using the structure from {@link basic-object-models-with-tangents-IFS.js}.<br>
- * This function creates VBOs to hold the coordinates, normal vectors, tangent vectors, <br>
+ * <p>Create an object representing an
+ * {@link https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=116 IFS} model.</p>
+ * The modelData holds the data for an IFS using the structure from
+ * <a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">basic-object-models-with-tangents-IFS.js</a>.<br>
+ * This function creates {@link https://en.wikipedia.org/wiki/Vertex_buffer_object VBOs}
+ * to hold the coordinates, normal vectors, tangent vectors, <br>
  * texture coordinates and indices from the IFS. It also loads the data into those buffers.
  *
  * <p>The function creates a new object whose properties are the identifiers of the VBOs.<br>
@@ -287,7 +290,7 @@ function draw() {
  * @returns {model} created model.
  */
 function createModel(modelData) {
-  let model = {};
+  const model = {};
   model.coordsBuffer = gl.createBuffer();
   model.normalBuffer = gl.createBuffer();
   model.tangentBuffer = gl.createBuffer();
@@ -339,10 +342,10 @@ function createModel(modelData) {
  */
 function loadBumpmap() {
   document.getElementById("message").innerHTML = "LOADING BUMPMAP TEXTURE";
-  let bumpmapNum = Number(document.getElementById("bumpmap").value);
+  const bumpmapNum = Number(document.getElementById("bumpmap").value);
   bumpmapLoading = true;
   draw();
-  let img = new Image();
+  const img = new Image();
   img.onload = function () {
     gl.activeTexture(gl.TEXTURE1);
     gl.bindTexture(gl.TEXTURE_2D, bumpmap);
@@ -386,7 +389,7 @@ function loadBumpmap() {
  * Sets diffuse color in the fragment shader and calls {@link draw}.
  */
 function setDiffuse() {
-  let colorNum = Number(document.getElementById("color").value);
+  const colorNum = Number(document.getElementById("color").value);
   gl.uniform1i(u_useTexture, 0);
   gl.uniform3fv(u_material.diffuseColor, colors[colorNum]);
   console.log(colorNum);
@@ -399,11 +402,12 @@ function setDiffuse() {
  */
 function initGL() {
   // load and compile the shader pair
-  var vertexShaderSource = document.getElementById("vertex-shader").textContent;
-  var fragmentShaderSource =
+  const vertexShaderSource =
+    document.getElementById("vertex-shader").textContent;
+  const fragmentShaderSource =
     document.getElementById("fragment-shader").textContent;
 
-  let prog = createProgram(gl, vertexShaderSource, fragmentShaderSource);
+  const prog = createProgram(gl, vertexShaderSource, fragmentShaderSource);
 
   gl.useProgram(prog);
   gl.enable(gl.DEPTH_TEST);
@@ -497,19 +501,19 @@ function initGL() {
  * @param {WebGLShader} fShader fragment shade.
  */
 function createProgram(gl, vShader, fShader) {
-  let vsh = gl.createShader(gl.VERTEX_SHADER);
+  const vsh = gl.createShader(gl.VERTEX_SHADER);
   gl.shaderSource(vsh, vShader);
   gl.compileShader(vsh);
   if (!gl.getShaderParameter(vsh, gl.COMPILE_STATUS)) {
     throw new Error("Error in vertex shader:  " + gl.getShaderInfoLog(vsh));
   }
-  let fsh = gl.createShader(gl.FRAGMENT_SHADER);
+  const fsh = gl.createShader(gl.FRAGMENT_SHADER);
   gl.shaderSource(fsh, fShader);
   gl.compileShader(fsh);
   if (!gl.getShaderParameter(fsh, gl.COMPILE_STATUS)) {
     throw new Error("Error in fragment shader:  " + gl.getShaderInfoLog(fsh));
   }
-  let prog = gl.createProgram();
+  const prog = gl.createProgram();
   gl.attachShader(prog, vsh);
   gl.attachShader(prog, fsh);
   gl.linkProgram(prog);
@@ -548,13 +552,12 @@ function init() {
     draw();
   };
 
-  let aspect = canvas.width / canvas.height;
+  const aspect = canvas.width / canvas.height;
 
   /**
    * <p>Fires when the document view (window) has been resized.</p>
    * Also resizes the canvas and viewport.
    * @callback handleWindowResize
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
    */
   function handleWindowResize() {
     let h = window.innerHeight;
@@ -571,59 +574,65 @@ function init() {
   }
 
   /**
+   * @summary Executed when the window is resized.
    * <p>Appends an event listener for events whose type attribute value is resize.</p>
    * <p>The {@link handleWindowResize callback} argument sets the callback
    * that will be invoked when the event is dispatched.</p>
    * @param {Event} event the document view is resized.
    * @param {callback} function function to run when the event occurs.
    * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-   * @event resize - executed when the window is resized.
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", handleWindowResize, false);
 
   handleWindowResize();
 
   /**
+   * @summary Executed by selecting a value from the
+   * {@link loadBumpmap image} &lt;select&gt;'s dropdown with a mouse click.
    * <p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event change - executed by selecting a value from the
-   * {@link loadBumpmap image} &lt;select&gt;'s dropdown with a mouse click.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @event changeImage
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("bumpmap").onchange = loadBumpmap;
   document.getElementById("bumpmap").value = "5";
   /**
+   * @summary Executed by selecting a value from the
+   * {@link draw object} &lt;select&gt;'s dropdown with a mouse click.
    * <p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event change - executed by selecting a value from the
-   * {@link draw object} &lt;select&gt;'s dropdown with a mouse click.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @event changeObject
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("object").onchange = draw;
   document.getElementById("object").value = "3";
   /**
+   * @summary Executed by selecting a value from the
+   * {@link setDiffuse color} &lt;select&gt;'s dropdown with a mouse click.
    * <p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event change - executed by selecting a value from the
-   * {@link setDiffuse color} &lt;select&gt;'s dropdown with a mouse click.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @event changeColor
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("color").onchange = setDiffuse;
   document.getElementById("color").value = "1";
   /**
+   * @summary executed by selecting a value from the
+   * {@link draw strength} &lt;select&gt;'s dropdown with a mouse click.
    * <p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event change - executed by selecting a value from the
-   * {@link draw strength} &lt;select&gt;'s dropdown with a mouse click.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @event changeStrength
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("strength").onchange = draw;
   document.getElementById("strength").value = "3";
@@ -637,6 +646,6 @@ function init() {
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
  * @event load
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => init());

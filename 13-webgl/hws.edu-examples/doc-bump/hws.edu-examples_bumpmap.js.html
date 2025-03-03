@@ -73,7 +73,7 @@
  * to the shader program.&lt;/p>
  *
  * @author {@link https://math.hws.edu/eck/ David J. Eck}
- * @author modified by Paulo Roma
+ * @author modified by {@link https://krotalias.github.io Paulo Roma}
  * @since 19/11/2022
  * @see &lt;a href="/cwdc/13-webgl/hws.edu-examples/bumpmap.html">link&lt;/a>
  * @see &lt;a href="/cwdc/13-webgl/hws.edu-examples/bumpmap.js">source&lt;/a>
@@ -129,7 +129,7 @@ let canvas;
 /**
  * Vertex coordinates location.
  * @type {GLuint}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getAttribLocation WebGLRenderingContext: getAttribLocation() method}
  */
 let a_coords_loc;
 
@@ -154,7 +154,7 @@ let a_texCoords_loc;
 /**
  * Holds uniform location for model view matrix.
  * @type {WebGLUniformLocation}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getUniformLocation
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getUniformLocation WebGLRenderingContext: getUniformLocation() method}
  */
 let u_modelview;
 
@@ -293,18 +293,21 @@ function draw() {
     return;
   }
 
-  let strength = Number(document.getElementById("strength").value);
+  const strength = Number(document.getElementById("strength").value);
   gl.uniform1f(u_bumpmapStrength, strength);
 
   modelview = rotator.getViewMatrix();
-  let objectNum = Number(document.getElementById("object").value);
+  const objectNum = Number(document.getElementById("object").value);
   objects[objectNum].render();
 }
 
 /**
- * &lt;p>Create an object representing an IFS model.&lt;/p>
- * The modelData holds the data for an IFS using the structure from {@link basic-object-models-with-tangents-IFS.js}.&lt;br>
- * This function creates VBOs to hold the coordinates, normal vectors, tangent vectors, &lt;br>
+ * &lt;p>Create an object representing an
+ * {@link https://math.hws.edu/eck/cs424/downloads/graphicsbook-linked.pdf#page=116 IFS} model.&lt;/p>
+ * The modelData holds the data for an IFS using the structure from
+ * &lt;a href="hws.edu-examples_basic-object-models-with-tangents-IFS.js.html">basic-object-models-with-tangents-IFS.js&lt;/a>.&lt;br>
+ * This function creates {@link https://en.wikipedia.org/wiki/Vertex_buffer_object VBOs}
+ * to hold the coordinates, normal vectors, tangent vectors, &lt;br>
  * texture coordinates and indices from the IFS. It also loads the data into those buffers.
  *
  * &lt;p>The function creates a new object whose properties are the identifiers of the VBOs.&lt;br>
@@ -315,7 +318,7 @@ function draw() {
  * @returns {model} created model.
  */
 function createModel(modelData) {
-  let model = {};
+  const model = {};
   model.coordsBuffer = gl.createBuffer();
   model.normalBuffer = gl.createBuffer();
   model.tangentBuffer = gl.createBuffer();
@@ -367,10 +370,10 @@ function createModel(modelData) {
  */
 function loadBumpmap() {
   document.getElementById("message").innerHTML = "LOADING BUMPMAP TEXTURE";
-  let bumpmapNum = Number(document.getElementById("bumpmap").value);
+  const bumpmapNum = Number(document.getElementById("bumpmap").value);
   bumpmapLoading = true;
   draw();
-  let img = new Image();
+  const img = new Image();
   img.onload = function () {
     gl.activeTexture(gl.TEXTURE1);
     gl.bindTexture(gl.TEXTURE_2D, bumpmap);
@@ -414,7 +417,7 @@ function loadBumpmap() {
  * Sets diffuse color in the fragment shader and calls {@link draw}.
  */
 function setDiffuse() {
-  let colorNum = Number(document.getElementById("color").value);
+  const colorNum = Number(document.getElementById("color").value);
   gl.uniform1i(u_useTexture, 0);
   gl.uniform3fv(u_material.diffuseColor, colors[colorNum]);
   console.log(colorNum);
@@ -427,11 +430,12 @@ function setDiffuse() {
  */
 function initGL() {
   // load and compile the shader pair
-  var vertexShaderSource = document.getElementById("vertex-shader").textContent;
-  var fragmentShaderSource =
+  const vertexShaderSource =
+    document.getElementById("vertex-shader").textContent;
+  const fragmentShaderSource =
     document.getElementById("fragment-shader").textContent;
 
-  let prog = createProgram(gl, vertexShaderSource, fragmentShaderSource);
+  const prog = createProgram(gl, vertexShaderSource, fragmentShaderSource);
 
   gl.useProgram(prog);
   gl.enable(gl.DEPTH_TEST);
@@ -525,19 +529,19 @@ function initGL() {
  * @param {WebGLShader} fShader fragment shade.
  */
 function createProgram(gl, vShader, fShader) {
-  let vsh = gl.createShader(gl.VERTEX_SHADER);
+  const vsh = gl.createShader(gl.VERTEX_SHADER);
   gl.shaderSource(vsh, vShader);
   gl.compileShader(vsh);
   if (!gl.getShaderParameter(vsh, gl.COMPILE_STATUS)) {
     throw new Error("Error in vertex shader:  " + gl.getShaderInfoLog(vsh));
   }
-  let fsh = gl.createShader(gl.FRAGMENT_SHADER);
+  const fsh = gl.createShader(gl.FRAGMENT_SHADER);
   gl.shaderSource(fsh, fShader);
   gl.compileShader(fsh);
   if (!gl.getShaderParameter(fsh, gl.COMPILE_STATUS)) {
     throw new Error("Error in fragment shader:  " + gl.getShaderInfoLog(fsh));
   }
-  let prog = gl.createProgram();
+  const prog = gl.createProgram();
   gl.attachShader(prog, vsh);
   gl.attachShader(prog, fsh);
   gl.linkProgram(prog);
@@ -576,13 +580,12 @@ function init() {
     draw();
   };
 
-  let aspect = canvas.width / canvas.height;
+  const aspect = canvas.width / canvas.height;
 
   /**
    * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
    * Also resizes the canvas and viewport.
    * @callback handleWindowResize
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
    */
   function handleWindowResize() {
     let h = window.innerHeight;
@@ -599,59 +602,65 @@ function init() {
   }
 
   /**
+   * @summary Executed when the window is resized.
    * &lt;p>Appends an event listener for events whose type attribute value is resize.&lt;/p>
    * &lt;p>The {@link handleWindowResize callback} argument sets the callback
    * that will be invoked when the event is dispatched.&lt;/p>
    * @param {Event} event the document view is resized.
    * @param {callback} function function to run when the event occurs.
    * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-   * @event resize - executed when the window is resized.
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", handleWindowResize, false);
 
   handleWindowResize();
 
   /**
+   * @summary Executed by selecting a value from the
+   * {@link loadBumpmap image} &amp;lt;select&amp;gt;'s dropdown with a mouse click.
    * &lt;p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
    * the event is dispatched.&lt;/p>
    *
-   * @event change - executed by selecting a value from the
-   * {@link loadBumpmap image} &amp;lt;select&amp;gt;'s dropdown with a mouse click.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @event changeImage
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("bumpmap").onchange = loadBumpmap;
   document.getElementById("bumpmap").value = "5";
   /**
+   * @summary Executed by selecting a value from the
+   * {@link draw object} &amp;lt;select&amp;gt;'s dropdown with a mouse click.
    * &lt;p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
    * the event is dispatched.&lt;/p>
    *
-   * @event change - executed by selecting a value from the
-   * {@link draw object} &amp;lt;select&amp;gt;'s dropdown with a mouse click.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @event changeObject
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("object").onchange = draw;
   document.getElementById("object").value = "3";
   /**
+   * @summary Executed by selecting a value from the
+   * {@link setDiffuse color} &amp;lt;select&amp;gt;'s dropdown with a mouse click.
    * &lt;p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
    * the event is dispatched.&lt;/p>
    *
-   * @event change - executed by selecting a value from the
-   * {@link setDiffuse color} &amp;lt;select&amp;gt;'s dropdown with a mouse click.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @event changeColor
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("color").onchange = setDiffuse;
   document.getElementById("color").value = "1";
   /**
+   * @summary executed by selecting a value from the
+   * {@link draw strength} &amp;lt;select&amp;gt;'s dropdown with a mouse click.
    * &lt;p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
    * the event is dispatched.&lt;/p>
    *
-   * @event change - executed by selecting a value from the
-   * {@link draw strength} &amp;lt;select&amp;gt;'s dropdown with a mouse click.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @event changeStrength
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document.getElementById("strength").onchange = draw;
   document.getElementById("strength").value = "3";
@@ -665,7 +674,7 @@ function init() {
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
  * @event load
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => init());
 </code></pre>
@@ -678,17 +687,13 @@ window.addEventListener("load", (event) => init());
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="TrackballRotator.html">TrackballRotator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linkdrawobject%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
-{@link draw object} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linkdrawstrength%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
-{@link draw strength} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linkloadBumpmapimage%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
-{@link loadBumpmap image} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:change-executedbyselectingavaluefromthe%257B@linksetDiffusecolor%257D&lt;select&gt;'sdropdownwithamouseclick.">change - executed by selecting a value from the
-{@link setDiffuse color} &lt;select&gt;'s dropdown with a mouse click.</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a_coords_loc">a_coords_loc</a></li><li><a href="global.html#a_normal_loc">a_normal_loc</a></li><li><a href="global.html#a_tangent_loc">a_tangent_loc</a></li><li><a href="global.html#a_texCoords_loc">a_texCoords_loc</a></li><li><a href="global.html#bumpmap">bumpmap</a></li><li><a href="global.html#bumpmapURLs">bumpmapURLs</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initGL">initGL</a></li><li><a href="global.html#loadBumpmap">loadBumpmap</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setDiffuse">setDiffuse</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#texture">texture</a></li><li><a href="global.html#u_bumpmap">u_bumpmap</a></li><li><a href="global.html#u_bumpmapSize">u_bumpmapSize</a></li><li><a href="global.html#u_bumpmapStrength">u_bumpmapStrength</a></li><li><a href="global.html#u_lights">u_lights</a></li><li><a href="global.html#u_material">u_material</a></li><li><a href="global.html#u_modelview">u_modelview</a></li><li><a href="global.html#u_normalMatrix">u_normalMatrix</a></li><li><a href="global.html#u_projection">u_projection</a></li><li><a href="global.html#u_texture">u_texture</a></li><li><a href="global.html#u_useTexture">u_useTexture</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Classes</h3><ul><li><a href="TrackballRotator.html">TrackballRotator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeColor">changeColor</a></li><li><a href="global.html#event:changeImage">changeImage</a></li><li><a href="global.html#event:changeObject">changeObject</a></li><li><a href="global.html#event:changeStrength">changeStrength</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a_coords_loc">a_coords_loc</a></li><li><a href="global.html#a_normal_loc">a_normal_loc</a></li><li><a href="global.html#a_tangent_loc">a_tangent_loc</a></li><li><a href="global.html#a_texCoords_loc">a_texCoords_loc</a></li><li><a href="global.html#bumpmap">bumpmap</a></li><li><a href="global.html#bumpmapURLs">bumpmapURLs</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initGL">initGL</a></li><li><a href="global.html#loadBumpmap">loadBumpmap</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#modelview">modelview</a></li><li><a href="global.html#normalMatrix">normalMatrix</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#setDiffuse">setDiffuse</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#texture">texture</a></li><li><a href="global.html#u_bumpmap">u_bumpmap</a></li><li><a href="global.html#u_bumpmapSize">u_bumpmapSize</a></li><li><a href="global.html#u_bumpmapStrength">u_bumpmapStrength</a></li><li><a href="global.html#u_lights">u_lights</a></li><li><a href="global.html#u_material">u_material</a></li><li><a href="global.html#u_modelview">u_modelview</a></li><li><a href="global.html#u_normalMatrix">u_normalMatrix</a></li><li><a href="global.html#u_projection">u_projection</a></li><li><a href="global.html#u_texture">u_texture</a></li><li><a href="global.html#u_useTexture">u_useTexture</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#yNorth">yNorth</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jul 03 2024 10:11:59 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 06:31:07 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
