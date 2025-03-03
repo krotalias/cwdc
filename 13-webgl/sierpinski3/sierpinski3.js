@@ -16,8 +16,8 @@
  * copies of these objects, up to the given level, <br>
  * whereas the other objects are rendered unchanged.</p>
  *
- * @author Claudio Esperança
- * @author Paulo Roma
+ * @author {@link https://cesperanca.org Claudio Esperança}
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2022-2024 Paulo R Cavalcanti.
  * @since 23/06/2022
@@ -31,6 +31,9 @@
 
 /**
  * Three.js module.
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}
  * @external three
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
@@ -304,7 +307,7 @@ async function mainEntrance() {
    * @type {Number}
    * @global
    */
-  let aspect = canvas.clientWidth / canvas.clientHeight;
+  const aspect = canvas.clientWidth / canvas.clientHeight;
 
   /**
    * The WebGL renderer displays your beautifully crafted scenes using WebGL.
@@ -431,11 +434,12 @@ async function mainEntrance() {
   const scenes = document.getElementById("scenes");
 
   /**
+   * @summary Executed when the scenes &lt;select&gt; is changed.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
    * The argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event change - executed when the scenes &lt;select&gt; is changed.
+   * @event changeScene
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   scenes.addEventListener("change", (event) => {
@@ -506,12 +510,13 @@ async function mainEntrance() {
     const matches = document.querySelectorAll(`input[name=${name}]`);
     matches.forEach((elem) => {
       /**
+       * @summary Executed when any
+       * {@link renderScene clevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
        * <p>Appends an event listener for events whose type attribute value is change.
        * The callback argument sets the callback that will be invoked when
        * the event is dispatched.</p>
        *
-       * @event change - executed when any
-       * {@link renderScene clevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
+       * @event changeClevel
        * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
        */
       elem.addEventListener("change", (event) => {
@@ -598,12 +603,13 @@ async function mainEntrance() {
   let matches = document.querySelectorAll('input[name="mlevel"]');
   matches.forEach((elem) => {
     /**
+     * @summary Executed when any
+     * {@link renderScene mlevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
      * <p>Appends an event listener for events whose type attribute value is change.
      * The callback argument sets the callback that will be invoked when
      * the event is dispatched.</p>
      *
-     * @event change - executed when any
-     * {@link renderScene mlevel} &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
+     * @event changeMlevel
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", (event) => {
@@ -621,13 +627,14 @@ async function mainEntrance() {
   matches = document.querySelectorAll('input[name="animate"]');
   matches.forEach((elem) => {
     /**
+     * @summary Executed when any
+     * {@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate}
+     * &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
      * <p>Appends an event listener for events whose type attribute value is change.
      * The callback argument sets the callback that will be invoked when
      * the event is dispatched.</p>
      *
-     * @event change - executed when any
-     * {@link https://threejs.org/docs/#examples/en/controls/OrbitControls.autoRotate animate}
-     * &lt;input radio&gt;'s checkbox is checked (but not when unchecked).
+     * @event changeAnimate
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", (event) => {
@@ -636,11 +643,12 @@ async function mainEntrance() {
   });
 
   /**
+   * @summary Fires when the camera has been transformed by the controls.
    * <p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event change - fires when the camera has been transformed by the controls.
+   * @event changeControls
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   controls.addEventListener("change", () => {
