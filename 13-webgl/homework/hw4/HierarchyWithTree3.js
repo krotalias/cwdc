@@ -4,7 +4,7 @@
  * Summary.
  * <p>Hierarchical Robot object using {@link CS336Object recursion}.</p>
  *
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 27/09/2016
  * @see <a href="/cwdc/13-webgl/homework/hw4/HierarchyWithTree3.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/hw4/HierarchyWithTree3.js">source</a>
@@ -22,7 +22,7 @@ import { CS336Object } from "./CS336Object.js";
  * while {@link draw draw()} does things that have to be repeated each time the canvas is
  * redrawn.</p>
  * @event load
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => {
   mainEntrance();
@@ -34,31 +34,31 @@ window.addEventListener("load", (event) => {
  * The OpenGL context.
  * @type {WebGL2RenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexBuffer;
+let vertexBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexNormalBuffer;
+let vertexNormalBuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexColorBuffer;
+let vertexColorBuffer;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLProgram}
  */
-var lightingShader;
+let lightingShader;
 
 /**
  * Joint angles.
@@ -75,40 +75,40 @@ const joint = {
 
 // create the objects
 
-var torso = new CS336Object(drawCube);
+const torso = new CS336Object(drawCube);
 
 /**
  * Object to enable rotation by mouse dragging (arcball).
  * @type {SimpleRotator}
  */
-var rotator;
+let rotator;
 
 // scale is applied only to the torso
 torso.setScale(10, 10, 5);
 
-var shoulder = new CS336Object(drawCube);
+const shoulder = new CS336Object(drawCube);
 shoulder.setPosition(0, -2, 0);
 shoulder.setScale(3, 5, 2);
 
-var arm = new CS336Object(drawCube);
+const arm = new CS336Object(drawCube);
 arm.setPosition(0, -2.5, -1.0);
 arm.setScale(3, 5, 2);
 
-var hand = new CS336Object(drawCube);
+const hand = new CS336Object(drawCube);
 hand.setPosition(0, -6.5, -1.0);
 hand.rotateY(joint.hand);
 hand.setScale(1, 3, 3);
 
-var head = new CS336Object(drawCube);
+const head = new CS336Object(drawCube);
 head.setPosition(0, 7, 0);
 head.rotateY(joint.head);
 head.setScale(4, 4, 4);
 
-var leg = new CS336Object(drawCube);
+const leg = new CS336Object(drawCube);
 leg.setPosition(0, -10, 0);
 leg.setScale(3, 11, 2);
 
-var foot = new CS336Object(drawCube);
+const foot = new CS336Object(drawCube);
 foot.setPosition(0, -15.5, 0);
 foot.setScale(6, 0.5, 6);
 
@@ -117,7 +117,7 @@ foot.setScale(6, 0.5, 6);
  * applied to everything connected to the arm.
  * @type {CS336Object}
  */
-var armDummy = new CS336Object();
+const armDummy = new CS336Object();
 armDummy.setPosition(0, -4.5, 1.0);
 armDummy.rotateX(-joint.arm);
 armDummy.addChild(arm);
@@ -128,7 +128,7 @@ armDummy.addChild(hand);
  * applied to everything connected to the left shoulder.
  * @type {CS336Object}
  */
-var LshoulderDummy = new CS336Object();
+const LshoulderDummy = new CS336Object();
 LshoulderDummy.rotateX(-joint.shoulder);
 LshoulderDummy.setPosition(6.5, 4, 0);
 LshoulderDummy.addChild(shoulder);
@@ -139,7 +139,7 @@ LshoulderDummy.addChild(armDummy);
  * applied to everything connected to the right shoulder.
  * @type {CS336Object}
  */
-var RshoulderDummy = new CS336Object();
+const RshoulderDummy = new CS336Object();
 RshoulderDummy.rotateX(-joint.shoulder);
 RshoulderDummy.setPosition(-6.5, 4, 0);
 RshoulderDummy.addChild(shoulder);
@@ -150,7 +150,7 @@ RshoulderDummy.addChild(armDummy);
  * applied to everything connected to the torso.
  * @type {CS336Object}
  */
-var torsoDummy = new CS336Object();
+const torsoDummy = new CS336Object();
 torsoDummy.rotateY(joint.torso);
 torsoDummy.addChild(torso);
 torsoDummy.addChild(head);
@@ -163,7 +163,7 @@ torsoDummy.addChild(RshoulderDummy);
  * <p>Body is torso plus leg and foot.</p>
  * @type {CS336Object}
  */
-var bodyDummy = new CS336Object();
+const bodyDummy = new CS336Object();
 bodyDummy.rotateY(joint.body);
 bodyDummy.addChild(torsoDummy);
 bodyDummy.addChild(leg);
@@ -173,14 +173,14 @@ bodyDummy.addChild(foot);
  * Camera position.
  * @type {Array<Number>}
  */
-var eye = [20, 10, 40];
+const eye = [20, 10, 40];
 
 /**
  * View matrix.
  * @type {Matrix4}
  */
 // prettier-ignore
-var viewMatrix = new Matrix4().setLookAt(
+const viewMatrix = new Matrix4().setLookAt(
   ...eye,   // eye
   0, 0, 0,  // at - looking at the origin
   0, 1, 0   // up vector - y axis
@@ -190,29 +190,29 @@ var viewMatrix = new Matrix4().setLookAt(
  * Model matrix.
  * @type {Matrix4}
  */
-var modelMatrix = new Matrix4();
+const modelMatrix = new Matrix4();
 
 /**
  * Returns the magnitude (length) of a vector.
  * @param {Array<Number>} v n-D vector.
  * @returns {Number} vector length.
- * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce MDN Array.prototype.reduce()}
  */
-var vecLen = (v) =>
+const vecLen = (v) =>
   Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
 
 /**
  * View distance.
  * @type {Number}
  */
-var viewDistance = vecLen(eye);
+const viewDistance = vecLen(eye);
 
 /**
  * <p>Projection matrix.</p>
  * Here use aspect ratio 3/2 corresponding to canvas size 600 x 400
  * @type {Matrix4}
  */
-var projection = new Matrix4().setPerspective(45, 1.5, 0.1, 1000);
+let projection = new Matrix4().setPerspective(45, 1.5, 0.1, 1000);
 
 /**
  * <p>A cube model.</p>
@@ -222,10 +222,10 @@ var projection = new Matrix4().setPerspective(45, 1.5, 0.1, 1000);
  *
  * @type {cube_data}
  */
-var cube = (() => {
+const cube = (() => {
   // vertices of cube
   // prettier-ignore
-  var rawVertices = new Float32Array([
+  const rawVertices = new Float32Array([
     -0.5, -0.5, 0.5,
     0.5, -0.5, 0.5,
     0.5, 0.5, 0.5,
@@ -237,7 +237,7 @@ var cube = (() => {
   ]);
 
   // prettier-ignore
-  var rawColors = new Float32Array([
+  const rawColors = new Float32Array([
     1.0, 0.0, 0.0, 1.0,  // red
     0.0, 1.0, 0.0, 1.0,  // green
     0.0, 0.0, 1.0, 1.0,  // blue
@@ -247,7 +247,7 @@ var cube = (() => {
   ]);
 
   // prettier-ignore
-  var rawNormals = new Float32Array([
+  const rawNormals = new Float32Array([
     0, 0, 1,
     1, 0, 0,
     0, 0, -1,
@@ -257,7 +257,7 @@ var cube = (() => {
   ]);
 
   // prettier-ignore
-  var indices = new Uint16Array([
+  const indices = new Uint16Array([
     0, 1, 2, 0, 2, 3,  // +z face
     1, 5, 6, 1, 6, 2,  // +x face
     5, 4, 7, 5, 7, 6,  // -z face
@@ -266,26 +266,26 @@ var cube = (() => {
     4, 5, 1, 4, 1, 0   // -y face
   ]);
 
-  var verticesArray = [];
-  var colorsArray = [];
-  var normalsArray = [];
-  for (var i = 0; i < 36; ++i) {
+  const verticesArray = [];
+  const colorsArray = [];
+  const normalsArray = [];
+  for (let i = 0; i < 36; ++i) {
     // for each of the 36 vertices...
-    var face = Math.floor(i / 6);
-    var index = indices[i];
+    const face = Math.floor(i / 6);
+    const index = indices[i];
 
     // (x, y, z): three numbers for each point
-    for (var j = 0; j < 3; ++j) {
+    for (let j = 0; j < 3; ++j) {
       verticesArray.push(rawVertices[3 * index + j]);
     }
 
     // (r, g, b, a): four numbers for each point
-    for (var j = 0; j < 4; ++j) {
+    for (let j = 0; j < 4; ++j) {
       colorsArray.push(rawColors[4 * face + j]);
     }
 
     // three numbers for each point
-    for (var j = 0; j < 3; ++j) {
+    for (let j = 0; j < 3; ++j) {
       normalsArray.push(rawNormals[3 * face + j]);
     }
   }
@@ -320,7 +320,7 @@ var cube = (() => {
  * @returns {Float32Array} elements of the transposed inverse of the modelview matrix.
  */
 function makeNormalMatrixElements(model, view) {
-  var n = new Matrix4(view).multiply(model);
+  let n = new Matrix4(view).multiply(model);
   n.invert();
   n.transpose();
 
@@ -338,7 +338,7 @@ function makeNormalMatrixElements(model, view) {
  * Translate keydown events to strings.
  * @param {KeyboardEvent} event keyboard event.
  * @return {String | null}
- * @see http://javascript.info/tutorial/keyboard-events
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
  */
 function getChar(event) {
   event = event || window.event;
@@ -352,7 +352,7 @@ function getChar(event) {
  * @param {KeyboardEvent} event keyboard event.
  */
 function handleKeyPress(event) {
-  var ch = getChar(event);
+  const ch = getChar(event);
   let d;
   switch (ch) {
     case "b":
@@ -422,19 +422,19 @@ function drawCube(matrix) {
   gl.useProgram(lightingShader);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
+  const normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
   if (normalIndex < 0) {
     console.log("Failed to get the storage location of a_Normal");
     return;
   }
 
-  var colorIndex = gl.getAttribLocation(lightingShader, "a_Color");
+  const colorIndex = gl.getAttribLocation(lightingShader, "a_Color");
   if (colorIndex < 0) {
     console.log("Failed to get the storage location of a_Color");
     return;
@@ -453,19 +453,19 @@ function drawCube(matrix) {
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBuffer);
   gl.vertexAttribPointer(colorIndex, 4, gl.FLOAT, false, 0, 0);
 
-  var loc = gl.getUniformLocation(lightingShader, "view");
+  let loc = gl.getUniformLocation(lightingShader, "view");
   gl.uniformMatrix4fv(loc, false, viewMatrix.elements);
   loc = gl.getUniformLocation(lightingShader, "projection");
   gl.uniformMatrix4fv(loc, false, projection.elements);
   loc = gl.getUniformLocation(lightingShader, "u_Color");
   gl.uniform4f(loc, 0.0, 1.0, 0.0, 1.0);
-  var loc = gl.getUniformLocation(lightingShader, "lightPosition");
+  loc = gl.getUniformLocation(lightingShader, "lightPosition");
   gl.uniform4f(loc, 5.0, 10.0, 5.0, 1.0);
 
-  var modelMatrixloc = gl.getUniformLocation(lightingShader, "model");
-  var normalMatrixLoc = gl.getUniformLocation(lightingShader, "normalMatrix");
+  const modelMatrixloc = gl.getUniformLocation(lightingShader, "model");
+  const normalMatrixLoc = gl.getUniformLocation(lightingShader, "normalMatrix");
 
-  var current = new Matrix4(modelMatrix).multiply(matrix);
+  const current = new Matrix4(modelMatrix).multiply(matrix);
   gl.uniformMatrix4fv(modelMatrixloc, false, current.elements);
   gl.uniformMatrix3fv(
     normalMatrixLoc,
@@ -504,7 +504,7 @@ function draw(useRotator = true) {
  */
 function mainEntrance() {
   // retrieve <canvas> element
-  var canvas = document.getElementById("theCanvas");
+  const canvas = document.getElementById("theCanvas");
 
   /**
    * <p>Appends an event listener for events whose type attribute value is keydown.</p>
@@ -512,6 +512,7 @@ function mainEntrance() {
    * that will be invoked when the event is dispatched.</p>
    *
    * @event keydown
+   * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
    */
   window.addEventListener("keydown", (event) => {
     if (
@@ -532,10 +533,10 @@ function mainEntrance() {
   }
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById(
+  const vshaderSource = document.getElementById(
     "vertexLightingShader",
   ).textContent;
-  var fshaderSource = document.getElementById(
+  const fshaderSource = document.getElementById(
     "fragmentLightingShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {

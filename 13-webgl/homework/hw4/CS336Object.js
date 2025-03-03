@@ -122,7 +122,7 @@ export class CS336Object {
    */
   getMatrix() {
     if (this.matrixNeedsUpdate) {
-      var px, py, pz, sx, sy, sz;
+      let px, py, pz, sx, sy, sz;
       px = this.position.elements[0];
       py = this.position.elements[1];
       pz = this.position.elements[2];
@@ -155,13 +155,13 @@ export class CS336Object {
    */
   render(matrixWorld) {
     // clone and update the world matrix
-    var currentWorld = new Matrix4(matrixWorld).multiply(this.getMatrix());
+    const currentWorld = new Matrix4(matrixWorld).multiply(this.getMatrix());
 
     // invoke callback
     this.drawObject(currentWorld);
 
     // recurse through children using current world matrix
-    for (var i = 0; i < this.children.length; ++i) {
+    for (let i = 0; i < this.children.length; ++i) {
       this.children[i].render(currentWorld);
     }
   }
@@ -236,9 +236,9 @@ export class CS336Object {
 
     // Alternatively, multiply on left by a rotation about the object's x-axis,
     // which is the first column of rotation matrix
-    //  var x = this.rotation.elements[0];
-    //  var y = this.rotation.elements[1];
-    //  var z = this.rotation.elements[2];
+    //  const x = this.rotation.elements[0];
+    //  const y = this.rotation.elements[1];
+    //  const z = this.rotation.elements[2];
     //  this.rotation = new Matrix4().setRotate(degrees, x, y, z).multiply(this.rotation);
     this.matrixNeedsUpdate = true;
   }
@@ -253,9 +253,9 @@ export class CS336Object {
 
     // Alternatively, multiply on left by a rotation about the object's y-axis,
     // which is the second column of rotation matrix
-    //  var x = this.rotation.elements[4];
-    //  var y = this.rotation.elements[5];
-    //  var z = this.rotation.elements[6];
+    //  const x = this.rotation.elements[4];
+    //  const y = this.rotation.elements[5];
+    //  const z = this.rotation.elements[6];
     //  this.rotation = new Matrix4().setRotate(degrees, x, y, z).multiply(this.rotation);
     this.matrixNeedsUpdate = true;
   }
@@ -270,9 +270,9 @@ export class CS336Object {
 
     // Alternatively, multiply on left by a rotation about the object's z-axis,
     // which is the third column of rotation matrix
-    //  var x = this.rotation.elements[8];
-    //  var y = this.rotation.elements[9];
-    //  var z = this.rotation.elements[10];
+    //  const x = this.rotation.elements[8];
+    //  const y = this.rotation.elements[9];
+    //  const z = this.rotation.elements[10];
     //  this.rotation = new Matrix4().setRotate(degrees, x, y, z).multiply(this.rotation);
     this.matrixNeedsUpdate = true;
   }
@@ -300,7 +300,7 @@ export class CS336Object {
    */
   rotateOnAxisEuler(degrees, pitch, head) {
     // RotateY(head) * RotateX(pitch) * RotateY(degrees) * RotateX(-pitch) * RotateY(-head)
-    var newRotation = new Matrix4()
+    const newRotation = new Matrix4()
       .setRotate(head, 0, 1, 0)
       .rotate(pitch, 1, 0, 0)
       .rotate(degrees, 0, 1, 0)
@@ -405,7 +405,7 @@ export class CS336Object {
    * @param {Number} z view direction z component.
    */
   lookAt(x, y, z) {
-    var fx, fy, fz, rlf, sx, sy, sz, rls, ux, uy, uz;
+    let fx, fy, fz, rlf, sx, sy, sz, rls, ux, uy, uz;
 
     fx = x - this.position.elements[0];
     fy = y - this.position.elements[1];
