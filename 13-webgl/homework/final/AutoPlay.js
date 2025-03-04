@@ -21,8 +21,10 @@
  *  </tr>
  * </table>
  *
- * @author: Paulo Roma Cavalcanti on 19/10/2021.
- * @license LGPL.
+ * @author {@link https://krotalias.github.io Paulo Roma Cavalcanti}
+ * @since 19/10/2021.
+ * @license {@link https://www.gnu.org/licenses/lgpl-3.0.en.html LGPLv3}
+ * @see <a href="/cwdc/13-webgl/homework/final/AutoPlay.js">source</a>
  * @see {@link https://jsfiddle.net/sanddune/oz0nhv2k/ "Disable Autoplay? tick me then" jsfiddle code}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Video_player_styling_basics Video player styling basics}
  * @see {@link https://css-tricks.com/lets-create-a-custom-audio-player/ Custom Audio Player}
@@ -30,11 +32,11 @@
  * @see {@link https://support.mozilla.org/en-US/kb/block-autoplay Allow or block media autoplay in Firefox}
  */
 
-var chkAutoPlay = document.getElementById("disableAutoplay");
-var myAudio = document.getElementById("audio1");
-var stat = document.getElementById("status");
+const chkAutoPlay = document.getElementById("disableAutoplay");
+const myAudio = document.getElementById("audio1");
+const stat = document.getElementById("status");
 
-var disableAutoplay = localStorage.getItem("disableAP");
+const disableAutoplay = localStorage.getItem("disableAP");
 stat.innerHTML = "Autoplay disabled? : " + disableAutoplay;
 
 if (disableAutoplay === "no") {

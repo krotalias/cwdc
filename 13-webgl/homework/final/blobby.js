@@ -2,7 +2,7 @@
  * @file
  *
  * Summary.
- * <p>Blobby Man - Iowa State Cyclones dancing party.</p>
+ * <p>Blobby Man - {@link https://cyclones.com Iowa State Cyclones} dancing party.</p>
  *
  * Description.
  * <p>
@@ -19,9 +19,9 @@
  * {@link https://support.apple.com/guide/iphone/learn-basic-gestures-iph75e97af9b/ios swipe}
  * the image on the screen to rotate the scene.
  *
- * @author Flavia Roma Cavalcanti
+ * @author {@link https://www.artstation.com/flavulous Flavia Roma Cavalcanti}
  * @since 07/11/2015.
- * @license {@link https://www.gnu.org/licenses/lgpl-3.0.en.html LGPL}.
+ * @license {@link https://www.gnu.org/licenses/lgpl-3.0.en.html LGPLv3}.
  * @copyright © 2015-2024 Flavia R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/homework/final/blobby.html">link</a>
  * @see <a href="/cwdc/13-webgl/homework/final/blobby.js">source</a>
@@ -37,10 +37,25 @@
 
 /**
  * Three.js module.
- * @external THREE
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}
+ * @external three
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://en.threejs-university.com Three.js University}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ */
+
+/**
+ * <p>Main three.js namespace.</p>
+ * {@link event:load Imported} from {@link external:three three.module.js}
+ * @namespace THREE
+ * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
+ * @see {@link https://dplatz.de/blog/2019/es6-bare-imports.html How to handle ES6 bare module imports for local Development}
  */
 
 /**
@@ -49,8 +64,8 @@
  * and custom attributes within buffers, reducing the cost of
  * passing all this data to the GPU.
  * @class BufferGeometry
- * @memberof external:THREE
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ * @memberof THREE
+ * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
  */
 
 /**
@@ -118,7 +133,7 @@ class Stack {
       console.log("Warning: stack underflow");
     } else {
       this.t--;
-      var temp = this.elements[this.t];
+      const temp = this.elements[this.t];
       this.elements[this.t] = undefined;
       return temp;
     }
@@ -135,7 +150,7 @@ class Stack {
 
 /**
  * Given an instance of
- * {@link external:THREE.BufferGeometry THREE.BufferGeometry},
+ * {@link THREE.BufferGeometry THREE.BufferGeometry},
  * returns an object containing raw data for:
  * <ul>
  *  <li>vertices,</li>
@@ -143,7 +158,7 @@ class Stack {
  *  <li>texture coordinates, </li>
  *  <li>and normal vectors.</li>
  * </ul>
- * @param {external:THREE.BufferGeometry} geom
+ * @param {THREE.BufferGeometry} geom
  *        {@link https://threejs.org/docs/#api/en/geometries/SphereGeometry THREE.SphereGeometry},<br>
  *        {@link https://threejs.org/docs/#api/en/geometries/PlaneGeometry THREE.PlaneGeometry}.
  * @return {bufferGeometry}
@@ -162,7 +177,7 @@ function getModelData(geom) {
  * @param {HTMLImageElement} image texture image.
  */
 function configureTexture(image) {
-  var texture = gl.createTexture();
+  const texture = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
@@ -183,7 +198,7 @@ function configureTexture(image) {
  * Invert vector directions.
  * @param {Vector4} v vector.
  * @return {Vector4} inverted vector.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map Array.prototype.map()}
  */
 function reverseDirection(v) {
   return v.map((item) => {
@@ -198,7 +213,7 @@ function reverseDirection(v) {
  * @return {Float32Array} modelview matrix transposed inverse.
  */
 function makeNormalMatrixElements(model, view) {
-  var n = new Matrix4(view).multiply(model);
+  let n = new Matrix4(view).multiply(model);
   n.invert();
   n.transpose();
 
@@ -216,7 +231,7 @@ function makeNormalMatrixElements(model, view) {
  * Returns the magnitude (length) of a vector.
  * @param {Array<Number>} v n-D vector.
  * @returns {Number} vector length.
- * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce Array.prototype.reduce()}
  */
 const vecLen = (v) =>
   Math.sqrt(v.reduce((accumulator, value) => accumulator + value * value, 0));
@@ -236,44 +251,44 @@ const wheight = (fov, d) => Math.tan((fov * Math.PI) / 360) * d;
  * The OpenGL context.
  * @type {WebGLRenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * @type {HTMLAudioElement}
  */
-var player;
+let player;
 
 /**
  * <p>Dance on/off. Ceases all movements when true.</p>
  * Initially set to false, so a {@link danceCallBack sway} pre-movement is added.
  * @type {Boolean}
  */
-var paused = false;
+let paused = false;
 
 /**
  * Delay for the steps (group of movements) in the macarena animation.
  * @type {Number}
  */
-var delay = 60;
+const delay = 60;
 
 /**
  * Delay for the jump in the macarena animation.
  * @type {Number}
  */
-var delay2 = 10;
+const delay2 = 10;
 
 /**
  * Holds all setTimeout callback ids. Used for canceling all callbacks.
  * @type {Array<timeoutID>}
- * @see https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/setTimeout setTimeout}
  */
-var callBackArray = [];
+const callBackArray = [];
 
 /**
  * Global stack.
  * @type {Stack}
  */
-var stk = new Stack();
+const stk = new Stack();
 
 /**
  * Intrinsic Blobby coordinate X axis.
@@ -283,19 +298,19 @@ var stk = new Stack();
  * @see {@link https://pages.github.berkeley.edu/EECS-106/fa21-site/assets/discussions/D1_Rotations_soln.pdf Frame Representations}
  * @see {@link https://mecharithm.com/learning/lesson/implicit-representation-of-the-orientation-a-rotation-matrix-18 Implicit Representation of the Orientation}
  */
-var XAXIS = new Float32Array([-1.0, 0.0, 0.0]);
+const XAXIS = new Float32Array([-1.0, 0.0, 0.0]);
 
 /**
  * Intrinsic Blobby coordinate Y axis.
  * @type {Float32Array}
  */
-var YAXIS = new Float32Array([0.0, -1.0, 0.0]);
+const YAXIS = new Float32Array([0.0, -1.0, 0.0]);
 
 /**
  * Intrinsic Blobby coordinate Z axis.
  * @type {Float32Array}
  */
-var ZAXIS = new Float32Array([0.0, 0.0, -1.0]);
+const ZAXIS = new Float32Array([0.0, 0.0, -1.0]);
 
 /**
  * Color table.
@@ -360,19 +375,19 @@ const blobbySkin = {
  * Color to be used when going up/down the transformation hierarchy.
  * @type {Array<Number>}
  */
-var glColor = colorTable.white.rgb;
+let glColor = colorTable.white.rgb;
 
 /**
  * Background color.
  * @type {Array<Number>}
  */
-var bgColor = colorTable.platinum.rgb;
+const bgColor = colorTable.platinum.rgb;
 
 /**
  * Floor color.
  * @type {Array<Number>}
  */
-var flColor = colorTable.white.rgb;
+const flColor = colorTable.white.rgb;
 
 /**
  * <p>Field of view, aspect ratio, znear, zfar.</p>
@@ -391,14 +406,14 @@ const single = [0.0, 0.0, 1.75];
  * Jump translation in "z".
  * @type {Number}
  */
-var JUMP = 0.0;
+let JUMP = 0.0;
 
 /**
  * <p>Dance rotation about "z" axis, after a jump.</p>
  * Macarena dance proceeds in four perpendicular directions.
  * @type {Number}
  */
-var TURN = 0.0;
+let TURN = 0.0;
 
 /**
  * <p>First world X rotation applied to {@link bodyMatrix}.</p>
@@ -406,138 +421,138 @@ var TURN = 0.0;
  * the center of rotation is at Blobby's belly.
  * @type {Number}
  * @see <a href="/cwdc/13-webgl/extras/doc/Nested_Transformations_and_Blobby_Man.pdf#page=5">Jim Blinn's Blobby Man</a>
- * @see https://en.wikipedia.org/wiki/Euler_angles
+ * @see {@link https://en.wikipedia.org/wiki/Euler_angles Euler angles}
  */
-var BACK = -90.0;
+let BACK = -90.0;
 
 /**
  * <p>Second world Z rotation applied to {@link bodyMatrix}.</p>
  * We are using proper Euler angles x-z-x
  * @type {Number}
  */
-var SPIN = -30.0;
+let SPIN = -30.0;
 
 /**
  * <p>Third world X rotation applied to {@link bodyMatrix}.</p>
  * We are using proper Euler angles x-z-x
  * @type {Number}
  */
-var TILT = 0.0;
+let TILT = 0.0;
 
 // joint angles
-var ROT = 0.0; /* z - rotate torso around hip */
-var EXTEN = 0.0; /* x - rotate torso forward or backward */
-var BTWIS = 0.0; /* y - rotate torso sideways */
+let ROT = 0.0; /* z - rotate torso around hip */
+let EXTEN = 0.0; /* x - rotate torso forward or backward */
+let BTWIS = 0.0; /* y - rotate torso sideways */
 
-var NOD = -25.0; /* x - rotate head forward or backward */
-var NECK = 28.0; /* z - rotate head sideways */
+let NOD = -25.0; /* x - rotate head forward or backward */
+let NECK = 28.0; /* z - rotate head sideways */
 
-var RANKL = 0.0; /* x - rotate right foot up or down */
-var LANKL = 0.0; /* x - rotate left foot up or down */
-var RFOOT = 0.0; /* z - rotate right foot sideways */
-var LFOOT = 0.0; /* z - rotate left foot sideways */
+let RANKL = 0.0; /* x - rotate right foot up or down */
+let LANKL = 0.0; /* x - rotate left foot up or down */
+let RFOOT = 0.0; /* z - rotate right foot sideways */
+let LFOOT = 0.0; /* z - rotate left foot sideways */
 
-var RHIP = 105.0; /* z - rotate right leg sideways around */
-var ROUT = 13.0; /* y - any axis */
-var RTWIS = -86.0; /* z - rotate right leg in or out */
-var RKNEE = -53.0; /* x - rotate right leg around the knee */
-var RFRONT = 0.0; /* x - rotate right leg forward or backward */
+let RHIP = 105.0; /* z - rotate right leg sideways around */
+let ROUT = 13.0; /* y - any axis */
+let RTWIS = -86.0; /* z - rotate right leg in or out */
+let RKNEE = -53.0; /* x - rotate right leg around the knee */
+let RFRONT = 0.0; /* x - rotate right leg forward or backward */
 
-var RHAND = 0.0; /* y - rotate right hand around wrist */
-var LHAND = 0.0; /* y - rotate left hand around wrist */
+let RHAND = 0.0; /* y - rotate right hand around wrist */
+let LHAND = 0.0; /* y - rotate left hand around wrist */
 
-var LHIP = 0.0; /* z */
-var LOUT = 0.0; /* y */
-var LTWIS = 0.0; /* z */
-var LKNEE = 0.0; /* x */
-var LFRONT = 0.0; /* x */
+let LHIP = 0.0; /* z */
+let LOUT = 0.0; /* y */
+let LTWIS = 0.0; /* z */
+let LKNEE = 0.0; /* x */
+let LFRONT = 0.0; /* x */
 
-var LSID = -45.0; /* y - rotate left arm sideways */
-var LSHOU = 0.0; /* x - rotate left arm forward or backward */
-var LATWIS = -90.0; /* z - rotate left arm in or out */
-var LELBO = 90.0; /* x - rotate left arm around the elbo */
+let LSID = -45.0; /* y - rotate left arm sideways */
+let LSHOU = 0.0; /* x - rotate left arm forward or backward */
+let LATWIS = -90.0; /* z - rotate left arm in or out */
+let LELBO = 90.0; /* x - rotate left arm around the elbo */
 
-var RSID = 112.0; /* y */
-var RSHOU = 40.0; /* x */
-var RATWIS = -102.0; /* z */
-var RELBO = 85.0; /* x */
+let RSID = 112.0; /* y */
+let RSHOU = 40.0; /* x */
+let RATWIS = -102.0; /* z */
+let RELBO = 85.0; /* x */
 
 /**
  * Model data (blobby parts).
  * @type {bufferGeometry}
  */
-var sphere;
+let sphere;
 
 /**
  * Floor.
  * @type {bufferGeometry}
  */
-var planeModel;
+let planeModel;
 
 /**
  * Handle to a vertex buffer on the GPU for the spheres.
  * @type {WebGLBuffer}
  */
-var vertexBuffer;
+let vertexBuffer;
 
 /**
  * Handle to a face index buffer on the GPU for the spheres.
  * @type {WebGLBuffer}
  */
-var indexBuffer;
+let indexBuffer;
 
 /**
  * Handle to a vertex normal buffer on the GPU for the spheres.
  * @type {WebGLBuffer}
  */
-var vertexNormalBuffer;
+let vertexNormalBuffer;
 
 /**
  * Handle to a vertex texture buffer on the GPU for the floor.
  * @type {WebGLBuffer}
  */
-var texCoordBuffer;
+let texCoordBuffer;
 
 /**
  * Handle to a vertex buffer on the GPU for the plane.
  * @type {WebGLBuffer}
  */
-var vertexBufferPlane;
-var indexBufferPlane;
-var vertexNormalBufferPlane;
-var texCoordBufferPlane;
+let vertexBufferPlane;
+let indexBufferPlane;
+let vertexNormalBufferPlane;
+let texCoordBufferPlane;
 
 /**
  * Handle to the {@link mainEntrance compiled} lighting shader program on the GPU,
  * used for drawing {@link renderSphere spheres}.
  * @type {WebGLShader}
  */
-var lightingShader;
+let lightingShader;
 
 /**
  * Handle to the {@link mainEntrance compiled} texture shader program on the GPU,
  * used for drawing {@link GPlane the floor}.
  * @type {WebGLShader}
  */
-var texturedShader;
+let texturedShader;
 
 /**
  * Transformation matrix that is the root of the hierarchy of objects defining blobby man.
  * @type {Matrix4}
  */
-var bodyMatrix = new Matrix4();
+const bodyMatrix = new Matrix4();
 
 /**
  * Camera position.
  * @type {Array<Number>}
  */
-var eye = [0.1, -1.6, -7.5];
+const eye = [0.1, -1.6, -7.5];
 
 /**
  * View distance.
  * @type {Number}
  */
-var viewDistance = vecLen(eye);
+const viewDistance = vecLen(eye);
 
 /**
  * <p>Blobby's belly screen position, after application of BACK rotation,
@@ -553,7 +568,7 @@ const SCR = [0, -eye[1], 0]; // wheight(45, viewDistance) / 2 = 1.588 ??
  * Blobby's auto rotation on/off.
  * @type {Boolean}
  */
-var autoRotate = true;
+let autoRotate = true;
 
 /**
  * <p>View matrix, defining a projection plane normal (n = {@link eye} - at): [0, 0, -1, 0].</p>
@@ -579,7 +594,7 @@ var autoRotate = true;
  * @see <a href="/cwdc/downloads/apostila.pdf#page=109">Apostila</a>
  */
 // prettier-ignore
-var view = new Matrix4().setLookAt(
+const view = new Matrix4().setLookAt(
   ...eye,                    // eye
   eye[0], eye[1], eye[2]+1,  // at - looking at this point
   0, -1, 0                   // up vector - y axis
@@ -589,7 +604,7 @@ var view = new Matrix4().setLookAt(
  * <p>Projection matrix.</p>
  * @type {Matrix4}
  */
-var projection = new Matrix4().setPerspective(...camera);
+let projection = new Matrix4().setPerspective(...camera);
 
 /**
  * <p>Object to enable rotation by mouse dragging (arcball).</p>
@@ -605,7 +620,7 @@ var projection = new Matrix4().setPerspective(...camera);
  * is aligned to Blobby's height.
  * @type {SimpleRotator}
  */
-var rotator;
+let rotator;
 
 /**
  * Translate keypress events to strings.
@@ -615,7 +630,7 @@ var rotator;
  */
 function getChar(event) {
   event = event || window.event;
-  let charCode = event.key || String.fromCharCode(event.which);
+  const charCode = event.key || String.fromCharCode(event.which);
   return charCode;
 }
 
@@ -628,7 +643,7 @@ function getChar(event) {
  * @return {Number} total time.
  */
 function applyMoveAndSway(t, move1, move, sign) {
-  for (var i = 0; i < 4; ++i) {
+  for (let i = 0; i < 4; ++i) {
     callBackArray.push(
       setTimeout(
         function () {
@@ -649,7 +664,7 @@ function applyMoveAndSway(t, move1, move, sign) {
  * @return {Number} total time.
  */
 function applyMove(t, move) {
-  for (var i = 0; i < 8; ++i) {
+  for (let i = 0; i < 8; ++i) {
     callBackArray.push(
       setTimeout(
         function () {
@@ -668,7 +683,7 @@ function applyMove(t, move) {
  */
 function swayCallBack() {
   stopCallBack();
-  var t = sway(true);
+  const t = sway(true);
   // console.log ( "sway = " + t );
   document.getElementById("timeBoxDiv").innerHTML = t;
   paused = true;
@@ -686,7 +701,7 @@ function swayCallBack() {
  * @param {Boolean} loop whether to start an endless dancing loop.
  */
 function danceCallBack(loop = true) {
-  var dt;
+  let dt;
   if (paused) {
     dt = 0; // no sway
     paused = false;
@@ -695,7 +710,7 @@ function danceCallBack(loop = true) {
   } else dt = 7500; // sway delay (7 swings)
   stopCallBack(); // paused = true
   sway(false, dt);
-  var t = macarena(loop, dt);
+  const t = macarena(loop, dt);
   //console.log("macarena = " + t);
   player.play();
 }
@@ -718,7 +733,8 @@ function stopCallBack() {
  * @param {KeyboardEvent} event key pressed.
  */
 function handleKeyPress(event) {
-  var ch = getChar(event);
+  const ch = getChar(event);
+  let t;
   switch (ch) {
     case "b":
       SPIN += 15;
@@ -785,14 +801,14 @@ function handleKeyPress(event) {
     case "w":
       resetAngles();
       stopCallBack();
-      var t = 0; // accumulated time counter
+      t = 0; // accumulated time counter
       t = applyMoveAndSway(t, raiseLeftArm, lsway, +1);
       t = applyMoveAndSway(t, raiseLeftArm, lsway, -1);
       break;
     case "W":
       resetAngles();
       stopCallBack();
-      var t = 0; // accumulated time counter
+      t = 0; // accumulated time counter
       t = applyMoveAndSway(t, raiseRightArm, rsway, +1);
       t = applyMoveAndSway(t, raiseRightArm, rsway, -1);
       break;
@@ -800,7 +816,7 @@ function handleKeyPress(event) {
     case "j":
       resetAngles();
       stopCallBack();
-      var t = 0; // accumulated time counter
+      t = 0; // accumulated time counter
       t = applyMove(t, bendForJump);
       t = applyMove(t, stretchForJump);
       t = applyMove(t, jumpAndTurn);
@@ -825,7 +841,7 @@ function handleKeyPress(event) {
  * @event KeyboardEvent
  */
 const createEvent = (key) => {
-  let code = key.charCodeAt();
+  const code = key.charCodeAt();
   return new KeyboardEvent("keydown", {
     key: key,
     which: code,
@@ -840,26 +856,26 @@ const createEvent = (key) => {
  * by using the {@link lightingShader}.</p>
  * There is a single light source at position [0.0, 5.0, -5.0, 1.0].
  * @param {Array<Number>} color sphere color.
- * @see https://www.khronos.org/registry/webgl/specs/1.0/#6.5
+ * @see {@link https://www.khronos.org/registry/webgl/specs/1.0/#6.5 Enabled Vertex Attributes and Range Checking}
  */
 function renderSphere(color = glColor) {
   // bind the shader
   gl.useProgram(lightingShader);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(lightingShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
+  const normalIndex = gl.getAttribLocation(lightingShader, "a_Normal");
   if (normalIndex < 0) {
     console.log("Failed to get the storage location of a_Normal");
     return;
   }
 
-  var vTexCoord = 1; //gl.getAttribLocation( lightingShader, 'vTexCoord' );
+  const vTexCoord = 1; //gl.getAttribLocation( lightingShader, 'vTexCoord' );
   if (vTexCoord < 0) {
     console.log("Failed to get the storage location of vTexCoord");
     return;
@@ -876,20 +892,20 @@ function renderSphere(color = glColor) {
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexNormalBuffer);
   gl.vertexAttribPointer(normalIndex, 3, gl.FLOAT, false, 0, 0);
 
-  var loc = gl.getUniformLocation(lightingShader, "view");
+  let loc = gl.getUniformLocation(lightingShader, "view");
   gl.uniformMatrix4fv(loc, false, view.elements);
   loc = gl.getUniformLocation(lightingShader, "projection");
   gl.uniformMatrix4fv(loc, false, projection.elements);
   loc = gl.getUniformLocation(lightingShader, "u_Color");
   gl.uniform4f(loc, ...color);
-  var loc = gl.getUniformLocation(lightingShader, "lightPosition");
+  loc = gl.getUniformLocation(lightingShader, "lightPosition");
   gl.uniform4f(loc, 0.0, 5.0, -5.0, 1.0);
 
-  var modelMatrixloc = gl.getUniformLocation(lightingShader, "model");
-  var normalMatrixLoc = gl.getUniformLocation(lightingShader, "normalMatrix");
+  const modelMatrixloc = gl.getUniformLocation(lightingShader, "model");
+  const normalMatrixLoc = gl.getUniformLocation(lightingShader, "normalMatrix");
 
   // transform using current model matrix on top of stack
-  var current = new Matrix4(stk.top());
+  const current = new Matrix4(stk.top());
   gl.uniformMatrix4fv(modelMatrixloc, false, current.elements);
   gl.uniformMatrix3fv(
     normalMatrixLoc,
@@ -904,7 +920,7 @@ function renderSphere(color = glColor) {
 }
 
 function head() {
-  var t = new Matrix4(stk.top());
+  let t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, 0.4);
   t.scale(0.2, 0.23, 0.3);
@@ -967,7 +983,7 @@ function head() {
 }
 
 function uparm() {
-  var t = new Matrix4(stk.top());
+  const t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, -0.275);
   t.scale(0.09, 0.09, 0.275);
@@ -976,7 +992,7 @@ function uparm() {
 }
 
 function lowarm() {
-  var t = new Matrix4(stk.top());
+  const t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, -0.25);
   t.scale(0.08, 0.08, 0.25);
@@ -985,7 +1001,7 @@ function lowarm() {
 }
 
 function hand() {
-  var t = new Matrix4(stk.top());
+  const t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, -0.116);
   t.scale(0.052, 0.091, 0.155);
@@ -994,7 +1010,7 @@ function hand() {
 }
 
 function leftarm() {
-  var t = new Matrix4(stk.top());
+  const t = new Matrix4(stk.top());
   stk.push(t);
   uparm();
   t.translate(0.0, 0.0, -0.55);
@@ -1007,7 +1023,7 @@ function leftarm() {
 }
 
 function rightarm() {
-  var t = new Matrix4(stk.top());
+  const t = new Matrix4(stk.top());
   stk.push(t);
   uparm();
   t.translate(0.0, 0.0, -0.55);
@@ -1020,7 +1036,7 @@ function rightarm() {
 }
 
 function shoulder() {
-  var t = new Matrix4(stk.top());
+  let t = new Matrix4(stk.top());
   stk.push(t);
   t.scale(0.45, 0.153, 0.12);
   renderSphere();
@@ -1056,7 +1072,7 @@ function shoulder() {
 
 function body() {
   glColor = blobbySkin.body;
-  var t = new Matrix4(stk.top());
+  let t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, 0.62);
   t.scale(0.306, 0.21, 0.5);
@@ -1079,7 +1095,7 @@ function body() {
 }
 
 function thigh() {
-  var t = new Matrix4(stk.top());
+  const t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(0.0, 0.0, -0.425);
   t.scale(0.141, 0.141, 0.425);
@@ -1088,7 +1104,7 @@ function thigh() {
 }
 
 function calf() {
-  var t = new Matrix4(stk.top());
+  let t = new Matrix4(stk.top());
   stk.push(t);
   t.scale(0.05, 0.05, 0.05);
   renderSphere();
@@ -1103,7 +1119,7 @@ function calf() {
 }
 
 function foot() {
-  var t = new Matrix4(stk.top());
+  let t = new Matrix4(stk.top());
   stk.push(t);
   t.scale(0.05, 0.04, 0.04);
   renderSphere(blobbySkin.pants); // ankle
@@ -1126,7 +1142,7 @@ function foot() {
 }
 
 function rightleg() {
-  var t = new Matrix4(stk.top());
+  const t = new Matrix4(stk.top());
   stk.push(t);
   t.rotate(RFRONT, XAXIS[0], XAXIS[1], XAXIS[2]);
   t.rotate(RHIP, ZAXIS[0], ZAXIS[1], ZAXIS[2]);
@@ -1145,7 +1161,7 @@ function rightleg() {
 }
 
 function leftleg() {
-  var t = new Matrix4(stk.top());
+  const t = new Matrix4(stk.top());
   stk.push(t);
   t.rotate(LFRONT, XAXIS[0], XAXIS[1], XAXIS[2]);
   t.rotate(LHIP, ZAXIS[0], ZAXIS[1], ZAXIS[2]);
@@ -1168,7 +1184,7 @@ function leftleg() {
  */
 function TORSO() {
   glColor = blobbySkin.torso;
-  var t = new Matrix4(stk.top());
+  let t = new Matrix4(stk.top());
   stk.push(t);
   t.translate(-0.178, 0.0, 0.0);
   leftleg();
@@ -1209,19 +1225,19 @@ function GPlane() {
   gl.useProgram(texturedShader);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(texturedShader, "a_Position");
+  const positionIndex = gl.getAttribLocation(texturedShader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
   }
 
-  var normalIndex = gl.getAttribLocation(texturedShader, "a_Normal");
+  const normalIndex = gl.getAttribLocation(texturedShader, "a_Normal");
   if (normalIndex < 0) {
     console.log("Failed to get the storage location of a_Normal");
     return;
   }
 
-  var vTexCoord = gl.getAttribLocation(texturedShader, "vTexCoord");
+  const vTexCoord = gl.getAttribLocation(texturedShader, "vTexCoord");
   if (vTexCoord < 0) {
     console.log("Failed to get the storage location of vTexCoord");
     return;
@@ -1242,20 +1258,20 @@ function GPlane() {
   gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBufferPlane);
   gl.vertexAttribPointer(vTexCoord, 2, gl.FLOAT, false, 0, 0);
 
-  var loc = gl.getUniformLocation(texturedShader, "view");
+  let loc = gl.getUniformLocation(texturedShader, "view");
   gl.uniformMatrix4fv(loc, false, view.elements);
   loc = gl.getUniformLocation(texturedShader, "projection");
   gl.uniformMatrix4fv(loc, false, projection.elements);
   loc = gl.getUniformLocation(texturedShader, "u_Color");
   gl.uniform4f(loc, ...flColor);
-  var loc = gl.getUniformLocation(texturedShader, "lightPosition");
+  loc = gl.getUniformLocation(texturedShader, "lightPosition");
   gl.uniform4f(loc, 0.0, -10.0, 5.0, 1.0);
 
-  var modelMatrixloc = gl.getUniformLocation(texturedShader, "model");
-  var normalMatrixLoc = gl.getUniformLocation(texturedShader, "normalMatrix");
+  const modelMatrixloc = gl.getUniformLocation(texturedShader, "model");
+  const normalMatrixLoc = gl.getUniformLocation(texturedShader, "normalMatrix");
 
   // transform using current model matrix on top of stack
-  var current = new Matrix4(stk.top());
+  const current = new Matrix4(stk.top());
   gl.uniformMatrix4fv(modelMatrixloc, false, current.elements);
   //gl.uniformMatrix3fv(normalMatrixLoc, false, reverseDirection(makeNormalMatrixElements(current, view)));
   gl.uniformMatrix3fv(
@@ -1337,7 +1353,7 @@ function draw() {
  */
 function mainEntrance() {
   // retrieve <canvas> element
-  var canvas = document.getElementById("theCanvas");
+  const canvas = document.getElementById("theCanvas");
 
   player = document.getElementById("audio1");
 
@@ -1347,13 +1363,13 @@ function mainEntrance() {
     return;
   }
 
-  let aspect = canvas.width / canvas.height;
+  const aspect = canvas.width / canvas.height;
 
   /**
    * <p>Fires when the document view (window) has been resized.</p>
    * Also resizes the canvas and viewport.
    * @callback handleWindowResize
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window resize event}
    */
   function handleWindowResize() {
     let h = window.innerHeight - 16;
@@ -1372,14 +1388,15 @@ function mainEntrance() {
   // mobile devices
   if (screen.width <= 800) {
     /**
+     * @summary Executed when the window is resized.
      * <p>Appends an event listener for events whose type attribute value is resize.</p>
      * <p>The {@link handleWindowResize callback} argument sets the callback
      * that will be invoked when the event is dispatched.</p>
      * @param {Event} event the document view is resized.
      * @param {callback} function function to run when the event occurs.
      * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
-     * @event resize - executed when the window is resized.
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event
+     * @event resize
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window resize event}
      */
     window.addEventListener("resize", handleWindowResize, false);
     handleWindowResize();
@@ -1391,19 +1408,20 @@ function mainEntrance() {
    * that will be invoked when the event is dispatched.
    *
    * @event keydown
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   window.addEventListener("keydown", (event) => {
     handleKeyPress(event);
   });
 
   /**
+   * @summary Executed when the autoRotation checkbox is checked or unchecked.
    * <p>Appends an event listener for events whose type attribute value is change.
    * The callback argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event change - executed when the autoRotation checkbox is checked or unchecked.
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+   * @event changeAutoRotation
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   document
     .getElementById("autoRotation")
@@ -1417,7 +1435,7 @@ function mainEntrance() {
    * <p>Here, the song macarena is restarted.</p>
    *
    * @event ended
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended_event
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended_event HTMLMediaElement: ended event}
    */
   player.addEventListener(
     "ended",
@@ -1429,16 +1447,16 @@ function mainEntrance() {
   );
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById(
+  const vshaderSource = document.getElementById(
     "vertexLightingShader",
   ).textContent;
-  var fshaderSource = document.getElementById(
+  const fshaderSource = document.getElementById(
     "fragmentLightingShader",
   ).textContent;
-  var vshaderTextured = document.getElementById(
+  const vshaderTextured = document.getElementById(
     "vertexTexturedShader",
   ).textContent;
-  var fshaderTextured = document.getElementById(
+  const fshaderTextured = document.getElementById(
     "fragmentTexturedShader",
   ).textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
@@ -1535,7 +1553,7 @@ function mainEntrance() {
   //
   // Initialize a texture
   //
-  var image = document.getElementById("texImage");
+  const image = document.getElementById("texImage");
 
   configureTexture(image);
 
@@ -1550,13 +1568,13 @@ function mainEntrance() {
    * @return {loop} animation callback.
    * @function
    * @global
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
    */
   const animate = (() => {
     // time in milliseconds
     let previousTimeStamp = Date.now();
     let numberOfFramesForFPS = 0;
-    let fpsCounter = document.getElementById("fps");
+    const fpsCounter = document.getElementById("fps");
     let currentTime;
     // increase the rotation by some amount, depending on the axis chosen
     const increment = 0.5;
@@ -1570,7 +1588,7 @@ function mainEntrance() {
     /**
      * Define an {@link draw animation} loop.
      * @callback loop
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
      */
     return () => {
       currentTime = Date.now();
@@ -1795,9 +1813,9 @@ function finishJump() {
  * @return {Number} total time.
  */
 function sway(loop, duration) {
-  var cycle = 960;
+  const cycle = 960;
   if (typeof duration === "undefined") duration = cycle;
-  var t = 0;
+  let t = 0;
   resetAngles();
   for (let i = 0; i < Math.trunc(duration / cycle); i++) {
     t = applyMoveAndSway(t, function () {}, lsway, +1);
@@ -1818,12 +1836,12 @@ function sway(loop, duration) {
  * @param {Boolean} loop whether to start an endless dancing loop.
  * @param {Number} tinit time interval in milliseconds (initial delay).
  * @return {Number} total time.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/setTimeout Window: setTimeout() method}
  */
 function macarena(loop, tinit = 0) {
-  var t = tinit; // accumulated time counter
+  let t = tinit; // accumulated time counter
   resetAngles();
-  for (var j = 0; j < 4; j++) {
+  for (let j = 0; j < 4; j++) {
     // stretch the arms: 60*4*4=960ms
     t = applyMoveAndSway(t, raiseRightArm, lsway, +1);
     t = applyMoveAndSway(t, raiseRightArm, lsway, -1);
@@ -1943,7 +1961,7 @@ function macarena(loop, tinit = 0) {
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
  * @event load
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 addEventListener("load", (event) => {
   mainEntrance();

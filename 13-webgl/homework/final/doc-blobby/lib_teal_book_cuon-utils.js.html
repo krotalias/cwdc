@@ -32,7 +32,8 @@
  * Summary.
  * &lt;p>This is a class for creating shaders.&lt;/p>
  *
- * @author Kanda and Matsuda (c) 2012
+ * @author Kanda and Matsuda
+ * @copyright © 2012 Kanda and Matsuda
  * @since 25/09/2016
  * @see &lt;a href="/cwdc/13-webgl/lib/teal_book/cuon-utils.js">source&lt;/a>
  */
@@ -45,16 +46,16 @@
  * @return {Boolean} true, if the program object was created and successfully made current.
  */
 function initShaders(gl, vshader, fshader) {
-    var program = createProgram(gl, vshader, fshader);
-    if (!program) {
-        console.log("Failed to create program");
-        return false;
-    }
+  var program = createProgram(gl, vshader, fshader);
+  if (!program) {
+    console.log("Failed to create program");
+    return false;
+  }
 
-    gl.useProgram(program);
-    gl.program = program;
+  gl.useProgram(program);
+  gl.program = program;
 
-    return true;
+  return true;
 }
 
 /**
@@ -63,40 +64,40 @@ function initShaders(gl, vshader, fshader) {
  * @param {String} vshader a vertex shader program.
  * @param {String} fshader a fragment shader program.
  * @return {WebGLProgram} created program object, or null if the creation has failed.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram WebGLRenderingContext: createProgram() method}
  */
 function createProgram(gl, vshader, fshader) {
-    // Create shader object
-    var vertexShader = loadShader(gl, gl.VERTEX_SHADER, vshader);
-    var fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fshader);
-    if (!vertexShader || !fragmentShader) {
-        return null;
-    }
+  // Create shader object
+  var vertexShader = loadShader(gl, gl.VERTEX_SHADER, vshader);
+  var fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fshader);
+  if (!vertexShader || !fragmentShader) {
+    return null;
+  }
 
-    // Create a program object
-    var program = gl.createProgram();
-    if (!program) {
-        return null;
-    }
+  // Create a program object
+  var program = gl.createProgram();
+  if (!program) {
+    return null;
+  }
 
-    // Attach the shader objects
-    gl.attachShader(program, vertexShader);
-    gl.attachShader(program, fragmentShader);
+  // Attach the shader objects
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
 
-    // Link the program object
-    gl.linkProgram(program);
+  // Link the program object
+  gl.linkProgram(program);
 
-    // Check the result of linking
-    var linked = gl.getProgramParameter(program, gl.LINK_STATUS);
-    if (!linked) {
-        var error = gl.getProgramInfoLog(program);
-        console.log("Failed to link program: " + error);
-        gl.deleteProgram(program);
-        gl.deleteShader(fragmentShader);
-        gl.deleteShader(vertexShader);
-        return null;
-    }
-    return program;
+  // Check the result of linking
+  var linked = gl.getProgramParameter(program, gl.LINK_STATUS);
+  if (!linked) {
+    var error = gl.getProgramInfoLog(program);
+    console.log("Failed to link program: " + error);
+    gl.deleteProgram(program);
+    gl.deleteShader(fragmentShader);
+    gl.deleteShader(vertexShader);
+    return null;
+  }
+  return program;
 }
 
 /**
@@ -105,55 +106,56 @@ function createProgram(gl, vshader, fshader) {
  * @param {gl.VERTEX_SHADER | gl.FRAGMENT_SHADER} type the type of the shader object to be created,
  * @param {DOMString} source shader program.
  * @return {WebGLShader} created shader object, or null if the creation has failed.
- * @see https://udn.realityripple.com/docs/Web/API/WebGLRenderingContext/shaderSource
- * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createShader
+ * @see {@link https://udn.realityripple.com/docs/Web/API/WebGLRenderingContext/shaderSource WebGLRenderingContext.shaderSource()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createShader WebGLRenderingContext: createShader() method}
  */
 function loadShader(gl, type, source) {
-    // Create shader object
-    var shader = gl.createShader(type);
-    if (shader == null) {
-        console.log("unable to create shader");
-        return null;
-    }
+  // Create shader object
+  var shader = gl.createShader(type);
+  if (shader == null) {
+    console.log("unable to create shader");
+    return null;
+  }
 
-    // Set the shader program
-    gl.shaderSource(shader, source);
+  // Set the shader program
+  gl.shaderSource(shader, source);
 
-    // Compile the shader
-    gl.compileShader(shader);
+  // Compile the shader
+  gl.compileShader(shader);
 
-    // Check the result of compilation
-    var compiled = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
-    if (!compiled) {
-        var error = gl.getShaderInfoLog(shader);
-        console.log("Failed to compile shader: " + error);
-        gl.deleteShader(shader);
-        return null;
-    }
+  // Check the result of compilation
+  var compiled = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+  if (!compiled) {
+    var error = gl.getShaderInfoLog(shader);
+    console.log("Failed to compile shader: " + error);
+    gl.deleteShader(shader);
+    return null;
+  }
 
-    return shader;
+  return shader;
 }
 
 /**
  * Initialize and get the rendering context for WebGL.
  * This will make any GL errors show up in your browser JavaScript console.
+ * @deprecated since WebGL2
  * @param {HTMLCanvasElement} canvas &amp;lt;canvas&amp;gt; element.
  * @param {Boolean} opt_debug flag to initialize the context for debugging.
  * @return {WebGL2RenderingContext} the rendering context for WebGL.
- * @see https://www.khronos.org/webgl/wiki/Debugging
- * @see https://sites.google.com/site/csc8820/educational/how-to-create-a-webgl-context
+ * @see {@link https://www.khronos.org/webgl/wiki/Debugging Debugging}
+ * @see {@link http://learnwebgl.brown37.net/browser_environment/canvas_and_gl_context.html Getting the WebGL Context}
  */
 function getWebGLContext(canvas, opt_debug) {
-    // Get the rendering context for WebGL
-    var gl = WebGLUtils.setupWebGL(canvas);
-    if (!gl) return null;
+  // Get the rendering context for WebGL
+  var gl = WebGLUtils.setupWebGL(canvas);
+  if (!gl) return null;
 
-    // if opt_debug is explicitly false, create the context for debugging
-    if (arguments.length &lt; 2 || opt_debug) {
-        gl = WebGLDebugUtils.makeDebugContext(gl);
-    }
+  // if opt_debug is explicitly false, create the context for debugging
+  if (arguments.length &lt; 2 || opt_debug) {
+    gl = WebGLDebugUtils.makeDebugContext(gl);
+  }
 
-    return gl;
+  return gl;
 }
 </code></pre>
         </article>
@@ -165,13 +167,13 @@ function getWebGLContext(canvas, opt_debug) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li><li><a href="external-THREE.BufferGeometry.html">BufferGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:change-executedwhentheautoRotationcheckboxischeckedorunchecked.">change - executed when the autoRotation checkbox is checked or unchecked.</a></li><li><a href="global.html#event:ended">ended</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize-executedwhenthewindowisresized.">resize - executed when the window is resized.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#BACK">BACK</a></li><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#JUMP">JUMP</a></li><li><a href="global.html#SCR">SCR</a></li><li><a href="global.html#SPIN">SPIN</a></li><li><a href="global.html#TILT">TILT</a></li><li><a href="global.html#TORSO">TORSO</a></li><li><a href="global.html#TURN">TURN</a></li><li><a href="global.html#XAXIS">XAXIS</a></li><li><a href="global.html#YAXIS">YAXIS</a></li><li><a href="global.html#ZAXIS">ZAXIS</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#autoRotate">autoRotate</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bgColor">bgColor</a></li><li><a href="global.html#blobbySkin">blobbySkin</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#check">check</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#flColor">flColor</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#glColor">glColor</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#player">player</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#single">single</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#wheight">wheight</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="Stack.html">Stack</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:changeAutoRotation">changeAutoRotation</a></li><li><a href="global.html#event:ended">ended</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#BACK">BACK</a></li><li><a href="global.html#GPlane">GPlane</a></li><li><a href="global.html#JUMP">JUMP</a></li><li><a href="global.html#SCR">SCR</a></li><li><a href="global.html#SPIN">SPIN</a></li><li><a href="global.html#TILT">TILT</a></li><li><a href="global.html#TORSO">TORSO</a></li><li><a href="global.html#TURN">TURN</a></li><li><a href="global.html#XAXIS">XAXIS</a></li><li><a href="global.html#YAXIS">YAXIS</a></li><li><a href="global.html#ZAXIS">ZAXIS</a></li><li><a href="global.html#addBlobby">addBlobby</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#applyMove">applyMove</a></li><li><a href="global.html#applyMoveAndSway">applyMoveAndSway</a></li><li><a href="global.html#autoRotate">autoRotate</a></li><li><a href="global.html#bendForJump">bendForJump</a></li><li><a href="global.html#bgColor">bgColor</a></li><li><a href="global.html#blobbySkin">blobbySkin</a></li><li><a href="global.html#bodyMatrix">bodyMatrix</a></li><li><a href="global.html#callBackArray">callBackArray</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#check">check</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#configureTexture">configureTexture</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#dampenJump">dampenJump</a></li><li><a href="global.html#danceCallBack">danceCallBack</a></li><li><a href="global.html#delay">delay</a></li><li><a href="global.html#delay2">delay2</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#finishJump">finishJump</a></li><li><a href="global.html#flColor">flColor</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#glColor">glColor</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#jumpAndTurn">jumpAndTurn</a></li><li><a href="global.html#landFromJump">landFromJump</a></li><li><a href="global.html#leftGoBack">leftGoBack</a></li><li><a href="global.html#leftHandOnHead">leftHandOnHead</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#lsway">lsway</a></li><li><a href="global.html#macarena">macarena</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#paused">paused</a></li><li><a href="global.html#planeModel">planeModel</a></li><li><a href="global.html#player">player</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#raiseLeftArm">raiseLeftArm</a></li><li><a href="global.html#raiseRightArm">raiseRightArm</a></li><li><a href="global.html#renderSphere">renderSphere</a></li><li><a href="global.html#resetAngles">resetAngles</a></li><li><a href="global.html#reverseDirection">reverseDirection</a></li><li><a href="global.html#rightGoBack">rightGoBack</a></li><li><a href="global.html#rightHandOnHead">rightHandOnHead</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#rsway">rsway</a></li><li><a href="global.html#single">single</a></li><li><a href="global.html#sphere">sphere</a></li><li><a href="global.html#stk">stk</a></li><li><a href="global.html#stopCallBack">stopCallBack</a></li><li><a href="global.html#stretchForJump">stretchForJump</a></li><li><a href="global.html#sway">sway</a></li><li><a href="global.html#swayCallBack">swayCallBack</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#texturedShader">texturedShader</a></li><li><a href="global.html#vecLen">vecLen</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexBufferPlane">vertexBufferPlane</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#view">view</a></li><li><a href="global.html#viewDistance">viewDistance</a></li><li><a href="global.html#wheight">wheight</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Jun 01 2024 08:24:57 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Mar 04 2025 08:43:34 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
