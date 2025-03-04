@@ -10,7 +10,7 @@
  * the order in which they should be grouped into triangles.
  *
  * @since 27/03/2015
- * @author Steve Kautz
+ * @author {@link https://stevekautz.com Steve Kautz}
  * @see <a href="/cwdc/13-webgl/examples/example123/content/GL_example1a.html">link</a>
  * @see <a href="/cwdc/13-webgl/examples/example123/content/GL_example1a.js">source</a>
  */
@@ -21,7 +21,7 @@
  * gl_Position
  * @type {String}
  */
-var VSHADER_SOURCE = `attribute vec4 a_Position;
+const VSHADER_SOURCE = `attribute vec4 a_Position;
   void main() {
     gl_Position = a_Position;
   }`;
@@ -31,7 +31,7 @@ var VSHADER_SOURCE = `attribute vec4 a_Position;
  * to the built-in variable gl_fragColor
  * @type {String}
  */
-var FSHADER_SOURCE = `void main() {
+const FSHADER_SOURCE = `void main() {
     gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
   }`;
 
@@ -41,19 +41,19 @@ var FSHADER_SOURCE = `void main() {
  * (z will be zero by default).
  * @type {Float32Array}
  */
-var vertices = new Float32Array([-0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, 0.5]);
+const vertices = new Float32Array([-0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, 0.5]);
 
 /**
  * Indices describing two triangles using the points above.
  * @type {Uint16Array}
  */
-var indices = new Uint16Array([0, 1, 2, 0, 2, 3]);
+const indices = new Uint16Array([0, 1, 2, 0, 2, 3]);
 
 /**
  * Number of indices.
  * @type {Number}
  */
-var numIndices = indices.length;
+const numIndices = indices.length;
 
 // A few global variables...
 
@@ -61,25 +61,25 @@ var numIndices = indices.length;
  * The WebGL context.
  * @type {WebGL2RenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexbuffer;
+let vertexbuffer;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var indexbuffer;
+let indexbuffer;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var shader;
+let shader;
 
 /**
  * Code to actually render our geometry.
@@ -95,7 +95,7 @@ function draw() {
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexbuffer);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(shader, "a_Position");
+  const positionIndex = gl.getAttribLocation(shader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
@@ -132,7 +132,7 @@ function draw() {
  */
 function mainEntrance() {
   // retrieve <canvas> element
-  var canvas = document.getElementById("theCanvas");
+  const canvas = document.getElementById("theCanvas");
 
   // get the rendering context for WebGL
   gl = canvas.getContext("webgl2");
@@ -201,7 +201,7 @@ function mainEntrance() {
    * @function
    * @global
    */
-  var animate = () => {
+  const animate = () => {
     draw();
 
     // request that the browser calls animate() again "as soon as it can"

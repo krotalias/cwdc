@@ -12,7 +12,7 @@
  * in the vertex shader.</p>
  * (See shader source in <a href="/cwdc/13-webgl/examples/example123/content/showCode.php?f=GL_example3">GL_example3.html</a>)
  *
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 27/09/2016
  * @see <a href="/cwdc/13-webgl/examples/example123/content/GL_example3.html">link</a>
  * @see <a href="/cwdc/13-webgl/examples/example123/content/GL_example3.js">source</a>
@@ -28,7 +28,7 @@
  * (z will be zero by default).</p>
  * @type {Float32Array}
  */
-var vertices = new Float32Array([
+const vertices = new Float32Array([
   -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5,
 ]);
 
@@ -36,7 +36,7 @@ var vertices = new Float32Array([
  * Number of points (vertices).
  * @type {Number}
  */
-var numPoints = vertices.length / 2;
+const numPoints = vertices.length / 2;
 
 // A few global variables...
 
@@ -44,25 +44,25 @@ var numPoints = vertices.length / 2;
  * The OpenGL context.
  * @type {WebGLRenderingContext}
  */
-var gl;
+let gl;
 
 /**
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
-var vertexbuffer;
+let vertexbuffer;
 
 /**
  * Handle to the compiled shader program on the GPU.
  * @type {WebGLShader}
  */
-var shader;
+let shader;
 
 /**
  * Color table.
  * @type {Object<String:Float32Array>}
  */
-var color = {
+const color = {
   red: new Float32Array([1.0, 0.0, 0.0, 1.0]),
   black: new Float32Array([0.0, 0.0, 0.0, 1.0]),
   teal: new Float32Array([0.0, 0.8, 0.8, 1.0]),
@@ -83,14 +83,14 @@ function draw(scale) {
   gl.useProgram(shader);
 
   // set the value of the uniform variable in the shader
-  var scale_loc = gl.getUniformLocation(shader, "u_scale");
+  const scale_loc = gl.getUniformLocation(shader, "u_scale");
   gl.uniform1f(scale_loc, scale);
 
   // bind the buffer
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexbuffer);
 
   // get the index for the a_Position attribute defined in the vertex shader
-  var positionIndex = gl.getAttribLocation(shader, "a_Position");
+  const positionIndex = gl.getAttribLocation(shader, "a_Position");
   if (positionIndex < 0) {
     console.log("Failed to get the storage location of a_Position");
     return;
@@ -105,7 +105,7 @@ function draw(scale) {
   gl.vertexAttribPointer(positionIndex, 2, gl.FLOAT, false, 0, 0);
 
   // draw, specifying the type of primitive to assemble from the vertices
-  var color_loc = gl.getUniformLocation(shader, "u_color");
+  const color_loc = gl.getUniformLocation(shader, "u_color");
   gl.uniform4fv(color_loc, color.red);
   gl.drawArrays(gl.TRIANGLES, 0, numPoints);
   // draw edges
@@ -130,7 +130,7 @@ function draw(scale) {
  */
 function mainEntrance() {
   // retrieve <canvas> element
-  var canvas = document.getElementById("theCanvas");
+  const canvas = document.getElementById("theCanvas");
 
   // get the rendering context for WebGL
   gl = canvas.getContext("webgl2");
@@ -140,8 +140,8 @@ function mainEntrance() {
   }
 
   // load and compile the shader pair, using utility from the teal book
-  var vshaderSource = document.getElementById("vertexShader").textContent;
-  var fshaderSource = document.getElementById("fragmentShader").textContent;
+  const vshaderSource = document.getElementById("vertexShader").textContent;
+  const fshaderSource = document.getElementById("fragmentShader").textContent;
   if (!initShaders(gl, vshaderSource, fshaderSource)) {
     console.log("Failed to initialize shaders.");
     return;
@@ -181,15 +181,15 @@ function mainEntrance() {
    * @global
    * @function
    */
-  var runanimation = (() => {
-    var scale = 1.0;
-    var increment = 0.05;
+  const runanimation = (() => {
+    let scale = 1.0;
+    let increment = 0.05;
 
     /**
      * <p>Keep drawing frames.</p>
      * Request that the browser calls {@link runanimation} again "as soon as it can".
      * @callback loop
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}
      */
     return () => {
       draw(scale);

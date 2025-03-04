@@ -9,7 +9,7 @@
  * <p>Vertices are scaled by an amount that varies by
  * frame, and this value is passed to the draw function.</p>
  *
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 17/08/2022
  * @see <a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.html">link</a>
  * @see <a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.js">source</a>
@@ -24,7 +24,7 @@
  * (z will be zero by default).</p>
  * @type {Float32Array}
  */
-var vertices = new Float32Array([
+const vertices = new Float32Array([
   -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5,
 ]);
 
@@ -32,13 +32,13 @@ var vertices = new Float32Array([
  * Number of points (vertices).
  * @type {Number}
  */
-var numPoints = vertices.length / 2;
+const numPoints = vertices.length / 2;
 
 /**
  * Canvas dimensions.
  * @type {Object<{w: Number, h:Number}>}
  */
-var canvas = {
+const canvas = {
   w: 256,
   h: 256,
 };
@@ -62,7 +62,7 @@ function mapToViewport(x, y, n = 5) {
  * @returns {Array<Number>} vertex coordinates.
  */
 function getVertex(i) {
-  let j = (i % numPoints) * 2;
+  const j = (i % numPoints) * 2;
   return [vertices[j], vertices[j + 1]];
 }
 
@@ -70,7 +70,7 @@ function getVertex(i) {
  * Code to actually render our geometry.
  * @param {CanvasRenderingContext2D} ctx canvas context.
  * @param {Number} scale scale factor.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D CanvasRenderingContext2D}
  */
 function draw(ctx, scale) {
   ctx.fillStyle = "rgba(0, 204, 204, 1)";
@@ -80,7 +80,7 @@ function draw(ctx, scale) {
   ctx.beginPath();
   for (let i = 0; i < numPoints; i++) {
     if (i == 3 || i == 4) continue;
-    let [x, y] = mapToViewport(...getVertex(i).map((x) => x * scale));
+    const [x, y] = mapToViewport(...getVertex(i).map((x) => x * scale));
     if (i == 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
   }
@@ -100,8 +100,8 @@ function draw(ctx, scale) {
  */
 function mainEntrance() {
   // retrieve <canvas> element
-  var canvasElement = document.querySelector("#theCanvas");
-  var ctx = canvasElement.getContext("2d");
+  const canvasElement = document.querySelector("#theCanvas");
+  const ctx = canvasElement.getContext("2d");
 
   canvas.w = canvasElement.width;
   canvas.h = canvasElement.height;
@@ -113,15 +113,15 @@ function mainEntrance() {
    * @global
    * @function
    */
-  var runanimation = (() => {
-    var scale = 1.0;
-    var increment = 0.05;
+  const runanimation = (() => {
+    let scale = 1.0;
+    let increment = 0.05;
 
     /**
      * <p>Keep drawing frames.</p>
      * Request that the browser calls {@link runanimation} again "as soon as it can".
      * @callback loop
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}
      */
     return () => {
       draw(ctx, scale);
