@@ -3,10 +3,16 @@
  *
  * Summary.
  *
- * <p>Object Loader.</p>
+ * <p>A loader for loading a .obj resource.</p>
+ *
+ * The OBJ file format is a simple data-format that represents 3D geometry
+ * in a human readable format as the position of each vertex,
+ * the UV position of each texture coordinate vertex, vertex normals,
+ * and the faces that make each polygon defined as a list of vertices, and texture vertices.
  *
  * @author {@link http://mrdoob.com/ mrdoob}
  * @see <a href="/cwdc/13-webgl/homework/Christmas_tree_with_three.js_files/OBJLoader.js">source</a>
+ * @see {@link https://threejs.org/docs/#examples/en/loaders/OBJLoader OBJLoader}
  */
 
 /**
@@ -14,7 +20,7 @@
  * @class
  * @param {THREE.DefaultLoadingManager} manager a global instance of the LoadingManager, used by most loaders <br>
  *                                              when no custom manager has been specified.
- * @see https://threejs.org/docs/#api/en/loaders/managers/DefaultLoadingManager
+ * @see {@link https://threejs.org/docs/#api/en/loaders/managers/DefaultLoadingManager DefaultLoadingManager}
  */
 THREE.OBJLoader = function (manager) {
   this.manager = manager !== undefined ? manager : THREE.DefaultLoadingManager;
