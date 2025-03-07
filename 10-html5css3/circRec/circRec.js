@@ -17,7 +17,8 @@
  *  - npm install gl-matrix
  *  </pre>
  *
- *  @author Paulo Roma & Claudio Esperança
+ *  @author {@link https://krotalias.github.io Paulo Roma}
+ *  @author {@link https://cesperanca.org/ Claudio Esperança}
  *  @since 08/08/2022
  *  @see <a href="/cwdc/10-html5css3/circRec/circRec.html?w=800&h=800">link</a>
  *  @see <a href="../circRec/circRec.js">source</a>

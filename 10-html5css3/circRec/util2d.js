@@ -27,11 +27,12 @@
  *  - npm install gl-matrix
  *  </pre>
  *
- *  @author Paulo Roma & Claudio Esperança
+ *  @author {@link https://krotalias.github.io Paulo Roma}
+ *  @author {@link https://cesperanca.org/ Claudio Esperança}
  *  @since 08/08/2022
  *  @see <a href="/cwdc/10-html5css3/circRec/circRec.html">link</a>
  *  @see <a href="/cwdc/10-html5css3/circRec/util2d.js">source</a>
- *  @see <a href="/gc/download/Primitivas Geometricas.pdf">Primitivas Geometricas</a>
+ *  @see <a href="/cwdc/downloads/gc/Primitivas Geometricas.pdf">Primitivas Geométricas</a>
  *  @see {@link https://observablehq.com/@esperanc/funcoes-2d-uteis Funções 2D úteis}
  *  @see {@link https://drive.google.com/file/d/13G0A6oq7iyiXrVm1_oOYFp3gwaEErzQZ/view Funcoes 2d Uteis.webm}
  */
