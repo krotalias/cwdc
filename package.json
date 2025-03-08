@@ -7,7 +7,8 @@
     "@babel/preset-react": "^7.25.9",
     "@prettier/plugin-php": "^0.22.2",
     "@react-three/test-renderer": "^8.2.1",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "tailwindcss": "^3.4.14"
   },
   "dependencies": {
     "js-beautify": "^1.15.1",

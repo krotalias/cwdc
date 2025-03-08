@@ -7,7 +7,7 @@
  * @file
  *
  * Summary.
- * <p>A shooter arcade game.</p>
+ * <p>A shooter {@link https://en.wikipedia.org/wiki/Arcade_game arcade game}.</p>
  *
  * Description.
  * <p>The player controls a single shooting cannon while being attacked by enemies.<br>
@@ -22,18 +22,19 @@
  * <li>The four symbols used in the game are the playing card suits: hearts, spades, diamonds and clubs, while
  * the cannon is represented by an arrow.</li>
  * <li>It is possible to display a circle to help aiming the target. This option should be passed in the URL.</li>
- * <li>It is also displayed the number of frames per second (FPS) and the distance to the closest enemy.</li>
+ * <li>It is also displayed the number of frames per second ({@link module:asteroid~fps FPS}) and the distance to the closest enemy.</li>
  * <li>The game works in full screen mode in any device, even mobiles, because it sets the viewport and mouse appropriately.
  * </ul>
  *
- * @author Ahmad Faisal Jawed and Paulo Roma
+ * @author {@link https://codepen.io/faisal-jawed Ahmad Faisal Jawed}
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 04/09/2022
- * @see https://codepen.io/faisal-jawed/pen/xxKBgBo
- * @see https://www.java2s.com/Tutorials/Javascript/Canvas_How_to/Shape/Draw_Spade_Heart_Club_Diamond.htm
- * @see https://en.wikipedia.org/wiki/Asteroids_(video_game)
  * @see <a href="/cwdc/10-html5css3/asteroid/asteroid.html?aim=0">link</a>
  * @see <a href="/cwdc/10-html5css3/asteroid/asteroid.js">source</a>
+ * @see {@link https://codepen.io/faisal-jawed/pen/xxKBgBo source (codepen)}
  * @see <a href="/cwdc/10-html5css3/asteroid/cards.html">cards</a>
+ * @see {@link https://www.java2s.com/Tutorials/Javascript/Canvas_How_to/Shape/Draw_Spade_Heart_Club_Diamond.htm Java2s}
+ * @see {@link https://en.wikipedia.org/wiki/Asteroids_(video_game) Asteroids (video game)}
  * @see <img src="../asteroid/asteroid.png" width="512">
  * @see <img src="../asteroid/cards.png" width="512">
  */
@@ -44,7 +45,7 @@
  * World coordinates.
  * @type {Object<w:Number, h:Number, aspect:Number>}
  */
-var stage = {
+const stage = {
   w: 1280,
   h: 720,
   aspect: 1280 / 720,
@@ -54,19 +55,19 @@ var stage = {
  * Viewport: Canvas element.
  * @type {HTMLCanvasElement}
  */
-var _pexcanvas = document.getElementById("canvas");
+const _pexcanvas = document.getElementById("canvas");
 
 /**
  * Canvas context.
  * @type {CanvasRenderingContext2D}
  */
-var ctx = _pexcanvas.getContext("2d");
+const ctx = _pexcanvas.getContext("2d");
 
 /**
  * Cannon muzzle position.
  * @type {Object<x:Number, y:Number>}
  */
-var pointer = {
+const pointer = {
   x: stage.w / 2,
   y: stage.h / 2,
 };
@@ -75,7 +76,7 @@ var pointer = {
  * Viewport properties: scale, orientation, left and top offsets.
  * @type {Object<scale:Number, portrait:Boolean, loffset:Number, toffset:Number>}
  */
-var viewport = {
+const viewport = {
   scale: 1,
   portrait: true,
   loffset: 0,
@@ -86,7 +87,7 @@ var viewport = {
  * Mouse position relative to viewport.
  * @type {Object<xpos:Number, ypos:Number>}
  */
-var mouse = {
+const mouse = {
   xpos: 0,
   ypos: 0,
 };
@@ -100,7 +101,7 @@ var mouse = {
  * <li>Closest enemy (distance and enemy index).</li>
  * </ul>
  */
-var cannon = {
+const cannon = {
   angle: 0,
   length: 75,
   x: stage.w / 2,
@@ -113,7 +114,7 @@ var cannon = {
  * Keeps track of last time the mouse was moved.
  * @type {Object<on:Boolean, delay:Number, t:Date>}
  */
-var ai = {
+const ai = {
   on: true,
   delay: 3000,
   t: 0,
@@ -128,7 +129,7 @@ var ai = {
  * </ul>
  * @type {Object<EnemyCollisionSqr:Number, counter:Number, freq:Number>}
  */
-var btm = {
+const btm = {
   EnemyCollisionSqr: 400,
   counter: 0,
   freq: 9,
@@ -139,7 +140,7 @@ var btm = {
  * arrow on top of enemies and distance travelled in each time step.
  * @type {Object<FPS:Boolean, Aim:Boolean, Arrow:Boolean, speed:Number>}
  */
-var display = {
+const display = {
   FPS: true,
   Aim: false,
   Arrow: false,
@@ -150,7 +151,7 @@ var display = {
  * Symbols used for representing graphics objects and events.
  * @type {Object<String,Function>}
  */
-var symbol = {
+const symbol = {
   shaken: drawClubs,
   hit: drawHearts,
   bullet: drawDiamonds,
@@ -166,7 +167,7 @@ var symbol = {
  * <p>The image scale and transparency are manipulated.</p>
  * @type {Object<enemy:HTMLImageElement, cannon:HTMLImageElement, back:HTMLImageElement, total:Number>}
  */
-var explode = {
+const explode = {
   enemy: null,
   cannon: null,
   back: null,
@@ -194,10 +195,10 @@ var explode = {
  * @param {Number} dx horizontal translation.
  * @param {Number} dy vertical translation.
  * @return {Array<Number,Number>} point in cartesian coordinates: [r * Math.sin(a) + dx, -r * Math.cos(a) + dy]
- * @see https://en.wikipedia.org/wiki/Polar_coordinate_system
- * @see https://www.liverpool.ac.uk/~maryrees/homepagemath191/trigid.pdf
- * @see https://www.khanacademy.org/math/geometry/hs-geo-transformations/hs-geo-rotations/a/rotating-shapes
- * @see https://www.youtube.com/watch?v=7HD5vE0LGWQ
+ * @see {@link https://en.wikipedia.org/wiki/Polar_coordinate_system Polar coordinate system}
+ * @see {@link https://www.liverpool.ac.uk/~maryrees/homepagemath191/trigid.pdf Trigonometric Identities}
+ * @see {@link https://www.khanacademy.org/math/geometry/hs-geo-transformations/hs-geo-rotations/a/rotating-shapes Rotating shapes about the origin by multiples of 90°}
+ * @see {@link https://www.youtube.com/watch?v=7HD5vE0LGWQ Rotating on a Polar Coordinate Grid}
  */
 export function polar2Cartesian(r, a, dx = 0, dy = 0) {
   return [r * Math.sin(a) + dx, -r * Math.cos(a) + dy];
@@ -212,7 +213,7 @@ export function polar2Cartesian(r, a, dx = 0, dy = 0) {
  * @param {Number} dx horizontal translation.
  * @param {Number} dy vertical translation.
  * @return {Array<Number,Number>} point in cartesian coordinates: [r * Math.cos(a) + dx, r * Math.sin(a) + dy]
- * @see https://en.wikipedia.org/wiki/Polar_coordinate_system
+ * @see {@link https://en.wikipedia.org/wiki/Polar_coordinate_system Polar coordinate system}
  */
 export function polarToCartesian(r, a, dx = 0, dy = 0) {
   return [r * Math.cos(a) + dx, r * Math.sin(a) + dy];
@@ -224,7 +225,7 @@ export function polarToCartesian(r, a, dx = 0, dy = 0) {
  * @param {Number} rad angle in radians.
  * @return {Number} angle in degrees.
  */
-export var rad2Deg = (rad) => (rad * 180) / Math.PI;
+export const rad2Deg = (rad) => (rad * 180) / Math.PI;
 
 /**
  * <p>Returns a random number between the specified values.</p>
@@ -233,7 +234,7 @@ export var rad2Deg = (rad) => (rad * 180) / Math.PI;
  * @param {Number} min lower value.
  * @param {Number} max higher value.
  * @returns {Number} ramdom value.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random Math.random()}
  */
 export function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
@@ -265,14 +266,14 @@ export function getRandomInt(min, max) {
  * @param {Number} lw line (arrow) width.
  * @param {Number} hlen header length.
  * @param {String} color arrow color.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2 Math.atan2()}
  */
 export function drawArrow(ctx, fromx, fromy, tox, toy, lw, hlen, color) {
-  var x = tox - fromx;
-  var y = toy - fromy;
+  let x = tox - fromx;
+  let y = toy - fromy;
 
   ctx.save();
-  var angle = Math.atan2(y, x);
+  const angle = Math.atan2(y, x);
   ctx.fillStyle = color;
   ctx.strokeStyle = color;
   ctx.lineCap = "round";
@@ -317,7 +318,7 @@ export function drawArrow(ctx, fromx, fromy, tox, toy, lw, hlen, color) {
  * @param {Number} width hearts width.
  * @param {Number} height hearts height.
  * @param {String} color hearts color.
- * @see https://en.wikipedia.org/wiki/Hearts_(suit)
+ * @see {@link https://en.wikipedia.org/wiki/Hearts_(suit) Hearts (suit)}
  */
 export function drawHearts(ctx, x, y, tox, toy, width, height, color) {
   width *= 2.2;
@@ -329,7 +330,7 @@ export function drawHearts(ctx, x, y, tox, toy, width, height, color) {
   ctx.translate(-x, -y);
 
   ctx.beginPath();
-  var topCurveHeight = height * 0.3;
+  const topCurveHeight = height * 0.3;
   ctx.moveTo(x, y + topCurveHeight);
   // top left curve
   ctx.bezierCurveTo(x, y, x - width / 2, y, x - width / 2, y + topCurveHeight);
@@ -341,7 +342,7 @@ export function drawHearts(ctx, x, y, tox, toy, width, height, color) {
     x,
     y + (height + topCurveHeight) / 2,
     x,
-    y + height
+    y + height,
   );
 
   // bottom right curve
@@ -351,7 +352,7 @@ export function drawHearts(ctx, x, y, tox, toy, width, height, color) {
     x + width / 2,
     y + (height + topCurveHeight) / 2,
     x + width / 2,
-    y + topCurveHeight
+    y + topCurveHeight,
   );
 
   // top right curve
@@ -373,7 +374,7 @@ export function drawHearts(ctx, x, y, tox, toy, width, height, color) {
  * @param {Number} width clubs width.
  * @param {Number} height clubs height.
  * @param {String} color clubs color.
- * @see https://en.wikipedia.org/wiki/Clubs_(suit)
+ * @see {@link https://en.wikipedia.org/wiki/Clubs_(suit) Clubs (suit)}
  */
 export function drawClubs(ctx, x, y, tox, toy, width, height, color) {
   width *= 2.5;
@@ -384,9 +385,9 @@ export function drawClubs(ctx, x, y, tox, toy, width, height, color) {
   ctx.rotate(Math.atan2(toy - y, tox - x) - Math.PI / 2);
   ctx.translate(-x, -y);
 
-  var circleRadius = width * 0.3;
-  var bottomWidth = width * 0.5;
-  var bottomHeight = height * 0.35;
+  const circleRadius = width * 0.3;
+  const bottomWidth = width * 0.5;
+  const bottomHeight = height * 0.35;
   ctx.fillStyle = color;
 
   // top circle
@@ -397,7 +398,7 @@ export function drawClubs(ctx, x, y, tox, toy, width, height, color) {
     circleRadius,
     0,
     2 * Math.PI,
-    false
+    false,
   );
   ctx.fill();
 
@@ -409,7 +410,7 @@ export function drawClubs(ctx, x, y, tox, toy, width, height, color) {
     circleRadius,
     0,
     2 * Math.PI,
-    false
+    false,
   );
   ctx.fill();
 
@@ -421,7 +422,7 @@ export function drawClubs(ctx, x, y, tox, toy, width, height, color) {
     circleRadius,
     0,
     2 * Math.PI,
-    false
+    false,
   );
   ctx.fill();
 
@@ -450,7 +451,7 @@ export function drawClubs(ctx, x, y, tox, toy, width, height, color) {
  * @param {Number} width diamonds width.
  * @param {Number} height diamonds height.
  * @param {String} color diamonds color.
- * @see https://en.wikipedia.org/wiki/Diamonds_(suit)
+ * @see {@link https://en.wikipedia.org/wiki/Diamonds_(suit) Diamonds (suit)}
  */
 export function drawDiamonds(ctx, x, y, tox, toy, width, height, color) {
   ctx.save();
@@ -490,7 +491,7 @@ export function drawDiamonds(ctx, x, y, tox, toy, width, height, color) {
  * @param {Number} width spades width.
  * @param {Number} height spades height.
  * @param {String} color spades color.
- * @see https://en.wikipedia.org/wiki/Spades_(suit)
+ * @see {@link https://en.wikipedia.org/wiki/Spades_(suit) Spades (suit)}
  */
 export function drawSpades(ctx, x, y, tox, toy, width, height, color) {
   width *= 3;
@@ -501,9 +502,9 @@ export function drawSpades(ctx, x, y, tox, toy, width, height, color) {
   ctx.rotate(Math.atan2(toy - y, tox - x) - Math.PI / 2);
   ctx.translate(-x, -y);
 
-  var bottomWidth = width * 0.7;
-  var topHeight = height * 0.7;
-  var bottomHeight = height * 0.3;
+  const bottomWidth = width * 0.7;
+  const topHeight = height * 0.7;
+  const bottomHeight = height * 0.3;
 
   ctx.fillStyle = color;
   ctx.beginPath();
@@ -516,7 +517,7 @@ export function drawSpades(ctx, x, y, tox, toy, width, height, color) {
     x - width / 2,
     y + topHeight / 2, // control point 2
     x - width / 2,
-    y + topHeight // end point
+    y + topHeight, // end point
   );
 
   // bottom left of spade
@@ -526,7 +527,7 @@ export function drawSpades(ctx, x, y, tox, toy, width, height, color) {
     x,
     y + topHeight * 1.3, // control point 2
     x,
-    y + topHeight // end point
+    y + topHeight, // end point
   );
 
   // bottom right of spade
@@ -536,7 +537,7 @@ export function drawSpades(ctx, x, y, tox, toy, width, height, color) {
     x + width / 2,
     y + topHeight * 1.3, // control point 2
     x + width / 2,
-    y + topHeight // end point
+    y + topHeight, // end point
   );
 
   // top right of spade
@@ -546,7 +547,7 @@ export function drawSpades(ctx, x, y, tox, toy, width, height, color) {
     x,
     y + topHeight / 2, // control point 2
     x,
-    y // end point
+    y, // end point
   );
 
   ctx.closePath();
@@ -559,14 +560,14 @@ export function drawSpades(ctx, x, y, tox, toy, width, height, color) {
     x,
     y + topHeight + bottomHeight, // control point
     x - bottomWidth / 2,
-    y + topHeight + bottomHeight // end point
+    y + topHeight + bottomHeight, // end point
   );
   ctx.lineTo(x + bottomWidth / 2, y + topHeight + bottomHeight);
   ctx.quadraticCurveTo(
     x,
     y + topHeight + bottomHeight, // control point
     x,
-    y + topHeight // end point
+    y + topHeight, // end point
   );
   ctx.closePath();
   ctx.fill();
@@ -577,7 +578,7 @@ export function drawSpades(ctx, x, y, tox, toy, width, height, color) {
  * Array of colors for creating the background image.
  * @type {Array<String>}
  */
-var colors = [
+const colors = [
   "#1abc9c",
   "#1abc9c",
   "#3498db",
@@ -604,11 +605,11 @@ var colors = [
  */
 function createImages() {
   ctx.clearRect(0, 0, stage.w, stage.h);
-  for (var i = 0; i < explode.total; i++) {
-    var angle = getRandomArbitrary(0, 2 * Math.PI);
-    var length = getRandomArbitrary(50, 300);
-    var [myx, myy] = polar2Cartesian(length, angle, 360, 360);
-    let [tox, toy] = polar2Cartesian(length / 6, angle);
+  for (let i = 0; i < explode.total; i++) {
+    const angle = getRandomArbitrary(0, 2 * Math.PI);
+    const length = getRandomArbitrary(50, 300);
+    const [myx, myy] = polar2Cartesian(length, angle, 360, 360);
+    const [tox, toy] = polar2Cartesian(length / 6, angle);
     symbol.hit(
       ctx,
       myx,
@@ -617,7 +618,7 @@ function createImages() {
       myy + toy,
       length / 30,
       length / 30,
-      "#c0392b"
+      "#c0392b",
     );
   }
 
@@ -625,11 +626,11 @@ function createImages() {
   explode.enemy.src = canvas.toDataURL("image/png");
 
   ctx.clearRect(0, 0, stage.w, stage.h);
-  for (var i = 0; i < explode.total; i++) {
-    var angle = getRandomArbitrary(-Math.PI / 2, Math.PI / 2);
-    var length = getRandomArbitrary(50, 530);
-    var [myx, myy] = polar2Cartesian(length, angle, cannon.x, cannon.y);
-    let [tox, toy] = polar2Cartesian(length / 6, angle);
+  for (let i = 0; i < explode.total; i++) {
+    const angle = getRandomArbitrary(-Math.PI / 2, Math.PI / 2);
+    const length = getRandomArbitrary(50, 530);
+    const [myx, myy] = polar2Cartesian(length, angle, cannon.x, cannon.y);
+    const [tox, toy] = polar2Cartesian(length / 6, angle);
     symbol.shaken(
       ctx,
       myx,
@@ -638,7 +639,7 @@ function createImages() {
       myy + toy,
       length / 30,
       length / 30,
-      "#2c3e50"
+      "#2c3e50",
     );
   }
 
@@ -648,12 +649,12 @@ function createImages() {
   ctx.clearRect(0, 0, stage.w, stage.h);
   ctx.fillStyle = "rgba(236,240,241,1)";
   ctx.fillRect(0, 0, stage.w, stage.h);
-  for (var i = 0; i < explode.total; i++) {
-    var angle = getRandomArbitrary(0, Math.PI);
-    var length = getRandomArbitrary(50, 300);
-    var myx = getRandomArbitrary(0, stage.w);
-    var myy = getRandomArbitrary(0, stage.h);
-    let [tox, toy] = polar2Cartesian(length / 6, angle);
+  for (let i = 0; i < explode.total; i++) {
+    const angle = getRandomArbitrary(0, Math.PI);
+    const length = getRandomArbitrary(50, 300);
+    const myx = getRandomArbitrary(0, stage.w);
+    const myy = getRandomArbitrary(0, stage.h);
+    const [tox, toy] = polar2Cartesian(length / 6, angle);
     symbol.back(
       ctx,
       myx,
@@ -662,7 +663,7 @@ function createImages() {
       myy + toy,
       length / 30,
       length / 30,
-      colors[getRandomInt(0, colors.length)]
+      colors[getRandomInt(0, colors.length)],
     );
   }
 
@@ -677,7 +678,7 @@ function createImages() {
  * Array of bullets.
  * @type {Array<Bullet>}
  */
-var bullets = [];
+const bullets = [];
 
 class Bullet {
   /**
@@ -685,11 +686,11 @@ class Bullet {
    * through the muzzle of the cannon (head of the arrow).
    */
   constructor() {
-    let [x, y] = polar2Cartesian(
+    const [x, y] = polar2Cartesian(
       cannon.length,
       cannon.angle,
       cannon.x,
-      cannon.y
+      cannon.y,
     );
 
     /**
@@ -713,7 +714,7 @@ class Bullet {
  * Array of enemies.
  * @type {Array<Enemy>}
  */
-var enemies = [];
+const enemies = [];
 
 class Enemy {
   /**
@@ -734,7 +735,7 @@ class Enemy {
      */
     this.dis = getRandomArbitrary(stage.h, stage.w + stage.h);
 
-    let [x, y] = polar2Cartesian(this.dis, this.theta, cannon.x, cannon.y);
+    const [x, y] = polar2Cartesian(this.dis, this.theta, cannon.x, cannon.y);
 
     /**
      * Cartesian coordinate: abscissa.
@@ -753,9 +754,9 @@ class Enemy {
  * @param {Number} n number of enemies.
  */
 function createEnemies(n = 10) {
-  for (var i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     enemies.push(new Enemy());
-    let [dx, dy] = polar2Cartesian(300, enemies[i].theta);
+    const [dx, dy] = polar2Cartesian(300, enemies[i].theta);
     enemies[i].x -= dx;
     enemies[i].y -= dy;
   }
@@ -765,12 +766,12 @@ function createEnemies(n = 10) {
  * Array of explosions.
  * @type {Array<Explosion>}
  */
-var explosions = [];
+const explosions = [];
 
 /**
  * <p>Class for representing an explosion object.</p>
- * There are two images used when an <a href="../explode.png">enemy</a>
- * or the <a href="../explodeb.png">cannon</a> is hit:
+ * There are two images used when an <a href="../asteroid/explode.png">enemy</a>
+ * or the <a href="../asteroid/explodeb.png">cannon</a> is hit:
  * <ul>
  * <li>These images are drawn with an increasing size and a decreasing transparency in each time step.</li>
  * <li>The explosion ends when its height is greater than the canvas height.</li>
@@ -809,8 +810,8 @@ class Explosion {
  * from an enemy to the cannon <br>
  * and its index into the enemy array,
  * for getting the closest enemy (after being sorted).</p>
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort Array.prototype.sort()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan Math.atan()}
  */
 function engineStep() {
   ctx.drawImage(explode.back, 0, 0);
@@ -824,8 +825,8 @@ function engineStep() {
     bullets.push(new Bullet());
   }
 
-  for (var i = 0; i < bullets.length; i++) {
-    let [dx, dy] = polar2Cartesian(20, bullets[i].theta);
+  for (let i = 0; i < bullets.length; i++) {
+    const [dx, dy] = polar2Cartesian(20, bullets[i].theta);
     bullets[i].x += dx;
     bullets[i].y += dy;
     symbol.bullet(
@@ -836,7 +837,7 @@ function engineStep() {
       bullets[i].y,
       8,
       8,
-      "#2980b9"
+      "#2980b9",
     );
     // delete bullets out of the screen
     if (bullets[i].x < -100 || bullets[i].x > stage.w + 100) {
@@ -847,8 +848,8 @@ function engineStep() {
     }
   }
 
-  for (var i = 0; i < enemies.length; i++) {
-    let [dx, dy] = polar2Cartesian(1, enemies[i].theta);
+  for (let i = 0; i < enemies.length; i++) {
+    const [dx, dy] = polar2Cartesian(1, enemies[i].theta);
     enemies[i].x -= display.speed * dx;
     enemies[i].y -= display.speed * dy;
     symbol.enemy(
@@ -859,15 +860,15 @@ function engineStep() {
       enemies[i].y,
       15,
       15,
-      cannon.turn && i == cannon.turn.pos ? "#8B0000" : "#c0392b"
+      cannon.turn && i == cannon.turn.pos ? "#8B0000" : "#c0392b",
     );
 
     if (display.Arrow) {
-      let [x, y] = polar2Cartesian(
+      const [x, y] = polar2Cartesian(
         100,
         enemies[i].theta,
         enemies[i].x,
-        enemies[i].y
+        enemies[i].y,
       );
       drawArrow(ctx, x, y, enemies[i].x, enemies[i].y, 15, 15, "#c0392b");
     }
@@ -881,10 +882,10 @@ function engineStep() {
     }
 
     // check whether the enemy is hit by a bullet.
-    for (var b = 0; b < bullets.length; b++) {
-      let dx = enemies[i].x - bullets[b].x;
-      let dy = enemies[i].y - bullets[b].y;
-      let dis = dx * dx + dy * dy;
+    for (let b = 0; b < bullets.length; b++) {
+      const dx = enemies[i].x - bullets[b].x;
+      const dy = enemies[i].y - bullets[b].y;
+      const dis = dx * dx + dy * dy;
       if (dis < btm.EnemyCollisionSqr) {
         // explode the enemy, replace it by a new one, and delete the bullet.
         explosions.push(new Explosion(enemies[i].x, enemies[i].y, 1));
@@ -895,12 +896,12 @@ function engineStep() {
   }
 
   if (ai.on) {
-    var cold = [];
+    const cold = [];
 
     for (const [i, e] of enemies.entries()) {
-      var dx = e.x - cannon.x;
-      var dy = e.y - cannon.y;
-      var dis = Math.floor(Math.hypot(dx, dy));
+      const dx = e.x - cannon.x;
+      const dy = e.y - cannon.y;
+      const dis = Math.floor(Math.hypot(dx, dy));
       cold.push({ d: dis, pos: i });
     }
 
@@ -912,18 +913,18 @@ function engineStep() {
       cannon.angle += (enemies[cannon.turn.pos].theta - cannon.angle) / 8;
     }
   } else {
-    var dx = pointer.x - cannon.x;
-    var dy = pointer.y - cannon.y;
+    const dx = pointer.x - cannon.x;
+    const dy = pointer.y - cannon.y;
     cannon.angle = -Math.atan(dx / dy);
     cannon.turn = null;
   }
 
   // big arrow cannon
-  let [tox, toy] = polar2Cartesian(
+  const [tox, toy] = polar2Cartesian(
     cannon.length,
     cannon.angle,
     cannon.x,
-    cannon.y
+    cannon.y,
   );
   drawArrow(
     ctx,
@@ -933,30 +934,30 @@ function engineStep() {
     toy,
     cannon.length / 5,
     cannon.length / 7.5,
-    "#2c3e50"
+    "#2c3e50",
   );
 
-  for (var e = 0; e < explosions.length; e++) {
+  for (let e = 0; e < explosions.length; e++) {
     if (explosions[e].ty == 1) {
-      var myimg = explode.enemy;
+      const myimg = explode.enemy;
       ctx.globalAlpha = 1 - explosions[e].t / stage.h;
       ctx.drawImage(
         myimg,
         explosions[e].x - explosions[e].t / 2,
         explosions[e].y - explosions[e].t / 2,
         explosions[e].t * stage.aspect,
-        explosions[e].t
+        explosions[e].t,
       );
       ctx.globalAlpha = 1;
     } else {
-      var myimg = explode.cannon;
+      const myimg = explode.cannon;
       ctx.globalAlpha = 1 - explosions[e].t / stage.h;
       ctx.drawImage(
         myimg,
         explosions[e].x - (explosions[e].t * stage.aspect) / 2,
         stage.h - explosions[e].t,
         explosions[e].t * stage.aspect,
-        explosions[e].t
+        explosions[e].t,
       );
       ctx.globalAlpha = 1;
     }
@@ -973,19 +974,19 @@ function engineStep() {
 
 /**
  * Toggle the game full screen mode.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/exitFullscreen
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen Element: requestFullscreen() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/exitFullscreen Document: exitFullscreen() method}
  */
 function toggleFullScreen() {
-  var doc = window.document;
-  var docEl = doc.documentElement;
+  const doc = window.document;
+  const docEl = doc.documentElement;
 
-  var requestFullScreen =
+  const requestFullScreen =
     docEl.requestFullscreen ||
     docEl.mozRequestFullScreen ||
     docEl.webkitRequestFullScreen ||
     docEl.msRequestFullscreen;
-  var cancelFullScreen =
+  const cancelFullScreen =
     doc.exitFullscreen ||
     doc.mozCancelFullScreen ||
     doc.webkitExitFullscreen ||
@@ -1021,6 +1022,7 @@ function motchend(e) {}
 
 /**
  * Set event listeners.
+ * @event
  */
 function setListeners() {
   window.addEventListener(
@@ -1028,21 +1030,21 @@ function setListeners() {
     function (e) {
       motchstart(e);
     },
-    false
+    false,
   );
   window.addEventListener(
     "mousemove",
     function (e) {
       motchmove(e);
     },
-    false
+    false,
   );
   window.addEventListener(
     "mouseup",
     function (e) {
       motchend(e);
     },
-    false
+    false,
   );
   window.addEventListener(
     "touchstart",
@@ -1050,7 +1052,7 @@ function setListeners() {
       e.preventDefault();
       motchstart(e.touches[0]);
     },
-    false
+    false,
   );
   window.addEventListener(
     "touchmove",
@@ -1058,7 +1060,7 @@ function setListeners() {
       e.preventDefault();
       motchmove(e.touches[0]);
     },
-    false
+    false,
   );
   window.addEventListener(
     "touchend",
@@ -1066,7 +1068,7 @@ function setListeners() {
       e.preventDefault();
       motchend(e.touches[0]);
     },
-    false
+    false,
   );
 
   // deprecated
@@ -1089,9 +1091,9 @@ function setListeners() {
  * @param {UIEvent} event not used.
  */
 export function resize(event) {
-  var cw = window.innerWidth;
-  var ch = window.innerHeight;
-  let aspect = stage.aspect;
+  const cw = window.innerWidth;
+  const ch = window.innerHeight;
+  const aspect = stage.aspect;
   if (cw <= ch * aspect) {
     viewport.portrait = true;
     viewport.scale = stage.w / cw;
@@ -1116,7 +1118,7 @@ export function resize(event) {
 /**
  * Callback function corresponding to window.onload event.
  * @param {UIEvent} event not used.
- * @see https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events Creating and triggering events}
  */
 export function load(event) {
   const queryString = window.location.search;
@@ -1143,11 +1145,11 @@ export function load(event) {
  * @return {fps} a callback for counting number of frames.
  * @function
  */
-export var fpsCounter = (() => {
-  var lastCalledTime = Date.now();
-  var thisfps = 60;
-  var fcount = 0;
-  var ftime = 0;
+export const fpsCounter = (() => {
+  let lastCalledTime = Date.now();
+  let thisfps = 60;
+  let fcount = 0;
+  let ftime = 0;
   /**
    * <p>Counts the number of frames per second.</p>
    * Basically, it is necessary to count how many times
@@ -1173,7 +1175,7 @@ export var fpsCounter = (() => {
  * The screen is shaken for nf frames or nf/60 s.
  * @type {Object<on:Boolean, counter:Number, t:Number, nf:Number>}
  */
-var shake = {
+const shake = {
   on: false,
   counter: 0,
   t: 30,
@@ -1182,27 +1184,28 @@ var shake = {
 
 /**
  * Run the animation.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 function animate() {
   requestAnimationFrame(animate);
+  let trax, tray;
   if (shake.on) {
-    var trax = getRandomArbitrary(-shake.t, shake.t);
-    var tray = getRandomArbitrary(-shake.t, shake.t);
+    trax = getRandomArbitrary(-shake.t, shake.t);
+    tray = getRandomArbitrary(-shake.t, shake.t);
     ctx.translate(trax, tray);
   }
 
   engineStep();
 
   if (display.FPS) {
-    let fps = fpsCounter();
+    const fps = fpsCounter();
     ctx.fillStyle = "black";
     ctx.strokeStyle = "black";
     ctx.font = "24px Courier New, monospace";
     ctx.textAlign = "left";
     ctx.fillText(` ${fps.toFixed(1)}  fps`, 20, stage.h - 80);
-    let n =
+    const n =
       (cannon.angle > 0 ? "+" : "-") +
       String(Math.abs(rad2Deg(cannon.angle)).toFixed(1)).padStart(4, "0");
     ctx.fillText(`${n}° can`, 20, stage.h - 50);
@@ -1216,7 +1219,7 @@ function animate() {
     ctx.strokeStyle = "#8e44ad";
     ctx.lineWidth = 2;
 
-    let radius = cannon.length / 5;
+    const radius = cannon.length / 5;
     ctx.beginPath();
     ctx.arc(pointer.x, pointer.y, radius, Math.PI * 2, false);
     ctx.moveTo(pointer.x, pointer.y - radius);
