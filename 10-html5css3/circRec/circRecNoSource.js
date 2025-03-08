@@ -17,10 +17,11 @@
  *  - npm install gl-matrix
  *  </pre>
  *
- *  @author Paulo Roma & Claudio Esperança
+ *  @author {@link https://krotalias.github.io Paulo Roma}
+ *  @author {@link https://cesperanca.org Claudio Esperança}
  *  @since 08/08/2022
- *  @see <a href="/cwdc/10-html5css3/circRec.html">link</a>
- *  @see <a href="../circRecNoSource.js">source</a>
+ *  @see <a href="/cwdc/10-html5css3/circRec/circRec.html">link</a>
+ *  @see <a href="../circRec/circRecNoSource.js">source</a>
  *  @see {@link https://observablehq.com/@esperanc/configurando-um-triangulo-isosceles Configurando um triângulo isósceles}
  *  @see {@link https://drive.google.com/file/d/1MjlBWjBP-5ijNTaPDL7-7OOnd8906z6Y/view Trabalho intersecao circulos e poligonos}
  *  @see {@link https://glmatrix.net glMatrix}
@@ -39,12 +40,12 @@ import * as util2d from "./util2d.js";
  * Two dimensional vector.
  * @type {glvec2}
  */
-let vec2d = (function () {
+const vec2d = (function () {
   /**
    * @member {Object} glvec2 an extended vec2 from gl-matrix.
    */
-  let glvec2 = Object.assign({}, vec2);
-  let glmat3 = mat3;
+  const glvec2 = Object.assign({}, vec2);
+  const glmat3 = mat3;
 
   /**
    * Orientation between 3 points.
@@ -220,7 +221,7 @@ function midPoints(poly) {}
 (function isoscelesDemo() {
   const demo = document.querySelector("#theCanvas3");
   const ctx = demo.getContext("2d");
-  let [w, h] = [demo.clientWidth, demo.clientHeight];
+  const [w, h] = [demo.clientWidth, demo.clientHeight];
   const iso = [
     { basePoint: [270, 350], oppositeVertex: [300, 200], color: "black" },
     { basePoint: [100, 50], oppositeVertex: [50, 20], color: "black" },
@@ -228,7 +229,7 @@ function midPoints(poly) {}
   ];
 
   function makePts() {
-    for (let t of iso) {
+    for (const t of iso) {
       t.poly = isosceles(t);
       t.anchors = [t.basePoint, t.oppositeVertex];
     }
@@ -242,11 +243,11 @@ function midPoints(poly) {}
     fillCanvas(ctx, w, h);
 
     // tri ∩ tri
-    for (let t1 of iso) {
+    for (const t1 of iso) {
       t1.color = "black";
-      for (let t2 of iso) {
+      for (const t2 of iso) {
         if (t1 == t2) continue;
-        let intersect = convexPolysIntersect(t1.poly, t2.poly);
+        const intersect = convexPolysIntersect(t1.poly, t2.poly);
         if (intersect) {
           t1.color = "red";
           t2.color = "red";
@@ -254,15 +255,15 @@ function midPoints(poly) {}
       }
     }
 
-    for (let t of iso) {
+    for (const t of iso) {
       ctx.fillStyle = ctx.strokeStyle = t.color;
-      for (let p of t.anchors) {
+      for (const p of t.anchors) {
         ctx.beginPath();
         ctx.arc(...p, 5, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.beginPath();
-      for (let p of t.poly) {
+      for (const p of t.poly) {
         ctx.lineTo(...p);
       }
       ctx.closePath();
@@ -273,12 +274,12 @@ function midPoints(poly) {}
 
   demo.onmousemove = (e) => {
     if (sel) {
-      let mouse = [e.offsetX, e.offsetY];
-      let [tri, ianchor] = sel;
-      let delta = vec2d.sub([], mouse, prevMouse);
+      const mouse = [e.offsetX, e.offsetY];
+      const [tri, ianchor] = sel;
+      const delta = vec2d.sub([], mouse, prevMouse);
       prevMouse = mouse;
       if (ianchor == 0) {
-        let v = vec2d.sub([], tri.oppositeVertex, tri.basePoint);
+        const v = vec2d.sub([], tri.oppositeVertex, tri.basePoint);
         vec2d.add(tri.basePoint, tri.basePoint, delta);
         vec2d.add(tri.oppositeVertex, tri.basePoint, v);
       } else {
@@ -293,8 +294,8 @@ function midPoints(poly) {}
     sel = null;
     const mouse = [e.offsetX, e.offsetY];
     prevMouse = mouse;
-    for (let tri of iso) {
-      for (let [ianchor, p] of tri.anchors.entries()) {
+    for (const tri of iso) {
+      for (const [ianchor, p] of tri.anchors.entries()) {
         if (vec2d.distance(mouse, p) <= 5) {
           sel = [tri, ianchor];
         }
