@@ -576,7 +576,7 @@ function init(dfile) {
    * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html?gui=1">Cerberus</a>
    * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html">Cerberus (no Gui)</a>
    * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.js">source</a>
-   * @see <a href="/cwdc/13-webgl/showCode.php?f=examples/three/content/misc_controls_arcball">html</a>
+   * @see <a href="https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/examples/three/content/misc_controls_arcball.html">html</a>
    * @see <figure>
    * <img src="../textures/equirectangular/venice_sunset_1k.jpg" width="256">
    * <figcaption>Venice Sunset {@link https://en.wikipedia.org/wiki/High_dynamic_range Hdr} image</figcaption>

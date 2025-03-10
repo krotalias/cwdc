@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>three.js webgl - exporter - gltf</title>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+        />
+        <link type="text/css" rel="stylesheet" href="main.css" />
+    </head>
+    <body>
+        <div id="info">
+            <a href="https://threejs.org" target="_blank" rel="noopener"
+                >three.js</a
+            >
+            webgl - exporter - gltf
+        </div>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
+                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/"
+                }
+            }
+        </script>
+
+        <script type="module" src="./misc_exporter_gltf.js"></script>
+    </body>
+</html>
