@@ -1236,8 +1236,8 @@ function init(dfile) {
         !["Supermarine Spitfire", "Battle Damaged Sci-fi Helmet"].some(
           (str) => str === geometry.asset?.extras?.title,
         ) &&
-        !["model.gl", "Brain", "Lungs", "Uro", "city", "RPE"].some((str) =>
-          loadedModelName.includes(str),
+        !["model.gl", "Brain", "Lungs", "Uro", "city", "RPE", "plane"].some(
+          (str) => loadedModelName.includes(str),
         )
       ) {
         scene.add(ambLight);
