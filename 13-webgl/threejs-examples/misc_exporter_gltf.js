@@ -450,8 +450,9 @@ function init() {
   // ---------------------------------------------------------------------
   // Exporting compressed textures and meshes (KTX2 / Draco / Meshopt)
   // ---------------------------------------------------------------------
+  const ktpath = "https://unpkg.com/three@latest/examples/jsm/libs/basis/";
   const ktx2Loader = new KTX2Loader()
-    .setTranscoderPath("jsm/libs/basis/")
+    .setTranscoderPath(ktpath)
     .detectSupport(renderer);
 
   const gltfLoader = new GLTFLoader().setPath("models/gltf/");
