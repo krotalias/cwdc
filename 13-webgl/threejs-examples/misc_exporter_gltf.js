@@ -11,11 +11,13 @@
  * @see <a href="/cwdc/13-webgl/threejs-examples/misc_exporter_gltf.js">source</a>
  * @see <a href="/cwdc/13-webgl/threejs-examples/ExportToGLTF.1.js">ExportToGLTF source</a>
  * @see <a href="https://threejs.org/examples/#misc_exporter_gltf">threejs example</a>
+ * @see {@link https://discoverthreejs.com/book/first-steps/animation-system/ The three.js Animation System}
  */
 
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { GUI } from "three/addons/libs/lil-gui.module.min.js";
 import { ExportToGLTF } from "./ExportToGLTF.1.js";
@@ -40,8 +42,6 @@ const params = {
   exportSceneObject: exportSceneObject,
   exportCompressedObject: exportCompressedObject,
 };
-
-init();
 
 function init() {
   container = document.createElement("div");
@@ -450,14 +450,17 @@ function init() {
   // ---------------------------------------------------------------------
   // Exporting compressed textures and meshes (KTX2 / Draco / Meshopt)
   // ---------------------------------------------------------------------
+  const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
   const ktpath = "https://unpkg.com/three@latest/examples/jsm/libs/basis/";
   const ktx2Loader = new KTX2Loader()
     .setTranscoderPath(ktpath)
     .detectSupport(renderer);
+  const dracoLoader = new DRACOLoader().setDecoderPath(drpath);
 
   const gltfLoader = new GLTFLoader().setPath("models/gltf/");
   gltfLoader.setKTX2Loader(ktx2Loader);
   gltfLoader.setMeshoptDecoder(MeshoptDecoder);
+  gltfLoader.setDRACOLoader(dracoLoader);
   gltfLoader.load("coffeemat.glb", function (gltf) {
     gltf.scene.position.x = 400;
     gltf.scene.position.z = -200;
@@ -467,7 +470,45 @@ function init() {
     coffeemat = gltf.scene;
   });
 
-  //
+  let mixer = null;
+
+  gltfLoader.load("plane.gltf", function (gltf) {
+    gltf.scene.position.set(50, 150, -100);
+    gltf.scene.scale.set(120, 120, 120);
+
+    scene1.add(gltf.scene);
+
+    const plane = gltf.scene;
+
+    // set up rotation about x axis
+    const xAxis = new THREE.Vector3(1, 0, 0);
+
+    const qInitial = new THREE.Quaternion().setFromAxisAngle(xAxis, 0);
+    const qMiddle = new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI);
+    const qFinal = new THREE.Quaternion().setFromAxisAngle(xAxis, 2 * Math.PI);
+    // prettier-ignore
+    const quaternionKF = new THREE.QuaternionKeyframeTrack(
+      ".quaternion",
+      [0, 1, 2],
+      [
+        qInitial.x, qInitial.y, qInitial.z, qInitial.w,
+        qMiddle.x, qMiddle.y, qMiddle.z, qMiddle.w,
+        qFinal.x, qFinal.y, qFinal.z, qFinal.w,
+      ],
+    );
+
+    // setup the THREE.AnimationMixer
+    mixer = new THREE.AnimationMixer(plane.children[0]);
+
+    const clip = new THREE.AnimationClip("propeller", -1, [quaternionKF]);
+
+    // create a ClipAction and set it to play
+    const clipAction = mixer.clipAction(
+      clip,
+      plane.children[0].children[4].children[5],
+    );
+    clipAction.play().setDuration(0.5);
+  });
 
   const gui = new GUI();
 
@@ -489,6 +530,23 @@ function init() {
   );
 
   gui.open();
+
+  const clock = new THREE.Clock();
+
+  function animate() {
+    const delta = clock.getDelta();
+    const timer = clock.elapsedTime * 0.1;
+
+    if (mixer) {
+      mixer.update(delta);
+    }
+
+    camera.position.x = Math.cos(timer) * 800;
+    camera.position.z = Math.sin(timer) * 800;
+
+    camera.lookAt(scene1.position);
+    renderer.render(scene1, camera);
+  }
 }
 
 function exportScene1() {
@@ -526,14 +584,4 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-//
-
-function animate() {
-  const timer = Date.now() * 0.0001;
-
-  camera.position.x = Math.cos(timer) * 800;
-  camera.position.z = Math.sin(timer) * 800;
-
-  camera.lookAt(scene1.position);
-  renderer.render(scene1, camera);
-}
+window.addEventListener("load", init);
