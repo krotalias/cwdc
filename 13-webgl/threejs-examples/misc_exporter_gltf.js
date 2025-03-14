@@ -494,6 +494,8 @@ function init() {
 
     // setup the THREE.AnimationMixer
     mixer = new THREE.AnimationMixer(plane.children[0]);
+    // remore octagons
+    for (let c = 0; c < 4; c++) plane.children[0].children[c].visible = false;
 
     const clip = new THREE.AnimationClip("propeller", -1, [quaternionKF]);
 
