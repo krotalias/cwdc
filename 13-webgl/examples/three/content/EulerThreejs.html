@@ -66,6 +66,14 @@
             <form>
                 <input type="checkbox" id="axes" name="axes" value="axes" />
                 <label for="axes">Axes</label><br />
+                <input
+                    type="checkbox"
+                    id="octagons"
+                    name="octagons"
+                    checked
+                    value="octagons"
+                />
+                <label for="octagons">Octagons</label><br />
                 <input type="checkbox" id="light" name="light" value="light" />
                 <label for="light">Switch Lights</label><br />
                 <div id="radio">
@@ -105,6 +113,8 @@
                     <li>Z - roll -15 degrees</li>
                     <li>l - switch lighting scheme</li>
                     <li>a - toggle axes visibility</li>
+                    <li>g - save gltf file</li>
+                    <li>v - toggle octagons visibility</li>
                     <li>↑,↓ - Zoom out/in</li>
                     <li>o - Reset to identity</li>
                     <li>SPACE - toggle auto rotate</li>
@@ -118,6 +128,7 @@
             {
                 "imports": {
                     "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
+                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/",
                     "TextGeometry": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/geometries/TextGeometry.js",
                     "FontLoader": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/loaders/FontLoader.js",
                     "BufferGeometryUtils": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/utils/BufferGeometryUtils.js"
