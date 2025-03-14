@@ -1,11 +1,39 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: examples/three/content/EulerThreejs.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: examples/three/content/EulerThreejs.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file
  *
  * Summary.
- * <p>Controls the orientation of an airplane using
+ * &lt;p>Controls the orientation of an airplane using
  * {@link https://en.wikipedia.org/wiki/Euler_angles Euler angles},
  * and it is slightly based on example
- * <a href="/cwdc/13-webgl/examples/transformations/content/Euler.js">Euler.js</a></p>
+ * &lt;a href="/cwdc/13-webgl/examples/transformations/content/Euler.js">Euler.js&lt;/a>&lt;/p>
  *
  * Note that to use our preferred convention of
  * {@link https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd intrinsic}
@@ -15,30 +43,30 @@
  * Three.js uses intrinsic {@link https://en.wikipedia.org/wiki/Euler_angles Tait-Bryan} angles.
  * This means that rotations are performed with respect to the local coordinate system.
  *
- * <p>For order XYZ, the three rotations are executed:</p>
- * <ol>
- *  <li>first around the local-X axis (which is the same as the world-X axis), </li>
- *  <li>then around local-Y (which may now be different from the world Y-axis), </li>
- *  <li>then local-Z (which may be different from the world Z-axis).</li>
- * </ol>
+ * &lt;p>For order XYZ, the three rotations are executed:&lt;/p>
+ * &lt;ol>
+ *  &lt;li>first around the local-X axis (which is the same as the world-X axis), &lt;/li>
+ *  &lt;li>then around local-Y (which may now be different from the world Y-axis), &lt;/li>
+ *  &lt;li>then local-Z (which may be different from the world Z-axis).&lt;/li>
+ * &lt;/ol>
  *
- * <p>A more recent version
+ * &lt;p>A more recent version
  * {@link https://unpkg.com/three@0.163.0/build/three.module.js?module @163}
  * of Three.js was chosen to update the
  * {@link AirPlane airplane} and the {@link Pilot pilot},
- * which were taken from:</p>
- * <ul>
- *  <li>{@link https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/ The Making of “The Aviator”: Animating a Basic 3D Scene with Three.js}
- * </ul>
+ * which were taken from:&lt;/p>
+ * &lt;ul>
+ *  &lt;li>{@link https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/ The Making of “The Aviator”: Animating a Basic 3D Scene with Three.js}
+ * &lt;/ul>
  *
  * @since 10/11/2014
  * @author {@link https://krotalias.github.io Paulo Roma}
  * @see {@link https://discoverthreejs.com/book/first-steps/transformations/ Transformations, Coordinate Systems, and the Scene Graph}
  * @see {@link https://threejs.org/docs/#api/en/math/Euler Euler Angles}
- * @see <a href="/cwdc/13-webgl/examples/three/content/EulerThreejs.html">link</a>
- * @see <a href="/cwdc/13-webgl/examples/three/content/EulerThreejs.js">source</a>
- * @see <iframe title="Euler" style="width: 650px; height: 512px; transform-origin: 0px 80px; transform: scale(0.75);" src="/cwdc/13-webgl/examples/three/content/EulerThreejs.html"></iframe>
- * @see <img src="../TIEaft-SWE.jpg" width="256" align="top"> <img src="../airplane.png" width="340" align="top">
+ * @see &lt;a href="/cwdc/13-webgl/examples/three/content/EulerThreejs.html">link&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/examples/three/content/EulerThreejs.js">source&lt;/a>
+ * @see &lt;iframe title="Euler" style="width: 650px; height: 512px; transform-origin: 0px 80px; transform: scale(0.75);" src="/cwdc/13-webgl/examples/three/content/EulerThreejs.html">&lt;/iframe>
+ * @see &lt;img src="../TIEaft-SWE.jpg" width="256" align="top"> &lt;img src="../airplane.png" width="340" align="top">
  */
 
 "use strict";
@@ -59,7 +87,7 @@ import { ExportToGLTF } from "/cwdc/13-webgl/threejs-examples/ExportToGLTF.1.js"
 let THREE;
 
 /**
- * <p>Main three.js namespace.</p>
+ * &lt;p>Main three.js namespace.&lt;/p>
  * {@link event:load Imported} from {@link external:three three.module.js}
  * @namespace THREE
  * @see {@link https://stackoverflow.com/questions/68528251/three-js-error-during-additional-components-importing Three.js ERROR during additional components importing}
@@ -101,7 +129,7 @@ let FontLoader;
 
 /**
  * Keep track of the Euler angles.
- * @type {Object<{x: Number, y: Number, z: Number}>}
+ * @type {Object&lt;{x: Number, y: Number, z: Number}>}
  */
 const euler = {
   x: 0.0, // pitch
@@ -147,7 +175,7 @@ const objects = {
 
 /**
  * RGB colors in hexadecimal.
- * @type {Object<String,Number>}
+ * @type {Object&lt;String,Number>}
  */
 const Colors = {
   red: 0xff0000,
@@ -174,7 +202,7 @@ const Colors = {
 
 /**
  * Turn the display of the model axes/animation on/off.
- * @type {Object<{axes:Boolean, auto_rotate: Boolean, light: Boolean}>}
+ * @type {Object&lt;{axes:Boolean, auto_rotate: Boolean, light: Boolean}>}
  */
 const selector = {
   auto_rotate: !document.getElementById("pause").checked,
@@ -200,8 +228,8 @@ const deg2rad = (deg) => THREE.MathUtils.degToRad(deg);
 const rad2deg = (rad) => THREE.MathUtils.radToDeg(rad);
 
 /**
- * <p>Loads the theejs module and the {@link mainEntrance application}.</p>
- * Unfortunately, importmap is only supported by Safari version 16.4 and later.<br>
+ * &lt;p>Loads the theejs module and the {@link mainEntrance application}.&lt;/p>
+ * Unfortunately, importmap is only supported by Safari version 16.4 and later.&lt;br>
  * Since I still use macOS Catalina, my Safari version is 15.6.1, which obliges me
  * to conditionally and dynamically load the threejs module.
  *
@@ -213,16 +241,16 @@ const rad2deg = (rad) => THREE.MathUtils.radToDeg(rad);
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await await}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/async_function async function}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import import statement}
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap <script type="importmap">}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap &lt;script type="importmap">}
  */
 window.addEventListener("load", (event) => {
   const { userAgent } = navigator;
   let oldSafari = false;
-  if (userAgent.includes("Safari/") && !userAgent.includes("Chrome/")) {
+  if (userAgent.includes("Safari/") &amp;&amp; !userAgent.includes("Chrome/")) {
     let version = userAgent.split("Version/")[1];
     version = version.split("Safari")[0];
     console.log(`Safari v${version}`);
-    if (version < "16.4") {
+    if (version &lt; "16.4") {
       oldSafari = true;
       import("/cwdc/13-webgl/lib/three.r163/build/three.module.js").then(
         (module) => {
@@ -263,10 +291,10 @@ if (document.querySelector('input[name="rot"]')) {
   document.querySelectorAll('input[name="rot"]').forEach((elem) => {
     /**
      * @summary Executed when any
-     * {@link handleKeyPress rot} &lt;input radio&gt;'s checkbox is checked (but not unchecked).
-     * <p>Appends an event listener for events whose type attribute value is change.
+     * {@link handleKeyPress rot} &amp;lt;input radio&amp;gt;'s checkbox is checked (but not unchecked).
+     * &lt;p>Appends an event listener for events whose type attribute value is change.
      * The callback argument sets the callback that will be invoked when
-     * the event is dispatched.</p>
+     * the event is dispatched.&lt;/p>
      *
      * @event changeRot
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
@@ -355,7 +383,7 @@ function handleKeyPress(event) {
         objects.shadowPlane.rotateX(Math.PI / 2);
         objects.shadowPlane.position.set(0, 0, -1);
         if (
-          !objects.scene.getObjectByName("spotLightHelper") &&
+          !objects.scene.getObjectByName("spotLightHelper") &amp;&amp;
           selector.axes
         ) {
           objects.scene.add(objects.spotLightHelper);
@@ -373,7 +401,7 @@ function handleKeyPress(event) {
         objects.scene.add(ambientLight);
         objects.shadowPlane.rotateX(-Math.PI / 2);
         objects.shadowPlane.position.set(0, -1, 0);
-        if (!objects.scene.getObjectByName("cameraHelper") && selector.axes) {
+        if (!objects.scene.getObjectByName("cameraHelper") &amp;&amp; selector.axes) {
           objects.scene.add(objects.cameraHelper);
         }
         if (objects.scene.getObjectByName("spotLightHelper")) {
@@ -427,7 +455,7 @@ function handleKeyPress(event) {
     case "v":
       // remove octagons
       selector.octagons = !selector.octagons;
-      for (let c = 0; c < 4; c++) {
+      for (let c = 0; c &lt; 4; c++) {
         objects.holder.children[c].visible = selector.octagons;
       }
       document.getElementById("octagons").checked = selector.octagons;
@@ -458,9 +486,9 @@ const createEvent = (key) => {
 const axes = document.getElementById("axes");
 /**
  * @summary Executed when the axes checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.
+ * &lt;p>Appends an event listener for events whose type attribute value is change.
  * The callback argument sets the callback that will be invoked when
- * the event is dispatched.</p>
+ * the event is dispatched.&lt;/p>
  *
  * @event changeAxes
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
@@ -470,9 +498,9 @@ axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 const octagons = document.getElementById("octagons");
 /**
  * @summary Executed when the octagons checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.
+ * &lt;p>Appends an event listener for events whose type attribute value is change.
  * The callback argument sets the callback that will be invoked when
- * the event is dispatched.</p>
+ * the event is dispatched.&lt;/p>
  *
  * @event changeOctagons
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
@@ -484,9 +512,9 @@ octagons.addEventListener("change", (event) =>
 const light = document.getElementById("light");
 /**
  * @summary Executed when the light checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.
+ * &lt;p>Appends an event listener for events whose type attribute value is change.
  * The callback argument sets the callback that will be invoked when
- * the event is dispatched.</p>
+ * the event is dispatched.&lt;/p>
  *
  * @event changeLight
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
@@ -517,7 +545,7 @@ function zoomOut() {
  */
 class Pilot {
   /**
-   * <p>Instanciates a new Pilot.</p>
+   * &lt;p>Instanciates a new Pilot.&lt;/p>
    * A pilot is made up of of a boby, hair, face, ear (right and left), and a glass.
    * It is a cool pilot with windblown. To simulate fluttering hair, we use only a few boxes.
    */
@@ -569,23 +597,23 @@ class Pilot {
     const hairs = new THREE.Object3D();
 
     /**
-     * <p>Pilot's hair container.</p>
-     * Hair is made up of a back, side (right and left), and top.<br>
-     * This top portion can be animated. It is a set of 12 boxes (4x4x4),<br>
+     * &lt;p>Pilot's hair container.&lt;/p>
+     * Hair is made up of a back, side (right and left), and top.&lt;br>
+     * This top portion can be animated. It is a set of 12 boxes (4x4x4),&lt;br>
      * disposed on a 4 x 3 grid on plane x-z:
-     * <pre>
+     * &lt;pre>
      *  (-4, -4) (-4, 0) (-4, 4)
      *  (0, -4)  (0, 0)  (0, 4)
      *  (4, -4)  (4, 0)  (4, 4)
      *  (8, -4)  (8, 0)  (8, 4)
-     * </pre>
+     * &lt;/pre>
      *
      * @type {THREE.Object3D}
      */
     this.hairsTop = new THREE.Object3D();
     this.hairsTop.name = "hairsTop";
 
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i &lt; 12; i++) {
       const h = hair.clone();
       const col = i % 3;
       const row = Math.floor(i / 3);
@@ -640,7 +668,7 @@ class Pilot {
   }
 
   /**
-   * <p>Animate pilot's hair.</p>
+   * &lt;p>Animate pilot's hair.&lt;/p>
    * Each hair element will scale its y coordinate on a cyclical basis,
    * between 75% and 100% of its original size.
    * @param {Number} increment amount to be added in each frame.
@@ -679,7 +707,7 @@ class AirPlane {
     const geomCockpit = new THREE.BoxGeometry(80, 50, 50, 1, 1, 1);
 
     /**
-     * <p>Self invoking anonymous function.</p>
+     * &lt;p>Self invoking anonymous function.&lt;/p>
      * We can access a specific vertex of a shape through
      * the vertices array, and then move its x, y and z property.
      */
@@ -900,7 +928,7 @@ function drawGlobalAxes(parent) {
   points.push(new THREE.Vector3(0, 0, 0));
 
   const axisLen = 2.0;
-  for (let i = 0; i < 3; ++i) {
+  for (let i = 0; i &lt; 3; ++i) {
     points[1] = new THREE.Vector3(
       i == 0 ? axisLen : 0,
       i == 1 ? axisLen : 0,
@@ -1152,8 +1180,8 @@ let hemisphereLight,
   spotLight;
 
 /**
- * <p>Lighting is certainly one of the trickiest parts when it comes to setting up a scene.</p>
- * The lights will set the mood of the whole scene and must be determined carefully.<br>
+ * &lt;p>Lighting is certainly one of the trickiest parts when it comes to setting up a scene.&lt;/p>
+ * The lights will set the mood of the whole scene and must be determined carefully.&lt;br>
  * Just make the lightning good enough to make the objects visible.
  * @param {THREE.Object3D} scene where you place objects, lights and cameras.
  * @see {@link https://threejs.org/docs/#api/en/lights/DirectionalLight DirectionalLight}
@@ -1227,9 +1255,9 @@ function createLights(scene) {
 }
 
 /**
- * <p>A simpler lighting scheme.</p>
+ * &lt;p>A simpler lighting scheme.&lt;/p>
  * Note that, without a global source of light, all surfaces will render black,
- * unless their emissive properties are also set.<br>
+ * unless their emissive properties are also set.&lt;br>
  * This can be avoided, by using an ambient or hemisphere light source.
  * @param {THREE.Object3D} scene where you place objects, lights and cameras.
  * @param {THREE.Object3D} target scene object target.
@@ -1311,15 +1339,15 @@ function createLights2(scene, target) {
  */
 function start(font) {
   /**
-   * <p>Key handler.</p>
+   * &lt;p>Key handler.&lt;/p>
    * Calls {@link handleKeyPress} whenever any of these keys is pressed:
-   * <ul>
-   *  <li>Space</li>
-   *  <li>ArrowUp</li>
-   *  <li>ArrowDown</li>
-   *  <li>ArrowLeft</li>
-   *  <li>ArrowRight</li>
-   * </ul>
+   * &lt;ul>
+   *  &lt;li>Space&lt;/li>
+   *  &lt;li>ArrowUp&lt;/li>
+   *  &lt;li>ArrowDown&lt;/li>
+   *  &lt;li>ArrowLeft&lt;/li>
+   *  &lt;li>ArrowRight&lt;/li>
+   * &lt;/ul>
    * @event keydown
    */
   addEventListener("keydown", (event) => {
@@ -1345,7 +1373,7 @@ function start(font) {
    */
 
   /**
-   * <p>A scene.</p>
+   * &lt;p>A scene.&lt;/p>
    * @type {THREE.Scene}
    * @global
    */
@@ -1356,7 +1384,7 @@ function start(font) {
   const aspect = width / height;
 
   /**
-   * <p>Camera that uses perspective projection.</p>
+   * &lt;p>Camera that uses perspective projection.&lt;/p>
    *
    * This projection mode is designed to mimic the way the human eye sees.
    * It is the most common projection mode used for rendering a 3D scene.
@@ -1366,7 +1394,7 @@ function start(font) {
    */
 
   /**
-   * <p>A perspective camera.</p>
+   * &lt;p>A perspective camera.&lt;/p>
    * @type {THREE.PerspectiveCamera}
    * @global
    */
@@ -1386,7 +1414,7 @@ function start(font) {
    */
 
   /**
-   * <p>A renderer.</p>
+   * &lt;p>A renderer.&lt;/p>
    * @type {THREE.WebGLRenderer}
    * @global
    */
@@ -1406,7 +1434,7 @@ function start(font) {
   renderer.toneMappingExposure = 1;
 
   /**
-   * <p>A container for everything: plane, pilot and {@link localAxes local axes}.</p>
+   * &lt;p>A container for everything: plane, pilot and {@link localAxes local axes}.&lt;/p>
    * Set the rotation order for Euler angles for this object container
    * to intrinsic "YZX": head (yaw), pitch, roll.
    * @type {THREE.Object3D}
@@ -1417,7 +1445,7 @@ function start(font) {
   holder.rotation.order = "YZX";
 
   /**
-   * <p>Fires when the document view (window) has been resized.</p>
+   * &lt;p>Fires when the document view (window) has been resized.&lt;/p>
    * Also resizes the canvas and viewport.
    * @callback handleWindowResize
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
@@ -1426,7 +1454,7 @@ function start(font) {
     let h = window.innerHeight;
     let w = window.innerWidth;
     if (h > w) {
-      h = w / aspect; // aspect < 1
+      h = w / aspect; // aspect &lt; 1
     } else {
       w = h * aspect; // aspect > 1
     }
@@ -1437,9 +1465,9 @@ function start(font) {
 
   /**
    * @summary Executed when the window is resized.
-   * <p>Appends an event listener for events whose type attribute value is resize.</p>
-   * <p>The {@link handleWindowResize callback} argument sets the callback
-   * that will be invoked when the event is dispatched.</p>
+   * &lt;p>Appends an event listener for events whose type attribute value is resize.&lt;/p>
+   * &lt;p>The {@link handleWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.&lt;/p>
    * @param {Event} event the document view is resized.
    * @param {callback} function function to run when the event occurs.
    * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
@@ -1484,7 +1512,7 @@ function start(font) {
   const material = new THREE.ShadowMaterial();
   material.opacity = 0.1;
   /**
-   * <p>Class representing triangular polygon mesh based objects.</p>
+   * &lt;p>Class representing triangular polygon mesh based objects.&lt;/p>
    * Also serves as a base for other classes such as
    * {@link https://threejs.org/docs/#api/en/objects/SkinnedMesh SkinnedMesh}.
    * @class Mesh
@@ -1493,7 +1521,7 @@ function start(font) {
    */
 
   /**
-   * <p>A plane for shadow.</p>
+   * &lt;p>A plane for shadow.&lt;/p>
    * @type {THREE.Mesh}
    * @global
    */
@@ -1509,11 +1537,11 @@ function start(font) {
   createLights(scene);
 
   /**
-   * <p>A built in function that can be used instead of
-   * {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}.</p>
+   * &lt;p>A built in function that can be used instead of
+   * {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame requestAnimationFrame}.&lt;/p>
    * The {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.setAnimationLoop renderer.setAnimationLoop}
    * parameter is a {@link animate callback,} which
-   * will be called every available frame.<br>
+   * will be called every available frame.&lt;br>
    * If null is passed it will stop any already ongoing animation.
    * @param {function} loop callback.
    * @function
@@ -1571,3 +1599,26 @@ function start(font) {
     };
   })();
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="FontLoader.html">FontLoader</a></li><li><a href="THREE.html">THREE</a></li><li><a href="TextGeometry.html">TextGeometry</a></li></ul><h3>Classes</h3><ul><li><a href="AirPlane.html">AirPlane</a></li><li><a href="ExportToGLTF.html">ExportToGLTF</a></li><li><a href="FontLoader.FontLoader.html">FontLoader</a></li><li><a href="Pilot.html">Pilot</a></li><li><a href="THREE.AxesHelper.html">AxesHelper</a></li><li><a href="THREE.CameraHelper.html">CameraHelper</a></li><li><a href="THREE.HemisphereLight.html">HemisphereLight</a></li><li><a href="THREE.Mesh.html">Mesh</a></li><li><a href="THREE.Object3D.html">Object3D</a></li><li><a href="THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="THREE.PointLightHelper.html">PointLightHelper</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.SpotLightHelper.html">SpotLightHelper</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="TextGeometry.TextGeometry.html">TextGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:KeyboardEvent">KeyboardEvent</a></li><li><a href="global.html#event:changeAxes">changeAxes</a></li><li><a href="global.html#event:changeLight">changeLight</a></li><li><a href="global.html#event:changeOctagons">changeOctagons</a></li><li><a href="global.html#event:changeRot">changeRot</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:resize">resize</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Colors">Colors</a></li><li><a href="global.html#axesHelper">axesHelper</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#cameraHelper">cameraHelper</a></li><li><a href="global.html#changeBox">changeBox</a></li><li><a href="global.html#createAirPlane">createAirPlane</a></li><li><a href="global.html#createLights">createLights</a></li><li><a href="global.html#createLights2">createLights2</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#displayAngles">displayAngles</a></li><li><a href="global.html#drawGlobalAxes">drawGlobalAxes</a></li><li><a href="global.html#drawLocalAxes">drawLocalAxes</a></li><li><a href="global.html#drawTwoOctagons">drawTwoOctagons</a></li><li><a href="global.html#drawTwoTriangles">drawTwoTriangles</a></li><li><a href="global.html#euler">euler</a></li><li><a href="global.html#exporter">exporter</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#hemisphereLight">hemisphereLight</a></li><li><a href="global.html#holder">holder</a></li><li><a href="global.html#localAxes">localAxes</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#objects">objects</a></li><li><a href="global.html#pointLightHelper">pointLightHelper</a></li><li><a href="global.html#rad2deg">rad2deg</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#scene">scene</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#shadowPlane">shadowPlane</a></li><li><a href="global.html#spotLightHelper">spotLightHelper</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#textGeometry">textGeometry</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Mar 14 2025 10:39:36 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
