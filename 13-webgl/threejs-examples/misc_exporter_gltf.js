@@ -21,6 +21,7 @@ import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { GUI } from "three/addons/libs/lil-gui.module.min.js";
 import { ExportToGLTF } from "./ExportToGLTF.1.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js?module";
 
 const exporter = new ExportToGLTF();
 
@@ -32,6 +33,7 @@ let gridHelper, sphere, model, coffeemat;
 const params = {
   trs: false,
   onlyVisible: true,
+  autoRotate: true,
   binary: false,
   maxTextureSize: 4096,
   exportScene1: exportScene1,
@@ -442,6 +444,13 @@ function init() {
   renderer.toneMappingExposure = 1;
 
   container.appendChild(renderer.domElement);
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.autoRotate = params.autoRotate;
+  controls.cursorZoom = true;
+
+  controls.addEventListener("change", () => {
+    renderer.render(scene1, camera);
+  });
 
   //
 
@@ -470,7 +479,7 @@ function init() {
     coffeemat = gltf.scene;
   });
 
-  let mixer = null;
+  const amixer = [];
 
   gltfLoader.load("plane.gltf", function (gltf) {
     gltf.scene.position.set(50, 150, -100);
@@ -480,31 +489,55 @@ function init() {
 
     const plane = gltf.scene;
 
+    const hairsTop =
+      plane.children[0].children[4].children[12].children[2].children[0];
+
+    const propeller = plane.children[0].children[4].children[5];
+
     // set up rotation about x axis
     const xAxis = new THREE.Vector3(1, 0, 0);
 
     const qInitial = new THREE.Quaternion().setFromAxisAngle(xAxis, 0);
     const qMiddle = new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI);
     const qFinal = new THREE.Quaternion().setFromAxisAngle(xAxis, 2 * Math.PI);
+
     const quaternionKF = new THREE.QuaternionKeyframeTrack(
       ".quaternion",
       [0, 1, 2],
       [...qInitial, ...qMiddle, ...qFinal],
     );
 
+    const scaleKF = new THREE.VectorKeyframeTrack(
+      ".scale",
+      [0, 1, 2],
+      [1, 1, 1, 1, 0.75, 1, 1, 1, 1],
+    );
+
     // setup the THREE.AnimationMixer
-    mixer = new THREE.AnimationMixer(plane.children[0]);
-    // remore octagons
+    let mixer = new THREE.AnimationMixer(plane.children[0]);
+    amixer.push(mixer);
+
+    // remove octagons
     for (let c = 0; c < 4; c++) plane.children[0].children[c].visible = false;
 
     const clip = new THREE.AnimationClip("propeller", -1, [quaternionKF]);
+    const clip2 = new THREE.AnimationClip("hairsTop", -1, [scaleKF]);
 
-    // create a ClipAction and set it to play
-    const clipAction = mixer.clipAction(
-      clip,
-      plane.children[0].children[4].children[5],
-    );
+    // create a ClipAction for the propeller and set it to play
+    let clipAction = mixer.clipAction(clip, propeller);
     clipAction.play().setDuration(0.5);
+
+    const duration = 0.5;
+    // create a ClipAction for each hair and set them to play
+    for (const [i, h] of hairsTop.children.entries()) {
+      mixer = new THREE.AnimationMixer(plane.children[0]);
+      amixer.push(mixer);
+      clipAction = mixer.clipAction(clip2, h);
+      clipAction
+        .startAt((duration / hairsTop.children.length) * i)
+        .setDuration(duration)
+        .play();
+    }
   });
 
   const gui = new GUI();
@@ -512,6 +545,11 @@ function init() {
   let h = gui.addFolder("Settings");
   h.add(params, "trs").name("Use TRS");
   h.add(params, "onlyVisible").name("Only Visible Objects");
+  h.add(params, "autoRotate")
+    .name("Auto Rotate")
+    .onChange((value) => {
+      controls.autoRotate = value;
+    });
   h.add(params, "binary").name("Binary (GLB)");
   h.add(params, "maxTextureSize", 2, 8192).name("Max Texture Size").step(1);
 
@@ -528,21 +566,29 @@ function init() {
 
   gui.open();
 
+  renderer.render(scene1, camera);
+
   const clock = new THREE.Clock();
 
   function animate() {
     const delta = clock.getDelta();
     const timer = clock.elapsedTime * 0.1;
 
-    if (mixer) {
-      mixer.update(delta);
+    if (amixer.length > 0) {
+      for (const m of amixer) {
+        m.update(delta);
+      }
+      renderer.render(scene1, camera);
     }
 
-    camera.position.x = Math.cos(timer) * 800;
-    camera.position.z = Math.sin(timer) * 800;
-
-    camera.lookAt(scene1.position);
-    renderer.render(scene1, camera);
+    if (false) {
+      camera.position.x = Math.cos(timer) * 800;
+      camera.position.z = Math.sin(timer) * 800;
+      camera.lookAt(scene1.position);
+      renderer.render(scene1, camera);
+    } else {
+      if (controls.autoRotate) controls.update();
+    }
   }
 }
 
