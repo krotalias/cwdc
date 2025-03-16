@@ -535,8 +535,6 @@ function init() {
       const duration = 0.5;
       // create a ClipAction for each hair and set them to play
       for (const [i, h] of hairsTop.children.entries()) {
-        mixer = new THREE.AnimationMixer(plane.children[0]);
-        amixer.push(mixer);
         clipAction = mixer.clipAction(clip2, h);
         clipAction
           .startAt((duration / hairsTop.children.length) * i)
@@ -546,7 +544,7 @@ function init() {
     })
     .catch((error) => {
       console.error(
-        `${error.name}: init (no "${plane.gltf}" found)\n${error.message}`,
+        `${error.name}: init (loadAsync "plane.gltf")\n${error.message}`,
       );
     });
 
