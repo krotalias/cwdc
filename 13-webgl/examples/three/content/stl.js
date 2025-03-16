@@ -1246,7 +1246,7 @@ function init(dfile) {
       if (geometry.animations[0]) {
         mixer = new THREE.AnimationMixer(model);
 
-        if (geometry.animations[3]) {
+        if (loadedModelName.includes("Soldier")) {
           // Soldier.glb
           mixer
             .clipAction(geometry.animations[0])
