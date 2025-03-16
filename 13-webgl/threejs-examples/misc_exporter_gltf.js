@@ -519,7 +519,7 @@ function init() {
       );
 
       // setup the THREE.AnimationMixer
-      let mixer = new THREE.AnimationMixer(plane.children[0]);
+      let mixer = new THREE.AnimationMixer(plane);
       amixer.push(mixer);
 
       // remove octagons
@@ -535,6 +535,8 @@ function init() {
       const duration = 0.5;
       // create a ClipAction for each hair and set them to play
       for (const [i, h] of hairsTop.children.entries()) {
+        mixer = new THREE.AnimationMixer(plane);
+        amixer.push(mixer);
         clipAction = mixer.clipAction(clip2, h);
         clipAction
           .startAt((duration / hairsTop.children.length) * i)
