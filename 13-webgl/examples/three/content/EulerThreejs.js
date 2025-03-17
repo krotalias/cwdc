@@ -310,6 +310,47 @@ function displayAngles() {
 const exporter = new ExportToGLTF();
 
 /**
+ * Creates an
+ * {@link https://threejs.org/docs/#api/en/animation/AnimationClip AnimationClip}
+ * array and returns it into an option object.
+ * @returns {Object<{animations:Array<AnimationClip>}>} options
+ */
+function clipOptions() {
+  // set up rotation about x axis
+  const xAxis = new THREE.Vector3(1, 0, 0);
+
+  const qInitial = new THREE.Quaternion().setFromAxisAngle(xAxis, 0);
+  const qMiddle = new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI);
+  const qFinal = new THREE.Quaternion().setFromAxisAngle(xAxis, 2 * Math.PI);
+
+  const quaternionKF = new THREE.QuaternionKeyframeTrack(
+    "propeller.quaternion",
+    [0, 1, 2],
+    [...qInitial, ...qMiddle, ...qFinal],
+  );
+
+  const scaleKF = new THREE.VectorKeyframeTrack(
+    "hairsTop.scale",
+    [0, 1, 2],
+    [1, 1, 1, 1, 0.75, 1, 1, 1, 1],
+  );
+
+  const newClip = (name, action) => {
+    return new THREE.AnimationClip(name, -1, action);
+  };
+
+  const arrClip = [];
+  arrClip.push(newClip("propeller", [quaternionKF]));
+  for (let i = 0; i < 12; ++i) {
+    arrClip.push(newClip(`mesh_16_instance_${i}`, [scaleKF]));
+  }
+
+  return {
+    animations: arrClip,
+  };
+}
+
+/**
  * Handler for key press events.
  * @param {KeyboardEvent} event keyboard event.
  */
@@ -422,7 +463,7 @@ function handleKeyPress(event) {
       objects.camera.updateProjectionMatrix();
       break;
     case "g":
-      exporter.exportGLTF(objects.holder);
+      exporter.exportGLTF(objects.holder, clipOptions());
       break;
     case "v":
       // remove octagons
