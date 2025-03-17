@@ -7,6 +7,7 @@
  *
  * @since 10/03/2025
  * @author {@link https://github.com/mrdoob/three.js/blob/master/examples/misc_exporter_gltf.html unknown}
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @see <a href="/cwdc/13-webgl/threejs-examples/misc_exporter_gltf.html">link</a>
  * @see <a href="/cwdc/13-webgl/threejs-examples/misc_exporter_gltf.js">source</a>
  * @see <a href="/cwdc/13-webgl/threejs-examples/ExportToGLTF.1.js">ExportToGLTF source</a>
@@ -45,6 +46,9 @@ const params = {
   exportCompressedObject: exportCompressedObject,
 };
 
+/**
+ * Callback to load the apllication.
+ */
 function init() {
   container = document.createElement("div");
   document.body.appendChild(container);
@@ -448,12 +452,32 @@ function init() {
   controls.autoRotate = params.autoRotate;
   controls.cursorZoom = true;
 
+  /**
+   * @summary Appends an event listener for events whose type attribute value is change.
+   *
+   * <p>Fired when the "Auto Rotate" &lt;input type="checkbox"&gt; is
+   * checked or unchecked (by clicking or using the keyboard).</p>
+   * The callback argument sets the {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer.render callback}
+   * that will be invoked when the event is dispatched.
+   *
+   * @event change
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
   controls.addEventListener("change", () => {
     renderer.render(scene1, camera);
   });
 
-  //
-
+  /**
+   * <p>Fires when the document view (window) has been resized.</p>
+   * <p>The {@link onWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @summary Appends an event listener for events whose type attribute value is resize.
+   * @param {Event} event a generic event.
+   * @param {callback} function function to run when the event occurs.
+   * @param {Boolean} useCapture handler is executed in the bubbling or capturing phase.
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+   */
   window.addEventListener("resize", onWindowResize);
 
   // ---------------------------------------------------------------------
@@ -481,6 +505,15 @@ function init() {
 
   const amixer = [];
 
+  /**
+   * Loads the plane model {@link https://threejs.org/docs/#api/en/loaders/Loader.loadAsync asynchronously}.
+   *
+   * @global
+   * @function gltfLoader.loadAsync
+   * @param {string} gltf file name.
+   * @see {@link https://threejs.org/docs/#api/en/animation/AnimationMixer AnimationMixer}
+   * @see {@link https://threejs.org/docs/#api/en/animation/AnimationClip AnimationClip}
+   */
   gltfLoader
     .loadAsync("plane.gltf")
     .then((gltf) => {
@@ -647,6 +680,9 @@ function exportCompressedObject() {
   exporter.exportGLTF([coffeemat], params);
 }
 
+/**
+ * Callback to set the camera aspect ratio and renderer size.
+ */
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -654,4 +690,13 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+/**
+ * <p>Load the {@link init application}.</p>
+ *
+ * Fired when the whole page has loaded,
+ * including all dependent resources such as
+ * stylesheets, scripts, iframes, and images, except those that are loaded lazily.
+ *
+ * @event load
+ */
 window.addEventListener("load", init);
