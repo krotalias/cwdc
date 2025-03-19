@@ -4,9 +4,13 @@
  * Summary.
  *
  * <p>Create a scene with several models and export them to a file in GLTF format.</p>
+ * <p>Added a <a href="/cwdc/13-webgl/examples/three/content/EulerThreejs.html">plane model</a> with
+ * {@link https://discourse.threejs.org/t/official-misc-exporter-gltf-example-revisited-for-animationclip/79601/5 animation clips}
+ * for the <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=orbit&file=plane.gltf">hair and propeller</a>.<p>
  *
- * @since 10/03/2025
- * @author {@link https://github.com/mrdoob/three.js/blob/master/examples/misc_exporter_gltf.html unknown}
+ * @since 17/10/2024
+ * @author {@link https://github.com/mrdoob/three.js/commits?author=donmccurdy Don McCurdy }
+ * @author {@link https://github.com/mrdoob/three.js/commits?author=Mugen87 Michael Herzog}
  * @author {@link https://krotalias.github.io Paulo Roma}
  * @see <a href="/cwdc/13-webgl/threejs-examples/misc_exporter_gltf.html">link</a>
  * @see <a href="/cwdc/13-webgl/threejs-examples/misc_exporter_gltf.js">source</a>
@@ -23,6 +27,27 @@ import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { GUI } from "three/addons/libs/lil-gui.module.min.js";
 import { ExportToGLTF } from "./ExportToGLTF.1.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js?module";
+
+/**
+ * Three.js module.
+ * @external three
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}
+ * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
+ * @see {@link https://discoverthreejs.com DISCOVER three.js}
+ * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
+ * @see {@link https://github.com/mrdoob/three.js github}
+ * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
+ * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ */
+
+/**
+ * <p>Main three.js namespace.</p>
+ * <a href="/cwdc/13-webgl/examples/three/content/doc-example/index.html">Imported</a> from {@link external:three three.module.js}
+ *
+ * @namespace THREE
+ */
 
 const exporter = new ExportToGLTF();
 
@@ -84,13 +109,21 @@ function init() {
   // ---------------------------------------------------------------------
   // Perspective Camera
   // ---------------------------------------------------------------------
-  camera = new THREE.PerspectiveCamera(
-    45,
-    window.innerWidth / window.innerHeight,
-    1,
-    2000,
-  );
-  camera.position.set(600, 400, 0);
+  /**
+   * Aspect ratio of the camera.
+   * @type {number}
+   * @global
+   */
+  const aspect = window.innerWidth / window.innerHeight;
+
+  /**
+   * Camera that uses perspective projection.
+   * @class PerspectiveCamera
+   * @memberof THREE
+   * @see https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
+   */
+  camera = new THREE.PerspectiveCamera(60, aspect, 1, 5000);
+  camera.position.set(800, 400, 0);
 
   camera.name = "PerspectiveCamera";
   scene1.add(camera);
@@ -321,8 +354,13 @@ function init() {
   // ---------------------------------------------------------------------
 
   const height = 1000; // frustum height
-  const aspect = window.innerWidth / window.innerHeight;
 
+  /**
+   * Camera that uses orthographic projection.
+   * @class OrthographicCamera
+   * @memberof THREE
+   * @see https://threejs.org/docs/#api/en/cameras/OrthographicCamera
+   */
   const cameraOrtho = new THREE.OrthographicCamera(
     -height * aspect,
     height * aspect,
@@ -393,6 +431,22 @@ function init() {
   // ---------------------------------------------------------------------
   // Model requiring KHR_mesh_quantization
   // ---------------------------------------------------------------------
+  /**
+   * <p>A loader for glTF 2.0 resources.</p>
+   glTF (GL Transmission Format) is an open format specification for efficient delivery and loading of 3D content.
+   Assets may be provided either in JSON (.gltf) or binary (.glb) format. External files store textures (.jpg, .png)
+   and additional binary data (.bin). A glTF asset may deliver one or more scenes,
+   including meshes, materials, textures, skins, skeletons, morph targets, animations, lights, and/or cameras.
+   * @class GLTFLoader
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#examples/en/loaders/GLTFLoader GLTF Loader}
+   * @see {@link https://gltf-viewer.donmccurdy.com glTF Viewer}
+   * @see {@link https://github.khronos.org/glTF-Sample-Viewer-Release/ glTF Sample Viewer}
+   * @see {@link https://github.com/KhronosGroup/glTF-Sample-Viewer github}
+   * @see {@link https://github.khronos.org/glTF-Compressor-Release/ glTF Compressor}
+   * @see {@link https://gltf.report gltf Report}
+   * @see {@link https://gltf-transform.dev/ glTF Transform}
+   */
   const loader = new GLTFLoader();
   loader.load("models/gltf/ShaderBall.glb", function (gltf) {
     model = gltf.scene;
@@ -447,10 +501,13 @@ function init() {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1;
 
-  container.appendChild(renderer.domElement);
-  const controls = new OrbitControls(camera, renderer.domElement);
+  const canvas = renderer.domElement;
+  container.appendChild(canvas);
+  const controls = new OrbitControls(camera, canvas);
   controls.autoRotate = params.autoRotate;
   controls.cursorZoom = true;
+  controls.maxDistance = 3000;
+  controls.minDistance = 0;
 
   /**
    * @summary Appends an event listener for events whose type attribute value is change.
@@ -466,6 +523,18 @@ function init() {
   controls.addEventListener("change", () => {
     renderer.render(scene1, camera);
   });
+
+  /**
+   * Callback to set the camera aspect ratio and renderer size.
+   * @global
+   */
+  function onWindowResize() {
+    const h = window.innerHeight;
+    const w = window.innerWidth;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
 
   /**
    * <p>Fires when the document view (window) has been resized.</p>
@@ -494,6 +563,18 @@ function init() {
   gltfLoader.setKTX2Loader(ktx2Loader);
   gltfLoader.setMeshoptDecoder(MeshoptDecoder);
   gltfLoader.setDRACOLoader(dracoLoader);
+
+  /**
+   * <p>This method needs to be implemented by all concrete loaders.
+   * It holds the logic for loading the asset from the backend. <p>
+   * @summary Loads the coffeemat model {@link https://threejs.org/docs/#api/en/loaders/Loader.load asynchronously}.
+   *
+   * @method load
+   * @memberof THREE.GLTFLoader
+   * @param {string} gltf file name.
+   * @see {@link THREE.AnimationMixer}
+   * @see {@link THREE.AnimationClip}
+   */
   gltfLoader.load("coffeemat.glb", function (gltf) {
     gltf.scene.position.x = 400;
     gltf.scene.position.z = -200;
@@ -507,12 +588,14 @@ function init() {
 
   /**
    * Loads the plane model {@link https://threejs.org/docs/#api/en/loaders/Loader.loadAsync asynchronously}.
+   * <p>This method is equivalent to .load, but returns a Promise.</p>
+   * onLoad is handled by Promise.resolve and onError is handled by Promise.reject.
    *
-   * @global
-   * @function gltfLoader.loadAsync
+   * @method loadAsync
+   * @memberof THREE.GLTFLoader
    * @param {string} gltf file name.
-   * @see {@link https://threejs.org/docs/#api/en/animation/AnimationMixer AnimationMixer}
-   * @see {@link https://threejs.org/docs/#api/en/animation/AnimationClip AnimationClip}
+   * @see {@link THREE.AnimationMixer}
+   * @see {@link THREE.AnimationClip}
    */
   gltfLoader
     .loadAsync("plane.gltf")
@@ -562,10 +645,27 @@ function init() {
         [1, 1, 1, 1, 0.75, 1, 1, 1, 1],
       );
 
-      // setup the THREE.AnimationMixer
+      /**
+       * The AnimationMixer is a player for animations on a particular object in the scene.
+       * When multiple objects in the scene are animated independently,
+       * one AnimationMixer may be used for each object.
+       * @class AnimationMixer
+       * @memberof THREE
+       * @see {@link https://threejs.org/docs/#api/en/animation/AnimationMixer Animation Mixer}
+       */
       let mixer = new THREE.AnimationMixer(plane);
       amixer.push(mixer);
 
+      /**
+       *  <p>An AnimationClip is a reusable set of keyframe tracks which represent an animation.<p>
+       *
+       * For an overview of the different elements of the three.js animation system see the
+       * "Animation System" article in the "Next Steps" section of the manual.
+       *
+       * @class AnimationClip
+       * @memberof THREE
+       * @see {@link https://threejs.org/docs/#api/en/animation/AnimationClip AnimationClip}
+       */
       const clip = new THREE.AnimationClip("propeller", -1, [quaternionKF]);
       const clip2 = new THREE.AnimationClip("hairsTop", -1, [scaleKF]);
 
@@ -579,19 +679,24 @@ function init() {
         : mixer.clipAction(clip, propeller);
 
       clipAction.play().setDuration(0.5);
+
       const duration = 0.5;
       // create a clipAction for each hair and set them to play
-      for (const [i, h] of hairsTop.children.entries()) {
-        mixer = new THREE.AnimationMixer(plane);
-        amixer.push(mixer);
-        clipAction = useAnimations
-          ? mixer.clipAction(gltf.animations[i + 1])
-          : mixer.clipAction(clip2, h);
-
-        clipAction
-          .startAt((duration / hairsTop.children.length) * i)
-          .setDuration(duration)
-          .play();
+      if (useAnimations) {
+        for (let i = 1; i <= hairsTop.children.length; i++) {
+          //mixer = new THREE.AnimationMixer(plane);
+          //amixer.push(mixer);
+          clipAction = mixer.clipAction(gltf.animations[i]);
+          clipAction.setDuration(duration).play();
+        }
+      } else {
+        for (const [i, h] of hairsTop.children.entries()) {
+          clipAction = mixer.clipAction(clip2, h);
+          clipAction
+            .setDuration(duration)
+            .startAt((duration / hairsTop.children.length) * i)
+            .play();
+        }
       }
     })
     .catch((error) => {
@@ -623,6 +728,8 @@ function init() {
   h.add(params, "exportCompressedObject").name(
     "Export Coffeemat (from compressed data)",
   );
+
+  h.close();
 
   gui.open();
 
@@ -678,16 +785,6 @@ function exportSceneObject() {
 
 function exportCompressedObject() {
   exporter.exportGLTF([coffeemat], params);
-}
-
-/**
- * Callback to set the camera aspect ratio and renderer size.
- */
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-
-  renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 /**
