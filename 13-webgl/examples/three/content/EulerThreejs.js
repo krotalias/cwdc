@@ -213,7 +213,7 @@ const rad2deg = (rad) => THREE.MathUtils.radToDeg(rad);
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await await}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/async_function async function}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import import statement}
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap <script type="importmap">}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap &lt;script type="importmap"&gt;}
  */
 window.addEventListener("load", (event) => {
   const { userAgent } = navigator;
@@ -1363,7 +1363,7 @@ function start(font) {
    * </ul>
    * @event keydown
    */
-  addEventListener("keydown", (event) => {
+  window.addEventListener("keydown", (event) => {
     if (
       ["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
         event.code,
@@ -1458,9 +1458,9 @@ function start(font) {
   holder.rotation.order = "YZX";
 
   /**
-   * <p>Fires when the document view (window) has been resized.</p>
+   * <p>Callback invoked when the document view (window) has been resized.</p>
    * Also resizes the canvas and viewport.
-   * @callback handleWindowResize
+   * @global
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   function handleWindowResize() {
