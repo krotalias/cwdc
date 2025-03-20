@@ -43,8 +43,6 @@
 
 "use strict";
 
-import { ExportToGLTF } from "/cwdc/13-webgl/threejs-examples/ExportToGLTF.1.js";
-
 /**
  * Three.js module.
  * @external three
@@ -98,6 +96,14 @@ let FontLoader;
  * @memberof FontLoader
  * @see {@link https://threejs.org/docs/#examples/en/loaders/FontLoader FontLoader}
  */
+
+let ExportToGLTF;
+
+/**
+ * Exporter to GLTF.
+ * @type {ExportToGLTF}
+ */
+let exporter;
 
 /**
  * Keep track of the Euler angles.
@@ -235,8 +241,20 @@ window.addEventListener("load", (event) => {
               "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/FontLoader.js"
             ).then((module) => {
               ({ FontLoader } = module);
-              mainEntrance();
-              return;
+              import("/cwdc/13-webgl/threejs-examples/ExportToGLTF.1.js")
+                .then((module) => {
+                  ({ ExportToGLTF } = module);
+                  exporter = new ExportToGLTF();
+                })
+                .catch((reason) => {
+                  console.error(
+                    `Could not load ExportToGLTF: ${reason.message}`,
+                  );
+                })
+                .finally(() => {
+                  mainEntrance();
+                  return;
+                });
             });
           });
         },
@@ -252,7 +270,13 @@ window.addEventListener("load", (event) => {
         ({ TextGeometry } = module);
         import("FontLoader").then((module) => {
           ({ FontLoader } = module);
-          mainEntrance();
+          import("/cwdc/13-webgl/threejs-examples/ExportToGLTF.1.js").then(
+            (module) => {
+              ({ ExportToGLTF } = module);
+              exporter = new ExportToGLTF();
+              mainEntrance();
+            },
+          );
         });
       });
     });
@@ -302,12 +326,6 @@ function displayAngles() {
   RotateZ(${euler["z"].toFixed(2)})
   `;
 }
-
-/**
- * Exporter to GLTF.
- * @type {ExportToGLTF}
- */
-const exporter = new ExportToGLTF();
 
 /**
  * Creates an
@@ -463,7 +481,7 @@ function handleKeyPress(event) {
       objects.camera.updateProjectionMatrix();
       break;
     case "g":
-      exporter.exportGLTF(objects.holder, clipOptions());
+      if (exporter) exporter.exportGLTF(objects.holder, clipOptions());
       break;
     case "v":
       // remove octagons
