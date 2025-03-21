@@ -575,6 +575,7 @@ function init(dfile) {
    * @see {@link https://threejs.org/docs/#examples/en/controls/ArcballControls ArcballControls}
    * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html?gui=1">Cerberus</a>
    * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.html">Cerberus (no Gui)</a>
+   * @see <a href="/cwdc/13-webgl/examples/three/content/doc-cerberus/index.html">jsdoc</a>
    * @see <a href="/cwdc/13-webgl/examples/three/content/misc_controls_arcball.js">source</a>
    * @see <a href="https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/examples/three/content/misc_controls_arcball.html">html</a>
    * @see <figure>
