@@ -384,7 +384,7 @@ async function loadTexturesAsync(dfile) {
  * passing all this data to the GPU.
  * @class BufferGeometry
  * @memberof THREE
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
  */
 
 /**
@@ -522,7 +522,7 @@ function init(dfile) {
    * The WebGL renderer displays your beautifully crafted scenes using WebGL.
    * @class WebGLRenderer
    * @memberof THREE
-   * @see https://threejs.org/docs/#api/en/renderers/WebGLRenderer
+   * @see {@link https://threejs.org/docs/#api/en/renderers/WebGLRenderer WebGLRenderer}
    */
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
@@ -548,7 +548,7 @@ function init(dfile) {
    * Camera that uses perspective projection.
    * @class PerspectiveCamera
    * @memberof THREE
-   * @see https://threejs.org/docs/#api/en/cameras/PerspectiveCamera
+   * @see {@link https://threejs.org/docs/#api/en/cameras/PerspectiveCamera PerspectiveCamera}
    */
   const camera = new THREE.PerspectiveCamera(45, aspect, 0.01, 1000);
 
@@ -557,7 +557,7 @@ function init(dfile) {
    * This is where you place objects, lights and cameras.
    * @class Scene
    * @memberof THREE
-   * @see https://threejs.org/docs/#api/en/scenes/Scene
+   * @see {@link https://threejs.org/docs/#api/en/scenes/Scene Scene}
    */
   const scene = new THREE.Scene();
   scene.add(camera);
@@ -599,7 +599,7 @@ function init(dfile) {
    * it does not flip to stay "right side up".
    * @class TrackballControls
    * @memberof THREE
-   * @see https://threejs.org/docs/#examples/en/controls/TrackballControls
+   * @see {@link https://threejs.org/docs/#examples/en/controls/TrackballControls TrackballControls}
    */
   const controls =
     ctrlType == ctype.ARCBALL
@@ -1261,7 +1261,9 @@ function init(dfile) {
             .setEffectiveWeight(0.0)
             .play();
         } else {
-          mixer.clipAction(geometry.animations[0]).play();
+          for (const i of geometry.animations) {
+            mixer.clipAction(i).play();
+          }
         }
       }
     } else {
