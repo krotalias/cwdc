@@ -25,11 +25,11 @@
 
 "use strict";
 
-import * as THREE from "https://unpkg.com/three@latest/build/three.module.js?module";
-import { ArcballControls } from "https://unpkg.com/three@latest/examples/jsm/controls/ArcballControls.js?module";
-import { OBJLoader } from "https://unpkg.com/three@latest/examples/jsm/loaders/OBJLoader.js?module";
-import { RGBELoader } from "https://unpkg.com/three@latest/examples/jsm/loaders/RGBELoader.js?module";
-import { GUI } from "https://unpkg.com/three@latest/examples/jsm/libs/lil-gui.module.min.js?module";
+import * as THREE from "three";
+import { ArcballControls } from "three/addons/controls/ArcballControls.js";
+import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
+import { GUI } from "three/addons/libs/lil-gui.module.min.js";
 
 /**
  * Array of camera types.
