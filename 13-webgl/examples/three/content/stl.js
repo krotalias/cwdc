@@ -169,8 +169,10 @@ import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
 
-const drpath = "https://unpkg.com/three@latest/examples/jsm/libs/draco/gltf/";
-const ktpath = "https://unpkg.com/three@latest/examples/jsm/libs/basis/";
+const drpath =
+  "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/libs/draco/gltf/";
+const ktpath =
+  "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/libs/basis/";
 
 /**
  * ArcballControls zoom and pan do not work on mobile devices.
@@ -1249,6 +1251,7 @@ function init(dfile) {
 
         if (loadedModelName.includes("Soldier")) {
           // Soldier.glb
+          model.rotation.set(0, Math.PI, 0);
           mixer
             .clipAction(geometry.animations[0])
             .setEffectiveWeight(0.0)
