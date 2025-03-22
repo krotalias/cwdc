@@ -22,13 +22,8 @@
  *      <img src="../LittlestTokyo.jpg" HEIGHT="320">
  */
 
-// import { BufferGeometry, EdgesGeometry } from "three";
-// import { mergeAttributes } from "three/addons/utils/BufferGeometryUtils.js?module";
-import {
-  BufferGeometry,
-  EdgesGeometry,
-} from "https://unpkg.com/three@latest/build/three.module.js?module";
-import { mergeAttributes } from "https://unpkg.com/three@latest/examples/jsm/utils/BufferGeometryUtils.js?module";
+import { BufferGeometry, EdgesGeometry } from "three";
+import { mergeAttributes } from "three/addons/utils/BufferGeometryUtils.js?module";
 
 /**
  * This is the base class for most objects in three.js and provides
