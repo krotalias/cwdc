@@ -4,8 +4,8 @@
  * Summary.
  * <p>Renders a Christmas scene - Merry (Early) Christmas.</p>
  *
- * @author Paulo Roma
- * @author Flavia Cavalcanti
+ * @author {@link https://krotalias.github.io Paulo Roma}
+ * @author {@link https://www.artstation.com/flavulous Flavia Cavalcanti}
  * @copyright © 2022-2024 Paulo R Cavalcanti.
  * @since 10/02/2024
  *
