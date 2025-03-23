@@ -46,6 +46,9 @@
 /**
  * Three.js module.
  * @external three
+ * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
+ * @since 24/04/2010
+ * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}
  * @see {@link https://threejs.org/docs/#manual/en/introduction/Installation Installation}
  * @see {@link https://discoverthreejs.com DISCOVER three.js}
  * @see {@link https://riptutorial.com/ebook/three-js Learning three.js}
@@ -53,6 +56,7 @@
  * @see {@link https://github.com/mrdoob/three.js github}
  * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
  * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ * @see <a href="/cwdc/13-webgl/lib/three.txt">Notes</a>
  */
 let THREE;
 
@@ -341,17 +345,22 @@ function clipOptions() {
   const qMiddle = new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI);
   const qFinal = new THREE.Quaternion().setFromAxisAngle(xAxis, 2 * Math.PI);
 
+  const numHairs = objects.holder.getObjectByName("hairsTop").children.length;
+
   const quaternionKF = new THREE.QuaternionKeyframeTrack(
     "propeller.quaternion",
     [0, 1, 2],
     [...qInitial, ...qMiddle, ...qFinal],
   );
 
-  const scaleKF = new THREE.VectorKeyframeTrack(
-    "hairsTop.scale",
-    [0, 1, 2],
-    [1, 1, 1, 1, 0.75, 1, 1, 1, 1],
-  );
+  const scaleKF = (i) => {
+    const j = (0.5 / numHairs) * i;
+    return new THREE.VectorKeyframeTrack(
+      `hairsTop.scale`,
+      [0, 1, 2],
+      [1, 1, 1, 1, 0.75, 1, 1, 1, 1],
+    ).shift(j);
+  };
 
   const newClip = (name, action) => {
     return new THREE.AnimationClip(name, -1, action);
@@ -359,8 +368,8 @@ function clipOptions() {
 
   const arrClip = [];
   arrClip.push(newClip("propeller", [quaternionKF]));
-  for (let i = 0; i < 12; ++i) {
-    arrClip.push(newClip(`mesh_16_instance_${i}`, [scaleKF]));
+  for (let i = 0; i < numHairs; ++i) {
+    arrClip.push(newClip(`mesh_16_instance_${i}`, [scaleKF(i)]));
   }
 
   return {

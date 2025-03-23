@@ -1,0 +1,30 @@
+Notes:
+
+Until three@0.160.0, three.js supported UMD (Universal Module Definition).
+From version @161 and beyond, three.js started to use only ESD (ES Modules),
+and import should be done using importmap. The reason was to allow shipping the addon files.
+
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/",
+            "TextGeometry": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/geometries/TextGeometry.js",
+            "FontLoader": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/loaders/FontLoader.js",
+            "BufferGeometryUtils": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/utils/BufferGeometryUtils.js"
+        }
+    }
+</script>
+
+In this directory, there are the last files from version @160:
+• three.js
+• three.min.js
+• three.module.js
+• three.module.min.js
+
+Both build files contain the same logic; it’s just exported differently.
+File three.js is a UMD file, whereas three.module.js uses ES6 modules.
+
+For this reason, we also supply file TeapotGeometry.js, which uses three.module.js
+fromm @160 and TeapotGeometry-func.js, which is packed into a funcion, and should be used
+whenever UMD modules are needed.
