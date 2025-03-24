@@ -5,7 +5,7 @@
  *
  * <p>Similar to the two cubes <a href="/cwdc/13-webgl/doc-test2">example</a>.</p>
  *
- * <p>There are two cubes and an X. The cubes also orbit around the X as satelytes.</p>
+ * <p>There are two cubes and an X. The cubes also orbit around the X as satellites.</p>
  *
  * <ul>
  * <li>An animation of a colored X orbiting clockwise
@@ -30,12 +30,13 @@
  *  <li>it uses the type {@link Matrix4} from the teal book utilities in cuon-matrix.js</li>
  * </ol>
  *
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 27/09/2016
  * @copyright © 2024 Paulo R Cavalcanti
  * @license {@link https://www.gnu.org/licenses/gpl-3.0.en.html GPLv3}
  * @see <a href="/cwdc/13-webgl/homework/hw3/test.html?rev=3">link</a>
  * @see <a href="/cwdc/13-webgl/homework/hw3/test.js">source</a>
+ * @see <a href="/cwdc/13-webgl/homework/hw3/CS336_review_notes.pdf">review notes</a>
  * @see <iframe title="Two cubes orbting an X" style="position: relative; top: 0px; margin-bottom: -250px; width: 820px; height: 520px; transform-origin: 0px 20px; transform: scale(0.5);" src="/cwdc/13-webgl/homework/hw3/test.html?rev=3"></iframe>
  */
 
@@ -115,8 +116,8 @@ const viewMatrix = new Matrix4().setLookAt(
  *  corresponding to the screen aspect ratio.</li>
  * </ul>
  * <ol>
- *  <li>let projection = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6)</li>
- *  <li>let projection = new Matrix4().setPerspective(50, aspect, 0.4, 100)</li>
+ *  <li>const projection = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6)</li>
+ *  <li>const projection = new Matrix4().setPerspective(50, aspect, 0.4, 100)</li>
  * </ol>
  * @type {Matrix4}
  */
@@ -479,8 +480,8 @@ function mainEntrance() {
 /**
  * Triggers the {@link mainEntrance} animation.
  *
- * @event load - run the animation.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => {
   mainEntrance();

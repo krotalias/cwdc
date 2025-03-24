@@ -5,7 +5,7 @@
  *
  * <p>Two cubes in a circular orbit.
  *
- * The smaller also orbits around the greatest as a satelyte.</p>
+ * The smaller also orbits around the greatest as a satellite.</p>
  * <ul>
  *  <li>An animation of a colored unit cube orbiting counterclockwise
  *  is rendered about the y-axis, in the x-z plane, in a circle of radius 10.</li>
@@ -24,7 +24,7 @@
  *  <li>it uses the type {@link Matrix4} from the teal book utilities in cuon-matrix.js</li>
  * </ol>
  *
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 27/09/2016
  * @copyright © 2024 Paulo R Cavalcanti
  * @license {@link https://www.gnu.org/licenses/gpl-3.0.en.html GPLv3}
@@ -114,8 +114,8 @@ const viewMatrix = new Matrix4().setLookAt(
  *  corresponding to the screen aspect ratio.</li>
  * </ul>
  * <ol>
- *  <li>let projection = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6)</li>
- *  <li>let projection = new Matrix4().setPerspective(35, aspect, 0.4, 100)</li>
+ *  <li>const projection = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6)</li>
+ *  <li>const projection = new Matrix4().setPerspective(35, aspect, 0.4, 100)</li>
  * </ol>
  * @type {Matrix4}
  */
@@ -448,8 +448,8 @@ function mainEntrance() {
 /**
  * Triggers the {@link mainEntrance} animation.
  *
- * @event load - run the animation.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => {
   mainEntrance();

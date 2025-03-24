@@ -259,8 +259,8 @@ clipping planes:</p>
  corresponding to the screen aspect ratio.</li>
 </ul>
 <ol>
- <li>let projection = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6)</li>
- <li>let projection = new Matrix4().setPerspective(35, aspect, 0.4, 100)</li>
+ <li>const projection = new Matrix4().setOrtho(-1.5, 1.5, -1, 1, 4, 6)</li>
+ <li>const projection = new Matrix4().setPerspective(35, aspect, 0.4, 100)</li>
 </ol>
 </div>
 
@@ -717,7 +717,7 @@ Approximate view point for above is (1.77, 3.54, 3.06)</p>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram">https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createProgram">WebGLRenderingContext: createProgram() method</a></li>
         </ul>
     </dd>
     
@@ -1294,6 +1294,8 @@ Approximate view point for above is (1.77, 3.54, 3.06)</p>
     
 
     
+        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li>since WebGL2</li></ul></dd>
+    
 
     
 
@@ -1306,7 +1308,7 @@ Approximate view point for above is (1.77, 3.54, 3.06)</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_teal_book_cuon-utils.js.html">lib/teal_book/cuon-utils.js</a>, <a href="lib_teal_book_cuon-utils.js.html#line119">line 119</a>
+        <a href="lib_teal_book_cuon-utils.js.html">lib/teal_book/cuon-utils.js</a>, <a href="lib_teal_book_cuon-utils.js.html#line120">line 120</a>
     </li></ul></dd>
     
 
@@ -1738,9 +1740,9 @@ Approximate view point for above is (1.77, 3.54, 3.06)</p>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://udn.realityripple.com/docs/Web/API/WebGLRenderingContext/shaderSource">https://udn.realityripple.com/docs/Web/API/WebGLRenderingContext/shaderSource</a></li>
+            <li><a href="https://udn.realityripple.com/docs/Web/API/WebGLRenderingContext/shaderSource">WebGLRenderingContext.shaderSource()</a></li>
         
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createShader">https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createShader</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/createShader">WebGLRenderingContext: createShader() method</a></li>
         </ul>
     </dd>
     
@@ -2595,7 +2597,7 @@ because 6 faces x 2 triangles/face * 3 vertices/face = 36 indices.</p>
     
 
     
-    <h4 class="name" id="event:load-runtheanimation.">load - run the animation.</h4>
+    <h4 class="name" id="event:load">load</h4>
     
 
     
@@ -2657,7 +2659,7 @@ because 6 faces x 2 triangles/face * 3 vertices/face = 36 indices.</p>
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event">https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event">Window: load event</a></li>
         </ul>
     </dd>
     
@@ -2696,13 +2698,13 @@ because 6 faces x 2 triangles/face * 3 vertices/face = 36 indices.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load-runtheanimation.">load - run the animation.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#runanimation">runanimation</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Matrix4.html">Matrix4</a></li><li><a href="Vector3.html">Vector3</a></li><li><a href="Vector4.html">Vector4</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#deg2rad">deg2rad</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#runanimation">runanimation</a></li><li><a href="global.html#shader">shader</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sun Jul 28 2024 09:25:45 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Mar 24 2025 07:22:41 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
