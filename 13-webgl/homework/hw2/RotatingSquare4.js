@@ -2,7 +2,8 @@
  * @file
  *
  * Summary.
- * <p>Similar to <a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.js">GL_example3a</a>.</p>
+ * <p>Understanding {@link https://users.math.msu.edu/users/hhu/848/lec_2.pdf fixed points} in linear transformations,
+ * and it is similar to <a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.js">GL_example3a</a>.</p>
  *
  * Initially, the square should rotate counterclockwise about its lower left corner, colored red,
  * at a rate of two degrees per frame.</p>
@@ -20,7 +21,7 @@
  * the window.
  *
  * <p>Uses the type {@link DOMMatrix} from {@link https://en.wikipedia.org/wiki/HTML5 HTML5}.</p>
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 23/08/2022
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2022 Paulo R Cavalcanti.
@@ -36,9 +37,10 @@
  * @see <a href="/cwdc/13-webgl/homework/hw2/RotatingSquare3.html">WebGL+canvas</a> -
  * <a href="/cwdc/13-webgl/homework/hw2/showCode.php?f=RotatingSquare3">html</a> -
  * <a href="/cwdc/13-webgl/homework/hw2/doc-square3/index.html">doc</a>
+ * @see <a href="/cwdc/13-webgl/homework/hw2/RotatingSquare4.js">source</a>
  * @see <a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.html">GL_example3a</a>
  * @see <a href="/cwdc/13-webgl/homework/hw2/hw2b.pdf">hw2b PDF</a>
- * @see <a href="/cwdc/13-webgl/homework/hw2/RotatingSquare4.js">source</a>
+ * @see <a href="https://www.youtube.com/watch?v=kYB8IZa5AuE&t=265s">Linear transformations and matrices</a>
  * @see <a href="../videos/RotatingSquare.mp4">video</a>
  * @see <img src="/cwdc/13-webgl/homework/hw2/Rect.png" width="512">
  */
@@ -142,8 +144,8 @@ const colors = new Float32Array([
  * Translate keydown events to strings.
  * @param {KeyboardEvent} event keyboard event.
  * @return {String | null}
- * @see https://javascript.info/tutorial/keyboard-events
- * @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent KeyboardEvent}
  */
 function getChar(event) {
   return event.key
@@ -196,12 +198,13 @@ const createEvent = (key) => {
 };
 
 /**
+ * @summary Executed when the corner input radio is checked (but not when unchecked).
  * <p>Appends an event listener for events whose type attribute value is change.<br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the corner input radio is checked (but not when unchecked).
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeCorner
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 if (document.querySelector('input[name="corner"]')) {
   document.querySelectorAll('input[name="corner"]').forEach((elem) => {
@@ -213,11 +216,12 @@ if (document.querySelector('input[name="corner"]')) {
 }
 
 /**
+ * @summary Fired when the whole page has loaded.
  * Loads the {@link mainEntrance application}.</p>
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
- * @event load - fired when the whole page has loaded.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => mainEntrance());
 
@@ -272,7 +276,7 @@ function updateModelMatrix(ang, x, y, tx, ty) {
  * @param {Number} y transformed y coordinate of the pivot vertex.
  * @param {Number} tx translation from the transformed pivot vertex to its original position, in the x axis.
  * @param {Number} ty translation from the transformed pivot vertex to its original position, in the y axis.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate CanvasRenderingContext2D: rotate() method}
  */
 function rotateAboutCorner(ctx, ang, x, y, tx, ty) {
   const [w, h] = [ctx.canvas.clientWidth, ctx.canvas.clientHeight];
@@ -290,7 +294,7 @@ function rotateAboutCorner(ctx, ang, x, y, tx, ty) {
 /**
  * Code to actually render our geometry.
  * @param {CanvasRenderingContext2D} ctx canvas context.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D CanvasRenderingContext2D}
  */
 function drawOnCanvas(ctx) {
   ctx.fillStyle = "rgba(0, 204, 204, 1)";
@@ -366,12 +370,13 @@ function mainEntrance() {
   const ctx = document.querySelector("#theCanvas").getContext("2d");
 
   /**
+   * @summary Fired when a key is pressed.
    * <p>Appends an event listener for events whose type attribute value is keydown.<br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event keydown - fired when a key is pressed.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event}
+   * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   window.onkeydown = handleKeyPress;
 
@@ -404,7 +409,7 @@ function mainEntrance() {
      * <p>Keep drawing frames.</p>
      * Request that the browser calls {@link runAnimation} again "as soon as it can".
      * @callback loop
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
      */
     return () => {
       ang += increment;

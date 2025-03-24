@@ -30,7 +30,8 @@
  * @file
  *
  * Summary.
- * &lt;p>Similar to &lt;a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.js">GL_example3a&lt;/a>.&lt;/p>
+ * &lt;p>Understanding {@link https://users.math.msu.edu/users/hhu/848/lec_2.pdf fixed points} in linear transformations,
+ * and it is similar to &lt;a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.js">GL_example3a&lt;/a>.&lt;/p>
  *
  * Initially, the square should rotate counterclockwise about its lower left corner, colored red,
  * at a rate of two degrees per frame.&lt;/p>
@@ -48,7 +49,7 @@
  * the window.
  *
  * &lt;p>Uses the type {@link DOMMatrix} from {@link https://en.wikipedia.org/wiki/HTML5 HTML5}.&lt;/p>
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 23/08/2022
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2022 Paulo R Cavalcanti.
@@ -64,9 +65,10 @@
  * @see &lt;a href="/cwdc/13-webgl/homework/hw2/RotatingSquare3.html">WebGL+canvas&lt;/a> -
  * &lt;a href="/cwdc/13-webgl/homework/hw2/showCode.php?f=RotatingSquare3">html&lt;/a> -
  * &lt;a href="/cwdc/13-webgl/homework/hw2/doc-square3/index.html">doc&lt;/a>
+ * @see &lt;a href="/cwdc/13-webgl/homework/hw2/RotatingSquare4.js">source&lt;/a>
  * @see &lt;a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.html">GL_example3a&lt;/a>
  * @see &lt;a href="/cwdc/13-webgl/homework/hw2/hw2b.pdf">hw2b PDF&lt;/a>
- * @see &lt;a href="/cwdc/13-webgl/homework/hw2/RotatingSquare4.js">source&lt;/a>
+ * @see &lt;a href="https://www.youtube.com/watch?v=kYB8IZa5AuE&amp;t=265s">Linear transformations and matrices&lt;/a>
  * @see &lt;a href="../videos/RotatingSquare.mp4">video&lt;/a>
  * @see &lt;img src="/cwdc/13-webgl/homework/hw2/Rect.png" width="512">
  */
@@ -170,8 +172,8 @@ const colors = new Float32Array([
  * Translate keydown events to strings.
  * @param {KeyboardEvent} event keyboard event.
  * @return {String | null}
- * @see https://javascript.info/tutorial/keyboard-events
- * @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent KeyboardEvent}
  */
 function getChar(event) {
   return event.key
@@ -224,12 +226,13 @@ const createEvent = (key) => {
 };
 
 /**
+ * @summary Executed when the corner input radio is checked (but not when unchecked).
  * &lt;p>Appends an event listener for events whose type attribute value is change.&lt;br>
  * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
  * the event is dispatched.&lt;/p>
  *
- * @event change - executed when the corner input radio is checked (but not when unchecked).
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeCorner
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 if (document.querySelector('input[name="corner"]')) {
   document.querySelectorAll('input[name="corner"]').forEach((elem) => {
@@ -241,11 +244,12 @@ if (document.querySelector('input[name="corner"]')) {
 }
 
 /**
+ * @summary Fired when the whole page has loaded.
  * Loads the {@link mainEntrance application}.&lt;/p>
  * @param {Event} event an object has loaded.
  * @param {callback} function function to run when the event occurs.
- * @event load - fired when the whole page has loaded.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+ * @event load
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
  */
 window.addEventListener("load", (event) => mainEntrance());
 
@@ -300,7 +304,7 @@ function updateModelMatrix(ang, x, y, tx, ty) {
  * @param {Number} y transformed y coordinate of the pivot vertex.
  * @param {Number} tx translation from the transformed pivot vertex to its original position, in the x axis.
  * @param {Number} ty translation from the transformed pivot vertex to its original position, in the y axis.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rotate CanvasRenderingContext2D: rotate() method}
  */
 function rotateAboutCorner(ctx, ang, x, y, tx, ty) {
   const [w, h] = [ctx.canvas.clientWidth, ctx.canvas.clientHeight];
@@ -318,7 +322,7 @@ function rotateAboutCorner(ctx, ang, x, y, tx, ty) {
 /**
  * Code to actually render our geometry.
  * @param {CanvasRenderingContext2D} ctx canvas context.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D CanvasRenderingContext2D}
  */
 function drawOnCanvas(ctx) {
   ctx.fillStyle = "rgba(0, 204, 204, 1)";
@@ -394,12 +398,13 @@ function mainEntrance() {
   const ctx = document.querySelector("#theCanvas").getContext("2d");
 
   /**
+   * @summary Fired when a key is pressed.
    * &lt;p>Appends an event listener for events whose type attribute value is keydown.&lt;br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.&lt;/p>
    *
-   * @event keydown - fired when a key is pressed.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event}
+   * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   window.onkeydown = handleKeyPress;
 
@@ -432,7 +437,7 @@ function mainEntrance() {
      * &lt;p>Keep drawing frames.&lt;/p>
      * Request that the browser calls {@link runAnimation} again "as soon as it can".
      * @callback loop
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
      */
     return () => {
       ang += increment;
@@ -477,13 +482,13 @@ function mainEntrance() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:change-executedwhenthecornerinputradioischecked(butnotwhenunchecked).">change - executed when the corner input radio is checked (but not when unchecked).</a></li><li><a href="global.html#event:keydown-firedwhenakeyispressed.">keydown - fired when a key is pressed.</a></li><li><a href="global.html#event:load-firedwhenthewholepagehasloaded.">load - fired when the whole page has loaded.</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cindex">cindex</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#drawOnCanvas">drawOnCanvas</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getVertex">getVertex</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#keys">keys</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#numPoints">numPoints</a></li><li><a href="global.html#printMatrix">printMatrix</a></li><li><a href="global.html#rotateAboutCorner">rotateAboutCorner</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#updateModelMatrix">updateModelMatrix</a></li><li><a href="global.html#vertices">vertices</a></li><li><a href="global.html#wsize">wsize</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:changeCorner">changeCorner</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#cindex">cindex</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#colors">colors</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#drawOnCanvas">drawOnCanvas</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getVertex">getVertex</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#keys">keys</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#numPoints">numPoints</a></li><li><a href="global.html#printMatrix">printMatrix</a></li><li><a href="global.html#rotateAboutCorner">rotateAboutCorner</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#updateModelMatrix">updateModelMatrix</a></li><li><a href="global.html#vertices">vertices</a></li><li><a href="global.html#wsize">wsize</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jul 30 2024 01:01:30 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Mar 24 2025 07:51:48 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
