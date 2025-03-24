@@ -2,7 +2,7 @@ Notes:
 
 Until three@0.160.0, three.js supported UMD (Universal Module Definition).
 From version @161 and beyond, three.js started to use only ESD (ES Modules),
-and import should be done using importmap. The reason was to allow shipping the addon files.
+and import should be done using importmap. The reason was to allow shipping the addons files.
 
 <script type="importmap">
     {
@@ -16,7 +16,7 @@ and import should be done using importmap. The reason was to allow shipping the 
     }
 </script>
 
-In this directory, there are the last files from version @160:
+In "/cwdc/13-webgl/lib", there are the last files from version @160:
 • three.js
 • three.min.js
 • three.module.js
@@ -28,3 +28,27 @@ File three.js is a UMD file, whereas three.module.js uses ES6 modules.
 For this reason, we also supply file TeapotGeometry.js, which uses three.module.js
 fromm @160 and TeapotGeometry-func.js, which is packed into a funcion, and should be used
 whenever UMD modules are needed.
+
+Directory "three.r163" is incomplete and holds a modified version of the import of some
+files (the ones I use) in the jsm subdirectory, so that no importmap is needed.
+This trick was borrowed from unpkg.com, for instance:
+
+• examples/jsm/controls/OrbitControls.js
+
+import {
+        EventDispatcher,
+        MOUSE,
+        Quaternion,
+        Spherical,
+        TOUCH,
+        Vector2,
+        Vector3,
+        Plane,
+        Ray,
+        MathUtils
+} from '/cwdc/13-webgl/lib/three.r163/build/three.module.js'; // was just 'three'
+
+Finally, directory "three" contains version @148, but as far as I remember, I am
+no longer using it. It was needed for avoiding the lighting context change
+in version @155, when the legacy lighting mode was disabled by default. However,
+I have increased all light intensities in my code, where appropriate.
