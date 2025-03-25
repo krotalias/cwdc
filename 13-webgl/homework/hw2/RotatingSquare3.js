@@ -2,7 +2,8 @@
  * @file
  *
  * Summary.
- * <p>Similar to <a href="/cwdc/13-webgl/examples/example123/content/GL_example3.js">GL_example3</a>,
+ * <p><p>Understanding {@link https://users.math.msu.edu/users/hhu/848/lec_2.pdf fixed points} in linear transformations,
+ * and it is similar to <a href="/cwdc/13-webgl/examples/example123/content/GL_example3.js">GL_example3</a>,
  * but applies the transformation using a matrix in the vertex shader.</p>
  *
  * <p>Initially, the square should rotate counterclockwise about its lower left corner, colored red,
@@ -47,7 +48,7 @@
  *
  *   const m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
  * </pre>
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 27/09/2016
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2016-2024 Paulo R Cavalcanti.
@@ -247,8 +248,8 @@ const projectionMatrix = new Matrix4().setOrtho(...world.bounds, 0, 1);
  * Translate keydown events to strings.
  * @param {KeyboardEvent} event keyboard event.
  * @return {String | null}
- * @see https://javascript.info/tutorial/keyboard-events
- * @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent KeyboardEvent}
  */
 function getChar(event) {
   return event.key
@@ -343,12 +344,13 @@ function zoomOut() {
 if (document.querySelector('input[name="corner"]')) {
   document.querySelectorAll('input[name="corner"]').forEach((elem) => {
     /**
+     * @summery Executed when the corner input radio is checked (but not when unchecked).
      * <p>Appends an event listener for events whose type attribute value is change.
      * The callback argument sets the callback that will be invoked when
      * the event is dispatched.</p>
      *
-     * @event change - executed when the corner input radio is checked (but not when unchecked).
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+     * @event changeCorner
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
      */
     elem.addEventListener("change", function (event) {
       const item = event.target.value;
@@ -358,8 +360,9 @@ if (document.querySelector('input[name="corner"]')) {
 }
 
 /**
+ * @summary Fired when the whole page has loaded.
  * <p>Loads the {@link mainEntrance application}.</p>
- * @event load - fired when the whole page has loaded.
+ * @event load
  * @param {Event} event event load event.
  */
 window.addEventListener("load", (event) => mainEntrance());
@@ -370,8 +373,8 @@ window.addEventListener("load", (event) => mainEntrance());
  * @param {Number} i color index.
  * @returns {String} a RGB color.
  * @see <a href="../number-conversions.png">number conversions</a>
- * @see https://stackoverflow.com/questions/5971645/what-is-the-double-tilde-operator-in-javascript
- * @see https://www.geeksforgeeks.org/what-is-double-tilde-operator-in-javascript/
+ * @see {@link https://stackoverflow.com/questions/5971645/what-is-the-double-tilde-operator-in-javascript What is the "double tilde" (~~) operator in JavaScript? }
+ * @see {@link https://www.geeksforgeeks.org/what-is-double-tilde-operator-in-javascript/ What is (~~) “double tilde” operator in JavaScript ?}
  */
 function getColor(i) {
   const j = (i % numPoints) * 4;
@@ -523,7 +526,7 @@ function mapToViewport(x, y, w = world) {
 
 /**
  * Code to actually render our geometry.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D CanvasRenderingContext2D}
  */
 function drawOnCanvas() {
   ctx.fillStyle = "rgba(0, 204, 204, 1)";
@@ -600,7 +603,7 @@ function mapCornerToWorld(ind) {
  * Basically this function does setup that "should" only have to be done once,<br>
  * while {@link draw} does things that have to be repeated each time the canvas is
  * redrawn.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes Array.prototype.includes()}
  */
 function mainEntrance() {
   // get the second canvas element
@@ -614,12 +617,13 @@ function mainEntrance() {
   }
 
   /**
+   * @summary Fired when a key is pressed.
    * <p>Appends an event listener for events whose type attribute value is keydown.<br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event keydown - fired when a key is pressed.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event}
+   * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   window.addEventListener("keydown", (event) => {
     if (
@@ -746,7 +750,7 @@ const runAnimation = (() => {
    * <p>Keep drawing frames.</p>
    * Request that the browser calls {@link runAnimation} again "as soon as it can".
    * @callback loop
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
    */
   return () => {
     if (requestId) {

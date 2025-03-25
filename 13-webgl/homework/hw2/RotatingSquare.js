@@ -2,7 +2,8 @@
  * @file
  *
  * Summary.
- * <p>Similar to <a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.js">GL_example3</a>.</p>
+ * <p>Understanding {@link https://users.math.msu.edu/users/hhu/848/lec_2.pdf fixed points} in linear transformations,
+ * and it is similar to <a href="/cwdc/13-webgl/examples/example123/content/GL_example3a.js">GL_example3</a>.</p>
  *
  * <p>Initially, the square should rotate counterclockwise about its lower left corner, colored red,
  * at a rate of two degrees per frame.<p>
@@ -41,7 +42,7 @@
  *   const m = new Matrix4().setTranslate(0.3, 0.0, 0.0).rotate(90, 0, 0, 1);
  * </pre>
  *
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 27/09/2016
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2016-2024 Paulo R Cavalcanti.
@@ -129,8 +130,8 @@ const modelMatrix = new Matrix4();
  * Translate keydown events to strings.
  * @param {KeyboardEvent} event keyboard event.
  * @return {String | null}
- * @see https://javascript.info/tutorial/keyboard-events
- * @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
+ * @see {@link https://javascript.info/tutorial/keyboard-events Keyboard: keydown and keyup}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent KeyboardEvent}
  */
 function getChar(event) {
   return event.key
@@ -181,12 +182,13 @@ const createEvent = (key) => {
 };
 
 /**
+ * @summary Executed when the corner input radio is checked (but not when unchecked).
  * <p>Appends an event listener for events whose type attribute value is change.
  * The callback argument sets the {@link handleKeyPress callback} that will be invoked when
  * the event is dispatched.</p>
  *
- * @event change - executed when the corner input radio is checked (but not when unchecked).
- * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ * @event changeCorner
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 if (document.querySelector('input[name="corner"]')) {
   document.querySelectorAll('input[name="corner"]').forEach((elem) => {
@@ -198,8 +200,9 @@ if (document.querySelector('input[name="corner"]')) {
 }
 
 /**
+ * @summary Fired when the whole page has loaded.
  * <p>Loads the {@link mainEntrance application}.</p>
- * @event load - fired when the whole page has loaded.
+ * @event load
  * @param {Event} event event load event.
  */
 window.addEventListener("load", (event) => mainEntrance());
@@ -210,9 +213,9 @@ window.addEventListener("load", (event) => mainEntrance());
  * @param {Number} i color index.
  * @returns {String} a RGB color.
  * @see <a href="../number-conversions.png">number conversions</a>
- * @see https://stackoverflow.com/questions/1133770/how-to-convert-a-string-to-an-integer-in-javascript
- * @see https://stackoverflow.com/questions/5971645/what-is-the-double-tilde-operator-in-javascript
- * @see https://www.geeksforgeeks.org/what-is-double-tilde-operator-in-javascript/
+ * @see {@link https://stackoverflow.com/questions/1133770/how-to-convert-a-string-to-an-integer-in-javascript How to convert a string to an integer in JavaScript?}
+ * @see {@link https://stackoverflow.com/questions/5971645/what-is-the-double-tilde-operator-in-javascript What is the "double tilde" (~~) operator in JavaScript?}
+ * @see {@link https://www.geeksforgeeks.org/what-is-double-tilde-operator-in-javascript/ What is the "double tilde" (~~) operator in JavaScript ?}
  */
 function getColor(i) {
   const j = (i % numPoints) * 4;
@@ -269,7 +272,7 @@ function mapToViewport(ctx, x, y, n = wsize) {
 /**
  * Code to actually render our geometry.
  * @param {CanvasRenderingContext2D} ctx canvas context.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D CanvasRenderingContext2D}
  */
 function drawOnCanvas(ctx) {
   ctx.fillStyle = "rgba(0, 204, 204, 1)";
@@ -339,12 +342,13 @@ function mainEntrance() {
   const ctx = document.querySelector("#theCanvas").getContext("2d");
 
   /**
+   * @summary Fired when a key is pressed.
    * <p>Appends an event listener for events whose type attribute value is keydown.<br>
    * The callback argument sets the {@link handleKeyPress callback} that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event keydown - fired when a key is pressed.
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event}
+   * @event keydown
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
    */
   window.onkeydown = handleKeyPress;
 
@@ -380,7 +384,7 @@ function mainEntrance() {
      * <p>Keep drawing frames.</p>
      * Request that the browser calls {@link runAnimation} again "as soon as it can".
      * @callback loop
-     * @see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
      */
     return () => {
       ang += increment;
