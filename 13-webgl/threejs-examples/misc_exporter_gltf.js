@@ -671,7 +671,7 @@ function init() {
 
       // either use the AnimationClip embedded in the gltf file (true)
       // or the ones defined above (false)
-      const useAnimations = false;
+      const useAnimations = true;
 
       // create a clipAction for the propeller and set it to play
       let clipAction = useAnimations
@@ -684,10 +684,13 @@ function init() {
       // create a clipAction for each hair and set them to play
       if (useAnimations) {
         for (let i = 1; i <= hairsTop.children.length; i++) {
-          //mixer = new THREE.AnimationMixer(plane);
-          //amixer.push(mixer);
+          mixer = new THREE.AnimationMixer(plane);
+          amixer.push(mixer);
           clipAction = mixer.clipAction(gltf.animations[i]);
-          clipAction.setDuration(duration).play();
+          clipAction
+            .setDuration(duration)
+            .startAt((duration / hairsTop.children.length) * i)
+            .play();
         }
       } else {
         for (const [i, h] of hairsTop.children.entries()) {

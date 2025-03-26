@@ -356,10 +356,10 @@ function clipOptions() {
   const scaleKF = (i) => {
     const j = (0.5 / numHairs) * i;
     return new THREE.VectorKeyframeTrack(
-      `hairsTop.scale`,
+      `hbox_${i}.scale`,
       [0, 1, 2],
-      [1, 1, 1, 1, 0.75, 1, 1, 1, 1],
-    ).shift(j);
+      [1, 1, 1, 1, (i / numHairs) * 0.25 + 0.75, 1, 1, 1, 1],
+    );
   };
 
   const newClip = (name, action) => {
@@ -661,7 +661,10 @@ class Pilot {
       const startPosX = -4;
       h.position.set(startPosX + row * 4, 0, startPosZ + col * 4);
       h.geometry.applyMatrix4(new THREE.Matrix4().makeScale(1, 1, 1));
-      this.hairsTop.add(h);
+      const obj = new THREE.Object3D();
+      obj.add(h);
+      obj.name = `hbox_${i}`;
+      this.hairsTop.add(obj);
     }
     hairs.add(this.hairsTop);
 
