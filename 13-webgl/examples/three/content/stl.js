@@ -1264,6 +1264,16 @@ function init(dfile) {
             .clipAction(geometry.animations[1])
             .setEffectiveWeight(0.0)
             .play();
+        } else if (loadedModelName.includes("plane")) {
+          const duration = 0.3;
+          const numHairs = geometry.animations.length - 1;
+          for (const [j, i] of geometry.animations.entries()) {
+            mixer
+              .clipAction(i)
+              .setDuration(duration)
+              .startAt((duration / numHairs) * j)
+              .play();
+          }
         } else {
           for (const i of geometry.animations) {
             mixer.clipAction(i).play();
