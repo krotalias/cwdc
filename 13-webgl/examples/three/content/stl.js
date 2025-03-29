@@ -128,7 +128,7 @@
  * @copyright © 2024 Paulo R Cavalcanti.
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=arcball&file=cerberus/Cerberus.obj">link (ArcballControls)</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=orbit&file=Heart/model.glb">link (OrbitControls)</a>
- * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=trackball&file=Spitfire/scene.glb">link (TrackballControls)</a>
+ * @see <a href="/cwdc/13-webgl/examples/three/content/stl.html?controls=trackball&file=Airplanes/Spitfire/scene.glb">link (TrackballControls)</a>
  * @see <a href="/cwdc/13-webgl/examples/three/content/stl.js">source</a>
  * @see {@link https://www.adobe.com/creativecloud/file-types/image/vector/stl-file.html#what-is-an-stl-file STL files}
  * @see {@link https://docs.fileformat.com/3d/mtl/ What is an MTL file?}
@@ -1239,9 +1239,16 @@ function init(dfile) {
         !["Supermarine Spitfire", "Battle Damaged Sci-fi Helmet"].some(
           (str) => str === geometry.asset?.extras?.title,
         ) &&
-        !["model.gl", "Brain", "Lungs", "Uro", "city", "RPE", "plane"].some(
-          (str) => loadedModelName.includes(str),
-        )
+        ![
+          "model.gl",
+          "Brain",
+          "Lungs",
+          "Uro",
+          "city",
+          "RPE",
+          "plane.",
+          "douglas",
+        ].some((str) => loadedModelName.includes(str))
       ) {
         scene.add(ambLight);
       }
