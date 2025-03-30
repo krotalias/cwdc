@@ -1257,20 +1257,27 @@ function init(dfile) {
         mixer = new THREE.AnimationMixer(model);
 
         if (loadedModelName.includes("Soldier")) {
-          // Soldier.glb
           model.rotation.set(0, Math.PI, 0);
-          mixer
-            .clipAction(geometry.animations[0])
-            .setEffectiveWeight(0.0)
-            .play();
-          mixer
-            .clipAction(geometry.animations[3])
-            .setEffectiveWeight(1.0)
-            .play();
-          mixer
-            .clipAction(geometry.animations[1])
-            .setEffectiveWeight(0.0)
-            .play();
+          const action = { idle: 0, walk: 3, run: 1 };
+          mixer.clipAction(geometry.animations[action.walk]).play();
+        } else if (loadedModelName.includes("Robot")) {
+          const action = [
+            "dance",
+            "death",
+            "idle",
+            "jump",
+            "no",
+            "punch",
+            "running",
+            "sitting",
+            "standing",
+            "thumbup",
+            "walking",
+            "walkjump",
+            "wave",
+            "yes",
+          ];
+          mixer.clipAction(geometry.animations[action.indexOf("dance")]).play();
         } else if (loadedModelName.includes("plane")) {
           const duration = 0.3;
           const numHairs = geometry.animations.length - 1;
