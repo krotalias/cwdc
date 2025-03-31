@@ -445,6 +445,42 @@ function init(dfile) {
   let mixer;
 
   /**
+   * Animated model geometry.
+   * @type {THREE.Object3D}
+   * @global
+   */
+  let modelGeometry;
+
+  /**
+   * The four actions for the Soldier model.
+   * @type {Object<String:Number>}
+   * @global
+   */
+  const action = { idle: 0, run: 1, tpose: 2, walk: 3 };
+
+  /**
+   * The fourteen actions for the RobotExpressive model.
+   * @type {Object<String:Number>}
+   * @global
+   */
+  const actionRobot = [
+    "dance",
+    "death",
+    "idle",
+    "jump",
+    "no",
+    "punch",
+    "running",
+    "sitting",
+    "standing",
+    "thumbup",
+    "walking",
+    "walkjump",
+    "wave",
+    "yes",
+  ];
+
+  /**
    * Helper object to graphically show the world-axis-aligned bounding box around an object.
    * The actual bounding box is handled with Box3, this is just a visual helper for debugging.
    * It can be automatically resized with the BoxHelper.update method when
@@ -649,6 +685,7 @@ function init(dfile) {
   camera.add(dirLight.target);
 
   const mat = {};
+  let atype = "walk";
 
   /**
    * <p>A material for non-shiny surfaces, without specular highlights.</p>
@@ -1116,6 +1153,10 @@ function init(dfile) {
     }
 
     mixer = undefined;
+    document.getElementById("dull").innerHTML = "Dull";
+    document.getElementById("metal").innerHTML = "Metal";
+    document.getElementById("gloss").innerHTML = "Gloss";
+    document.getElementById("glass").innerHTML = "Glass";
 
     // console.log(geometry);
     let vis = undefined;
@@ -1248,6 +1289,7 @@ function init(dfile) {
           "RPE",
           "plane.",
           "douglas",
+          "Bf_109",
         ].some((str) => loadedModelName.includes(str))
       ) {
         scene.add(ambLight);
@@ -1258,26 +1300,20 @@ function init(dfile) {
 
         if (loadedModelName.includes("Soldier")) {
           model.rotation.set(0, Math.PI, 0);
-          const action = { idle: 0, walk: 3, run: 1 };
-          mixer.clipAction(geometry.animations[action.walk]).play();
+          mixer.clipAction(geometry.animations[action[atype]]).play();
+          modelGeometry = geometry;
+          document.getElementById("dull").innerHTML = "Walk";
+          document.getElementById("metal").innerHTML = "Run";
+          document.getElementById("gloss").innerHTML = "TPose";
+          document.getElementById("glass").innerHTML = "Idle";
         } else if (loadedModelName.includes("Robot")) {
-          const action = [
-            "dance",
-            "death",
-            "idle",
-            "jump",
-            "no",
-            "punch",
-            "running",
-            "sitting",
-            "standing",
-            "thumbup",
-            "walking",
-            "walkjump",
-            "wave",
-            "yes",
-          ];
-          mixer.clipAction(geometry.animations[action.indexOf("dance")]).play();
+          // mixer.clipAction(geometry.animations[actionRobot.indexOf("dance")]).play();
+          mixer.clipAction(geometry.animations[action[atype]]).play();
+          modelGeometry = geometry;
+          document.getElementById("dull").innerHTML = "Jump";
+          document.getElementById("metal").innerHTML = "Death";
+          document.getElementById("gloss").innerHTML = "Idle";
+          document.getElementById("glass").innerHTML = "Dance";
         } else if (loadedModelName.includes("plane")) {
           const duration = 0.3;
           const numHairs = geometry.animations.length - 1;
@@ -1534,6 +1570,21 @@ function init(dfile) {
           document.getElementById(ch).checked = true;
           if (mesh) {
             mesh.material = material;
+          }
+          atype =
+            ch == "d"
+              ? "walk"
+              : ch == "g"
+                ? "run"
+                : ch == "p"
+                  ? "tpose"
+                  : "idle";
+          if (
+            mixer &&
+            ["Soldier", "Robot"].some((str) => loadedModelName.includes(str))
+          ) {
+            mixer.stopAllAction();
+            mixer.clipAction(modelGeometry.animations[action[atype]]).play();
           }
           break;
         case "c":
