@@ -66,6 +66,12 @@ require "blockIPs.php";
                         >
                             Bootstrap 5
                         </a>
+                        <a
+                            class="dropdown-item"
+                            href="javascript:togglePlanes()"
+                        >
+                            show/hide footer
+                        </a>
                     </div>
                 </div>
             </li>
@@ -97,6 +103,9 @@ require "blockIPs.php";
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/cwdc/14-react/index.php">react</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cwdc/15-webgpu/index.php">webgpu</a>
             </li>
         </ul>
 

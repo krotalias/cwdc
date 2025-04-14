@@ -1,0 +1,19 @@
+{
+  "name": "TSL_Tutorial_Part_1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "three": "^0.175.0",
+    "vite": "^6.2.5"
+  },
+  "devDependencies": {
+    "vite-plugin-top-level-await": "^1.5.0"
+  }
+}

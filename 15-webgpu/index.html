@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" type="text/css" href="/cwdc/mainPage/LCG.css" />
+        <link rel="stylesheet" type="text/css" href="/cwdc/mainPage/main.css" />
+        <script src="/cwdc/mainPage/main.js"></script>
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+            crossorigin="anonymous"
+        />
+
+        <title>15 - webgpu</title>
+    </head>
+    <body>
+        <div w3-include-html="/cwdc/mainPage/navbar.html"></div>
+
+        <div class="lesson ml-0 mr-0">
+            <div class="row m-0 p-0">
+                <div class="col-sm-8 ml-0">
+                    <h3>
+                        <a href="/WebGL">WebGPU</a>
+                        <a href="https://webgpufundamentals.org">(doc)</a>
+                        <a href="https://webgpureport.org">(report)</a>
+                    </h3>
+                    <ul
+                        style="
+                            list-style-type: lower-greek;
+                            padding-left: 3.5em;
+                            font-size: 20px;
+                        "
+                    >
+                        <li>
+                            <a href="/WebGL/teal_book-examples">(examples)</a>
+                            <a
+                                href="https://www.rose-hulman.edu/class/csse/csse351/reference/0321902920_WebGL.pdf"
+                            >
+                                <img
+                                    width="34"
+                                    style="border: 0; text-align: center"
+                                    src="images/teal_book.png"
+                                    title="WebGL Programming"
+                                />
+                            </a>
+                            <a href="https://math.hws.edu/graphicsbook/">
+                                <img
+                                    width="34"
+                                    style="border: 0; text-align: center"
+                                    src="images/graphicstext-cover-180x235.png"
+                                    title="Introduction to Computer Graphics"
+                                />
+                            </a>
+                            <a
+                                href="https://math.hws.edu/graphicsbook/source/webgl/"
+                            >
+                                (examples)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/WebGL/EXAMPLES">(examples)</a>
+                            <a
+                                href="http://csweb.wooster.edu/dbyrnes/cs300/Documents/Interactive%20Computer%20Graphics.pdf"
+                            >
+                                <img
+                                    width="34"
+                                    style="border: 0; text-align: center"
+                                    src="images/angel.jpg"
+                                    title="Interactive Computer Graphics"
+                                />
+                            </a>
+                            <a
+                                href="https://canvas.projekti.info/ebooks/Mathematics%20for%203D%20Game%20Programming%20and%20Computer%20Graphics,%20Third%20Edition.pdf"
+                            >
+                                <img
+                                    width="34"
+                                    style="border: 0; text-align: center"
+                                    src="images/cover.png"
+                                    title="Mathematics for 3D Game Programming and Computer Graphics"
+                                />
+                            </a>
+                            <a href="https://mathfor3dgameprogramming.com/">
+                                (examples)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="videos/Quaternions.html">(videos cg)</a>
+                            <a
+                                href="https://www.youtube.com/watch?v=mjrdywp5nyE"
+                            >
+                                <img
+                                    width="34"
+                                    style="border: 0; text-align: center"
+                                    src="images/gaga.jpg"
+                                    title="Super Bowl LI"
+                                />
+                            </a>
+                            <a href="https://riptutorial.com/ebook/three-js">
+                                <img
+                                    width="34"
+                                    style="border: 0; text-align: center"
+                                    src="images/cover-learning.png"
+                                    title="Three.js"
+                                />
+                            </a>
+                            <a href="/cwdc/13-webgl/extras/doc">(papers cg)</a>
+                        </li>
+                        <li>
+                            <a
+                                href="/cwdc/13-webgl/examples/example123/content"
+                            >
+                                (Hello Quad)
+                            </a>
+                            <a
+                                href="https://threejs.org/examples/#webgpu_materials"
+                            >
+                                (three.js examples)
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/cwdc/13-webgl/extras/doc/gdc12_lengyel.pdf#page=48"
+                            >
+                                (𝑛′=(𝑀<sup>&#8211;1</sup>)<sup>𝑇</sup>⋅𝑛)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <ol type="1" start="1">
+                    <li>
+                        <a
+                            href="/cwdc/15-webgpu/TSL_Tutorial_Part_1/index.html"
+                        >
+                            TSL Tutorial Part 1
+                        </a>
+                        <a
+                            href="/cwdc/15-webgpu/TSL_Tutorial_Part_1/doc-tutorial/index.html"
+                        >
+                            (source)
+                        </a>
+                        <a href="showCode.php?f=TSL_Tutorial_Part_1/index">
+                            (html)
+                        </a>
+                        <a href="TSL_Tutorial_Part_1/main.css">(css)</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <hr />
+
+        <footer class="footer">
+            <div class="container-fluid" style="text-align: center">
+                <a
+                    href="https://www.militaryfactory.com/aircraft/detail.php?aircraft_id=300"
+                >
+                    <figure>
+                        <img
+                            class="pimg"
+                            title="TBM Avengers"
+                            alt="1943"
+                            src="TBM Avengers.jpg"
+                        />
+                        <figcaption>
+                            General Motors TBM Avenger (1942 - 442 kmh)
+                        </figcaption>
+                    </figure>
+                </a>
+            </div>
+        </footer>
+
+        <script>
+            includeHTML();
+        </script>
+
+        <!-- Option 2: jQuery, Popper.js, and Bootstrap JS -->
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+            integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
