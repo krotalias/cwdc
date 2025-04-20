@@ -37,7 +37,7 @@ require "../mainPage/navbar.php";
     <div class="row m-0 p-0">
         <div class="col-sm-8 ml-0">
             <h3>
-                <a href="/WebGL">WebGPU</a>
+                <a href="/cwdc/downloads/PDFs/webgl.html">WebGPU</a>
                 <a href="https://webgpufundamentals.org">(doc)</a>
                 <a href="https://webgpureport.org">(report)</a>
             </h3>
@@ -49,7 +49,7 @@ require "../mainPage/navbar.php";
                 "
             >
                 <li>
-                    <a href="/WebGL/teal_book-examples">(examples)</a>
+                    <a href="https://sites.google.com/site/webglbook/">(examples)</a>
                     <a
                         href="https://www.rose-hulman.edu/class/csse/csse351/reference/0321902920_WebGL.pdf"
                     >
@@ -75,7 +75,7 @@ require "../mainPage/navbar.php";
                     </a>
                 </li>
                 <li>
-                    <a href="/WebGL/EXAMPLES">(examples)</a>
+                    <a href="https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SEVENTH_EDITION/">(examples)</a>
                     <a
                         href="http://csweb.wooster.edu/dbyrnes/cs300/Documents/Interactive%20Computer%20Graphics.pdf"
                     >
@@ -101,7 +101,7 @@ require "../mainPage/navbar.php";
                     </a>
                 </li>
                 <li>
-                    <a href="videos/Quaternions.html">(videos cg)</a>
+                    <a href="/cwdc/13-webgl/videos/Quaternions.html">(videos cg)</a>
                     <a
                         href="https://www.youtube.com/watch?v=mjrdywp5nyE"
                     >
@@ -124,7 +124,7 @@ require "../mainPage/navbar.php";
                 </li>
                 <li>
                     <a
-                        href="/cwdc/13-webgl/examples/example123/content"
+                        href="/cwdc/15-webgpu/examples/index.html"
                     >
                         (Hello Quad)
                     </a>
