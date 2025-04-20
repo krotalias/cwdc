@@ -87,7 +87,7 @@ require "../mainPage/navbar.php";
                         />
                     </a>
                     <a
-                        href="https://canvas.projekti.info/ebooks/Mathematics%20for%203D%20Game%20Programming%20and%20Computer%20Graphics,%20Third%20Edition.pdf"
+                        href="https://repository.unimal.ac.id/812/1/-%20Mathematics%20for%203D.pdf"
                     >
                         <img
                             width="34"
