@@ -1,16 +1,44 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GPU_example1.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GPU_example1.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file
  *
  * Summary.
  *
- * <p>Our first WebGPU program draws a red square on the canvas.</p>
+ * &lt;p>Our first WebGPU program draws a red square on the canvas.&lt;/p>
  *
  * @author {@link https://github.com/diskhkme Hyungki Kim}
  * @author {@link https://krotalias.github.io Paulo Roma}
  * @since 19/04/2025
  *
- * @see <a href="/cwdc/15-webgpu/examples/GPU_example1.html">link</a>
- * @see <a href="/cwdc/15-webgpu/examples/GPU_example1.js">source</a>
+ * @see &lt;a href="/cwdc/15-webgpu/examples/GPU_example1.html">link&lt;/a>
+ * @see &lt;a href="/cwdc/15-webgpu/examples/GPU_example1.js">source&lt;/a>
  * @see {@link https://webgpufundamentals.org/webgpu/lessons/webgpu-fundamentals.html#a-drawing-triangles-to-textures Drawing triangles to textures}
  */
 
@@ -40,7 +68,7 @@ async function mainEntrance() {
    * A shader module contains one or more shader functions.
    * In our case, we’ll make one vertex shader function and one fragment shader function.
    *
-   * <p>Shaders are written in a language called WebGPU Shading Language (WGSL).</p>
+   * &lt;p>Shaders are written in a language called WebGPU Shading Language (WGSL).&lt;/p>
    * @type {String}
    * @global
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API#create_shader_modules Create shader modules}
@@ -70,8 +98,8 @@ async function mainEntrance() {
   });
 
   /**
-   * <p>Pipeline contains the vertex shader and fragment shader the GPU will run.
-   * You could also have a pipeline with a compute shader.</p>
+   * &lt;p>Pipeline contains the vertex shader and fragment shader the GPU will run.
+   * You could also have a pipeline with a compute shader.&lt;/p>
    *
    * We set layout to 'auto' which means to ask WebGPU to derive the layout of data from the shaders.
    * We’re not using any data though.
@@ -92,16 +120,16 @@ async function mainEntrance() {
   });
 
   /**
-   * <p>A RenderPass descriptor has an array for colorAttachments which lists
-   * the textures we will render to and how to treat them.</p>
+   * &lt;p>A RenderPass descriptor has an array for colorAttachments which lists
+   * the textures we will render to and how to treat them.&lt;/p>
    * We’ll wait to fill in which texture we actually want to render to.
    * For now, we set up a clear value of a teal color, and a loadOp and storeOp.
-   * <ul>
-   *  <li>loadOp: 'clear' specifies to clear the texture to the clear value before drawing.</li>
-   *  <li>The other option is 'load' which means load the existing contents of the texture
-   *    into the GPU so we can draw over what’s already there.</li>
-   *  <li>storeOp: 'store' means store the result of what we draw.</li>
-   * </ul>
+   * &lt;ul>
+   *  &lt;li>loadOp: 'clear' specifies to clear the texture to the clear value before drawing.&lt;/li>
+   *  &lt;li>The other option is 'load' which means load the existing contents of the texture
+   *    into the GPU so we can draw over what’s already there.&lt;/li>
+   *  &lt;li>storeOp: 'store' means store the result of what we draw.&lt;/li>
+   * &lt;/ul>
    * We could also pass 'discard' which would throw away what we draw.
    * @global
    * @type {Object}
@@ -117,7 +145,7 @@ async function mainEntrance() {
     label: "our basic canvas renderPass",
     colorAttachments: [
       {
-        // view: <- to be filled out when we render
+        // view: &lt;- to be filled out when we render
         clearValue: [0.0, 0.8, 0.8, 1],
         loadOp: "clear",
         storeOp: "store",
@@ -126,7 +154,7 @@ async function mainEntrance() {
   };
 
   /**
-   * <p>Render function.</p>
+   * &lt;p>Render function.&lt;/p>
    * Call {@link https://developer.mozilla.org/en-US/docs/Web/API/GPUCanvasContext/getCurrentTexture context.getCurrentTexture()}
    * to get a texture that will appear in the canvas.
    * Calling {@link https://developer.mozilla.org/en-US/docs/Web/API/GPUTexture/createView createView}
@@ -135,25 +163,25 @@ async function mainEntrance() {
    * For now, our only colorAttachment is a texture view from our canvas which we get via the context we created at the start.
    * Again, element 0 of the colorAttachments array corresponds to @location(0) as we specified for the return value of the fragment shader.
    *
-   * <p>Next, we create a command encoder.
+   * &lt;p>Next, we create a command encoder.
    * A {@link https://developer.mozilla.org/en-US/docs/Web/API/GPUCommandEncoder command encoder}
    * is used to create a command buffer.
-   * We use it to encode commands and then “submit” the command buffer it created to have the commands executed.</p>
+   * We use it to encode commands and then “submit” the command buffer it created to have the commands executed.&lt;/p>
    *
-   * <p>We then use the command encoder to create a render pass encoder by calling
+   * &lt;p>We then use the command encoder to create a render pass encoder by calling
    * {@link https://developer.mozilla.org/en-US/docs/Web/API/GPUCommandEncoder/beginRenderPass beginRenderPass}.
    * A render pass encoder is a specific encoder for creating commands related to rendering.
-   * We pass it our {@link renderPassDescriptor} to tell it which texture we want to render to.</p>
+   * We pass it our {@link renderPassDescriptor} to tell it which texture we want to render to.&lt;/p>
    *
-   * <p>We encode the command, setPipeline, to set our
+   * &lt;p>We encode the command, setPipeline, to set our
    * {@link https://developer.mozilla.org/en-US/docs/Web/API/GPURenderPipeline pipeline}
    * and then tell it to execute our vertex shader 6 times by calling draw with 6.
    * By default, every 3 times our vertex shader is executed a triangle will be drawn
-   * by connecting the 3 values just returned from the vertex shader.</p>
+   * by connecting the 3 values just returned from the vertex shader.&lt;/p>
    *
-   * <p>We end the render pass, and then finish the encoder.
+   * &lt;p>We end the render pass, and then finish the encoder.
    * This gives us a command buffer that represents the steps we just specified.
-   * Finally, we submit the command buffer to be executed.</p>
+   * Finally, we submit the command buffer to be executed.&lt;/p>
    *
    * When the draw command is executed, this will be our state.
    *
@@ -192,10 +220,33 @@ function fail(msg) {
 }
 
 /**
- * <p>Load event handler.</p>
+ * &lt;p>Load event handler.&lt;/p>
  * This function is called when the window has finished loading.
  * It calls the {@link mainEntrance} function to start the WebGPU example.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event load event}
  * @event load
  */
 window.addEventListener("load", mainEntrance);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fail">fail</a></li><li><a href="global.html#mainEntrance">mainEntrance</a></li><li><a href="global.html#module">module</a></li><li><a href="global.html#pipeline">pipeline</a></li><li><a href="global.html#render">render</a></li><li><a href="global.html#renderPassDescriptor">renderPassDescriptor</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Apr 23 2025 06:39:55 GMT-0300 (Brasilia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
