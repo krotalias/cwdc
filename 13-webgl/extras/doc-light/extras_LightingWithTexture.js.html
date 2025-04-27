@@ -1686,7 +1686,7 @@ function setTextureNames(optionNames) {
   let options_str = "";
 
   optionNames.forEach((img, index) => {
-    options_str += `<option value="${index}">${img}</option>`;
+    options_str += `&lt;option value="${index}">${img}&lt;/option>`;
   });
 
   sel.innerHTML = options_str;
