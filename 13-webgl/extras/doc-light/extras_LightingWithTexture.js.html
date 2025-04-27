@@ -1673,28 +1673,12 @@ function getTextures(optionNames) {
   const selectElement = document.getElementById("textures");
   [...selectElement.options].map((o) => optionNames.push(o.text));
   optionNames.sort();
-  setTextureNames(optionNames);
+  setTextures(optionNames);
 }
 
 /**
  * Set texture file names of an html &lt;select&gt; element identified by "textures".
  * @param {Array<String>} optionNames array of texture file names.
- */
-function setTextureNames(optionNames) {
-  const sel = document.getElementById("textures");
-
-  let options_str = "";
-
-  optionNames.forEach((img, index) => {
-    options_str += `&lt;option value="${index}">${img}&lt;/option>`;
-  });
-
-  sel.innerHTML = options_str;
-}
-
-/**
- * Set texture file names of an html &amp;lt;select&amp;gt; element identified by "textures".
- * @param {Array&lt;String>} optionNames array of texture file names.
  */
 function setTextures(optionNames) {
   const sel = document.getElementById("textures");
