@@ -1646,13 +1646,15 @@ function getTextures(optionNames) {
   optionNames.length = 0;
   const selectElement = document.getElementById("textures");
   [...selectElement.options].map((o) => optionNames.push(o.text));
+  optionNames.sort();
+  setTextureNames(optionNames);
 }
 
 /**
  * Set texture file names of an html &lt;select&gt; element identified by "textures".
  * @param {Array<String>} optionNames array of texture file names.
  */
-function setTextures(optionNames) {
+function setTextureNames(optionNames) {
   const sel = document.getElementById("textures");
 
   let options_str = "";
