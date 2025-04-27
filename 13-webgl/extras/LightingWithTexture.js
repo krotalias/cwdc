@@ -136,7 +136,7 @@
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="https://math.rice.edu/~polking/cartography/cart.pdf">Mapping the Sphere<a/>
- * @see <a href="https://maa.org/sites/default/files/pdf/upload_library/22/Ford/Apostol496-508.pdf">A Fresh Look at the Method of Archimedes</a>
+ * @see <a href="../doc/Apostol - A Fresh Look at the Method of Archimedes.pdf">A Fresh Look at the Method of Archimedes</a>
  * @see <a href="https://djalil.chafai.net/blog/wp-content/uploads/2011/11/Letac-From-Archimedes-to-Statistics-The-area-of-the-sphere.pdf">From Archimedes to statistics: the area of the sphere</a>
  * @see <a href="https://cuhkmath.wordpress.com/2018/01/05/archimedes-and-the-area-of-sphere/">Archimedes and the area of sphere</a>
  * @see <a href="https://arxiv.org/pdf/1905.11214">On some information geometric structures concerning Mercator projections</a>
@@ -1689,7 +1689,9 @@ window.addEventListener("load", (event) => {
       readFileNames
         .then((arr) => {
           const initialTexture = imageFilename[0];
-          if (arr.length > 0) imageFilename = arr.sort();
+          if (arr.length > 0) {
+            imageFilename.splice(0, imageFilename.length, ...arr.sort());
+          }
           setTextures(imageFilename);
           textureCnt = imageFilename.indexOf(initialTexture);
           startForReal(image);
