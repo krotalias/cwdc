@@ -308,13 +308,13 @@ let image;
  * Maximum Number of subdivisions to turn a polyhedron into a sphere.
  * @type {Number}
  */
-let maxSubdivisions = 0;
+let maxSubdivisions = 12;
 
 /**
  * Number of subdivisions to turn a polyhedron into a sphere.
  * @type {Number}
  */
-let numSubdivisions = -1;
+let numSubdivisions = 0;
 
 /**
  * Scale applied to a model to make its size adequate for rendering.
@@ -761,6 +761,7 @@ const handleKeyPress = ((event) => {
   let gscale = 1;
   let subPoly = 0;
   let tri;
+  let n;
   const poly = {
     d: 0,
     i: 1,
@@ -843,10 +844,13 @@ const handleKeyPress = ((event) => {
       case "Z":
         gscale = mscale = 1;
         models.value = "5";
+        n = numSubdivisions;
+        numSubdivisions = 1;
         theModel = createModel({
           shape: uvSphereND(1, 48, 24),
           name: "spherend",
         });
+        numSubdivisions = n;
         break;
       case "s":
         gscale = mscale = 1;
