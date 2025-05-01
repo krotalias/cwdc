@@ -2202,7 +2202,7 @@ function newTexture(image) {
     // texture parameters are stored with the texture
     gl.generateMipmap(gl.TEXTURE_2D);
     // texture magnification filter - default is gl.LINEAR (blurred)
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 
     // reset defaults
 
@@ -2210,7 +2210,7 @@ function newTexture(image) {
     gl.texParameteri(
       gl.TEXTURE_2D,
       gl.TEXTURE_MIN_FILTER,
-      gl.NEAREST_MIPMAP_LINEAR,
+      gl.LINEAR_MIPMAP_LINEAR,
     );
 
     // wrapping function for texture coordinate s
