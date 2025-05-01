@@ -127,7 +127,7 @@
  * </li>
  * </ol>
  *
- * @author Paulo Roma
+ * @author {@link https://krotalias.github.io Paulo Roma}
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2024 Paulo R Cavalcanti.
  * @since 30/01/2016
