@@ -131,8 +131,8 @@
  * @license Licensed under the {@link https://www.opensource.org/licenses/mit-license.php MIT license}.
  * @copyright © 2024 Paulo R Cavalcanti.
  * @since 30/01/2016
- * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the fragment shader
- * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the vertex shader
+ * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the {@link https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/extras/LightingWithTexture.html fragment shader}
+ * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the {@link https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/extras/LightingWithTexture2.html vertex shader}
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="https://math.rice.edu/~polking/cartography/cart.pdf">Mapping the Sphere<a/>
@@ -143,6 +143,7 @@
  * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps</a>
  * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
+ * @see {@link https://github.com/wbkd/leaflet-truesize leaflet-truesize plugin}
  * @see {@link https://en.wikipedia.org/wiki/Sextant Navigational Sextant}
  * @see {@link https://www.youtube.com/c/CasualNavigationAcademy CasualNavigationAcademy}
  * @see <iframe title="Mercator World Map" style="width: 970px; height: 600px; transform-origin: 70px 80px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture2.html"></iframe>
