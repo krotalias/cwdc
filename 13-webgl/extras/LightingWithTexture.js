@@ -195,6 +195,7 @@ import * as THREE from "/cwdc/13-webgl/lib/three.module.js";
 import { TeapotGeometry } from "/cwdc/13-webgl/lib/TeapotGeometry.js";
 import {
   nsegments,
+  limit,
   pointsOnParallel,
   pointsOnMeridian,
   setMercatorCoordinates,
@@ -308,7 +309,7 @@ let image;
  * Maximum Number of subdivisions to turn a polyhedron into a sphere.
  * @type {Number}
  */
-let maxSubdivisions = 12;
+let maxSubdivisions = limit.dod;
 
 /**
  * Number of subdivisions to turn a polyhedron into a sphere.
