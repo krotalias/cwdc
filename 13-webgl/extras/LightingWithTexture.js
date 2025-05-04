@@ -141,6 +141,7 @@
  * @see <a href="https://cuhkmath.wordpress.com/2018/01/05/archimedes-and-the-area-of-sphere/">Archimedes and the area of sphere</a>
  * @see <a href="https://arxiv.org/pdf/1905.11214">On some information geometric structures concerning Mercator projections</a>
  * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps</a>
+ * @see <a href="https://kartoweb.itc.nl/geometrics/Map projections/mappro.html">Map projections</a>
  * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
  * @see {@link https://github.com/wbkd/leaflet-truesize leaflet-truesize plugin}
@@ -165,6 +166,12 @@
  *      <img src="../images/Globe-Earth-land-distortion-projection-Mercator-latitudes.jpg" height="340" title="mercator projection">
  *      <figcaption style="font-size: 200%">
  *      <a href="https://www.britannica.com/science/Mercator-projection">Mercator Projection</a>
+ *      </figcaption>
+ *      </figure>
+ * @see <figure>
+ *      <img src="../images/country-sizes.png" height="512" title="mercator world map">
+ *      <figcaption style="font-size: 200%">
+ *      <a href="https://engaging-data.com/country-sizes-mercator/">Real Country Sizes Shown on Mercator Projection</a>
  *      </figcaption>
  *      </figure>
  * @see  <figure>
@@ -1949,7 +1956,7 @@ function setPosition(location) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/generateMipmap generateMipmap() method}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texParameter texParameter[fi]() method}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D texImage2D() method}
- * @see {@link https://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences WebGL and OpenGL Differences}
+ * @see {@link https://www.khronos.org/webgl/wiki/WebGL_and_OpenGL WebGL and OpenGL Differences}
  * @see {@link https://learnopengl.com/Getting-started/Textures Textures}
  * @see {@link https://artincontext.org/shades-of-teal/ 38 Shades of Teal Color}
  * @see {@link https://www.khronos.org/opengl/wiki/Common_Mistakes Common Mistakes}
@@ -2222,7 +2229,7 @@ function newTexture(image) {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
   } else {
     // NPOT
-    setUVfix(false);
+    setUVfix();
 
     // texture minification filter
     gl.texParameteri(
@@ -2232,10 +2239,10 @@ function newTexture(image) {
     );
 
     // wrapping function for texture coordinate s (default is gl.REPEAT)
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
 
     // wrapping function for texture coordinate t (default is gl.REPEAT)
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
   }
   gl.useProgram(null);
 }
