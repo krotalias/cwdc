@@ -144,6 +144,7 @@
  * @see <a href="https://kartoweb.itc.nl/geometrics/Map projections/mappro.html">Map projections</a>
  * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
+ * @see {@link https://truesizeofcountries.com/ The True Size of Countries}
  * @see {@link https://github.com/wbkd/leaflet-truesize leaflet-truesize plugin}
  * @see {@link https://en.wikipedia.org/wiki/Sextant Navigational Sextant}
  * @see {@link https://www.youtube.com/c/CasualNavigationAcademy CasualNavigationAcademy}
