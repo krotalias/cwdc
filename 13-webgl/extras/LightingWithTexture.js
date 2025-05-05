@@ -142,6 +142,7 @@
  * @see <a href="https://arxiv.org/pdf/1905.11214">On some information geometric structures concerning Mercator projections</a>
  * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps</a>
  * @see <a href="https://kartoweb.itc.nl/geometrics/Map projections/mappro.html">Map projections</a>
+ * @see {@link https://ccv.eng.wayne.edu/reference/mercator-15dec2015.pdf#page=35 The Mercator Projections}
  * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
  * @see {@link https://truesizeofcountries.com/ The True Size of Countries}
