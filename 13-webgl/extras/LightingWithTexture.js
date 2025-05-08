@@ -103,7 +103,7 @@
  * models that enforce the {@link https://www.britannica.com/science/Euler-characteristic Euler characteristic}
  * by using the {@link https://people.computing.clemson.edu/~dhouse/courses/405/papers/p589-baumgart.pdf winged-edge},
  * {@link https://dl.acm.org/doi/pdf/10.1145/282918.282923 quad-edge},
- * or {@link https://www.scorec.rpi.edu/REPORTS/1986-1.pdf radial-edge} data structures required in
+ * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
  * <p><b>Homework</b>:</p>
