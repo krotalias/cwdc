@@ -154,6 +154,8 @@
  * @see <figure>
  *      <img src="../images/teapot.png" height="310" title="Utah teapot">
  *      <img src="../images/tex.png" title="64x64 texture" height="310">
+ *      <img src="../images/sphere2.png" height="309" title="Sphere">
+ *      <img src="../textures/uv_grid_opengl.jpg" title="1024x1024 texture" height="310">
  *      <figcaption style="font-size: 200%">{@link cartesian2Spherical North Pole - Y axis}</figcaption>
  *      </figure>
  * @see <figure>
