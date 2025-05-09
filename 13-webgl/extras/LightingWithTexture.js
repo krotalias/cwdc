@@ -153,9 +153,9 @@
  * @see <iframe title="Equirectangular World Map" style="position: relative; top: -280px; margin-bottom: -600px; width: 970px; height: 600px; transform-origin: 70px 0px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture.html"></iframe>
  * @see <figure>
  *      <img src="../images/teapot.png" height="310" title="Utah teapot">
- *      <img src="../images/tex.png" title="64x64 texture" height="310">
+ *      <img src="../textures/check1024border.png" title="1024x1024 checkboard texture" height="310">
  *      <img src="../images/sphere2.png" height="309" title="Sphere">
- *      <img src="../textures/uv_grid_opengl.jpg" title="1024x1024 texture" height="310">
+ *      <img src="../textures/uv_grid_opengl.jpg" title="1024x1024 grid texture" height="310">
  *      <figcaption style="font-size: 200%">{@link cartesian2Spherical North Pole - Y axis}</figcaption>
  *      </figure>
  * @see <figure>
