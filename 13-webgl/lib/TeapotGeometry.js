@@ -16,8 +16,8 @@
  * @since 07/01/2023
  *
  * @see <a href="/cwdc/13-webgl/lib/TeapotGeometry.js">source</a>
- * @see https://en.wikipedia.org/wiki/Utah_teapot
- * @see http://www.holmes3d.net/graphics/teapot/
+ * @see {@link https://en.wikipedia.org/wiki/Utah_teapot Utah teapot}
+ * @see {@link http://www.holmes3d.net/graphics/teapot/ The Utah Teapot}
  * @see <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Original_Utah_Teapot_-_Computer_History_Museums.jpg" width="512">
  */
 
@@ -68,7 +68,7 @@ import {
  *
  * Code converted from my ancient {@link https://tog.acm.org/resources/SPD/ SPD software}.<br>
  * Created for the Udacity course  {@link https://bit.ly/ericity "Interactive Rendering"}.<br>
- * YouTube video on teapot history: {@link https://www.youtube.com/watch?v=DxMfblPzFNc}
+ * YouTube video on teapot history: {@link https://www.youtube.com/watch?v=DxMfblPzFNc The Teapot video}.
  *
  * @param {Number} size is a relative scale: I've scaled the teapot to fit vertically between -1 and 1. <br>
  *    Think of it as a "radius".

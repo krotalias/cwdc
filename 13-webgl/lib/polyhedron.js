@@ -86,14 +86,14 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  *  <li>z = 1/3 = 0.3333333333333333 (24/9 = 8/9 + (z+1)²)</li>
  * </ul>
  *
- * Four vertices, lower face parallell to the xy plane:
+ * Four vertices, lower face parallel to the xy plane:
  * <ul>
  *  <li>(r, 0, -z)</li>
  *  <li>(-x, y, -z)</li>
  *  <li>(-x, -y, -z)</li>
  *  <li>(0, 0, 1)</li>
  * </ul>
- * Alternatively, higher face parallell to the xy plane:
+ * Alternatively, higher face parallel to the xy plane:
  * <ul>
  *  <li>(0, r, z)</li>
  *  <li>(y, -x, z)</li>
@@ -114,7 +114,7 @@ import { vec3 } from "/cwdc/13-webgl/lib/gl-matrix/dist/esm/index.js";
  *      <img src="../images/Tetrahedron.svg" width="128">
  *      <img src="../images/tet.png" width="164">
  *      <figcaption>
- *        Lower face parallell to the xy plane.
+ *        Lower face parallel to the xy plane.
  *      </figcaption>
  *      <img src="../images/Tetraeder_animation_with_cube.gif" width="128">
  *      <figcaption>
@@ -367,7 +367,7 @@ export const nsegments = 36;
  * y to be the value of the latitude.</li>
  * </ul>
  *
- * <p>The singularity of the mapping (parametrization) is at φ = 0 (y = -r) and φ = π (y = r):</p>
+ * <p>The singularity of the mapping (parameterization) is at φ = 0 (y = -r) and φ = π (y = r):</p>
  * <ul>
  *   <li>In this case, an entire line at the top (or bottom) boundary of the texture is mapped onto a single point.</li>
  *   <li> In {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system},
@@ -482,7 +482,7 @@ export function spherical2Cartesian(s, t, r = 1) {
  * and the y-axis at longitude θ<sub>0</sub>, where θ is the longitude and φ is the latitude:
  * <ul>
  *    <li>x =	θ - θ<sub>0</sub>, 0 ≤ θ - θ<sub>0</sub> ≤ 2π</li>
- *    <li>y =	ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2 → -π ≤ y ≤ π </li>
+ *    <li><span style="display: flex;">y = ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;"><sup>φ</sup> <sub>0</sub></span>sec(φ) dφ = ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2 → -π ≤ y ≤ π </span></li>
  * </ul>
  * The poles extent to infinity. Therefore, to create a square image,
  * the maximum latitude occurs at y = π, namely:
@@ -495,7 +495,10 @@ export function spherical2Cartesian(s, t, r = 1) {
  * @return {Object<x:Number, y:Number>} mercator coordinates in [0,1].
  * @see {@link https://stackoverflow.com/questions/59907996/shader-that-transforms-a-mercator-projection-to-equirectangular mercator projection to equirectangular}
  * @see {@link https://paulbourke.net/panorama/webmerc2sphere/ Converting Web Mercator projection to equirectangular}
- * @see <img src="../images/Cylindrical_Projection_basics2.svg">
+ * @see <a href="https://ccv.eng.wayne.edu/reference/mercator-15dec2015.pdf#page=35">The normal Mercator projection</a>
+ * @see {@link http://math2.org/math/integrals/more/sec.htm Integral sec(x)}
+ * @see <img src="../images/cylProj.png" width="556">
+ * @see <img src="../images/merc.png" width="128">
  */
 export function spherical2Mercator(s, t) {
   // st (uv) to equirectangular
