@@ -104,6 +104,17 @@ then any image file in directory <a href="/cwdc/13-webgl/extras/textures">textur
 will be available in the <a href="global.html#readFileNames">menu</a>. Otherwise, sorry <a href="https://pages.github.com">GitHub pages</a>,
 only the images listed in the HTML file.<p>
 
+<p>Maps are transformations from 3D space to 2D space, and they can preserve areas or angles
+(<a href="https://en.wikipedia.org/wiki/Conformal_map">conformal maps</a>). The success of the Mercator projection
+lies in its ability to preserve angles, making it ideal for navigation. However, it distorts areas,
+especially near the poles, where landmasses appear <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">much larger</a>
+than they are in reality.
+
+It is really amazing how Gerardus Mercator was able to create such a projection in a
+<a href="https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html">time</a> (1569) when there was no
+calculus (integrals, derivatives - <a href="https://en.wikipedia.org/wiki/History_of_calculus">Leibniz-Newton</a>, 1674-1666) or even logarithm tables
+(<a href="https://en.wikipedia.org/wiki/John_Napier">John Napier</a>, 1614).</p>
+
 <a href="https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/">Mercator texture coordinates</a>
 can be set in a <a href="global.html#createModel">model</a> directly or in
 the <a href="../../showCode.php?f=extras/LightingWithTexture">shader</a>
@@ -269,8 +280,12 @@ What does the obliquity of the earth have to do with the <a href="https://en.wik
             <li><a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps</a></li>
         
             <li><a href="https://kartoweb.itc.nl/geometrics/Map projections/mappro.html">Map projections</a></li>
+
+            <li><a href="https://paulbourke.net/dome/distortion/">"Distortion", the incorrect and correct usage of the word</a></li>
         
             <li><a href="https://ccv.eng.wayne.edu/reference/mercator-15dec2015.pdf#page=35">The Mercator Projections</a></li>
+  
+            <li><a href="https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html">The Mercator Projection from a Historic Point of View</a></li>               
         
             <li><a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a></li>
         

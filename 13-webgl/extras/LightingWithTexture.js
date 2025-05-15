@@ -42,6 +42,17 @@
  * will be available in the {@link readFileNames menu}. Otherwise, sorry {@link https://pages.github.com GitHub pages},
  * only the images listed in the HTML file.<p>
  *
+ * <p>Maps are transformations from 3D space to 2D space, and they can preserve areas or angles
+ * ({@link https://en.wikipedia.org/wiki/Conformal_map conformal maps}). The success of the Mercator projection
+ * lies in its ability to preserve angles, making it ideal for navigation. However, it distorts areas,
+ * especially near the poles, where landmasses appear {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf much larger}
+ * than they are in reality.
+ *
+ * It is really amazing how Gerardus Mercator was able to create such a projection in a
+ * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
+ * calculus (integrals, derivatives - {@link https://en.wikipedia.org/wiki/History_of_calculus Leibniz-Newton}, 1674-1666) or even logarithm tables
+ * ({@link https://en.wikipedia.org/wiki/John_Napier John Napier}, 1614).</p>
+ *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
  * can be set in a {@link createModel model} directly or in
  * the <a href="../../showCode.php?f=extras/LightingWithTexture">shader</a>
@@ -142,7 +153,9 @@
  * @see <a href="https://arxiv.org/pdf/1905.11214">On some information geometric structures concerning Mercator projections</a>
  * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps</a>
  * @see <a href="https://kartoweb.itc.nl/geometrics/Map projections/mappro.html">Map projections</a>
+ * @see {@link https://paulbourke.net/dome/distortion/ "Distortion", the incorrect and correct usage of the word}
  * @see {@link https://ccv.eng.wayne.edu/reference/mercator-15dec2015.pdf#page=35 The Mercator Projections}
+ * @see {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html The Mercator Projection from a Historic Point of View}
  * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
  * @see {@link https://truesizeofcountries.com/ The True Size of Countries}
