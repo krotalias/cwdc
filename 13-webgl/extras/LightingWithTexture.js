@@ -42,13 +42,15 @@
  * will be available in the {@link readFileNames menu}. Otherwise, sorry {@link https://pages.github.com GitHub pages},
  * only the images listed in the HTML file.<p>
  *
- * <p>Maps are transformations from 3D space to 2D space, and they can preserve areas or angles
+ * <p>Maps are transformations from {@link module:polyhedron.cartesian2Spherical 3D space}
+ * to {@link module:polyhedron.spherical2Mercator 2D space}, and they can preserve areas
+ * ({@link https://en.wikipedia.org/wiki/Equal-area_projection equal-area maps}) or angles
  * ({@link https://en.wikipedia.org/wiki/Conformal_map conformal maps}). The success of the Mercator projection
  * lies in its ability to preserve angles, making it ideal for navigation. However, it distorts areas,
  * especially near the poles, where landmasses appear {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf much larger}
  * than they are in reality.
  *
- * It is really amazing how Gerardus Mercator was able to create such a projection in a
+ * It is really amazing how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
  * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
  * calculus (integrals, derivatives - {@link https://en.wikipedia.org/wiki/History_of_calculus Leibniz-Newton}, 1674-1666) or even logarithm tables
  * ({@link https://en.wikipedia.org/wiki/John_Napier John Napier}, 1614).</p>
