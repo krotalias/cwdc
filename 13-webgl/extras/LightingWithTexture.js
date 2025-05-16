@@ -48,11 +48,12 @@
  * ({@link https://en.wikipedia.org/wiki/Conformal_map conformal maps}). The success of the Mercator projection
  * lies in its ability to preserve angles, making it ideal for navigation. However, it distorts areas,
  * especially near the poles, where landmasses appear {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf much larger}
- * than they are in reality.
+ * than they are in reality. In order the parallels on the map are all the same length,
+ * a parallel must be streched by a factor of sec(φ) = 1/cos(φ), where φ is its latitude, φ ∈ [-85.051129°, 85.051129°].
  *
- * It is really amazing how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
+ * It is really impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
  * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
- * calculus (integrals, derivatives - {@link https://en.wikipedia.org/wiki/History_of_calculus Leibniz-Newton}, 1674-1666) or even logarithm tables
+ * calculus (integrals, derivatives — {@link https://en.wikipedia.org/wiki/History_of_calculus Leibniz-Newton}, 1674-1666) or even logarithm tables
  * ({@link https://en.wikipedia.org/wiki/John_Napier John Napier}, 1614).</p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
