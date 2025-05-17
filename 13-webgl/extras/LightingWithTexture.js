@@ -46,12 +46,13 @@
  * to {@link module:polyhedron.spherical2Mercator 2D space}, and they can preserve areas
  * ({@link https://en.wikipedia.org/wiki/Equal-area_projection equal-area maps}) or angles
  * ({@link https://en.wikipedia.org/wiki/Conformal_map conformal maps}). The success of the Mercator projection
- * lies in its ability to preserve angles, making it ideal for navigation. However, it distorts areas,
+ * lies in its ability to preserve angles, making it ideal for navigation
+ * (directions on the map match the directions on the compass). However, it distorts areas,
  * especially near the poles, where landmasses appear {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf much larger}
- * than they are in reality. In order the parallels on the map are all the same length,
- * a parallel must be streched by a factor of sec(φ) = 1/cos(φ), where φ is its latitude, φ ∈ [-85.051129°, 85.051129°].
+ * than they are in reality. In order for the parallels on the map to be all the same length,
+ * a parallel must be stretched by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.</p>
  *
- * It is really impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
+ * <p>It is impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
  * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
  * calculus (integrals, derivatives — {@link https://en.wikipedia.org/wiki/History_of_calculus Leibniz-Newton}, 1674-1666) or even logarithm tables
  * ({@link https://en.wikipedia.org/wiki/John_Napier John Napier}, 1614).</p>
@@ -159,6 +160,8 @@
  * @see {@link https://paulbourke.net/dome/distortion/ "Distortion", the incorrect and correct usage of the word}
  * @see {@link https://ccv.eng.wayne.edu/reference/mercator-15dec2015.pdf#page=35 The Mercator Projections}
  * @see {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html The Mercator Projection from a Historic Point of View}
+ * @see {@link https://www.sco.wisc.edu/2022/01/21/how-big-is-a-degree/ How Big is a Degree?}
+ * @see {@link https://bestcase.wordpress.com/2014/05/18/the-mercator-saga-part-1/ The Mercator Saga (part 1)}
  * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
  * @see {@link https://truesizeofcountries.com/ The True Size of Countries}
