@@ -239,6 +239,7 @@ import {
   setMercatorCoordinates,
   rotateUTexture,
   Polyhedron,
+  mercator2Spherical,
 } from "/cwdc/13-webgl/lib/polyhedron.js";
 import {
   vec3,
@@ -401,6 +402,10 @@ const gpsCoordinates = {
   Hawaii: {
     latitude: 21.3068,
     longitude: -157.7912,
+  },
+  Unknown: {
+    latitude: 0,
+    longitude: 0,
   },
 };
 
@@ -1379,6 +1384,41 @@ const models = document.getElementById("models");
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 models.addEventListener("change", (event) => selectModel());
+
+const textimg = document.getElementById("textimg");
+
+/**
+ * <p>Gets the latitude and longitude on the texture image when clicked upon
+ * and draws its position on the map.</p>
+ * The pointerdown event is fired when a pointer becomes active.
+ * For mouse, it is fired when the device transitions from no buttons pressed to at least one button pressed.
+ * For touch, it is fired when physical contact is made with the digitizer.
+ * For pen, it is fired when the stylus makes physical contact with the digitizer.
+ * @event onpointerdown
+ * @param {PointerEvent} event a pointer event.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
+ * @see {@link https://caniuse.com/pointer Pointer events}
+ */
+textimg.onpointerdown = (event) => {
+  const x = event.offsetX;
+  let y = event.offsetY;
+  y = event.target.height - y;
+  let [s, t] = [x / event.target.width, y / event.target.height];
+  if (mercator) {
+    // mercator projection
+    t = mercator2Spherical(s, t).t;
+  }
+
+  s = s * 360 - 180;
+  t = t * 180 - 90;
+
+  gpsCoordinates["Unknown"] = { latitude: t, longitude: s };
+  const cities = Object.keys(gpsCoordinates);
+  currentLocation = cities[cities.length - 2];
+  handleKeyPress(createEvent("G"));
+  console.log(`longitude = ${s}, latitude = ${t}`);
+};
 
 // export for using in the html file.
 window.zoomIn = zoomIn;
