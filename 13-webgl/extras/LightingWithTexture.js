@@ -188,7 +188,14 @@
  *      <img src="../images/mercator-projection-world-map-political.png" height="340" title="mercator world map">
  *      <img src="../images/Globe-Earth-land-distortion-projection-Mercator-latitudes.jpg" height="340" title="mercator projection">
  *      <figcaption style="font-size: 200%">
- *      <a href="https://www.britannica.com/science/Mercator-projection">Mercator Projection</a>
+ *      <a href="https://www.britannica.com/science/Mercator-projection">Mercator Projection</a><br>
+ *      <a href="https://www.youtube.com/watch?v=kIID5FDi2JQ&pp=0gcJCdgAo7VqN5tD">(not a cylindrical <u>radial</u> projection)</a>
+ *      </figcaption>
+ *      </figure>
+ * @see <figure>
+ *      <img src="../images/twoproj.gif" title="mercator projection">
+ *      <figcaption style="font-size: 200%">
+ *      <a href="https://www.youtube.com/watch?v=CPQZ7NcQ6YQ">Wrong (left) x Correct (right)</a>
  *      </figcaption>
  *      </figure>
  * @see <figure>
