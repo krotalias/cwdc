@@ -70,6 +70,17 @@
  *   <li> sample texture at (x, y)</li>
  * </ul>
  *
+ * The {@link https://en.wikipedia.org/wiki/Equirectangular_projection equirectangular projection}, on the other hand,
+ * also known as the equidistant cylindrical projection (e.g., plate carrée),
+ * is a way of representing the Earth's surface on a flat plane.
+ * It maps longitude and latitude lines into straight, evenly spaced lines,
+ * essentially flattening the sphere into a rectangle.
+ * {@link https://en.wikipedia.org/wiki/Ptolemy Ptolemy} claims that
+ * {@link https://en.wikipedia.org/wiki/Marinus_of_Tyre Marinus of Tyre}
+ * invented the projection in the first century (AD 100).
+ * The projection is neither equal area nor conformal.
+ * In particular, the plate carrée has become a standard for global raster datasets.
+ *
  * <p><u>As a final remark</u>, I thought it would be easier to deal with map images as textures, but I was mistaken. I tried, as long as I could,
  * not to rewrite third-party code. Unfortunately, this was impossible. The main issue was that the
  * {@link https://en.wikipedia.org/wiki/Prime_meridian prime meridian} is

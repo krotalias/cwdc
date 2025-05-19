@@ -132,6 +132,17 @@ it is possible to go into each fragment from:
   <li> sample texture at (x, y)</li>
 </ul>
 
+The <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">equirectangular projection</a>, on the other hand,
+also known as the equidistant cylindrical projection (e.g., plate carrée),
+is a way of representing the Earth's surface on a flat plane.
+It maps longitude and latitude lines into straight, evenly spaced lines,
+essentially flattening the sphere into a rectangle.
+<a href="https://en.wikipedia.org/wiki/Ptolemy">Ptolemy</a> claims that
+<a href="https://en.wikipedia.org/wiki/Marinus_of_Tyre">Marinus of Tyre</a>
+invented the projection in the first century (AD 100).
+The projection is neither equal area nor conformal.
+In particular, the plate carrée has become a standard for global raster datasets.
+
 <p><u>As a final remark</u>, I thought it would be easier to deal with map images as textures, but I was mistaken. I tried, as long as I could,
 not to rewrite third-party code. Unfortunately, this was impossible. The main issue was that the
 <a href="https://en.wikipedia.org/wiki/Prime_meridian">prime meridian</a> is
