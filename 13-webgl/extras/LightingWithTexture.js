@@ -252,6 +252,7 @@ import {
   rotateUTexture,
   Polyhedron,
   mercator2Spherical,
+  spherical2Mercator,
 } from "/cwdc/13-webgl/lib/polyhedron.js";
 import {
   vec3,
@@ -1113,6 +1114,39 @@ const handleKeyPress = ((event) => {
 })();
 
 /**
+ * Draw the meridian and parallel lines at the {@link currentLocation}
+ * on the texture image.
+ */
+function drawLinesOnImage() {
+  const canvasimg = document.getElementById("canvasimg");
+
+  const ctx = canvasimg.getContext("2d");
+  ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
+
+  if (selector.equator) {
+    let s = gpsCoordinates[currentLocation].longitude;
+    let t = gpsCoordinates[currentLocation].latitude;
+    s = (s + 180) / 360;
+    t = (t + 90) / 180;
+    t = 1 - t;
+    if (mercator) {
+      // mercator projection
+      t = spherical2Mercator(s, t).y;
+    }
+    x = s * canvasimg.width;
+    y = t * canvasimg.height;
+
+    ctx.beginPath();
+    ctx.moveTo(x, 0); // meridian
+    ctx.lineTo(x, canvasimg.height);
+    ctx.moveTo(0, y); // parallel
+    ctx.lineTo(canvasimg.width, y);
+    ctx.strokeStyle = "red";
+    ctx.stroke();
+  }
+}
+
+/**
  * <p>Closure for selecting a texture from the menu.</p>
  * Tetrahedra and octahedra may need to be reloaded for
  * getting appropriate texture coordinates:
@@ -1421,6 +1455,8 @@ textimg.onpointerdown = (event) => {
     // mercator projection
     t = mercator2Spherical(s, t).t;
   }
+  // normalized
+  console.log(`longitude = ${s}, latitude = ${t}`);
 
   s = s * 360 - 180;
   t = t * 180 - 90;
@@ -1429,7 +1465,6 @@ textimg.onpointerdown = (event) => {
   const cities = Object.keys(gpsCoordinates);
   currentLocation = cities[cities.length - 2];
   handleKeyPress(createEvent("G"));
-  console.log(`longitude = ${s}, latitude = ${t}`);
 };
 
 // export for using in the html file.
@@ -1452,6 +1487,7 @@ function draw() {
   if (selector.texture) drawTexture();
   if (selector.lines) drawLines();
   if (selector.equator) drawParallel();
+  drawLinesOnImage();
 }
 
 /**
@@ -2267,7 +2303,13 @@ function newTexture(image) {
   gl.useProgram(lightingShader);
   const imgSize = document.getElementById("size");
   imgSize.innerHTML = `${imageFilename[textureCnt]}`;
-  document.getElementById("textimg").src = image.src;
+  const textimg = document.getElementById("textimg");
+  textimg.src = image.src;
+  textimg.onload = () => {
+    const canvasimg = document.getElementById("canvasimg");
+    canvasimg.width = textimg.width;
+    canvasimg.height = textimg.height;
+  };
   document.getElementById("figc").textContent =
     `(${image.width} x ${image.height})`;
   document.getElementById("textures").value = String(textureCnt);
