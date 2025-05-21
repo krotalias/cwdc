@@ -1133,8 +1133,9 @@ function drawLinesOnImage() {
       // mercator projection
       t = spherical2Mercator(s, t).y;
     }
-    x = s * canvasimg.width;
-    y = t * canvasimg.height;
+
+    const x = s * canvasimg.width;
+    const y = t * canvasimg.height;
 
     ctx.beginPath();
     ctx.moveTo(x, 0); // meridian
