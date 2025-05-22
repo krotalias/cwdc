@@ -138,19 +138,37 @@
  * <ol>
  * <li>The application selects a random {@link gpsCoordinates city} and displays its location (when its name is checked in the interface)
  * as the intersection of its line of latitude (parallel) and line of longitude (meridian) on the model surface (preferably a map onto a sphere).
- * Your task is (using the mouse or any pointer device) to pick a point in the texture image and display its location on the map.</li>
+ * Your task is to pick a point in the texture image (using the mouse or any pointer device) and display its location
+ * on the texture image (map) and on the 3D model.
+ * <ul>
+ *   <li>To do this, you need to convert the pixel coordinates of the mouse pointer into texture coordinates (u, v) and then
+ *   convert them into spherical coordinates (longitude, latitude) using the {@link currentLocation} and
+ *   {@link module:polyhedron.spherical2Mercator transforming} it to Mercator coordinates.</li>
+ *   <li>To draw the lines, use the {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo lineTo()} from
+ *       HTML5 by placing a canvas element on top of the &ltimg&gt element.</li>
+ *   <li>This is simple to accomplish by {@link https://stackoverflow.com/questions/14824747/overlay-html5-canvas-over-image nesting}
+ *       the canvas element with {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
+ *       absolute in a &lt;div&gt; element with position relative and the {@link newTexture same size} as the image element.</li>
+ *   <li>The canvas element should have a higher {@link https://developer.mozilla.org/en-US/docs/Web/CSS/z-index z-index}
+ *       than the image element and ignore
+ *       {@link https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events pointer events}.</li>
+ *    <li>Finally, define an {@link event:onpointerdown onpointerdown} event handler to set
+ *        the {@link currentLocation} as the {@link gpsCoordinates} "Unknown" and draw the lines
+ *        by calling {@link drawLinesOnImage} in {@link draw}.</li>
+ * </ul>
+ * </li>
  *
  * <li>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case
  * by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
  *
  * <li>
- * To determine a ship's latitude at the sea (without a {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS}),
- * one needs a {@link https://www.youtube.com/watch?v=00ZEIZsl5xk sextant}.
- * However, what is it necessary to get its longitude?
+ * To determine a ship's latitude at sea without a {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS},
+ * it is necessary to have a {@link https://www.youtube.com/watch?v=00ZEIZsl5xk sextant}.
+ * What is necessary to get the ship's longitude?
  * What calculation should be done (it is simpler than you might think)?
  * </li>
  * <li>
- * What does the obliquity of the earth have to do with the {@link https://en.wikipedia.org/wiki/Timeline_of_glaciation Glatial} periods?
+ * What does the obliquity of the earth have to do with the {@link https://en.wikipedia.org/wiki/Timeline_of_glaciation glacial} periods?
  * </li>
  * </ol>
  *
@@ -175,6 +193,7 @@
  * @see {@link https://www.sco.wisc.edu/2022/01/21/how-big-is-a-degree/ How Big is a Degree?}
  * @see {@link https://bestcase.wordpress.com/2014/05/18/the-mercator-saga-part-1/ The Mercator Saga (part 1)}
  * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
+ * @see <a href="https://en.wikipedia.org/wiki/Earth's_circumference">Earth's circumference</a>
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
  * @see {@link https://truesizeofcountries.com/ The True Size of Countries}
  * @see {@link https://github.com/wbkd/leaflet-truesize leaflet-truesize plugin}
