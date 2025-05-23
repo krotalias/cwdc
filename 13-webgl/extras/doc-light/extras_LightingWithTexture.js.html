@@ -2357,6 +2357,7 @@ function newTexture(image) {
     const canvasimg = document.getElementById("canvasimg");
     canvasimg.width = textimg.width;
     canvasimg.height = textimg.height;
+    if (selector.paused) draw();
   };
   document.getElementById("figc").textContent =
     `(${image.width} x ${image.height})`;
