@@ -2329,7 +2329,7 @@ function newTexture(image) {
     const canvasimg = document.getElementById("canvasimg");
     canvasimg.width = textimg.width;
     canvasimg.height = textimg.height;
-    if (selector.paused) draw();
+    if (selector.paused) drawLinesOnImage();
   };
   document.getElementById("figc").textContent =
     `(${image.width} x ${image.height})`;
