@@ -161,7 +161,7 @@
  * <li>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case
  *     by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
  * <ul>
- *  <li>The easiest way is shooting the ray from the mouse position and intersecting it against the surface of a parametric sphere
+ *  <li>The easiest way is shooting the ray from the mouse position and intersecting it against the surface of an implicit sphere
  *      by solving a {@link https://en.wikipedia.org/wiki/Line–sphere_intersection second-degree equation}.</li>
  *  <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
  *      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
