@@ -145,11 +145,11 @@
  *   convert them into spherical coordinates (longitude, latitude) using the {@link currentLocation} and
  *   {@link module:polyhedron.spherical2Mercator transforming} it to Mercator coordinates.</li>
  *   <li>To draw the lines, use the {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo lineTo()} from
- *       HTML5 by placing a canvas element on top of the &ltimg&gt element.</li>
+ *       HTML5 by placing a &lt;canvas&gt; element on top of the &ltimg&gt element.</li>
  *   <li>This is simple to accomplish by {@link https://stackoverflow.com/questions/14824747/overlay-html5-canvas-over-image nesting}
- *       the canvas element with {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
+ *       the &lt;canvas&gt; element with {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
  *       absolute in a &lt;div&gt; element with position relative and the {@link newTexture same size} as the image element.</li>
- *   <li>The canvas element should have a higher {@link https://developer.mozilla.org/en-US/docs/Web/CSS/z-index z-index}
+ *   <li>The &lt;canvas&gt; element should have a higher {@link https://developer.mozilla.org/en-US/docs/Web/CSS/z-index z-index}
  *       than the image element and ignore
  *       {@link https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events pointer events}.</li>
  *    <li>Finally, define an {@link event:onpointerdown onpointerdown} event handler to set
@@ -159,7 +159,14 @@
  * </li>
  *
  * <li>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case
- * by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
+ *     by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
+ * <ul>
+ *  <li>The easiest way is shooting the ray from the mouse position and intersecting it against the surface of a parametric sphere
+ *      by solving a {@link https://en.wikipedia.org/wiki/Line–sphere_intersection second-degree equation}.</li>
+ *  <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
+ *      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
+ *  <li>We select a position on the globe by clicking the right mouse button in the WebGL canvas.</li>
+ * </ul>
  *
  * <li>
  * To determine a ship's latitude at sea without a {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS},
@@ -1525,13 +1532,14 @@ canvas.onpointerdown = (event) => {
   );
   const invTransform = mat4.invert([], transform);
 
-  let o = vec4.fromValues(x, y, 0, 1);
-  let p = vec4.fromValues(x, y, 1, 1);
+  const o = vec4.fromValues(x, y, 0, 1);
+  const p = vec4.fromValues(x, y, 1, 1);
 
   // unproject
   vec4.transformMat4(o, o, invTransform);
   vec4.transformMat4(p, p, invTransform);
 
+  // perspective division (dividing by w)
   vec4.scale(o, o, 1 / o[3]);
   vec4.scale(p, p, 1 / p[3]);
 

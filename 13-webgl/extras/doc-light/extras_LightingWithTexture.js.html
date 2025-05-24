@@ -1553,13 +1553,14 @@ canvas.onpointerdown = (event) => {
   );
   const invTransform = mat4.invert([], transform);
 
-  let o = vec4.fromValues(x, y, 0, 1);
-  let p = vec4.fromValues(x, y, 1, 1);
+  const o = vec4.fromValues(x, y, 0, 1);
+  const p = vec4.fromValues(x, y, 1, 1);
 
   // unproject
   vec4.transformMat4(o, o, invTransform);
   vec4.transformMat4(p, p, invTransform);
 
+  // perspective division (dividing by w)
   vec4.scale(o, o, 1 / o[3]);
   vec4.scale(p, p, 1 / p[3]);
 
