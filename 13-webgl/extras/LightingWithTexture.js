@@ -272,9 +272,12 @@ import {
   Polyhedron,
   mercator2Spherical,
   spherical2Mercator,
+  cartesian2Spherical,
+  spherical2Cartesian,
 } from "/cwdc/13-webgl/lib/polyhedron.js";
 import {
   vec3,
+  vec4,
   mat3,
   mat4,
   glMatrix,
@@ -1486,6 +1489,95 @@ textimg.onpointerdown = (event) => {
   currentLocation = cities[cities.length - 2];
   handleKeyPress(createEvent("G"));
 };
+
+const canvas = document.getElementById("theCanvas");
+
+/**
+ * <p>Gets the latitude and longitude on the globe when clicked upon
+ * and draws its position on the map.</p>
+ * The pointerdown event is fired when a pointer becomes active.
+ * For mouse, it is fired when the device transitions from no buttons pressed to at least one button pressed.
+ * For touch, it is fired when physical contact is made with the digitizer.
+ * For pen, it is fired when the stylus makes physical contact with the digitizer.
+ * @event onpointerdownGLobe
+ * @param {PointerEvent} event a pointer event.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
+ * @see {@link https://caniuse.com/pointer Pointer events}
+ * @see {@link https://en.wikipedia.org/wiki/Line–sphere_intersection Line–sphere intersection}
+ * @see {@link https://nickthecoder.wordpress.com/2013/01/17/unproject-vec3-in-gl-matrix-library/ unproject vec3 in gl-matrix library}
+ */
+canvas.onpointerdown = (event) => {
+  if (event.buttons != 2) return;
+
+  let x = event.offsetX;
+  let y = event.offsetY;
+  y = event.target.height - y;
+
+  // normalized [-1,1]
+  x = (2 * x) / event.target.width - 1;
+  y = (2 * y) / event.target.height - 1;
+
+  const transform = mat4.multiply(
+    [],
+    projection,
+    mat4.multiply([], viewMatrix, getModelMatrix()),
+  );
+  const invTransform = mat4.invert([], transform);
+
+  let o = vec4.fromValues(x, y, 0, 1);
+  let p = vec4.fromValues(x, y, 1, 1);
+
+  // unproject
+  vec4.transformMat4(o, o, invTransform);
+  vec4.transformMat4(p, p, invTransform);
+
+  vec4.scale(o, o, 1 / o[3]);
+  vec4.scale(p, p, 1 / p[3]);
+
+  const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
+  const c = vec3.fromValues(0, 0, 0);
+  const r = 1; // radius of the sphere
+
+  const oc = vec3.subtract([], o, c); // o - c
+  const a = vec3.dot(u, oc);
+  const b = vec3.dot(oc, oc); // ||oc||^2
+  const delta = a * a - b + r * r;
+  const sqrt_delta = Math.sqrt(delta);
+  const d1 = -a + sqrt_delta;
+  const d2 = -a - sqrt_delta;
+  let dist;
+  if (delta > 0) {
+    dist = Math.min(d1, d2);
+  } else if (delta == 0) {
+    dist = -a;
+  } else {
+    console.log("No intersection");
+    return;
+  }
+
+  const intersection = vec3.scaleAndAdd([], o, u, dist); // o + u * dist
+  const uv = cartesian2Spherical(intersection);
+
+  const s = uv.s * 360 - 180;
+  const t = uv.t * 180 - 90;
+
+  gpsCoordinates["Unknown"] = { latitude: t, longitude: s };
+  const cities = Object.keys(gpsCoordinates);
+  currentLocation = cities[cities.length - 2];
+  handleKeyPress(createEvent("G"));
+};
+
+/**
+ * No context menu whe pressing the right mouse button.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event Element: contextmenu event}
+ * @event contextmenu
+ * @param {MouseEvent} event mouse event.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent MouseEvent}
+ */
+canvas.addEventListener("contextmenu", (event) => {
+  event.preventDefault();
+});
 
 // export for using in the html file.
 window.zoomIn = zoomIn;
