@@ -1577,7 +1577,7 @@ canvas.onpointerdown = (event) => {
 };
 
 /**
- * No context menu whe pressing the right mouse button.
+ * No context menu when pressing the right mouse button.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event Element: contextmenu event}
  * @event contextmenu
  * @param {MouseEvent} event mouse event.
