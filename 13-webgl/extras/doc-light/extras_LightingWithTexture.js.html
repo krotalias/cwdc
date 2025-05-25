@@ -173,11 +173,11 @@
  *   convert them into spherical coordinates (longitude, latitude) using the {@link currentLocation} and
  *   {@link module:polyhedron.spherical2Mercator transforming} it to Mercator coordinates.&lt;/li>
  *   &lt;li>To draw the lines, use the {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo lineTo()} from
- *       HTML5 by placing a canvas element on top of the &amp;ltimg&amp;gt element.&lt;/li>
+ *       HTML5 by placing a &amp;lt;canvas&amp;gt; element on top of the &amp;ltimg&amp;gt element.&lt;/li>
  *   &lt;li>This is simple to accomplish by {@link https://stackoverflow.com/questions/14824747/overlay-html5-canvas-over-image nesting}
- *       the canvas element with {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
+ *       the &amp;lt;canvas&amp;gt; element with {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
  *       absolute in a &amp;lt;div&amp;gt; element with position relative and the {@link newTexture same size} as the image element.&lt;/li>
- *   &lt;li>The canvas element should have a higher {@link https://developer.mozilla.org/en-US/docs/Web/CSS/z-index z-index}
+ *   &lt;li>The &amp;lt;canvas&amp;gt; element should have a higher {@link https://developer.mozilla.org/en-US/docs/Web/CSS/z-index z-index}
  *       than the image element and ignore
  *       {@link https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events pointer events}.&lt;/li>
  *    &lt;li>Finally, define an {@link event:onpointerdown onpointerdown} event handler to set
@@ -187,7 +187,14 @@
  * &lt;/li>
  *
  * &lt;li>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case
- * by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.&lt;/li>
+ *     by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.&lt;/li>
+ * &lt;ul>
+ *  &lt;li>The easiest way is shooting the ray from the mouse position and intersecting it against the surface of an implicit sphere
+ *      by {@link lineSphereIntersection solving} a {@link https://en.wikipedia.org/wiki/Line–sphere_intersection second-degree equation}.&lt;/li>
+ *  &lt;li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
+ *      of a face and then checking if the intersection point is inside the corresponding triangle.&lt;/li>
+ *  &lt;li>We select a position on the globe by {@link event:onpointerdownGLobe clicking} the right mouse button in the WebGL canvas.&lt;/li>
+ * &lt;/ul>
  *
  * &lt;li>
  * To determine a ship's latitude at sea without a {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS},
@@ -1272,6 +1279,90 @@ function selectModel() {
 }
 
 /**
+ * &lt;p>Maps screen coordinates to object coordinates.&lt;/p>
+ * @param {Array&lt;Number>} out the receiving vector.
+ * @param {vec3} vec 3D vector of screen coordinates.
+ * @param {mat4} modelMatrix model matrix.
+ * @param {mat4} viewMatrix view matrix.
+ * @param {mat4} projectionMatrix projection matrix.
+ * @param {Number} width viewport width.
+ * @param {Number} height viewport height.
+ * @returns {Array&lt;Number>} out.
+ * @see {@link https://nickthecoder.wordpress.com/2013/01/17/unproject-vec3-in-gl-matrix-library/ unproject vec3 in gl-matrix library}
+ * @see {@link https://dondi.lmu.build/share/cg/unproject-explained.pdf “Unproject” Explained}
+ */
+function unproject(
+  out,
+  vec,
+  modelMatrix,
+  viewMatrix,
+  projectionMatrix,
+  width,
+  height,
+) {
+  // normalized [-1,1]
+  const x = (2 * vec[0]) / width - 1;
+  const y = (2 * vec[1]) / height - 1;
+  const z = vec[2];
+
+  const transform = mat4.multiply(
+    [],
+    projectionMatrix,
+    mat4.multiply([], viewMatrix, modelMatrix),
+  );
+  const invTransform = mat4.invert([], transform);
+
+  const p = vec4.fromValues(x, y, z, 1);
+
+  // unproject
+  vec4.transformMat4(p, p, invTransform);
+
+  // perspective division (dividing by w)
+  vec4.scale(p, p, 1 / p[3]);
+
+  out[0] = p[0];
+  out[1] = p[1];
+  out[2] = p[2];
+
+  return out;
+}
+
+/**
+ * &lt;p>Find point of intersection between a line and a sphere.&lt;/p>
+ * The line is defined by its origin and an end point.
+ * The sphere is defined by its center and radius.
+ * @param {vec3} o ray origin.
+ * @param {vec3} p ray end point.
+ * @param {vec3} c center of the sphere.
+ * @param {Number} r radius of the sphere.
+ * @returns {vec3} intersection point.
+ * @see {@link https://en.wikipedia.org/wiki/Line–sphere_intersection Line–sphere intersection}
+ */
+function lineSphereIntersection(o, p, c, r) {
+  // line direction
+  const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
+
+  const oc = vec3.subtract([], o, c); // o - c
+  const a = vec3.dot(u, oc);
+  const b = vec3.dot(oc, oc); // ||oc||^2
+  const delta = a * a - b + r * r;
+  const sqrt_delta = Math.sqrt(delta);
+  const d1 = -a + sqrt_delta;
+  const d2 = -a - sqrt_delta;
+  let dist;
+  if (delta > 0) {
+    dist = Math.min(d1, d2);
+  } else if (delta == 0) {
+    dist = -a;
+  } else {
+    console.log("No intersection");
+    return null;
+  }
+
+  return vec3.scaleAndAdd([], o, u, dist); // o + u * dist
+}
+
+/**
  * Select next texture and creates an {@link createEvent event} "n" for it.
  */
 function nextTexture() {
@@ -1532,8 +1623,6 @@ const canvas = document.getElementById("theCanvas");
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
  * @see {@link https://caniuse.com/pointer Pointer events}
- * @see {@link https://en.wikipedia.org/wiki/Line–sphere_intersection Line–sphere intersection}
- * @see {@link https://nickthecoder.wordpress.com/2013/01/17/unproject-vec3-in-gl-matrix-library/ unproject vec3 in gl-matrix library}
  */
 canvas.onpointerdown = (event) => {
   if (event.buttons != 2) return;
@@ -1542,50 +1631,31 @@ canvas.onpointerdown = (event) => {
   let y = event.offsetY;
   y = event.target.height - y;
 
-  // normalized [-1,1]
-  x = (2 * x) / event.target.width - 1;
-  y = (2 * y) / event.target.height - 1;
-
-  const transform = mat4.multiply(
+  // ray origin in world coordinates
+  const o = unproject(
     [],
+    vec3.fromValues(x, y, 0),
+    getModelMatrix(),
+    viewMatrix,
     projection,
-    mat4.multiply([], viewMatrix, getModelMatrix()),
+    event.target.width,
+    event.target.height,
   );
-  const invTransform = mat4.invert([], transform);
 
-  const o = vec4.fromValues(x, y, 0, 1);
-  const p = vec4.fromValues(x, y, 1, 1);
+  // ray end point in world coordinates
+  const p = unproject(
+    [],
+    vec3.fromValues(x, y, 1),
+    getModelMatrix(),
+    viewMatrix,
+    projection,
+    event.target.width,
+    event.target.height,
+  );
 
-  // unproject
-  vec4.transformMat4(o, o, invTransform);
-  vec4.transformMat4(p, p, invTransform);
+  const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
+  if (!intersection) return;
 
-  // perspective division (dividing by w)
-  vec4.scale(o, o, 1 / o[3]);
-  vec4.scale(p, p, 1 / p[3]);
-
-  const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
-  const c = vec3.fromValues(0, 0, 0);
-  const r = 1; // radius of the sphere
-
-  const oc = vec3.subtract([], o, c); // o - c
-  const a = vec3.dot(u, oc);
-  const b = vec3.dot(oc, oc); // ||oc||^2
-  const delta = a * a - b + r * r;
-  const sqrt_delta = Math.sqrt(delta);
-  const d1 = -a + sqrt_delta;
-  const d2 = -a - sqrt_delta;
-  let dist;
-  if (delta > 0) {
-    dist = Math.min(d1, d2);
-  } else if (delta == 0) {
-    dist = -a;
-  } else {
-    console.log("No intersection");
-    return;
-  }
-
-  const intersection = vec3.scaleAndAdd([], o, u, dist); // o + u * dist
   const uv = cartesian2Spherical(intersection);
 
   const s = uv.s * 360 - 180;
@@ -2567,13 +2637,13 @@ const animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:contextmenu">contextmenu</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onpointerdown">onpointerdown</a></li><li><a href="global.html#event:onpointerdownGLobe">onpointerdownGLobe</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawLinesOnImage">drawLinesOnImage</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:contextmenu">contextmenu</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:onpointerdown">onpointerdown</a></li><li><a href="global.html#event:onpointerdownGLobe">onpointerdownGLobe</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawLinesOnImage">drawLinesOnImage</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lineSphereIntersection">lineSphereIntersection</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#unproject">unproject</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat May 24 2025 13:57:49 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun May 25 2025 13:08:27 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -162,10 +162,10 @@
  *     by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
  * <ul>
  *  <li>The easiest way is shooting the ray from the mouse position and intersecting it against the surface of an implicit sphere
- *      by solving a {@link https://en.wikipedia.org/wiki/Line–sphere_intersection second-degree equation}.</li>
+ *      by {@link lineSphereIntersection solving} a {@link https://en.wikipedia.org/wiki/Line–sphere_intersection second-degree equation}.</li>
  *  <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
  *      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
- *  <li>We select a position on the globe by clicking the right mouse button in the WebGL canvas.</li>
+ *  <li>We select a position on the globe by {@link event:onpointerdownGLobe clicking} the right mouse button in the WebGL canvas.</li>
  * </ul>
  *
  * <li>
@@ -1251,6 +1251,90 @@ function selectModel() {
 }
 
 /**
+ * <p>Maps screen coordinates to object coordinates.</p>
+ * @param {Array<Number>} out the receiving vector.
+ * @param {vec3} vec 3D vector of screen coordinates.
+ * @param {mat4} modelMatrix model matrix.
+ * @param {mat4} viewMatrix view matrix.
+ * @param {mat4} projectionMatrix projection matrix.
+ * @param {Number} width viewport width.
+ * @param {Number} height viewport height.
+ * @returns {Array<Number>} out.
+ * @see {@link https://nickthecoder.wordpress.com/2013/01/17/unproject-vec3-in-gl-matrix-library/ unproject vec3 in gl-matrix library}
+ * @see {@link https://dondi.lmu.build/share/cg/unproject-explained.pdf “Unproject” Explained}
+ */
+function unproject(
+  out,
+  vec,
+  modelMatrix,
+  viewMatrix,
+  projectionMatrix,
+  width,
+  height,
+) {
+  // normalized [-1,1]
+  const x = (2 * vec[0]) / width - 1;
+  const y = (2 * vec[1]) / height - 1;
+  const z = vec[2];
+
+  const transform = mat4.multiply(
+    [],
+    projectionMatrix,
+    mat4.multiply([], viewMatrix, modelMatrix),
+  );
+  const invTransform = mat4.invert([], transform);
+
+  const p = vec4.fromValues(x, y, z, 1);
+
+  // unproject
+  vec4.transformMat4(p, p, invTransform);
+
+  // perspective division (dividing by w)
+  vec4.scale(p, p, 1 / p[3]);
+
+  out[0] = p[0];
+  out[1] = p[1];
+  out[2] = p[2];
+
+  return out;
+}
+
+/**
+ * <p>Find point of intersection between a line and a sphere.</p>
+ * The line is defined by its origin and an end point.
+ * The sphere is defined by its center and radius.
+ * @param {vec3} o ray origin.
+ * @param {vec3} p ray end point.
+ * @param {vec3} c center of the sphere.
+ * @param {Number} r radius of the sphere.
+ * @returns {vec3} intersection point.
+ * @see {@link https://en.wikipedia.org/wiki/Line–sphere_intersection Line–sphere intersection}
+ */
+function lineSphereIntersection(o, p, c, r) {
+  // line direction
+  const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
+
+  const oc = vec3.subtract([], o, c); // o - c
+  const a = vec3.dot(u, oc);
+  const b = vec3.dot(oc, oc); // ||oc||^2
+  const delta = a * a - b + r * r;
+  const sqrt_delta = Math.sqrt(delta);
+  const d1 = -a + sqrt_delta;
+  const d2 = -a - sqrt_delta;
+  let dist;
+  if (delta > 0) {
+    dist = Math.min(d1, d2);
+  } else if (delta == 0) {
+    dist = -a;
+  } else {
+    console.log("No intersection");
+    return null;
+  }
+
+  return vec3.scaleAndAdd([], o, u, dist); // o + u * dist
+}
+
+/**
  * Select next texture and creates an {@link createEvent event} "n" for it.
  */
 function nextTexture() {
@@ -1511,8 +1595,6 @@ const canvas = document.getElementById("theCanvas");
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
  * @see {@link https://caniuse.com/pointer Pointer events}
- * @see {@link https://en.wikipedia.org/wiki/Line–sphere_intersection Line–sphere intersection}
- * @see {@link https://nickthecoder.wordpress.com/2013/01/17/unproject-vec3-in-gl-matrix-library/ unproject vec3 in gl-matrix library}
  */
 canvas.onpointerdown = (event) => {
   if (event.buttons != 2) return;
@@ -1521,50 +1603,31 @@ canvas.onpointerdown = (event) => {
   let y = event.offsetY;
   y = event.target.height - y;
 
-  // normalized [-1,1]
-  x = (2 * x) / event.target.width - 1;
-  y = (2 * y) / event.target.height - 1;
-
-  const transform = mat4.multiply(
+  // ray origin in world coordinates
+  const o = unproject(
     [],
+    vec3.fromValues(x, y, 0),
+    getModelMatrix(),
+    viewMatrix,
     projection,
-    mat4.multiply([], viewMatrix, getModelMatrix()),
+    event.target.width,
+    event.target.height,
   );
-  const invTransform = mat4.invert([], transform);
 
-  const o = vec4.fromValues(x, y, 0, 1);
-  const p = vec4.fromValues(x, y, 1, 1);
+  // ray end point in world coordinates
+  const p = unproject(
+    [],
+    vec3.fromValues(x, y, 1),
+    getModelMatrix(),
+    viewMatrix,
+    projection,
+    event.target.width,
+    event.target.height,
+  );
 
-  // unproject
-  vec4.transformMat4(o, o, invTransform);
-  vec4.transformMat4(p, p, invTransform);
+  const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
+  if (!intersection) return;
 
-  // perspective division (dividing by w)
-  vec4.scale(o, o, 1 / o[3]);
-  vec4.scale(p, p, 1 / p[3]);
-
-  const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
-  const c = vec3.fromValues(0, 0, 0);
-  const r = 1; // radius of the sphere
-
-  const oc = vec3.subtract([], o, c); // o - c
-  const a = vec3.dot(u, oc);
-  const b = vec3.dot(oc, oc); // ||oc||^2
-  const delta = a * a - b + r * r;
-  const sqrt_delta = Math.sqrt(delta);
-  const d1 = -a + sqrt_delta;
-  const d2 = -a - sqrt_delta;
-  let dist;
-  if (delta > 0) {
-    dist = Math.min(d1, d2);
-  } else if (delta == 0) {
-    dist = -a;
-  } else {
-    console.log("No intersection");
-    return;
-  }
-
-  const intersection = vec3.scaleAndAdd([], o, u, dist); // o + u * dist
   const uv = cartesian2Spherical(intersection);
 
   const s = uv.s * 360 - 180;
