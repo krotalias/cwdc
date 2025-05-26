@@ -141,18 +141,18 @@
  * Your task is to pick a point in the texture image (using the mouse or any pointer device) and display its location
  * on the texture image (map) and on the 3D model.
  * <ul>
- *   <li>To do this, you need to convert the pixel coordinates of the mouse pointer into texture coordinates (u, v) and then
- *   convert them into spherical coordinates (longitude, latitude) using the {@link currentLocation} and
- *   {@link module:polyhedron.spherical2Mercator transforming} it to Mercator coordinates.</li>
+ *   <li>To do this, you need to convert the pixel coordinates of the mouse pointer into texture coordinates (u, v), then
+ *   into {@link spherical2gcs GCS} coordinates (longitude, latitude) using the {@link currentLocation}, and
+ *   optionally {@link module:polyhedron.spherical2Mercator transforming} them to Mercator coordinates.</li>
  *   <li>To draw the lines, use the {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo lineTo()} from
- *       HTML5 by placing a &lt;canvas&gt; element on top of the &ltimg&gt element.</li>
+ *       HTML5 by placing an element &lt;canvas&gt; on top of the element &ltimg&gt.</li>
  *   <li>This is simple to accomplish by {@link https://stackoverflow.com/questions/14824747/overlay-html5-canvas-over-image nesting}
  *       the &lt;canvas&gt; element with {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
  *       absolute in a &lt;div&gt; element with position relative and the {@link newTexture same size} as the image element.</li>
  *   <li>The &lt;canvas&gt; element should have a higher {@link https://developer.mozilla.org/en-US/docs/Web/CSS/z-index z-index}
  *       than the image element and ignore
  *       {@link https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events pointer events}.</li>
- *    <li>Finally, define an {@link event:onpointerdown onpointerdown} event handler to set
+ *    <li>Finally, define an {@link event:pointerdown-textimg pointerdown} event handler to set
  *        the {@link currentLocation} as the {@link gpsCoordinates} "Unknown" and draw the lines
  *        by calling {@link drawLinesOnImage} in {@link draw}.</li>
  * </ul>
@@ -165,7 +165,7 @@
  *      by {@link lineSphereIntersection solving} a {@link https://en.wikipedia.org/wiki/Line–sphere_intersection second-degree equation}.</li>
  *  <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
  *      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
- *  <li>We select a position on the globe by {@link event:onpointerdownGLobe clicking} the right mouse button in the WebGL canvas.</li>
+ *  <li>We select a position on the globe by {@link event:pointerdown-theCanvas clicking} the right mouse button in the WebGL canvas.</li>
  * </ul>
  *
  * <li>
@@ -324,6 +324,36 @@ import {
  * @see {@link https://glmatrix.net/docs/module-glMatrix.html glMatrix.toRadian}
  */
 const toRadian = glMatrix.toRadian;
+
+/**
+ * Convert spherical coordinates to {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
+ * (longitude, latitude).
+ * @param {Object<{s:Number,t:Number}>} uv spherical coordinates ∈ [0,1]}.
+ * @return {Object<{longitude: Number, latitude: Number}>} longitude ∈ [-180,180], latitude ∈ [-90,90].
+ * @function
+ */
+const spherical2gcs = (uv) => {
+  // Convert UV coordinates to longitude and latitude
+  return {
+    longitude: uv.s * 360 - 180,
+    latitude: uv.t * 180 - 90,
+  };
+};
+
+/**
+ * Convert from {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
+ * (longitude, latitude) to spherical coordinates.
+ * @param {Object<{longitude:Number,latitude:Number}>} gcs longitude ∈ [-180,180], latitude ∈ [-90,90].
+ * @return {Object<{s: Number, t: Number}>} spherical coordinates ∈ [canvas.width,canvas.height].
+ * @function
+ */
+const gcs2Spherical = (gcs) => {
+  // Convert longitude and latitude to spherical coordinates.
+  return {
+    s: (gcs.longitude + 180) / 360,
+    t: (gcs.latitude + 90) / 180,
+  };
+};
 
 /**
  * Three.js module.
@@ -1153,18 +1183,15 @@ function drawLinesOnImage() {
   ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
 
   if (selector.equator) {
-    let s = gpsCoordinates[currentLocation].longitude;
-    let t = gpsCoordinates[currentLocation].latitude;
-    s = (s + 180) / 360;
-    t = (t + 90) / 180;
-    t = 1 - t;
+    const uv = gcs2Spherical(gpsCoordinates[currentLocation]);
+    uv.t = 1 - uv.t;
     if (mercator) {
       // mercator projection
-      t = spherical2Mercator(s, t).y;
+      uv.t = spherical2Mercator(uv.s, uv.t).y;
     }
 
-    const x = s * canvasimg.width;
-    const y = t * canvasimg.height;
+    const x = uv.s * canvasimg.width;
+    const y = uv.t * canvasimg.height;
 
     ctx.beginPath();
     ctx.moveTo(x, 0); // meridian
@@ -1262,6 +1289,7 @@ function selectModel() {
  * @returns {Array<Number>} out.
  * @see {@link https://nickthecoder.wordpress.com/2013/01/17/unproject-vec3-in-gl-matrix-library/ unproject vec3 in gl-matrix library}
  * @see {@link https://dondi.lmu.build/share/cg/unproject-explained.pdf “Unproject” Explained}
+ * @see {@link https://math.hws.edu/graphicsbook/c7/s1.html#webgl3d.1.3 Transforming Coordinates}
  */
 function unproject(
   out,
@@ -1554,32 +1582,34 @@ const textimg = document.getElementById("textimg");
  * For mouse, it is fired when the device transitions from no buttons pressed to at least one button pressed.
  * For touch, it is fired when physical contact is made with the digitizer.
  * For pen, it is fired when the stylus makes physical contact with the digitizer.
- * @event onpointerdown
+ * @event pointerdown-textimg
  * @param {PointerEvent} event a pointer event.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
  * @see {@link https://caniuse.com/pointer Pointer events}
  */
-textimg.onpointerdown = (event) => {
+textimg.addEventListener("pointerdown", (event) => {
   const x = event.offsetX;
   let y = event.offsetY;
   y = event.target.height - y;
-  let [s, t] = [x / event.target.width, y / event.target.height];
+
+  const uv = {
+    s: x / event.target.width,
+    t: y / event.target.height,
+  };
+
   if (mercator) {
     // mercator projection
-    t = mercator2Spherical(s, t).t;
+    uv.t = mercator2Spherical(uv.s, uv.t).t;
   }
   // normalized
-  console.log(`longitude = ${s}, latitude = ${t}`);
+  console.log(`longitude = ${uv.s}, latitude = ${uv.t}`);
 
-  s = s * 360 - 180;
-  t = t * 180 - 90;
-
-  gpsCoordinates["Unknown"] = { latitude: t, longitude: s };
+  gpsCoordinates["Unknown"] = spherical2gcs(uv);
   const cities = Object.keys(gpsCoordinates);
   currentLocation = cities[cities.length - 2];
   handleKeyPress(createEvent("G"));
-};
+});
 
 const canvas = document.getElementById("theCanvas");
 
@@ -1590,13 +1620,13 @@ const canvas = document.getElementById("theCanvas");
  * For mouse, it is fired when the device transitions from no buttons pressed to at least one button pressed.
  * For touch, it is fired when physical contact is made with the digitizer.
  * For pen, it is fired when the stylus makes physical contact with the digitizer.
- * @event onpointerdownGLobe
+ * @event pointerdown-theCanvas
  * @param {PointerEvent} event a pointer event.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
  * @see {@link https://caniuse.com/pointer Pointer events}
  */
-canvas.onpointerdown = (event) => {
+canvas.addEventListener("pointerdown", (event) => {
   if (event.buttons != 2) return;
 
   let x = event.offsetX;
@@ -1630,14 +1660,11 @@ canvas.onpointerdown = (event) => {
 
   const uv = cartesian2Spherical(intersection);
 
-  const s = uv.s * 360 - 180;
-  const t = uv.t * 180 - 90;
-
-  gpsCoordinates["Unknown"] = { latitude: t, longitude: s };
+  gpsCoordinates["Unknown"] = spherical2gcs(uv);
   const cities = Object.keys(gpsCoordinates);
   currentLocation = cities[cities.length - 2];
   handleKeyPress(createEvent("G"));
-};
+});
 
 /**
  * No context menu when pressing the right mouse button.
@@ -1648,6 +1675,27 @@ canvas.onpointerdown = (event) => {
  */
 canvas.addEventListener("contextmenu", (event) => {
   event.preventDefault();
+});
+
+/**
+ * Double click as right click.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/dblclick_event Element: dblclick event}
+ * @event dblclick
+ * @param {MouseEvent} event mouse event.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent MouseEvent}
+ */
+canvas.addEventListener("dblclick", (event) => {
+  const dblclickEvent = new PointerEvent("pointerdown", {
+    pointerType: "mouse",
+    pointerId: 1,
+    clientX: event.clientX,
+    clientY: event.clientY,
+    bubbles: true,
+    cancelable: true,
+    buttons: 2, // right button
+  });
+  event.preventDefault();
+  canvas.dispatchEvent(dblclickEvent);
 });
 
 // export for using in the html file.
