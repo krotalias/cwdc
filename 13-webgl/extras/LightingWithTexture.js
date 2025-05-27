@@ -152,7 +152,7 @@
  *   <li>The &lt;canvas&gt; element should have a higher {@link https://developer.mozilla.org/en-US/docs/Web/CSS/z-index z-index}
  *       than the image element and ignore
  *       {@link https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events pointer events}.</li>
- *    <li>Finally, define an {@link event:pointerdown-textimg pointerdown} event handler to set
+ *    <li>Finally, define a {@link event:pointerdown-textimg pointerdown} event handler to set
  *        the {@link currentLocation} as the {@link gpsCoordinates} "Unknown" and draw the lines
  *        by calling {@link drawLinesOnImage} in {@link draw}.</li>
  * </ul>
@@ -344,7 +344,7 @@ const spherical2gcs = (uv) => {
  * Convert from {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
  * (longitude, latitude) to spherical coordinates.
  * @param {Object<{longitude:Number,latitude:Number}>} gcs longitude ∈ [-180,180], latitude ∈ [-90,90].
- * @return {Object<{s: Number, t: Number}>} spherical coordinates ∈ [canvas.width,canvas.height].
+ * @return {Object<{s: Number, t: Number}>} spherical coordinates ∈ [0,1].
  * @function
  */
 const gcs2Spherical = (gcs) => {
@@ -1190,6 +1190,7 @@ function drawLinesOnImage() {
       uv.t = spherical2Mercator(uv.s, uv.t).y;
     }
 
+    // screen coordinates
     const x = uv.s * canvasimg.width;
     const y = uv.t * canvasimg.height;
 
