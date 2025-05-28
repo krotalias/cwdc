@@ -1674,7 +1674,7 @@ canvas.addEventListener("pointerdown", (event) => {
  * @param {MouseEvent} event mouse event.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent MouseEvent}
  */
-canvas.addEventListener("contextmenu", (event) => {
+window.addEventListener("contextmenu", (event) => {
   event.preventDefault();
 });
 
