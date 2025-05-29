@@ -59,7 +59,7 @@
  * ({@link https://en.wikipedia.org/wiki/John_Napier John Napier}, 1614).</p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
- * can be set in a {@link createModel model} directly or in
+ * can be set in a {@link module:polyhedron.setMercatorCoordinates model} directly or in
  * the <a href="../../showCode.php?f=extras/LightingWithTexture">shader</a>
  * that samples texture coordinates for each pixel.
  *
@@ -80,7 +80,8 @@
  * {@link https://en.wikipedia.org/wiki/Marinus_of_Tyre Marinus of Tyre}
  * invented the projection in the first century (AD 100).
  * The projection is neither equal area nor conformal.
- * In particular, the plate carrée has become a standard for global raster datasets.
+ * In particular, the plate carrée (<em>square plate</em>) has become a standard for
+ * {@link https://gisgeography.com/best-free-gis-data-sources-raster-vector/ global raster datasets}.
  *
  * <p><u>As a final remark</u>, I thought it would be easier to deal with map images as textures, but I was mistaken. I tried, as long as I could,
  * not to rewrite third-party code. Unfortunately, this was impossible. The main issue was that the
