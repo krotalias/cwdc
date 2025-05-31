@@ -50,8 +50,9 @@
  * lies in its ability to preserve angles, making it ideal for navigation
  * (directions on the map match the directions on the compass). However, it distorts areas,
  * especially near the poles, where landmasses appear {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf much larger}
- * than they are in reality. In order for the parallels on the map to be all the same length,
- * a parallel must be stretched by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.</p>
+ * than they are in reality. Meridian and parallel {@link https://en.wikipedia.org/wiki/Scale_(map) scales}
+ * are the same, meaning that distances along a parallel or meridian are equally stretched
+ * by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.</p>
  *
  * <p>It is impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
  * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
@@ -71,17 +72,23 @@
  *   <li> sample texture at (x, y)</li>
  * </ul>
  *
- * The {@link https://en.wikipedia.org/wiki/Equirectangular_projection equirectangular projection}, on the other hand,
+ * The {@link https://en.wikipedia.org/wiki/Equirectangular_projection equirectangular projection},
  * also known as the equidistant cylindrical projection (e.g., plate carrée),
- * is a way of representing the Earth's surface on a flat plane.
- * It maps longitude and latitude lines into straight, evenly spaced lines,
+ * is a way of representing the Earth's surface on a flat plane, and
+ * maps longitude and latitude lines into straight, evenly spaced lines,
  * essentially flattening the sphere into a rectangle.
+ *
+ * <p>Its meridian scale is 1 meaning that the distance along lines of longitude
+ * remains the same across the map, while its parallel
+ * {@link https://en.wikipedia.org/wiki/Scale_(map) scale} varies with latitude,
+ * which means that the distance along lines of latitude is stretched by a factor of sec(φ).
+ *
  * {@link https://en.wikipedia.org/wiki/Ptolemy Ptolemy} claims that
  * {@link https://en.wikipedia.org/wiki/Marinus_of_Tyre Marinus of Tyre}
  * invented the projection in the first century (AD 100).
  * The projection is neither equal area nor conformal.
- * In particular, the plate carrée (<em>square plate</em>) has become a standard for
- * {@link https://gisgeography.com/best-free-gis-data-sources-raster-vector/ global raster datasets}.
+ * In particular, the plate carrée (<em>flat square</em>) has become a standard for
+ * {@link https://gisgeography.com/best-free-gis-data-sources-raster-vector/ global raster datasets}.</p>
  *
  * <p><u>As a final remark</u>, I thought it would be easier to deal with map images as textures, but I was mistaken. I tried, as long as I could,
  * not to rewrite third-party code. Unfortunately, this was impossible. The main issue was that the
