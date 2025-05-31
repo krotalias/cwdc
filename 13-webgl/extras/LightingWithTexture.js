@@ -46,12 +46,13 @@
  * <p>Maps are transformations from {@link module:polyhedron.cartesian2Spherical 3D space}
  * to {@link module:polyhedron.spherical2Mercator 2D space}, and they can preserve areas
  * ({@link https://en.wikipedia.org/wiki/Equal-area_projection equal-area maps}) or angles
- * ({@link https://en.wikipedia.org/wiki/Conformal_map conformal maps}). The success of the Mercator projection
+ * ({@link https://en.wikipedia.org/wiki/Conformal_map conformal maps}). The success of the
+ * {@link https://en.wikipedia.org/wiki/Mercator_projection Mercator projection}
  * lies in its ability to preserve angles, making it ideal for navigation
  * (directions on the map match the directions on the compass). However, it distorts areas,
  * especially near the poles, where landmasses appear {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf much larger}
  * than they are in reality. Meridian and parallel {@link https://en.wikipedia.org/wiki/Scale_(map) scales}
- * are the same, meaning that distances along a parallel or meridian are equally stretched
+ * are the same, meaning that distances along a parallel or meridian (in fact, in all directions) are equally stretched
  * by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.</p>
  *
  * <p>It is impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
