@@ -1624,12 +1624,33 @@ textimg.addEventListener("pointerdown", (event) => {
 const canvas = document.getElementById("theCanvas");
 
 /**
- * <p>Gets the latitude and longitude on the globe when clicked upon
- * and draws its position on the map.</p>
+ * <p>Variables moving and {@link clicked} are used to distinguish between a simple click
+ * and a click followed by drag while using the {@link rotator}.</p>
+ * <p>When the pointer is down, moving is set to false and clicked is set to true.
+ * When the pointer moves, moving is set to true if clicked is also true.
+ * When the pointer is up, if moving is true, both moving and clicked are set to false.</p>
+ * @type {Boolean}
+ */
+let moving = false;
+
+/**
+ * We need to know if the pointer is being held down while {@link moving} the globe or not.
+ * Otherwise, we would not be able to distinguish between a click and a drag,
+ * while using the {@link rotator simpleRotator}.
+ * @type {Boolean}
+ */
+let clicked = false;
+
+/**
+ * <p>Sets {@link moving} to false and {@link clicked} to true.</p>
  * The pointerdown event is fired when a pointer becomes active.
  * For mouse, it is fired when the device transitions from no buttons pressed to at least one button pressed.
  * For touch, it is fired when physical contact is made with the digitizer.
  * For pen, it is fired when the stylus makes physical contact with the digitizer.
+ * <p>This behavior is different from mousedown events.
+ * When using a physical mouse, mousedown events fire whenever any button on a mouse is pressed down.
+ * pointerdown events fire only upon the first button press;
+ * subsequent button presses don't fire pointerdown events.</p>
  * @event pointerdown-theCanvas
  * @param {PointerEvent} event a pointer event.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
@@ -1637,7 +1658,52 @@ const canvas = document.getElementById("theCanvas");
  * @see {@link https://caniuse.com/pointer Pointer events}
  */
 canvas.addEventListener("pointerdown", (event) => {
-  if (event.buttons != 2) return;
+  clicked = true;
+  moving = false;
+});
+
+/**
+ * <p>Sets {@link moving} to true if {@link clicked} is also true.</p>
+ * <p>The pointermove event is fired when a pointer changes coordinates,
+ * and the pointer has not been canceled by a browser touch-action.
+ * It's very similar to the mousemove event, but with more features.</p>
+ *
+ * These events happen whether or not any pointer buttons are pressed.
+ * They can fire at a very high rate, depends on how fast the user moves the pointer,
+ * how fast the machine is, what other tasks and processes are happening, etc.
+ * @event pointermove-theCanvas
+ * @param {PointerEvent} event a pointer event.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event Element: pointermove event}
+ * @see {@link https://caniuse.com/pointer Pointer events}
+ */
+canvas.addEventListener("pointermove", (event) => {
+  if (clicked) {
+    moving = true;
+  }
+});
+
+/**
+ * <p>If {@link moving} is true, sets moving and {@link clicked} to false and return,
+ * because we are moving the globe.</br>
+ * Otherwise, gets the latitude and longitude on the globe
+ * and draws its position on the map.</p>
+ * The pointerup event is fired when a pointer is no longer active.
+ * This behavior is different from mouseup events.
+ * When using a physical mouse, mouseup events fire whenever any button on a mouse is released.
+ * pointerup events fire only upon the last button release; previous button releases,
+ * while other buttons are held down, don't fire pointerup events.
+ * @event pointerup-theCanvas
+ * @param {PointerEvent} event a pointer event.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerup_event Element: pointerup event}
+ * @see {@link https://caniuse.com/pointer Pointer events}
+ */
+canvas.addEventListener("pointerup", (event) => {
+  //if (event.buttons != 2) return;
+  if (moving) {
+    moving = false;
+    clicked = false;
+    return; // ignore if moving
+  }
 
   let x = event.offsetX;
   let y = event.offsetY;
