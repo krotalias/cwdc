@@ -867,6 +867,20 @@ function getChar(event) {
 }
 
 /**
+ * Updates the label (latitude, longitude and secant)
+ * of the given {@link gpsCoordinates location}.
+ * @param {String} location name of the location.
+ */
+function labelForLocation(location) {
+  const lat = gpsCoordinates[location].latitude;
+  const lon = gpsCoordinates[location].longitude;
+  const sec = 1 / Math.cos(toRadian(lat));
+  $('label[for="equator"]').html(
+    `<i>${currentLocation}</i> (lat: ${lat.toFixed(5)}, long: ${lon.toFixed(5)}, sec(lat): ${sec.toFixed(2)})`,
+  );
+}
+
+/**
  * <p>Closure for keydown events.</p>
  * Chooses a {@link theModel model} and which {@link axis} to rotate around.<br>
  * The {@link numSubdivisions subdivision level} is {@link maxSubdivisions limited}
@@ -1162,13 +1176,7 @@ const handleKeyPress = ((event) => {
         setPosition(currentLocation);
         selector.equator = true;
         document.getElementById("equator").checked = selector.equator;
-        $('label[for="equator"]').html(
-          `<i>${currentLocation}</i> (lat: ${gpsCoordinates[
-            currentLocation
-          ].latitude.toFixed(5)}, long: ${gpsCoordinates[
-            currentLocation
-          ].longitude.toFixed(5)})`,
-        );
+        labelForLocation(currentLocation);
         animate();
         break;
       default:
@@ -1653,7 +1661,6 @@ let clicked = false;
  * subsequent button presses don't fire pointerdown events.</p>
  * @event pointerdown-theCanvas
  * @param {PointerEvent} event a pointer event.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
  * @see {@link https://caniuse.com/pointer Pointer events}
  */
@@ -1697,6 +1704,7 @@ canvas.addEventListener("pointermove", (event) => {
  * @event pointerup-theCanvas
  * @param {PointerEvent} event a pointer event.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerup_event Element: pointerup event}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
  * @see {@link https://caniuse.com/pointer Pointer events}
  */
 canvas.addEventListener("pointerup", (event) => {
@@ -2536,14 +2544,7 @@ function startForReal(image) {
   rotator.setViewMatrix(modelMatrix);
   rotator.setViewDistance(0);
 
-  $('label[for="equator"]').html(
-    `<i>${currentLocation}</i> (lat: ${gpsCoordinates[
-      currentLocation
-    ].latitude.toFixed(5)}, long: ${gpsCoordinates[
-      currentLocation
-    ].longitude.toFixed(5)})`,
-  );
-
+  labelForLocation(currentLocation);
   selectModel();
 
   // start drawing!
