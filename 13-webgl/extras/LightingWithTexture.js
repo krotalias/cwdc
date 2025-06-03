@@ -55,6 +55,22 @@
  * are the same, meaning that distances along a parallel or meridian (in fact, in all directions) are equally stretched
  * by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.</p>
  *
+ * <p>The {@link https://en.wikipedia.org/wiki/Web_Mercator_projection Web Mercator}
+ * projection, on the other hand, is a variant of the Mercator projection, which is {@link https://en.wikipedia.org/wiki/Google_Maps widely}
+ * used in {@link https://en.wikipedia.org/wiki/Web_mapping web mapping} applications.
+ * It was designed to work well with the Web Mercator coordinate system,
+ * which is based on the {@link https://en.wikipedia.org/wiki/World_Geodetic_System#WGS_84 WGS 84 datum}.
+ *
+ * The projection is neither strictly ellipsoidal nor strictly spherical,
+ * and it uses spherical development of ellipsoidal coordinates.
+ * The underlying geographic coordinates are defined using the WGS 84 ellipsoidal model
+ * of the Earth's surface but are projected as if
+ * {@link https://alastaira.wordpress.com/2011/01/23/the-google-maps-bing-maps-spherical-mercator-projection/ defined on a sphere}.
+ *
+ * Misinterpreting Web Mercator for the standard Mercator during coordinate conversion can lead to
+ * {@link https://web.archive.org/web/20170329065451/https://earth-info.nga.mil/GandG/wgs84/web_mercator/index.html deviations}
+ * as much as 40 km on the ground.</p>
+ *
  * <p>It is impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
  * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
  * calculus (integrals, derivatives — {@link https://en.wikipedia.org/wiki/History_of_calculus Leibniz-Newton}, 1674-1666) or even logarithm tables
