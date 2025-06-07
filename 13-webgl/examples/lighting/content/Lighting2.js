@@ -5,12 +5,13 @@
  * <p>Lighting and shading models: <a href="https://en.wikipedia.org/wiki/Lambertian_reflectance">Lambert</a>  x
  * <a href="https://en.wikipedia.org/wiki/Phong_reflection_model">Phong</a>.  </p>
  *
- * Here, we add a {@link getModelData function} to take a model created by {@link https://threejs.org three.js}
- * and extract the data for vertices and normals, <br>
- * so we can load it directly to the GPU.
- *
- * Edit {@link mainEntrance} to select a {@link selectModel model} and {@link makeCube} to set
- * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
+ * <p>We have a {@link getModelData function} to take a model created by {@link https://threejs.org three.js}
+ * and extract the data for its vertices and normals so we can load it directly to the GPU.
+ * Furthermore, the polygonal surfaces of the models can be divided into a number of
+ * {@link stacks} and {@link slices},
+ * and the refinement level can be set by the user interactively.
+ * It is also possible to edit {@link mainEntrance} to select a {@link selectModel model} and {@link makeCube} to set
+ * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.</p>
  *
  * @author {@link https://stevekautz.com Steve Kautz}
  * @author modified by {@link https://krotalias.github.io Paulo Roma}
@@ -179,6 +180,44 @@ let axis = "x";
  * @type {Number}
  */
 let mscale = 1;
+
+/**
+ * Number of horizontal divisions of a surface.
+ * @type {Number}
+ * @see {@link https://www.songho.ca/opengl/gl_sphere.html#sphere Stacks}
+ */
+let stacks = 24;
+
+/**
+ * Slider element for the number of stacks.
+ * @type {HTMLElement}
+ */
+const st = document.getElementById("stacks");
+
+/**
+ * Label element for the number of stacks.
+ * @type {HTMLElement}
+ */
+const lblstacks = document.getElementById("lblstacks");
+
+/**
+ * Number of vertical divisions of a surface.
+ * @type {Number}
+ * @see {@link https://www.songho.ca/opengl/gl_sphere.html#sphere Sectors}
+ */
+let slices = 48;
+
+/**
+ * Slider element for the number of slices.
+ * @type {HTMLElement}
+ */
+const sl = document.getElementById("slices");
+
+/**
+ * Label element for the number of slices.
+ * @type {HTMLElement}
+ */
+const lblslices = document.getElementById("lblslices");
 
 /**
  * Turn the display of the model mesh/texture/axes/animation on/off.
@@ -374,6 +413,54 @@ document
   .addEventListener("click", (event) => handleKeyPress(createEvent("ArrowUp")));
 
 /**
+ * <p>Fired when a &lt;input type="range"&gt; is in the
+ * {@link https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range) Range state}
+ * (by clicking or using the keyboard).</p>
+ *
+ * The {@link selectModel callback} argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * Executed when the stack slider is changed.
+ *
+ * @summary Appends an event listener for events whose type attribute value is input.
+ *
+ * @param {Event} event a generic event.
+ * @event stacks
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+ */
+
+document.querySelector("#stacks").addEventListener("input", (event) => {
+  stacks = +event.target.value;
+  lblstacks.innerHTML = `Stacks: ${stacks}`;
+
+  selectModel(false);
+});
+
+/**
+ * <p>Fired when a &lt;input type="range"&gt; is in the
+ * {@link https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range) Range state}
+ * (by clicking or using the keyboard).</p>
+ *
+ * The {@link selectModel callback} argument sets the callback that will be invoked when
+ * the event is dispatched.</p>
+ *
+ * Executed when the slices slider is changed.
+ *
+ * @summary Appends an event listener for events whose type attribute value is input.
+ *
+ * @param {Event} event a generic event.
+ * @event slices
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+ */
+
+document.querySelector("#slices").addEventListener("input", (event) => {
+  slices = +event.target.value;
+  lblslices.innerHTML = `Slices: ${slices}`;
+
+  selectModel(false);
+});
+
+/**
  * <p>Creates a unit cube, centered at the origin, and set its properties:
  * vertices, normal vectors, texture coordinates, indices and colors.</p>
  *
@@ -551,6 +638,29 @@ function getChar(event) {
 }
 
 /**
+ * Sets the number of stacks and slices for the models.
+ * @param {Number} stk number of stacks.
+ * @param {Number} stkmin minimum number of stacks.
+ * @param {Number} stkmax maximum number of stacks.
+ * @param {Number} slc number of slices.
+ * @param {Number} stkmin minimum number of slices.
+ * @param {Number} slcmax maximum number of slices.
+ */
+function setSliders(stk, stkmin, stkmax, slc, slcmin, slcmax) {
+  stacks = stk;
+  st.setAttribute("min", stkmin);
+  st.setAttribute("max", stkmax);
+  st.value = stk.toString();
+  lblstacks.innerHTML = `Stacks: ${stacks}`;
+
+  slices = slc;
+  sl.setAttribute("min", slcmin);
+  sl.setAttribute("max", slcmax);
+  sl.value = slc.toString();
+  lblslices.innerHTML = `Slices: ${slices}`;
+}
+
+/**
  * <p>Closure for keydown events.</p>
  * Chooses a {@link theModel model} and which {@link axis} to rotate around.<br>
  * @param {KeyboardEvent} event keyboard event.
@@ -600,40 +710,90 @@ const handleKeyPress = ((event) => {
         // cube
         gscale = mscale = 1;
         models.value = "2";
-        theModel = createModel(makeCube());
-        //theModel = createModel(getModelData(new THREE.BoxGeometry(1, 1, 1)));
+        //theModel = createModel(makeCube());
+        theModel = createModel(
+          getModelData(new THREE.BoxGeometry(1, 1, 1, stacks, slices, slices)),
+        );
+        break;
+      case "u":
+        // capsule
+        gscale = mscale = 1.2;
+        models.value = "0";
+        theModel = createModel(
+          getModelData(new THREE.CapsuleGeometry(0.5, 0.5, stacks, slices)),
+        );
+        break;
+      case "c":
+        // cylinder
+        gscale = mscale = 1;
+        models.value = "3";
+        theModel = createModel(uvCylinder(0.5, 1.5, slices, stacks));
+        break;
+      case "C":
+        // cone
+        gscale = mscale = 1;
+        models.value = "1";
+        theModel = createModel(uvCone(0.5, 1.5, slices, stacks));
         break;
       case "s":
         // sphere with more faces
         gscale = mscale = 1;
         models.value = "5";
         theModel = createModel(
-          getModelData(new THREE.SphereGeometry(1, 48, 24)),
+          getModelData(new THREE.SphereGeometry(1, slices, stacks)),
         );
+        break;
+      case "Z":
+        // sphere with no duplicate faces
+        gscale = mscale = 1;
+        models.value = "14";
+        theModel = createModel(uvSphereND(1, slices, stacks));
+        break;
+      case "r":
+        // ring
+        setSlicesVisible(true);
+        setStacksVisible(false);
+        gscale = mscale = 1;
+        models.value = "4";
+        theModel = createModel(ring(0.3, 1, slices));
+        break;
+      case "t":
+        // sphere with no duplicate faces
+        gscale = mscale = 1;
+        models.value = "7";
+        theModel = createModel(uvTorus(1, 0.5, slices, stacks));
         break;
       case "T":
         // torus knot
         gscale = mscale = 1;
         models.value = "8";
         theModel = createModel(
-          getModelData(new THREE.TorusKnotGeometry(0.6, 0.24, 128, 16)),
+          getModelData(
+            new THREE.TorusKnotGeometry(0.6, 0.24, stacks, slices, 2, 3),
+          ),
           1,
         );
         break;
       case "d":
         // dodecahedron
+        setSlicesVisible(false);
+        setStacksVisible(true);
         gscale = mscale = 1;
         models.value = "9";
         theModel = createModel(
-          getModelData(new THREE.DodecahedronGeometry(1, 0)),
+          getModelData(new THREE.DodecahedronGeometry(1, stacks)),
         );
         break;
       case "p":
         // teapot - this is NOT a manifold model - it is a model with borders!
+        setStacksVisible(false);
+        setSlicesVisible(true);
         gscale = mscale = 0.8;
         models.value = "6";
         theModel = createModel(
-          getModelData(new TeapotGeometry(1, 10, true, true, true, true, true)),
+          getModelData(
+            new TeapotGeometry(1, slices, true, true, true, true, true),
+          ),
           null,
         );
         break;
@@ -674,17 +834,86 @@ const createEvent = (key) => {
 };
 
 /**
- * Selects a model from a menu.
+ * Sets the visibility of the stacks sliders.
+ * @param {Boolean} visible whether to show the stacks sliders.
  */
-function selectModel() {
+const setStacksVisible = (visible) => {
+  st.style.display = visible ? "inline-block" : "none";
+  lblstacks.style.display = visible ? "inline-block" : "none";
+};
+
+/**
+ * Sets the visibility of the slices slider.
+ * @param {Boolean} visible whether to show the slices slider.
+ */
+const setSlicesVisible = (visible) => {
+  sl.style.display = visible ? "inline-block" : "none";
+  lblslices.style.display = visible ? "inline-block" : "none";
+};
+
+/**
+ * Selects a model from a menu.
+ * @param {Boolean} c whether to set the sliders or not.
+ */
+function selectModel(c = true) {
   const val = document.getElementById("models").value;
   const key = {
+    0: "u", // capsule
+    1: "C", // cone
     2: "v", // cube
+    3: "c", // cylinder
+    4: "r", // ring
     5: "s", // sphere
     6: "p", // teapot
+    7: "t", // torus
     8: "T", // knot
     9: "d", // dodecahedron
+    14: "Z", // sphere with no duplicate faces
   };
+
+  setStacksVisible(true);
+  setSlicesVisible(true);
+
+  if (c) {
+    switch (+val) {
+      case 0: // capsule
+        setSliders(5, 1, 60, 30, 3, 60);
+        break;
+      case 1: // cone
+        setSliders(5, 1, 60, 30, 3, 60);
+        break;
+      case 2: // cube
+        setSliders(1, 1, 30, 1, 1, 30);
+        break;
+      case 3: // cylinder
+        setSliders(5, 1, 60, 30, 3, 60);
+        break;
+      case 4: // ring
+        setSliders(5, 1, 60, 30, 3, 60);
+        setStacksVisible(false);
+        break;
+      case 5: // sphere
+        setSliders(24, 2, 100, 48, 3, 100);
+        break;
+      case 6: // teapot
+        setSliders(0, 0, 0, 10, 2, 15);
+        setStacksVisible(false);
+        break;
+      case 7: // torus
+        setSliders(30, 2, 40, 10, 3, 40);
+        break;
+      case 8: // knot
+        setSliders(128, 3, 150, 16, 3, 30);
+        break;
+      case 9: // dodecahedron
+        setSliders(0, 0, 15, 0, 0, 0);
+        setSlicesVisible(false);
+        break;
+      case 14: // sphere with no duplicate faces
+        setSliders(24, 2, 100, 48, 3, 100);
+        break;
+    }
+  }
   handleKeyPress(createEvent(key[val]));
 }
 

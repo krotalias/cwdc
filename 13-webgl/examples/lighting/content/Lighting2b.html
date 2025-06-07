@@ -50,8 +50,25 @@
                 text-align: center;
             }
             details {
-                margin-top: 50px;
+                margin-top: 0px;
                 text-align: left;
+            }
+            input[type="range"] {
+                padding: 20px 0px;
+                height: 50px;
+                width: 50%;
+                background-color: teal;
+                display: inline-block;
+            }
+            #lblstacks,
+            #lblslices {
+                vertical-align: middle;
+                display: inline-block;
+                margin-bottom: 100px;
+                font-size: xx-large;
+            }
+            .range_container {
+                padding: 40px 40px;
             }
         </style>
     </head>
@@ -68,10 +85,17 @@
                     <label id="object"><b>Object:</b></label>
                 </p>
                 <select name="models" id="models" onchange="selectModel()">
+                    <option value="0">Capsule</option>
+                    <option value="1">Cone</option>
                     <option value="2">Cube</option>
+                    <option value="3">Cylinder</option>
+                    <option value="4">Ring</option>
                     <option value="5">Sphere</option>
                     <option value="6" selected="selected">Teapot</option>
+                    <option value="7">Torus</option>
                     <option value="8">Torus Knot</option>
+                    <option value="9">Dodecahedron</option>
+                    <option value="14">SpehereND</option>
                 </select>
                 <button id="btnMesh">Mesh</button>
                 <button id="btnRot">Rotate</button>
@@ -79,7 +103,31 @@
                 <button id="arrowDown">↓</button>
             </div>
 
-            <br />
+            <div style="margin: 40px 20px">
+                <input
+                    id="stacks"
+                    name="stacks"
+                    type="range"
+                    min="2"
+                    max="100"
+                    step="1"
+                    value="24"
+                />
+                <label id="lblstacks" for="stacks">Stacks: 24</label>
+
+                <br /><br />
+
+                <input
+                    id="slices"
+                    name="slices"
+                    type="range"
+                    min="2"
+                    max="100"
+                    step="1"
+                    value="48"
+                />
+                <label id="lblslices" for="slices">Slices: 48</label>
+            </div>
 
             <details>
                 <summary style="font-size: 200%">Keyboard controls:</summary>
@@ -92,10 +140,17 @@
                     <li>x - rotate about x axis</li>
                     <li>y - rotate about y axis</li>
                     <li>z - rotate about z axis</li>
+                    <li>C - cone</li>
                     <li>v - cube</li>
+                    <li>c - cylinder</li>
+                    <li>d - dodecahedron</li>
                     <li>p - teapot</li>
+                    <li>r - ring</li>
                     <li>s - sphere</li>
+                    <li>Z - sphereND</li>
+                    <li>t - torus</li>
                     <li>T - torus knot</li>
+                    <li>u - capsule</li>
                     <li>o - Reset to initial state</li>
                     <li>↑, ↓, >, < - Zoom out/in</li>
                     <li></li>
