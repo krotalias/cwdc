@@ -130,7 +130,8 @@
  * (I have no idea whether it provides any practical advantage).
  * A user can switch between hws and three.js models by pressing a single key (Alt, ❖ or ⌘) in the interface.</p>
  *
- * <p>There is a lot of redundancy in the form of vertex duplication in all of these models, which may preclude mipmapping
+ * <p>There is a lot of redundancy in the form of {@link https://stackoverflow.com/questions/36179507/three-js-spherebuffergeometry-why-so-many-vertices vertex duplication}
+ * in all of these models, which may preclude mipmapping
  * artifacts. The theoretical number of vertices, <mark>𝑣</mark>, for a {@link https://en.wikipedia.org/wiki/Manifold manifold model}
  * and the actual number of vertices (🔴) are {@link createModel displayed} in the interface.
  * The number of edges, <i>e</i>, is simply three times the number of triangles, <i>t</i>, divided by two.</p>
