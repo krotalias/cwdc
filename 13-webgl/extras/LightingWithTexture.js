@@ -21,8 +21,8 @@
  * {@link https://threejs.org Three.js} only uses face normals for
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedra}, indeed.<p>
  *
- * Texture coordinates can be set in each model or sampled at each pixel in the fragment shader.
- * We can also approximate a sphere by subdividing a
+ * Texture coordinates can be set in each model or {@link https://gamedev.stackexchange.com/questions/197931/how-can-i-correctly-map-a-texture-onto-a-sphere sampled at each pixel}
+ * in the fragment shader. We can also approximate a sphere by subdividing a
  * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron} and solving Mipmapping artifact issues
  * by using {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf Tarini's} method, in this case.
  * These {@link https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b artifacts}

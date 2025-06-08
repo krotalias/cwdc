@@ -83,8 +83,8 @@ Edit the <a href="global.html#lightPropElements">light</a> and <a href="global.h
 <a href="https://threejs.org">Three.js</a> only uses face normals for
 <a href="https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry">polyhedra</a>, indeed.<p>
 
-Texture coordinates can be set in each model or sampled at each pixel in the fragment shader.
-We can also approximate a sphere by subdividing a
+Texture coordinates can be set in each model or <a href="https://gamedev.stackexchange.com/questions/197931/how-can-i-correctly-map-a-texture-onto-a-sphere">sampled at each pixel</a>
+in the fragment shader. We can also approximate a sphere by subdividing a
 <a href="https://en.wikipedia.org/wiki/Regular_polyhedron">convex regular polyhedron</a> and solving Mipmapping artifact issues
 by using <a href="https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf">Tarini's</a> method, in this case.
 These <a href="https://bgolus.medium.com/distinctive-derivative-differences-cce38d36797b">artifacts</a>
