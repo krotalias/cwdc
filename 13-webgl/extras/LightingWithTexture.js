@@ -1654,6 +1654,46 @@ textimg.addEventListener("pointerdown", (event) => {
   handleKeyPress(createEvent("G"));
 });
 
+/**
+ * <p>Displays the u and v normalized coordinates on the texture image when moved upon.</p>
+ * <p>The pointermove event is fired when a pointer changes coordinates,
+ * and the pointer has not been canceled by a browser touch-action.
+ * It's very similar to the mousemove event, but with more features.</p>
+ *
+ * These events happen whether or not any pointer buttons are pressed.
+ * They can fire at a very high rate, depends on how fast the user moves the pointer,
+ * how fast the machine is, what other tasks and processes are happening, etc.
+ * @event pointermove-textimg
+ * @param {PointerEvent} event a pointer event.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event Element: pointermove event}
+ * @see {@link https://caniuse.com/pointer Pointer events}
+ */
+textimg.addEventListener("pointermove", (event) => {
+  const x = event.offsetX;
+  let y = event.offsetY;
+  y = event.target.height - y;
+
+  const uv = {
+    s: x / event.target.width,
+    t: y / event.target.height,
+  };
+
+  if (mercator) {
+    // mercator projection
+    uv.t = mercator2Spherical(uv.s, uv.t).t;
+  }
+
+  // tooltip on mouse hoover
+  const tooltip = document.getElementById("tooltip");
+
+  tooltip.style.top = `${event.offsetY}px`;
+  tooltip.style.left = `${x}px`;
+  // UV normalized
+  tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
+  tooltip.style.display = "block";
+});
+
 const canvas = document.getElementById("theCanvas");
 
 /**

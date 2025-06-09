@@ -86,6 +86,16 @@ when using mipmap:
             #theCanvas {
                 cursor: crosshair;
             }
+            #tooltip {
+                position: absolute;
+                z-index: 2;
+                background-color: rgba(300 300 300 / 0.5);
+                color: black;
+                padding: 3px;
+                font-size: small;
+                display: none;
+                pointer-events: none;
+            }
         </style>
     </head>
 
@@ -106,6 +116,9 @@ when using mipmap:
                     <div id="imgcontainer">
                         <img id="textimg" src="" width="256" />
                         <canvas id="canvasimg" width="256"></canvas>
+                        <div id="tooltip" role="tooltip">
+                            Hi! I'm a tooltip.
+                        </div>
                     </div>
                     <figcaption id="figc"></figcaption>
                 </figure>
