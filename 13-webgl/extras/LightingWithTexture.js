@@ -1655,7 +1655,8 @@ textimg.addEventListener("pointerdown", (event) => {
 });
 
 /**
- * <p>Displays the u and v normalized coordinates on the texture image when moved upon.</p>
+ * <p>Displays the u and v normalized coordinates on the texture image
+ * when pointer is moved upon.</p>
  * <p>The pointermove event is fired when a pointer changes coordinates,
  * and the pointer has not been canceled by a browser touch-action.
  * It's very similar to the mousemove event, but with more features.</p>
@@ -1692,6 +1693,25 @@ textimg.addEventListener("pointermove", (event) => {
   // UV normalized
   tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
   tooltip.style.display = "block";
+});
+
+/**
+ * <p>Remove the tooltip when pointer is outside the textimg element.</p>
+ *
+ * The pointerout event is fired for several reasons including:
+ * <ul>
+ * <li>pointing device is moved out of the hit test boundaries of an element;</li>
+ * <li>firing the pointerup event for a device that does not support hover (see pointerup);</li>
+ * <li>after firing the pointercancel event (see pointercancel);</li>
+ * <li>when a pen stylus leaves the hover range detectable by the digitizer.</li>
+ * </ul>
+ * @event pointerout-textimg
+ * @param {PointerEvent} event a pointer event.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerout_event Element: pointerout event}
+ */
+textimg.addEventListener("pointerout", (event) => {
+  tooltip.innerHTML = "";
+  tooltip.style.display = "none";
 });
 
 const canvas = document.getElementById("theCanvas");
