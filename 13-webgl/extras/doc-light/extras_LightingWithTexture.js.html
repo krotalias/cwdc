@@ -49,7 +49,8 @@
  * {@link https://threejs.org Three.js} only uses face normals for
  * {@link https://threejs.org/docs/#api/en/geometries/PolyhedronGeometry polyhedra}, indeed.&lt;p>
  *
- * Texture coordinates can be set in each model or sampled at each pixel in the fragment shader.
+ * Texture coordinates can be set in each model or {@link https://gamedev.stackexchange.com/questions/197931/how-can-i-correctly-map-a-texture-onto-a-sphere sampled at each pixel}
+ * in the {@link https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/extras/LightingWithTexture.html fragment shader}.
  * We can also approximate a sphere by subdividing a
  * {@link https://en.wikipedia.org/wiki/Regular_polyhedron convex regular polyhedron} and solving Mipmapping artifact issues
  * by using {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf Tarini's} method, in this case.
@@ -82,6 +83,22 @@
  * than they are in reality. Meridian and parallel {@link https://en.wikipedia.org/wiki/Scale_(map) scales}
  * are the same, meaning that distances along a parallel or meridian (in fact, in all directions) are equally stretched
  * by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.&lt;/p>
+ *
+ * &lt;p>The {@link https://en.wikipedia.org/wiki/Web_Mercator_projection Web Mercator}
+ * projection, on the other hand, is a variant of the Mercator projection, which is {@link https://en.wikipedia.org/wiki/Google_Maps widely}
+ * used in {@link https://en.wikipedia.org/wiki/Web_mapping web mapping} applications.
+ * It was designed to work well with the Web Mercator coordinate system,
+ * which is based on the {@link https://en.wikipedia.org/wiki/World_Geodetic_System#WGS_84 WGS 84 datum}.
+ *
+ * The projection is neither strictly ellipsoidal nor strictly spherical,
+ * and it uses spherical development of ellipsoidal coordinates.
+ * The underlying geographic coordinates are defined using the WGS 84 ellipsoidal model
+ * of the Earth's surface but are projected as if
+ * {@link https://alastaira.wordpress.com/2011/01/23/the-google-maps-bing-maps-spherical-mercator-projection/ defined on a sphere}.
+ *
+ * Misinterpreting Web Mercator for the standard Mercator during coordinate conversion can lead to
+ * {@link https://web.archive.org/web/20170329065451/https://earth-info.nga.mil/GandG/wgs84/web_mercator/index.html deviations}
+ * as much as 40 km on the ground.&lt;/p>
  *
  * &lt;p>It is impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
  * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
@@ -142,7 +159,8 @@
  * (I have no idea whether it provides any practical advantage).
  * A user can switch between hws and three.js models by pressing a single key (Alt, ❖ or ⌘) in the interface.&lt;/p>
  *
- * &lt;p>There is a lot of redundancy in the form of vertex duplication in all of these models, which may preclude mipmapping
+ * &lt;p>There is a lot of redundancy in the form of {@link https://stackoverflow.com/questions/36179507/three-js-spherebuffergeometry-why-so-many-vertices vertex duplication}
+ * in all of these models, which may preclude mipmapping
  * artifacts. The theoretical number of vertices, &lt;mark>𝑣&lt;/mark>, for a {@link https://en.wikipedia.org/wiki/Manifold manifold model}
  * and the actual number of vertices (🔴) are {@link createModel displayed} in the interface.
  * The number of edges, &lt;i>e&lt;/i>, is simply three times the number of triangles, &lt;i>t&lt;/i>, divided by two.&lt;/p>
@@ -287,8 +305,14 @@
  * @see &lt;figure>
  *      &lt;img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
  *      &lt;img src="../images/GB.png" height="340" title="GhostBusters Seam">
- *      &lt;figcaption style="font-size: 200%">{@link module:polyhedron.polyhedron#tetrahedron Subdivision Sphere} Seam -
+ *      &lt;figcaption style="font-size: 200%">{@link module:polyhedron.Polyhedron#tetrahedron Subdivision Sphere} Seam -
  *        &lt;a href="https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf">Mipmapping Artifact&lt;/a>&lt;/figcaption>
+ *      &lt;/figure>
+ * @see &lt;figure>
+ *      &lt;img src="../images/north-pole-seam.png" height="340" title="world-map-mercator.jpg">
+ *      &lt;img src="../images/north-pole-seam2.png" height="340" title="uv_grig512.jpg">
+ *      &lt;figcaption style="font-size: 200%">{@link uvSphereND Sphere No Duplication} Seam -
+ *        &lt;a href="https://math.hws.edu/graphicsbook/c6/s4.html">north and south pole swirling&lt;/a>&lt;/figcaption>
  *      &lt;/figure>
  * @see &lt;figure>
  *      &lt;img src="../images/sphere.png" height="340" title="texture in fragment shader">
@@ -404,6 +428,7 @@ const gcs2Spherical = (gcs) => {
  * @see {@link https://github.com/mrdoob/three.js github}
  * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
  * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ * @see &lt;a href="/cwdc/13-webgl/lib/three.txt">Notes&lt;/a>
  */
 
 /**
@@ -420,7 +445,7 @@ const gcs2Spherical = (gcs) => {
  * passing all this data to the GPU.
  * @class BufferGeometry
  * @memberof THREE
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
  */
 
 // default texture
@@ -2121,11 +2146,13 @@ function drawParallel() {
  * @param {Array&lt;String>} optionNames array of texture file names.
  */
 function getTextures(optionNames) {
+  const initialTexture = optionNames[0];
   optionNames.length = 0;
   const selectElement = document.getElementById("textures");
   [...selectElement.options].map((o) => optionNames.push(o.text));
   optionNames.sort();
   setTextures(optionNames);
+  textureCnt = optionNames.indexOf(initialTexture);
 }
 
 /**
@@ -2772,7 +2799,7 @@ const animate = (() => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jun 02 2025 04:04:40 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Jun 08 2025 23:08:13 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

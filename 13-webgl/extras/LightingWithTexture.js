@@ -277,8 +277,14 @@
  * @see <figure>
  *      <img src="../images/aliasing-no-correction.png" height="340" title="spherical mapping discontinuity">
  *      <img src="../images/GB.png" height="340" title="GhostBusters Seam">
- *      <figcaption style="font-size: 200%">{@link module:polyhedron.polyhedron#tetrahedron Subdivision Sphere} Seam -
+ *      <figcaption style="font-size: 200%">{@link module:polyhedron.Polyhedron#tetrahedron Subdivision Sphere} Seam -
  *        <a href="https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf">Mipmapping Artifact</a></figcaption>
+ *      </figure>
+ * @see <figure>
+ *      <img src="../images/north-pole-seam.png" height="340" title="world-map-mercator.jpg">
+ *      <img src="../images/north-pole-seam2.png" height="340" title="uv_grig512.jpg">
+ *      <figcaption style="font-size: 200%">{@link uvSphereND Sphere No Duplication} Seam -
+ *        <a href="https://math.hws.edu/graphicsbook/c6/s4.html">north and south pole swirling</a></figcaption>
  *      </figure>
  * @see <figure>
  *      <img src="../images/sphere.png" height="340" title="texture in fragment shader">
@@ -394,6 +400,7 @@ const gcs2Spherical = (gcs) => {
  * @see {@link https://github.com/mrdoob/three.js github}
  * @see {@link http://cindyhwang.github.io/interactive-design/Mrdoob/index.html An interview with Mr.doob}
  * @see {@link https://experiments.withgoogle.com/search?q=Mr.doob Experiments with Google}
+ * @see <a href="/cwdc/13-webgl/lib/three.txt">Notes</a>
  */
 
 /**
@@ -410,7 +417,7 @@ const gcs2Spherical = (gcs) => {
  * passing all this data to the GPU.
  * @class BufferGeometry
  * @memberof THREE
- * @see https://threejs.org/docs/#api/en/core/BufferGeometry
+ * @see {@link https://threejs.org/docs/#api/en/core/BufferGeometry BufferGeometry}
  */
 
 // default texture
@@ -2111,11 +2118,13 @@ function drawParallel() {
  * @param {Array<String>} optionNames array of texture file names.
  */
 function getTextures(optionNames) {
+  const initialTexture = optionNames[0];
   optionNames.length = 0;
   const selectElement = document.getElementById("textures");
   [...selectElement.options].map((o) => optionNames.push(o.text));
   optionNames.sort();
   setTextures(optionNames);
+  textureCnt = optionNames.indexOf(initialTexture);
 }
 
 /**

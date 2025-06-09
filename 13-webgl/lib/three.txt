@@ -48,6 +48,17 @@ import {
         MathUtils
 } from '/cwdc/13-webgl/lib/three.r163/build/three.module.js'; // was just 'three'
 
+import * as THREE from "/cwdc/13-webgl/lib/three.r163/build/three.module.js";
+import { VertexNormalsHelper } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/helpers/VertexNormalsHelper.js";
+import { OBJLoader } from "/cwdc/13-webgl/lib/three.r163/examples/jsm/loaders/OBJLoader.js";
+
+or
+
+import * as THREE from "https://unpkg.com/three@latest/build/three.module.js?module";
+import { VertexNormalsHelper } from "https://unpkg.com/three@latest/examples/jsm/helpers/VertexNormalsHelper.js?module";
+import { OBJLoader } from "https://unpkg.com/three@latest/examples/jsm/loaders/OBJLoader.js?module";
+import { OBJLoader } from "https://unpkg.com/three@latest/examples/jsm/controls/OrbitControls.js?module";
+
 Finally, directory "three" contains version @148, but as far as I remember, I am
 no longer using it. It was needed to avoid the lighting context change
 in version @155, when the legacy lighting mode was disabled by default. However,
