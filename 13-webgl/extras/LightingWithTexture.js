@@ -1406,7 +1406,6 @@ function lineSphereIntersection(o, p, c, r) {
   } else if (delta == 0) {
     dist = -a;
   } else {
-    console.log("No intersection");
     return null;
   }
 
