@@ -509,6 +509,14 @@ const gpsCoordinates = {
     latitude: 21.3068,
     longitude: -157.7912,
   },
+  Tokyo: {
+    latitude: 35.6762,
+    longitude: 139.6503,
+  },
+  Sydney: {
+    latitude: -33.8688,
+    longitude: 151.2093,
+  },
   Unknown: {
     latitude: 0,
     longitude: 0,
@@ -1755,6 +1763,8 @@ canvas.addEventListener("pointerdown", (event) => {
 });
 
 /**
+ * <p>Displays the GCS coordinates (longitude and latitude )
+ * on the globe when pointer is moved upon.</p>
  * <p>Sets {@link moving} to true if {@link clicked} is also true.</p>
  * <p>The pointermove event is fired when a pointer changes coordinates,
  * and the pointer has not been canceled by a browser touch-action.
@@ -1773,6 +1783,57 @@ canvas.addEventListener("pointermove", (event) => {
     moving = true;
     clicked = false; // we are moving the globe
     canvas.style.cursor = "pointer";
+    return;
+  }
+
+  // tooltip on mouse hoover
+  const tooltip = document.getElementById("canvastip");
+
+  if (moving) {
+    tooltip.innerHTML = "";
+    tooltip.style.display = "none";
+  } else {
+    let x = event.offsetX;
+    let y = event.offsetY;
+    y = event.target.height - y;
+
+    // ray origin in world coordinates
+    const o = unproject(
+      [],
+      vec3.fromValues(x, y, 0),
+      getModelMatrix(),
+      viewMatrix,
+      projection,
+      event.target.width,
+      event.target.height,
+    );
+
+    // ray end point in world coordinates
+    const p = unproject(
+      [],
+      vec3.fromValues(x, y, 1),
+      getModelMatrix(),
+      viewMatrix,
+      projection,
+      event.target.width,
+      event.target.height,
+    );
+
+    const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
+    if (!intersection) {
+      tooltip.innerHTML = "";
+      tooltip.style.display = "none";
+      return;
+    }
+
+    const uv = cartesian2Spherical(intersection);
+    const gcs = spherical2gcs(uv);
+
+    tooltip.style.top = `${event.offsetY}px`;
+    tooltip.style.left = `${x}px`;
+    // GCS coordinates
+    tooltip.innerHTML = `(${gcs.longitude.toFixed(3)}, ${gcs.latitude.toFixed(3)})`;
+    tooltip.style.display = "block";
   }
 });
 

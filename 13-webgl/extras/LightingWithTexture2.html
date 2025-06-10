@@ -38,7 +38,7 @@ when using mipmap:
                 padding-top: 0;
                 text-align: center;
             }
-            #imgcontainer {
+            .imgcontainer {
                 position: relative;
                 width: fit-content;
                 touch-action: manipulation;
@@ -87,7 +87,8 @@ when using mipmap:
             #theCanvas {
                 cursor: crosshair;
             }
-            #tooltip {
+            #tooltip,
+            #canvastip {
                 position: absolute;
                 z-index: 2;
                 background-color: rgba(300 300 300 / 0.5);
@@ -101,20 +102,23 @@ when using mipmap:
     </head>
 
     <body>
-        <canvas
-            id="theCanvas"
-            style="margin-left: 30px"
-            width="900"
-            height="600"
-        >
-            Please use a browser that supports "canvas"
-        </canvas>
+        <div class="imgcontainer">
+            <canvas
+                id="theCanvas"
+                style="margin-left: 30px"
+                width="900"
+                height="600"
+            >
+                Please use a browser that supports "canvas"
+            </canvas>
+            <div id="canvastip" role="tooltip">Hi! I'm a tooltip.</div>
+        </div>
 
         <div id="interface">
             <div id="legenda" style="margin: 0 10px 0 0">
                 <figure style="margin: 0 15px 10px 0">
                     <div id="size" style="margin-bottom: 3px"></div>
-                    <div id="imgcontainer">
+                    <div class="imgcontainer">
                         <img id="textimg" src="" width="256" />
                         <canvas id="canvasimg" width="256"></canvas>
                         <div id="tooltip" role="tooltip">
