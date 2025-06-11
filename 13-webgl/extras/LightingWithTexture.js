@@ -544,6 +544,7 @@ const selector = {
   intrinsic: document.getElementById("intrinsic").checked,
   equator: document.getElementById("equator").checked,
   hws: document.getElementById("hws").checked,
+  tooltip: true,
 };
 
 /**
@@ -909,7 +910,8 @@ function labelForLocation(location) {
   const lon = gpsCoordinates[location].longitude;
   const sec = 1 / Math.cos(toRadian(lat));
   $('label[for="equator"]').html(
-    `<i>${currentLocation}</i> (lat: ${lat.toFixed(5)}, long: ${lon.toFixed(5)}, sec(lat): ${sec.toFixed(2)})`,
+    `<i>${currentLocation}</i> (lat: ${lat.toFixed(5)},
+    long: ${lon.toFixed(5)}, sec(lat): ${sec.toFixed(2)})`,
   );
 }
 
@@ -1212,6 +1214,9 @@ const handleKeyPress = ((event) => {
         labelForLocation(currentLocation);
         animate();
         break;
+      case "h":
+        selector.tooltip = !selector.tooltip;
+        break;
       default:
         return;
     }
@@ -1406,6 +1411,7 @@ function lineSphereIntersection(o, p, c, r) {
   } else if (delta == 0) {
     dist = -a;
   } else {
+    // no intersection
     return null;
   }
 
@@ -1678,6 +1684,15 @@ textimg.addEventListener("pointerdown", (event) => {
  * @see {@link https://caniuse.com/pointer Pointer events}
  */
 textimg.addEventListener("pointermove", (event) => {
+  // tooltip on mouse hoover
+  const tooltip = document.getElementById("tooltip");
+
+  if (!selector.tooltip) {
+    tooltip.innerHTML = "";
+    tooltip.style.display = "none";
+    return;
+  }
+
   const x = event.offsetX;
   let y = event.offsetY;
   y = event.target.height - y;
@@ -1692,10 +1707,7 @@ textimg.addEventListener("pointermove", (event) => {
     uv.t = mercator2Spherical(uv.s, uv.t).t;
   }
 
-  // tooltip on mouse hoover
-  const tooltip = document.getElementById("tooltip");
-
-  tooltip.style.top = `${event.offsetY}px`;
+  tooltip.style.top = `${event.offsetY + 15}px`;
   tooltip.style.left = `${x}px`;
   // UV normalized
   tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
@@ -1788,11 +1800,11 @@ canvas.addEventListener("pointermove", (event) => {
   // tooltip on mouse hoover
   const tooltip = document.getElementById("canvastip");
 
-  if (moving) {
+  if (moving || !selector.tooltip) {
     tooltip.innerHTML = "";
     tooltip.style.display = "none";
   } else {
-    let x = event.offsetX;
+    const x = event.offsetX;
     let y = event.offsetY;
     y = event.target.height - y;
 
@@ -1828,10 +1840,11 @@ canvas.addEventListener("pointermove", (event) => {
     const uv = cartesian2Spherical(intersection);
     const gcs = spherical2gcs(uv);
 
-    tooltip.style.top = `${event.offsetY}px`;
+    tooltip.style.top = `${event.offsetY + 15}px`;
     tooltip.style.left = `${x}px`;
     // GCS coordinates
-    tooltip.innerHTML = `(${gcs.longitude.toFixed(3)}, ${gcs.latitude.toFixed(3)})`;
+    tooltip.innerHTML = `(${gcs.longitude.toFixed(3)},
+                          ${gcs.latitude.toFixed(3)})`;
     tooltip.style.display = "block";
   }
 });
