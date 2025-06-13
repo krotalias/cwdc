@@ -132,8 +132,8 @@
  * A user can switch between hws and three.js models by pressing a single key (Alt, ❖ or ⌘) in the interface.</p>
  *
  * <p>There is a lot of redundancy in the form of {@link https://stackoverflow.com/questions/36179507/three-js-spherebuffergeometry-why-so-many-vertices vertex duplication}
- * in all of these models, which may preclude mipmapping
- * artifacts. The theoretical number of vertices, <mark>𝑣</mark>, for a {@link https://en.wikipedia.org/wiki/Manifold manifold model}
+ * in all of these models that precludes mipmapping artifacts.
+ * The theoretical number of vertices, <mark>𝑣</mark>, for a {@link https://en.wikipedia.org/wiki/Manifold manifold model}
  * and the actual number of vertices (🔴) are {@link createModel displayed} in the interface.
  * The number of edges, <i>e</i>, is simply three times the number of triangles, <i>t</i>, divided by two.</p>
  *
@@ -149,8 +149,13 @@
  * Besides being much harder to code, its last slice (e.g., slices = 48) goes from 6.152285613280011 (2π/48 * 47) to 0.0
  * and not 2π (if there was an extra duplicate vertex), which generates texture coordinates
  * going from 0.9791666666666666 (47/48) to 0.0 and not 1.0.
- * Although this is what causes the mipmapping artifacts, it has nothing to do with the topology of the model
- * but how mimapping is {@link https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-28-mipmap-level-measurement implemented} on the GPU.</p>
+ * Although this discontinuity is what causes the mipmapping artifacts, it has nothing to do with the topology of the model
+ * but how mimapping is {@link https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-28-mipmap-level-measurement implemented} on the GPU.
+ *
+ * However, since an entire line is mapped onto the vextex at the north or south pole,
+ * and a vertex can have only one pair of texture coordinates (u,v),
+ * no matter what value we use for the "u" coordinate (e.g., 0 or 0.5),
+ * the interpolation will produce an awkward swirl effect at the poles.</p>
  *
  * Of course, these are just {@link https://en.wikipedia.org/wiki/Polygon_mesh polygon meshes} suitable for visualization
  * and not valid topological {@link https://en.wikipedia.org/wiki/Boundary_representation B-rep}
@@ -524,17 +529,20 @@ const gpsCoordinates = {
 };
 
 /**
+ * Array of city names, that is, the gpsCoordinates keys.
+ * @type {Array<String>}
+ */
+const cities = Object.keys(gpsCoordinates);
+
+/**
  * Name of the current city location.
  * @type {String}
  */
-let currentLocation =
-  Object.keys(gpsCoordinates)[
-    Math.floor(Math.random() * Object.keys(gpsCoordinates).length)
-  ];
+let currentLocation = cities[Math.floor(Math.random() * cities.length)];
 
 /**
  * Display status of the model mesh, texture, axes and paused animation: on/off.
- * @type {Object<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean, intrinsic:Boolean, equator:Boolean, hws:Boolean}>}
+ * @type {Object<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean, intrinsic:Boolean, equator:Boolean, hws:Boolean, tootip:Boolean}>}
  */
 const selector = {
   lines: document.getElementById("mesh").checked,
@@ -927,7 +935,6 @@ function labelForLocation(location) {
  */
 const handleKeyPress = ((event) => {
   const mod = (n, m) => ((n % m) + m) % m;
-  const cities = Object.keys(gpsCoordinates);
   const kbd = document.getElementById("kbd");
   const opt = document.getElementById("options");
   const models = document.getElementById("models");
@@ -1662,7 +1669,6 @@ textimg.addEventListener("pointerdown", (event) => {
   console.log(`longitude = ${uv.s}, latitude = ${uv.t}`);
 
   gpsCoordinates["Unknown"] = spherical2gcs(uv);
-  const cities = Object.keys(gpsCoordinates);
   currentLocation = cities[cities.length - 2];
   handleKeyPress(createEvent("G"));
 });
@@ -1907,7 +1913,6 @@ canvas.addEventListener("pointerup", (event) => {
   const uv = cartesian2Spherical(intersection);
 
   gpsCoordinates["Unknown"] = spherical2gcs(uv);
-  const cities = Object.keys(gpsCoordinates);
   currentLocation = cities[cities.length - 2];
   handleKeyPress(createEvent("G"));
 });
