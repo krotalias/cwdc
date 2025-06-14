@@ -895,7 +895,7 @@ const handleKeyPress = ((event) => {
   let gscale = 1;
   let subPoly = 0;
   let tri;
-  let n;
+  let n, inc;
   const poly = {
     d: 0,
     i: 1,
@@ -913,7 +913,7 @@ const handleKeyPress = ((event) => {
     switch (ch) {
       case "m":
       case "M":
-        const inc = ch == "m" ? 1 : -1;
+        inc = ch == "m" ? 1 : -1;
         numSubdivisions = mod(numSubdivisions + inc, maxSubdivisions + 1);
         gscale = mscale = 1;
         if (numSubdivisions == 0) {
@@ -1142,7 +1142,7 @@ const handleKeyPress = ((event) => {
         document.getElementById("fixuv").checked = fixuv;
         setUVfix();
         break;
-      case "g":
+      case "K":
         mercator = !mercator;
         document.getElementById("mercator").checked = mercator;
         break;
@@ -1165,9 +1165,11 @@ const handleKeyPress = ((event) => {
         selector.hws = !selector.hws;
         document.getElementById("hws").checked = selector.hws;
         break;
+      case "g":
       case "G":
+        inc = ch == "g" ? 1 : -1;
         const cl = cities.indexOf(currentLocation);
-        currentLocation = cities[mod(cl + 1, cities.length)];
+        currentLocation = cities[mod(cl + inc, cities.length)];
         setPosition(currentLocation);
         selector.equator = true;
         document.getElementById("equator").checked = selector.equator;
@@ -1532,7 +1534,7 @@ const merc = document.getElementById("mercator");
  * @event changeMercatorcheckBox
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
-merc.addEventListener("change", (event) => handleKeyPress(createEvent("g")));
+merc.addEventListener("change", (event) => handleKeyPress(createEvent("K")));
 
 const cull = document.getElementById("culling");
 
@@ -1623,7 +1625,7 @@ textimg.addEventListener("pointerdown", (event) => {
 
   gpsCoordinates["Unknown"] = spherical2gcs(uv);
   currentLocation = cities[cities.length - 2];
-  handleKeyPress(createEvent("G"));
+  handleKeyPress(createEvent("g"));
 });
 
 /**
@@ -1867,7 +1869,7 @@ canvas.addEventListener("pointerup", (event) => {
 
   gpsCoordinates["Unknown"] = spherical2gcs(uv);
   currentLocation = cities[cities.length - 2];
-  handleKeyPress(createEvent("G"));
+  handleKeyPress(createEvent("g"));
 });
 
 /**
