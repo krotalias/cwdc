@@ -1,0 +1,51 @@
+{
+    "timeZones": "Time Zones around the world",
+    "Null_Island": {
+        "latitude": 0,
+        "longitude": 0
+    },
+    "Rio": {
+        "latitude": -22.9068,
+        "longitude": -43.1729
+    },
+    "NYC": {
+        "latitude": 40.7128,
+        "longitude": -74.006
+    },
+    "Syracuse": {
+        "latitude": 37.075474,
+        "longitude": 15.286586
+    },
+    "Calgary": {
+        "latitude": 51.049999,
+        "longitude": -114.066666
+    },
+    "Ames": {
+        "latitude": 42.034534,
+        "longitude": -93.620369
+    },
+    "Rome": {
+        "latitude": 41.902782,
+        "longitude": 12.496366
+    },
+    "Berlin": {
+        "latitude": 52.520008,
+        "longitude": 13.404954
+    },
+    "Hawaii": {
+        "latitude": 21.3068,
+        "longitude": -157.7912
+    },
+    "Tokyo": {
+        "latitude": 35.6762,
+        "longitude": 139.6503
+    },
+    "Sydney": {
+        "latitude": -33.8688,
+        "longitude": 151.2093
+    },
+    "Unknown": {
+        "latitude": 0,
+        "longitude": 0
+    }
+}

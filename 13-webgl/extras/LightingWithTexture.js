@@ -168,7 +168,8 @@
  * <p><b>{@link https://www.youtube.com/watch?v=Otm4RusESNU Homework}</b>:</p>
  *
  * <ol>
- * <li>The application selects a random {@link gpsCoordinates city} and displays its location (when its name is checked in the interface)
+ * <li>The application selects a random {@link gpsCoordinates city} and displays its
+ * <a href="/cwdc/13-webgl/extras/locations.json">location</a> (when its name is checked in the interface)
  * as the intersection of its line of latitude (parallel) and line of longitude (meridian) on the model surface (preferably a map onto a sphere).
  * Your task is to pick a point in the texture image (using the mouse or any pointer device) and display its location
  * on the texture image (map) and on the 3D model.
@@ -453,7 +454,7 @@ let noTexture;
  * @type {HTMLImageElement}
  * @see {@link ImageLoadCallback}
  */
-let image;
+let image = null;
 
 /**
  * Maximum Number of subdivisions to turn a polyhedron into a sphere.
@@ -474,71 +475,23 @@ let numSubdivisions = 0;
 let mscale = 1;
 
 /**
- * GPS coordinates of the city location to be drawn.
+ * <p>A set of world locations given by their GPS coordinates.</p>
+ * These locations are {@link event:load read} from a <a href="/cwdc/13-webgl/extras/locations.json">json file</a>.
  * @type {Object<String:Object<{latitude:Number,longitude:Number}>>}
  */
-const gpsCoordinates = {
-  Null_Island: {
-    latitude: 0,
-    longitude: 0,
-  },
-  Rio: {
-    latitude: -22.9068,
-    longitude: -43.1729,
-  },
-  NYC: {
-    latitude: 40.7128,
-    longitude: -74.006,
-  },
-  Syracuse: {
-    latitude: 37.075474,
-    longitude: 15.286586,
-  },
-  Calgary: {
-    latitude: 51.049999,
-    longitude: -114.066666,
-  },
-  Ames: {
-    latitude: 42.034534,
-    longitude: -93.620369,
-  },
-  Rome: {
-    latitude: 41.902782,
-    longitude: 12.496366,
-  },
-  Berlin: {
-    latitude: 52.520008,
-    longitude: 13.404954,
-  },
-  Hawaii: {
-    latitude: 21.3068,
-    longitude: -157.7912,
-  },
-  Tokyo: {
-    latitude: 35.6762,
-    longitude: 139.6503,
-  },
-  Sydney: {
-    latitude: -33.8688,
-    longitude: 151.2093,
-  },
-  Unknown: {
-    latitude: 0,
-    longitude: 0,
-  },
-};
+let gpsCoordinates = null;
 
 /**
  * Array of city names, that is, the gpsCoordinates keys.
  * @type {Array<String>}
  */
-const cities = Object.keys(gpsCoordinates);
+let cities = null;
 
 /**
  * Name of the current city location.
  * @type {String}
  */
-let currentLocation = cities[Math.floor(Math.random() * cities.length)];
+let currentLocation = null;
 
 /**
  * Display status of the model mesh, texture, axes and paused animation: on/off.
@@ -2282,53 +2235,65 @@ function setTextures(optionNames) {
 }
 
 /**
- * <p>Loads the texture image asynchronously and defines its {@link ImageLoadCallback load callback function}.</p>
+ * <p>Loads the {@link image texture image} and {@link gpsCoordinates} asynchronously
+ * and defines its {@link ImageLoadCallback load callback function}.</p>
  * @param {Event} event load event.
  * @callback WindowLoadCallback
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event load event}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image Image() constructor}
  * @see {@link https://web.cse.ohio-state.edu/~shen.94/581/Site/Slides_files/texture.pdf Texture Mapping}
  * @see {@link https://www.evl.uic.edu/pape/data/Earth/ Earth images}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch Using the Fetch API}
  * @event load
  */
 window.addEventListener("load", (event) => {
-  image = new Image();
+  fetch(`${location.protocol}/cwdc/13-webgl/extras/locations.json`)
+    .then((response) => response.text())
+    .then((json) => {
+      gpsCoordinates = JSON.parse(json);
+      cities = Object.keys(gpsCoordinates);
+      currentLocation = cities[Math.floor(Math.random() * cities.length)];
 
-  /**
-   * <p>Callback after a new texture {@link image} is loaded.</p>
-   * When called for the first time, it starts the animation.
-   * Otherwise, just loads a new texture.
-   * @callback ImageLoadCallback
-   */
-  image.onload = function () {
-    // chain the animation or load a new texture
-    if (typeof theModel === "undefined") {
-      readFileNames
-        .then((arr) => {
-          const initialTexture = imageFilename[0];
-          if (arr.length > 0) {
-            imageFilename.splice(0, imageFilename.length, ...arr.sort());
-          }
-          setTextures(imageFilename);
-          textureCnt = imageFilename.indexOf(initialTexture);
-          startForReal(image);
-        })
-        .catch((error) => {
-          console.log(`${error}`);
-          // don't return anything => execution goes the normal way
-          // in case server does not run php
-          getTextures(imageFilename);
-          startForReal(image);
-        });
-    } else {
-      newTexture(image);
-      draw();
-    }
-  };
-  // starts loading the image asynchronously
-  image.src = `./textures/${imageFilename[0]}`;
-  mercator = imageFilename[0].includes("Mercator");
-  document.getElementById("mercator").checked = mercator;
+      image = new Image();
+      /**
+       * <p>Callback after a new texture {@link image} is loaded.</p>
+       * When called for the first time, it starts the animation.
+       * Otherwise, just loads a new texture.
+       * @callback ImageLoadCallback
+       */
+      image.onload = function () {
+        // chain the animation or load a new texture
+        if (typeof theModel === "undefined") {
+          readFileNames
+            .then((arr) => {
+              const initialTexture = imageFilename[0];
+              if (arr.length > 0) {
+                imageFilename.splice(0, imageFilename.length, ...arr.sort());
+              }
+              setTextures(imageFilename);
+              textureCnt = imageFilename.indexOf(initialTexture);
+              startForReal(image);
+            })
+            .catch((error) => {
+              console.log(`${error}`);
+              // don't return anything => execution goes the normal way
+              // in case server does not run php
+              getTextures(imageFilename);
+              startForReal(image);
+            });
+        } else {
+          newTexture(image);
+          draw();
+        }
+      };
+      // starts loading the image asynchronously
+      image.src = `./textures/${imageFilename[0]}`;
+      mercator = imageFilename[0].includes("Mercator");
+      document.getElementById("mercator").checked = mercator;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 });
 
 /**
