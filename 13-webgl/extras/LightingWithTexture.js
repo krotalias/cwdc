@@ -395,6 +395,51 @@ const gcs2Spherical = (gcs) => {
 };
 
 /**
+ * <p>Calculate distances on the globe using the Haversine Formula.</p>
+ * Usage:
+ * <pre>
+ *  const distance = haversine(
+ *        gpsCoordinates["Alexandria"],
+ *        gpsCoordinates["Aswan"],
+ *  );
+ *  console.log(`Distance: ${Math.round(distance.m, 3)} m`);
+ *  console.log(`Distance: ${Math.round(distance.km, 3)} km`);
+ *
+ *  >> Distance: 843754 m
+ *  >> Distance: 844 km
+ * </pre>
+ * @param {Object<{longitude:Number,latitude:Number}>} gcs1 first pair of gcs coordinates.
+ * @param {Object<{longitude:Number,latitude:Number}>} gcs2 second pair of gcs coordinates.
+ * @return {Number} distance between gcs1 and gcs2.
+ * @see {@link https://en.wikipedia.org/wiki/Haversine_formula Haversine formula}
+ * @see {@link https://community.esri.com/t5/coordinate-reference-systems-blog/distance-on-a-sphere-the-haversine-formula/ba-p/902128 Distance on a sphere: The Haversine Formula}
+ * @see {@link https://www.distancecalculator.net/from-alexandria-to-aswan Distance from Alexandria to Aswan}
+ */
+function haversine(gcs1, gcs2) {
+  // Coordinates in decimal degrees (e.g. 2.89078, 12.79797)
+  const { latitude: lat1, longitude: lon1 } = gcs1;
+  const { latitude: lat2, longitude: lon2 } = gcs2;
+
+  const R = 6371000; // radius of Earth in meters
+  const phi_1 = toRadian(lat1);
+  const phi_2 = toRadian(lat2);
+
+  const delta_phi = toRadian(lat2 - lat1);
+  const delta_lambda = toRadian(lon2 - lon1);
+
+  const a =
+    Math.sin(delta_phi / 2.0) ** 2 +
+    Math.cos(phi_1) * Math.cos(phi_2) * Math.sin(delta_lambda / 2.0) ** 2;
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  let m = R * c; // distance in meters
+  let km = m / 1000.0; // distance in kilometers
+
+  return { m, km };
+}
+
+/**
  * Three.js module.
  * @author Ricardo Cabello ({@link https://coopermrdoob.weebly.com/ Mr.doob})
  * @since 24/04/2010
@@ -2257,6 +2302,7 @@ window.addEventListener("load", (event) => {
       currentLocation = cities[Math.floor(Math.random() * cities.length)];
 
       image = new Image();
+
       /**
        * <p>Callback after a new texture {@link image} is loaded.</p>
        * When called for the first time, it starts the animation.
