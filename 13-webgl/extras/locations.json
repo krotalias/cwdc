@@ -11,17 +11,17 @@
         "latitude": 40.7128,
         "longitude": -74.006
     },
-    "Syracuse": {
-        "latitude": 37.075474,
-        "longitude": 15.286586
+    "Ames": {
+        "latitude": 42.034534,
+        "longitude": -93.620369
     },
     "Calgary": {
         "latitude": 51.049999,
         "longitude": -114.066666
     },
-    "Ames": {
-        "latitude": 42.034534,
-        "longitude": -93.620369
+    "Hawaii": {
+        "latitude": 21.3068,
+        "longitude": -157.7912
     },
     "Rome": {
         "latitude": 41.902782,
@@ -31,9 +31,29 @@
         "latitude": 52.520008,
         "longitude": 13.404954
     },
-    "Hawaii": {
-        "latitude": 21.3068,
-        "longitude": -157.7912
+    "Syracuse": {
+        "latitude": 37.075474,
+        "longitude": 15.286586
+    },
+    "Tel Aviv-Yafo": {
+        "latitude": 32.109333,
+        "longitude": 34.855499
+    },
+    "Moscow": {
+        "latitude": 55.751244,
+        "longitude": 37.618423
+    },
+    "Tehran": {
+        "latitude": 35.7248416,
+        "longitude": 51.381653
+    },
+    "Kolkata": {
+        "latitude": 22.56263,
+        "longitude": 88.36304
+    },
+    "Beijing": {
+        "latitude": 39.916668,
+        "longitude": 116.383331
     },
     "Tokyo": {
         "latitude": 35.6762,
