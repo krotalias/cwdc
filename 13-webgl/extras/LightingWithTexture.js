@@ -915,10 +915,9 @@ function labelForLocation(location) {
   const lat = gpsCoordinates[location].latitude;
   const lon = gpsCoordinates[location].longitude;
   const sec = 1 / Math.cos(toRadian(lat));
-  $('label[for="equator"]').html(
+  document.querySelector('label[for="equator"]').innerHTML =
     `<i>${currentLocation}</i> (lat: ${lat.toFixed(5)},
-    long: ${lon.toFixed(5)}, sec(lat): ${sec.toFixed(2)})`,
-  );
+    long: ${lon.toFixed(5)}, sec(lat): ${sec.toFixed(2)})`;
 }
 
 /**
@@ -1219,10 +1218,51 @@ const handleKeyPress = ((event) => {
         selector.equator = true;
         document.getElementById("equator").checked = selector.equator;
         labelForLocation(currentLocation);
+
+        if (selector.tooltip) {
+          // location name
+          const uv = gcs2Spherical(gpsCoordinates[currentLocation]);
+          const pt = spherical2Cartesian(uv.s, uv.t, 1);
+          if (mercator) {
+            // mercator projection
+            uv.t = spherical2Mercator(uv.s, uv.t).y;
+          }
+          const viewport = gl.getParameter(gl.VIEWPORT);
+          const screen = project(
+            [],
+            pt,
+            modelMatrix,
+            viewMatrix,
+            projection,
+            viewport,
+          );
+          let [x, y] = screen;
+          if (false) {
+            canvastip.style.top = `${y + 5}px`;
+            canvastip.style.left = `${x + 5}px`;
+            canvastip.innerHTML = `${currentLocation}`;
+            canvastip.style.display = "block";
+          }
+
+          x = Math.floor(uv.s * textimg.width);
+          y = Math.floor(uv.t * textimg.height);
+          y = textimg.height - y;
+          tooltip.style.top = `${y + 5}px`;
+          tooltip.style.left = `${x + 5}px`;
+          tooltip.innerHTML = `${currentLocation}`;
+          tooltip.style.display = "block";
+        } else {
+          tooltip.style.display = "none";
+          canvastip.style.display = "none";
+        }
         animate();
         break;
       case "h":
         selector.tooltip = !selector.tooltip;
+        if (!selector.tooltip) {
+          tooltip.style.display = "none";
+          canvastip.style.display = "none";
+        }
         break;
       default:
         return;
@@ -1341,17 +1381,59 @@ function selectModel() {
 }
 
 /**
- * <p>Maps screen coordinates to object coordinates.</p>
+ * <p>Transforms object space coordinates into screen coordinates.</p>
+ * @param {Array<Number>} out the receiving vector.
+ * @param {vec3} vec 3D vector of object coordinates.
+ * @param {mat4} modelMatrix model matrix.
+ * @param {mat4} viewMatrix view matrix.
+ * @param {mat4} projectionMatrix projection matrix.
+ * @param {Array<Number>}viewport the current viewport (as from a gl.getParameter call).
+ * @returns {Array<Number>} out.
+ * @see {@link https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluProject.xml gluProject}
+ * @see {@link https://math.hws.edu/graphicsbook/c7/s1.html#webgl3d.1.3 Transforming Coordinates}
+ */
+function project(
+  out,
+  vec,
+  modelMatrix,
+  viewMatrix,
+  projectionMatrix,
+  viewport,
+) {
+  const transform = mat4.multiply(
+    [],
+    projectionMatrix,
+    mat4.multiply([], viewMatrix, modelMatrix),
+  );
+
+  const p = vec4.fromValues(...vec, 1);
+
+  // project
+  vec4.transformMat4(p, p, transform);
+
+  // perspective division (dividing by w)
+  vec4.scale(p, p, 1 / p[3]);
+
+  // NDC [-1,1] to screen
+  out[0] = viewport[0] + Math.round((p[0] + 1) * 0.5 * viewport[2]);
+  out[1] = viewport[1] + Math.round((p[1] + 1) * 0.5 * viewport[3]);
+  out[2] = p[2];
+
+  return out;
+}
+
+/**
+ * <p>Transforms screen coordinates into object space coordinates.</p>
  * @param {Array<Number>} out the receiving vector.
  * @param {vec3} vec 3D vector of screen coordinates.
  * @param {mat4} modelMatrix model matrix.
  * @param {mat4} viewMatrix view matrix.
  * @param {mat4} projectionMatrix projection matrix.
- * @param {Number} width viewport width.
- * @param {Number} height viewport height.
+ * @param {Array<Number>} viewport the current viewport (as from a gl.getParameter call).
  * @returns {Array<Number>} out.
  * @see {@link https://nickthecoder.wordpress.com/2013/01/17/unproject-vec3-in-gl-matrix-library/ unproject vec3 in gl-matrix library}
  * @see {@link https://dondi.lmu.build/share/cg/unproject-explained.pdf “Unproject” Explained}
+ * @see {@link https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/gluUnProject.xml gluUnProject}
  * @see {@link https://math.hws.edu/graphicsbook/c7/s1.html#webgl3d.1.3 Transforming Coordinates}
  */
 function unproject(
@@ -1360,12 +1442,11 @@ function unproject(
   modelMatrix,
   viewMatrix,
   projectionMatrix,
-  width,
-  height,
+  viewport,
 ) {
   // normalized [-1,1]
-  const x = (2 * vec[0]) / width - 1;
-  const y = (2 * vec[1]) / height - 1;
+  const x = (2 * vec[0] - viewport[0]) / viewport[2] - 1;
+  const y = (2 * vec[1] - viewport[1]) / viewport[3] - 1;
   const z = vec[2];
 
   const transform = mat4.multiply(
@@ -1637,6 +1718,7 @@ const models = document.getElementById("models");
 models.addEventListener("change", (event) => selectModel());
 
 const textimg = document.getElementById("textimg");
+const tooltip = document.getElementById("tooltip");
 
 /**
  * <p>Gets the latitude and longitude on the texture image when clicked upon
@@ -1691,8 +1773,6 @@ textimg.addEventListener("pointerdown", (event) => {
  */
 textimg.addEventListener("pointermove", (event) => {
   // tooltip on mouse hoover
-  const tooltip = document.getElementById("tooltip");
-
   if (!selector.tooltip) {
     tooltip.innerHTML = "";
     tooltip.style.display = "none";
@@ -1740,6 +1820,7 @@ textimg.addEventListener("pointerout", (event) => {
 });
 
 const canvas = document.getElementById("theCanvas");
+const canvastip = document.getElementById("canvastip");
 
 /**
  * <p>Variables moving and {@link clicked} are used to distinguish between a simple click
@@ -1804,15 +1885,15 @@ canvas.addEventListener("pointermove", (event) => {
   }
 
   // tooltip on mouse hoover
-  const tooltip = document.getElementById("canvastip");
-
   if (moving || !selector.tooltip) {
-    tooltip.innerHTML = "";
-    tooltip.style.display = "none";
+    canvastip.innerHTML = "";
+    canvastip.style.display = "none";
   } else {
     const x = event.offsetX;
     let y = event.offsetY;
     y = event.target.height - y;
+
+    const viewport = gl.getParameter(gl.VIEWPORT);
 
     // ray origin in world coordinates
     const o = unproject(
@@ -1821,8 +1902,7 @@ canvas.addEventListener("pointermove", (event) => {
       getModelMatrix(),
       viewMatrix,
       projection,
-      event.target.width,
-      event.target.height,
+      viewport,
     );
 
     // ray end point in world coordinates
@@ -1832,26 +1912,25 @@ canvas.addEventListener("pointermove", (event) => {
       getModelMatrix(),
       viewMatrix,
       projection,
-      event.target.width,
-      event.target.height,
+      viewport,
     );
 
     const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
     if (!intersection) {
-      tooltip.innerHTML = "";
-      tooltip.style.display = "none";
+      canvastip.innerHTML = "";
+      canvastip.style.display = "none";
       return;
     }
 
     const uv = cartesian2Spherical(intersection);
     const gcs = spherical2gcs(uv);
 
-    tooltip.style.top = `${event.offsetY + 15}px`;
-    tooltip.style.left = `${x}px`;
+    canvastip.style.top = `${event.offsetY + 15}px`;
+    canvastip.style.left = `${x}px`;
     // GCS coordinates
-    tooltip.innerHTML = `(${gcs.longitude.toFixed(3)},
+    canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
                           ${gcs.latitude.toFixed(3)})`;
-    tooltip.style.display = "block";
+    canvastip.style.display = "block";
   }
 });
 
@@ -1885,6 +1964,8 @@ canvas.addEventListener("pointerup", (event) => {
   let y = event.offsetY;
   y = event.target.height - y;
 
+  const viewport = gl.getParameter(gl.VIEWPORT);
+
   // ray origin in world coordinates
   const o = unproject(
     [],
@@ -1892,8 +1973,7 @@ canvas.addEventListener("pointerup", (event) => {
     getModelMatrix(),
     viewMatrix,
     projection,
-    event.target.width,
-    event.target.height,
+    viewport,
   );
 
   // ray end point in world coordinates
@@ -1903,8 +1983,7 @@ canvas.addEventListener("pointerup", (event) => {
     getModelMatrix(),
     viewMatrix,
     projection,
-    event.target.width,
-    event.target.height,
+    viewport,
   );
 
   const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
