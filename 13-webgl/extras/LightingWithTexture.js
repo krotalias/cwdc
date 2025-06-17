@@ -1222,13 +1222,17 @@ const handleKeyPress = ((event) => {
         if (selector.tooltip) {
           // location name
           const uv = gcs2Spherical(gpsCoordinates[currentLocation]);
-          const pt = spherical2Cartesian(uv.s, uv.t, 1);
+          const pt = spherical2Cartesian(
+            uv.s * 2 * Math.PI,
+            -uv.t * Math.PI,
+            1,
+          );
           if (mercator) {
             // mercator projection
             uv.t = spherical2Mercator(uv.s, uv.t).y;
           }
           const viewport = gl.getParameter(gl.VIEWPORT);
-          const screen = project(
+          let [x, y] = project(
             [],
             pt,
             modelMatrix,
@@ -1236,14 +1240,13 @@ const handleKeyPress = ((event) => {
             projection,
             viewport,
           );
-          let [x, y] = screen;
-          if (false) {
-            canvastip.style.top = `${y + 5}px`;
-            canvastip.style.left = `${x + 5}px`;
-            canvastip.innerHTML = `${currentLocation}`;
-            canvastip.style.display = "block";
-          }
-
+          // on the globe
+          y = viewport[3] - y;
+          canvastip.style.top = `${y + 5}px`;
+          canvastip.style.left = `${x + 35}px`;
+          canvastip.innerHTML = `${currentLocation}`;
+          canvastip.style.display = "block";
+          // on the map
           x = Math.floor(uv.s * textimg.width);
           y = Math.floor(uv.t * textimg.height);
           y = textimg.height - y;
