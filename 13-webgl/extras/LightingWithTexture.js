@@ -1990,12 +1990,11 @@ canvas.addEventListener("pointerup", (event) => {
   );
 
   const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
-  if (!intersection) return;
-
-  const uv = cartesian2Spherical(intersection);
-
-  gpsCoordinates["Unknown"] = spherical2gcs(uv);
-  currentLocation = cities[cities.length - 2];
+  if (intersection) {
+    const uv = cartesian2Spherical(intersection);
+    gpsCoordinates["Unknown"] = spherical2gcs(uv);
+    currentLocation = cities[cities.length - 2];
+  }
   handleKeyPress(createEvent("g"));
 });
 
