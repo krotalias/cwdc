@@ -1235,7 +1235,7 @@ const handleKeyPress = ((event) => {
           let [x, y] = project(
             [],
             pt,
-            modelMatrix,
+            getModelMatrix(),
             viewMatrix,
             projection,
             viewport,
