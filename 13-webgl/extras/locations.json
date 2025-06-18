@@ -6,11 +6,13 @@
     },
     "Rio": {
         "country": "Brazil",
+        "remarkable": "Don Pedro II, 1825 AD",
         "latitude": -22.9068,
         "longitude": -43.1729
     },
     "NYC": {
         "country": "United States",
+        "remarkable": "Theodore Roosevelt, 1858 AD",
         "latitude": 40.7128,
         "longitude": -74.006
     },
@@ -51,6 +53,7 @@
     },
     "Persepolis": {
         "country": "Persia (Iran)",
+        "remarkable": "Xerxes I, 518 BC",
         "latitude": 29.9351669,
         "longitude": 52.8904041
     },
@@ -61,11 +64,13 @@
     },
     "Ctesiphon": {
         "country": "Parthia (Iraq)",
+        "remarkable": "Surena, 84 BC",
         "latitude": 33.08333,
         "longitude": 44.58333
     },
     "Babylon": {
         "country": "Mesopotamia (Iraq)",
+        "remarkable": "Nebuchadnezzar II, 642 BC",
         "latitude": 32.54083,
         "longitude": 44.42417
     },
@@ -76,61 +81,73 @@
     },
     "Moscow": {
         "country": "Russia",
+        "remarkable": "Joseph Stalin, 1878 AD",
         "latitude": 55.751244,
         "longitude": 37.618423
     },
     "Tel Aviv-Yafo": {
+        "remarkable": "David Ben-Gurion, 1886 AD",
         "country": "Israel",
         "latitude": 32.109333,
         "longitude": 34.855499
     },
     "Aswan": {
         "country": "Egypt",
+        "remarkable": "Ramses II, 1303 BC",
         "latitude": 24.088938,
         "longitude": 32.89983
     },
     "Thebes": {
         "country": "Egypt",
+        "remarkable": "Amenhotep III, 1390 BC",
         "latitude": 25.7329051,
         "longitude": 32.7658152
     },
     "Memphis": {
         "country": "Egypt",
+        "remarkable": "Imhotep, 2592 BC",
         "latitude": 29.8544582,
         "longitude": 31.2615188
     },
     "Alexandria": {
         "country": "Egypt",
+        "remarkable": "Erathostenes, 276 BC",
         "latitude": 31.205753,
         "longitude": 29.924526
     },
     "Constantinople": {
         "country": "Turkey",
+        "remarkable": "Constantine, 272 AD",
         "latitude": 41.01224,
         "longitude": 28.976018
     },
     "Athens": {
         "country": "Greece",
+        "remarkable": "Socrates, 399 BC",
         "latitude": 37.9755648,
         "longitude": 23.7348324
     },
     "Syracuse": {
         "country": "Italy",
+        "remarkable": "Archimedes, 287 BC",
         "latitude": 37.075474,
         "longitude": 15.286586
     },
     "Berlin": {
         "country": "Germany",
+        "remarkable": "Marlene Dietrich, 1901 BC",
         "latitude": 52.520008,
         "longitude": 13.404954
     },
     "Rome": {
         "country": "Italy",
+        "remarkable": "Caio Julius Caezar, 100 BC",
         "latitude": 41.902782,
         "longitude": 12.496366
     },
     "Carthage": {
         "country": "Punic Empire (Tunisia)",
+        "remarkable": "Hannibal, 247 BC",
         "latitude": 36.8548083,
         "longitude": 10.3309924
     },
