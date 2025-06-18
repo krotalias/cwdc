@@ -192,15 +192,24 @@
  * </li>
  *
  * <li>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case
- *     by casting a ray and finding its closest (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
+ *     by casting a ray, {@link unproject unprojecting} it, and finding its closest
+ *     (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
  * <ul>
  *  <li>The easiest way is shooting the ray from the mouse position and intersecting it against the surface of an implicit sphere
  *      by {@link lineSphereIntersection solving} a {@link https://en.wikipedia.org/wiki/Line–sphere_intersection second-degree equation}.</li>
  *  <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
  *      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
  *  <li>We select a position on the globe by {@link event:pointerdown-theCanvas clicking} the right mouse button in the WebGL canvas.</li>
- * </ul>
  *
+ * <li>
+ *  To exhibit a location name in 3D, it is necessary to {@link project transform} its
+ * {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system GCS} coordinates
+ * into {@link https://olegvaraksin.medium.com/convert-world-to-screen-coordinates-and-vice-versa-in-webgl-c1d3f2868086 screen coordinates}
+ * (pixels) and use the {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
+ * HTML properties "top" and "left" of the WebGL {@link canvas &lt;canvas&gt;} element (plus a
+ * {@link https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/tooltip_role tooltip} element) to display the text.
+ * </li>
+ * </ul>
  * <li>
  * To determine a ship's latitude at sea without a {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS},
  * it is necessary to have a {@link https://www.youtube.com/watch?v=00ZEIZsl5xk sextant}.
@@ -381,17 +390,28 @@ const spherical2gcs = (uv) => {
 
 /**
  * Convert from {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
- * (longitude, latitude) to spherical coordinates.
+ * (longitude, latitude) to UV coordinates.
  * @param {Object<{longitude:Number,latitude:Number}>} gcs longitude ∈ [-180,180], latitude ∈ [-90,90].
- * @return {Object<{s: Number, t: Number}>} spherical coordinates ∈ [0,1].
+ * @return {Object<{s: Number, t: Number}>} UV coordinates ∈ [0,1].
  * @function
  */
-const gcs2Spherical = (gcs) => {
-  // Convert longitude and latitude to spherical coordinates.
+const gcs2UV = (gcs) => {
+  // Convert longitude and latitude to UV coordinates.
   return {
     s: (gcs.longitude + 180) / 360,
     t: (gcs.latitude + 90) / 180,
   };
+};
+
+/**
+ * Convert from {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL UV coordinates}
+ * (s, t) to {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system spherical coordinates}.
+ * @param {Object<{s: Number,t:Number}>} uv ∈ [0,1].
+ * @return {Array<{Number, Number}>} spherical coordinates ∈ [0,2π] x [0,π].
+ * @function
+ */
+const UV2Spherical = (uv) => {
+  return [uv.s * 2 * Math.PI, -uv.t * Math.PI];
 };
 
 /**
@@ -1221,12 +1241,8 @@ const handleKeyPress = ((event) => {
 
         if (selector.tooltip) {
           // location name
-          const uv = gcs2Spherical(gpsCoordinates[currentLocation]);
-          const pt = spherical2Cartesian(
-            uv.s * 2 * Math.PI,
-            -uv.t * Math.PI,
-            1,
-          );
+          const uv = gcs2UV(gpsCoordinates[currentLocation]);
+          const pt = spherical2Cartesian(...UV2Spherical(uv), 1);
           if (mercator) {
             // mercator projection
             uv.t = spherical2Mercator(uv.s, uv.t).y;
@@ -1288,7 +1304,7 @@ function drawLinesOnImage() {
   ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
 
   if (selector.equator) {
-    const uv = gcs2Spherical(gpsCoordinates[currentLocation]);
+    const uv = gcs2UV(gpsCoordinates[currentLocation]);
     uv.t = 1 - uv.t;
     if (mercator) {
       // mercator projection
@@ -1822,7 +1838,28 @@ textimg.addEventListener("pointerout", (event) => {
   tooltip.style.display = "none";
 });
 
+/**
+ * <p>Canvas element and its tooltip.</p>
+ * <p>Canvas is used for drawing the globe and its tooltip is used for displaying
+ * the GCS coordinates (longitude and latitude) on the globe when pointer is moved upon.</p>
+ * <p>Canvas is a bitmap element that can be used to draw graphics on the fly via scripting (usually JavaScript).
+ * It is a part of the HTML5 specification and is supported by all modern browsers.</p>
+ * <p>Tooltip is a small pop-up box that appears when the user hovers over an element.
+ * It is used to provide additional information about the element, such as its coordinates.</p>
+ * <p>Both canvas and tooltip are used to provide a better user experience
+ * by allowing the user to interact with the globe and see its coordinates.</p>
+ * @type {HTMLCanvasElement}
+ */
 const canvas = document.getElementById("theCanvas");
+/**
+ * <p>Tooltip element for displaying GCS coordinates on the globe.</p>
+ * <p>Tooltip is a small pop-up box that appears when the user hovers over
+ * an element. It is used to provide additional information about the element,
+ * such as its coordinates.</p>
+ * <p>Tooltip is used to provide a better user experience by allowing the user
+ * to interact with the globe and see its coordinates.</p>
+ * @type {HTMLElement}
+ */
 const canvastip = document.getElementById("canvastip");
 
 /**

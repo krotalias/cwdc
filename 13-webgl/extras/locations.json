@@ -43,6 +43,10 @@
         "latitude": 35.7248416,
         "longitude": 51.381653
     },
+    "Babylon": {
+        "latitude": 32.54083,
+        "longitude": 44.42417
+    },
     "Moscow": {
         "latitude": 55.751244,
         "longitude": 37.618423
@@ -55,6 +59,10 @@
         "latitude": 24.088938,
         "longitude": 32.899830
     },
+    "Thebes": {
+        "latitude": 25.7329051,
+        "longitude": 32.7658152
+    },
     "Alexandria": {
         "latitude": 31.205753,
         "longitude": 29.924526
@@ -62,6 +70,10 @@
     "Constantinople": {
         "latitude": 41.01224,
         "longitude": 28.976018
+    },
+    "Athens": {
+        "latitude": 37.9755648,
+        "longitude": 23.7348324
     },
     "Syracuse": {
         "latitude": 37.075474,
@@ -74,6 +86,10 @@
     "Rome": {
         "latitude": 41.902782,
         "longitude": 12.496366
+    },
+    "Carthage": {
+        "latitude": 36.8548083,
+        "longitude": 10.3309924
     },
     "Unknown": {
         "latitude": 51.477928,
