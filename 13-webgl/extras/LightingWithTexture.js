@@ -1242,6 +1242,7 @@ const handleKeyPress = ((event) => {
         if (selector.tooltip) {
           // location name
           const uv = gcs2UV(gpsCoordinates[currentLocation]);
+          const country = gpsCoordinates[currentLocation].country || "";
           const pt = spherical2Cartesian(...UV2Spherical(uv), 1);
           if (mercator) {
             // mercator projection
@@ -1260,7 +1261,7 @@ const handleKeyPress = ((event) => {
           y = viewport[3] - y;
           canvastip.style.top = `${y + 5}px`;
           canvastip.style.left = `${x + 35}px`;
-          canvastip.innerHTML = `${currentLocation}`;
+          canvastip.innerHTML = `${currentLocation}, ${country}`;
           canvastip.style.display = "block";
           // on the map
           x = Math.floor(uv.s * textimg.width);

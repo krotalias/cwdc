@@ -1,97 +1,141 @@
 {
     "Null_Island": {
+        "country": "None",
         "latitude": 0,
         "longitude": 0
     },
     "Rio": {
+        "country": "Brazil",
         "latitude": -22.9068,
         "longitude": -43.1729
     },
     "NYC": {
+        "country": "United States",
         "latitude": 40.7128,
         "longitude": -74.006
     },
     "Ames": {
+        "country": "United States",
         "latitude": 42.034534,
         "longitude": -93.620369
     },
     "Calgary": {
+        "country": "Canada",
         "latitude": 51.049999,
         "longitude": -114.066666
     },
     "Hawaii": {
+        "country": "United States",
         "latitude": 21.3068,
         "longitude": -157.7912
     },
     "Sydney": {
+        "country": "Australia",
         "latitude": -33.8688,
         "longitude": 151.2093
     },
     "Tokyo": {
+        "country": "Japan",
         "latitude": 35.6762,
         "longitude": 139.6503
     },
     "Beijing": {
+        "country": "China",
         "latitude": 39.916668,
         "longitude": 116.383331
     },
     "Kolkata": {
+        "country": "India",
         "latitude": 22.56263,
         "longitude": 88.36304
     },
+    "Persepolis": {
+        "country": "Persia (Iran)",
+        "latitude": 29.9351669,
+        "longitude": 52.8904041
+    },
     "Tehran": {
+        "country": "Iran",
         "latitude": 35.7248416,
         "longitude": 51.381653
     },
+    "Ctesiphon": {
+        "country": "Parthia (Iraq)",
+        "latitude": 33.08333,
+        "longitude": 44.58333
+    },
     "Babylon": {
+        "country": "Mesopotamia (Iraq)",
         "latitude": 32.54083,
         "longitude": 44.42417
     },
+    "Jeddah": {
+        "country": "Saudi Arabia",
+        "latitude": 21.5504432,
+        "longitude": 39.1742363
+    },
     "Moscow": {
+        "country": "Russia",
         "latitude": 55.751244,
         "longitude": 37.618423
     },
     "Tel Aviv-Yafo": {
+        "country": "Israel",
         "latitude": 32.109333,
         "longitude": 34.855499
     },
     "Aswan": {
+        "country": "Egypt",
         "latitude": 24.088938,
-        "longitude": 32.899830
+        "longitude": 32.89983
     },
     "Thebes": {
+        "country": "Egypt",
         "latitude": 25.7329051,
         "longitude": 32.7658152
     },
+    "Memphis": {
+        "country": "Egypt",
+        "latitude": 29.8544582,
+        "longitude": 31.2615188
+    },
     "Alexandria": {
+        "country": "Egypt",
         "latitude": 31.205753,
         "longitude": 29.924526
     },
     "Constantinople": {
+        "country": "Turkey",
         "latitude": 41.01224,
         "longitude": 28.976018
     },
     "Athens": {
+        "country": "Greece",
         "latitude": 37.9755648,
         "longitude": 23.7348324
     },
     "Syracuse": {
+        "country": "Italy",
         "latitude": 37.075474,
         "longitude": 15.286586
     },
     "Berlin": {
+        "country": "Germany",
         "latitude": 52.520008,
         "longitude": 13.404954
     },
     "Rome": {
+        "country": "Italy",
         "latitude": 41.902782,
         "longitude": 12.496366
     },
     "Carthage": {
+        "country": "Punic Empire (Tunisia)",
         "latitude": 36.8548083,
         "longitude": 10.3309924
     },
     "Unknown": {
+        "country": "Location",
         "latitude": 51.477928,
         "longitude": -0.001545
     }
