@@ -1799,7 +1799,9 @@ textimg.addEventListener("pointerdown", (event) => {
   // normalized
   console.log(`longitude = ${uv.s}, latitude = ${uv.t}`);
 
-  gpsCoordinates["Unknown"] = spherical2gcs(uv);
+  const unknown = gpsCoordinates["Unknown"]; 
+  ({ latitude: unknown.latitude, longitude: unknown.longitude } =
+    spherical2gcs(uv));
   currentLocation = cities[cities.length - 2];
   handleKeyPress(createEvent("g"));
 });
@@ -2059,7 +2061,9 @@ canvas.addEventListener("pointerup", (event) => {
   const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
   if (intersection) {
     const uv = cartesian2Spherical(intersection);
-    gpsCoordinates["Unknown"] = spherical2gcs(uv);
+    const unknown = gpsCoordinates["Unknown"];
+    ({ latitude: unknown.latitude, longitude: unknown.longitude } =
+      spherical2gcs(uv));
     currentLocation = cities[cities.length - 2];
   }
   handleKeyPress(createEvent("g"));

@@ -1262,7 +1262,7 @@ const handleKeyPress = ((event) => {
           y = viewport[3] - y;
           canvastip.style.top = `${y + 5}px`;
           canvastip.style.left = `${x + 35}px`;
-          canvastip.innerHTML = `${currentLocation}, ${country}<br> ${remarkable}`;
+          canvastip.innerHTML = `${currentLocation}, ${country}<br>${remarkable}`;
           canvastip.style.display = "block";
           // on the map
           x = Math.floor(uv.s * textimg.width);
@@ -1768,10 +1768,10 @@ textimg.addEventListener("pointerdown", (event) => {
     // mercator projection
     uv.t = mercator2Spherical(uv.s, uv.t).t;
   }
-  // normalized
-  console.log(`longitude = ${uv.s}, latitude = ${uv.t}`);
 
-  gpsCoordinates["Unknown"] = spherical2gcs(uv);
+  const unknown = gpsCoordinates["Unknown"];
+  ({ latitude: unknown.latitude, longitude: unknown.longitude } =
+    spherical2gcs(uv));
   currentLocation = cities[cities.length - 2];
   handleKeyPress(createEvent("g"));
 });
@@ -2031,7 +2031,9 @@ canvas.addEventListener("pointerup", (event) => {
   const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
   if (intersection) {
     const uv = cartesian2Spherical(intersection);
-    gpsCoordinates["Unknown"] = spherical2gcs(uv);
+    const unknown = gpsCoordinates["Unknown"];
+    ({ latitude: unknown.latitude, longitude: unknown.longitude } =
+      spherical2gcs(uv));
     currentLocation = cities[cities.length - 2];
   }
   handleKeyPress(createEvent("g"));

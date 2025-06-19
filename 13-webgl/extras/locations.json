@@ -1,12 +1,19 @@
 {
     "Null_Island": {
-        "country": "None",
+        "country": "Gulf of Guinea",
+        "remarkable": "Prime Meridian and Equator intersection",
         "latitude": 0,
         "longitude": 0
     },
+    "Lisbon (Olisipo)": {
+        "country": "Portugal",
+        "remarkable": "John VI of Portugal, 1767-1826",
+        "latitude": 38.7077507,
+        "longitude": -9.1365919
+    },
     "Rio": {
         "country": "Brazil",
-        "remarkable": "Don Pedro II, 1825-1891",
+        "remarkable": "Pedro II of Brazil, 1825-1891",
         "latitude": -22.9068,
         "longitude": -43.1729
     },
@@ -70,6 +77,12 @@
         "latitude": 35.7248416,
         "longitude": 51.381653
     },
+    "Riyadh": {
+        "country": "Saudi Arabia",
+        "remarkable": "Abdulaziz bin Abdul Rahman Al Saud, 1875-1953",
+        "latitude": 24.638916,
+        "longitude": 46.7160104
+    },
     "Ctesiphon": {
         "country": "Parthia (Iraq)",
         "remarkable": "Surena, 84-53 BC",
@@ -84,7 +97,7 @@
     },
     "Jeddah": {
         "country": "Saudi Arabia",
-        "remarkable": "Abdulaziz bin Abdul Rahman Al Saud, 1875-1953",
+        "remarkable": "King Salman bin Abdulaziz Al Saud, 1935",
         "latitude": 21.5504432,
         "longitude": 39.1742363
     },
@@ -93,6 +106,12 @@
         "remarkable": "Joseph Stalin, 1878-1953",
         "latitude": 55.751244,
         "longitude": 37.618423
+    },
+    "Tyre": {
+        "country": "Phoenicia (Lebanon)",
+        "remarkable": "Marinus of Tyre, 70-130",
+        "latitude": 33.2721211,
+        "longitude": 35.1964023
     },
     "Tel Aviv-Yafo": {
         "remarkable": "David Ben-Gurion, 1886-1973",
@@ -125,7 +144,7 @@
         "longitude": 29.924526
     },
     "Constantinople": {
-        "country": "Turkey",
+        "country": "Thrace (Turkey)",
         "remarkable": "Constantine, 272-337",
         "latitude": 41.01224,
         "longitude": 28.976018
@@ -135,6 +154,12 @@
         "remarkable": "Socrates, 469-399 BC",
         "latitude": 37.9755648,
         "longitude": 23.7348324
+    },
+    "Pella": {
+        "country": "Macedon (Greece)",
+        "remarkable": "Alexander the Great, 356-323 BC",
+        "latitude": 40.7604079,
+        "longitude": 22.5271118
     },
     "Syracuse": {
         "country": "Italy",
@@ -160,9 +185,22 @@
         "latitude": 36.8548083,
         "longitude": 10.3309924
     },
-    "Unknown": {
-        "country": "Location",
+    "Paris": {
+        "country": "France",
+        "remarkable": "Napolean, 1769-1821",
+        "latitude": 48.8534951,
+        "longitude": 2.3483915
+    },
+    "London": {
+        "country": "Prime Meridian",
+        "remarkable": "Greenwich Observatory, 1675",
         "latitude": 51.477928,
         "longitude": -0.001545
+    },
+    "Unknown": {
+        "country": "Clicked location",
+        "remarkable": "© 2024 Paulo Roma",
+        "latitude": 0,
+        "longitude": 0
     }
 }
