@@ -5,6 +5,18 @@
         "latitude": 0,
         "longitude": 0
     },
+    "Woodstock": {
+        "country": "England",
+        "remarkable": "Winston Churchill, 1874-1965",
+        "latitude": 51.8474887,
+        "longitude": -1.3545343
+    },
+    "Vivar": {
+        "country": "Spain",
+        "remarkable": "Rodrigo Díaz de Vivar (El Cid), 1043-1099",
+        "latitude": 42.4223439,
+        "longitude": -3.6800644
+    },
     "Lisbon (Olisipo)": {
         "country": "Portugal",
         "remarkable": "John VI of Portugal, 1767-1826",
@@ -35,6 +47,12 @@
         "latitude": 51.049999,
         "longitude": -114.066666
     },
+    "San Gabriel": {
+        "country": "United States",
+        "remarkable": "George S. Patton, 1885-1945",
+        "latitude": 34.0990995,
+        "longitude": -118.1085554
+    },
     "Honolulu": {
         "country": "United States",
         "remarkable": "Barack Obama, 1961",
@@ -58,6 +76,12 @@
         "remarkable": "Mao Zedong, 1893-1976",
         "latitude": 39.916668,
         "longitude": 116.383331
+    },
+    "Temüjin (Khan Khentii Post)": {
+        "country": "Mongolia",
+        "remarkable": "Genghis Khan, 1162-1227",
+        "latitude": 48.540643,
+        "longitude": 106.9055314
     },
     "Kolkata": {
         "country": "India",
@@ -149,6 +173,12 @@
         "latitude": 41.01224,
         "longitude": 28.976018
     },
+    "Troy (Hisarlik)": {
+        "country": "Turkey",
+        "remarkable": "Hector, ?-1180 BC",
+        "latitude": 38.0664791,
+        "longitude": 27.7033614
+    },
     "Athens": {
         "country": "Greece",
         "remarkable": "Socrates, 469-399 BC",
@@ -160,6 +190,18 @@
         "remarkable": "Alexander the Great, 356-323 BC",
         "latitude": 40.7604079,
         "longitude": 22.5271118
+    },
+    "Sparta (Lacedaemon)": {
+        "country": "Laconia (Greece)",
+        "remarkable": "Leonidas, 540-480 BC",
+        "latitude": 37.0811452,
+        "longitude": 22.4248618
+    },
+    "Pannonia": {
+        "country": "Serbia",
+        "remarkable": "Attila the Hun, 406-453",
+        "latitude": 45.7503869,
+        "longitude": 19.5214468
     },
     "Syracuse": {
         "country": "Italy",
@@ -184,6 +226,12 @@
         "remarkable": "Hannibal, 247-183 BC",
         "latitude": 36.8548083,
         "longitude": 10.3309924
+    },
+    "Heidenheim": {
+        "country": "Germany",
+        "remarkable": "Erwin Rommel, 1891-1944",
+        "latitude": 48.6767637,
+        "longitude": 10.152923
     },
     "Paris": {
         "country": "France",
