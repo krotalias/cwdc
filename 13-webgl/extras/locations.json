@@ -6,100 +6,109 @@
     },
     "Rio": {
         "country": "Brazil",
-        "remarkable": "Don Pedro II, 1825 AD",
+        "remarkable": "Don Pedro II, 1825-1891",
         "latitude": -22.9068,
         "longitude": -43.1729
     },
     "NYC": {
         "country": "United States",
-        "remarkable": "Theodore Roosevelt, 1858 AD",
+        "remarkable": "Theodore Roosevelt, 1858-1919",
         "latitude": 40.7128,
         "longitude": -74.006
     },
     "Ames": {
         "country": "United States",
+        "remarkable": "Peter Schickele, 1935-2024",
         "latitude": 42.034534,
         "longitude": -93.620369
     },
     "Calgary": {
         "country": "Canada",
+        "remarkable": "Peter Lougheed, 1928-2012",
         "latitude": 51.049999,
         "longitude": -114.066666
     },
-    "Hawaii": {
+    "Honolulu": {
         "country": "United States",
-        "latitude": 21.3068,
-        "longitude": -157.7912
+        "remarkable": "Barack Obama, 1961",
+        "latitude": 21.304547,
+        "longitude": -157.855676
     },
     "Sydney": {
         "country": "Australia",
+        "remarkable": "Arthur Phillip, 1738-1814",
         "latitude": -33.8688,
         "longitude": 151.2093
     },
     "Tokyo": {
         "country": "Japan",
+        "remarkable": "Tokugawa Ieyasu, 1543-1616",
         "latitude": 35.6762,
         "longitude": 139.6503
     },
     "Beijing": {
         "country": "China",
+        "remarkable": "Mao Zedong, 1893-1976",
         "latitude": 39.916668,
         "longitude": 116.383331
     },
     "Kolkata": {
         "country": "India",
+        "remarkable": "Mother Teresa, 1910-1997",
         "latitude": 22.56263,
         "longitude": 88.36304
     },
     "Persepolis": {
         "country": "Persia (Iran)",
-        "remarkable": "Xerxes I, 518 BC",
+        "remarkable": "Xerxes I, 519-465 BC",
         "latitude": 29.9351669,
         "longitude": 52.8904041
     },
     "Tehran": {
         "country": "Iran",
+        "remarkable": "Naser al-Din Shah Qajar, 1831-1896",
         "latitude": 35.7248416,
         "longitude": 51.381653
     },
     "Ctesiphon": {
         "country": "Parthia (Iraq)",
-        "remarkable": "Surena, 84 BC",
+        "remarkable": "Surena, 84-53 BC",
         "latitude": 33.08333,
         "longitude": 44.58333
     },
     "Babylon": {
         "country": "Mesopotamia (Iraq)",
-        "remarkable": "Nebuchadnezzar II, 642 BC",
+        "remarkable": "Nebuchadnezzar II, 642-562 BC",
         "latitude": 32.54083,
         "longitude": 44.42417
     },
     "Jeddah": {
         "country": "Saudi Arabia",
+        "remarkable": "Abdulaziz bin Abdul Rahman Al Saud, 1875-1953",
         "latitude": 21.5504432,
         "longitude": 39.1742363
     },
     "Moscow": {
         "country": "Russia",
-        "remarkable": "Joseph Stalin, 1878 AD",
+        "remarkable": "Joseph Stalin, 1878-1953",
         "latitude": 55.751244,
         "longitude": 37.618423
     },
     "Tel Aviv-Yafo": {
-        "remarkable": "David Ben-Gurion, 1886 AD",
+        "remarkable": "David Ben-Gurion, 1886-1973",
         "country": "Israel",
         "latitude": 32.109333,
         "longitude": 34.855499
     },
     "Aswan": {
         "country": "Egypt",
-        "remarkable": "Ramses II, 1303 BC",
+        "remarkable": "Ramses II, 1303-1213 BC",
         "latitude": 24.088938,
         "longitude": 32.89983
     },
     "Thebes": {
         "country": "Egypt",
-        "remarkable": "Amenhotep III, 1390 BC",
+        "remarkable": "Amenhotep III, 1390-1353 BC",
         "latitude": 25.7329051,
         "longitude": 32.7658152
     },
@@ -111,43 +120,43 @@
     },
     "Alexandria": {
         "country": "Egypt",
-        "remarkable": "Erathostenes, 276 BC",
+        "remarkable": "Erathostenes, 276-194 BC",
         "latitude": 31.205753,
         "longitude": 29.924526
     },
     "Constantinople": {
         "country": "Turkey",
-        "remarkable": "Constantine, 272 AD",
+        "remarkable": "Constantine, 272-337",
         "latitude": 41.01224,
         "longitude": 28.976018
     },
     "Athens": {
         "country": "Greece",
-        "remarkable": "Socrates, 399 BC",
+        "remarkable": "Socrates, 469-399 BC",
         "latitude": 37.9755648,
         "longitude": 23.7348324
     },
     "Syracuse": {
         "country": "Italy",
-        "remarkable": "Archimedes, 287 BC",
+        "remarkable": "Archimedes, 287-212 BC",
         "latitude": 37.075474,
         "longitude": 15.286586
     },
     "Berlin": {
         "country": "Germany",
-        "remarkable": "Marlene Dietrich, 1901 BC",
+        "remarkable": "Marlene Dietrich, 1901-1992 BC",
         "latitude": 52.520008,
         "longitude": 13.404954
     },
     "Rome": {
         "country": "Italy",
-        "remarkable": "Caio Julius Caezar, 100 BC",
+        "remarkable": "Caio Julius Caezar, 100-44 BC",
         "latitude": 41.902782,
         "longitude": 12.496366
     },
     "Carthage": {
         "country": "Punic Empire (Tunisia)",
-        "remarkable": "Hannibal, 247 BC",
+        "remarkable": "Hannibal, 247-183 BC",
         "latitude": 36.8548083,
         "longitude": 10.3309924
     },
