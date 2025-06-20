@@ -119,6 +119,18 @@
         "latitude": 32.54083,
         "longitude": 44.42417
     },
+    "Tikrit": {
+        "country": "Mesopotamia (Iraq)",
+        "remarkable": "Salah ad-Din Yusuf ibn Ayyub, 1137-1193",
+        "latitude": 34.615807,
+        "longitude": 43.678606
+    },
+    "Mecca": {
+        "country": "Saudi Arabia",
+        "remarkable": "Muhammad, 570-632",
+        "latitude": 21.420847,
+        "longitude": 39.826869
+    },
     "Jeddah": {
         "country": "Saudi Arabia",
         "remarkable": "King Salman bin Abdulaziz Al Saud, 1935",
@@ -217,7 +229,7 @@
     },
     "Rome": {
         "country": "Italy",
-        "remarkable": "Caio Julius Caezar, 100-44 BC",
+        "remarkable": "Gaius Julius Caezar, 100-44 BC",
         "latitude": 41.902782,
         "longitude": 12.496366
     },
