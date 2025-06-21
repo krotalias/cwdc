@@ -374,6 +374,44 @@ import {
 const toRadian = glMatrix.toRadian;
 
 /**
+ * <p>Canvas element and its tooltip.</p>
+ * <p>Canvas is used for drawing the globe and its tooltip is used for displaying
+ * the GCS coordinates (longitude and latitude) on the globe when pointer is moved upon.</p>
+ * <p>Canvas is a bitmap element that can be used to draw graphics on the fly via scripting (usually JavaScript).
+ * It is a part of the HTML5 specification and is supported by all modern browsers.</p>
+ * <p>Tooltip is a small pop-up box that appears when the user hovers over an element.
+ * It is used to provide additional information about the element, such as its coordinates.</p>
+ * <p>Both canvas and tooltip are used to provide a better user experience
+ * by allowing the user to interact with the globe and see its coordinates.</p>
+ * @type {HTMLCanvasElement}
+ */
+const canvas = document.getElementById("theCanvas");
+
+/**
+ * <p>Tooltip element for displaying GCS coordinates on the globe.</p>
+ * <p>Tooltip is a small pop-up box that appears when the user hovers over
+ * an element. It is used to provide additional information about the element,
+ * such as its coordinates.</p>
+ * <p>Tooltip is used to provide a better user experience by allowing the user
+ * to interact with the globe and see its coordinates.</p>
+ * @type {HTMLElement}
+ */
+const canvastip = document.getElementById("canvastip");
+
+const mesh = document.getElementById("mesh");
+const axes = document.getElementById("axes");
+const equator = document.getElementById("equator");
+const hws = document.getElementById("hws");
+const fix_uv = document.getElementById("fixuv");
+const merc = document.getElementById("mercator");
+const cull = document.getElementById("culling");
+const texture = document.getElementById("texture");
+const textures = document.getElementById("textures");
+const models = document.getElementById("models");
+const textimg = document.getElementById("textimg");
+const tooltip = document.getElementById("tooltip");
+
+/**
  * Convert spherical coordinates to {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
  * (longitude, latitude).
  * @param {Object<{s:Number,t:Number}>} uv spherical coordinates ∈ [0,1]}.
@@ -960,6 +998,8 @@ const handleKeyPress = ((event) => {
   let subPoly = 0;
   let tri;
   let n, inc;
+  let forwardVector = vec3.fromValues(0, 0, 1);
+  let modelM = mat4.identity([]); // model matrix
   const poly = {
     d: 0,
     i: 1,
@@ -1258,6 +1298,15 @@ const handleKeyPress = ((event) => {
             projection,
             viewport,
           );
+
+          if (true) {
+            const rotationMatrix = rotateModelTowardsCamera(pt, forwardVector);
+            forwardVector = pt;
+            mat4.multiply(modelM, modelM, rotationMatrix);
+            rotator.setViewMatrix(modelM);
+            [x, y] = project([], pt, modelM, viewMatrix, projection, viewport);
+          }
+
           // on the globe
           y = viewport[3] - y;
           canvastip.style.top = `${y + 5}px`;
@@ -1294,6 +1343,35 @@ const handleKeyPress = ((event) => {
     if (selector.paused) draw();
   };
 })();
+
+/**
+ * Rotate the model towards a given vector.
+ * @param {vec3} modelPosition model's world coordinates.
+ * @param {vec3} modelForward model's forward vector in world coordinates.
+ * @returns {mat4} rotation matrix to rotate the model towards the camera.
+ * @see {@link https://stackoverflow.com/questions/1248081/rotate-an-object-to-face-a-point-in-3d-space Rotate an object to face a point in 3D space}
+ * @see {@link https://stackoverflow.com/questions/1248081/rotate-an-object-to-face-a-point-in-3d-space#comment-1248090 Rotate an object to face a point in 3D space}
+ */
+function rotateModelTowardsCamera(
+  modelPosition,
+  modelForward = vec3.fromValues(0, 0, 1),
+) {
+  // Calculate rotation axis (cross product)
+  const rotationAxis = vec3.create();
+  vec3.cross(rotationAxis, modelPosition, modelForward);
+  vec3.normalize(rotationAxis, rotationAxis);
+
+  // Calculate angle between model forward and modelPosition
+  let dotProduct = vec3.dot(modelForward, modelPosition);
+  let angle = Math.acos(dotProduct);
+
+  // Create rotation matrix
+  const rotationMatrix = mat4.create();
+  mat4.fromRotation(rotationMatrix, angle, rotationAxis);
+
+  // Return the rotation matrix
+  return rotationMatrix;
+}
 
 /**
  * Draw the meridian and parallel lines at the {@link currentLocation}
@@ -1569,369 +1647,406 @@ function zoomOut() {
   handleKeyPress(createEvent("ArrowUp"));
 }
 
-const mesh = document.getElementById("mesh");
-
 /**
- * @summary Executed when the mesh checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.<br>
- * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
- * the event is dispatched.</p>
- *
- * @event changeMeshcheckBox
+ * <p>Appends event listeners to the mesh, axes, equator, hws, fix_uv and merc checkboxes.</p>
+ * <p>Also appends event listeners to the rot and mode input radio buttons.</p>
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener EventTarget: addEventListener()}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
-mesh.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
+function addListeners() {
+  /**
+   * @summary Executed when the mesh checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeMeshcheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  mesh.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
 
-const axes = document.getElementById("axes");
+  /**
+   * @summary Executed when the axes checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeAxescheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
 
-/**
- * @summary Executed when the axes checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.<br>
- * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
- * the event is dispatched.</p>
- *
- * @event changeAxescheckBox
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
- */
-axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
+  /**
+   * @summary Executed when the equator checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeEquatorcheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  equator.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("E")),
+  );
 
-const equator = document.getElementById("equator");
+  /**
+   * @summary Executed when the hws checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeHwscheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  hws.addEventListener("change", (event) => handleKeyPress(createEvent("Alt")));
 
-/**
- * @summary Executed when the equator checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.<br>
- * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
- * the event is dispatched.</p>
- *
- * @event changeEquatorcheckBox
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
- */
-equator.addEventListener("change", (event) => handleKeyPress(createEvent("E")));
-
-const hws = document.getElementById("hws");
-
-/**
- * @summary Executed when the hws checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.<br>
- * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
- * the event is dispatched.</p>
- *
- * @event changeHwscheckBox
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
- */
-hws.addEventListener("change", (event) => handleKeyPress(createEvent("Alt")));
-
-if (document.querySelector('input[name="rot"]')) {
-  document.querySelectorAll('input[name="rot"]').forEach((elem) => {
-    /**
-     * @summary Executed when the rot input radio is checked (but not when unchecked).
-     * <p>Appends an event listener for events whose type attribute value is change.<br>
-     * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
-     * the event is dispatched.</p>
-     *
-     * @event changeRotInputRadio
-     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
-     */
-    elem.addEventListener("change", function (event) {
-      const item = event.target.value;
-      handleKeyPress(createEvent(item));
+  if (document.querySelector('input[name="rot"]')) {
+    document.querySelectorAll('input[name="rot"]').forEach((elem) => {
+      /**
+       * @summary Executed when the rot input radio is checked (but not when unchecked).
+       * <p>Appends an event listener for events whose type attribute value is change.<br>
+       * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+       * the event is dispatched.</p>
+       *
+       * @event changeRotInputRadio
+       * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+       */
+      elem.addEventListener("change", function (event) {
+        const item = event.target.value;
+        handleKeyPress(createEvent(item));
+      });
     });
-  });
-}
-
-if (document.querySelector('input[name="mode"]')) {
-  document.querySelectorAll('input[name="mode"]').forEach((elem) => {
-    /**
-     * @summary Executed when the mode input radio is checked (but not when unchecked).
-     * <p>Appends an event listener for events whose type attribute value is change.<br>
-     * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
-     * the event is dispatched.</p>
-     *
-     * @event changeModeInputRadio
-     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
-     */
-    elem.addEventListener("change", function (event) {
-      const item = event.target.value;
-      handleKeyPress(createEvent(item));
-    });
-  });
-}
-
-const fix_uv = document.getElementById("fixuv");
-
-/**
- * @summary Executed when the fix_uv checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.<br>
- * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
- * the event is dispatched.</p>
- *
- * @event changeFixUVcheckBox
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
- */
-fix_uv.addEventListener("change", (event) => handleKeyPress(createEvent("f")));
-
-const merc = document.getElementById("mercator");
-
-/**
- * @summary Executed when the mercator checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.<br>
- * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
- * the event is dispatched.</p>
- *
- * @event changeMercatorcheckBox
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
- */
-merc.addEventListener("change", (event) => handleKeyPress(createEvent("K")));
-
-const cull = document.getElementById("culling");
-
-/**
- * @summary Executed when the cull checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.<br>
- * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
- * the event is dispatched.</p>
- *
- * @event changeCullcheckBox
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
- */
-cull.addEventListener("change", (event) => handleKeyPress(createEvent("b")));
-
-const texture = document.getElementById("texture");
-
-/**
- * @summary Executed when the texture checkbox is checked or unchecked.
- * <p>Appends an event listener for events whose type attribute value is change.<br>
- * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
- * the event is dispatched.</p>
- *
- * @event changeTexturecheckBox
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
- */
-texture.addEventListener("change", (event) => handleKeyPress(createEvent("k")));
-
-const textures = document.getElementById("textures");
-
-/**
- * @summary Executed when the textures &lt;select&gt; is changed.
- * <p>Appends an event listener for events whose type attribute value is change.<br>
- * The {@link selectTexture} argument sets the callback that will be invoked when
- * the event is dispatched.</p>
- *
- * @event changeTextureSelect
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
- */
-textures.addEventListener("change", (event) => {
-  selectTexture();
-  document.activeElement.blur();
-});
-
-const models = document.getElementById("models");
-
-/**
- * Executed when the models &lt;select&gt; is changed.
- * <p>Appends an event listener for events whose type attribute value is change.<br>
- * The {@link selectModel} argument sets the callback that will be invoked when
- * the event is dispatched.</p>
- *
- * @event changeModelsSelect
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
- */
-models.addEventListener("change", (event) => selectModel());
-
-const textimg = document.getElementById("textimg");
-const tooltip = document.getElementById("tooltip");
-
-/**
- * <p>Gets the latitude and longitude on the texture image when clicked upon
- * and draws its position on the map.</p>
- * The pointerdown event is fired when a pointer becomes active.
- * For mouse, it is fired when the device transitions from no buttons pressed to at least one button pressed.
- * For touch, it is fired when physical contact is made with the digitizer.
- * For pen, it is fired when the stylus makes physical contact with the digitizer.
- * @event pointerdown-textimg
- * @param {PointerEvent} event a pointer event.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
- * @see {@link https://caniuse.com/pointer Pointer events}
- */
-textimg.addEventListener("pointerdown", (event) => {
-  const x = event.offsetX;
-  let y = event.offsetY;
-  y = event.target.height - y;
-
-  const uv = {
-    s: x / event.target.width,
-    t: y / event.target.height,
-  };
-
-  if (mercator) {
-    // mercator projection
-    uv.t = mercator2Spherical(uv.s, uv.t).t;
   }
 
-  const unknown = gpsCoordinates["Unknown"];
-  ({ latitude: unknown.latitude, longitude: unknown.longitude } =
-    spherical2gcs(uv));
-  currentLocation = cities[cities.length - 2];
-  handleKeyPress(createEvent("g"));
-});
+  if (document.querySelector('input[name="mode"]')) {
+    document.querySelectorAll('input[name="mode"]').forEach((elem) => {
+      /**
+       * @summary Executed when the mode input radio is checked (but not when unchecked).
+       * <p>Appends an event listener for events whose type attribute value is change.<br>
+       * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+       * the event is dispatched.</p>
+       *
+       * @event changeModeInputRadio
+       * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+       */
+      elem.addEventListener("change", function (event) {
+        const item = event.target.value;
+        handleKeyPress(createEvent(item));
+      });
+    });
+  }
 
-/**
- * <p>Displays the u and v normalized coordinates on the texture image
- * when pointer is moved upon.</p>
- * <p>The pointermove event is fired when a pointer changes coordinates,
- * and the pointer has not been canceled by a browser touch-action.
- * It's very similar to the mousemove event, but with more features.</p>
- *
- * These events happen whether or not any pointer buttons are pressed.
- * They can fire at a very high rate, depends on how fast the user moves the pointer,
- * how fast the machine is, what other tasks and processes are happening, etc.
- * @event pointermove-textimg
- * @param {PointerEvent} event a pointer event.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event Element: pointermove event}
- * @see {@link https://caniuse.com/pointer Pointer events}
- */
-textimg.addEventListener("pointermove", (event) => {
-  // tooltip on mouse hoover
-  if (!selector.tooltip) {
+  /**
+   * @summary Executed when the fix_uv checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeFixUVcheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  fix_uv.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("f")),
+  );
+
+  /**
+   * @summary Executed when the mercator checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeMercatorcheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  merc.addEventListener("change", (event) => handleKeyPress(createEvent("K")));
+
+  /**
+   * @summary Executed when the cull checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeCullcheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  cull.addEventListener("change", (event) => handleKeyPress(createEvent("b")));
+
+  /**
+   * @summary Executed when the texture checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeTexturecheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  texture.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("k")),
+  );
+
+  /**
+   * @summary Executed when the textures &lt;select&gt; is changed.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link selectTexture} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeTextureSelect
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  textures.addEventListener("change", (event) => {
+    selectTexture();
+    document.activeElement.blur();
+  });
+
+  /**
+   * Executed when the models &lt;select&gt; is changed.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link selectModel} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeModelsSelect
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  models.addEventListener("change", (event) => selectModel());
+
+  /**
+   * <p>Gets the latitude and longitude on the texture image when clicked upon
+   * and draws its position on the map.</p>
+   * The pointerdown event is fired when a pointer becomes active.
+   * For mouse, it is fired when the device transitions from no buttons pressed to at least one button pressed.
+   * For touch, it is fired when physical contact is made with the digitizer.
+   * For pen, it is fired when the stylus makes physical contact with the digitizer.
+   * @event pointerdown-textimg
+   * @param {PointerEvent} event a pointer event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
+   * @see {@link https://caniuse.com/pointer Pointer events}
+   */
+  textimg.addEventListener("pointerdown", (event) => {
+    const x = event.offsetX;
+    let y = event.offsetY;
+    y = event.target.height - y;
+
+    const uv = {
+      s: x / event.target.width,
+      t: y / event.target.height,
+    };
+
+    if (mercator) {
+      // mercator projection
+      uv.t = mercator2Spherical(uv.s, uv.t).t;
+    }
+
+    const unknown = gpsCoordinates["Unknown"];
+    ({ latitude: unknown.latitude, longitude: unknown.longitude } =
+      spherical2gcs(uv));
+    currentLocation = cities[cities.length - 2];
+    handleKeyPress(createEvent("g"));
+  });
+
+  /**
+   * <p>Displays the u and v normalized coordinates on the texture image
+   * when pointer is moved upon.</p>
+   * <p>The pointermove event is fired when a pointer changes coordinates,
+   * and the pointer has not been canceled by a browser touch-action.
+   * It's very similar to the mousemove event, but with more features.</p>
+   *
+   * These events happen whether or not any pointer buttons are pressed.
+   * They can fire at a very high rate, depends on how fast the user moves the pointer,
+   * how fast the machine is, what other tasks and processes are happening, etc.
+   * @event pointermove-textimg
+   * @param {PointerEvent} event a pointer event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event Element: pointermove event}
+   * @see {@link https://caniuse.com/pointer Pointer events}
+   */
+  textimg.addEventListener("pointermove", (event) => {
+    // tooltip on mouse hoover
+    if (!selector.tooltip) {
+      tooltip.innerHTML = "";
+      tooltip.style.display = "none";
+      return;
+    }
+
+    const x = event.offsetX;
+    let y = event.offsetY;
+    y = event.target.height - y;
+
+    const uv = {
+      s: x / event.target.width,
+      t: y / event.target.height,
+    };
+
+    if (mercator) {
+      // mercator projection
+      uv.t = mercator2Spherical(uv.s, uv.t).t;
+    }
+
+    tooltip.style.top = `${event.offsetY + 15}px`;
+    tooltip.style.left = `${x}px`;
+    // UV normalized
+    tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
+    tooltip.style.display = "block";
+  });
+
+  /**
+   * <p>Remove the tooltip when pointer is outside the textimg element.</p>
+   *
+   * The pointerout event is fired for several reasons including:
+   * <ul>
+   * <li>pointing device is moved out of the hit test boundaries of an element;</li>
+   * <li>firing the pointerup event for a device that does not support hover (see pointerup);</li>
+   * <li>after firing the pointercancel event (see pointercancel);</li>
+   * <li>when a pen stylus leaves the hover range detectable by the digitizer.</li>
+   * </ul>
+   * @event pointerout-textimg
+   * @param {PointerEvent} event a pointer event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerout_event Element: pointerout event}
+   */
+  textimg.addEventListener("pointerout", (event) => {
     tooltip.innerHTML = "";
     tooltip.style.display = "none";
-    return;
-  }
+  });
 
-  const x = event.offsetX;
-  let y = event.offsetY;
-  y = event.target.height - y;
+  /**
+   * <p>Variables moving and {@link clicked} are used to distinguish between a simple click
+   * and a click followed by drag while using the {@link rotator}.</p>
+   * <p>When the pointer is down, moving is set to false and clicked is set to true.
+   * When the pointer moves, moving is set to true if clicked is also true.
+   * When the pointer is up, if moving is true, both moving and clicked are set to false.</p>
+   * @type {Boolean}
+   */
+  let moving = false;
 
-  const uv = {
-    s: x / event.target.width,
-    t: y / event.target.height,
-  };
+  /**
+   * We need to know if the pointer is being held down while {@link moving} the globe or not.
+   * Otherwise, we would not be able to distinguish between a click and a drag,
+   * while using the {@link rotator simpleRotator}.
+   * @type {Boolean}
+   */
+  let clicked = false;
 
-  if (mercator) {
-    // mercator projection
-    uv.t = mercator2Spherical(uv.s, uv.t).t;
-  }
+  /**
+   * <p>Sets {@link moving} to false and {@link clicked} to true.</p>
+   * The pointerdown event is fired when a pointer becomes active.
+   * For mouse, it is fired when the device transitions from no buttons pressed to at least one button pressed.
+   * For touch, it is fired when physical contact is made with the digitizer.
+   * For pen, it is fired when the stylus makes physical contact with the digitizer.
+   * <p>This behavior is different from mousedown events.
+   * When using a physical mouse, mousedown events fire whenever any button on a mouse is pressed down.
+   * pointerdown events fire only upon the first button press;
+   * subsequent button presses don't fire pointerdown events.</p>
+   * @event pointerdown-theCanvas
+   * @param {PointerEvent} event a pointer event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
+   * @see {@link https://caniuse.com/pointer Pointer events}
+   */
+  canvas.addEventListener("pointerdown", (event) => {
+    clicked = true;
+    moving = false;
+  });
 
-  tooltip.style.top = `${event.offsetY + 15}px`;
-  tooltip.style.left = `${x}px`;
-  // UV normalized
-  tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
-  tooltip.style.display = "block";
-});
+  /**
+   * <p>Displays the GCS coordinates (longitude and latitude )
+   * on the globe when pointer is moved upon.</p>
+   * <p>Sets {@link moving} to true if {@link clicked} is also true.</p>
+   * <p>The pointermove event is fired when a pointer changes coordinates,
+   * and the pointer has not been canceled by a browser touch-action.
+   * It's very similar to the mousemove event, but with more features.</p>
+   *
+   * These events happen whether or not any pointer buttons are pressed.
+   * They can fire at a very high rate, depends on how fast the user moves the pointer,
+   * how fast the machine is, what other tasks and processes are happening, etc.
+   * @event pointermove-theCanvas
+   * @param {PointerEvent} event a pointer event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event Element: pointermove event}
+   * @see {@link https://caniuse.com/pointer Pointer events}
+   */
+  canvas.addEventListener("pointermove", (event) => {
+    if (clicked) {
+      moving = true;
+      clicked = false; // we are moving the globe
+      canvas.style.cursor = "pointer";
+      return;
+    }
 
-/**
- * <p>Remove the tooltip when pointer is outside the textimg element.</p>
- *
- * The pointerout event is fired for several reasons including:
- * <ul>
- * <li>pointing device is moved out of the hit test boundaries of an element;</li>
- * <li>firing the pointerup event for a device that does not support hover (see pointerup);</li>
- * <li>after firing the pointercancel event (see pointercancel);</li>
- * <li>when a pen stylus leaves the hover range detectable by the digitizer.</li>
- * </ul>
- * @event pointerout-textimg
- * @param {PointerEvent} event a pointer event.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerout_event Element: pointerout event}
- */
-textimg.addEventListener("pointerout", (event) => {
-  tooltip.innerHTML = "";
-  tooltip.style.display = "none";
-});
+    // tooltip on mouse hoover
+    if (moving || !selector.tooltip) {
+      canvastip.innerHTML = "";
+      canvastip.style.display = "none";
+    } else {
+      const x = event.offsetX;
+      let y = event.offsetY;
+      y = event.target.height - y;
 
-/**
- * <p>Canvas element and its tooltip.</p>
- * <p>Canvas is used for drawing the globe and its tooltip is used for displaying
- * the GCS coordinates (longitude and latitude) on the globe when pointer is moved upon.</p>
- * <p>Canvas is a bitmap element that can be used to draw graphics on the fly via scripting (usually JavaScript).
- * It is a part of the HTML5 specification and is supported by all modern browsers.</p>
- * <p>Tooltip is a small pop-up box that appears when the user hovers over an element.
- * It is used to provide additional information about the element, such as its coordinates.</p>
- * <p>Both canvas and tooltip are used to provide a better user experience
- * by allowing the user to interact with the globe and see its coordinates.</p>
- * @type {HTMLCanvasElement}
- */
-const canvas = document.getElementById("theCanvas");
-/**
- * <p>Tooltip element for displaying GCS coordinates on the globe.</p>
- * <p>Tooltip is a small pop-up box that appears when the user hovers over
- * an element. It is used to provide additional information about the element,
- * such as its coordinates.</p>
- * <p>Tooltip is used to provide a better user experience by allowing the user
- * to interact with the globe and see its coordinates.</p>
- * @type {HTMLElement}
- */
-const canvastip = document.getElementById("canvastip");
+      const viewport = gl.getParameter(gl.VIEWPORT);
 
-/**
- * <p>Variables moving and {@link clicked} are used to distinguish between a simple click
- * and a click followed by drag while using the {@link rotator}.</p>
- * <p>When the pointer is down, moving is set to false and clicked is set to true.
- * When the pointer moves, moving is set to true if clicked is also true.
- * When the pointer is up, if moving is true, both moving and clicked are set to false.</p>
- * @type {Boolean}
- */
-let moving = false;
+      // ray origin in world coordinates
+      const o = unproject(
+        [],
+        vec3.fromValues(x, y, 0),
+        getModelMatrix(),
+        viewMatrix,
+        projection,
+        viewport,
+      );
 
-/**
- * We need to know if the pointer is being held down while {@link moving} the globe or not.
- * Otherwise, we would not be able to distinguish between a click and a drag,
- * while using the {@link rotator simpleRotator}.
- * @type {Boolean}
- */
-let clicked = false;
+      // ray end point in world coordinates
+      const p = unproject(
+        [],
+        vec3.fromValues(x, y, 1),
+        getModelMatrix(),
+        viewMatrix,
+        projection,
+        viewport,
+      );
 
-/**
- * <p>Sets {@link moving} to false and {@link clicked} to true.</p>
- * The pointerdown event is fired when a pointer becomes active.
- * For mouse, it is fired when the device transitions from no buttons pressed to at least one button pressed.
- * For touch, it is fired when physical contact is made with the digitizer.
- * For pen, it is fired when the stylus makes physical contact with the digitizer.
- * <p>This behavior is different from mousedown events.
- * When using a physical mouse, mousedown events fire whenever any button on a mouse is pressed down.
- * pointerdown events fire only upon the first button press;
- * subsequent button presses don't fire pointerdown events.</p>
- * @event pointerdown-theCanvas
- * @param {PointerEvent} event a pointer event.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
- * @see {@link https://caniuse.com/pointer Pointer events}
- */
-canvas.addEventListener("pointerdown", (event) => {
-  clicked = true;
-  moving = false;
-});
+      const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
+      if (!intersection) {
+        canvastip.innerHTML = "";
+        canvastip.style.display = "none";
+        return;
+      }
 
-/**
- * <p>Displays the GCS coordinates (longitude and latitude )
- * on the globe when pointer is moved upon.</p>
- * <p>Sets {@link moving} to true if {@link clicked} is also true.</p>
- * <p>The pointermove event is fired when a pointer changes coordinates,
- * and the pointer has not been canceled by a browser touch-action.
- * It's very similar to the mousemove event, but with more features.</p>
- *
- * These events happen whether or not any pointer buttons are pressed.
- * They can fire at a very high rate, depends on how fast the user moves the pointer,
- * how fast the machine is, what other tasks and processes are happening, etc.
- * @event pointermove-theCanvas
- * @param {PointerEvent} event a pointer event.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event Element: pointermove event}
- * @see {@link https://caniuse.com/pointer Pointer events}
- */
-canvas.addEventListener("pointermove", (event) => {
-  if (clicked) {
-    moving = true;
-    clicked = false; // we are moving the globe
-    canvas.style.cursor = "pointer";
-    return;
-  }
+      const uv = cartesian2Spherical(intersection);
+      const gcs = spherical2gcs(uv);
 
-  // tooltip on mouse hoover
-  if (moving || !selector.tooltip) {
-    canvastip.innerHTML = "";
-    canvastip.style.display = "none";
-  } else {
-    const x = event.offsetX;
+      canvastip.style.top = `${event.offsetY + 15}px`;
+      canvastip.style.left = `${x}px`;
+      // GCS coordinates
+      canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
+                          ${gcs.latitude.toFixed(3)})`;
+      canvastip.style.display = "block";
+    }
+  });
+
+  /**
+   * <p>Sets {@link clicked} to false and if {@link moving} is true, sets it to false and return,
+   * because we are moving the globe.</br>
+   * Otherwise, gets the latitude and longitude on the globe
+   * and draws its position on the map.</p>
+   * The pointerup event is fired when a pointer is no longer active.
+   * This behavior is different from mouseup events.
+   * When using a physical mouse, mouseup events fire whenever any button on a mouse is released.
+   * pointerup events fire only upon the last button release; previous button releases,
+   * while other buttons are held down, don't fire pointerup events.
+   * @event pointerup-theCanvas
+   * @param {PointerEvent} event a pointer event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerup_event Element: pointerup event}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
+   * @see {@link https://caniuse.com/pointer Pointer events}
+   */
+  canvas.addEventListener("pointerup", (event) => {
+    //if (event.buttons != 2) return;
+    canvas.style.cursor = "crosshair";
+    clicked = false;
+
+    if (moving) {
+      moving = false;
+      return; // ignore if moving
+    }
+
+    let x = event.offsetX;
     let y = event.offsetY;
     y = event.target.height - y;
 
@@ -1958,118 +2073,48 @@ canvas.addEventListener("pointermove", (event) => {
     );
 
     const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
-    if (!intersection) {
-      canvastip.innerHTML = "";
-      canvastip.style.display = "none";
-      return;
+    if (intersection) {
+      const uv = cartesian2Spherical(intersection);
+      const unknown = gpsCoordinates["Unknown"];
+      ({ latitude: unknown.latitude, longitude: unknown.longitude } =
+        spherical2gcs(uv));
+      currentLocation = cities[cities.length - 2];
     }
-
-    const uv = cartesian2Spherical(intersection);
-    const gcs = spherical2gcs(uv);
-
-    canvastip.style.top = `${event.offsetY + 15}px`;
-    canvastip.style.left = `${x}px`;
-    // GCS coordinates
-    canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
-                          ${gcs.latitude.toFixed(3)})`;
-    canvastip.style.display = "block";
-  }
-});
-
-/**
- * <p>Sets {@link clicked} to false and if {@link moving} is true, sets it to false and return,
- * because we are moving the globe.</br>
- * Otherwise, gets the latitude and longitude on the globe
- * and draws its position on the map.</p>
- * The pointerup event is fired when a pointer is no longer active.
- * This behavior is different from mouseup events.
- * When using a physical mouse, mouseup events fire whenever any button on a mouse is released.
- * pointerup events fire only upon the last button release; previous button releases,
- * while other buttons are held down, don't fire pointerup events.
- * @event pointerup-theCanvas
- * @param {PointerEvent} event a pointer event.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerup_event Element: pointerup event}
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/offsetX MouseEvent: offsetX property}
- * @see {@link https://caniuse.com/pointer Pointer events}
- */
-canvas.addEventListener("pointerup", (event) => {
-  //if (event.buttons != 2) return;
-  canvas.style.cursor = "crosshair";
-  clicked = false;
-
-  if (moving) {
-    moving = false;
-    return; // ignore if moving
-  }
-
-  let x = event.offsetX;
-  let y = event.offsetY;
-  y = event.target.height - y;
-
-  const viewport = gl.getParameter(gl.VIEWPORT);
-
-  // ray origin in world coordinates
-  const o = unproject(
-    [],
-    vec3.fromValues(x, y, 0),
-    getModelMatrix(),
-    viewMatrix,
-    projection,
-    viewport,
-  );
-
-  // ray end point in world coordinates
-  const p = unproject(
-    [],
-    vec3.fromValues(x, y, 1),
-    getModelMatrix(),
-    viewMatrix,
-    projection,
-    viewport,
-  );
-
-  const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
-  if (intersection) {
-    const uv = cartesian2Spherical(intersection);
-    const unknown = gpsCoordinates["Unknown"];
-    ({ latitude: unknown.latitude, longitude: unknown.longitude } =
-      spherical2gcs(uv));
-    currentLocation = cities[cities.length - 2];
-  }
-  handleKeyPress(createEvent("g"));
-});
-
-/**
- * No context menu when pressing the right mouse button.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event Element: contextmenu event}
- * @event contextmenu
- * @param {MouseEvent} event mouse event.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent MouseEvent}
- */
-window.addEventListener("contextmenu", (event) => {
-  event.preventDefault();
-});
-
-/**
- * Double click as right click.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/dblclick_event Element: dblclick event}
- * @event dblclick
- * @param {MouseEvent} event mouse event.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent MouseEvent}
- */
-canvas.addEventListener("dblclick", (event) => {
-  const dblclickEvent = new PointerEvent("pointerdown", {
-    pointerType: "mouse",
-    pointerId: 1,
-    clientX: event.clientX,
-    clientY: event.clientY,
-    bubbles: true,
-    cancelable: true,
-    buttons: 2, // right button
+    handleKeyPress(createEvent("g"));
   });
-  event.preventDefault();
-  canvas.dispatchEvent(dblclickEvent);
-});
+
+  /**
+   * No context menu when pressing the right mouse button.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event Element: contextmenu event}
+   * @event contextmenu
+   * @param {MouseEvent} event mouse event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent MouseEvent}
+   */
+  window.addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+  });
+
+  /**
+   * Double click as right click.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/dblclick_event Element: dblclick event}
+   * @event dblclick
+   * @param {MouseEvent} event mouse event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent MouseEvent}
+   */
+  canvas.addEventListener("dblclick", (event) => {
+    const dblclickEvent = new PointerEvent("pointerdown", {
+      pointerType: "mouse",
+      pointerId: 1,
+      clientX: event.clientX,
+      clientY: event.clientY,
+      bubbles: true,
+      cancelable: true,
+      buttons: 2, // right button
+    });
+    event.preventDefault();
+    canvas.dispatchEvent(dblclickEvent);
+  });
+}
 
 // export for using in the html file.
 window.zoomIn = zoomIn;
@@ -2702,9 +2747,6 @@ function setPosition(location) {
 function startForReal(image) {
   console.log("Started...");
 
-  // retrieve <canvas> element
-  const canvas = document.getElementById("theCanvas");
-
   /**
    * <p>Appends an event listener for events whose type attribute value is keydown.<br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
@@ -2846,6 +2888,7 @@ function startForReal(image) {
 
   labelForLocation(currentLocation);
   selectModel();
+  addListeners();
 
   // start drawing!
   animate();
