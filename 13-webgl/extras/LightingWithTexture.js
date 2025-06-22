@@ -7,7 +7,7 @@
  * written in Vanilla Javascript and WebGL.</p>
  *
  * <p><b>For educational purposes only.</b></p>
- * <p>This is just a <b>demo</b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
+ * <p>This is just a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
  * which became {@link https://www.youtube.com/watch?v=uhiCFdWeQfA overly complicated},
  * and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
