@@ -1349,8 +1349,6 @@ const handleKeyPress = ((event) => {
  * @param {vec3} modelPosition model's world coordinates.
  * @param {vec3} modelForward model's forward vector in world coordinates.
  * @returns {mat4} rotation matrix to rotate the model towards the camera.
- * @see {@link https://stackoverflow.com/questions/1248081/rotate-an-object-to-face-a-point-in-3d-space Rotate an object to face a point in 3D space}
- * @see {@link https://stackoverflow.com/questions/1248081/rotate-an-object-to-face-a-point-in-3d-space#comment-1248090 Rotate an object to face a point in 3D space}
  */
 function rotateModelTowardsCamera(
   modelPosition,
@@ -1362,8 +1360,8 @@ function rotateModelTowardsCamera(
   vec3.normalize(rotationAxis, rotationAxis);
 
   // Calculate angle between model forward and modelPosition
-  let dotProduct = vec3.dot(modelForward, modelPosition);
-  let angle = Math.acos(dotProduct);
+  const dotProduct = vec3.dot(modelForward, modelPosition);
+  const angle = Math.acos(dotProduct);
 
   // Create rotation matrix
   const rotationMatrix = mat4.create();
