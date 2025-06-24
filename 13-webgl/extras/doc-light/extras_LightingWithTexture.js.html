@@ -2506,24 +2506,29 @@ window.addEventListener("load", (event) => {
        */
       image.onload = function () {
         // chain the animation or load a new texture
-        if (typeof theModel === "undefined" &amp;&amp; php.checked) {
-          readFileNames
-            .then((arr) => {
-              const initialTexture = imageFilename[0];
-              if (arr.length > 0) {
-                imageFilename.splice(0, imageFilename.length, ...arr.sort());
-              }
-              setTextures(imageFilename);
-              textureCnt = imageFilename.indexOf(initialTexture);
-              startForReal(image);
-            })
-            .catch((error) => {
-              console.log(`${error}`);
-              // don't return anything => execution goes the normal way
-              // in case server does not run php
-              getTextures(imageFilename);
-              startForReal(image);
-            });
+        if (typeof theModel === "undefined") {
+          if (!php.checked) {
+            getTextures(imageFilename);
+            startForReal(image);
+          } else {
+            readFileNames
+              .then((arr) => {
+                const initialTexture = imageFilename[0];
+                if (arr.length > 0) {
+                  imageFilename.splice(0, imageFilename.length, ...arr.sort());
+                }
+                setTextures(imageFilename);
+                textureCnt = imageFilename.indexOf(initialTexture);
+                startForReal(image);
+              })
+              .catch((error) => {
+                console.log(`${error}`);
+                // don't return anything => execution goes the normal way
+                // in case server does not run php
+                getTextures(imageFilename);
+                startForReal(image);
+              });
+          }
         } else {
           newTexture(image);
           draw();
