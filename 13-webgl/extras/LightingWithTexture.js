@@ -410,6 +410,7 @@ const textures = document.getElementById("textures");
 const models = document.getElementById("models");
 const textimg = document.getElementById("textimg");
 const tooltip = document.getElementById("tooltip");
+const php = document.getElementById("php");
 
 /**
  * Convert spherical coordinates to {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
@@ -910,14 +911,14 @@ const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
  * <p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise<Array<String>>}
- * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
+ * @see <a href="/cwdc/6-php/readFiles.php">files</a>
  * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
  * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
 const readFileNames = new Promise((resolve, reject) => {
   $.ajax({
     type: "GET",
-    url: "/cwdc/6-php/readFiles_.php",
+    url: "/cwdc/6-php/readFiles.php",
     data: {
       dir: "/cwdc/13-webgl/extras/textures",
     },
@@ -1349,6 +1350,7 @@ const handleKeyPress = ((event) => {
  * @param {vec3} modelPosition model's world coordinates.
  * @param {vec3} modelForward model's forward vector in world coordinates.
  * @returns {mat4} rotation matrix to rotate the model towards the camera.
+ * @see {@link https://www.quora.com/How-do-I-calculate-the-angle-between-two-vectors-in-3D-space-using-atan2 How do I calculate the angle between two vectors in 3D space using atan2?}
  */
 function rotateModelTowardsCamera(
   modelPosition,
@@ -1357,11 +1359,11 @@ function rotateModelTowardsCamera(
   // Calculate rotation axis (cross product)
   const rotationAxis = vec3.create();
   vec3.cross(rotationAxis, modelPosition, modelForward);
-  vec3.normalize(rotationAxis, rotationAxis);
 
   // Calculate angle between model forward and modelPosition
   const dotProduct = vec3.dot(modelForward, modelPosition);
-  const angle = Math.acos(dotProduct);
+  // const angle = Math.acos(dotProduct);
+  const angle = Math.atan2(vec3.length(rotationAxis), dotProduct);
 
   // Create rotation matrix
   const rotationMatrix = mat4.create();
@@ -2476,7 +2478,7 @@ window.addEventListener("load", (event) => {
        */
       image.onload = function () {
         // chain the animation or load a new texture
-        if (typeof theModel === "undefined") {
+        if (typeof theModel === "undefined" && php.checked) {
           readFileNames
             .then((arr) => {
               const initialTexture = imageFilename[0];
