@@ -911,14 +911,14 @@ const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
  * <p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
  * Please, note that php runs on the server, and javascript on the browser.
  * @type {Promise<Array<String>>}
- * @see <a href="/cwdc/6-php/readFiles.php">files</a>
+ * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
  * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
  * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  */
 const readFileNames = new Promise((resolve, reject) => {
   $.ajax({
     type: "GET",
-    url: "/cwdc/6-php/readFiles.php",
+    url: "/cwdc/6-php/readFiles_.php",
     data: {
       dir: "/cwdc/13-webgl/extras/textures",
     },
