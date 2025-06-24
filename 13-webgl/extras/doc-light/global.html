@@ -143,7 +143,7 @@ Step 0.5° ⇒ 60 fps = 30°/s ⇒ 360° in 12s
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3035">line 3035</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3070">line 3070</a>
     </li></ul></dd>
     
 
@@ -2923,8 +2923,17 @@ Ambient, diffuse and specular.
 <div class="description">
     <p>Promise for returning an array with all file names in directory './textures'.</p>
 
-<p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
-Please, note that php runs on the server, and javascript on the browser.
+<p>Since php runs on the server, and javascript on the browser,
+a php script is invoked asynchronously via ajax, because Javascript doesn't
+have access to the filesystem.</p>
+
+<p>The JavaScript Fetch API provides a modern, promise-based interface for making
+network requests, such as fetching data from an API.
+It is designed to replace older methods like XMLHttpRequest and offers a more
+streamlined way to handle asynchronous operations.</p>
+
+The Response object provides methods to parse the response body in various formats,
+such as json(), text(), blob(), arrayBuffer(), and formData().
 </div>
 
 
@@ -2972,7 +2981,7 @@ Please, note that php runs on the server, and javascript on the browser.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line918">line 918</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line929">line 929</a>
     </li></ul></dd>
     
 
@@ -2982,11 +2991,13 @@ Please, note that php runs on the server, and javascript on the browser.
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="/cwdc/6-php/readFiles.php">files</a></li>
+            <li><a href="/cwdc/6-php/readFiles_.php">files</a></li>
         
             <li><a href="https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript">Get list of filenames in folder with Javascript</a></li>
         
             <li><a href="https://api.jquery.com/jquery.ajax/">jQuery.ajax()</a></li>
+        
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Using the Fetch API</a></li>
         </ul>
     </dd>
     
@@ -4259,7 +4270,7 @@ so the z-axis points outside the screen.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1656">line 1656</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1686">line 1686</a>
     </li></ul></dd>
     
 
@@ -4406,7 +4417,7 @@ that can be passed to <a href="global.html#handleKeyPress">handleKeyPress</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1447">line 1447</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1477">line 1477</a>
     </li></ul></dd>
     
 
@@ -4765,7 +4776,7 @@ for a surface with g handles and b boundaries.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2554">line 2554</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2589">line 2589</a>
     </li></ul></dd>
     
 
@@ -5264,7 +5275,7 @@ Draws axes, applies texture, then draws lines.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2131">line 2131</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2161">line 2161</a>
     </li></ul></dd>
     
 
@@ -5353,7 +5364,7 @@ Uses the <a href="global.html#colorShader">colorShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2330">line 2330</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2360">line 2360</a>
     </li></ul></dd>
     
 
@@ -5455,7 +5466,7 @@ which was set in <a href="global.html#createModel">createModel</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2277">line 2277</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2307">line 2307</a>
     </li></ul></dd>
     
 
@@ -5551,7 +5562,7 @@ on the texture image.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1380">line 1380</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1410">line 1410</a>
     </li></ul></dd>
     
 
@@ -5640,7 +5651,7 @@ Uses the <a href="global.html#colorShader">colorShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2378">line 2378</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2408">line 2408</a>
     </li></ul></dd>
     
 
@@ -5737,7 +5748,7 @@ instead of an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection"
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2168">line 2168</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2198">line 2198</a>
     </li></ul></dd>
     
 
@@ -6034,7 +6045,7 @@ instead of an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection"
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line962">line 962</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line992">line 992</a>
     </li></ul></dd>
     
 
@@ -6324,7 +6335,7 @@ vertices, normal vectors, texture coordinates, and indices.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2146">line 2146</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2176">line 2176</a>
     </li></ul></dd>
     
 
@@ -6484,7 +6495,7 @@ identified by "textures".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2425">line 2425</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2455">line 2455</a>
     </li></ul></dd>
     
 
@@ -6818,7 +6829,7 @@ When a new texture is selected, triggers callback <a href="global.html#image">im
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line992">line 992</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1022">line 1022</a>
     </li></ul></dd>
     
 
@@ -7387,7 +7398,7 @@ Usage:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2708">line 2708</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2743">line 2743</a>
     </li></ul></dd>
     
 
@@ -7547,7 +7558,7 @@ of the given <a href="global.html#gpsCoordinates">location</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line973">line 973</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1003">line 1003</a>
     </li></ul></dd>
     
 
@@ -7755,7 +7766,7 @@ The sphere is defined by its center and radius.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1584">line 1584</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1614">line 1614</a>
     </li></ul></dd>
     
 
@@ -8163,7 +8174,7 @@ perpendicular to surfaces after a linear transformation.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line951">line 951</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line981">line 981</a>
     </li></ul></dd>
     
 
@@ -8330,7 +8341,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2957">line 2957</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2992">line 2992</a>
     </li></ul></dd>
     
 
@@ -8431,7 +8442,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1625">line 1625</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1655">line 1655</a>
     </li></ul></dd>
     
 
@@ -8519,7 +8530,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1611">line 1611</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1641">line 1641</a>
     </li></ul></dd>
     
 
@@ -8607,7 +8618,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1632">line 1632</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1662">line 1662</a>
     </li></ul></dd>
     
 
@@ -8695,7 +8706,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1618">line 1618</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1648">line 1648</a>
     </li></ul></dd>
     
 
@@ -8947,7 +8958,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1494">line 1494</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1524">line 1524</a>
     </li></ul></dd>
     
 
@@ -9346,7 +9357,7 @@ This is not a great representation, since all the normals are the same.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1355">line 1355</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1385">line 1385</a>
     </li></ul></dd>
     
 
@@ -9463,7 +9474,7 @@ This is not a great representation, since all the normals are the same.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1461">line 1461</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1491">line 1491</a>
     </li></ul></dd>
     
 
@@ -9613,7 +9624,7 @@ from &lt;select&gt; element in html.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1419">line 1419</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1449">line 1449</a>
     </li></ul></dd>
     
 
@@ -9915,7 +9926,7 @@ corresponding to the given location.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2718">line 2718</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2753">line 2753</a>
     </li></ul></dd>
     
 
@@ -10059,7 +10070,7 @@ corresponding to the given location.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2439">line 2439</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2469">line 2469</a>
     </li></ul></dd>
     
 
@@ -10153,7 +10164,7 @@ For instance, a cube's face texture coordinates span from 0 to 1.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2910">line 2910</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2945">line 2945</a>
     </li></ul></dd>
     
 
@@ -10481,7 +10492,7 @@ redrawn.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2747">line 2747</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2782">line 2782</a>
     </li></ul></dd>
     
 
@@ -10922,7 +10933,7 @@ redrawn.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1538">line 1538</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1568">line 1568</a>
     </li></ul></dd>
     
 
@@ -12265,7 +12276,7 @@ and the center of the torus is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1639">line 1639</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1669">line 1669</a>
     </li></ul></dd>
     
 
@@ -12353,7 +12364,7 @@ and the center of the torus is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1646">line 1646</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1676">line 1676</a>
     </li></ul></dd>
     
 
@@ -12449,7 +12460,7 @@ Otherwise, just loads a new texture.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2473">line 2473</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2503">line 2503</a>
     </li></ul></dd>
     
 
@@ -12590,7 +12601,7 @@ model or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2913">line 2913</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2948">line 2948</a>
     </li></ul></dd>
     
 
@@ -12678,7 +12689,7 @@ model or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3046">line 3046</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3081">line 3081</a>
     </li></ul></dd>
     
 
@@ -12824,7 +12835,7 @@ model or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1011">line 1011</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1041">line 1041</a>
     </li></ul></dd>
     
 
@@ -13117,7 +13128,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1668">line 1668</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1698">line 1698</a>
     </li></ul></dd>
     
 
@@ -13213,7 +13224,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1763">line 1763</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1793">line 1793</a>
     </li></ul></dd>
     
 
@@ -13309,7 +13320,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1679">line 1679</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1709">line 1709</a>
     </li></ul></dd>
     
 
@@ -13405,7 +13416,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1739">line 1739</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1769">line 1769</a>
     </li></ul></dd>
     
 
@@ -13501,7 +13512,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1692">line 1692</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1722">line 1722</a>
     </li></ul></dd>
     
 
@@ -13597,7 +13608,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1752">line 1752</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1782">line 1782</a>
     </li></ul></dd>
     
 
@@ -13693,7 +13704,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1657">line 1657</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1687">line 1687</a>
     </li></ul></dd>
     
 
@@ -13789,7 +13800,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1723">line 1723</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1753">line 1753</a>
     </li></ul></dd>
     
 
@@ -13887,7 +13898,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1801">line 1801</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1831">line 1831</a>
     </li></ul></dd>
     
 
@@ -13983,7 +13994,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1705">line 1705</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1735">line 1735</a>
     </li></ul></dd>
     
 
@@ -14079,7 +14090,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1787">line 1787</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1817">line 1817</a>
     </li></ul></dd>
     
 
@@ -14175,7 +14186,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1774">line 1774</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1804">line 1804</a>
     </li></ul></dd>
     
 
@@ -14319,7 +14330,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2086">line 2086</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2116">line 2116</a>
     </li></ul></dd>
     
 
@@ -14465,7 +14476,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2097">line 2097</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2127">line 2127</a>
     </li></ul></dd>
     
 
@@ -14564,7 +14575,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2750">line 2750</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2785">line 2785</a>
     </li></ul></dd>
     
 
@@ -14719,7 +14730,7 @@ and defines its <a href="global.html#ImageLoadCallback">load callback function</
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2451">line 2451</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2481">line 2481</a>
     </li></ul></dd>
     
 
@@ -14876,7 +14887,7 @@ For pen, it is fired when the stylus makes physical contact with the digitizer.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1812">line 1812</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1842">line 1842</a>
     </li></ul></dd>
     
 
@@ -15032,7 +15043,7 @@ subsequent button presses don't fire pointerdown events.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1929">line 1929</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1959">line 1959</a>
     </li></ul></dd>
     
 
@@ -15186,7 +15197,7 @@ how fast the machine is, what other tasks and processes are happening, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1847">line 1847</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1877">line 1877</a>
     </li></ul></dd>
     
 
@@ -15343,7 +15354,7 @@ how fast the machine is, what other tasks and processes are happening, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1949">line 1949</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1979">line 1979</a>
     </li></ul></dd>
     
 
@@ -15497,7 +15508,7 @@ The pointerout event is fired for several reasons including:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1892">line 1892</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1922">line 1922</a>
     </li></ul></dd>
     
 
@@ -15649,7 +15660,7 @@ while other buttons are held down, don't fire pointerup events.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2023">line 2023</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2053">line 2053</a>
     </li></ul></dd>
     
 
@@ -15708,7 +15719,7 @@ while other buttons are held down, don't fire pointerup events.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Jun 24 2025 07:25:18 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Jun 24 2025 10:57:25 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

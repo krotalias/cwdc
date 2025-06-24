@@ -908,35 +908,65 @@ const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
 /**
  * <p>Promise for returning an array with all file names in directory './textures'.</p>
  *
- * <p>Calls a php script via ajax, since Javascript doesn't have access to the filesystem.</p>
- * Please, note that php runs on the server, and javascript on the browser.
+ * <p>Since php runs on the server, and javascript on the browser,
+ * a php script is invoked asynchronously via ajax, because Javascript doesn't
+ * have access to the filesystem.</p>
+ *
+ * <p>The JavaScript Fetch API provides a modern, promise-based interface for making
+ * network requests, such as fetching data from an API.
+ * It is designed to replace older methods like XMLHttpRequest and offers a more
+ * streamlined way to handle asynchronous operations.</p>
+ *
+ * The Response object provides methods to parse the response body in various formats,
+ * such as json(), text(), blob(), arrayBuffer(), and formData().
+ *
  * @type {Promise<Array<String>>}
  * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
  * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
  * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch Using the Fetch API}
  */
 const readFileNames = new Promise((resolve, reject) => {
-  $.ajax({
-    type: "GET",
-    url: "/cwdc/6-php/readFiles_.php",
-    data: {
-      dir: "/cwdc/13-webgl/extras/textures",
-    },
-  })
-    .done(function (fileNames) {
-      resolve(JSON.parse(fileNames));
+  if (false) {
+    $.ajax({
+      type: "GET",
+      url: "/cwdc/6-php/readFiles_.php",
+      data: {
+        dir: "/cwdc/13-webgl/extras/textures",
+      },
     })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-      console.log(
-        `[jqResponse: ${JSON.stringify(
-          jqXHR,
-          null,
-          4,
-        )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`,
-      );
-      console.log("Could not get data");
-      reject("Could not get data");
-    });
+      .done(function (fileNames) {
+        resolve(JSON.parse(fileNames));
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.log(
+          `[jqResponse: ${JSON.stringify(
+            jqXHR,
+            null,
+            4,
+          )}], \n[status: ${textStatus}], \n[error: ${errorThrown}]`,
+        );
+        console.log("Could not get data");
+        reject("Could not get data");
+      });
+  } else {
+    const params = new URLSearchParams();
+    params.append("dir", "/cwdc/13-webgl/extras/textures");
+    fetch(`/cwdc/6-php/readFiles_.php/dir?${params}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then((data) => {
+        resolve(JSON.parse(data));
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        console.log("readFileNames: Could not get data");
+      });
+  }
 });
 
 /**
