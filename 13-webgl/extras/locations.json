@@ -29,6 +29,12 @@
         "latitude": -22.9068,
         "longitude": -43.1729
     },
+    "Caracas": {
+        "country": "Venezuela",
+        "remarkable": "Simón Bolívar, 1783-1830",
+        "latitude": 10.5060934,
+        "longitude": -66.9146008
+    },
     "NYC": {
         "country": "United States",
         "remarkable": "Theodore Roosevelt, 1858-1919",
@@ -167,6 +173,18 @@
         "latitude": 25.7329051,
         "longitude": 32.7658152
     },
+    "Mthethwa Paramountcy (Melmoth)": {
+        "country": "South Africa",
+        "remarkable": "Shaka, 1787-1828",
+        "latitude": -28.586667,
+        "longitude": 31.398056
+    },
+    "Giza": {
+        "country": "Egypt",
+        "remarkable": "Khufu, 2589-2566 BC",
+        "latitude": 29.979175,
+        "longitude": 31.134358
+    },
     "Memphis": {
         "country": "Egypt",
         "remarkable": "Imhotep, 2592 BC",
@@ -190,6 +208,12 @@
         "remarkable": "Hector, ?-1180 BC",
         "latitude": 38.0664791,
         "longitude": 27.7033614
+    },
+    "Ionia (Izmir)": {
+        "country": "Anatolia (Turkey)",
+        "remarkable": "Homer (King of all poets), 850?? BC",
+        "latitude": 38.23166,
+        "longitude": 27.02997
     },
     "Athens": {
         "country": "Greece",
@@ -232,6 +256,12 @@
         "remarkable": "Gaius Julius Caezar, 100-44 BC",
         "latitude": 41.902782,
         "longitude": 12.496366
+    },
+    "Venice": {
+        "country": "Italy",
+        "remarkable": "Marco Polo, 1254-1324",
+        "latitude": 45.4371908,
+        "longitude": 12.3345898
     },
     "Carthage": {
         "country": "Punic Empire (Tunisia)",
