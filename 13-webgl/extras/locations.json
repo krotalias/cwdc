@@ -245,6 +245,12 @@
         "latitude": 37.075474,
         "longitude": 15.286586
     },
+    "Naples": {
+        "country": "Italy",
+        "remarkable": "Giuseppe Garibaldi, 1807-1882",
+        "latitude": 40.8521602,
+        "longitude": 14.2681244
+    },
     "Berlin": {
         "country": "Germany",
         "remarkable": "Marlene Dietrich, 1901-1992 BC",
@@ -262,6 +268,18 @@
         "remarkable": "Marco Polo, 1254-1324",
         "latitude": 45.4371908,
         "longitude": 12.3345898
+    },
+    "Florence": {
+        "country": "Italy",
+        "remarkable": "Lorenzo de' Medici, 1449-1492",
+        "latitude": 43.7697955,
+        "longitude": 11.2556404
+    },
+    "Vinci": {
+        "country": "Italy",
+        "remarkable": "Leonardo da Vinci, 1452-1519",
+        "latitude": 43.7873966,
+        "longitude": 10.9271055
     },
     "Carthage": {
         "country": "Punic Empire (Tunisia)",
