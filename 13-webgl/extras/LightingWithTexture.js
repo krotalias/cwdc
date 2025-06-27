@@ -1877,8 +1877,8 @@ function addListeners() {
     const unknown = gpsCoordinates["Unknown"];
     ({ latitude: unknown.latitude, longitude: unknown.longitude } =
       spherical2gcs(uv));
-    currentLocation = cities[cities.length - 1];
-    handleKeyPress(createEvent("j"));
+    currentLocation = cities[cities.length - 2];
+    handleKeyPress(createEvent("g"));
   });
 
   /**
@@ -2115,9 +2115,9 @@ function addListeners() {
       const unknown = gpsCoordinates["Unknown"];
       ({ latitude: unknown.latitude, longitude: unknown.longitude } =
         spherical2gcs(uv));
-      currentLocation = cities[cities.length - 1];
+      currentLocation = cities[cities.length - 2];
     }
-    handleKeyPress(createEvent("j"));
+    handleKeyPress(createEvent("g"));
   });
 
   /**
