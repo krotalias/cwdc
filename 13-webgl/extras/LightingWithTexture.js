@@ -921,7 +921,7 @@ const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
  * such as json(), text(), blob(), arrayBuffer(), and formData().
  *
  * @type {Promise<Array<String>>}
- * @see <a href="/cwdc/6-php/readFiles_.php">files</a>
+ * @see <a href="/cwdc/6-php/readFiles.php">files</a>
  * @see {@link https://stackoverflow.com/questions/31274329/get-list-of-filenames-in-folder-with-javascript Get list of filenames in folder with Javascript}
  * @see {@link https://api.jquery.com/jquery.ajax/ jQuery.ajax()}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch Using the Fetch API}
@@ -930,7 +930,7 @@ const readFileNames = new Promise((resolve, reject) => {
   if (false) {
     $.ajax({
       type: "GET",
-      url: "/cwdc/6-php/readFiles_.php",
+      url: "/cwdc/6-php/readFiles.php",
       data: {
         dir: "/cwdc/13-webgl/extras/textures",
       },
@@ -952,7 +952,7 @@ const readFileNames = new Promise((resolve, reject) => {
   } else {
     const params = new URLSearchParams();
     params.append("dir", "/cwdc/13-webgl/extras/textures");
-    fetch(`/cwdc/6-php/readFiles_.php/dir?${params}`)
+    fetch(`/cwdc/6-php/readFiles.php/dir?${params}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -1029,8 +1029,8 @@ const handleKeyPress = ((event) => {
   let subPoly = 0;
   let tri;
   let n, inc;
-  let forwardVector = vec3.fromValues(0, 0, 1);
   let modelM = mat4.identity([]); // model matrix
+  let forwardVector = vec3.fromValues(0, 0, 1);
   const poly = {
     d: 0,
     i: 1,
@@ -1090,7 +1090,11 @@ const handleKeyPress = ((event) => {
       case "x":
       case "y":
       case "z":
+      case "W":
         axis = ch;
+        if (axis == "W") {
+          handleKeyPress(createEvent("j"));
+        }
         selector.paused = false;
         document.getElementById(axis).checked = true;
         animate();
@@ -1302,7 +1306,10 @@ const handleKeyPress = ((event) => {
         break;
       case "g":
       case "G":
-        inc = ch == "g" ? 1 : -1;
+      case "j":
+        if (ch == "g") inc = 1;
+        else if (ch == "G") inc = -1;
+        else inc = 0;
         const cl = cities.indexOf(currentLocation);
         currentLocation = cities[mod(cl + inc, cities.length)];
         setPosition(currentLocation);
@@ -1870,8 +1877,8 @@ function addListeners() {
     const unknown = gpsCoordinates["Unknown"];
     ({ latitude: unknown.latitude, longitude: unknown.longitude } =
       spherical2gcs(uv));
-    currentLocation = cities[cities.length - 2];
-    handleKeyPress(createEvent("g"));
+    currentLocation = cities[cities.length - 1];
+    handleKeyPress(createEvent("j"));
   });
 
   /**
@@ -2108,9 +2115,9 @@ function addListeners() {
       const unknown = gpsCoordinates["Unknown"];
       ({ latitude: unknown.latitude, longitude: unknown.longitude } =
         spherical2gcs(uv));
-      currentLocation = cities[cities.length - 2];
+      currentLocation = cities[cities.length - 1];
     }
-    handleKeyPress(createEvent("g"));
+    handleKeyPress(createEvent("j"));
   });
 
   /**
@@ -3063,15 +3070,71 @@ function newTexture(image) {
 }
 
 /**
+ * Returns a vector perpendicular to the meridian at the given longitude.
+ * The meridian is the line of longitude at the given longitude,
+ * which is the angle from the prime meridian (0° longitude).
+ * The perpendicular vector is in the xz-plane, with y = 0.
+ *
+ * @param {Number} longitude
+ * @returns {vec3} vector perpendicular to the meridian at the given longitude.
+ */
+function meridianPerpVec(longitude) {
+  const [x, y, z] = spherical2Cartesian(toRadian(longitude), Math.PI / 2, 1);
+  return [z, 0, -x];
+}
+
+/**
+ * Returns a rotation matrix around the vector perpendicular to the meridian
+ * at the given longitude, by the given increment.
+ * @param {Number} increment angle (in radians) to rotate around.
+ * @returns {mat4} a rotation matrix.
+ */
+function getRotationMatrix(increment) {
+  const perp = meridianPerpVec(
+    gpsCoordinates ? gpsCoordinates[currentLocation].longitude : 0,
+  );
+  return mat4.fromRotation([], increment, perp);
+}
+
+/**
  * <p>Define an {@link frame animation} loop.</p>
  * Step 0.5° ⇒ 60 fps = 30°/s ⇒ 360° in 12s
  * @see {@link https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd Extrinsic & intrinsic rotation}
  */
 const animate = (() => {
-  // increase the rotation by some amount, depending on the axis chosen
+  /**
+   * Increase the rotation by some amount,
+   * irrespective of the axis chosen.
+   * @type {Number}
+   */
   const increment = toRadian(0.5);
-  /** @type {Number} */
+
+  /**
+   * An unsigned long integer value, the request ID,
+   * that uniquely identifies the entry in the callback list.
+   * You should not make any assumptions about its value.
+   * You can pass this value to window.cancelAnimationFrame()
+   * to cancel the refresh callback request.
+   * @type {Number}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame Window: requestAnimationFrame() method}
+   */
   let requestID = 0;
+
+  /**
+   * <p>Rotation matrix for the three axes. </p>
+   * The rotation matrices are created at compile (loading) time, so that
+   * they can be reused in each frame without recalculating them.
+   * The rotation matrices are used to rotate the model
+   * around the x, y, or z axis, depending on the axis chosen.
+   * The rotation is done by multiplying the model matrix with the
+   * rotation matrix, either on the left (extrinsic rotation) or
+   * on the right (intrinsic rotation).
+   * @type {Object}
+   * @global
+   * @property {mat4} x rotation matrix around the x-axis.
+   * @property {mat4} y rotation matrix around the y-axis.
+   * @property {mat4} z rotation matrix around the z-axis.
+   */
   const rotMatrix = {
     x: mat4.fromXRotation([], increment),
     y: mat4.fromYRotation([], increment),
@@ -3091,12 +3154,15 @@ const animate = (() => {
       requestID = 0;
     }
     if (!selector.paused) {
+      const rotationMatrix =
+        axis == "W" ? getRotationMatrix(increment) : rotMatrix[axis];
+
       if (selector.intrinsic) {
         // intrinsic rotation - multiply on the right
-        mat4.multiply(modelMatrix, modelMatrix, rotMatrix[axis]);
+        mat4.multiply(modelMatrix, modelMatrix, rotationMatrix);
       } else {
         // extrinsic rotation - multiply on the left
-        mat4.multiply(modelMatrix, rotMatrix[axis], modelMatrix);
+        mat4.multiply(modelMatrix, rotationMatrix, modelMatrix);
       }
       rotator.setViewMatrix(modelMatrix);
       // request that the browser calls animate() again "as soon as it can"
