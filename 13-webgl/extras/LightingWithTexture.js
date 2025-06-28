@@ -598,6 +598,21 @@ let cities = null;
 let currentLocation = null;
 
 /**
+ * Current cursor position onto globe.
+ * @type {Object<{x:Number,y:Number}>}
+ */
+let cursorPosition = {
+  x: 0,
+  y: 0,
+};
+
+/**
+ * Current meridian onto globe.
+ * @type {Object<{longitude:Number, latitude:Number}>}
+ */
+let currentMeridian = null;
+
+/**
  * Display status of the model mesh, texture, axes and paused animation: on/off.
  * @type {Object<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean, intrinsic:Boolean, equator:Boolean, hws:Boolean, tootip:Boolean}>}
  */
@@ -1067,7 +1082,6 @@ const handleKeyPress = ((event) => {
       case " ":
         selector.paused = !selector.paused;
         document.getElementById("pause").checked = selector.paused;
-        if (axis === " ") axis = "y";
         if (!selector.paused) document.getElementById(axis).checked = true;
         animate();
         return;
@@ -1093,7 +1107,7 @@ const handleKeyPress = ((event) => {
       case "W":
         axis = ch;
         if (axis == "W") {
-          handleKeyPress(createEvent("j"));
+          updateCurrentMeridian();
         }
         selector.paused = false;
         document.getElementById(axis).checked = true;
@@ -1615,7 +1629,7 @@ function unproject(
  * @param {vec3} p ray end point.
  * @param {vec3} c center of the sphere.
  * @param {Number} r radius of the sphere.
- * @returns {vec3} intersection point.
+ * @returns {vec3|null} intersection point or null, if there is no intersection.
  * @see {@link https://en.wikipedia.org/wiki/Line–sphere_intersection Line–sphere intersection}
  */
 function lineSphereIntersection(o, p, c, r) {
@@ -1626,11 +1640,11 @@ function lineSphereIntersection(o, p, c, r) {
   const a = vec3.dot(u, oc);
   const b = vec3.dot(oc, oc); // ||oc||^2
   const delta = a * a - b + r * r;
-  const sqrt_delta = Math.sqrt(delta);
-  const d1 = -a + sqrt_delta;
-  const d2 = -a - sqrt_delta;
   let dist;
   if (delta > 0) {
+    const sqrt_delta = Math.sqrt(delta);
+    const d1 = -a + sqrt_delta;
+    const d2 = -a - sqrt_delta;
     dist = Math.min(d1, d2);
   } else if (delta == 0) {
     dist = -a;
@@ -1682,6 +1696,64 @@ function zoomIn() {
  */
 function zoomOut() {
   handleKeyPress(createEvent("ArrowUp"));
+}
+
+/**
+ * Creates a ray through the pixel at (x, y)
+ * on the canvas, unprojects it, and returns its intersection
+ * against the sphere of radius 1 centered at the origin (0, 0, 0).
+ * @param {Number} x pixel x coordinate.
+ * @param {Number} y pixel y coordinate.
+ * @returns {vec3|null} intersection point in world coordinates or null if no intersection.
+ */
+function pixelRayIntersection(x, y) {
+  const viewport = gl.getParameter(gl.VIEWPORT);
+  y = viewport[3] - y;
+
+  // ray origin in world coordinates
+  const o = unproject(
+    [],
+    vec3.fromValues(x, y, 0),
+    getModelMatrix(),
+    viewMatrix,
+    projection,
+    viewport,
+  );
+
+  // ray end point in world coordinates
+  const p = unproject(
+    [],
+    vec3.fromValues(x, y, 1),
+    getModelMatrix(),
+    viewMatrix,
+    projection,
+    viewport,
+  );
+
+  return lineSphereIntersection(o, p, [0, 0, 0], 1);
+}
+
+/**
+ * Updates the current meridian based on the cursor position.
+ * It calculates the intersection of the pixel ray with the sphere
+ * and converts the intersection point to spherical coordinates.
+ * If the intersection exists, it updates the {@link currentMeridian} variable
+ * and displays the coordinates in the {@link canvastip} element.
+ */
+function updateCurrentMeridian() {
+  const intersection = pixelRayIntersection(cursorPosition.x, cursorPosition.y);
+  if (intersection) {
+    const uv = cartesian2Spherical(intersection);
+    const gcs = spherical2gcs(uv);
+    currentMeridian = gcs;
+    if (selector.tooltip) {
+      canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
+                ${gcs.latitude.toFixed(3)})`;
+      canvastip.style.display = "block";
+    }
+  } else {
+    currentMeridian = null;
+  }
 }
 
 /**
@@ -2013,32 +2085,9 @@ function addListeners() {
       canvastip.style.display = "none";
     } else {
       const x = event.offsetX;
-      let y = event.offsetY;
-      y = event.target.height - y;
-
-      const viewport = gl.getParameter(gl.VIEWPORT);
-
-      // ray origin in world coordinates
-      const o = unproject(
-        [],
-        vec3.fromValues(x, y, 0),
-        getModelMatrix(),
-        viewMatrix,
-        projection,
-        viewport,
-      );
-
-      // ray end point in world coordinates
-      const p = unproject(
-        [],
-        vec3.fromValues(x, y, 1),
-        getModelMatrix(),
-        viewMatrix,
-        projection,
-        viewport,
-      );
-
-      const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
+      const y = event.offsetY;
+      cursorPosition = { x, y };
+      const intersection = pixelRayIntersection(x, y);
       if (!intersection) {
         canvastip.innerHTML = "";
         canvastip.style.display = "none";
@@ -2048,7 +2097,7 @@ function addListeners() {
       const uv = cartesian2Spherical(intersection);
       const gcs = spherical2gcs(uv);
 
-      canvastip.style.top = `${event.offsetY + 15}px`;
+      canvastip.style.top = `${y + 15}px`;
       canvastip.style.left = `${x}px`;
       // GCS coordinates
       canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
@@ -2083,33 +2132,8 @@ function addListeners() {
       return; // ignore if moving
     }
 
-    let x = event.offsetX;
-    let y = event.offsetY;
-    y = event.target.height - y;
-
-    const viewport = gl.getParameter(gl.VIEWPORT);
-
-    // ray origin in world coordinates
-    const o = unproject(
-      [],
-      vec3.fromValues(x, y, 0),
-      getModelMatrix(),
-      viewMatrix,
-      projection,
-      viewport,
-    );
-
-    // ray end point in world coordinates
-    const p = unproject(
-      [],
-      vec3.fromValues(x, y, 1),
-      getModelMatrix(),
-      viewMatrix,
-      projection,
-      viewport,
-    );
-
-    const intersection = lineSphereIntersection(o, p, [0, 0, 0], 1);
+    // get the intersection point on the sphere
+    const intersection = pixelRayIntersection(event.offsetX, event.offsetY);
     if (intersection) {
       const uv = cartesian2Spherical(intersection);
       const unknown = gpsCoordinates["Unknown"];
@@ -3084,15 +3108,13 @@ function meridianPerpVec(longitude) {
 }
 
 /**
- * Returns a rotation matrix around the vector perpendicular to the meridian
- * at the given longitude, by the given increment.
+ * Returns a rotation matrix around the vector perpendicular to the
+ * {@link currentMeridian current meridian}, by the given increment.
  * @param {Number} increment angle (in radians) to rotate around.
  * @returns {mat4} a rotation matrix.
  */
 function getRotationMatrix(increment) {
-  const perp = meridianPerpVec(
-    gpsCoordinates ? gpsCoordinates[currentLocation].longitude : 0,
-  );
+  const perp = meridianPerpVec(currentMeridian ? currentMeridian.longitude : 0);
   return mat4.fromRotation([], increment, perp);
 }
 
@@ -3154,8 +3176,10 @@ const animate = (() => {
       requestID = 0;
     }
     if (!selector.paused) {
+      if (axis !== "W") updateCurrentMeridian();
+
       const rotationMatrix =
-        axis == "W" ? getRotationMatrix(increment) : rotMatrix[axis];
+        axis === "W" ? getRotationMatrix(increment) : rotMatrix[axis];
 
       if (selector.intrinsic) {
         // intrinsic rotation - multiply on the right
