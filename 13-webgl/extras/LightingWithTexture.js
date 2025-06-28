@@ -1739,13 +1739,18 @@ function pixelRayIntersection(x, y) {
  * and converts the intersection point to spherical coordinates.
  * If the intersection exists, it updates the {@link currentMeridian} variable
  * and displays the coordinates in the {@link canvastip} element.
+ * @param {Boolean} setCurrentMeridian if true, updates the currentMeridian variable.
+ * @see {@link pixelRayIntersection pixelRayIntersection()}
+ *
  */
-function updateCurrentMeridian() {
+function updateCurrentMeridian(setCurrentMeridian = true) {
   const intersection = pixelRayIntersection(cursorPosition.x, cursorPosition.y);
   if (intersection) {
     const uv = cartesian2Spherical(intersection);
     const gcs = spherical2gcs(uv);
-    currentMeridian = gcs;
+    if (setCurrentMeridian) {
+      currentMeridian = gcs;
+    }
     if (selector.tooltip) {
       canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
                 ${gcs.latitude.toFixed(3)})`;
@@ -3183,7 +3188,7 @@ const animate = (() => {
       requestID = 0;
     }
     if (!selector.paused) {
-      updateCurrentMeridian();
+      updateCurrentMeridian(false);
 
       const rotationMatrix =
         axis === "W" ? getRotationMatrix(increment) : rotMatrix[axis];
