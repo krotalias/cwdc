@@ -3108,13 +3108,20 @@ function meridianPerpVec(longitude) {
 }
 
 /**
- * Returns a rotation matrix around the vector perpendicular to the
- * {@link currentMeridian current meridian}, by the given increment.
+ * <p>Returns a rotation matrix around the vector perpendicular to the
+ * {@link currentMeridian current meridian}, by the given increment.</p>
+ * Ensure longitude is in [0,180) range,
+ * so that the perpendicular vector does not change direction
+ * if longitude is the western hemisphere.
  * @param {Number} increment angle (in radians) to rotate around.
  * @returns {mat4} a rotation matrix.
  */
 function getRotationMatrix(increment) {
-  const perp = meridianPerpVec(currentMeridian ? currentMeridian.longitude : 0);
+  let longitude = currentMeridian?.longitude || 0;
+  if (longitude < 0) {
+    longitude += 180;
+  }
+  const perp = meridianPerpVec(longitude);
   return mat4.fromRotation([], increment, perp);
 }
 
@@ -3176,7 +3183,7 @@ const animate = (() => {
       requestID = 0;
     }
     if (!selector.paused) {
-      if (axis !== "W") updateCurrentMeridian();
+      updateCurrentMeridian();
 
       const rotationMatrix =
         axis === "W" ? getRotationMatrix(increment) : rotMatrix[axis];
