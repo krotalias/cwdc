@@ -1153,7 +1153,16 @@ const handleKeyPress = ((event) => {
         canvas.style.cursor = "crosshair";
         if (axis == "W") {
           canvas.style.cursor = "wait";
-          updateCurrentMeridian();
+          if (isTouchDevice()) {
+            const location = gpsCoordinates[currentLocation];
+            currentMeridian = {
+              longitude: location.longitude,
+              latitude: location.latitude,
+            };
+            handleKeyPress(createEvent("j"));
+          } else {
+            updateCurrentMeridian();
+          }
         }
         selector.paused = false;
         document.getElementById(axis).checked = true;
@@ -1790,11 +1799,12 @@ const isTouchDevice = () => {
 };
 
 /**
- * Updates the current meridian based on the cursor position.
- * It calculates the intersection of the pixel ray with the sphere
+ * <p>Updates the {@link currentMeridian current meridian} based on the {@link cursorPosition cursor position}.</p>
+ * It calculates the {@link pixelRayIntersection intersection} of the pixel ray with the sphere
  * and converts the intersection point to spherical coordinates.
  * If the intersection exists, it updates the {@link currentMeridian} variable
  * and displays the coordinates in the {@link canvastip} element.
+ * <p>Note that there is no cursor position on {@link isTouchDevice touch devices}.</p>
  * @param {Boolean} setCurrentMeridian if true, updates the currentMeridian variable.
  * @see {@link pixelRayIntersection pixelRayIntersection()}
  *
@@ -3179,14 +3189,9 @@ function meridianPerpVec(longitude) {
  * @returns {mat4} a rotation matrix.
  */
 function getRotationMatrix(increment) {
-  let longitude;
-  if (isTouchDevice()) {
-    longitude = gpsCoordinates[currentLocation]?.longitude || 0;
-  } else {
-    longitude = currentMeridian?.longitude || 0;
-    if (longitude < 0) {
-      longitude += 180;
-    }
+  let longitude = currentMeridian?.longitude || 0;
+  if (longitude < 0) {
+    longitude += 180;
   }
   const perp = meridianPerpVec(longitude);
   return mat4.fromRotation([], increment, perp);
@@ -3250,7 +3255,7 @@ const animate = (() => {
       requestID = 0;
     }
     if (!selector.paused) {
-      updateCurrentMeridian(false);
+      if (!isTouchDevice) updateCurrentMeridian(false);
 
       const rotationMatrix =
         axis === "W" ? getRotationMatrix(increment) : rotMatrix[axis];
