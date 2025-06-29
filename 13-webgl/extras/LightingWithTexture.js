@@ -1025,6 +1025,50 @@ function labelForLocation(location) {
 }
 
 /**
+ * <p>Convert from {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
+ * (longitude, latitude) to screen coordinates.</p>
+ * This function uses the {@link project WebGL projection}
+ * to convert the geographic coordinates to screen coordinates (pixels).
+ * <ul>
+ * <li>The projection can be either spherical or Mercator.</li>
+ * <li>The spherical projection is used for a globe, while the Mercator projection is used for a map.</li>
+ * </ul>
+ * @param {Object<longitude:Number, latitude<Number>>} location gcs coordinates.
+ * @param {Boolean} [mercatorProjection=false] whether to use Mercator projection.
+ * @return {Coordinates}
+ * @property {Array<{x:Number,y:Number}>} Coordinates.screen screen coordinates.
+ * @property {vec3} Coordinates.cartesian cartesian coordinates.
+ * @property {Object<{s:Number,t:Number}>} Coordinates.uv spherical coordinates in UV space.
+ * @property {Array<Number>} Coordinates.viewport viewport dimensions.
+ */
+function gcs2Screen(location, mercatorProjection = false) {
+  // Convert geographic coordinates to UV coordinates
+  // and then to screen coordinates.
+  // The UV coordinates are in the range [0, 1].
+  const uv = gcs2UV(location);
+  const pt = spherical2Cartesian(...UV2Spherical(uv), 1);
+  if (mercatorProjection) {
+    // mercator projection
+    uv.t = spherical2Mercator(uv.s, uv.t).y;
+  }
+  const viewport = gl.getParameter(gl.VIEWPORT);
+  const [x, y] = project(
+    [],
+    pt,
+    getModelMatrix(),
+    viewMatrix,
+    projection,
+    viewport,
+  );
+  return {
+    screen: [x, y],
+    cartesian: pt,
+    uv: uv,
+    viewport: viewport,
+  };
+}
+
+/**
  * <p>Closure for keydown events.</p>
  * Chooses a {@link theModel model} and which {@link axis} to rotate around.<br>
  * The {@link numSubdivisions subdivision level} is {@link maxSubdivisions limited}
@@ -1045,7 +1089,7 @@ const handleKeyPress = ((event) => {
   let tri;
   let n, inc;
   let modelM = mat4.identity([]); // model matrix
-  let forwardVector = vec3.fromValues(0, 0, 1);
+  let forwardVector = vec3.fromValues(0, 0, 1); // phong highlight
   const poly = {
     d: 0,
     i: 1,
@@ -1106,7 +1150,9 @@ const handleKeyPress = ((event) => {
       case "z":
       case "W":
         axis = ch;
+        canvas.style.cursor = "crosshair";
         if (axis == "W") {
+          canvas.style.cursor = "wait";
           updateCurrentMeridian();
         }
         selector.paused = false;
@@ -1332,24 +1378,17 @@ const handleKeyPress = ((event) => {
         labelForLocation(currentLocation);
 
         if (selector.tooltip) {
-          // location name
-          const uv = gcs2UV(gpsCoordinates[currentLocation]);
-          const country = gpsCoordinates[currentLocation].country || "";
-          const remarkable = gpsCoordinates[currentLocation].remarkable || "";
-          const pt = spherical2Cartesian(...UV2Spherical(uv), 1);
-          if (mercator) {
-            // mercator projection
-            uv.t = spherical2Mercator(uv.s, uv.t).y;
-          }
-          const viewport = gl.getParameter(gl.VIEWPORT);
-          let [x, y] = project(
-            [],
-            pt,
-            getModelMatrix(),
-            viewMatrix,
-            projection,
-            viewport,
-          );
+          const location = gpsCoordinates[currentLocation];
+          const coordinates = gcs2Screen(location, mercator);
+
+          // current location properties
+          const country = location.country || "";
+          const remarkable = location.remarkable || "";
+
+          let [x, y] = coordinates.screen;
+          const pt = coordinates.cartesian;
+          const uv = coordinates.uv;
+          const viewport = coordinates.viewport;
 
           if (true) {
             const rotationMatrix = rotateModelTowardsCamera(pt, forwardVector);
@@ -1734,6 +1773,23 @@ function pixelRayIntersection(x, y) {
 }
 
 /**
+ * <p>Checks if the device is a touch device.</p>
+ * It checks for the presence of touch events in the window object
+ * and the maximum number of touch points supported by the device.
+ * This is useful for determining if the application should use touch-specific
+ * features or fall back to mouse events.
+ * @returns {Boolean} true if the device is a touch device, false otherwise.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/
+ */
+const isTouchDevice = () => {
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0
+  );
+};
+
+/**
  * Updates the current meridian based on the cursor position.
  * It calculates the intersection of the pixel ray with the sphere
  * and converts the intersection point to spherical coordinates.
@@ -2084,6 +2140,7 @@ function addListeners() {
       return;
     }
 
+    canvas.style.cursor = "crosshair";
     // tooltip on mouse hoover
     if (moving || !selector.tooltip) {
       canvastip.innerHTML = "";
@@ -3122,9 +3179,14 @@ function meridianPerpVec(longitude) {
  * @returns {mat4} a rotation matrix.
  */
 function getRotationMatrix(increment) {
-  let longitude = currentMeridian?.longitude || 0;
-  if (longitude < 0) {
-    longitude += 180;
+  let longitude;
+  if (isTouchDevice()) {
+    longitude = gpsCoordinates[currentLocation]?.longitude || 0;
+  } else {
+    longitude = currentMeridian?.longitude || 0;
+    if (longitude < 0) {
+      longitude += 180;
+    }
   }
   const perp = meridianPerpVec(longitude);
   return mat4.fromRotation([], increment, perp);
