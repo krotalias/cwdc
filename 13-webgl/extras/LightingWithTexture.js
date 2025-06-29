@@ -3255,7 +3255,7 @@ const animate = (() => {
       requestID = 0;
     }
     if (!selector.paused) {
-      if (!isTouchDevice) updateCurrentMeridian(false);
+      if (!isTouchDevice()) updateCurrentMeridian(false);
 
       const rotationMatrix =
         axis === "W" ? getRotationMatrix(increment) : rotMatrix[axis];
