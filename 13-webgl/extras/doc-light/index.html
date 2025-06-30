@@ -261,8 +261,14 @@ on the texture image (map) and on the 3D model.
      by <a href="global.html#lineSphereIntersection">solving</a> a <a href="https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection">second-degree equation</a>.</li>
  <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
- <li>We select a position on the globe by <a href="global.html#event:pointerdown-theCanvas">clicking</a> the right mouse button in the WebGL canvas.</li>
-
+ <li>We select a position on the globe by <a href="global.html#event:pointerdown-theCanvas">clicking</a> a mouse button in the WebGL canvas.</li>
+ <li>To display the coordinates of the pointer location while the globe is spinning, we need to keep track of the
+    <a href="global.html#cursorPosition">cursor position</a>
+    and then shoot a ray through this position to find its <a href="global.html#pixelRayIntersection">intersection</a> on the globe.</li>
+ <li>Because a <a href="global.html#isTouchDevice">touch device</a> does not have a cursor position, we can use the Phong <a href="global.html#phongHighlight">highlight</a>
+     position on the globe as a cursor.
+     To do this, we need to know the initial position of the highlight in world coordinates
+     (0, 0, 1)—or in spherical coordinates (-90, 0)—and then transform it into pixel coordinates.</li>
 <li>
  To exhibit a location name in 3D, it is necessary to <a href="global.html#project">transform</a> its
 <a href="https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system">GCS</a> coordinates

@@ -195,12 +195,19 @@
  *     by casting a ray, {@link unproject unprojecting} it, and finding its closest
  *     (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
  * <ul>
- *  <li>The easiest way is shooting the ray from the mouse position and intersecting it against the surface of an implicit sphere
+ *  <li>The easiest way is shooting the ray from the mouse position and {@link pixelRayIntersection intersecting}
+ *      it against the surface of an implicit sphere
  *      by {@link lineSphereIntersection solving} a {@link https://en.wikipedia.org/wiki/Line–sphere_intersection second-degree equation}.</li>
  *  <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
  *      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
- *  <li>We select a position on the globe by {@link event:pointerdown-theCanvas clicking} the right mouse button in the WebGL canvas.</li>
- *
+ *  <li>We select a position on the globe by {@link event:pointerdown-theCanvas clicking} a mouse button in the WebGL canvas.</li>
+ *  <li>To display the coordinates of the pointer location while the globe is spinning, we need to keep track of the
+ *     {@link cursorPosition cursor position}
+ *     and then shoot a ray through this position to find its {@link pixelRayIntersection intersection} on the globe.</li>
+ *  <li>Because a {@link isTouchDevice touch device} does not have a cursor position, we can use the Phong {@link phongHighlight highlight}
+ *      position on the globe as a cursor.
+ *      To do this, we need to know the initial position of the highlight in world coordinates
+ *      (0, 0, 1)—or in spherical coordinates (-90, 0)—and then transform it into pixel coordinates.</li>
  * <li>
  *  To exhibit a location name in 3D, it is necessary to {@link project transform} its
  * {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system GCS} coordinates
