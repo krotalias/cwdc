@@ -201,13 +201,13 @@
  *  <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
  *      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
  *  <li>We select a position on the globe by {@link event:pointerdown-theCanvas clicking} a mouse button in the WebGL canvas.</li>
- *  <li>To display the coordinates of the pointer location while the globe is spinning, we need to keep track of the
+ *  <li>To display the GCS coordinates of the pointer while the globe is spinning, we need to keep track of the
  *     {@link cursorPosition cursor position}
  *     and then shoot a ray through this position to find its {@link pixelRayIntersection intersection} on the globe.</li>
  *  <li>Because a {@link isTouchDevice touch device} does not have a cursor position, we can use the Phong {@link phongHighlight highlight}
  *      position on the globe as a cursor.
  *      To do this, we need to know the initial position of the highlight in world coordinates
- *      (0, 0, 1)—or in spherical coordinates (-90, 0)—and then transform it into pixel coordinates.</li>
+ *      (0, 0, 1)—or in GCS coordinates (-90°, 0°)—and then transform it into pixel coordinates.</li>
  * <li>
  *  To exhibit a location name in 3D, it is necessary to {@link project transform} its
  * {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system GCS} coordinates
@@ -505,8 +505,8 @@ function haversine(gcs1, gcs2) {
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  let m = R * c; // distance in meters
-  let km = m / 1000.0; // distance in kilometers
+  const m = R * c; // distance in meters
+  const km = m / 1000.0; // distance in kilometers
 
   return { m, km };
 }
@@ -1030,6 +1030,15 @@ function getChar(event) {
 }
 
 /**
+ * Cleans the location name by removing
+ * the text in parentheses and the parentheses themselves.
+ * @param {String} location name of the location.
+ * @return {String} cleaned location name.
+ */
+const cleanLocation = (location) =>
+  location.replace(/\(.*?\)/g, "").replace("_", " ");
+
+/**
  * Updates the label (latitude, longitude and secant)
  * of the given {@link gpsCoordinates location}.
  * @param {String} location name of the location.
@@ -1038,9 +1047,13 @@ function labelForLocation(location) {
   const lat = gpsCoordinates[location].latitude;
   const lon = gpsCoordinates[location].longitude;
   const sec = 1 / Math.cos(toRadian(lat));
+  const distance = haversine(
+    gpsCoordinates[location],
+    gpsCoordinates["Rio"],
+  ).km;
   document.querySelector('label[for="equator"]').innerHTML =
-    `<i>${currentLocation}</i> (lat: ${lat.toFixed(5)},
-    long: ${lon.toFixed(5)}, sec(lat): ${sec.toFixed(2)})`;
+    `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)},
+    long: ${lon.toFixed(5)}, sec(lat): ${sec.toFixed(2)}, Rio: ${distance.toFixed(0)}km)`;
 }
 
 /**
@@ -1107,7 +1120,7 @@ const handleKeyPress = ((event) => {
   let subPoly = 0;
   let tri;
   let n, inc;
-  let modelM = mat4.identity([]); // model matrix
+  const modelM = mat4.identity([]); // model matrix
   let forwardVector = vec3.fromValues(0, 0, 1); // phong highlight
   const poly = {
     d: 0,
@@ -1433,7 +1446,7 @@ const handleKeyPress = ((event) => {
           y = textimg.height - y;
           tooltip.style.top = `${y + 5}px`;
           tooltip.style.left = `${x + 5}px`;
-          tooltip.innerHTML = `${currentLocation}`;
+          tooltip.innerHTML = `${cleanLocation(currentLocation)}`;
           tooltip.style.display = "block";
         } else {
           tooltip.style.display = "none";
