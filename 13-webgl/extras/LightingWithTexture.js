@@ -353,6 +353,12 @@ import {
  */
 
 /**
+ * gl-matrix {@link https://glmatrix.net/docs/module-vec2.html 2 Dimensional Vector}.
+ * @name vec2
+ * @type {glMatrix.vec2}
+ */
+
+/**
  * gl-matrix {@link https://glmatrix.net/docs/module-vec3.html 3 Dimensional Vector}.
  * @name vec3
  * @type {glMatrix.vec3}
@@ -611,6 +617,12 @@ let cursorPosition = {
  * @type {Object<{longitude:Number, latitude:Number}>}
  */
 let currentMeridian = null;
+
+/**
+ * Phong highlight position on screen.
+ * @type {vec2}
+ */
+const phongHighlight = [];
 
 /**
  * Display status of the model mesh, texture, axes and paused animation: on/off.
@@ -1154,14 +1166,9 @@ const handleKeyPress = ((event) => {
         if (axis == "W") {
           canvas.style.cursor = "wait";
           if (isTouchDevice()) {
-            const location = gpsCoordinates[currentLocation];
-            currentMeridian = {
-              longitude: location.longitude,
-              latitude: location.latitude,
-            };
-            handleKeyPress(createEvent("j"));
+            updateCurrentMeridian(...phongHighlight);
           } else {
-            updateCurrentMeridian();
+            updateCurrentMeridian(cursorPosition.x, cursorPosition.y);
           }
         }
         selector.paused = false;
@@ -1799,18 +1806,19 @@ const isTouchDevice = () => {
 };
 
 /**
- * <p>Updates the {@link currentMeridian current meridian} based on the {@link cursorPosition cursor position}.</p>
+ * <p>Updates the {@link currentMeridian current meridian} based on the given pixel position.</p>
  * It calculates the {@link pixelRayIntersection intersection} of the pixel ray with the sphere
  * and converts the intersection point to spherical coordinates.
  * If the intersection exists, it updates the {@link currentMeridian} variable
  * and displays the coordinates in the {@link canvastip} element.
  * <p>Note that there is no cursor position on {@link isTouchDevice touch devices}.</p>
+ * @param {Number} x pixel x coordinate.
+ * @param {Number} y pixel y coordinate.
  * @param {Boolean} setCurrentMeridian if true, updates the currentMeridian variable.
  * @see {@link pixelRayIntersection pixelRayIntersection()}
- *
  */
-function updateCurrentMeridian(setCurrentMeridian = true) {
-  const intersection = pixelRayIntersection(cursorPosition.x, cursorPosition.y);
+function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
+  const intersection = pixelRayIntersection(x, y);
   if (intersection) {
     const uv = cartesian2Spherical(intersection);
     const gcs = spherical2gcs(uv);
@@ -3028,6 +3036,10 @@ function startForReal(image) {
   selectModel();
   addListeners();
 
+  // Phong highlight position: (0,0,1) = {-90,0} in GCS
+  const coordinates = gcs2Screen({ longitude: -90, latitude: 0 }, false);
+  phongHighlight.push(...coordinates.screen);
+
   // start drawing!
   animate();
 }
@@ -3255,7 +3267,12 @@ const animate = (() => {
       requestID = 0;
     }
     if (!selector.paused) {
-      if (!isTouchDevice()) updateCurrentMeridian(false);
+      if (!isTouchDevice()) {
+        updateCurrentMeridian(cursorPosition.x, cursorPosition.y, false);
+      } else {
+        // on touch devices, use the phong highlight position
+        updateCurrentMeridian(...phongHighlight);
+      }
 
       const rotationMatrix =
         axis === "W" ? getRotationMatrix(increment) : rotMatrix[axis];
