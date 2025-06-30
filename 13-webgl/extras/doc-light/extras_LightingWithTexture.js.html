@@ -1080,8 +1080,8 @@ function labelForLocation(location) {
     gpsCoordinates["Rio"],
   ).km;
   document.querySelector('label[for="equator"]').innerHTML =
-    `&lt;i>${cleanLocation(location)}&lt;/i> (lat: ${lat.toFixed(5)},
-    long: ${lon.toFixed(5)}, sec(lat): ${sec.toFixed(2)}, Rio: ${distance.toFixed(0)}km)`;
+    `&lt;i>${cleanLocation(location)}&lt;/i> (lat: ${lat.toFixed(5)}°,
+    lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(2)}&lt;br>Distance to Rio: ${distance.toFixed(0)} km`;
 }
 
 /**
