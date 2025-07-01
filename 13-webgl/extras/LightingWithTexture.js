@@ -1054,7 +1054,9 @@ function labelForLocation(location) {
   ).km;
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)}°,
-    lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(2)}<br>Distance to Rio: ${distance.toFixed(0)} km`;
+    lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(
+      2,
+    )}<br>Distance to Rio: ${distance.toFixed(0)} km`;
 }
 
 /**
@@ -2257,7 +2259,7 @@ function addListeners() {
         spherical2gcs(uv));
       currentLocation = cities[cities.length - 2];
     }
-    handleKeyPress(createEvent("g"));
+    handleKeyPress(createEvent(event.offsetX > canvas.width / 2 ? "g" : "G"));
   });
 
   /**

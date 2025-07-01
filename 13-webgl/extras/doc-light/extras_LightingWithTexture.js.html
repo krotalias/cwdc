@@ -2285,7 +2285,7 @@ function addListeners() {
         spherical2gcs(uv));
       currentLocation = cities[cities.length - 2];
     }
-    handleKeyPress(createEvent("g"));
+    handleKeyPress(createEvent(event.offsetX > canvas.width / 2 ? "g" : "G"));
   });
 
   /**
