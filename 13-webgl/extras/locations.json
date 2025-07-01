@@ -17,11 +17,29 @@
         "latitude": 42.4223439,
         "longitude": -3.6800644
     },
+    "Dublin": {
+        "country": "Ireland",
+        "remarkable": "Olaf the White, 806-874",
+        "latitude": 53.33306,
+        "longitude": -6.24889
+    },
     "Lisbon (Olisipo)": {
         "country": "Portugal",
         "remarkable": "John VI of Portugal, 1767-1826",
         "latitude": 38.7077507,
         "longitude": -9.1365919
+    },
+    "Reykjavik": {
+        "country": "Iceland",
+        "remarkable": "Ingólfur Arnarson, 849-910",
+        "latitude": 64.145981,
+        "longitude": -21.9422367
+    },
+    "Fernando de Noronha": {
+        "country": "Brazil",
+        "remarkable": "Fernão de Noronha, 1470-1540",
+        "latitude": -3.853808,
+        "longitude": -32.423786
     },
     "Recife": {
         "country": "Brazil",
@@ -35,6 +53,12 @@
         "latitude": -22.9068,
         "longitude": -43.1729
     },
+    "Nuuk": {
+        "country": "Greenland",
+        "remarkable": "Hans Egede, 1686-1758",
+        "latitude": 64.166666,
+        "longitude": -51.7333304
+    },
     "Caracas": {
         "country": "Venezuela",
         "remarkable": "Simón Bolívar, 1783-1830",
@@ -47,11 +71,23 @@
         "latitude": 40.7128,
         "longitude": -74.006
     },
+    "Seymour": {
+        "country": "Galapagos (Ecuador)",
+        "remarkable": "Charles Darwin, 1809-1882",
+        "latitude": -0.3915,
+        "longitude": -90.2841
+    },
     "Ames": {
         "country": "United States",
         "remarkable": "Peter Schickele, 1935-2024",
         "latitude": 42.034534,
         "longitude": -93.620369
+    },
+    "Mexico City": {
+        "country": "Mexico",
+        "remarkable": "Benito Juárez, 1806-1872",
+        "latitude": 19.432608,
+        "longitude": -99.133209
     },
     "Calgary": {
         "country": "Canada",
@@ -65,11 +101,23 @@
         "latitude": 34.0990995,
         "longitude": -118.1085554
     },
+    "Anchorage": {
+        "country": "United States",
+        "remarkable": "Mottrom Dulany Ball, 1835-1887",
+        "latitude": 61.284,
+        "longitude": -149.923
+    },
     "Honolulu": {
         "country": "United States",
         "remarkable": "Barack Obama, 1961",
         "latitude": 21.304547,
         "longitude": -157.855676
+    },
+    "Wellington": {
+        "country": "New Zealand",
+        "remarkable": "James Cook, 1728-1779",
+        "latitude": -41.2887953,
+        "longitude": 174.7772114
     },
     "Sydney": {
         "country": "Australia",
