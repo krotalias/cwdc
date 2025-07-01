@@ -174,7 +174,7 @@
  * Your task is to pick a point in the texture image (using the mouse or any pointer device) and display its location
  * on the texture image (map) and on the 3D model.
  * <ul>
- *   <li>To do this, you need to convert the pixel coordinates of the mouse pointer into texture coordinates (u, v), then
+ *   <li>To do this, you need to convert the screen coordinates of the mouse pointer into texture coordinates (u, v), then
  *   into {@link spherical2gcs GCS} coordinates (longitude, latitude) using the {@link currentLocation}, and
  *   optionally {@link module:polyhedron.spherical2Mercator transforming} them to Mercator coordinates.</li>
  *   <li>To draw the lines, use the {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo lineTo()} from
@@ -207,7 +207,7 @@
  *  <li>Because a {@link isTouchDevice touch device} does not have a cursor position, we can use the Phong {@link phongHighlight highlight}
  *      position on the globe as a cursor.
  *      To do this, we need to know the initial position of the highlight in world coordinates
- *      (0, 0, 1)—or in GCS coordinates (-90°, 0°)—and then transform it into pixel coordinates.</li>
+ *      (0, 0, 1)—or in GCS coordinates (-90°, 0°)—and then transform it into {@link gcs2Screen screen coordinates}.</li>
  * <li>
  *  To exhibit a location name in 3D, it is necessary to {@link project transform} its
  * {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system GCS} coordinates
@@ -423,6 +423,7 @@ const textures = document.getElementById("textures");
 const models = document.getElementById("models");
 const textimg = document.getElementById("textimg");
 const tooltip = document.getElementById("tooltip");
+const tip = document.getElementById("tip");
 const php = document.getElementById("php");
 
 /**
@@ -643,7 +644,7 @@ const selector = {
   intrinsic: document.getElementById("intrinsic").checked,
   equator: document.getElementById("equator").checked,
   hws: document.getElementById("hws").checked,
-  tooltip: true,
+  tooltip: document.getElementById("tip").checked,
 };
 
 /**
@@ -1121,7 +1122,7 @@ const handleKeyPress = ((event) => {
   let tri;
   let n, inc;
   const modelM = mat4.identity([]); // model matrix
-  let forwardVector = vec3.fromValues(0, 0, 1); // phong highlight
+  const forwardVector = vec3.fromValues(0, 0, 1); // phong highlight
   const poly = {
     d: 0,
     i: 1,
@@ -1428,7 +1429,7 @@ const handleKeyPress = ((event) => {
 
           if (true) {
             const rotationMatrix = rotateModelTowardsCamera(pt, forwardVector);
-            forwardVector = pt;
+            vec3.copy(forwardVector, pt);
             mat4.multiply(modelM, modelM, rotationMatrix);
             rotator.setViewMatrix(modelM);
             [x, y] = project([], pt, modelM, viewMatrix, projection, viewport);
@@ -1456,9 +1457,13 @@ const handleKeyPress = ((event) => {
         break;
       case "h":
         selector.tooltip = !selector.tooltip;
+        document.getElementById("tip").checked = selector.tooltip;
         if (!selector.tooltip) {
           tooltip.style.display = "none";
           canvastip.style.display = "none";
+        } else {
+          tooltip.style.display = "block";
+          canvastip.style.display = "block";
         }
         break;
       default:
@@ -1883,6 +1888,17 @@ function addListeners() {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
+
+  /**
+   * @summary Executed when the tooltip checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeTooltipcheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  tip.addEventListener("change", (event) => handleKeyPress(createEvent("h")));
 
   /**
    * @summary Executed when the equator checkbox is checked or unchecked.

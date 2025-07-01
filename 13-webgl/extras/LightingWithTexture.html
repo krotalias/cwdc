@@ -110,7 +110,7 @@ when using mipmap:
             >
                 Please use a browser that supports "canvas"
             </canvas>
-            <div id="canvastip" role="tooltip">Hi! I'm a tooltip.</div>
+            <div id="canvastip" role="tooltip"></div>
         </div>
 
         <div id="interface">
@@ -120,9 +120,7 @@ when using mipmap:
                     <div class="imgcontainer">
                         <img id="textimg" src="" width="256" />
                         <canvas id="canvasimg" width="256"></canvas>
-                        <div id="tooltip" role="tooltip">
-                            Hi! I'm a tooltip.
-                        </div>
+                        <div id="tooltip" role="tooltip"></div>
                     </div>
                     <figcaption id="figc"></figcaption>
                 </figure>
@@ -322,6 +320,17 @@ when using mipmap:
                             value="hws"
                         />
                         <label for="hws">hws models</label><br />
+                    </li>
+
+                    <li>
+                        <input
+                            type="checkbox"
+                            id="tip"
+                            name="tip"
+                            checked
+                            value="tip"
+                        />
+                        <label for="tip">Tooltip</label>
                     </li>
                 </ul>
 
