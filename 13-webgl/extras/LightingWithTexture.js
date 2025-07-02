@@ -624,7 +624,7 @@ let cursorPosition = {
  * Current meridian onto globe.
  * @type {Object<{longitude:Number, latitude:Number}>}
  */
-let currentMeridian = null;
+const currentMeridian = { longitude: 0, latitude: 0 };
 
 /**
  * Phong highlight position on screen.
@@ -1850,15 +1850,14 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
     const uv = cartesian2Spherical(intersection);
     const gcs = spherical2gcs(uv);
     if (setCurrentMeridian) {
-      currentMeridian = gcs;
+      currentMeridian.longitude = gcs.longitude;
+      currentMeridian.latitude = gcs.latitude;
     }
     if (selector.tooltip) {
       canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
                 ${gcs.latitude.toFixed(3)})`;
       canvastip.style.display = "block";
     }
-  } else {
-    currentMeridian = null;
   }
 }
 
@@ -2252,14 +2251,19 @@ function addListeners() {
 
     // get the intersection point on the sphere
     const intersection = pixelRayIntersection(event.offsetX, event.offsetY);
+    // increment or decrement based on the side of the canvas
+    // where the pointer was clicked.
+    const ch = event.offsetX > canvas.width / 2 ? "g" : "G";
     if (intersection) {
       const uv = cartesian2Spherical(intersection);
       const unknown = gpsCoordinates["Unknown"];
       ({ latitude: unknown.latitude, longitude: unknown.longitude } =
         spherical2gcs(uv));
-      currentLocation = cities[cities.length - 2];
+
+      const position = ch === "g" ? cities.length - 2 : 0;
+      currentLocation = cities[position];
     }
-    handleKeyPress(createEvent(event.offsetX > canvas.width / 2 ? "g" : "G"));
+    handleKeyPress(createEvent(ch));
   });
 
   /**
