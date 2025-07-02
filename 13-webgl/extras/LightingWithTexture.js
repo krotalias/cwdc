@@ -1833,6 +1833,25 @@ const isTouchDevice = () => {
 };
 
 /**
+ * Format a number including a plus sign for positive numbers.
+ * @param {Number} num number.
+ * @param {Number} decimals number of digits to appear after the decimal point.
+ * @return {String} a string representing the given number using fixed-point notation.
+ */
+function formatNumberWithSign(num, decimals) {
+  let fixedString = num.toFixed(decimals);
+  const eps = 1 / decimals;
+  if (num > eps) {
+    return "+" + fixedString.padStart(decimals + 4, "0");
+  } else if (Math.abs(num) < eps) {
+    fixedString = "0";
+  } else {
+    fixedString = "–" + fixedString.substring(1).padStart(decimals + 4, "0");
+  }
+  return fixedString;
+}
+
+/**
  * <p>Updates the {@link currentMeridian current meridian} based on the given pixel position.</p>
  * It calculates the {@link pixelRayIntersection intersection} of the pixel ray with the sphere
  * and converts the intersection point to spherical coordinates.
@@ -1854,10 +1873,13 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
       currentMeridian.latitude = gcs.latitude;
     }
     if (selector.tooltip) {
-      canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
-                ${gcs.latitude.toFixed(3)})`;
+      canvastip.innerHTML = `(${formatNumberWithSign(gcs.longitude, 2)},
+                ${formatNumberWithSign(gcs.latitude, 2)})`;
       canvastip.style.display = "block";
     }
+  } else {
+    // cursor outside the globe
+    updateCurrentMeridian(...phongHighlight);
   }
 }
 
