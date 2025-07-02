@@ -1183,10 +1183,10 @@ const handleKeyPress = ((event) => {
       case "x":
       case "y":
       case "z":
-      case "W":
+      case "q":
         axis = ch;
         canvas.style.cursor = "crosshair";
-        if (axis == "W") {
+        if (axis == "q") {
           canvas.style.cursor = "wait";
           if (isTouchDevice()) {
             updateCurrentMeridian(...phongHighlight);
@@ -3339,7 +3339,7 @@ const animate = (() => {
       }
 
       const rotationMatrix =
-        axis === "W" ? getRotationMatrix(increment) : rotMatrix[axis];
+        axis === "q" ? getRotationMatrix(increment) : rotMatrix[axis];
 
       if (selector.intrinsic) {
         // intrinsic rotation - multiply on the right
