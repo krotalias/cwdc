@@ -1842,11 +1842,11 @@ function formatNumberWithSign(num, decimals) {
   let fixedString = num.toFixed(decimals);
   const eps = 1 / decimals;
   if (num > eps) {
-    return "+" + fixedString.padStart(decimals + 4, "0");
+    return `+${fixedString.padStart(decimals + 4, "0")}`;
   } else if (Math.abs(num) < eps) {
-    fixedString = "0";
+    fixedString = `0.${"0".repeat(decimals)}`;
   } else {
-    fixedString = "–" + fixedString.substring(1).padStart(decimals + 4, "0");
+    fixedString = `–${fixedString.substring(1).padStart(decimals + 4, "0")}`;
   }
   return fixedString;
 }
@@ -1879,7 +1879,7 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
     }
   } else {
     // cursor outside the globe
-    updateCurrentMeridian(...phongHighlight);
+    updateCurrentMeridian(...phongHighlight, setCurrentMeridian);
   }
 }
 
@@ -3247,7 +3247,7 @@ function newTexture(image) {
  * which is the angle from the prime meridian (0° longitude).
  * The perpendicular vector is in the xz-plane, with y = 0.
  *
- * @param {Number} longitude
+ * @param {Number} longitude meridian longitude.
  * @returns {vec3} vector perpendicular to the meridian at the given longitude.
  */
 function meridianPerpVec(longitude) {
@@ -3260,17 +3260,19 @@ function meridianPerpVec(longitude) {
  * {@link currentMeridian current meridian}, by the given increment.</p>
  * Ensure longitude is in [0,180) range,
  * so that the perpendicular vector does not change direction
- * if longitude is the western hemisphere.
+ * if longitude is in the western hemisphere.
+ * @param {mat4} out the receiving matrix.
  * @param {Number} increment angle (in radians) to rotate around.
- * @returns {mat4} a rotation matrix.
+ * @returns {mat4} out.
  */
-function getRotationMatrix(increment) {
+function meridianMatrix(out, increment) {
   let longitude = currentMeridian?.longitude || 0;
   if (longitude < 0) {
     longitude += 180;
   }
   const perp = meridianPerpVec(longitude);
-  return mat4.fromRotation([], increment, perp);
+  mat4.fromRotation(out, increment, perp);
+  return out;
 }
 
 /**
@@ -3335,11 +3337,11 @@ const animate = (() => {
         updateCurrentMeridian(cursorPosition.x, cursorPosition.y, false);
       } else {
         // on touch devices, use the phong highlight position
-        updateCurrentMeridian(...phongHighlight);
+        updateCurrentMeridian(...phongHighlight, false);
       }
 
       const rotationMatrix =
-        axis === "q" ? getRotationMatrix(increment) : rotMatrix[axis];
+        axis === "q" ? meridianMatrix([], increment) : rotMatrix[axis];
 
       if (selector.intrinsic) {
         // intrinsic rotation - multiply on the right
