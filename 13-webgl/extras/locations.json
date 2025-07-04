@@ -161,6 +161,12 @@
         "latitude": 48.540643,
         "longitude": 106.9055314
     },
+    "Sibiryak": {
+        "country": "Siberia (Russia)",
+        "remarkable": "Yermak Timofeyevich, 1532-1585",
+        "latitude": 60.0,
+        "longitude": 105.0
+    },
     "Bukittinggi": {
         "country": "Sumatra (Indonesia)",
         "remarkable": "Mohammad Hatta, 1902-1980",
@@ -274,6 +280,12 @@
         "remarkable": "Imhotep, 2592 BC",
         "latitude": 29.8544582,
         "longitude": 31.2615188
+    },
+    "Bila Tserkva": {
+        "country": "Russian Empire (Ukraine)",
+        "remarkable": "Lyudmila Pavlichenko, 1916-1974",
+        "latitude": 49.75,
+        "longitude": 30.08333
     },
     "Alexandria": {
         "country": "Egypt",
