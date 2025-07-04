@@ -131,11 +131,29 @@
         "latitude": 35.6762,
         "longitude": 139.6503
     },
+    "Hansung": {
+        "country": "Korea",
+        "remarkable": "Yi Sun-sin, 1545-1598",
+        "latitude": 37.582363,
+        "longitude": 127.010418
+    },
+    "Manila": {
+        "country": "Philippines",
+        "remarkable": "Douglas MacArthur, 1880-1964",
+        "latitude": 14.5946,
+        "longitude": 120.99501
+    },
     "Beijing": {
         "country": "China",
         "remarkable": "Mao Zedong, 1893-1976",
         "latitude": 39.916668,
         "longitude": 116.383331
+    },
+    "Saigon": {
+        "country": "Vietnam",
+        "remarkable": "Ho Chi Minh, 1890-1969",
+        "latitude": 10.8225,
+        "longitude": 106.754
     },
     "Temüjin (Khan Khentii Post)": {
         "country": "Mongolia",
@@ -143,11 +161,23 @@
         "latitude": 48.540643,
         "longitude": 106.9055314
     },
+    "Bukittinggi": {
+        "country": "Sumatra (Indonesia)",
+        "remarkable": "Mohammad Hatta, 1902-1980",
+        "latitude": -0.30907,
+        "longitude": 100.37055
+    },
     "Kolkata": {
         "country": "India",
         "remarkable": "Mother Teresa, 1910-1997",
         "latitude": 22.56263,
         "longitude": 88.36304
+    },
+    "Lumbini": {
+        "country": "Shakya Republic (Nepal)",
+        "remarkable": "Siddhartha Gautama (Buddha), 563-483 BC",
+        "latitude": 27.738826869119,
+        "longitude": 83.438634755255
     },
     "Persepolis": {
         "country": "Persia (Iran)",
