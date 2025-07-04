@@ -425,6 +425,7 @@ const textimg = document.getElementById("textimg");
 const tooltip = document.getElementById("tooltip");
 const tip = document.getElementById("tip");
 const php = document.getElementById("php");
+const closest = document.getElementById("cls");
 
 /**
  * Convert spherical coordinates to {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
@@ -1943,6 +1944,19 @@ function addListeners() {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
   tip.addEventListener("change", (event) => handleKeyPress(createEvent("h")));
+
+  /**
+   * @summary Executed when the closest element is clicked.
+   * <p>Appends an event listener for events whose type attribute value is click.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event clickClosest
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   */
+  closest.addEventListener("click", (event) =>
+    handleKeyPress(createEvent("J")),
+  );
 
   /**
    * @summary Executed when the equator checkbox is checked or unchecked.
