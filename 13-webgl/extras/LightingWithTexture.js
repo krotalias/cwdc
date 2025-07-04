@@ -1060,6 +1060,25 @@ function labelForLocation(location) {
 }
 
 /**
+ * Returns the closest site to the given GCS position (latitude, longitude).
+ * @param {Object<longitude:Number,latitude:Number>} position GCS.
+ * @return {String} closest site name.
+ */
+function closestSite(position) {
+  let minimumDistance = 50e6;
+  let closest = "";
+  for (const site of cities) {
+    if (site === "Unknown") continue;
+    const distance = haversine(position, gpsCoordinates[site]).m;
+    if (distance < minimumDistance) {
+      closest = site;
+      minimumDistance = distance;
+    }
+  }
+  return closest;
+}
+
+/**
  * <p>Convert from {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
  * (longitude, latitude) to screen coordinates.</p>
  * This function uses the {@link project WebGL projection}
@@ -1403,6 +1422,8 @@ const handleKeyPress = ((event) => {
         selector.hws = !selector.hws;
         document.getElementById("hws").checked = selector.hws;
         break;
+      case "J":
+        currentLocation = closestSite(gpsCoordinates["Unknown"]);
       case "g":
       case "G":
       case "j":
