@@ -411,21 +411,27 @@ const canvas = document.getElementById("theCanvas");
  */
 const canvastip = document.getElementById("canvastip");
 
-const mesh = document.getElementById("mesh");
-const axes = document.getElementById("axes");
-const equator = document.getElementById("equator");
-const hws = document.getElementById("hws");
-const fix_uv = document.getElementById("fixuv");
-const merc = document.getElementById("mercator");
-const cull = document.getElementById("culling");
-const texture = document.getElementById("texture");
-const textures = document.getElementById("textures");
-const models = document.getElementById("models");
-const textimg = document.getElementById("textimg");
-const tooltip = document.getElementById("tooltip");
-const tip = document.getElementById("tip");
-const php = document.getElementById("php");
-const closest = document.getElementById("cls");
+/**
+ * HTML elements in the interface.
+ * @type {Onject<String,HTMLElement>}
+ */
+const element = {
+  mesh: document.getElementById("mesh"),
+  axes: document.getElementById("axes"),
+  equator: document.getElementById("equator"),
+  hws: document.getElementById("hws"),
+  fix_uv: document.getElementById("fixuv"),
+  merc: document.getElementById("mercator"),
+  cull: document.getElementById("culling"),
+  texture: document.getElementById("texture"),
+  textures: document.getElementById("textures"),
+  models: document.getElementById("models"),
+  textimg: document.getElementById("textimg"),
+  tooltip: document.getElementById("tooltip"),
+  tip: document.getElementById("tip"),
+  php: document.getElementById("php"),
+  closest: document.getElementById("cls"),
+};
 
 /**
  * Convert spherical coordinates to {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
@@ -1137,7 +1143,7 @@ const handleKeyPress = ((event) => {
   const mod = (n, m) => ((n % m) + m) % m;
   const kbd = document.getElementById("kbd");
   const opt = document.getElementById("options");
-  const models = document.getElementById("models");
+  const pause = document.getElementById("pause");
   let zoomfactor = 0.7;
   let gscale = 1;
   let subPoly = 0;
@@ -1166,9 +1172,9 @@ const handleKeyPress = ((event) => {
         numSubdivisions = mod(numSubdivisions + inc, maxSubdivisions + 1);
         gscale = mscale = 1;
         if (numSubdivisions == 0) {
-          models.value = (subPoly + 9).toString();
+          element.models.value = (subPoly + 9).toString();
         } else {
-          models.value = "13";
+          element.models.value = "13";
         }
         theModel = createModel({ poly: subPoly });
 
@@ -1180,25 +1186,26 @@ const handleKeyPress = ((event) => {
         break;
       case " ":
         selector.paused = !selector.paused;
-        document.getElementById("pause").checked = selector.paused;
+        pause.checked = selector.paused;
+        if (axis === " ") axis = "y";
         if (!selector.paused) document.getElementById(axis).checked = true;
         animate();
         return;
       case "l":
         selector.lines = !selector.lines;
         if (!selector.lines) selector.texture = true;
-        document.getElementById("mesh").checked = selector.lines;
-        document.getElementById("texture").checked = selector.texture;
+        element.mesh.checked = selector.lines;
+        element.texture.checked = selector.texture;
         break;
       case "k":
         selector.texture = !selector.texture;
         if (!selector.texture) selector.lines = true;
-        document.getElementById("texture").checked = selector.texture;
-        document.getElementById("mesh").checked = selector.lines;
+        element.texture.checked = selector.texture;
+        element.mesh.checked = selector.lines;
         break;
       case "a":
         selector.axes = !selector.axes;
-        document.getElementById("axes").checked = selector.axes;
+        element.axes.checked = selector.axes;
         break;
       case "x":
       case "y":
@@ -1230,12 +1237,12 @@ const handleKeyPress = ((event) => {
         break;
       case "E":
         selector.equator = !selector.equator;
-        document.getElementById("equator").checked = selector.equator;
+        element.equator.checked = selector.equator;
         animate();
         break;
       case "Z":
         gscale = mscale = 1;
-        models.value = "5";
+        element.models.value = "5";
         n = numSubdivisions;
         numSubdivisions = 1;
         theModel = createModel({
@@ -1246,7 +1253,7 @@ const handleKeyPress = ((event) => {
         break;
       case "s":
         gscale = mscale = 1;
-        models.value = "5";
+        element.models.value = "5";
         theModel = createModel({
           shape: selector.hws
             ? uvSphere(1, 48, 24)
@@ -1257,7 +1264,7 @@ const handleKeyPress = ((event) => {
       case "S":
         // subdivision sphere
         gscale = mscale = 1;
-        models.value = "13";
+        element.models.value = "13";
         numSubdivisions = maxSubdivisions;
         theModel = createModel({ poly: subPoly });
         tri = theModel.ntri(numSubdivisions);
@@ -1270,7 +1277,7 @@ const handleKeyPress = ((event) => {
         // (2,3)-torus knot (trefoil knot).
         // The genus of a torus knot is (p−1)(q−1)/2.
         gscale = mscale = 0.6;
-        models.value = "8";
+        element.models.value = "8";
         theModel = createModel({
           shape: getModelData(new THREE.TorusKnotGeometry(1, 0.4, 128, 16)),
           name: "torusknot",
@@ -1279,7 +1286,7 @@ const handleKeyPress = ((event) => {
         break;
       case "t":
         gscale = mscale = 1;
-        models.value = "7";
+        element.models.value = "7";
         theModel = createModel({
           shape: selector.hws
             ? uvTorus(1, 0.5, 30, 30)
@@ -1291,7 +1298,7 @@ const handleKeyPress = ((event) => {
       case "u":
         // capsule from threejs
         gscale = mscale = 1.2;
-        models.value = "0";
+        element.models.value = "0";
         theModel = createModel({
           shape: getModelData(new THREE.CapsuleGeometry(0.5, 0.5, 10, 20)),
           name: "capsule",
@@ -1299,7 +1306,7 @@ const handleKeyPress = ((event) => {
         break;
       case "c":
         gscale = mscale = 1;
-        models.value = "3";
+        element.models.value = "3";
         const r = mercator ? 3 / 8 : 9 / 16;
         const length = 2 * Math.PI * r;
         let height = mercator ? length : length / 2;
@@ -1323,7 +1330,7 @@ const handleKeyPress = ((event) => {
         break;
       case "C":
         gscale = mscale = 0.8;
-        models.value = "1";
+        element.models.value = "1";
         theModel = createModel({
           shape: selector.hws
             ? uvCone(1, 2, 30, 5, false)
@@ -1335,7 +1342,7 @@ const handleKeyPress = ((event) => {
         break;
       case "v":
         gscale = mscale = 0.6;
-        models.value = "2";
+        element.models.value = "2";
         theModel = createModel({
           shape: selector.hws
             ? cube(2)
@@ -1346,7 +1353,7 @@ const handleKeyPress = ((event) => {
       case "p":
         // teapot - this is NOT a manifold model - it is a model with borders!
         gscale = mscale = selector.hws ? 0.09 : 0.7;
-        models.value = "6";
+        element.models.value = "6";
         theModel = createModel({
           shape: selector.hws
             ? teapotModel
@@ -1364,13 +1371,13 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         subPoly = poly[ch];
         numSubdivisions = 0;
-        models.value = (subPoly + 9).toString();
+        element.models.value = (subPoly + 9).toString();
         theModel = createModel({ poly: subPoly });
         kbd.innerHTML = ":";
         break;
       case "r":
         gscale = mscale = 1.0;
-        models.value = "4";
+        element.models.value = "4";
         const segments = 30;
         theModel = createModel({
           shape: selector.hws
@@ -1397,18 +1404,18 @@ const handleKeyPress = ((event) => {
         fixuv = !fixuv;
         // reload texture with or without fixing
         image.src = `./textures/${imageFilename[textureCnt]}`;
-        document.getElementById("fixuv").checked = fixuv;
+        element.fixuv.checked = fixuv;
         setUVfix();
         break;
       case "K":
         mercator = !mercator;
-        document.getElementById("mercator").checked = mercator;
+        element.merc.checked = mercator;
         break;
       case "b":
         culling = !culling;
         if (culling) gl.enable(gl.CULL_FACE);
         else gl.disable(gl.CULL_FACE);
-        document.getElementById("culling").checked = culling;
+        element.cull.checked = culling;
         break;
       case "ArrowUp":
         mscale *= zoomfactor;
@@ -1421,7 +1428,7 @@ const handleKeyPress = ((event) => {
       case "Meta":
       case "Alt":
         selector.hws = !selector.hws;
-        document.getElementById("hws").checked = selector.hws;
+        element.hws.checked = selector.hws;
         break;
       case "J":
         currentLocation = closestSite(gpsCoordinates["Unknown"]);
@@ -1431,11 +1438,12 @@ const handleKeyPress = ((event) => {
         if (ch == "g") inc = 1;
         else if (ch == "G") inc = -1;
         else inc = 0;
+        axis = " "; // current meridian will be lost
         const cl = cities.indexOf(currentLocation);
         currentLocation = cities[mod(cl + inc, cities.length)];
         setPosition(currentLocation);
         selector.equator = true;
-        document.getElementById("equator").checked = selector.equator;
+        element.equator.checked = selector.equator;
         labelForLocation(currentLocation);
 
         if (selector.tooltip) {
@@ -1469,24 +1477,24 @@ const handleKeyPress = ((event) => {
           x = Math.floor(uv.s * textimg.width);
           y = Math.floor(uv.t * textimg.height);
           y = textimg.height - y;
-          tooltip.style.top = `${y + 5}px`;
-          tooltip.style.left = `${x + 5}px`;
-          tooltip.innerHTML = `${cleanLocation(currentLocation)}`;
-          tooltip.style.display = "block";
+          element.tooltip.style.top = `${y + 5}px`;
+          element.tooltip.style.left = `${x + 5}px`;
+          element.tooltip.innerHTML = `${cleanLocation(currentLocation)}`;
+          element.tooltip.style.display = "block";
         } else {
-          tooltip.style.display = "none";
+          element.tooltip.style.display = "none";
           canvastip.style.display = "none";
         }
         animate();
         break;
       case "h":
         selector.tooltip = !selector.tooltip;
-        document.getElementById("tip").checked = selector.tooltip;
+        element.tip.checked = selector.tooltip;
         if (!selector.tooltip) {
-          tooltip.style.display = "none";
+          element.tooltip.style.display = "none";
           canvastip.style.display = "none";
         } else {
-          tooltip.style.display = "block";
+          element.tooltip.style.display = "block";
           canvastip.style.display = "block";
         }
         break;
@@ -1921,7 +1929,9 @@ function addListeners() {
    * @event changeMeshcheckBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  mesh.addEventListener("change", (event) => handleKeyPress(createEvent("l")));
+  element.mesh.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("l")),
+  );
 
   /**
    * @summary Executed when the axes checkbox is checked or unchecked.
@@ -1932,7 +1942,9 @@ function addListeners() {
    * @event changeAxescheckBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  axes.addEventListener("change", (event) => handleKeyPress(createEvent("a")));
+  element.axes.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("a")),
+  );
 
   /**
    * @summary Executed when the tooltip checkbox is checked or unchecked.
@@ -1943,7 +1955,9 @@ function addListeners() {
    * @event changeTooltipcheckBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  tip.addEventListener("change", (event) => handleKeyPress(createEvent("h")));
+  element.tip.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("h")),
+  );
 
   /**
    * @summary Executed when the closest element is clicked.
@@ -1954,7 +1968,7 @@ function addListeners() {
    * @event clickClosest
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
-  closest.addEventListener("click", (event) =>
+  element.closest.addEventListener("click", (event) =>
     handleKeyPress(createEvent("J")),
   );
 
@@ -1967,7 +1981,7 @@ function addListeners() {
    * @event changeEquatorcheckBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  equator.addEventListener("change", (event) =>
+  element.equator.addEventListener("change", (event) =>
     handleKeyPress(createEvent("E")),
   );
 
@@ -1980,7 +1994,9 @@ function addListeners() {
    * @event changeHwscheckBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  hws.addEventListener("change", (event) => handleKeyPress(createEvent("Alt")));
+  element.hws.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("Alt")),
+  );
 
   if (document.querySelector('input[name="rot"]')) {
     document.querySelectorAll('input[name="rot"]').forEach((elem) => {
@@ -2027,7 +2043,7 @@ function addListeners() {
    * @event changeFixUVcheckBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  fix_uv.addEventListener("change", (event) =>
+  element.fix_uv.addEventListener("change", (event) =>
     handleKeyPress(createEvent("f")),
   );
 
@@ -2040,7 +2056,9 @@ function addListeners() {
    * @event changeMercatorcheckBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  merc.addEventListener("change", (event) => handleKeyPress(createEvent("K")));
+  element.merc.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("K")),
+  );
 
   /**
    * @summary Executed when the cull checkbox is checked or unchecked.
@@ -2051,7 +2069,9 @@ function addListeners() {
    * @event changeCullcheckBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  cull.addEventListener("change", (event) => handleKeyPress(createEvent("b")));
+  element.cull.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("b")),
+  );
 
   /**
    * @summary Executed when the texture checkbox is checked or unchecked.
@@ -2062,7 +2082,7 @@ function addListeners() {
    * @event changeTexturecheckBox
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  texture.addEventListener("change", (event) =>
+  element.texture.addEventListener("change", (event) =>
     handleKeyPress(createEvent("k")),
   );
 
@@ -2075,7 +2095,7 @@ function addListeners() {
    * @event changeTextureSelect
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  textures.addEventListener("change", (event) => {
+  element.textures.addEventListener("change", (event) => {
     selectTexture();
     document.activeElement.blur();
   });
@@ -2089,7 +2109,7 @@ function addListeners() {
    * @event changeModelsSelect
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  models.addEventListener("change", (event) => selectModel());
+  element.models.addEventListener("change", (event) => selectModel());
 
   /**
    * <p>Gets the latitude and longitude on the texture image when clicked upon
@@ -2104,7 +2124,7 @@ function addListeners() {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
    * @see {@link https://caniuse.com/pointer Pointer events}
    */
-  textimg.addEventListener("pointerdown", (event) => {
+  element.textimg.addEventListener("pointerdown", (event) => {
     const x = event.offsetX;
     let y = event.offsetY;
     y = event.target.height - y;
@@ -2142,11 +2162,11 @@ function addListeners() {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event Element: pointermove event}
    * @see {@link https://caniuse.com/pointer Pointer events}
    */
-  textimg.addEventListener("pointermove", (event) => {
+  element.textimg.addEventListener("pointermove", (event) => {
     // tooltip on mouse hoover
     if (!selector.tooltip) {
-      tooltip.innerHTML = "";
-      tooltip.style.display = "none";
+      element.tooltip.innerHTML = "";
+      element.tooltip.style.display = "none";
       return;
     }
 
@@ -2164,11 +2184,11 @@ function addListeners() {
       uv.t = mercator2Spherical(uv.s, uv.t).t;
     }
 
-    tooltip.style.top = `${event.offsetY + 15}px`;
-    tooltip.style.left = `${x}px`;
+    element.tooltip.style.top = `${event.offsetY + 15}px`;
+    element.tooltip.style.left = `${x}px`;
     // UV normalized
-    tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
-    tooltip.style.display = "block";
+    element.tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
+    element.tooltip.style.display = "block";
   });
 
   /**
@@ -2185,9 +2205,9 @@ function addListeners() {
    * @param {PointerEvent} event a pointer event.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerout_event Element: pointerout event}
    */
-  textimg.addEventListener("pointerout", (event) => {
-    tooltip.innerHTML = "";
-    tooltip.style.display = "none";
+  element.textimg.addEventListener("pointerout", (event) => {
+    element.tooltip.innerHTML = "";
+    element.tooltip.style.display = "none";
   });
 
   /**
@@ -2719,7 +2739,7 @@ window.addEventListener("load", (event) => {
       image.onload = function () {
         // chain the animation or load a new texture
         if (typeof theModel === "undefined") {
-          if (!php.checked) {
+          if (!element.php.checked) {
             getTextures(imageFilename);
             startForReal(image);
           } else {

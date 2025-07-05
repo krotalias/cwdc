@@ -311,6 +311,12 @@
         "latitude": 38.23166,
         "longitude": 27.02997
     },
+    "Sighișoara": {
+        "country": "Romania",
+        "remarkable": "Vlad III (Dracula), 1428-1476",
+        "latitude": 46.22141,
+        "longitude": 24.79279
+    },
     "Athens": {
         "country": "Greece",
         "remarkable": "Socrates, 469-399 BC",
@@ -328,6 +334,12 @@
         "remarkable": "Leonidas, 540-480 BC",
         "latitude": 37.0811452,
         "longitude": 22.4248618
+    },
+    "Warsaw": {
+        "country": "Poland",
+        "remarkable": "Józef Klemens Piłsudski, 1867-1935",
+        "latitude": 52.22977,
+        "longitude": 21.01178
     },
     "Pannonia": {
         "country": "Serbia",
