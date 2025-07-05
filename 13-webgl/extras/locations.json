@@ -113,11 +113,35 @@
         "latitude": 21.304547,
         "longitude": -157.855676
     },
+    "Midway": {
+        "country": "United States",
+        "remarkable": "Raymond A. Spruance, 1886-1969",
+        "latitude": 28.1999992,
+        "longitude": -177.3499986
+    },
     "Wellington": {
         "country": "New Zealand",
         "remarkable": "James Cook, 1728-1779",
         "latitude": -41.2887953,
         "longitude": 174.7772114
+    },
+    "Tarawa": {
+        "country": "Kiribati",
+        "remarkable": "Richmond K. Turner, 1885-1961",
+        "latitude": 1.3278,
+        "longitude": 172.97696
+    },
+    "Coral Sea": {
+        "country": "Solomon Islands",
+        "remarkable": "William Halsey Jr., 1882-1959",
+        "latitude": -16.2666656,
+        "longitude": 162.333332
+    },
+    "Guadalcanal": {
+        "country": "Solomon Islands",
+        "remarkable": "Frank Jack Fletcher, 1885-1973",
+        "latitude": -10.5333312,
+        "longitude": 161.0333332
     },
     "Sydney": {
         "country": "Australia",
@@ -130,6 +154,12 @@
         "remarkable": "Tokugawa Ieyasu, 1543-1616",
         "latitude": 35.6762,
         "longitude": 139.6503
+    },
+    "Okinawa": {
+        "country": "Japan",
+        "remarkable": "Chester W. Nimitz, 1885-1966",
+        "latitude": 26.499998,
+        "longitude": 127.933329
     },
     "Hansung": {
         "country": "Korea",
