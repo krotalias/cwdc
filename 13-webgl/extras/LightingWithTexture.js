@@ -1438,7 +1438,7 @@ const handleKeyPress = ((event) => {
         if (ch == "g") inc = 1;
         else if (ch == "G") inc = -1;
         else inc = 0;
-        axis = " "; // current meridian will be lost
+        if (axis === "q") axis = " "; // current meridian will be lost
         const cl = cities.indexOf(currentLocation);
         currentLocation = cities[mod(cl + inc, cities.length)];
         setPosition(currentLocation);
@@ -2269,10 +2269,12 @@ function addListeners() {
       moving = true;
       clicked = false; // we are moving the globe
       canvas.style.cursor = "pointer";
+      if (axis === "q") axis = " ";
       return;
     }
 
-    canvas.style.cursor = "crosshair";
+    if (canvas.style.cursor !== "pointer") canvas.style.cursor = "crosshair";
+
     // tooltip on mouse hoover
     if (moving || !selector.tooltip) {
       canvastip.innerHTML = "";
