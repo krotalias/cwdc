@@ -65,11 +65,23 @@
         "latitude": 10.5060934,
         "longitude": -66.9146008
     },
+    "Cusco": {
+        "country": "Inca Empire (Peru)",
+        "remarkable": "Pachacuti, 1403-1471",
+        "latitude": -13.52166458,
+        "longitude": -71.96999612
+    },
     "NYC": {
         "country": "United States",
         "remarkable": "Theodore Roosevelt, 1858-1919",
         "latitude": 40.7128,
         "longitude": -74.006
+    },
+    "Tikal": {
+        "country": "Maya Empire (Belize)",
+        "remarkable": "Jasaw Chan Kʼawiil I, 682-734",
+        "latitude": 17.21999912,
+        "longitude": -89.621164182
     },
     "Seymour": {
         "country": "Galapagos (Ecuador)",
@@ -82,6 +94,12 @@
         "remarkable": "Peter Schickele, 1935-2024",
         "latitude": 42.034534,
         "longitude": -93.620369
+    },
+    "Tenochtitlan": {
+        "country": "Aztec Empire (Mexico)",
+        "remarkable": "Cuauhtémoc, 1502-1525",
+        "latitude": 19.80782,
+        "longitude": -96.91595
     },
     "Mexico City": {
         "country": "Mexico",
@@ -143,17 +161,47 @@
         "latitude": -10.5333312,
         "longitude": 161.0333332
     },
+    "Panguna": {
+        "country": "Papua New Guinea",
+        "remarkable": "Isoroku Yamamoto, 1884-1943",
+        "latitude": -6.30916543,
+        "longitude": 155.491164702
+    },
     "Sydney": {
         "country": "Australia",
         "remarkable": "Arthur Phillip, 1738-1814",
         "latitude": -33.8688,
         "longitude": 151.2093
     },
+    "Tesendiap": {
+        "country": "Papua New Guinea",
+        "remarkable": "The Phantom (The Man Who Cannot Die), 1936",
+        "latitude": -5.3596276,
+        "longitude": 144.4465685
+    },
+    "Iwo Jima": {
+        "country": "Japan",
+        "remarkable": "Harry W. Hill, 1890-1971",
+        "latitude": 24.7833302,
+        "longitude": 141.3166654
+    },
     "Tokyo": {
         "country": "Japan",
         "remarkable": "Tokugawa Ieyasu, 1543-1616",
         "latitude": 35.6762,
         "longitude": 139.6503
+    },
+    "Hiroshima": {
+        "country": "Chūgoku (Japan)",
+        "remarkable": "Harry S. Truman, 1884-1972",
+        "latitude": 34.4,
+        "longitude": 132.45
+    },
+    "Nagasaki": {
+        "country": "Kyushu (Japan)",
+        "remarkable": "Robert Oppenheimer, 1904-1967",
+        "latitude": 32.75,
+        "longitude": 129.88333
     },
     "Okinawa": {
         "country": "Japan",
@@ -172,6 +220,12 @@
         "remarkable": "Douglas MacArthur, 1880-1964",
         "latitude": 14.5946,
         "longitude": 120.99501
+    },
+    "Borneo": {
+        "country": "Indonesia",
+        "remarkable": "Leslie Morshead, 1889-1959",
+        "latitude": 3.354681,
+        "longitude": 117.596543
     },
     "Beijing": {
         "country": "China",
