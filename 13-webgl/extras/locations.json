@@ -95,6 +95,12 @@
         "latitude": -0.3915,
         "longitude": -90.2841
     },
+    "Riverside": {
+        "country": "Iowa (United States)",
+        "remarkable": "James Tiberius Kirk, 2233",
+        "latitude": 41.47583143,
+        "longitude": -91.572664376
+    },
     "Ames": {
         "country": "United States",
         "remarkable": "Peter Schickele, 1935-2024",
