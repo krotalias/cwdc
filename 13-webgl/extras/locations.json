@@ -59,6 +59,12 @@
         "latitude": 64.166666,
         "longitude": -51.7333304
     },
+    "Manaus": {
+        "country": "Brazil",
+        "remarkable": "Celestial Sacardim, 1884-1896",
+        "latitude": -3.124832834,
+        "longitude": -60.020666584
+    },
     "Caracas": {
         "country": "Venezuela",
         "remarkable": "Simón Bolívar, 1783-1830",
@@ -335,6 +341,12 @@
         "latitude": 32.109333,
         "longitude": 34.855499
     },
+    "Serengeti": {
+        "remarkable": "Lenana, The Maasai Oloiboni, 1863-1911",
+        "country": "Tanzania",
+        "latitude": -2.325165366,
+        "longitude": 34.83333
+    },
     "Aswan": {
         "country": "Egypt",
         "remarkable": "Ramses II, 1303-1213 BC",
@@ -395,6 +407,12 @@
         "latitude": 38.23166,
         "longitude": 27.02997
     },
+    "Helsinki": {
+        "country": "Finland",
+        "remarkable": "Linus Torvalds, 1969",
+        "latitude": 60.16952,
+        "longitude": 24.93545
+    },
     "Sighișoara": {
         "country": "Romania",
         "remarkable": "Vlad III (Dracula), 1428-1476",
@@ -430,6 +448,12 @@
         "remarkable": "Attila the Hun, 406-453",
         "latitude": 45.7503869,
         "longitude": 19.5214468
+    },
+    "Stockholm": {
+        "country": "Sweden",
+        "remarkable": "Alfred Nobel, 1833-1896",
+        "latitude": 59.33258,
+        "longitude": 18.0649
     },
     "Syracuse": {
         "country": "Italy",
@@ -472,6 +496,12 @@
         "remarkable": "Leonardo da Vinci, 1452-1519",
         "latitude": 43.7873966,
         "longitude": 10.9271055
+    },
+    "Jevnaker": {
+        "country": "(Ringerike) Norway",
+        "remarkable": "Harald Hardrada, 1015-1066",
+        "latitude": 60.23979,
+        "longitude": 10.38709
     },
     "Carthage": {
         "country": "Punic Empire (Tunisia)",
