@@ -1617,7 +1617,9 @@ function drawLocationsOnImage() {
 
     ctx.beginPath();
     ctx.arc(x, y, 2, 0, Math.PI * 2);
-    ctx.fillStyle = "red";
+    ctx.fillStyle = gpsCoordinates[location].remarkable.includes("BC")
+      ? "yellow"
+      : "red";
     ctx.fill();
     ctx.closePath();
   }
