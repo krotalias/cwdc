@@ -378,6 +378,18 @@ import {
  */
 
 /**
+ * A {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system} (GCS) is a spherical or
+ * geodetic coordinate system for measuring and communicating positions
+ * directly on Earth as latitude and longitude.
+ * @typedef GCS
+ * @property {Number} longitude a geographic coordinate ∈ [-180°,180°] that specifies the east-west position of a point on Earth.
+ * @property {Number} latitude a geographic coordinate ∈ [-90°,90°] that specifies a location's north-south position on Earth.
+ * @see {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system Geographic coordinate system}
+ * @see {@link https://desktop.arcgis.com/en/arcmap/latest/map/projections/about-geographic-coordinate-systems.htm What are geographic coordinate systems?}
+ * @see {@link https://www.e-education.psu.edu/natureofgeoinfo/c2_p10.html The Nature of Geographic Information}
+ */
+
+/**
  * Convert degrees to radians.
  * @param {Number} a angle in degrees.
  * @return {Number} angle in radians.
@@ -437,7 +449,7 @@ const element = {
  * Convert spherical coordinates to {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
  * (longitude, latitude).
  * @param {Object<{s:Number,t:Number}>} uv spherical coordinates ∈ [0,1]}.
- * @return {Object<{longitude: Number, latitude: Number}>} longitude ∈ [-180,180], latitude ∈ [-90,90].
+ * @return {Object<{longitude: Number, latitude: Number}>} longitude ∈ [-180°,180°], latitude ∈ [-90°,90°].
  * @function
  */
 const spherical2gcs = (uv) => {
@@ -449,9 +461,9 @@ const spherical2gcs = (uv) => {
 };
 
 /**
- * Convert from {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
+ * Convert from {@link GCS}
  * (longitude, latitude) to UV coordinates.
- * @param {Object<{longitude:Number,latitude:Number}>} gcs longitude ∈ [-180,180], latitude ∈ [-90,90].
+ * @param {GCS} gcs longitude ∈ [-180°,180°], latitude ∈ [-90°,90°].
  * @return {Object<{s: Number, t: Number}>} UV coordinates ∈ [0,1].
  * @function
  */
@@ -488,8 +500,8 @@ const UV2Spherical = (uv) => {
  *  >> Distance: 843754 m
  *  >> Distance: 844 km
  * </pre>
- * @param {Object<{longitude:Number,latitude:Number}>} gcs1 first pair of gcs coordinates.
- * @param {Object<{longitude:Number,latitude:Number}>} gcs2 second pair of gcs coordinates.
+ * @param {GCS} gcs1 first pair of gcs coordinates.
+ * @param {GCS} gcs2 second pair of gcs coordinates.
  * @return {Number} distance between gcs1 and gcs2.
  * @see {@link https://en.wikipedia.org/wiki/Haversine_formula Haversine formula}
  * @see {@link https://community.esri.com/t5/coordinate-reference-systems-blog/distance-on-a-sphere-the-haversine-formula/ba-p/902128 Distance on a sphere: The Haversine Formula}
@@ -602,7 +614,13 @@ let mscale = 1;
 /**
  * <p>A set of world locations given by their GPS coordinates.</p>
  * These locations are {@link event:load read} from a <a href="/cwdc/13-webgl/extras/locations.json">json file</a>.
- * @type {Object<String:Object<{latitude:Number,longitude:Number}>>}
+ * @type {Object<location:String, attributes:Object>}
+ * @property {String} location name of the site, e.g., "Paris".
+ * @property {Object} attributes
+ * @property {String} attributes.country country of the site.
+ * @property {String} attributes.remarkable site's historical figure.
+ * @property {Number} attributes.longitude site's longitude.
+ * @property {Number} attributes.latitude site's latitude.
  */
 let gpsCoordinates = null;
 
@@ -629,7 +647,7 @@ let cursorPosition = {
 
 /**
  * Current meridian onto globe.
- * @type {Object<{longitude:Number, latitude:Number}>}
+ * @type {GCS}
  */
 const currentMeridian = { longitude: 0, latitude: 0 };
 
@@ -1068,7 +1086,7 @@ function labelForLocation(location) {
 
 /**
  * Returns the closest site to the given GCS position (latitude, longitude).
- * @param {Object<longitude:Number,latitude:Number>} position GCS.
+ * @param {GCS} position GCS coordinates.
  * @return {String} closest site name.
  */
 function closestSite(position) {
@@ -1086,7 +1104,7 @@ function closestSite(position) {
 }
 
 /**
- * <p>Convert from {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
+ * <p>Convert from {@link GCS}
  * (longitude, latitude) to screen coordinates.</p>
  * This function uses the {@link project WebGL projection}
  * to convert the geographic coordinates to screen coordinates (pixels).
@@ -1094,7 +1112,7 @@ function closestSite(position) {
  * <li>The projection can be either spherical or Mercator.</li>
  * <li>The spherical projection is used for a globe, while the Mercator projection is used for a map.</li>
  * </ul>
- * @param {Object<longitude:Number, latitude<Number>>} location gcs coordinates.
+ * @param {GCS} location gcs coordinates.
  * @param {Boolean} [mercatorProjection=false] whether to use Mercator projection.
  * @return {Coordinates}
  * @property {Array<{x:Number,y:Number}>} Coordinates.screen screen coordinates.
@@ -1404,7 +1422,7 @@ const handleKeyPress = ((event) => {
         fixuv = !fixuv;
         // reload texture with or without fixing
         image.src = `./textures/${imageFilename[textureCnt]}`;
-        element.fixuv.checked = fixuv;
+        element.fix_uv.checked = fixuv;
         setUVfix();
         break;
       case "K":
@@ -2720,6 +2738,7 @@ function setTextures(optionNames) {
  * @see {@link https://web.cse.ohio-state.edu/~shen.94/581/Site/Slides_files/texture.pdf Texture Mapping}
  * @see {@link https://www.evl.uic.edu/pape/data/Earth/ Earth images}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch Using the Fetch API}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse JSON.parse()}
  * @event load
  */
 window.addEventListener("load", (event) => {
@@ -3314,16 +3333,17 @@ function meridianPerpVec(longitude) {
 
 /**
  * <p>Returns a rotation matrix around the vector perpendicular to the
- * {@link currentMeridian current meridian}, by the given increment.</p>
+ * given meridian, by the given increment.</p>
  * Ensure longitude is in [0,180) range,
  * so that the perpendicular vector does not change direction
  * if longitude is in the western hemisphere.
  * @param {mat4} out the receiving matrix.
+ * @param {GCS} meridian given meridian.
  * @param {Number} increment angle (in radians) to rotate around.
  * @returns {mat4} out.
  */
-function meridianMatrix(out, increment) {
-  let longitude = currentMeridian?.longitude || 0;
+function meridianMatrix(out, meridian, increment) {
+  let longitude = meridian?.longitude || 0;
   if (longitude < 0) {
     longitude += 180;
   }
@@ -3398,7 +3418,9 @@ const animate = (() => {
       }
 
       const rotationMatrix =
-        axis === "q" ? meridianMatrix([], increment) : rotMatrix[axis];
+        axis === "q"
+          ? meridianMatrix([], currentMeridian, increment)
+          : rotMatrix[axis];
 
       if (selector.intrinsic) {
         // intrinsic rotation - multiply on the right
