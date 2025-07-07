@@ -913,6 +913,12 @@ let fixuv = document.querySelector("#fixuv").checked;
 let mercator = document.querySelector("#mercator").checked;
 
 /**
+ * Whether the texture represents a map.
+ * @type {Boolean}
+ */
+let isMap = false;
+
+/**
  * Toggle back face culling on/off.
  * @type {Boolean}
  * @see {@link https://learnopengl.com/Advanced-OpenGL/Face-culling Face culling}
@@ -1583,6 +1589,37 @@ function drawLinesOnImage() {
     ctx.lineTo(canvasimg.width, y);
     ctx.strokeStyle = "red";
     ctx.stroke();
+    ctx.closePath();
+  }
+}
+
+/**
+ * Draw the {@link gpsCoordinates} locations
+ * on the texture image.
+ */
+function drawLocationsOnImage() {
+  const canvasimg = document.getElementById("canvasimg");
+
+  const ctx = canvasimg.getContext("2d");
+  //  ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
+
+  for (const location of cities) {
+    const uv = gcs2UV(gpsCoordinates[location]);
+    uv.t = 1 - uv.t;
+    if (mercator) {
+      // mercator projection
+      uv.t = spherical2Mercator(uv.s, uv.t).y;
+    }
+
+    // screen coordinates
+    const x = uv.s * canvasimg.width;
+    const y = uv.t * canvasimg.height;
+
+    ctx.beginPath();
+    ctx.arc(x, y, 2, 0, Math.PI * 2);
+    ctx.fillStyle = "red";
+    ctx.fill();
+    ctx.closePath();
   }
 }
 
@@ -1608,6 +1645,9 @@ const selectTexture = (() => {
     }
     image.src = `./textures/${imageFilename[textureCnt]}`;
     mercator = imageFilename[textureCnt].includes("Mercator");
+    isMap = ["map", "earth", "ndvi"].some((str) =>
+      imageFilename[textureCnt].toLowerCase().includes(str),
+    );
     chkMerc.checked = mercator;
 
     if (previousMercator != mercator) {
@@ -2417,6 +2457,7 @@ function draw() {
   if (selector.lines) drawLines();
   if (selector.equator) drawParallel();
   drawLinesOnImage();
+  if (isMap) drawLocationsOnImage();
 }
 
 /**
@@ -2790,6 +2831,9 @@ window.addEventListener("load", (event) => {
       // starts loading the image asynchronously
       image.src = `./textures/${imageFilename[0]}`;
       mercator = imageFilename[0].includes("Mercator");
+      isMap = ["map", "earth", "ndvi"].some((str) =>
+        imageFilename[0].toLowerCase().includes(str),
+      );
       document.getElementById("mercator").checked = mercator;
     })
     .catch((err) => {
@@ -3254,7 +3298,10 @@ function newTexture(image) {
     const canvasimg = document.getElementById("canvasimg");
     canvasimg.width = textimg.width;
     canvasimg.height = textimg.height;
-    if (selector.paused) drawLinesOnImage();
+    if (selector.paused) {
+      drawLinesOnImage();
+      if (isMap) drawLocationsOnImage();
+    }
   };
   document.getElementById("figc").textContent =
     `(${image.width} x ${image.height})`;
