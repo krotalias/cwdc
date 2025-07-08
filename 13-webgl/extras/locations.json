@@ -421,7 +421,7 @@
     },
     "Alexandria": {
         "country": "Egypt",
-        "remarkable": "Erathostenes, 276-194 BC",
+        "remarkable": "Erathostenes, 276-194 BC,<br>Euclid, 300 BC",
         "latitude": 31.205753,
         "longitude": 29.924526
     },
@@ -436,6 +436,12 @@
         "remarkable": "Hector, ?-1180 BC",
         "latitude": 38.0664791,
         "longitude": 27.7033614
+    },
+    "Miletus": {
+        "country": "Anatolia (Turkey)",
+        "remarkable": "Thales of Miletus, 626-548 BC",
+        "latitude": 37.5318313,
+        "longitude": 27.2798246
     },
     "Ionia (Izmir)": {
         "country": "Anatolia (Turkey)",
