@@ -1617,9 +1617,12 @@ function drawLocationsOnImage() {
 
     ctx.beginPath();
     ctx.arc(x, y, 2, 0, Math.PI * 2);
-    ctx.fillStyle = gpsCoordinates[location].remarkable.includes("BC")
-      ? "yellow"
-      : "red";
+    ctx.fillStyle =
+      location === "Unknown"
+        ? "blue"
+        : (ctx.fillStyle = gpsCoordinates[location].remarkable.includes("BC")
+            ? "yellow"
+            : "red");
     ctx.fill();
     ctx.closePath();
   }
@@ -2345,8 +2348,6 @@ function addListeners() {
       cursorPosition = { x, y };
       const intersection = pixelRayIntersection(x, y);
       if (!intersection) {
-        canvastip.innerHTML = "";
-        canvastip.style.display = "none";
         return;
       }
 
