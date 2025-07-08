@@ -449,6 +449,12 @@
         "latitude": 38.23166,
         "longitude": 27.02997
     },
+    "Samos": {
+        "country": "Greece",
+        "remarkable": "Pythagoras, 570-495 BC",
+        "latitude": 37.7246162,
+        "longitude": 26.8192919
+    },
     "Helsinki": {
         "country": "Finland",
         "remarkable": "Linus Torvalds, 1969",
