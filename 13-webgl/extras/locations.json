@@ -77,6 +77,12 @@
         "latitude": 10.5060934,
         "longitude": -66.9146008
     },
+    "Strait of Magellan": {
+        "country": "Chile",
+        "remarkable": "Ferdinand Magellan, 1480-1521",
+        "latitude": -53.9250254,
+        "longitude": -71.3221444
+    },
     "Cusco": {
         "country": "Inca Empire (Peru)",
         "remarkable": "Pachacuti, 1403-1471",
