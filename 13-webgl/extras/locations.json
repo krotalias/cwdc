@@ -467,9 +467,15 @@
         "latitude": 46.22141,
         "longitude": 24.79279
     },
+    "Stagira,": {
+        "country": "Chalcidian League (Greece)",
+        "remarkable": "Aristotle, 384-322 BC",
+        "latitude": 40.5913217,
+        "longitude": 23.7937806
+    },
     "Athens": {
         "country": "Greece",
-        "remarkable": "Socrates, 469-399 BC",
+        "remarkable": "Socrates, 469-399 BC,<br>Plato, 428-348 BC",
         "latitude": 37.9755648,
         "longitude": 23.7348324
     },
