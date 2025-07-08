@@ -485,6 +485,12 @@
         "latitude": 45.7503869,
         "longitude": 19.5214468
     },
+    "Cape of Good Hope": {
+        "country": "South Africa",
+        "remarkable": "Bartolomeu Dias, 1450-1500",
+        "latitude": -34.3571503,
+        "longitude": 18.4739571
+    },
     "Stockholm": {
         "country": "Sweden",
         "remarkable": "Alfred Nobel, 1833-1896",
