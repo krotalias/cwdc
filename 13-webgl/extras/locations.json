@@ -47,6 +47,12 @@
         "latitude": -8.0584933,
         "longitude": -34.8848193
     },
+    "Monte Pascoal": {
+        "country": "Porto Seguro (Brazil)",
+        "remarkable": "Pedro Álvarez Cabral, 1467-1520",
+        "latitude": -16.8963207,
+        "longitude": -39.4075612
+    },
     "Rio": {
         "country": "Brazil",
         "remarkable": "Pedro II of Brazil, 1825-1891",
@@ -82,6 +88,12 @@
         "remarkable": "Theodore Roosevelt, 1858-1919",
         "latitude": 40.7128,
         "longitude": -74.006
+    },
+    "Guanahani Circle": {
+        "country": "Nassau (Bahamas)",
+        "remarkable": "Christopher Columbus, 1451-1506",
+        "latitude": 25.0533517,
+        "longitude": -77.322805
     },
     "Tikal": {
         "country": "Maya Empire (Belize)",
