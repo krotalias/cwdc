@@ -425,7 +425,22 @@ const canvastip = document.getElementById("canvastip");
 
 /**
  * HTML elements in the interface.
- * @type {Onject<String,HTMLElement>}
+ * @type {Object}
+ * @property {HTMLElement} mesh checkbox
+ * @property {HTMLElement} axes radio
+ * @property {HTMLElement} equator checkbox
+ * @property {HTMLElement} hws checkbox
+ * @property {HTMLElement} fix_uv checkbox
+ * @property {HTMLElement} merc checkbox
+ * @property {HTMLElement} cull checkbox
+ * @property {HTMLElement} texture checkbox
+ * @property {HTMLElement} textures select
+ * @property {HTMLElement} models select
+ * @property {HTMLElement} textimg img
+ * @property {HTMLElement} tooltip checkbox
+ * @property {HTMLElement} tip checkbox
+ * @property {HTMLElement} php checkbox
+ * @property {HTMLElement} closest button
  */
 const element = {
   mesh: document.getElementById("mesh"),
@@ -658,8 +673,16 @@ const currentMeridian = { longitude: 0, latitude: 0 };
 const phongHighlight = [];
 
 /**
- * Display status of the model mesh, texture, axes and paused animation: on/off.
- * @type {Object<{lines:Boolean, texture:Boolean, axes:Boolean, paused:Boolean, intrinsic:Boolean, equator:Boolean, hws:Boolean, tootip:Boolean}>}
+ * Turn display status of the model on/off.
+ * @type {Object}
+ * @property {Boolean} lines mesh and normals.
+ * @property {Boolean} texture lines x texture.
+ * @property {Boolean} axes coordinate axes.
+ * @property {Boolean} paused Arcball x rotation.
+ * @property {Boolean} intrinsic rotation around global x local axes.
+ * @property {Boolean} equator parallel and meridian of the current location.
+ * @property {Boolean} hws model's trigulation algorithm source: three.js x hws.
+ * @property {Boolean} tootip location information.
  */
 const selector = {
   lines: document.getElementById("mesh").checked,
@@ -924,7 +947,7 @@ let isMap = false;
  * @see {@link https://learnopengl.com/Advanced-OpenGL/Face-culling Face culling}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/frontFace frontFace() method}
  */
-let culling = true;
+let culling = document.querySelector("#culling").checked;
 
 /**
  * Camera position.
