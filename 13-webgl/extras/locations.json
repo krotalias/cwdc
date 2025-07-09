@@ -55,9 +55,15 @@
     },
     "Rio": {
         "country": "Brazil",
-        "remarkable": "Pedro II of Brazil, 1825-1891",
+        "remarkable": "Pedro II of Brazil, 1825-1891,<br>Heitor Villa-Lobos, 1887,1959",
         "latitude": -22.9068,
         "longitude": -43.1729
+    },
+     "Brodowski": {
+        "country": "Brazil",
+        "remarkable": "Candido Portinari, 1903-1962",
+        "latitude": -20.987829382,
+        "longitude": -47.655330712
     },
     "Nuuk": {
         "country": "Greenland",
