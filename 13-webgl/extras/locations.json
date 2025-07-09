@@ -101,7 +101,7 @@
         "latitude": -13.52166458,
         "longitude": -71.96999612
     },
-    "New Hyde Park": {
+    "Hyde Park": {
         "country": "United States",
         "remarkable": "Franklin Delano Roosevelt, 1882-1945",
         "latitude": 41.76804,
@@ -112,6 +112,12 @@
         "remarkable": "Theodore Roosevelt, 1858-1919",
         "latitude": 40.7128,
         "longitude": -74.006
+    },
+    "Popes Creek ": {
+        "country": "United States",
+        "remarkable": "George Washington, 1732-1799",
+        "latitude": 38.188165914,
+        "longitude": -76.902663056
     },
     "Guanahani Circle": {
         "country": "Nassau (Bahamas)",
