@@ -101,6 +101,12 @@
         "latitude": -13.52166458,
         "longitude": -71.96999612
     },
+    "New Hyde Park": {
+        "country": "United States",
+        "remarkable": "Franklin Delano Roosevelt, 1882-1945",
+        "latitude": 41.76804,
+        "longitude": -73.93482
+    },
     "NYC": {
         "country": "United States",
         "remarkable": "Theodore Roosevelt, 1858-1919",
