@@ -441,6 +441,7 @@ const canvastip = document.getElementById("canvastip");
  * @property {HTMLElement} tip checkbox
  * @property {HTMLElement} php checkbox
  * @property {HTMLElement} closest button
+ * @property {HTMLElement} byDate checkbox
  */
 const element = {
   mesh: document.getElementById("mesh"),
@@ -458,6 +459,7 @@ const element = {
   tip: document.getElementById("tip"),
   php: document.getElementById("php"),
   closest: document.getElementById("cls"),
+  byDate: document.getElementById("cities"),
 };
 
 /**
@@ -641,9 +643,16 @@ let gpsCoordinates = null;
 
 /**
  * Array of city names, that is, the gpsCoordinates keys.
- * @type {Array<String>}
+ * @type {Object}
+ * @property {Array<String>} byLongitude city names ordered by longitude.
+ * @property {Array<String>} byDate city names ordered by date.
+ * @property {Array<String>} current current city names.
  */
-let cities = null;
+const cities = {
+  byLongitude: null,
+  byDate: null,
+  current: null,
+};
 
 /**
  * Name of the current city location.
@@ -693,6 +702,7 @@ const selector = {
   equator: document.getElementById("equator").checked,
   hws: document.getElementById("hws").checked,
   tooltip: document.getElementById("tip").checked,
+  cities: document.getElementById("cities").checked,
 };
 
 /**
@@ -1121,7 +1131,7 @@ function labelForLocation(location) {
 function closestSite(position) {
   let minimumDistance = 50e6;
   let closest = "";
-  for (const site of cities) {
+  for (const site of cities.current) {
     if (site === "Unknown") continue;
     const distance = haversine(position, gpsCoordinates[site]).m;
     if (distance < minimumDistance) {
@@ -1477,6 +1487,13 @@ const handleKeyPress = ((event) => {
         selector.hws = !selector.hws;
         element.hws.checked = selector.hws;
         break;
+      case "W":
+        selector.cities = !selector.cities;
+        element.byDate.checked = selector.cities;
+        cities.current = element.byDate.checked
+          ? cities.byDate
+          : cities.byLongitude;
+        break;
       case "J":
         currentLocation = closestSite(gpsCoordinates["Unknown"]);
       case "g":
@@ -1486,8 +1503,8 @@ const handleKeyPress = ((event) => {
         else if (ch == "G") inc = -1;
         else inc = 0;
         if (axis === "q") axis = " "; // current meridian will be lost
-        const cl = cities.indexOf(currentLocation);
-        currentLocation = cities[mod(cl + inc, cities.length)];
+        const cl = cities.current.indexOf(currentLocation);
+        currentLocation = cities.current[mod(cl + inc, cities.current.length)];
         setPosition(currentLocation);
         selector.equator = true;
         element.equator.checked = selector.equator;
@@ -1626,7 +1643,7 @@ function drawLocationsOnImage() {
   const ctx = canvasimg.getContext("2d");
   //  ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
 
-  for (const location of cities) {
+  for (const location of cities.current) {
     const uv = gcs2UV(gpsCoordinates[location]);
     uv.t = 1 - uv.t;
     if (mercator) {
@@ -2000,6 +2017,54 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
 }
 
 /**
+ * Return cities ordered by date.
+ * @return {Array<String>} city names ordered by date.
+ */
+function sortCitiesByDate() {
+  // the array to be sorted
+  const data = cities.byLongitude;
+
+  // return the historical figure's date of birth
+  const getDate = (v) => {
+    if (v == "Unknown") return Number.MAX_VALUE; // must be the last
+    if (v == "Null_Island") return Number.MIN_SAFE_INTEGER; // must be the first
+    const remDate = gpsCoordinates[v].remarkable.split(",");
+    if (remDate.length > 1) {
+      let date = remDate[remDate.length - 1].split("-");
+      date = date[0].match(/(\d+)/);
+      if (date === null) {
+        return Number.MIN_SAFE_INTEGER;
+      }
+      date = +date[0];
+      if (remDate[1].includes("BC")) {
+        date = -date;
+      }
+      if (isNaN(date)) {
+        console.log("date is NaN");
+      }
+      return date;
+    }
+    return Number.MIN_SAFE_INTEGER;
+  };
+
+  // temporary array holds objects with position and sort-value
+  const mapped = data.map((v, i) => ({ i, value: getDate(v) }));
+
+  // sorting the mapped array containing the reduced values
+  mapped.sort((a, b) => {
+    if (a.value > b.value) {
+      return 1;
+    }
+    if (a.value < b.value) {
+      return -1;
+    }
+    return 0;
+  });
+
+  return mapped.map((v) => data[v.i]);
+}
+
+/**
  * <p>Appends event listeners to the mesh, axes, equator, hws, fix_uv and merc checkboxes.</p>
  * <p>Also appends event listeners to the rot and mode input radio buttons.</p>
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener EventTarget: addEventListener()}
@@ -2160,6 +2225,19 @@ function addListeners() {
   );
 
   /**
+   * @summary Executed when the cities checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeCitiescheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  element.byDate.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("W")),
+  );
+
+  /**
    * @summary Executed when the texture checkbox is checked or unchecked.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
@@ -2228,7 +2306,7 @@ function addListeners() {
     const unknown = gpsCoordinates["Unknown"];
     ({ latitude: unknown.latitude, longitude: unknown.longitude } =
       spherical2gcs(uv));
-    currentLocation = cities[cities.length - 2];
+    currentLocation = cities.current[cities.current.length - 2];
     handleKeyPress(createEvent("g"));
   });
 
@@ -2423,8 +2501,8 @@ function addListeners() {
       ({ latitude: unknown.latitude, longitude: unknown.longitude } =
         spherical2gcs(uv));
 
-      const position = ch === "g" ? cities.length - 2 : 0;
-      currentLocation = cities[position];
+      const position = ch === "g" ? cities.current.length - 2 : 0;
+      currentLocation = cities.current[position];
     }
     handleKeyPress(createEvent(ch));
   });
@@ -2813,8 +2891,10 @@ window.addEventListener("load", (event) => {
     .then((response) => response.text())
     .then((json) => {
       gpsCoordinates = JSON.parse(json);
-      cities = Object.keys(gpsCoordinates);
-      currentLocation = cities[Math.floor(Math.random() * cities.length)];
+      cities.byLongitude = Object.keys(gpsCoordinates);
+      cities.current = cities.byLongitude;
+      currentLocation =
+        cities.current[Math.floor(Math.random() * cities.current.length)];
 
       image = new Image();
 
@@ -3245,6 +3325,8 @@ function startForReal(image) {
   labelForLocation(currentLocation);
   selectModel();
   addListeners();
+  cities.byDate = sortCitiesByDate();
+  cities.current = selector.cities ? cities.byDate : cities.byLongitude;
 
   // Phong highlight position: (0,0,1) = {-90,0} in GCS
   const coordinates = gcs2Screen({ longitude: -90, latitude: 0 }, false);
