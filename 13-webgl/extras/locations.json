@@ -457,13 +457,13 @@
     },
     "Rhodes": {
         "country": "Greece",
-        "remarkable": "Chares of Lindos, ?305-280 BC",
+        "remarkable": "Chares of Lindos, 305-280 BC",
         "latitude": 36.1725297,
         "longitude": 27.9194016
     },
     "Troy (Hisarlik)": {
         "country": "Turkey",
-        "remarkable": "Hector, ?-1180 BC",
+        "remarkable": "Hector, 1180 BC",
         "latitude": 38.0664791,
         "longitude": 27.7033614
     },
@@ -475,7 +475,7 @@
     },
     "Ionia (Izmir)": {
         "country": "Anatolia (Turkey)",
-        "remarkable": "Homer (King of all poets), 850?? BC",
+        "remarkable": "Homer (King of all poets), 850 BC",
         "latitude": 38.23166,
         "longitude": 27.02997
     },
