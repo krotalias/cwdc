@@ -442,6 +442,7 @@ const canvastip = document.getElementById("canvastip");
  * @property {HTMLElement} php checkbox
  * @property {HTMLElement} closest button
  * @property {HTMLElement} byDate checkbox
+ * @property {HTMLElement} locations checkbox
  */
 const element = {
   mesh: document.getElementById("mesh"),
@@ -460,6 +461,7 @@ const element = {
   php: document.getElementById("php"),
   closest: document.getElementById("cls"),
   byDate: document.getElementById("cities"),
+  locations: document.getElementById("locs"),
 };
 
 /**
@@ -693,6 +695,7 @@ const phongHighlight = [];
  * @property {Boolean} hws model's trigulation algorithm source: three.js x hws.
  * @property {Boolean} tootip location information.
  * @property {Boolean} cities sequential location traversal order.
+ * @property {Boolean} locations location poits.
  */
 const selector = {
   lines: document.getElementById("mesh").checked,
@@ -704,6 +707,7 @@ const selector = {
   hws: document.getElementById("hws").checked,
   tooltip: document.getElementById("tip").checked,
   cities: document.getElementById("cities").checked,
+  locations: document.getElementById("locs").checked,
 };
 
 /**
@@ -883,6 +887,12 @@ let lineBuffer;
  * @type {WebGLBuffer}
  */
 let parallelBuffer;
+
+/**
+ * Handle to a buffer on the GPU.
+ * @type {WebGLBuffer}
+ */
+let locationsBuffer;
 
 /**
  * Handle to a buffer on the GPU.
@@ -1254,6 +1264,10 @@ const handleKeyPress = ((event) => {
         if (!selector.lines) selector.texture = true;
         element.mesh.checked = selector.lines;
         element.texture.checked = selector.texture;
+        break;
+      case "L":
+        selector.locations = !selector.locations;
+        element.locations.checked = selector.locations;
         break;
       case "k":
         selector.texture = !selector.texture;
@@ -2241,6 +2255,19 @@ function addListeners() {
   );
 
   /**
+   * @summary Executed when the locations checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeLocationscheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  element.locations.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("L")),
+  );
+
+  /**
    * @summary Executed when the texture checkbox is checked or unchecked.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
@@ -2563,6 +2590,7 @@ function draw() {
   if (selector.texture) drawTexture();
   if (selector.lines) drawLines();
   if (selector.equator) drawParallel();
+  if (selector.locations && isMap) drawLocations();
   drawLinesOnImage();
   if (isMap) drawLocationsOnImage();
 }
@@ -2840,6 +2868,47 @@ function drawParallel() {
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
   gl.drawArrays(gl.LINE_LOOP, 0, nsegments);
+
+  gl.disableVertexAttribArray(positionIndex);
+  gl.useProgram(null);
+}
+
+/**
+ * <p>Draws all location points. </p>
+ * Uses the {@link colorShader}.
+ */
+function drawLocations() {
+  // bind the shader
+  gl.useProgram(colorShader);
+  const positionIndex = gl.getAttribLocation(colorShader, "a_Position");
+  if (positionIndex < 0) {
+    console.log("Failed to get the storage location of a_Position");
+    return;
+  }
+
+  const a_color = gl.getAttribLocation(colorShader, "a_Color");
+  if (a_color < 0) {
+    console.log("Failed to get the storage location of a_Color");
+    return;
+  }
+  gl.vertexAttrib4f(a_color, 1.0, 0.0, 0.0, 1.0);
+
+  // "enable" the a_position attribute
+  gl.enableVertexAttribArray(positionIndex);
+
+  // set transformation to projection * view * model
+  const loc = gl.getUniformLocation(colorShader, "transform");
+  const transform = mat4.multiply(
+    [],
+    projection,
+    mat4.multiply([], viewMatrix, getModelMatrix()),
+  );
+  gl.uniformMatrix4fv(loc, false, transform);
+
+  // draw locations
+  gl.bindBuffer(gl.ARRAY_BUFFER, locationsBuffer);
+  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.drawArrays(gl.POINTS, 0, cities.current.length);
 
   gl.disableVertexAttribArray(positionIndex);
   gl.useProgram(null);
@@ -3265,6 +3334,7 @@ function startForReal(image) {
   lineBuffer = gl.createBuffer();
   parallelBuffer = gl.createBuffer();
   meridianBuffer = gl.createBuffer();
+  locationsBuffer = gl.createBuffer();
   if (!axisBuffer) {
     console.log("Failed to create the buffer object");
     return;
@@ -3286,6 +3356,10 @@ function startForReal(image) {
   );
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, parallelVertices, gl.STATIC_DRAW);
+
+  const locationsVertices = pointsOnLocations();
+  gl.bindBuffer(gl.ARRAY_BUFFER, locationsBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, locationsVertices, gl.STATIC_DRAW);
 
   const meridianVertices = pointsOnMeridian(
     gpsCoordinates[currentLocation].longitude,
@@ -3337,6 +3411,26 @@ function startForReal(image) {
 
   // start drawing!
   animate();
+}
+
+/**
+ * Return an array with all points on {@link gpsCoordinates}.
+ * @return {Float32Array} points on locations.
+ */
+function pointsOnLocations() {
+  const n = cities.current.length;
+  const arr = new Float32Array(3 * n);
+
+  for (let i = 0, j = 0; i < n; ++i, j += 3) {
+    const gcs = gpsCoordinates[cities.current[i]];
+    const uv = gcs2UV(gcs);
+    const [theta, phi] = UV2Spherical(uv);
+    const p = spherical2Cartesian(theta, phi, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
 }
 
 /**
