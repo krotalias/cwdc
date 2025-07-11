@@ -212,7 +212,7 @@ Besides being much harder to code, its last slice (e.g., slices = 48) goes from 
 and not 2π (if there was an extra duplicate vertex), which generates texture coordinates
 going from 0.9791666666666666 (47/48) to 0.0 and not 1.0.
 Although this discontinuity is what causes the mipmapping artifacts, it has nothing to do with the topology of the model
-but how mimapping is <a href="https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-28-mipmap-level-measurement">implemented</a> on the GPU.
+but how mipmapping is <a href="https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-28-mipmap-level-measurement">implemented</a> on the GPU.
 
 However, since an entire line is mapped onto the vextex at the north or south pole,
 and a vertex can have only one pair of texture coordinates (u,v),

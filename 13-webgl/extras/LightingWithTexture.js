@@ -150,7 +150,7 @@
  * and not 2π (if there was an extra duplicate vertex), which generates texture coordinates
  * going from 0.9791666666666666 (47/48) to 0.0 and not 1.0.
  * Although this discontinuity is what causes the mipmapping artifacts, it has nothing to do with the topology of the model
- * but how mimapping is {@link https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-28-mipmap-level-measurement implemented} on the GPU.
+ * but how mipmapping is {@link https://developer.nvidia.com/gpugems/gpugems2/part-iii-high-quality-rendering/chapter-28-mipmap-level-measurement implemented} on the GPU.
  *
  * However, since an entire line is mapped onto the vextex at the north or south pole,
  * and a vertex can have only one pair of texture coordinates (u,v),
@@ -463,7 +463,7 @@ const element = {
 };
 
 /**
- * Convert spherical coordinates to {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system}
+ * Convert spherical coordinates to {@link GCS}
  * (longitude, latitude).
  * @param {Object<{s:Number,t:Number}>} uv spherical coordinates ∈ [0,1]}.
  * @return {Object<{longitude: Number, latitude: Number}>} longitude ∈ [-180°,180°], latitude ∈ [-90°,90°].
@@ -2020,6 +2020,8 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
 /**
  * Return cities ordered by date.
  * @return {Array<String>} city names ordered by date.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort Array.prototype.sort()}
+ * @see {@link https://www.math.uwaterloo.ca/tsp/index.html Traveling Salesman Problem}
  */
 function sortCitiesByDate() {
   // the array to be sorted
