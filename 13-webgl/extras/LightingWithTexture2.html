@@ -614,7 +614,7 @@ when using mipmap:
             // data passed to the fragment shader to be interpolated
             out vec4 color;
             void main() {
-                gl_PointSize = 8.0;
+                gl_PointSize = 4.0;
                 color = a_Color;
                 gl_Position = transform * a_Position;
             }
