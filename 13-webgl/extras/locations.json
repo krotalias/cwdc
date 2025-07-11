@@ -605,6 +605,12 @@
         "latitude": 48.6767637,
         "longitude": 10.152923
     },
+    "Free City of Mainz": {
+        "country": "Holy Roman Empire (Germany)",
+        "remarkable": "Johannes Gensfleisch zur Laden zum Gutenberg, 1393-1468",
+        "latitude": 49.98419,
+        "longitude": 8.2791
+    },
     "Paris": {
         "country": "France",
         "remarkable": "Napolean, 1769-1821",
