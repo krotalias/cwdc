@@ -485,6 +485,12 @@
         "latitude": 37.7246162,
         "longitude": 26.8192919
     },
+    "Adrianople (Edirne)": {
+        "country": "Ottoman Sultanate (Tureky)",
+        "remarkable": "Mehmed II, 1432-1481 BC",
+        "latitude": 41.67713,
+        "longitude": 26.555715
+    },
     "Helsinki": {
         "country": "Finland",
         "remarkable": "Linus Torvalds, 1969",
