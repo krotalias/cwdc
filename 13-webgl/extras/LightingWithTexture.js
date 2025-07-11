@@ -874,6 +874,12 @@ let axisBuffer;
  * Handle to a buffer on the GPU.
  * @type {WebGLBuffer}
  */
+let colorBuffer;
+
+/**
+ * Handle to a buffer on the GPU.
+ * @type {WebGLBuffer}
+ */
 let normalBuffer;
 
 /**
@@ -2886,15 +2892,15 @@ function drawLocations() {
     return;
   }
 
-  const a_color = gl.getAttribLocation(colorShader, "a_Color");
-  if (a_color < 0) {
+  const colorIndex = gl.getAttribLocation(colorShader, "a_Color");
+  if (colorIndex < 0) {
     console.log("Failed to get the storage location of a_Color");
     return;
   }
-  gl.vertexAttrib4f(a_color, 1.0, 0.0, 0.0, 1.0);
 
   // "enable" the a_position attribute
   gl.enableVertexAttribArray(positionIndex);
+  gl.enableVertexAttribArray(colorIndex);
 
   // set transformation to projection * view * model
   const loc = gl.getUniformLocation(colorShader, "transform");
@@ -2908,9 +2914,12 @@ function drawLocations() {
   // draw locations
   gl.bindBuffer(gl.ARRAY_BUFFER, locationsBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  gl.vertexAttribPointer(colorIndex, 3, gl.FLOAT, false, 0, 0);
   gl.drawArrays(gl.POINTS, 0, cities.current.length);
 
   gl.disableVertexAttribArray(positionIndex);
+  gl.disableVertexAttribArray(colorIndex);
   gl.useProgram(null);
 }
 
@@ -3335,6 +3344,7 @@ function startForReal(image) {
   parallelBuffer = gl.createBuffer();
   meridianBuffer = gl.createBuffer();
   locationsBuffer = gl.createBuffer();
+  colorBuffer = gl.createBuffer();
   if (!axisBuffer) {
     console.log("Failed to create the buffer object");
     return;
@@ -3357,9 +3367,11 @@ function startForReal(image) {
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, parallelVertices, gl.STATIC_DRAW);
 
-  const locationsVertices = pointsOnLocations();
+  const [locationsVertices, locationsColors] = pointsOnLocations();
   gl.bindBuffer(gl.ARRAY_BUFFER, locationsBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, locationsVertices, gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, locationsColors, gl.STATIC_DRAW);
 
   const meridianVertices = pointsOnMeridian(
     gpsCoordinates[currentLocation].longitude,
@@ -3415,11 +3427,14 @@ function startForReal(image) {
 
 /**
  * Return an array with all points on {@link gpsCoordinates}.
- * @return {Float32Array} points on locations.
+ * @return {Array<Float32Array>} locations points.
+ * @property {Float32Array} 0 locations coordinate array.
+ * @property {Float32Array} 1 locations color array.
  */
 function pointsOnLocations() {
   const n = cities.current.length;
   const arr = new Float32Array(3 * n);
+  const crr = new Float32Array(3 * n);
 
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
     const gcs = gpsCoordinates[cities.current[i]];
@@ -3429,8 +3444,12 @@ function pointsOnLocations() {
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
+
+    crr[j] = 1;
+    crr[j + 1] = gcs.remarkable.includes("BC") ? 1 : 0;
+    crr[j + 2] = 0;
   }
-  return arr;
+  return [arr, crr];
 }
 
 /**
