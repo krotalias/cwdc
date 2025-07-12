@@ -17,6 +17,12 @@
         "latitude": 42.4223439,
         "longitude": -3.6800644
     },
+    "Madrid": {
+        "country": "Iberia (Spain)",
+        "remarkable": "Second Cruzade, 1147-1150",
+        "latitude": 40.3999984,
+        "longitude": -3.6833306
+    },
     "Dublin": {
         "country": "Ireland",
         "remarkable": "Olaf the White, 806-874",
@@ -144,7 +150,7 @@
         "longitude": -91.572664376
     },
     "Ames": {
-        "country": "United States",
+        "country": "Iowa (United States)",
         "remarkable": "Peter Schickele, 1935-2024",
         "latitude": 42.034534,
         "longitude": -93.620369
@@ -383,6 +389,12 @@
         "latitude": 55.751244,
         "longitude": 37.618423
     },
+    "Levant": {
+        "country": "Syria, Lebanon, Jordan, Israel",
+        "remarkable": "First Cruzade, 1096-1099",
+        "latitude": 33.5102,
+        "longitude": 36.29128
+    },
     "Jerusalem": {
         "country": "Herodian Kingdom (Israel)",
         "remarkable": "Jesus Christ, 4 BC-30 AD",
@@ -407,6 +419,18 @@
         "latitude": -2.325165366,
         "longitude": 34.83333
     },
+    "Jaffa": {
+        "remarkable": "Richard The Lion-Heart, 1157-1199",
+        "country": "Palestine (Israel)",
+        "latitude": 32.0527047892,
+        "longitude": 34.7510569958
+    },
+    "Ibelin": {
+        "remarkable": "Baldwin IV (Leper King), 1161–1185,<br>Sibylla, Queen of Jerusalem, 1159-1190,<br>Balian of Ibelin (surrendered in 1187), 1143-1193",
+        "country": "Kingdom of Jerusalem (Israel)",
+        "latitude": 31.82,
+        "longitude": 34.713
+    },
     "Aswan": {
         "country": "Egypt",
         "remarkable": "Ramses II, 1303-1213 BC",
@@ -419,23 +443,35 @@
         "latitude": 25.7329051,
         "longitude": 32.7658152
     },
+    "Anatolia": {
+        "country": "Turkey",
+        "remarkable": "Third Cruzade (Richard x Salah ad-Din), 1189-1192",
+        "latitude": 39.0,
+        "longitude": 32.0
+    },
+    "Damieta": {
+        "country": "Egypt",
+        "remarkable": "Fifth Cruzade, 1217-1221",
+        "latitude": 31.416665,
+        "longitude": 31.8166634
+    },
     "Mthethwa Paramountcy (Melmoth)": {
         "country": "South Africa",
         "remarkable": "Shaka, 1787-1828",
         "latitude": -28.586667,
         "longitude": 31.398056
     },
-    "Giza": {
-        "country": "Egypt",
-        "remarkable": "Khufu, 2589-2566 BC",
-        "latitude": 29.979175,
-        "longitude": 31.134358
-    },
     "Memphis": {
         "country": "Egypt",
         "remarkable": "Imhotep, 2592 BC",
         "latitude": 29.8544582,
         "longitude": 31.2615188
+    },
+    "Giza": {
+        "country": "Egypt",
+        "remarkable": "Khufu, 2589-2566 BC",
+        "latitude": 29.979175,
+        "longitude": 31.134358
     },
     "Bila Tserkva": {
         "country": "Russian Empire (Ukraine)",
@@ -449,9 +485,9 @@
         "latitude": 31.205753,
         "longitude": 29.924526
     },
-    "Constantinople": {
+    "Byzantium, (Constantinople)": {
         "country": "Thrace (Turkey)",
-        "remarkable": "Constantine, 272-337",
+        "remarkable": "Justin I, 482-565,<br>Constantine, 272-337",
         "latitude": 41.01224,
         "longitude": 28.976018
     },
