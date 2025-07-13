@@ -23,6 +23,12 @@
         "latitude": 40.3999984,
         "longitude": -3.6833306
     },
+    "Tavistock": {
+        "country": "United Kingdom",
+        "remarkable": "Francis Drake, 1540-1596",
+        "latitude": 50.54944,
+        "longitude": -4.14418
+    },
     "Dublin": {
         "country": "Ireland",
         "remarkable": "Olaf the White, 806-874",
@@ -677,15 +683,27 @@
         "latitude": 49.98419,
         "longitude": 8.2791
     },
+    "Dunkirk": {
+        "country": "France",
+        "remarkable": "Dunkirk evacuation, 1940",
+        "latitude": 51.0333332,
+        "longitude": 2.3666652
+    },
     "Paris": {
         "country": "France",
         "remarkable": "Napolean, 1769-1821",
         "latitude": 48.8534951,
         "longitude": 2.3483915
     },
+    "Gravelines": {
+        "country": "France",
+        "remarkable": "Spanish Armada, 1588",
+        "latitude": 50.98651,
+        "longitude": 2.12807
+    },
     "London": {
         "country": "Prime Meridian",
-        "remarkable": "Greenwich Observatory, 1675",
+        "remarkable": "Greenwich Observatory, 1675,<br>Elizabeth I, 1533-1603",
         "latitude": 51.477928,
         "longitude": -0.001545
     },
