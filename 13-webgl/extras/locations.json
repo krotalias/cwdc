@@ -623,6 +623,12 @@
         "latitude": 41.902782,
         "longitude": 12.496366
     },
+    "Ravenna": {
+        "country": "Italy",
+        "remarkable": "Fall of The Western Roman Empire, 476",
+        "latitude": 44.418362,
+        "longitude": 12.203529
+    },
     "Venice": {
         "country": "Italy",
         "remarkable": "Marco Polo, 1254-1324",
