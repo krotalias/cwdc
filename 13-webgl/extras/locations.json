@@ -5,6 +5,12 @@
         "latitude": 0,
         "longitude": 0
     },
+    "Woolsthorpe-by-Colsterworth": {
+        "country": "United Kingdom",
+        "remarkable": "Isaac Newton, 1643-1727",
+        "latitude": 52.8107,
+        "longitude": -0.632
+    },
     "Woodstock": {
         "country": "England",
         "remarkable": "Winston Churchill, 1874-1965",
@@ -682,6 +688,12 @@
         "remarkable": "Erwin Rommel, 1891-1944",
         "latitude": 48.6767637,
         "longitude": 10.152923
+    },
+    "Ulm": {
+        "country": "German Empire",
+        "remarkable": "Albert Einstein, 1879-1955",
+        "latitude": 48.39841,
+        "longitude": 9.99155
     },
     "Free City of Mainz": {
         "country": "Holy Roman Empire (Germany)",
