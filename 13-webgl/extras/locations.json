@@ -389,8 +389,14 @@
         "latitude": 55.751244,
         "longitude": 37.618423
     },
+    "Damascus": {
+        "country": "Syria",
+        "remarkable": "Nur al-Din Zengi (Second Cruzade), 1118-1174",
+        "latitude": 33.5102,
+        "longitude": 36.29128
+    },
     "Levant": {
-        "country": "Syria, Lebanon, Jordan, Israel",
+        "country": "Greater Syria (Syria, Lebanon, Jordan, Israel)",
         "remarkable": "First Cruzade, 1096-1099",
         "latitude": 33.5102,
         "longitude": 36.29128
@@ -426,7 +432,7 @@
         "longitude": 34.7510569958
     },
     "Ibelin": {
-        "remarkable": "Baldwin IV (Leper King), 1161–1185,<br>Sibylla, Queen of Jerusalem, 1159-1190,<br>Balian of Ibelin (surrendered in 1187), 1143-1193",
+        "remarkable": "Baldwin IV (Leper King), 1161–1185,<br>Sibylla, Queen of Jerusalem, 1159-1190,<br>Balian of Ibelin (surrendered Jerusalem in 1187), 1143-1193",
         "country": "Kingdom of Jerusalem (Israel)",
         "latitude": 31.82,
         "longitude": 34.713
@@ -592,6 +598,12 @@
         "remarkable": "Archimedes, 287-212 BC",
         "latitude": 37.075474,
         "longitude": 15.286586
+    },
+    "Zara (Zadar)": {
+        "country": "Croatia",
+        "remarkable": "Fourth Cruzade, 1202-1204",
+        "latitude": 44.11972,
+        "longitude": 15.24222
     },
     "Naples": {
         "country": "Italy",
