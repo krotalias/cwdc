@@ -2087,7 +2087,7 @@ function sortCitiesByDate() {
         return Number.MIN_SAFE_INTEGER;
       }
       date = +date[0];
-      if (remDate[1].includes("BC")) {
+      if (remDate.some((s) => s.includes(" BC"))) {
         date = -date;
       }
       if (isNaN(date)) {

@@ -49,7 +49,7 @@
     },
     "Lisbon (Olisipo)": {
         "country": "Portugal",
-        "remarkable": "John VI of Portugal, 1767-1826",
+        "remarkable": "John VI of Portugal, 1767-1826, 8 March, 1808",
         "latitude": 38.7077507,
         "longitude": -9.1365919
     },
@@ -61,7 +61,7 @@
     },
     "Fernando de Noronha": {
         "country": "Brazil",
-        "remarkable": "Fernão de Noronha, 1470-1540",
+        "remarkable": "Fernão de Noronha, 1470-1540, 1503",
         "latitude": -3.853808,
         "longitude": -32.423786
     },
@@ -73,7 +73,7 @@
     },
     "Monte Pascoal": {
         "country": "Porto Seguro (Brazil)",
-        "remarkable": "Pedro Álvarez Cabral, 1467-1520",
+        "remarkable": "Pedro Álvarez Cabral, 1467-1520, 22 April, 1500",
         "latitude": -16.8963207,
         "longitude": -39.4075612
     },
@@ -115,7 +115,7 @@
     },
     "Strait of Magellan": {
         "country": "Chile",
-        "remarkable": "Ferdinand Magellan, 1480-1521",
+        "remarkable": "Ferdinand Magellan, 1480-1521, 1 November, 1520",
         "latitude": -53.9250254,
         "longitude": -71.3221444
     },
@@ -145,7 +145,7 @@
     },
     "Guanahani Circle": {
         "country": "Nassau (Bahamas)",
-        "remarkable": "Christopher Columbus, 1451-1506",
+        "remarkable": "Christopher Columbus, 1451-1506, 12 October, 1492",
         "latitude": 25.0533517,
         "longitude": -77.322805
     },
@@ -198,10 +198,16 @@
         "longitude": -118.1085554
     },
     "Anchorage": {
-        "country": "United States",
-        "remarkable": "Mottrom Dulany Ball, 1835-1887",
+        "country": "Territory of Alaska (United States)",
+        "remarkable": "Mottrom Dulany Ball, 1835-1887, 27 March, 1878",
         "latitude": 61.284,
         "longitude": -149.923
+    },
+    "Pearl Harbor": {
+        "country": "United States",
+        "remarkable": "Husband E. Kimmel, 1882-1968, 7 December, 1941",
+        "latitude": 21.3666652,
+        "longitude": -157.9499962
     },
     "Honolulu": {
         "country": "United States",
@@ -211,43 +217,43 @@
     },
     "Midway": {
         "country": "United States",
-        "remarkable": "Raymond A. Spruance, 1886-1969",
+        "remarkable": "Raymond A. Spruance, 1886-1969, 3 June, 1942",
         "latitude": 28.1999992,
         "longitude": -177.3499986
     },
     "Wellington": {
         "country": "New Zealand",
-        "remarkable": "James Cook, 1728-1779",
+        "remarkable": "James Cook, 1728-1779, October, 1769",
         "latitude": -41.2887953,
         "longitude": 174.7772114
     },
     "Tarawa": {
         "country": "Kiribati",
-        "remarkable": "Richmond K. Turner, 1885-1961",
+        "remarkable": "Richmond K. Turner, 1885-1961, 20 November, 1943",
         "latitude": 1.3278,
         "longitude": 172.97696
     },
     "Coral Sea": {
         "country": "Solomon Islands",
-        "remarkable": "William Halsey Jr., 1882-1959",
+        "remarkable": "William Halsey Jr., 1882-1959, 4 May, 1942",
         "latitude": -16.2666656,
         "longitude": 162.333332
     },
     "Guadalcanal": {
         "country": "Solomon Islands",
-        "remarkable": "Frank Jack Fletcher, 1885-1973",
+        "remarkable": "Frank Jack Fletcher, 1885-1973, 7 August, 1942",
         "latitude": -10.5333312,
         "longitude": 161.0333332
     },
     "Panguna": {
         "country": "Papua New Guinea",
-        "remarkable": "Isoroku Yamamoto, 1884-1943",
+        "remarkable": "Isoroku Yamamoto, 1884-1943, 18 April, 1943",
         "latitude": -6.30916543,
         "longitude": 155.491164702
     },
     "Sydney": {
         "country": "Australia",
-        "remarkable": "Arthur Phillip, 1738-1814",
+        "remarkable": "Arthur Phillip, 1738-1814, 26 January, 1788",
         "latitude": -33.8688,
         "longitude": 151.2093
     },
@@ -259,7 +265,7 @@
     },
     "Iwo Jima": {
         "country": "Japan",
-        "remarkable": "Harry W. Hill, 1890-1971",
+        "remarkable": "Harry W. Hill, 1890-1971, 19 February, 1945",
         "latitude": 24.7833302,
         "longitude": 141.3166654
     },
@@ -271,19 +277,19 @@
     },
     "Hiroshima": {
         "country": "Chūgoku (Japan)",
-        "remarkable": "Harry S. Truman, 1884-1972",
+        "remarkable": "Harry S. Truman, 1884-1972, 6 August, 1945",
         "latitude": 34.4,
         "longitude": 132.45
     },
     "Nagasaki": {
         "country": "Kyushu (Japan)",
-        "remarkable": "Robert Oppenheimer, 1904-1967",
+        "remarkable": "Robert Oppenheimer, 1904-1967, 9 August, 1945",
         "latitude": 32.75,
         "longitude": 129.88333
     },
     "Okinawa": {
         "country": "Japan",
-        "remarkable": "Chester W. Nimitz, 1885-1966",
+        "remarkable": "Chester W. Nimitz, 1885-1966, 1 April, 1945",
         "latitude": 26.499998,
         "longitude": 127.933329
     },
@@ -295,13 +301,13 @@
     },
     "Manila": {
         "country": "Philippines",
-        "remarkable": "Douglas MacArthur, 1880-1964",
+        "remarkable": "Douglas MacArthur, 1880-1964, July, 1941",
         "latitude": 14.5946,
         "longitude": 120.99501
     },
     "Borneo": {
         "country": "Indonesia",
-        "remarkable": "Leslie Morshead, 1889-1959",
+        "remarkable": "Leslie Morshead, 1889-1959, 1 May, 1945",
         "latitude": 3.354681,
         "longitude": 117.596543
     },
@@ -401,6 +407,12 @@
         "latitude": 21.5504432,
         "longitude": 39.1742363
     },
+    "Carrhae": {
+        "country": "Turkey",
+        "remarkable": "Marcus Licinius Crassus, 115-53 BC, 53 BC",
+        "latitude": 36.8666632,
+        "longitude": 39.0333332
+    },
     "Moscow": {
         "country": "Russia",
         "remarkable": "Joseph Stalin, 1878-1953",
@@ -450,7 +462,7 @@
         "longitude": 34.83333
     },
     "Jaffa": {
-        "remarkable": "Richard The Lion-Heart, 1157-1199",
+        "remarkable": "Richard The Lion-Heart, 1157-1199, 8 August, 1192",
         "country": "Palestine (Israel)",
         "latitude": 32.0527047892,
         "longitude": 34.7510569958
@@ -523,7 +535,7 @@
     },
     "Rhodes": {
         "country": "Greece",
-        "remarkable": "Chares of Lindos, 305-280 BC",
+        "remarkable": "Chares of Lindos, 305-280 BC, (Colossus of Rhodes), 282 BC",
         "latitude": 36.1725297,
         "longitude": 27.9194016
     },
@@ -553,7 +565,7 @@
     },
     "Adrianople (Edirne)": {
         "country": "Ottoman Sultanate (Turkey)",
-        "remarkable": "Mehmed II, 1432-1481",
+        "remarkable": "Mehmed II, 1432-1481, (Constantinople fell) 29 May, 1453",
         "latitude": 41.67713,
         "longitude": 26.555715
     },
@@ -581,6 +593,12 @@
         "latitude": 37.9755648,
         "longitude": 23.7348324
     },
+    "Thermopylae": {
+        "country": "Greece",
+        "remarkable": "Xerxes I x Leonidas, 11 August, 480 BC",
+        "latitude": 38.7999968,
+        "longitude": 22.5333312
+    },
     "Pella": {
         "country": "Macedon (Greece)",
         "remarkable": "Alexander the Great, 356-323 BC",
@@ -607,7 +625,7 @@
     },
     "Cape of Good Hope": {
         "country": "South Africa",
-        "remarkable": "Bartolomeu Dias, 1450-1500",
+        "remarkable": "Bartolomeu Dias, 1450-1500, 1488",
         "latitude": -34.3571503,
         "longitude": 18.4739571
     },
@@ -697,7 +715,7 @@
     },
     "Free City of Mainz": {
         "country": "Holy Roman Empire (Germany)",
-        "remarkable": "Johannes Gensfleisch zur Laden zum Gutenberg, 1393-1468",
+        "remarkable": "Johannes Gensfleisch zur Laden zum Gutenberg, 1393-1468, (Printing press), 1440",
         "latitude": 49.98419,
         "longitude": 8.2791
     },
