@@ -13,7 +13,10 @@
     },
     "Woodstock": {
         "country": "England",
-        "remarkable": ["Winston Churchill, 1874-1965"],
+        "remarkable": [
+            "Winston Churchill, 1874-1965",
+            "Prime Minister, May 10, 1940"
+        ],
         "latitude": 51.8474887,
         "longitude": -1.3545343
     },
@@ -87,7 +90,8 @@
         "country": "Brazil",
         "remarkable": [
             "Pedro II of Brazil, 1825-1891",
-            "Heitor Villa-Lobos, 1887-1959"
+            "Heitor Villa-Lobos, 1887-1959",
+            "Parisian art scene, July, 1923-1930"
         ],
         "latitude": -22.9068,
         "longitude": -43.1729
@@ -106,13 +110,16 @@
     },
     "Santo Antônio do Leverger": {
         "country": "Brazil",
-        "remarkable": ["Cândido Rondon, 1865-1958"],
+        "remarkable": [
+            "Cândido Rondon, 1865-1958",
+            "Roosevelt–Rondon Scientific Expedition, 1913-1914"
+        ],
         "latitude": -15.86556,
         "longitude": -56.07667
     },
     "Manaus": {
         "country": "Brazil",
-        "remarkable": ["Celestial Sacardim, 1884-1896"],
+        "remarkable": ["Celestial Sacardim", "Amazon Theatre, 1884-1896"],
         "latitude": -3.124832834,
         "longitude": -60.020666584
     },
@@ -362,7 +369,10 @@
     },
     "Okinawa": {
         "country": "Japan",
-        "remarkable": ["Chester W. Nimitz, 1885-1966, 1 April, 1945"],
+        "remarkable": [
+            "Chester W. Nimitz, 1885-1966",
+            "Battle of Okinawa, 1 April, 1945"
+        ],
         "latitude": 26.499998,
         "longitude": 127.933329
     },
@@ -383,7 +393,10 @@
     },
     "Borneo": {
         "country": "Indonesia",
-        "remarkable": ["Leslie Morshead, 1889-1959, 1 May, 1945"],
+        "remarkable": [
+            "Leslie Morshead, 1889-1959",
+            "Borneo campaign, 1 May, 1945"
+        ],
         "latitude": 3.354681,
         "longitude": 117.596543
     },
@@ -527,7 +540,8 @@
     },
     "Tel Aviv-Yafo": {
         "remarkable": [
-            "David Ben-Gurion, 1886-1973, prime minister in January 25, 1948"
+            "David Ben-Gurion, 1886-1973",
+            "Prime Minister, January 25, 1948"
         ],
         "country": "Israel",
         "latitude": 32.109333,
@@ -540,7 +554,10 @@
         "longitude": 34.83333
     },
     "Jaffa": {
-        "remarkable": ["Richard The Lion-Heart, 1157-1199, 8 August, 1192"],
+        "remarkable": [
+            "Richard The Lion-Heart, 1157-1199",
+            "Battle of Jaffa, 8 August, 1192"
+        ],
         "country": "Palestine (Israel)",
         "latitude": 32.0527047892,
         "longitude": 34.7510569958
@@ -549,7 +566,8 @@
         "remarkable": [
             "Baldwin IV (Leper King), 1161-1185",
             "Sibylla Queen of Jerusalem, 1159-1190",
-            "Balian of Ibelin, 1143-1193, (surrendered Jerusalem) 2 October, 1187)"
+            "Balian of Ibelin, 1143-1193",
+            "Surrendered Jerusalem, 2 October, 1187)"
         ],
         "country": "Kingdom of Jerusalem (Israel)",
         "latitude": 31.82,
@@ -652,7 +670,7 @@
         "country": "Ottoman Sultanate (Turkey)",
         "remarkable": [
             "Mehmed II, 1432-1481",
-            "Constantinople fell, 29 May, 1453"
+            "Constantinople Fell, 29 May, 1453"
         ],
         "latitude": 41.67713,
         "longitude": 26.555715
@@ -701,7 +719,10 @@
     },
     "Warsaw": {
         "country": "Poland",
-        "remarkable": ["Józef Klemens Piłsudski, 1867-1935"],
+        "remarkable": [
+            "Józef Klemens Piłsudski, 1867-1935",
+            "Chief of State, November 11, 1918"
+        ],
         "latitude": 52.22977,
         "longitude": 21.01178
     },
@@ -737,7 +758,10 @@
     },
     "Naples": {
         "country": "Italy",
-        "remarkable": ["Giuseppe Garibaldi, 1807-1882"],
+        "remarkable": [
+            "Giuseppe Garibaldi, 1807-1882",
+            "Ragamuffin War (Guerra dos Farrapos), 1835-1845"
+        ],
         "latitude": 40.8521602,
         "longitude": 14.2681244
     },
@@ -770,13 +794,16 @@
     },
     "Florence": {
         "country": "Italy",
-        "remarkable": ["Lorenzo de' Medici, 1449-1492"],
+        "remarkable": [
+            "Lorenzo de' Medici, 1449-1492",
+            "Pazzi conspiracy, 26 April, 1478"
+        ],
         "latitude": 43.7697955,
         "longitude": 11.2556404
     },
     "Vinci": {
         "country": "Italy",
-        "remarkable": ["Leonardo da Vinci, 1452-1519"],
+        "remarkable": ["Leonardo da Vinci, 1452-1519", "Mona Lisa, 1513-1516"],
         "latitude": 43.7873966,
         "longitude": 10.9271055
     },
