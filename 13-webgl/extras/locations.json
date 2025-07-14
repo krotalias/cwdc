@@ -1,751 +1,850 @@
 {
     "Null_Island": {
         "country": "Gulf of Guinea",
-        "remarkable": "Prime Meridian and Equator intersection",
+        "remarkable": ["Prime Meridian and Equator intersection"],
         "latitude": 0,
         "longitude": 0
     },
     "Woolsthorpe-by-Colsterworth": {
         "country": "United Kingdom",
-        "remarkable": "Isaac Newton, 1643-1727",
+        "remarkable": ["Isaac Newton, 1643-1727"],
         "latitude": 52.8107,
         "longitude": -0.632
     },
     "Woodstock": {
         "country": "England",
-        "remarkable": "Winston Churchill, 1874-1965",
+        "remarkable": ["Winston Churchill, 1874-1965"],
         "latitude": 51.8474887,
         "longitude": -1.3545343
     },
     "Shrewsbury": {
         "country": "United Kingdom",
-        "remarkable": "Charles Darwin, 1809-1882",
+        "remarkable": ["Charles Darwin, 1809-1882"],
         "latitude": 52.71009,
         "longitude": -2.75208
     },
     "Vivar": {
         "country": "Spain",
-        "remarkable": "Rodrigo Díaz de Vivar (El Cid), 1043-1099",
+        "remarkable": ["Rodrigo Díaz de Vivar (El Cid), 1043-1099"],
         "latitude": 42.4223439,
         "longitude": -3.6800644
     },
     "Madrid": {
         "country": "Iberia (Spain)",
-        "remarkable": "Second Cruzade, 1147-1150",
+        "remarkable": ["Second Cruzade, 1147-1150"],
         "latitude": 40.3999984,
         "longitude": -3.6833306
     },
     "Tavistock": {
         "country": "United Kingdom",
-        "remarkable": "Francis Drake, 1540-1596",
+        "remarkable": ["Francis Drake, 1540-1596"],
         "latitude": 50.54944,
         "longitude": -4.14418
     },
     "Dublin": {
         "country": "Ireland",
-        "remarkable": "Olaf the White, 806-874",
+        "remarkable": ["Olaf the White, 806-874"],
         "latitude": 53.33306,
         "longitude": -6.24889
     },
     "Lisbon (Olisipo)": {
         "country": "Portugal",
-        "remarkable": "John VI of Portugal, 1767-1826, 8 March, 1808",
+        "remarkable": [
+            "John VI of Portugal, 1767-1826",
+            "Arrival in Brazil, 22 January, 1808"
+        ],
         "latitude": 38.7077507,
         "longitude": -9.1365919
     },
     "Reykjavik": {
         "country": "Iceland",
-        "remarkable": "Ingólfur Arnarson, 849-910",
+        "remarkable": ["Ingólfur Arnarson, 849-910"],
         "latitude": 64.145981,
         "longitude": -21.9422367
     },
     "Fernando de Noronha": {
         "country": "Brazil",
-        "remarkable": "Fernão de Noronha, 1470-1540, 1503",
+        "remarkable": ["Fernão de Noronha, 1470-1540, 1503"],
         "latitude": -3.853808,
         "longitude": -32.423786
     },
     "Recife": {
         "country": "Brazil",
-        "remarkable": "Padre Roma, 1768-1818",
+        "remarkable": ["Padre Roma, 1768-1818"],
         "latitude": -8.0584933,
         "longitude": -34.8848193
     },
     "Monte Pascoal": {
         "country": "Porto Seguro (Brazil)",
-        "remarkable": "Pedro Álvarez Cabral, 1467-1520, 22 April, 1500",
+        "remarkable": [
+            "Pedro Álvarez Cabral, 1467-1520",
+            "Discovery of Brazil, 22 April, 1500"
+        ],
         "latitude": -16.8963207,
         "longitude": -39.4075612
     },
     "Rio": {
         "country": "Brazil",
-        "remarkable": "Pedro II of Brazil, 1825-1891,<br>Heitor Villa-Lobos, 1887-1959",
+        "remarkable": [
+            "Pedro II of Brazil, 1825-1891",
+            "Heitor Villa-Lobos, 1887-1959"
+        ],
         "latitude": -22.9068,
         "longitude": -43.1729
     },
     "Brodowski": {
         "country": "Brazil",
-        "remarkable": "Candido Portinari, 1903-1962",
+        "remarkable": ["Candido Portinari, 1903-1962"],
         "latitude": -20.987829382,
         "longitude": -47.655330712
     },
     "Nuuk": {
         "country": "Greenland",
-        "remarkable": "Hans Egede, 1686-1758",
+        "remarkable": ["Hans Egede, 1686-1758"],
         "latitude": 64.166666,
         "longitude": -51.7333304
     },
     "Santo Antônio do Leverger": {
         "country": "Brazil",
-        "remarkable": "Cândido Rondon, 1865-1958",
+        "remarkable": ["Cândido Rondon, 1865-1958"],
         "latitude": -15.86556,
         "longitude": -56.07667
     },
     "Manaus": {
         "country": "Brazil",
-        "remarkable": "Celestial Sacardim, 1884-1896",
+        "remarkable": ["Celestial Sacardim, 1884-1896"],
         "latitude": -3.124832834,
         "longitude": -60.020666584
     },
     "Caracas": {
         "country": "Venezuela",
-        "remarkable": "Simón Bolívar, 1783-1830",
+        "remarkable": ["Simón Bolívar, 1783-1830"],
         "latitude": 10.5060934,
         "longitude": -66.9146008
     },
     "Strait of Magellan": {
         "country": "Chile",
-        "remarkable": "Ferdinand Magellan, 1480-1521, 1 November, 1520",
+        "remarkable": [
+            "Ferdinand Magellan, 1480-1521",
+            "Discovery of the Strait, 1 November, 1520"
+        ],
         "latitude": -53.9250254,
         "longitude": -71.3221444
     },
     "Cusco": {
         "country": "Inca Empire (Peru)",
-        "remarkable": "Pachacuti, 1403-1471",
+        "remarkable": ["Pachacuti, 1403-1471"],
         "latitude": -13.52166458,
         "longitude": -71.96999612
     },
     "Hyde Park": {
         "country": "United States",
-        "remarkable": "Franklin Delano Roosevelt, 1882-1945",
+        "remarkable": [
+            "Franklin Delano Roosevelt, 1882-1945",
+            "Presidency, March 4, 1933"
+        ],
         "latitude": 41.76804,
         "longitude": -73.93482
     },
     "NYC": {
         "country": "United States",
-        "remarkable": "Theodore Roosevelt, 1858-1919",
+        "remarkable": [
+            "Theodore Roosevelt, 1858-1919",
+            "Presidency, September 14, 1901"
+        ],
         "latitude": 40.7128,
         "longitude": -74.006
     },
     "Popes Creek ": {
         "country": "United States",
-        "remarkable": "George Washington, 1732-1799",
+        "remarkable": [
+            "George Washington, 1732-1799",
+            "Presidency, July 4, 1776"
+        ],
         "latitude": 38.188165914,
         "longitude": -76.902663056
     },
     "Guanahani Circle": {
         "country": "Nassau (Bahamas)",
-        "remarkable": "Christopher Columbus, 1451-1506, 12 October, 1492",
+        "remarkable": [
+            "Christopher Columbus, 1451-1506",
+            "Discovery of America, 12 October, 1492"
+        ],
         "latitude": 25.0533517,
         "longitude": -77.322805
     },
     "San Cristóbal Canton": {
         "country": "Galápagos (Ecuador)",
-        "remarkable": "The Beagle Voyage, 1835",
+        "remarkable": ["The Beagle Voyage, 1835"],
         "latitude": -0.7999968,
         "longitude": -89.3999984
     },
     "Tikal": {
         "country": "Maya Empire (Belize)",
-        "remarkable": "Jasaw Chan Kʼawiil I, 682-734",
+        "remarkable": ["Jasaw Chan K'awiil I, 682-734"],
         "latitude": 17.21999912,
         "longitude": -89.621164182
     },
     "Riverside": {
         "country": "Iowa (United States)",
-        "remarkable": "James Tiberius Kirk, 2233",
+        "remarkable": ["James Tiberius Kirk, 2233"],
         "latitude": 41.47583143,
         "longitude": -91.572664376
     },
     "Ames": {
         "country": "Iowa (United States)",
-        "remarkable": "Peter Schickele, 1935-2024",
+        "remarkable": ["Peter Schickele, 1935-2024"],
         "latitude": 42.034534,
         "longitude": -93.620369
     },
     "Tenochtitlan": {
         "country": "Aztec Empire (Mexico)",
-        "remarkable": "Cuauhtémoc, 1502-1525",
+        "remarkable": ["Cuauhtémoc, 1502-1525"],
         "latitude": 19.80782,
         "longitude": -96.91595
     },
     "Mexico City": {
         "country": "Mexico",
-        "remarkable": "Benito Juárez, 1806-1872",
+        "remarkable": ["Benito Juárez, 1806-1872"],
         "latitude": 19.432608,
         "longitude": -99.133209
     },
     "Calgary": {
         "country": "Canada",
-        "remarkable": "Peter Lougheed, 1928-2012",
+        "remarkable": ["Peter Lougheed, 1928-2012"],
         "latitude": 51.049999,
         "longitude": -114.066666
     },
     "San Gabriel": {
         "country": "United States",
-        "remarkable": "George S. Patton, 1885-1945",
+        "remarkable": [
+            "George S. Patton, 1885-1945",
+            "Battle of El Guettar, 23 March, 1943"
+        ],
         "latitude": 34.0990995,
         "longitude": -118.1085554
     },
+    "San Francisco": {
+        "country": "United States",
+        "remarkable": [
+            "William Halsey Jr., 1882-1959",
+            "Doolittle Raid, April 18, 1942"
+        ],
+        "latitude": 37.77493,
+        "longitude": -122.41942
+    },
     "Anchorage": {
         "country": "Territory of Alaska (United States)",
-        "remarkable": "Mottrom Dulany Ball, 1835-1887, 27 March, 1878",
+        "remarkable": [
+            "Mottrom Dulany Ball, 1835-1887",
+            "Governor of Alaska, 27 March, 1878"
+        ],
         "latitude": 61.284,
         "longitude": -149.923
     },
     "Pearl Harbor": {
         "country": "United States",
-        "remarkable": "Husband E. Kimmel, 1882-1968, 7 December, 1941",
+        "remarkable": [
+            "Husband E. Kimmel, 1882-1968",
+            "Japanese Attack, 7 December, 1941"
+        ],
         "latitude": 21.3666652,
         "longitude": -157.9499962
     },
     "Honolulu": {
         "country": "United States",
-        "remarkable": "Barack Obama, 1961",
+        "remarkable": ["Barack Obama, 1961", "Presidency, January 20, 2009"],
         "latitude": 21.304547,
         "longitude": -157.855676
     },
     "Midway": {
         "country": "United States",
-        "remarkable": "Raymond A. Spruance, 1886-1969, 3 June, 1942",
+        "remarkable": [
+            "Raymond A. Spruance, 1886-1969",
+            "Task Force 16 (Carriers Enterprise and Hornet), 3 June, 1942"
+        ],
         "latitude": 28.1999992,
         "longitude": -177.3499986
     },
     "Wellington": {
         "country": "New Zealand",
-        "remarkable": "James Cook, 1728-1779, October, 1769",
+        "remarkable": [
+            "James Cook, 1728-1779",
+            "Sighted New Zeland, 6 October, 1769"
+        ],
         "latitude": -41.2887953,
         "longitude": 174.7772114
     },
     "Tarawa": {
         "country": "Kiribati",
-        "remarkable": "Richmond K. Turner, 1885-1961, 20 November, 1943",
+        "remarkable": [
+            "Richmond K. Turner, 1885-1961",
+            "Battle of Tarawa, 20 November, 1943"
+        ],
         "latitude": 1.3278,
         "longitude": 172.97696
     },
     "Coral Sea": {
         "country": "Solomon Islands",
-        "remarkable": "William Halsey Jr., 1882-1959, 4 May, 1942",
+        "remarkable": [
+            "Frank Jack Fletcher, 1885-1973",
+            "Battle of the Coral Sea, 4 May, 1942"
+        ],
         "latitude": -16.2666656,
         "longitude": 162.333332
     },
     "Guadalcanal": {
         "country": "Solomon Islands",
-        "remarkable": "Frank Jack Fletcher, 1885-1973, 7 August, 1942",
+        "remarkable": [
+            "William Halsey Jr., 1882-1959",
+            "Naval Battle of Guadalcanal, 12 November, 1942"
+        ],
         "latitude": -10.5333312,
         "longitude": 161.0333332
     },
     "Panguna": {
         "country": "Papua New Guinea",
-        "remarkable": "Isoroku Yamamoto, 1884-1943, 18 April, 1943",
+        "remarkable": [
+            "Isoroku Yamamoto, 1884-1943",
+            "Ambushed and Killed, 18 April, 1943"
+        ],
         "latitude": -6.30916543,
         "longitude": 155.491164702
     },
     "Sydney": {
         "country": "Australia",
-        "remarkable": "Arthur Phillip, 1738-1814, 26 January, 1788",
+        "remarkable": [
+            "Arthur Phillip, 1738-1814",
+            "Claimed Australian Continent for British Crown, 1770",
+            "Port Jackson (Sydney Harbour), 26 January, 1788"
+        ],
         "latitude": -33.8688,
         "longitude": 151.2093
     },
     "Tesendiap": {
         "country": "Papua New Guinea",
-        "remarkable": "The Phantom (The Man Who Cannot Die), 1936",
+        "remarkable": ["The Phantom (The Man Who Cannot Die), 1936"],
         "latitude": -5.3596276,
         "longitude": 144.4465685
     },
     "Iwo Jima": {
         "country": "Japan",
-        "remarkable": "Harry W. Hill, 1890-1971, 19 February, 1945",
+        "remarkable": [
+            "Harry W. Hill, 1890-1971",
+            "Battle of Iwo Jima, 19 February, 1945"
+        ],
         "latitude": 24.7833302,
         "longitude": 141.3166654
     },
     "Tokyo": {
         "country": "Japan",
-        "remarkable": "Tokugawa Ieyasu, 1543-1616",
+        "remarkable": ["Tokugawa Ieyasu, 1543-1616"],
         "latitude": 35.6762,
         "longitude": 139.6503
     },
     "Hiroshima": {
         "country": "Chūgoku (Japan)",
-        "remarkable": "Harry S. Truman, 1884-1972, 6 August, 1945",
+        "remarkable": [
+            "Harry S. Truman, 1884-1972",
+            "Atomic Bombing, 6 August, 1945"
+        ],
         "latitude": 34.4,
         "longitude": 132.45
     },
     "Nagasaki": {
         "country": "Kyushu (Japan)",
-        "remarkable": "Robert Oppenheimer, 1904-1967, 9 August, 1945",
+        "remarkable": [
+            "Robert Oppenheimer, 1904-1967",
+            "Atomic Bombing, 9 August, 1945"
+        ],
         "latitude": 32.75,
         "longitude": 129.88333
     },
     "Okinawa": {
         "country": "Japan",
-        "remarkable": "Chester W. Nimitz, 1885-1966, 1 April, 1945",
+        "remarkable": ["Chester W. Nimitz, 1885-1966, 1 April, 1945"],
         "latitude": 26.499998,
         "longitude": 127.933329
     },
     "Hansung": {
         "country": "Korea",
-        "remarkable": "Yi Sun-sin, 1545-1598",
+        "remarkable": ["Yi Sun-sin, 1545-1598"],
         "latitude": 37.582363,
         "longitude": 127.010418
     },
     "Manila": {
         "country": "Philippines",
-        "remarkable": "Douglas MacArthur, 1880-1964, July, 1941",
+        "remarkable": [
+            "Douglas MacArthur, 1880-1964",
+            "Commander of U.S. Army Forces in the Far East, July, 1941"
+        ],
         "latitude": 14.5946,
         "longitude": 120.99501
     },
     "Borneo": {
         "country": "Indonesia",
-        "remarkable": "Leslie Morshead, 1889-1959, 1 May, 1945",
+        "remarkable": ["Leslie Morshead, 1889-1959, 1 May, 1945"],
         "latitude": 3.354681,
         "longitude": 117.596543
     },
     "Beijing": {
         "country": "China",
-        "remarkable": "Mao Zedong, 1893-1976",
+        "remarkable": ["Mao Zedong, 1893-1976"],
         "latitude": 39.916668,
         "longitude": 116.383331
     },
     "Saigon": {
         "country": "Vietnam",
-        "remarkable": "Ho Chi Minh, 1890-1969",
+        "remarkable": ["Ho Chi Minh, 1890-1969"],
         "latitude": 10.8225,
         "longitude": 106.754
     },
     "Temüjin (Khan Khentii Post)": {
         "country": "Mongolia",
-        "remarkable": "Genghis Khan, 1162-1227",
+        "remarkable": ["Genghis Khan, 1162-1227"],
         "latitude": 48.540643,
         "longitude": 106.9055314
     },
     "Sibiryak": {
         "country": "Siberia (Russia)",
-        "remarkable": "Yermak Timofeyevich, 1532-1585",
+        "remarkable": ["Yermak Timofeyevich, 1532-1585"],
         "latitude": 60.0,
         "longitude": 105.0
     },
     "Bukittinggi": {
         "country": "Sumatra (Indonesia)",
-        "remarkable": "Mohammad Hatta, 1902-1980",
+        "remarkable": ["Mohammad Hatta, 1902-1980"],
         "latitude": -0.30907,
         "longitude": 100.37055
     },
     "Kolkata": {
         "country": "India",
-        "remarkable": "Mother Teresa, 1910-1997",
+        "remarkable": ["Mother Teresa, 1910-1997"],
         "latitude": 22.56263,
         "longitude": 88.36304
     },
     "Lumbini": {
         "country": "Shakya Republic (Nepal)",
-        "remarkable": "Siddhartha Gautama (Buddha), 563-483 BC",
+        "remarkable": ["Siddhartha Gautama (Buddha), 563-483 BC"],
         "latitude": 27.738826869119,
         "longitude": 83.438634755255
     },
     "Persepolis": {
         "country": "Persia (Iran)",
-        "remarkable": "Xerxes I, 519-465 BC",
+        "remarkable": ["Xerxes I, 519-465 BC"],
         "latitude": 29.9351669,
         "longitude": 52.8904041
     },
     "Tehran": {
         "country": "Iran",
-        "remarkable": "Naser al-Din Shah Qajar, 1831-1896",
+        "remarkable": ["Naser al-Din Shah Qajar, 1831-1896"],
         "latitude": 35.7248416,
         "longitude": 51.381653
     },
     "Riyadh": {
         "country": "Saudi Arabia",
-        "remarkable": "Abdulaziz bin Abdul Rahman Al Saud, 1875-1953",
+        "remarkable": ["Abdulaziz bin Abdul Rahman Al Saud, 1875-1953"],
         "latitude": 24.638916,
         "longitude": 46.7160104
     },
     "Ctesiphon": {
         "country": "Parthia (Iraq)",
-        "remarkable": "Surena, 84-53 BC",
+        "remarkable": ["Surena, 84-53 BC"],
         "latitude": 33.08333,
         "longitude": 44.58333
     },
     "Babylon": {
         "country": "Mesopotamia (Iraq)",
-        "remarkable": "Nebuchadnezzar II, 642-562 BC",
+        "remarkable": ["Nebuchadnezzar II, 642-562 BC"],
         "latitude": 32.54083,
         "longitude": 44.42417
     },
     "Tikrit": {
         "country": "Mesopotamia (Iraq)",
-        "remarkable": "Salah ad-Din Yusuf ibn Ayyub, 1137-1193",
+        "remarkable": ["Salah ad-Din Yusuf ibn Ayyub, 1137-1193"],
         "latitude": 34.615807,
         "longitude": 43.678606
     },
     "Awash National Park": {
         "country": "Ethiopia",
-        "remarkable": "Lucy, 3200000 BC",
+        "remarkable": ["Lucy, 3200000 BC"],
         "latitude": 9.333332,
         "longitude": 40.333332
     },
     "Mecca": {
         "country": "Saudi Arabia",
-        "remarkable": "Muhammad, 570-632",
+        "remarkable": ["Muhammad, 570-632"],
         "latitude": 21.420847,
         "longitude": 39.826869
     },
     "Jeddah": {
         "country": "Saudi Arabia",
-        "remarkable": "King Salman bin Abdulaziz Al Saud, 1935",
+        "remarkable": ["King Salman bin Abdulaziz Al Saud, 1935"],
         "latitude": 21.5504432,
         "longitude": 39.1742363
     },
     "Carrhae": {
         "country": "Turkey",
-        "remarkable": "Marcus Licinius Crassus, 115-53 BC, 53 BC",
+        "remarkable": ["Marcus Licinius Crassus, 115-53 BC", "Executed, 53 BC"],
         "latitude": 36.8666632,
         "longitude": 39.0333332
     },
     "Moscow": {
         "country": "Russia",
-        "remarkable": "Joseph Stalin, 1878-1953",
+        "remarkable": ["Joseph Stalin, 1878-1953"],
         "latitude": 55.751244,
         "longitude": 37.618423
     },
     "Damascus": {
         "country": "Syria",
-        "remarkable": "Nur al-Din Zengi (Second Cruzade), 1118-1174",
+        "remarkable": ["Nur al-Din Zengi (Second Cruzade), 1118-1174"],
         "latitude": 33.5102,
         "longitude": 36.29128
     },
     "Levant": {
         "country": "Greater Syria (Syria, Lebanon, Jordan, Israel)",
-        "remarkable": "First Cruzade, 1096-1099",
+        "remarkable": ["First Cruzade, 1096-1099"],
         "latitude": 34.4037939,
         "longitude": 35.8523369
     },
     "Kaffa (Theodosia)": {
         "country": "Crimea (Ukraine)",
-        "remarkable": "Black Death, 1346-1353",
+        "remarkable": ["Black Death, 1346-1353"],
         "latitude": 45.03677,
         "longitude": 35.37789
     },
     "Jerusalem": {
         "country": "Herodian Kingdom (Israel)",
-        "remarkable": "Jesus Christ, 4 BC-30 AD",
+        "remarkable": ["Jesus Christ, 4 BC-30 AD"],
         "latitude": 31.7794,
         "longitude": 35.232071
     },
     "Tyre": {
         "country": "Phoenicia (Lebanon)",
-        "remarkable": "Marinus of Tyre, 70-130",
+        "remarkable": ["Marinus of Tyre, 70-130"],
         "latitude": 33.2721211,
         "longitude": 35.1964023
     },
     "Tel Aviv-Yafo": {
-        "remarkable": "David Ben-Gurion, 1886-1973",
+        "remarkable": [
+            "David Ben-Gurion, 1886-1973, prime minister in January 25, 1948"
+        ],
         "country": "Israel",
         "latitude": 32.109333,
         "longitude": 34.855499
     },
     "Serengeti": {
-        "remarkable": "Lenana, The Maasai Oloiboni, 1863-1911",
+        "remarkable": ["Lenana, The Maasai Oloiboni, 1863-1911"],
         "country": "Tanzania",
         "latitude": -2.325165366,
         "longitude": 34.83333
     },
     "Jaffa": {
-        "remarkable": "Richard The Lion-Heart, 1157-1199, 8 August, 1192",
+        "remarkable": ["Richard The Lion-Heart, 1157-1199, 8 August, 1192"],
         "country": "Palestine (Israel)",
         "latitude": 32.0527047892,
         "longitude": 34.7510569958
     },
     "Ibelin": {
-        "remarkable": "Baldwin IV (Leper King), 1161–1185,<br>Sibylla, Queen of Jerusalem, 1159-1190,<br>Balian of Ibelin (surrendered Jerusalem in 1187), 1143-1193",
+        "remarkable": [
+            "Baldwin IV (Leper King), 1161-1185",
+            "Sibylla Queen of Jerusalem, 1159-1190",
+            "Balian of Ibelin, 1143-1193, (surrendered Jerusalem) 2 October, 1187)"
+        ],
         "country": "Kingdom of Jerusalem (Israel)",
         "latitude": 31.82,
         "longitude": 34.713
     },
     "Aswan": {
         "country": "Egypt",
-        "remarkable": "Ramses II, 1303-1213 BC",
+        "remarkable": ["Ramses II, 1303-1213 BC"],
         "latitude": 24.088938,
         "longitude": 32.89983
     },
     "Thebes": {
         "country": "Egypt",
-        "remarkable": "Amenhotep III, 1390-1353 BC",
+        "remarkable": ["Amenhotep III, 1390-1353 BC"],
         "latitude": 25.7329051,
         "longitude": 32.7658152
     },
     "Anatolia": {
         "country": "Turkey",
-        "remarkable": "Third Cruzade (Richard x Salah ad-Din), 1189-1192",
+        "remarkable": ["Third Cruzade (Richard x Salah ad-Din), 1189-1192"],
         "latitude": 39.0,
         "longitude": 32.0
     },
     "Damieta": {
         "country": "Egypt",
-        "remarkable": "Fifth Cruzade, 1217-1221",
+        "remarkable": ["Fifth Cruzade, 1217-1221"],
         "latitude": 31.416665,
         "longitude": 31.8166634
     },
     "Mthethwa Paramountcy (Melmoth)": {
         "country": "South Africa",
-        "remarkable": "Shaka, 1787-1828",
+        "remarkable": ["Shaka, 1787-1828"],
         "latitude": -28.586667,
         "longitude": 31.398056
     },
     "Memphis": {
         "country": "Egypt",
-        "remarkable": "Imhotep, 2592 BC",
+        "remarkable": ["Imhotep, 2592 BC"],
         "latitude": 29.8544582,
         "longitude": 31.2615188
     },
     "Giza": {
         "country": "Egypt",
-        "remarkable": "Khufu, 2589-2566 BC",
+        "remarkable": ["Khufu, 2589-2566 BC"],
         "latitude": 29.979175,
         "longitude": 31.134358
     },
     "Bila Tserkva": {
         "country": "Russian Empire (Ukraine)",
-        "remarkable": "Lyudmila Pavlichenko, 1916-1974",
+        "remarkable": ["Lyudmila Pavlichenko, 1916-1974"],
         "latitude": 49.75,
         "longitude": 30.08333
     },
     "Alexandria": {
         "country": "Egypt",
-        "remarkable": "Erathostenes, 276-194 BC,<br>Euclid, 300 BC",
+        "remarkable": ["Erathostenes, 276-194 BC", "Euclid, 300 BC"],
         "latitude": 31.205753,
         "longitude": 29.924526
     },
     "Byzantium, (Constantinople)": {
         "country": "Thrace (Turkey)",
-        "remarkable": "Justinian I, 482-565,<br>Constantine, 272-337",
+        "remarkable": ["Justinian I, 482-565", "Constantine, 272-337"],
         "latitude": 41.01224,
         "longitude": 28.976018
     },
     "Rhodes": {
         "country": "Greece",
-        "remarkable": "Chares of Lindos, 305-280 BC, (Colossus of Rhodes), 282 BC",
+        "remarkable": [
+            "Chares of Lindos, 305-280 BC",
+            "Colossus of Rhodes, 282 BC"
+        ],
         "latitude": 36.1725297,
         "longitude": 27.9194016
     },
     "Troy (Hisarlik)": {
         "country": "Turkey",
-        "remarkable": "Hector, 1180 BC",
+        "remarkable": ["Hector, 1180 BC"],
         "latitude": 38.0664791,
         "longitude": 27.7033614
     },
     "Miletus": {
         "country": "Anatolia (Turkey)",
-        "remarkable": "Thales of Miletus, 626-548 BC",
+        "remarkable": ["Thales of Miletus, 626-548 BC"],
         "latitude": 37.5318313,
         "longitude": 27.2798246
     },
     "Ionia (Izmir)": {
         "country": "Anatolia (Turkey)",
-        "remarkable": "Homer (King of all poets), 850 BC",
+        "remarkable": ["Homer (King of all poets), 850 BC"],
         "latitude": 38.23166,
         "longitude": 27.02997
     },
     "Samos": {
         "country": "Greece",
-        "remarkable": "Pythagoras, 570-495 BC",
+        "remarkable": ["Pythagoras, 570-495 BC"],
         "latitude": 37.7246162,
         "longitude": 26.8192919
     },
     "Adrianople (Edirne)": {
         "country": "Ottoman Sultanate (Turkey)",
-        "remarkable": "Mehmed II, 1432-1481, (Constantinople fell) 29 May, 1453",
+        "remarkable": [
+            "Mehmed II, 1432-1481",
+            "Constantinople fell, 29 May, 1453"
+        ],
         "latitude": 41.67713,
         "longitude": 26.555715
     },
     "Helsinki": {
         "country": "Finland",
-        "remarkable": "Linus Torvalds, 1969",
+        "remarkable": ["Linus Torvalds, 1969", "Linux Kernel, September, 1991"],
         "latitude": 60.16952,
         "longitude": 24.93545
     },
     "Sighișoara": {
         "country": "Romania",
-        "remarkable": "Vlad III (Dracula), 1428-1476",
+        "remarkable": ["Vlad III (Dracula), 1428-1476"],
         "latitude": 46.22141,
         "longitude": 24.79279
     },
     "Stagira": {
         "country": "Chalcidian League (Greece)",
-        "remarkable": "Aristotle, 384-322 BC",
+        "remarkable": ["Aristotle, 384-322 BC"],
         "latitude": 40.5913217,
         "longitude": 23.7937806
     },
     "Athens": {
         "country": "Greece",
-        "remarkable": "Socrates, 469-399 BC,<br>Plato, 428-348 BC",
+        "remarkable": ["Socrates, 469-399 BC", "Plato, 428-348 BC"],
         "latitude": 37.9755648,
         "longitude": 23.7348324
     },
     "Thermopylae": {
         "country": "Greece",
-        "remarkable": "Xerxes I x Leonidas, 11 August, 480 BC",
+        "remarkable": ["Xerxes I x Leonidas, 11 August, 480 BC"],
         "latitude": 38.7999968,
         "longitude": 22.5333312
     },
     "Pella": {
         "country": "Macedon (Greece)",
-        "remarkable": "Alexander the Great, 356-323 BC",
+        "remarkable": ["Alexander the Great, 356-323 BC"],
         "latitude": 40.7604079,
         "longitude": 22.5271118
     },
     "Sparta (Lacedaemon)": {
         "country": "Laconia (Greece)",
-        "remarkable": "Leonidas, 540-480 BC",
+        "remarkable": ["Leonidas, 540-480 BC"],
         "latitude": 37.0811452,
         "longitude": 22.4248618
     },
     "Warsaw": {
         "country": "Poland",
-        "remarkable": "Józef Klemens Piłsudski, 1867-1935",
+        "remarkable": ["Józef Klemens Piłsudski, 1867-1935"],
         "latitude": 52.22977,
         "longitude": 21.01178
     },
     "Pannonia": {
         "country": "Serbia",
-        "remarkable": "Attila the Hun, 406-453",
+        "remarkable": ["Attila the Hun, 406-453"],
         "latitude": 45.7503869,
         "longitude": 19.5214468
     },
     "Cape of Good Hope": {
         "country": "South Africa",
-        "remarkable": "Bartolomeu Dias, 1450-1500, 1488",
+        "remarkable": ["Bartolomeu Dias, 1450-1500, 1488"],
         "latitude": -34.3571503,
         "longitude": 18.4739571
     },
     "Stockholm": {
         "country": "Sweden",
-        "remarkable": "Alfred Nobel, 1833-1896",
+        "remarkable": ["Alfred Nobel, 1833-1896", "Dynamite, 1867"],
         "latitude": 59.33258,
         "longitude": 18.0649
     },
     "Syracuse": {
         "country": "Italy",
-        "remarkable": "Archimedes, 287-212 BC",
+        "remarkable": ["Archimedes, 287-212 BC"],
         "latitude": 37.075474,
         "longitude": 15.286586
     },
     "Zara (Zadar)": {
         "country": "Croatia",
-        "remarkable": "Fourth Cruzade, 1202-1204",
+        "remarkable": ["Fourth Cruzade, 1202-1204"],
         "latitude": 44.11972,
         "longitude": 15.24222
     },
     "Naples": {
         "country": "Italy",
-        "remarkable": "Giuseppe Garibaldi, 1807-1882",
+        "remarkable": ["Giuseppe Garibaldi, 1807-1882"],
         "latitude": 40.8521602,
         "longitude": 14.2681244
     },
     "Berlin": {
         "country": "Germany",
-        "remarkable": "Marlene Dietrich, 1901-1992",
+        "remarkable": ["Marlene Dietrich, 1901-1992"],
         "latitude": 52.520008,
         "longitude": 13.404954
     },
     "Rome": {
         "country": "Italy",
-        "remarkable": "Gaius Julius Caezar, 100-44 BC",
+        "remarkable": [
+            "Gaius Julius Caezar, 100-44 BC",
+            "Crossing the Rubicon, 10 January, 49 BC"
+        ],
         "latitude": 41.902782,
         "longitude": 12.496366
     },
     "Ravenna": {
         "country": "Italy",
-        "remarkable": "Fall of The Western Roman Empire, 476",
+        "remarkable": ["Fall of The Western Roman Empire, 476"],
         "latitude": 44.418362,
         "longitude": 12.203529
     },
     "Venice": {
         "country": "Italy",
-        "remarkable": "Marco Polo, 1254-1324",
+        "remarkable": ["Marco Polo, 1254-1324"],
         "latitude": 45.4371908,
         "longitude": 12.3345898
     },
     "Florence": {
         "country": "Italy",
-        "remarkable": "Lorenzo de' Medici, 1449-1492",
+        "remarkable": ["Lorenzo de' Medici, 1449-1492"],
         "latitude": 43.7697955,
         "longitude": 11.2556404
     },
     "Vinci": {
         "country": "Italy",
-        "remarkable": "Leonardo da Vinci, 1452-1519",
+        "remarkable": ["Leonardo da Vinci, 1452-1519"],
         "latitude": 43.7873966,
         "longitude": 10.9271055
     },
     "Jevnaker": {
         "country": "(Ringerike) Norway",
-        "remarkable": "Harald Hardrada, 1015-1066",
+        "remarkable": ["Harald Hardrada, 1015-1066"],
         "latitude": 60.23979,
         "longitude": 10.38709
     },
     "Carthage": {
         "country": "Punic Empire (Tunisia)",
-        "remarkable": "Hannibal, 247-183 BC",
+        "remarkable": ["Hannibal, 247-183 BC"],
         "latitude": 36.8548083,
         "longitude": 10.3309924
     },
     "Heidenheim": {
         "country": "Germany",
-        "remarkable": "Erwin Rommel, 1891-1944",
+        "remarkable": ["Erwin Rommel, 1891-1944"],
         "latitude": 48.6767637,
         "longitude": 10.152923
     },
     "Ulm": {
         "country": "German Empire",
-        "remarkable": "Albert Einstein, 1879-1955",
+        "remarkable": ["Albert Einstein, 1879-1955"],
         "latitude": 48.39841,
         "longitude": 9.99155
     },
     "Free City of Mainz": {
         "country": "Holy Roman Empire (Germany)",
-        "remarkable": "Johannes Gensfleisch zur Laden zum Gutenberg, 1393-1468, (Printing press), 1440",
+        "remarkable": ["Johannes Gutenberg, 1393-1468", "Printing press, 1440"],
         "latitude": 49.98419,
         "longitude": 8.2791
     },
     "Dunkirk": {
         "country": "France",
-        "remarkable": "Dunkirk evacuation, 1940",
+        "remarkable": ["Dunkirk evacuation, 1940"],
         "latitude": 51.0333332,
         "longitude": 2.3666652
     },
     "Paris": {
         "country": "France",
-        "remarkable": "Napolean, 1769-1821",
+        "remarkable": [
+            "Napolean, 1769-1821",
+            "Crowned Emperor, December 2, 1804"
+        ],
         "latitude": 48.8534951,
         "longitude": 2.3483915
     },
     "Gravelines": {
         "country": "France",
-        "remarkable": "Spanish Armada, 1588",
+        "remarkable": ["Spanish Armada, 1588"],
         "latitude": 50.98651,
         "longitude": 2.12807
     },
     "London": {
         "country": "England",
-        "remarkable": "Greenwich Observatory (Prime Meridian), 1675,<br>Elizabeth I, 1533-1603",
+        "remarkable": [
+            "Greenwich Observatory, 1675",
+            "Prime Meridian, October, 1884",
+            "Elizabeth I, 1533-1603",
+            "Crowned Queen, January 15, 1559"
+        ],
         "latitude": 51.477928,
         "longitude": -0.001545
     },
     "Unknown": {
         "country": "Clicked location",
-        "remarkable": "© 2024 Paulo Roma",
+        "remarkable": ["© 2024 Paulo Roma"],
         "latitude": 0,
         "longitude": 0
     }

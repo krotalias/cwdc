@@ -1537,7 +1537,7 @@ const handleKeyPress = ((event) => {
 
           // current location properties
           const country = location.country || "";
-          const remarkable = location.remarkable || "";
+          const remarkable = location.remarkable || [];
 
           let [x, y] = coordinates.screen;
           const pt = coordinates.cartesian;
@@ -1556,7 +1556,8 @@ const handleKeyPress = ((event) => {
           y = viewport[3] - y;
           canvastip.style.top = `${y + 5}px`;
           canvastip.style.left = `${x + 35}px`;
-          canvastip.innerHTML = `${currentLocation}, ${country}<br>${remarkable}`;
+          canvastip.innerHTML = `${currentLocation}, ${country}`;
+          for (const rem of remarkable) canvastip.innerHTML += `<br>${rem}`;
           canvastip.style.display = "block";
           // on the map
           x = Math.floor(uv.s * textimg.width);
@@ -1665,7 +1666,8 @@ function drawLocationsOnImage() {
   //  ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
 
   for (const location of cities.current) {
-    const uv = gcs2UV(gpsCoordinates[location]);
+    const gps = gpsCoordinates[location];
+    const uv = gcs2UV(gps);
     uv.t = 1 - uv.t;
     if (mercator) {
       // mercator projection
@@ -1676,12 +1678,13 @@ function drawLocationsOnImage() {
     const x = uv.s * canvasimg.width;
     const y = uv.t * canvasimg.height;
 
+    const len = gps.remarkable.length;
     ctx.beginPath();
     ctx.arc(x, y, 2, 0, Math.PI * 2);
     ctx.fillStyle =
       location === "Unknown"
         ? "blue"
-        : (ctx.fillStyle = gpsCoordinates[location].remarkable.includes("BC")
+        : (ctx.fillStyle = gps.remarkable[len - 1].includes(" BC")
             ? "yellow"
             : "red");
     ctx.fill();
@@ -2051,7 +2054,8 @@ function sortCitiesByDate() {
   const getDate = (v) => {
     if (v == "Unknown") return Number.MAX_VALUE; // must be the last
     if (v == "Null_Island") return Number.MIN_SAFE_INTEGER; // must be the first
-    const remDate = gpsCoordinates[v].remarkable.split(",");
+    const len = gpsCoordinates[v].remarkable.length;
+    const remDate = gpsCoordinates[v].remarkable[len - 1].split(",");
     if (remDate.length > 1) {
       let date = remDate[remDate.length - 1].split("-");
       date = date[0].match(/(\d+)/);
@@ -3446,7 +3450,9 @@ function pointsOnLocations() {
     arr[j + 2] = p[2];
 
     crr[j] = 1;
-    crr[j + 1] = gcs.remarkable.includes("BC") ? 1 : 0;
+    crr[j + 1] = gcs.remarkable[gcs.remarkable.length - 1].includes("BC")
+      ? 1
+      : 0;
     crr[j + 2] = 0;
   }
   return [arr, crr];
