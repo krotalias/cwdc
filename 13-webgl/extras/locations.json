@@ -40,7 +40,10 @@
     },
     "Tavistock": {
         "country": "United Kingdom",
-        "remarkable": ["Francis Drake, 1540-1596"],
+        "remarkable": [
+            "Francis Drake, 1540-1596",
+            "Second circumnavigation of the world, 1577-1580"
+        ],
         "latitude": 50.54944,
         "longitude": -4.14418
     },
@@ -61,7 +64,10 @@
     },
     "Reykjavik": {
         "country": "Iceland",
-        "remarkable": ["Ingólfur Arnarson, 849-910"],
+        "remarkable": [
+            "Ingólfur Arnarson, 849-910",
+            "First permanent Norse settler of Iceland, 874"
+        ],
         "latitude": 64.145981,
         "longitude": -21.9422367
     },
@@ -98,13 +104,16 @@
     },
     "Brodowski": {
         "country": "Brazil",
-        "remarkable": ["Candido Portinari, 1903-1962"],
+        "remarkable": [
+            "Candido Portinari, 1903-1962",
+            "Guerra e Paz, United Nations, NY, 1956"
+        ],
         "latitude": -20.987829382,
         "longitude": -47.655330712
     },
     "Nuuk": {
         "country": "Greenland",
-        "remarkable": ["Hans Egede, 1686-1758"],
+        "remarkable": ["Hans Egede, 1686-1758", "Apostle of Greenland, 1711"],
         "latitude": 64.166666,
         "longitude": -51.7333304
     },
@@ -125,7 +134,10 @@
     },
     "Caracas": {
         "country": "Venezuela",
-        "remarkable": ["Simón Bolívar, 1783-1830"],
+        "remarkable": [
+            "Simón Bolívar, 1783-1830",
+            "Puerto Cabello, 4 May, 1812"
+        ],
         "latitude": 10.5060934,
         "longitude": -66.9146008
     },
@@ -194,7 +206,10 @@
     },
     "Riverside": {
         "country": "Iowa (United States)",
-        "remarkable": ["James Tiberius Kirk, 2233"],
+        "remarkable": [
+            "James Tiberius Kirk, March 22, 2233",
+            "Star Trek, 1966-1968"
+        ],
         "latitude": 41.47583143,
         "longitude": -91.572664376
     },
@@ -212,13 +227,19 @@
     },
     "Mexico City": {
         "country": "Mexico",
-        "remarkable": ["Benito Juárez, 1806-1872"],
+        "remarkable": [
+            "Benito Juárez, 1806-1872",
+            "26th president of Mexico, 1858-1872"
+        ],
         "latitude": 19.432608,
         "longitude": -99.133209
     },
     "Calgary": {
         "country": "Canada",
-        "remarkable": ["Peter Lougheed, 1928-2012"],
+        "remarkable": [
+            "Peter Lougheed, 1928-2012",
+            "Premier of Alberta, 1971-1985"
+        ],
         "latitude": 51.049999,
         "longitude": -114.066666
     },
@@ -345,7 +366,10 @@
     },
     "Tokyo": {
         "country": "Japan",
-        "remarkable": ["Tokugawa Ieyasu, 1543-1616"],
+        "remarkable": [
+            "Tokugawa Ieyasu, 1543-1616",
+            "First shōgun of the Tokugawa shogunate, 1603-1868"
+        ],
         "latitude": 35.6762,
         "longitude": 139.6503
     },
@@ -444,19 +468,25 @@
     },
     "Persepolis": {
         "country": "Persia (Iran)",
-        "remarkable": ["Xerxes I, 519-465 BC"],
+        "remarkable": ["Xerxes I, 519-465 BC", "Invasion of Greece, 480 BC"],
         "latitude": 29.9351669,
         "longitude": 52.8904041
     },
     "Tehran": {
         "country": "Iran",
-        "remarkable": ["Naser al-Din Shah Qajar, 1831-1896"],
+        "remarkable": [
+            "Naser al-Din Shah Qajar, 1831-1896",
+            "Sun Trone, 5 September, 1848"
+        ],
         "latitude": 35.7248416,
         "longitude": 51.381653
     },
     "Riyadh": {
         "country": "Saudi Arabia",
-        "remarkable": ["Abdulaziz bin Abdul Rahman Al Saud, 1875-1953"],
+        "remarkable": [
+            "Abdulaziz bin Abdul Rahman Al Saud, 1875-1953",
+            "First King of Saudi Arabia, 23 September, 1932"
+        ],
         "latitude": 24.638916,
         "longitude": 46.7160104
     },
@@ -492,7 +522,10 @@
     },
     "Jeddah": {
         "country": "Saudi Arabia",
-        "remarkable": ["King Salman bin Abdulaziz Al Saud, 1935"],
+        "remarkable": [
+            "King Salman bin Abdulaziz Al Saud, 1935",
+            "Crowned, 23 January, 2015"
+        ],
         "latitude": 21.5504432,
         "longitude": 39.1742363
     },
@@ -504,7 +537,10 @@
     },
     "Moscow": {
         "country": "Russia",
-        "remarkable": ["Joseph Stalin, 1878-1953"],
+        "remarkable": [
+            "Joseph Stalin, 1878-1953",
+            "General Secretary of the Communist Party, 1922-1952"
+        ],
         "latitude": 55.751244,
         "longitude": 37.618423
     },
@@ -599,7 +635,7 @@
     },
     "Mthethwa Paramountcy (Melmoth)": {
         "country": "South Africa",
-        "remarkable": ["Shaka, 1787-1828"],
+        "remarkable": ["Shaka Zulu, 1787-1828"],
         "latitude": -28.586667,
         "longitude": 31.398056
     },
@@ -683,13 +719,19 @@
     },
     "Sighișoara": {
         "country": "Romania",
-        "remarkable": ["Vlad III (Dracula), 1428-1476"],
+        "remarkable": [
+            "Vlad III (Dracula), 1428-1476",
+            "Attack to Ottoman territory, February, 1462"
+        ],
         "latitude": 46.22141,
         "longitude": 24.79279
     },
     "Stagira": {
         "country": "Chalcidian League (Greece)",
-        "remarkable": ["Aristotle, 384-322 BC"],
+        "remarkable": [
+            "Aristotle, 384-322 BC",
+            "Tutored Alexander The Great, 343 BC"
+        ],
         "latitude": 40.5913217,
         "longitude": 23.7937806
     },
@@ -707,7 +749,10 @@
     },
     "Pella": {
         "country": "Macedon (Greece)",
-        "remarkable": ["Alexander the Great, 356-323 BC"],
+        "remarkable": [
+            "Alexander the Great, 356-323 BC",
+            "Kingship over Macedon, 336 BC"
+        ],
         "latitude": 40.7604079,
         "longitude": 22.5271118
     },
@@ -767,7 +812,7 @@
     },
     "Berlin": {
         "country": "Germany",
-        "remarkable": ["Marlene Dietrich, 1901-1992"],
+        "remarkable": ["Marlene Dietrich, 1901-1992", "American Citizen, 1939"],
         "latitude": 52.520008,
         "longitude": 13.404954
     },
@@ -815,19 +860,26 @@
     },
     "Carthage": {
         "country": "Punic Empire (Tunisia)",
-        "remarkable": ["Hannibal, 247-183 BC"],
+        "remarkable": ["Hannibal, 247-183 BC", "Second Punic War, 218 BC"],
         "latitude": 36.8548083,
         "longitude": 10.3309924
     },
     "Heidenheim": {
         "country": "Germany",
-        "remarkable": ["Erwin Rommel, 1891-1944"],
+        "remarkable": [
+            "Erwin Rommel, 1891-1944",
+            "Invasion of Poland, 1 September, 1939"
+        ],
         "latitude": 48.6767637,
         "longitude": 10.152923
     },
     "Ulm": {
         "country": "German Empire",
-        "remarkable": ["Albert Einstein, 1879-1955"],
+        "remarkable": [
+            "Albert Einstein, 1879-1955",
+            "Special relativity, 1905",
+            "General relativity, 1915"
+        ],
         "latitude": 48.39841,
         "longitude": 9.99155
     },
