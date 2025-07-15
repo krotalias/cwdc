@@ -162,7 +162,10 @@
     },
     "Cusco": {
         "country": "Inca Empire (Peru)",
-        "remarkable": ["Pachacuti, 1403-1471"],
+        "remarkable": [
+            "Pachacuti, 1403-1471",
+            "First historical Incan emperor, 1425-1471"
+        ],
         "latitude": -13.52166458,
         "longitude": -71.96999612
     },
@@ -210,7 +213,9 @@
     },
     "Tikal": {
         "country": "Maya Empire (Belize)",
-        "remarkable": ["Jasaw Chan K'awiil I, 682-734"],
+        "remarkable": [
+            "Jasaw Chan K'awiil I, ruler of Maya city-state, Tikal, 682-734"
+        ],
         "latitude": 17.21999912,
         "longitude": -89.621164182
     },
@@ -231,7 +236,12 @@
     },
     "Tenochtitlan": {
         "country": "Aztec Empire (Mexico)",
-        "remarkable": ["Cuauhtémoc, 1502-1525"],
+        "remarkable": [
+            "Cuauhtémoc, last ruler of the Aztec Empire, 1502-1525",
+            "Elected Tlatoani, 1520",
+            "Captured by Cortés and tortured by fire, August 13, 1521",
+            "Executed in 1525"
+        ],
         "latitude": 19.80782,
         "longitude": -96.91595
     },
@@ -564,7 +574,10 @@
     },
     "Awash National Park": {
         "country": "Ethiopia",
-        "remarkable": ["Lucy, 3200000 BC"],
+        "remarkable": [
+            "Lucy, discovered in 1974",
+            "Remains of Australopithecus afarensis, 3200000 BC"
+        ],
         "latitude": 9.333332,
         "longitude": 40.333332
     },
@@ -624,7 +637,7 @@
     },
     "Tyre": {
         "country": "Phoenicia (Lebanon)",
-        "remarkable": ["Marinus of Tyre, 70-130"],
+        "remarkable": ["Marinus of Tyre, geographer and cartographer, 70-130"],
         "latitude": 33.2721211,
         "longitude": 35.1964023
     },
@@ -668,13 +681,17 @@
     },
     "Aswan": {
         "country": "Egypt",
-        "remarkable": ["Ramses II, 1303-1213 BC"],
+        "remarkable": [
+            "Ramses II, Third pharaoh of the Nineteenth Dynasty, 1303-1213 BC"
+        ],
         "latitude": 24.088938,
         "longitude": 32.89983
     },
     "Thebes": {
         "country": "Egypt",
-        "remarkable": ["Amenhotep III, 1390-1353 BC"],
+        "remarkable": [
+            "Amenhotep III, Ninth pharaoh of the Eighteenth Dynasty, 1390-1353 BC"
+        ],
         "latitude": 25.7329051,
         "longitude": 32.7658152
     },
@@ -692,19 +709,23 @@
     },
     "Mthethwa Paramountcy (Melmoth)": {
         "country": "South Africa",
-        "remarkable": ["Shaka Zulu, 1787-1828"],
+        "remarkable": ["Shaka Zulu, 1787-1828", "King of the Zulu, 1816-1828"],
         "latitude": -28.586667,
         "longitude": 31.398056
     },
     "Memphis": {
         "country": "Egypt",
-        "remarkable": ["Imhotep, 2592 BC"],
+        "remarkable": [
+            "Imhotep, Egyptian chancellor to the King Djoser, 2592 BC"
+        ],
         "latitude": 29.8544582,
         "longitude": 31.2615188
     },
     "Giza": {
         "country": "Egypt",
-        "remarkable": ["Khufu, 2589-2566 BC"],
+        "remarkable": [
+            "Khufu, Second pharaoh of the Fourth Dynasty, 2589-2566 BC"
+        ],
         "latitude": 29.979175,
         "longitude": 31.134358
     },
@@ -964,7 +985,7 @@
     },
     "Dunkirk": {
         "country": "France",
-        "remarkable": ["Dunkirk evacuation, 1940"],
+        "remarkable": ["Dunkirk evacuation, 1-4 June, 1940"],
         "latitude": 51.0333332,
         "longitude": 2.3666652
     },
@@ -972,6 +993,7 @@
         "country": "France",
         "remarkable": [
             "Napolean, 1769-1821",
+            "Bastille fell, July 14, 1789,",
             "Crowned Emperor, December 2, 1804"
         ],
         "latitude": 48.8534951,
