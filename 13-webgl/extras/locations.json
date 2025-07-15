@@ -420,7 +420,10 @@
     },
     "Hansung": {
         "country": "Korea",
-        "remarkable": ["Yi Sun-sin, 1545-1598"],
+        "remarkable": [
+            "Yi Sun-sin, 1545-1598",
+            "Korean admiral in the Imjin War, 1592-1598"
+        ],
         "latitude": 37.582363,
         "longitude": 127.010418
     },
@@ -500,7 +503,10 @@
     },
     "Lumbini": {
         "country": "Shakya Republic (Nepal)",
-        "remarkable": ["Siddhartha Gautama (Buddha), 563-483 BC"],
+        "remarkable": [
+            "Siddhartha Gautama (Buddha), 563-483 BC",
+            "Founder of Buddhism, 11 March, 543 BC"
+        ],
         "latitude": 27.738826869119,
         "longitude": 83.438634755255
     },
@@ -540,7 +546,10 @@
     },
     "Babylon": {
         "country": "Mesopotamia (Iraq)",
-        "remarkable": ["Nebuchadnezzar II, 642-562 BC"],
+        "remarkable": [
+            "Nebuchadnezzar II, 642-562 BC",
+            "King of Babylon, August, 605 BC"
+        ],
         "latitude": 32.54083,
         "longitude": 44.42417
     },
@@ -629,7 +638,10 @@
         "longitude": 34.855499
     },
     "Serengeti": {
-        "remarkable": ["Lenana, The Maasai Oloiboni, 1863-1911"],
+        "remarkable": [
+            "Lenana, The Maasai Oloiboni, 1863-1911",
+            "Paramount Chief by the British, 1898"
+        ],
         "country": "Tanzania",
         "latitude": -2.325165366,
         "longitude": 34.83333
@@ -648,7 +660,7 @@
             "Baldwin IV (Leper King), 1161-1185",
             "Sibylla Queen of Jerusalem, 1159-1190",
             "Balian of Ibelin, 1143-1193",
-            "Surrendered Jerusalem, 2 October, 1187)"
+            "Surrendered Jerusalem, 2 October, 1187"
         ],
         "country": "Kingdom of Jerusalem (Israel)",
         "latitude": 31.82,
