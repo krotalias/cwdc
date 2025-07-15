@@ -7,7 +7,7 @@
     },
     "Woolsthorpe-by-Colsterworth": {
         "country": "United Kingdom",
-        "remarkable": ["Isaac Newton, 1643-1727"],
+        "remarkable": ["Isaac Newton, 1643-1727", "Principia, 5 July, 1686"],
         "latitude": 52.8107,
         "longitude": -0.632
     },
@@ -22,13 +22,19 @@
     },
     "Shrewsbury": {
         "country": "United Kingdom",
-        "remarkable": ["Charles Darwin, 1809-1882"],
+        "remarkable": [
+            "Charles Darwin, 1809-1882",
+            "On the Origin of Species, 24 Novemver, 1859"
+        ],
         "latitude": 52.71009,
         "longitude": -2.75208
     },
     "Vivar": {
         "country": "Spain",
-        "remarkable": ["Rodrigo Díaz de Vivar (El Cid), 1043-1099"],
+        "remarkable": [
+            "Rodrigo Díaz de Vivar (El Cid), 1043-1099",
+            "Master of The Taifa of Zaragoza forces, 1082"
+        ],
         "latitude": 42.4223439,
         "longitude": -3.6800644
     },
@@ -49,7 +55,7 @@
     },
     "Dublin": {
         "country": "Ireland",
-        "remarkable": ["Olaf the White, 806-874"],
+        "remarkable": ["Olaf the White, 806-874", "King of Dublin, 853"],
         "latitude": 53.33306,
         "longitude": -6.24889
     },
@@ -79,7 +85,11 @@
     },
     "Recife": {
         "country": "Brazil",
-        "remarkable": ["Padre Roma, 1768-1818"],
+        "remarkable": [
+            "Padre Roma, 1768-1818",
+            "Revolução Pernambucana",
+            "Pai do General José Inácio de Abreu e Lima, 1794-1869"
+        ],
         "latitude": -8.0584933,
         "longitude": -34.8848193
     },
@@ -160,7 +170,7 @@
         "country": "United States",
         "remarkable": [
             "Franklin Delano Roosevelt, 1882-1945",
-            "Presidency, March 4, 1933"
+            "32th U.S. President, March 4, 1933"
         ],
         "latitude": 41.76804,
         "longitude": -73.93482
@@ -169,7 +179,7 @@
         "country": "United States",
         "remarkable": [
             "Theodore Roosevelt, 1858-1919",
-            "Presidency, September 14, 1901"
+            "26th U.S. President, September 14, 1901"
         ],
         "latitude": 40.7128,
         "longitude": -74.006
@@ -281,7 +291,10 @@
     },
     "Honolulu": {
         "country": "United States",
-        "remarkable": ["Barack Obama, 1961", "Presidency, January 20, 2009"],
+        "remarkable": [
+            "Barack Obama, 1961",
+            "44th U.S. President, January 20, 2009"
+        ],
         "latitude": 21.304547,
         "longitude": -157.855676
     },
@@ -351,7 +364,12 @@
     },
     "Tesendiap": {
         "country": "Papua New Guinea",
-        "remarkable": ["The Phantom (The Man Who Cannot Die), 1936"],
+        "remarkable": [
+            "The Phantom",
+            "The Ghost Who Walks",
+            "Guardian of the Eastern Dark",
+            "The Man Who Cannot Die, 1936"
+        ],
         "latitude": -5.3596276,
         "longitude": 144.4465685
     },
@@ -426,37 +444,57 @@
     },
     "Beijing": {
         "country": "China",
-        "remarkable": ["Mao Zedong, 1893-1976"],
+        "remarkable": [
+            "Mao Zedong, 1893-1976",
+            "People's Republic of China (PRC), 1949"
+        ],
         "latitude": 39.916668,
         "longitude": 116.383331
     },
     "Saigon": {
         "country": "Vietnam",
-        "remarkable": ["Ho Chi Minh, 1890-1969"],
+        "remarkable": [
+            "Ho Chi Minh, 1890-1969",
+            "1st President of the Democratic Republic of Vietnam, 2 September, 1945"
+        ],
         "latitude": 10.8225,
         "longitude": 106.754
     },
     "Temüjin (Khan Khentii Post)": {
         "country": "Mongolia",
-        "remarkable": ["Genghis Khan, 1162-1227"],
+        "remarkable": [
+            "Genghis Khan, 1162-1227",
+            "First khan of the Mongol Empire, 1206"
+        ],
         "latitude": 48.540643,
         "longitude": 106.9055314
     },
     "Sibiryak": {
         "country": "Siberia (Russia)",
-        "remarkable": ["Yermak Timofeyevich, 1532-1585"],
+        "remarkable": [
+            "Yermak Timofeyevich, 1532-1585",
+            "Russian conquest of Siberia, October 26, 1582"
+        ],
         "latitude": 60.0,
         "longitude": 105.0
     },
     "Bukittinggi": {
         "country": "Sumatra (Indonesia)",
-        "remarkable": ["Mohammad Hatta, 1902-1980"],
+        "remarkable": [
+            "Mohammad Hatta, 1902-1980",
+            "Indonesia's first vice president, 18 August, 1945",
+            "Prime Minister of the United States of Indonesia, 27 December, 1949"
+        ],
         "latitude": -0.30907,
         "longitude": 100.37055
     },
     "Kolkata": {
         "country": "India",
-        "remarkable": ["Mother Teresa, 1910-1997"],
+        "remarkable": [
+            "Mother Teresa, 1910-1997",
+            "Nobel Peace Prize, 1979",
+            "Saint Teresa of Calcutta, 4 September, 2016"
+        ],
         "latitude": 22.56263,
         "longitude": 88.36304
     },
@@ -492,7 +530,11 @@
     },
     "Ctesiphon": {
         "country": "Parthia (Iraq)",
-        "remarkable": ["Surena, 84-53 BC"],
+        "remarkable": [
+            "Surena, 84-53 BC",
+            "Parthian spahbed (general)",
+            "Defeated the Romans in the Battle of Carrhae, 53 BC"
+        ],
         "latitude": 33.08333,
         "longitude": 44.58333
     },
@@ -504,7 +546,10 @@
     },
     "Tikrit": {
         "country": "Mesopotamia (Iraq)",
-        "remarkable": ["Salah ad-Din Yusuf ibn Ayyub, 1137-1193"],
+        "remarkable": [
+            "Salah ad-Din Yusuf ibn Ayyub, 1137-1193",
+            "Sultan of Egypt and Syria, 28 October, 1174"
+        ],
         "latitude": 34.615807,
         "longitude": 43.678606
     },
@@ -516,7 +561,7 @@
     },
     "Mecca": {
         "country": "Saudi Arabia",
-        "remarkable": ["Muhammad, 570-632"],
+        "remarkable": ["Muhammad, 570-632", "Founder of Islam, 610"],
         "latitude": 21.420847,
         "longitude": 39.826869
     },
@@ -653,7 +698,10 @@
     },
     "Bila Tserkva": {
         "country": "Russian Empire (Ukraine)",
-        "remarkable": ["Lyudmila Pavlichenko, 1916-1974"],
+        "remarkable": [
+            "Lyudmila Pavlichenko, 1916-1974",
+            "Soviet Sniper, 8 August 1941"
+        ],
         "latitude": 49.75,
         "longitude": 30.08333
     },
@@ -773,13 +821,16 @@
     },
     "Pannonia": {
         "country": "Serbia",
-        "remarkable": ["Attila the Hun, 406-453"],
+        "remarkable": ["Attila the Hun, 406-453", "Ruler of the Huns, 434"],
         "latitude": 45.7503869,
         "longitude": 19.5214468
     },
     "Cape of Good Hope": {
         "country": "South Africa",
-        "remarkable": ["Bartolomeu Dias, 1450-1500, 1488"],
+        "remarkable": [
+            "Bartolomeu Dias, 1450-1500",
+            "Round the southern tip of Africa, 1488"
+        ],
         "latitude": -34.3571503,
         "longitude": 18.4739571
     },
@@ -791,7 +842,10 @@
     },
     "Syracuse": {
         "country": "Italy",
-        "remarkable": ["Archimedes, 287-212 BC"],
+        "remarkable": [
+            "Archimedes, 287-212 BC",
+            "On the Sphere and Cylinder, 225 BC"
+        ],
         "latitude": 37.075474,
         "longitude": 15.286586
     },
@@ -812,7 +866,10 @@
     },
     "Berlin": {
         "country": "Germany",
-        "remarkable": ["Marlene Dietrich, 1901-1992", "American Citizen, 1939"],
+        "remarkable": [
+            "Marlene Dietrich, 1901-1992",
+            "American Citizenship, 1939"
+        ],
         "latitude": 52.520008,
         "longitude": 13.404954
     },
@@ -833,7 +890,7 @@
     },
     "Venice": {
         "country": "Italy",
-        "remarkable": ["Marco Polo, 1254-1324"],
+        "remarkable": ["Marco Polo, 1254-1324", "Kublai Khan's palace, 1275"],
         "latitude": 45.4371908,
         "longitude": 12.3345898
     },
@@ -854,7 +911,10 @@
     },
     "Jevnaker": {
         "country": "(Ringerike) Norway",
-        "remarkable": ["Harald Hardrada, 1015-1066"],
+        "remarkable": [
+            "Harald Hardrada, 1015-1066",
+            "King of Norway, 1046-1066"
+        ],
         "latitude": 60.23979,
         "longitude": 10.38709
     },
@@ -878,7 +938,8 @@
         "remarkable": [
             "Albert Einstein, 1879-1955",
             "Special relativity, 1905",
-            "General relativity, 1915"
+            "General relativity, 1915",
+            "Nobel Prize in Physics, 1921"
         ],
         "latitude": 48.39841,
         "longitude": 9.99155
