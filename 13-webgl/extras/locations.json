@@ -106,6 +106,7 @@
         "country": "Brazil",
         "remarkable": [
             "Pedro II of Brazil, 1825-1891",
+            "Emperor of Brazil, 1831-1889",
             "Heitor Villa-Lobos, 1887-1959",
             "Parisian art scene, July, 1923-1930"
         ],
@@ -131,7 +132,7 @@
         "country": "Brazil",
         "remarkable": [
             "Cândido Rondon, 1865-1958",
-            "Roosevelt–Rondon Scientific Expedition, 1913-1914"
+            "Roosevelt-Rondon Scientific Expedition, 1913-1914"
         ],
         "latitude": -15.86556,
         "longitude": -56.07667
@@ -571,7 +572,8 @@
         "country": "Mesopotamia (Iraq)",
         "remarkable": [
             "Salah ad-Din Yusuf ibn Ayyub, 1137-1193",
-            "Sultan of Egypt and Syria, 28 October, 1174"
+            "Sultan of Egypt and Syria, 28 October, 1174",
+            "Conquest of Constantinople, May 29, 1453"
         ],
         "latitude": 34.615807,
         "longitude": 43.678606
@@ -641,7 +643,10 @@
     },
     "Tyre": {
         "country": "Phoenicia (Lebanon)",
-        "remarkable": ["Marinus of Tyre, geographer and cartographer, 70-130"],
+        "remarkable": [
+            "Marinus of Tyre, geographer and cartographer, 70-130",
+            "Equirectangular projection, 100"
+        ],
         "latitude": 33.2721211,
         "longitude": 35.1964023
     },
@@ -957,6 +962,19 @@
         "remarkable": ["Leonardo da Vinci, 1452-1519", "Mona Lisa, 1513-1516"],
         "latitude": 43.7873966,
         "longitude": 10.9271055
+    },
+    "Brunswick": {
+        "country": "Holy Roman Empire (Germany)",
+        "remarkable": [
+            "Carl Friedrich Gauss, 1777-1855",
+            "Göttingen Observatory, 1807-1855",
+            "Sum of an arithmetic series?, 1784",
+            "Disquisitiones Arithmeticae, 1798",
+            "Fundamental theorem of arithmetic, 1801",
+            "Non-Euclidean geometry, 1818"
+        ],
+        "latitude": 52.3166654,
+        "longitude": 10.5499978
     },
     "Jevnaker": {
         "country": "(Ringerike) Norway",
