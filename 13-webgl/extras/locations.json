@@ -113,6 +113,20 @@
         "latitude": -22.9068,
         "longitude": -43.1729
     },
+    "Palmira": {
+        "country": "Brazil",
+        "remarkable": [
+            "Alberto Santos Dumont, 1873-1932",
+            "Gasoline baloon, Deutsch premium",
+            "• Circled Eiffel tower, 1901",
+            "14-bis - First airplane heavier-than-air",
+            "• Flew 60m, 3m height, 23 October, 1906",
+            "Demoiselle - the first ultralight in history",
+            "• Flew 2km, 96km/h, 1909"
+        ],
+        "latitude": -21.453998184,
+        "longitude": -43.5514
+    },
     "Brodowski": {
         "country": "Brazil",
         "remarkable": [
@@ -1010,6 +1024,15 @@
         ],
         "latitude": 48.39841,
         "longitude": 9.99155
+    },
+    "Mühlburg": {
+        "country": "German Confederation (Germany)",
+        "remarkable": [
+            "Carl Benz, 1844-1929",
+            "First practical modern automobile, 1885"
+        ],
+        "latitude": 49.020333252,
+        "longitude": 8.354665248
     },
     "Free City of Mainz": {
         "country": "Holy Roman Empire (Germany)",
