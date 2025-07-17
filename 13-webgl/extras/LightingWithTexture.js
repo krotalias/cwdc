@@ -462,6 +462,7 @@ const element = {
   closest: document.getElementById("cls"),
   byDate: document.getElementById("cities"),
   locations: document.getElementById("locs"),
+  timeline: document.getElementById("timeline"),
 };
 
 /**
@@ -654,6 +655,7 @@ const cities = {
   byLongitude: null,
   byDate: null,
   current: null,
+  timeline: null,
 };
 
 /**
@@ -1515,8 +1517,16 @@ const handleKeyPress = ((event) => {
           ? cities.byDate
           : cities.byLongitude;
         break;
+      case "X":
+        const date = +element.timeline.value;
+        let dt;
+        for (dt of cities.timeline) {
+          if (dt >= date) break;
+        }
+        const index = cities.timeline.indexOf(dt);
+        currentLocation = cities.current[index];
       case "J":
-        currentLocation = closestSite(gpsCoordinates["Unknown"]);
+        if (ch == "J") currentLocation = closestSite(gpsCoordinates["Unknown"]);
       case "g":
       case "G":
       case "j":
@@ -2041,10 +2051,13 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
 }
 
 /**
- * Return cities ordered by date.
- * @return {Array<String>} city names ordered by date.
+ * Return cities ordered by date and the timeline.
+ * @return {Array<Array>}
+ * @property {Array<String>} 0 names ordered by date.
+ * @property {Array<Number>} 1 corresponding dates.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort Array.prototype.sort()}
  * @see {@link https://www.math.uwaterloo.ca/tsp/index.html Traveling Salesman Problem}
+ * @see {@link https://en.wikipedia.org/wiki/Timelines_of_Big_History Timelines of Big History}
  */
 function sortCitiesByDate() {
   // the array to be sorted
@@ -2088,7 +2101,12 @@ function sortCitiesByDate() {
     return 0;
   });
 
-  return mapped.map((v) => data[v.i]);
+  // dates
+  const timeline = mapped.map((v) => v.value);
+
+  const location = mapped.map((v) => data[v.i]);
+
+  return [location, timeline];
 }
 
 /**
@@ -2148,6 +2166,27 @@ function addListeners() {
    */
   element.closest.addEventListener("click", (event) =>
     handleKeyPress(createEvent("J")),
+  );
+
+  /**
+   * <p>Fired when a &lt;input type="range"&gt; is in the
+   * {@link https://html.spec.whatwg.org/multipage/input.html#range-state-(type=range) Range state}
+   * (by clicking or using the keyboard).</p>
+   *
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * Executed when the slider is changed.
+   *
+   * @summary Appends an event listener for events whose type attribute value is change.
+   *
+   * @param {Event} event a generic event.
+   * @event timeline
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+
+  element.timeline.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("X")),
   );
 
   /**
@@ -3418,12 +3457,14 @@ function startForReal(image) {
   labelForLocation(currentLocation);
   selectModel();
   addListeners();
-  cities.byDate = sortCitiesByDate();
+  [cities.byDate, cities.timeline] = sortCitiesByDate();
   cities.current = selector.cities ? cities.byDate : cities.byLongitude;
 
   // Phong highlight position: (0,0,1) = {-90,0} in GCS
   const coordinates = gcs2Screen({ longitude: -90, latitude: 0 }, false);
   phongHighlight.push(...coordinates.screen);
+
+  handleKeyPress(createEvent("X"));
 
   // start drawing!
   animate();
