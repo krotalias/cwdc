@@ -1548,8 +1548,9 @@ const handleKeyPress = ((event) => {
         else if (ch == "G") inc = -1;
         else inc = 0;
         if (axis === "q") axis = " "; // current meridian will be lost
-        const cl = cities.current.indexOf(currentLocation);
-        currentLocation = cities.current[mod(cl + inc, cities.current.length)];
+        let cl = cities.current.indexOf(currentLocation);
+        cl = mod(cl + inc, cities.current.length);
+        currentLocation = cities.current[cl];
         setPosition(currentLocation);
         selector.equator = true;
         element.equator.checked = selector.equator;
