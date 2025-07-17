@@ -464,6 +464,7 @@ const element = {
   locations: document.getElementById("locs"),
   timeline: document.getElementById("timeline"),
   lblTimeline: document.getElementById("lblTimeline"),
+  steplist: document.getElementById("steplist"),
 };
 
 /**
@@ -3017,6 +3018,22 @@ function setTextures(optionNames) {
 }
 
 /**
+ * Set range tick dates of an html &lt;range&gt; element identified by "steplist".
+ * @param {Array<Number>} optionNames array of timeline dates.
+ */
+function setRangeTicks(optionNames) {
+  const sel = element.steplist;
+
+  let options_str = "";
+
+  optionNames.forEach((date) => {
+    options_str += `<option>${date}</option>`;
+  });
+
+  sel.innerHTML = options_str;
+}
+
+/**
  * <p>Loads the {@link image texture image} and {@link gpsCoordinates} asynchronously
  * and defines its {@link ImageLoadCallback load callback function}.</p>
  * @param {Event} event load event.
@@ -3483,6 +3500,7 @@ function startForReal(image) {
   const coordinates = gcs2Screen({ longitude: -90, latitude: 0 }, false);
   phongHighlight.push(...coordinates.screen);
 
+  setRangeTicks(cities.timeline);
   handleKeyPress(createEvent("X"));
 
   // start drawing!
