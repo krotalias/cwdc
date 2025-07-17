@@ -463,6 +463,7 @@ const element = {
   byDate: document.getElementById("cities"),
   locations: document.getElementById("locs"),
   timeline: document.getElementById("timeline"),
+  lblTimeline: document.getElementById("lblTimeline"),
 };
 
 /**
@@ -1143,6 +1144,18 @@ function labelForLocation(location) {
 }
 
 /**
+ * Updates the label of the timeline to the given date.
+ * @param {Number} dat date.
+ */
+function labelForTimeline(dat) {
+  dat = Math.max(dat, element.timeline.min);
+  dat = Math.min(dat, element.timeline.max);
+  // element.lblTimeline.style.color = dat < 0 ? "gold" : "red";
+  dat = `${Math.abs(dat)} ${dat < 0 ? "BC" : "AD"}`;
+  element.lblTimeline.innerHTML = `Timeline: ${dat}`;
+}
+
+/**
  * Returns the closest site to the given GCS position (latitude, longitude).
  * @param {GCS} position GCS coordinates.
  * @return {String} closest site name.
@@ -1525,6 +1538,7 @@ const handleKeyPress = ((event) => {
         }
         const index = cities.timeline.indexOf(dt);
         currentLocation = cities.current[index];
+        labelForTimeline(dt);
       case "J":
         if (ch == "J") currentLocation = closestSite(gpsCoordinates["Unknown"]);
       case "g":
@@ -1540,6 +1554,10 @@ const handleKeyPress = ((event) => {
         selector.equator = true;
         element.equator.checked = selector.equator;
         labelForLocation(currentLocation);
+
+        let dat = cities.timeline[cl];
+        element.timeline.value = dat;
+        labelForTimeline(dat);
 
         if (selector.tooltip) {
           const location = gpsCoordinates[currentLocation];
