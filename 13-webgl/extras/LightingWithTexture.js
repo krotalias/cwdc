@@ -1557,7 +1557,7 @@ const handleKeyPress = ((event) => {
         element.equator.checked = selector.equator;
         labelForLocation(currentLocation);
 
-        let dat = cities.timeline[cl];
+        const dat = cities.timeline[cl];
         element.timeline.value = dat;
         labelForTimeline(dat);
 
@@ -1708,13 +1708,12 @@ function drawLocationsOnImage() {
     const x = uv.s * canvasimg.width;
     const y = uv.t * canvasimg.height;
 
-    const len = gps.remarkable.length;
     ctx.beginPath();
     ctx.arc(x, y, 2, 0, Math.PI * 2);
     ctx.fillStyle =
       location === "Unknown"
         ? "blue"
-        : (ctx.fillStyle = gps.remarkable[len - 1].includes(" BC")
+        : (ctx.fillStyle = gps.remarkable.at(-1).includes(" BC")
             ? "yellow"
             : "red");
     ctx.fill();
@@ -2073,8 +2072,8 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
 /**
  * Return cities ordered by date and the timeline.
  * @return {Array<Array>}
- * @property {Array<String>} 0 names ordered by date.
- * @property {Array<Number>} 1 corresponding dates.
+ * @property {Array<String>} 0 location names ordered by date.
+ * @property {Array<Number>} 1 location corresponding dates.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort Array.prototype.sort()}
  * @see {@link https://www.math.uwaterloo.ca/tsp/index.html Traveling Salesman Problem}
  * @see {@link https://en.wikipedia.org/wiki/Timelines_of_Big_History Timelines of Big History}
@@ -2083,14 +2082,19 @@ function sortCitiesByDate() {
   // the array to be sorted
   const data = cities.byLongitude;
 
-  // return the historical figure's date of birth
+  /**
+   * <p>Return a {@link gpsCoordinates location} historical figure's last date mentioned.<p>
+   * In case it is a range of dates (first-second), it returns the first date.
+   * @param {String} v location name.
+   * @global
+   * @function
+   */
   const getDate = (v) => {
     if (v == "Unknown") return Number.MAX_VALUE; // must be the last
     if (v == "Null_Island") return Number.MIN_SAFE_INTEGER; // must be the first
-    const len = gpsCoordinates[v].remarkable.length;
-    const remDate = gpsCoordinates[v].remarkable[len - 1].split(",");
+    const remDate = gpsCoordinates[v].remarkable.at(-1).split(",");
     if (remDate.length > 1) {
-      let date = remDate[remDate.length - 1].split("-");
+      let date = remDate.at(-1).split("-");
       date = date[0].match(/(\d+)/);
       if (date === null) {
         return Number.MIN_SAFE_INTEGER;
@@ -2130,7 +2134,7 @@ function sortCitiesByDate() {
 }
 
 /**
- * <p>Appends event listeners to the mesh, axes, equator, hws, fix_uv and merc checkboxes.</p>
+ * <p>Appends event listeners to HTML {@link element elements}.</p>
  * <p>Also appends event listeners to the rot and mode input radio buttons.</p>
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener EventTarget: addEventListener()}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
@@ -2405,7 +2409,7 @@ function addListeners() {
     const unknown = gpsCoordinates["Unknown"];
     ({ latitude: unknown.latitude, longitude: unknown.longitude } =
       spherical2gcs(uv));
-    currentLocation = cities.current[cities.current.length - 2];
+    currentLocation = cities.current.at(-2);
     handleKeyPress(createEvent("g"));
   });
 
@@ -2600,8 +2604,8 @@ function addListeners() {
       ({ latitude: unknown.latitude, longitude: unknown.longitude } =
         spherical2gcs(uv));
 
-      const position = ch === "g" ? cities.current.length - 2 : 0;
-      currentLocation = cities.current[position];
+      const position = ch === "g" ? -2 : 0;
+      currentLocation = cities.current.at(position);
     }
     handleKeyPress(createEvent(ch));
   });
@@ -2752,7 +2756,7 @@ function drawTexture() {
   loc = gl.getUniformLocation(lightingShader, "materialProperties");
   gl.uniformMatrix3fv(loc, false, matPropElements.shiny_brass);
   loc = gl.getUniformLocation(lightingShader, "shininess");
-  gl.uniform1f(loc, shininess[shininess.length - 1]);
+  gl.uniform1f(loc, shininess.at(-1));
 
   // need to choose a texture unit, then bind the texture to TEXTURE_2D for that unit
   const textureUnit = 1;
@@ -3528,9 +3532,7 @@ function pointsOnLocations() {
     arr[j + 2] = p[2];
 
     crr[j] = 1;
-    crr[j + 1] = gcs.remarkable[gcs.remarkable.length - 1].includes("BC")
-      ? 1
-      : 0;
+    crr[j + 1] = gcs.remarkable.at(-1).includes("BC") ? 1 : 0;
     crr[j + 2] = 0;
   }
   return [arr, crr];
