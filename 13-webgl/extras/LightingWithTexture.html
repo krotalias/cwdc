@@ -101,6 +101,13 @@ when using mipmap:
                 font-size: 200%;
                 padding: 10px;
             }
+            datalist {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                color: red;
+                width: 53%;
+            }
         </style>
     </head>
 
@@ -173,7 +180,7 @@ when using mipmap:
                     step="1"
                     value="1500"
                     list="steplist"
-                    style="width: 35em; margin-top: 3em"
+                    style="width: 50%; margin-top: 3em"
                 />
                 <datalist id="steplist">
                     <option>-2600</option>
@@ -187,10 +194,7 @@ when using mipmap:
                     <option>1500</option>
                     <option>2030</option>
                 </datalist>
-                <br />
-                <span style="float: left"> 2600 BC </span>
-                <span style="float: right; width: 30em"> 2050 AD </span>
-                <label id="lblTimeline" for="timeline" style="margin-left: 2em">
+                <label id="lblTimeline" for="timeline" style="margin-left: 5em">
                     Timeline
                 </label>
             </p>

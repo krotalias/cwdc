@@ -710,7 +710,7 @@ const phongHighlight = [];
  * @property {Boolean} hws model's trigulation algorithm source: three.js x hws.
  * @property {Boolean} tootip location information.
  * @property {Boolean} cities sequential location traversal order.
- * @property {Boolean} locations location poits.
+ * @property {Boolean} locations location points.
  */
 const selector = {
   lines: document.getElementById("mesh").checked,
@@ -3041,8 +3041,21 @@ function setRangeTicks(optionNames) {
 
   let options_str = "";
 
-  optionNames.forEach((date) => {
-    options_str += `<option>${date}</option>`;
+  optionNames.forEach((date, index) => {
+    const christ = Math.trunc(
+      ((-4 - optionNames[1]) / (optionNames.at(-2) - optionNames[1])) *
+        optionNames.length -
+        2,
+    );
+    if (index === 1) {
+      options_str += `<option value=${date} label="${Math.abs(date)} BC"></option>`;
+    } else if (index === optionNames.length - 2) {
+      options_str += `<option value=${date} label="${Math.abs(date)} AD"></option>`;
+    } else if (index === christ) {
+      options_str += `<option value=${date} label="4 BC"></option>`;
+    } else {
+      options_str += `<option value=${date}></option>`;
+    }
   });
 
   sel.innerHTML = options_str;
