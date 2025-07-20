@@ -1249,6 +1249,7 @@ const handleKeyPress = ((event) => {
   let gscale = 1;
   let subPoly = 0;
   let tri;
+  let animationID = null;
   let n, inc;
   const modelM = mat4.identity([]); // model matrix
   const forwardVector = vec3.fromValues(0, 0, 1); // phong highlight
@@ -1307,6 +1308,16 @@ const handleKeyPress = ((event) => {
         if (!selector.texture) selector.lines = true;
         element.texture.checked = selector.texture;
         element.mesh.checked = selector.lines;
+        break;
+      case "A":
+        if (selector.paused) {
+          if (animationID) {
+            clearInterval(animationID);
+            animationID = null;
+          } else {
+            animationID = startAnimation();
+          }
+        }
         break;
       case "a":
         selector.axes = !selector.axes;
@@ -2652,6 +2663,28 @@ function addListeners() {
     event.preventDefault();
     canvas.dispatchEvent(dblclickEvent);
   });
+}
+
+/**
+ * Sets up an interval to check for key presses every 2 seconds.
+ * This is useful for simulating key presses or for periodic updates.
+ * The interval will call the {@link handleKeyPress} function with a simulated event
+ * that has the key 'g' pressed, which is used to trigger the next location in the timeline.
+ * This is particularly useful for testing or for automatically cycling through locations.
+ * @param {Number} [delay=2000] - The interval time in milliseconds.
+ * Defaults to 2000 milliseconds (2 seconds).
+ * This function will repeatedly call {@link handleKeyPress} with a simulated event
+ * that has the key 'g' pressed, effectively simulating a key press every 2s.
+ * @return {Number} The ID of the interval that can be used to clear it later.
+ * This ID can be passed to `clearInterval()` to stop the animation.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval Window: setInterval() method}
+ * @see {@link createEvent}
+ */
+function startAnimation(delay = 2000) {
+  return window.setInterval(() => {
+    // Set interval for checking
+    handleKeyPress(createEvent("g"));
+  }, delay);
 }
 
 // export for using in the html file.
