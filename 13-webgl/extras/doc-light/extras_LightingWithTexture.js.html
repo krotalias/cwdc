@@ -2254,6 +2254,9 @@ function addListeners() {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
   element.animation.addEventListener("click", (event) =>
+    if (!selector.paused) {
+      handleKeyPress(createEvent(" "));
+    }
     handleKeyPress(createEvent("A")),
   );
 

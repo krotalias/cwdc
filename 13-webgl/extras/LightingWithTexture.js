@@ -2225,9 +2225,12 @@ function addListeners() {
    * @event clickAnimation
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
    */
-  element.animation.addEventListener("click", (event) =>
-    handleKeyPress(createEvent("A")),
-  );
+  element.animation.addEventListener("click", (event) => {
+    if (!selector.paused) {
+      handleKeyPress(createEvent(" "));
+    }
+    handleKeyPress(createEvent("A"));
+  });
 
   /**
    * <p>Fired when a &lt;input type="range"&gt; is in the
