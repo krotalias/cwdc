@@ -231,6 +231,17 @@
         "latitude": 25.0533517,
         "longitude": -77.322805
     },
+    "Cape Canaveral": {
+        "country": "NASA (United States)",
+        "remarkable": [
+            "Neil Alden Armstrong, 1930-2012",
+            "Edwin Eugene (“Buzz”) Aldrin Jr., 1930",
+            "Michael Collins, 1930-2021",
+            "Apollo 11, July 16, 1969"
+        ],
+        "latitude": 28.40584,
+        "longitude": -80.60477
+    },
     "San Cristóbal Canton": {
         "country": "Galápagos (Ecuador)",
         "remarkable": ["The Beagle Voyage, 1835"],
