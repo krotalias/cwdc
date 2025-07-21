@@ -30,6 +30,7 @@ when using mipmap:
             }
             #models {
                 font-size: 200%;
+                width: 40%;
             }
             #legenda {
                 float: right;
@@ -97,7 +98,8 @@ when using mipmap:
                 display: none;
                 pointer-events: none;
             }
-            #cls {
+            #cls,
+            #anim {
                 font-size: 200%;
                 padding: 10px;
             }
@@ -146,6 +148,7 @@ when using mipmap:
                     ><b>Object:</b></label
                 >
             </p>
+
             <select name="models" id="models">
                 <option value="0">Capsule</option>
                 <option value="1">Cone</option>
@@ -171,7 +174,10 @@ when using mipmap:
                 </label>
             </p>
 
-            <button id="cls">Closest Site</button>
+            <div style="width: 40; display: inline">
+                <button id="cls">Closest Site</button>
+                <button id="anim">Animation</button>
+            </div>
 
             <div>
                 <input

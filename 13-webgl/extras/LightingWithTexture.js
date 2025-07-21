@@ -441,6 +441,7 @@ const canvastip = document.getElementById("canvastip");
  * @property {HTMLInputElement} tip checkbox
  * @property {HTMLInputElement} php checkbox
  * @property {HTMLButtonElement} closest button
+ * @property {HTMLButtonElement} animation button
  * @property {HTMLInputElement} byDate checkbox
  * @property {HTMLInputElement} locations checkbox
  * @property {HTMLInputElement} timeline range
@@ -471,6 +472,7 @@ const element = {
   tip: document.getElementById("tip"),
   php: document.getElementById("php"),
   closest: document.getElementById("cls"),
+  animation: document.getElementById("anim"),
   byDate: document.getElementById("cities"),
   locations: document.getElementById("locs"),
   timeline: document.getElementById("timeline"),
@@ -2212,6 +2214,19 @@ function addListeners() {
    */
   element.closest.addEventListener("click", (event) =>
     handleKeyPress(createEvent("J")),
+  );
+
+  /**
+   * @summary Executed when the animation element is clicked.
+   * <p>Appends an event listener for events whose type attribute value is click.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event clickAnimation
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   */
+  element.animation.addEventListener("click", (event) =>
+    handleKeyPress(createEvent("A")),
   );
 
   /**
