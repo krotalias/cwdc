@@ -786,8 +786,13 @@
         "longitude": 30.08333
     },
     "Alexandria": {
-        "country": "Egypt",
-        "remarkable": ["Erathostenes, 276-194 BC", "Euclid, 300 BC"],
+        "country": "Ptolemaic Kingdom (Egypt)",
+        "remarkable": [
+            "Ptolemy (Alexander's general) 369-282 BC",
+            "Ptolemy I Soter reign, 305-282 BC",
+            "Euclid's Elements, 300 BC",
+            "Erathostenes, 276-194 BC"
+        ],
         "latitude": 31.205753,
         "longitude": 29.924526
     },
