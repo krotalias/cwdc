@@ -1597,8 +1597,10 @@ const handleKeyPress = ((event) => {
       case "g":
       case "G":
       case "j":
-        if (ch == "g") inc = 1;
-        else if (ch == "G") inc = -1;
+        case "ArrowRight":
+        case "ArrowLeft":
+        if (ch == "g" || ch == "ArrowRight") inc = 1;
+        else if (ch == "G" || ch == "ArrowLeft") inc = -1;
         else inc = 0;
         if (axis === "q") axis = " "; // current meridian will be lost
         let cl = cities.current.indexOf(currentLocation);
