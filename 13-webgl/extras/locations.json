@@ -243,6 +243,15 @@
         "latitude": 28.40584,
         "longitude": -80.60477
     },
+    "Hodgenville": {
+        "country": "Kentucky (United States)",
+        "remarkable": [
+            "Abraham Lincoln, 1809-1865",
+            "16th U.S. President, March 4, 1861"
+        ],
+        "latitude": 37.569331056,
+        "longitude": -85.736497
+    },
     "San Cristóbal Canton": {
         "country": "Galápagos (Ecuador)",
         "remarkable": ["The Beagle Voyage, 1835"],
