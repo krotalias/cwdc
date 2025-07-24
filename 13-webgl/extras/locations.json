@@ -7,7 +7,7 @@
     },
     "Woolsthorpe-by-Colsterworth": {
         "country": "United Kingdom",
-        "remarkable": ["Isaac Newton, 1643-1727", "Principia, 5 July, 1686"],
+        "remarkable": ["Isaac Newton, 1643-1727", "Principia, 5 July 1686"],
         "latitude": 52.8107,
         "longitude": -0.632
     },
@@ -15,7 +15,7 @@
         "country": "England",
         "remarkable": [
             "Winston Churchill, 1874-1965",
-            "Prime Minister, May 10, 1940"
+            "Prime Minister, 10 May 1940"
         ],
         "latitude": 51.8474887,
         "longitude": -1.3545343
@@ -24,7 +24,7 @@
         "country": "United Kingdom",
         "remarkable": [
             "Charles Darwin, 1809-1882",
-            "On the Origin of Species, 24 Novemver, 1859"
+            "On the Origin of Species, 24 November 1859"
         ],
         "latitude": 52.71009,
         "longitude": -2.75208
@@ -63,7 +63,7 @@
         "country": "Portugal",
         "remarkable": [
             "John VI of Portugal, 1767-1826",
-            "Arrival in Brazil, 22 January, 1808"
+            "Arrival in Brazil, 22 January 1808"
         ],
         "latitude": 38.7077507,
         "longitude": -9.1365919
@@ -97,7 +97,7 @@
         "country": "Porto Seguro (Brazil)",
         "remarkable": [
             "Pedro Álvarez Cabral, 1467-1520",
-            "Discovery of Brazil, 22 April, 1500"
+            "Discovery of Brazil, 22 April 1500"
         ],
         "latitude": -16.8963207,
         "longitude": -39.4075612
@@ -109,7 +109,7 @@
             "Emperor of Brazil, 1831-1889",
             "Machado de Assis, 1839-1908",
             "Heitor Villa-Lobos, 1887-1959",
-            "• Parisian art scene, July, 1923-1930",
+            "• Parisian art scene, 1923-1930",
             "Arthur Moreira Lima Jr., 1940-2024"
         ],
         "latitude": -22.9068,
@@ -122,7 +122,7 @@
             "Gasoline baloon, Deutsch premium",
             "• Circled Eiffel tower, 1901",
             "14-bis - First airplane heavier-than-air",
-            "• Flew 60m, 3m height, 23 October, 1906",
+            "• Flew 60m, 3m height, 23 October 1906",
             "Demoiselle - the first ultralight in history",
             "• Flew 2km, 96km/h, 1909"
         ],
@@ -133,9 +133,9 @@
         "country": "Brazil",
         "remarkable": [
             "Pelé, Best football player ever, 1940-2022",
-            "6th World Cup, Sweden, 29 June, 1958",
-            "7th World Cup, Chile, 17 June, 1962",
-            "9th World Cup, México, 21 June, 1970"
+            "6th World Cup, Sweden, 29 June 1958",
+            "7th World Cup, Chile, 17 June 1962",
+            "9th World Cup, México, 21 June 1970"
         ],
         "latitude": -21.6999972,
         "longitude": -45.2666656
@@ -174,7 +174,7 @@
         "country": "Venezuela",
         "remarkable": [
             "Simón Bolívar, 1783-1830",
-            "Puerto Cabello, 4 May, 1812"
+            "Puerto Cabello, 4 May 1812"
         ],
         "latitude": 10.5060934,
         "longitude": -66.9146008
@@ -183,7 +183,7 @@
         "country": "Chile",
         "remarkable": [
             "Ferdinand Magellan, 1480-1521",
-            "Discovery of the Strait, 1 November, 1520"
+            "Discovery of the Strait, 1 November 1520"
         ],
         "latitude": -53.9250254,
         "longitude": -71.3221444
@@ -201,7 +201,7 @@
         "country": "United States",
         "remarkable": [
             "Franklin Delano Roosevelt, 1882-1945",
-            "32th U.S. President, March 4, 1933"
+            "32th U.S. President, 4 March 1933"
         ],
         "latitude": 41.76804,
         "longitude": -73.93482
@@ -210,7 +210,7 @@
         "country": "United States",
         "remarkable": [
             "Theodore Roosevelt, 1858-1919",
-            "26th U.S. President, September 14, 1901"
+            "26th U.S. President, 14 September 1901"
         ],
         "latitude": 40.7128,
         "longitude": -74.006
@@ -219,7 +219,7 @@
         "country": "United States",
         "remarkable": [
             "George Washington, 1732-1799",
-            "1st U.S. President, July 4, 1776"
+            "1st U.S. President, 4 July 1776"
         ],
         "latitude": 38.188165914,
         "longitude": -76.902663056
@@ -228,7 +228,7 @@
         "country": "Nassau (Bahamas)",
         "remarkable": [
             "Christopher Columbus, 1451-1506",
-            "Discovery of America, 12 October, 1492"
+            "Discovery of America, 12 October 1492"
         ],
         "latitude": 25.0533517,
         "longitude": -77.322805
@@ -239,7 +239,7 @@
             "Neil Alden Armstrong, 1930-2012",
             "Edwin Eugene (“Buzz”) Aldrin Jr., 1930",
             "Michael Collins, 1930-2021",
-            "Apollo 11, July 16, 1969"
+            "Apollo 11, 16 July 1969"
         ],
         "latitude": 28.40584,
         "longitude": -80.60477
@@ -248,8 +248,8 @@
         "country": "Kentucky (United States)",
         "remarkable": [
             "Abraham Lincoln, 1809-1865",
-            "16th U.S. President, March 4, 1861",
-            "American Civil War, April 12, 1861-1865"
+            "16th U.S. President, 4 March 1861",
+            "American Civil War, 12 April 1861-26 May 1865"
         ],
         "latitude": 37.569331056,
         "longitude": -85.736497
@@ -271,7 +271,7 @@
     "Riverside": {
         "country": "Iowa (United States)",
         "remarkable": [
-            "James Tiberius Kirk, March 22, 2233",
+            "James Tiberius Kirk, 22 March 2233",
             "Star Trek, 1966-1968"
         ],
         "latitude": 41.47583143,
@@ -292,7 +292,7 @@
         "remarkable": [
             "Cuauhtémoc, last ruler of the Aztec Empire, 1502-1525",
             "Elected Tlatoani, 1520",
-            "Captured by Cortés and tortured by fire, August 13, 1521",
+            "Captured by Cortés and tortured by fire, 13 August 1521",
             "Executed, 1525"
         ],
         "latitude": 19.80782,
@@ -320,7 +320,7 @@
         "country": "United States",
         "remarkable": [
             "George S. Patton, 1885-1945",
-            "Battle of El Guettar, 23 March, 1943"
+            "Battle of El Guettar, 23 March 1943"
         ],
         "latitude": 34.0990995,
         "longitude": -118.1085554
@@ -338,7 +338,7 @@
         "country": "Territory of Alaska (United States)",
         "remarkable": [
             "Mottrom Dulany Ball, 1835-1887",
-            "Governor of Alaska, 27 March, 1878"
+            "Governor of Alaska, 27 March 1878"
         ],
         "latitude": 61.284,
         "longitude": -149.923
@@ -347,7 +347,7 @@
         "country": "United States",
         "remarkable": [
             "Husband E. Kimmel, 1882-1968",
-            "Japanese Attack, 7 December, 1941"
+            "Japanese Attack, 7 December 1941"
         ],
         "latitude": 21.3666652,
         "longitude": -157.9499962
@@ -356,7 +356,7 @@
         "country": "United States",
         "remarkable": [
             "Barack Obama, 1961",
-            "44th U.S. President, January 20, 2009"
+            "44th U.S. President, 20 January 2009"
         ],
         "latitude": 21.304547,
         "longitude": -157.855676
@@ -365,7 +365,7 @@
         "country": "United States",
         "remarkable": [
             "Raymond A. Spruance, 1886-1969",
-            "Task Force 16 (Carriers Enterprise and Hornet), 3 June, 1942"
+            "Task Force 16 (Carriers Enterprise and Hornet), 3 June 1942"
         ],
         "latitude": 28.1999992,
         "longitude": -177.3499986
@@ -374,7 +374,7 @@
         "country": "New Zealand",
         "remarkable": [
             "James Cook, 1728-1779",
-            "Sighted New Zeland, 6 October, 1769"
+            "Sighted New Zeland, 6 October 1769"
         ],
         "latitude": -41.2887953,
         "longitude": 174.7772114
@@ -383,7 +383,7 @@
         "country": "Kiribati",
         "remarkable": [
             "Richmond K. Turner, 1885-1961",
-            "Battle of Tarawa, 20 November, 1943"
+            "Battle of Tarawa, 20 November 1943"
         ],
         "latitude": 1.3278,
         "longitude": 172.97696
@@ -392,7 +392,7 @@
         "country": "Solomon Islands",
         "remarkable": [
             "Frank Jack Fletcher, 1885-1973",
-            "Battle of the Coral Sea, 4 May, 1942"
+            "Battle of the Coral Sea, 4 May 1942"
         ],
         "latitude": -16.2666656,
         "longitude": 162.333332
@@ -401,7 +401,7 @@
         "country": "Solomon Islands",
         "remarkable": [
             "William Halsey Jr., 1882-1959",
-            "Naval Battle of Guadalcanal, 12 November, 1942"
+            "Naval Battle of Guadalcanal, 12 November 1942"
         ],
         "latitude": -10.5333312,
         "longitude": 161.0333332
@@ -410,7 +410,7 @@
         "country": "Papua New Guinea",
         "remarkable": [
             "Isoroku Yamamoto, 1884-1943",
-            "Ambushed and Killed, 18 April, 1943"
+            "Ambushed and Killed, 18 April 1943"
         ],
         "latitude": -6.30916543,
         "longitude": 155.491164702
@@ -420,7 +420,7 @@
         "remarkable": [
             "Arthur Phillip, 1738-1814",
             "Claimed Australian Continent for British Crown, 1770",
-            "Port Jackson (Sydney Harbour), 26 January, 1788"
+            "Port Jackson (Sydney Harbour), 26 January 1788"
         ],
         "latitude": -33.8688,
         "longitude": 151.2093
@@ -440,7 +440,7 @@
         "country": "Japan",
         "remarkable": [
             "Harry W. Hill, 1890-1971",
-            "Battle of Iwo Jima, 19 February, 1945"
+            "Battle of Iwo Jima, 19 February 1945"
         ],
         "latitude": 24.7833302,
         "longitude": 141.3166654
@@ -458,7 +458,7 @@
         "country": "Chūgoku (Japan)",
         "remarkable": [
             "Harry S. Truman, 1884-1972",
-            "Atomic Bombing, 6 August, 1945"
+            "Atomic Bombing, 6 August 1945"
         ],
         "latitude": 34.4,
         "longitude": 132.45
@@ -467,7 +467,7 @@
         "country": "Kyushu (Japan)",
         "remarkable": [
             "Robert Oppenheimer, 1904-1967",
-            "Atomic Bombing, 9 August, 1945"
+            "Atomic Bombing, 9 August 1945"
         ],
         "latitude": 32.75,
         "longitude": 129.88333
@@ -476,7 +476,7 @@
         "country": "Japan",
         "remarkable": [
             "Chester W. Nimitz, 1885-1966",
-            "Battle of Okinawa, 1 April, 1945"
+            "Battle of Okinawa, 1 April 1945"
         ],
         "latitude": 26.499998,
         "longitude": 127.933329
@@ -494,7 +494,7 @@
         "country": "Philippines",
         "remarkable": [
             "Douglas MacArthur, 1880-1964",
-            "Commander of U.S. Army Forces in the Far East, July, 1941"
+            "Commander of U.S. Army Forces in the Far East, 26 July 1941"
         ],
         "latitude": 14.5946,
         "longitude": 120.99501
@@ -503,7 +503,7 @@
         "country": "Indonesia",
         "remarkable": [
             "Leslie Morshead, 1889-1959",
-            "Borneo campaign, 1 May, 1945"
+            "Borneo campaign, 1 May 1945"
         ],
         "latitude": 3.354681,
         "longitude": 117.596543
@@ -521,7 +521,7 @@
         "country": "Vietnam",
         "remarkable": [
             "Ho Chi Minh, 1890-1969",
-            "1st President of the Democratic Republic of Vietnam, 2 September, 1945"
+            "1st President of the Democratic Republic of Vietnam, 2 September 1945"
         ],
         "latitude": 10.8225,
         "longitude": 106.754
@@ -539,7 +539,7 @@
         "country": "Siberia (Russia)",
         "remarkable": [
             "Yermak Timofeyevich, 1532-1585",
-            "Russian conquest of Siberia, October 26, 1582"
+            "Russian conquest of Siberia, 26 October 1582"
         ],
         "latitude": 60.0,
         "longitude": 105.0
@@ -548,8 +548,8 @@
         "country": "Sumatra (Indonesia)",
         "remarkable": [
             "Mohammad Hatta, 1902-1980",
-            "Indonesia's first vice president, 18 August, 1945",
-            "Prime Minister of the United States of Indonesia, 27 December, 1949"
+            "Indonesia's first vice president, 18 August 1945",
+            "Prime Minister of the United States of Indonesia, 27 December 1949"
         ],
         "latitude": -0.30907,
         "longitude": 100.37055
@@ -559,7 +559,7 @@
         "remarkable": [
             "Mother Teresa, 1910-1997",
             "Nobel Peace Prize, 1979",
-            "Saint Teresa of Calcutta, 4 September, 2016"
+            "Saint Teresa of Calcutta, 4 September 2016"
         ],
         "latitude": 22.56263,
         "longitude": 88.36304
@@ -568,7 +568,7 @@
         "country": "Shakya Republic (Nepal)",
         "remarkable": [
             "Siddhartha Gautama (Buddha), 563-483 BC",
-            "Founder of Buddhism, 11 March, 543 BC"
+            "Founder of Buddhism, 11 March 543 BC"
         ],
         "latitude": 27.738826869119,
         "longitude": 83.438634755255
@@ -583,7 +583,7 @@
         "country": "Iran",
         "remarkable": [
             "Naser al-Din Shah Qajar, 1831-1896",
-            "Sun Trone, 5 September, 1848"
+            "Sun Trone, 5 September 1848"
         ],
         "latitude": 35.7248416,
         "longitude": 51.381653
@@ -592,7 +592,7 @@
         "country": "Saudi Arabia",
         "remarkable": [
             "Abdulaziz bin Abdul Rahman Al Saud, 1875-1953",
-            "First King of Saudi Arabia, 23 September, 1932"
+            "First King of Saudi Arabia, 23 September 1932"
         ],
         "latitude": 24.638916,
         "longitude": 46.7160104
@@ -611,7 +611,7 @@
         "country": "Mesopotamia (Iraq)",
         "remarkable": [
             "Nebuchadnezzar II, 642-562 BC",
-            "King of Babylon, August, 605 BC"
+            "King of Babylon, 605 BC"
         ],
         "latitude": 32.54083,
         "longitude": 44.42417
@@ -620,8 +620,8 @@
         "country": "Mesopotamia (Iraq)",
         "remarkable": [
             "Salah ad-Din Yusuf ibn Ayyub, 1137-1193",
-            "Sultan of Egypt and Syria, 28 October, 1174",
-            "Conquest of Jerusalem, October 2, 1187"
+            "Sultan of Egypt and Syria, 28 October 1174",
+            "Conquest of Jerusalem, 2 October 1187"
         ],
         "latitude": 34.615807,
         "longitude": 43.678606
@@ -646,7 +646,7 @@
         "country": "Saudi Arabia",
         "remarkable": [
             "King Salman bin Abdulaziz Al Saud, 1935",
-            "Crowned, 23 January, 2015"
+            "Crowned, 23 January 2015"
         ],
         "latitude": 21.5504432,
         "longitude": 39.1742363
@@ -702,7 +702,7 @@
     "Tel Aviv-Yafo": {
         "remarkable": [
             "David Ben-Gurion, 1886-1973",
-            "Prime Minister, January 25, 1948"
+            "Prime Minister, 25 January 1948"
         ],
         "country": "Israel",
         "latitude": 32.109333,
@@ -720,7 +720,7 @@
     "Jaffa": {
         "remarkable": [
             "Richard The Lion-Heart, 1157-1199",
-            "Battle of Jaffa, 8 August, 1192"
+            "Battle of Jaffa, 8 August 1192"
         ],
         "country": "Palestine (Israel)",
         "latitude": 32.0527047892,
@@ -731,7 +731,7 @@
             "Baldwin IV (Leper King), 1161-1185",
             "Sibylla Queen of Jerusalem, 1159-1190",
             "Balian of Ibelin, 1143-1193",
-            "Surrendered Jerusalem, 2 October, 1187"
+            "Surrendered Jerusalem, 2 October 1187"
         ],
         "country": "Kingdom of Jerusalem (Israel)",
         "latitude": 31.82,
@@ -791,7 +791,7 @@
         "country": "Russian Empire (Ukraine)",
         "remarkable": [
             "Lyudmila Pavlichenko, 1916-1974",
-            "Soviet Sniper, 8 August, 1941"
+            "Soviet Sniper, 8 August 1941"
         ],
         "latitude": 49.75,
         "longitude": 30.08333
@@ -833,7 +833,7 @@
         "remarkable": [
             "Thales of Miletus, philosopher and astronomer, 626-548 BC",
             "Brought Egyptian study of mathematics to Greece and stated Thales's theorem",
-            "He also predicted a solar eclipse, 585 BC"
+            "He also predicted a solar eclipse, 28 May 585 BC"
         ],
         "latitude": 37.5318313,
         "longitude": 27.2798246
@@ -858,14 +858,17 @@
         "country": "Ottoman Sultanate (Turkey)",
         "remarkable": [
             "Mehmed II, 1432-1481",
-            "Constantinople Fell, 29 May, 1453"
+            "Constantinople Fell, 29 May 1453"
         ],
         "latitude": 41.67713,
         "longitude": 26.555715
     },
     "Helsinki": {
         "country": "Finland",
-        "remarkable": ["Linus Torvalds, 1969", "Linux Kernel, September, 1991"],
+        "remarkable": [
+            "Linus Torvalds, 1969",
+            "Linux Kernel, 17 September 1991"
+        ],
         "latitude": 60.16952,
         "longitude": 24.93545
     },
@@ -873,7 +876,7 @@
         "country": "Romania",
         "remarkable": [
             "Vlad III (Dracula), 1428-1476",
-            "Attack to Ottoman territory, February, 1462"
+            "Attack to Ottoman territory, 11 February 1462"
         ],
         "latitude": 46.22141,
         "longitude": 24.79279
@@ -895,7 +898,7 @@
     },
     "Thermopylae": {
         "country": "Greece",
-        "remarkable": ["Xerxes I x Leonidas, 11 August, 480 BC"],
+        "remarkable": ["Xerxes I x Leonidas, 11 August 480 BC"],
         "latitude": 38.7999968,
         "longitude": 22.5333312
     },
@@ -922,7 +925,7 @@
         "country": "Poland",
         "remarkable": [
             "Józef Klemens Piłsudski, 1867-1935",
-            "Chief of State, November 11, 1918"
+            "Chief of State, 11 November 1918"
         ],
         "latitude": 52.22977,
         "longitude": 21.01178
@@ -986,7 +989,7 @@
         "country": "Italy",
         "remarkable": [
             "Gaius Julius Caezar, 100-44 BC",
-            "Crossing the Rubicon, 10 January, 49 BC"
+            "Crossing the Rubicon, 10 January 49 BC"
         ],
         "latitude": 41.902782,
         "longitude": 12.496366
@@ -1007,7 +1010,7 @@
         "country": "Italy",
         "remarkable": [
             "Lorenzo de' Medici, 1449-1492",
-            "Pazzi conspiracy, 26 April, 1478"
+            "Pazzi conspiracy, 26 April 1478"
         ],
         "latitude": 43.7697955,
         "longitude": 11.2556404
@@ -1050,7 +1053,7 @@
         "country": "Germany",
         "remarkable": [
             "Erwin Rommel, 1891-1944",
-            "Invasion of Poland, 1 September, 1939"
+            "Invasion of Poland, 1 September 1939"
         ],
         "latitude": 48.6767637,
         "longitude": 10.152923
@@ -1083,7 +1086,7 @@
     },
     "Dunkirk": {
         "country": "France",
-        "remarkable": ["Dunkirk evacuation, 1-4 June, 1940"],
+        "remarkable": ["Dunkirk evacuation, 1 June 1940-4 June 1940"],
         "latitude": 51.0333332,
         "longitude": 2.3666652
     },
@@ -1091,8 +1094,8 @@
         "country": "France",
         "remarkable": [
             "Napolean, 1769-1821",
-            "Bastille fell, July 14, 1789,",
-            "Crowned Emperor, December 2, 1804",
+            "Bastille fell, 14 July 1789,",
+            "Crowned Emperor, 2 December 1804",
             "Napoleonic Wars, 1796-1815"
         ],
         "latitude": 48.8534951,
@@ -1108,9 +1111,9 @@
         "country": "England",
         "remarkable": [
             "Greenwich Observatory, 1675",
-            "Prime Meridian, October, 1884",
+            "Prime Meridian, 22 October 1884",
             "Elizabeth I, 1533-1603",
-            "Crowned Queen, January 15, 1559"
+            "Crowned Queen, 15 January 1559"
         ],
         "latitude": 51.477928,
         "longitude": -0.001545

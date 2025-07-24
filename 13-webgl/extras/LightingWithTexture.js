@@ -2112,27 +2112,47 @@ function sortCitiesByDate() {
    * <p>Return a {@link gpsCoordinates location} historical figure's last date mentioned.<p>
    * In case it is a range of dates (first-second), it returns the first date.
    * @param {String} v location name.
+   * @return {Number} year of the date.
    * @global
    * @function
    */
   const getDate = (v) => {
     if (v == "Unknown") return Number.MAX_VALUE; // must be the last
     if (v == "Null_Island") return Number.MIN_SAFE_INTEGER; // must be the first
+    // "American Civil War, 12 April 1861-26 May 1865"
     const remDate = gpsCoordinates[v].remarkable.at(-1).split(",");
+    // ["American Civil War", "12 April 1861-26 May 1865"]
     if (remDate.length > 1) {
       let date = remDate.at(-1).split("-");
-      date = date[0].match(/(\d+)/);
-      if (date === null) {
-        return Number.MIN_SAFE_INTEGER;
-      }
-      date = +date[0];
+      // ["12 April 1861", "26 May 1865"]
+
+      date = date[0]; // "12 April 1861"
+      // "4 March 1933 BC"
       if (remDate.some((s) => s.includes(" BC"))) {
-        date = -date;
+        // if the date is BC, it must be negative
+        if (date.includes(" BC")) {
+          date = date.slice(0, -3);
+        }
+        // "4 March 1933"
+        const index = date.lastIndexOf(" ");
+        if (index !== -1) {
+          date = date.slice(0, index) + " -" + date.slice(index + 1);
+          // "4 March -1933"
+        } else {
+          // "-1933"
+          date = `-${date}`;
+        }
       }
-      if (isNaN(date)) {
-        console.log("date is NaN");
-      }
-      return date;
+
+      /**
+       * I would like to return Date.parse(date)
+       * However, it does not work with BC dates (negative years).
+       * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse Date.parse()}
+       */
+      const index = date.lastIndexOf(" ");
+      const year = index === -1 ? date : date.slice(date.lastIndexOf(" "));
+
+      return +year;
     }
     return Number.MIN_SAFE_INTEGER;
   };
@@ -2151,7 +2171,7 @@ function sortCitiesByDate() {
     return 0;
   });
 
-  // dates
+  // dates: new Date(v.value).getFullYear()
   const timeline = mapped.map((v) => v.value);
 
   const location = mapped.map((v) => data[v.i]);
@@ -3101,9 +3121,13 @@ function setRangeTicks(optionNames) {
         2,
     );
     if (index === 1) {
-      options_str += `<option value=${date} label="${Math.abs(date)} BC"></option>`;
+      options_str += `<option value=${date} label="${Math.abs(
+        date,
+      )} BC"></option>`;
     } else if (index === optionNames.length - 2) {
-      options_str += `<option value=${date} label="${Math.abs(date)} AD"></option>`;
+      options_str += `<option value=${date} label="${Math.abs(
+        date,
+      )} AD"></option>`;
     } else if (index === christ) {
       options_str += `<option value=${date} label="4 BC"></option>`;
     } else {
