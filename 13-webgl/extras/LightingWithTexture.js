@@ -2103,6 +2103,7 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort Array.prototype.sort()}
  * @see {@link https://www.math.uwaterloo.ca/tsp/index.html Traveling Salesman Problem}
  * @see {@link https://en.wikipedia.org/wiki/Timelines_of_Big_History Timelines of Big History}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCFullYear Date.prototype.getUTCFullYear()}
  */
 function sortCitiesByDate() {
   // the array to be sorted
@@ -2111,10 +2112,15 @@ function sortCitiesByDate() {
   /**
    * <p>Return a {@link gpsCoordinates location} historical figure's last date mentioned.<p>
    * In case it is a range of dates (first-second), it returns the first date.
+   *
+   * <p>I would like to return Date.parse(date).
+   * However, it does not work with BC dates (negative years).</p>
+   *
    * @param {String} v location name.
-   * @return {Number} year of the date.
+   * @return {Number} year of the date (negative for BC dates).
    * @global
    * @function
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse Date.parse()}
    */
   const getDate = (v) => {
     if (v == "Unknown") return Number.MAX_VALUE; // must be the last
@@ -2128,31 +2134,18 @@ function sortCitiesByDate() {
 
       date = date[0]; // "12 April 1861"
       // "4 March 1933 BC"
+      let bc = false;
       if (remDate.some((s) => s.includes(" BC"))) {
         // if the date is BC, it must be negative
-        if (date.includes(" BC")) {
-          date = date.slice(0, -3);
-        }
-        // "4 March 1933"
-        const index = date.lastIndexOf(" ");
-        if (index !== -1) {
-          date = date.slice(0, index) + " -" + date.slice(index + 1);
-          // "4 March -1933"
-        } else {
-          // "-1933"
-          date = `-${date}`;
-        }
+        date = date.replace("BC", "").trim().padStart(4, "0");
+        bc = true;
       }
 
-      /**
-       * I would like to return Date.parse(date)
-       * However, it does not work with BC dates (negative years).
-       * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse Date.parse()}
-       */
-      const index = date.lastIndexOf(" ");
-      const year = index === -1 ? date : date.slice(date.lastIndexOf(" "));
+      // date before year 100 is set as 19xx - I gave up...
+      const y = date.substring(date.lastIndexOf(" "));
+      const year = y.length < 4 ? y : new Date(date).getUTCFullYear();
 
-      return +year;
+      return bc ? -year : year;
     }
     return Number.MIN_SAFE_INTEGER;
   };
@@ -2171,7 +2164,7 @@ function sortCitiesByDate() {
     return 0;
   });
 
-  // dates: new Date(v.value).getFullYear()
+  // dates: new Date(v.value).getUTCFullYear()
   const timeline = mapped.map((v) => v.value);
 
   const location = mapped.map((v) => data[v.i]);
