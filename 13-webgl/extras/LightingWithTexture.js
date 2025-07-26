@@ -2132,7 +2132,7 @@ function sortCitiesByDate() {
       let date = remDate.at(-1).split("-");
       // ["12 April 1861", "26 May 1865"]
 
-      date = date[0]; // "12 April 1861"
+      date = date[0].trim(); // "12 April 1861"
       // "4 March 1933 BC"
       let bc = false;
       if (remDate.some((s) => s.includes(" BC"))) {
@@ -2143,30 +2143,37 @@ function sortCitiesByDate() {
 
       // date before year 100 is set as 19xx - I gave up...
       const y = date.substring(date.lastIndexOf(" "));
-      const year = y.length < 4 ? y : new Date(date).getUTCFullYear();
+      const d = new Date(date);
+      const year = y.length < 4 ? y : d.getUTCFullYear();
 
-      return bc ? -year : year;
+      return [bc ? -year : year, d.getUTCMonth()];
     }
     return Number.MIN_SAFE_INTEGER;
   };
 
   // temporary array holds objects with position and sort-value
-  const mapped = data.map((v, i) => ({ i, value: getDate(v) }));
+  const mapped = data.map((v, i) => {
+    const d = getDate(v);
+    return { i, year: d[0], month: d[1] };
+  });
 
   // sorting the mapped array containing the reduced values
   mapped.sort((a, b) => {
-    if (a.value > b.value) {
+    if (a.year > b.year) {
       return 1;
     }
-    if (a.value < b.value) {
+    if (a.year < b.year) {
       return -1;
     }
-    return 0;
+    return a.month - b.month;
   });
 
-  // dates: new Date(v.value).getUTCFullYear()
-  const timeline = mapped.map((v) => v.value);
-
+  // mapped is now sorted by year and month
+  const timeline = mapped.map((v) => v.year);
+  // and the location names are in the same order
+  // as the sorted mapped array
+  // so we can map the original data to the sorted order
+  // and return the sorted location names
   const location = mapped.map((v) => data[v.i]);
 
   return [location, timeline];

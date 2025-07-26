@@ -20,6 +20,17 @@
         "latitude": 51.8474887,
         "longitude": -1.3545343
     },
+    "Monmouth Castle": {
+        "country": "United Kingdom",
+        "remarkable": [
+            "Henry V, 16 September 1386 - 31 August 1422",
+            "Reign, 21 March 1413 - 31 August 1422",
+            "Battle of Agincourt (France), 25 October 1415",
+            "Regency, 21 May 1420 - 31 August 1422"
+        ],
+        "latitude": 51.8075917696,
+        "longitude": -2.70985882722
+    },
     "Shrewsbury": {
         "country": "United Kingdom",
         "remarkable": [
