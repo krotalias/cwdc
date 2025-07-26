@@ -190,6 +190,27 @@
         "latitude": 10.5060934,
         "longitude": -66.9146008
     },
+    "Milton": {
+        "country": "Massachusetts (United States)",
+        "remarkable": [
+            "George Herbert Walker Bush, 1924-2018",
+            "TBM Avenger, Bailed out during the Bonin Islands operations, 2 September 1944",
+            "41th U.S. President, 20 January 1989"
+        ],
+        "latitude": 42.24954,
+        "longitude": -71.06616
+    },
+    "Brookline": {
+        "country": "Massachusetts (United States)",
+        "remarkable": [
+            "John Fitzgerald Kennedy, 1917-1963",
+            "PT-109, Sunk during the Solomon Islands campaign, 2 August 1943",
+            "35th U.S. President, 20 January 1961",
+            "Assassinated, 22 November 1963"
+        ],
+        "latitude": 42.3249987,
+        "longitude": -71.133499466
+    },
     "Strait of Magellan": {
         "country": "Chile",
         "remarkable": [
