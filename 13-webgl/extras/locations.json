@@ -288,7 +288,10 @@
     },
     "San Cristóbal Canton": {
         "country": "Galápagos (Ecuador)",
-        "remarkable": ["The Beagle Voyage, 1835"],
+        "remarkable": [
+            "The Beagle Voyage, 27 December 1831 - 2 October 1836",
+            "Galapagos Islands, 15 September 1835"
+        ],
         "latitude": -0.7999968,
         "longitude": -89.3999984
     },
