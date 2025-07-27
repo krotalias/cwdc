@@ -844,7 +844,12 @@
     },
     "Byzantium, (Constantinople)": {
         "country": "Thrace (Turkey)",
-        "remarkable": ["Justinian I, 482-565", "Constantine, 272-337"],
+        "remarkable": [
+            "Justinian I, 482-565",
+            "Constantine, 272-337",
+            "Edict of Milan (tolerance for Christianity), 313",
+            "Church of the Holy Sepulchre, 13 September 335"
+        ],
         "latitude": 41.01224,
         "longitude": 28.976018
     },
