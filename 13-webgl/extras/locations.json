@@ -1046,6 +1046,16 @@
         "latitude": 45.4371908,
         "longitude": 12.3345898
     },
+    "Bologna": {
+        "country": "Papal States (Italy)",
+        "remarkable": [
+            "Pope Gregory XIII, 1502-1585",
+            "Papacy, 13 May 1572 - 10 April 1585",
+            "Gregorian calendar, 24 February 1582"
+        ],
+        "latitude": 44.49381,
+        "longitude": 11.33875
+    },
     "Florence": {
         "country": "Italy",
         "remarkable": [
