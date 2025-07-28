@@ -107,12 +107,17 @@ when using mipmap:
             datalist {
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
+                margin: 0.5em 0;
                 color: red;
                 width: 53%;
             }
             option {
                 padding: 0;
+            }
+            #lblTimeline {
+                margin-left: 5em;
+                font-size: 150%;
+                font-style: italic;
             }
         </style>
     </head>
@@ -175,12 +180,14 @@ when using mipmap:
                 </label>
             </p>
 
-            <div style="width: 40; display: inline">
+            <div style="width: 40; margin-bottom: 4em">
                 <button id="cls">Closest Site</button>
                 <button id="anim">Animation</button>
             </div>
 
             <div>
+                <label id="lblTimeline" for="timeline"> Timeline </label>
+                <br />
                 <input
                     id="timeline"
                     name="slider"
@@ -190,12 +197,9 @@ when using mipmap:
                     step="1"
                     value="1500"
                     list="steplist"
-                    style="width: 50%; margin-top: 3em"
+                    style="width: 50%"
                 />
                 <datalist id="steplist"></datalist>
-                <label id="lblTimeline" for="timeline" style="margin-left: 5em">
-                    Timeline
-                </label>
             </div>
 
             <form style="margin-top: 150px">
