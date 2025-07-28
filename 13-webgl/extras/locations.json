@@ -322,6 +322,17 @@
         "latitude": 42.034534,
         "longitude": -93.620369
     },
+    "Denison": {
+        "country": "Texas (United States)",
+        "remarkable": [
+            "Dwight David Eisenhower, 1890-1969",
+            "SHAEF commander, 1943-1945",
+            "D-Day (Operation Overlord), 6 June 1944",
+            "34th U.S. President, 20 January 1953"
+        ],
+        "latitude": 33.743163694,
+        "longitude": -96.554497782
+    },
     "Tenochtitlan": {
         "country": "Aztec Empire (Mexico)",
         "remarkable": [
