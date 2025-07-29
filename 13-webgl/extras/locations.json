@@ -90,7 +90,13 @@
     },
     "Fernando de Noronha": {
         "country": "Brazil",
-        "remarkable": ["Fernão de Noronha, 1470-1540, 1503"],
+        "remarkable": [
+            "Fernão de Noronha, 1470-1540",
+            "Amerigo Vespucci, 1451-1512",
+            "Arquipélago de Noronha, 1503",
+            "Martin Waldseemüller, 1470-1520",
+            "Named New World as America (Americus), 25 April 1507"
+        ],
         "latitude": -3.853808,
         "longitude": -32.423786
     },
@@ -1167,7 +1173,7 @@
     },
     "Gravelines": {
         "country": "France",
-        "remarkable": ["Spanish Armada, 1588"],
+        "remarkable": ["Spanish Armada, July 1588"],
         "latitude": 50.98651,
         "longitude": 2.12807
     },
