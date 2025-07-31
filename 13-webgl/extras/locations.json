@@ -1165,6 +1165,15 @@
         "latitude": 49.98419,
         "longitude": 8.2791
     },
+    "Domrémy la Pucelle": {
+        "country": "France",
+        "remarkable": [
+            "Jeanne d'Arc, 1412 - 30 May 1431",
+            "Siege of Orléans, 12 October 1428 - 8 May 1429"
+        ],
+        "latitude": 48.450001,
+        "longitude": 5.68333
+    },
     "Dunkirk": {
         "country": "France",
         "remarkable": ["Dunkirk evacuation, 1 June 1940-4 June 1940"],
