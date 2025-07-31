@@ -1062,7 +1062,13 @@
     },
     "Venice": {
         "country": "Italy",
-        "remarkable": ["Marco Polo, 1254-1324", "Kublai Khan's palace, 1275"],
+        "remarkable": [
+            "Marco Polo, 1254-1324",
+            "Departure to China with Niccolò and Maffeo, 1271",
+            "Kublai Khan's palace at Xanadu, 1275",
+            "Return to Venice, 1295",
+            "The Travels of Marco Polo by Rustichello da Pisa, 1300"
+        ],
         "latitude": 45.4371908,
         "longitude": 12.3345898
     },
@@ -1079,8 +1085,13 @@
     "Florence": {
         "country": "Italy",
         "remarkable": [
+            "Felippo Brunelleschi (architect), 1377-1446",
+            "Linear Perspective (single-point perspective), 1415",
+            "Donatello (sculptor), 1386-1466",
+            "David (sculpture), 1435-1440",
             "Lorenzo de' Medici, 1449-1492",
-            "Pazzi conspiracy, 26 April 1478"
+            "Pazzi conspiracy, 26 April 1478",
+            "David by Michelangelo (Palazzo della Signoria), 8 September 1504"
         ],
         "latitude": 43.7697955,
         "longitude": 11.2556404
