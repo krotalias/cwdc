@@ -2151,8 +2151,8 @@ function sortCitiesByDate() {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse Date.parse()}
    */
   const getDate = (v) => {
-    if (v == "Unknown") return Number.MAX_VALUE; // must be the last
-    if (v == "Null_Island") return Number.MIN_SAFE_INTEGER; // must be the first
+    if (v == "Unknown") return [Number.MAX_VALUE, 0]; // must be the last
+    if (v == "Null_Island") return [Number.MIN_SAFE_INTEGER, 0]; // must be the first
     // "American Civil War, 12 April 1861-26 May 1865"
     const remDate = gpsCoordinates[v].remarkable.at(-1).split(",");
     // ["American Civil War", "12 April 1861-26 May 1865"]
@@ -2172,11 +2172,11 @@ function sortCitiesByDate() {
       // date before year 100 is set as 19xx - I gave up...
       const y = date.substring(date.lastIndexOf(" "));
       const d = new Date(date);
-      const year = y.length &lt; 4 ? y : d.getUTCFullYear();
+      const year = y.length &lt; 4 ? +y : d.getUTCFullYear();
 
       return [bc ? -year : year, d.getUTCMonth()];
     }
-    return Number.MIN_SAFE_INTEGER;
+    return [Number.MIN_SAFE_INTEGER, 0];
   };
 
   // temporary array holds objects with position and sort-value
