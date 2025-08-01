@@ -1172,6 +1172,20 @@
         "latitude": 48.39841,
         "longitude": 9.99155
     },
+    "Milan": {
+        "country": "Duchy of Milan (Italy)",
+        "remarkable": [
+            "Sforza Castle (Castello Sforzesco), 1360-1499",
+            "Francesco I Sforza (duke), 1401-1466",
+            "Duke of Milan, 25 March 1450 - 8 March 1466",
+            "Ludovico Sforza, 1452-1508",
+            "Duke of Milan, 21 October 1494 - 6 September 1499",
+            "Leonardo da Vinci in Milan, 1482-1499",
+            "The Last Supper (Santa Maria delle Grazie), 1495-1498"
+        ],
+        "latitude": 45.4697,
+        "longitude": 9.1803
+    },
     "Mühlburg": {
         "country": "German Confederation (Germany)",
         "remarkable": [
