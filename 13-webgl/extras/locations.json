@@ -1072,6 +1072,18 @@
         "latitude": 45.4371908,
         "longitude": 12.3345898
     },
+    "Caprese": {
+        "country": "República Florentina (Italy)",
+        "remarkable": [
+            "Michelangelo di Lodovico, 1475-1564",
+            "David (Palazzo della Signoria), 1501-1504",
+            "Pietà (Saint Peter’s Basilica), 1498-1499",
+            "Sistine Chapel, 1508-1512",
+            "The Last Judgment, 1536-1541"
+        ],
+        "latitude": 43.64031,
+        "longitude": 11.98546
+    },
     "Bologna": {
         "country": "Papal States (Italy)",
         "remarkable": [
@@ -1091,7 +1103,6 @@
             "David (sculpture), 1435-1440",
             "Lorenzo de' Medici, 1449-1492",
             "Pazzi conspiracy, 26 April 1478",
-            "David by Michelangelo (Palazzo della Signoria), 8 September 1504"
         ],
         "latitude": 43.7697955,
         "longitude": 11.2556404
@@ -1114,6 +1125,16 @@
         ],
         "latitude": 52.3166654,
         "longitude": 10.5499978
+    },
+    "Pisa": {
+        "country": "Duchy of Florence (Italy)",
+        "remarkable": [
+            "Galileo Galilei, 1564-1642",
+            "Lean of the Tower of Pisa (gravity induces the same acceleration), 1589",
+            "Pendulum, 1602"
+        ],
+        "latitude": 43.722838,
+        "longitude": 10.401688
     },
     "Jevnaker": {
         "country": "(Ringerike) Norway",
