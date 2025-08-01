@@ -1077,7 +1077,7 @@
         "remarkable": [
             "Michelangelo di Lodovico, 1475-1564",
             "David (Palazzo della Signoria), 1501-1504",
-            "Pietà (Saint Peter’s Basilica), 1498-1499",
+            "Pietà (Saint Peter's Basilica), 1498-1499",
             "Sistine Chapel, 1508-1512",
             "The Last Judgment, 1536-1541"
         ],
@@ -1129,6 +1129,7 @@
     "Pisa": {
         "country": "Duchy of Florence (Italy)",
         "remarkable": [
+            "Tower of Pisa, 1173-1372",
             "Galileo Galilei, 1564-1642",
             "Lean of the Tower of Pisa (gravity induces the same acceleration), 1589",
             "Pendulum, 1602"
