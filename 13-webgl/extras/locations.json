@@ -1229,7 +1229,10 @@
     },
     "Gravelines": {
         "country": "France",
-        "remarkable": ["Spanish Armada, 21 July 1588"],
+        "remarkable": [
+            "Spanish Armada departure from Lisbon, 21 July 1588",
+            "The battle of Gravelines, 8 August 1588"
+        ],
         "latitude": 50.98651,
         "longitude": 2.12807
     },
