@@ -374,7 +374,7 @@
     "San Gabriel": {
         "country": "United States",
         "remarkable": [
-            "George S. Patton, 1885-1945",
+            "George S. Patton (General), 1885-1945",
             "Battle of El Guettar, 23 March 1943"
         ],
         "latitude": 34.0990995,
@@ -383,7 +383,7 @@
     "San Francisco": {
         "country": "United States",
         "remarkable": [
-            "William Halsey Jr., 1882-1959",
+            "William Halsey Jr. (Fleet Admiral), 1882-1959",
             "Doolittle Raid, 18 April 1942"
         ],
         "latitude": 37.77493,
@@ -401,7 +401,7 @@
     "Pearl Harbor": {
         "country": "United States",
         "remarkable": [
-            "Husband E. Kimmel, 1882-1968",
+            "Husband E. Kimmel (Rear Admiral), 1882-1968",
             "Japanese Attack, 7 December 1941"
         ],
         "latitude": 21.3666652,
@@ -419,7 +419,7 @@
     "Midway": {
         "country": "United States",
         "remarkable": [
-            "Raymond A. Spruance, 1886-1969",
+            "Raymond A. Spruance (Admiral), 1886-1969",
             "Task Force 16 (Carriers Enterprise and Hornet), 3 June 1942"
         ],
         "latitude": 28.1999992,
@@ -437,7 +437,7 @@
     "Tarawa": {
         "country": "Kiribati",
         "remarkable": [
-            "Richmond K. Turner, 1885-1961",
+            "Richmond K. Turner (Admiral), 1885-1961",
             "Battle of Tarawa, 20 November 1943"
         ],
         "latitude": 1.3278,
@@ -446,7 +446,7 @@
     "Coral Sea": {
         "country": "Solomon Islands",
         "remarkable": [
-            "Frank Jack Fletcher, 1885-1973",
+            "Frank Jack Fletcher (Admiral), 1885-1973",
             "Battle of the Coral Sea, 4 May 1942"
         ],
         "latitude": -16.2666656,
@@ -455,7 +455,7 @@
     "Guadalcanal": {
         "country": "Solomon Islands",
         "remarkable": [
-            "William Halsey Jr., 1882-1959",
+            "William Halsey Jr. (Fleet Admiral), 1882-1959",
             "Naval Battle of Guadalcanal, 12 November 1942"
         ],
         "latitude": -10.5333312,
@@ -464,7 +464,7 @@
     "Panguna": {
         "country": "Papua New Guinea",
         "remarkable": [
-            "Isoroku Yamamoto, 1884-1943",
+            "Isoroku Yamamoto (Marshal Admiral), 1884-1943",
             "Ambushed and Killed, 18 April 1943"
         ],
         "latitude": -6.30916543,
@@ -494,7 +494,7 @@
     "Iwo Jima": {
         "country": "Japan",
         "remarkable": [
-            "Harry W. Hill, 1890-1971",
+            "Harry W. Hill (Vice Admiral), 1890-1971",
             "Battle of Iwo Jima, 19 February 1945"
         ],
         "latitude": 24.7833302,
@@ -530,7 +530,7 @@
     "Okinawa": {
         "country": "Japan",
         "remarkable": [
-            "Chester W. Nimitz, 1885-1966",
+            "Chester W. Nimitz (Fleet Admiral), 1885-1966",
             "Battle of Okinawa, 1 April 1945"
         ],
         "latitude": 26.499998,
@@ -548,7 +548,7 @@
     "Manila": {
         "country": "Philippines",
         "remarkable": [
-            "Douglas MacArthur, 1880-1964",
+            "Douglas MacArthur (General of The Army), 1880-1964",
             "Commander of U.S. Army Forces in the Far East, 26 July 1941"
         ],
         "latitude": 14.5946,
@@ -557,7 +557,7 @@
     "Borneo": {
         "country": "Indonesia",
         "remarkable": [
-            "Leslie Morshead, 1889-1959",
+            "Leslie Morshead (Lieutenant General), 1889-1959",
             "Borneo campaign, 1 May 1945"
         ],
         "latitude": 3.354681,
@@ -630,7 +630,11 @@
     },
     "Persepolis": {
         "country": "Persia (Iran)",
-        "remarkable": ["Xerxes I, 519-465 BC", "Invasion of Greece, 480 BC"],
+        "remarkable": [
+            "Xerxes I, 519-465 BC",
+            "Invasion of Greece, 480 BC",
+            "Destroyed by fire by Alexander the Great, 330 BC"
+        ],
         "latitude": 29.9351669,
         "longitude": 52.8904041
     },
@@ -656,7 +660,7 @@
         "country": "Parthia (Iraq)",
         "remarkable": [
             "Surena, 84-53 BC",
-            "Parthian spahbed (general)",
+            "Parthian spahbed (General)",
             "Defeated the Romans in the Battle of Carrhae, 53 BC"
         ],
         "latitude": 33.08333,
@@ -727,11 +731,31 @@
         "latitude": 33.5102,
         "longitude": 36.29128
     },
+    "Alexandretta (İskenderun)": {
+        "country": "Turkey",
+        "remarkable": [
+            "Battle of Issus against King Darius III, 380-330 BC",
+            "Founded by Alexander (key to the Syrian Gates), 333 BC"
+        ],
+        "latitude": 36.58718,
+        "longitude": 36.17347
+    },
     "Levant": {
         "country": "Greater Syria (Syria, Lebanon, Jordan, Israel)",
         "remarkable": ["First Cruzade, 1096-1099"],
         "latitude": 34.4037939,
         "longitude": 35.8523369
+    },
+    "Petra": {
+        "country": "Nabatean Kingdom (Jordan)",
+        "remarkable": [
+            "Temple of the Sun, Indiana Jones and the Last Crusade, 1989",
+            "Al-Khazneh (The Treasury), 1st century",
+            "Aretas IV Philopatris, 10 BC-40 AD",
+            "King of the Nabateans, 9 BC-40 AD"
+        ],
+        "latitude": 30.32072,
+        "longitude": 35.48392
     },
     "Kaffa (Theodosia)": {
         "country": "Crimea (Ukraine)",
@@ -1055,8 +1079,14 @@
         "longitude": 12.496366
     },
     "Ravenna": {
-        "country": "Italy",
-        "remarkable": ["Fall of The Western Roman Empire, 476"],
+        "country": "Emilia-Romagna (Italy)",
+        "remarkable": [
+            "Fall of The Western Roman Empire, 476",
+            "Romulus Augustulus, 461-511",
+            "Last Roman Emperor, 31 August 475 - 4 September 476",
+            "Odoacer, 433 - 15 March 493",
+            "Ruler of Italy, 4 September 476 - 15 March 493"
+        ],
         "latitude": 44.418362,
         "longitude": 12.203529
     },
@@ -1212,7 +1242,7 @@
     },
     "Dunkirk": {
         "country": "France",
-        "remarkable": ["Dunkirk evacuation, 1 June 1940-4 June 1940"],
+        "remarkable": ["Dunkirk evacuation, 1 June 1940 - 4 June 1940"],
         "latitude": 51.0333332,
         "longitude": 2.3666652
     },
@@ -1231,7 +1261,7 @@
         "country": "France",
         "remarkable": [
             "Spanish Armada departure from Lisbon, 21 July 1588",
-            "The battle of Gravelines, 8 August 1588"
+            "Battle of Gravelines, 8 August 1588"
         ],
         "latitude": 50.98651,
         "longitude": 2.12807
