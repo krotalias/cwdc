@@ -531,6 +531,7 @@
         "country": "Japan",
         "remarkable": [
             "Chester W. Nimitz (Fleet Admiral), 1885-1966",
+            "Commander in Chief of the U.S. Pacific Fleet, 17 December 1941",
             "Battle of Okinawa, 1 April 1945"
         ],
         "latitude": 26.499998,
@@ -1185,8 +1186,10 @@
     "Heidenheim": {
         "country": "Germany",
         "remarkable": [
-            "Erwin Rommel, 1891-1944",
-            "Invasion of Poland, 1 September 1939"
+            "Erwin Rommel (Generalfeldmarschall), 1891-1944",
+            "Invasion of Poland, 1 September 1939",
+            "North African campaign, 10 June 1940 - 13 May 1943",
+            "Commanded the 7th Panzer Division in the Invasion of France, 1940"
         ],
         "latitude": 48.6767637,
         "longitude": 10.152923
