@@ -1066,6 +1066,17 @@
         "latitude": 44.11972,
         "longitude": 15.24222
     },
+    "Pompeii": {
+        "country": "Campania (Italy)",
+        "remarkable": [
+            "Gaius Plinius Secundus (Pliny the Elder), 23-79",
+            "Roman author, naturalist, and philosopher",
+            "Naturalis Historia (encyclopedia), 77-79",
+            "Eruption of Mount Vesuvius, 24 August 79"
+        ],
+        "latitude": 40.751,
+        "longitude": 14.487
+    },
     "Naples": {
         "country": "Italy",
         "remarkable": [
