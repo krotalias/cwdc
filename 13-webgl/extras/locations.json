@@ -200,7 +200,8 @@
         "country": "Massachusetts (United States)",
         "remarkable": [
             "George Herbert Walker Bush, 1924-2018",
-            "Grumman TBM Avenger Pilot, 17 May 1944",
+            "Yale B.A. in Economics 1945-1948",
+            "Harvard Business School (M.B.A.), 1975",
             "Bonin Islands operations (Bailed out), 2 September 1944",
             "41th U.S. President, 20 January 1989"
         ],
@@ -211,6 +212,7 @@
         "country": "Massachusetts (United States)",
         "remarkable": [
             "John Fitzgerald Kennedy, 1917-1963",
+            "Harvard College, 1936-1940",
             "PT-109 boat commander, 24 April 1943",
             "Solomon Islands Campaign (sunk), 2 August 1943",
             "Coconut message, 6 August 1943",
@@ -242,6 +244,8 @@
         "country": "United States",
         "remarkable": [
             "Franklin Delano Roosevelt, 1882-1945",
+            "Harvard A.B. History, 1900-1903",
+            "Columbia Law School, 1903-1907",
             "32th U.S. President, 4 March 1933"
         ],
         "latitude": 41.76804,
@@ -251,6 +255,7 @@
         "country": "United States",
         "remarkable": [
             "Theodore Roosevelt, 1858-1919",
+            "Harvard A.B. History, 1876-1880",
             "26th U.S. President, 14 September 1901"
         ],
         "latitude": 40.7128,
@@ -293,7 +298,7 @@
         "remarkable": [
             "Abraham Lincoln, 1809-1865",
             "16th U.S. President, 4 March 1861",
-            "American Civil War, 12 April 1861-26 May 1865"
+            "American Civil War, 12 April 1861 - 26 May 1865"
         ],
         "latitude": 37.569331056,
         "longitude": -85.736497
@@ -341,6 +346,8 @@
         "country": "Texas (United States)",
         "remarkable": [
             "Dwight David Eisenhower, 1890-1969",
+            "West Point, 1911-1915",
+            "Army War College, 1925-1928",
             "SHAEF commander, 1943-1945",
             "D-Day (Operation Overlord), 6 June 1944",
             "34th U.S. President, 20 January 1953"
@@ -417,6 +424,7 @@
         "country": "United States",
         "remarkable": [
             "Barack Obama, 1961",
+            "Harvard Law School, 1988-1991",
             "44th U.S. President, 20 January 2009"
         ],
         "latitude": 21.304547,
@@ -758,8 +766,8 @@
         "remarkable": [
             "Temple of the Sun, Indiana Jones and the Last Crusade, 1989",
             "Al-Khazneh (The Treasury), 1st century",
-            "Aretas IV Philopatris, 10 BC-40 AD",
-            "King of the Nabateans, 9 BC-40 AD"
+            "Aretas IV Philopatris, 10 BC - 40 AD",
+            "King of the Nabateans, 9 BC - 40 AD"
         ],
         "latitude": 30.32072,
         "longitude": 35.48392
@@ -772,7 +780,7 @@
     },
     "Jerusalem": {
         "country": "Herodian Kingdom (Israel)",
-        "remarkable": ["Jesus Christ, 4 BC-30 AD"],
+        "remarkable": ["Jesus Christ, 4 BC - 30 AD"],
         "latitude": 31.7794,
         "longitude": 35.232071
     },
