@@ -1049,6 +1049,18 @@
         "latitude": -34.3571503,
         "longitude": 18.4739571
     },
+    "Sarajevo": {
+        "country": "Bosnia and Herzegovina",
+        "remarkable": [
+            "Archduke Franz Ferdinand of Austria, 1863-1914",
+            "Assassinated by Gavrilo Princip, 28 June 1914",
+            "World War I, 28 June 1914 - 11 November 1918",
+            "40 million casualties (soldiers and civilians)",
+            "Treat of Versailles, 28 June 1919"
+        ],
+        "latitude": 43.8476,
+        "longitude": 18.3564
+    },
     "Stockholm": {
         "country": "Sweden",
         "remarkable": ["Alfred Nobel, 1833-1896", "Dynamite, 1867"],
@@ -1099,6 +1111,19 @@
         ],
         "latitude": 52.520008,
         "longitude": 13.404954
+    },
+    "Braunau am Inn": {
+        "country": "Austria",
+        "remarkable": [
+            "Adolf Hitler, 20 April 1889",
+            "Führer of the Nazi Party, 29 July 1921 - 30 April 1945",
+            "Chancellor of Germany, 30 January 1933 - 30 April 1945",
+            "World War II was the deadliest conflict in history, 1939-1945",
+            "70 million casualties (soldiers and civilians)",
+            "Japan's capitulation, 2 September 1945"
+        ],
+        "latitude": 48.25628,
+        "longitude": 13.04343
     },
     "Rome": {
         "country": "Italy",
