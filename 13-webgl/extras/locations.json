@@ -1086,6 +1086,19 @@
         "latitude": 59.33258,
         "longitude": 18.0649
     },
+    "Salona (Šalata)": {
+        "country": "Roman Empire (Croatia)",
+        "remarkable": [
+            "Diocletian, 242-311",
+            "Initiated the process of the Roman Empire split, 286",
+            "Diocletianic Persecution of Christianity, 303-312",
+            "Diocletian reigned in the Eastern Empire, 20 November 284 - 1 April 286",
+            "Maximian reigned in the Western, 1 April 286 - 1 May 305",
+            "Left the imperial office (weakened by illness), 1 May 305"
+        ],
+        "latitude": 43.539444,
+        "longitude": 16.483056
+    },
     "Syracuse": {
         "country": "Italy",
         "remarkable": [
