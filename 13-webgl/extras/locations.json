@@ -779,11 +779,13 @@
     },
     "Kaffa (Theodosia)": {
         "country": "Crimea (Ukraine)",
-        "Black Death (Bubonic Plague), 1346-1353",
+        "remarkable": [
+            "Black Death (Bubonic Plague), 1346-1353",
             "Mongol army besieging Caffa catapulted infected corpses into the city, 1347",
             "Vector are fleas on black rats carried by merchant ships",
             "Disseminated in Europe via the Genoese trading port of Caffa",
             "25-50 million casualties in Europe (perhaps 1/2 polulation), 1347"
+        ],
         "latitude": 45.03677,
         "longitude": 35.37789
     },
