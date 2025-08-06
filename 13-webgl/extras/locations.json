@@ -909,10 +909,9 @@
     "Byzantium, (Constantinople)": {
         "country": "Thrace (Turkey)",
         "remarkable": [
-            "Justinian I, 482-565",
-            "Constantine, 272-337",
-            "Edict of Milan (tolerance for Christianity), 313",
-            "Church of the Holy Sepulchre, 13 September 335"
+            "Byzantium, founded by Greek colonists from Megara, 657 BC",
+            "Constantinople, founded by Constantine, 324",
+            "Capital of the Roman, Byzantine, Latin and Ottoman empires, 330-1453"
         ],
         "latitude": 41.01224,
         "longitude": 28.976018
@@ -1024,6 +1023,26 @@
         ],
         "latitude": 37.0811452,
         "longitude": 22.4248618
+    },
+    "Naissus (Niš)": {
+        "country": "Roman Empire (Serbia)",
+        "remarkable": [
+            "Constantine the Great, 272-337",
+            "Edict of Milan (tolerance for Christianity), 313",
+            "Church of the Holy Sepulchre, 13 September 335"
+        ],
+        "latitude": 43.32472,
+        "longitude": 21.90333
+    },
+    "Tauresium": {
+        "country": "Eastern Roman Empire (Macedonia)",
+        "remarkable": [
+            "Justinian I, 482-565",
+            "Renovatio imperii, or restoration of the Empire",
+            "The Corpus Juris Civilis (Body of Civil Law), 529-534"
+        ],
+        "latitude": 41.90034,
+        "longitude": 21.61346
     },
     "Warsaw": {
         "country": "Poland",
