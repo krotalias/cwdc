@@ -74,7 +74,8 @@
         "country": "Portugal",
         "remarkable": [
             "John VI of Portugal, 1767-1826",
-            "Arrival in Brazil, 22 January 1808"
+            "Court in Brazil, 22 January 1808 - April 26, 1821",
+            "Banco do Brasil, 12 October 1808 - 23 September de 1829"
         ],
         "latitude": 38.7077507,
         "longitude": -9.1365919
@@ -171,6 +172,17 @@
         "remarkable": ["Hans Egede, 1686-1758", "Apostle of Greenland, 1711"],
         "latitude": 64.166666,
         "longitude": -51.7333304
+    },
+    "Arroio Grande": {
+        "country": "Brazil",
+        "remarkable": [
+            "Irineu Evangelista de Sousa, 1813-1889",
+            "Bank Of Brasil, 1851",
+            "Baron of Mauá, 30 April 1864",
+            "Viscount of Mauá, 26 June 1874"
+        ],
+        "latitude": -32.2327,
+        "longitude": -53.0862
     },
     "Santo Antônio do Leverger": {
         "country": "Brazil",
