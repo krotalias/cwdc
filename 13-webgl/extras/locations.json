@@ -177,7 +177,7 @@
         "country": "Brazil",
         "remarkable": [
             "Irineu Evangelista de Sousa, 1813-1889",
-            "Bank Of Brasil, 1851",
+            "Bank of Brasil, 1851",
             "Baron of Mauá, 30 April 1864",
             "Viscount of Mauá, 26 June 1874"
         ],
@@ -451,7 +451,8 @@
         "country": "United States",
         "remarkable": [
             "Raymond A. Spruance (Admiral), 1886-1969",
-            "Task Force 16 (Carriers Enterprise and Hornet), 3 June 1942"
+            "Task Force 16 (Carriers Enterprise and Hornet)",
+            "Battle of Midway, 4 June 1942"
         ],
         "latitude": 28.1999992,
         "longitude": -177.3499986
@@ -608,7 +609,7 @@
         "country": "Vietnam",
         "remarkable": [
             "Ho Chi Minh, 1890-1969",
-            "1st President of the Democratic Republic of Vietnam, 2 September 1945"
+            "1st President of the DR of Vietnam, 2 September 1945"
         ],
         "latitude": 10.8225,
         "longitude": 106.754
@@ -693,7 +694,7 @@
         "remarkable": [
             "Surena, 84-53 BC",
             "Parthian spahbed (General)",
-            "Defeated the Romans in the Battle of Carrhae, 53 BC"
+            "Battle of Carrhae, 53 BC"
         ],
         "latitude": 33.08333,
         "longitude": 44.58333
@@ -952,9 +953,10 @@
     "Miletus": {
         "country": "Anatolia (Turkey)",
         "remarkable": [
-            "Thales of Miletus, philosopher and astronomer, 626-548 BC",
-            "Brought Egyptian study of mathematics to Greece and stated Thales's theorem",
-            "He also predicted a solar eclipse, 28 May 585 BC"
+            "Thales of Miletus (philosopher), 626-548 BC",
+            "Brought Egyptian study of mathematics to Greece",
+            "Stated Thales's theorem",
+            "Predicted a solar eclipse, 28 May 585 BC"
         ],
         "latitude": 37.5318313,
         "longitude": 27.2798246
@@ -1019,7 +1021,7 @@
     },
     "Thermopylae": {
         "country": "Greece",
-        "remarkable": ["Xerxes I x Leonidas, 11 August 480 BC"],
+        "remarkable": ["Battle of Thermopylae, 8 September 480 BC"],
         "latitude": 38.7999968,
         "longitude": 22.5333312
     },
@@ -1091,7 +1093,7 @@
         "remarkable": [
             "Archduke Franz Ferdinand of Austria, 1863-1914",
             "Assassinated by Gavrilo Princip, 28 June 1914",
-            "World War I, 28 June 1914 - 11 November 1918",
+            "WW I, 28 June 1914 - 11 November 1918",
             "40 million casualties (soldiers and civilians)",
             "Treat of Versailles, 28 June 1919"
         ],
@@ -1110,7 +1112,7 @@
             "Diocletian, 242-311",
             "Initiated the process of the Roman Empire split, 286",
             "Diocletianic Persecution of Christianity, 303-312",
-            "Diocletian reigned in the Eastern Empire, 20 November 284 - 1 April 286",
+            "Reigned in the Eastern Empire, 20 November 284 - 1 April 286",
             "Maximian reigned in the Western, 1 April 286 - 1 May 305",
             "Left the imperial office (weakened by illness), 1 May 305"
         ],
@@ -1168,7 +1170,7 @@
             "Adolf Hitler, 20 April 1889",
             "Führer of the Nazi Party, 29 July 1921 - 30 April 1945",
             "Chancellor of Germany, 30 January 1933 - 30 April 1945",
-            "World War II was the deadliest conflict in history, 1939-1945",
+            "WW II was the deadliest conflict in history, 1939-1945",
             "70 million casualties (soldiers and civilians)",
             "Japan's capitulation, 2 September 1945"
         ],
@@ -1267,8 +1269,13 @@
         "remarkable": [
             "Tower of Pisa, 1173-1372",
             "Galileo Galilei, 1564-1642",
-            "Lean of the Tower of Pisa (gravity induces the same acceleration), 1589",
-            "Pendulum, 1602"
+            "Leaning Tower of Pisa (free fall experiment), 1589",
+            "Pendulum, 1602",
+            "Inquisition of Galileo, 12 February 1616",
+            "Two Chief World Systems, 1632",
+            "Trial of Galileo, 22 June 1633",
+            "Two New Sciences, 1638",
+            "House arrest, 22 June 1633 - 8 January 1642"
         ],
         "latitude": 43.722838,
         "longitude": 10.401688
