@@ -100,6 +100,18 @@
         "latitude": 38.7077507,
         "longitude": -9.1365919
     },
+    "Queluz National Palace, Lisbon": {
+        "country": "Portugal",
+        "remarkable": [
+            "Pedro I of Brasil, 1798-1834",
+            "Emperor of Brazil, 12 October 1822 - 7 April 1831",
+            "Pedro IV of Portugal, 10 March 1826 - 2 May 1826",
+            "Independence of Brasil, 7 September 1822",
+            "Constitution of Brasil, 25 March 1824"
+        ],
+        "latitude": 38.750725,
+        "longitude": -9.259082
+    },
     "Reykjavik": {
         "country": "Iceland",
         "remarkable": [
@@ -143,8 +155,6 @@
     "Rio": {
         "country": "Brazil",
         "remarkable": [
-            "Pedro II of Brazil, 1825-1891",
-            "Emperor of Brazil, 1831-1889",
             "Machado de Assis, 1839-1908",
             "Heitor Villa-Lobos, 1887-1959",
             "• Parisian art scene, 1923-1930",
@@ -152,6 +162,16 @@
         ],
         "latitude": -22.9068,
         "longitude": -43.1729
+    },
+    "Palácio de São Cristóvão, Rio": {
+        "country": "Brazil",
+        "remarkable": [
+            "Pedro II of Brazil, 1825-1891",
+            "Emperor of Brazil, 7 April 1831 - 15 November 1889",
+            "War of Paraguay, 13 December 1864 - 1 March 1870"
+        ],
+        "latitude": -22.90189,
+        "longitude": -43.22619
     },
     "Palmira": {
         "country": "Brazil",
