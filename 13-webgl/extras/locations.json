@@ -238,6 +238,17 @@
         "latitude": -15.86556,
         "longitude": -56.07667
     },
+    "Asunción": {
+        "country": "Paraguay",
+        "remarkable": [
+            "Francisco Solano López (Marshal-President), 1827-1870",
+            "President, 10 September 1862 - 1 March de 1870",
+            "Platine War, 18 August 1851 - 3 February 1852",
+            "War of Paraguay, 13 December 1864 - 1 March 1870"
+        ],
+        "latitude": -25.298249,
+        "longitude": -57.622533
+    },
     "Manaus": {
         "country": "Brazil",
         "remarkable": ["Celestial Sacardim", "Amazon Theatre, 1884-1896"],
