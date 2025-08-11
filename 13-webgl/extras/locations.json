@@ -40,6 +40,15 @@
         "latitude": 52.71009,
         "longitude": -2.75208
     },
+    "Moffat": {
+        "country": "Scotland",
+        "remarkable": [
+            "Hugh Dowding (Air Chief Marshal), 1882-1970",
+            "Battle of Britain, 10 July 1940 - 31 October 1940"
+        ],
+        "latitude": 55.333814,
+        "longitude": -3.444884
+    },
     "Vivar": {
         "country": "Spain",
         "remarkable": [
@@ -69,6 +78,17 @@
         "remarkable": ["Olaf the White, 806-874", "King of Dublin, 853"],
         "latitude": 53.33306,
         "longitude": -6.24889
+    },
+    "Ferrol": {
+        "country": "Galicia (Spain)",
+        "remarkable": [
+            "Francisco Franco (General), 1892-1975",
+            "Spanish Civil War, 17 July 1936 - 1 April 1939",
+            "Guernica, 26 April 1937",
+            "Caudillo, 19 April 1937 - 20 November 1975"
+        ],
+        "latitude": 43.48321,
+        "longitude": -8.23689
     },
     "Lisbon (Olisipo)": {
         "country": "Portugal",
