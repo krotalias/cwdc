@@ -100,14 +100,14 @@
         "latitude": 38.7077507,
         "longitude": -9.1365919
     },
-    "Queluz National Palace, Lisbon": {
-        "country": "Portugal",
+    "Queluz National Palace": {
+        "country": "Lisbon (Portugal)",
         "remarkable": [
             "Pedro I of Brasil, 1798-1834",
             "Emperor of Brazil, 12 October 1822 - 7 April 1831",
-            "Pedro IV of Portugal, 10 March 1826 - 2 May 1826",
             "Independence of Brasil, 7 September 1822",
-            "Constitution of Brasil, 25 March 1824"
+            "Constitution of Brasil, 25 March 1824",
+            "Pedro IV of Portugal, 10 March 1826 - 2 May 1826"
         ],
         "latitude": 38.750725,
         "longitude": -9.259082
@@ -163,8 +163,8 @@
         "latitude": -22.9068,
         "longitude": -43.1729
     },
-    "Palácio de São Cristóvão, Rio": {
-        "country": "Brazil",
+    "Palácio de São Cristóvão": {
+        "country": "Rio (Brazil)",
         "remarkable": [
             "Pedro II of Brazil, 1825-1891",
             "Emperor of Brazil, 7 April 1831 - 15 November 1889",
