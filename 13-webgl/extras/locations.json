@@ -925,6 +925,18 @@
         "latitude": 25.7329051,
         "longitude": 32.7658152
     },
+    "Kibbutz Degania Alef": {
+        "country": "Ottoman Empire (Israel)",
+        "remarkable": [
+            "Moshe Dayan, 1915-1981",
+            "Israeli general, 1948-1969",
+            "Minister of Defense, 1967-1974",
+            "Six-Day War, 5 June 1967 - 10 June 1967",
+            "Yom Kippur War, 6 October 1973 - 25 October 1973"
+        ],
+        "latitude": 32.666667,
+        "longitude": 35.566667
+    },
     "Anatolia": {
         "country": "Turkey",
         "remarkable": ["Third Cruzade (Richard x Salah ad-Din), 1189-1192"],
