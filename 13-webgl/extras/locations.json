@@ -470,6 +470,15 @@
         "latitude": 37.77493,
         "longitude": -122.41942
     },
+    "Tahiti": {
+        "country": "French Polynesia",
+        "remarkable": [
+            "James Cook's First voyage, 1768-1771",
+            "Tahiti, 13 April 1769"
+        ],
+        "latitude": -17.6333308,
+        "longitude": -149.4499982
+    },
     "Anchorage": {
         "country": "Territory of Alaska (United States)",
         "remarkable": [
@@ -479,14 +488,15 @@
         "latitude": 61.284,
         "longitude": -149.923
     },
-    "Pearl Harbor": {
-        "country": "United States",
+    "Pai'ea": {
+        "country": "Maui (United States)",
         "remarkable": [
-            "Husband E. Kimmel (Rear Admiral), 1882-1968",
-            "Japanese Attack, 7 December 1941"
+            "Kamehameha I, 1736-1819",
+            "Ali'i nui of Hawaii, July 1782 - 8 May 1819",
+            "King of the Hawaiian Islands, 1795 - 8 May 1819"
         ],
-        "latitude": 21.3666652,
-        "longitude": -157.9499962
+        "latitude": 20.906329708,
+        "longitude": -156.37249
     },
     "Honolulu": {
         "country": "United States",
@@ -497,6 +507,25 @@
         ],
         "latitude": 21.304547,
         "longitude": -157.855676
+    },
+    "Pearl Harbor": {
+        "country": "United States",
+        "remarkable": [
+            "Husband E. Kimmel (Rear Admiral), 1882-1968",
+            "Japanese Attack, 7 December 1941"
+        ],
+        "latitude": 21.3666652,
+        "longitude": -157.9499962
+    },
+    "Waimea": {
+        "country": "Kaui (United States)",
+        "remarkable": [
+            "James Cook's Third voyage, 1776-1779",
+            "Hawaiian Islands, 18 January 1778",
+            "Killed in Kealakekua Bay, 14 February 1779"
+        ],
+        "latitude": 21.954791,
+        "longitude": -159.666289
     },
     "Midway": {
         "country": "United States",
@@ -512,7 +541,10 @@
         "country": "New Zealand",
         "remarkable": [
             "James Cook, 1728-1779",
-            "Sighted New Zeland, 6 October 1769"
+            "First voyage, 1768-1771",
+            "Sighted New Zeland, 6 October 1769",
+            "Second voyage, 1772-1775",
+            "First European in the east coast of Australia, 19 April 1770"
         ],
         "latitude": -41.2887953,
         "longitude": 174.7772114
