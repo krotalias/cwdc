@@ -3142,12 +3142,12 @@ function setRangeTicks(optionNames) {
 
   let options_str = "";
 
+  const christ = Math.trunc(
+    ((-4 - optionNames[1]) / (optionNames.at(-2) - optionNames[1])) *
+      (optionNames.length - 2),
+  );
+
   optionNames.forEach((date, index) => {
-    const christ = Math.trunc(
-      ((-4 - optionNames[1]) / (optionNames.at(-2) - optionNames[1])) *
-        optionNames.length -
-        2,
-    );
     if (index === 1) {
       options_str += `&lt;option value=${date} label="${Math.abs(
         date,
