@@ -944,7 +944,8 @@
     "Aswan": {
         "country": "Egypt",
         "remarkable": [
-            "Ramses II, Third pharaoh of the Nineteenth Dynasty, 1303-1213 BC"
+            "Ramses II (Third pharaoh), 1303-1213 BC",
+            "Nineteenth Dynasty, 1279-1213 BC"
         ],
         "latitude": 24.088938,
         "longitude": 32.89983
@@ -952,7 +953,8 @@
     "Thebes": {
         "country": "Egypt",
         "remarkable": [
-            "Amenhotep III, Ninth pharaoh of the Eighteenth Dynasty, 1390-1353 BC"
+            "Amenhotep III (Ninth pharaoh), 1401-1353 BC",
+            "Eighteenth Dynasty, 1390-1353 BC"
         ],
         "latitude": 25.7329051,
         "longitude": 32.7658152
@@ -990,7 +992,11 @@
     "Memphis": {
         "country": "Egypt",
         "remarkable": [
-            "Imhotep, Egyptian chancellor to the King Djoser, 2592 BC"
+            "Djoser (Second pharaoh), 2650-2611 BC",
+            "Third Dinasty, 2630-2611 BC",
+            "Imhotep (High Priest of Ra), 2667-2600 BC",
+            "Chancellor, physician and architect, 2648 BC",
+            "Step Pyramid (Saqqara necropolis), 2670-2650 BC"
         ],
         "latitude": 29.8544582,
         "longitude": 31.2615188
@@ -998,7 +1004,8 @@
     "Giza": {
         "country": "Egypt",
         "remarkable": [
-            "Khufu, Second pharaoh of the Fourth Dynasty, 2589-2566 BC"
+            "Khufu, (Second pharaoh), 2609-2566 BC",
+            "Fourth Dynasty, 2589-2566 BC"
         ],
         "latitude": 29.979175,
         "longitude": 31.134358
