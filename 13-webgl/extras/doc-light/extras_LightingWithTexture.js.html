@@ -3139,6 +3139,7 @@ function setTextures(optionNames) {
  */
 function setRangeTicks(optionNames) {
   const sel = element.steplist;
+  const timeline = element.timeline;
 
   let options_str = "";
 
@@ -3159,10 +3160,13 @@ function setRangeTicks(optionNames) {
     } else if (index === christ) {
       options_str += `&lt;option value=${date} label="4 BC">&lt;/option>`;
     } else {
-      options_str += `&lt;option value=${date}>&lt;/option>`;
+      if (index > 0 &amp;&amp; index &lt; optionNames.length - 1)
+        options_str += `&lt;option value=${date}>&lt;/option>`;
     }
   });
 
+  timeline.min = optionNames[1];
+  timeline.max = optionNames.at(-2);
   sel.innerHTML = options_str;
 }
 
