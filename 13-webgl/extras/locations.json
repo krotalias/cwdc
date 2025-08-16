@@ -434,6 +434,23 @@
         "latitude": 19.80782,
         "longitude": -96.91595
     },
+    "Gillespie County": {
+        "country": "United States",
+        "remarkable": [
+            "Lyndon Baines Johnson (LBJ), 1908-1973",
+            "Texas State University B.S., 1927-1930",
+            "Welhausen Mexican School in Cotulla (teacher), 1928-1929",
+            "Lieutenant commander, 21 June 1940 - 16 June 1942",
+            "36th U.S. President, 22 November 1963",
+            "Higher Education Act, 1965",
+            "Immigration and Nationality Act, 1965 ",
+            "Social Security Amendments (Medicare and Medicaid), 1965",
+            "Voting Rights Act, 1965",
+            "Civil Rights Act, 1968"
+        ],
+        "latitude": 30.31,
+        "longitude": -98.95
+    },
     "Mexico City": {
         "country": "Mexico",
         "remarkable": [
