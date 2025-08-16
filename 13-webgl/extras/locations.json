@@ -890,7 +890,12 @@
     },
     "Jerusalem": {
         "country": "Herodian Kingdom (Israel)",
-        "remarkable": ["Jesus Christ, 4 BC - 30 AD"],
+        "remarkable": [
+            "Siege of Jerusalem (Pompey), 63 BC",
+            "Herod the Great, 72-4 BC",
+            "Ruler of Judea (basileus), 37-4 BC",
+            "Jesus Christ, 25 December 4 BC - 7 April 30 AD"
+        ],
         "latitude": 31.7794,
         "longitude": 35.232071
     },
@@ -1286,7 +1291,8 @@
         "country": "Italy",
         "remarkable": [
             "Gaius Julius Caezar, 100-44 BC",
-            "Crossing the Rubicon, 10 January 49 BC"
+            "Crossing the Rubicon, 10 January 49 BC",
+            "Ides of March assassination, 15 March 49 BC"
         ],
         "latitude": 41.902782,
         "longitude": 12.496366

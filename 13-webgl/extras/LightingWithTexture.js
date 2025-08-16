@@ -3114,9 +3114,10 @@ function setRangeTicks(optionNames) {
   const timeline = element.timeline;
 
   let options_str = "";
+  const year = 4;
 
   const christ = Math.trunc(
-    ((-4 - optionNames[1]) / (optionNames.at(-2) - optionNames[1])) *
+    ((-year - optionNames[1]) / (optionNames.at(-2) - optionNames[1])) *
       (optionNames.length - 2),
   );
 
@@ -3130,7 +3131,7 @@ function setRangeTicks(optionNames) {
         date,
       )} AD"></option>`;
     } else if (index === christ) {
-      options_str += `<option value=${date} label="4 BC"></option>`;
+      options_str += `<option value=${date} label="${year} BC"></option>`;
     } else {
       if (index > 0 && index < optionNames.length - 1)
         options_str += `<option value=${date}></option>`;
