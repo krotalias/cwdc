@@ -1129,6 +1129,19 @@ function getChar(event) {
 }
 
 /**
+ * Checks if the given texture file name represents a map.
+ * It looks for the substrings "map", "earth", "ndvi" or "ocean"
+ * in the file name. The check is case insensitive.
+ * @param {String} filename texture fine name.
+ * @returns {Boolean} whether the texture represents a map.
+ */
+function checkForMapTexture(filename) {
+  return ["map", "earth", "ndvi", "ocean"].some((str) =>
+    filename.toLowerCase().includes(str),
+  );
+}
+
+/**
  * Cleans the location name by removing
  * the text in parentheses and the parentheses themselves.
  * @param {String} location name of the location.
@@ -1587,7 +1600,7 @@ const handleKeyPress = ((event) => {
         element.timeline.value = dat;
         labelForTimeline(dat);
 
-        if (selector.tooltip) {
+        if (selector.tooltip && isMap) {
           const location = gpsCoordinates[currentLocation];
           const coordinates = gcs2Screen(location, mercator);
 
@@ -1769,9 +1782,7 @@ const selectTexture = (() => {
     }
     image.src = `./textures/${imageFilename[textureCnt]}`;
     mercator = imageFilename[textureCnt].includes("Mercator");
-    isMap = ["map", "earth", "ndvi"].some((str) =>
-      imageFilename[textureCnt].toLowerCase().includes(str),
-    );
+    isMap = checkForMapTexture(imageFilename[textureCnt]);
     chkMerc.checked = mercator;
 
     if (previousMercator != mercator) {
@@ -3207,9 +3218,7 @@ window.addEventListener("load", (event) => {
       // starts loading the image asynchronously
       image.src = `./textures/${imageFilename[0]}`;
       mercator = imageFilename[0].includes("Mercator");
-      isMap = ["map", "earth", "ndvi"].some((str) =>
-        imageFilename[0].toLowerCase().includes(str),
-      );
+      isMap = checkForMapTexture(imageFilename[0]);
       document.getElementById("mercator").checked = mercator;
     })
     .catch((err) => {
