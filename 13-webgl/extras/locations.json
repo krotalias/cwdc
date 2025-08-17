@@ -1483,6 +1483,18 @@
         "latitude": 48.450001,
         "longitude": 5.68333
     },
+    "Liège": {
+        "country": "Francia (Belgium)",
+        "remarkable": [
+            "Charlemagne, 2 April 748 - 28 January 814",
+            "First emperor in the West in over 300 years (Father of Europe), 800",
+            "King of the Franks, 9 October 768 - 28 January 814",
+            "King of the Lombards, 774 - 28 January 814",
+            "Emperor of the Carolingian Empire, 25 December 800 - 28 January 814"
+        ],
+        "latitude": 50.63373,
+        "longitude": 5.56749
+    },
     "Dunkirk": {
         "country": "France",
         "remarkable": ["Dunkirk evacuation, 1 June 1940 - 4 June 1940"],
