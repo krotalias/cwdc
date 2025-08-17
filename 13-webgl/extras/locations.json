@@ -20,6 +20,18 @@
         "latitude": 51.8474887,
         "longitude": -1.3545343
     },
+    "Lindisfarne": {
+        "country": "Holy Island (United Kingdom)",
+        "remarkable": [
+            "Lindisfarne Monastery (Saint Aidan), 635",
+            "St Cuthbert, 634 - 20 March 687",
+            "Bishop of Lindisfarne, 26 March 685",
+            "Beginning of the Viking Age, 800-1050",
+            "Raid on Lindisfarne, 8 June 793"
+        ],
+        "latitude": 55.68,
+        "longitude": -1.8025
+    },
     "Monmouth Castle": {
         "country": "United Kingdom",
         "remarkable": [
