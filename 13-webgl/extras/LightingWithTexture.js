@@ -1180,6 +1180,7 @@ function labelForTimeline(dat) {
   // element.lblTimeline.style.color = dat < 0 ? "gold" : "red";
   dat = `${Math.abs(dat)} ${dat < 0 ? "BC" : "AD"}`;
   element.lblTimeline.innerHTML = `Timeline: ${dat}`;
+  document.querySelector("#nsites").innerHTML = `${cities.current.length}`;
 }
 
 /**

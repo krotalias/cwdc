@@ -1208,6 +1208,7 @@ function labelForTimeline(dat) {
   // element.lblTimeline.style.color = dat &lt; 0 ? "gold" : "red";
   dat = `${Math.abs(dat)} ${dat &lt; 0 ? "BC" : "AD"}`;
   element.lblTimeline.innerHTML = `Timeline: ${dat}`;
+  document.querySelector("#nsites").innerHTML = `${cities.current.length}`;
 }
 
 /**
