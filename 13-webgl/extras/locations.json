@@ -5,6 +5,16 @@
         "latitude": 0,
         "longitude": 0
     },
+    "East India House": {
+        "country": "London (United Kingdom)",
+        "remarkable": [
+            "East India Company, 31 December 1600 - 1 January 1874",
+            "Three presidency armies, totalling about 260,000 soldiers",
+            "Government of India Act (British Crown administration), 2 August 1858"
+        ],
+        "latitude": 51.513,
+        "longitude": -0.082
+    },
     "Woolsthorpe-by-Colsterworth": {
         "country": "United Kingdom",
         "remarkable": ["Isaac Newton, 1643-1727", "Principia, 5 July 1686"],
@@ -767,6 +777,16 @@
         "latitude": 22.56263,
         "longitude": 88.36304
     },
+    "Ziradei": {
+        "country": "India",
+        "remarkable": [
+            "Rajendra Prasad, 1884-1963",
+            "M.A. in Economics (University of Calcutta), 1907-1910",
+            "First President of India, 26 January 1950 - 13 May 1962"
+        ],
+        "latitude": 26.236,
+        "longitude": 84.2483
+    },
     "Lumbini": {
         "country": "Shakya Republic (Nepal)",
         "remarkable": [
@@ -775,6 +795,17 @@
         ],
         "latitude": 27.738826869119,
         "longitude": 83.438634755255
+    },
+    "Karachi": {
+        "country": "British India (Pakistan)",
+        "remarkable": [
+            "Muhammad Ali Jinnah, 1876-1948",
+            "Leader of the All-India Muslim League, 1913-1947",
+            "Founder of Pakistan, 14 August 1947",
+            "First Governor-General of Pakistan, 15 August 1947 - 11 September 1948"
+        ],
+        "latitude": 24.9056,
+        "longitude": 67.0822
     },
     "Persepolis": {
         "country": "Persia (Iran)",
