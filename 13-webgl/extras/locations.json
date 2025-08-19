@@ -71,6 +71,21 @@
         "latitude": 55.333814,
         "longitude": -3.444884
     },
+    "Dunfermline": {
+        "country": "Scotland",
+        "remarkable": [
+            "Andrew Carnegie, 1835-1919",
+            "Net worth: $470M or 0.6% GDP (1919) - 18.8B (today)",
+            "90% donated to charity, 1901-1919",
+            "881 Seventh Avenue (at 57th Street), New York City, 1891",
+            "Weill Recital Hall, 1 April 1891",
+            "Main Carnegie Hall, 5 May 1891",
+            "Carnegie Steel Company, 1 July 1892",
+            "Carnegie Technical Schools (Mellon University), 15 November 1900"
+        ],
+        "latitude": 56.07156,
+        "longitude": -3.45887
+    },
     "Vivar": {
         "country": "Spain",
         "remarkable": [
@@ -350,7 +365,23 @@
         "latitude": 40.7128,
         "longitude": -74.006
     },
-    "Popes Creek ": {
+    "Richford": {
+        "country": "United States",
+        "remarkable": [
+            "John Davison Rockefeller, 1839-1937",
+            "Standard Oil Company, 1870-1911",
+            "Net worth: $900M or 3% GDP (1913) - $29.3B (today)",
+            "Philanthropist, 1913-1937",
+            "Rockefeller Foundation, 14 May 1913",
+            "Rockefeller University, 1901-1937",
+            "Rockefeller Center, 1930-1939",
+            "Rockefeller Plaza, 1933-1939",
+            "Rockefeller Center Christmas Tree, 1931-2024"
+        ],
+        "latitude": 42.35333192,
+        "longitude": -76.200499198
+    },
+    "Popes Creek": {
         "country": "United States",
         "remarkable": [
             "George Washington, 1732-1799",
@@ -392,6 +423,20 @@
         ],
         "latitude": 37.569331056,
         "longitude": -85.736497
+    },
+    "Hartford": {
+        "country": "Connecticut (United States)",
+        "remarkable": [
+            "John Pierpont Morgan, 1837-1913",
+            "J. Pierpont Morgan & Co.: 1861-1864",
+            "Net Worth: $80M or 0.3% GDP (1913) - $2.3B (today)",
+            "Edison Electric Company lighted Morgan's house, 8 June 1882",
+            "General Eletric, 1892-1913",
+            "U.S. Steel, 1901-1913",
+            "Carnegie Steel Company for $480M ($15B), 2 March 1901"
+        ],
+        "latitude": 43.31778,
+        "longitude": -88.37899
     },
     "San Cristóbal Canton": {
         "country": "Galápagos (Ecuador)",
@@ -1580,7 +1625,7 @@
     },
     "Unknown": {
         "country": "Clicked location",
-        "remarkable": ["© 2024 Paulo Roma"],
+        "remarkable": ["© 2024 Paulo Roma Cavalcanti"],
         "latitude": -22.936707841251728,
         "longitude": -43.18442949011858
     }
