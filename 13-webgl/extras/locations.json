@@ -365,6 +365,20 @@
         "latitude": 40.7128,
         "longitude": -74.006
     },
+    "Staten Island": {
+        "country": "United States",
+        "remarkable": [
+            "Cornelius Vanderbilt (Comodore), 1794-1877",
+            "Steamboat entrepreneur, 1817-1846",
+            "Accessory Transit Company (of Nicaragua), 1849-1857",
+            "New York Central and Hudson River Railroad, 1864-1867",
+            "Grand Central Depot on 42nd Street, 1871",
+            "Grand Central Terminal, 1913",
+            "Vanderbilt University, 1873"
+        ],
+        "latitude": 40.56233,
+        "longitude": -74.13986
+    },
     "Richford": {
         "country": "United States",
         "remarkable": [
