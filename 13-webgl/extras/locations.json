@@ -917,6 +917,18 @@
         "latitude": 35.7248416,
         "longitude": 51.381653
     },
+    "Antananarivo": {
+        "country": "Madagascar",
+        "remarkable": [
+            "Alfred Grandidier, 1836-1921",
+            "Lemurs, 112 known species",
+            "Chameleons, 97 different species",
+            "Avenue of the Baobabs, 6 species",
+            "L'Histoire physique, naturelle et politique de Madagascar, 1886-1903"
+        ],
+        "latitude": -18.7792678,
+        "longitude": 46.8344597
+    },
     "Riyadh": {
         "country": "Saudi Arabia",
         "remarkable": [
