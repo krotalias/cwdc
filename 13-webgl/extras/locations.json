@@ -440,6 +440,25 @@
         "latitude": 28.40584,
         "longitude": -80.60477
     },
+    "Springwells Township": {
+        "country": "Michigan (United States)",
+        "remarkable": [
+            "Henry Ford, 1863-1947",
+            "Edison Illuminating Company of Detroit, 1891",
+            "Ford Quadricycle, 4 June 1896",
+            "Detroit Automobile Company, 5 August 1899",
+            "Ford Motor Company, 16 June 1903",
+            "Model T, 1 October 1908",
+            "Patent transmission mechanism, 1909",
+            "Assembly line, 1 December 1913",
+            "$5 daily wage, 19 January 1914",
+            "Stout Metal Airplane Company, 1924",
+            "Five-day workweek, 13 January 1926",
+            "Willow Run Bomber Plant, 1941-1945"
+        ],
+        "latitude": 42.316667,
+        "longitude": -83.15
+    },
     "Hodgenville": {
         "country": "Kentucky (United States)",
         "remarkable": [
