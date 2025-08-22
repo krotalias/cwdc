@@ -1277,6 +1277,69 @@ const handleKeyPress = ((event) => {
   };
 
   /**
+   * Update the current location and set the position
+   * on the globe or map.
+   * @param {Number} inc increment to change the current location.
+   * @global
+   */
+  function updateLocation(inc) {
+    if (axis === "q") axis = " "; // current meridian will be lost
+    let cl = cities.current.indexOf(currentLocation);
+    cl = mod(cl + inc, cities.current.length);
+    currentLocation = cities.current[cl];
+    setPosition(currentLocation);
+    selector.equator = true;
+    element.equator.checked = selector.equator;
+    labelForLocation(currentLocation);
+
+    const dat = cities.timeline[cl];
+    element.timeline.value = dat;
+    labelForTimeline(dat);
+
+    if (selector.tooltip && isMap) {
+      const location = gpsCoordinates[currentLocation];
+      const coordinates = gcs2Screen(location, mercator);
+
+      // current location properties
+      const country = location.country || "";
+      const remarkable = location.remarkable || [];
+
+      let [x, y] = coordinates.screen;
+      const pt = coordinates.cartesian;
+      const uv = coordinates.uv;
+      const viewport = coordinates.viewport;
+
+      if (true) {
+        const rotationMatrix = rotateModelTowardsCamera(pt, forwardVector);
+        vec3.copy(forwardVector, pt);
+        mat4.multiply(modelM, modelM, rotationMatrix);
+        rotator.setViewMatrix(modelM);
+        [x, y] = project([], pt, modelM, viewMatrix, projection, viewport);
+      }
+
+      // on the globe
+      y = viewport[3] - y;
+      canvastip.style.top = `${y + 5}px`;
+      canvastip.style.left = `${x + 35}px`;
+      canvastip.innerHTML = `${currentLocation}, ${country}`;
+      for (const rem of remarkable) canvastip.innerHTML += `<br>${rem}`;
+      canvastip.style.display = "block";
+      // on the map
+      x = Math.floor(uv.s * textimg.width);
+      y = Math.floor(uv.t * textimg.height);
+      y = textimg.height - y;
+      element.tooltip.style.top = `${y + 5}px`;
+      element.tooltip.style.left = `${x + 5}px`;
+      element.tooltip.innerHTML = `${cleanLocation(currentLocation)}`;
+      element.tooltip.style.display = "block";
+    } else {
+      element.tooltip.style.display = "none";
+      canvastip.style.display = "none";
+    }
+    animate();
+  }
+
+  /**
    * <p>Handler for keydown events.</p>
    * @param {KeyboardEvent} event keyboard event.
    * @callback key_event callback to handle a key pressed.
@@ -1521,11 +1584,6 @@ const handleKeyPress = ((event) => {
           chi: segments,
         });
         break;
-      case "O":
-        mat4.identity(modelMatrix);
-        rotator.setViewMatrix(modelMatrix);
-        mscale = gscale;
-        break;
       case "n":
       case "N":
         const incr = ch == "n" ? 1 : -1;
@@ -1578,70 +1636,30 @@ const handleKeyPress = ((event) => {
         const index = cities.timeline.indexOf(dt);
         currentLocation = cities.current[index];
         labelForTimeline(dt);
+        updateLocation(0);
+        break;
+      case "R":
+        currentLocation = "Rio";
+      case "O":
+        mat4.identity(modelMatrix);
+        rotator.setViewMatrix(modelMatrix);
+        mat4.identity(modelM); // model matrix
+        vec3.set(forwardVector, 0, 0, 1); // phong highlight
+        mscale = gscale;
+        updateLocation(0);
+        break;
       case "J":
-        if (ch == "J") currentLocation = closestSite(gpsCoordinates["Unknown"]);
-      case "g":
-      case "G":
+        currentLocation = closestSite(gpsCoordinates["Unknown"]);
       case "j":
+        updateLocation(0);
+        break;
+      case "g":
       case "ArrowRight":
+        updateLocation(1);
+        break;
+      case "G":
       case "ArrowLeft":
-        if (ch == "g" || ch == "ArrowRight") inc = 1;
-        else if (ch == "G" || ch == "ArrowLeft") inc = -1;
-        else inc = 0;
-        if (axis === "q") axis = " "; // current meridian will be lost
-        let cl = cities.current.indexOf(currentLocation);
-        cl = mod(cl + inc, cities.current.length);
-        currentLocation = cities.current[cl];
-        setPosition(currentLocation);
-        selector.equator = true;
-        element.equator.checked = selector.equator;
-        labelForLocation(currentLocation);
-
-        const dat = cities.timeline[cl];
-        element.timeline.value = dat;
-        labelForTimeline(dat);
-
-        if (selector.tooltip && isMap) {
-          const location = gpsCoordinates[currentLocation];
-          const coordinates = gcs2Screen(location, mercator);
-
-          // current location properties
-          const country = location.country || "";
-          const remarkable = location.remarkable || [];
-
-          let [x, y] = coordinates.screen;
-          const pt = coordinates.cartesian;
-          const uv = coordinates.uv;
-          const viewport = coordinates.viewport;
-
-          if (true) {
-            const rotationMatrix = rotateModelTowardsCamera(pt, forwardVector);
-            vec3.copy(forwardVector, pt);
-            mat4.multiply(modelM, modelM, rotationMatrix);
-            rotator.setViewMatrix(modelM);
-            [x, y] = project([], pt, modelM, viewMatrix, projection, viewport);
-          }
-
-          // on the globe
-          y = viewport[3] - y;
-          canvastip.style.top = `${y + 5}px`;
-          canvastip.style.left = `${x + 35}px`;
-          canvastip.innerHTML = `${currentLocation}, ${country}`;
-          for (const rem of remarkable) canvastip.innerHTML += `<br>${rem}`;
-          canvastip.style.display = "block";
-          // on the map
-          x = Math.floor(uv.s * textimg.width);
-          y = Math.floor(uv.t * textimg.height);
-          y = textimg.height - y;
-          element.tooltip.style.top = `${y + 5}px`;
-          element.tooltip.style.left = `${x + 5}px`;
-          element.tooltip.innerHTML = `${cleanLocation(currentLocation)}`;
-          element.tooltip.style.display = "block";
-        } else {
-          element.tooltip.style.display = "none";
-          canvastip.style.display = "none";
-        }
-        animate();
+        updateLocation(-1);
         break;
       case "h":
         selector.tooltip = !selector.tooltip;

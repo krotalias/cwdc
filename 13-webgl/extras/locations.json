@@ -917,6 +917,17 @@
         "latitude": 35.7248416,
         "longitude": 51.381653
     },
+    "Strait of Hormuz": {
+        "country": "Iran, Oman, United Arab Emirates",
+        "remarkable": [
+            "Strait between Persian Gulf and the Gulf of Oman",
+            "20% of the world's liquefied natural gas",
+            "25% of seaborne oil trade, 2023",
+            "Never been closed during Middle East conflicts, 2025"
+        ],
+        "latitude": 26.5666644,
+        "longitude": 56.249999
+    },
     "Antananarivo": {
         "country": "Madagascar",
         "remarkable": [
@@ -966,6 +977,16 @@
         ],
         "latitude": 34.615807,
         "longitude": 43.678606
+    },
+    "Gulf of Aden": {
+        "country": "Yemen",
+        "remarkable": [
+            "Important part of the Erythraean Sea for ancient Greeks",
+            "Connects the Red Sea to the Arabian Sea",
+            "Part of the Suez Canal (21,000 ships annually), 2025"
+        ],
+        "latitude": 12.666664,
+        "longitude": 43.499998
     },
     "Awash National Park": {
         "country": "Ethiopia",
@@ -1138,6 +1159,22 @@
         ],
         "latitude": 32.666667,
         "longitude": 35.566667
+    },
+    "Suez Canal": {
+        "country": "Egypt",
+        "remarkable": [
+            "Ferdinand de Lesseps, 1805-1894",
+            "Diplomat, 1828-1851",
+            "Suez Canal Company, 1858-1997",
+            "Construction, 25 April 1859 - 17 November 1869",
+            "Opened, 17 February 1867",
+            "Nationalized by Gamal Abdel Nasser, 26 July 1956",
+            "British and French invasion, 29 October 1956",
+            "Closed during Six-Day War, 5 June 1967 - 5 June 1975",
+            "Ballah Bypass (97 ships per day), 2014-2016"
+        ],
+        "latitude": 30.45499818,
+        "longitude": 32.3499986
     },
     "Anatolia": {
         "country": "Turkey",
