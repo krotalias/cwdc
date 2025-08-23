@@ -470,6 +470,22 @@
         "latitude": 37.569331056,
         "longitude": -85.736497
     },
+    "Chicago": {
+        "country": "Illinois (United States)",
+        "remarkable": [
+            "Great Chicago Fire, 8 October 1871 - 10 October 1871",
+            "World's Columbian Exposition, 1 May 1893 - 31 October 1893",
+            "Lit by Westinghouse Electric and the alternating current system",
+            "Marshall Field's department store, 1852-2006",
+            "Field Museum of Natural History, 16 September 1893,",
+            "Moved to Jackson Park, 1921",
+            "Tsavo Maneaters gunned down, 9 December 1898 - 29 December 1898",
+            "Skin aquired from John Henry Patterson for $5K, 1924",
+            "Most complete Tyrannosaurus rex skeleton (Sue), 17 May 2000"
+        ],
+        "latitude": 41.866261,
+        "longitude": -87.6169805
+    },
     "Hartford": {
         "country": "Connecticut (United States)",
         "remarkable": [
