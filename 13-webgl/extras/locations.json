@@ -1124,40 +1124,45 @@
         "longitude": 35.1964023
     },
     "Tel Aviv-Yafo": {
+        "country": "Israel",
         "remarkable": [
             "David Ben-Gurion, 1886-1973",
             "Prime Minister, 25 January 1948"
         ],
-        "country": "Israel",
         "latitude": 32.109333,
         "longitude": 34.855499
     },
     "Serengeti": {
+        "country": "Tanzania",
         "remarkable": [
             "Lenana, The Maasai Oloiboni, 1863-1911",
-            "Paramount Chief by the British, 1898"
+            "Paramount Chief by the British, 1898",
+            "Hosts one of the world's largest land animal migration",
+            "Serengeti National Park, 1940",
+            "Boundaries finalized, 1951",
+            "Lion Conservation Unit, 2005",
+            "Ngorongoro Conservation Area, 1959"
         ],
-        "country": "Tanzania",
         "latitude": -2.325165366,
         "longitude": 34.83333
     },
     "Jaffa": {
+        "country": "Palestine (Israel)",
         "remarkable": [
             "Richard The Lion-Heart, 1157-1199",
             "Battle of Jaffa, 8 August 1192"
         ],
-        "country": "Palestine (Israel)",
         "latitude": 32.0527047892,
         "longitude": 34.7510569958
     },
     "Ibelin": {
+        "country": "Kingdom of Jerusalem (Israel)",
         "remarkable": [
             "Baldwin IV (Leper King), 1161-1185",
             "Sibylla Queen of Jerusalem, 1159-1190",
             "Balian of Ibelin, 1143-1193",
             "Surrendered Jerusalem, 2 October 1187"
         ],
-        "country": "Kingdom of Jerusalem (Israel)",
         "latitude": 31.82,
         "longitude": 34.713
     },
