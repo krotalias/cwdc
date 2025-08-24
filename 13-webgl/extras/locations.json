@@ -429,6 +429,21 @@
         "latitude": 25.0533517,
         "longitude": -77.322805
     },
+    "Panama Canal": {
+        "country": "Panama",
+        "remarkable": [
+            "France (Ferdinand de Lesseps), 1 January 1881 - 15 May 1889",
+            "Panama independence, 3 November 1903",
+            "Roosevelt's treaty to build and fortify a canal, 18 November 1903",
+            "John Findley Wallace (chief engineer), 6 May 1904",
+            "Teddy Roosevelt travel to Panama, 8 November 1906",
+            "US construction, 1904 - 15 August 1914",
+            "Torrijos-Carter Treaties, 7 September 1977",
+            "Control transferred to Panama, 31 December 1999"
+        ],
+        "latitude": 9.38743,
+        "longitude": -79.91863
+    },
     "Cape Canaveral": {
         "country": "NASA (United States)",
         "remarkable": [
