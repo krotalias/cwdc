@@ -1460,6 +1460,22 @@
         "latitude": 43.539444,
         "longitude": 16.483056
     },
+    "Kinshasa": {
+        "country": "Democratic Republic of the Congo",
+        "remarkable": [
+            "Leopold II of Belgium, 1835-1909",
+            "King of the Belgians, 1 July 1885 - 15 November 1908",
+            "Congo Free State (atrocities), 1885-1908",
+            "Belgian Congo, 1908-1960",
+            "Patrice Lumumba (first Prime Minister), 1925-1961",
+            "Republic of the Congo, 1960-1971",
+            "Lumumba execution (Katangan and Belgian mercenaries), 17 January 1961",
+            "Zaire, 1971-1997",
+            "Democratic Republic of the Congo, 1997-present"
+        ],
+        "latitude": -4.32758,
+        "longitude": 15.31357
+    },
     "Syracuse": {
         "country": "Italy",
         "remarkable": [
@@ -1474,22 +1490,6 @@
         "remarkable": ["Fourth Cruzade, 1202-1204"],
         "latitude": 44.11972,
         "longitude": 15.24222
-    },
-    "Odzala-Kokoua": {
-        "country": "Congo",
-        "remarkable": [
-            "Leopold II of Belgium, 1835-1909",
-            "King of the Belgians, 1 July 1885 - 15 November 1908",
-            "Congo Free State (atrocities), 1885-1908",
-            "Belgian Congo, 1908-1960",
-            "Patrice Lumumba (first Prime Minister), 1925-1961",
-            "Republic of the Congo, 1960-1971",
-            "Lumumba execution (Katangan and Belgian mercenaries), 17 January 1961",
-            "Zaire, 1971-1997",
-            "Democratic Republic of the Congo, 1997-present"
-        ],
-        "latitude": 1.3206287,
-        "longitude": 14.8454619
     },
     "Pompeii": {
         "country": "Campania (Italy)",
