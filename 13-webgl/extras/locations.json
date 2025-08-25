@@ -783,6 +783,19 @@
         "latitude": -33.8688,
         "longitude": 151.2093
     },
+    "Dededo": {
+        "country": "Guam",
+        "remarkable": [
+            "Discovery of Guam (Ferdinand Magellan), 6 March 1521",
+            "Capture of Guam (George Dewey), 21 June 1898",
+            "Spain ceded Guam to the U.S., 11 April 1899",
+            "Japanese invasion, 8 December 1941",
+            "Liberation of Guam (Holland M. Smith), 21 July 1944",
+            "U.S. citizenship, 1 March 1950"
+        ],
+        "latitude": 13.50916463,
+        "longitude": 144.83499666
+    },
     "Tesendiap": {
         "country": "Papua New Guinea",
         "remarkable": [
