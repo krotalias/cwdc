@@ -481,6 +481,18 @@
         "latitude": 28.40584,
         "longitude": -80.60477
     },
+    "Havana": {
+        "country": "Cuba",
+        "remarkable": [
+            "USS Maine exploded, 15 February 1898",
+            "Spanish-American War, 21 April 1898 - 13 August 1898",
+            "Treaty of Paris, 10 December 1898",
+            "U.S. ownership of Puerto Rico, Guam, and the Philippines",
+            "Cuba indepence, 10 May 1902"
+        ],
+        "latitude": 23.13302,
+        "longitude": -82.38304
+    },
     "Springwells Township": {
         "country": "Michigan (United States)",
         "remarkable": [
@@ -784,7 +796,7 @@
         "longitude": 151.2093
     },
     "Dededo": {
-        "country": "Guam",
+        "country": "Guam (United States)",
         "remarkable": [
             "Discovery of Guam (Ferdinand Magellan), 6 March 1521",
             "Capture of Guam (George Dewey), 21 June 1898",
