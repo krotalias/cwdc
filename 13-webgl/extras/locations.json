@@ -392,6 +392,20 @@
         "latitude": 40.56233,
         "longitude": -74.13986
     },
+    "Birán": {
+        "country": "Cuba",
+        "remarkable": [
+            "Fidel Castro, 1926-2016",
+            "Prime Minister of Cuba, 6 February 1959 - 2 December 1976",
+            "Bay of Pigs Invasion in 16 April 1961 - 19 April 1961",
+            "President of Cuba, 2 December 1976 - 24 February 2008",
+            "Cuban Missile Crisis, 16 October 1962 - 28 October 1962",
+            "Raúl Castro as president, 24 February 2008 - 19 April 2018",
+            "Miguel Díaz-Canel as president, 19 April 2018 - present"
+        ],
+        "latitude": 20.5499978,
+        "longitude": -75.8999964
+    },
     "Richford": {
         "country": "United States",
         "remarkable": [
@@ -1024,7 +1038,7 @@
         "country": "Ethiopia",
         "remarkable": [
             "Lucy, remarkably well-preserved hominin fossil",
-            "Remains of Australopithecus afarensis, 3.2 million BC",
+            "Remains of Australopithecus afarensis, 3.2M BC",
             "Discovered, 1974"
         ],
         "latitude": 9.333332,
