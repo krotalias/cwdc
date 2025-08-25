@@ -292,6 +292,18 @@
         "latitude": -3.124832834,
         "longitude": -60.020666584
     },
+    "San Juan": {
+        "country": "Puerto Rico (United States)",
+        "remarkable": [
+            "Spanish possession, 1493-1898",
+            "Juan Ponce de León, 1508",
+            "Treaty of Paris, 10 December 1898",
+            "U.S. citizens, 1917",
+            "Territory of the United States, 25 July 1952"
+        ],
+        "latitude": 18.46633,
+        "longitude": -66.10572
+    },
     "Caracas": {
         "country": "Venezuela",
         "remarkable": [
