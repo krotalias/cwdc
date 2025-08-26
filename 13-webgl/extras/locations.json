@@ -742,6 +742,20 @@
         "latitude": 21.954791,
         "longitude": -159.666289
     },
+    "Pago Pago": {
+        "country": "American Samoa (United States)",
+        "remarkable": [
+            "Partition of Samoa, 2 December 1899",
+            "Treaty of Cession of Tutuila, 1900",
+            "Treaty of Cession of Manu'a, 1904",
+            "Ratification Act, 20 February 1929",
+            "American Citizenship not granted at birth",
+            "Japanese invasion, 11 January 1942",
+            "Liberation of American Samoa, 30 August 1942"
+        ],
+        "latitude": -14.27806,
+        "longitude": -170.7025
+    },
     "Midway": {
         "country": "United States",
         "remarkable": [
@@ -809,6 +823,21 @@
         ],
         "latitude": -33.8688,
         "longitude": 151.2093
+    },
+    "Saipan": {
+        "country": "Northern Mariana Islands (United States)",
+        "remarkable": [
+            "Claimed by Spain, 1521",
+            "Spanish settlement, 1668",
+            "Sold to Germany, 1899",
+            "Japanese Mandate, 1918-1944",
+            "U.S. territory, 24 July 1947",
+            "U.S. citizenship, 24 November 1986",
+            "Capture of Saipan, 15 June 1944",
+            "Battle of Saipan, 9 July 1944"
+        ],
+        "latitude": 15.21233,
+        "longitude": 145.7545
     },
     "Dededo": {
         "country": "Guam (United States)",
