@@ -940,6 +940,21 @@
         "latitude": 37.582363,
         "longitude": 127.010418
     },
+    "Taipei": {
+        "country": "Taiwan",
+        "remarkable": [
+            "Formosa (Portuguese sailors), 1582",
+            "Taiwan (Qing dynasty), 1684",
+            "Republic of China (ROC), 1 January 1912",
+            "First Sino-Japanese War (1894-1895)",
+            "Chinese Civil War, 1927-1949",
+            "Republic of China (ROC) government retreat to Taiwan, 7 December 1949",
+            "Martial law, 19 May 1949 - 15 July 1987",
+            "Lee Teng-hui first president born in Taiwan, 1988-2000"
+        ],
+        "latitude": 25.04776,
+        "longitude": 121.53185
+    },
     "Manila": {
         "country": "Philippines",
         "remarkable": [
