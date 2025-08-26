@@ -890,7 +890,8 @@
         "country": "Japan",
         "remarkable": [
             "Tokugawa Ieyasu, 1543-1616",
-            "First shōgun of the Tokugawa shogunate, 1603-1868"
+            "First shōgun of the Tokugawa shogunate, 1603-1868",
+            "Doolittle's first bombs dropped 12:25 p.m., 18 April 1942"
         ],
         "latitude": 35.6762,
         "longitude": 139.6503
@@ -1100,6 +1101,15 @@
         ],
         "latitude": 24.638916,
         "longitude": 46.7160104
+    },
+    "Stalingrad": {
+        "country": "Russian Federation",
+        "remarkable": [
+            "Georgy Zhukov (Marshal), 1896-1974",
+            "Battle of Stalingrad, 17 July 1942 - 2 February 1943"
+        ],
+        "latitude": 48.6999972,
+        "longitude": 44.5166646
     },
     "Ctesiphon": {
         "country": "Parthia (Iraq)",
