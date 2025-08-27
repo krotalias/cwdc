@@ -346,6 +346,19 @@
         "latitude": -55.974496102,
         "longitude": -67.269665588
     },
+    "Santo Domingo": {
+        "country": "Dominican Republic",
+        "remarkable": [
+            "Christopher Columbus first voyage, 1492-1493",
+            "Haiti anexation, 1822-1844",
+            "Dominican War of Independence, 27 February 1844",
+            "Rafael Trujillo (Military Dictator), 1891-1961",
+            "President, 16 August 1930 - 30 May 1961",
+            "Dominican Civil War, 24 April 1965 - 1 September 1965"
+        ],
+        "latitude": 18.50012,
+        "longitude": -69.98857
+    },
     "Milton": {
         "country": "Massachusetts (United States)",
         "remarkable": [
@@ -500,6 +513,17 @@
         ],
         "latitude": 28.40584,
         "longitude": -80.60477
+    },
+    "George Town": {
+        "country": "Cayman Islands (United Kingdom)",
+        "remarkable": [
+            "Christopher Columbus (Las Tortugas), 10 May 1503",
+            "Treaty of Madrid (English control), 1670",
+            "Crown Colony of Jamaica, 22 June 1863",
+            "Crown colony of the Cayman Islands, 4 November 1962"
+        ],
+        "latitude": 19.2866,
+        "longitude": -81.37436
     },
     "Havana": {
         "country": "Cuba",
@@ -1061,6 +1085,20 @@
         ],
         "latitude": 27.738826869119,
         "longitude": 83.438634755255
+    },
+    "Colombo": {
+        "country": "Sri Lanka",
+        "remarkable": [
+            "Portuguese presence (Ceilão), 1505",
+            "Portuguese possession, 1597-1658",
+            "Dutch Ceylon, 1640-1796",
+            "British invasion, 1796-1948",
+            "British Ceylon, 1815-1948",
+            "Republic of Sri Lanka, 1972",
+            "Sri Lankan Civil War, 23 July 1983 - 18 May 2009"
+        ],
+        "latitude": 6.93194,
+        "longitude": 79.84778
     },
     "Karachi": {
         "country": "British India (Pakistan)",
