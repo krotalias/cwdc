@@ -100,7 +100,8 @@ when using mipmap:
                 pointer-events: none;
             }
             #cls,
-            #anim {
+            #anim,
+            #print {
                 font-size: 200%;
                 padding: 10px;
             }
@@ -181,13 +182,19 @@ when using mipmap:
                 <option value="13">Subd Sphere</option>
             </select>
 
-            <p>
+            <div>
+                <button
+                    id="print"
+                    style="margin: 10px 18px 10px 0; font-size: 210%"
+                >
+                    Screenshot
+                </button>
                 <label>
                     <a href="/cwdc/13-webgl/extras/doc-light/index.html">
                         Documentation
                     </a>
                 </label>
-            </p>
+            </div>
 
             <div style="width: 40; margin-bottom: 4em">
                 <button id="cls">Closest Site</button>

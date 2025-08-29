@@ -471,6 +471,7 @@ const element = {
   tooltip: document.getElementById("tooltip"),
   tip: document.getElementById("tip"),
   php: document.getElementById("php"),
+  print: document.getElementById("print"),
   closest: document.getElementById("cls"),
   animation: document.getElementById("anim"),
   byDate: document.getElementById("cities"),
@@ -1661,6 +1662,14 @@ const handleKeyPress = ((event) => {
       case "ArrowLeft":
         updateLocation(-1);
         break;
+      case "D":
+        canvas.toBlob((blob) => {
+          saveWebGLCanvasAsPNG(
+            blob,
+            `WebGL_Globe-${canvas.width}x${canvas.height}.png`,
+          );
+        });
+        break;
       case "h":
         selector.tooltip = !selector.tooltip;
         element.tip.checked = selector.tooltip;
@@ -2126,6 +2135,31 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
 }
 
 /**
+ * <p>Saves the current WebGL canvas content as a PNG image.</p>
+ * Ensure preserveDrawingBuffer is true if needed for capturing post-render content:
+ * <ul>
+ * <li>const gl = canvas.getContext('theCanvas', { preserveDrawingBuffer: true });</li>
+ *
+ * @param {Blob} blob image blob.
+ * @param {String} filename name of the file to save.
+ */
+function saveWebGLCanvasAsPNG(blob, filename) {
+  if (canvas) {
+    const dataURL = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = dataURL;
+    link.download = filename;
+
+    document.body.appendChild(link); // Append to body to make it clickable
+    link.click();
+    document.body.removeChild(link); // Clean up the temporary link
+  } else {
+    console.error("Canvas element not found.");
+  }
+}
+
+/**
  * Return cities ordered by date and the timeline.
  * @return {Array<Array>}
  * @property {Array<String>} 0 location names ordered by date.
@@ -2282,6 +2316,19 @@ function addListeners() {
       handleKeyPress(createEvent(" "));
     }
     handleKeyPress(createEvent("A"));
+  });
+
+  /**
+   * @summary Executed when the print element is clicked.
+   * <p>Appends an event listener for events whose type attribute value is click.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event clickPrint
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   */
+  element.print.addEventListener("click", (event) => {
+    handleKeyPress(createEvent("D"));
   });
 
   /**
@@ -3500,7 +3547,7 @@ function startForReal(image) {
     handleKeyPress(event);
   });
 
-  gl = canvas.getContext("webgl2");
+  gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
   if (!gl) {
     console.log("Failed to get the rendering context for WebGL2");
     gl = canvas.getContext("webgl");
