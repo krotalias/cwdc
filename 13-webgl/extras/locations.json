@@ -616,6 +616,19 @@
         "latitude": 17.21999912,
         "longitude": -89.621164182
     },
+    "New Orleans": {
+        "country": "Louisiana (United States)",
+        "remarkable": [
+            "Sieur de Bienville, 1680-1767",
+            "Founded New Orleans, 7 May 1718",
+            "Third Treaty of San Ildefonso (French control of Louisiana), 1800",
+            "Louisiana Purchase from Napoleon (doubled U.S. size), 30 April 1803",
+            "Battle of New Orleans (Andrew Jackson), 8 January 1815",
+            "Hurricane Katrina, 29 August 2005"
+        ],
+        "latitude": 29.95465,
+        "longitude": -90.07507
+    },
     "Riverside": {
         "country": "Iowa (United States)",
         "remarkable": [
@@ -637,6 +650,19 @@
         ],
         "latitude": 42.034534,
         "longitude": -93.620369
+    },
+    "Omaha": {
+        "country": "Nebraska (United States)",
+        "remarkable": [
+            "Union Pacific Rail Road, 1862",
+            "First transcontinental railroad, 10 May 1869",
+            "8,300 locomotives over 51,800 km routes (23 states), 2024",
+            "Warren Buffett, 30 August 1930",
+            "Net worth: $100K (1956) - $118.9B (today)",
+            "Berkshire Hathaway (CEO), 1965-2025"
+        ],
+        "latitude": 41.249999,
+        "longitude": -96.0
     },
     "Denison": {
         "country": "Texas (United States)",
@@ -850,12 +876,14 @@
         "remarkable": [
             "Jimmy Doolittle (Lieutenant General), 1896-1993",
             "16 B-25B Mitchell, crew of five",
+            "Cruising range of 2,400 nautical miles (4,400 km)",
             "Targets: Tokyo, Nagoya, Osaka, Kobe, Yokohama",
             "Take off 8:20 AM (USS Hornet), 18 April 1942",
+            "610 nautical miles (1130 km) from Tokyo",
             "Bailed out 9:20 PM (13h after take off), 18 April 1942"
         ],
-        "latitude": 35,
-        "longitude": 154
+        "latitude": 35.5,
+        "longitude": 152.2
     },
     "Sydney": {
         "country": "Australia",
@@ -988,16 +1016,16 @@
         "latitude": 14.5946,
         "longitude": 120.99501
     },
-    "Lin'an": {
-        "country": "China",
+    "Chuchow": {
+        "country": "Lishui (China)",
         "remarkable": [
             "Chiang Kai-shek, 1887-1975",
             "President of the Republic of China, 24 October 1928 - 1 January 1949",
             "Taiwan, 20 May 1948 - 5 April 1975",
             "Doolittle landing, 18 April 1942"
         ],
-        "latitude": 30.23499906,
-        "longitude": 119.70916383
+        "latitude": 31.65083073,
+        "longitude": 119.023833238
     },
     "Borneo": {
         "country": "Indonesia",
