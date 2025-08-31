@@ -1040,6 +1040,28 @@ const viewMatrix = mat4.lookAt(
 const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
 
 /**
+ * <p>Decomposes vector v into components parallel and perpendicular to w.</p>
+ * The projection and perpendicular component are given by:
+ * <ul>
+ * <li>proj<sub>𝑤</sub>(𝑣) = (𝑣⋅𝑤)/(𝑤⋅𝑤) 𝑤</li>
+ * <li>perp<sub>𝑤</sub>(𝑣) = 𝑣 − proj<sub>𝑤</sub>(𝑣)</li>
+ * </ul>
+ *
+ * @param {vec3} v vector to be decomposed.
+ * @param {vec3} w vector to decompose upon.
+ * @returns {Object<vec3, vec3>} {proj, perp} projection and perpendicular components of v onto w.
+ * @see <a href="https://en.wikipedia.org/wiki/Vector_projection">Vector projection</a>
+ * @see <a href="https://mathworld.wolfram.com/VectorProjection.html">Vector Projection</a>
+ */
+function decomposeVector(v, w) {
+  const dp = vec3.dot(v, w);
+  const wlen2 = vec3.squaredLength(w);
+  const proj = vec3.scale([], w, dp / wlen2);
+  const perp = vec3.subtract([], v, proj);
+  return { proj, perp };
+}
+
+/**
  * <p>Promise for returning an array with all file names in directory './textures'.</p>
  *
  * <p>Since php runs on the server, and javascript on the browser,
@@ -1269,6 +1291,7 @@ const handleKeyPress = ((event) => {
   let animationID = null;
   let n, inc;
   const modelM = mat4.identity([]); // model matrix
+  const rotationMatrix = mat4.create();
   const forwardVector = vec3.fromValues(0, 0, 1); // phong highlight
   const poly = {
     d: 0,
@@ -1311,7 +1334,7 @@ const handleKeyPress = ((event) => {
       const viewport = coordinates.viewport;
 
       if (true) {
-        const rotationMatrix = rotateModelTowardsCamera(pt, forwardVector);
+        rotateModelTowardsCamera(rotationMatrix, pt, forwardVector);
         vec3.copy(forwardVector, pt);
         mat4.multiply(modelM, modelM, rotationMatrix);
         rotator.setViewMatrix(modelM);
@@ -1693,12 +1716,14 @@ const handleKeyPress = ((event) => {
 
 /**
  * Rotate the model towards a given vector.
- * @param {vec3} modelPosition model's world coordinates.
+ * @param {mat4} out the receiving matrix.
+ * @param {vec3} modelPosition a model's vector in world coordinates.
  * @param {vec3} modelForward model's forward vector in world coordinates.
- * @returns {mat4} rotation matrix to rotate the model towards the camera.
+ * @returns {mat4} out.
  * @see {@link https://www.quora.com/How-do-I-calculate-the-angle-between-two-vectors-in-3D-space-using-atan2 How do I calculate the angle between two vectors in 3D space using atan2?}
  */
 function rotateModelTowardsCamera(
+  out,
   modelPosition,
   modelForward = vec3.fromValues(0, 0, 1),
 ) {
@@ -1711,12 +1736,10 @@ function rotateModelTowardsCamera(
   // const angle = Math.acos(dotProduct);
   const angle = Math.atan2(vec3.length(rotationAxis), dotProduct);
 
-  // Create rotation matrix
-  const rotationMatrix = mat4.create();
-  mat4.fromRotation(rotationMatrix, angle, rotationAxis);
+  mat4.fromRotation(out, angle, rotationAxis);
 
   // Return the rotation matrix
-  return rotationMatrix;
+  return out;
 }
 
 /**
