@@ -1736,7 +1736,12 @@ function rotateModelTowardsCamera(
   // const angle = Math.acos(dotProduct);
   const angle = Math.atan2(vec3.length(rotationAxis), dotProduct);
 
-  mat4.fromRotation(out, angle, rotationAxis);
+  if (angle < 1e-5) {
+    // No significant rotation needed
+    mat4.identity(out);
+  } else {
+    mat4.fromRotation(out, angle, rotationAxis);
+  }
 
   // Return the rotation matrix
   return out;
