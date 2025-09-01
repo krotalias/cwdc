@@ -1694,7 +1694,13 @@ const handleKeyPress = ((event) => {
         });
         break;
       case "B":
-        const rotF = rotateGlobeAroundAxis([], Math.PI / 6, forwardVector);
+      case "U":
+        const sign = ch == "U" ? -1 : 1;
+        const rotF = rotateGlobeAroundAxis(
+          [],
+          (sign * Math.PI) / 6,
+          forwardVector,
+        );
         mat4.multiply(modelM, modelM, rotF);
         updateLocation(0);
         break;
@@ -2781,7 +2787,7 @@ function addListeners() {
     const intersection = pixelRayIntersection(event.offsetX, event.offsetY);
     // increment or decrement based on the side of the canvas
     // where the pointer was clicked.
-    const ch = event.offsetX > canvas.width / 2 ? "g" : "G";
+    let ch = event.offsetX > canvas.width / 2 ? "g" : "G";
     if (intersection) {
       const uv = cartesian2Spherical(intersection);
       const unknown = gpsCoordinates["Unknown"];
@@ -2790,6 +2796,11 @@ function addListeners() {
 
       const position = ch === "g" ? -2 : 0;
       currentLocation = cities.current.at(position);
+    } else {
+      // clicked outside the globe on the canvas
+      // if clicked on the upper half, rotate around forward vector
+      if (event.offsetY < canvas.height / 2)
+        ch = event.offsetX > canvas.width / 2 ? "B" : "U";
     }
     handleKeyPress(createEvent(ch));
   });
