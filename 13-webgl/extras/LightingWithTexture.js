@@ -1693,6 +1693,11 @@ const handleKeyPress = ((event) => {
           );
         });
         break;
+      case "B":
+        const rotF = rotateGlobeAroundAxis([], Math.PI / 6, forwardVector);
+        mat4.multiply(modelM, modelM, rotF);
+        updateLocation(0);
+        break;
       case "h":
         selector.tooltip = !selector.tooltip;
         element.tip.checked = selector.tooltip;
@@ -1713,6 +1718,23 @@ const handleKeyPress = ((event) => {
     if (selector.paused) draw();
   };
 })();
+
+/**
+ * Rotate the globe around a given axis by a given angle.
+ * @param {mat4} out the receiving matrix.
+ * @param {Number} angle angle in radians.
+ * @param {vec3} axis rotation axis.
+ * @returns {mat4} out.
+ */
+function rotateGlobeAroundAxis(out, angle, axis) {
+  if (Math.abs(angle) < 1e-5) {
+    // No significant rotation needed
+    return mat4.identity(out);
+  } else {
+    mat4.fromRotation(out, angle, axis);
+  }
+  return out;
+}
 
 /**
  * Rotate the model towards a given vector.
@@ -1736,12 +1758,7 @@ function rotateModelTowardsCamera(
   // const angle = Math.acos(dotProduct);
   const angle = Math.atan2(vec3.length(rotationAxis), dotProduct);
 
-  if (angle < 1e-5) {
-    // No significant rotation needed
-    mat4.identity(out);
-  } else {
-    mat4.fromRotation(out, angle, rotationAxis);
-  }
+  rotateGlobeAroundAxis(out, angle, rotationAxis);
 
   // Return the rotation matrix
   return out;
