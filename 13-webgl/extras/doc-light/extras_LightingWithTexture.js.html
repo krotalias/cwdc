@@ -1079,7 +1079,7 @@ const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
  * @param {vec3} w vector to decompose upon.
  * @returns {Object&lt;vec3, vec3>} {proj, perp} projection and perpendicular components of v onto w.
  * @see &lt;a href="https://en.wikipedia.org/wiki/Vector_projection">Vector projection&lt;/a>
- * @see &lt;a href="https://mathworld.wolfram.com/VectorProjection.html">Vector Projection&lt;/a>
+ * @see &lt;a href="https://mathworld.wolfram.com/OrthogonalDecomposition.html">Orthogonal Decomposition&lt;/a>
  */
 function decomposeVector(v, w) {
   const dp = vec3.dot(v, w);
@@ -1804,7 +1804,7 @@ function clamp(value, min, max) {
  * @param {mat4} rotationMatrix transformation matrix applied to model.
  * @param {vec3} rotationAxis rotation axis.
  * @returns {mat4} out.
- * @see {@link https://stackoverflow.com/questions/15022630/how-to-calculate-the-angle-from-rotation-matrix}
+ * @see {@link https://stackoverflow.com/questions/15022630/how-to-calculate-the-angle-from-rotation-matrix How to calculate the angle from rotation matrix}
  */
 function setYUp(out, rotationMatrix, rotationAxis) {
   const north = vec3.fromValues(0, 1, 0);

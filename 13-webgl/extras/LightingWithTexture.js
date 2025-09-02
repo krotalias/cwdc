@@ -1776,7 +1776,7 @@ function clamp(value, min, max) {
  * @param {mat4} rotationMatrix transformation matrix applied to model.
  * @param {vec3} rotationAxis rotation axis.
  * @returns {mat4} out.
- * @see {@link https://stackoverflow.com/questions/15022630/how-to-calculate-the-angle-from-rotation-matrix}
+ * @see {@link https://stackoverflow.com/questions/15022630/how-to-calculate-the-angle-from-rotation-matrix How to calculate the angle from rotation matrix}
  */
 function setYUp(out, rotationMatrix, rotationAxis) {
   const north = vec3.fromValues(0, 1, 0);
