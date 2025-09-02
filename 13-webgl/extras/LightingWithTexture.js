@@ -1304,9 +1304,10 @@ const handleKeyPress = ((event) => {
    * Update the current location and set the position
    * on the globe or map.
    * @param {Number} inc increment to change the current location.
+   * @param {Boolean} [fix=true] whether call {@link setYUp}.
    * @global
    */
-  function updateLocation(inc) {
+  function updateLocation(inc, fix = true) {
     if (axis === "q") axis = " "; // current meridian will be lost
     let cl = cities.current.indexOf(currentLocation);
     cl = mod(cl + inc, cities.current.length);
@@ -1337,6 +1338,12 @@ const handleKeyPress = ((event) => {
         rotateModelTowardsCamera(rotationMatrix, pt, forwardVector);
         vec3.copy(forwardVector, pt);
         mat4.multiply(modelM, modelM, rotationMatrix);
+
+        if (fix) {
+          const rotY = setYUp([], modelM, forwardVector);
+          mat4.multiply(modelM, modelM, rotY);
+        }
+
         rotator.setViewMatrix(modelM);
         [x, y] = project([], pt, modelM, viewMatrix, projection, viewport);
       }
@@ -1702,6 +1709,11 @@ const handleKeyPress = ((event) => {
           forwardVector,
         );
         mat4.multiply(modelM, modelM, rotF);
+        updateLocation(0, false);
+        break;
+      case "Q":
+        const rotY = setYUp([], modelM, forwardVector);
+        mat4.multiply(modelM, modelM, rotY);
         updateLocation(0);
         break;
       case "h":
@@ -1724,6 +1736,69 @@ const handleKeyPress = ((event) => {
     if (selector.paused) draw();
   };
 })();
+
+/**
+ * <p>Scalar triple product of three vectors.</p>
+ *
+ * The absolute value of the scalar triple product represents
+ * the volume of the parallelepiped formed by the three vectors
+ * a, b, and c when originating from the same point.
+ *
+ * <p>The sign of the result indicates the orientation of the vectors
+ * (whether they form a right-handed or left-handed system).
+ * If the scalar triple product is zero,
+ * it means the three vectors are coplanar (lie in the same plane).</p>
+ * @param {vec3} a first vector.
+ * @param {vec3} b second vector.
+ * @param {vec3} c third vector.
+ * @returns {Number} a⋅(b×c)
+ * @see <a href="https://en.wikipedia.org/wiki/Scalar_triple_product">Scalar triple product</a>
+ */
+function scalarTripleProduct(a, b, c) {
+  return vec3.dot(a, vec3.cross([], b, c));
+}
+
+/**
+ * Clamp a value between a minimum and maximum value.
+ * @param {Number} value value to be clamped.
+ * @param {Number} min minimum value.
+ * @param {Number} max maximum value.
+ * @returns {Number} clamped value.
+ */
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+/**
+ * Rotate the model around a given axis so that its 'north' vector aligns
+ * with the screen y axis after applying the given rotation matrix.
+ * @param {mat4} out the receiving matrix.
+ * @param {mat4} rotationMatrix transformation matrix applied to model.
+ * @param {vec3} rotationAxis rotation axis.
+ * @returns {mat4} out.
+ * @see {@link https://stackoverflow.com/questions/15022630/how-to-calculate-the-angle-from-rotation-matrix}
+ */
+function setYUp(out, rotationMatrix, rotationAxis) {
+  const north = vec3.fromValues(0, 1, 0);
+  const up = vec3.transformMat4([], north, mat4.invert([], rotationMatrix));
+  const y = decomposeVector(up, rotationAxis).perp;
+  const d = decomposeVector(north, rotationAxis).perp;
+
+  vec3.normalize(d, d);
+  vec3.normalize(y, y);
+  vec3.normalize(rotationAxis, rotationAxis);
+
+  // Angle onto the plane perpendicular to rotationAxis
+  const dotProduct = clamp(vec3.dot(d, up), -1, 1);
+  const tripleProd = scalarTripleProduct(rotationAxis, d, up);
+
+  let angle = Math.acos(dotProduct);
+  if (tripleProd < 0) {
+    angle = -angle;
+  }
+  rotateGlobeAroundAxis(out, angle, rotationAxis);
+  return out;
+}
 
 /**
  * Rotate the globe around a given axis by a given angle.
