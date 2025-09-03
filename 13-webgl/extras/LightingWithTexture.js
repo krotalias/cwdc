@@ -1051,7 +1051,7 @@ const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
  * @param {vec3} w vector to decompose upon.
  * @returns {Object<vec3, vec3>} {proj, perp} projection and perpendicular components of v onto w.
  * @see <a href="https://en.wikipedia.org/wiki/Vector_projection">Vector projection</a>
- * @see <a href="https://mathworld.wolfram.com/VectorProjection.html">Vector Projection</a>
+ * @see <a href="https://mathworld.wolfram.com/OrthogonalDecomposition.html">Orthogonal Decomposition</a>
  */
 function decomposeVector(v, w) {
   const dp = vec3.dot(v, w);
@@ -1770,6 +1770,33 @@ function clamp(value, min, max) {
 }
 
 /**
+ * <p>Calculate the angle in radians between two vectors.</p>
+ * <ul>
+ *  	<li>θ = atan2(||v1 × v2||, v1 • v2))</li> or
+ *    <li>θ = acos((v1 • v2) / (||v1|| ||v2||))</li>
+ * </ul>
+ * <pre>
+ *    const dotProduct = clamp(vec3.dot(v1, v2), -1, 1)/(vec3.length(v1)*vec3.length(v2));
+ *    const angleInRadians = Math.acos(dotProduct);
+ * </pre>
+ * @param {vec3} v1 first vector.
+ * @param {vec3} v2 second vector.
+ * @returns {Number} angle in radians between v1 and v2.
+ * @see {@link https://www.quora.com/How-do-I-calculate-the-angle-between-two-vectors-in-3D-space-using-atan2 How do I calculate the angle between two vectors in 3D space using atan2?}
+ */
+function getAngleBetweenVectors(v1, v2) {
+  // Calculate cross product
+  const c = vec3.create();
+  vec3.cross(c, v1, v2);
+
+  // Calculate the dot product
+  const dotProduct = vec3.dot(v1, v2);
+  const angleInRadians = Math.atan2(vec3.length(c), dotProduct);
+
+  return angleInRadians;
+}
+
+/**
  * Rotate the model around a given axis so that its 'north' vector aligns
  * with the screen y axis after applying the given rotation matrix.
  * @param {mat4} out the receiving matrix.
@@ -1781,18 +1808,12 @@ function clamp(value, min, max) {
 function setYUp(out, rotationMatrix, rotationAxis) {
   const north = vec3.fromValues(0, 1, 0);
   const up = vec3.transformMat4([], north, mat4.invert([], rotationMatrix));
-  const y = decomposeVector(up, rotationAxis).perp;
   const d = decomposeVector(north, rotationAxis).perp;
 
-  vec3.normalize(d, d);
-  vec3.normalize(y, y);
-  vec3.normalize(rotationAxis, rotationAxis);
-
   // Angle onto the plane perpendicular to rotationAxis
-  const dotProduct = clamp(vec3.dot(d, up), -1, 1);
+  let angle = getAngleBetweenVectors(d, up);
   const tripleProd = scalarTripleProduct(rotationAxis, d, up);
 
-  let angle = Math.acos(dotProduct);
   if (tripleProd < 0) {
     angle = -angle;
   }
@@ -1823,7 +1844,6 @@ function rotateGlobeAroundAxis(out, angle, axis) {
  * @param {vec3} modelPosition a model's vector in world coordinates.
  * @param {vec3} modelForward model's forward vector in world coordinates.
  * @returns {mat4} out.
- * @see {@link https://www.quora.com/How-do-I-calculate-the-angle-between-two-vectors-in-3D-space-using-atan2 How do I calculate the angle between two vectors in 3D space using atan2?}
  */
 function rotateModelTowardsCamera(
   out,
@@ -1834,10 +1854,7 @@ function rotateModelTowardsCamera(
   const rotationAxis = vec3.create();
   vec3.cross(rotationAxis, modelPosition, modelForward);
 
-  // Calculate angle between model forward and modelPosition
-  const dotProduct = vec3.dot(modelForward, modelPosition);
-  // const angle = Math.acos(dotProduct);
-  const angle = Math.atan2(vec3.length(rotationAxis), dotProduct);
+  const angle = getAngleBetweenVectors(modelPosition, modelForward);
 
   rotateGlobeAroundAxis(out, angle, rotationAxis);
 
