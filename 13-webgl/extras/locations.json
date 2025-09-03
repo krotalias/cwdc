@@ -403,7 +403,7 @@
         "longitude": -71.96999612
     },
     "Hyde Park": {
-        "country": "United States",
+        "country": "New York (United States)",
         "remarkable": [
             "Franklin Delano Roosevelt, 1882-1945",
             "Harvard A.B. History, 1900-1903",
@@ -468,7 +468,7 @@
         "longitude": -76.200499198
     },
     "Popes Creek": {
-        "country": "United States",
+        "country": "Virginia (United States)",
         "remarkable": [
             "George Washington, 1732-1799",
             "Declaration of Independence, 4 July 1776",
@@ -504,12 +504,12 @@
         "longitude": -79.91863
     },
     "Cape Canaveral": {
-        "country": "NASA (United States)",
+        "country": "Florida (United States)",
         "remarkable": [
             "Neil Alden Armstrong, 1930-2012",
             "Edwin Eugene (“Buzz”) Aldrin Jr., 1930",
             "Michael Collins, 1930-2021",
-            "Apollo 11, 16 July 1969"
+            "Apollo 11 (NASA), 16 July 1969"
         ],
         "latitude": 28.40584,
         "longitude": -80.60477
@@ -689,7 +689,7 @@
         "longitude": -96.91595
     },
     "Gillespie County": {
-        "country": "United States",
+        "country": "Texas (United States)",
         "remarkable": [
             "Lyndon Baines Johnson (LBJ), 1908-1973",
             "Texas State University B.S., 1927-1930",
@@ -770,7 +770,7 @@
         "longitude": -156.37249
     },
     "Honolulu": {
-        "country": "United States",
+        "country": "Hawaii (United States)",
         "remarkable": [
             "Barack Obama, 1961",
             "Harvard Law School, 1988-1991",
@@ -971,6 +971,9 @@
         "country": "Kyushu (Japan)",
         "remarkable": [
             "Robert Oppenheimer, 1904-1967",
+            "Manhattan Project's Los Alamos Laboratory Director, 1943-1945",
+            "Harvard University (BA), 1925",
+            "University of Göttingen (PhD), 1927",
             "Atomic Bombing, 9 August 1945"
         ],
         "latitude": 32.75,
@@ -1436,7 +1439,11 @@
     },
     "Anatolia": {
         "country": "Turkey",
-        "remarkable": ["Third Cruzade (Richard x Salah ad-Din), 1189-1192"],
+        "remarkable": [
+            "Third Cruzade, 1189-1192",
+            "Richard x Salah ad-Din",
+            "Battle of Arçufe, 7 September 1191"
+        ],
         "latitude": 39.0,
         "longitude": 32.0
     },
@@ -1514,7 +1521,10 @@
     },
     "Troy (Hisarlik)": {
         "country": "Turkey",
-        "remarkable": ["Hector, 1180 BC"],
+        "remarkable": [
+            "Hector Prince of Troy (Iliad character), 1228 BC",
+            "Killed by Achilles leader of Myrmidon forces, 1183 BC"
+        ],
         "latitude": 38.0664791,
         "longitude": 27.7033614
     },
@@ -1549,7 +1559,7 @@
         "country": "Ottoman Sultanate (Turkey)",
         "remarkable": [
             "Mehmed II, 1432-1481",
-            "Constantinople Fell, 29 May 1453"
+            "Constantinople fall, 29 May 1453"
         ],
         "latitude": 41.67713,
         "longitude": 26.555715
@@ -1980,7 +1990,7 @@
         "country": "France",
         "remarkable": [
             "Napolean, 1769-1821",
-            "Bastille fell, 14 July 1789,",
+            "Bastille fall, 14 July 1789,",
             "Crowned Emperor, 2 December 1804",
             "Napoleonic Wars, 1796-1815"
         ],
