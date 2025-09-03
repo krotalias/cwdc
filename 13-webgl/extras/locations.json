@@ -187,6 +187,19 @@
         "latitude": -8.0584933,
         "longitude": -34.8848193
     },
+    "Vila Bela": {
+        "country": "Pernambuco (Brazil)",
+        "remarkable": [
+            "Virgulino Ferreira da Silva (Lampião), 1897-1938",
+            "King of Cangaceiros (bandits), 1927-1938",
+            "Maria Gomes de Oliveira (Bonita), 1910-1938",
+            "Wife, 1930-1938",
+            "More than 1000 deaths attributed to Lampião and his band",
+            "Killed by police (Grota do Angico, Sergipe), 28 July 1938"
+        ],
+        "latitude": -7.032351586599946,
+        "longitude": -38.31529448766568
+    },
     "Monte Pascoal": {
         "country": "Porto Seguro (Brazil)",
         "remarkable": [
@@ -267,6 +280,17 @@
         ],
         "latitude": -32.2327,
         "longitude": -53.0862
+    },
+    "Xingu Indigenous Park": {
+        "country": "Brazil",
+        "remarkable": [
+            "Orlando Villas-Bôas, 1914-2002",
+            "Claudio Villas-Bôas, 1916-1998",
+            "Leonardo Villas-Bôas, 1918-1961",
+            "Xingu National Park, 14 April 1961"
+        ],
+        "latitude": -11.232286,
+        "longitude": -53.184815
     },
     "Santo Antônio do Leverger": {
         "country": "Brazil",
@@ -478,6 +502,23 @@
         ],
         "latitude": 38.188165914,
         "longitude": -76.902663056
+    },
+    "Campbell": {
+        "country": "New York (United States)",
+        "remarkable": [
+            "Thomas John Watson, 1874-1956",
+            "Chairman and CEO of IBM, 1914-1956",
+            "Computing-Tabulating-Recording Company (CTR), 1911-1924",
+            "International Business Machines (IBM), 1924-1956",
+            "IBM Research Division, 1945-1956",
+            "Hard disk drive, 13 September 1956",
+            "Fortran, 1957",
+            "IBM Thomas J. Watson Research Center, 1961",
+            "System/360, 7 April 1964",
+            "Personal computer, 12 August 1981"
+        ],
+        "latitude": 42.2331295,
+        "longitude": -77.1974748
     },
     "Guanahani Circle": {
         "country": "Nassau (Bahamas)",
@@ -731,6 +772,38 @@
         ],
         "latitude": 34.0990995,
         "longitude": -118.1085554
+    },
+    "Cupertino": {
+        "country": "California (United States)",
+        "remarkable": [
+            "Steve Jobs, 1955-2011",
+            "Reed College, 1972-1974",
+            "Apple I (Steve Wozniak), 1 April 1976 - 30 September 1977",
+            "Apple Inc. (CEO), 1 April 1976 - 24 August 2011",
+            "iMac, 15 August 1998",
+            "iPod, 10 November 2001",
+            "iPhone 3, 29 June 2007",
+            "iPad, 3 April 2010",
+            "NeXT, 1985-1997",
+            "Pixar (sold to Disney for $7.4B), 1986-2006"
+        ],
+        "latitude": 37.317165398,
+        "longitude": -122.038499846
+    },
+    "Seattle": {
+        "country": "Washington (United States)",
+        "remarkable": [
+            "William Henry Gates III, 1955",
+            "Harvard College, 1973-1975",
+            "Microsoft (CEO), 4 April 1975 - 27 June 2000",
+            "86-DOS (Tim Paterson), 1980",
+            "IBM PC DOS for a one-time fee of $50,000, 1981",
+            "MS-DOS (sold to customers other than IBM), 12 August 1981",
+            "Windows OS, 20 November 1985",
+            "Philanthropist (Bill & Melinda Gates Foundation), 2000-2024"
+        ],
+        "latitude": 47.6062095,
+        "longitude": -122.3320708
     },
     "San Francisco": {
         "country": "United States",
