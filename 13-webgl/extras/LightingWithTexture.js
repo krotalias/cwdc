@@ -2936,7 +2936,7 @@ function addListeners() {
  * The interval will call the {@link handleKeyPress} function with a simulated event
  * that has the key 'g' pressed, which is used to trigger the next location in the timeline.
  * This is particularly useful for testing or for automatically cycling through locations.
- * @param {Number} [delay=2000] - The interval time in milliseconds.
+ * @param {Number} [delay=4000] - The interval time in milliseconds.
  * Defaults to 2000 milliseconds (2 seconds).
  * This function will repeatedly call {@link handleKeyPress} with a simulated event
  * that has the key 'g' pressed, effectively simulating a key press every 2s.
@@ -2945,7 +2945,7 @@ function addListeners() {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval Window: setInterval() method}
  * @see {@link createEvent}
  */
-function startAnimation(delay = 2000) {
+function startAnimation(delay = 4000) {
   return window.setInterval(() => {
     // Set interval for checking
     handleKeyPress(createEvent("g"));
