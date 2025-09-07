@@ -259,13 +259,13 @@
  * @see <iframe title="Equirectangular World Map" style="position: relative; top: -280px; margin-bottom: -600px; width: 970px; height: 600px; transform-origin: 70px 0px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture.html"></iframe>
  * @see <figure>
  *      <img src="../images/teapot.png" height="310" title="Utah teapot">
- *      <img src="../textures/check1024border.png" title="1024x1024 checkboard texture" height="310">
+ *      <img src="../textures/pattern/check1024border.png" title="1024x1024 checkboard texture" height="310">
  *      <img src="../images/sphere2.png" height="309" title="Sphere">
- *      <img src="../textures/uv_grid_opengl.jpg" title="1024x1024 grid texture" height="310">
+ *      <img src="../textures/pattern/uv_grid_opengl.jpg" title="1024x1024 grid texture" height="310">
  *      <figcaption style="font-size: 200%">{@link cartesian2Spherical North Pole - Y axis}</figcaption>
  *      </figure>
  * @see <figure>
- *      <img src="../textures/BigEarth.jpg" height="340" title="earth from nasa">
+ *      <img src="../textures/maps/BigEarth.jpg" height="340" title="earth from nasa">
  *      <img src="../images/spherical-projection.png" height="340" title="spherical projection">
  *      <figcaption style="font-size: 200%">
  *      <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">Equirectangular projection</a>
@@ -1108,7 +1108,7 @@ const readFileNames = new Promise((resolve, reject) => {
   } else {
     const params = new URLSearchParams();
     params.append("dir", "/cwdc/13-webgl/extras/textures");
-    fetch(`/cwdc/6-php/readFiles.php/dir?${params}`)
+    fetch(`/cwdc/6-php/readDirAndFiles.php/dir?${params}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
