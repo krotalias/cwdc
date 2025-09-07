@@ -317,6 +317,19 @@
         "latitude": -25.298249,
         "longitude": -57.622533
     },
+    "Stanley": {
+        "country": "Falkland Islands (United Kingdom)",
+        "remarkable": [
+            "Louis Antoine de Bougainville, 1729-1811",
+            "Port Louis First settlement, 5 April 1764",
+            "France surrendered its claim to Spain, 1766",
+            "British rule, 3 January 1833",
+            "Battle of the Falkland Islands, 8 December 1914",
+            "Falklands War, 2 April 1982 - 14 June 1982"
+        ],
+        "latitude": -51.6921,
+        "longitude": -57.8589
+    },
     "Manaus": {
         "country": "Brazil",
         "remarkable": ["Celestial Sacardim", "Amazon Theatre, 1884-1896"],
@@ -831,6 +844,18 @@
         ],
         "latitude": 61.284,
         "longitude": -149.923
+    },
+    "Bora Bora": {
+        "country": "French Polynesia (France)",
+        "remarkable": [
+            "Jacob Roggeveen, 1722",
+            "James Cook, 29 July 1769",
+            "Teriimaevarua III, 1871-1932",
+            "Queen of Bora Bora, 1873-1895",
+            "French colony, 17 April 1888"
+        ],
+        "latitude": -16.499701,
+        "longitude": -151.770538
     },
     "Pai'ea": {
         "country": "Maui (United States)",
