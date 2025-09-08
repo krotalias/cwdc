@@ -30,6 +30,18 @@
         "latitude": 51.8474887,
         "longitude": -1.3545343
     },
+    "Stratford-upon-Avon": {
+        "country": "England",
+        "remarkable": [
+            "William Shakespeare, 1564-1616",
+            "Playwright, poet and actor, 1585-1613",
+            "Greatest English writer (39 plays, 154 sonnets)",
+            "Hell is empty, and all the devils are here!",
+            "Globe Theatre fire, 29 June 1613"
+        ],
+        "latitude": 52.19166,
+        "longitude": -1.70734
+    },
     "Lindisfarne": {
         "country": "Holy Island (United Kingdom)",
         "remarkable": [
