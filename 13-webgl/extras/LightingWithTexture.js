@@ -1321,7 +1321,8 @@ const handleKeyPress = ((event) => {
     element.timeline.value = dat;
     labelForTimeline(dat);
 
-    if (selector.tooltip && isMap) {
+    // tooltip is on, and the model is a sphere or a subdivision sphere.
+    if (selector.tooltip && [5, 13].includes(+element.models.value)) {
       const location = gpsCoordinates[currentLocation];
       const coordinates = gcs2Screen(location, mercator);
 
@@ -1349,20 +1350,22 @@ const handleKeyPress = ((event) => {
       }
 
       // on the globe
-      y = viewport[3] - y;
-      canvastip.style.top = `${y + 5}px`;
-      canvastip.style.left = `${x + 35}px`;
-      canvastip.innerHTML = `${currentLocation}, ${country}`;
-      for (const rem of remarkable) canvastip.innerHTML += `<br>${rem}`;
-      canvastip.style.display = "block";
-      // on the map
-      x = Math.floor(uv.s * textimg.width);
-      y = Math.floor(uv.t * textimg.height);
-      y = textimg.height - y;
-      element.tooltip.style.top = `${y + 5}px`;
-      element.tooltip.style.left = `${x + 5}px`;
-      element.tooltip.innerHTML = `${cleanLocation(currentLocation)}`;
-      element.tooltip.style.display = "block";
+      if (isMap) {
+        y = viewport[3] - y;
+        canvastip.style.top = `${y + 5}px`;
+        canvastip.style.left = `${x + 35}px`;
+        canvastip.innerHTML = `${currentLocation}, ${country}`;
+        for (const rem of remarkable) canvastip.innerHTML += `<br>${rem}`;
+        canvastip.style.display = "block";
+        // on the map
+        x = Math.floor(uv.s * textimg.width);
+        y = Math.floor(uv.t * textimg.height);
+        y = textimg.height - y;
+        element.tooltip.style.top = `${y + 5}px`;
+        element.tooltip.style.left = `${x + 5}px`;
+        element.tooltip.innerHTML = `${cleanLocation(currentLocation)}`;
+        element.tooltip.style.display = "block";
+      }
     } else {
       element.tooltip.style.display = "none";
       canvastip.style.display = "none";
