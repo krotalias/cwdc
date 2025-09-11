@@ -170,6 +170,15 @@
         "latitude": 64.145981,
         "longitude": -21.9422367
     },
+    "Brunt Ice Shelf": {
+        "country": "Caird Coast (United Kingdom)",
+        "remarkable": [
+            "Edmond Halley (Astronomer), 1656-1742",
+            "Halley Research Station, 15 January 1956"
+        ],
+        "latitude": -75.568056,
+        "longitude": -25.508333
+    },
     "Fernando de Noronha": {
         "country": "Brazil",
         "remarkable": [
@@ -271,7 +280,7 @@
         "country": "Brazil",
         "remarkable": [
             "Candido Portinari, 1903-1962",
-            "War and Peace, United Nations, NY, 1956"
+            "War and Peace, UN (NY), 6 September 1957"
         ],
         "latitude": -20.987829382,
         "longitude": -47.655330712
@@ -341,6 +350,27 @@
         ],
         "latitude": -51.6921,
         "longitude": -57.8589
+    },
+    "King George Island": {
+        "country": "Martel Inlet (Brazil)",
+        "remarkable": [
+            "Luís Antônio de Carvalho Ferraz (Commander), 1940-1982",
+            "Antarctic Treaty System, 1961-present",
+            "Comandante Ferraz Antarctic Station, 6 febrruay 1984",
+            "Destroyed by fire, 25 February 2012",
+            "Reopened, 15 January 2020"
+        ],
+        "latitude": -62.085313,
+        "longitude": -58.391279
+    },
+    "Greenwich Island": {
+        "country": "Iquique Cove (Chile)",
+        "remarkable": [
+            "Agustín Arturo Prat Chacón (Navy officer), 1848-1879",
+            "Captain Arturo Prat Base, 6 February 1947"
+        ],
+        "latitude": -62.516667,
+        "longitude": -59.783333
     },
     "Manaus": {
         "country": "Brazil",
@@ -954,6 +984,15 @@
         "latitude": 1.3278,
         "longitude": 172.97696
     },
+    "Ross Island": {
+        "country": "Ross Dependency (United States)",
+        "remarkable": [
+            "Archibald McMurdo (Scottish naval officer), 1812-1875",
+            "McMurdo Station, 16 February 1956"
+        ],
+        "latitude": -77.846323,
+        "longitude": 166.668235
+    },
     "Coral Sea": {
         "country": "Solomon Islands",
         "remarkable": [
@@ -1054,6 +1093,15 @@
         ],
         "latitude": 24.7833302,
         "longitude": 141.3166654
+    },
+    "Adélie Land": {
+        "country": "Géologie Archipelago (France)",
+        "remarkable": [
+            "Jules Dumont d'Urville (naval officer), 1790-1842",
+            "Dumont d'Urville Station, 12 January 1956"
+        ],
+        "latitude": -66.662778,
+        "longitude": 140.001111
     },
     "Tokyo": {
         "country": "Japan",
