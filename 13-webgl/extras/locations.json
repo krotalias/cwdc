@@ -1171,6 +1171,18 @@
         "latitude": 25.04776,
         "longitude": 121.53185
     },
+    "Shanghai": {
+        "country": "China",
+        "remarkable": [
+            "Showpiece of the economy of China",
+            "First Opium War, 1839-1842",
+            "French Concession, 1849-1943",
+            "Battle of Shanghai, 13 August 1937 - 26 November 1937",
+            "Shanghai Campaign, 12 May 1949 - 2 June 1949"
+        ],
+        "latitude": 31.228611,
+        "longitude": 121.474722
+    },
     "Manila": {
         "country": "Philippines",
         "remarkable": [
@@ -1208,6 +1220,21 @@
         ],
         "latitude": 39.916668,
         "longitude": 116.383331
+    },
+    "Hong Kong": {
+        "country": "China",
+        "remarkable": [
+            "British possession, 26 January 1841",
+            "Treaty of Nanking, 29 August 1842",
+            "Convention of Peking, 24 October 1860",
+            "New Territories lease, 9 June 1898",
+            "Imperial Japanese occupation, 25 December 1941 - 30 August 1945",
+            "British Dependent Territory, 1 January 1981",
+            "Sino-British Joint Declaration, 19 December 1984",
+            "Handover to China, 1 July 1997"
+        ],
+        "latitude": 22.3,
+        "longitude": 114.2
     },
     "Saigon": {
         "country": "Vietnam",
