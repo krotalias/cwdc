@@ -810,6 +810,24 @@
         "latitude": 19.432608,
         "longitude": -99.133209
     },
+    "Easter Island": {
+        "country": "Chile",
+        "remarkable": [
+            "Jacob Roggeveen (Dutch explorer), 1659-1729",
+            "Discovered (Easter Sunday), 5 April 1722",
+            "Population estimated to be 2,000 to 3,000",
+            "James Cook, 1774",
+            "Population estimated to be 700 Rapa Nui people",
+            "Population perished or emigrated, 1862-1888",
+            "Chile annexed Easter Island, 1888",
+            "Rapa Nui National Park, 1935",
+            "World Heritage Site (UNESCO), 22 March 1996",
+            "Chilean citizenship, 2007",
+            "Moai Human Figures and Rongorongo glyphs, 1250-1500"
+        ],
+        "latitude": -27.15,
+        "longitude": -109.45
+    },
     "Calgary": {
         "country": "Canada",
         "remarkable": [
@@ -1665,6 +1683,19 @@
         "latitude": 29.979175,
         "longitude": 31.134358
     },
+    "Fort Julien": {
+        "country": "Rosetta (Egypt)",
+        "remarkable": [
+            "Sultan Qait Bey, 1470",
+            "Pierre-François Bouchard (Lieutenant), 1771-1822",
+            "Rosetta Stone, 196 BC",
+            "Discovered, 19 July 1799",
+            "Ancient Egyptian writing decoded over a millennium",
+            "Native Egyptian words spell, 1822-1824"
+        ],
+        "latitude": 31.439722,
+        "longitude": 30.389444
+    },
     "Bila Tserkva": {
         "country": "Russian Empire (Ukraine)",
         "remarkable": [
@@ -1680,7 +1711,9 @@
             "Ptolemy (Alexander's general) 369-282 BC",
             "Ptolemy I Soter reign, 305-282 BC",
             "Euclid's Elements, 300 BC",
-            "Erathostenes, 276-194 BC"
+            "Erathostenes, 276-194 BC",
+            "Cleopatra VII, 69-30 BC",
+            "Queen (Ptolemaic Kingdom of Egypt), 51-30 BC"
         ],
         "latitude": 31.205753,
         "longitude": 29.924526
