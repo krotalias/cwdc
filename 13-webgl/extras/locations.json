@@ -1348,6 +1348,17 @@
         "latitude": 24.9056,
         "longitude": 67.0822
     },
+    "Strait of Hormuz": {
+        "country": "Iran, Oman, United Arab Emirates",
+        "remarkable": [
+            "Strait between Persian Gulf and the Gulf of Oman",
+            "20% of the world's liquefied natural gas",
+            "25% of seaborne oil trade, 2023",
+            "Never been closed during Middle East conflicts, 2025"
+        ],
+        "latitude": 26.5666644,
+        "longitude": 56.249999
+    },
     "Persepolis": {
         "country": "Persia (Iran)",
         "remarkable": [
@@ -1366,17 +1377,6 @@
         ],
         "latitude": 35.7248416,
         "longitude": 51.381653
-    },
-    "Strait of Hormuz": {
-        "country": "Iran, Oman, United Arab Emirates",
-        "remarkable": [
-            "Strait between Persian Gulf and the Gulf of Oman",
-            "20% of the world's liquefied natural gas",
-            "25% of seaborne oil trade, 2023",
-            "Never been closed during Middle East conflicts, 2025"
-        ],
-        "latitude": 26.5666644,
-        "longitude": 56.249999
     },
     "Antananarivo": {
         "country": "Madagascar",
@@ -1508,6 +1508,18 @@
         "latitude": 34.4037939,
         "longitude": 35.8523369
     },
+    "Kibbutz Degania Alef": {
+        "country": "Ottoman Empire (Israel)",
+        "remarkable": [
+            "Moshe Dayan, 1915-1981",
+            "Israeli general, 1948-1969",
+            "Minister of Defense, 1967-1974",
+            "Six-Day War, 5 June 1967 - 10 June 1967",
+            "Yom Kippur War, 6 October 1973 - 25 October 1973"
+        ],
+        "latitude": 32.666667,
+        "longitude": 35.566667
+    },
     "Petra": {
         "country": "Nabatean Kingdom (Jordan)",
         "remarkable": [
@@ -1612,18 +1624,6 @@
         "latitude": 25.7329051,
         "longitude": 32.7658152
     },
-    "Kibbutz Degania Alef": {
-        "country": "Ottoman Empire (Israel)",
-        "remarkable": [
-            "Moshe Dayan, 1915-1981",
-            "Israeli general, 1948-1969",
-            "Minister of Defense, 1967-1974",
-            "Six-Day War, 5 June 1967 - 10 June 1967",
-            "Yom Kippur War, 6 October 1973 - 25 October 1973"
-        ],
-        "latitude": 32.666667,
-        "longitude": 35.566667
-    },
     "Suez Canal": {
         "country": "Egypt",
         "remarkable": [
@@ -1691,6 +1691,8 @@
             "Rosetta Stone, 196 BC",
             "Discovered, 19 July 1799",
             "Ancient Egyptian writing decoded over a millennium",
+            "British Museum, 1802",
+            "Jean-François Champollion (philologist), 1790-1832",
             "Native Egyptian words spell, 1822-1824"
         ],
         "latitude": 31.439722,
