@@ -3858,7 +3858,7 @@ function pointsOnLocations() {
     const gcs = gpsCoordinates[cities.current[i]];
     const uv = gcs2UV(gcs);
     const [theta, phi] = UV2Spherical(uv);
-    const p = spherical2Cartesian(theta, phi, 1.01);
+    const p = spherical2Cartesian(theta, phi, 1);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
