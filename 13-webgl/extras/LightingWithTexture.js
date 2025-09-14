@@ -9,7 +9,7 @@
  * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 212 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
- * <p>This is just a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
+ * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
  * which became {@link https://www.youtube.com/watch?v=uhiCFdWeQfA overly complicated},
  * and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
@@ -166,6 +166,36 @@
  * {@link https://dl.acm.org/doi/pdf/10.1145/282918.282923 quad-edge},
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
+ *
+ * <p><b>The application</b>: Around The World in <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">212 historical figures</a>.</p>
+ * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
+ * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
+ *
+ * <p>Therefore, I have always wanted to present, in a graphical way, the connection between historical events in time and space.
+ * I think I have been able to implement a reasonable application for doing just that. However, how I implemented it is not the main point.
+ * For not using any npm packages or bundlers, I decided to stick only with HTML, CSS, JavaScript, and WebGL,
+ * plus some packages, including three.js.</p>
+ *
+ * <p>The documentation is extensive because I aimed to use it in an introductory computer graphics course.
+ * However, I have come to realize that computer graphics has become a commodity, much like database management;
+ * everyone utilizes it, yet very few people are interested in understanding the underlying mechanics.
+ * This trend poses a challenge for educators, as it becomes increasingly important to
+ * inspire curiosity and a deeper appreciation for the artistic and technical aspects of graphics programming.
+ * By focusing on foundational principles, I hope to encourage students to explore beyond the surface and engage
+ * with the creative possibilities that computer graphics offers.</p>
+ *
+ * <p>Of course, everything could have been implemented using three.js only,
+ * although I am not sure OrbitControls would give me the flexibility I needed to build the interface.
+ * Exploring alternative libraries and frameworks could provide additional tools and features
+ * that enhance the user experience and streamline development.
+ * Ultimately, the goal is to create an environment where students feel empowered to experiment and innovate,
+ * pushing the boundaries of what they can achieve in graphics programming.</p>
+ *
+ * <p>I used no AI, and for three or four months when I woke up, I picked up an event and read a lot of material, mainly Wikipedia,
+ * for dating the events associated with a site. As a consequence, it is clear to me now that I know very little about Africa and Australia.
+ * This realization has sparked a desire in me to delve deeper into the histories and cultures of these regions.
+ * I plan to explore diverse resources, including books, documentaries, and discussions with knowledgeable individuals,
+ * to gain a more comprehensive understanding of their rich narratives.</p>
  *
  * <p><b>{@link https://www.youtube.com/watch?v=Otm4RusESNU Homework}</b>:</p>
  *
