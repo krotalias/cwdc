@@ -122,6 +122,18 @@
         "latitude": 50.54944,
         "longitude": -4.14418
     },
+    "Strait of Gibraltar": {
+        "country": "Spain",
+        "remarkable": [
+            "Pillars of Hercules, 700 BC",
+            "Homer and Hesiod (western edge of the world)",
+            "Connects the Atlantic Ocean to the Mediterranean Sea",
+            "Between Spain and Morocco",
+            "Battle of the Strait of Gibraltar, 24 April 1591"
+        ],
+        "latitude": 35.95,
+        "longitude": -5.5
+    },
     "Dublin": {
         "country": "Ireland",
         "remarkable": ["Olaf the White, 806-874", "King of Dublin, 853"],
@@ -1543,6 +1555,18 @@
         "latitude": 45.03677,
         "longitude": 35.37789
     },
+    "Masada": {
+        "country": "Judaean Desert (Israel)",
+        "remarkable": [
+            "Herod the Great (Builder), 1 BC",
+            "Lucius Flavius Silva (Roman Tenth Legion), 40-81",
+            "Eleazar ben Ya'ir (Sicarii leader)",
+            "First Jewish-Roman War, 66-73",
+            "Siege and fall of Masada, 16 April 73"
+        ],
+        "latitude": 31.315556,
+        "longitude": 35.353889
+    },
     "Jerusalem": {
         "country": "Herodian Kingdom (Israel)",
         "remarkable": [
@@ -1719,6 +1743,18 @@
         ],
         "latitude": 31.205753,
         "longitude": 29.924526
+    },
+    "Bosporus Strait": {
+        "country": "Turkish Straits (Turkey)",
+        "remarkable": [
+            "Connects the Black Sea to the Sea of Marmara",
+            "Thence to the Aegean and Mediterranean seas via the Dardanelles",
+            "Constantinople, 330",
+            "Treaty of Sèvres (international territory), 10 August 1920",
+            "Turkey joined NATO, 18 February 1952"
+        ],
+        "latitude": 41.119444,
+        "longitude": 29.075278
     },
     "Byzantium, (Constantinople)": {
         "country": "Thrace (Turkey)",
