@@ -852,8 +852,11 @@
     "San Gabriel": {
         "country": "United States",
         "remarkable": [
-            "George S. Patton (General), 1885-1945",
-            "Battle of El Guettar, 23 March 1943"
+            "Mission San Gabriel Arcángel, 8 September 1771",
+            "Mexican-American War, 25 April 1846 - 2 February 1848",
+            "Treaty of Guadalupe Hidalgo, 2 February 1848",
+            "George Smith Patton Jr. (General), 1885-1945",
+            "Incorporated as a city, 24 April 1913"
         ],
         "latitude": 34.0990995,
         "longitude": -118.1085554
@@ -2091,6 +2094,20 @@
         "latitude": 43.64031,
         "longitude": 11.98546
     },
+    "Dovia di Predappio": {
+        "country": "Italy",
+        "remarkable": [
+            "Benito Mussolini, 1883-1945",
+            "Italian Fasces of Combat (FIC), 23 March 1919",
+            "National Fascist Party, 9 November 1921",
+            "March on Rome, 28 October 1922",
+            "Gran Sasso raid, 13 September 1943",
+            "Duce of the Italian Social Republic, 23 September 1943",
+            "Executed, 28 April 1945"
+        ],
+        "latitude": 44.1,
+        "longitude": 11.983333
+    },
     "Bologna": {
         "country": "Papal States (Italy)",
         "remarkable": [
@@ -2199,6 +2216,15 @@
         ],
         "latitude": 45.4697,
         "longitude": 9.1803
+    },
+    "El Guettar": {
+        "country": "Tunisia",
+        "remarkable": [
+            "George S. Patton (Lieutenant General), 1885-1945",
+            "Battle of El Guettar, 23 March 1943 - 3 April 1943"
+        ],
+        "latitude": 34.337222,
+        "longitude": 8.952778
     },
     "Mühlburg": {
         "country": "German Confederation (Germany)",
