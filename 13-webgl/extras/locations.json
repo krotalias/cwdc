@@ -233,6 +233,18 @@
         "latitude": -7.032351586599946,
         "longitude": -38.31529448766568
     },
+    "Salvador": {
+        "country": "Bahia (Brazil)",
+        "remarkable": [
+            "Diogo Álvares (Caramuru), 1475-1557",
+            "Arraial do Rio Vermelho (French shipwreck), 1510",
+            "Tomé de Souza, 1503-1579",
+            "General Governor, 7 January 1549 - 1553",
+            "São Salvador, 29 March 1549"
+        ],
+        "latitude": -12.974722,
+        "longitude": -38.476665
+    },
     "Monte Pascoal": {
         "country": "Porto Seguro (Brazil)",
         "remarkable": [
@@ -262,6 +274,18 @@
         ],
         "latitude": -22.90189,
         "longitude": -43.22619
+    },
+    "Ouro Preto": {
+        "country": "Minas Gerais (Brazil)",
+        "remarkable": [
+            "Antônio Dias de Oliveira",
+            "Padre João de Faria Fialho, 1636-1712",
+            "Discovery of gold, 24 june 1698",
+            "Vila Rica, 8 July 1711",
+            "Escola de Minas (engineering), 12 October 1876"
+        ],
+        "latitude": -20.384498462,
+        "longitude": -43.502164658
     },
     "Palmira": {
         "country": "Brazil",
