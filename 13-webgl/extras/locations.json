@@ -297,6 +297,29 @@
         "latitude": -20.987829382,
         "longitude": -47.655330712
     },
+    "Brasilia": {
+        "country": "Brazil",
+        "remarkable": [
+            "Capital of Brazil",
+            "Foundation, 21 April 1960",
+            "Lúcio Costa (Urbanist), 1902-1998",
+            "Oscar Niemeyer (Architect), 1907-2012"
+        ],
+        "latitude": -15.94740009,
+        "longitude": -47.87779999
+    },
+    "Belém": {
+        "country": "Pará (Brazil)",
+        "remarkable": [
+            "First European colony on the Amazon",
+            "Francisco Caldeira Castelo Branco (Capitão-Mor), 1566-1619",
+            "Feliz Lusitânia, 12 January 1616",
+            "Capital of the State of Pará, 21 November 1772",
+            "Amazon rubber industry, 1910-1912"
+        ],
+        "latitude": -1.45583,
+        "longitude": -48.50444
+    },
     "Nuuk": {
         "country": "Greenland",
         "remarkable": ["Hans Egede, 1686-1758", "Apostle of Greenland, 1711"],
@@ -386,7 +409,12 @@
     },
     "Manaus": {
         "country": "Brazil",
-        "remarkable": ["Celestial Sacardim", "Amazon Theatre, 1884-1896"],
+        "remarkable": [
+            "Francisco da Mota Falcão (Captain), ???? - 12 March 1688",
+            "Forte de São José da Barra do Rio Negro, 24 October 1669",
+            "Celestial Sacardim (Italian Architect)",
+            "Amazon Theatre, 1884-1896"
+        ],
         "latitude": -3.124832834,
         "longitude": -60.020666584
     },
