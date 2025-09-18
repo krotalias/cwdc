@@ -509,7 +509,13 @@
         "remarkable": [
             "Theodore Roosevelt, 1858-1919",
             "Harvard A.B. History, 1876-1880",
-            "26th U.S. President, 14 September 1901"
+            "NYC Board of Police Commissioners (President), 1895-1897",
+            "33rd Governor of New York, 1 January 1899 - 31 December 1900",
+            "25th U.S. Vice-President, 4 March 1901",
+            "26th U.S. President, 14 September 1901 - 4 March 1909",
+            "Expediting Act (anti monopoly), 11 February 1903",
+            "Created five National parks",
+            "Smithsonian-Roosevelt African Expedition, 23 March 1909 - 18 June 1910"
         ],
         "latitude": 40.7128,
         "longitude": -74.006
@@ -621,6 +627,23 @@
         ],
         "latitude": 28.40584,
         "longitude": -80.60477
+    },
+    "Niles": {
+        "country": "Ohio (United States)",
+        "remarkable": [
+            "William McKinley, 1843-1901",
+            "23rd Ohio Infantry (Brevet major), 1861-1865",
+            "Albany Law School, 1866-1867",
+            "25th U.S. President, 4 March 1897",
+            "Dingley Tariff (raise), 1897",
+            "Spanish-American War, 1898-1899",
+            "Gold Standard Act, 14 March 1900",
+            "China Relief Expedition, 7 July 1900",
+            "It is God's way. His will, not ours, be done",
+            "Assassineted, 14 September 1901"
+        ],
+        "latitude": 41.188889,
+        "longitude": -80.747222
     },
     "George Town": {
         "country": "Cayman Islands (United Kingdom)",

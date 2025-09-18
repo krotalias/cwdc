@@ -2972,7 +2972,7 @@ function addListeners() {
  * that has the key 'g' pressed, which is used to trigger the next location in the timeline.
  * This is particularly useful for testing or for automatically cycling through locations.
  * @param {Number} [delay=4000] - The interval time in milliseconds.
- * Defaults to 2000 milliseconds (2 seconds).
+ * Defaults to 4000 milliseconds (4 seconds).
  * This function will repeatedly call {@link handleKeyPress} with a simulated event
  * that has the key 'g' pressed, effectively simulating a key press every 2s.
  * @return {Number} The ID of the interval that can be used to clear it later.
