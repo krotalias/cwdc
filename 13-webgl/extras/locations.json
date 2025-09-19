@@ -271,8 +271,13 @@
         "longitude": -39.4075612
     },
     "Rio": {
-        "country": "Brazil",
+        "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
+            "Gaspar de Lemos (Guanabara Bay), 1 January 1502",
+            "Nicolas Durand de Villegagnon, 1510-1561",
+            "French inavasion, 1 November 1555",
+            "Estácio de Sá, 1520-1567",
+            "Foundation, 1 March 1565",
             "Machado de Assis, 1839-1908",
             "Heitor Villa-Lobos, 1887-1959",
             "• Parisian art scene, 1923-1930",
@@ -327,6 +332,20 @@
         ],
         "latitude": -21.6999972,
         "longitude": -45.2666656
+    },
+    "São Vicente": {
+        "country": "São Paulo (Brazil)",
+        "remarkable": [
+            "Martim Afonso de Sousa, 1500-1562",
+            "First city of Brazil, 22 January 1532",
+            "Saint José de Anchieta, 1534-1597",
+            "Companhia de (Society of) Jesus, 1551",
+            "Conversion of +1M indigenous people",
+            "Arrival in Brazil, 13 July 1553",
+            "São Paulo, 1554"
+        ],
+        "latitude": -23.96306,
+        "longitude": -46.39194
     },
     "Brodowski": {
         "country": "Brazil",
