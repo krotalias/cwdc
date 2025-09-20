@@ -203,13 +203,37 @@
         "latitude": -3.853808,
         "longitude": -32.423786
     },
-    "Recife": {
-        "country": "Brazil",
+    "Olinda": {
+        "country": "Pernambuco (Brazil)",
         "remarkable": [
-            "Padre Roma, 1768-1818",
+            "Looted and burned by the Dutch, 1631",
+            "Mosteiro de São Bento, 1597-1599, 1656-1761",
+            "World Heritage Site (UNESCO), 1982",
+            "Foundation, 12 March 1535"
+        ],
+        "latitude": -8.0,
+        "longitude": -34.8833298
+    },
+    "Recife": {
+        "country": "Pernambuco (Brazil)",
+        "remarkable": [
+            "Mauricio de Nassau, 1604-1679",
+            "Dutch invasion, 1630-1554",
+            "Governor (Dutch Brazil - WIC), 23 January 1637 - 30 December 1643",
+            "José Inácio Ribeiro de Abreu e Lima (Padre Roma), 1768-1818",
             "Pernambucan Revolt, 1817",
             "Executed (firing squad), 29 March 1817",
-            "General Abreu e Lima's father, 1794-1869",
+            "Foundation, 12 March 1537"
+        ],
+        "latitude": -8.0584933,
+        "longitude": -34.8848193
+    },
+    "Abreu e Lima": {
+        "country": "Pernambuco (Brazil)",
+        "remarkable": [
+            "Duarte Coelho, 24 July 1540",
+            "Emancipated, 9 May 1982",
+            "José Inácio de Abreu e Lima (General), 1794-1869",
             "Royal Military Academy in Rio de Janeiro (Captain), 1816",
             "Arested and escaped to the United States, 1817-1818",
             "Joined the Venezuelan Army for 13 years, 1818-1831",
@@ -217,8 +241,8 @@
             "Battle of Carabobo, 24 June 1821",
             "Battle of Ayacucho, 9 December 1824"
         ],
-        "latitude": -8.0584933,
-        "longitude": -34.8848193
+        "latitude": -7.91167,
+        "longitude": -34.90278
     },
     "Natal": {
         "country": "Rio Grande do Norte (Brazil)",
@@ -306,7 +330,9 @@
             "Padre João de Faria Fialho, 1636-1712",
             "Discovery of gold, 24 june 1698",
             "Vila Rica, 8 July 1711",
-            "Escola de Minas (engineering), 12 October 1876"
+            "Escola de Minas (engineering), 12 October 1876",
+            "World Heritage Site (UNESCO), 1980",
+            "Foundation, 8 July 1698"
         ],
         "latitude": -20.384498462,
         "longitude": -43.502164658
@@ -340,12 +366,12 @@
         "country": "São Paulo (Brazil)",
         "remarkable": [
             "Martim Afonso de Sousa, 1500-1562",
-            "First city of Brazil, 22 January 1532",
             "Saint José de Anchieta, 1534-1597",
             "Companhia de (Society of) Jesus, 1551",
             "Conversion of +1M indigenous people",
             "Arrival in Brazil, 13 July 1553",
-            "São Paulo, 1554"
+            "São Paulo, 1554",
+            "First city of Brazil, 22 January 1532"
         ],
         "latitude": -23.96306,
         "longitude": -46.39194
@@ -365,6 +391,7 @@
             "Capital of Brazil (planned city)",
             "Lúcio Costa (Urbanist), 1902-1998",
             "Oscar Niemeyer (Architect), 1907-2012",
+            "World Heritage Site (UNESCO), 1987",
             "Foundation, 21 April 1960"
         ],
         "latitude": -15.94740009,
