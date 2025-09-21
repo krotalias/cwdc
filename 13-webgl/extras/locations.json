@@ -404,10 +404,39 @@
             "Francisco Caldeira Castelo Branco (Capitão-Mor), 1566-1619",
             "Feliz Lusitânia, 12 January 1616",
             "Capital of the State of Pará, 21 November 1772",
-            "Amazon rubber industry, 1910-1912"
+            "Teatro da Paz, 1869-1874",
+            "Amazon rubber cycle, 1879-1912"
         ],
         "latitude": -1.45583,
         "longitude": -48.50444
+    },
+    "North Atlantic": {
+        "country": "Newfoundland (Canada)",
+        "remarkable": [
+            "RMS Titanic Maiden voyage (1317 passangers), 10 April 1912",
+            "White Star Line (J.P. Morgan and Joseph Bruce Ismay)",
+            "Southampton (UK) to New York City (US)",
+            "Sunk speed 21 knots (39 km/h, -2°C), 15 April 1912",
+            "John Jacob Astor, Benjamin Guggenheim, Isidor and Ida Straus (deceased)",
+            "Robert Ballard (ocean explorer), 1 September 1985"
+        ],
+        "latitude": 41.72583043,
+        "longitude": -49.94082957
+    },
+    "Macapá": {
+        "country": "Amapá (Brazil)",
+        "remarkable": [
+            "Francisco de Orellana (lieutenant), 1511-1546",
+            "Negro River, 3 June 1542",
+            "Amazon river mouth, 26 August 1542",
+            "Claimed Nueva Andalucía (Amapá), 1544",
+            "Treaty of Utrecht, 11 April 1713",
+            "Portuguese sovereignty between Amazonas and Oiapoque",
+            "Fortress of St. Joseph, 1764-1782",
+            "Vila de São José de Macapá, 4 February 1758"
+        ],
+        "latitude": 0.03889,
+        "longitude": -51.06639
     },
     "Nuuk": {
         "country": "Greenland",
@@ -507,6 +536,36 @@
         "latitude": -3.124832834,
         "longitude": -60.020666584
     },
+    "Boa Vista": {
+        "country": "Roraima (Brazil)",
+        "remarkable": [
+            "Pedro Teixeira (captain), 1585-1641",
+            "Expedition Atlantic-Peru, 25 July de 1637",
+            "Branco river discovery, 1639",
+            "Forte São Joaquim, 1775",
+            "Inácio Lopes de Magalhães (captain), 1805-1881",
+            "Boa Vista cattle farm, 1830",
+            "Foundation, 9 July 1890"
+        ],
+        "latitude": 2.84518296,
+        "longitude": -60.70111501
+    },
+    "Porto Velho": {
+        "country": "Rondônia (Brazil)",
+        "remarkable": [
+            "Percival Farquhar (Yale engineering), 1865-1954",
+            "Madeira-Mamoré (Devil's Railroad) 366 km, 1907 - 7 September 1912",
+            "Closed (replaced by BR-364), 1972",
+            "Second rubber boom (WW II), 1942-1945",
+            "Discovery of cassiterite (ore of tin), 1952",
+            "Manual mining, 1968-1972",
+            "Half of Brazilian production, 1959 - present",
+            "Rondon Project (integrate to not surrender), 11 July 1967 - 1989",
+            "Foundation, 2 October 1914"
+        ],
+        "latitude": -8.76194,
+        "longitude": -63.90389
+    },
     "St Croix": {
         "country": "Virgin Islands (United States)",
         "remarkable": [
@@ -553,6 +612,18 @@
         ],
         "latitude": -55.974496102,
         "longitude": -67.269665588
+    },
+    "Rio Branco": {
+        "country": "Acre (Brazil)",
+        "remarkable": [
+            "Barão do Rio Branco (diplomat), 1845-1912",
+            "First rubber boom, 1879-1912",
+            "Acre question (Bolivia x Brazil), 1899-1903",
+            "Treaty of Petropolis, 17 November 1903",
+            "Foundation, 28 December 1882"
+        ],
+        "latitude": -9.974722,
+        "longitude": -67.81
     },
     "Santo Domingo": {
         "country": "Dominican Republic",
