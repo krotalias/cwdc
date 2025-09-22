@@ -192,7 +192,7 @@
         "longitude": -25.508333
     },
     "Fernando de Noronha": {
-        "country": "Brazil",
+        "country": "Pernambuco (Brazil)",
         "remarkable": [
             "Fernão de Noronha, 1470-1540",
             "Amerigo Vespucci, 1451-1512",
@@ -338,7 +338,7 @@
         "longitude": -43.502164658
     },
     "Palmira": {
-        "country": "Brazil",
+        "country": "Minas Gerais (Brazil)",
         "remarkable": [
             "Alberto Santos Dumont, 1873-1932",
             "Gasoline baloon, Deutsch premium",
@@ -351,8 +351,24 @@
         "latitude": -21.453998184,
         "longitude": -43.5514
     },
+    "São Luiz": {
+        "country": "Maranhão (Brazil)",
+        "remarkable": [
+            "Nazaré (Upaon-Açu island), 1550",
+            "Daniel de La Touche, 1570-1631",
+            "Saint-Louis (French origin), 8 Setember 1612 - 1615",
+            "Battle of Guaxenduba, 1614",
+            "Dutch invasion, 1641-1644",
+            "Praça do Comércio, 1780",
+            "Carajás railroad (Vale S.A.), 1982-1985",
+            "World Heritage Site (UNESCO), 1997",
+            "São Luiz, 8 Setember 1612"
+        ],
+        "latitude": -2.5283,
+        "longitude": -44.3044
+    },
     "Três Corações": {
-        "country": "Brazil",
+        "country": "Minas Gerais (Brazil)",
         "remarkable": [
             "Pelé, Best football player ever, 1940-2022",
             "6th World Cup, Sweden, 29 June 1958",
@@ -377,7 +393,7 @@
         "longitude": -46.39194
     },
     "Brodowski": {
-        "country": "Brazil",
+        "country": "São Paulo (Brazil)",
         "remarkable": [
             "Candido Portinari, 1903-1962",
             "War and Peace, UN (NY), 6 September 1957"
@@ -386,7 +402,7 @@
         "longitude": -47.655330712
     },
     "Brasilia": {
-        "country": "Brazil",
+        "country": "Distrito Federal (Brazil)",
         "remarkable": [
             "Capital of Brazil (planned city)",
             "Lúcio Costa (Urbanist), 1902-1998",
@@ -445,7 +461,7 @@
         "longitude": -51.7333304
     },
     "Arroio Grande": {
-        "country": "Brazil",
+        "country": "Rio Grande do Sul (Brazil)",
         "remarkable": [
             "Irineu Evangelista de Sousa, 1813-1889",
             "Bank of Brasil, 1851",
@@ -456,7 +472,7 @@
         "longitude": -53.0862
     },
     "Xingu Indigenous Park": {
-        "country": "Brazil",
+        "country": "Mato Grosso (Brazil)",
         "remarkable": [
             "Orlando Villas-Bôas, 1914-2002",
             "Claudio Villas-Bôas, 1916-1998",
@@ -467,7 +483,7 @@
         "longitude": -53.184815
     },
     "Santo Antônio do Leverger": {
-        "country": "Brazil",
+        "country": "Mato Grosso (Brazil)",
         "remarkable": [
             "Cândido Rondon (Marshal), 1865-1958",
             "Officer's school, 1883-1888",
@@ -526,7 +542,7 @@
         "longitude": -59.783333
     },
     "Manaus": {
-        "country": "Brazil",
+        "country": "Amazonas (Brazil)",
         "remarkable": [
             "Francisco da Mota Falcão (Captain), ???? - 12 March 1688",
             "Forte de São José da Barra do Rio Negro, 24 October 1669",
