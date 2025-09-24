@@ -456,6 +456,12 @@ const canvas = document.getElementById("theCanvas");
 const canvastip = document.getElementById("canvastip");
 
 /**
+ * Increment/decrement {@link currentLocation} only for locations in country.
+ * @type {String}
+ */
+let country = "";
+
+/**
  * HTML elements in the interface.
  * @type {Object}
  * @property {HTMLInputElement} mesh checkbox
@@ -479,6 +485,7 @@ const canvastip = document.getElementById("canvastip");
  * @property {HTMLInputElement} timeline range
  * @property {HTMLLabelElement} lblTimeline label
  * @property {HTMLDataListElement} steplist list
+ * @property {HTMLSelectElement} country select
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement HTMLElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement HTMLInputElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement HTMLSelectElement}
@@ -511,6 +518,7 @@ const element = {
   timeline: document.getElementById("timeline"),
   lblTimeline: document.getElementById("lblTimeline"),
   steplist: document.getElementById("steplist"),
+  country: document.getElementById("country"),
 };
 
 /**
@@ -1333,6 +1341,25 @@ const handleKeyPress = ((event) => {
   };
 
   /**
+   * Returns the next location starting at {@link currentLocation}.
+   * @param {Number} increment.
+   * @param {String} filter set of locations to look for.
+   * @returns {Number} index of next location.
+   * @global
+   */
+  function nextLocation(inc, filter = "") {
+    let cl = cities.current.indexOf(currentLocation);
+    if (inc === 0) return cl;
+
+    let location = currentLocation;
+    do {
+      cl = mod(cl + inc, cities.current.length);
+      location = cities.current[cl];
+    } while (filter && !gpsCoordinates[location].country.includes(filter));
+    return cl;
+  }
+
+  /**
    * Update the current location and set the position
    * on the globe or map.
    * @param {Number} inc increment to change the current location.
@@ -1341,8 +1368,7 @@ const handleKeyPress = ((event) => {
    */
   function updateLocation(inc, fix = true) {
     if (axis === "q") axis = " "; // current meridian will be lost
-    let cl = cities.current.indexOf(currentLocation);
-    cl = mod(cl + inc, cities.current.length);
+    const cl = nextLocation(inc, country);
     currentLocation = cities.current[cl];
     setPosition(currentLocation);
     selector.equator = true;
@@ -2696,6 +2722,19 @@ function addListeners() {
   element.models.addEventListener("change", (event) => selectModel());
 
   /**
+   * Executed when the country &lt;select&gt; is changed.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link country} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeCountrySelect
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  element.country.addEventListener("change", (event) => {
+    country = element.country.value;
+  });
+
+  /**
    * <p>Gets the latitude and longitude on the texture image when clicked upon
    * and draws its position on the map.</p>
    * The pointerdown event is fired when a pointer becomes active.
@@ -2727,7 +2766,10 @@ function addListeners() {
     ({ latitude: unknown.latitude, longitude: unknown.longitude } =
       spherical2gcs(uv));
     currentLocation = cities.current.at(-2);
+    const ct = country;
+    country = "";
     handleKeyPress(createEvent("g"));
+    country = ct;
   });
 
   /**
@@ -2915,12 +2957,14 @@ function addListeners() {
     // increment or decrement based on the side of the canvas
     // where the pointer was clicked.
     let ch = event.offsetX > canvas.width / 2 ? "g" : "G";
+    const ct = country;
     if (intersection) {
       const uv = cartesian2Spherical(intersection);
       const unknown = gpsCoordinates["Unknown"];
       ({ latitude: unknown.latitude, longitude: unknown.longitude } =
         spherical2gcs(uv));
 
+      country = "";
       const position = ch === "g" ? -2 : 0;
       currentLocation = cities.current.at(position);
     } else {
@@ -2930,6 +2974,7 @@ function addListeners() {
         ch = event.offsetX > canvas.width / 2 ? "B" : "U";
     }
     handleKeyPress(createEvent(ch));
+    country = ct;
   });
 
   /**
@@ -2972,7 +3017,7 @@ function addListeners() {
  * that has the key 'g' pressed, which is used to trigger the next location in the timeline.
  * This is particularly useful for testing or for automatically cycling through locations.
  * @param {Number} [delay=4000] - The interval time in milliseconds.
- * Defaults to 4000 milliseconds (4 seconds).
+ * Defaults to 4000 milliseconds (2 seconds).
  * This function will repeatedly call {@link handleKeyPress} with a simulated event
  * that has the key 'g' pressed, effectively simulating a key press every 2s.
  * @return {Number} The ID of the interval that can be used to clear it later.

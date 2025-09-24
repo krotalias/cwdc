@@ -61,6 +61,7 @@ when using mipmap:
                 padding-right: 0;
             }
             #models,
+            #country,
             button {
                 font-size: 250%;
                 margin-right: 30px;
@@ -73,6 +74,11 @@ when using mipmap:
                 height: 2em;
                 margin-right: 0.5em;
                 touch-action: manipulation;
+            }
+            #country {
+                font-size: 200%;
+                padding: 0 40px 0 10px;
+                width: 150px;
             }
             label {
                 margin-right: 40px;
@@ -119,7 +125,8 @@ when using mipmap:
                 font-size: 150%;
                 font-style: italic;
             }
-            #sites {
+            #sites,
+            #doc {
                 margin-top: 2em;
                 padding: 0;
                 font-size: 150%;
@@ -188,11 +195,20 @@ when using mipmap:
                 >
                     Screenshot
                 </button>
-                <label>
-                    <a href="/cwdc/13-webgl/extras/doc-light/index.html">
-                        Documentation
-                    </a>
-                </label>
+                <select name="country" id="country">
+                    <option value="Brazil">BR</option>
+                    <option value="China">CN</option>
+                    <option value="Egypt">EG</option>
+                    <option value="Germany">DE</option>
+                    <option value="Greece">GR</option>
+                    <option value="Italy">IT</option>
+                    <option value="Portugal">PT</option>
+                    <option value="Russia">RU</option>
+                    <option value="Spain">ES</option>
+                    <option value="United Kingdom">GB</option>
+                    <option value="United States">US</option>
+                    <option value="" selected>All</option>
+                </select>
             </div>
 
             <div style="width: 40; margin-bottom: 4em">
@@ -218,6 +234,11 @@ when using mipmap:
                 <div id="sites">
                     Around the world in <span id="nsites"></span> historical
                     <a href="/cwdc/13-webgl/extras/locations.json">figures</a>
+                </div>
+                <div id="doc">
+                    <a href="/cwdc/13-webgl/extras/doc-light/index.html">
+                        Documentation
+                    </a>
                 </div>
             </div>
 
