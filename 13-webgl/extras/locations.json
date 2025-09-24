@@ -16,13 +16,13 @@
         "longitude": -0.082
     },
     "Woolsthorpe-by-Colsterworth": {
-        "country": "United Kingdom",
+        "country": "England (United Kingdom)",
         "remarkable": ["Isaac Newton, 1643-1727", "Principia, 5 July 1686"],
         "latitude": 52.8107,
         "longitude": -0.632
     },
     "Woodstock": {
-        "country": "England",
+        "country": "England (United Kingdom)",
         "remarkable": [
             "Winston Churchill, 1874-1965",
             "Prime Minister, 10 May 1940"
@@ -31,7 +31,7 @@
         "longitude": -1.3545343
     },
     "Stratford-upon-Avon": {
-        "country": "England",
+        "country": "England (United Kingdom)",
         "remarkable": [
             "William Shakespeare, 1564-1616",
             "Playwright, poet and actor, 1585-1613",
@@ -66,7 +66,7 @@
         "longitude": -2.70985882722
     },
     "Shrewsbury": {
-        "country": "United Kingdom",
+        "country": "England (United Kingdom)",
         "remarkable": [
             "Charles Darwin, 1809-1882",
             "On the Origin of Species, 24 November 1859"
@@ -114,7 +114,7 @@
         "longitude": -3.6833306
     },
     "Tavistock": {
-        "country": "United Kingdom",
+        "country": "England (United Kingdom)",
         "remarkable": [
             "Francis Drake, 1540-1596",
             "Second circumnavigation of the world, 1577-1580"
@@ -2537,7 +2537,7 @@
         "longitude": 2.12807
     },
     "London": {
-        "country": "England",
+        "country": "England (United Kingdom)",
         "remarkable": [
             "Greenwich Observatory, 1675",
             "Prime Meridian, 22 October 1884",
