@@ -421,7 +421,8 @@
             "Feliz Lusitânia, 12 January 1616",
             "Capital of the State of Pará, 21 November 1772",
             "Teatro da Paz, 1869-1874",
-            "Amazon rubber cycle, 1879-1912"
+            "Amazon rubber cycle, 1879-1912",
+            "Founded, 12 January 1616"
         ],
         "latitude": -1.45583,
         "longitude": -48.50444
@@ -432,7 +433,7 @@
             "RMS Titanic Maiden voyage (1317 passangers), 10 April 1912",
             "White Star Line (J.P. Morgan and Joseph Bruce Ismay)",
             "Southampton (UK) to New York City (US)",
-            "Sunk speed 21 knots (39 km/h, -2°C), 15 April 1912",
+            "Sunk speed 21 knots (39 km/h), water temperature -2°C, 15 April 1912",
             "John Jacob Astor, Benjamin Guggenheim, Isidor and Ida Straus (deceased)",
             "Robert Ballard (ocean explorer), 1 September 1985"
         ],
@@ -2318,6 +2319,7 @@
     "Venice": {
         "country": "Italy",
         "remarkable": [
+            "Antonio Vivaldi (priest, baroque composer), 1678-1741",
             "Marco Polo, 1254-1324",
             "Departure to China with Niccolò and Maffeo, 1271",
             "Kublai Khan's palace at Xanadu, 1275",
@@ -2485,6 +2487,16 @@
         "remarkable": ["Johannes Gutenberg, 1393-1468", "Printing press, 1440"],
         "latitude": 49.98419,
         "longitude": 8.2791
+    },
+    "Bonn": {
+        "country": "Germania Inferior (Germany)",
+        "remarkable": [
+            "Founded, 1 BC",
+            "Capital of West Germany, 1949-1990",
+            "Ludwig van Beethoven, 1770-1827"
+        ],
+        "latitude": 50.735278,
+        "longitude": 7.102222
     },
     "Domrémy la Pucelle": {
         "country": "France",
