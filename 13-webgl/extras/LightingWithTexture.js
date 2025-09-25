@@ -3011,15 +3011,15 @@ function addListeners() {
 }
 
 /**
- * Sets up an interval to check for key presses every 2 seconds.
+ * Sets up an interval to check for key presses every delay ms.
  * This is useful for simulating key presses or for periodic updates.
  * The interval will call the {@link handleKeyPress} function with a simulated event
  * that has the key 'g' pressed, which is used to trigger the next location in the timeline.
  * This is particularly useful for testing or for automatically cycling through locations.
  * @param {Number} [delay=4000] - The interval time in milliseconds.
- * Defaults to 4000 milliseconds (2 seconds).
+ * Defaults to 4000 milliseconds (4 seconds).
  * This function will repeatedly call {@link handleKeyPress} with a simulated event
- * that has the key 'g' pressed, effectively simulating a key press every 2s.
+ * that has the key 'g' pressed, effectively simulating a key press every delay ms.
  * @return {Number} The ID of the interval that can be used to clear it later.
  * This ID can be passed to `clearInterval()` to stop the animation.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval Window: setInterval() method}
@@ -3719,7 +3719,7 @@ function isPowerOf2(value) {
 }
 
 /**
- * Load a new parallel and merdian into the GPU
+ * Load a new parallel and meridian into the GPU
  * corresponding to the given location.
  * @param {String} location a {@link gpsCoordinates city name}.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData bufferSubData() method}
