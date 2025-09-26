@@ -2526,6 +2526,16 @@
         "latitude": 50.735278,
         "longitude": 7.102222
     },
+    "Ardennes": {
+        "country": "Belgium",
+        "remarkable": [
+            "Battle of the Ardennes, 21 August 1914",
+            "Battle of France, 10 May 1940 - 25 June 1940",
+            "Battle of the Bulge, 16 December 1944 - 25 January 1945"
+        ],
+        "latitude": 50.25,
+        "longitude": 5.666667
+    },
     "Domrémy la Pucelle": {
         "country": "France",
         "remarkable": [
@@ -2563,6 +2573,19 @@
         ],
         "latitude": 52.372778,
         "longitude": 4.893611
+    },
+    "Antwerp": {
+        "country": "Belgium",
+        "remarkable": [
+            "Capital of the diamond trade",
+            "Godfrey of Bouillon (first cruzade leader), 1060-1100",
+            "Spanish Fury (sack of Antwerp), 1576",
+            "Capital of the Dutch Revolt, 1579",
+            "German bombardment of Antwerp WW I, 28 September 1914",
+            "Occupied by Germany WW II, 18 May 1940 - 4 September 1944"
+        ],
+        "latitude": 51.217778,
+        "longitude": 4.400278
     },
     "Dunkirk": {
         "country": "France",
