@@ -2547,6 +2547,23 @@
         "latitude": 50.63373,
         "longitude": 5.56749
     },
+    "Amsterdan": {
+        "country": "Netherlands",
+        "remarkable": [
+            "All Saint's Flood, 1170",
+            "Spanish Netherlands, 1556-1714",
+            "Dutch Revolt, 1568-1648",
+            "Golden Age, 1578-1672",
+            "Act of Abjuration, 26 July 1581",
+            "Dutch East India Company (VOC), 20 March 1602 - 31 December 1799",
+            "Bank of Amsterdam, 1609",
+            "Dutch West India Company, 3 June 1621 - 1 January 1792",
+            "Dutch inavasion of Brazil, 1624-1654",
+            "Anne Frank arrest, 4 August 1944"
+        ],
+        "latitude": 52.372778,
+        "longitude": 4.893611
+    },
     "Dunkirk": {
         "country": "France",
         "remarkable": ["Dunkirk evacuation, 1 June 1940 - 4 June 1940"],
