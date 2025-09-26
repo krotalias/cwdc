@@ -2587,6 +2587,19 @@
         "latitude": 51.217778,
         "longitude": 4.400278
     },
+    "Brussels": {
+        "country": "Belgium",
+        "remarkable": [
+            "Charles, Duke of Lower Lorraine, 953-992",
+            "Founded, 979",
+            "Bombardment of Brussels (King Louis XIV), 13 August 1695",
+            "Leopold I, the first King of the Belgians, 21 July 1831",
+            "Headquarters of NATO, 1967",
+            "Capital of the European Union, 1 November 1993"
+        ],
+        "latitude": 50.846667,
+        "longitude": 4.3525
+    },
     "Dunkirk": {
         "country": "France",
         "remarkable": ["Dunkirk evacuation, 1 June 1940 - 4 June 1940"],
