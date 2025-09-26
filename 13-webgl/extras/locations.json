@@ -140,6 +140,19 @@
         "latitude": 53.33306,
         "longitude": -6.24889
     },
+    "Tórshavn": {
+        "country": "Faroe Islands (Kingdom of Denmark)",
+        "remarkable": [
+            "Perpetual civil twilight and fewest recorded hours of sunshine",
+            "Sigmundur Brestisson (Viking chieftain), 961-1005",
+            "Christianity to the Faroe Islands, 999",
+            "Union with Norway, 1035",
+            "Kalmar Union, 1397-1523",
+            "Unification with Denmark, 1814"
+        ],
+        "latitude": 62.011667,
+        "longitude": -6.7675
+    },
     "Ferrol": {
         "country": "Galicia (Spain)",
         "remarkable": [
@@ -456,8 +469,14 @@
         "longitude": -51.06639
     },
     "Nuuk": {
-        "country": "Greenland",
-        "remarkable": ["Hans Egede, 1686-1758", "Apostle of Greenland, 1711"],
+        "country": "Greenland (Kingdom of Denmark)",
+        "remarkable": [
+            "Union with Norway, 1262",
+            "Unification with Denmark, 1814",
+            "Home rule, 1 May 1979",
+            "Hans Egede, 1686-1758",
+            "Apostle of Greenland, 1711"
+        ],
         "latitude": 64.166666,
         "longitude": -51.7333304
     },
@@ -2294,6 +2313,15 @@
         "latitude": 48.25628,
         "longitude": 13.04343
     },
+    "Copenhagen": {
+        "country": "Kingdom of Denmark",
+        "remarkable": [
+            "Kalmar Union with Norway and Sweden, 1397",
+            "Constitution of Denmark, 5 June 1849"
+        ],
+        "latitude": 55.67594,
+        "longitude": 12.56553
+    },
     "Rome": {
         "country": "Italy",
         "remarkable": [
@@ -2303,18 +2331,6 @@
         ],
         "latitude": 41.902782,
         "longitude": 12.496366
-    },
-    "Ravenna": {
-        "country": "Emilia-Romagna (Italy)",
-        "remarkable": [
-            "Fall of The Western Roman Empire, 476",
-            "Romulus Augustulus, 461-511",
-            "Last Roman Emperor, 31 August 475 - 4 September 476",
-            "Odoacer, 433 - 15 March 493",
-            "Ruler of Italy, 4 September 476 - 15 March 493"
-        ],
-        "latitude": 44.418362,
-        "longitude": 12.203529
     },
     "Venice": {
         "country": "Italy",
@@ -2328,6 +2344,18 @@
         ],
         "latitude": 45.4371908,
         "longitude": 12.3345898
+    },
+    "Ravenna": {
+        "country": "Emilia-Romagna (Italy)",
+        "remarkable": [
+            "Fall of The Western Roman Empire, 476",
+            "Romulus Augustulus, 461-511",
+            "Last Roman Emperor, 31 August 475 - 4 September 476",
+            "Odoacer, 433 - 15 March 493",
+            "Ruler of Italy, 4 September 476 - 15 March 493"
+        ],
+        "latitude": 44.418362,
+        "longitude": 12.203529
     },
     "Caprese": {
         "country": "República Florentina (Italy)",
