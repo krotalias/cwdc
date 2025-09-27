@@ -111,6 +111,7 @@
         "country": "Iberia (Spain)",
         "remarkable": [
             "Second Cruzade, 1147-1150",
+            "Egypt, Anatolia, Levant, Iberia, Lower Egypt",
             "Siege of Lisbon, 1 July 1147 - 25 October 1147",
             "Siege of Tortosa, 1 July 1148 - 30 December 1148"
         ],
@@ -1772,8 +1773,13 @@
         "longitude": 37.618423
     },
     "Damascus": {
-        "country": "Syria",
-        "remarkable": ["Nur al-Din Zengi (Second Cruzade), 1118-1174"],
+        "country": "Levant (Syria)",
+        "remarkable": [
+            "Nur al-Din Zengi (Emir of Aleppo), 1118-1174",
+            "Raymond of Poitiers (Prince of Antioch), 1105-1149",
+            "Beheaded by Shirkuh, Saladin's uncle",
+            "Battle of Inab, 29 June 1149"
+        ],
         "latitude": 33.5102,
         "longitude": 36.29128
     },
@@ -1786,9 +1792,10 @@
         "latitude": 36.58718,
         "longitude": 36.17347
     },
-    "Levant": {
-        "country": "Greater Syria (Syria, Lebanon, Jordan, Israel)",
+    "Ascalon": {
+        "country": "Levant (Israel)",
         "remarkable": [
+            "Levant (Syria, Lebanon, Jordan, Israel)",
             "First Cruzade, 1096-1099",
             "Raymond IV of Toulouse, 1041-1105",
             "Godfrey of Bouillon, 1060-1100",
@@ -1799,8 +1806,8 @@
             "Siege of Jerusalem, 7 June 1099 - 15 July 1099",
             "Battle of Ascalon, 12 August 1099"
         ],
-        "latitude": 34.4037939,
-        "longitude": 35.8523369
+        "latitude": 31.66926,
+        "longitude": 34.57149
     },
     "Kibbutz Degania Alef": {
         "country": "Ottoman Empire (Israel)",
@@ -1893,9 +1900,10 @@
         "longitude": 34.83333
     },
     "Jaffa": {
-        "country": "Palestine (Israel)",
+        "country": "Kingdom of Jerusalem (Palestine, Israel)",
         "remarkable": [
             "Richard The Lion-Heart, 1157-1199",
+            "Third Crusade final battle",
             "Battle of Jaffa, 8 August 1192"
         ],
         "latitude": 32.0527047892,
@@ -1950,6 +1958,7 @@
         "country": "Turkey",
         "remarkable": [
             "Third Cruzade, 1189-1192",
+            "Levant, Sicily, Iberia, Balkans, Anatolia",
             "Richard x Salah ad-Din",
             "Battle of Arçufe, 7 September 1191",
             "Second Kingdom of Jerusalen in Acre, 1192"
@@ -1957,11 +1966,12 @@
         "latitude": 39.0,
         "longitude": 32.0
     },
-    "Damieta": {
+    "Damietta": {
         "country": "Egypt",
         "remarkable": [
             "Fifth Cruzade, 1217-1221",
-            "Siege of Damieta, 1218-1219",
+            "Syria, Egypt, Iberia",
+            "Siege of Damietta, 1218-1219",
             "Surrender of the Crusaders (departure from Egypt)",
             "Battle of Mansurah, 26 August 1221"
         ],
@@ -2274,6 +2284,7 @@
         "country": "Croatia",
         "remarkable": [
             "Fourth Cruzade, 1202-1204",
+            "Balkans, Anatolia, Dalmatia",
             "Enrico Dandolo (Doge of Venice), 1107-1205",
             "Siege of Zara, 24 November 1202",
             "Siege of Constantinople, 23 June 1203"
