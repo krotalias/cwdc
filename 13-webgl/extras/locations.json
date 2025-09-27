@@ -109,7 +109,11 @@
     },
     "Madrid": {
         "country": "Iberia (Spain)",
-        "remarkable": ["Second Cruzade, 1147-1150"],
+        "remarkable": [
+            "Second Cruzade, 1147-1150",
+            "Siege of Lisbon, 1 July 1147 - 25 October 1147",
+            "Siege of Tortosa, 1 July 1148 - 30 December 1148"
+        ],
         "latitude": 40.3999984,
         "longitude": -3.6833306
     },
@@ -1784,7 +1788,17 @@
     },
     "Levant": {
         "country": "Greater Syria (Syria, Lebanon, Jordan, Israel)",
-        "remarkable": ["First Cruzade, 1096-1099"],
+        "remarkable": [
+            "First Cruzade, 1096-1099",
+            "Raymond IV of Toulouse, 1041-1105",
+            "Godfrey of Bouillon, 1060-1100",
+            "Kingdom of Jerusalem, 1099-1187, 1192-1201",
+            "County of Edessa, 1098-1144",
+            "Principality of Antioch, 1098-1268",
+            "County of Tripoli, 1102-1289",
+            "Siege of Jerusalem, 7 June 1099 - 15 July 1099",
+            "Battle of Ascalon, 12 August 1099"
+        ],
         "latitude": 34.4037939,
         "longitude": 35.8523369
     },
@@ -1937,14 +1951,20 @@
         "remarkable": [
             "Third Cruzade, 1189-1192",
             "Richard x Salah ad-Din",
-            "Battle of Arçufe, 7 September 1191"
+            "Battle of Arçufe, 7 September 1191",
+            "Second Kingdom of Jerusalen in Acre, 1192"
         ],
         "latitude": 39.0,
         "longitude": 32.0
     },
     "Damieta": {
         "country": "Egypt",
-        "remarkable": ["Fifth Cruzade, 1217-1221"],
+        "remarkable": [
+            "Fifth Cruzade, 1217-1221",
+            "Siege of Damieta, 1218-1219",
+            "Surrender of the Crusaders (departure from Egypt)",
+            "Battle of Mansurah, 26 August 1221"
+        ],
         "latitude": 31.416665,
         "longitude": 31.8166634
     },
@@ -2252,7 +2272,12 @@
     },
     "Zara (Zadar)": {
         "country": "Croatia",
-        "remarkable": ["Fourth Cruzade, 1202-1204"],
+        "remarkable": [
+            "Fourth Cruzade, 1202-1204",
+            "Enrico Dandolo (Doge of Venice), 1107-1205",
+            "Siege of Zara, 24 November 1202",
+            "Siege of Constantinople, 23 June 1203"
+        ],
         "latitude": 44.11972,
         "longitude": 15.24222
     },
