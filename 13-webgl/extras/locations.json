@@ -1783,6 +1783,18 @@
         "latitude": 33.5102,
         "longitude": 36.29128
     },
+    "Antioch": {
+        "country": "Turkey",
+        "remarkable": [
+            "Founded by Seleucus I Nicator (Alexander's general), 300 BC",
+            "Capital of the Seleucid Empire, 240-63 BC",
+            "The cradle of Christianity",
+            "Principality of Antioch (first cruzade), 1098-1268",
+            "Siege of Antioch (Baibars), 1268"
+        ],
+        "latitude": 36.204722,
+        "longitude": 36.181667
+    },
     "Alexandretta (İskenderun)": {
         "country": "Turkey",
         "remarkable": [
@@ -1799,10 +1811,11 @@
             "First Cruzade, 1096-1099",
             "Raymond IV of Toulouse, 1041-1105",
             "Godfrey of Bouillon, 1060-1100",
-            "Kingdom of Jerusalem, 1099-1187, 1192-1201",
-            "County of Edessa, 1098-1144",
-            "Principality of Antioch, 1098-1268",
-            "County of Tripoli, 1102-1289",
+            "Four cruzade states in the Levant",
+            "• Kingdom of Jerusalem, 1099-1187, 1192-1201",
+            "• County of Edessa, 1098-1144",
+            "• Principality of Antioch, 1098-1268",
+            "• County of Tripoli, 1102-1289",
             "Siege of Jerusalem, 7 June 1099 - 15 July 1099",
             "Battle of Ascalon, 12 August 1099"
         ],
