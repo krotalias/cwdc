@@ -22,7 +22,7 @@
         "longitude": -0.632
     },
     "Woodstock": {
-        "country": "England (United Kingdom)",
+        "country": "⚔ England (United Kingdom)",
         "remarkable": [
             "Winston Churchill, 1874-1965",
             "Prime Minister, 10 May 1940"
@@ -285,7 +285,7 @@
         "longitude": -34.90278
     },
     "Natal": {
-        "country": "Rio Grande do Norte (Brazil)",
+        "country": "⚔ Rio Grande do Norte (Brazil)",
         "remarkable": [
             "Amerigo Vespucci expedition, 1501-1502",
             "Occupied by Dutch forces, 1633-1654",
@@ -763,12 +763,13 @@
         "longitude": -71.96999612
     },
     "Hyde Park": {
-        "country": "New York (United States)",
+        "country": "⚔ New York (United States)",
         "remarkable": [
             "Franklin Delano Roosevelt, 1882-1945",
             "Harvard A.B. History, 1900-1903",
             "Columbia Law School, 1903-1907",
-            "32th U.S. President, 4 March 1933"
+            "44th Governor of New York, 1 January 1929 - 31 December 1932",
+            "32th U.S. President, 4 March 1933 - 12 April 1945"
         ],
         "latitude": 41.76804,
         "longitude": -73.93482
@@ -1186,7 +1187,7 @@
         "longitude": -122.3320708
     },
     "San Francisco": {
-        "country": "United States",
+        "country": "⚔ United States",
         "remarkable": [
             "William Halsey Jr. (Fleet Admiral), 1882-1959",
             "Doolittle Raid departure, 2 April 1942"
@@ -1246,7 +1247,7 @@
         "longitude": -157.855676
     },
     "Pearl Harbor": {
-        "country": "United States",
+        "country": "⚔ United States",
         "remarkable": [
             "Husband E. Kimmel (Rear Admiral), 1882-1968",
             "Japanese Attack, 7 December 1941"
@@ -1279,7 +1280,7 @@
         "longitude": -170.7025
     },
     "Midway": {
-        "country": "United States",
+        "country": "⚔ United States",
         "remarkable": [
             "Raymond A. Spruance (Admiral), 1886-1969",
             "Task Force 16 (Carriers Enterprise and Hornet)",
@@ -1301,7 +1302,7 @@
         "longitude": 174.7772114
     },
     "Tarawa": {
-        "country": "Kiribati",
+        "country": "⚔ Kiribati",
         "remarkable": [
             "Richmond K. Turner (Admiral), 1885-1961",
             "Battle of Tarawa, 20 November 1943"
@@ -1319,7 +1320,7 @@
         "longitude": 166.668235
     },
     "Coral Sea": {
-        "country": "Solomon Islands",
+        "country": "⚔ Solomon Islands",
         "remarkable": [
             "Frank Jack Fletcher (Admiral), 1885-1973",
             "Battle of the Coral Sea, 4 May 1942"
@@ -1328,7 +1329,7 @@
         "longitude": 162.333332
     },
     "Guadalcanal": {
-        "country": "Solomon Islands",
+        "country": "⚔ Solomon Islands",
         "remarkable": [
             "William Halsey Jr. (Fleet Admiral), 1882-1959",
             "Naval Battle of Guadalcanal, 12 November 1942"
@@ -1337,7 +1338,7 @@
         "longitude": 161.0333332
     },
     "Panguna": {
-        "country": "Papua New Guinea",
+        "country": "⚔ Papua New Guinea",
         "remarkable": [
             "Isoroku Yamamoto (Marshal Admiral), 1884-1943",
             "Ambushed and Killed, 18 April 1943"
@@ -1346,7 +1347,7 @@
         "longitude": 155.491164702
     },
     "Doolittle Raid": {
-        "country": "Pacific Ocean",
+        "country": "⚔ Pacific Ocean",
         "remarkable": [
             "Jimmy Doolittle (Lieutenant General), 1896-1993",
             "16 B-25B Mitchell, crew of five",
@@ -1385,7 +1386,7 @@
         "longitude": 145.7545
     },
     "Dededo": {
-        "country": "Guam (United States)",
+        "country": "⚔ Guam (United States)",
         "remarkable": [
             "Discovery of Guam (Ferdinand Magellan), 6 March 1521",
             "George Dewey (Admiral), 1837-1917",
@@ -1411,7 +1412,7 @@
         "longitude": 144.4465685
     },
     "Iwo Jima": {
-        "country": "Japan",
+        "country": "⚔ Japan",
         "remarkable": [
             "Harry W. Hill (Vice Admiral), 1890-1971",
             "Battle of Iwo Jima, 19 February 1945"
@@ -1429,7 +1430,7 @@
         "longitude": 140.001111
     },
     "Tokyo": {
-        "country": "Japan",
+        "country": "⚔ Japan",
         "remarkable": [
             "Tokugawa Ieyasu, 1543-1616",
             "First shōgun of the Tokugawa shogunate, 1603-1868",
@@ -1439,7 +1440,7 @@
         "longitude": 139.6503
     },
     "Hiroshima": {
-        "country": "Chūgoku (Japan)",
+        "country": "⚔ Chūgoku (Japan)",
         "remarkable": [
             "Harry S. Truman, 1884-1972",
             "U.S. Army Field Artillery Colonel, 1905-1953",
@@ -1451,7 +1452,7 @@
         "longitude": 132.45
     },
     "Nagasaki": {
-        "country": "Kyushu (Japan)",
+        "country": "⚔ Kyushu (Japan)",
         "remarkable": [
             "Robert Oppenheimer, 1904-1967",
             "Manhattan Project's Los Alamos Laboratory Director, 1943-1945",
@@ -1463,7 +1464,7 @@
         "longitude": 129.88333
     },
     "Okinawa": {
-        "country": "Japan",
+        "country": "⚔ Japan",
         "remarkable": [
             "Chester W. Nimitz (Fleet Admiral), 1885-1966",
             "Commander in Chief of the U.S. Pacific Fleet, 17 December 1941",
@@ -1518,7 +1519,7 @@
         "longitude": 120.99501
     },
     "Chuchow": {
-        "country": "Lishui (China)",
+        "country": "⚔ Lishui (China)",
         "remarkable": [
             "Chiang Kai-shek, 1887-1975",
             "President of the Republic of China, 24 October 1928 - 1 January 1949",
@@ -1529,7 +1530,7 @@
         "longitude": 119.023833238
     },
     "Borneo": {
-        "country": "Indonesia",
+        "country": "⚔ Indonesia",
         "remarkable": [
             "Leslie Morshead (Lieutenant General), 1889-1959",
             "Borneo campaign, 1 May 1945"
@@ -1707,7 +1708,7 @@
         "longitude": 46.7160104
     },
     "Stalingrad": {
-        "country": "Russian Federation",
+        "country": "⚔ Russian Federation",
         "remarkable": [
             "Georgy Zhukov (Marshal), 1896-1974",
             "Battle of Stalingrad, 17 July 1942 - 2 February 1943"
@@ -1786,7 +1787,7 @@
         "longitude": 39.0333332
     },
     "Moscow": {
-        "country": "Russia",
+        "country": "⚔ Russia",
         "remarkable": [
             "Joseph Stalin, 1878-1953",
             "General Secretary of the Communist Party, 1922-1952"
@@ -2060,7 +2061,7 @@
         "longitude": 30.389444
     },
     "Bila Tserkva": {
-        "country": "Russian Empire (Ukraine)",
+        "country": "⚔ Russian Empire (Ukraine)",
         "remarkable": [
             "Lyudmila Pavlichenko, 1916-1974",
             "Soviet Sniper, 8 August 1941"
@@ -2367,16 +2368,17 @@
         "longitude": 14.2681244
     },
     "Berlin": {
-        "country": "Germany",
+        "country": "⚔ Germany",
         "remarkable": [
             "Marlene Dietrich, 1901-1992",
-            "American Citizenship, 1939"
+            "American Citizenship, 1939",
+            "Battle of Berlin, 16 April 1945 - 2 May 2 1945"
         ],
         "latitude": 52.520008,
         "longitude": 13.404954
     },
     "Braunau am Inn": {
-        "country": "Austria",
+        "country": "⚔ Austria",
         "remarkable": [
             "Adolf Hitler, 20 April 1889",
             "Führer of the Nazi Party, 29 July 1921 - 30 April 1945",
@@ -2445,7 +2447,7 @@
         "longitude": 11.98546
     },
     "Dovia di Predappio": {
-        "country": "Italy",
+        "country": "⚔ Italy",
         "remarkable": [
             "Benito Mussolini, 1883-1945",
             "Italian Fasces of Combat (FIC), 23 March 1919",
@@ -2532,7 +2534,7 @@
         "longitude": 10.3309924
     },
     "Heidenheim": {
-        "country": "Germany",
+        "country": "⚔ Germany",
         "remarkable": [
             "Erwin Rommel (Generalfeldmarschall), 1891-1944",
             "Invasion of Poland, 1 September 1939",
@@ -2602,7 +2604,7 @@
         "longitude": 7.102222
     },
     "Ardennes": {
-        "country": "Belgium",
+        "country": "⚔ Belgium",
         "remarkable": [
             "Battle of the Ardennes, 21 August 1914",
             "Battle of France, 10 May 1940 - 25 June 1940",
@@ -2650,7 +2652,7 @@
         "longitude": 4.893611
     },
     "Antwerp": {
-        "country": "Belgium",
+        "country": "⚔ Belgium",
         "remarkable": [
             "Capital of the diamond trade",
             "Godfrey of Bouillon (first cruzade leader), 1060-1100",
