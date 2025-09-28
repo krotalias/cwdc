@@ -110,10 +110,12 @@
     "Madrid": {
         "country": "Iberia (Spain)",
         "remarkable": [
-            "Second Cruzade, 1147-1150",
-            "Egypt, Anatolia, Levant, Iberia, Lower Egypt",
-            "Siege of Lisbon, 1 July 1147 - 25 October 1147",
-            "Siege of Tortosa, 1 July 1148 - 30 December 1148"
+            "Muhammad I of Córdoba, 823-886",
+            "5th Emir of Córdoba, 852-886",
+            "Royal Alcázar of Madrid (fortress)",
+            "Fortress converted into a royal palace, 1560",
+            "Destructed by fire (Christmas Eve), 1734",
+            "Royal Palace of Madrid, 1738-1755"
         ],
         "latitude": 40.3999984,
         "longitude": -3.6833306
@@ -169,12 +171,32 @@
         "latitude": 43.48321,
         "longitude": -8.23689
     },
-    "Lisbon (Olisipo)": {
+    "Olissipo": {
+        "country": "✝ Roman Hispania (Portugal)",
+        "remarkable": [
+            "Roman Olissipo, 138 BC",
+            "Taken by Muslim forces (Umayyad Caliphate), 6 August 711",
+            "Taifa of Lisbon, 1022-1034",
+            "Sigurd I (Norwegian crusader), 1108",
+            "Almoravid dynasty (Moroccan Berber Muslim), 1050-1147",
+            "Taken by Moorish Almoravids, 1111",
+            "Afonso I of Portugal, the conqueror and the Founder, 1106-1185",
+            "First king of Portugal, 26 July 1139 - 6 December 1185",
+            "Siege of Lisbon (second cruzade), 1 July 1147 - 25 October 1147"
+        ],
+        "latitude": 38.71222,
+        "longitude": -9.133973
+    },
+    "Lisbon": {
         "country": "Portugal",
         "remarkable": [
+            "Capital of Portugal, 1255",
+            "Lisbon earthquake, 1 November 1755",
             "John VI of Portugal, 1767-1826",
+            "Prince regent of Portugal, 1799-1816",
             "Court in Brazil, 22 January 1808 - 26 April 1821",
-            "Banco do Brasil, 12 October 1808 - 23 September 1829"
+            "Banco do Brasil, 12 October 1808 - 23 September 1829",
+            "King of Portugal, 1816-1826"
         ],
         "latitude": 38.7077507,
         "longitude": -9.1365919
@@ -1773,24 +1795,28 @@
         "longitude": 37.618423
     },
     "Damascus": {
-        "country": "Levant (Syria)",
+        "country": "✝ Levant (Syria)",
         "remarkable": [
             "Nur al-Din Zengi (Emir of Aleppo), 1118-1174",
-            "Raymond of Poitiers (Prince of Antioch), 1105-1149",
-            "Beheaded by Shirkuh, Saladin's uncle",
-            "Battle of Inab, 29 June 1149"
+            "Battle of Inab (second crusade), 29 June 1149"
         ],
         "latitude": 33.5102,
         "longitude": 36.29128
     },
     "Antioch": {
-        "country": "Turkey",
+        "country": "✝ Principality of Antioch (Turkey)",
         "remarkable": [
             "Founded by Seleucus I Nicator (Alexander's general), 300 BC",
             "Capital of the Seleucid Empire, 240-63 BC",
             "The cradle of Christianity",
             "Principality of Antioch (first cruzade), 1098-1268",
-            "Siege of Antioch (Baibars), 1268"
+            "Raymond of Poitiers (Prince of Antioch), 1105-1149",
+            "Beheaded by Shirkuh, Saladin's uncle",
+            "Battle of Inab (second crusade), 29 June 1149",
+            "Baibars, 1223-1277",
+            "Sultan of Egypt and Syria, 24 October 1260 - 30 June 1277",
+            "Greatest massacre of the entire crusading era",
+            "Siege and fall of Antioch, 18 May 1268"
         ],
         "latitude": 36.204722,
         "longitude": 36.181667
@@ -1805,7 +1831,7 @@
         "longitude": 36.17347
     },
     "Ascalon": {
-        "country": "Levant (Israel)",
+        "country": "✝ Levant (Israel)",
         "remarkable": [
             "Levant (Syria, Lebanon, Jordan, Israel)",
             "First Cruzade, 1096-1099",
@@ -1968,7 +1994,7 @@
         "longitude": 32.3499986
     },
     "Anatolia": {
-        "country": "Turkey",
+        "country": "✝ Turkey",
         "remarkable": [
             "Third Cruzade, 1189-1192",
             "Levant, Sicily, Iberia, Balkans, Anatolia",
@@ -1980,7 +2006,7 @@
         "longitude": 32.0
     },
     "Damietta": {
-        "country": "Egypt",
+        "country": "✝ Egypt",
         "remarkable": [
             "Fifth Cruzade, 1217-1221",
             "Syria, Egypt, Iberia",
@@ -2294,7 +2320,7 @@
         "longitude": 15.286586
     },
     "Zara (Zadar)": {
-        "country": "Croatia",
+        "country": "✝ Croatia",
         "remarkable": [
             "Fourth Cruzade, 1202-1204",
             "Balkans, Anatolia, Dalmatia",
@@ -2677,6 +2703,16 @@
         ],
         "latitude": 50.98651,
         "longitude": 2.12807
+    },
+    "Tortosa": {
+        "country": "✝ Almoravid Emirate (Spain)",
+        "remarkable": [
+            "Second Cruzade, 1147-1150",
+            "Egypt, Anatolia, Levant, Iberia, Lower Egypt",
+            "Siege of Tortosa, 1 July 1148 - 30 December 1148"
+        ],
+        "latitude": 40.8125,
+        "longitude": 0.521111
     },
     "London": {
         "country": "England (United Kingdom)",
