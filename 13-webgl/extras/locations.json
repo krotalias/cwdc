@@ -547,6 +547,29 @@
         "latitude": -2.44306,
         "longitude": -54.70833
     },
+    "São Borja": {
+        "country": "⚔ Rio Grande do Sul (Brazil)",
+        "remarkable": [
+            "Getúlio Vargas, 1882-1954",
+            "State attorney, 1907-1908",
+            "National deputy, 1923",
+            "Revolution of 1930, 3 October 1930",
+            "14th President of Brazil, 3 November 1930 - 29 October 1945",
+            "17th President of Brazil, 31 January 1951 - 24 August 1954",
+            "Suicide by gunshot, 24 August 1954",
+            "Constitutionalist Revolution, 1932",
+            "FDR metting, 1936",
+            "Outlawed all political parties, 2 December 1937",
+            "Brazilian steel mill CSN (Volta Redonda), 1940",
+            "Contributed significantly to Allied victories (rarely recognized)",
+            "Battle of the Atlantic and Italy (a single division with 25K men)",
+            "1st Fighter Squadron (P-47 fighter-bomber), 6 October 1944",
+            "Monte Castello and Monte Cassino, 21 February 1945",
+            "Led Brazil into World War II, 22 August 1942"
+        ],
+        "latitude": -28.6499974,
+        "longitude": -56.0
+    },
     "Santo Antônio do Leverger": {
         "country": "Mato Grosso (Brazil)",
         "remarkable": [
@@ -769,7 +792,10 @@
             "Harvard A.B. History, 1900-1903",
             "Columbia Law School, 1903-1907",
             "44th Governor of New York, 1 January 1929 - 31 December 1932",
-            "32th U.S. President, 4 March 1933 - 12 April 1945"
+            "32th U.S. President, 4 March 1933 - 12 April 1945",
+            "State of the Union (Four Freedoms), 6 January 1941",
+            "New Deal, 1933-1938",
+            "Social Security Act, 14 August 1935"
         ],
         "latitude": 41.76804,
         "longitude": -73.93482
