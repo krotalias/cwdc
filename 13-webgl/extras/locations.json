@@ -563,8 +563,6 @@
             "Brazilian steel mill CSN (Volta Redonda), 1940",
             "Contributed significantly to Allied victories (rarely recognized)",
             "Battle of the Atlantic and Italy (a single division with 25K men)",
-            "1st Fighter Squadron (P-47 fighter-bomber), 6 October 1944",
-            "Monte Castello and Monte Cassino, 21 February 1945",
             "Led Brazil into World War II, 22 August 1942"
         ],
         "latitude": -28.6499974,
@@ -2508,6 +2506,40 @@
         ],
         "latitude": 43.7697955,
         "longitude": 11.2556404
+    },
+    "Monte Castello": {
+        "country": "⚔ Italy",
+        "remarkable": [
+            "Brazilian Expeditionary Force (417 casualties)",
+            "Battle of Monte Castello, 25 November 1944 - 12 December 1944"
+        ],
+        "latitude": 44.221806,
+        "longitude": 10.954222
+    },
+    "Montese": {
+        "country": "⚔ Italy",
+        "remarkable": [
+            "Brazilian Expeditionary Force (426 casualties)",
+            "Battle of Montese, 14 April 1945 - 17 April 1945"
+        ],
+        "latitude": 44.2685063,
+        "longitude": 10.9411886
+    },
+    "Sommocolonia": {
+        "country": "⚔ Barga (Italy)",
+        "remarkable": [
+            "Brazilian Expeditionary Force",
+            "1st Fighter Squadron (P-47 fighter-bomber), 6 October 1944",
+            "Six squadrons staffed with about 10 pilots each",
+            "48 pilots, 5 killed, 8 bailed out, 6 sick, 3 died (flight accidents)",
+            "Total missions performed, 445",
+            "Total flight hours performed, 6144",
+            "Return to Rio de Janeiro, 18 July 1945",
+            "Presidential Unit Citation, 1986",
+            "Battle of Garfagnana, 26 December 1944 - 28 December 1944"
+        ],
+        "latitude": 44.0922,
+        "longitude": 10.4914
     },
     "Vinci": {
         "country": "Italy",
