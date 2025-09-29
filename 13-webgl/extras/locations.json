@@ -160,6 +160,18 @@
         "latitude": 62.011667,
         "longitude": -6.7675
     },
+    "Casablanca": {
+        "country": "⚔ Morocco",
+        "remarkable": [
+            "Full independence (French and Spanish colonial rule), 2 March 1956",
+            "Operation Torch, 8 November 1942 - 16 November 1942",
+            "Liberated by the Allies from Vichy France, 11 November 1942",
+            "FDR unconditional surrender",
+            "Casablanca Conference, 14 January 1943 - 24 January 1943"
+        ],
+        "latitude": 33.5333312,
+        "longitude": -7.583331
+    },
     "Ferrol": {
         "country": "Galicia (Spain)",
         "remarkable": [
@@ -294,8 +306,8 @@
             "One of the four most strategic sites in the world",
             "Natal, Suez, Gibraltar, and Bosporus",
             "Plan Rubber of Invasion (American War Department), 1942",
-            "FDR visit, 28 January 1943",
-            "Parnamirim Field (American base during WW II), 1943-1945"
+            "Parnamirim Field (American base during WW II), 1943-1945",
+            "Potenji River Conference (FDR visit), 28 January 1943"
         ],
         "latitude": -5.783333,
         "longitude": -35.2
@@ -1669,6 +1681,16 @@
         "latitude": 6.93194,
         "longitude": 79.84778
     },
+    "Kanyakumari": {
+        "country": "India",
+        "remarkable": [
+            "Cape Comorin",
+            "Southernmost tip of the contiguous Indian subcontinent",
+            "Kanniyakumari, 2016"
+        ],
+        "latitude": 8.0883,
+        "longitude": 77.5385
+    },
     "Karachi": {
         "country": "British India (Pakistan)",
         "remarkable": [
@@ -1709,6 +1731,15 @@
         ],
         "latitude": 35.7248416,
         "longitude": 51.381653
+    },
+    "Ras Hafun promontory": {
+        "country": "Somalia",
+        "remarkable": [
+            "Somali Peninsula (Horn of Africa)",
+            "Member of the Arab League, 1974"
+        ],
+        "latitude": 10.44372,
+        "longitude": 51.41157
     },
     "Antananarivo": {
         "country": "Madagascar",
