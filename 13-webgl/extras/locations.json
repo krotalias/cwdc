@@ -337,6 +337,22 @@
         "latitude": -12.974722,
         "longitude": -38.476665
     },
+    "Fortaleza": {
+        "country": "Ceará (Brazil)",
+        "remarkable": [
+            "Pero Coelho de Souza (capitão-mor), 1603",
+            "Fortim de São Tiago da Nova Lisboa, 25 July 1604",
+            "Martim Soares Moreno (capitão-mor), 1586-1648",
+            "Fortim de São Sebastião, 1612",
+            "Dutch took the fort, 1637",
+            "Fort Schoonenborch, 19 August 1649",
+            "Dutch capitulation in Pernambuco, 1654",
+            "Fortaleza da Nossa Senhora de Assunção, 1654",
+            "Founded, 13 April 1726"
+        ],
+        "latitude": -3.7275,
+        "longitude": -38.5275
+    },
     "Monte Pascoal": {
         "country": "Porto Seguro (Brazil)",
         "remarkable": [
@@ -408,8 +424,9 @@
         "remarkable": [
             "Nazaré (Upaon-Açu island), 1550",
             "Daniel de La Touche, 1570-1631",
-            "Saint-Louis (French origin), 8 September 1612 - 1615",
-            "Battle of Guaxenduba, 1614",
+            "Saint-Louis (French origin), 8 September 1612 - 4 November 1615",
+            "Battle of Guaxenduba, 19 November 1614",
+            "Alexandre de Moura took fort Saint-Louis, 1 November 1615",
             "Dutch invasion, 1641-1644",
             "Praça do Comércio, 1780",
             "Carajás railroad (Vale S.A.), 1982-1985",
