@@ -1249,10 +1249,16 @@
         "longitude": -122.41942
     },
     "Tahiti": {
-        "country": "French Polynesia",
+       "country": "French Polynesia (France)",
         "remarkable": [
             "James Cook's First voyage, 1768-1771",
-            "Tahiti, 13 April 1769"
+            "Arrival in Tahiti, 13 April 1769",
+            "HMS Bounty (Captain William Bligh), 26 October 1788",
+            "Chief Tū took founded the Pōmare Dynasty, 1788-1791",
+            "Queen Pōmare IV, 1813-1877",
+            "Pōmare V abdication (Henri Isidore Chessé + Tahitian chiefs)",
+            "Colony of France, 29 June 1880",
+            "Kingdom of Pōmare French citizenship, 14 July 1881"
         ],
         "latitude": -17.6333308,
         "longitude": -149.4499982
