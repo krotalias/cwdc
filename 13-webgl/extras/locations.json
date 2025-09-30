@@ -312,6 +312,17 @@
         "latitude": -5.783333,
         "longitude": -35.2
     },
+    "Aracaju": {
+        "country": "⚔ Sergipe (Brazil)",
+        "remarkable": [
+            "Pero Gonçalves, 1602",
+            "Aracaju (district), 1837",
+            "Incorporated as capital (planned city), 17 March 1855",
+            "German submarine U-507 sank three ships (600 deaths), 15 August 1942"
+        ],
+        "latitude": -10.9167,
+        "longitude": -37.05
+    },
     "Vila Bela": {
         "country": "Pernambuco (Brazil)",
         "remarkable": [
