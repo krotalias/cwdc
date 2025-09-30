@@ -296,6 +296,20 @@
         "latitude": -7.91167,
         "longitude": -34.90278
     },
+    "Maceió": {
+        "country": "Alagoas (Brazil)",
+        "remarkable": [
+            "Sinking of the ship Nossa Senhora da Ajuda, 15 July 1556",
+            "Massacre of the survivors (Caeté people)",
+            "Bishop Dom Pero Fernandes Sardinha, 1496-1556",
+            "Slaughtered with a mace and devoured",
+            "Quilombo dos Palmares (20K people), 1605-1694",
+            "State of Alagoas, 16 September 1817",
+            "Village of Maceió, 5 December 1815"
+        ],
+        "latitude": -9.6637,
+        "longitude": -35.7375
+    },
     "Natal": {
         "country": "⚔ Rio Grande do Norte (Brazil)",
         "remarkable": [
