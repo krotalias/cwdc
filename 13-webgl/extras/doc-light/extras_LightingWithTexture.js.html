@@ -1379,11 +1379,16 @@ const handleKeyPress = ((event) => {
     let cl = cities.current.indexOf(currentLocation);
     if (inc === 0) return cl;
 
+    const initialLocaton = currentLocation;
     let location = currentLocation;
     do {
       cl = mod(cl + inc, cities.current.length);
       location = cities.current[cl];
-    } while (filter &amp;&amp; !gpsCoordinates[location].country.includes(filter));
+    } while (
+      filter &&
+      location != initialLocaton &&
+      !gpsCoordinates[location].country.includes(filter)
+    );
     return cl;
   }
 
