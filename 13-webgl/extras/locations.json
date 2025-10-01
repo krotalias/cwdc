@@ -194,7 +194,7 @@
             "Taken by Moorish Almoravids, 1111",
             "Afonso I of Portugal, the conqueror and the Founder, 1106-1185",
             "First king of Portugal, 26 July 1139 - 6 December 1185",
-            "Siege of Lisbon (second cruzade), 1 July 1147 - 25 October 1147"
+            "Siege of Lisbon (second crusade), 1 July 1147 - 25 October 1147"
         ],
         "latitude": 38.71222,
         "longitude": -9.133973
@@ -387,6 +387,35 @@
         "latitude": -16.8963207,
         "longitude": -39.4075612
     },
+    "Vitória": {
+        "country": "Espírito Santo (Brazil)",
+        "remarkable": [
+            "Vila Velha, 1535",
+            "Vila da Vitória, 8 September 1551",
+            "Vitória, 17 March 1823",
+            "Theatro Carlos Gomes (André Carloni), 5 January 1927",
+            "Palácio Anchieta, Governorship of Espírito Santo, 1551-1935"
+        ],
+        "latitude": -20.31944,
+        "longitude": -40.33778
+    },
+    "Cabo Frio": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Maison de Pierre in Canal de Itajuru (French), 1556",
+            "Cabo Frio battle (Confederação dos Tamoios), 1575",
+            "Fortaleza de Santo Inácio, 13 November 1615",
+            "Vila de Santa Helena do Cabo Frio, 7th oldest city in Brasil",
+            "Estêvão Gomes (capitão mor) renamed the vila",
+            "Nossa Senhora da Assunção do Cabo Frio, 1616",
+            "Forte de São Mateus, 1620",
+            "Portuguese salt crisis (salt from Lagoa Araruama), 1650-1660",
+            "Capela de São Benedito (Passagem), 9 April 1761",
+            "Founded, 13 November 1615"
+        ],
+        "latitude": -22.88197,
+        "longitude": -42.01133
+    },
     "Rio": {
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
@@ -520,6 +549,21 @@
         ],
         "latitude": -1.45583,
         "longitude": -48.50444
+    },
+    "Florianópolis": {
+        "country": "Santa Catarina (Brazil)",
+        "remarkable": [
+            "Island with 42 beaches, lagoons, and waterfalls",
+            "Village Nossa Senhora do Desterro, 1673",
+            "Capital of Santa Catarina, 1823",
+            "Marshal Floriano Peixoto, 1839-1895",
+            "2nd President of Brazil, 26 November 1891 - 15 November 1894",
+            "Federalist Revolt, 1893-1895",
+            "Floriano+polis (city of Floriano), 1893",
+            "Founded, 17 February 1673"
+        ],
+        "latitude": -27.59667,
+        "longitude": -48.54917
     },
     "North Atlantic": {
         "country": "Newfoundland (Canada)",
@@ -1013,7 +1057,7 @@
             "Battle of San Juan Hill, 1 July 1898",
             "Treaty of Paris, 10 December 1898",
             "U.S. ownership of Puerto Rico, Guam, and the Philippines",
-            "Cuba indepence, 10 May 1902"
+            "Cuba independence, 10 May 1902"
         ],
         "latitude": 23.13302,
         "longitude": -82.38304
@@ -1913,7 +1957,7 @@
             "Founded by Seleucus I Nicator (Alexander's general), 300 BC",
             "Capital of the Seleucid Empire, 240-63 BC",
             "The cradle of Christianity",
-            "Principality of Antioch (first cruzade), 1098-1268",
+            "Principality of Antioch (first crusade), 1098-1268",
             "Raymond of Poitiers (Prince of Antioch), 1105-1149",
             "Beheaded by Shirkuh, Saladin's uncle",
             "Battle of Inab (second crusade), 29 June 1149",
@@ -1938,10 +1982,10 @@
         "country": "✝ Levant (Israel)",
         "remarkable": [
             "Levant (Syria, Lebanon, Jordan, Israel)",
-            "First Cruzade, 1096-1099",
+            "First Crusade, 1096-1099",
             "Raymond IV of Toulouse, 1041-1105",
             "Godfrey of Bouillon, 1060-1100",
-            "Four cruzade states in the Levant",
+            "Four crusade states in the Levant",
             "• Kingdom of Jerusalem, 1099-1187, 1192-1201",
             "• County of Edessa, 1098-1144",
             "• Principality of Antioch, 1098-1268",
@@ -1982,7 +2026,7 @@
             "Mongol army besieging Caffa catapulted infected corpses into the city, 1347",
             "Vector are fleas on black rats carried by merchant ships",
             "Disseminated in Europe via the Genoese trading port of Caffa",
-            "25-50 million casualties in Europe (perhaps 1/2 polulation), 1347"
+            "25-50 million casualties in Europe (perhaps 1/2 population), 1347"
         ],
         "latitude": 45.03677,
         "longitude": 35.37789
@@ -2100,7 +2144,7 @@
     "Anatolia": {
         "country": "✝ Turkey",
         "remarkable": [
-            "Third Cruzade, 1189-1192",
+            "Third Crusade, 1189-1192",
             "Levant, Sicily, Iberia, Balkans, Anatolia",
             "Richard x Salah ad-Din",
             "Battle of Arçufe, 7 September 1191",
@@ -2112,7 +2156,7 @@
     "Damietta": {
         "country": "✝ Egypt",
         "remarkable": [
-            "Fifth Cruzade, 1217-1221",
+            "Fifth Crusade, 1217-1221",
             "Syria, Egypt, Iberia",
             "Siege of Damietta, 1218-1219",
             "Surrender of the Crusaders (departure from Egypt)",
@@ -2426,7 +2470,7 @@
     "Zara (Zadar)": {
         "country": "✝ Croatia",
         "remarkable": [
-            "Fourth Cruzade, 1202-1204",
+            "Fourth Crusade, 1202-1204",
             "Balkans, Anatolia, Dalmatia",
             "Enrico Dandolo (Doge of Venice), 1107-1205",
             "Siege of Zara, 24 November 1202",
@@ -2782,7 +2826,7 @@
             "Dutch East India Company (VOC), 20 March 1602 - 31 December 1799",
             "Bank of Amsterdam, 1609",
             "Dutch West India Company, 3 June 1621 - 1 January 1792",
-            "Dutch inavasion of Brazil, 1624-1654",
+            "Dutch invasion of Brazil, 1624-1654",
             "Nazi Germany invasion, 10 May 1940",
             "Anne Frank arrest, 4 August 1944"
         ],
@@ -2793,7 +2837,7 @@
         "country": "⚔ Belgium",
         "remarkable": [
             "Capital of the diamond trade",
-            "Godfrey of Bouillon (first cruzade leader), 1060-1100",
+            "Godfrey of Bouillon (first crusade leader), 1060-1100",
             "Spanish Fury (sack of Antwerp), 1576",
             "Capital of the Dutch Revolt, 1579",
             "German bombardment of Antwerp WW I, 28 September 1914",
@@ -2847,7 +2891,7 @@
     "Tortosa": {
         "country": "✝ Almoravid Emirate (Spain)",
         "remarkable": [
-            "Second Cruzade, 1147-1150",
+            "Second Crusade, 1147-1150",
             "Egypt, Anatolia, Levant, Iberia, Lower Egypt",
             "Siege of Tortosa, 1 July 1148 - 30 December 1148"
         ],
