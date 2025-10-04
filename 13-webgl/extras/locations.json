@@ -440,7 +440,10 @@
         "remarkable": [
             "Pedro II of Brazil, 1825-1891",
             "Emperor of Brazil, 7 April 1831 - 15 November 1889",
-            "War of Paraguay, 13 December 1864 - 1 March 1870"
+            "War of Paraguay, 13 December 1864 - 1 March 1870",
+            "Law of the Free Womb, 28 September 1871",
+            "Abolition of slavery, 13 May 1888",
+            "Federal Republic of Brazil (military coup), 15 November 1889"
         ],
         "latitude": -22.90189,
         "longitude": -43.22619
@@ -755,8 +758,15 @@
         "remarkable": [
             "Francisco da Mota Falcão (Captain), ???? - 12 March 1688",
             "Forte de São José da Barra do Rio Negro, 24 October 1669",
+            "War and extinction of the Manáos people, 1723-1728",
+            "Lugar da Barra (Vila de Manaus), 13 November 1832",
+            "Cabanagem, 1835-1840",
+            "City of Barra do Rio Negro, 24 October 1848",
+            "Manaus, 4 September 1856",
             "Celestial Sacardim (Italian Architect)",
-            "Amazon Theatre, 1884-1896"
+            "Amazon Theatre, 1884-1896",
+            "Manaus free trade zone, 28 August 1967",
+            "Founded, 24 October 1669"
         ],
         "latitude": -3.124832834,
         "longitude": -60.020666584
@@ -1057,7 +1067,7 @@
             "Gold Standard Act, 14 March 1900",
             "China Relief Expedition, 7 July 1900",
             "It is God's way. His will, not ours, be done",
-            "Assassineted, 14 September 1901"
+            "Assassinated, 14 September 1901"
         ],
         "latitude": 41.188889,
         "longitude": -80.747222
@@ -2173,7 +2183,7 @@
             "Levant, Sicily, Iberia, Balkans, Anatolia",
             "Richard x Salah ad-Din",
             "Battle of Arçufe, 7 September 1191",
-            "Second Kingdom of Jerusalen in Acre, 1192"
+            "Second Kingdom of Jerusalem in Acre, 1192"
         ],
         "latitude": 39.0,
         "longitude": 32.0
@@ -2200,7 +2210,7 @@
         "country": "Egypt",
         "remarkable": [
             "Djoser (Second pharaoh), 2650-2611 BC",
-            "Third Dinasty, 2630-2611 BC",
+            "Third Dynasty, 2630-2611 BC",
             "Imhotep (High Priest of Ra), 2667-2600 BC",
             "Chancellor, physician and architect, 2648 BC",
             "Step Pyramid (Saqqara necropolis), 2670-2650 BC"
