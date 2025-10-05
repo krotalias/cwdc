@@ -269,9 +269,9 @@
     "Recife": {
         "country": "Pernambuco (Brazil)",
         "remarkable": [
-            "Mauricio de Nassau, 1604-1679",
+            "Johan Maurits van Nassau-Siegen, 1604-1679",
             "Dutch invasion, 1630-1554",
-            "Governor (Dutch Brazil - WIC), 23 January 1637 - 30 December 1643",
+            "Governor of Dutch Brazil (WIC), 23 January 1637 - 30 December 1643",
             "José Inácio Ribeiro de Abreu e Lima (Padre Roma), 1768-1818",
             "Pernambucan Revolt, 1817",
             "Executed (firing squad), 29 March 1817",
@@ -332,7 +332,7 @@
             "Pero Gonçalves, 1602",
             "Aracaju (district), 1837",
             "Incorporated as capital (planned city), 17 March 1855",
-            "German submarine U-507 sank three ships (600 deaths), 15 August 1942"
+            "German sub U-507 sank three ships (600 ☠), 15 August 1942"
         ],
         "latitude": -10.9167,
         "longitude": -37.05
@@ -442,6 +442,10 @@
             "Emperor of Brazil, 7 April 1831 - 15 November 1889",
             "War of Paraguay, 13 December 1864 - 1 March 1870",
             "Law of the Free Womb, 28 September 1871",
+            "Submarine Telegraph cable (Recife - Portugal), 23 June 1874",
+            "Havas-Reuter news agency monopoly (Agence France-Presse), 1875",
+            "Central do Brasil electric lighting, 1879",
+            "Electric street lighting in Campos dos Goytacazes, 24 February 1883",
             "Abolition of slavery, 13 May 1888",
             "Federal Republic of Brazil (military coup), 15 November 1889"
         ],
@@ -481,7 +485,7 @@
         "remarkable": [
             "Nazaré (Upaon-Açu island), 1550",
             "Daniel de La Touche, 1570-1631",
-            "Saint-Louis (French origin), 8 September 1612 - 4 November 1615",
+            "Saint-Louis (French), 8 September 1612 - 4 November 1615",
             "Battle of Guaxenduba, 19 November 1614",
             "Alexandre de Moura took fort Saint-Louis, 1 November 1615",
             "Dutch invasion, 1641-1644",
@@ -619,16 +623,15 @@
             "1 mil-réis = 1000 réis, 8 October 1833-1942",
             "1 conto de réis = 1K mil-réis, 8 October 1833-1942",
             "Conto de réis (1000$000 réis or 1.4K gold), 1833-1942",
-            "First railroad in Latin America (Mauá railroad), 1852",
             "Estaleiro Mauá (shipyard in Niterói), 1846-1860",
             "Bank of Brasil, 1851",
-            "Mauá (fisrt) railroad (Mauá port to Petropolis), 30 January 1854",
+            "Mauá railroad 18km (Magé - Raiz da Serra), 30 January 1854-1888",
             "First gas lighting in Brazil (Rio), 1855",
             "Banco Mauá, MacGregor & Cia (merchant bank), 1855-1875",
             "Banco Mauá e Cia. in Uruguai, 1857",
-            "Bankruptcy, 1878",
             "Baron of Mauá, 30 April 1864",
-            "Viscount of Mauá, 26 June 1874"
+            "Viscount of Mauá, 26 June 1874",
+            "Bankruptcy, 1878"
         ],
         "latitude": -32.2327,
         "longitude": -53.0862
@@ -748,7 +751,7 @@
             "Roosevelt gashed a shin badly on a jagged rock, 25 March 1914",
             "Sgt Manoel Vicente da Paixão shot by Julio de Lima, 2 April 1914",
             "Julio fled and was left behind, his fate to be decided by the jungle",
-            "Dr. José Antônio Cajazeira operated on Roosevelt's leg, 16 April 1914",
+            "José Antônio Cajazeira operated on Roosevelt's leg, 16 April 1914",
             "Rondon renamed the river of Doubt as Roosevelt, 19 April 1914",
             "Aripuanã river, 58 days after departure, 26 April 1914",
             "End of expedition in Belém do Pará, 30 April 1914",
@@ -804,7 +807,7 @@
         "country": "Rondônia (Brazil)",
         "remarkable": [
             "Percival Farquhar (Yale engineering), 1865-1954",
-            "Madeira-Mamoré (Devil's Railroad) 366 km, 1907 - 7 September 1912",
+            "Madeira-Mamoré Devil's Railroad 366km, 1907 - 7 September 1912",
             "Closed (replaced by BR-364), 1972",
             "Second rubber boom (WW II), 1942-1945",
             "Discovery of cassiterite (ore of tin), 1952",
