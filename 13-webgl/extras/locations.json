@@ -296,20 +296,6 @@
         "latitude": -7.91167,
         "longitude": -34.90278
     },
-    "Maceió": {
-        "country": "Alagoas (Brazil)",
-        "remarkable": [
-            "Sinking of the ship Nossa Senhora da Ajuda, 15 July 1556",
-            "Massacre of the survivors (Caeté people)",
-            "Bishop Dom Pero Fernandes Sardinha, 1496-1556",
-            "Slaughtered with a mace and devoured",
-            "Quilombo dos Palmares (20K people), 1605-1694",
-            "State of Alagoas, 16 September 1817",
-            "Village of Maceió, 5 December 1815"
-        ],
-        "latitude": -9.6637,
-        "longitude": -35.7375
-    },
     "Natal": {
         "country": "⚔ Rio Grande do Norte (Brazil)",
         "remarkable": [
@@ -325,6 +311,45 @@
         ],
         "latitude": -5.783333,
         "longitude": -35.2
+    },
+    "Maceió": {
+        "country": "Alagoas (Brazil)",
+        "remarkable": [
+            "Sinking of the ship Nossa Senhora da Ajuda, 15 July 1556",
+            "Massacre of the survivors (Caeté people)",
+            "Bishop Dom Pero Fernandes Sardinha, 1496-1556",
+            "Slaughtered with a mace and devoured",
+            "Quilombo dos Palmares (20K people), 1605-1694",
+            "State of Alagoas, 16 September 1817",
+            "Village of Maceió, 5 December 1815"
+        ],
+        "latitude": -9.6637,
+        "longitude": -35.7375
+    },
+    "Alagoas da Lagoa do Sul": {
+        "country": "Alagoas (Brazil)",
+        "remarkable": [
+            "Deodoro da Fonseca (Field Marshall), 1827-1892",
+            "Maria Adelaide Andrade Neves Meireles (Baronesa do Triunfo), 1838-1929",
+            "Military School in Rio, 1843-1847",
+            "War of Paraguai (hero), 1864-1870",
+            "Republican Manifest, 3 December 1870",
+            "Comandante de armas da província do Rio Grande do Sul, 1883-1887",
+            "Questão Militar (military conduct reform), 1886-1887",
+            "Presidente da Província do Rio Grande do Sul, 8 May 1886 - 9 November 1886",
+            "1st President of the Military Club, 1887-1889",
+            "Military coup that established the Republic, 15 November 1889",
+            "1st President of Brazil, 15 November 1889 - 23 November 1891",
+            "Press censorship (decreto rolha), 23 December 1889",
+            "Censorship reinforcement, 29 March 1890",
+            "Encilhamento economic crisis (unrestricted credit), 1889-1891",
+            "An unmounted saddled horse doesn't appear twice in the same place",
+            "Republican Constitution, 24 February 1891",
+            "Coup of November, 3 November 1891",
+            "Navy revolt and resignation, 23 November 1891"
+        ],
+        "latitude": -9.71189560817739,
+        "longitude": -35.896128934603915
     },
     "Aracaju": {
         "country": "⚔ Sergipe (Brazil)",
