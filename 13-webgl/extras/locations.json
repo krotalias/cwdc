@@ -505,6 +505,36 @@
         "latitude": -21.453998184,
         "longitude": -43.5514
     },
+    "Rio Claro": {
+        "country": "São Paulo (Brazil)",
+        "remarkable": [
+            "Antônio de Siqueira Campos (Lieutenant), 1898-1930",
+            "Tenente revolt (Copacabana fort), 1922-1930",
+            "Euclides Hermes da Fonseca (Captain), 1883-1962",
+            "Bonifácio Gomes da Costa (General), 1894-1966",
+            "Entered the fort unescorted to change the commander and was arrested, 4 July 1922",
+            "My grand father told me Siqueira Campos pointed a pistol to the general's head",
+            "and ordered him to jump from the wall onto the stones on the beach,",
+            "but he was saved by a sargent who convinced Campos to stop",
+            "Euclides da Fonseca (the fort commander) left to negotiate and was arrested,",
+            "but had ordered Campos to bombard the city and blow up the fort after 2h,",
+            "which he could not obey",
+            "The last privates were released in the morning:",
+            "'You are not cowards, as the officers who already ran away', said Campos",
+            "However, when he saw the few privates from the night shift coming to dutty,",
+            "he shouted: 'Soldiers, join the revolt and come with me to fight!'",
+            "They left the fort to fight until death, 6 July 1922",
+            "Only two officers survived (but badly wounded): Campos and Eduado Gomes",
+            "The fugitives were imprisoned for one year, in Fortaleza de Santa Cruz,",
+            "in cells with 5 inches of sea water, and were threatened with death almost every day ",
+            "Their situation improved after 6 months, when visited by General Bonifácio",
+            "Campos joined the Coluna Prestes, 1924-1927",
+            "Tried to convince Preste in Buenos Aires not to release a communist manifesto",
+            "Died when returning in a plane crash in Rio da Prata, 10 May 1930"
+        ],
+        "latitude": -22.72306,
+        "longitude": -44.13556
+    },
     "São Luiz": {
         "country": "Maranhão (Brazil)",
         "remarkable": [
@@ -705,7 +735,9 @@
             "17th President of Brazil, 31 January 1951 - 24 August 1954",
             "Suicide by gunshot, 24 August 1954",
             "Constitutionalist Revolution, 1932",
-            "FDR metting, 1936",
+            "Women's suffrage, 24 February 1932",
+            "FDR metting, 26 November 1936",
+            "New State constitution (dictatorship), 10 November 1937",
             "Outlawed all political parties, 2 December 1937",
             "Brazilian steel mill CSN (Volta Redonda), 1940",
             "Contributed significantly to Allied victories (rarely recognized)",
