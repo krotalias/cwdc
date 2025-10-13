@@ -2282,10 +2282,24 @@
         "country": "Egypt",
         "remarkable": [
             "Amenhotep III (Ninth pharaoh), 1401-1353 BC",
-            "Eighteenth Dynasty, 1390-1353 BC"
+            "Eighteenth Dynasty, 1390-1353 BC",
+            "Papyrus of Ani, 1250 BC",
+            "Compiled for the Theban scribe Ani",
+            "19th Dynasty (1292-1189 BC)"
         ],
         "latitude": 25.7329051,
         "longitude": 32.7658152
+    },
+    "Luxor": {
+        "country": "Egypt",
+        "remarkable": [
+            "E. A. Wallis Budge, 1857-1934",
+            "Smuggled the Papyrus of Ani to The British Museum, 1888",
+            "Finest extant example of the Egyptian Book of the Dead",
+            "By Nile and Tigris, 1888"
+        ],
+        "latitude": 25.696667,
+        "longitude": 32.644444
     },
     "Suez Canal": {
         "country": "Egypt",
