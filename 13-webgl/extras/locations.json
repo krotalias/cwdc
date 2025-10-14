@@ -963,7 +963,7 @@
         "longitude": -67.81
     },
     "Santo Domingo": {
-        "country": "Dominican Republic",
+        "country": "Island of Hispaniola (Dominican Republic)",
         "remarkable": [
             "Christopher Columbus first voyage, 1492-1493",
             "Haiti anexation, 1822-1844",
@@ -1017,6 +1017,29 @@
         ],
         "latitude": -13.52166458,
         "longitude": -71.96999612
+    },
+    "Port-au-Prince": {
+        "country": "Island of Hispaniola (Haiti)",
+        "remarkable": [
+            "Christopher Columbus first voyage, 1492-1493",
+            "Western portion ceded to France (Saint-Domingue), 1697",
+            "Slave insurection, 21 August 1791",
+            "Abolition of slavery in Haiti, 4 April 1792",
+            "Abolition of slavery in all French colonies, 4 February 1794",
+            "Independence from France, 1 January 1804",
+            "United States occupation, 28 July 1915 - 1 August 1934",
+            "Duvalier dynasty (Papa Doc and Baby Doc), 1957-1986",
+            "Jean-Claude Duvalier (Baby Doc), 3 April 1971 - 7 February 1986",
+            "Jean-Bertrand Aristide (Priest), 1953",
+            "President of Haiti, 4 February 2001 - 29 February 2004",
+            "France and U.S. 'kidnapping' (exile in South Africa), 2004-2011",
+            "UN Stabilization Mission (Brazil, 37.5M soldiers), 1 July 2004 - 15 October 2017",
+            "Earthquake, 12 January 2010",
+            "Economy mainly small-scale subsistence farming",
+            "Remittances from abroad made up nearly 24% of GDP, 2020"
+        ],
+        "latitude": 18.536111,
+        "longitude": -72.346389
     },
     "Hyde Park": {
         "country": "⚔ New York (United States)",
