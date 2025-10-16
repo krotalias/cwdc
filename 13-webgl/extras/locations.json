@@ -2184,24 +2184,6 @@
         "latitude": 36.58718,
         "longitude": 36.17347
     },
-    "Ascalon": {
-        "country": "✝ Levant (Israel)",
-        "remarkable": [
-            "Levant (Syria, Lebanon, Jordan, Israel)",
-            "First Crusade, 1096-1099",
-            "Raymond IV of Toulouse, 1041-1105",
-            "Godfrey of Bouillon, 1060-1100",
-            "Four crusade states in the Levant",
-            "• Kingdom of Jerusalem, 1099-1187, 1192-1201",
-            "• County of Edessa, 1098-1144",
-            "• Principality of Antioch, 1098-1268",
-            "• County of Tripoli, 1102-1289",
-            "Siege of Jerusalem, 7 June 1099 - 15 July 1099",
-            "Battle of Ascalon, 12 August 1099"
-        ],
-        "latitude": 31.66926,
-        "longitude": 34.57149
-    },
     "Kibbutz Degania Alef": {
         "country": "Ottoman Empire (Israel)",
         "remarkable": [
@@ -2312,6 +2294,36 @@
         ],
         "latitude": 31.82,
         "longitude": 34.713
+    },
+     "Ascalon": {
+        "country": "✝ Levant (Israel)",
+        "remarkable": [
+            "Levant (Syria, Lebanon, Jordan, Israel)",
+            "First Crusade, 1096-1099",
+            "Raymond IV of Toulouse, 1041-1105",
+            "Godfrey of Bouillon, 1060-1100",
+            "Four crusade states in the Levant",
+            "• Kingdom of Jerusalem, 1099-1187, 1192-1201",
+            "• County of Edessa, 1098-1144",
+            "• Principality of Antioch, 1098-1268",
+            "• County of Tripoli, 1102-1289",
+            "Siege of Jerusalem, 7 June 1099 - 15 July 1099",
+            "Battle of Ascalon, 12 August 1099"
+        ],
+        "latitude": 31.66926,
+        "longitude": 34.57149
+    },
+    "Limassol": {
+        "country": "✝ Cyprus",
+        "remarkable": [
+            "Isaac Komnenos, 1155-1195",
+            "Last Byzantine governor of Cyprus, 1184-1191",
+            "Lost the Island of Cyprus for Richard I, 1191",
+            "Richard arrived in Limassol, 6 May 1191",
+            "Kingdom of Cyprus, 1192-1489"
+        ],
+        "latitude": 34.674722,
+        "longitude": 33.044167
     },
     "Aswan": {
         "country": "Egypt",
