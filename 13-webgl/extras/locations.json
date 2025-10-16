@@ -188,8 +188,11 @@
         "remarkable": [
             "Roman Olissipo, 138 BC",
             "Taken by Muslim forces (Umayyad Caliphate), 6 August 711",
-            "Taifa of Lisbon, 1022-1034",
-            "Sigurd I (Norwegian crusader), 1108",
+            "Taifa of Lisbon (muslim principality), 1022-1034",
+            "Sigurd I, 1089-1130",
+            "King of Norway, 1103-1130",
+            "Raid to the Iberian Peninsula (norwegian crusade), 1107-1111",
+            "Sack of the Castle of the Moors (Sintra), 1108",
             "Almoravid dynasty (Moroccan Berber Muslim), 1050-1147",
             "Taken by Moorish Almoravids, 1111",
             "Afonso I of Portugal, the conqueror and the Founder, 1106-1185",
@@ -2073,7 +2076,7 @@
     "Tikrit": {
         "country": "Mesopotamia (Iraq)",
         "remarkable": [
-            "Salah ad-Din Yusuf ibn Ayyub, 1137-1193",
+            "Salah ad-Din Yusuf ibn Ayyub (Saladin), 1137-1193",
             "Sultan of Egypt and Syria, 28 October 1174",
             "Conquest of Jerusalem, 2 October 1187"
         ],
@@ -2130,11 +2133,27 @@
         "latitude": 55.751244,
         "longitude": 37.618423
     },
+    "Inab": {
+        "country": "✝ Levant (Syria)",
+        "remarkable": [
+            "Nur ad-Din attacked and destroyed the army of the Prince of Antioch",
+            "Became a hero throughout the Islamic world",
+            "Raymond of Poitiers was beheaded by Shirkuh (Saladin's uncle)",
+            "Antiochenes' defeat was caused by Raymond's rashness",
+            "Battle of Inab (second crusade), 29 June 1149"
+        ],
+        "latitude": 36.518056,
+        "longitude": 36.953611
+    },
     "Damascus": {
         "country": "✝ Levant (Syria)",
         "remarkable": [
-            "Nur al-Din Zengi (Emir of Aleppo), 1118-1174",
-            "Battle of Inab (second crusade), 29 June 1149"
+            "Nur al-Din Zengi, 1118-1174",
+            "Emir of Aleppo, 1146-1174",
+            "Most influential teacher of Saladin",
+            "Battle of Inab (second crusade), 29 June 1149",
+            "Captured and burned Tortosa, 1152",
+            "Conquered Damascus, 1154"
         ],
         "latitude": 33.5102,
         "longitude": 36.29128
@@ -2147,12 +2166,11 @@
             "The cradle of Christianity",
             "Principality of Antioch (first crusade), 1098-1268",
             "Raymond of Poitiers (Prince of Antioch), 1105-1149",
-            "Beheaded by Shirkuh, Saladin's uncle",
-            "Battle of Inab (second crusade), 29 June 1149",
+            "Killed in the battle of Inab (second crusade), 29 June 1149",
             "Baibars, 1223-1277",
             "Sultan of Egypt and Syria, 24 October 1260 - 30 June 1277",
             "Greatest massacre of the entire crusading era",
-            "Siege and fall of Antioch, 18 May 1268"
+            "Siege and fall of Antioch (seventh crusade), 18 May 1268"
         ],
         "latitude": 36.204722,
         "longitude": 36.181667
@@ -2275,7 +2293,7 @@
         "longitude": 34.83333
     },
     "Jaffa": {
-        "country": "Kingdom of Jerusalem (Palestine, Israel)",
+        "country": "✝ Kingdom of Jerusalem (Palestine, Israel)",
         "remarkable": [
             "Richard The Lion-Heart, 1157-1199",
             "Third Crusade final battle",
@@ -2285,7 +2303,7 @@
         "longitude": 34.7510569958
     },
     "Ibelin": {
-        "country": "Kingdom of Jerusalem (Israel)",
+        "country": "✝ Kingdom of Jerusalem (Israel)",
         "remarkable": [
             "Baldwin IV (Leper King), 1161-1185",
             "Sibylla Queen of Jerusalem, 1159-1190",
