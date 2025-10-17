@@ -2077,7 +2077,7 @@
         "country": "✝ Mesopotamia (Iraq)",
         "remarkable": [
             "Salah ad-Din Yusuf ibn Ayyub (Saladin), 1137-1193",
-            "Sultan of Egypt and Syria, 28 October 1174",
+            "First Sultan of Egypt and Syria, 28 October 1174",
             "Conquest of Jerusalem, 2 October 1187"
         ],
         "latitude": 34.615807,
@@ -2152,7 +2152,7 @@
             "Emir of Aleppo, 1146-1174",
             "Most influential teacher of Saladin",
             "Battle of Inab (second crusade), 29 June 1149",
-            "Captured and burned Tortosa, 1152",
+            "Captured (briefly occupying the town) and burned Tortosa, 1152",
             "Conquered Damascus, 1154"
         ],
         "latitude": 33.5102,
@@ -2251,6 +2251,18 @@
         "latitude": 33.2721211,
         "longitude": 35.1964023
     },
+    "Acre": {
+        "country": "✝ Second Kingdom of Jerusalem (Israel)",
+        "remarkable": [
+            "Conrad of Montferrat, 1146-1192",
+            "King of Jerusalem (co-ruler Isabella I), 24 November 1190 - 28 April 1192",
+            "Assassinated, 28 April 1192",
+            "Siege of Acre, 4 April 1291 - 18 May 1291",
+            "Fell after the Mamluks conquered the city of Acre, 1291"
+        ],
+        "latitude": 32.92814,
+        "longitude": 35.07647
+    },
     "Tel Aviv-Yafo": {
         "country": "Israel",
         "remarkable": [
@@ -2279,7 +2291,9 @@
         "remarkable": [
             "Richard The Lion-Heart, 1157-1199",
             "Third Crusade final battle",
-            "Battle of Jaffa, 8 August 1192"
+            "Battle of Jaffa, 8 August 1192",
+            "Treaty of Jaffa (with the help of Balian of Ibelin)",
+            "Three-year truce and ended the Third Crusade, 2 September 1192"
         ],
         "latitude": 32.0527047892,
         "longitude": 34.7510569958
@@ -2287,10 +2301,22 @@
     "Ibelin": {
         "country": "✝ Kingdom of Jerusalem (Israel)",
         "remarkable": [
+            "Balian of Ibelin, 1143-1193",
+            "Nobleman of the Kingdom of Jerusalem",
             "Baldwin IV (Leper King), 1161-1185",
             "Sibylla Queen of Jerusalem, 1159-1190",
-            "Balian of Ibelin, 1143-1193",
-            "Surrendered Jerusalem, 2 October 1187"
+            "Guy of Lusignan, 1150-1194",
+            "King of Jerusalem (co-ruler of Queen Sibylla), 1186-1190",
+            "Lord of Cyprus from 1192 to 1194",
+            "Raynald of Châtillon raided a Muslim Hajj caravan, 1187",
+            "Saladin's retaliation led to the Battle of Hattin, 4 July 1187",
+            "Count Raymond of Tripoli advised Guy to stay put",
+            "who ignored the advice and marched his army toward Tiberias",
+            "Balian, Raymond, Reginald, and Payen of Haifa managed to escape to Tyre",
+            "Saladin executed Raynald of Châtillon himself but spared Guy, 4 July 1187",
+            "Guy of Lusignan was taken to Damascus as a prisoner and released, 1188",
+            "Siege of Jerusalem, 20 September 1187",
+            "Balian surrendered Jerusalem, 2 October 1187"
         ],
         "latitude": 31.82,
         "longitude": 34.713
@@ -2382,13 +2408,12 @@
         "longitude": 32.3499986
     },
     "Anatolia": {
-        "country": "✝ Turkey",
+        "country": "✝ Asia Minor (Turkey)",
         "remarkable": [
             "Third Crusade, 1189-1192",
             "Levant, Sicily, Iberia, Balkans, Anatolia",
             "Richard x Salah ad-Din",
-            "Battle of Arçufe, 7 September 1191",
-            "Second Kingdom of Jerusalem in Acre, 1192"
+            "Battle of Arçufe, 7 September 1191"
         ],
         "latitude": 39.0,
         "longitude": 32.0
@@ -2431,6 +2456,24 @@
         ],
         "latitude": 29.979175,
         "longitude": 31.134358
+    },
+    "Dorylaeum": {
+        "country": "✝ Anatolia (Turkey)",
+        "remarkable": [
+            "Roman trading post",
+            "Apostle Paul route (second missionary voyage), 50",
+            "Battle of Manzikert (taken by the Seljuk Turks), 1071",
+            "Constantinople lost control of most of Anatolia to the Rum Seljuqs",
+            "Battle of Dorylaeum (first crusade), 1 July 1097",
+            "First major victory for the crusaders clearing the road to Antioch",
+            "Emperor Manuel I Komnenos, 1118-1180",
+            "Byzantine emperor, 8 April 1143 - 24 September 1180",
+            "Battle of Dorylaeum (second crusade), 25 October 1147",
+            "German crusaders ambushed and defeated by Seljuk Turks",
+            "Battle of Myriokephalon (serious Byzantine defeat), 17 September 1176"
+        ],
+        "latitude": 39.783333,
+        "longitude": 30.516667
     },
     "Fort Julien": {
         "country": "Rosetta (Egypt)",
