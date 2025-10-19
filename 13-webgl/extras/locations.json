@@ -2176,11 +2176,7 @@
             "The cradle of Christianity",
             "Principality of Antioch (first crusade), 1098-1268",
             "Raymond of Poitiers (Prince of Antioch), 1105-1149",
-            "Killed in the battle of Inab (second crusade), 29 June 1149",
-            "Baibars, 1223-1277",
-            "Sultan of Egypt and Syria, 24 October 1260 - 30 June 1277",
-            "Greatest massacre of the entire crusading era",
-            "Siege and fall of Antioch (seventh crusade), 18 May 1268"
+            "Killed in the battle of Inab (second crusade), 29 June 1149"
         ],
         "latitude": 36.204722,
         "longitude": 36.181667
@@ -2241,6 +2237,24 @@
         "latitude": 31.315556,
         "longitude": 35.353889
     },
+    "Holy Land": {
+        "country": "✝ Southern Levant (Israel, Palestine, Jordan)",
+        "remarkable": [
+            "Sixth Crusade (Crusade of Frederick II), 1228-1229",
+            "Frederick II, 26 December 1194 - 13 December 1250",
+            "Holy Roman Emperor, 23 November 1220 - 13 December 1250",
+            "Frederick excommunication (Pope Gregory IX), 29 September 1227",
+            "Frederick arrived at Acre, 7 September 1228",
+            "Treaty of Jaffa and Tell Ajul, 18 February 1229",
+            "Jerusalem, Bethlehem, and Nazareth returned to Christian control",
+            "Pilgrims' rights to visit the holy places guaranteed",
+            "Holy Land remained under Muslim control (ten-year truce with al-Kamil)",
+            "Frederick entered Jerusalem and crowned himself, 17 March 1229 - 1243",
+            "Frederick obtained relief from his excommunication, 28 August 1230"
+        ],
+        "latitude": 31.768319,
+        "longitude": 35.21371
+    },
     "Jerusalem": {
         "country": "Herodian Kingdom (Israel)",
         "remarkable": [
@@ -2253,10 +2267,15 @@
         "longitude": 35.232071
     },
     "Tyre": {
-        "country": "Phoenicia (Lebanon)",
+        "country": "✝ Phoenicia (Lebanon)",
         "remarkable": [
             "Marinus of Tyre, geographer and cartographer, 70-130",
-            "Equirectangular projection, 100"
+            "Equirectangular projection, 100",
+            "Conrad of Montferrat arrived in Tyre, July 1187",
+            "Siege of Tyre, 12 November 1187 - 1 January 1188",
+            "Saladin dismissed his army and retreated to Acre, 1188",
+            "Guy and Sibylla admission refused to Tyre (after released by Saladin), 1188",
+            "Guy chose to continue south to lay siege to Acre, 1189"
         ],
         "latitude": 33.2721211,
         "longitude": 35.1964023
@@ -2264,10 +2283,17 @@
     "Acre": {
         "country": "✝ Second Kingdom of Jerusalem (Israel)",
         "remarkable": [
+            "Siege of Acre (third crusade), 28 August 1189 - 12 July 1191",
+            "Guy of Jerusalem (King of Jerusalem), 1150-1194",
+            "Richard the Lion-Heart, 1157-1199",
             "Conrad of Montferrat, 1146-1192",
+            "Queen Sibylla death (Guy lost his claim to the throne of Jerusalem), 1190",
+            "Isabela (younger half-sister of Sibylla) married to Conrad of Montferrat, 1190",
+            "Conrad raised the banners of the Kingdom of Jerusalem in Acre, 12 July 1191",
             "King of Jerusalem (co-ruler Isabella I), 24 November 1190 - 28 April 1192",
-            "Assassinated, 28 April 1192",
-            "Siege of Acre, 4 April 1291 - 18 May 1291",
+            "Stabbed in the streets of Tyre by two men of the sect of assassins, 28 April 1192",
+            "Siege (fall) of Acre, 4 April 1291 - 18 May 1291",
+            "Final fatal blow to Christian Crusader ambitions in the Holy Land",
             "Fell after the Mamluks conquered the city of Acre, 1291"
         ],
         "latitude": 32.92814,
@@ -2324,7 +2350,7 @@
             "who ignored the advice and marched his army toward Tiberias",
             "Balian, Raymond, Reginald, and Payen of Haifa managed to escape to Tyre",
             "Saladin executed Raynald of Châtillon himself but spared Guy, 4 July 1187",
-            "Guy of Lusignan was taken to Damascus as a prisoner and released, 1188",
+            "Guy of Lusignan was imprisoned in Damascus and exchanded for Ascalon, 1188",
             "Siege of Jerusalem, 20 September 1187",
             "Balian surrendered Jerusalem, 2 October 1187"
         ],
@@ -2340,6 +2366,7 @@
             "Godfrey of Bouillon, 1060-1100",
             "Four crusade states in the Levant",
             "• Kingdom of Jerusalem, 1099-1187, 1192-1201",
+            "  ••• Jerusalem, Acre, Ascalon, Tyre, Jaffa",
             "• County of Edessa, 1098-1144",
             "• Principality of Antioch, 1098-1268",
             "• County of Tripoli, 1102-1289",
@@ -2349,14 +2376,26 @@
         "latitude": 31.66926,
         "longitude": 34.57149
     },
+    "Cumania": {
+        "country": "✝ Kunság (Hungary)",
+        "remarkable": [
+            "Baibars (greatest enemy to Christendom since Saladin), 1223-1277",
+            "Sultan of Egypt and Syria, 24 October 1260 - 30 June 1277",
+            "Seventh Crusade, 1248-1254",
+            "Greatest massacre of the entire crusading era",
+            "Siege and fall of Antioch, 18 May 1268"
+        ],
+        "latitude": 45.44675,
+        "longitude": 33.98675
+    },
     "Limassol": {
         "country": "✝ Cyprus",
         "remarkable": [
             "Isaac Komnenos, 1155-1195",
             "Last Byzantine governor of Cyprus, 1184-1191",
             "Lost the Island of Cyprus for Richard I, 1191",
-            "Richard arrived in Limassol, 6 May 1191",
-            "Kingdom of Cyprus, 1192-1489"
+            "Kingdom of Cyprus, 1192-1489",
+            "Richard arrival in Limassol, 6 May 1191"
         ],
         "latitude": 34.674722,
         "longitude": 33.044167
