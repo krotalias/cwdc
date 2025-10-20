@@ -2648,6 +2648,19 @@
         "latitude": 41.67713,
         "longitude": 26.555715
     },
+    "Dardanelles": {
+        "country": "Hellespont (Turkey)",
+        "remarkable": [
+            "Connects the Sea of Marmara with the Aegean and Mediterranean seas",
+            "A passage to the Black Sea by extension via the Bosporus",
+            "The Bosporus and the Dardanelles Straits at the opposite end",
+            "of the Sea of Marmara are known as the Turkish Straits",
+            "The Persian army of Xerxes I of Persia crossed the Hellespont, 480 BC",
+            "Macedonian army of Alexander the Great crossed the Dardanelles, 334 BC"
+        ],
+        "latitude": 40.2,
+        "longitude": 26.4
+    },
     "Helsinki": {
         "country": "Finland",
         "remarkable": [
