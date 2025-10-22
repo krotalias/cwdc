@@ -2230,8 +2230,12 @@
         "remarkable": [
             "Herod the Great (Builder), 1 BC",
             "Lucius Flavius Silva (Roman Tenth Legion), 40-81",
+            "Tito Flávio Vespasiano, 39-81",
+            "Roman Emperor, 23 June 79 - 13 September 81",
             "Eleazar ben Ya'ir (Sicarii leader)",
             "First Jewish-Roman War, 66-73",
+            "Siege of Jerusalem, 70 BC",
+            "Destruction of the Second Temple, August 70 BC",
             "Siege and fall of Masada, 16 April 73"
         ],
         "latitude": 31.315556,
@@ -2465,16 +2469,19 @@
         "latitude": 30.45499818,
         "longitude": 32.3499986
     },
-    "Anatolia": {
-        "country": "✝ Asia Minor (Turkey)",
+    "Arsuf": {
+        "country": "✝ Levant (Israel)",
         "remarkable": [
             "Third Crusade, 1189-1192",
             "Levant, Sicily, Iberia, Balkans, Anatolia",
-            "Richard x Salah ad-Din",
-            "Battle of Arçufe, 7 September 1191"
+            "Battle of Arsuf, 7 September 1191",
+            "Knights Hospitaller (rearguard of the crusader army) advance",
+            "forced Richard to regroup and launch a successful counter-attack",
+            "Decisive victory for Richard the Lion-Heart",
+            "which removed Saladin's air of invincibility, 7 September 1191"
         ],
-        "latitude": 39.0,
-        "longitude": 32.0
+        "latitude": 32.2012741949,
+        "longitude": 34.8099667601
     },
     "Damietta": {
         "country": "✝ Egypt",
