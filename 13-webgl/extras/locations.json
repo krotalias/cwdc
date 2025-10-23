@@ -2650,7 +2650,22 @@
         "latitude": 37.5318313,
         "longitude": 27.2798246
     },
-    "Ionia (Izmir)": {
+    "Smyrna (İzmir)": {
+        "country": "Anatolia (Turkey)",
+        "remarkable": [
+            "Italo-Turkish War, 29 September 1911 - 18 October 1912",
+            "First Balkan War, 8 October 1912 - 30 May 1913",
+            "Ethnic cleansing and genocide against the Armenian, 1915-1917",
+            "Ended two thousand years of Armenian civilization in eastern Anatolia",
+            "Assyrian/Syriac and Greek Orthodox Christians suffered similar fates",
+            "Greek military occupation, 15 May 1919 - 9 September 1922",
+            "National Assembly of Turkey (Ottoman Sultanate end), 1 November 1922",
+            "Treaty of Lausanne (officially ended the conflict), 24 July 1923"
+        ],
+        "latitude": 38.42,
+        "longitude": 27.14
+    },
+    "Ionia (İzmir)": {
         "country": "Anatolia (Turkey)",
         "remarkable": ["Homer (King of all poets), 850 BC"],
         "latitude": 38.23166,
