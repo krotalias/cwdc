@@ -2055,15 +2055,6 @@
         "latitude": 24.638916,
         "longitude": 46.7160104
     },
-    "Stalingrad": {
-        "country": "⚔ Russian Federation",
-        "remarkable": [
-            "Georgy Zhukov (Marshal), 1896-1974",
-            "Battle of Stalingrad, 17 July 1942 - 2 February 1943"
-        ],
-        "latitude": 48.6999972,
-        "longitude": 44.5166646
-    },
     "Ctesiphon": {
         "country": "Parthia (Iraq)",
         "remarkable": [
@@ -2073,6 +2064,32 @@
         ],
         "latitude": 33.08333,
         "longitude": 44.58333
+    },
+    "Stalingrad": {
+        "country": "⚔ Russian Federation",
+        "remarkable": [
+            "Georgy Zhukov (Marshal), 1896-1974",
+            "Battle of Stalingrad, 17 July 1942 - 2 February 1943"
+        ],
+        "latitude": 48.6999972,
+        "longitude": 44.5166646
+    },
+    "Yerevan": {
+        "country": "West Asia (Armenia)",
+        "remarkable": [
+            "Eastern Armenia had been conquered by the Russian Empire, 1828",
+            "Western Armenia remained under Ottoman rule, 1828-1918",
+            "Armenian genocide during WW I, 1915-1917",
+            "Up to 1.5 million Armenians were systematically exterminated",
+            "Proclamation of the Russian Republic, 1 September 1917",
+            "Bolsheviks seized power by force on 7 November 1917",
+            "Russian Soviet Republic, January 1918",
+            "Republic of Armenia, 28 May 1918",
+            "Incorporated into the Soviet Union, 10 December 1920",
+            "Independence from the USSR, 23 September 1991"
+        ],
+        "latitude": 40.181389,
+        "longitude": 44.514444
     },
     "Babylon": {
         "country": "Mesopotamia (Iraq)",
