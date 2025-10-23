@@ -2190,6 +2190,16 @@
         "latitude": 36.58718,
         "longitude": 36.17347
     },
+    "Amasya": {
+        "country": "Ottoman Empire (Turkey)",
+        "remarkable": [
+            "Selim I (first Ottoman Caliph), 1470-1520",
+            "Sultan of the Ottoman Empire, 24 April 1512 - 22 September 1520",
+            "Conquered the Mamluk Sultanate of Egypt, 1516-1517"
+        ],
+        "latitude": 40.65,
+        "longitude": 35.833056
+    },
     "Kibbutz Degania Alef": {
         "country": "Ottoman Empire (Israel)",
         "remarkable": [
@@ -2295,10 +2305,7 @@
             "Isabela (younger half-sister of Sibylla) married to Conrad of Montferrat, 1190",
             "Conrad raised the banners of the Kingdom of Jerusalem in Acre, 12 July 1191",
             "King of Jerusalem (co-ruler Isabella I), 24 November 1190 - 28 April 1192",
-            "Stabbed in the streets of Tyre by two men of the sect of assassins, 28 April 1192",
-            "Siege (fall) of Acre, 4 April 1291 - 18 May 1291",
-            "Final fatal blow to Christian Crusader ambitions in the Holy Land",
-            "Fell after the Mamluks conquered the city of Acre, 1291"
+            "Stabbed in the streets of Tyre by two men of the sect of assassins, 28 April 1192"
         ],
         "latitude": 32.92814,
         "longitude": 35.07647
@@ -2514,6 +2521,19 @@
         ],
         "latitude": 29.8544582,
         "longitude": 31.2615188
+    },
+    "Cairo": {
+        "country": "✝ Mamluk Sultanate (Egypt)",
+        "remarkable": [
+            "Mamluk Sultanate, 1250-1517",
+            "Al-Ashraf Khalil, 1260-1293",
+            "Sultan of Egypt and Syria, 12 November 1290 - 14 December 1293",
+            "Conquered the last of the Crusader states in Palestine ",
+            "Final fatal blow to Christian Crusader ambitions in the Holy Land",
+            "Siege and fall of Acre, 4 April 1291 - 18 May 1291"
+        ],
+        "latitude": 30.044444,
+        "longitude": 31.235833
     },
     "Giza": {
         "country": "Egypt",
@@ -2884,6 +2904,28 @@
         ],
         "latitude": 40.8521602,
         "longitude": 14.2681244
+    },
+    "Capua": {
+        "country": "Italy",
+        "remarkable": [
+            "Third Servile War, 73-71 BC",
+            "Spartacus (Thracian gladiator), 103-71 BC",
+            "Crixus (Gaul gladiator), d. 72 BC",
+            "Oenomaus (Gaul gladiator), d. 72 BC",
+            "Gannicus (Celtic gladiator), d. 71 BC",
+            "70 gladiators escaped from Lentulus Batiatus' gladiator school, 73 BC",
+            "Defeated Roman armies led by Gaius Claudius Glaber (praetor), 73 BC",
+            "Spartacus used ropes made from vines to climb down mount Vesuvius, 73 BC",
+            "Defeated Roman armies led by Publius Varinius (praetor), 72 BC",
+            "Defeated two legions led by consuls Lucius Gellius Publicola (general)",
+            "and Gnaeus Cornelius Lentulus Clodianus (general), 72 BC",
+            "Marcus Licinius Crassus (eight legions, 40K trained Roman soldiers), 71 BC",
+            "Gnaeus Pompeius Magnus (Pompey the Great) joined the war effort, 71 BC",
+            "Betrayed by the Cilician pirates when trying to scape to Sicily, 71 BC",
+            "Crassus crucified 6K captured slaves along the Appian Way (200 km), 71 BC"
+        ],
+        "latitude": 41.10519,
+        "longitude": 14.21269
     },
     "Berlin": {
         "country": "⚔ Germany",
