@@ -1995,6 +1995,20 @@
         "latitude": 24.9056,
         "longitude": 67.0822
     },
+    "Yekaterinburg": {
+        "country": "Russia",
+        "remarkable": [
+            "Nicholas II, 1868-1918",
+            "Emperor of Russia, 1 November 1894 - 15 March 1917",
+            "Abdicated the throne of Russia, 15 March 1917",
+            "Proclamation of the Russian Republic, 1 September 1917",
+            "Bolsheviks seized power by force on 7 November 1917",
+            "Russian Soviet Republic, 25 January 1918",
+            "Romanov family executed, 17 July 1918"
+        ],
+        "latitude": 56.942222,
+        "longitude": 60.473333
+    },
     "Strait of Hormuz": {
         "country": "Iran, Oman, United Arab Emirates",
         "remarkable": [
@@ -2081,9 +2095,6 @@
             "Western Armenia remained under Ottoman rule, 1828-1918",
             "Armenian genocide during WW I, 1915-1917",
             "Up to 1.5 million Armenians were systematically exterminated",
-            "Proclamation of the Russian Republic, 1 September 1917",
-            "Bolsheviks seized power by force on 7 November 1917",
-            "Russian Soviet Republic, January 1918",
             "Republic of Armenia, 28 May 1918",
             "Incorporated into the Soviet Union, 10 December 1920",
             "Independence from the USSR, 23 September 1991"
