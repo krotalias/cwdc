@@ -2004,7 +2004,7 @@
             "Proclamation of the Russian Republic, 1 September 1917",
             "Bolsheviks seized power by force on 7 November 1917",
             "Russian Soviet Republic, 25 January 1918",
-            "Romanov family executed, 17 July 1918"
+            "Romanov family slaughtered, 17 July 1918"
         ],
         "latitude": 56.942222,
         "longitude": 60.473333
@@ -2047,6 +2047,26 @@
         ],
         "latitude": 10.44372,
         "longitude": 51.41157
+    },
+    "Simbirsk": {
+        "country": "Russian Empire (Russia)",
+        "remarkable": [
+            "Vladimir Ilich Ulyanov (Lenin), 1870-1924",
+            "Exiled to Siberia for three years, 1897-1900",
+            "Bolshevik party membership, 1903",
+            "Revolution of 1905 (constitutional monarchy), 22 January 1905 - 16 June 1907",
+            "Founder of the Russian Communist Party (Bolsheviks), 1912",
+            "February Revolution of 1917 ousted Tsar Nicholas II",
+            "Lenin returns to Russia after years in western Europe, 1907 - 16 April 1917",
+            "assisted by Germany, to undermine the Russian war effort",
+            "Led the October Revolution, 1917",
+            "Murder attempt by anarchist Fanny Kaplan, 30 August 1918",
+            "First head of government of Soviet Russia, 1917-1924",
+            "First head of government of the Soviet Union, 1922-1924",
+            "Death (stroke, atherosclerosis), 21 January 1924"
+        ],
+        "latitude": 54.316667,
+        "longitude": 48.366667
     },
     "Antananarivo": {
         "country": "Madagascar",
@@ -2165,7 +2185,11 @@
     "Moscow": {
         "country": "⚔ Russia",
         "remarkable": [
-            "Joseph Stalin, 1878-1953",
+            "Ioseb Besarionis dze Jughashvili (Joseph Stalin), 1878-1953",
+            "Trotsky and Zinoviev were expelled from the Communist Party, 12 November 1927",
+            "Trotsky was deported from the Soviet Union, February 1929",
+            "Stalin became de facto leader of the Soviet Union, 1929",
+            "Trotsky was assassinated in Mexico on Stalin's orders, August 1940",
             "General Secretary of the Communist Party, 1922-1952"
         ],
         "latitude": 55.751244,
