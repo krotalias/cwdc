@@ -1465,6 +1465,28 @@
         "latitude": 51.049999,
         "longitude": -114.066666
     },
+    "Yorba Linda": {
+        "country": "California (United States)",
+        "remarkable": [
+            "Richard Milhous Nixon, 1913-1994",
+            "Whittier College, September 1930-1934",
+            "Duke University School of Law, 1934-1937",
+            "Marine Aircraft Group 25 (Lt at New Caledonia), 2 July 1943 - 15 July 1944",
+            "Officer-in-charge of the advance detachment on Bougainville, 1 January 1944",
+            "Promoted to the rank of lieutenant commander, 3 October 1945 - 10 March 1946",
+            "36th U.S. Vice President, 20 January 1953 - 20 January 1961",
+            "37th U.S. President, 20 January 1969 - 9 August 1974",
+            "Telephone Conversation With the Apollo 11 Astronauts on the Moon, 20 July 1969",
+            "Expanded the Vietnam War to include Cambodia and Laos, 30 April 1970",
+            "Environmental Protection Agency (pollution-control standards), 2 December 1970",
+            "Visits China (direct relations after a 21-year estrangement), 21 February 1972",
+            "Watergate scandal, 17 June 1972 - 9 August 1974",
+            "Ended American combat involvement in Vietnam, 27 January 1973",
+            "Resigned from office (first and only U.S. president to do so), 9 August 1974"
+        ],
+        "latitude": 33.88863,
+        "longitude": -117.81311
+    },
     "San Gabriel": {
         "country": "United States",
         "remarkable": [
