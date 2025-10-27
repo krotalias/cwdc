@@ -1343,7 +1343,7 @@
     "Tampico": {
         "country": "Illinois (United States)",
         "remarkable": [
-            "Ronald Reagan, 1911-2004",
+            "Ronald Wilson Reagan, 1911-2004",
             "Eureka College, 1928-1932",
             "Holliwood career, 1937-1964",
             "Army limited service (severe myopia), 19 April 1942 - 9 December 1945",
@@ -1387,6 +1387,28 @@
         ],
         "latitude": 41.47583143,
         "longitude": -91.572664376
+    },
+    "Hope": {
+        "country": "Arkansa (United States)",
+        "remarkable": [
+            "William Jefferson Blythe III (Bill Clinton), 1946",
+            "Georgetown University, Bachelor of Science, 1964-1968",
+            "Oxford University (Rhodes Scholar), 1968-1970",
+            "Yale Law School, Juris Doctor, 1970-1973",
+            "40th Governor of Arkansas, 3 January 1979 - 19 January 1981",
+            "42nd Governor of Arkansas, 14 January 1983 - 11 December 1992",
+            "42nd U.S. President, 20 January 1993 - 20 January 2001",
+            "Signed the NAFTA into law, 1 January 1994",
+            "First official White House website, 29 July 1994",
+            "Signed the Omnibus Crime Bill, 13 September 1994",
+            "Signed the Defense of Marriage Act, 21 September 1996",
+            "Monica Lewinsky scandal, 26 January 1998",
+            "Impeached by the House of Representatives, 19 December 1998",
+            "Acquitted by the Senate, 12 February 1999",
+            "Signed Gramm-Leach-Bliley Act, 12 November 1999"
+        ],
+        "latitude": 33.676389,
+        "longitude": -93.59
     },
     "Ames": {
         "country": "Iowa (United States)",
