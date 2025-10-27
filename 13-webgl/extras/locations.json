@@ -1340,6 +1340,29 @@
         "latitude": 17.21999912,
         "longitude": -89.621164182
     },
+    "Tampico": {
+        "country": "Illinois (United States)",
+        "remarkable": [
+            "Ronald Reagan, 1911-2004",
+            "Eureka College, 1928-1932",
+            "Holliwood career, 1937-1964",
+            "Army limited service (severe myopia), 19 April 1942 - 9 December 1945",
+            "30th Governor of California, 2 January 1967 - 6 January 1975",
+            "40th U.S. President, 20 January 1981 - 20 January 1989",
+            "Attempt of muder by John Hincley Jr., 30 March 1981",
+            "Star Wars program (SDI), 23 March 1983",
+            "Arm control pact with the Soviet leader Michail Gorbachev, 1987",
+            "Contras in Nicaragua (fund anti-Sandinista group), 1981-1990",
+            "Arms trafficking to Iran, 1982-1986",
+            "to free hostages being held in Lebanon by Hezbollah",
+            "TWA Flight 847 hijacking (147 pax), 14 June 1985 - 30 June 1985",
+            "Iran-Contra Affair, 20 August 1985 - 4 March 1987",
+            "Ended the Cold War, 1989-1991",
+            "Alzheimer's disease, 1994"
+        ],
+        "latitude": 41.627778,
+        "longitude": -89.785556
+    },
     "New Orleans": {
         "country": "Louisiana (United States)",
         "remarkable": [
