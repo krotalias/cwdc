@@ -25,7 +25,21 @@
         "country": "⚔ England (United Kingdom)",
         "remarkable": [
             "Winston Churchill, 1874-1965",
-            "Prime Minister, 10 May 1940"
+            "Cadet in the cavalry, September 1893 - 1894",
+            "British Army (Colonel), 28 February 1895 - 1924",
+            "President of the Board of Trade, 12 April 1908 - 2 June 1910",
+            "Mines Eight Hours Bill, 1909",
+            "Trade Boards Bill, 1909",
+            "First Lord of the Admiralty, 25 May 1911 - 15 October 1915",
+            "Mediterranean Expeditionary Force, March, 1915",
+            "Assault (disaster) at Gallipoli, 25 April 1915 - 9 January 1916",
+            "Secretary of State for War and Air, 1919-1921",
+            "First Lord of the Admiralty, September 1939 - May 1940",
+            "Prime Minister, 10 May 1940 -  26 July 1945",
+            "Atlantic Charter (statement with Roodevelt), 14 August 1941",
+            "Prime Minister: 1951-1955",
+            "Order of the Garter (KG), 1953",
+            "The Blitz (Battle of Britain), 10 July 1940 - 11 May 1941"
         ],
         "latitude": 51.8474887,
         "longitude": -1.3545343
@@ -2810,6 +2824,22 @@
         ],
         "latitude": 41.67713,
         "longitude": 26.555715
+    },
+    "Galipolli": {
+        "country": "East Thrace, (Turkey)",
+        "remarkable": [
+            "Miltiades the Elder, 590-525 BC",
+            "Athenian general and statesman",
+            "Established Athenian colony on Gallipoli peninsula, 550 BC",
+            "Delian League, 478 BC",
+            "Cleruchies on Thracian Chersonese (Gallipoli Peninsula), 448 BC",
+            "Part of thr Eastern Roman Empire (Byzantine Empire), 395-1354",
+            "Earhquake, 2 March 1354",
+            "Fall of Gallipoli by the Ottoman Turks, March 1354",
+            "Battle of Gallipoli (WW I), 25 April 1915 - 9 January 1916"
+        ],
+        "latitude": 40.3499986,
+        "longitude": 26.4666648
     },
     "Dardanelles": {
         "country": "Hellespont (Turkey)",
