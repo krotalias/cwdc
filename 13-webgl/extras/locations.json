@@ -21,8 +21,8 @@
         "latitude": 52.8107,
         "longitude": -0.632
     },
-    "Woodstock": {
-        "country": "⚔ England (United Kingdom)",
+    "Blenheim Palace": {
+        "country": "⚔ Woodstock (United Kingdom)",
         "remarkable": [
             "Sir Winston Leonard Spencer Churchill, 1874-1965",
             "Cadet in the cavalry, September 1893 - 1894",
@@ -43,8 +43,8 @@
             "Honorary U.S. citizen, 9 April 1963",
             "The Blitz (Battle of Britain), 10 July 1940 - 11 May 1941"
         ],
-        "latitude": 51.8474887,
-        "longitude": -1.3545343
+        "latitude": 51.841301,
+        "longitude": -1.361227
     },
     "Stratford-upon-Avon": {
         "country": "England (United Kingdom)",
