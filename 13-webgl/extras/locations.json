@@ -1784,6 +1784,31 @@
         "latitude": -33.8688,
         "longitude": 151.2093
     },
+    "Hobart": {
+        "country": "Tasmania (Australia)",
+        "remarkable": [
+            "Anthony van Diemen, 1593-1645",
+            "Governor-General of the Dutch East Indies, 1636-1645",
+            "Abel Tasman, 1603-1659",
+            "Sighted the west coast of Tasmania, 24 November 1642",
+            "Lord Hobart, 1760-1816",
+            "Secretary of State for War and the Colonies, 1801-1804",
+            "David Collins (Colonel), 1756-1810",
+            "Founded a penal colony in Port Phillip, September 1803",
+            "First Lieutenant-Governor of Van Diemen's Land, 1804-1810",
+            "Royal Hobart Botanical Gardens, 1818",
+            "City of Hobart, 21 August 1842",
+            "Tasmanian Museum and Art Gallery, 1846",
+            "Constitution Act 1855 (Tas), 16 July 1855",
+            "Van Diemen's Land renamed Tasmania (self-governing), 1 January 1856",
+            "Tasman Bridge disaster (bulk carrier Lake Illawarra), 5 January 1975",
+            "Tasmanian Devil facial tumor disease, 1996",
+            "World Heritage Site (UNESCO), 1982",
+            "Founded, 21 February 1804"
+        ],
+        "latitude": -42.880556,
+        "longitude": 147.325
+    },
     "Saipan": {
         "country": "Northern Mariana Islands (United States)",
         "remarkable": [
