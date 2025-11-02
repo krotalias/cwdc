@@ -2013,6 +2013,23 @@
         "latitude": 10.8225,
         "longitude": 106.754
     },
+    "Jakarta": {
+        "country": "Java (Indonesia)",
+        "remarkable": [
+            "Fatahillah (Javanese military commander), 1470-1570",
+            "Portuguese port, 1522",
+            "Portuguese defeat (conquest of Sunda Kelapa), 1527",
+            "Batavia (EIC), 2 July 1619",
+            "Capital of the Dutch East Indies, 1619-1949",
+            "Java War, 20 July 1825 - 28 March 1830",
+            "Japanese occupation, 1942-1945",
+            "Proclamation of Indonesian Independence, 17 August 1945",
+            "Capital of Indonesia, 1945-present",
+            "Founded, 22 June 1527"
+        ],
+        "latitude": -6.175278,
+        "longitude": 106.826944
+    },
     "Temüjin (Khan Khentii Post)": {
         "country": "Mongolia",
         "remarkable": [
@@ -2021,6 +2038,18 @@
         ],
         "latitude": 48.540643,
         "longitude": 106.9055314
+    },
+    "Krakatoa": {
+        "country": "Indonesia",
+        "remarkable": [
+            "Lucas Janszoon Waghenaer (Dutch cartographer), 1533-1606",
+            "Pulo Carcata, 1611",
+            "Most violent volcanic events in recorded history, 26 August 1883",
+            "165 villages and towns destroyed near Krakatoa (36K deaths), 1883",
+            "Anak Krakatoa emerged from the 1883 caldera, 29 December 1927"
+        ],
+        "latitude": -6.101944,
+        "longitude": 105.422778
     },
     "Sibiryak": {
         "country": "Siberia (Russia)",
