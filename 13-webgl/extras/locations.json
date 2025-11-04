@@ -1520,6 +1520,22 @@
         "latitude": 19.432608,
         "longitude": -99.133209
     },
+    "Albuquerque": {
+        "country": "New Mexico (United States)",
+        "remarkable": [
+            "Jeffrey Preston Jorgensen (Jeff Bezos), 1964",
+            "Princeton University (engineering), 1982-1986",
+            "D. E. Shaw & Co. (vice-president), 1990-1994",
+            "Amazon.com (founder and CEO), 5 July 1994",
+            "Blue Origin (founder and CEO), 8 September 2000",
+            "The Washington Post (owner), 5 August 2013",
+            "Wealthiest person in the world, 2017-2021",
+            "Net worth: $10K, 1994 - $171B, 2024",
+            "First private sub-orbital human spaceflight, 20 July 2021"
+        ],
+        "latitude": 35.084444,
+        "longitude": -106.650278
+    },
     "Easter Island": {
         "country": "Chile",
         "remarkable": [
