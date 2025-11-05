@@ -1126,7 +1126,7 @@
         "longitude": -74.006
     },
     "Staten Island": {
-        "country": "United States",
+        "country": "New York (United States)",
         "remarkable": [
             "Cornelius Vanderbilt (Comodore), 1794-1877",
             "Steamboat entrepreneur, 1817-1846",
@@ -1154,7 +1154,7 @@
         "longitude": -75.8999964
     },
     "Richford": {
-        "country": "United States",
+        "country": "New York (United States)",
         "remarkable": [
             "John Davison Rockefeller, 1839-1937",
             "Standard Oil Company, 1870-1911",
@@ -1593,7 +1593,7 @@
         "longitude": -117.81311
     },
     "San Gabriel": {
-        "country": "United States",
+        "country": "California (United States)",
         "remarkable": [
             "Mission San Gabriel Arcángel, 8 September 1771",
             "Mexican-American War, 25 April 1846 - 2 February 1848",
@@ -1637,7 +1637,7 @@
         "longitude": -122.3320708
     },
     "San Francisco": {
-        "country": "⚔ United States",
+        "country": "⚔ California (United States)",
         "remarkable": [
             "William Halsey Jr. (Fleet Admiral), 1882-1959",
             "Doolittle Raid departure, 2 April 1942"
@@ -1661,10 +1661,17 @@
         "longitude": -149.4499982
     },
     "Anchorage": {
-        "country": "Territory of Alaska (United States)",
+        "country": "Alaska (United States)",
         "remarkable": [
             "Mottrom Dulany Ball, 1835-1887",
-            "Governor of Alaska, 27 March 1878"
+            "Confederate States Army (Lieutenant Colonel), 1861-1865",
+            "Founding Father of Alaska, 1867",
+            "Purchased Alaska from Russia ($7.2M), 30 March 1867",
+            "Customs collector (governor), 27 March 1878 - 13 June 13 1879",
+            "D.A. of the District of Alaska, 9 July 1886",
+            "Alaska Territory established, 24 August 1912",
+            "Kermit Roosevelt (Fort Richardson, suicide by gunshot), 4 June 1943",
+            "Became the 49th U.S. state, 3 January 1959"
         ],
         "latitude": 61.284,
         "longitude": -149.923
@@ -1694,6 +1701,12 @@
     "Honolulu": {
         "country": "Hawaii (United States)",
         "remarkable": [
+            "Capital of the Kingdom of Hawaii, 1 October 1845",
+            "Overthrown of the Hawaiian monarchy, 17 January 1893",
+            "Annexation by the U.S., 7 July 1898",
+            "Territory of Hawaii, 30 April 1900",
+            "Incorporated, 30 April 1907",
+            "Became the 50th U.S. state, 21 August 1959",
             "Barack Obama, 1961",
             "Harvard Law School, 1988-1991",
             "44th U.S. President, 20 January 2009",
@@ -1703,7 +1716,7 @@
         "longitude": -157.855676
     },
     "Pearl Harbor": {
-        "country": "⚔ United States",
+        "country": "⚔ Oahu, Hawaii (United States)",
         "remarkable": [
             "Husband E. Kimmel (Rear Admiral), 1882-1968",
             "Japanese Attack, 7 December 1941"
