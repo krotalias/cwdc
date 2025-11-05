@@ -197,6 +197,27 @@
  * I plan to explore diverse resources, including books, documentaries, and discussions with knowledgeable individuals,
  * to gain a more comprehensive understanding of their rich narratives.</p>
  *
+ * <p>It is possible to cycle through the historical figures by country when
+ * choosing a {@link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 two letter} ISO country code in the interface.
+ * For example, selecting "BR" will display all the figures from Brazil, while "US" will show those from the United States of America.
+ *
+ * The sorting of dates uses the month and year of the last date of the last entry
+ * in the <a href="/cwdc/13-webgl/extras/locations.json">remarkable list</a> field, ignoring the day of the month.
+ * E.g., "The Blitz (Battle of Britain), 10 July 1940 - 11 May 1941" is sorted using "July 1940".</p>
+ *
+ * <p>Dates should be preceded by a comma in the remarkable list
+ * field to be considered for sorting (no error checking is done). Examples:
+ * <pre>
+ *  , 324                       (324)
+ *  , 657 BC                    (-657)
+ *  , 330-1453                  (330)
+ *  , 10 July 1940 - May 1941   (July 1940)
+ *  , 15 July 1099              (July 1099)
+ * </pre>
+ * </p>
+ *
+ * As a final remark, ⚔ (WW) means <i>World War II</i>, ✝ means <i>Crusade</i>, BC means <i>Before Christ</i> and AD means <i>Anno Domini</i>.
+ *
  * <p><b>{@link https://www.youtube.com/watch?v=Otm4RusESNU Homework}</b>:</p>
  *
  * <ol>
