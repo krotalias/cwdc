@@ -454,6 +454,22 @@
         "latitude": -9.964,
         "longitude": -39.164
     },
+    "Euclides da Cunha": {
+        "country": "Bahia (Brazil)",
+        "remarkable": [
+            "Euclides da Cunha, 1866-1909",
+            "Magnum opus 'Os Sertões', 1902",
+            "War of Canudos (witness), 1896-1897",
+            "Tragedy of Piedade (wife's affair), 1909",
+            "Dilermando Cândido de Assis (General), 1888-1951",
+            "Sports shooting athlete (pistol)",
+            "Shot and killed Euclides da Cunha (self defense), 15 August 1909",
+            "Married the widow Ana Emília Ribeiro da Cunha, 12 May 1911",
+            "Shot and killed Euclides da Cunha Filho (self defense), 4 June 1916"
+        ],
+        "latitude": -10.5060624,
+        "longitude": -39.0092396
+    },
     "Vitória": {
         "country": "Espírito Santo (Brazil)",
         "remarkable": [
@@ -1671,7 +1687,7 @@
             "D.A. of the District of Alaska, 9 July 1886",
             "Alaska Territory established, 24 August 1912",
             "Kermit Roosevelt (Fort Richardson, suicide by gunshot), 4 June 1943",
-            "Became the 49th U.S. state, 3 January 1959"
+            "49th U.S. state, 3 January 1959"
         ],
         "latitude": 61.284,
         "longitude": -149.923
@@ -1706,7 +1722,7 @@
             "Annexation by the U.S., 7 July 1898",
             "Territory of Hawaii, 30 April 1900",
             "Incorporated, 30 April 1907",
-            "Became the 50th U.S. state, 21 August 1959",
+            "50th U.S. state, 21 August 1959",
             "Barack Obama, 1961",
             "Harvard Law School, 1988-1991",
             "44th U.S. President, 20 January 2009",
