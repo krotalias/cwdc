@@ -2859,6 +2859,17 @@
         "latitude": 31.439722,
         "longitude": 30.389444
     },
+    "Leningrad": {
+        "country": "⚔ Russia",
+        "remarkable": [
+            "Leningrad first, Donetsk Basin second, Moscow third, 6 August 1941",
+            "Besieged by Germany and Finland for 872 days, but never captured",
+            "Most destructive and deadliest in history (1.5M deaths from a 3.2M population)",
+            "Siege of Leningrad, 8 September 1941 - 27 January 1944"
+        ],
+        "latitude": 59.9375,
+        "longitude": 30.308611
+    },
     "Bila Tserkva": {
         "country": "⚔ Russian Empire (Ukraine)",
         "remarkable": [
