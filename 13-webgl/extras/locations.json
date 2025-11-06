@@ -21,6 +21,26 @@
         "latitude": 52.8107,
         "longitude": -0.632
     },
+    "Normandy": {
+        "country": "⚔ France",
+        "remarkable": [
+            "D-Day, the largest seaborne invasion in history",
+            "156K men landed on D-Day",
+            "57,500 Americans and 75,215 British and Canadians seaborne",
+            "15,500 Americans and 7,900 British airborne",
+            "875K men disembarked by the end of June 1944",
+            "Operation Overlord, 6 June 1944 - 30 August 1944",
+            "Liberation of Paris, 25 August 1944",
+            "80-kilometre stretch of the Normandy coast",
+            "Five sectors: Utah, Omaha, Gold, Juno, and Sword",
+            "Allied casualties D-Day: 10K (4,414 dead, 2,499 Americans)",
+            "German casualties D-Day: 4K-9K killed, 6K captured",
+            "German casualties in Normandy battle: 320K (200K captured)",
+            "Normandy landings, 6 June 1944"
+        ],
+        "latitude": 49.34,
+        "longitude": -0.6
+    },
     "Blenheim Palace": {
         "country": "⚔ Woodstock (United Kingdom)",
         "remarkable": [
@@ -708,7 +728,7 @@
     "Macapá": {
         "country": "Amapá (Brazil)",
         "remarkable": [
-            "Francisco de Orellana (lieutenant), 1511-1546",
+            "Francisco de Orellana (Lieutenant), 1511-1546",
             "Negro River, 3 June 1542",
             "Amazon river mouth, 26 August 1542",
             "Claimed Nueva Andalucía (Amapá), 1544",
@@ -1594,7 +1614,7 @@
             "Duke University School of Law, 1934-1937",
             "Marine Aircraft Group 25 (New Caledonia), 2 July 1943 - 15 July 1944",
             "Officer-in-charge (advance detachment, Bougainville), 1 January 1944",
-            "Promoted to lieutenant commander, 3 October 1945 - 10 March 1946",
+            "Promoted to Lieutenant commander, 3 October 1945 - 10 March 1946",
             "36th U.S. Vice President, 20 January 1953 - 20 January 1961",
             "37th U.S. President, 20 January 1969 - 9 August 1974",
             "Phone conversation with the Apollo 11 on the moon, 20 July 1969",
