@@ -3096,6 +3096,20 @@
         "latitude": 45.7503869,
         "longitude": 19.5214468
     },
+    "Free City of Danzig": {
+        "country": "⚔ Poland",
+        "remarkable": [
+            "German-Polish Non-Aggression Pact of 1934 withdrew, 28 April 1939",
+            "Obersalzberg speech, 22 August 1939",
+            "Polish-British Common Defence Pact, 25 August 1939",
+            "Invasion of Poland, 1 September 1939 - 6 October 1939",
+            "German invasion, 1 September 1939",
+            "Britain and France declared war on Germany, 3 September 1939",
+            "Soviet invasion, 17 September 1939"
+        ],
+        "latitude": 54.4,
+        "longitude": 18.66
+    },
     "Cape of Good Hope": {
         "country": "South Africa",
         "remarkable": [
