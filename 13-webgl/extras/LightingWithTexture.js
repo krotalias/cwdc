@@ -201,18 +201,18 @@
  * choosing a {@link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 two letter} ISO country code in the interface.
  * For example, selecting "BR" will display all the figures from Brazil, while "US" will show those from the United States of America.
  *
- * The sorting of dates uses the month and year of the last date of the last entry
- * in the <a href="/cwdc/13-webgl/extras/locations.json">remarkable list</a> field, ignoring the day of the month.
+ * The sorting of dates uses the day, month and year of the last date of the last entry
+ * in the <a href="/cwdc/13-webgl/extras/locations.json">remarkable list</a> field.
  * E.g., "The Blitz (Battle of Britain), 10 July 1940 - 11 May 1941" is sorted using "July 1940".</p>
  *
  * <p>Dates should be preceded by a comma in the remarkable list
  * field to be considered for sorting (no error checking is done). Examples:
  * <pre>
- *  , 324                       (324)
- *  , 657 BC                    (-657)
- *  , 330-1453                  (330)
- *  , 10 July 1940 - May 1941   (July 1940)
- *  , 15 July 1099              (July 1099)
+ *  , 324                       (1 0 324)
+ *  , 657 BC                    (1 0 -657)
+ *  , 330-1453                  (1 0 330)
+ *  , 10 July 1940 - May 1941   (10 6 1940)
+ *  , 15 July 1099              (15 6 1099)
  * </pre>
  * </p>
  *
@@ -2411,7 +2411,7 @@ function sortCitiesByDate() {
    * However, it does not work with BC dates (negative years).</p>
    *
    * @param {String} v location name.
-   * @return {Number} year of the date (negative for BC dates).
+   * @return {Array<Number>} year (negative for BC dates), month and day of the date.
    * @global
    * @function
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse Date.parse()}
@@ -2440,15 +2440,15 @@ function sortCitiesByDate() {
       const d = new Date(date);
       const year = y.length < 4 ? +y : d.getUTCFullYear();
 
-      return [bc ? -year : year, d.getUTCMonth()];
+      return [bc ? -year : year, d.getUTCMonth(), d.getDate()];
     }
-    return [Number.MIN_SAFE_INTEGER, 0];
+    return [Number.MIN_SAFE_INTEGER, 0, 1]; // must be the first
   };
 
   // temporary array holds objects with position and sort-value
   const mapped = data.map((v, i) => {
     const d = getDate(v);
-    return { i, year: d[0], month: d[1] };
+    return { i, year: d[0], month: d[1], day: d[2] };
   });
 
   // sorting the mapped array containing the reduced values
@@ -2459,10 +2459,12 @@ function sortCitiesByDate() {
     if (a.year < b.year) {
       return -1;
     }
-    return a.month - b.month;
+    const m = a.month - b.month;
+    if (m != 0) return m;
+    return a.day - b.day;
   });
 
-  // mapped is now sorted by year and month
+  // mapped is now sorted by year, month and day
   const timeline = mapped.map((v) => v.year);
   // and the location names are in the same order
   // as the sorted mapped array
