@@ -15,11 +15,20 @@
         "latitude": 51.513,
         "longitude": -0.082
     },
-    "Woolsthorpe-by-Colsterworth": {
-        "country": "England (United Kingdom)",
-        "remarkable": ["Isaac Newton, 1643-1727", "Principia, 5 July 1686"],
-        "latitude": 52.8107,
-        "longitude": -0.632
+    "10 Downing Street": {
+        "country": "⚔ London (United Kingdom)",
+        "remarkable": [
+            "Locale of British prime ministers, 22 September 1735",
+            "Sir Robert Walpole, 1676-1745",
+            "First lord of the Treasury, 3 April 1721 - 11 February 1742",
+            "Sir Winston Leonard Spencer Churchill, 1874-1965",
+            "First Lord of the Admiralty, 3 September 1939 - 10 May 1940",
+            "Atlantic Charter (statement with Roodevelt), 14 August 1941",
+            "Prime Minister, 26 October 1951 - 5 April 1955",
+            "Prime Minister, 10 May 1940 -  26 July 1945"
+        ],
+        "latitude": 51.5033,
+        "longitude": -0.1275
     },
     "Normandy": {
         "country": "⚔ France",
@@ -41,9 +50,17 @@
         "latitude": 49.34,
         "longitude": -0.6
     },
+    "Woolsthorpe-by-Colsterworth": {
+        "country": "England (United Kingdom)",
+        "remarkable": ["Isaac Newton, 1643-1727", "Principia, 5 July 1686"],
+        "latitude": 52.8107,
+        "longitude": -0.632
+    },
     "Blenheim Palace": {
-        "country": "⚔ Woodstock (United Kingdom)",
+        "country": "Woodstock (United Kingdom)",
         "remarkable": [
+            "Home to the Churchill family for 300 years",
+            "World Heritage Site (UNESCO), 1987",
             "John Churchill (General), 1st Duke of Marlborough, 1650-1722",
             "Sir Winston Leonard Spencer Churchill, 1874-1965",
             "Cadet in the cavalry, September 1893 - 1894",
@@ -54,16 +71,9 @@
             "First Lord of the Admiralty, 25 October 1911 - 24 May 1915",
             "Assault (disaster) at Gallipoli, 19 February 1915 - 9 January 1916",
             "Secretary of State for War and Air, 15 January 1919 - 14 February 1921",
-            "First Lord of the Admiralty, 3 September 1939 - 10 May 1940",
-            "Prime Minister, 10 May 1940 -  26 July 1945",
-            "Atlantic Charter (statement with Roodevelt), 14 August 1941",
-            "Prime Minister, 26 October 1951 - 5 April 1955",
             "Order of the Garter (KG), 23 April 1953",
             "Nobel Prize in Literature, 15 October 1953",
-            "Honorary U.S. citizen, 9 April 1963",
-            "Home to the Churchill family for 300 years",
-            "World Heritage Site (UNESCO), 1987",
-            "The Blitz (Battle of Britain), 10 July 1940 - 11 May 1941"
+            "Honorary U.S. citizen, 9 April 1963"
         ],
         "latitude": 51.841301,
         "longitude": -1.361227
