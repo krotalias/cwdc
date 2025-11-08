@@ -2474,10 +2474,12 @@
         "longitude": 36.181667
     },
     "Alexandretta (İskenderun)": {
-        "country": "Turkey",
+        "country": "✝ Turkey",
         "remarkable": [
             "Battle of Issus against King Darius III, 380-330 BC",
-            "Founded by Alexander (key to the Syrian Gates), 333 BC"
+            "Founded by Alexander (key to the Syrian Gates), 333 BC",
+            "Siege of Antioch (first crusade), 20 October 1097 - 28 June 1098",
+            "Included in the principality of Antioch, 1097"
         ],
         "latitude": 36.58718,
         "longitude": 36.17347
