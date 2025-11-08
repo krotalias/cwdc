@@ -1185,6 +1185,28 @@
         "latitude": 40.56233,
         "longitude": -74.13986
     },
+    "Princeton": {
+        "country": "New Jersey (United States)",
+        "remarkable": [
+            "Dr. Henry Walton (Indiana) Jones Jr., 1899-1956",
+            "Marshall College (fictional), 1920-1924",
+            "Princeton University, 1746-present",
+            "Henry Jones Sr. (professor of medieval literature), 1900",
+            "Institute for Advanced Study (IAS), 1930-present",
+            "Albert Einstein, 1879-1955",
+            "Faculty member of IAS, 1933-1955",
+            "Niels Bohr, 1885-1962",
+            "Spring semester, 1939",
+            "J. Robert Oppenheimer, 1904-1967",
+            "Director of IAS, 1947-1966",
+            "Kurt Gödel, 1906-1978",
+            "Completeness theorem (doctoral dissertation), 1929",
+            "Permanent member of IAS until his death, 1946-1978",
+            "Full Professor in the School of Mathematics, 1953 - 1976"
+        ],
+        "latitude": 40.358244,
+        "longitude": -74.666728
+    },
     "Birán": {
         "country": "Cuba",
         "remarkable": [
