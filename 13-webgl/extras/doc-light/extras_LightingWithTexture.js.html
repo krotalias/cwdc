@@ -2468,7 +2468,7 @@ function sortCitiesByDate() {
       const d = new Date(date);
       const year = y.length &lt; 4 ? +y : d.getUTCFullYear();
 
-      return [bc ? -year : year, d.getUTCMonth(), d.getDate()];
+      return [bc ? -year : year, d.getUTCMonth(), d.getUTCDate()];
     }
     return [Number.MIN_SAFE_INTEGER, 0, 1]; // must be the first
   };

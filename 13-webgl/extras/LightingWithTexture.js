@@ -203,7 +203,7 @@
  *
  * The sorting of dates uses the day, month and year of the last date of the last entry
  * in the <a href="/cwdc/13-webgl/extras/locations.json">remarkable list</a> field.
- * E.g., "The Blitz (Battle of Britain), 10 July 1940 - 11 May 1941" is sorted using "July 1940".</p>
+ * E.g., "The Blitz (Battle of Britain), 10 July 1940 - 11 May 1941" is sorted using "10 July 1940".</p>
  *
  * <p>Dates should be preceded by a comma in the remarkable list
  * field to be considered for sorting (no error checking is done). Examples:
@@ -2440,7 +2440,7 @@ function sortCitiesByDate() {
       const d = new Date(date);
       const year = y.length < 4 ? +y : d.getUTCFullYear();
 
-      return [bc ? -year : year, d.getUTCMonth(), d.getDate()];
+      return [bc ? -year : year, d.getUTCMonth(), d.getUTCDate()];
     }
     return [Number.MIN_SAFE_INTEGER, 0, 1]; // must be the first
   };
