@@ -1315,6 +1315,16 @@
         "latitude": 25.0533517,
         "longitude": -77.322805
     },
+    "Toronto": {
+        "country": "Ontario (Canada)",
+        "remarkable": [
+            "York, 27 August 1793",
+            "University of Toronto, 1827",
+            "Incorporated as a town, 6 March 1834"
+        ],
+        "latitude": 43.653611,
+        "longitude": -79.383889
+    },
     "Panama Canal": {
         "country": "Panama",
         "remarkable": [
@@ -1645,10 +1655,15 @@
         "longitude": -109.45
     },
     "Calgary": {
-        "country": "Canada",
+        "country": "Alberta (Canada)",
         "remarkable": [
+            "Incorporated as a Town, 7 November 1884",
+            "University of Alberta (Edmonton), 1908",
+            "University of Alberta in Calgary, 1958-1966",
+            "Calgary University, 26 April 1966",
             "Peter Lougheed, 1928-2012",
-            "Premier of Alberta, 1971-1985"
+            "Premier of Alberta, 1971-1985",
+            "Founded, 1875"
         ],
         "latitude": 51.049999,
         "longitude": -114.066666
@@ -1727,6 +1742,17 @@
         ],
         "latitude": 37.77493,
         "longitude": -122.41942
+    },
+    "Vancouver": {
+        "country": "British Columbia (Canada)",
+        "remarkable": [
+            "Gastown, 1 July 1867",
+            "Granville, 10 March 1870",
+            "Renamed Vancouver, 6 April 1886",
+            "Canadian Pacific Railway, 1887-1888"
+        ],
+        "latitude": 49.260833,
+        "longitude": -123.113889
     },
     "Tahiti": {
         "country": "French Polynesia (France)",
