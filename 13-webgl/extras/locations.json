@@ -790,6 +790,21 @@
         "latitude": 64.166666,
         "longitude": -51.7333304
     },
+    "St. John's": {
+        "country": "Newfoundland and Labrador (Canada)",
+        "remarkable": [
+            "Discovered, 24 June 1497",
+            "Sir Humphrey Gilbert, 1539-1583",
+            "First overseas colony under Royal Charter, 5 August 1583,",
+            "Siege of St. John's, 1705",
+            "Battle of St. John's, 1 January 1709",
+            "Seven Years' War (French and Indian War), 1756-1763",
+            "Battle of Signal Hill (French surrendered), 15 September 1762",
+            "Incorporated as a town, 30 August 1888"
+        ],
+        "latitude": 47.561389,
+        "longitude": -52.711944
+    },
     "Arroio Grande": {
         "country": "Rio Grande do Sul (Brazil)",
         "remarkable": [
@@ -1188,10 +1203,10 @@
     "Princeton": {
         "country": "New Jersey (United States)",
         "remarkable": [
-            "Dr. Henry Walton (Indiana) Jones Jr., 1899-1956",
+            "Dr. Henry Walton (Indiana) Jones Jr., 1 July 1899",
             "Marshall College (fictional), 1920-1924",
             "Princeton University, 1746-present",
-            "Henry Jones Sr. (professor of medieval literature), 1900",
+            "Henry Jones Sr. (professor of medieval literature), 1872-1951",
             "Institute for Advanced Study (IAS), 1930-present",
             "Albert Einstein, 1879-1955",
             "Faculty member of IAS, 1933-1955",
@@ -2246,6 +2261,17 @@
         "latitude": 8.0883,
         "longitude": 77.5385
     },
+    "Malé": {
+        "country": "Maldives",
+        "remarkable": [
+            "Portuguese colonisation, 1558-1573",
+            "British protectorate, 16 December 1887",
+            "Independence from the United Kingdom, 26 July 1965",
+            "Second Republic, 11 November 1968"
+        ],
+        "latitude": 4.175278,
+        "longitude": 73.508889
+    },
     "Karachi": {
         "country": "British India (Pakistan)",
         "remarkable": [
@@ -2625,6 +2651,17 @@
         ],
         "latitude": 32.92814,
         "longitude": 35.07647
+    },
+    "Aqaba": {
+        "country": "Jordan",
+        "remarkable": [
+            "Thomas Edward Lawrence (Colonel, Lawrence of Arabia), 1888-1935",
+            "Nasir ibn Ali (Sherif Nasir of Syria)",
+            "Arab Revolt against the Ottoman Empire, 10 June 1916 - 25 October 1918",
+            "Battle of Aqaba, 6 July 1917"
+        ],
+        "latitude": 29.531944,
+        "longitude": 35.005556
     },
     "Tel Aviv-Yafo": {
         "country": "Israel",
