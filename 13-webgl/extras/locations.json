@@ -1155,6 +1155,18 @@
         "latitude": 18.536111,
         "longitude": -72.346389
     },
+    "Montreal": {
+        "country": "Quebec (Canada)",
+        "remarkable": [
+            "French is the city's official language",
+            "Ville Marie, 17 May 1642",
+            "Surrendered to Great Britain, 8 September 1760",
+            "Incorporated as a town, 1832",
+            "Université de Montréal, 1878"
+        ],
+        "latitude": 45.508889,
+        "longitude": -73.554167
+    },
     "Hyde Park": {
         "country": "⚔ New York (United States)",
         "remarkable": [
@@ -1221,6 +1233,18 @@
         ],
         "latitude": 40.358244,
         "longitude": -74.666728
+    },
+    "Otawa": {
+        "country": "Ontario (Canada)",
+        "remarkable": [
+            "Bytown, 1826",
+            "Rideau Canal, 1826-1832",
+            "Renamed Ottawa, 1 January 1855",
+            "Capital of Canada, 31 December 1857",
+            "University of Ottawa, 1848"
+        ],
+        "latitude": 45.424722,
+        "longitude": -75.695
     },
     "Birán": {
         "country": "Cuba",
