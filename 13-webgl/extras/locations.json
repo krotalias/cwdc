@@ -2297,6 +2297,16 @@
         "latitude": 56.942222,
         "longitude": 60.473333
     },
+    "Port Louis": {
+        "country": "Mauritius",
+        "remarkable": [
+            "Isle de France, 1715-1810",
+            "United Kingdom seized the island, 1810",
+            "Independence from the United Kingdom, 12 March 1968"
+        ],
+        "latitude": -20.2,
+        "longitude": 57.5
+    },
     "Strait of Hormuz": {
         "country": "Iran, Oman, United Arab Emirates",
         "remarkable": [
