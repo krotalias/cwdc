@@ -383,20 +383,19 @@
         "country": "Alagoas (Brazil)",
         "remarkable": [
             "Deodoro da Fonseca (Field Marshall), 1827-1892",
-            "Maria Adelaide Andrade Neves Meireles (Baronesa do Triunfo), 1838-1929",
             "Military School in Rio, 1843-1847",
             "War of Paraguai (hero), 1864-1870",
             "Republican Manifest, 3 December 1870",
-            "Comandante de armas da província do Rio Grande do Sul, 1883-1887",
+            "Commander of arms of Rio Grande do Sul, 1883-1887",
             "Questão Militar (military conduct reform), 1886-1887",
-            "Presidente da Província do Rio Grande do Sul, 8 May 1886 - 9 November 1886",
+            "President of Rio Grande do Sul, 8 May 1886 - 9 November 1886",
             "1st President of the Military Club, 1887-1889",
             "Military coup that established the Republic, 15 November 1889",
             "1st President of Brazil, 15 November 1889 - 23 November 1891",
             "Press censorship (decreto rolha), 23 December 1889",
             "Censorship reinforcement, 29 March 1890",
             "Encilhamento economic crisis (unrestricted credit), 1889-1891",
-            "An unmounted saddled horse doesn't appear twice in the same place",
+            "An unmounted saddled horse doesn't appear twice",
             "Republican Constitution, 24 February 1891",
             "Coup of November, 3 November 1891",
             "Navy revolt and resignation, 23 November 1891"
@@ -809,6 +808,25 @@
         "latitude": 64.166666,
         "longitude": -51.7333304
     },
+    "Rio Pardo": {
+        "country": "Rio Grande do Sul (Brazil)",
+        "remarkable": [
+            "Joaquim de Andrade Neves, 1807-1869",
+            "Baron of Triunfo (General), 19 October 1867",
+            "Maria Adelaide Andrade Neves Meireles, 1838-1929",
+            "Baroness of Triunfo, who atracted the affection",
+            "of Silveira Martins and Deodoro da Fonseca (married)",
+            "Pivot of the political intrigues that led to the fall of the Empire",
+            "Gaspar da Silveira Martins, 1835-1901",
+            "Judge in Rio, 1858-1860",
+            "Minister of Finance, 1878-1879",
+            "Senator of Rio Grande do Sul, 1880-1989",
+            "Exiled in Europe after the fall of the Empire, 1889",
+            "Returned after Deodoro's amnesty, 1892"
+        ],
+        "latitude": -29.98972,
+        "longitude": -52.37806
+    },
     "St. John's": {
         "country": "Newfoundland and Labrador (Canada)",
         "remarkable": [
@@ -834,7 +852,7 @@
             "1 patacão = 960 réis, 1810-1834",
             "Real - Réis (officialized), 1 September 1808 -1942",
             "1 mil-réis = 1000 réis, 8 October 1833-1942",
-            "1 conto de réis (1000$000 réis or 1.4 kg gold), 8 October 1833-1942",
+            "1 conto de réis (1M réis or 1.4 kg gold), 8 October 1833-1942",
             "Estaleiro Mauá (shipyard in Niterói), 1846-1860",
             "Bank of Brasil, 1851",
             "Visconde de Itaboraí, Banco do Brasil + Banco Comercial, 5 July 1853",
