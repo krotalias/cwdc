@@ -529,6 +529,28 @@
         "latitude": -22.88197,
         "longitude": -42.01133
     },
+    "Ilha Fiscal": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Inaugurated (no bathroom), 27 April 1889",
+            "Last ball of the Empire, 9 Novenber 1989",
+            "To honor the officers from Chilean battleship 'Almirante Cochrane',",
+            "The ugly truth was to cebrate Princesa Isabel's silver wedding",
+            "anniversary, whereas count D'Eu was hated by the people",
+            "Benjamin Constant Botelho de Magalhães, 1836-1891",
+            "Colonel (professor), 1855-1889",
+            "Founder of the military club, 1887",
+            "Led a military coup in the afternoon of the same day of the ball",
+            "Considered the founder of the Republic in the Constitution, 1891",
+            "Quintino Antônio Ferreira de Sousa (journalist), 1836-1912",
+            "Bocaiúva went to Deodoro's house to conspire, 11 November 1889",
+            "5th President of Rio de Janeiro, 31 December 1900 - 31 December 1903",
+            "Rode (the only civilian) with Constant and Deodoro",
+            "to the headquarters of the army, 15 November 1889"
+        ],
+        "latitude": -22.89665,
+        "longitude": -43.165905
+    },
     "Rio": {
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
@@ -557,8 +579,6 @@
             "Republican Constituent Assembly, 1889-1891",
             "National Museum, 1892-present",
             "Incorporated into the Federal University of Rio de Janeiro, 1946",
-            "John Johnston (architect), 1816-1821",
-            "Pedro José Pézerát (architect), 1826-1831",
             "Destroyed by fire (unforgivable negligence), 2 September 2018",
             "Pedro II of Brazil, 1825-1891",
             "Emperor of Brazil, 7 April 1831 - 15 November 1889",
