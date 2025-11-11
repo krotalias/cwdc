@@ -473,7 +473,7 @@
             "A group of extremely poor religious fanatics taken as monarchists",
             "Lt. Manuel da Silva Pires Ferreira (1st expedition), 24 November 1896",
             "Major Febrônio de Brito (2nd expedition), 18 January 1897",
-            "Colonel Antônio Moreira César (3rd expedition, killed), 2 March 1897",
+            "Col. Antônio Moreira César (3rd expedition, killed), 2 March 1897",
             "GEN Artur Oscar de Andrade Guimarães (4th expedition), 25 June 1897",
             "Marshal Carlos Machado de Bittencourt, August 1897",
             "Antonio Conselheiro death (dysentery), 22 September 1897",
@@ -529,17 +529,17 @@
         "longitude": -42.01133
     },
     "Fortaleza de Santa Cruz": {
-        "country": "Rio de Janeiro (Brazil)",
+        "country": "Niterói (Brazil)",
         "remarkable": [
-            "Nicolau Durand de Villegaignon, 1510-1571",
-            "Installed two cannons, 1555",
+            "Salvador Correia de Sá, 1577-1599",
+            "Nossa Senhora da Guia (artillery battery), 1584",
             "Capela de Santa Bárbara, 1612",
-            "Fortaleza de Santa Cruz da Barra, 24 January 1613",
+            "Fortress Santa Cruz da Barra, 24 January 1613",
             "Military prisoners kept in underground cells, below the sea level, humid and cold",
             "Gaston Raymond de la Salle (the only inmate to escape), 1710",
-            "Fugitives from Copacabana fort were imprisoned for one year",
+            "Fugitives from Fort Copacabana were imprisoned for one year",
             "in cells with 3 inches of sea water, and threatened with death almost every day",
-            "A visit of General Bonifácio improved the conditions after 6 months, 1922-1923"
+            "A visit of General Bonifácio improved the conditions after 6 months, 1923"
         ],
         "latitude": -22.9349,
         "longitude": -43.13489
@@ -559,7 +559,7 @@
             "Considered the founder of the Republic in the Constitution, 1891",
             "Quintino Antônio Ferreira de Sousa (journalist), 1836-1912",
             "Bocaiúva went to Deodoro's house to conspire, 11 November 1889",
-            "5th President of Rio de Janeiro, 31 December 1900 - 31 December 1903",
+            "5th President of R.J., 31 December 1900 - 31 December 1903",
             "Rode (the only civilian) with Constant and Deodoro",
             "to the headquarters of the army, 15 November 1889"
         ],
@@ -638,9 +638,9 @@
             "War of Paraguay, 13 December 1864 - 1 March 1870",
             "Law of the Free Womb, 28 September 1871",
             "Submarine Telegraph cable (Recife - Portugal), 23 June 1874",
-            "Havas-Reuter news agency monopoly (Agence France-Presse), 1875",
+            "Havas-Reuter news agency monopoly (France-Presse), 1875",
             "Electric lighting in Central do Brasil station, 21 November 1879",
-            "Electric street lighting in Campos dos Goytacazes, 24 February 1883",
+            "Electric lighting in Campos dos Goytacazes, 24 February 1883",
             "Abolition of slavery, 13 May 1888",
             "Forced into exile in Paris after a military coup, 17 November 1889"
         ],
@@ -680,13 +680,26 @@
         "remarkable": [
             "Antônio de Siqueira Campos (Lieutenant), 1898-1930",
             "Eduardo Gomes (First Lieutenant, O-2), 1896-1981",
-            "Tenente revolt (Copacabana fort), 4 July 1922 -  6 July 1922",
+            "Tenente revolt (Fort Copacabana), 4 July 1922 -  6 July 1922",
             "Euclides Hermes da Fonseca (Captain), 1883-1962",
             "Bonifácio Gomes da Costa (General), 1894-1966",
             "Entered the fort unescorted to change the commander and was arrested, 4 July 1922",
+            "Only Campos and Eduardo Gomes survived (badly wounded), 6 July 1922",
+            "Siqueira Campos joined the Coluna Prestes, 1924-1927",
+            "Fatal plane crash in Rio da Prata (Prestes' communist manifesto), 10 May 1930",
+            "18 of the Fort, 4 July 1922 - 6 July 1922"
+        ],
+        "latitude": -22.72306,
+        "longitude": -44.13556
+    },
+    "Forte de Copacabana": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Fort Copacabana, 28 September 1914",
+            "Unofficial history told me by my grand father, 24 June 1903 - 1986",
             "Siqueira Campos pointed a pistol to the general's head and",
             "ordered him to jump from the wall onto the stones on the beach,",
-            "but he was saved by a sargent who convinced Campos to stop",
+            "but he was saved by a sargent who convinced Campos otherwise, 4 July 1922",
             "Euclides da Fonseca (fort commander) left to negotiate and was",
             "arrested but had ordered Campos to bombard the city and",
             "blow up the fort after 2h, which he could not obey",
@@ -694,13 +707,10 @@
             "'You are not cowards, as the officers who already ran away'",
             "said Campos. However, when he saw the few privates from",
             "the night shift coming to dutty, he shouted:",
-            "'Soldiers, join the revolt and come with me to fight!'",
-            "Only Campos and Eduardo Gomes survived (badly wounded), 6 July 1922",
-            "Siqueira Campos joined the Coluna Prestes, 1924-1927",
-            "Fatal plane crash in Rio da Prata (Prestes' communist manifesto), 10 May 1930"
+            "'Soldiers, join the revolt and come with me to fight!', 6 July 1922"
         ],
-        "latitude": -22.72306,
-        "longitude": -44.13556
+        "latitude": -22.98329,
+        "longitude": -44.18759
     },
     "São Luiz": {
         "country": "Maranhão (Brazil)",
