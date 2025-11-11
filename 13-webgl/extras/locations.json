@@ -539,7 +539,7 @@
             "Gaston Raymond de la Salle (the only inmate to escape), 1710",
             "Fugitives from Copacabana fort were imprisoned for one year",
             "in cells with 3 inches of sea water, and threatened with death almost every day",
-            "Their situation improved after 6 months, when visited by General Bonifácio, 1922-1923"
+            "A visit of General Bonifácio improved the conditions after 6 months, 1922-1923"
         ],
         "latitude": -22.9349,
         "longitude": -43.13489
@@ -591,10 +591,13 @@
             "Palace Conde dos Arcos, 1819",
             "Brazilian Senate, 1826 - 27 April 1925",
             "Law School (UFRJ), 1936",
+            "José Bonifácio de Andrada e Silva (tutor), 1831-1833",
             "Regency period, 1831-1840",
-            "Permanent Triumviral, 1831-1835",
+            "Permanent Triumviral, 18 June 1831 - 12 October 1835",
             "Una of Diogo Antônio Feijó, 12 October 1835 - 19 September 1837",
-            "Una of Pedro de Araújo Lima (Marquês de Olinda), 1837-1840"
+            "Una of Pedro de Araújo Lima, 19 September 1837 - 23 July 1840",
+            "Pedro II majority legally declared (14 years old), 23 July 1840",
+            "Pedro II Crowned Emperor (15 years old), 18 July 1841"
         ],
         "latitude": -22.907134,
         "longitude": -43.190569
@@ -676,6 +679,7 @@
         "country": "São Paulo (Brazil)",
         "remarkable": [
             "Antônio de Siqueira Campos (Lieutenant), 1898-1930",
+            "Eduardo Gomes (First Lieutenant, O-2), 1896-1981",
             "Tenente revolt (Copacabana fort), 4 July 1922 -  6 July 1922",
             "Euclides Hermes da Fonseca (Captain), 1883-1962",
             "Bonifácio Gomes da Costa (General), 1894-1966",
@@ -689,10 +693,10 @@
             "The last privates were released in the morning:",
             "'You are not cowards, as the officers who already ran away'",
             "said Campos. However, when he saw the few privates from",
-            "the night shift coming to dutty he shouted:",
+            "the night shift coming to dutty, he shouted:",
             "'Soldiers, join the revolt and come with me to fight!'",
-            "Two officers survived (badly wounded): Campos and Eduado Gomes, 6 July 1922",
-            "Campos joined the Coluna Prestes, 1924-1927",
+            "Only Campos and Eduardo Gomes survived (badly wounded), 6 July 1922",
+            "Siqueira Campos joined the Coluna Prestes, 1924-1927",
             "Fatal plane crash in Rio da Prata (Prestes' communist manifesto), 10 May 1930"
         ],
         "latitude": -22.72306,
@@ -899,7 +903,7 @@
             "$125000/kg * 1.4 * 115000 / 1B ≈ $20B (2025)",
             "Estaleiro Mauá (shipyard in Niterói), 1846-1860",
             "Bank of Brasil, 1851",
-            "Visconde de Itaboraí, Banco do Brasil + Banco Comercial, 5 July 1853",
+            "Viscount of Itaboraí, Banco do Brasil + Banco Comercial, 5 July 1853",
             "Cia. de Iluminação a Gás do Rio, 25 March 1854 - 21 February 1865",
             "Mauá railroad 14.5km (Magé - Raiz da Serra), 30 April 1854-1888",
             "Baron of Mauá, 30 April 1854",
