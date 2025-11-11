@@ -474,7 +474,7 @@
             "Lt. Manuel da Silva Pires Ferreira (1st expedition), 24 November 1896",
             "Major Febrônio de Brito (2nd expedition), 18 January 1897",
             "Colonel Antônio Moreira César (3rd expedition, killed), 2 March 1897",
-            "General Artur Oscar de Andrade Guimarães (4th expedition), 25 June 1897",
+            "GEN Artur Oscar de Andrade Guimarães (4th expedition), 25 June 1897",
             "Marshal Carlos Machado de Bittencourt, August 1897",
             "Antonio Conselheiro death (dysentery), 22 September 1897",
             "Canudos massacre, 5 October 1897",
@@ -528,6 +528,22 @@
         "latitude": -22.88197,
         "longitude": -42.01133
     },
+    "Fortaleza de Santa Cruz": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Nicolau Durand de Villegaignon, 1510-1571",
+            "Installed two cannons, 1555",
+            "Capela de Santa Bárbara, 1612",
+            "Fortaleza de Santa Cruz da Barra, 24 January 1613",
+            "Military prisoners kept in underground cells, below the sea level, humid and cold",
+            "Gaston Raymond de la Salle (the only inmate to escape), 1710",
+            "Fugitives from Copacabana fort were imprisoned for one year",
+            "in cells with 3 inches of sea water, and threatened with death almost every day",
+            "Their situation improved after 6 months, when visited by General Bonifácio, 1922-1923"
+        ],
+        "latitude": -22.9349,
+        "longitude": -43.13489
+    },
     "Ilha Fiscal": {
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
@@ -568,6 +584,40 @@
         ],
         "latitude": -22.9068,
         "longitude": -43.1729
+    },
+    "Palácio do Conde dos Arcos": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Palace Conde dos Arcos, 1819",
+            "Brazilian Senate, 1826 - 27 April 1925",
+            "Law School (UFRJ), 1936",
+            "Regency period, 1831-1840",
+            "Permanent Triumviral, 1831-1835",
+            "Una of Diogo Antônio Feijó, 12 October 1835 - 19 September 1837",
+            "Una of Pedro de Araújo Lima (Marquês de Olinda), 1837-1840"
+        ],
+        "latitude": -22.907134,
+        "longitude": -43.190569
+    },
+    "Edifício da Praça da República": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Casa da moeda, 1868-1983",
+            "Arquivo Nacional, 3 January 1985",
+            "Museu Casa da Moeda do Brasil, 9 March 2018",
+            "Brazilian real, 1690-1942",
+            "1 pataca = 320 réis, 1695-1834",
+            "1 patacão = 960 réis, 1810-1834",
+            "Real - Réis (officialized), 1 September 1808 - 1 November 1942",
+            "Coinage reform (copper coinage), 1833-1835",
+            "22 karat gold peça (weighed 14.34 grams), 1695-1846",
+            "1 peça = 10K réis, 1834",
+            "1 mil-réis = 1000 réis = 1434 mg gold, 1834-1846",
+            "1 conto de réis (1M réis) = 1.4 kg gold, 1833-1846",
+            "Mil réis = 822.076 mg gold (gold standard), 1846"
+        ],
+        "latitude": -22.90626,
+        "longitude": -43.19067
     },
     "Palácio de São Cristóvão": {
         "country": "Rio (Brazil)",
@@ -630,19 +680,18 @@
             "Euclides Hermes da Fonseca (Captain), 1883-1962",
             "Bonifácio Gomes da Costa (General), 1894-1966",
             "Entered the fort unescorted to change the commander and was arrested, 4 July 1922",
-            "My grand father told me Siqueira Campos pointed a pistol to the general's head",
-            "and ordered him to jump from the wall onto the stones on the beach,",
+            "Siqueira Campos pointed a pistol to the general's head and",
+            "ordered him to jump from the wall onto the stones on the beach,",
             "but he was saved by a sargent who convinced Campos to stop",
-            "Euclides da Fonseca (the fort commander) left to negotiate and was arrested,",
-            "but had ordered Campos to bombard the city and blow up the fort after 2h,",
-            "which he could not obey. The last privates were released in the morning:",
-            "'You are not cowards, as the officers who already ran away', said Campos",
-            "However, when he saw the few privates from the night shift coming to dutty,",
-            "he shouted: 'Soldiers, join the revolt and come with me to fight!'",
+            "Euclides da Fonseca (fort commander) left to negotiate and was",
+            "arrested but had ordered Campos to bombard the city and",
+            "blow up the fort after 2h, which he could not obey",
+            "The last privates were released in the morning:",
+            "'You are not cowards, as the officers who already ran away'",
+            "said Campos. However, when he saw the few privates from",
+            "the night shift coming to dutty he shouted:",
+            "'Soldiers, join the revolt and come with me to fight!'",
             "Two officers survived (badly wounded): Campos and Eduado Gomes, 6 July 1922",
-            "The fugitives were imprisoned for one year, in Fortaleza de Santa Cruz,",
-            "in cells with 5 inches of sea water, and were threatened with death almost every day ",
-            "Their situation improved after 6 months, when visited by General Bonifácio",
             "Campos joined the Coluna Prestes, 1924-1927",
             "Fatal plane crash in Rio da Prata (Prestes' communist manifesto), 10 May 1930"
         ],
@@ -848,11 +897,6 @@
             "Irineu Evangelista de Sousa, 1813-1889",
             "Net worth: 115$000 contos or 118% imperial budget (1867)",
             "$125000/kg * 1.4 * 115000 / 1B ≈ $20B (2025)",
-            "1 pataca = 320 réis, 1695-1834",
-            "1 patacão = 960 réis, 1810-1834",
-            "Real - Réis (officialized), 1 September 1808 -1942",
-            "1 mil-réis = 1000 réis, 8 October 1833-1942",
-            "1 conto de réis (1M réis or 1.4 kg gold), 8 October 1833-1942",
             "Estaleiro Mauá (shipyard in Niterói), 1846-1860",
             "Bank of Brasil, 1851",
             "Visconde de Itaboraí, Banco do Brasil + Banco Comercial, 5 July 1853",
