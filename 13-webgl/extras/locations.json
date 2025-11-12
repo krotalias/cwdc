@@ -257,8 +257,7 @@
             "Lisbon earthquake, 1 November 1755",
             "John VI of Portugal, 1767-1826",
             "Prince regent of Portugal, 1799-1816",
-            "Court in Brazil, 22 January 1808 - 26 April 1821",
-            "Banco do Brasil, 12 October 1808 - 23 September 1829",
+            "Moved the court to Brazil, 22 January 1808 - 26 April 1821",
             "King of Portugal, 1816-1826"
         ],
         "latitude": 38.7077507,
@@ -584,6 +583,26 @@
         ],
         "latitude": -22.9068,
         "longitude": -43.1729
+    },
+    "Banco do Brasil": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Historical building (Rua Primeiro de Março, 66), 1906",
+            "Hosted Associação Comercial do Rio de Janeiro, 15 July 1809",
+            "Bank of Brazil headquarters, 1920",
+            "Cultural Center Bank of Brazil (CCBB), 12 de October 1989",
+            "Established by Prince Regent John VI of Portugal, 12 October 1808",
+            "First bank in Brazil and oldest bank in South America",
+            "John VI withdrew all gold deposited in the bank, 1821",
+            "Bankruptcy, 23 September 1829",
+            "Founded (Baron of Mauá), 1851",
+            "Joaquim José Rodrigues Torres, 1802-1872",
+            "Finance Minister, 11 May 1852 - 6 September 1853",
+            "Merged BB with Banco Comercial, 5 July 1853",
+            "Viscount of Itaboraí, 11 December 1854"
+        ],
+        "latitude": -22.900776,
+        "longitude": -43.17644
     },
     "Palácio do Conde dos Arcos": {
         "country": "Rio de Janeiro (Brazil)",
@@ -912,9 +931,7 @@
             "Net worth: 115$000 contos or 118% imperial budget (1867)",
             "$125000/kg * 1.4 * 115000 / 1B ≈ $20B (2025)",
             "Estaleiro Mauá (shipyard in Niterói), 1846-1860",
-            "Bank of Brasil, 1851",
-            "Viscount of Itaboraí, Banco do Brasil + Banco Comercial, 5 July 1853",
-            "Cia. de Iluminação a Gás do Rio, 25 March 1854 - 21 February 1865",
+            "Rio de Janeiro Gas Company Ltd., 25 March 1854 - 21 February 1865",
             "Mauá railroad 14.5km (Magé - Raiz da Serra), 30 April 1854-1888",
             "Baron of Mauá, 30 April 1854",
             "Banco Mauá, MacGregor & Cia (merchant bank), 30 April 1855-1866",
