@@ -2367,6 +2367,33 @@
         "latitude": 60.0,
         "longitude": 105.0
     },
+    "Singapore": {
+        "country": "⚔ Republic of Singapore",
+        "remarkable": [
+            "British governor Stamford Raffles, 28 January 1819",
+            "Battle of Singapore, 8 February 1942 - 15 February 1942",
+            "Japanese occupation, 15 February 1942 - 12 September 1945",
+            "British crown colony, 1 April 1946",
+            "Self-governance, 3 June 1959",
+            "Merger with Malaysia, 16 September 1963",
+            "Proclamation of Singapore, 9 August 1965",
+            "Released from Japanese occupation, 12 September 1945"
+        ],
+        "latitude": 1.283333,
+        "longitude": 103.833333
+    },
+    "Kuala Lumpur": {
+        "country": "⚔ Malasya",
+        "remarkable": [
+            "Captured by the Imperial Japanese Army, 11 January 1942",
+            "Japanese surrendered to the British , 15 August 1945",
+            "Independence from the United Kingdom, 31 August 1957",
+            "Formation of Malaysia, 16 September 1963",
+            "Surrender of Japanese forces, 13 September 1945"
+        ],
+        "latitude": 3.147778,
+        "longitude": 101.695278
+    },
     "Bukittinggi": {
         "country": "Sumatra (Indonesia)",
         "remarkable": [
