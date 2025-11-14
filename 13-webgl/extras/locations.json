@@ -1999,7 +1999,7 @@
         "remarkable": [
             "Raymond A. Spruance (Admiral), 1886-1969",
             "Task Force 16 (Carriers Enterprise and Hornet)",
-            "Battle of Midway, 4 June 1942"
+            "Battle of Midway, 4 June 1942 - 7 June 1942"
         ],
         "latitude": 28.1999992,
         "longitude": -177.3499986
@@ -2020,7 +2020,7 @@
         "country": "⚔ Kiribati",
         "remarkable": [
             "Richmond K. Turner (Admiral), 1885-1961",
-            "Battle of Tarawa, 20 November 1943"
+            "Battle of Tarawa, 20 November 1943 - 23 November 1943"
         ],
         "latitude": 1.3278,
         "longitude": 172.97696
@@ -2111,7 +2111,7 @@
         "longitude": 147.325
     },
     "Saipan": {
-        "country": "Northern Mariana Islands (United States)",
+        "country": "⚔ Northern Mariana Islands (United States)",
         "remarkable": [
             "Claimed by Spain, 1521",
             "Spanish settlement, 1668",
@@ -2119,6 +2119,7 @@
             "Japanese Mandate, 1918-1944",
             "U.S. territory, 24 July 1947",
             "U.S. citizenship, 24 November 1986",
+            "Richmond K. Turner (Admiral), 1885-1961",
             "Capture of Saipan, 15 June 1944",
             "Battle of Saipan, 9 July 1944"
         ],
@@ -2141,12 +2142,14 @@
         "longitude": 144.83499666
     },
     "Tesendiap": {
-        "country": "Papua New Guinea",
+        "country": "⚔ Papua New Guinea",
         "remarkable": [
-            "The Phantom",
+            "The Phantom is a symbol for tough fighters in PNG",
             "The Ghost Who Walks",
             "Guardian of the Eastern Dark",
-            "The Man Who Cannot Die, 1936"
+            "The Man Who Cannot Die, 1936",
+            "Empire of Japan invaded PNG, 23 January 1942 - 21 July 1942",
+            "Allied recapture PNG, 16 November 1942 - 15 Augst 1945"
         ],
         "latitude": -5.3596276,
         "longitude": 144.4465685
@@ -2250,10 +2253,13 @@
         "longitude": 121.474722
     },
     "Manila": {
-        "country": "Philippines",
+        "country": "⚔ Philippines",
         "remarkable": [
             "Douglas MacArthur (General of The Army), 1880-1964",
-            "Commander of U.S. Army Forces in the Far East, 26 July 1941"
+            "Commander of U.S. Army Forces in the Far East, 26 July 1941",
+            "Japanese conquest of the Philippines, December 1941 - 8 May 1942",
+            "Liberation of the Philippines, 20 October 1944 - 15 August 1945",
+            "Battle of Manila, 3 February 1945 - 3 March 1945"
         ],
         "latitude": 14.5946,
         "longitude": 120.99501
