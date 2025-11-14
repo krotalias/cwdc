@@ -859,16 +859,13 @@
             "Followed the 'fake letters crisis' in the Military Club, 1922",
             "Prestes column (1.5K men, 25K km, 13 states), 1924-1927",
             "Moved to Soviet Union, 1931-1934",
-            "Olga Benário Prestes, 1908-1942",
-            "Married Olga in Moscow and returned to Brazil, 1934",
+            "Married Olga Benário in New York, 26 March 1935",
             "Intentona comunista (comm uprising, 5 days), 23 November 1935",
-            "Olga was deported to Germany (pregnant), 1936",
-            "Arrested by Gestapo in Berlin, 18 October 1936",
-            "Executed in the gas chamber of Benburg, 23 April 1942",
-            "Convicted to 30 years, released by Vargas amnesty, 1936-1945",
+            "Arrested and Olga deported to Germany (pregnant), 5 March 1936",
+            "Convicted to 30 years (released by Vargas amnesty), 1936-1945",
             "General secretary of Brazilian Communist Party, 1943-1980",
             "Senator (mandate revoked), 1 February 1946 - 9 January 1948",
-            "Legal circulation of 'A Classe Operária', 9 March 1946 - May 1949",
+            "Legal circulation: 'A Classe Operária', 9 March 1946 - May 1949",
             "Military coup of 1964, 1 April 1964 - 15 March 1985",
             "Lived in exile in USSR and Czechoslovakia, 1964-1979",
             "Returned to Brazil after amnesty law, 28 August 1979",
@@ -3643,6 +3640,18 @@
         ],
         "latitude": 44.1,
         "longitude": 11.983333
+    },
+    "Munich": {
+        "country": "⚔ Bavaria (Germany)",
+        "remarkable": [
+            "Olga Gutmann Benário, 1908-1942",
+            "Getúlio Vargas signed her deportation from Brazil, 27 August 1936",
+            "Embarked on a ship to Hamburg (pregnant), 23 September 1936",
+            "Arrested by Gestapo in Berlin, 18 October 1936",
+            "Executed in the gas chamber of Benburg, 23 April 1942"
+        ],
+        "latitude": 48.1375,
+        "longitude": 11.575
     },
     "Bologna": {
         "country": "Papal States (Italy)",
