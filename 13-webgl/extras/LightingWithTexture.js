@@ -199,7 +199,10 @@
  *
  * <p>It is possible to cycle through the historical figures by country when
  * choosing a {@link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 two letter} ISO country code in the interface.
- * For example, selecting "BR" will display all the figures from Brazil, while "US" will show those from the United States of America.
+ * For example, selecting "BR" will display all the figures from
+ * <a href="https://www.instagram.com/reel/DRE-B9zjxzB/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">Brazil</a>,
+ * while "US" will show those from the
+ * <A href="https://www.instagram.com/reel/DRHM2NHj7O_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">United States of America</a>.
  *
  * The sorting of dates uses the day, month and year of the last date of the last entry
  * in the <a href="/cwdc/13-webgl/extras/locations.json">remarkable list</a> field.
@@ -218,7 +221,8 @@
  *
  * <b>Note:</b> ⚔ (WW) means <i><a href="../images/WWII.mp4">World War II</a></i>,
  * ✝ means <i><a href="../images/Crusades.mp4">Crusade</a></i>,
- * BC means <i>Before Christ</i> and AD means <i>Anno Domini</i>.
+ * BC means <i><a href="https://www.instagram.com/reel/DRHRmcOD_KR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">Before Christ</a></i>
+ * and AD means <i>Anno Domini</i>.
  *
  * <p><b>{@link https://www.youtube.com/watch?v=Otm4RusESNU Homework}</b>:</p>
  *
