@@ -527,6 +527,25 @@
         "latitude": -22.88197,
         "longitude": -42.01133
     },
+    "Viçosa": {
+        "country": "Minas Gerais (Brazil)",
+        "remarkable": [
+            "Artur da Silva Bernardes, 1875-1955",
+            "Itabira Iron deal (Percival Farquhar), 29 May 1920,",
+            "12th President of Brazil, 15 November 1922 - 15 November 1926",
+            "State of emergency (martial law), 1922-1927",
+            "4th Auxiliary Police Bureau, 1922-1933",
+            "Manoel Lopes Carneiro da Fontoura (Marshal Darkness), 1858-1934",
+            "Massive arrests and torture, November 1922 - April 1926",
+            "Bombing of São Paulo (503 dead), 5 July 1924 - 28 July 1924",
+            "A third of the city's inhabitants became refugees",
+            "Clevelândia penal colony (Amapá), 1924-1926",
+            "Known as the Brazilian Siberia (Torture garden)",
+            "Federal University of Viçosa, 1926"
+        ],
+        "latitude": -20.7535,
+        "longitude": -42.8824
+    },
     "Fortaleza de Santa Cruz": {
         "country": "Niterói (Brazil)",
         "remarkable": [
@@ -861,7 +880,12 @@
             "Luís Carlos Prestes (Captain), 1898-1990",
             "Military Engineer, December 1919 - September 1924",
             "Followed the 'fake letters crisis' in the Military Club, 1922",
-            "Prestes column (1.5K men, 25K km, 13 states), 1924-1927",
+            "Prestes column, 27 December 1924 - 23 March 1927",
+            "1.5K men, 25K km, 13 states (against Artur Bernardes)",
+            "Exiled in Bolivia, 1927",
+            "Move to Buenos Aires, June 1928",
+            "Rejected the 1930 Revolution plan, 1930",
+            "Manifesto Comunista, 29 May 1930",
             "Moved to Soviet Union, 1931-1934",
             "Married Olga Benário in New York, 26 March 1935",
             "Intentona comunista (comm uprising, 5 days), 23 November 1935",
