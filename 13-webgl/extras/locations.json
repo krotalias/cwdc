@@ -623,6 +623,19 @@
         "latitude": -22.9068,
         "longitude": -43.1729
     },
+    "Palácio Monroe": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Palace Monroe, 1904",
+            "Brazilian Senate, 1925-1960",
+            "Rio-Niterói bridge (13.29 km), 1969 - 4 March 1974",
+            "O Globo (newspaper) and Lúcio Costa demanded its demolition, 1974",
+            "Unforgivable loss to the city during the military dictatorship",
+            "Building's demolition (Ernesto Geisel), 11 October 1975"
+        ],
+        "latitude": -22.91245,
+        "longitude": -43.17545
+    },
     "Banco do Brasil": {
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
