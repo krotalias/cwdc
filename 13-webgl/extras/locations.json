@@ -2894,6 +2894,25 @@
         "latitude": 29.531944,
         "longitude": 35.005556
     },
+    "João Pessoa": {
+        "country": "Paraíba (Brazil)",
+        "remarkable": [
+            "Fort of São Filipe, 1 May 1584",
+            "Our Lady of the Snows, 1585-1586",
+            "Renamed Filipeia de Nossa Senhora das Neves, 1588",
+            "Dutch inavasion, 24 December 1634",
+            "Renamed Fredrikstad, 1634-1654",
+            "Dutch rule, 1637 - 26 January 1654",
+            "Parahyba do Norte, 1654-1930",
+            "João Pessoa Cavalcanti de Albuquerque, 1878-1930",
+            "President of Paraíba, 22 October 1928 - 26 July 1930",
+            "Murdered in Recife (João Duarte Dantas), 26 July 1930",
+            "Parahyba do Norte renamed João Pessoa, 1 September 1930",
+            "Founded, 5 August 1585"
+        ],
+        "latitude": -7.115,
+        "longitude": -34.86306
+    },
     "Tel Aviv-Yafo": {
         "country": "Israel",
         "remarkable": [
