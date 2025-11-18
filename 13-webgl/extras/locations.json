@@ -693,6 +693,24 @@
         "latitude": -22.90626,
         "longitude": -43.19067
     },
+    "Palácio do Catete": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "António Clemente Pinto, 1795-1869",
+            "Baron of Nova Friburgo, 28 March 1854",
+            "Residence construction, 1858-1866",
+            "Palace of Catete (153 Catete st.), 1867",
+            "Prudente de Morais, 1841-1902",
+            "3rd President of Brazil, 15 November 1894 - 15 November 1898",
+            "Official residence of the President of Brazil, 24 February 1897",
+            "Getúlio Dornelles Vargas, 1882-1954",
+            "17th President of Brazil, 31 January 1951 - 24 August 1954",
+            "Tonelero Street Attack on Carlos Lacerda, 5 August 1954",
+            "Suicide by gunshot, 24 August 1954"
+        ],
+        "latitude": -22.9366,
+        "longitude": -43.2182
+    },
     "Palácio de São Cristóvão": {
         "country": "Rio (Brazil)",
         "remarkable": [
@@ -849,6 +867,18 @@
         "latitude": -15.94740009,
         "longitude": -47.87779999
     },
+    "Monumental Axis": {
+        "country": "Distrito Federal (Brazil)",
+        "remarkable": [
+            "Jânio da Silva Quadros, 1917-1992",
+            "22nd President of Brazil, 31 January 1961 - 25 August 1961",
+            "João Belchior Marques Goulart, 1919-1976",
+            "24th President of Brazil, 7 September 1961 - 1 April 1964",
+            "Military coup of 1964, 1 April 1964 - 15 March 1985"
+        ],
+        "latitude": -15.786944,
+        "longitude": -47.903611
+    },
     "Belém": {
         "country": "Pará (Brazil)",
         "remarkable": [
@@ -926,7 +956,6 @@
             "General secretary of Brazilian Communist Party, 1943-1980",
             "Senator (mandate revoked), 1 February 1946 - 9 January 1948",
             "Legal circulation: 'A Classe Operária', 9 March 1946 - May 1949",
-            "Military coup of 1964, 1 April 1964 - 15 March 1985",
             "Lived in exile in USSR and Czechoslovakia, 1964-1979",
             "Returned to Brazil after amnesty law, 28 August 1979",
             "Founded, 26 March 1772"
@@ -1038,8 +1067,6 @@
             "National deputy, 1923",
             "Revolution of 1930, 3 October 1930",
             "14th President of Brazil, 3 November 1930 - 29 October 1945",
-            "17th President of Brazil, 31 January 1951 - 24 August 1954",
-            "Suicide by gunshot, 24 August 1954",
             "Constitutionalist Revolution, 1932",
             "Women's suffrage, 24 February 1932",
             "FDR metting, 26 November 1936",
