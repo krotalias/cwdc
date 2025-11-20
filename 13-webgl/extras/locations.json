@@ -529,6 +529,25 @@
         "latitude": -20.31944,
         "longitude": -40.33778
     },
+    "Macaé": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Washington Luís Pereira de Sousa, 1869-1957",
+            "13th President of Brazil, 15 November 1926 - 24 October 1930",
+            "Abolished political prisons (Trindade and Clevelândia), 1927",
+            "Celerada Act (censorship, right of assembly), 12 August 1927",
+            "First Infant Code in Brazil, 12 October 1927",
+            "Federal Highway Police, 24 July 1928",
+            "Rio-Petrópolis highway, 28 August 1928",
+            "Deposed by a military coup, 24 October 1930 - 3 November 1930",
+            "General Tasso Fragoso, 1869-1945",
+            "General Mena Barreto, 1874-1933",
+            "Admiral Isaías de Noronha, 1873-1963",
+            "Exiled in Europe and U.S, 1930-1947"
+        ],
+        "latitude": -22.370833,
+        "longitude": -41.786944
+    },
     "Cabo Frio": {
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
@@ -550,7 +569,9 @@
         "country": "Minas Gerais (Brazil)",
         "remarkable": [
             "Artur da Silva Bernardes, 1875-1955",
-            "Itabira Iron deal (Percival Farquhar), 29 May 1920,",
+            "Crisis of the fake letters, 9 October 1921 - 24 March 1922",
+            "Offenses published in newspaper Correio da Manhã",
+            "against former presidents Hermes da Fonseca and Nilo Peçanha",
             "12th President of Brazil, 15 November 1922 - 15 November 1926",
             "State of emergency (martial law), 1922-1927",
             "4th Auxiliary Police Bureau, 1922-1933",
