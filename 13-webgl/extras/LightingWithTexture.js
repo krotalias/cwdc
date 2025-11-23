@@ -1444,9 +1444,12 @@ const handleKeyPress = ((event) => {
       if (isMap) {
         y = viewport[3] - y;
         canvastip.style.top = `${y + 5}px`;
-        canvastip.style.left = `${x}px`;
+        canvastip.style.left = `${x + 30}px`;
         canvastip.innerHTML = `${currentLocation}, ${country}<br>${remarkable.join("<br>")}`;
         canvastip.style.display = "block";
+        if (canvastip.offsetLeft + canvastip.offsetWidth > viewport[2]) {
+          canvastip.style.left = `${x}px`;
+        }
         // on the map
         x = Math.floor(uv.s * textimg.width);
         y = Math.floor(uv.t * textimg.height);
