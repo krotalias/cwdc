@@ -2436,14 +2436,46 @@
         "latitude": 3.354681,
         "longitude": 117.596543
     },
+    "Feng Town": {
+        "country": "China",
+        "remarkable": [
+            "Gaozu of Han (Liu Bang), 256-195 BC",
+            "King of Han, 206-202 BC",
+            "First Emperor of the Han dynasty, 202-195 BC",
+            "Silk route, 114 BC - 1450 AD",
+            "Han dynasty (Golden Age of China), 206 BC - 220 AD"
+        ],
+        "latitude": 34.674,
+        "longitude": 116.618
+    },
     "Beijing": {
         "country": "China",
         "remarkable": [
+            "Zhou dynasty (longest span of any dynasty), 1046-256 BC",
+            "Temple of Heaven, 1406-1420",
+            "Forbidden City, 1420-1924",
+            "Puyi (last emperor of China), 1906-1967",
+            "11th monarch of the Qing dynasty, 1908-1912",
+            "Emperor of Manchukuo Reign, 1 March 1934 - 17 August 1945",
+            "Imprisioned in Fushun Centre, 20 November 1950 - 17 June 1959",
             "Mao Zedong, 1893-1976",
-            "People's Republic of China (PRC), 1949"
+            "Founded People's Republic of China (PRC), 1 October 1949"
         ],
         "latitude": 39.916668,
         "longitude": 116.383331
+    },
+    "Handan": {
+        "country": "China",
+        "remarkable": [
+            "Qin Shi Huang, 259-210 BC",
+            "First Emperor of the Qin dynasty, 221-210 BC",
+            "Unified China, 221 BC",
+            "Started construction of the Great Wall of China, 214 BC",
+            "Terracotta Army, 210 BC",
+            "Qin dynasty, 221-206 BC"
+        ],
+        "latitude": 36.601,
+        "longitude": 114.487
     },
     "Hong Kong": {
         "country": "China",
