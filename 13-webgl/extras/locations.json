@@ -1581,6 +1581,21 @@
         "latitude": 25.0533517,
         "longitude": -77.322805
     },
+    "Shadwell": {
+        "country": "Virginia (United States)",
+        "remarkable": [
+            "Thomas Jefferson, 1743-1826",
+            "College of William & Mary (natural philosophy), 25 March 1760 - April 1762",
+            "Founding Father and primary author of",
+            "the Declaration of Independence, 4 July 1776",
+            "3rd U.S. President, 4 March 1801 - 4 March 1809",
+            "Louisiana Purchase, 30 April 1803",
+            "Lewis and Clark Expedition, 14 May 1804 - 23 September 1806",
+            "Embargo Act, 22 December 1807"
+        ],
+        "latitude": 38.012383,
+        "longitude": -78.417778
+    },
     "Staunton": {
         "country": "Virginia (United States)",
         "remarkable": [
