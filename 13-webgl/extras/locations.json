@@ -1714,6 +1714,20 @@
         "latitude": 42.316667,
         "longitude": -83.15
     },
+    "Point Pleasant": {
+        "country": "Ohio (United States)",
+        "remarkable": [
+            "Hiram Ulysses Grant (General of the Armies), 1822-1885",
+            "United States Military Academy at West Point, 1839-1843",
+            "United States Army (Union Army - Captain), 1839-1854",
+            "American Civil War, 12 April 1861 - 26 May 1865",
+            "Commanding General of the U.S. Army, 10 March 1864 - 4 March 1869",
+            "Implemented Congressional Reconstruction, 2 March 1867 - 1877",
+            "18th U.S. President, 4 March 1869 - 4 March 1877"
+        ],
+        "latitude": 38.894444,
+        "longitude": -84.233889
+    },
     "Hodgenville": {
         "country": "Kentucky (United States)",
         "remarkable": [
