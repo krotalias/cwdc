@@ -581,7 +581,7 @@
             "A third of the city's inhabitants became refugees",
             "Clevelândia penal colony (Amapá), 1924-1926",
             "Known as the Brazilian Siberia (Torture garden)",
-            "Federal University of Viçosa, 1926"
+            "Federal University of Viçosa, 30 March 1922"
         ],
         "latitude": -20.7535,
         "longitude": -42.8824
@@ -807,7 +807,7 @@
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
             "Fort Copacabana, 28 September 1914",
-            "João Roma (unofficial history), 24 June 1903 - 1986",
+            "João Roma Abreu e Lima (unofficial history), 24 June 1903 - 1986",
             "Siqueira Campos pointed a pistol to the general's head and",
             "ordered him to jump from the wall onto the stones on the beach,",
             "A sargent who convinced Campos otherwise, saved him, 4 July 1922",
@@ -885,6 +885,18 @@
         ],
         "latitude": -23.96306,
         "longitude": -46.39194
+    },
+    "São Paulo": {
+        "country": "São Paulo (Brazil)",
+        "remarkable": [
+            "Founding of São Paulo by Jesuits, 25 January 1554",
+            "Miguel Alberto Crispim Rodrigo da Costa (Major), 1855-1959",
+            "Public force of São Paulo (cavalry commander), 1870-1931",
+            "São Paulo Revolt (leader), 5 July 1924 - 28 July 1924",
+            "Miguel Costa-Prestes column, 1924-1927"
+        ],
+        "latitude": -23.5514,
+        "longitude": -46.6328
     },
     "Brodowski": {
         "country": "São Paulo (Brazil)",
@@ -982,22 +994,34 @@
         "country": "Rio Grande do Sul (Brazil)",
         "remarkable": [
             "Luís Carlos Prestes (Captain), 1898-1990",
-            "Military Engineer, December 1919 - September 1924",
-            "Followed the 'fake letters crisis' in the Military Club, 1922",
-            "Prestes column, 27 December 1924 - 23 March 1927",
-            "1.5K men, 25K km, 13 states (against Artur Bernardes)",
-            "Exiled in Bolivia and Buenos Aires, 1927-1928",
             "Communist Manifest, 29 May 1930",
-            "Moved to Soviet Union, 1931-1934",
-            "Married Olga Benário in New York, 26 March 1935",
+            "Moved to Soviet Union, 7 November 1931 - 29 December 1934",
+            "Married Olga Gutmann Benário in New York, 26 March 1935",
+            "Arrived in Brazil as Antônio Vilar married to Maria Bergner Vilar, April 1935",
             "Intentona comunista (comm uprising, 5 days), 23 November 1935",
             "Arrested and Olga was deported to Germany, 5 March 1936",
             "Convicted to 30 years (released by Vargas amnesty), 1936-1945",
             "General secretary of Brazilian Communist Party, 1943-1980",
             "Senator (mandate revoked), 1 February 1946 - 9 January 1948",
             "Legal circulation: 'A Classe Operária', 9 March 1946 - May 1949",
-            "Exiled in USSR and Czechoslovakia, 1964 - 28 August 1979",
-            "Founded, 26 March 1772"
+            "Exiled in USSR and Czechoslovakia, 1964 - 28 August 1979"
+        ],
+        "latitude": -29.60652,
+        "longitude": -51.12903
+    },
+    "Porto da Viamão": {
+        "country": "Rio Grande do Sul (Brazil)",
+        "remarkable": [
+            "Treaty of Tordesillas, 7 June 1494",
+            "Governorate of New Andalusia (Crown of Castile), 1534-1542",
+            "Spanish jesuit missions, 1627 - 1654",
+            "Portuguese inavasion, 1680",
+            "Treaty of Madrid (abandoned Treaty of Tordesillas), 13 January 1750",
+            "Treaty of El Pardo (annulled treaty of Madrid), 12 February 1761",
+            "Treaty of Santo Ildefonso (Portugal definitive possession), 1 October 1777",
+            "Treaty of Badajoz (missions go to Portugal), 6 June 1801",
+            "Porto Alegre, 14 November 1821",
+            "Founded (Freguesia de São Francisco do Porto dos Casais), 26 March 1772"
         ],
         "latitude": -30.03306,
         "longitude": -51.23
@@ -1079,6 +1103,20 @@
         ],
         "latitude": -11.232286,
         "longitude": -53.184815
+    },
+    "Santo Ângelo": {
+        "country": "Rio Grande do Sul (Brazil)",
+        "remarkable": [
+            "Luís Carlos Prestes (Captain), 1898-1990",
+            "Military Engineer, December 1919 - September 1924",
+            "Followed the 'crisis of the fake letters' in the Military Club, 1922",
+            "Cdr. of the 1st Frontier Battalion (Batalhão Ferroviário) of Santo Ângelo, 1923",
+            "Prestes column to depose Artur Bernardes by fighting in 13 states",
+            "1.5K men traversed 25K km, 27 December 1924 - 23 March 1927",
+            "Exiled in Bolivia, Buenos Aires and Montevidéu, 1927-1931"
+        ],
+        "latitude": -28.2995,
+        "longitude": -54.2615
     },
     "Santarém": {
         "country": "Pará (Brazil)",
