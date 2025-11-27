@@ -726,7 +726,7 @@
             "Official residence of the President of Brazil, 24 February 1897",
             "Getúlio Dornelles Vargas, 1882-1954",
             "17th President of Brazil, 31 January 1951 - 24 August 1954",
-            "Tonelero Street Attack on Carlos Lacerda, 5 August 1954",
+            "180 Tonelero Street Attack on Carlos Lacerda, 5 August 1954",
             "Suicide by gunshot, 24 August 1954"
         ],
         "latitude": -22.9366,
@@ -1104,6 +1104,19 @@
         "latitude": -11.232286,
         "longitude": -53.184815
     },
+    "Caçapava do Sul": {
+        "country": "Rio Grande do Sul (Brazil)",
+        "remarkable": [
+            "Antônio Augusto Borges de Medeiros, 1863-1961",
+            "Law School of São Paulo and Recife, 1881-1885",
+            "Federal deputy, 15 November 1890 - 31 December 1892",
+            "President of Rio Grande do Sul, 25 January 1898 - 25 January 1908",
+            "Presidente of Rio Grande do Sul, 25 January 1913 - 25 January 1928",
+            "Federal deputy, 6 July 1935 - 10 November 1937"
+        ],
+        "latitude": -30.5114,
+        "longitude": -53.4897
+    },
     "Santo Ângelo": {
         "country": "Rio Grande do Sul (Brazil)",
         "remarkable": [
@@ -1139,10 +1152,15 @@
     "São Borja": {
         "country": "⚔ Rio Grande do Sul (Brazil)",
         "remarkable": [
-            "Getúlio Vargas, 1882-1954",
+            "Getúlio Dornelles Vargas, 1882-1954",
+            "Brazilian Army (Sergeant), 1898-1903",
             "State attorney, 1907-1908",
-            "National deputy, 1923",
+            "Ximangos x Maragatos (Medeiros x Assis Brasil), 25 January 1923 - 14 December 1923",
+            "National deputy, 26 May 1923 - 6 November 1926",
+            "Finance Minister, 15 November 1926 - 17 December 1927",
+            "13th Presidente of Rio Grande do Sul, 25 January 1928 - 24 October 1930",
             "Revolution of 1930, 3 October 1930",
+            "Washington Luís resignation, 24 October 1930",
             "14th President of Brazil, 3 November 1930 - 29 October 1945",
             "Constitutionalist Revolution, 1932",
             "Women's suffrage, 24 February 1932",
