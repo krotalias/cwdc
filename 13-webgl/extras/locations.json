@@ -721,6 +721,7 @@
             "Baron of Nova Friburgo, 28 March 1854",
             "Residence construction, 1858-1866",
             "Palace of Catete (153 Catete st.), 1867",
+            "Museum of the Republic, 8 March 1960",
             "Prudente de Morais, 1841-1902",
             "3rd President of Brazil, 15 November 1894 - 15 November 1898",
             "Official residence of the President of Brazil, 24 February 1897",
@@ -1057,6 +1058,22 @@
         ],
         "latitude": -29.98972,
         "longitude": -52.37806
+    },
+    "Encruzilhada do Sul": {
+        "country": "Rio Grande do Sul (Brazil)",
+        "remarkable": [
+            "João Cândido Felisberto, 1868-1969",
+            "Entered the Brazilian Navy, 1894",
+            "Battleship Minas Geraes, 10 September 1908 - 16 April 1952",
+            "Battleship São Paulo, 19 April 1909 - 2 August 1947",
+            "Marcelino Rodrigues Menezes (received 250 lashes), 21 November 1910",
+            "Revolt of the Lash, 22 November 1910 - 26 November 1910",
+            "Abolition of corporal punishment in the Brazilian Navy",
+            "Amnesty granted by Hermes da Fonseca, 23 November 1910",
+            "Imprisoned in Rio de Janeiro (Ilha das Cobras), 3 December 1910 - 18 January 1912"
+        ],
+        "latitude": -30.533333,
+        "longitude": -52.516667
     },
     "St. John's": {
         "country": "Newfoundland and Labrador (Canada)",
