@@ -312,6 +312,7 @@
         "remarkable": [
             "Fort of São Filipe, 1 May 1584",
             "Our Lady of the Snows, 1585-1586",
+            "Founded, 5 August 1585",
             "Renamed Filipeia de Nossa Senhora das Neves, 1588",
             "Dutch inavasion, 24 December 1634",
             "Renamed Fredrikstad, 1634-1654",
@@ -319,9 +320,9 @@
             "Parahyba do Norte, 1654-1930",
             "João Pessoa Cavalcanti de Albuquerque, 1878-1930",
             "President of Paraíba, 22 October 1928 - 26 July 1930",
-            "Murdered in Recife (João Duarte Dantas), 26 July 1930",
-            "Parahyba do Norte renamed João Pessoa, 1 September 1930",
-            "Founded, 5 August 1585"
+            "Murdered by João Duarte Dantas (Recife), 26 July 1930",
+            "Changed the history of Brasil (seed to 'getulismo'), 1930",
+            "Parahyba do Norte renamed João Pessoa, 1 September 1930"
         ],
         "latitude": -7.115,
         "longitude": -34.86306
@@ -543,7 +544,8 @@
             "General Tasso Fragoso, 1869-1945",
             "General Mena Barreto, 1874-1933",
             "Admiral Isaías de Noronha, 1873-1963",
-            "Exiled in Europe and U.S, 1930-1947"
+            "Getúlio Vargas provisional government, 3 November 1930 - 20 July 1934",
+            "Exiled in Europe and U.S, 20 November 1930 - 18 September 1947"
         ],
         "latitude": -22.370833,
         "longitude": -41.786944
@@ -1062,7 +1064,7 @@
     "Encruzilhada do Sul": {
         "country": "Rio Grande do Sul (Brazil)",
         "remarkable": [
-            "João Cândido Felisberto, 1868-1969",
+            "João Cândido Felisberto (Black Admiral), 1868-1969",
             "Entered the Brazilian Navy, 1894",
             "Battleship Minas Geraes, 10 September 1908 - 16 April 1952",
             "Battleship São Paulo, 19 April 1909 - 2 August 1947",
