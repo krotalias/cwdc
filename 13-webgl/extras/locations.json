@@ -681,6 +681,24 @@
         "latitude": -22.900776,
         "longitude": -43.17644
     },
+    "Palácio Pedro Ernesto": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Headquarters of the Legislative Branch of Rio de Janeiro, 21 July 1923",
+            "Pedro Ernesto do Rego Baptista, 1888-1942",
+            "Medical school, 1908",
+            "26th Mayor of Rio de Janeiro, 30 September 1931 - 2 Ocetober 1934",
+            "28th Mayor of Rio de Janeiro, 7 April 1935 - 4 April 1936",
+            "Accused of supporting the communist uprising and arrested, 3 April 1936 - 13 September 1937",
+            "Plano Cohen (forgery for justifying the New State coup), 1 October 1937",
+            "Arrested again, 12 October 1937 - January 1938",
+            "Judged and found not guilt, August 1939",
+            "Traveled to America for a surgical intervention, Decembber 1941 - February 1942",
+            "The palace was renamed in his honor, 24 July 1951"
+        ],
+        "latitude": -22.91,
+        "longitude": -43.18
+    },
     "Palácio do Conde dos Arcos": {
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
@@ -797,7 +815,7 @@
             "Preventive coup d'état against President Café Filho, 10 November 1955",
             "Café Filho (President), 24 August 1954 - 8 November 1955",
             "Carlos Luz (President), 8 November 1955 - 11 November 1955",
-            "Carlos Luz fled to Santos aboard the Cruizer Tamandaré, 11 November 1955",
+            "Fled to Santos aboard the Cruizer Tamandaré, 11 November 1955",
             "Impeachment of President Carlos Luz and Café Filho, 11 November 1955",
             "Nereu Ramos (President), 11 November 1955 - 31 January 1956",
             "Ensured the inauguration of President Juscelino Kubitschek, 31 January 1956",
@@ -1210,14 +1228,16 @@
             "Revolution of 1930, 3 October 1930",
             "Washington Luís resignation, 24 October 1930",
             "14th President of Brazil, 3 November 1930 - 29 October 1945",
-            "Constitutionalist Revolution, 9 July 1932 - 4 October 1932",
+            "All communists arrested, 19 January 1931",
             "Women's suffrage, 24 February 1932",
+            "Constitutionalist Revolution, 9 July 1932 - 4 October 1932",
+            "Constitutional goverment, 16 July 1934 - 10 November 1937",
             "FDR meeting, 26 November 1936",
             "New State constitution (dictatorship), 10 November 1937 - 29 October 1945",
             "Outlawed all political parties, 2 December 1937",
             "Brazilian steel mill CSN (Volta Redonda), 9 April 1941",
-            "Battle of the Atlantic and Italy (division with 25K men)",
-            "Led Brazil into World War II, 22 August 1942"
+            "CLT (Consolidation of Labor Laws), 1 May 1943",
+            "Led Brazil into World War II (division with 25K men), 22 August 1942"
         ],
         "latitude": -28.6499974,
         "longitude": -56.0
