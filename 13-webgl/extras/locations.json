@@ -1188,6 +1188,23 @@
         "latitude": -30.5114,
         "longitude": -53.4897
     },
+    "Cruz Alta": {
+        "country": "Rio Grande do Sul (Brazil)",
+        "remarkable": [
+            "Júlio Prates de Castilhos, 1860-1903",
+            "Law School (FDUSP), 15 November 1882",
+            "President of Rio Grande do Sul, 15 July 1891 - 12 November 1891",
+            "State Constitution, 14 July 1891",
+            "Inspired by the positivism of the French philosopher Auguste Comte",
+            "Castilhismo has strongly influenced Borges de Medeiros and Vargas",
+            "Deposed by Deodoro da Fonseca's coup, 3 November 1891",
+            "President of Rio Grande do Sul, 25 January 1893 - 24 January 1898",
+            "Federalist revolution (War of the Beheadings), 2 February 1893 - 23 August 1895",
+            "Battle of Campo Osório (final battle, 10K dead), 24 June 1895"
+        ],
+        "latitude": -28.64,
+        "longitude": -53.6064
+    },
     "Santo Ângelo": {
         "country": "Rio Grande do Sul (Brazil)",
         "remarkable": [
