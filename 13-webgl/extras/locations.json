@@ -1075,6 +1075,30 @@
         "latitude": -30.03306,
         "longitude": -51.23
     },
+    "Triunfo": {
+        "country": "Rio Grande do Sul (Brazil)",
+        "remarkable": [
+            "Bento Gonçalves da Silva, 1788-1847",
+            "First Cisplatine Campaign (corporal), 1811-1812",
+            "Second Cisplatine Campaign (captain), 1816-1821",
+            "Cisplatine War (colonel), 1825-1828",
+            "Commander of the 4th Line Cavalry Regiment, 1829-1835",
+            "Ragamuffin War (Guerra dos Farrapos), 20 September 1835 - 1 March 1845",
+            "Battle of Seival (proclamation of the Republic), 10 September 1836",
+            "Battle of Fanfa (arrested), 4 October 1836",
+            "Fort Lage (Rio), October 1836 - August 1837",
+            "Corte Real and Onofre Pires escaped from Laje, 15 March 1837",
+            "Aclaimed President of Rio Grande do Sul, 6 November 1836",
+            "Escaped from Fort Sea (Bahia), 26 August 1837 - 10 September 1837",
+            "Returned to Rio Grande and took office, 16 December 1837",
+            "Duelled and killed Onofre Pires, 27 February 1844",
+            "Peace of Poncho Verde, 1 March 1845",
+            "Luís Alves de Lima e Silva (Count of Caxias), 1803-1880",
+            "President of Rio Grande do Sul, 9 November 1842 - 11 March 1846"
+        ],
+        "latitude": -29.943,
+        "longitude": -51.7168
+    },
     "Nuuk": {
         "country": "Greenland (Kingdom of Denmark)",
         "remarkable": [
@@ -3900,7 +3924,9 @@
         "remarkable": [
             "Giuseppe Garibaldi, 1807-1882",
             "Anita Garibaldi, 1821-1849",
-            "Ragamuffin War (Guerra dos Farrapos), 1835-1845"
+            "Ragamuffin War (Guerra dos Farrapos), 20 September 1835 - 1 March 1845",
+            "Commander of the ragamuffin navy, 1 September 1838",
+            "Imperial forces recaptured Laguna (Garibaldi fled with Anita), 5 November 1839"
         ],
         "latitude": 40.8521602,
         "longitude": 14.2681244
