@@ -2456,7 +2456,12 @@ function sortCitiesByDate() {
       // date before year 100 is set as 19xx - I gave up...
       const y = date.substring(date.lastIndexOf(" "));
       const d = new Date(date);
-      const year = y.length < 4 ? +y : d.getUTCFullYear();
+      const year =
+        d instanceof Date && !isNaN(d)
+          ? y.length < 4
+            ? +y
+            : d.getUTCFullYear()
+          : +y;
 
       return [bc ? -year : year, d.getUTCMonth(), d.getUTCDate()];
     }
