@@ -2463,7 +2463,9 @@ function sortCitiesByDate() {
             : d.getUTCFullYear()
           : +y;
 
-      return [bc ? -year : year, d.getUTCMonth(), d.getUTCDate()];
+      // new Date ("February 1971") → Invalid Date
+      // Nan (if date is invalid) is always a falsy value in JavaScript
+      return [bc ? -year : year, d.getUTCMonth() || 0, d.getUTCDate() || 1];
     }
     return [Number.MIN_SAFE_INTEGER, 0, 1]; // must be the first
   };
