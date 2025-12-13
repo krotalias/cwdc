@@ -2454,7 +2454,11 @@ function sortCitiesByDate() {
       }
 
       // date before year 100 is set as 19xx - I gave up...
-      const y = date.substring(date.lastIndexOf(" "));
+      const y = date.substring(date.lastIndexOf(" ")).trim();
+      // new Date ("February 1971") → Invalid Date
+      if (date.split(" ").length === 2) {
+        date = `1 ${date}`; // set day to 1
+      }
       const d = new Date(date);
       const year =
         d instanceof Date && !isNaN(d)
@@ -2463,8 +2467,7 @@ function sortCitiesByDate() {
             : d.getUTCFullYear()
           : +y;
 
-      // new Date ("February 1971") → Invalid Date
-      // Nan (if date is invalid) is always a falsy value in JavaScript
+      // NaN (if date is invalid) is always a falsy value in JavaScript
       return [bc ? -year : year, d.getUTCMonth() || 0, d.getUTCDate() || 1];
     }
     return [Number.MIN_SAFE_INTEGER, 0, 1]; // must be the first
