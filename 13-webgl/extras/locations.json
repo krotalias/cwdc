@@ -719,7 +719,7 @@
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
             "Casa da Moeda (National Mint), 1868-1983",
-            "Arquivo Nacional, 3 January 1985",
+            "Arquivo Nacional (National File), 3 January 1985",
             "Museu Casa da Moeda do Brasil, 9 March 2018",
             "Brazilian real, 1690-1942",
             "1 pataca = 320 réis, 1695-1834",
@@ -939,7 +939,7 @@
             "Miguel Alberto Crispim Rodrigo da Costa (Major), 1855-1959",
             "Public force of São Paulo (cavalry commander), 1870-1931",
             "São Paulo Revolt (leader), 5 July 1924 - 28 July 1924",
-            "Miguel Costa-Prestes column, 1924-1927"
+            "Miguel Costa-Prestes column, 27 December 1924 - 23 March 1927"
         ],
         "latitude": -23.5514,
         "longitude": -46.6328
@@ -2423,7 +2423,7 @@
         "country": "⚔ Solomon Islands",
         "remarkable": [
             "Frank Jack Fletcher (Admiral), 1885-1973",
-            "Battle of the Coral Sea, 4 May 1942"
+            "Battle of the Coral Sea, 4 May 1942 - 8 May 1942"
         ],
         "latitude": -16.2666656,
         "longitude": 162.333332
@@ -2432,7 +2432,7 @@
         "country": "⚔ Solomon Islands",
         "remarkable": [
             "William Halsey Jr. (Fleet Admiral), 1882-1959",
-            "Naval Battle of Guadalcanal, 12 November 1942"
+            "Naval Battle of Guadalcanal, 12 November 1942 - 15 November 1942"
         ],
         "latitude": -10.5333312,
         "longitude": 161.0333332
@@ -2543,7 +2543,7 @@
         "country": "⚔ Japan",
         "remarkable": [
             "Harry W. Hill (Vice Admiral), 1890-1971",
-            "Battle of Iwo Jima, 19 February 1945"
+            "Battle of Iwo Jima, 19 February 1945 - 26 March 1945"
         ],
         "latitude": 24.7833302,
         "longitude": 141.3166654
@@ -2596,7 +2596,7 @@
         "remarkable": [
             "Chester W. Nimitz (Fleet Admiral), 1885-1966",
             "Commander in Chief of the U.S. Pacific Fleet, 17 December 1941",
-            "Battle of Okinawa, 1 April 1945"
+            "Battle of Okinawa, 1 April 1945 - 22 June 1945"
         ],
         "latitude": 26.499998,
         "longitude": 127.933329
@@ -2664,7 +2664,7 @@
         "country": "⚔ Indonesia",
         "remarkable": [
             "Leslie Morshead (Lieutenant General), 1889-1959",
-            "Borneo campaign, 1 May 1945"
+            "Borneo campaign, 1 May 1945 - 21 Jul 1945"
         ],
         "latitude": 3.354681,
         "longitude": 117.596543
@@ -3098,7 +3098,7 @@
             "Trotsky and Zinoviev expelled from CPRF, 12 November 1927",
             "Trotsky was deported from the Soviet Union, February 1929",
             "Stalin became de facto leader of the Soviet Union, 1929",
-            "Trotsky murder in Mexico on Stalin's orders, August 1940",
+            "Trotsky murdered in Mexico on Stalin's orders, August 1940",
             "General Secretary of the Communist Party, 1922-1952"
         ],
         "latitude": 55.751244,
@@ -4202,6 +4202,28 @@
         ],
         "latitude": 48.39841,
         "longitude": 9.99155
+    },
+    "Hanover": {
+        "country": "⚔ Germany-Brazil",
+        "remarkable": [
+            "Elise Saborovsky Ewert (Sabo), 1886-1940",
+            "Arthur Ernst Ewert (husband) arrived in Brazil, 6 March 1935",
+            "Arrived in Brazil sent by the Komintern, 11 March 1935",
+            "Arrested at 33 Paul Redfern St, 26 December 1935",
+            "Tortured (beaten, electrocuted, raped) by Filinto Müller's political police, 1936",
+            "Habeas-corpus denied, 2 March 1936",
+            "Arthur was sentenced to 16 years, 7 May 1937",
+            "Pardoned by Vargas amnesty (completely crazy), 1945",
+            "Died in east Germany still out of his mind, 1959",
+            "Getúlio Vargas signed Sabo's deportation from Brazil, 25 August 1936",
+            "Embarked on a ship to Hamburg with Olga Prestes, 23 September 1936 - 18 October 1936",
+            "Tortured in a detention center in Lübeck, 1936",
+            "Forced labor in Lichtenburg concentration camp, March 1938 - 1939",
+            "Forced labor (TB infected) in Ravensbrück, 1939 - 1940",
+            "Died in Ravensbrück concentration camp, 9 February 1940"
+        ],
+        "latitude": 52.366667,
+        "longitude": 9.716667
     },
     "Milan": {
         "country": "Duchy of Milan (Italy)",
