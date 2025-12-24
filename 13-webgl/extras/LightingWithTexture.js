@@ -1018,8 +1018,15 @@ let lightingShader;
 let colorShader;
 
 /**
- * Model matrix.
+ * <p>Model matrix.</p>
+ * <p>Transforms from model coordinates to world coordinates.</p>
+ * Used only when rotating the model around the coordinate axes
+ * {@link frame (intrinsic or extrinsic rotations)}
+ * or along a meridian.
+ * <p>A rotation along a parellel correspond to an intrinsic
+ * rotation around the y-axis.</p>
  * @type {mat4}
+ * @see {@link modelM}
  */
 let modelMatrix = mat4.create();
 
@@ -1097,7 +1104,7 @@ const viewMatrix = mat4.lookAt(
   eye,
   // at - looking at the origin
   vec3.fromValues(0, 0, 0),
-  // up vector - y axis tilt (obliquity)
+  // up vector - y-axis tilt (obliquity)
   vec3.transformMat4([],vec3.fromValues(0, 1, 0),mat4.fromZRotation([], toRadian(23.44))),
 );
 
@@ -1358,9 +1365,18 @@ const handleKeyPress = ((event) => {
   let tri;
   let animationID = null;
   let n, inc;
-  const modelM = mat4.identity([]); // model matrix
+  /**
+   * <p>Model matrix for rotating the model towards the camera
+   * (forward vector).</p>
+   * Used only for displaying a location at the center of the globe.
+   @type {mat4}
+   @global
+   @see {@link modelMatrix}
+  */
+  const modelM = mat4.identity([]);
   const rotationMatrix = mat4.create();
-  const forwardVector = vec3.fromValues(0, 0, 1); // phong highlight
+  // phong highlight and forward vector (Z axix)
+  const forwardVector = vec3.fromValues(0, 0, 1);
   const poly = {
     d: 0,
     i: 1,
@@ -1902,16 +1918,23 @@ function getAngleBetweenVectors(v1, v2) {
 }
 
 /**
- * Rotate the model around a given axis so that its 'north' vector aligns
- * with the screen y axis after applying the given rotation matrix.
+ * Rotate the model around a given axis (forward vector) so that its 'north' vector aligns
+ * with the screen y-axis (up vector) after applying the given rotation matrix,
+ * thus avoiding that the globe looks "upside down" by
+ * keeping the usual convention: Europe up and South America down.</p>
  * @param {mat4} out the receiving matrix.
  * @param {mat4} rotationMatrix transformation matrix applied to model.
  * @param {vec3} rotationAxis rotation axis.
  * @returns {mat4} out.
  * @see {@link https://stackoverflow.com/questions/15022630/how-to-calculate-the-angle-from-rotation-matrix How to calculate the angle from rotation matrix}
+ * @see {@link https://roam-lab.github.io/files/ozaslan2025_euler.pdf Understanding 3D Rotations: EULER Angle Conventions}
+ * @see {@link https://www.cs.utexas.edu/~theshark/courses/cs354/lectures/cs354-14.pdf Rotations and Orientation}
+ * @see {@link https://collections.leventhalmap.org/search/commonwealth:9s161j433 The Wolrd turned Upside Down}
  */
 function setYUp(out, rotationMatrix, rotationAxis) {
+  // 'North' (y) vector in model space (intrinsic frame)
   const north = vec3.fromValues(0, 1, 0);
+  // 'Up' vector in world space (extrinsic frame) after applying rotationMatrix
   const up = vec3.transformMat4([], north, mat4.invert([], rotationMatrix));
   const d = decomposeVector(north, rotationAxis).perp;
 
