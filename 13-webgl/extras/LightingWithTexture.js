@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in Vanilla Javascript and WebGL.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 334 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 335 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -167,7 +167,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">334 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">335 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -322,7 +322,7 @@
  *      <img src="../textures/pattern/check1024border.png" title="1024x1024 checkboard texture" height="310">
  *      <img src="../images/sphere2.png" height="309" title="Sphere">
  *      <img src="../textures/pattern/uv_grid_opengl.jpg" title="1024x1024 grid texture" height="310">
- *      <figcaption style="font-size: 200%">{@link cartesian2Spherical North Pole - Y axis}</figcaption>
+ *      <figcaption style="font-size: 200%">{@link cartesian2Spherical North Pole (y-axis)}</figcaption>
  *      </figure>
  * @see <figure>
  *      <img src="../textures/maps/BigEarth.jpg" height="340" title="earth from nasa">
@@ -1023,7 +1023,7 @@ let colorShader;
  * Used only when rotating the model around the coordinate axes
  * {@link frame (intrinsic or extrinsic rotations)}
  * or along a meridian.
- * <p>A rotation along a parellel correspond to an intrinsic
+ * <p>A rotation along a parellel corresponds to an intrinsic
  * rotation around the y-axis.</p>
  * @type {mat4}
  * @see {@link modelM}
@@ -1375,7 +1375,7 @@ const handleKeyPress = ((event) => {
   */
   const modelM = mat4.identity([]);
   const rotationMatrix = mat4.create();
-  // phong highlight and forward vector (Z axix)
+  // phong highlight and forward vector (z-axix)
   const forwardVector = vec3.fromValues(0, 0, 1);
   const poly = {
     d: 0,
@@ -4226,7 +4226,7 @@ const animate = (() => {
    * The rotation matrices are created at compile (loading) time, so that
    * they can be reused in each frame without recalculating them.
    * The rotation matrices are used to rotate the model
-   * around the x, y, or z axis, depending on the axis chosen.
+   * around the x, y, or z-axis, depending on the axis chosen.
    * The rotation is done by multiplying the model matrix with the
    * rotation matrix, either on the left (extrinsic rotation) or
    * on the right (intrinsic rotation).
