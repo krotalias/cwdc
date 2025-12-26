@@ -1968,7 +1968,17 @@ function rotateGlobeAroundAxis(out, angle, axis) {
 }
 
 /**
- * Rotate the model towards a given vector.
+ * <p>Rotate the model towards a given (forward) vector.</p>
+ * <p>This function returns a rotation matrix to align the model's position
+ * with the given forward vector. The globe will rotate around the axis
+ * perpendicular to both the model's position and the forward vector,
+ * and the angle between them determines the rotation amount.</p>
+ *
+ * As a consequence, the globe's north vector (0,1,0) in the intrinsic frame
+ * can be rotated so that the 'earth' looks upside down.
+ * However, the fix is simple and requires an additional rotation
+ * around the modelForward vector by calling {@link setYUp} to keep
+ * the standard orientation convention: Europe up and South America down.
  * @param {mat4} out the receiving matrix.
  * @param {vec3} modelPosition a model's vector in world coordinates.
  * @param {vec3} modelForward model's forward vector in world coordinates.
