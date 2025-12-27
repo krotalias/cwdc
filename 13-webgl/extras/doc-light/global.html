@@ -16143,11 +16143,13 @@ For instance, a cube's face texture coordinates span from 0 to 1.
 
 
 <div class="description">
-    <p>Rotate the model around a given axis (forward vector) after applying
+    <p>This function rotates the model around a given rotation axis (forward vector) after applying
 a given <a href="global.html#rotateModelTowardsCamera">rotation matrix</a>
-so its 'north' vector aligns with the screen y-axis (up vector).</p>
-This prevents the globe from looking "upside down" by
+so its north vector (0,1,0) aligns with the screen y-axis (up vector).</p>
+<p>The rotation prevents the globe from looking upside down by
 keeping the standard orientation convention: Europe up and South America down.</p>
+<p>Because the coordinate system is intrinsic, the up vector is calculated
+by applying the inverse of the rotation matrix to the north vector.</p> 
 </div>
 
 

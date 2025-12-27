@@ -1918,11 +1918,13 @@ function getAngleBetweenVectors(v1, v2) {
 }
 
 /**
- * <p>Rotate the model around a given axis (forward vector) after applying
+ * <p>This function rotates the model around a given rotation axis (forward vector) after applying
  * a given {@link rotateModelTowardsCamera rotation matrix}
- * so its 'north' vector aligns with the screen y-axis (up vector).</p>
- * This prevents the globe from looking "upside down" by
+ * so its north vector (0,1,0) aligns with the screen y-axis (up vector).</p>
+ * <p>The rotation prevents the globe from looking upside down by
  * keeping the standard orientation convention: Europe up and South America down.</p>
+ * <p>Because the coordinate system is intrinsic, the up vector is calculated
+ * by applying the inverse of the rotation matrix to the north vector.</p>
  * @param {mat4} out the receiving matrix.
  * @param {mat4} rotationMatrix transformation matrix applied to model.
  * @param {vec3} rotationAxis rotation axis.
