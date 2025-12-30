@@ -261,13 +261,13 @@
  *  <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
  *      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
  *  <li>We select a position on the globe by {@link event:pointerdown-theCanvas clicking} a mouse button in the WebGL canvas.</li>
- *  <li>To display the GCS coordinates of the pointer while the globe is spinning, we need to keep track of the
+ *  <li>To display the {@link GCS} coordinates of the pointer while the globe is spinning, we need to keep track of the
  *     {@link cursorPosition cursor position}
  *     and then shoot a ray through this position to find its {@link pixelRayIntersection intersection} on the globe.</li>
  *  <li>Because a {@link isTouchDevice touch device} does not have a cursor position, we can use the Phong {@link phongHighlight highlight}
  *      position on the globe as a cursor.
  *      To do this, we need to know the initial position of the highlight in world coordinates
- *      (0, 0, 1)—or in GCS coordinates (-90°, 0°)—and then transform it into {@link gcs2Screen screen coordinates}.</li>
+ *      (0, 0, 1)—or in {@link GCS} coordinates (-90°, 0°)—and then transform it into {@link gcs2Screen screen coordinates}.</li>
  * <li>
  *  To exhibit a location name in 3D, it is necessary to {@link project transform} its
  * {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system GCS} coordinates
@@ -461,7 +461,7 @@ const toRadian = glMatrix.toRadian;
 /**
  * <p>Canvas element and its tooltip.</p>
  * <p>Canvas is used for drawing the globe and its tooltip is used for displaying
- * the GCS coordinates (longitude and latitude) on the globe when pointer is moved upon.</p>
+ * the {@link GCS} coordinates (longitude and latitude) on the globe when pointer is moved upon.</p>
  * <p>Canvas is a bitmap element that can be used to draw graphics on the fly via scripting (usually JavaScript).
  * It is a part of the HTML5 specification and is supported by all modern browsers.</p>
  * <p>Tooltip is a small pop-up box that appears when the user hovers over an element.
@@ -473,7 +473,7 @@ const toRadian = glMatrix.toRadian;
 const canvas = document.getElementById("theCanvas");
 
 /**
- * <p>Tooltip element for displaying GCS coordinates on the globe.</p>
+ * <p>Tooltip element for displaying {@link GCS} coordinates on the globe.</p>
  * <p>Tooltip is a small pop-up box that appears when the user hovers over
  * an element. It is used to provide additional information about the element,
  * such as its coordinates.</p>
@@ -1282,7 +1282,7 @@ function labelForTimeline(dat) {
 }
 
 /**
- * Returns the closest site to the given GCS position (latitude, longitude).
+ * Returns the closest site to the given {@link GCS} position (latitude, longitude).
  * @param {GCS} position GCS coordinates.
  * @return {String} closest site name.
  */
@@ -1367,15 +1367,28 @@ const handleKeyPress = ((event) => {
   let n, inc;
   /**
    * <p>Model matrix for rotating the model towards the camera
-   * (forward vector).</p>
+   * around the {@link forwardVector forward vector}.</p>
    * Used only for displaying a location at the center of the globe.
    @type {mat4}
    @global
    @see {@link modelMatrix}
   */
   const modelM = mat4.identity([]);
+  /**
+   * <p>Rotation matrix for rotating the model towards the camera.</p>
+   * @type {mat4}
+   * @global
+   */
   const rotationMatrix = mat4.create();
-  // phong highlight and forward vector (z-axix)
+  /**
+   * <p>Current forward vector (0,0,1) or (-90°,0°) in {@link GCS} coordinates,
+   * which corresponds to the z-axis in the intrinsic frame and where the
+   * phong highlight position is set on the globe.</p>
+   * Each time the model is {@link rotationMatrix rotated} towards the camera,
+   * this vector is updated to its new position in the extrinsic frame.
+   * @type {vec3}
+   * @global
+   */
   const forwardVector = vec3.fromValues(0, 0, 1);
   const poly = {
     d: 0,
@@ -1444,6 +1457,7 @@ const handleKeyPress = ((event) => {
 
       if (true) {
         rotateModelTowardsCamera(rotationMatrix, pt, forwardVector);
+        // update forward vector
         vec3.copy(forwardVector, pt);
         mat4.multiply(modelM, modelM, rotationMatrix);
 
@@ -2967,7 +2981,7 @@ function addListeners() {
   });
 
   /**
-   * <p>Displays the GCS coordinates (longitude and latitude )
+   * <p>Displays the {@link GCS} coordinates (longitude and latitude )
    * on the globe when pointer is moved upon.</p>
    * <p>Sets {@link moving} to true if {@link clicked} is also true.</p>
    * <p>The pointermove event is fired when a pointer changes coordinates,
