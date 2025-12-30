@@ -647,6 +647,21 @@
         "latitude": -22.9068,
         "longitude": -43.1729
     },
+    "Palácio Tiradentes": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Joaquim José da Silva Xavier (Ensign), 1746-1792",
+            "Known as Tiradentes (dentist) and hanged for sedition, 21 April 1792",
+            "Palace Tiradentes, 6 May 1926",
+            "House of Representatives, 1926 - 6 April 1960",
+            "Varga's Press and Propaganda Department (DIP), 27 December 1939 - 25 May 1945",
+            "Legislative Assembly of Guanabara, 1960 - 15 March 1975",
+            "Legislative Assembly of Rio de Janeiro (Alerj), 1975 - 3 August 2021",
+            "Museum of Democracy, 2021-present"
+        ],
+        "latitude": -22.9039,
+        "longitude": -43.1739
+    },
     "Palácio Monroe": {
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
