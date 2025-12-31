@@ -2435,6 +2435,22 @@
         "latitude": 1.3278,
         "longitude": 172.97696
     },
+    "Majuro": {
+        "country": "⚔ Marshall Islands",
+        "remarkable": [
+            "John Marshall (British explorer), 1748-1819",
+            "Territory consists of 29 coral atolls and 5 main islands",
+            "German protectorate, 29 August 1885",
+            "Japanese South Seas Mandate, 28 June 1919",
+            "Marshall Islands Campaign, 31 January 1944 - 23 February 1944",
+            "Pacific Proving Grounds (67 nuclear tests), 1946-1958",
+            "Trust Territory of the Pacific Islands (UN-US), 1947 - 25 May 1994",
+            "Independence from the United States, 1 May 1979",
+            "Operation Flintlock, November 1943"
+        ],
+        "latitude": 7.083333,
+        "longitude": 171.383333
+    },
     "Ross Island": {
         "country": "Ross Dependency (United States)",
         "remarkable": [
