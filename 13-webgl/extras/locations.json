@@ -414,7 +414,7 @@
             "Press censorship (decreto rolha), 23 December 1889",
             "Censorship reinforcement, 29 March 1890",
             "Encilhamento economic crisis (unrestricted credit), 1889-1891",
-            "An unmounted saddled horse doesn't appear twice",
+            "An unmounted saddled horse doesn't appear twice at the same place",
             "Republican Constitution, 24 February 1891",
             "Coup of November, 3 November 1891",
             "Naval revolt and resignation, 23 November 1891"
@@ -2421,7 +2421,15 @@
     "Tarawa": {
         "country": "⚔ Kiribati",
         "remarkable": [
-            "Richmond K. Turner (Admiral), 1885-1961",
+            "First inhabited place to see the new day",
+            "The only country with territory in all four hemispheres",
+            "Gilbert, Phoenix, and Line Islands (16 atolls and coral islands)",
+            "Thomas Gilbert (English navigator with the First Fleet), 1788",
+            "Protectorate of the United Kingdom, 27 May 1892",
+            "Gilbert Islands colony, 12 January 1916",
+            "Kiribati independence, 12 July 1979",
+            "The 6th Yokosuka reinforced Betio island, February 1943",
+            "First American offensive in the critical central Pacific region",
             "Battle of Tarawa, 20 November 1943 - 23 November 1943"
         ],
         "latitude": 1.3278,
@@ -2521,7 +2529,7 @@
             "Japanese Mandate, 1918-1944",
             "U.S. territory, 24 July 1947",
             "U.S. citizenship, 24 November 1986",
-            "Richmond K. Turner (Admiral), 1885-1961",
+            "Richmond Kelly Turner (Admiral), 1885-1961",
             "Capture of Saipan, 15 June 1944",
             "Battle of Saipan, 9 July 1944"
         ],
