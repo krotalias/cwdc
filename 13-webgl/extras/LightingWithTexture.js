@@ -1383,8 +1383,8 @@ const handleKeyPress = ((event) => {
   /**
    * <p>Current forward vector (0,0,1) or (-90°,0°) in {@link GCS} coordinates,
    * which corresponds to the z-axis in the intrinsic frame and where the
-   * phong highlight position is set on the globe.</p>
-   * Each time the model is {@link rotationMatrix rotated} towards the camera,
+   * phong {@link lightPosition highlight position} is set on the globe.</p>
+   * Each time the model is {@link rotationMatrix rotated} towards the {@link eye camera},
    * this vector is updated to its new position in the extrinsic frame.
    * @type {vec3}
    * @global
