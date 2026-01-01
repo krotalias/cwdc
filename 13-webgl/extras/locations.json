@@ -2292,6 +2292,37 @@
         "latitude": 49.260833,
         "longitude": -123.113889
     },
+    "Fangataufa": {
+        "country": "☢ French Polynesia (France)",
+        "remarkable": [
+            "Official nuclear French test site, 1963",
+            "First nuclear test by France, 24 September 1966",
+            "4 atmospheric nuclear tests were conducted, 1966-1970",
+            "Number of tests: 14 (4 atmospheric, 10 underground)",
+            "The last atmospheric test was Orion, 2 August 1970",
+            "Comprehensive Test Ban Treaty, 24 September 1996",
+            "Compensation for military personnel, November 2008",
+            "Nuclear tests and health, Feburary 2021",
+            "Last test, 27 January 1996"
+        ],
+        "latitude": -22.25,
+        "longitude": -138.75
+    },
+    "Moruroa": {
+        "country": "☢ French Polynesia (France)",
+        "remarkable": [
+            "Official nuclear French test site, 21 September 1962",
+            "Extensive nuclear testing by France, 1966-1996",
+            "41 atmospheric nuclear tests were conducted, 1966-1974",
+            "Number of tests: 193 (41 atmospheric, 152 underground)",
+            "New Zeland sent two frigates in protest, July 1973",
+            "Major accident (detonated halfway down the 800m shaft), 25 July 1979",
+            "Comprehensive Test Ban Treaty, 24 September 1996",
+            "Last test, 27 December 1995"
+        ],
+        "latitude": -21.833333,
+        "longitude": -138.833333
+    },
     "Tahiti": {
         "country": "French Polynesia (France)",
         "remarkable": [
@@ -2436,7 +2467,7 @@
         "longitude": 172.97696
     },
     "Majuro": {
-        "country": "⚔ Marshall Islands",
+        "country": "⚔ ☢ Marshall Islands",
         "remarkable": [
             "John Marshall (British explorer), 1748-1819",
             "Territory consists of 29 coral atolls and 5 main islands",
@@ -2609,7 +2640,7 @@
         "longitude": 139.6503
     },
     "Hiroshima": {
-        "country": "⚔ Chūgoku (Japan)",
+        "country": "⚔ ☢ Chūgoku (Japan)",
         "remarkable": [
             "Harry S. Truman, 1884-1972",
             "U.S. Army Field Artillery Colonel, 1905-1953",
@@ -2621,7 +2652,7 @@
         "longitude": 132.45
     },
     "Nagasaki": {
-        "country": "⚔ Kyushu (Japan)",
+        "country": "⚔ ☢ Kyushu (Japan)",
         "remarkable": [
             "Robert Oppenheimer, 1904-1967",
             "Manhattan Project's Los Alamos Laboratory Director, 1943-1945",
