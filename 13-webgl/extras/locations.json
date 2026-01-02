@@ -2167,6 +2167,28 @@
         "latitude": 19.432608,
         "longitude": -99.133209
     },
+    "Project Y": {
+        "country": "⚔ ☢ New Mexico (United States)",
+        "remarkable": [
+            "Leslie Richard Groves Jr. (Lieutenant General), 1896-1970",
+            "Director of the Manhattan Project, 23 September 1942",
+            "Enrico Fermi, 1901-1954",
+            "Nobel Prize in Physics, 10 December 1938",
+            "Arrived in New York City, 2 January 1939",
+            "First controlled, self-sustaining nuclear chain reaction, 2 December 1942",
+            "Died from stomach cancer (caused by nuclear pile?), 28 November 1954",
+            "Los Alamos Laboratory, 1 January 1943",
+            "John von Neumann visit, September 1943",
+            "Fat Man, an implosion-type nuclear weapon",
+            "Little Boy, a variant using uranium-235",
+            "The Trinity Test, 16 July 1945",
+            "Atomic Energy Act, 1 August 1946",
+            "Atomic Energy Commission (AEC), 1 January 1947",
+            "Manhattan Engineer District (NYC), 13 August 1942"
+        ],
+        "latitude": 35.880556,
+        "longitude": -106.303889
+    },
     "Albuquerque": {
         "country": "New Mexico (United States)",
         "remarkable": [
@@ -2182,6 +2204,15 @@
         ],
         "latitude": 35.084444,
         "longitude": -106.650278
+    },
+    "Socorro": {
+        "country": "⚔ ☢ New Mexico (United States)",
+        "remarkable": [
+            "New Mexico Institute of Mining and Technology (New Mexico Tech), 1889",
+            "The first-ever test of a nuclear weapon (Trinity), 16 July 1945"
+        ],
+        "latitude": 34.051389,
+        "longitude": -106.888333
     },
     "Easter Island": {
         "country": "Chile",
@@ -2214,6 +2245,17 @@
         ],
         "latitude": 51.049999,
         "longitude": -114.066666
+    },
+    "Nevada Test Site": {
+        "country": "☢ Nevada (United States)",
+        "remarkable": [
+            "Nevada Proving Grounds, 1951",
+            "First atmospheric test, 27 January 1951",
+            "998 nuclear tests (828 underground), 1951-1992",
+            "Last U.S. nuclear test (Operation Julin), 23 September 1992"
+        ],
+        "latitude": 37.116667,
+        "longitude": -116.05
     },
     "Yorba Linda": {
         "country": "California (United States)",
@@ -2477,14 +2519,13 @@
         "longitude": 172.97696
     },
     "Majuro": {
-        "country": "⚔ ☢ Marshall Islands",
+        "country": "⚔ Marshall Islands",
         "remarkable": [
             "John Marshall (British explorer), 1748-1819",
             "Territory consists of 29 coral atolls and 5 main islands",
             "German protectorate, 29 August 1885",
             "Japanese South Seas Mandate, 28 June 1919",
             "Marshall Islands Campaign, 31 January 1944 - 23 February 1944",
-            "Pacific Proving Grounds (67 nuclear tests), 1946-1958",
             "Trust Territory of the Pacific Islands (UN-US), 1947 - 25 May 1994",
             "Independence from the United States, 1 May 1979",
             "Operation Flintlock, November 1943"
@@ -2500,6 +2541,22 @@
         ],
         "latitude": -77.846323,
         "longitude": 166.668235
+    },
+    "Bikini Atoll": {
+        "country": "☢ Marshall Islands",
+        "remarkable": [
+            "U.S. Pacific Proving Grounds (67 nuclear tests), 1946-1958",
+            "Nuclear weapon testing site (23 nuclear tests)",
+            "Castle Bravo shot (considerable nuclear fallout on many islands), 1 May 1954",
+            "Radiation Exposure Compensation Act, 5 October 1990",
+            "World Heritage Site (UNESCO), 2021",
+            "Operation Crossroads (investigate the effect on 95 warships), 1946",
+            "Forced relocation (167 people), 1946",
+            "Fourth nuclear bomb detonation (Gilda), 30 June 1946",
+            "Fifth nuclear bomb detonation (Helen), 24 July 1946"
+        ],
+        "latitude": 11.6,
+        "longitude": 165.4
     },
     "Coral Sea": {
         "country": "⚔ Solomon Islands",
