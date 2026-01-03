@@ -2167,6 +2167,20 @@
         "latitude": 19.432608,
         "longitude": -99.133209
     },
+    "Tularosa": {
+        "country": "☢ New Mexico (United States)",
+        "remarkable": [
+            "First Atomic Bomb (Trinity) consequences",
+            "Fallout area (250 mi long and 200 mi wide), 16 July 1945",
+            "Radiation levels 10K times higher than currently allowed",
+            "Gen. Groves did not evacuate downwinders",
+            "High rates of cancers, birth defects, and other illnesses",
+            "Radiation Exposure Compensation Act (RECA), 4 July 2025",
+            "Tularosa Basin Downwinders victims (lived in NM for 1 year), 1944 - November 1962"
+        ],
+        "latitude": 33.07249971,
+        "longitude": -106.019666588
+    },
     "Project Y": {
         "country": "⚔ ☢ New Mexico (United States)",
         "remarkable": [
@@ -2213,6 +2227,19 @@
         ],
         "latitude": 34.051389,
         "longitude": -106.888333
+    },
+    "Church Rock": {
+        "country": "⚔ ☢ New Mexico (United States)",
+        "remarkable": [
+            "Navajo Nation was situated directly in the uranium mining, 1950s-1980s",
+            "More than 1K mines were established by leases in the reservation, 1944-1986",
+            "3K to 5K Navajo people worked in the uranium mines on their land, 1944-1986",
+            "Risks of lung cancer due to radon exposure was unknown (USPHS), 1962",
+            "Environmental Protection Agency, 9 July 1970",
+            "Church Rock uranium mill spill, 16 July 1979"
+        ],
+        "latitude": 35.650833,
+        "longitude": -108.506389
     },
     "Easter Island": {
         "country": "Chile",
@@ -2551,7 +2578,7 @@
             "Radiation Exposure Compensation Act, 5 October 1990",
             "World Heritage Site (UNESCO), 2021",
             "Operation Crossroads (investigate the effect on 95 warships), 1946",
-            "Forced relocation (167 people), 1946",
+            "Forced relocation (167 inhabitants), 1946",
             "Fourth nuclear bomb detonation (Gilda), 30 June 1946",
             "Fifth nuclear bomb detonation (Helen), 24 July 1946"
         ],
@@ -2713,7 +2740,7 @@
             "U.S. Army Field Artillery Colonel, 1905-1953",
             "34th U.S. Vice President, January 20, 1945",
             "33th U.S. President, 12 April 1945",
-            "Atomic Bombing, 6 August 1945"
+            "Atomic Bombing (135K casualties), 6 August 1945"
         ],
         "latitude": 34.4,
         "longitude": 132.45
@@ -2726,7 +2753,7 @@
             "Harvard University (BA), September 1922 - 28 May 1925",
             "Physics at Cambridge, September 1925 - September 1926",
             "University of Göttingen (PhD), September 1926 - 11 May 1927",
-            "Atomic Bombing, 9 August 1945"
+            "Atomic Bombing (64K casualties), 9 August 1945"
         ],
         "latitude": 32.75,
         "longitude": 129.88333
