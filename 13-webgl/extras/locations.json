@@ -2182,7 +2182,7 @@
         "longitude": -106.019666588
     },
     "Project Y": {
-        "country": "⚔ ☢ New Mexico (United States)",
+        "country": "⚔ ☢ 🧪 New Mexico (United States)",
         "remarkable": [
             "Leslie Richard Groves Jr. (Lieutenant General), 1896-1970",
             "Director of the Manhattan Project, 23 September 1942",
@@ -2202,6 +2202,18 @@
         ],
         "latitude": 35.880556,
         "longitude": -106.303889
+    },
+    "Sandia": {
+        "country": "🧪 Albuquerque, New Mexico (United States)",
+        "remarkable": [
+            "Sandia National Laboratories (SNL), 1949",
+            "Sandia Corporation government-owned, contractor-operated model",
+            "Wholly owned subsidiary of Western Electric, 5 October 1949",
+            "Wholly owned subsidiary of Lockheed Martin, 5 October 1993",
+            "Wholly owned subsidiary of Honeywell International, 1 May 2017 - present"
+        ],
+        "latitude": 35.050657,
+        "longitude": -106.543136
     },
     "Albuquerque": {
         "country": "New Mexico (United States)",
@@ -2317,6 +2329,21 @@
         ],
         "latitude": 34.0990995,
         "longitude": -118.1085554
+    },
+    "Livermore": {
+        "country": "🧪 California (United States)",
+        "remarkable": [
+            "Lawrence Livermore National Laboratory (LLNL), 2 September 1952",
+            "Ernest Orlando Lawrence, 1901 - 1958",
+            "University of South Dakota (B.A. in Chemistry), 1919-1922",
+            "University of Minnesota (M.A. in Physics), 1922-1923",
+            "University of Chicago, 1923-1924",
+            "Yale University (Ph.D. in Physics), 1925",
+            "1st Director of the Berkeley Radiation Laboratory, 1931-1958",
+            "Nobel Prize in Physics (invention of the cyclotron), 10 December 1939"
+        ],
+        "latitude": 37.69,
+        "longitude": -121.71
     },
     "Cupertino": {
         "country": "California (United States)",
