@@ -1959,6 +1959,20 @@
         "latitude": 38.894444,
         "longitude": -84.233889
     },
+    "Oak Ridge": {
+        "country": "⚔ 🧪 Tennessee (United States)",
+        "remarkable": [
+            "Oak Ridge was a secret city built by the Army, 1942",
+            "Clinton Engineer Works (Clinton Labs/ORNL) for the Manhattan Project",
+            "Massive uranium enrichment (Y-12, K-25) and plutonium production",
+            "Oak Ridge National Laboratory (ORNL), 2 February 1943",
+            "Sponsored by the United States Department of Energy",
+            "Manhattan Project's facility (Clinton Laboratories) to produce plutonium",
+            "First reactor going critical, 4 November 1943"
+        ],
+        "latitude": 35.93,
+        "longitude": -84.31
+    },
     "Hodgenville": {
         "country": "Kentucky (United States)",
         "remarkable": [
@@ -1985,6 +1999,16 @@
         ],
         "latitude": 41.866261,
         "longitude": -87.6169805
+    },
+    "Lemont": {
+        "country": "⚔ 🧪 Illinois (United States)",
+        "remarkable": [
+            "Metallurgical Laboratory of the University of Chicago, 1942-1946",
+            "Enrico Fermi's nuclear reactors for the Manhattan Project",
+            "Argonne National Laboratory, 8 February 1946"
+        ],
+        "latitude": 41.709166,
+        "longitude": -87.981992
     },
     "Hartford": {
         "country": "Connecticut (United States)",
@@ -2241,7 +2265,7 @@
         "longitude": -106.888333
     },
     "Church Rock": {
-        "country": "⚔ ☢ New Mexico (United States)",
+        "country": "☢ New Mexico (United States)",
         "remarkable": [
             "Navajo Nation was situated directly in the uranium mining, 1950s-1980s",
             "More than 1K mines were established by leases in the reservation, 1944-1986",
