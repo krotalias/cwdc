@@ -221,6 +221,8 @@
  *
  * <b>Note:</b> ⚔ (WW) means <i><a href="../images/WWII.mp4">World War II</a></i>,
  * ✝ means <i><a href="../images/Crusades.mp4">Crusade</a></i>,
+ * ☢ means <i><a href="../images/radiation.mp4">Radiation</a></i>,
+ * 🧪 means <i><a href="../images/labs.mp4">Laboratory</a></i>,
  * BC means <i><a href="https://www.instagram.com/reel/DRHRmcOD_KR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">Before Christ</a></i>
  * and AD means <i>Anno Domini</i>.
  *
