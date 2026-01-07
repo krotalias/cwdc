@@ -1138,11 +1138,13 @@
         "country": "Greenland (Kingdom of Denmark)",
         "remarkable": [
             "Union with Norway, 1262",
-            "Hans Egede, 1686-1758",
+            "Hans Egede (Danish founder), 1686-1758",
             "Apostle of Greenland, 1711",
             "Treat of Kiel ceded Norway to Sweden, 14 January 1814",
             "Denmark kept Greenland, Faroe Islands and Iceland",
-            "Home rule (greater autonomy from Denmark), 1 May 1979"
+            "12 towns in Greenland with a population exceeding 1K",
+            "Home rule (greater autonomy from Denmark), 1 May 1979",
+            "Founded, 29 August 1728"
         ],
         "latitude": 64.166666,
         "longitude": -51.7333304
@@ -1547,6 +1549,22 @@
         ],
         "latitude": -9.974722,
         "longitude": -67.81
+    },
+    "Pituffik Space Base": {
+        "country": "Greenland (Denmark, United States)",
+        "remarkable": [
+            "German occupation of Denmark, 9 April 1940",
+            "United States authorized to defend the Danish colonies on Greenland, 1940",
+            "Denmark became a founding member of NATO, 4 April 1949",
+            "United States operates the base under a NATO framework, 1951",
+            "Thule Air Base (built in secret, code name Operation Blue Jay), 1951-1953",
+            "Jean Malaurie accidentally discovered the base, 16 June 1951",
+            "Transferred to the United States Space Force, 2020",
+            "Renamed Pituffik Space Base (the only U.S. base), 6 April 2023",
+            "Colonel Susannah Meyers relieved of command, 11 April 2025"
+        ],
+        "latitude": 76.531111,
+        "longitude": -68.703056
     },
     "Santo Domingo": {
         "country": "Island of Hispaniola (Dominican Republic)",
