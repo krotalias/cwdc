@@ -1143,7 +1143,9 @@
             "Treat of Kiel ceded Norway to Sweden, 14 January 1814",
             "Denmark kept Greenland, Faroe Islands and Iceland",
             "12 towns in Greenland with a population exceeding 1K",
+            "Home to about 56K mostly Inuit people",
             "Home rule (greater autonomy from Denmark), 1 May 1979",
+            "Canada is Opening Consulate In Greenland, 2026",
             "Founded, 29 August 1728"
         ],
         "latitude": 64.166666,
@@ -1515,6 +1517,16 @@
         ],
         "latitude": 18.46633,
         "longitude": -66.10572
+    },
+    "Hans Island": {
+        "country": "Canada, Denmark",
+        "remarkable": [
+            "In the centre of the Kennedy Channel (Nares Strait) in the high Arctic region",
+            "Hans Island has been split between Canada and the Danish Realm, 14 June 2022",
+            "Final Danish parliament decision, 19 December 2023"
+        ],
+        "latitude": 80.826389,
+        "longitude": -66.458333
     },
     "Caracas": {
         "country": "Venezuela",
