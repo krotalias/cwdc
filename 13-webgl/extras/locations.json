@@ -474,7 +474,7 @@
         "latitude": -3.7275,
         "longitude": -38.5275
     },
-    "Abrolhos": {
+    "Alhos": {
         "country": "Bahia (Brazil)",
         "remarkable": [
             "Jubarte (humpback) whales breeding ground",
@@ -1531,8 +1531,13 @@
     "Caracas": {
         "country": "Venezuela",
         "remarkable": [
+            "San Bernabé erathquake put the city into decline, 11 June 1671",
             "Simón Bolívar, 1783-1830",
-            "Puerto Cabello, 4 May 1812"
+            "Bolivia, Colombia, Ecuador, Panama, Peru, Venezuela's liberator from Spain",
+            "Venezuela's independence, 5 July 1811",
+            "An earthquake destroyed Caracas, killing 20K people, 26 March 1812",
+            "Commanded/fled Puerto Cabello, 4 May 1812 - 6 July 1812",
+            "Founded, 25 July 1567"
         ],
         "latitude": 10.5060934,
         "longitude": -66.9146008
@@ -1624,6 +1629,22 @@
         ],
         "latitude": -53.9250254,
         "longitude": -71.3221444
+    },
+    "Maracaibo": {
+        "country": "Venezuela",
+        "remarkable": [
+            "Pedro Maldonado (Capitain and founder), ???-1656",
+            "Nueva Zamora de la Laguna de Maracaibo, 8 September 1574",
+            "Henrik de Gerard plundered the city, 1614",
+            "As did British pirate William Jackson, 1642",
+            "François l'Olonnais (8 ships, 600 men) sacked Maracaibo and Gibraltar, 1667",
+            "Henry Morgan raided Maracaibo, 16 March 1669 - 21 May 1669",
+            "Decisive naval battle on Lake Maracaibo, 24 July 1823",
+            "Petroleum was discovered, 1917",
+            "Founded, 8 September 1574"
+        ],
+        "latitude": 10.66663,
+        "longitude": -71.61245
     },
     "Cusco": {
         "country": "Inca Empire (Peru)",
