@@ -1494,7 +1494,7 @@
         "longitude": -63.90389
     },
     "St Croix": {
-        "country": "Virgin Islands (United States)",
+        "country": "☠ Virgin Islands (United States)",
         "remarkable": [
             "Columbus second voyage, 1493-1496",
             "Isla de la Santa Cruz, 14 November 1493",
@@ -1506,8 +1506,20 @@
         "latitude": 17.72751,
         "longitude": -64.74698
     },
+    "Hamilton": {
+        "country": "☠ Bermuda (United Kingdom)",
+        "remarkable": [
+            "English possession, 1609-present",
+            "Henry Hamilton, 1734-1796",
+            "Lt. Governor of Bermuda, 1788-1794",
+            "Town of Hamilton became a city, 1897",
+            "Founded, 1790"
+        ],
+        "latitude": 32.29758,
+        "longitude": -64.80148
+    },
     "San Juan": {
-        "country": "Puerto Rico (United States)",
+        "country": "☠ Puerto Rico (United States)",
         "remarkable": [
             "Spanish possession, 1493-1898",
             "Juan Ponce de León, 1508",
@@ -1584,7 +1596,7 @@
         "longitude": -68.703056
     },
     "Santo Domingo": {
-        "country": "Island of Hispaniola (Dominican Republic)",
+        "country": "☠ Island of Hispaniola (Dominican Republic)",
         "remarkable": [
             "Christopher Columbus first voyage, 1492-1493",
             "Haiti annexation, 1822-1844",
@@ -1657,7 +1669,7 @@
         "longitude": -71.96999612
     },
     "Port-au-Prince": {
-        "country": "Island of Hispaniola (Haiti)",
+        "country": "☠ Island of Hispaniola (Haiti)",
         "remarkable": [
             "Christopher Columbus first voyage, 1492-1493",
             "Western portion ceded to France (Saint-Domingue), 1697",
@@ -1681,7 +1693,7 @@
         "longitude": -72.346389
     },
     "Tortuga": {
-        "country": "Haiti",
+        "country": "☠ Haiti",
         "remarkable": [
             "Columbus first voyage, 6 December 1492",
             "French and English colonists from Saint Kitts arrived, 1625",
@@ -1795,7 +1807,7 @@
         "longitude": -75.695
     },
     "Birán": {
-        "country": "Cuba",
+        "country": "☠ Cuba",
         "remarkable": [
             "Fidel Castro, 1926-2016",
             "Prime Minister of Cuba, 6 February 1959 - 2 December 1976",
@@ -1825,7 +1837,7 @@
         "longitude": -76.200499198
     },
     "Port Royal": {
-        "country": "Jamaica",
+        "country": "☠ Jamaica",
         "remarkable": [
             "Christopher Columbus, 1494",
             "Juan de Esquivel, 1509",
@@ -1878,10 +1890,26 @@
         "latitude": 42.2331295,
         "longitude": -77.1974748
     },
-    "Guanahani Circle": {
-        "country": "Nassau (Bahamas)",
+    "Nassau": {
+        "country": "☠ New Providence (Bahamas)",
         "remarkable": [
             "Christopher Columbus, 1451-1506",
+            "Guanahani Circle, 12 October 1492",
+            "Charles Town, 1670",
+            "Spanish raid on Charles Town, 19 January 1684",
+            "Pirate haven known as New Providence, 1690-1720",
+            "Renamed Nassau, 1695",
+            "Benjamin Hornigold's (mentor to pirates) arrival, 1713",
+            "Blackbeard's arrival, 1716",
+            "Loss of Sam Bellamy and the Whydah in a storm, 1717",
+            "King's Pardon to piracy (Act of Grace), 5 September 1717",
+            "Woodes Rogers (first Royal Governor), 6 January 1718 - June 1721",
+            "Hornigold accepted clemency and became a pirate hunter, January 1718",
+            "Anne Bonny arrival, 1718",
+            "Anne joined John Rackham (Calico Jack), August 1720 - October 1720",
+            "Jonathan Barnet captured Bonny and Rackham's crew near Jamaica, October 1720",
+            "Woodes Rogers (Governor of the Bahamas), 22 October 1728 - 15 July 1732",
+            "American loyalists arrival from the United States, April 1783",
             "Discovery of America, 12 October 1492"
         ],
         "latitude": 25.0533517,
@@ -1980,7 +2008,7 @@
         "longitude": -80.747222
     },
     "George Town": {
-        "country": "Cayman Islands (United Kingdom)",
+        "country": "☠ Cayman Islands (United Kingdom)",
         "remarkable": [
             "Christopher Columbus (Las Tortugas), 10 May 1503",
             "Treaty of Madrid (English control), 1670",
@@ -1991,7 +2019,7 @@
         "longitude": -81.37436
     },
     "Havana": {
-        "country": "Cuba",
+        "country": "☠ Cuba",
         "remarkable": [
             "USS Maine exploded, 15 February 1898",
             "Spanish-American War, 21 April 1898 - 13 August 1898",
