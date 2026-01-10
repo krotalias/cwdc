@@ -1591,7 +1591,8 @@
             "Dominican War of Independence, 27 February 1844",
             "Rafael Trujillo (Military Dictator), 1891-1961",
             "President, 16 August 1930 - 30 May 1961",
-            "Dominican Civil War, 24 April 1965 - 1 September 1965"
+            "Dominican Civil War, 24 April 1965 - 1 September 1965",
+            "Founded, 5 August 1496"
         ],
         "latitude": 18.50012,
         "longitude": -69.98857
@@ -1673,10 +1674,33 @@
             "MINUSTAH (Brazil, 37.5K soldiers), 1 July 2004 - 15 October 2017",
             "Earthquake, 12 January 2010",
             "Economy mainly small-scale subsistence farming",
-            "Remittances from abroad made up nearly 24% of GDP, 2020"
+            "Remittances from abroad made up nearly 24% of GDP, 2020",
+            "Founded, 1749"
         ],
         "latitude": 18.536111,
         "longitude": -72.346389
+    },
+    "Tortuga": {
+        "country": "Haiti",
+        "remarkable": [
+            "Columbus first voyage, 6 December 1492",
+            "French and English colonists from Saint Kitts arrived, 1625",
+            "Pirate haven, 1625-1640s",
+            "French and English colonies and buccaneers's main base of operations, 1630",
+            "Expelled by the Spanishes, 1635",
+            "Returned and built Fort de Rocher, 1640",
+            "Henry Morgan, 1635-1688",
+            "Sir Henry Morgan base of operations, 1660s",
+            "Morgan and 2K privateers attacked and sacked Panama City, 1671",
+            "Morgan was arrested and summoned to London (treated as hero by people), 1672",
+            "Appointed a Knight Bachelor, November 1674",
+            "Lieutenant governor of Jamaica, 1674-1683",
+            "Engllish Parliament forbade English subjects to sail under foreign flags, 1680",
+            "Treaty of Ratisbon put an end to piracy, 15 August 1684",
+            "Settled, 1625"
+        ],
+        "latitude": 19.9969,
+        "longitude": -72.6214
     },
     "Montreal": {
         "country": "Quebec (Canada)",
