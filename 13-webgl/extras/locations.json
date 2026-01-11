@@ -1609,11 +1609,30 @@
         "latitude": 18.50012,
         "longitude": -69.98857
     },
+    "Oranjestad": {
+        "country": "☠ Aruba (Kingdom of the Netherlands)",
+        "remarkable": [
+            "Willem Beuckelszoon discovered the technique of gibbing, 1386",
+            "Dutch herring industry (Grand Fishery), 1550-1860",
+            "Eighty Years War with Spain, 1568-1648",
+            "The Dutch West India Company (WIC) was founded, 3 June 1621",
+            "Aruba was a Dutch naval base in the Caribbean, 1636",
+            "WIC managed Aruba and protected its salt supply from mailand, 1636-1791",
+            "Fort Zoutman, 1798",
+            "Lago Oil and Transport Company (Exxon), 1924-1985",
+            "Arend Petroleum Company, 1927-1953",
+            "Aruba became part of the Netherlands Antilles, 1945",
+            "Self-governing constituent country, 1 January 1986",
+            "Founded, 1726"
+        ],
+        "latitude": 12.518611,
+        "longitude": -70.035833
+    },
     "Milton": {
         "country": "Massachusetts (United States)",
         "remarkable": [
             "George Herbert Walker Bush, 1924-2018",
-            "Yale B.A. in Economics 1945-1948",
+            "Yale B.A. in Economics, 1945-1948",
             "Bonin Islands operations (Bailed out), 2 September 1944",
             "41th U.S. President, 20 January 1989"
         ],
@@ -4639,7 +4658,7 @@
             "Act of Abjuration, 26 July 1581",
             "Dutch East India Company (VOC), 20 March 1602 - 31 December 1799",
             "Bank of Amsterdam, 1609",
-            "Dutch West India Company, 3 June 1621 - 1 January 1792",
+            "Dutch West India Company (GWC), 3 June 1621 - 1 January 1792",
             "Dutch invasion of Brazil, 1624-1654",
             "Nazi Germany invasion, 10 May 1940",
             "Anne Frank arrest, 4 August 1944"
