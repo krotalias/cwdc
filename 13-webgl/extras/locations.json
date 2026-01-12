@@ -1499,6 +1499,28 @@
         "latitude": 2.84518296,
         "longitude": -60.70111501
     },
+    "Port of Spain": {
+        "country": "☠ Trinidad and Tobago",
+        "remarkable": [
+            "Columbus third voyage, 1498",
+            "Antonio de Sedeño landed on its southwest coast, 1530",
+            "English pirate Walter Raleigh, 22 March 1595",
+            "San Rafael encomienda rebelled and killed several priests, 1699",
+            "Arena massacre (retaliation), 1 December 1699",
+            "Treaty of Amiens (British rule), 25 March 1802",
+            "Slavery was abolished, 1833",
+            "Apprenticeship system, 1 August 1834 - 1 August 1838",
+            "Indians brought to work in sugarcane plantations, 1 May 1845 - 1917",
+            "Petroleum has been discovered, 1857",
+            "Trinidad and Tobago Act, 1887",
+            "Commercial oil production, 1908-present",
+            "Independence from the United Kingdom, 31 August 1962",
+            "Republic, 1 August 1976",
+            "Settled, 1560"
+        ],
+        "latitude": 10.666667,
+        "longitude": -61.516667
+    },
     "Philipsburg": {
         "country": "☠ Sint Maarten (Kindom of the Netherlands)",
         "remarkable": [
@@ -1508,7 +1530,7 @@
             "French abolished slavery on their side of the island, 1848",
             "Dutch authorities then freed the colonies' slaves",
             "Duty-free port, 1939",
-            "Self-governig constituent country, 10 October 2010",
+            "Self-governing constituent country, 10 October 2010",
             "Hurricane Irma, 6 September 2017",
             "Established (by John Philips), 1763"
         ],
@@ -1678,7 +1700,7 @@
             "Eighty Years War with Spain, 1568-1648",
             "The Dutch West India Company (GWC) was founded, 3 June 1621",
             "Aruba was a Dutch naval base in the Caribbean, 1636",
-            "GWC managed Aruba and protected its salt supply from mailand, 1636-1791",
+            "GWC managed Aruba and protected its salt supply from mainland, 1636-1791",
             "Fort Zoutman, 1798",
             "Lago Oil and Transport Company (Exxon), 1924-1985",
             "Arend Petroleum Company, 1927-1953",
