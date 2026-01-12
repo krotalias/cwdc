@@ -1543,7 +1543,7 @@
     "Caracas": {
         "country": "Venezuela",
         "remarkable": [
-            "San Bernabé erathquake put the city into decline, 11 June 1671",
+            "San Bernabé earthquake put the city into decline, 11 June 1671",
             "Simón Bolívar, 1783-1830",
             "Bolivia, Colombia, Ecuador, Panama, Peru, Venezuela's liberator from Spain",
             "Venezuela's independence, 5 July 1811",
@@ -1594,6 +1594,29 @@
         ],
         "latitude": 76.531111,
         "longitude": -68.703056
+    },
+    "Willemstad": {
+        "country": "☠ Curaçao (Kingdom of the Netherlands)",
+        "remarkable": [
+            "Spanish colony after Alonso de Ojeda's expedition, 1499",
+            "Curaçao was officially settled by Spain, 1527",
+            "Van Walbeeck invaded the island, 29 July 1634 - 21 August 1634",
+            "Fort Amsterdam (birthplace of the city), 1635",
+            "WIC made Curaçao a centre of the Atlantic slave trade, 1662",
+            "The island became a free port, 1674",
+            "A major slave revolt was suppressed, 1795",
+            "Curaçao and Dependencies colony, 1815-1954",
+            "Dutch abolished slavery, 1863",
+            "Attacked by Venezuelan rebel commander Rafael Simón Urbina, 31 July 1929",
+            "US troops built the military airport Hato, 1941",
+            "Royal Dutch Shell refinery activities (toxic legacy) on Curaçao, 1918-1985",
+            "Joined the Netherlands Antilles, 1954-2010",
+            "World Heritage Site (UNESCO), 7 December 1997",
+            "Curaçao became a country within the Kingdom of the Netherlands, 10 October 2010",
+            "Founded (by WIC), 21 August 1634"
+        ],
+        "latitude": 12.105,
+        "longitude": -68.935
     },
     "Santo Domingo": {
         "country": "☠ Island of Hispaniola (Dominican Republic)",
