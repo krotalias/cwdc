@@ -330,7 +330,7 @@
     "Olinda": {
         "country": "Pernambuco (Brazil)",
         "remarkable": [
-            "Looted and burned by the Dutch, 1631",
+            "Looted and burned by the Dutch, 24 November 1631",
             "Mosteiro de São Bento, 1597-1599, 1656-1761",
             "World Heritage Site (UNESCO), 1982",
             "Founded, 12 March 1535"
@@ -338,12 +338,34 @@
         "latitude": -8.0,
         "longitude": -34.8833298
     },
+    "Mauritsstad": {
+        "country": "Dutch Brazil (Netherlands)",
+        "remarkable": [
+            "Johan Maurits van Nassau-Siegen, 1604-1679",
+            "Dutch invasion (by GWC), 1630-1554",
+            "Governor of Dutch Brazil, 23 January 1637 - 30 December 1643",
+            "Nassau fostered cultural growth and infrastructure in Dutch Brazil",
+            "The Company recalled Nassau, ending his governorship, 1643",
+            "His departure intensified conflicts, culminating in the Dutch surrender, 1654",
+            "Olinda, 16 February 1630 - 1654",
+            "Sirinhaém, 1632-1645",
+            "Nieuw Amsterdam (Natal), 12 December 1633 - 1654",
+            "Frederikstadt (João Pessoa), 26 December 1634 - 1 February 1654",
+            "São Cristóvão (Sergipe), 1637-1645",
+            "Saint Louis (São Luís), November 1641 - 28 February 1644",
+            "Fort Schoonenborch (Fortaleza), 19 August 1649 - 20 May 1654",
+            "First Battle of Guararapes, 19 April 1648",
+            "Second Battle of Guararapes, 19 February 1649",
+            "Defeat by the Portuguese (Treaty of Taborda), 28 January 1654",
+            "Treaty of The Hague, 6 August 1661",
+            "Established, 16 February 1630"
+        ],
+        "latitude": -8.0584933,
+        "longitude": -34.8848193
+    },
     "Recife": {
         "country": "Pernambuco (Brazil)",
         "remarkable": [
-            "Johan Maurits van Nassau-Siegen, 1604-1679",
-            "Dutch invasion, 1630-1554",
-            "Governor of Dutch Brazil (WIC), 23 January 1637 - 30 December 1643",
             "José Inácio Ribeiro de Abreu e Lima (Padre Roma), 1768-1818",
             "Pernambucan Revolt, 1817",
             "Executed (firing squad), 29 March 1817",
@@ -877,7 +899,7 @@
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
             "Fort Copacabana, 28 September 1914",
-            "João Roma Abreu e Lima (unofficial history), 24 June 1903 - 1986",
+            "João Roma de Abreu e Lima (unofficial history), 24 June 1903 - 1986",
             "Siqueira Campos pointed a pistol to the general's head and",
             "ordered him to jump from the wall onto the stones on the beach,",
             "A sargent who convinced Campos otherwise, saved him, 4 July 1922",
@@ -1477,6 +1499,22 @@
         "latitude": 2.84518296,
         "longitude": -60.70111501
     },
+    "Philipsburg": {
+        "country": "☠ Sint Maarten (Kindom of the Netherlands)",
+        "remarkable": [
+            "Columbus second voyage, 11 November 1493",
+            "Treaty of Concordia (divided the island in two), 1648",
+            "French control, 1795-1815",
+            "French abolished slavery on their side of the island, 1848",
+            "Dutch authorities then freed the colonies' slaves",
+            "Duty-free port, 1939",
+            "Self-governig constituent country, 10 October 2010",
+            "Hurricane Irma, 6 September 2017",
+            "Established (by John Philips), 1763"
+        ],
+        "latitude": 18.023889,
+        "longitude": -63.045833
+    },
     "Porto Velho": {
         "country": "Rondônia (Brazil)",
         "remarkable": [
@@ -1602,7 +1640,7 @@
             "Curaçao was officially settled by Spain, 1527",
             "Van Walbeeck invaded the island, 29 July 1634 - 21 August 1634",
             "Fort Amsterdam (birthplace of the city), 1635",
-            "WIC made Curaçao a centre of the Atlantic slave trade, 1662",
+            "GWC made Curaçao a centre of the Atlantic slave trade, 1662",
             "The island became a free port, 1674",
             "A major slave revolt was suppressed, 1795",
             "Curaçao and Dependencies colony, 1815-1954",
@@ -1613,7 +1651,7 @@
             "Joined the Netherlands Antilles, 1954-2010",
             "World Heritage Site (UNESCO), 7 December 1997",
             "Curaçao became a country within the Kingdom of the Netherlands, 10 October 2010",
-            "Founded (by WIC), 21 August 1634"
+            "Founded (by GWC), 21 August 1634"
         ],
         "latitude": 12.105,
         "longitude": -68.935
@@ -1638,9 +1676,9 @@
             "Willem Beuckelszoon discovered the technique of gibbing, 1386",
             "Dutch herring industry (Grand Fishery), 1550-1860",
             "Eighty Years War with Spain, 1568-1648",
-            "The Dutch West India Company (WIC) was founded, 3 June 1621",
+            "The Dutch West India Company (GWC) was founded, 3 June 1621",
             "Aruba was a Dutch naval base in the Caribbean, 1636",
-            "WIC managed Aruba and protected its salt supply from mailand, 1636-1791",
+            "GWC managed Aruba and protected its salt supply from mailand, 1636-1791",
             "Fort Zoutman, 1798",
             "Lago Oil and Transport Company (Exxon), 1924-1985",
             "Arend Petroleum Company, 1927-1953",
