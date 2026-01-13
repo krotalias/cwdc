@@ -1874,6 +1874,32 @@
         "latitude": 40.7128,
         "longitude": -74.006
     },
+    "Bogotá": {
+        "country": "Colombia",
+        "remarkable": [
+            "New Kingdom of Granada, April 1536",
+            "Our Lady of Hope (Gonzalo Jiménez de Quesada), 27 April 1539",
+            "Renamed Santa Fe de Bogotá, 27 July 1540",
+            "Viceroyalty of New Granada (Colombia, Ecuador, Panama, Venezuela), 1717-1819",
+            "Colombian Declaration of Independence, 20 July 1810",
+            "Creation of Gran Colombia, 17 December 1819",
+            "Simón Bolívar, 1783-1830",
+            "1st President of Colombia, 17 December 1819 - 27 April 1830",
+            "Bolívar died of tuberculosis, 17 December 1830",
+            "Francisco José de Paula Santander y Omaña, 1792-1840",
+            "General of Division, August 1819",
+            "5th Vice President of the Gran Colombia, 3 November 1821 - 19 September 1827",
+            "Setembrine Conspiracy (plot to murder Bolívar), 25 September 1828",
+            "Santander was condemned and exiled, 15 November 1828 - 17 July 1832",
+            "President of The Republic of New Granada, 7 October 1832 - 1 April 1837",
+            "Republic of Colombia, 4 August 1886",
+            "Secession of the Department of Panama, 3 November 1903",
+            "United States paid a $25M compensation to Colombia, 20 April 1921",
+            "Founded, 6 August 1538"
+        ],
+        "latitude": 4.583333,
+        "longitude": -74.066667
+    },
     "Staten Island": {
         "country": "New York (United States)",
         "remarkable": [
