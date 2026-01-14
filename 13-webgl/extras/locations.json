@@ -1499,6 +1499,21 @@
         "latitude": 2.84518296,
         "longitude": -60.70111501
     },
+    "Martinique": {
+        "country": "☠  France",
+        "remarkable": [
+            "Columbus landing, 15 June 1502",
+            "Spain formally ceded Martinique to France , 1635",
+            "Britain attacked French ships at Martinique, 1667",
+            "Blackbeard captured a French frigate named La Concorde, 28 November 1717",
+            "Britain controlled the island, 1794-1815",
+            "First French overseas territory to enforce slave abolition, 23 May 1848",
+            "Mont Pelée erupted, 8 May 1902",
+            "Overseas Department of France, 1946"
+        ],
+        "latitude": 14.65,
+        "longitude": -61.015
+    },
     "Port of Spain": {
         "country": "☠ Trinidad and Tobago",
         "remarkable": [
@@ -1914,6 +1929,20 @@
         "latitude": 40.56233,
         "longitude": -74.13986
     },
+    "San Salvador": {
+        "country": "☠ Bahamas",
+        "remarkable": [
+            "Christopher Columbus, 1451-1506",
+            "First land sighted and visited in the New World, 12 October 1492",
+            "George or John Watling, ????-1681",
+            "Watling's Island, 1680-1926",
+            "Donald Thomas Gerace, 1933-2016",
+            "Gerace Research Centre (Bahamian Field Station), 1971-present",
+            "Believed to be the Guanahani island, 12 October 1492"
+        ],
+        "latitude": 24.1,
+        "longitude": -74.483333
+    },
     "Princeton": {
         "country": "New Jersey (United States)",
         "remarkable": [
@@ -2035,8 +2064,6 @@
     "Nassau": {
         "country": "☠ New Providence (Bahamas)",
         "remarkable": [
-            "Christopher Columbus, 1451-1506",
-            "Guanahani Circle, 12 October 1492",
             "Charles Town, 1670",
             "Spanish raid on Charles Town, 19 January 1684",
             "Pirate haven known as New Providence, 1690-1720",
@@ -2052,7 +2079,8 @@
             "Jonathan Barnet captured Bonny and Rackham's crew near Jamaica, October 1720",
             "Woodes Rogers (Governor of the Bahamas), 22 October 1728 - 15 July 1732",
             "American loyalists arrival from the United States, April 1783",
-            "Discovery of America, 12 October 1492"
+            "University of The Bahamas, 10 November 2016",
+            "Founded, 1670"
         ],
         "latitude": 25.0533517,
         "longitude": -77.322805
