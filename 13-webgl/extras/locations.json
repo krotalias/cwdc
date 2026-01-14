@@ -266,10 +266,10 @@
     "Queluz National Palace": {
         "country": "Lisbon (Portugal)",
         "remarkable": [
-            "Pedro I of Brasil, 1798-1834",
+            "Pedro I of Brazil, 1798-1834",
             "Emperor of Brazil, 12 October 1822 - 7 April 1831",
-            "Independence of Brasil, 7 September 1822",
-            "Constitution of Brasil, 25 March 1824",
+            "Independence of Brazil, 7 September 1822",
+            "Constitution of Brazil, 25 March 1824",
             "Pedro IV of Portugal, 10 March 1826 - 2 May 1826"
         ],
         "latitude": 38.750725,
@@ -294,6 +294,19 @@
         ],
         "latitude": -75.568056,
         "longitude": -25.508333
+    },
+    "Ponta Delgada": {
+        "country": "São Miguel Island, Azores (Portugal)",
+        "remarkable": [
+            "Vila Franca do Campo devastated by an earthquake and landslide, 22 October 1522",
+            "Liberal Wars, 1828-1834",
+            "The liberals won over the absolutists in Praia da Vitória (island of Terceira), 1829",
+            "King-Emperor Pedro IV launched his campaign from the Azores, 1832",
+            "Autonomous status, 30 April 1976",
+            "Settlement, 1432"
+        ],
+        "latitude": 37.741111,
+        "longitude": -25.680556
     },
     "Fernando de Noronha": {
         "country": "Pernambuco (Brazil)",
@@ -321,7 +334,7 @@
             "João Pessoa Cavalcanti de Albuquerque, 1878-1930",
             "President of Paraíba, 22 October 1928 - 26 July 1930",
             "Murdered by João Duarte Dantas (Recife), 26 July 1930",
-            "Changed the history of Brasil (seed to 'getulismo'), 1930",
+            "Changed the history of Brazil (seed to 'getulismo'), 1930",
             "Parahyba do Norte renamed João Pessoa, 1 September 1930"
         ],
         "latitude": -7.115,
@@ -588,7 +601,7 @@
             "Maison de Pierre in Canal de Itajuru (French), 1556",
             "Cabo Frio battle (Confederação dos Tamoios), 1575",
             "Fortaleza de Santo Inácio, 13 November 1615",
-            "Vila de Santa Helena do Cabo Frio, 7th oldest city in Brasil",
+            "Vila de Santa Helena do Cabo Frio, 7th oldest city in Brazil",
             "Estêvão Gomes (capitão mor) renamed the vila",
             "Nossa Senhora da Assunção do Cabo Frio, 1616",
             "Forte de São Mateus, 1620",
@@ -1024,7 +1037,7 @@
             "22nd President of Brazil, 31 January 1961 - 25 August 1961",
             "João Belchior Marques Goulart, 1919-1976",
             "Law School (URGS), 1933-1937",
-            "14th Vice President of Brasil, 31 January 1956 - 25 Agust 1961",
+            "14th Vice President of Brazil, 31 January 1956 - 25 Agust 1961",
             "24th President of Brazil, 7 September 1961 - 1 April 1964",
             "Military coup of 1964, 1 April 1964 - 15 March 1985"
         ],
@@ -1054,7 +1067,7 @@
             "Capital of Santa Catarina, 1823",
             "Marshal Floriano Peixoto, 1839-1895",
             "Milirary school (AMAN), 1858-1861",
-            "1st Vice President of Brasil, 26 February 1891 - 23 November 1891",
+            "1st Vice President of Brazil, 26 February 1891 - 23 November 1891",
             "2nd President of Brazil, 23 November 1891 - 15 November 1894",
             "Federalist Revolution, 2 February 1893 - 23 August 1895",
             "Naval Revolt, 6 September 1893 - March 1894",
@@ -1378,9 +1391,9 @@
             "Officer's school, 1904-1907",
             "Minister of War, 5 December 1936 - 3 August 1945",
             "Visited FEB in Italy, 24 September 1944",
-            "16th President of Brasil, 31 January 1946 - 31 January 1951",
+            "16th President of Brazil, 31 January 1946 - 31 January 1951",
             "Constitution of 1946, 18 September 1946",
-            "Prohibition of gambling in Brasil, 30 April 1946",
+            "Prohibition of gambling in Brazil, 30 April 1946",
             "Economic stabilization plan (SALTE), 1 May 1948",
             "Created the Superior School of War (ESG), 20 August 1949",
             "TV Tupi (first TV broadcasting), 18 September 1950",
