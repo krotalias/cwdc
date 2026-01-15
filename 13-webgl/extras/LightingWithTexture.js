@@ -1571,7 +1571,9 @@ const handleKeyPress = ((event) => {
             animationID = null;
             audio.pause();
             audio.currentTime = 0;
+            element.animation.style.background = "lightsteelblue";
           } else {
+            element.animation.style.background = "goldenrod";
             animationID = startAnimation();
           }
         }
