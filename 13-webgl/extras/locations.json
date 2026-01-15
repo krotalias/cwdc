@@ -275,6 +275,22 @@
         "latitude": 38.750725,
         "longitude": -9.259082
     },
+    "Las Palmas": {
+        "country": "Canary Islands (Spain)",
+        "remarkable": [
+            "Jean de Béthencourt, 1362-1425",
+            "Castilian colonisation, 1402",
+            "Royal conquest, 1478-1496",
+            "Columbus repaired the rudder of his ship Pinta, 6 November 1492",
+            "Battle of Las Palmas (Francis Drake), 24 June 1595",
+            "Dutch raid (Admiral Pieter van der Does), June 1599",
+            "Francisco Franco General Commandant of the Canaries, 1936",
+            "Autonomous community, 7 November 2018",
+            "Founded, 24 June 1478"
+        ],
+        "latitude": 28.125833,
+        "longitude": -15.435278
+    },
     "Reykjavik": {
         "country": "Iceland",
         "remarkable": [
@@ -1426,6 +1442,23 @@
         "latitude": -51.6921,
         "longitude": -57.8589
     },
+    "Buenos Aires": {
+        "country": "Argentina",
+        "remarkable": [
+            "Juan Díaz de Solís, 1470-1516",
+            "First European to reach the Río de la Plata, 1516",
+            "Ciudad de Nuestra Señora Santa María del Buen Ayre, 2 February 1536",
+            "Juan de Garay (1528-1583)",
+            "Second (and permanent) settlement, 11 June 1580",
+            "May Revolution, 25 May 1810",
+            "Capital of the United Provinces of the Río de la Plata, 1814",
+            "Argentine Declaration of Independence, 9 July 1816",
+            "Federalization of Buenos Aires, 1880",
+            "Established, 2 February 1536"
+        ],
+        "latitude": -34.603889,
+        "longitude": -58.381389
+    },
     "King George Island": {
         "country": "Martel Inlet (Brazil)",
         "remarkable": [
@@ -1752,6 +1785,18 @@
         ],
         "latitude": 12.518611,
         "longitude": -70.035833
+    },
+    "Santiago": {
+        "country": "Chile",
+        "remarkable": [
+            "Pedro de Valdivia, 1497-1553",
+            "1st and 3rd Royal Governor of Chile, 1540-1553",
+            "Founded as Santiago del Nuevo Extremo, 12 February 1541",
+            "Declaration of independence from Spain, 12 February 1818",
+            "Founded, 12 February 1541"
+        ],
+        "latitude": -33.433333,
+        "longitude": -70.666667
     },
     "Milton": {
         "country": "Massachusetts (United States)",
