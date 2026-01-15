@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in Vanilla Javascript and WebGL.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 363 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 367 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -167,7 +167,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">363 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">367 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -440,6 +440,12 @@ import {
  * @name vec4
  * @type {glMatrix.vec4}
  */
+
+/**
+ * Audio object for playing song from a given url link.
+ * @type {Audio}
+ */
+const audio = new Audio();
 
 /**
  * A {@link https://en.wikipedia.org/wiki/Geographic_coordinate_system geographic coordinate system} (GCS) is a spherical or
@@ -1563,6 +1569,8 @@ const handleKeyPress = ((event) => {
           if (animationID) {
             clearInterval(animationID);
             animationID = null;
+            audio.pause();
+            audio.currentTime = 0;
           } else {
             animationID = startAnimation();
           }
@@ -1875,6 +1883,24 @@ const handleKeyPress = ((event) => {
     if (selector.paused) draw();
   };
 })();
+
+/**
+ * Play song from the given url link.
+ * @param {String} url song url link.
+ */
+function playSongFromLink(url) {
+  audio.pause();
+  audio.src = url;
+  audio.load();
+
+  audio.play().catch((error) => {
+    console.error("Playback failed:", error);
+    // Handle cases where the user has not interacted with the page yet
+    console.log(
+      "Please interact with the page (click a button) to enable audio playback.",
+    );
+  });
+}
 
 /**
  * <p>Scalar triple product of three vectors.</p>
@@ -2629,6 +2655,7 @@ function addListeners() {
     if (!selector.paused) {
       handleKeyPress(createEvent(" "));
     }
+    playSongFromLink("/cwdc/13-webgl/extras/mp3/Golden (Huntrix song).mp3");
     handleKeyPress(createEvent("A"));
   });
 
