@@ -302,6 +302,21 @@
         "latitude": 64.145981,
         "longitude": -21.9422367
     },
+    "Praia": {
+        "country": "Cabo Verde",
+        "remarkable": [
+            "Santiago island was discovered, 1460",
+            "Ribeira Grande (Cidade Velha), 1462",
+            "Francis Drake raid, 1585",
+            "Replaced Cidade Velha as the capital of Santiago, 1770",
+            "Battle of Porto Praya, 16 April 1781",
+            "First stop of Charles Darwin's voyage (HMS Beagle), 1832",
+            "Full independence from Portugal, 5 July 1975",
+            "Founded, 1615"
+        ],
+        "latitude": 14.918,
+        "longitude": -23.509
+    },
     "Brunt Ice Shelf": {
         "country": "Caird Coast (United Kingdom)",
         "remarkable": [
@@ -3154,11 +3169,27 @@
         "latitude": 26.499998,
         "longitude": 127.933329
     },
-    "Hansung": {
-        "country": "Korea",
+    "Seoul": {
+        "country": "⚔ Korea",
         "remarkable": [
+            "Taejo of Joseon, 1335-1408",
+            "Founder of the Joseon Dynasty, 1392-1398",
+            "Hansung (Hanseong) kingdom's capital (Joseon Dynasty), October 1394",
             "Yi Sun-sin (Admiral), 1545-1598",
-            "Imjin War, 1592-1598"
+            "Imjin War (Japan, China and Korea), 23 May 1592 - 16 December 1598",
+            "Russo-Japanese War, 8 February 1904 - 5 September 1905",
+            "Korea Protectorate Treaty (Eulsa Treaty), 17 November 1905",
+            "Japanese rule (annexation of Korea), 22 August 1910 - 10 August 1945",
+            "38th parallel set as a dividing line, 14 August 1945",
+            "National Liberation Day, 15 August 1945",
+            "U.S. military control over south of the 38th parallel, 7 September 1945",
+            "Seoul Special Metropolitan City, 28 September 1946",
+            "Establishment of the Republic of Korea (South Korea), 15 August 1948",
+            "Democratic People's Republic of Korea (North Korea), 9 September 1948",
+            "Korean War, 25 June 1950 - 27 July 1953",
+            "Korean Demilitarized Zone (DMZ), 27 July 1953",
+            "Hansung University Seoul, 1972",
+            "Soviet entered north Korea, 10 August 1945"
         ],
         "latitude": 37.582363,
         "longitude": 127.010418
