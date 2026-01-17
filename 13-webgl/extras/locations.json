@@ -2917,6 +2917,19 @@
         "latitude": 28.1999992,
         "longitude": -177.3499986
     },
+    "Anadyr": {
+        "country": "Russia",
+        "remarkable": [
+            "The easternmost town in Russia (closest to the U.S.)",
+            "Lew Franzewitsch Grinevetsky (military doctor and explorer), 1845-1891",
+            "Sailed into the Anadyrsky Liman, 9 July 1889",
+            "Novo-Mariinsk, 1889 - 1923",
+            "Monument to the First Revolutionary Committee, 5 July 1921",
+            "Founded, 3 August 1889"
+        ],
+        "latitude": 64.733333,
+        "longitude": 177.516667
+    },
     "Wellington": {
         "country": "New Zealand",
         "remarkable": [
@@ -3145,6 +3158,18 @@
         ],
         "latitude": 34.4,
         "longitude": 132.45
+    },
+    "Vladivostok": {
+        "country": "Russia",
+        "remarkable": [
+            "Occupied by White Russian and Allied forces, 1918-1922",
+            "Troops of the Red Army occupied Vladivostok, October 1922",
+            "Part of the Russian Federation, 1991-present",
+            "Closed city, 1958 - 1 January 1992",
+            "Founded as a Russian military outpost, 2 July 1860"
+        ],
+        "latitude": 43.10562,
+        "longitude": 131.87353
     },
     "Nagasaki": {
         "country": "⚔ ☢ Kyushu (Japan)",
