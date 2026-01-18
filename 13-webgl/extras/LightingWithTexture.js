@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in Vanilla Javascript and WebGL.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 368 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 370 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -167,7 +167,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">368 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">370 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -402,6 +402,7 @@ import {
   spherical2Cartesian,
 } from "/cwdc/13-webgl/lib/polyhedron.js";
 import {
+  vec2,
   vec3,
   vec4,
   mat3,
@@ -562,6 +563,7 @@ const element = {
   lblTimeline: document.getElementById("lblTimeline"),
   steplist: document.getElementById("steplist"),
   country: document.getElementById("country"),
+  loxodrome: document.getElementById("loxodrome"),
 };
 
 /**
@@ -1069,6 +1071,12 @@ let fixuv = document.querySelector("#fixuv").checked;
  * @see {@link https://forum.unity.com/threads/unity-shader-map-projection-mercator-to-equirectangular-or-lambert-azimuthal-equal-area.813987/ Unity shader, Mercator to equirectangular}
  */
 let mercator = document.querySelector("#mercator").checked;
+
+/**
+ * Whether to plot loxodromes.
+ * @type {Boolean}
+ */
+let loxodrome = false;
 
 /**
  * Whether the texture represents a map.
@@ -1783,6 +1791,10 @@ const handleKeyPress = ((event) => {
         image.src = `./textures/${imageFilename[textureCnt]}`;
         element.fix_uv.checked = fixuv;
         setUVfix();
+        break;
+      case "F":
+        loxodrome = !loxodrome;
+        element.loxodrome.checked = loxodrome;
         break;
       case "K":
         mercator = !mercator;
@@ -2789,6 +2801,19 @@ function addListeners() {
    */
   element.merc.addEventListener("change", (event) =>
     handleKeyPress(createEvent("K")),
+  );
+
+  /**
+   * @summary Executed when the loxodrome checkbox is checked or unchecked.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeLoxodromecheckBox
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  element.loxodrome.addEventListener("change", (event) =>
+    handleKeyPress(createEvent("F")),
   );
 
   /**
@@ -3866,6 +3891,43 @@ function isPowerOf2(value) {
 }
 
 /**
+ * Return an array with n points on a loxodrome from Rio
+ * to the given location.
+ * @param {gpsCoordinates} loc location with latitude and longitude.
+ * @param {Number} [n={@link nsegments}] number of points.
+ * @return {Float32Array} points on the loxodrome.
+ * @see {@link https://en.wikipedia.org/wiki/Rhumb_line Rhumb line}
+ * @see {@link https://www.whitman.edu/Documents/Academics/Mathematics/2016/Vezie.pdf A Comparative Analysis of Rhumb Lines and Great Circles}
+ * @see <img src="../images/loxodrome.png">
+ * @see <a href="../images/loxodrome2.png"><img src="../images/loxodrome2.png" width="256"></a>
+ * <a href="../images/loxodrome3.png"><img src="../images/loxodrome3.png" width="256">
+ */
+function pointsOnLoxodrome(loc, n = nsegments) {
+  const rio = gpsCoordinates["Rio"];
+
+  let j = 0;
+  let ds = 1 / (n - 1);
+  const arr = new Float32Array(3 * n);
+  const uv1 = gcs2UV(loc);
+  const uv2 = gcs2UV(rio);
+  const p1 = vec2.fromValues(...UV2Spherical(uv1), 1);
+  const p2 = vec2.fromValues(...UV2Spherical(uv2), 1);
+  for (let i = 0; i < n; ++i, j += 3) {
+    // p = p1 + t (p2-p1)
+    const q = vec2.add(
+      [],
+      p1,
+      vec2.scale([], vec2.subtract([], p2, p1), i * ds),
+    );
+    const p = spherical2Cartesian(...q, 1.01);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
+}
+
+/**
  * Load a new parallel and meridian into the GPU
  * corresponding to the given location.
  * @param {String} location a {@link gpsCoordinates city name}.
@@ -3876,7 +3938,10 @@ function setPosition(location) {
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, parallelVertices);
 
-  const meridianVertices = pointsOnMeridian(gpsCoordinates[location].longitude);
+  const meridianVertices = loxodrome
+    ? pointsOnLoxodrome(gpsCoordinates[location])
+    : pointsOnMeridian(gpsCoordinates[location].longitude);
+
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, meridianVertices);
 
