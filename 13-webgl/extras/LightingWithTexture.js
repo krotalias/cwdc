@@ -1795,6 +1795,7 @@ const handleKeyPress = ((event) => {
       case "F":
         loxodrome = !loxodrome;
         element.loxodrome.checked = loxodrome;
+        setPosition(currentLocation);
         break;
       case "K":
         mercator = !mercator;
@@ -3906,7 +3907,7 @@ function pointsOnLoxodrome(loc, n = nsegments) {
   const rio = gpsCoordinates["Rio"];
 
   let j = 0;
-  let ds = 1 / (n - 1);
+  const ds = 1 / (n - 1);
   const arr = new Float32Array(3 * n);
   const uv1 = gcs2UV(loc);
   const uv2 = gcs2UV(rio);
