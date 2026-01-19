@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in Vanilla Javascript and WebGL.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 370 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 372 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -167,7 +167,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">370 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">372 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -3909,10 +3909,10 @@ function pointsOnLoxodrome(loc, n = nsegments) {
   let j = 0;
   const ds = 1 / (n - 1);
   const arr = new Float32Array(3 * n);
-  const uv1 = gcs2UV(loc);
-  const uv2 = gcs2UV(rio);
-  const p1 = vec2.fromValues(...UV2Spherical(uv1), 1);
-  const p2 = vec2.fromValues(...UV2Spherical(uv2), 1);
+  const uv1 = gcs2UV(rio);
+  const uv2 = gcs2UV(loc);
+  const p1 = vec2.fromValues(...UV2Spherical(uv1));
+  const p2 = vec2.fromValues(...UV2Spherical(uv2));
   for (let i = 0; i < n; ++i, j += 3) {
     // p = p1 + t (p2-p1)
     const q = vec2.add(

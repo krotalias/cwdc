@@ -5,6 +5,28 @@
         "latitude": 0,
         "longitude": 0
     },
+    "North Pole": {
+        "country": "Arctic Ocean",
+        "remarkable": [
+            "Soviet North Pole ice station, North Pole-1, May 1937",
+            "Roald Engelbregt Gravning Amundsen, 1872-1928",
+            "Lincoln Ellsworth, 1880-1951",
+            "1st consistent, verified, and convincing attainment by airship, 12 May 1926"
+        ],
+        "latitude": 90,
+        "longitude": 0
+    },
+    "South Pole": {
+        "country": "Antarctica",
+        "remarkable": [
+            "George John Dufek, 1903-1977",
+            "Landed an R4D-5L Skytrain (C-47 Skytrain) aircraft, 31 October 1956",
+            "Roald Engelbregt Gravning Amundsen, 1872-1928",
+            "First to reach the South Pole, 14 December 1911"
+        ],
+        "latitude": -90,
+        "longitude": 0
+    },
     "East India House": {
         "country": "London (United Kingdom)",
         "remarkable": [
