@@ -2195,6 +2195,17 @@
         "latitude": 38.012383,
         "longitude": -78.417778
     },
+    "Quito": {
+        "country": "Ecuador",
+        "remarkable": [
+            "Founded as San Francisco de Quito, 6 December 1534",
+            "Ecuadorian Declaration of Independence, 10 August 1809",
+            "Battle of Pichincha, 24 May 1822",
+            "Founded, 6 December 1534"
+        ],
+        "latitude": -0.22,
+        "longitude": -78.5125
+    },
     "Staunton": {
         "country": "Virginia (United States)",
         "remarkable": [
