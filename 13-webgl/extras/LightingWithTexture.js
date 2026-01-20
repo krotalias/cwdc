@@ -3892,7 +3892,7 @@ function isPowerOf2(value) {
 }
 
 /**
- * <p<Return an array with n points on a loxodrome from Rio
+ * <p>Return an array with n points on a loxodrome from Rio
  * to the given location.</p>
  * While a loxodrome appears as a straight line on a Mercator projection,
  * it appears as a non-linear, curved line on an Equirectangular projection.
