@@ -3915,6 +3915,7 @@ function isPowerOf2(value) {
  * @see <img src="../images/loxodrome.png">
  * @see <a href="../images/loxodrome5.png"><img src="../images/loxodrome5.png" height="256"></a>
  * <a href="../images/loxodrome4.png"><img src="../images/loxodrome4.png" height="256">
+ * <a href="../images/cylinder.png"><img src="../images/cylinder.png" height="256">
  */
 function pointsOnLoxodrome(loc, n = nsegments) {
   const rio = gpsCoordinates["Rio"];
