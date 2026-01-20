@@ -2082,20 +2082,30 @@ function drawLinesOnImage() {
   ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
 
   if (selector.equator) {
-    const uv = gcs2UV(gpsCoordinates[currentLocation]);
-    uv.t = 1 - uv.t;
+    const uv2 = gcs2UV(gpsCoordinates["Rio"]);
+    const uv1 = gcs2UV(gpsCoordinates[currentLocation]);
+    uv1.t = 1 - uv1.t;
+    uv2.t = 1 - uv2.t;
     if (mercator) {
       // mercator projection
-      uv.t = spherical2Mercator(uv.s, uv.t).y;
+      uv1.t = spherical2Mercator(uv1.s, uv1.t).y;
+      uv2.t = spherical2Mercator(uv2.s, uv2.t).y;
     }
 
     // screen coordinates
-    const x = uv.s * canvasimg.width;
-    const y = uv.t * canvasimg.height;
+    const x = uv1.s * canvasimg.width;
+    const y = uv1.t * canvasimg.height;
+    const rx = uv2.s * canvasimg.width;
+    const ry = uv2.t * canvasimg.height;
 
     ctx.beginPath();
-    ctx.moveTo(x, 0); // meridian
-    ctx.lineTo(x, canvasimg.height);
+    if (loxodrome) {
+      ctx.moveTo(x, y); // loxodrome
+      ctx.lineTo(rx, ry);
+    } else {
+      ctx.moveTo(x, 0); // meridian
+      ctx.lineTo(x, canvasimg.height);
+    }
     ctx.moveTo(0, y); // parallel
     ctx.lineTo(canvasimg.width, y);
     ctx.strokeStyle = "red";
@@ -3903,8 +3913,8 @@ function isPowerOf2(value) {
  * @see {@link https://en.wikipedia.org/wiki/Rhumb_line Rhumb line}
  * @see {@link https://www.whitman.edu/Documents/Academics/Mathematics/2016/Vezie.pdf A Comparative Analysis of Rhumb Lines and Great Circles}
  * @see <img src="../images/loxodrome.png">
- * @see <a href="../images/loxodrome2.png"><img src="../images/loxodrome2.png" width="256"></a>
- * <a href="../images/loxodrome3.png"><img src="../images/loxodrome3.png" width="256">
+ * @see <a href="../images/loxodrome5.png"><img src="../images/loxodrome5.png" height="256"></a>
+ * <a href="../images/loxodrome4.png"><img src="../images/loxodrome4.png" height="256">
  */
 function pointsOnLoxodrome(loc, n = nsegments) {
   const rio = gpsCoordinates["Rio"];
