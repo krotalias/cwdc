@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in Vanilla Javascript and WebGL.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 372 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 373 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -167,7 +167,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">372 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">373 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -3227,7 +3227,7 @@ function draw() {
   if (selector.equator) drawParallel();
   if (selector.locations && isMap) drawLocations();
   drawLinesOnImage();
-  if (isMap) drawLocationsOnImage();
+  if (selector.locations && isMap) drawLocationsOnImage();
 }
 
 /**
@@ -3892,8 +3892,10 @@ function isPowerOf2(value) {
 }
 
 /**
- * Return an array with n points on a loxodrome from Rio
- * to the given location.
+ * <p<Return an array with n points on a loxodrome from Rio
+ * to the given location.</p>
+ * While a loxodrome appears as a straight line on a Mercator projection,
+ * it appears as a non-linear, curved line on an Equirectangular projection.
  * @param {gpsCoordinates} loc location with latitude and longitude.
  * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the loxodrome.
@@ -3906,21 +3908,30 @@ function isPowerOf2(value) {
 function pointsOnLoxodrome(loc, n = nsegments) {
   const rio = gpsCoordinates["Rio"];
 
-  let j = 0;
   const ds = 1 / (n - 1);
-  const arr = new Float32Array(3 * n);
+  const p1 = vec2.create();
+  const p2 = vec2.create();
+  const q = vec2.create();
   const uv1 = gcs2UV(rio);
   const uv2 = gcs2UV(loc);
-  const p1 = vec2.fromValues(...UV2Spherical(uv1));
-  const p2 = vec2.fromValues(...UV2Spherical(uv2));
-  for (let i = 0; i < n; ++i, j += 3) {
-    // p = p1 + t (p2-p1)
-    const q = vec2.add(
-      [],
-      p1,
-      vec2.scale([], vec2.subtract([], p2, p1), i * ds),
-    );
-    const p = spherical2Cartesian(...q, 1.01);
+  const arr = new Float32Array(3 * n);
+  if (mercator) {
+    // mercator projection is not a linear transformation
+    uv1.t = spherical2Mercator(uv1.s, uv1.t).y;
+    uv2.t = spherical2Mercator(uv2.s, uv2.t).y;
+    vec2.set(p1, uv1.s, uv1.t);
+    vec2.set(p2, uv2.s, uv2.t);
+  } else {
+    // equirectangular projection (loxodrome is meanless in this case)
+    vec2.set(p1, ...UV2Spherical(uv1));
+    vec2.set(p2, ...UV2Spherical(uv2));
+  }
+  for (let i = 0, j = 0; i < n; ++i, j += 3) {
+    // q = p1 + t (p2-p1)
+    vec2.lerp(q, p1, p2, i * ds);
+    const p = mercator
+      ? spherical2Cartesian(...UV2Spherical(mercator2Spherical(...q)), 1.01)
+      : spherical2Cartesian(...q, 1.01);
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
