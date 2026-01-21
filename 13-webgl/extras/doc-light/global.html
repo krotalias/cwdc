@@ -215,7 +215,7 @@ Step 0.5° ⇒ 60 fps = 30°/s ⇒ 360° in 12s
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4362">line 4362</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4361">line 4361</a>
     </li></ul></dd>
     
 
@@ -4979,7 +4979,7 @@ on the right (intrinsic rotation).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4396">line 4396</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4395">line 4395</a>
     </li></ul></dd>
     
 
@@ -12985,7 +12985,7 @@ if longitude is in the western hemisphere.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4347">line 4347</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4346">line 4346</a>
     </li></ul></dd>
     
 
@@ -13147,7 +13147,7 @@ The perpendicular vector is in the xz-plane, with y = 0.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4331">line 4331</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4330">line 4330</a>
     </li></ul></dd>
     
 
@@ -13307,7 +13307,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4246">line 4246</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4245">line 4245</a>
     </li></ul></dd>
     
 
@@ -14165,7 +14165,7 @@ against the sphere of radius 1 centered at the origin (0, 0, 0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4165">line 4165</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4164">line 4164</a>
     </li></ul></dd>
     
 
@@ -14223,7 +14223,7 @@ against the sphere of radius 1 centered at the origin (0, 0, 0).
     
 
     
-    <h4 class="name" id="pointsOnLoxodrome"><span class="type-signature"></span>pointsOnLoxodrome<span class="signature">(loc, n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id="pointsOnLoxodrome"><span class="type-signature"></span>pointsOnLoxodrome<span class="signature">(loc1, loc2, n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -14231,8 +14231,8 @@ against the sphere of radius 1 centered at the origin (0, 0, 0).
 
 
 <div class="description">
-    <p>Return an array with n points on a loxodrome from Rio
-to the given location.</p>
+    <p>Return an array with n points on a loxodrome from loc1
+to loc2.</p>
 While a loxodrome appears as a straight line on a Mercator projection,
 it appears as a non-linear, curved line on an Equirectangular projection.
 </div>
@@ -14274,7 +14274,7 @@ it appears as a non-linear, curved line on an Equirectangular projection.
 
         <tr>
             
-                <td class="name"><code>loc</code></td>
+                <td class="name"><code>loc1</code></td>
             
 
             <td class="type">
@@ -14302,7 +14302,42 @@ it appears as a non-linear, curved line on an Equirectangular projection.
                 </td>
             
 
-            <td class="description last">location with latitude and longitude.</td>
+            <td class="description last">first location with latitude and longitude.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>loc2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#gpsCoordinates">gpsCoordinates</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">second location with latitude and longitude.</td>
         </tr>
 
     
@@ -14382,7 +14417,7 @@ it appears as a non-linear, curved line on an Equirectangular projection.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3920">line 3920</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3921">line 3921</a>
     </li></ul></dd>
     
 
@@ -16430,7 +16465,7 @@ corresponding to the given location.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3960">line 3960</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3959">line 3959</a>
     </li></ul></dd>
     
 
@@ -16805,7 +16840,7 @@ For instance, a cube's face texture coordinates span from 0 to 1.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4199">line 4199</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4198">line 4198</a>
     </li></ul></dd>
     
 
@@ -17747,7 +17782,7 @@ redrawn.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3992">line 3992</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3991">line 3991</a>
     </li></ul></dd>
     
 
@@ -20410,7 +20445,7 @@ model or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4202">line 4202</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4201">line 4201</a>
     </li></ul></dd>
     
 
@@ -20498,7 +20533,7 @@ model or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4402">line 4402</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4401">line 4401</a>
     </li></ul></dd>
     
 
@@ -23154,7 +23189,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3995">line 3995</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3994">line 3994</a>
     </li></ul></dd>
     
 
@@ -24453,7 +24488,7 @@ Executed when the slider is changed.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Jan 20 2026 09:26:38 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jan 21 2026 10:16:02 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

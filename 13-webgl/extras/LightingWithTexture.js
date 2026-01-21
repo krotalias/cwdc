@@ -3508,12 +3508,12 @@ function drawParallel() {
   // draw parallel
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-  gl.drawArrays(gl.LINE_LOOP, 0, nsegments);
+  gl.drawArrays(gl.LINE_STRIP, 0, nsegments);
 
   // draw meridian
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-  gl.drawArrays(gl.LINE_LOOP, 0, nsegments);
+  gl.drawArrays(gl.LINE_STRIP, 0, nsegments);
 
   gl.disableVertexAttribArray(positionIndex);
   gl.useProgram(null);
@@ -3903,11 +3903,12 @@ function isPowerOf2(value) {
 }
 
 /**
- * <p>Return an array with n points on a loxodrome from Rio
- * to the given location.</p>
+ * <p>Return an array with n points on a loxodrome from loc1
+ * to loc2.</p>
  * While a loxodrome appears as a straight line on a Mercator projection,
  * it appears as a non-linear, curved line on an Equirectangular projection.
- * @param {gpsCoordinates} loc location with latitude and longitude.
+ * @param {gpsCoordinates} loc1 first location with latitude and longitude.
+ * @param {gpsCoordinates} loc2 second location with latitude and longitude.
  * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the loxodrome.
  * @see {@link https://en.wikipedia.org/wiki/Rhumb_line Rhumb line}
@@ -3917,15 +3918,13 @@ function isPowerOf2(value) {
  * <a href="../images/loxodrome4.png"><img src="../images/loxodrome4.png" height="256">
  * <a href="../images/cylinder.png"><img src="../images/cylinder.png" height="256">
  */
-function pointsOnLoxodrome(loc, n = nsegments) {
-  const rio = gpsCoordinates["Rio"];
-
+function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
   const ds = 1 / (n - 1);
   const p1 = vec2.create();
   const p2 = vec2.create();
   const q = vec2.create();
-  const uv1 = gcs2UV(rio);
-  const uv2 = gcs2UV(loc);
+  const uv1 = gcs2UV(loc1);
+  const uv2 = gcs2UV(loc2);
   const arr = new Float32Array(3 * n);
   if (mercator) {
     // mercator projection is not a linear transformation
@@ -3963,7 +3962,7 @@ function setPosition(location) {
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, parallelVertices);
 
   const meridianVertices = loxodrome
-    ? pointsOnLoxodrome(gpsCoordinates[location])
+    ? pointsOnLoxodrome(gpsCoordinates["Rio"], gpsCoordinates[location])
     : pointsOnMeridian(gpsCoordinates[location].longitude);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
