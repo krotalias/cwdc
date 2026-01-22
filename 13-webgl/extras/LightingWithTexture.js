@@ -1616,22 +1616,22 @@ const handleKeyPress = ((event) => {
         selector.paused = false;
         document.getElementById(axis).checked = true;
         animate();
-        break;
+        return;
       case "I":
         selector.intrinsic = true;
         document.getElementById("intrinsic").checked = true;
         animate();
-        break;
+        return;
       case "e":
         selector.intrinsic = false;
         document.getElementById("extrinsic").checked = true;
         animate();
-        break;
+        return;
       case "E":
         selector.equator = !selector.equator;
         element.equator.checked = selector.equator;
         animate();
-        break;
+        return;
       case "Z":
         gscale = mscale = 1;
         element.models.value = "5";
@@ -1839,7 +1839,7 @@ const handleKeyPress = ((event) => {
         currentLocation = cities.current[index];
         labelForTimeline(dt);
         updateLocation(0);
-        break;
+        return;
       case "R":
         currentLocation = "Rio";
       case "O":
@@ -1849,20 +1849,20 @@ const handleKeyPress = ((event) => {
         vec3.set(forwardVector, 0, 0, 1); // phong highlight
         mscale = gscale;
         updateLocation(0);
-        break;
+        return;
       case "J":
         currentLocation = closestSite(gpsCoordinates["Unknown"]);
       case "j":
         updateLocation(0);
-        break;
+        return;
       case "g":
       case "ArrowRight":
         updateLocation(1);
-        break;
+        return;
       case "G":
       case "ArrowLeft":
         updateLocation(-1);
-        break;
+        return;
       case "D":
         canvas.toBlob((blob) => {
           saveWebGLCanvasAsPNG(
@@ -1881,12 +1881,12 @@ const handleKeyPress = ((event) => {
         );
         mat4.multiply(modelM, modelM, rotF);
         updateLocation(0, false);
-        break;
+        return;
       case "Q":
         const rotY = setYUp([], modelM, forwardVector);
         mat4.multiply(modelM, modelM, rotY);
         updateLocation(0);
-        break;
+        return;
       case "h":
         selector.tooltip = !selector.tooltip;
         element.tip.checked = selector.tooltip;
