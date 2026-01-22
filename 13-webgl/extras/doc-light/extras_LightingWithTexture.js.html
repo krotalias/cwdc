@@ -775,11 +775,12 @@ let mscale = 1;
 let gpsCoordinates = null;
 
 /**
- * Array of city names, that is, the gpsCoordinates keys.
+ * Object with arrays of city names ordered by different keys.
  * @type {Object}
  * @property {Array&lt;String>} byLongitude city names ordered by longitude.
  * @property {Array&lt;String>} byDate city names ordered by date.
  * @property {Array&lt;String>} current current city names.
+ * @property {Array&lt;String>} timeline city names ordered by year.
  */
 const cities = {
   byLongitude: null,
