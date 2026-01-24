@@ -768,6 +768,12 @@ const cities = {
 let currentLocation = null;
 
 /**
+ * Attributes of the previous city location.
+ * @type {gpsCoordinates}
+ */
+let previousLocation = { country: "Rio, Brazil" };
+
+/**
  * Current cursor position onto globe.
  * @type {Object<{x:Number,y:Number}>}
  */
@@ -1447,8 +1453,11 @@ const handleKeyPress = ((event) => {
   }
 
   /**
-   * Update the current location and set the position
-   * on the globe or map.
+   * <p>Update the {@link currentLocation current} and {@link previousLocation previous} locations
+   * and set the position on the globe or map.</p>
+   * The previous location is updated only if it has not been set in the
+   * {@link event:pointerup-theCanvas canvas} or {@link event:pointerdown-textimg textimg}
+   * listeners for pointer clicks.
    * @param {Number} inc increment to change the current location.
    * @param {Boolean} [fix=true] whether call {@link setYUp}.
    * @global
@@ -1456,7 +1465,16 @@ const handleKeyPress = ((event) => {
   function updateLocation(inc, fix = true) {
     if (axis === "q") axis = " "; // current meridian will be lost
     const cl = nextLocation(inc, country);
+
+    // has the previous location been already set in any of the two listeners for pointer clicks?
+    if (previousLocation.country !== "previous") {
+      previousLocation = structuredClone(gpsCoordinates[currentLocation]);
+    } else {
+      // previousLocation.country = "";
+    }
+
     currentLocation = cities.current[cl];
+
     setPosition(currentLocation);
     selector.equator = true;
     element.equator.checked = selector.equator;
@@ -2083,7 +2101,7 @@ function drawLinesOnImage() {
   ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
 
   if (selector.equator) {
-    const uv2 = gcs2UV(gpsCoordinates["Rio"]);
+    const uv2 = gcs2UV(previousLocation);
     const uv1 = gcs2UV(gpsCoordinates[currentLocation]);
     uv1.t = 1 - uv1.t;
     uv2.t = 1 - uv2.t;
@@ -2947,6 +2965,9 @@ function addListeners() {
       uv.t = mercator2Spherical(uv.s, uv.t).t;
     }
 
+    previousLocation = structuredClone(gpsCoordinates[currentLocation]);
+    previousLocation.country = "previous";
+
     const unknown = gpsCoordinates["Unknown"];
     ({ latitude: unknown.latitude, longitude: unknown.longitude } =
       spherical2gcs(uv));
@@ -3145,6 +3166,10 @@ function addListeners() {
     const ct = country;
     if (intersection) {
       const uv = cartesian2Spherical(intersection);
+
+      previousLocation = structuredClone(gpsCoordinates[currentLocation]);
+      previousLocation.country = "previous";
+
       const unknown = gpsCoordinates["Unknown"];
       ({ latitude: unknown.latitude, longitude: unknown.longitude } =
         spherical2gcs(uv));
@@ -3952,8 +3977,10 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
 }
 
 /**
- * Load a new parallel and meridian into the GPU
- * corresponding to the given location.
+ * <p>Load a new parallel and meridian (or a loxodrome) into the GPU
+ * corresponding to the given location.</p>
+ * In the case of a loxodrome, the {@link previousLocation previous location} is used as the
+ * starting point.
  * @param {String} location a {@link gpsCoordinates city name}.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData bufferSubData() method}
  */
@@ -3963,7 +3990,7 @@ function setPosition(location) {
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, parallelVertices);
 
   const meridianVertices = loxodrome
-    ? pointsOnLoxodrome(gpsCoordinates["Rio"], gpsCoordinates[location])
+    ? pointsOnLoxodrome(previousLocation, gpsCoordinates[location])
     : pointsOnMeridian(gpsCoordinates[location].longitude);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
