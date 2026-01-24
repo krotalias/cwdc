@@ -476,6 +476,34 @@ const animSong = "/cwdc/13-webgl/extras/mp3/Golden (Huntrix song).mp3";
 const toRadian = glMatrix.toRadian;
 
 /**
+ * Convert radians to degrees.
+ * @param {Number} a angle in radians.
+ * @return {Number} angle in degrees.
+ * @function
+ */
+const toDegrees = (a) => (a * 180) / Math.PI;
+
+/**
+ * Convert latitude in radians to Mercator latitude.
+ * @param {Number} lat latitude in radians.
+ * @returns {Number} Mercator latitude coordinate.
+ */
+const toMercator = (lat) => Math.log(Math.tan(Math.PI / 4 + lat / 2));
+
+/**
+ * Handle longitudinal crossing of anti-meridian.
+ * @param {Number} deltaLongitude difference between two longitudes in radians.
+ * @return {Number} adjusted difference.
+ */
+function antimeridianCrossing(deltaLongitude) {
+  if (Math.abs(deltaLongitude) > Math.PI) {
+    deltaLongitude += 2 * Math.PI;
+    if (deltaLongitude > 0) deltaLongitude *= -1;
+  }
+  return deltaLongitude;
+}
+
+/**
  * <p>Canvas element and its tooltip.</p>
  * <p>Canvas is used for drawing the globe and its tooltip is used for displaying
  * the {@link GCS} coordinates (longitude and latitude) on the globe when pointer is moved upon.</p>
@@ -651,6 +679,26 @@ function haversine(gcs1, gcs2) {
   const km = m / 1000.0; // distance in kilometers
 
   return { m, km };
+}
+
+/**
+ * Calculate bearing angle between two {@link GCS} coordinates.
+ * @param {GCS} gcs1 first pair of gcs coordinates.
+ * @param {GCS} gcs2 second pair of gcs coordinates.
+ * @return {Number} bearing angle in degrees between gcs1 and gcs2.
+ */
+function bearingAngle(gcs1, gcs2) {
+  let deltaLongitude = toRadian(gcs2.longitude - gcs1.longitude);
+
+  // deltaLongitude = antimeridianCrossing(deltaLongitude);
+
+  const lat1 = toRadian(gcs1.latitude);
+  const lat2 = toRadian(gcs2.latitude);
+
+  // difference in isometric latitude
+  const deltaLatitude = toMercator(lat2) - toMercator(lat1);
+
+  return toDegrees(Math.atan2(deltaLongitude, deltaLatitude));
 }
 
 /**
@@ -3997,6 +4045,13 @@ function setPosition(location) {
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, meridianVertices);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+  if (loxodrome) {
+    const ba = bearingAngle(previousLocation, gpsCoordinates[location]);
+    document.getElementById("lox").innerHTML = `Loxodrome (${ba.toFixed(2)}°)`;
+  } else {
+    document.getElementById("lox").innerHTML = "Loxodrome";
+  }
 }
 
 /**
