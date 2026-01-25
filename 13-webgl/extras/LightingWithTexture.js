@@ -1132,7 +1132,7 @@ let mercator = document.querySelector("#mercator").checked;
  * Whether to plot loxodromes.
  * @type {Boolean}
  */
-let loxodrome = true;
+let loxodrome = document.querySelector("#loxodrome").checked;
 
 /**
  * Whether the texture represents a map.
@@ -4207,8 +4207,6 @@ function startForReal(image) {
   // max value is MAX_COMBINED_TEXTURE_IMAGE_UNITS
   gl.activeTexture(gl.TEXTURE0);
 
-  newTexture(image);
-
   // specify a teal like fill color for clearing the framebuffer
   gl.clearColor(0.0, 0.4, 0.4, 1.0);
 
@@ -4231,6 +4229,7 @@ function startForReal(image) {
 
   labelForLocation(currentLocation);
   selectModel();
+  newTexture(image);
   addListeners();
   [cities.byDate, cities.timeline] = sortCitiesByDate();
   cities.current = selector.cities ? cities.byDate : cities.byLongitude;
