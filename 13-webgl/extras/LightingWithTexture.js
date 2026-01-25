@@ -1132,7 +1132,7 @@ let mercator = document.querySelector("#mercator").checked;
  * Whether to plot loxodromes.
  * @type {Boolean}
  */
-let loxodrome = false;
+let loxodrome = true;
 
 /**
  * Whether the texture represents a map.
@@ -1860,14 +1860,13 @@ const handleKeyPress = ((event) => {
         element.fix_uv.checked = fixuv;
         setUVfix();
         break;
-      case "F":
-        loxodrome = !loxodrome;
-        element.loxodrome.checked = loxodrome;
-        setPosition(currentLocation);
-        break;
       case "K":
         mercator = !mercator;
         element.merc.checked = mercator;
+      case "F":
+        loxodrome = !loxodrome && mercator;
+        element.loxodrome.checked = loxodrome;
+        setPosition(currentLocation);
         break;
       case "b":
         culling = !culling;
@@ -2139,8 +2138,12 @@ function rotateModelTowardsCamera(
 }
 
 /**
- * Draw the meridian and parallel lines at the {@link currentLocation}
- * on the texture image.
+ * <p>Draw the meridian (or loxodrome) and parallel lines at the {@link currentLocation}
+ * on the texture image.</p>
+ * The loxodrome is a straight line connecting the
+ * {@link previousLocation previous} to the {@link currentLocation current} location
+ * and its bearing angle is the angle it makes with the y-axis.
+ * @return {Number} bearing angle in degrees (only for loxodrome).
  */
 function drawLinesOnImage() {
   const canvasimg = document.getElementById("canvasimg");
@@ -2165,10 +2168,12 @@ function drawLinesOnImage() {
     const rx = uv2.s * canvasimg.width;
     const ry = uv2.t * canvasimg.height;
 
+    let bearingAngle = 0;
     ctx.beginPath();
     if (loxodrome) {
       ctx.moveTo(x, y); // loxodrome
       ctx.lineTo(rx, ry);
+      bearingAngle = -toDegrees(Math.atan2(rx - x, ry - y));
     } else {
       ctx.moveTo(x, 0); // meridian
       ctx.lineTo(x, canvasimg.height);
@@ -2179,6 +2184,7 @@ function drawLinesOnImage() {
     ctx.stroke();
     ctx.closePath();
   }
+  return bearingAngle;
 }
 
 /**
@@ -4037,21 +4043,23 @@ function setPosition(location) {
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, parallelVertices);
 
-  const meridianVertices = loxodrome
-    ? pointsOnLoxodrome(previousLocation, gpsCoordinates[location])
-    : pointsOnMeridian(gpsCoordinates[location].longitude);
+  let meridianVertices;
+  if (loxodrome) {
+    meridianVertices = pointsOnLoxodrome(
+      previousLocation,
+      gpsCoordinates[location],
+    );
+    const ba = bearingAngle(previousLocation, gpsCoordinates[location]);
+    document.getElementById("lox").innerHTML = `Loxodrome (${ba.toFixed(2)}°)`;
+  } else {
+    meridianVertices = pointsOnMeridian(gpsCoordinates[location].longitude);
+    document.getElementById("lox").innerHTML = "Loxodrome";
+  }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, meridianVertices);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
-
-  if (loxodrome) {
-    const ba = bearingAngle(previousLocation, gpsCoordinates[location]);
-    document.getElementById("lox").innerHTML = `Loxodrome (${ba.toFixed(2)}°)`;
-  } else {
-    document.getElementById("lox").innerHTML = "Loxodrome";
-  }
 }
 
 /**
@@ -4343,6 +4351,8 @@ function newTexture(image) {
   document.getElementById("figc").textContent =
     `(${image.width} x ${image.height})`;
   document.getElementById("textures").value = String(textureCnt);
+  // loxodrome only for mercator textures
+  handleKeyPress(createEvent("F"));
 
   // bind the texture
   gl.bindTexture(gl.TEXTURE_2D, textureHandle);
