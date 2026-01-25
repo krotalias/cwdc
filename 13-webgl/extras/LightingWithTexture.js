@@ -4351,6 +4351,7 @@ function newTexture(image) {
     `(${image.width} x ${image.height})`;
   document.getElementById("textures").value = String(textureCnt);
   // loxodrome only for mercator textures
+  loxodrome = !loxodrome && mercator;
   handleKeyPress(createEvent("F"));
 
   // bind the texture
