@@ -596,6 +596,16 @@ const element = {
 };
 
 /**
+ * Color table used in the {@link colorShader shader} for different path types.
+ * @type {Object<String, Array<Number>>}
+ */
+const colorTable = {
+  loxodrome: [1.0, 0.0, 0.0, 1.0], // red
+  great_circle: [0.0, 1.0, 1.0, 1.0], // cyan
+  normal: [1.0, 1.0, 0.0, 1.0], // yellow
+};
+
+/**
  * Convert spherical coordinates to {@link GCS}
  * (longitude, latitude).
  * @param {Object<{s:Number,t:Number}>} uv spherical coordinates ∈ [0,1]}.
@@ -3439,8 +3449,8 @@ function drawTexture() {
 }
 
 /**
- * <p>Draws the lines: mesh + normals.</p>
- * Uses the {@link colorShader}.
+ * <p>Draws the lines: {@link lineBuffer mesh} + {@link normalBuffer normals}.</p>
+ * Uses the {@link colorShader} with colors defined in a {@link colorTable}.
  * <p>This code takes too long on mobile - too many API calls.</p>
  * <pre>
  *  // draw edges
@@ -3473,7 +3483,7 @@ function drawLines() {
   }
 
   // use yellow as line color in the colorShader
-  gl.vertexAttrib4f(a_color, 1.0, 1.0, 0.0, 1.0);
+  gl.vertexAttrib4f(a_color, ...colorTable.normal);
 
   // "enable" the a_position attribute
   gl.enableVertexAttribArray(positionIndex);
@@ -3554,8 +3564,8 @@ function drawAxes() {
 }
 
 /**
- * <p>Draws a parallel. </p>
- * Uses the {@link colorShader}.
+ * <p>Draws a {@link parallelBuffer parallel} and a {@link meridianBuffer meridian}. </p>
+ * Uses the {@link colorShader} with colors defined in a {@link colorTable}.
  */
 function drawParallel() {
   // bind the shader
@@ -3571,7 +3581,6 @@ function drawParallel() {
     console.log("Failed to get the storage location of a_Color");
     return;
   }
-  gl.vertexAttrib4f(a_color, 1.0, 0.0, 0.0, 1.0);
 
   // "enable" the a_position attribute
   gl.enableVertexAttribArray(positionIndex);
@@ -3586,11 +3595,13 @@ function drawParallel() {
   gl.uniformMatrix4fv(loc, false, transform);
 
   // draw parallel
+  if (loxodrome) gl.vertexAttrib4f(a_color, ...colorTable.great_circle);
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
   gl.drawArrays(gl.LINE_STRIP, 0, nsegments);
 
   // draw meridian
+  gl.vertexAttrib4f(a_color, ...colorTable.loxodrome);
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
   gl.drawArrays(gl.LINE_STRIP, 0, nsegments);
@@ -4047,6 +4058,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * @see {@link https://en.wikipedia.org/wiki/Great-circle_navigation Great-circle navigation}
  * @see {@link https://mathworld.wolfram.com/GreatCircle.html Great Circle}
  * @see {@link https://www.whitman.edu/Documents/Academics/Mathematics/2016/Vezie.pdf A Comparative Analysis of Rhumb Lines and Great Circles}
+ * @see <a href="../images/greatCircle.png"><img src="../images/greatCircle.png" height="256"></a>
  */
 function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
   const uv1 = gcs2UV(loc1);
@@ -4087,10 +4099,11 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
 }
 
 /**
- * <p>Load a new parallel and meridian (or a loxodrome) into the GPU
- * corresponding to the given location.</p>
- * In the case of a loxodrome, the {@link previousLocation previous location} is used as the
- * starting point.
+ * <p>Load a new parallel and meridian,
+ * or a {@link pointsOnGreatCircle geat circle} and {@link pointsOnLoxodrome loxodrome},
+ * into the GPU corresponding to the given location.</p>
+ * In the case that a {@link loxodrome} is selected, the {@link previousLocation previous location}
+ * is used as the starting point.
  * @param {String} location a {@link gpsCoordinates city name}.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData bufferSubData() method}
  */
