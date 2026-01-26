@@ -4031,6 +4031,62 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
 }
 
 /**
+ * <p>Return an array with n points on a great circle from loc1
+ * to loc2.</p>
+ * While a great circle is the shortest path between two points on a sphere,
+ * it is a curve when projected either onto an Equirectangular or Mercator map.
+ * <ul>
+ * <li>P(t) = C + R cos(t) u + R sin(t) v, t ∈ [0,θ]</li>
+ * </ul>
+ * where u and v are orthonormal vectors on the plane defined by the two points
+ * and the center of the sphere: R = 1 and C = (0, 0, 0).
+ * @param {gpsCoordinates} loc1 first location with latitude and longitude.
+ * @param {gpsCoordinates} loc2 second location with latitude and longitude.
+ * @param {Number} [ns={@link nsegments}] number of points.
+ * @return {Float32Array} points on the great circle.
+ * @see {@link https://en.wikipedia.org/wiki/Great-circle_navigation Great-circle navigation}
+ * @see {@link https://mathworld.wolfram.com/GreatCircle.html Great Circle}
+ * @see {@link https://www.whitman.edu/Documents/Academics/Mathematics/2016/Vezie.pdf A Comparative Analysis of Rhumb Lines and Great Circles}
+ */
+function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
+  const uv1 = gcs2UV(loc1);
+  const uv2 = gcs2UV(loc2);
+  const pA = spherical2Cartesian(...UV2Spherical(uv1));
+  const pB = spherical2Cartesian(...UV2Spherical(uv2));
+  const theta = Math.acos(vec3.dot(pA, pB));
+  const ds = theta / (ns - 1);
+  const arr = new Float32Array(3 * ns);
+
+  const n = vec3.create();
+  const p = vec3.create();
+  vec3.cross(n, pB, pA);
+  // same points?
+  if (vec3.length(n) === 0) {
+    return null;
+  } else {
+    vec3.normalize(n, n);
+  }
+  const u = pA;
+  const v = vec3.cross([], u, n);
+  vec3.normalize(v, v);
+
+  for (let i = 0, j = 0; i < ns; ++i, j += 3) {
+    vec3.add(
+      p,
+      vec3.scale([], u, Math.cos(i * ds)),
+      vec3.scale([], v, Math.sin(i * ds)),
+    );
+
+    vec3.scale(p, p, 1.01);
+
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+  }
+  return arr;
+}
+
+/**
  * <p>Load a new parallel and meridian (or a loxodrome) into the GPU
  * corresponding to the given location.</p>
  * In the case of a loxodrome, the {@link previousLocation previous location} is used as the
@@ -4039,7 +4095,19 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData bufferSubData() method}
  */
 function setPosition(location) {
-  const parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
+  let parallelVertices;
+
+  if (loxodrome) {
+    parallelVertices = pointsOnGreatCircle(
+      previousLocation,
+      gpsCoordinates[location],
+    );
+  } else {
+    parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
+  }
+
+  if (parallelVertices === null) return;
+
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, parallelVertices);
 
@@ -4055,6 +4123,8 @@ function setPosition(location) {
     meridianVertices = pointsOnMeridian(gpsCoordinates[location].longitude);
     document.getElementById("lox").innerHTML = "Loxodrome";
   }
+
+  if (meridianVertices === null) return;
 
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, meridianVertices);
