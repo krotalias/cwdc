@@ -1379,7 +1379,7 @@ function labelForTimeline(dat) {
   // element.lblTimeline.style.color = dat < 0 ? "gold" : "red";
   dat = `${Math.abs(dat)} ${dat < 0 ? "BC" : "AD"}`;
   element.lblTimeline.innerHTML = `Timeline: ${dat}`;
-  document.querySelector("#nsites").innerHTML = `${cities.current.length}`;
+  document.querySelector("#nsites").innerHTML = `${cities.country.length}`;
 }
 
 /**
@@ -4348,7 +4348,7 @@ function startForReal(image) {
 }
 
 /**
- * Return an array with points on {@link gpsCoordinates} of slected country.
+ * Return an array with points on {@link gpsCoordinates} of the selected country.
  * @return {Array<Float32Array>} locations points.
  * @property {Float32Array} 0 locations coordinate array.
  * @property {Float32Array} 1 locations color array.
