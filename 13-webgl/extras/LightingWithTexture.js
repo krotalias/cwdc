@@ -647,6 +647,16 @@ const UV2Spherical = (uv) => {
 };
 
 /**
+ * <p>Modulo operation that handles negative numbers correctly.<p>
+ * Always takes the sign of the divisor, i.e.,
+ * the result is always non-negative if the divisor is positive,
+ * @param {Number} n dividend.
+ * @param {Number} m divisor.
+ * @returns {Number} modulo of n mod m.
+ */
+const mod = (n, m) => ((n % m) + m) % m;
+
+/**
  * <p>Calculate distances on the globe using the Haversine Formula.</p>
  * Usage:
  * <pre>
@@ -811,12 +821,14 @@ let gpsCoordinates = null;
  * @property {Array<String>} byDate city names ordered by date.
  * @property {Array<String>} current current city names.
  * @property {Array<String>} timeline city names ordered by year.
+ * @property {Array<String>} country city names in the selected country.
  */
 const cities = {
   byLongitude: null,
   byDate: null,
   current: null,
   timeline: null,
+  country: null,
 };
 
 /**
@@ -1434,6 +1446,29 @@ function gcs2Screen(location, mercatorProjection = false) {
 }
 
 /**
+ * Returns the next location starting at {@link currentLocation}.
+ * @param {Number} inc increment (-1, 0 or 1).
+ * @param {String} initialLocation initial location.
+ * @param {String} filter set of locations to look for.
+ * @returns {Number} index of next location.
+ */
+function nextLocation(inc, initialLocation, filter = "") {
+  let cl = cities.current.indexOf(initialLocation);
+  if (inc === 0) return cl;
+
+  let location = initialLocation;
+  do {
+    cl = mod(cl + inc, cities.current.length);
+    location = cities.current[cl];
+  } while (
+    filter &&
+    location != initialLocation &&
+    !gpsCoordinates[location].country.includes(filter)
+  );
+  return cl;
+}
+
+/**
  * <p>Closure for keydown events.</p>
  * Chooses a {@link theModel model} and which {@link axis} to rotate around.<br>
  * The {@link numSubdivisions subdivision level} is {@link maxSubdivisions limited}
@@ -1444,7 +1479,6 @@ function gcs2Screen(location, mercatorProjection = false) {
  * @return {key_event} callback for handling a keyboard event.
  */
 const handleKeyPress = ((event) => {
-  const mod = (n, m) => ((n % m) + m) % m;
   const kbd = document.getElementById("kbd");
   const opt = document.getElementById("options");
   const pause = document.getElementById("pause");
@@ -1487,30 +1521,6 @@ const handleKeyPress = ((event) => {
   };
 
   /**
-   * Returns the next location starting at {@link currentLocation}.
-   * @param {Number} increment.
-   * @param {String} filter set of locations to look for.
-   * @returns {Number} index of next location.
-   * @global
-   */
-  function nextLocation(inc, filter = "") {
-    let cl = cities.current.indexOf(currentLocation);
-    if (inc === 0) return cl;
-
-    const initialLocaton = currentLocation;
-    let location = currentLocation;
-    do {
-      cl = mod(cl + inc, cities.current.length);
-      location = cities.current[cl];
-    } while (
-      filter &&
-      location != initialLocaton &&
-      !gpsCoordinates[location].country.includes(filter)
-    );
-    return cl;
-  }
-
-  /**
    * <p>Update the {@link currentLocation current} and {@link previousLocation previous} locations
    * and set the position on the globe or map.</p>
    * The previous location is updated only if it has not been set in the
@@ -1522,7 +1532,7 @@ const handleKeyPress = ((event) => {
    */
   function updateLocation(inc, fix = true) {
     if (axis === "q") axis = " "; // current meridian will be lost
-    const cl = nextLocation(inc, country);
+    const cl = nextLocation(inc, currentLocation, country);
 
     // has the previous location been already set in any of the two listeners for pointer clicks?
     if (previousLocation.country !== "previous") {
@@ -2207,7 +2217,7 @@ function drawLocationsOnImage() {
   const ctx = canvasimg.getContext("2d");
   //  ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
 
-  for (const location of cities.current) {
+  for (const location of cities.country) {
     const gps = gpsCoordinates[location];
     const uv = gcs2UV(gps);
     uv.t = 1 - uv.t;
@@ -2999,6 +3009,15 @@ function addListeners() {
    */
   element.country.addEventListener("change", (event) => {
     country = element.country.value;
+
+    const [locationsVertices, locationsColors] = pointsOnLocations();
+    gl.bindBuffer(gl.ARRAY_BUFFER, locationsBuffer);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, locationsVertices);
+    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, locationsColors, gl.STATIC_DRAW);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
+    draw();
   });
 
   /**
@@ -3647,7 +3666,7 @@ function drawLocations() {
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
   gl.vertexAttribPointer(colorIndex, 3, gl.FLOAT, false, 0, 0);
-  gl.drawArrays(gl.POINTS, 0, cities.current.length);
+  gl.drawArrays(gl.POINTS, 0, cities.country.length);
 
   gl.disableVertexAttribArray(positionIndex);
   gl.disableVertexAttribArray(colorIndex);
@@ -3994,7 +4013,7 @@ function isPowerOf2(value) {
 }
 
 /**
- * <p>Return an array with n points on a loxodrome from loc1
+ * <p>Return an array with n points on a loxodrome (rhumb line) from loc1
  * to loc2.</p>
  * While a loxodrome appears as a straight line on a Mercator projection,
  * it appears as a non-linear, curved line on an Equirectangular projection.
@@ -4042,7 +4061,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
 }
 
 /**
- * <p>Return an array with n points on a great circle from loc1
+ * <p>Return an array with n points on an orthodrome (great circle) from loc1
  * to loc2.</p>
  * While a great circle is the shortest path between two points on a sphere,
  * it is a curve when projected either onto an Equirectangular or Mercator map.
@@ -4329,15 +4348,54 @@ function startForReal(image) {
 }
 
 /**
- * Return an array with all points on {@link gpsCoordinates}.
+ * Return an array with points on {@link gpsCoordinates} of slected country.
  * @return {Array<Float32Array>} locations points.
  * @property {Float32Array} 0 locations coordinate array.
  * @property {Float32Array} 1 locations color array.
  */
 function pointsOnLocations() {
+  cities.country = [];
+
+  let cl = nextLocation(1, cities.current[0], country);
+  let location = cities.current[cl];
+  const initialLocation = location;
+  do {
+    cities.country.push(location);
+    cl = nextLocation(1, location, country);
+    location = cities.current[cl];
+  } while (location !== initialLocation);
+
+  const n = cities.country.length;
+  const arr = new Float32Array(3 * n);
+  const crr = new Float32Array(3 * n);
+
+  for (let i = 0, j = 0; i < n; ++i, j += 3) {
+    const gcs = gpsCoordinates[cities.country[i]];
+    const uv = gcs2UV(gcs);
+    const [theta, phi] = UV2Spherical(uv);
+    const p = spherical2Cartesian(theta, phi, 1);
+    arr[j] = p[0];
+    arr[j + 1] = p[1];
+    arr[j + 2] = p[2];
+
+    crr[j] = 1;
+    crr[j + 1] = gcs.remarkable.at(-1).includes("BC") ? 1 : 0;
+    crr[j + 2] = 0;
+  }
+  return [arr, crr];
+}
+
+/**
+ * Return an array with all points on {@link gpsCoordinates}.
+ * @return {Array<Float32Array>} locations points.
+ * @property {Float32Array} 0 locations coordinate array.
+ * @property {Float32Array} 1 locations color array.
+ */
+function pointsOnAllLocations() {
   const n = cities.current.length;
   const arr = new Float32Array(3 * n);
   const crr = new Float32Array(3 * n);
+  cities.country = cities.current;
 
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
     const gcs = gpsCoordinates[cities.current[i]];
