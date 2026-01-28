@@ -562,6 +562,7 @@ let country = "";
  * @property {HTMLLabelElement} lblTimeline label
  * @property {HTMLDataListElement} steplist list
  * @property {HTMLSelectElement} country select
+ * @property {HTMLInputElement} loxodrome checkbox
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement HTMLElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement HTMLInputElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement HTMLSelectElement}
@@ -4103,7 +4104,10 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * @see {@link https://en.wikipedia.org/wiki/Great-circle_navigation Great-circle navigation}
  * @see {@link https://mathworld.wolfram.com/GreatCircle.html Great Circle}
  * @see {@link https://www.whitman.edu/Documents/Academics/Mathematics/2016/Vezie.pdf A Comparative Analysis of Rhumb Lines and Great Circles}
- * @see <a href="../images/greatCircle.png"><img src="../images/greatCircle.png" height="256"></a>
+ * @see <figure>
+ *      <a href="../images/Quito-Jerusalem.png"><img src="../images/Quito-Jerusalem.png" height="512"></a>
+ *      <figcaption style="font-size: 200%">Great Circle (cyan) - Rhumb Line (red)<br> Quito - Jerusalem (73.47°)</figcaption>
+ *      </figure>
  */
 function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
   const uv1 = gcs2UV(loc1);
