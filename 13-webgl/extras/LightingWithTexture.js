@@ -491,14 +491,17 @@ const toDegrees = (a) => (a * 180) / Math.PI;
 const toMercator = (lat) => Math.log(Math.tan(Math.PI / 4 + lat / 2));
 
 /**
- * Handle longitudinal crossing of anti-meridian.
+ * <p>Handle longitudinal crossing of anti-meridian.</p>
  * @param {Number} deltaLongitude difference between two longitudes in radians.
  * @return {Number} adjusted difference.
  */
 function antimeridianCrossing(deltaLongitude) {
   if (Math.abs(deltaLongitude) > Math.PI) {
-    deltaLongitude += 2 * Math.PI;
-    if (deltaLongitude > 0) deltaLongitude *= -1;
+    if (deltaLongitude > 0) {
+      deltaLongitude -= 2 * Math.PI;
+    } else {
+      deltaLongitude += 2 * Math.PI;
+    }
   }
   return deltaLongitude;
 }
@@ -710,7 +713,7 @@ function haversine(gcs1, gcs2) {
 function bearingAngle(gcs1, gcs2) {
   let deltaLongitude = toRadian(gcs2.longitude - gcs1.longitude);
 
-  // deltaLongitude = antimeridianCrossing(deltaLongitude);
+  deltaLongitude = antimeridianCrossing(deltaLongitude);
 
   const lat1 = toRadian(gcs1.latitude);
   const lat2 = toRadian(gcs2.latitude);
@@ -2197,9 +2200,9 @@ function drawLinesOnImage() {
     } else {
       ctx.moveTo(x, 0); // meridian
       ctx.lineTo(x, canvasimg.height);
+      ctx.moveTo(0, y); // parallel
+      ctx.lineTo(canvasimg.width, y);
     }
-    ctx.moveTo(0, y); // parallel
-    ctx.lineTo(canvasimg.width, y);
     ctx.strokeStyle = "red";
     ctx.stroke();
     ctx.closePath();
@@ -4015,8 +4018,16 @@ function isPowerOf2(value) {
 /**
  * <p>Return an array with n points on a loxodrome (rhumb line) from loc1
  * to loc2.</p>
- * While a loxodrome appears as a straight line on a Mercator projection,
- * it appears as a non-linear, curved line on an Equirectangular projection.
+ * While a loxodrome is as a straight line on a Mercator projection,
+ * it is a non-linear, curved line on an Equirectangular projection.
+ * <p>Loxodromic interpolation follows a path of
+ * constant bearing (azimuth) and it crosses all meridians at the same angle.</p>
+ * When crossing the antimeridian, the longitude difference (Δλ)
+ * must represent the shortest angular distance.
+ * A possible approach is using longitude values outside the -180/180 range.
+ * <ul>
+ * <li>E.g., a line with two points with longitude values 170 and 210 should cross the antimeridian when rendered.</li>
+ * </ul>
  * @param {gpsCoordinates} loc1 first location with latitude and longitude.
  * @param {gpsCoordinates} loc2 second location with latitude and longitude.
  * @param {Number} [n={@link nsegments}] number of points.
@@ -4024,17 +4035,32 @@ function isPowerOf2(value) {
  * @see {@link https://en.wikipedia.org/wiki/Rhumb_line Rhumb line}
  * @see {@link https://www.whitman.edu/Documents/Academics/Mathematics/2016/Vezie.pdf A Comparative Analysis of Rhumb Lines and Great Circles}
  * @see <img src="../images/loxodrome.png">
- * @see <a href="../images/loxodrome5.png"><img src="../images/loxodrome5.png" height="256"></a>
- * <a href="../images/loxodrome4.png"><img src="../images/loxodrome4.png" height="256">
- * <a href="../images/cylinder.png"><img src="../images/cylinder.png" height="256">
+ * @see <figure>
+ *      <a href="../images/Seattle-London.png"><img src="../images/Seattle-London.png" height="256"></a>
+ *      <a href="../images/Seattle-London2.png"><img src="../images/Seattle-London2.png" height="256"></a>
+ *      <a href="../images/cylinder.png"><img src="../images/cylinder.png" height="256"></a>
+ *      <figcaption style="font-size: 200%">Seattle - London (87.21°)</figcaption>
+ *      </figure>
+ * @see <figure>
+ *      <a href="../images/antimeridian_crossing-fixed.png"><img src="../images/antimeridian_crossing-fixed.png" width="512"></a>
+ *      <figcaption style="font-size: 200%">Antimeridian crossing fixed <br> San Francisco - Doolittle Raid (-91.90°)</figcaption>
+ *      </figure>
  */
 function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
+  const dlong = loc2.longitude - loc1.longitude;
+  const loc22 = { ...loc2 };
+  // antimeridian crossing testing
+  if (dlong > 180) {
+    loc22.longitude -= 360;
+  } else if (dlong < -180) {
+    loc22.longitude += 360;
+  }
   const ds = 1 / (n - 1);
   const p1 = vec2.create();
   const p2 = vec2.create();
   const q = vec2.create();
   const uv1 = gcs2UV(loc1);
-  const uv2 = gcs2UV(loc2);
+  const uv2 = gcs2UV(loc22);
   const arr = new Float32Array(3 * n);
   if (mercator) {
     // mercator projection is not a linear transformation
@@ -4061,7 +4087,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
 }
 
 /**
- * <p>Return an array with n points on an orthodrome (great circle) from loc1
+ * <p>Return an array with ns points on an orthodrome (great circle) from loc1
  * to loc2.</p>
  * While a great circle is the shortest path between two points on a sphere,
  * it is a curve when projected either onto an Equirectangular or Mercator map.
