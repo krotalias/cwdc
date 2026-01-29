@@ -563,6 +563,7 @@ let country = "";
  * @property {HTMLDataListElement} steplist list
  * @property {HTMLSelectElement} country select
  * @property {HTMLInputElement} loxodrome checkbox
+ * @property {HTMLCanvasElement} canvasimg canvas
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement HTMLElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement HTMLInputElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement HTMLSelectElement}
@@ -597,6 +598,7 @@ const element = {
   steplist: document.getElementById("steplist"),
   country: document.getElementById("country"),
   loxodrome: document.getElementById("loxodrome"),
+  canvasimg: document.getElementById("canvasimg"),
 };
 
 /**
@@ -914,6 +916,12 @@ const axisVertices = new Float32Array([
   0.0, 0.0, 0.0,
   0.0, 0.0, 1.5
 ]);
+
+/**
+ * Vertex coordinates for creating a great circle in the Mercator map.
+ * @type {Array<Object>}
+ */
+let mercatorVertices = null;
 
 /**
  * Colors for creating the axes.
@@ -2162,6 +2170,49 @@ function rotateModelTowardsCamera(
 }
 
 /**
+ * <p>Draw the rhumb line (loxodrome) or the meridian and parallel lines
+ * between two {@link GCS} locations on the texture image.</p>
+ * @param {gpsCoordinates} loc1 first location.
+ * @param {gpsCoordinates} loc2 second location.
+ * @returns {Number} bearing angle in degrees (only for loxodrome).
+ */
+function rhumbLine(ctx, loc1, loc2) {
+  const uv1 = gcs2UV(loc1);
+  const uv2 = gcs2UV(loc2);
+  uv1.t = 1 - uv1.t;
+  uv2.t = 1 - uv2.t;
+  if (mercator) {
+    // mercator projection
+    uv1.t = spherical2Mercator(uv1.s, uv1.t).y;
+    uv2.t = spherical2Mercator(uv2.s, uv2.t).y;
+  }
+
+  // screen coordinates
+  const x = uv1.s * element.canvasimg.width;
+  const y = uv1.t * element.canvasimg.height;
+  const rx = uv2.s * element.canvasimg.width;
+  const ry = uv2.t * element.canvasimg.height;
+
+  let bearingAngle = 0;
+  ctx.beginPath();
+  if (loxodrome) {
+    ctx.moveTo(x, y); // loxodrome
+    ctx.lineTo(rx, ry);
+    bearingAngle = -toDegrees(Math.atan2(rx - x, ry - y));
+  } else {
+    ctx.moveTo(x, 0); // meridian
+    ctx.lineTo(x, element.canvasimg.height);
+    ctx.moveTo(0, y); // parallel
+    ctx.lineTo(element.canvasimg.width, y);
+  }
+  ctx.strokeStyle = "red";
+  ctx.stroke();
+  ctx.closePath();
+
+  return bearingAngle;
+}
+
+/**
  * <p>Draw the meridian (or loxodrome) and parallel lines at the {@link currentLocation}
  * on the texture image.</p>
  * The loxodrome is a straight line connecting the
@@ -2170,43 +2221,58 @@ function rotateModelTowardsCamera(
  * @return {Number} bearing angle in degrees (only for loxodrome).
  */
 function drawLinesOnImage() {
-  const canvasimg = document.getElementById("canvasimg");
+  let bearingAngle = 0;
 
+  const canvasimg = element.canvasimg;
   const ctx = canvasimg.getContext("2d");
   ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
 
   if (selector.equator) {
-    const uv2 = gcs2UV(previousLocation);
-    const uv1 = gcs2UV(gpsCoordinates[currentLocation]);
-    uv1.t = 1 - uv1.t;
-    uv2.t = 1 - uv2.t;
-    if (mercator) {
-      // mercator projection
-      uv1.t = spherical2Mercator(uv1.s, uv1.t).y;
-      uv2.t = spherical2Mercator(uv2.s, uv2.t).y;
-    }
+    const location = { ...gpsCoordinates[currentLocation] };
+    const prev = { ...previousLocation };
+    const dlong = location.longitude - previousLocation.longitude;
 
-    // screen coordinates
-    const x = uv1.s * canvasimg.width;
-    const y = uv1.t * canvasimg.height;
-    const rx = uv2.s * canvasimg.width;
-    const ry = uv2.t * canvasimg.height;
-
-    let bearingAngle = 0;
-    ctx.beginPath();
-    if (loxodrome) {
-      ctx.moveTo(x, y); // loxodrome
-      ctx.lineTo(rx, ry);
-      bearingAngle = -toDegrees(Math.atan2(rx - x, ry - y));
+    // antimeridian crossing testing - break line in two segments
+    if (dlong > 180) {
+      location.longitude -= 360;
+      rhumbLine(ctx, previousLocation, location); // let clipping handle it
+      prev.longitude += 360;
+      bearingAngle = rhumbLine(ctx, prev, gpsCoordinates[currentLocation]);
+    } else if (dlong < -180) {
+      location.longitude += 360;
+      rhumbLine(ctx, previousLocation, location); // let clipping handle it
+      prev.longitude -= 360;
+      bearingAngle = rhumbLine(ctx, prev, gpsCoordinates[currentLocation]);
     } else {
-      ctx.moveTo(x, 0); // meridian
-      ctx.lineTo(x, canvasimg.height);
-      ctx.moveTo(0, y); // parallel
-      ctx.lineTo(canvasimg.width, y);
+      bearingAngle = rhumbLine(ctx, previousLocation, location);
     }
-    ctx.strokeStyle = "red";
-    ctx.stroke();
-    ctx.closePath();
+
+    if (mercatorVertices) {
+      // draw great circle for mercator projection
+      let first = true;
+      let px;
+      ctx.strokeStyle = "cyan";
+      ctx.beginPath();
+      for (const m of mercatorVertices) {
+        const mx = m.x * canvasimg.width;
+        const my = (1 - m.y) * canvasimg.height;
+
+        if (first) {
+          ctx.moveTo(mx, my);
+          first = false;
+          px = mx;
+        } else {
+          if (Math.abs(px - mx) < canvasimg.width / 2) {
+            ctx.lineTo(mx, my);
+          } else {
+            ctx.moveTo(mx, my);
+          }
+          px = mx;
+        }
+      }
+      ctx.stroke();
+      ctx.closePath();
+    }
   }
   return bearingAngle;
 }
@@ -4038,12 +4104,13 @@ function isPowerOf2(value) {
  * @see <img src="../images/loxodrome.png">
  * @see <figure>
  *      <a href="../images/Seattle-London.png"><img src="../images/Seattle-London.png" height="256"></a>
- *      <a href="../images/Seattle-London2.png"><img src="../images/Seattle-London2.png" height="256"></a>
+ *      <a href="../images/Seattle-London-map.png"><img src="../images/Seattle-London-map.png" height="256"></a>
  *      <a href="../images/cylinder.png"><img src="../images/cylinder.png" height="256"></a>
  *      <figcaption style="font-size: 200%">Seattle - London (87.21°)</figcaption>
  *      </figure>
  * @see <figure>
- *      <a href="../images/antimeridian_crossing-fixed.png"><img src="../images/antimeridian_crossing-fixed.png" width="512"></a>
+ *      <a href="../images/antimeridian_crossing-fixed.png"><img src="../images/antimeridian_crossing-fixed.png" height="256"></a>
+ *      <a href="../images/antimeridian_crossing-map.png"><img src="../images/antimeridian_crossing-map.png" height="256"></a>
  *      <figcaption style="font-size: 200%">Antimeridian crossing fixed <br> San Francisco - Doolittle Raid (-91.90°)</figcaption>
  *      </figure>
  */
@@ -4100,12 +4167,14 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * @param {gpsCoordinates} loc1 first location with latitude and longitude.
  * @param {gpsCoordinates} loc2 second location with latitude and longitude.
  * @param {Number} [ns={@link nsegments}] number of points.
- * @return {Float32Array} points on the great circle.
+ * @property {Float32Array} 0 points on the great circle.
+ * @property {Float32Array} 1 points in mercator coordinates.
  * @see {@link https://en.wikipedia.org/wiki/Great-circle_navigation Great-circle navigation}
  * @see {@link https://mathworld.wolfram.com/GreatCircle.html Great Circle}
  * @see {@link https://www.whitman.edu/Documents/Academics/Mathematics/2016/Vezie.pdf A Comparative Analysis of Rhumb Lines and Great Circles}
  * @see <figure>
- *      <a href="../images/Quito-Jerusalem.png"><img src="../images/Quito-Jerusalem.png" height="512"></a>
+ *      <a href="../images/Quito-Jerusalem.png"><img src="../images/Quito-Jerusalem.png" height="256"></a>
+ *      <a href="../images/Quito-Jerusalem-map.png"><img src="../images/Quito-Jerusalem-map.png" height="256"></a>
  *      <figcaption style="font-size: 200%">Great Circle (cyan) - Rhumb Line (red)<br> Quito - Jerusalem (73.47°)</figcaption>
  *      </figure>
  */
@@ -4117,13 +4186,14 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
   const theta = Math.acos(vec3.dot(pA, pB));
   const ds = theta / (ns - 1);
   const arr = new Float32Array(3 * ns);
+  const mrr = [];
 
   const n = vec3.create();
   const p = vec3.create();
   vec3.cross(n, pB, pA);
   // same points?
   if (vec3.length(n) === 0) {
-    return null;
+    return [null, null];
   } else {
     vec3.normalize(n, n);
   }
@@ -4138,13 +4208,16 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
       vec3.scale([], v, Math.sin(i * ds)),
     );
 
+    const uv = cartesian2Spherical(p);
+    mrr.push(spherical2Mercator(uv.s, uv.t));
+
     vec3.scale(p, p, 1.01);
 
     arr[j] = p[0];
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
   }
-  return arr;
+  return [arr, mrr];
 }
 
 /**
@@ -4160,7 +4233,7 @@ function setPosition(location) {
   let parallelVertices;
 
   if (loxodrome) {
-    parallelVertices = pointsOnGreatCircle(
+    [parallelVertices, mercatorVertices] = pointsOnGreatCircle(
       previousLocation,
       gpsCoordinates[location],
     );
