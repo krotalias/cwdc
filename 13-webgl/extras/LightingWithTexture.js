@@ -2233,12 +2233,12 @@ function drawLinesOnImage() {
     const dlong = location.longitude - previousLocation.longitude;
 
     // antimeridian crossing testing - break line in two segments
-    if (dlong > 180) {
+    if (dlong > 180 && loxodrome) {
       location.longitude -= 360;
       rhumbLine(ctx, previousLocation, location); // let clipping handle it
       prev.longitude += 360;
       bearingAngle = rhumbLine(ctx, prev, gpsCoordinates[currentLocation]);
-    } else if (dlong < -180) {
+    } else if (dlong < -180 && loxodrome) {
       location.longitude += 360;
       rhumbLine(ctx, previousLocation, location); // let clipping handle it
       prev.longitude -= 360;
@@ -2247,7 +2247,7 @@ function drawLinesOnImage() {
       bearingAngle = rhumbLine(ctx, previousLocation, location);
     }
 
-    if (mercatorVertices) {
+    if (mercatorVertices && loxodrome) {
       // draw great circle for mercator projection
       let first = true;
       let px;
