@@ -2213,8 +2213,8 @@ function rhumbLine(ctx, loc1, loc2) {
 }
 
 /**
- * <p>Draw the meridian (or loxodrome) and parallel lines at the {@link currentLocation}
- * on the texture image.</p>
+ * <p>Draw the meridian (or loxodrome) and parallel {@link rhumbLine lines} at the {@link currentLocation}
+ * on the texture image and the great circle projection.</p>
  * The loxodrome is a straight line connecting the
  * {@link previousLocation previous} to the {@link currentLocation current} location
  * and its bearing angle is the angle it makes with the y-axis.
@@ -4167,6 +4167,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * @param {gpsCoordinates} loc1 first location with latitude and longitude.
  * @param {gpsCoordinates} loc2 second location with latitude and longitude.
  * @param {Number} [ns={@link nsegments}] number of points.
+ * @return {Array<Float32Array,Array>} two arrays with cartesian and mercator points.
  * @property {Float32Array} 0 points on the great circle.
  * @property {Float32Array} 1 points in mercator coordinates.
  * @see {@link https://en.wikipedia.org/wiki/Great-circle_navigation Great-circle navigation}
@@ -4452,7 +4453,7 @@ function startForReal(image) {
 
 /**
  * Return an array with points on {@link gpsCoordinates} of the selected country.
- * @return {Array<Float32Array>} locations points.
+ * @return {Array<Float32Array,Float32Array>} locations points and colors.
  * @property {Float32Array} 0 locations coordinate array.
  * @property {Float32Array} 1 locations color array.
  */
