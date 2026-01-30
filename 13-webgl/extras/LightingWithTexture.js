@@ -360,7 +360,7 @@
  *      <img src="../images/Amsterdan-HongKong.png" height="340" title="rhumb line">
  *      <img src="../images/Amsterdan-HongKong-map.png" height="340" title="rhumb line map">
  *      <figcaption style="font-size: 200%">
- *      <a href="https://engaging-data.com/country-sizes-mercator/">Rhumb Line (red) and Great Circle (cyan) <br> Amsterdan - Hong Kong (109.55°)</a>
+ *      <a href="https://gisgeography.com/great-circle-geodesic-line-shortest-flight-path/">Rhumb Line (red) and Great Circle (cyan) <br> Amsterdan - Hong Kong (109.55°)</a>
  *      </figcaption>
  *      </figure>
  * @see  <figure>

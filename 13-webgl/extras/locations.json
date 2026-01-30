@@ -79,7 +79,7 @@
         "longitude": -0.632
     },
     "Blenheim Palace": {
-        "country": "Woodstock (United Kingdom)",
+        "country": "🏆 Woodstock (United Kingdom)",
         "remarkable": [
             "Home to the Churchill family for 300 years",
             "World Heritage Site (UNESCO), 1987",
@@ -2207,7 +2207,7 @@
         "longitude": -78.5125
     },
     "Staunton": {
-        "country": "Virginia (United States)",
+        "country": "🏆 Virginia (United States)",
         "remarkable": [
             "Thomas Woodrow Wilson, 1856-1924",
             "College of New Jersey (political philosophy and history), 1875-1879",
@@ -2589,7 +2589,7 @@
         "longitude": -106.019666588
     },
     "Project Y": {
-        "country": "⚔ ☢ 🧪 New Mexico (United States)",
+        "country": "⚔ ☢ 🧪 🏆 New Mexico (United States)",
         "remarkable": [
             "Leslie Richard Groves Jr. (Lieutenant General), 1896-1970",
             "Director of the Manhattan Project, 23 September 1942",
@@ -2738,7 +2738,7 @@
         "longitude": -118.1085554
     },
     "Livermore": {
-        "country": "🧪 California (United States)",
+        "country": "🧪 🏆 California (United States)",
         "remarkable": [
             "Lawrence Livermore National Laboratory (LLNL), 2 September 1952",
             "Ernest Orlando Lawrence, 1901 - 1958",
@@ -2891,7 +2891,7 @@
         "longitude": -156.37249
     },
     "Honolulu": {
-        "country": "Hawaii (United States)",
+        "country": "🏆 Hawaii (United States)",
         "remarkable": [
             "Capital of the Kingdom of Hawaii, 1 October 1845",
             "Overthrown of the Hawaiian monarchy, 17 January 1893",
@@ -3462,7 +3462,7 @@
         "longitude": 100.37055
     },
     "Kolkata": {
-        "country": "India",
+        "country": "🏆 India",
         "remarkable": [
             "Mother Teresa, 1910-1997",
             "Nobel Peace Prize, 1979",
@@ -4484,7 +4484,7 @@
         "longitude": 18.3564
     },
     "Stockholm": {
-        "country": "Sweden",
+        "country": "🏆 Sweden",
         "remarkable": ["Alfred Nobel, 1833-1896", "Dynamite, 1867"],
         "latitude": 59.33258,
         "longitude": 18.0649
@@ -4835,7 +4835,7 @@
         "longitude": 10.152923
     },
     "Ulm": {
-        "country": "German Empire",
+        "country": "🏆 German Empire",
         "remarkable": [
             "Albert Einstein, 1879-1955",
             "Special relativity, 1905",
