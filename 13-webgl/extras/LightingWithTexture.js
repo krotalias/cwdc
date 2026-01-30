@@ -2172,8 +2172,8 @@ function rotateModelTowardsCamera(
 /**
  * <p>Draw the rhumb line (loxodrome) or the meridian and parallel lines
  * between two {@link GCS} locations on the texture image.</p>
- * @param {gpsCoordinates} loc1 first location.
- * @param {gpsCoordinates} loc2 second location.
+ * @param {gpsCoordinates} loc1 previous location.
+ * @param {gpsCoordinates} loc2 current location.
  * @returns {Number} bearing angle in degrees (only for loxodrome).
  */
 function rhumbLine(ctx, loc1, loc2) {
@@ -2188,17 +2188,17 @@ function rhumbLine(ctx, loc1, loc2) {
   }
 
   // screen coordinates
-  const x = uv1.s * element.canvasimg.width;
-  const y = uv1.t * element.canvasimg.height;
-  const rx = uv2.s * element.canvasimg.width;
-  const ry = uv2.t * element.canvasimg.height;
+  const px = uv1.s * element.canvasimg.width;
+  const py = uv1.t * element.canvasimg.height;
+  const x = uv2.s * element.canvasimg.width;
+  const y = uv2.t * element.canvasimg.height;
 
   let bearingAngle = 0;
   ctx.beginPath();
   if (loxodrome) {
     ctx.moveTo(x, y); // loxodrome
-    ctx.lineTo(rx, ry);
-    bearingAngle = -toDegrees(Math.atan2(rx - x, ry - y));
+    ctx.lineTo(px, py);
+    bearingAngle = -toDegrees(Math.atan2(px - x, py - y));
   } else {
     ctx.moveTo(x, 0); // meridian
     ctx.lineTo(x, element.canvasimg.height);
