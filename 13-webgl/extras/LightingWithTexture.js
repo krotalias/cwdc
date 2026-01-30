@@ -356,6 +356,13 @@
  *      <a href="https://engaging-data.com/country-sizes-mercator/">Real Country Sizes Shown on Mercator Projection</a>
  *      </figcaption>
  *      </figure>
+ * @see <figure>
+ *      <img src="../images/Amsterdan-HongKong.png" height="340" title="rhumb line">
+ *      <img src="../images/Amsterdan-HongKong-map.png" height="340" title="rhumb line map">
+ *      <figcaption style="font-size: 200%">
+ *      <a href="https://engaging-data.com/country-sizes-mercator/">Rhumb Line (red) and Great Circle (cyan) <br> Amsterdan - Hong Kong (109.55°)</a>
+ *      </figcaption>
+ *      </figure>
  * @see  <figure>
  *      <img src="../images/sphere-earth.png" height="340" title="equirectangular projection">
  *      <img src="../images/teapot-earth.png" height="340" title="sphere projected onto a teapot">
