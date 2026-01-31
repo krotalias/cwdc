@@ -2181,11 +2181,13 @@ function rotateModelTowardsCamera(
  * between two {@link GCS} locations on the texture image.</p>
  * @param {gpsCoordinates} loc1 previous location.
  * @param {gpsCoordinates} loc2 current location.
- * @returns {Number} bearing angle in degrees (only for loxodrome).
+ * @returns {Number|null} bearing angle in degrees (only for loxodrome).
  */
 function rhumbLine(ctx, loc1, loc2) {
   const uv1 = gcs2UV(loc1);
   const uv2 = gcs2UV(loc2);
+  const w = element.canvasimg.width;
+  const h = element.canvasimg.height;
   uv1.t = 1 - uv1.t;
   uv2.t = 1 - uv2.t;
   if (mercator) {
@@ -2195,22 +2197,29 @@ function rhumbLine(ctx, loc1, loc2) {
   }
 
   // screen coordinates
-  const px = uv1.s * element.canvasimg.width;
-  const py = uv1.t * element.canvasimg.height;
-  const x = uv2.s * element.canvasimg.width;
-  const y = uv2.t * element.canvasimg.height;
+  const px = uv1.s * w;
+  const py = uv1.t * h;
+  const x = uv2.s * w;
+  const y = uv2.t * h;
+  const dx = px - x;
+  const dy = py - y;
 
-  let bearingAngle = 0;
+  if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
+    return null; // same point
+  }
+
+  let bearingAngle = null;
   ctx.beginPath();
   if (loxodrome) {
-    ctx.moveTo(x, y); // loxodrome
-    ctx.lineTo(px, py);
-    bearingAngle = -toDegrees(Math.atan2(px - x, py - y));
+    ctx.moveTo(px, py); // loxodrome
+    ctx.lineTo(x, y);
+    // relative to the positive y-axis
+    bearingAngle = -toDegrees(Math.atan2(dx, dy));
   } else {
     ctx.moveTo(x, 0); // meridian
-    ctx.lineTo(x, element.canvasimg.height);
+    ctx.lineTo(x, h);
     ctx.moveTo(0, y); // parallel
-    ctx.lineTo(element.canvasimg.width, y);
+    ctx.lineTo(w, y);
   }
   ctx.strokeStyle = "red";
   ctx.stroke();
@@ -2225,10 +2234,10 @@ function rhumbLine(ctx, loc1, loc2) {
  * The loxodrome is a straight line connecting the
  * {@link previousLocation previous} to the {@link currentLocation current} location
  * and its bearing angle is the angle it makes with the y-axis.
- * @return {Number} bearing angle in degrees (only for loxodrome).
+ * @return {Number|null} bearing angle in degrees (only for loxodrome).
  */
 function drawLinesOnImage() {
-  let bearingAngle = 0;
+  let bearingAngle = null;
 
   const canvasimg = element.canvasimg;
   const ctx = canvasimg.getContext("2d");
@@ -2253,6 +2262,25 @@ function drawLinesOnImage() {
     } else {
       bearingAngle = rhumbLine(ctx, previousLocation, location);
     }
+
+    const remarkable = gpsCoordinates[currentLocation].remarkable;
+    const colon = remarkable.at(-1).indexOf(":");
+    if (bearingAngle !== null) {
+      if (colon > -1) {
+        remarkable[remarkable.length - 1] =
+          `Bearing Angle: ${bearingAngle.toFixed(2)}°`;
+      } else {
+        remarkable.push(`Bearing Angle: ${bearingAngle.toFixed(2)}°`);
+      }
+    } else {
+      if (colon > -1) {
+        remarkable.pop();
+      }
+    }
+
+    canvastip.innerHTML = `${currentLocation}, ${country}<br>${remarkable.join(
+      "<br>",
+    )}`;
 
     if (mercatorVertices && loxodrome) {
       // draw great circle for mercator projection
@@ -3277,6 +3305,8 @@ function addListeners() {
       cursorPosition = { x, y };
       const intersection = pixelRayIntersection(x, y);
       if (!intersection) {
+        canvastip.innerHTML = "";
+        canvastip.style.display = "none";
         return;
       }
 
@@ -4164,8 +4194,10 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
 /**
  * <p>Return an array with ns points on an orthodrome (great circle) from loc1
  * to loc2.</p>
- * While a great circle is the shortest path between two points on a sphere,
- * it is a curve when projected either onto an Equirectangular or Mercator map.
+ * The shortest path between two points on a sphere is
+ * the minor arc of the great circle passing through them, known as the geodesic.
+ * However, differently from a rhumb line, it is a curve when projected either
+ * onto an Equirectangular or Mercator map.
  * <ul>
  * <li>P(t) = C + R cos(t) u + R sin(t) v, t ∈ [0,θ]</li>
  * </ul>
@@ -4179,6 +4211,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * @property {Float32Array} 1 points in mercator coordinates.
  * @see {@link https://en.wikipedia.org/wiki/Great-circle_navigation Great-circle navigation}
  * @see {@link https://mathworld.wolfram.com/GreatCircle.html Great Circle}
+ * @see {@link https://www.transnav.eu/files/A_Novel_Approach_to_Loxodrome_(Rhumb_Line)_Orthodrome_(Great_Circle)_and_Geodesic_Line_in_ECDIS_and_Navigation_in_General,322.pdf A Novel Approach to Loxodrome (Rhumb Line), Orthodrome (Great Circle) and Geodesic Line in ECDIS and Navigation in General}
  * @see {@link https://www.whitman.edu/Documents/Academics/Mathematics/2016/Vezie.pdf A Comparative Analysis of Rhumb Lines and Great Circles}
  * @see <figure>
  *      <a href="../images/Quito-Jerusalem.png"><img src="../images/Quito-Jerusalem.png" height="256"></a>
