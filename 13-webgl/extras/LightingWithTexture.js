@@ -220,13 +220,16 @@
  * </p>
  *
  * <b>Note:</b>
- * ☠ means <i><a href="../images/Caribbean.mp4">Caribbean</a></i>,
- * ⚔ (WW) means <i><a href="../images/WWII.mp4">World War II</a></i>,
- * ✝ means <i><a href="../images/Crusades.mp4">Crusade</a></i>,
- * ☢ means <i><a href="../images/radiation.mp4">Radiation</a></i>,
- * 🧪 means <i><a href="../images/labs.mp4">Laboratory</a></i>,
- * BC means <i><a href="https://www.instagram.com/reel/DRHRmcOD_KR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">Before Christ</a></i>
- * and AD means <i>Anno Domini</i>.
+ * <ul>
+ * <li>☠ means <i><a href="../images/Caribbean.mp4">Caribbean</a></i>,</li>
+ * <li>⚔ (WW) means <i><a href="../images/WWII.mp4">World War II</a></i>,</li>
+ * <li>✝ means <i><a href="../images/Crusades.mp4">Crusade</a></i>,</li>
+ * <li>☢ means <i><a href="../images/radiation.mp4">Radiation</a></i>,</li>
+ * <li>🧪 means <i><a href="../images/labs.mp4">Laboratory</a></i>,</li>
+ * <li>🏆 means <i><a href="../images/nobel.mp4">Nobel Prize</a></i>,</li>
+ * <li>BC means <i><a href="https://www.instagram.com/reel/DRHRmcOD_KR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">Before Christ</a></i> and</li>
+ * <li>AD means <i><a href="https://en.wikipedia.org/wiki/Anno_Domini">Anno Domini</a></i>.</li>
+ * </ul>
  *
  * <p><b>{@link https://www.youtube.com/watch?v=Otm4RusESNU Homework}</b>:</p>
  *
@@ -715,10 +718,16 @@ function haversine(gcs1, gcs2) {
 }
 
 /**
- * Calculate bearing angle between two {@link GCS} coordinates.
+ * <p>Calculate the bearing angle between two {@link GCS} coordinates.</p>
+ * A bearing (or azimuth) angle is a horizontal, clockwise angle measured from North (000°)
+ * to determine direction in navigation and surveying.
+ * It is represented using three figures (e.g., 045° for Northeast)
+ * and ranges from 000° to 360°.
  * @param {GCS} gcs1 first pair of gcs coordinates.
  * @param {GCS} gcs2 second pair of gcs coordinates.
  * @return {Number} bearing angle in degrees between gcs1 and gcs2.
+ * @see {@link https://www.mathsteacher.com.au/year7/ch08_angles/07_bear/bearing.htm Bearings}
+ * @see {@link https://en.wikipedia.org/wiki/Bearing_(navigation) Bearing (navigation)}
  */
 function bearingAngle(gcs1, gcs2) {
   let deltaLongitude = toRadian(gcs2.longitude - gcs1.longitude);
@@ -2105,7 +2114,7 @@ function getAngleBetweenVectors(v1, v2) {
  * @see {@link https://stackoverflow.com/questions/15022630/how-to-calculate-the-angle-from-rotation-matrix How to calculate the angle from rotation matrix}
  * @see {@link https://roam-lab.github.io/files/ozaslan2025_euler.pdf Understanding 3D Rotations: EULER Angle Conventions}
  * @see {@link https://www.cs.utexas.edu/~theshark/courses/cs354/lectures/cs354-14.pdf Rotations and Orientation}
- * @see {@link https://collections.leventhalmap.org/search/commonwealth:9s161j433 The Wolrd turned Upside Down}
+ * @see {@link https://collections.leventhalmap.org/search/commonwealth:9s161j433 The World turned Upside Down}
  */
 function setYUp(out, rotationMatrix, rotationAxis) {
   // 'North' (y) vector in model space (intrinsic frame)
@@ -2229,12 +2238,21 @@ function rhumbLine(ctx, loc1, loc2) {
 }
 
 /**
- * <p>Draw the meridian (or loxodrome) and parallel {@link rhumbLine lines} at the {@link currentLocation}
- * on the texture image and the great circle projection.</p>
+ * <p>Draw the meridian and parallel lines at the
+ * {@link currentLocation} on the {@link element texture image},
+ * or the loxodrome and {@link rhumbLine rhumb line}
+ * if {@link loxodrome} is selected,
+ * plus the great circle projection.</p>
  * The loxodrome is a straight line connecting the
  * {@link previousLocation previous} to the {@link currentLocation current} location
- * and its bearing angle is the angle it makes with the y-axis.
+ * and its {@link https://www.youtube.com/watch?v=sALJGEUe9GA bearing angle}
+ * is the angle it makes with the y-axis.
  * @return {Number|null} bearing angle in degrees (only for loxodrome).
+ * @see <figure>
+ *      <a href="../images/Sidney-Nuuk.png"><img src="../images/Sidney-Nuuk.png" height="256"></a>
+ *      <a href="../images/Sidney-Nuuk-map.png"><img src="../images/Sidney-Nuuk-map.png" height="256"></a>
+ *      <figcaption style="font-size: 200%">Rhumb Line (red) - Great Circle (cyan)<br> Sidney - Nuuk (52.53°)</figcaption>
+ *      </figure>
  */
 function drawLinesOnImage() {
   let bearingAngle = null;
@@ -4263,7 +4281,7 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
 
 /**
  * <p>Load a new parallel and meridian,
- * or a {@link pointsOnGreatCircle geat circle} and {@link pointsOnLoxodrome loxodrome},
+ * or a {@link pointsOnGreatCircle great circle} and {@link pointsOnLoxodrome loxodrome},
  * into the GPU corresponding to the given location.</p>
  * In the case that a {@link loxodrome} is selected, the {@link previousLocation previous location}
  * is used as the starting point.
