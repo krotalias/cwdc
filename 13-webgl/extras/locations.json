@@ -1984,6 +1984,22 @@
         "latitude": 40.7128,
         "longitude": -74.006
     },
+    "American Stock Exchange": {
+        "country": "New York (United States)",
+        "remarkable": [
+            "86 Trinity Place and 123 Greenwich Street, 1921-present",
+            "Stock market peak close (381.17), 3 September 1929",
+            "Wall Street Crash, 24 October 1929 - 29 October 1929",
+            "Roger Babson declared that a crash was coming, 5 September 1929",
+            "Steady slide to lowest level of the 20th century (41.22), April 1930 - 8 July 1932",
+            "Did not return to its peak for 25 years, 23 November 1954",
+            "Black Thursday (-11%), 24 October 1929",
+            "Black Monday (-12.82%), 28 October 1929",
+            "Black Tuesday (-11.73%), 29 October 1929"
+        ],
+        "latitude": 40.708889,
+        "longitude": -74.012778
+    },
     "Bogotá": {
         "country": "Colombia",
         "remarkable": [
@@ -2294,6 +2310,19 @@
         "latitude": 19.2866,
         "longitude": -81.37436
     },
+    "Moreland Hills": {
+        "country": "Ohio (United States)",
+        "remarkable": [
+            "James Abram Garfield, 1831-1881",
+            "Hiram College (B.A.), 1851-1854",
+            "Army of the Ohio (Union Major General), 1861-1863",
+            "20th U.S. President, 4 March 1881 - 19 September 1881",
+            "Shot by Charles J. Guiteau (a deluded office seeker), 2 July 1881",
+            "Died from general infection and medical incompetence, 19 September 1881"
+        ],
+        "latitude": 41.440556,
+        "longitude": -81.425278
+    },
     "Havana": {
         "country": "☠ Cuba",
         "remarkable": [
@@ -2459,6 +2488,22 @@
         ],
         "latitude": 29.95465,
         "longitude": -90.07507
+    },
+    "West Branch": {
+        "country": "Iowa (United States)",
+        "remarkable": [
+            "Herbert Clark Hoover, 1874-1964",
+            "Stanford University (B.A. Geology), 1 October 1891 - 26 May 1895",
+            "Engineer in western Australia, May 1897",
+            "Bewick, Moreing and Co., 1899-1908",
+            "Arrived in China, March 1899",
+            "Chinese Engineering and Mining Company, 1901-1908",
+            "U.S. Food Administration (Director), 21 August 1917 - 16 November 1918",
+            "31st U.S. President, 4 March 1929 - 4 March 1933",
+            "Great Depression, 1929-1939"
+        ],
+        "latitude": 41.666111,
+        "longitude": -91.344167
     },
     "Riverside": {
         "country": "Iowa (United States)",
@@ -5058,8 +5103,8 @@
         "longitude": -0.001545
     },
     "Unknown": {
-        "country": "Clicked location",
-        "remarkable": ["© 2024 Paulo Roma Cavalcanti"],
+        "country": "Pinpointed Location (POI)",
+        "remarkable": ["© 2024-2026 Paulo Roma Cavalcanti"],
         "latitude": -22.936707841251728,
         "longitude": -43.18442949011858
     }
