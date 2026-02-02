@@ -740,7 +740,7 @@ function bearingAngle(gcs1, gcs2) {
   // difference in isometric latitude
   const deltaLatitude = toMercator(lat2) - toMercator(lat1);
 
-  return toDegrees(Math.atan2(deltaLongitude, deltaLatitude));
+  return (toDegrees(Math.atan2(deltaLongitude, deltaLatitude)) + 360) % 360;
 }
 
 /**
@@ -2224,6 +2224,7 @@ function rhumbLine(ctx, loc1, loc2) {
     ctx.lineTo(x, y);
     // relative to the positive y-axis
     bearingAngle = -toDegrees(Math.atan2(dx, dy));
+    if (bearingAngle < 0) bearingAngle += 360;
   } else {
     ctx.moveTo(x, 0); // meridian
     ctx.lineTo(x, h);
@@ -4166,7 +4167,7 @@ function isPowerOf2(value) {
  * @see <figure>
  *      <a href="../images/antimeridian_crossing-fixed.png"><img src="../images/antimeridian_crossing-fixed.png" height="256"></a>
  *      <a href="../images/antimeridian_crossing-map.png"><img src="../images/antimeridian_crossing-map.png" height="256"></a>
- *      <figcaption style="font-size: 200%">Antimeridian crossing fixed <br> San Francisco - Doolittle Raid (-91.90°)</figcaption>
+ *      <figcaption style="font-size: 200%">Antimeridian crossing fixed <br> San Francisco - Doolittle Raid (268.10°)</figcaption>
  *      </figure>
  */
 function pointsOnLoxodrome(loc1, loc2, n = nsegments) {

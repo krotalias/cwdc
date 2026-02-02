@@ -768,7 +768,7 @@ function bearingAngle(gcs1, gcs2) {
   // difference in isometric latitude
   const deltaLatitude = toMercator(lat2) - toMercator(lat1);
 
-  return toDegrees(Math.atan2(deltaLongitude, deltaLatitude));
+  return (toDegrees(Math.atan2(deltaLongitude, deltaLatitude)) + 360) % 360;
 }
 
 /**
@@ -2252,6 +2252,7 @@ function rhumbLine(ctx, loc1, loc2) {
     ctx.lineTo(x, y);
     // relative to the positive y-axis
     bearingAngle = -toDegrees(Math.atan2(dx, dy));
+    if (bearingAngle < 0) bearingAngle += 360;
   } else {
     ctx.moveTo(x, 0); // meridian
     ctx.lineTo(x, h);
