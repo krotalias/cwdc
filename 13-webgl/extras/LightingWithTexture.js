@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in Vanilla Javascript and WebGL.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 373 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 376 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -167,7 +167,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">373 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">376 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -722,7 +722,7 @@ function haversine(gcs1, gcs2) {
  * A bearing (or azimuth) angle is a horizontal, clockwise angle measured from North (000°)
  * to determine direction in navigation and surveying.
  * It is represented using three figures (e.g., 045° for Northeast)
- * and ranges from 000° to 360°.
+ * and ranges from [000°, 360°].
  * @param {GCS} gcs1 first pair of gcs coordinates.
  * @param {GCS} gcs2 second pair of gcs coordinates.
  * @return {Number} bearing angle in degrees between gcs1 and gcs2.
@@ -2190,7 +2190,8 @@ function rotateModelTowardsCamera(
  * between two {@link GCS} locations on the texture image.</p>
  * @param {gpsCoordinates} loc1 previous location.
  * @param {gpsCoordinates} loc2 current location.
- * @returns {Number|null} bearing angle in degrees (only for loxodrome).
+ * @returns {Number|null} bearing angle in degrees ∈ [000°, 360°]
+ * or null, if {@link loxodrome} is false.
  */
 function rhumbLine(ctx, loc1, loc2) {
   const uv1 = gcs2UV(loc1);
@@ -2248,7 +2249,8 @@ function rhumbLine(ctx, loc1, loc2) {
  * {@link previousLocation previous} to the {@link currentLocation current} location
  * and its {@link https://www.youtube.com/watch?v=sALJGEUe9GA bearing angle}
  * is the angle it makes with the y-axis.
- * @return {Number|null} bearing angle in degrees (only for loxodrome).
+ * @return {Number|null} bearing angle in degrees ∈ [000°, 360°]
+ * or null, if {@link loxodrome} is false.
  * @see <figure>
  *      <a href="../images/Sidney-Nuuk.png"><img src="../images/Sidney-Nuuk.png" height="256"></a>
  *      <a href="../images/Sidney-Nuuk-map.png"><img src="../images/Sidney-Nuuk-map.png" height="256"></a>
@@ -3101,7 +3103,7 @@ function addListeners() {
   /**
    * @summary Executed when the textures &lt;select&gt; is changed.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
-   * The {@link selectTexture} argument sets the callback that will be invoked when
+   * The {@link selectTexture callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
    * @event changeTextureSelect
@@ -3115,7 +3117,7 @@ function addListeners() {
   /**
    * Executed when the models &lt;select&gt; is changed.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
-   * The {@link selectModel} argument sets the callback that will be invoked when
+   * The {@link selectModel callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
    * @event changeModelsSelect
@@ -3126,7 +3128,7 @@ function addListeners() {
   /**
    * Executed when the country &lt;select&gt; is changed.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
-   * The {@link country} argument sets the callback that will be invoked when
+   * The {@link country callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
    * @event changeCountrySelect
@@ -3143,6 +3145,22 @@ function addListeners() {
 
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
     draw();
+  });
+
+  /**
+   * <p>Prevent country selection events whose type attribute value is keydown.</p>
+   * <p>Appends an event listener for events whose type attribute value is keydown.<br>
+   * The {@link https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault callback}
+   * argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event keydownCountrySelect
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault Event.preventDefault() method}
+   */
+  element.country.addEventListener("keydown", (event) => {
+    // prevent selection by key press for not interfering with other shortcuts
+    event.preventDefault();
   });
 
   /**
