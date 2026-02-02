@@ -2297,6 +2297,7 @@ function drawLinesOnImage() {
       }
     }
 
+    const country = gpsCoordinates[currentLocation].country || "";
     canvastip.innerHTML = `${currentLocation}, ${country}<br>${remarkable.join(
       "<br>",
     )}`;
