@@ -293,6 +293,15 @@
  * <li>
  * What does the obliquity of the earth have to do with the {@link https://en.wikipedia.org/wiki/Timeline_of_glaciation glacial} periods?
  * </li>
+ * <li>
+ * The {@link https://www.youtube.com/watch?v=r4H7H0km02Q minimum distance}
+ * between two points on a sphere is along the {@link pointsOnGreatCircle minor arc}
+ * of a {@link https://en.wikipedia.org/wiki/Great-circle_distance great circle}
+ * or formally a {@link https://faculty.sites.iastate.edu/jia/files/inline-files/geodesics.pdf geodesics}.
+ * However, although this is the route planes follow for saving fuel,
+ * sailboats and ships usually follow a {@link https://en.wikipedia.org/wiki/Rhumb_line rhumb line} (loxodrome).
+ * <a href="../images/Cape Horn-Cape Good Hope.png">Why is that</a>?
+ * </li>
  * </ol>
  *
  * @author {@link https://krotalias.github.io Paulo Roma}
@@ -4212,7 +4221,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
     vec2.set(p1, uv1.s, uv1.t);
     vec2.set(p2, uv2.s, uv2.t);
   } else {
-    // equirectangular projection (loxodrome is meanless in this case)
+    // equirectangular projection (loxodrome is meaningless in this case)
     vec2.set(p1, ...UV2Spherical(uv1));
     vec2.set(p2, ...UV2Spherical(uv2));
   }
