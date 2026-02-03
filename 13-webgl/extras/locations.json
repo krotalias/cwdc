@@ -1713,14 +1713,19 @@
         "longitude": -66.9146008
     },
     "Cape Horn": {
-        "country": "Hornos Island (Chile)",
+        "country": "Hornos Island, Tierra del Fuego (Chile)",
         "remarkable": [
-            "Francisco de Hoces, 1526",
-            "Francis Drake, 1528",
-            "Schouten and Le Maire, 1616",
-            "HMS Bounty, 1788",
-            "Charles Darwin, 1832",
-            "Dutch East India Company (VOC), 20 March 1602 - 31 December 1799"
+            "The world's most feared headland for sailing ships",
+            "Francisco de Hoces, January 1526",
+            "Francis Drake discovered the Drake Passage, September 1578",
+            "Antarctic Circumpolar Current (ACC) flows clockwise through the passage",
+            "Willem Schouten and Le Maire, 29 January 1616",
+            "First to intentionally round the cape to bypass",
+            "VOC monopoly trade route through the Strait of Magellan",
+            "HMS Bounty, 25 March 1788",
+            "Charles Darwin, December 1832",
+            "Six explorers successfully rowed across the passage, 25 December 2019",
+            "The opening of Drake Passage, 29 January 1616"
         ],
         "latitude": -55.974496102,
         "longitude": -67.269665588
