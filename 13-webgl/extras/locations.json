@@ -1403,6 +1403,24 @@
         "latitude": -2.44306,
         "longitude": -54.70833
     },
+    "Paramaribo": {
+        "country": "Suriname",
+        "remarkable": [
+            "British colonization (Fort Willoughby), 1640-1667",
+            "Dutch colonization (Fort Zeelandia), 25 February 1667",
+            "Treaty of Breda, 31 July 1667",
+            "British occupation, 1799-1816",
+            "Anglo-Dutch Treaty (returned to Dutch), 13 August 1814",
+            "Netherlands abolished slavery in Suriname, 1863",
+            "U.S. stationed troops to protect the bauxite mines, 23 November 1941",
+            "Constituent country of the Kingdom of the Netherlands, 15 December 1954",
+            "Independence from the Netherlands, 25 November 1975",
+            "World Heritage Site (UNESCO), 5 September 2002",
+            "Founded (Dutch settlement), 1613"
+        ],
+        "latitude": 5.833333,
+        "longitude": -55.166667
+    },
     "São Borja": {
         "country": "⚔ Rio Grande do Sul (Brazil)",
         "remarkable": [
