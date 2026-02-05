@@ -199,15 +199,26 @@
         "latitude": 50.54944,
         "longitude": -4.14418
     },
-    "Strait of Gibraltar": {
-        "country": "Spain",
+    "Gibraltar": {
+        "country": "⚔ British Overseas Territory (United Kingdom)",
         "remarkable": [
             "Pillars of Hercules, 700 BC",
             "Homer and Hesiod (western edge of the world)",
-            "Connects the Atlantic Ocean to the Mediterranean Sea",
-            "Between Spain and Morocco",
-            "Battle of the Strait of Gibraltar, 24 April 1591"
+            "Strait of Gibraltar connects the Atlantic Ocean to the Mediterranean Sea",
+            "Between Gibraltar, Spain and Morocco",
+            "Founded by the Almohad Caliphate, 1160",
+            "Eighth Siege of Gibraltar (Crown of Castile), 16 August 1462",
+            "Raided and ransacked by Barbary corsairs (Ottoman service), 8 September 1540",
+            "Battle of the Strait of Gibraltar (Anglo-Spanish War), 24 April 1590",
+            "Ceded to Great Britain in perpetuity (Treaty of Utrecht), 13 July 1713",
+            "Great Siege of Gibraltar (Spain and France), 24 June 1779 - 7 February 1783",
+            "Constitution Order (assurances on sovereignty), 30 May 1969",
+            "Gibraltar Constitution 2006, 1 January 2007",
+            "Operation Torch (1st involvement of U.S. forces), 8 November 1942 - 16 November 1942"
         ],
+        "latitude": 35.95,
+        "longitude": -5.5
+    },
         "latitude": 35.95,
         "longitude": -5.5
     },
