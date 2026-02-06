@@ -3627,6 +3627,18 @@
         "latitude": 56.942222,
         "longitude": 60.473333
     },
+    "Ras al Hadd": {
+        "country": "Oman",
+        "remarkable": [
+            "A point at the entrance to the Gulf of Oman",
+            "Hosts one of the world's most important populations of green turtles",
+            "Ras Al Hadd Castle construction, 1560-1590",
+            "Ras Al Jinz Turtle Reserve, 23 April 1996",
+            "Alfouz Hypermarket, 10 May 2018"
+        ],
+        "latitude": 22.517,
+        "longitude": 59.767
+    },
     "Port Louis": {
         "country": "Mauritius",
         "remarkable": [
