@@ -52,6 +52,26 @@
         "latitude": 51.5033,
         "longitude": -0.1275
     },
+    "Broad Street pump": {
+        "country": "Westminster (United Kingdom)",
+        "remarkable": [
+            "John Snow (physician), 1813-1858",
+            "Hunterian school of medicine (University of London), 1836-1840",
+            "Golden Square outbreak, a severe outbreak of cholera in Soho, 31 August 1854",
+            "'Vibrio cholerae' within the pumping water contaminated by sewage",
+            "Snow argued that cholera was not a product of Miasma theory",
+            "Neither bloodletting, could be effective in such a case",
+            "John Snow identified contaminated water as the source, 1854",
+            "He constructed a Voronoi diagram to show the correlation",
+            "between cholera cases and proximity to the pump",
+            "A replica pump was installed at the site of the 1854 pump, 1992",
+            "It is regarded as the founding event of epidemiology",
+            "Pumphandle Lecture (John Snow Society), 1993-present",
+            "Removed the pump handle, 8 September 1854"
+        ],
+        "latitude": 51.499998,
+        "longitude": -0.1333328
+    },
     "Normandy": {
         "country": "⚔ France",
         "remarkable": [
