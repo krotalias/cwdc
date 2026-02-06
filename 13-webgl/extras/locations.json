@@ -240,6 +240,23 @@
         "latitude": 36.1319767,
         "longitude": -5.3529174
     },
+    "Jamestown": {
+        "country": "Santa Helena (United Kingdom)",
+        "remarkable": [
+            "3rd Portuguese Armada (João da Nova), 21 May 1502",
+            "Dutch Republic formally claimed Saint Helena, 1633",
+            "Oliver Cromwell granted EIC a charter to govern Saint Helena, 1657",
+            "Captain John Dutton (first governor), 5 May 1659 - 1661",
+            "The British brought 25K slaves from west Africa",
+            "Importation of slaves was banned, 1792",
+            "Slavery fully eliminated, 27 May 1839",
+            "Napolean residence, 15 October 1815 - 5 May 1821",
+            "India Act (EIC passed control to the British Crown), 28 August 1833",
+            "Crown colony, 22 April 1834"
+        ],
+        "latitude": -15.933333,
+        "longitude": -5.716667
+    },
     "Dublin": {
         "country": "Ireland",
         "remarkable": ["Olaf the White, 806-874", "King of Dublin, 853"],
@@ -5055,6 +5072,20 @@
         "latitude": 50.63373,
         "longitude": 5.56749
     },
+    "Dole": {
+        "country": "Jura (France)",
+        "remarkable": [
+            "Louis Pasteur, 1822-1895",
+            "École Normale Supérieure, 1843-1845",
+            "University of Strasbourg (professor of chemistry), 1848",
+            "Pasteurization (stop wine and beer from souring into vinegar), 20 April 1862",
+            "Études sur le Vin, 1866",
+            "Anthrax vaccine, 1881",
+            "Rabies vaccine, 1885"
+        ],
+        "latitude": 47.0931,
+        "longitude": 5.4906
+    },
     "Amsterdan": {
         "country": "⚔ Netherlands",
         "remarkable": [
@@ -5111,7 +5142,14 @@
             "Napolean, 1769-1821",
             "Bastille fall, 14 July 1789",
             "Crowned Emperor, 2 December 1804",
-            "Napoleonic Wars, 1796-1815"
+            "Napoleonic Wars, 1796-1815",
+            "Fontainebleau treaty (ownership and sovereignty of Elba), 11 April 1814",
+            "Exiled in Elba, 4 May 1814 - 1 March 1815",
+            "Hundred Days, 20 March 1815 - 8 July 1815",
+            "Battle of Waterloo, 18 June 1815",
+            "Napoleon abdicated, 22 June 1815",
+            "King Louis XVIII returned, 8 July 1815",
+            "Exiled in Saint Helena, 15 October 1815 - 5 May 1821"
         ],
         "latitude": 48.8534951,
         "longitude": 2.3483915
