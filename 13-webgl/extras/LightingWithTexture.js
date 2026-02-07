@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in Vanilla Javascript and WebGL.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 380 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 381 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -167,7 +167,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">380 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">381 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -625,25 +625,25 @@ const element = {
  * The keys of the table are the path types and
  * the values are the corresponding RGBA or HTML5 color values.
  * <ul>
- *  <li>loxodrome: (1,0,0,1) red</li>
- *  <li>great_circle: (0,1,1,1) cyan</li>
- *  <li>normal: (1,1,0,1) yellow</li>
- *  <li>poiAD: (1,0,0,1) red</li>
- *  <li>poiBC: (1,1,0,1) yellow</li>
- *  <li>rhumb: red</li>
- *  <li>gc: cyan</li>
- *  <li>unknown: blue</li>
- *  <li>ad: red</li>
- *  <li>bc: yellow</li>
+ *  <li>loxodrome: [1,0,0,1]    // red</li>
+ *  <li>great_circle: [0,1,1,1] // cyan</li>
+ *  <li>normal: [1,1,0,1]       // yellow</li>
+ *  <li>poiAD: [1,0,0]          // red</li>
+ *  <li>poiBC: [1,1,0]          // yellow</li>
+ *  <li>rhumb: "red"</li>
+ *  <li>gc: "cyan"</li>
+ *  <li>unknown: "blue"</li>
+ *  <li>ad: "red"</li>
+ *  <li>bc: "yellow"</li>
  * </ul>
- * @type {Object<String, Array<Number>>}
+ * @type {Object<String, Array<Number>|String>}
  */
 const colorTable = {
   loxodrome: [1.0, 0.0, 0.0, 1.0], // red
   great_circle: [0.0, 1.0, 1.0, 1.0], // cyan
   normal: [1.0, 1.0, 0.0, 1.0], // yellow
-  poiAD: [1.0, 0.0, 0.0, 1.0], // red
-  poiBC: [1.0, 1.0, 0.0, 1.0], // yellow
+  poiAD: [1.0, 0.0, 0.0], // red
+  poiBC: [1.0, 1.0, 0.0], // yellow
   rhumb: "red",
   gc: "cyan",
   unknown: "blue",
@@ -4564,6 +4564,7 @@ function startForReal(image) {
  * @return {Array<Float32Array,Float32Array>} locations points and colors.
  * @property {Float32Array} 0 locations coordinate array.
  * @property {Float32Array} 1 locations color array.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.prototype.set()}
  */
 function pointsOnLocations() {
   cities.country = [];
@@ -4592,9 +4593,7 @@ function pointsOnLocations() {
 
     // red for AD (1,0,0) and yellow for BC (1,1,0)
     const BC = gcs.remarkable.at(-1).includes("BC");
-    crr[j] = BC ? colorTable.poiBC[0] : colorTable.poiAD[0];
-    crr[j + 1] = BC ? colorTable.poiBC[1] : colorTable.poiAD[1];
-    crr[j + 2] = BC ? colorTable.poiBC[2] : colorTable.poiAD[2];
+    crr.set(BC ? colorTable.poiBC : colorTable.poiAD, j);
   }
   return [arr, crr];
 }
@@ -4604,6 +4603,7 @@ function pointsOnLocations() {
  * @return {Array<Float32Array>} locations points.
  * @property {Float32Array} 0 locations coordinate array.
  * @property {Float32Array} 1 locations color array.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.prototype.set()}
  */
 function pointsOnAllLocations() {
   const n = cities.current.length;
@@ -4620,9 +4620,9 @@ function pointsOnAllLocations() {
     arr[j + 1] = p[1];
     arr[j + 2] = p[2];
 
-    crr[j] = 1;
-    crr[j + 1] = gcs.remarkable.at(-1).includes("BC") ? 1 : 0;
-    crr[j + 2] = 0;
+    // red for AD (1,0,0) and yellow for BC (1,1,0)
+    const BC = gcs.remarkable.at(-1).includes("BC");
+    crr.set(BC ? colorTable.poiBC : colorTable.poiAD, j);
   }
   return [arr, crr];
 }
