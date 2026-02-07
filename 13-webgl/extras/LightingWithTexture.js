@@ -4,7 +4,7 @@
  * Summary.
  * <p>Equirectangular and Mercator projection viewer using lighting combined with
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
- * written in Vanilla Javascript and WebGL.</p>
+ * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
  * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 381 Historical Figures.</a>
  *
@@ -52,7 +52,8 @@
  * ({@link https://en.wikipedia.org/wiki/Conformal_map conformal maps}). The success of the
  * {@link https://en.wikipedia.org/wiki/Mercator_projection Mercator projection}
  * lies in its ability to preserve angles, making it ideal for navigation
- * (directions on the map match the directions on the compass). However, it distorts areas,
+ * (directions on the map match the directions on the {@link https://geomag.nrcan.gc.ca/mag_fld/compass-en.php compass}).
+ * However, it distorts areas,
  * especially near the poles, where landmasses appear {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf much larger}
  * than they are in reality. Meridian and parallel {@link https://en.wikipedia.org/wiki/Scale_(map) scales}
  * are the same, meaning that distances along a parallel or meridian (in fact, in all directions) are equally stretched
@@ -173,8 +174,9 @@
  *
  * <p>Therefore, I have always wanted to present, in a graphical way, the connection between historical events in time and space.
  * I think I have been able to implement a reasonable application for doing just that. However, how I implemented it is not the main point.
- * For not using any npm packages or bundlers, I decided to stick only with HTML, CSS, JavaScript, and WebGL,
- * plus some packages, including three.js.</p>
+ * For not using any npm packages or bundlers, I decided to stick only with HTML, CSS, JavaScript,
+ * and {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API WebGL},
+ * plus some packages, including {@link https://threejs.org/ three.js}.</p>
  *
  * <p>The documentation is extensive because I aimed to use it in an introductory computer graphics course.
  * However, I have come to realize that computer graphics has become a commodity, much like database management;
@@ -304,7 +306,8 @@
  * </li>
  * </ol>
  *
- * @author {@link https://krotalias.github.io Paulo Roma}
+ * @author {@link https://krotalias.github.io Paulo R. Cavalcanti}
+ * @author {@link https://www.artstation.com/flavulous Flavia R. Cavalcanti}
  * @license Licensed under the {@link https://www.gnu.org/licenses/lgpl-3.0.en.html LGPLv3}.
  * @copyright © 2024-2026 Paulo R Cavalcanti.
  * @since 30/01/2016
@@ -752,12 +755,14 @@ function haversine(gcs1, gcs2) {
  * A bearing (or azimuth) angle is a horizontal, clockwise angle measured from North (000°)
  * to determine direction in navigation and surveying.
  * It is represented using three figures (e.g., 045° for Northeast)
- * and ranges from [000°, 360°].
+ * in the range [000°, 360°).
  * @param {GCS} gcs1 first pair of gcs coordinates.
  * @param {GCS} gcs2 second pair of gcs coordinates.
  * @return {Number} bearing angle in degrees between gcs1 and gcs2.
  * @see {@link https://www.mathsteacher.com.au/year7/ch08_angles/07_bear/bearing.htm Bearings}
  * @see {@link https://en.wikipedia.org/wiki/Bearing_(navigation) Bearing (navigation)}
+ * @see {@link https://www.youtube.com/watch?v=FI7C8VlbYfI Use a Lensatic Compass with a map & without}
+ * @see {@link https://www.youtube.com/watch?v=t650zKlkisw The Easiest Way to Navigate With a Compass}
  */
 function bearingAngle(gcs1, gcs2) {
   let deltaLongitude = toRadian(gcs2.longitude - gcs1.longitude);
@@ -854,12 +859,12 @@ let numSubdivisions = 0;
 let mscale = 1;
 
 /**
- * <p>A set of world locations given by their GPS coordinates.</p>
+ * <p>A set of world locations given by their {@link https://www.gps-coordinates.net/ GPS coordinates}.</p>
  * These locations are {@link event:load read} from a <a href="/cwdc/13-webgl/extras/locations.json">json file</a>.
  * @type {Object<location:String, attributes:Object>}
  * @property {String} location name of the site, e.g., "Paris".
  * @property {Object} attributes
- * @property {String} attributes.country country of the site.
+ * @property {String} attributes.country site's country.
  * @property {String} attributes.remarkable site's historical figure.
  * @property {Number} attributes.longitude site's longitude.
  * @property {Number} attributes.latitude site's latitude.
@@ -2220,7 +2225,7 @@ function rotateModelTowardsCamera(
  * between two {@link GCS} locations on the texture image.</p>
  * @param {gpsCoordinates} loc1 previous location.
  * @param {gpsCoordinates} loc2 current location.
- * @returns {Number|null} bearing angle in degrees ∈ [000°, 360°]
+ * @returns {Number|null} bearing angle in degrees ∈ [000°, 360°)
  * or null, if {@link loxodrome} is false.
  */
 function rhumbLine(ctx, loc1, loc2) {
@@ -2279,7 +2284,7 @@ function rhumbLine(ctx, loc1, loc2) {
  * {@link previousLocation previous} to the {@link currentLocation current} location
  * and its {@link https://www.youtube.com/watch?v=sALJGEUe9GA bearing angle}
  * is the angle it makes with the y-axis.
- * @return {Number|null} bearing angle in degrees ∈ [000°, 360°]
+ * @return {Number|null} bearing angle in degrees ∈ [000°, 360°)
  * or null, if {@link loxodrome} is false.
  * @see <figure>
  *      <a href="../images/Sidney-Nuuk.png"><img src="../images/Sidney-Nuuk.png" height="256"></a>
@@ -4587,9 +4592,8 @@ function pointsOnLocations() {
     const uv = gcs2UV(gcs);
     const [theta, phi] = UV2Spherical(uv);
     const p = spherical2Cartesian(theta, phi, 1);
-    arr[j] = p[0];
-    arr[j + 1] = p[1];
-    arr[j + 2] = p[2];
+
+    arr.set(p, j);
 
     // red for AD (1,0,0) and yellow for BC (1,1,0)
     const BC = gcs.remarkable.at(-1).includes("BC");
@@ -4616,9 +4620,8 @@ function pointsOnAllLocations() {
     const uv = gcs2UV(gcs);
     const [theta, phi] = UV2Spherical(uv);
     const p = spherical2Cartesian(theta, phi, 1);
-    arr[j] = p[0];
-    arr[j + 1] = p[1];
-    arr[j + 2] = p[2];
+
+    arr.set(p, j);
 
     // red for AD (1,0,0) and yellow for BC (1,1,0)
     const BC = gcs.remarkable.at(-1).includes("BC");
