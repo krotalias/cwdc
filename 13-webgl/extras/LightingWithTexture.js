@@ -423,6 +423,7 @@ import {
   spherical2Mercator,
   cartesian2Spherical,
   spherical2Cartesian,
+  cylindrical2Cartesian,
 } from "/cwdc/13-webgl/lib/polyhedron.js";
 import {
   vec2,
@@ -1532,6 +1533,18 @@ function nextLocation(inc, initialLocation, filter = "") {
 }
 
 /**
+ * <p>Get cylinder parameters for plotting the current location on the globe.</p>
+ * @param {Boolean} mercator whether to use Mercator projection.
+ * @returns {Object<r:Number, height:Number>} radius and height of the cylinder.
+ */
+function getCylinderParameters(mercator) {
+  const r = mercator ? 3 / 8 : 9 / 16;
+  const length = 2 * Math.PI * r;
+  const height = mercator ? length : length / 2;
+  return { r, height };
+}
+
+/**
  * <p>Closure for keydown events.</p>
  * Chooses a {@link theModel model} and which {@link axis} to rotate around.<br>
  * The {@link numSubdivisions subdivision level} is {@link maxSubdivisions limited}
@@ -1801,6 +1814,7 @@ const handleKeyPress = ((event) => {
             : getModelData(new THREE.SphereGeometry(1, 48, 24)),
           name: "sphere",
         });
+        displayLocations();
         break;
       case "S":
         // subdivision sphere
@@ -1848,9 +1862,7 @@ const handleKeyPress = ((event) => {
       case "c":
         gscale = mscale = 1;
         element.models.value = "3";
-        const r = mercator ? 3 / 8 : 9 / 16;
-        const length = 2 * Math.PI * r;
-        let height = mercator ? length : length / 2;
+        let { r, height } = getCylinderParameters(mercator);
         if (noTexture) height -= r;
         theModel = createModel({
           shape: selector.hws
@@ -1868,6 +1880,7 @@ const handleKeyPress = ((event) => {
               ),
           name: "cylinder",
         });
+        displayLocations();
         break;
       case "C":
         gscale = mscale = 0.8;
@@ -3163,7 +3176,7 @@ function addListeners() {
   /**
    * Executed when the country &lt;select&gt; is changed.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
-   * The {@link country callback} argument sets the callback that will be invoked when
+   * The {@link displayLocations callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
    * @event changeCountrySelect
@@ -3171,15 +3184,7 @@ function addListeners() {
    */
   element.country.addEventListener("change", (event) => {
     country = element.country.value;
-
-    const [locationsVertices, locationsColors] = pointsOnLocations();
-    gl.bindBuffer(gl.ARRAY_BUFFER, locationsBuffer);
-    gl.bufferSubData(gl.ARRAY_BUFFER, 0, locationsVertices);
-    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, locationsColors, gl.STATIC_DRAW);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-    draw();
+    displayLocations();
   });
 
   /**
@@ -4587,11 +4592,23 @@ function pointsOnLocations() {
   const arr = new Float32Array(3 * n);
   const crr = new Float32Array(3 * n);
 
+  let p;
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
     const gcs = gpsCoordinates[cities.country[i]];
     const uv = gcs2UV(gcs);
-    const [theta, phi] = UV2Spherical(uv);
-    const p = spherical2Cartesian(theta, phi, 1);
+    if (element.models.value === "3") {
+      // cylindrical mapping
+      if (mercator) {
+        uv.t = spherical2Mercator(uv.s, uv.t).y;
+      }
+      let { r, height } = getCylinderParameters(mercator);
+      height *= uv.t - 0.5;
+      const phi = uv.s * 2 * Math.PI - Math.PI;
+      p = cylindrical2Cartesian(r, phi, height);
+    } else {
+      const [theta, phi] = UV2Spherical(uv);
+      p = spherical2Cartesian(theta, phi, 1);
+    }
 
     arr.set(p, j);
 
@@ -4600,6 +4617,22 @@ function pointsOnLocations() {
     crr.set(BC ? colorTable.poiBC : colorTable.poiAD, j);
   }
   return [arr, crr];
+}
+
+/**
+ * <p>Load new points on the GPU corresponding to the selected country.</p>
+ * Then, triggers the animation to update the canvas.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData bufferSubData() method}
+ */
+function displayLocations() {
+  const [locationsVertices, locationsColors] = pointsOnLocations();
+  gl.bindBuffer(gl.ARRAY_BUFFER, locationsBuffer);
+  gl.bufferSubData(gl.ARRAY_BUFFER, 0, locationsVertices);
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, locationsColors, gl.STATIC_DRAW);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  draw();
 }
 
 /**
