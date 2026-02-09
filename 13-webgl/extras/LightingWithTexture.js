@@ -507,6 +507,12 @@ const toRadian = glMatrix.toRadian;
 const toDegrees = (a) => (a * 180) / Math.PI;
 
 /**
+ * Check if the current model is a cylinder.
+ * @return {Boolean} true if the current model is a cylinder, false otherwise.
+ */
+const isCylinder = () => element.models.value === "3";
+
+/**
  * Convert latitude in radians to Mercator latitude.
  * @param {Number} lat latitude in radians.
  * @returns {Number} Mercator latitude coordinate.
@@ -1599,9 +1605,11 @@ const handleKeyPress = ((event) => {
   /**
    * <p>Update the {@link currentLocation current} and {@link previousLocation previous} locations
    * and set the position on the globe or map.</p>
-   * The previous location is updated only if it has not been set in the
+   * <p>The previous location is updated only if it has not been set in the
    * {@link event:pointerup-theCanvas canvas} or {@link event:pointerdown-textimg textimg}
-   * listeners for pointer clicks.
+   * listeners for pointer clicks.</p>
+   * Some models, (such as spheres and cylinders) with a texture that represents a map,
+   * are rotated towards the camera when the tooltip is on.
    * @param {Number} inc increment to change the current location.
    * @param {Boolean} [fix=true] whether call {@link setYUp}.
    * @global
@@ -1609,6 +1617,8 @@ const handleKeyPress = ((event) => {
   function updateLocation(inc, fix = true) {
     if (axis === "q") axis = " "; // current meridian will be lost
     const cl = nextLocation(inc, currentLocation, country);
+    // a sphere, a cylinder or a subdivision sphere
+    const modelsToRotate = [3, 5, 13];
 
     // has the previous location been already set in any of the two listeners for pointer clicks?
     if (previousLocation.country !== "previous") {
@@ -1628,8 +1638,8 @@ const handleKeyPress = ((event) => {
     element.timeline.value = dat;
     labelForTimeline(dat);
 
-    // tooltip is on, and the model is a sphere or a subdivision sphere.
-    if (selector.tooltip && [5, 13].includes(+element.models.value)) {
+    // tooltip is on, and the model should be rotated
+    if (selector.tooltip && modelsToRotate.includes(+element.models.value)) {
       const location = gpsCoordinates[currentLocation];
       const coordinates = gcs2Screen(location, mercator);
 
@@ -1814,6 +1824,7 @@ const handleKeyPress = ((event) => {
             : getModelData(new THREE.SphereGeometry(1, 48, 24)),
           name: "sphere",
         });
+        setPosition(currentLocation);
         displayLocations();
         break;
       case "S":
@@ -1827,6 +1838,8 @@ const handleKeyPress = ((event) => {
           (${theModel.name}
           level ${theModel.level(tri)} →
           ${tri} triangles):`;
+        setPosition(currentLocation);
+        displayLocations();
         break;
       case "T":
         // (2,3)-torus knot (trefoil knot).
@@ -1880,6 +1893,7 @@ const handleKeyPress = ((event) => {
               ),
           name: "cylinder",
         });
+        setPosition(currentLocation);
         displayLocations();
         break;
       case "C":
@@ -2593,9 +2607,46 @@ function unproject(
  * @param {vec3} c center of the sphere.
  * @param {Number} r radius of the sphere.
  * @returns {vec3|null} intersection point or null, if there is no intersection.
- * @see {@link https://en.wikipedia.org/wiki/Line–sphere_intersection Line–sphere intersection}
+ * @see {@link https://en.wikipedia.org/wiki/Line–sphere_intersection Line-sphere intersection}
  */
 function lineSphereIntersection(o, p, c, r) {
+  // line direction
+  const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
+
+  const oc = vec3.subtract([], o, c); // o - c
+  const a = vec3.dot(u, oc);
+  const b = vec3.dot(oc, oc); // ||oc||^2
+  const delta = a * a - b + r * r;
+  let dist;
+  if (delta > 0) {
+    const sqrt_delta = Math.sqrt(delta);
+    const d1 = -a + sqrt_delta;
+    const d2 = -a - sqrt_delta;
+    dist = Math.min(d1, d2);
+  } else if (delta == 0) {
+    dist = -a;
+  } else {
+    // no intersection
+    return null;
+  }
+
+  return vec3.scaleAndAdd([], o, u, dist); // o + u * dist
+}
+
+/**
+ * <p>Find point of intersection between a line and a cylinder.</p>
+ * The line is defined by its origin and an end point.
+ * The cylinder is defined by its center, radius and height.
+ * @param {vec3} o ray origin.
+ * @param {vec3} p ray end point.
+ * @param {vec3} c center of the cylinder.
+ * @param {Number} r radius of the cylinder.
+ * @param {Number} h height of the cylinder.
+ * @returns {vec3|null} intersection point or null, if there is no intersection.
+ * @see {@link https://en.wikipedia.org/wiki/Line-cylinder_intersection Line-cylinder intersection}
+ * @see {@link https://www.illusioncatalyst.com/notes_files/mathematics/line_cylinder_intersection.php Illusion Catalyst - Line Cylinder Intersection}
+ */
+function lineCylinderIntersection(o, p, c, r, h = 1) {
   // line direction
   const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
 
@@ -2693,7 +2744,9 @@ function pixelRayIntersection(x, y) {
     viewport,
   );
 
-  return lineSphereIntersection(o, p, [0, 0, 0], 1);
+  return isCylinder()
+    ? lineCylinderIntersection(o, p, [0, 0, 0], 1)
+    : lineSphereIntersection(o, p, [0, 0, 0], 1);
 }
 
 /**
@@ -3808,7 +3861,7 @@ function drawParallel() {
   gl.vertexAttrib4f(a_color, ...colorTable.loxodrome);
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-  gl.drawArrays(gl.LINE_STRIP, 0, nsegments);
+  gl.drawArrays(gl.LINE_STRIP, 0, isCylinder() && !loxodrome ? 2 : nsegments);
 
   gl.disableVertexAttribArray(positionIndex);
   gl.useProgram(null);
@@ -4262,9 +4315,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
     const p = mercator
       ? spherical2Cartesian(...UV2Spherical(mercator2Spherical(...q)), 1.01)
       : spherical2Cartesian(...q, 1.01);
-    arr[j] = p[0];
-    arr[j + 1] = p[1];
-    arr[j + 2] = p[2];
+    arr.set(p, j);
   }
   return arr;
 }
@@ -4332,11 +4383,61 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
 
     vec3.scale(p, p, 1.01);
 
-    arr[j] = p[0];
-    arr[j + 1] = p[1];
-    arr[j + 2] = p[2];
+    arr.set(p, j);
   }
   return [arr, mrr];
+}
+
+/**
+ * Return an array with n points on a cylindrical parallel given its
+ * {@link https://www.britannica.com/science/latitude latitude}.
+ * @param {Number} [latitude=0] distance north or south of the Equator: [-90°,90°].
+ * @param {Number} [n={@link nsegments}] number of points.
+ * @return {Float32Array} points on the parallel.
+ */
+function pointsOnCylParallel(latitude = 0, n = nsegments) {
+  const ds = (Math.PI * 2) / (n - 1);
+  const arr = new Float32Array(3 * n);
+  let { r, height } = getCylinderParameters(mercator);
+
+  const uv = gcs2UV({ latitude, longitude: 0 });
+  if (mercator) {
+    uv.t = spherical2Mercator(uv.s, uv.t).y;
+  }
+  height *= uv.t - 0.5;
+
+  for (let i = 0, j = 0; i < n; ++i, j += 3) {
+    const p = cylindrical2Cartesian(r * 1.01, i * ds, height);
+    arr.set(p, j);
+  }
+  return arr;
+}
+
+/**
+ * Return an array with 2 points on a cylindrical meridian given its
+ * {@link https://en.wikipedia.org/wiki/Longitude longitude}.
+ * @param {Number} [longitude=0] distance east or west of the prime meridian: [-180°,180°]
+ * @return {Float32Array} points on the meridian.
+ */
+function pointsOnCylMeridian(longitude = 0) {
+  const n = 2;
+  let j = 0;
+  const arr = new Float32Array(3 * n);
+  const { r, height } = getCylinderParameters(mercator);
+
+  for (const lat of [90, -90]) {
+    const uv = gcs2UV({ latitude: lat, longitude });
+    if (mercator) {
+      uv.t = spherical2Mercator(uv.s, uv.t).y;
+    }
+    const h = height * (uv.t - 0.5);
+    const phi = uv.s * 2 * Math.PI - Math.PI;
+    const p = cylindrical2Cartesian(r * 1.01, phi, h);
+    arr.set(p, j);
+    j += 3;
+  }
+
+  return arr;
 }
 
 /**
@@ -4357,7 +4458,9 @@ function setPosition(location) {
       gpsCoordinates[location],
     );
   } else {
-    parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
+    parallelVertices = isCylinder()
+      ? pointsOnCylParallel(gpsCoordinates[location].latitude)
+      : pointsOnParallel(gpsCoordinates[location].latitude);
   }
 
   if (parallelVertices === null) return;
@@ -4374,7 +4477,9 @@ function setPosition(location) {
     const ba = bearingAngle(previousLocation, gpsCoordinates[location]);
     document.getElementById("lox").innerHTML = `Loxodrome (${ba.toFixed(2)}°)`;
   } else {
-    meridianVertices = pointsOnMeridian(gpsCoordinates[location].longitude);
+    meridianVertices = isCylinder()
+      ? pointsOnCylMeridian(gpsCoordinates[location].longitude)
+      : pointsOnMeridian(gpsCoordinates[location].longitude);
     document.getElementById("lox").innerHTML = "Loxodrome";
   }
 
@@ -4596,7 +4701,7 @@ function pointsOnLocations() {
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
     const gcs = gpsCoordinates[cities.country[i]];
     const uv = gcs2UV(gcs);
-    if (element.models.value === "3") {
+    if (isCylinder()) {
       // cylindrical mapping
       if (mercator) {
         uv.t = spherical2Mercator(uv.s, uv.t).y;

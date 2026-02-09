@@ -535,6 +535,12 @@ const toRadian = glMatrix.toRadian;
 const toDegrees = (a) => (a * 180) / Math.PI;
 
 /**
+ * Check if the current model is a cylinder.
+ * @return {Boolean} true if the current model is a cylinder, false otherwise.
+ */
+const isCylinder = () => element.models.value === "3";
+
+/**
  * Convert latitude in radians to Mercator latitude.
  * @param {Number} lat latitude in radians.
  * @returns {Number} Mercator latitude coordinate.
@@ -1627,9 +1633,11 @@ const handleKeyPress = ((event) => {
   /**
    * &lt;p>Update the {@link currentLocation current} and {@link previousLocation previous} locations
    * and set the position on the globe or map.&lt;/p>
-   * The previous location is updated only if it has not been set in the
+   * &lt;p>The previous location is updated only if it has not been set in the
    * {@link event:pointerup-theCanvas canvas} or {@link event:pointerdown-textimg textimg}
-   * listeners for pointer clicks.
+   * listeners for pointer clicks.&lt;/p>
+   * Some models, (such as spheres and cylinders) with a texture that represents a map,
+   * are rotated towards the camera when the tooltip is on.
    * @param {Number} inc increment to change the current location.
    * @param {Boolean} [fix=true] whether call {@link setYUp}.
    * @global
@@ -1637,6 +1645,8 @@ const handleKeyPress = ((event) => {
   function updateLocation(inc, fix = true) {
     if (axis === "q") axis = " "; // current meridian will be lost
     const cl = nextLocation(inc, currentLocation, country);
+    // a sphere, a cylinder or a subdivision sphere
+    const modelsToRotate = [3, 5, 13];
 
     // has the previous location been already set in any of the two listeners for pointer clicks?
     if (previousLocation.country !== "previous") {
@@ -1656,8 +1666,8 @@ const handleKeyPress = ((event) => {
     element.timeline.value = dat;
     labelForTimeline(dat);
 
-    // tooltip is on, and the model is a sphere or a subdivision sphere.
-    if (selector.tooltip &amp;&amp; [5, 13].includes(+element.models.value)) {
+    // tooltip is on, and the model should be rotated
+    if (selector.tooltip &amp;&amp; modelsToRotate.includes(+element.models.value)) {
       const location = gpsCoordinates[currentLocation];
       const coordinates = gcs2Screen(location, mercator);
 
@@ -1842,6 +1852,7 @@ const handleKeyPress = ((event) => {
             : getModelData(new THREE.SphereGeometry(1, 48, 24)),
           name: "sphere",
         });
+        setPosition(currentLocation);
         displayLocations();
         break;
       case "S":
@@ -1855,6 +1866,8 @@ const handleKeyPress = ((event) => {
           (${theModel.name}
           level ${theModel.level(tri)} →
           ${tri} triangles):`;
+        setPosition(currentLocation);
+        displayLocations();
         break;
       case "T":
         // (2,3)-torus knot (trefoil knot).
@@ -1908,6 +1921,7 @@ const handleKeyPress = ((event) => {
               ),
           name: "cylinder",
         });
+        setPosition(currentLocation);
         displayLocations();
         break;
       case "C":
@@ -2621,9 +2635,46 @@ function unproject(
  * @param {vec3} c center of the sphere.
  * @param {Number} r radius of the sphere.
  * @returns {vec3|null} intersection point or null, if there is no intersection.
- * @see {@link https://en.wikipedia.org/wiki/Line–sphere_intersection Line–sphere intersection}
+ * @see {@link https://en.wikipedia.org/wiki/Line–sphere_intersection Line-sphere intersection}
  */
 function lineSphereIntersection(o, p, c, r) {
+  // line direction
+  const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
+
+  const oc = vec3.subtract([], o, c); // o - c
+  const a = vec3.dot(u, oc);
+  const b = vec3.dot(oc, oc); // ||oc||^2
+  const delta = a * a - b + r * r;
+  let dist;
+  if (delta > 0) {
+    const sqrt_delta = Math.sqrt(delta);
+    const d1 = -a + sqrt_delta;
+    const d2 = -a - sqrt_delta;
+    dist = Math.min(d1, d2);
+  } else if (delta == 0) {
+    dist = -a;
+  } else {
+    // no intersection
+    return null;
+  }
+
+  return vec3.scaleAndAdd([], o, u, dist); // o + u * dist
+}
+
+/**
+ * &lt;p>Find point of intersection between a line and a cylinder.&lt;/p>
+ * The line is defined by its origin and an end point.
+ * The cylinder is defined by its center, radius and height.
+ * @param {vec3} o ray origin.
+ * @param {vec3} p ray end point.
+ * @param {vec3} c center of the cylinder.
+ * @param {Number} r radius of the cylinder.
+ * @param {Number} h height of the cylinder.
+ * @returns {vec3|null} intersection point or null, if there is no intersection.
+ * @see {@link https://en.wikipedia.org/wiki/Line-cylinder_intersection Line-cylinder intersection}
+ * @see {@link https://www.illusioncatalyst.com/notes_files/mathematics/line_cylinder_intersection.php Illusion Catalyst - Line Cylinder Intersection}
+ */
+function lineCylinderIntersection(o, p, c, r, h = 1) {
   // line direction
   const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
 
@@ -2721,7 +2772,9 @@ function pixelRayIntersection(x, y) {
     viewport,
   );
 
-  return lineSphereIntersection(o, p, [0, 0, 0], 1);
+  return isCylinder()
+    ? lineCylinderIntersection(o, p, [0, 0, 0], 1)
+    : lineSphereIntersection(o, p, [0, 0, 0], 1);
 }
 
 /**
@@ -3836,7 +3889,7 @@ function drawParallel() {
   gl.vertexAttrib4f(a_color, ...colorTable.loxodrome);
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-  gl.drawArrays(gl.LINE_STRIP, 0, nsegments);
+  gl.drawArrays(gl.LINE_STRIP, 0, isCylinder() &amp;&amp; !loxodrome ? 2 : nsegments);
 
   gl.disableVertexAttribArray(positionIndex);
   gl.useProgram(null);
@@ -4290,9 +4343,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
     const p = mercator
       ? spherical2Cartesian(...UV2Spherical(mercator2Spherical(...q)), 1.01)
       : spherical2Cartesian(...q, 1.01);
-    arr[j] = p[0];
-    arr[j + 1] = p[1];
-    arr[j + 2] = p[2];
+    arr.set(p, j);
   }
   return arr;
 }
@@ -4360,11 +4411,61 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
 
     vec3.scale(p, p, 1.01);
 
-    arr[j] = p[0];
-    arr[j + 1] = p[1];
-    arr[j + 2] = p[2];
+    arr.set(p, j);
   }
   return [arr, mrr];
+}
+
+/**
+ * Return an array with n points on a cylindrical parallel given its
+ * {@link https://www.britannica.com/science/latitude latitude}.
+ * @param {Number} [latitude=0] distance north or south of the Equator: [-90°,90°].
+ * @param {Number} [n={@link nsegments}] number of points.
+ * @return {Float32Array} points on the parallel.
+ */
+function pointsOnCylParallel(latitude = 0, n = nsegments) {
+  const ds = (Math.PI * 2) / (n - 1);
+  const arr = new Float32Array(3 * n);
+  let { r, height } = getCylinderParameters(mercator);
+
+  const uv = gcs2UV({ latitude, longitude: 0 });
+  if (mercator) {
+    uv.t = spherical2Mercator(uv.s, uv.t).y;
+  }
+  height *= uv.t - 0.5;
+
+  for (let i = 0, j = 0; i &lt; n; ++i, j += 3) {
+    const p = cylindrical2Cartesian(r * 1.01, i * ds, height);
+    arr.set(p, j);
+  }
+  return arr;
+}
+
+/**
+ * Return an array with 2 points on a cylindrical meridian given its
+ * {@link https://en.wikipedia.org/wiki/Longitude longitude}.
+ * @param {Number} [longitude=0] distance east or west of the prime meridian: [-180°,180°]
+ * @return {Float32Array} points on the meridian.
+ */
+function pointsOnCylMeridian(longitude = 0) {
+  const n = 2;
+  let j = 0;
+  const arr = new Float32Array(3 * n);
+  const { r, height } = getCylinderParameters(mercator);
+
+  for (const lat of [90, -90]) {
+    const uv = gcs2UV({ latitude: lat, longitude });
+    if (mercator) {
+      uv.t = spherical2Mercator(uv.s, uv.t).y;
+    }
+    const h = height * (uv.t - 0.5);
+    const phi = uv.s * 2 * Math.PI - Math.PI;
+    const p = cylindrical2Cartesian(r * 1.01, phi, h);
+    arr.set(p, j);
+    j += 3;
+  }
+
+  return arr;
 }
 
 /**
@@ -4385,7 +4486,9 @@ function setPosition(location) {
       gpsCoordinates[location],
     );
   } else {
-    parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
+    parallelVertices = isCylinder()
+      ? pointsOnCylParallel(gpsCoordinates[location].latitude)
+      : pointsOnParallel(gpsCoordinates[location].latitude);
   }
 
   if (parallelVertices === null) return;
@@ -4402,7 +4505,9 @@ function setPosition(location) {
     const ba = bearingAngle(previousLocation, gpsCoordinates[location]);
     document.getElementById("lox").innerHTML = `Loxodrome (${ba.toFixed(2)}°)`;
   } else {
-    meridianVertices = pointsOnMeridian(gpsCoordinates[location].longitude);
+    meridianVertices = isCylinder()
+      ? pointsOnCylMeridian(gpsCoordinates[location].longitude)
+      : pointsOnMeridian(gpsCoordinates[location].longitude);
     document.getElementById("lox").innerHTML = "Loxodrome";
   }
 
@@ -4624,7 +4729,7 @@ function pointsOnLocations() {
   for (let i = 0, j = 0; i &lt; n; ++i, j += 3) {
     const gcs = gpsCoordinates[cities.country[i]];
     const uv = gcs2UV(gcs);
-    if (element.models.value === "3") {
+    if (isCylinder()) {
       // cylindrical mapping
       if (mercator) {
         uv.t = spherical2Mercator(uv.s, uv.t).y;
@@ -4960,13 +5065,13 @@ const animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCitiescheckBox">changeCitiescheckBox</a></li><li><a href="global.html#event:changeCountrySelect">changeCountrySelect</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeLocationscheckBox">changeLocationscheckBox</a></li><li><a href="global.html#event:changeLoxodromecheckBox">changeLoxodromecheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:changeTooltipcheckBox">changeTooltipcheckBox</a></li><li><a href="global.html#event:clickAnimation">clickAnimation</a></li><li><a href="global.html#event:clickClosest">clickClosest</a></li><li><a href="global.html#event:clickPrint">clickPrint</a></li><li><a href="global.html#event:contextmenu">contextmenu</a></li><li><a href="global.html#event:dblclick">dblclick</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:keydownCountrySelect">keydownCountrySelect</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:pointerdown-textimg">pointerdown-textimg</a></li><li><a href="global.html#event:pointerdown-theCanvas">pointerdown-theCanvas</a></li><li><a href="global.html#event:pointermove-textimg">pointermove-textimg</a></li><li><a href="global.html#event:pointermove-theCanvas">pointermove-theCanvas</a></li><li><a href="global.html#event:pointerout-textimg">pointerout-textimg</a></li><li><a href="global.html#event:pointerup-theCanvas">pointerup-theCanvas</a></li><li><a href="global.html#event:timeline">timeline</a></li></ul><h3>Global</h3><ul><li><a href="global.html#UV2Spherical">UV2Spherical</a></li><li><a href="global.html#addListeners">addListeners</a></li><li><a href="global.html#animSong">animSong</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#antimeridianCrossing">antimeridianCrossing</a></li><li><a href="global.html#audio">audio</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#bearingAngle">bearingAngle</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#canvastip">canvastip</a></li><li><a href="global.html#checkForMapTexture">checkForMapTexture</a></li><li><a href="global.html#cities">cities</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#cleanLocation">cleanLocation</a></li><li><a href="global.html#closestSite">closestSite</a></li><li><a href="global.html#colorBuffer">colorBuffer</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#country">country</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#currentMeridian">currentMeridian</a></li><li><a href="global.html#cursorPosition">cursorPosition</a></li><li><a href="global.html#decomposeVector">decomposeVector</a></li><li><a href="global.html#displayLocations">displayLocations</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawLinesOnImage">drawLinesOnImage</a></li><li><a href="global.html#drawLocations">drawLocations</a></li><li><a href="global.html#drawLocationsOnImage">drawLocationsOnImage</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#element">element</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#formatNumberWithSign">formatNumberWithSign</a></li><li><a href="global.html#forwardVector">forwardVector</a></li><li><a href="global.html#gcs2Screen">gcs2Screen</a></li><li><a href="global.html#gcs2UV">gcs2UV</a></li><li><a href="global.html#getAngleBetweenVectors">getAngleBetweenVectors</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getCylinderParameters">getCylinderParameters</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#haversine">haversine</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isMap">isMap</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#labelForLocation">labelForLocation</a></li><li><a href="global.html#labelForTimeline">labelForTimeline</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lineSphereIntersection">lineSphereIntersection</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#locationsBuffer">locationsBuffer</a></li><li><a href="global.html#loxodrome">loxodrome</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#mercatorVertices">mercatorVertices</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#meridianMatrix">meridianMatrix</a></li><li><a href="global.html#meridianPerpVec">meridianPerpVec</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#modelM">modelM</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#phongHighlight">phongHighlight</a></li><li><a href="global.html#pixelRayIntersection">pixelRayIntersection</a></li><li><a href="global.html#playSongFromLink">playSongFromLink</a></li><li><a href="global.html#pointsOnAllLocations">pointsOnAllLocations</a></li><li><a href="global.html#pointsOnGreatCircle">pointsOnGreatCircle</a></li><li><a href="global.html#pointsOnLocations">pointsOnLocations</a></li><li><a href="global.html#pointsOnLoxodrome">pointsOnLoxodrome</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#project">project</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#rhumbLine">rhumbLine</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotMatrix">rotMatrix</a></li><li><a href="global.html#rotateGlobeAroundAxis">rotateGlobeAroundAxis</a></li><li><a href="global.html#rotateModelTowardsCamera">rotateModelTowardsCamera</a></li><li><a href="global.html#rotationMatrix">rotationMatrix</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#saveWebGLCanvasAsPNG">saveWebGLCanvasAsPNG</a></li><li><a href="global.html#scalarTripleProduct">scalarTripleProduct</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setRangeTicks">setRangeTicks</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#setYUp">setYUp</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#sortCitiesByDate">sortCitiesByDate</a></li><li><a href="global.html#spherical2gcs">spherical2gcs</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toDegrees">toDegrees</a></li><li><a href="global.html#toMercator">toMercator</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#unproject">unproject</a></li><li><a href="global.html#updateCurrentMeridian">updateCurrentMeridian</a></li><li><a href="global.html#updateLocation">updateLocation</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCitiescheckBox">changeCitiescheckBox</a></li><li><a href="global.html#event:changeCountrySelect">changeCountrySelect</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeLocationscheckBox">changeLocationscheckBox</a></li><li><a href="global.html#event:changeLoxodromecheckBox">changeLoxodromecheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:changeTooltipcheckBox">changeTooltipcheckBox</a></li><li><a href="global.html#event:clickAnimation">clickAnimation</a></li><li><a href="global.html#event:clickClosest">clickClosest</a></li><li><a href="global.html#event:clickPrint">clickPrint</a></li><li><a href="global.html#event:contextmenu">contextmenu</a></li><li><a href="global.html#event:dblclick">dblclick</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:keydownCountrySelect">keydownCountrySelect</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:pointerdown-textimg">pointerdown-textimg</a></li><li><a href="global.html#event:pointerdown-theCanvas">pointerdown-theCanvas</a></li><li><a href="global.html#event:pointermove-textimg">pointermove-textimg</a></li><li><a href="global.html#event:pointermove-theCanvas">pointermove-theCanvas</a></li><li><a href="global.html#event:pointerout-textimg">pointerout-textimg</a></li><li><a href="global.html#event:pointerup-theCanvas">pointerup-theCanvas</a></li><li><a href="global.html#event:timeline">timeline</a></li></ul><h3>Global</h3><ul><li><a href="global.html#UV2Spherical">UV2Spherical</a></li><li><a href="global.html#addListeners">addListeners</a></li><li><a href="global.html#animSong">animSong</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#antimeridianCrossing">antimeridianCrossing</a></li><li><a href="global.html#audio">audio</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#bearingAngle">bearingAngle</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#canvastip">canvastip</a></li><li><a href="global.html#checkForMapTexture">checkForMapTexture</a></li><li><a href="global.html#cities">cities</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#cleanLocation">cleanLocation</a></li><li><a href="global.html#closestSite">closestSite</a></li><li><a href="global.html#colorBuffer">colorBuffer</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#country">country</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#currentMeridian">currentMeridian</a></li><li><a href="global.html#cursorPosition">cursorPosition</a></li><li><a href="global.html#decomposeVector">decomposeVector</a></li><li><a href="global.html#displayLocations">displayLocations</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawLinesOnImage">drawLinesOnImage</a></li><li><a href="global.html#drawLocations">drawLocations</a></li><li><a href="global.html#drawLocationsOnImage">drawLocationsOnImage</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#element">element</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#formatNumberWithSign">formatNumberWithSign</a></li><li><a href="global.html#forwardVector">forwardVector</a></li><li><a href="global.html#gcs2Screen">gcs2Screen</a></li><li><a href="global.html#gcs2UV">gcs2UV</a></li><li><a href="global.html#getAngleBetweenVectors">getAngleBetweenVectors</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getCylinderParameters">getCylinderParameters</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#haversine">haversine</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isCylinder">isCylinder</a></li><li><a href="global.html#isMap">isMap</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#labelForLocation">labelForLocation</a></li><li><a href="global.html#labelForTimeline">labelForTimeline</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lineCylinderIntersection">lineCylinderIntersection</a></li><li><a href="global.html#lineSphereIntersection">lineSphereIntersection</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#locationsBuffer">locationsBuffer</a></li><li><a href="global.html#loxodrome">loxodrome</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#mercatorVertices">mercatorVertices</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#meridianMatrix">meridianMatrix</a></li><li><a href="global.html#meridianPerpVec">meridianPerpVec</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#modelM">modelM</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#phongHighlight">phongHighlight</a></li><li><a href="global.html#pixelRayIntersection">pixelRayIntersection</a></li><li><a href="global.html#playSongFromLink">playSongFromLink</a></li><li><a href="global.html#pointsOnAllLocations">pointsOnAllLocations</a></li><li><a href="global.html#pointsOnCylMeridian">pointsOnCylMeridian</a></li><li><a href="global.html#pointsOnCylParallel">pointsOnCylParallel</a></li><li><a href="global.html#pointsOnGreatCircle">pointsOnGreatCircle</a></li><li><a href="global.html#pointsOnLocations">pointsOnLocations</a></li><li><a href="global.html#pointsOnLoxodrome">pointsOnLoxodrome</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#project">project</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#rhumbLine">rhumbLine</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotMatrix">rotMatrix</a></li><li><a href="global.html#rotateGlobeAroundAxis">rotateGlobeAroundAxis</a></li><li><a href="global.html#rotateModelTowardsCamera">rotateModelTowardsCamera</a></li><li><a href="global.html#rotationMatrix">rotationMatrix</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#saveWebGLCanvasAsPNG">saveWebGLCanvasAsPNG</a></li><li><a href="global.html#scalarTripleProduct">scalarTripleProduct</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setRangeTicks">setRangeTicks</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#setYUp">setYUp</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#sortCitiesByDate">sortCitiesByDate</a></li><li><a href="global.html#spherical2gcs">spherical2gcs</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toDegrees">toDegrees</a></li><li><a href="global.html#toMercator">toMercator</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#unproject">unproject</a></li><li><a href="global.html#updateCurrentMeridian">updateCurrentMeridian</a></li><li><a href="global.html#updateLocation">updateLocation</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 08 2026 08:48:27 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Feb 09 2026 07:18:04 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
