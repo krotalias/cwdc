@@ -2514,6 +2514,20 @@
         "latitude": -0.7999968,
         "longitude": -89.3999984
     },
+    "Belmopan": {
+        "country": "Belize",
+        "remarkable": [
+            "Belize District (British permanent settlement), 1776",
+            "Battle of St. George's Caye (Spanish fleet x Baymen), 10 September 1798",
+            "British Crown Colony, 1862",
+            "Britain granted British Honduras self-government, 1964",
+            "British Honduras was officially renamed Belize, 1 June 1973",
+            "Founded, 1 August 1970",
+            "Independence from the United Kingdom, 21 September 1981"
+        ],
+        "latitude": 17.25,
+        "longitude": -88.766667
+    },
     "Tikal": {
         "country": "Maya Empire (Belize)",
         "remarkable": [

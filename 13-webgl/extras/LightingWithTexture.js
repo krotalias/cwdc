@@ -4318,6 +4318,14 @@ function isPowerOf2(value) {
  * When crossing the antimeridian, the longitude difference (Δλ)
  * must represent the shortest angular distance.
  * A possible approach is using longitude values outside the -180/180 range.
+ * <p>A loxodrome on a cylinder is
+ * the shortest distance (geodesic) between two points.
+ * This is because a cylinder is a developable surface
+ * (has a {@link https://www.youtube.com/watch?v=UYiAlYlSwBo Gaussian curvature} of zero),
+ * which means it can be "unrolled" into a flat 2D plane without any distortion.
+ * On a standard vertical cylinder of radius 'r',
+ * this path is a circular helix, which has constant curvature and constant torsion.
+ * </p>
  * <ul>
  * <li>E.g., a line with two points with longitude values 170 and 210 should cross the antimeridian when rendered.</li>
  * </ul>
@@ -4327,6 +4335,7 @@ function isPowerOf2(value) {
  * @return {Float32Array} points on the loxodrome.
  * @see {@link https://en.wikipedia.org/wiki/Rhumb_line Rhumb line}
  * @see {@link https://www.whitman.edu/Documents/Academics/Mathematics/2016/Vezie.pdf A Comparative Analysis of Rhumb Lines and Great Circles}
+ * @see {@link https://en.wikipedia.org/wiki/Gaussian_curvature Gaussian curvature}
  * @see <img src="../images/loxodrome.png">
  * @see <figure>
  *      <a href="../images/Seattle-London.png"><img src="../images/Seattle-London.png" height="256"></a>
@@ -4370,9 +4379,19 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
     // q = p1 + t (p2-p1)
     vec2.lerp(q, p1, p2, i * ds);
-    const p = mercator
-      ? spherical2Cartesian(...UV2Spherical(mercator2Spherical(...q)), 1.01)
-      : spherical2Cartesian(...q, 1.01);
+
+    let p;
+    if (isCylinder()) {
+      p = mercator
+        ? cylindrical2Cartesian(
+            ...UV2Cylindrical(mercator2Spherical(...q), mercator),
+          )
+        : cylindrical2Cartesian(r * 1.01, ...q);
+    } else {
+      p = mercator
+        ? spherical2Cartesian(...UV2Spherical(mercator2Spherical(...q)), 1.01)
+        : spherical2Cartesian(...q, 1.01);
+    }
     arr.set(p, j);
   }
   return arr;
@@ -4499,9 +4518,9 @@ function pointsOnCylMeridian(longitude = 0) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferSubData bufferSubData() method}
  */
 function setPosition(location) {
-  let parallelVertices;
+  let parallelVertices = null;
 
-  if (loxodrome) {
+  if (loxodrome && !isCylinder()) {
     [parallelVertices, mercatorVertices] = pointsOnGreatCircle(
       previousLocation,
       gpsCoordinates[location],
@@ -4517,7 +4536,7 @@ function setPosition(location) {
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferSubData(gl.ARRAY_BUFFER, 0, parallelVertices);
 
-  let meridianVertices;
+  let meridianVertices = null;
   if (loxodrome) {
     meridianVertices = pointsOnLoxodrome(
       previousLocation,
