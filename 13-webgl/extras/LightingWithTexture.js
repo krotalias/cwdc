@@ -424,6 +424,7 @@ import {
   cartesian2Spherical,
   spherical2Cartesian,
   cylindrical2Cartesian,
+  cartesian2Cylindrical,
 } from "/cwdc/13-webgl/lib/polyhedron.js";
 import {
   vec2,
@@ -701,6 +702,23 @@ const gcs2UV = (gcs) => {
 const UV2Spherical = (uv) => {
   return [uv.s * 2 * Math.PI, -uv.t * Math.PI];
 };
+
+/**
+ * Convert from {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL UV coordinates}
+ * (s, t) to {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system cylindrical coordinates}.
+ * @param {Object<{s: Number,t:Number}>} uv ∈ [0,1].
+ * @return {Array<{Number, Number, Number}>} cylindrical coordinates: [r, θ, y].
+ * @function
+ */
+function UV2Cylindrical(uv, mercator) {
+  if (mercator) {
+    uv.t = spherical2Mercator(uv.s, uv.t).y;
+  }
+  const { r, height } = getCylinderParameters(mercator);
+  const y = height * (uv.t - 0.5);
+  const phi = uv.s * 2 * Math.PI - Math.PI;
+  return [r, phi, y];
+}
 
 /**
  * <p>Modulo operation that handles negative numbers correctly.<p>
@@ -2614,7 +2632,7 @@ function lineSphereIntersection(o, p, c, r) {
   const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
 
   const oc = vec3.subtract([], o, c); // o - c
-  const a = vec3.dot(u, oc);
+  const a = vec3.dot(u, oc); // u ⋅ oc
   const b = vec3.dot(oc, oc); // ||oc||^2
   const delta = a * a - b + r * r;
   let dist;
@@ -2639,35 +2657,53 @@ function lineSphereIntersection(o, p, c, r) {
  * The cylinder is defined by its center, radius and height.
  * @param {vec3} o ray origin.
  * @param {vec3} p ray end point.
- * @param {vec3} c center of the cylinder.
+ * @param {vec3} ct center of the cylinder.
  * @param {Number} r radius of the cylinder.
- * @param {Number} h height of the cylinder.
+ * @param {Number} height height of the cylinder.
  * @returns {vec3|null} intersection point or null, if there is no intersection.
  * @see {@link https://en.wikipedia.org/wiki/Line-cylinder_intersection Line-cylinder intersection}
  * @see {@link https://www.illusioncatalyst.com/notes_files/mathematics/line_cylinder_intersection.php Illusion Catalyst - Line Cylinder Intersection}
  */
-function lineCylinderIntersection(o, p, c, r, h = 1) {
+function lineCylinderIntersection(o, p, ct, r, height) {
   // line direction
-  const u = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
+  const v = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
 
-  const oc = vec3.subtract([], o, c); // o - c
-  const a = vec3.dot(u, oc);
-  const b = vec3.dot(oc, oc); // ||oc||^2
-  const delta = a * a - b + r * r;
+  const H = vec3.fromValues(ct[0], ct[1] + height / 2, ct[2]); // cylinder top center vector
+  const C = vec3.fromValues(ct[0], ct[1] - height / 2, ct[2]); // cylinder bottom center vector
+  const HC = vec3.subtract([], H, C); // H - C
+  const h = vec3.normalize([], HC); // ||H - C||
+  const w = vec3.subtract([], o, C); // o - C;
+
+  // ||v||^2 - (v ⋅ h)^2
+  const a = vec3.dot(v, v) - Math.pow(vec3.dot(v, h), 2);
+  // 2 * ((v ⋅ w) - (v ⋅ h)(w ⋅ h))
+  const b = 2 * (vec3.dot(v, w) - vec3.dot(v, h) * vec3.dot(w, h));
+  // ||w||^2 - (w ⋅ h)^2 - r^2
+  const c = vec3.dot(w, w) - Math.pow(vec3.dot(w, h), 2) - r * r;
+
+  const delta = b * b - 4 * a * c;
   let dist;
   if (delta > 0) {
     const sqrt_delta = Math.sqrt(delta);
-    const d1 = -a + sqrt_delta;
-    const d2 = -a - sqrt_delta;
+    const d1 = (-b + sqrt_delta) / (2 * a);
+    const d2 = (-b - sqrt_delta) / (2 * a);
     dist = Math.min(d1, d2);
   } else if (delta == 0) {
-    dist = -a;
+    dist = -b / (2 * a);
   } else {
     // no intersection
     return null;
   }
 
-  return vec3.scaleAndAdd([], o, u, dist); // o + u * dist
+  const int = vec3.scaleAndAdd([], o, v, dist); // o + v * dist
+  const h_int = vec3.dot(vec3.subtract([], int, C), h); // (int - C) ⋅ h
+  if (0 < h_int && h_int < vec3.length(HC)) {
+    // 0 < (int - C) ⋅ h < ||H - C||
+    // intersection inside the cylinder height
+    return int;
+  }
+  // no intersection with the cylinder body, check for intersection with the caps
+  return null;
 }
 
 /**
@@ -2744,8 +2780,9 @@ function pixelRayIntersection(x, y) {
     viewport,
   );
 
+  const { r, height } = getCylinderParameters(mercator);
   return isCylinder()
-    ? lineCylinderIntersection(o, p, [0, 0, 0], 1)
+    ? lineCylinderIntersection(o, p, [0, 0, 0], r, height)
     : lineSphereIntersection(o, p, [0, 0, 0], 1);
 }
 
@@ -3441,7 +3478,18 @@ function addListeners() {
         return;
       }
 
-      const uv = cartesian2Spherical(intersection);
+      let uv;
+      if (isCylinder()) {
+        const { r, height } = getCylinderParameters(mercator);
+        uv = cartesian2Cylindrical(intersection, height);
+        if (mercator) {
+          // mercator projection
+          uv.t = mercator2Spherical(uv.s, uv.t).t;
+        }
+      } else {
+        uv = cartesian2Spherical(intersection);
+      }
+
       const gcs = spherical2gcs(uv);
 
       canvastip.style.top = `${y + 15}px`;
@@ -3486,7 +3534,17 @@ function addListeners() {
     let ch = event.offsetX > canvas.width / 2 ? "g" : "G";
     const ct = country;
     if (intersection) {
-      const uv = cartesian2Spherical(intersection);
+      let uv;
+      if (isCylinder()) {
+        const { r, height } = getCylinderParameters(mercator);
+        uv = cartesian2Cylindrical(intersection, height);
+        if (mercator) {
+          // mercator projection
+          uv.t = mercator2Spherical(uv.s, uv.t).t;
+        }
+      } else {
+        uv = cartesian2Spherical(intersection);
+      }
 
       previousLocation = structuredClone(gpsCoordinates[currentLocation]);
       previousLocation.country = "previous";
@@ -4398,16 +4456,12 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
 function pointsOnCylParallel(latitude = 0, n = nsegments) {
   const ds = (Math.PI * 2) / (n - 1);
   const arr = new Float32Array(3 * n);
-  let { r, height } = getCylinderParameters(mercator);
 
   const uv = gcs2UV({ latitude, longitude: 0 });
-  if (mercator) {
-    uv.t = spherical2Mercator(uv.s, uv.t).y;
-  }
-  height *= uv.t - 0.5;
+  const [r, phi, y] = UV2Cylindrical(uv, mercator);
 
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    const p = cylindrical2Cartesian(r * 1.01, i * ds, height);
+    const p = cylindrical2Cartesian(r * 1.01, i * ds, y);
     arr.set(p, j);
   }
   return arr;
@@ -4423,16 +4477,11 @@ function pointsOnCylMeridian(longitude = 0) {
   const n = 2;
   let j = 0;
   const arr = new Float32Array(3 * n);
-  const { r, height } = getCylinderParameters(mercator);
 
   for (const lat of [90, -90]) {
     const uv = gcs2UV({ latitude: lat, longitude });
-    if (mercator) {
-      uv.t = spherical2Mercator(uv.s, uv.t).y;
-    }
-    const h = height * (uv.t - 0.5);
-    const phi = uv.s * 2 * Math.PI - Math.PI;
-    const p = cylindrical2Cartesian(r * 1.01, phi, h);
+    const [r, phi, y] = UV2Cylindrical(uv, mercator);
+    const p = cylindrical2Cartesian(r * 1.01, phi, y);
     arr.set(p, j);
     j += 3;
   }
@@ -4702,14 +4751,8 @@ function pointsOnLocations() {
     const gcs = gpsCoordinates[cities.country[i]];
     const uv = gcs2UV(gcs);
     if (isCylinder()) {
-      // cylindrical mapping
-      if (mercator) {
-        uv.t = spherical2Mercator(uv.s, uv.t).y;
-      }
-      let { r, height } = getCylinderParameters(mercator);
-      height *= uv.t - 0.5;
-      const phi = uv.s * 2 * Math.PI - Math.PI;
-      p = cylindrical2Cartesian(r, phi, height);
+      const [r, phi, y] = UV2Cylindrical(uv, mercator);
+      p = cylindrical2Cartesian(r, phi, y);
     } else {
       const [theta, phi] = UV2Spherical(uv);
       p = spherical2Cartesian(theta, phi, 1);

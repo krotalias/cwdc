@@ -486,7 +486,7 @@ export function spherical2Cartesian(s, t, r = 1) {
  *
  * @param {Number} r radius distance, r ≥ 0.
  * @param {Number} s azimuth angle θ, 0 ≤ θ ≤ 2π.
- * @param {Number} y height.
+ * @param {Number} y height, y ≥ 0.
  * @returns {vec3} cartesian point onto the cylinder.
  * @see {@link https://mathworld.wolfram.com/CylindricalCoordinates.html cylindrical coordinates}
  * @see <img src="../images/cylindrical-projection.png" width="256">
@@ -509,7 +509,7 @@ export function cylindrical2Cartesian(r, s, y = 1) {
  * y to be the value of the latitude.</li>
  * </ul>
  *  @param {vec3} p a point on the cylinder.
- *  @return {Object<r:Number, s:Number>} point p in cylindrical coordinates:
+ *  @return {Object<r:Number, s:Number, t:Number>} point p in cylindrical coordinates:
  *  <ul>
  *     <li>const [x, y, z] = p</li>
  *     <li>r = √(x² + z²)</li>
@@ -519,7 +519,7 @@ export function cylindrical2Cartesian(r, s, y = 1) {
  *     <li>arctan(-θ) = -arctan(θ) = atan2(z, x)
  *  </ul>
  */
-export function cartesian2Cylindrical(p) {
+export function cartesian2Cylindrical(p, h) {
   const [x, y, z] = p;
 
   // atan2 ∈ [-pi,pi] ⇒ theta ∈ [-0.5, 0.5]
@@ -531,6 +531,7 @@ export function cartesian2Cylindrical(p) {
   return {
     r: Math.sqrt(x * x + z * z),
     s: clamp(theta, 0.0, 1.0),
+    t: y / h + 0.5,
   };
 }
 
