@@ -486,7 +486,7 @@ export function spherical2Cartesian(s, t, r = 1) {
  *
  * @param {Number} r radius distance, r ≥ 0.
  * @param {Number} s azimuth angle θ, 0 ≤ θ ≤ 2π.
- * @param {Number} y height, y ≥ 0.
+ * @param {Number} y height.
  * @returns {vec3} cartesian point onto the cylinder.
  * @see {@link https://mathworld.wolfram.com/CylindricalCoordinates.html cylindrical coordinates}
  * @see <img src="../images/cylindrical-projection.png" width="256">
@@ -514,7 +514,7 @@ export function cylindrical2Cartesian(r, s, y = 1) {
  *     <li>const [x, y, z] = p</li>
  *     <li>r = √(x² + z²)</li>
  *     <li>s = θ = atan2(-z, x) / 2π + 0.5</li>
- *     <li>y = y</li>
+ *     <li>t = y/h + 0.5</li>
  *     <li>tg(-θ) = -tg(θ) = tan (z/x)
  *     <li>arctan(-θ) = -arctan(θ) = atan2(z, x)
  *  </ul>
