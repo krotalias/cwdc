@@ -2751,12 +2751,13 @@
         "longitude": -96.554497782
     },
     "Tenochtitlan": {
-        "country": "Aztec Empire (Mexico)",
+        "country": "🐇 Aztec Empire (Mexico)",
         "remarkable": [
             "Cuauhtémoc, last ruler of the Aztec Empire, 1502-1525",
             "Elected Tlatoani, 1520",
             "Captured by Cortés and tortured by fire, 13 August 1521",
-            "Executed, 1525"
+            "Executed, 1525",
+            "Founded, 13 March 1325"
         ],
         "latitude": 19.80782,
         "longitude": -96.91595
@@ -2782,7 +2783,8 @@
         "country": "🐇 Mexico",
         "remarkable": [
             "Benito Juárez, 1806-1872",
-            "26th president of Mexico, 1858-1872"
+            "26th president of Mexico, 1858-1872",
+            "Founded (Ciudad de México), 18 November 1824"
         ],
         "latitude": 19.432608,
         "longitude": -99.133209
