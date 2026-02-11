@@ -1806,6 +1806,23 @@
         "latitude": -9.974722,
         "longitude": -67.81
     },
+    "La Paz": {
+        "country": "Bolivia",
+        "remarkable": [
+            "Spanish conquested the Inca empire, 1524-1533",
+            "Túpac Katari led the siege to La Paz (20K died), March 1781",
+            "La Paz revolution, 16 July 1809",
+            "Republic was proclaimed, 6 August 1825",
+            "Peru-Bolivian Confederation, 1836-1839",
+            "Lost over half of its territory to neighboring countries",
+            "Che Guevara was killed, 9 October 1967",
+            "Hugo Banzer as dictator, 1971-1978",
+            "Juan José Torres was killed (Operation Condor), 1976",
+            "Founded, 20 October 1548"
+        ],
+        "latitude": -16.495833,
+        "longitude": -68.133333
+    },
     "Pituffik Space Base": {
         "country": "Greenland (Denmark, United States)",
         "remarkable": [
@@ -2529,7 +2546,7 @@
         "longitude": -88.766667
     },
     "Tikal": {
-        "country": "Maya Empire (Belize)",
+        "country": "Maya Empire (Guatemala)",
         "remarkable": [
             "Jasaw Chan K'awiil I, ruler of Maya city-state, Tikal, 682-734"
         ],

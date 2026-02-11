@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 381 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 383 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -168,7 +168,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">381 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">383 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -3910,10 +3910,12 @@ function drawParallel() {
   gl.uniformMatrix4fv(loc, false, transform);
 
   // draw parallel
-  if (loxodrome) gl.vertexAttrib4f(a_color, ...colorTable.great_circle);
-  gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
-  gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-  gl.drawArrays(gl.LINE_STRIP, 0, nsegments);
+  if (mercatorVertices) {
+    if (loxodrome) gl.vertexAttrib4f(a_color, ...colorTable.great_circle);
+    gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
+    gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
+    gl.drawArrays(gl.LINE_STRIP, 0, nsegments);
+  }
 
   // draw meridian
   gl.vertexAttrib4f(a_color, ...colorTable.loxodrome);
@@ -4520,21 +4522,28 @@ function pointsOnCylMeridian(longitude = 0) {
 function setPosition(location) {
   let parallelVertices = null;
 
-  if (loxodrome && !isCylinder()) {
-    [parallelVertices, mercatorVertices] = pointsOnGreatCircle(
-      previousLocation,
-      gpsCoordinates[location],
-    );
+  if (loxodrome) {
+    if (isCylinder()) {
+      // no great circle
+      // do not draw a parallel in this case
+      mercatorVertices = null;
+    } else {
+      [parallelVertices, mercatorVertices] = pointsOnGreatCircle(
+        previousLocation,
+        gpsCoordinates[location],
+      );
+    }
   } else {
+    mercatorVertices = true;
     parallelVertices = isCylinder()
       ? pointsOnCylParallel(gpsCoordinates[location].latitude)
       : pointsOnParallel(gpsCoordinates[location].latitude);
   }
 
-  if (parallelVertices === null) return;
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
-  gl.bufferSubData(gl.ARRAY_BUFFER, 0, parallelVertices);
+  if (parallelVertices !== null) {
+    gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, parallelVertices);
+  }
 
   let meridianVertices = null;
   if (loxodrome) {
@@ -4551,10 +4560,10 @@ function setPosition(location) {
     document.getElementById("lox").innerHTML = "Loxodrome";
   }
 
-  if (meridianVertices === null) return;
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
-  gl.bufferSubData(gl.ARRAY_BUFFER, 0, meridianVertices);
+  if (meridianVertices !== null) {
+    gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 0, meridianVertices);
+  }
 
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
 }
