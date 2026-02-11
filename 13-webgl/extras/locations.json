@@ -773,7 +773,7 @@
         "longitude": -43.165905
     },
     "Rio": {
-        "country": "Rio de Janeiro (Brazil)",
+        "country": "🐇  Rio de Janeiro (Brazil)",
         "remarkable": [
             "Gaspar de Lemos (Guanabara Bay), 1 January 1502",
             "Nicolas Durand de Villegagnon, 1510-1561",
@@ -1441,7 +1441,7 @@
         "longitude": -54.70833
     },
     "Paramaribo": {
-        "country": "Suriname",
+        "country": "🐇 Suriname",
         "remarkable": [
             "British colonization (Fort Willoughby), 1640-1667",
             "Dutch colonization (Fort Zeelandia), 25 February 1667",
@@ -1519,8 +1519,25 @@
         "latitude": -15.5966,
         "longitude": -56.0962
     },
+    "Montevideo": {
+        "country": "🐇 Uruguay",
+        "remarkable": [
+            "Bruno Mauricio de Zabala y Gortázar (Founder), 1682-1736",
+            "Governorate of the Río de la Plata, 1717-1734",
+            "Manuel de Freitas da Fonseca (Portuguese Field Marshal)",
+            "Built the Montevieu fort, 22 November 1723",
+            "Pedro I annexed to the Banda Oriental of Brazil, 31 July 1821",
+            "Treinta y Tres Orientales re-established the independence, 25 August 1825",
+            "Uruguayan Civil War (Fructuoso Rivera x Lavalleja and Manuel Oribe), 1839-1851",
+            "Blancos (Oribe, conservative) and Colorodados (Rivera, liberal), 6 December 1842",
+            "Sitio Grande (Oribe's siege), 1843-1851",
+            "Founded, 1726"
+        ],
+        "latitude": -34.905556,
+        "longitude": -56.184167
+    },
     "Asunción": {
-        "country": "Paraguay",
+        "country": "🐇 Paraguay",
         "remarkable": [
             "Francisco Solano López (Marshal-President), 1827-1870",
             "President, 10 September 1862 - 1 March de 1870",
@@ -1544,7 +1561,7 @@
         "longitude": -57.8589
     },
     "Buenos Aires": {
-        "country": "Argentina",
+        "country": "🐇 Argentina",
         "remarkable": [
             "Juan Díaz de Solís, 1470-1516",
             "First European to reach the Río de la Plata, 1516",
@@ -1741,7 +1758,7 @@
         "longitude": -64.80148
     },
     "San Juan": {
-        "country": "☠ Puerto Rico (United States)",
+        "country": "☠ 🐇 Puerto Rico (United States)",
         "remarkable": [
             "Spanish possession, 1493-1898",
             "Juan Ponce de León, 1508",
@@ -1763,7 +1780,7 @@
         "longitude": -66.458333
     },
     "Caracas": {
-        "country": "Venezuela",
+        "country": "🐇 Venezuela",
         "remarkable": [
             "San Bernabé earthquake put the city into decline, 11 June 1671",
             "Simón Bolívar, 1783-1830",
@@ -1807,9 +1824,9 @@
         "longitude": -67.81
     },
     "La Paz": {
-        "country": "Bolivia",
+        "country": "🐇 Bolivia",
         "remarkable": [
-            "Spanish conquested the Inca empire, 1524-1533",
+            "Spanish conquered the Inca empire, 1524-1533",
             "Túpac Katari led the siege to La Paz (20K died), March 1781",
             "La Paz revolution, 16 July 1809",
             "Republic was proclaimed, 6 August 1825",
@@ -1863,7 +1880,7 @@
         "longitude": -68.935
     },
     "Santo Domingo": {
-        "country": "☠ Island of Hispaniola (Dominican Republic)",
+        "country": "☠ 🐇 Island of Hispaniola (Dominican Republic)",
         "remarkable": [
             "Christopher Columbus first voyage, 5 December 1492",
             "The King of Spain renamed the entire island to Santo Domingo, 6 December 1508",
@@ -1910,7 +1927,7 @@
         "longitude": -70.035833
     },
     "Santiago": {
-        "country": "Chile",
+        "country": "🐇 Chile",
         "remarkable": [
             "Pedro de Valdivia, 1497-1553",
             "1st and 3rd Royal Governor of Chile, 1540-1553",
@@ -1972,7 +1989,7 @@
         "longitude": -71.61245
     },
     "Cusco": {
-        "country": "Inca Empire (Peru)",
+        "country": "🐇 Inca Empire (Peru)",
         "remarkable": [
             "Pachacuti, 1403-1471",
             "First historical Incan emperor, 1425-1471"
@@ -1981,7 +1998,7 @@
         "longitude": -71.96999612
     },
     "Port-au-Prince": {
-        "country": "☠ Island of Hispaniola (Haiti)",
+        "country": "☠ 🐇 Island of Hispaniola (Haiti)",
         "remarkable": [
             "Christopher Columbus first voyage, 5 December 1492",
             "Western portion ceded to France (Saint-Domingue), 1697",
@@ -2055,7 +2072,7 @@
         "longitude": -73.93482
     },
     "NYC": {
-        "country": "United States",
+        "country": "🐇 United States",
         "remarkable": [
             "Theodore Roosevelt, 1858-1919",
             "Harvard A.B. History, 1876-1880",
@@ -2087,7 +2104,7 @@
         "longitude": -74.012778
     },
     "Bogotá": {
-        "country": "Colombia",
+        "country": "🐇 Colombia",
         "remarkable": [
             "New Kingdom of Granada, April 1536",
             "Our Lady of Hope (Gonzalo Jiménez de Quesada), 27 April 1539",
@@ -2163,7 +2180,7 @@
         "longitude": -74.666728
     },
     "Otawa": {
-        "country": "Ontario (Canada)",
+        "country": "🐇 Ontario (Canada)",
         "remarkable": [
             "Bytown, 1826",
             "Rideau Canal, 1826-1832",
@@ -2205,7 +2222,7 @@
         "longitude": -76.200499198
     },
     "Port Royal": {
-        "country": "☠ Jamaica",
+        "country": "☠ 🐇 Jamaica",
         "remarkable": [
             "Christopher Columbus, 1494",
             "Juan de Esquivel, 1509",
@@ -2298,7 +2315,7 @@
         "longitude": -78.417778
     },
     "Quito": {
-        "country": "Ecuador",
+        "country": "🐇 Ecuador",
         "remarkable": [
             "Founded as San Francisco de Quito, 6 December 1534",
             "Ecuadorian Declaration of Independence, 10 August 1809",
@@ -2340,7 +2357,7 @@
         "longitude": -79.383889
     },
     "Panama Canal": {
-        "country": "Panama",
+        "country": "🐇 Panama",
         "remarkable": [
             "France (Ferdinand de Lesseps), 1 January 1881 - 15 May 1889",
             "Panama independence, 3 November 1903",
@@ -2410,7 +2427,7 @@
         "longitude": -81.425278
     },
     "Havana": {
-        "country": "☠ Cuba",
+        "country": "☠ 🐇 Cuba",
         "remarkable": [
             "USS Maine exploded, 15 February 1898",
             "Spanish-American War, 21 April 1898 - 13 August 1898",
@@ -2441,6 +2458,18 @@
         ],
         "latitude": 42.316667,
         "longitude": -83.15
+    },
+    "San José": {
+        "country": "🐇 Costa Rica",
+        "remarkable": [
+            "Christopher Columbus (final voyage), 1502",
+            "Cabildo Eclesiástico de León ordered its foundation, 1736",
+            "Defined as a city (Florencio del Castillo), 18 October 1813",
+            "Independence from from Spain, 15 September 1821",
+            "Founded, 1736"
+        ],
+        "latitude": 9.933333,
+        "longitude": -84.083333
     },
     "Point Pleasant": {
         "country": "Ohio (United States)",
@@ -2480,6 +2509,34 @@
         ],
         "latitude": 37.569331056,
         "longitude": -85.736497
+    },
+    "Managua": {
+        "country": "🐇 Nicaragua",
+        "remarkable": [
+            "Christopher Columbus (fourth voyage), 1502",
+            "Gil González Dávila, 1480-1625",
+            "Rivas Department of Nicaragua, 1522",
+            "Independence from Spain, 15 September 1821",
+            "Earthquake, 31 March 1931",
+            "Founded, 1819"
+        ],
+        "latitude": 12.1,
+        "longitude": -86.233333
+    },
+    "Tegucigalpa": {
+        "country": "🐇 Honduras",
+        "remarkable": [
+            "Christopher Columbus (fourth voyage), 1502",
+            "Gil González Dávila, 1480-1625",
+            "First Spaniard to enter Honduras, March 1524",
+            "Spanish Honduras, 1524-1821",
+            "Real de Minas de San Miguel de Tegucigalpa, 29 September 1578",
+            "Real Villa de San Miguel de Tegucigalpa y Heredia, 10 June 1762",
+            "Permanent capital of Honduras, 30 October 1880",
+            "Founded, 29 September 1578"
+        ],
+        "latitude": 14.105833,
+        "longitude": -87.204722
     },
     "Chicago": {
         "country": "Illinois (United States)",
@@ -2532,7 +2589,7 @@
         "longitude": -89.3999984
     },
     "Belmopan": {
-        "country": "Belize",
+        "country": "🐇 Belize",
         "remarkable": [
             "Belize District (British permanent settlement), 1776",
             "Battle of St. George's Caye (Spanish fleet x Baymen), 10 September 1798",
@@ -2545,8 +2602,19 @@
         "latitude": 17.25,
         "longitude": -88.766667
     },
+    "San Salvador.": {
+        "country": "🐇 El Salvador",
+        "remarkable": [
+            "Pedro de Alvarado (founder), 1485-1541",
+            "Independence from Spain, 15 September 1821",
+            "Great Earthquake of San José (severe damage), 19 March 1873",
+            "Founded, 1525"
+        ],
+        "latitude": 13.698889,
+        "longitude": -89.191389
+    },
     "Tikal": {
-        "country": "Maya Empire (Guatemala)",
+        "country": "🐇 Maya Empire (Guatemala)",
         "remarkable": [
             "Jasaw Chan K'awiil I, ruler of Maya city-state, Tikal, 682-734"
         ],
@@ -2711,7 +2779,7 @@
         "longitude": -98.95
     },
     "Mexico City": {
-        "country": "Mexico",
+        "country": "🐇 Mexico",
         "remarkable": [
             "Benito Juárez, 1806-1872",
             "26th president of Mexico, 1858-1872"
