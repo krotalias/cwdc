@@ -1321,7 +1321,7 @@
         "longitude": -52.516667
     },
     "St. John's": {
-        "country": "Newfoundland and Labrador (Canada)",
+        "country": "🐇 Newfoundland and Labrador (Canada)",
         "remarkable": [
             "Discovered, 24 June 1497",
             "Sir Humphrey Gilbert, 1539-1583",
@@ -1330,7 +1330,8 @@
             "Battle of St. John's, 1 January 1709",
             "Seven Years' War (French and Indian War), 1756-1763",
             "Battle of Signal Hill (French surrendered), 15 September 1762",
-            "Incorporated as a town, 30 August 1888"
+            "Incorporated as a town, 30 August 1888",
+            "Established, 5 August 1583"
         ],
         "latitude": 47.561389,
         "longitude": -52.711944
@@ -1608,6 +1609,19 @@
         ],
         "latitude": -11.60838,
         "longitude": -58.48316
+    },
+    "Bridgetown": {
+        "country": "Barbados",
+        "remarkable": [
+            "387K enslaved Africans were sent to Barbados, 1627-1807",
+            "Seat of the Anglican Diocese of Barbados and the Leeward Islands, 1824",
+            "Independence from Great Britain, 30 November 1966",
+            "World Heritage Site (UNESCO), 25 June 2011",
+            "Parliamentary republic, 20 November 2021",
+            "Established, 5 July 1628"
+        ],
+        "latitude": 13.096944,
+        "longitude": -59.613056
     },
     "Greenwich Island": {
         "country": "Iquique Cove (Chile)",
@@ -2072,7 +2086,7 @@
         "longitude": -73.93482
     },
     "NYC": {
-        "country": "🐇 United States",
+        "country": "United States",
         "remarkable": [
             "Theodore Roosevelt, 1858-1919",
             "Harvard A.B. History, 1876-1880",
@@ -2180,7 +2194,7 @@
         "longitude": -74.666728
     },
     "Otawa": {
-        "country": "🐇 Ontario (Canada)",
+        "country": "Ontario (Canada)",
         "remarkable": [
             "Bytown, 1826",
             "Rideau Canal, 1826-1832",
@@ -2401,6 +2415,21 @@
         ],
         "latitude": 41.188889,
         "longitude": -80.747222
+    },
+    "St. Augustine": {
+        "country": "🐇 Florida (United States)",
+        "remarkable": [
+            "Oldest continuously inhabited European settlement in the contiguous U.S.",
+            "Pedro Menéndez de Avilés, 1519-1574",
+            "1st Governor of Florida, 1565-1574",
+            "Treaty of Paris ceded Florida to Great Britain, 10 February 1763",
+            "Adams-Onís Treaty, 22 February 1819",
+            "U.S. acquired East Florida and absolved Spain of $5 million of debt",
+            "Spain renounced all claims to West Florida and the Oregon Country",
+            "Established, 8 September 1565"
+        ],
+        "latitude": 29.889167,
+        "longitude": -81.304167
     },
     "George Town": {
         "country": "☠ Cayman Islands (United Kingdom)",
