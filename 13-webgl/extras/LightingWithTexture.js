@@ -637,12 +637,12 @@ const element = {
  * The keys of the table are the path types and
  * the values are the corresponding RGBA or HTML5 color values.
  * <ul>
- *  <li>loxodrome: [1,0,0,1]    // red</li>
+ *  <li>loxodrome: [1,0,1,1]    // magenta</li>
  *  <li>great_circle: [0,1,1,1] // cyan</li>
  *  <li>normal: [1,1,0,1]       // yellow</li>
  *  <li>poiAD: [1,0,0]          // red</li>
  *  <li>poiBC: [1,1,0]          // yellow</li>
- *  <li>rhumb: "red"</li>
+ *  <li>rhumb: "magenta"</li>
  *  <li>gc: "cyan"</li>
  *  <li>unknown: "blue"</li>
  *  <li>ad: "red"</li>
@@ -1895,7 +1895,9 @@ const handleKeyPress = ((event) => {
         gscale = mscale = 1;
         element.models.value = "3";
         let { r, height } = getCylinderParameters(mercator);
-        if (noTexture) height -= r;
+        if (noTexture && !mercator) {
+          height += 0.02 * r;
+        }
         theModel = createModel({
           shape: selector.hws
             ? uvCylinder(r, height, 30, 5, false, false)
@@ -2674,13 +2676,14 @@ function lineCylinderIntersection(o, p, ct, r, height) {
   const HC = vec3.subtract([], H, C); // H - C
   const h = vec3.normalize([], HC); // ||H - C||
   const w = vec3.subtract([], o, C); // o - C;
+  const r2 = r * r; // r square
 
   // ||v||^2 - (v ⋅ h)^2
   const a = vec3.dot(v, v) - Math.pow(vec3.dot(v, h), 2);
   // 2 * ((v ⋅ w) - (v ⋅ h)(w ⋅ h))
   const b = 2 * (vec3.dot(v, w) - vec3.dot(v, h) * vec3.dot(w, h));
   // ||w||^2 - (w ⋅ h)^2 - r^2
-  const c = vec3.dot(w, w) - Math.pow(vec3.dot(w, h), 2) - r * r;
+  const c = vec3.dot(w, w) - Math.pow(vec3.dot(w, h), 2) - r2;
 
   const delta = b * b - 4 * a * c;
   let dist;
@@ -2698,12 +2701,52 @@ function lineCylinderIntersection(o, p, ct, r, height) {
 
   const int = vec3.scaleAndAdd([], o, v, dist); // o + v * dist
   const h_int = vec3.dot(vec3.subtract([], int, C), h); // (int - C) ⋅ h
-  if (0 < h_int && h_int < vec3.length(HC)) {
+  if (0 < h_int && h_int <= vec3.length(HC)) {
     // 0 < (int - C) ⋅ h < ||H - C||
     // intersection inside the cylinder height
     return int;
+  } else if (h_int > vec3.length(HC)) {
+    // The intersection is above the top of the cylinder.
+    // Test the intersection with the top cap.
+    const capTop = linePlaneIntersection(o, p, H, [0, 1, 0]);
+    if (capTop && vec3.sqrDist(capTop, H) <= r2) {
+      return capTop;
+    }
+  } else if (h_int < 0) {
+    // The intersection is below the base of the cylinder.
+    // Test the intersection with the base cap.
+    const capBase = linePlaneIntersection(o, p, C, [0, -1, 0]);
+    if (capBase && vec3.sqrDist(capBase, C) <= r2) {
+      return capBase;
+    }
   }
-  // no intersection with the cylinder body, check for intersection with the caps
+  return null;
+}
+
+/**
+ * <p>Find point of intersection between a line and a plane.</p>
+ * The line is defined by its origin and an end point.
+ * The plane is defined by a point on it and its normal vector.
+ * @param {vec3} o ray origin.
+ * @param {vec3} p ray end point.
+ * @param {vec3} pt point defining the plane position.
+ * @param {vec3} normal plane normal.
+ * @returns {vec3|null} intersection point or null, if there is no intersection.
+ * @see {@link https://en.wikipedia.org/wiki/Line-plane_intersection Line-plane intersection}
+ * @see {@link https://www.illusioncatalyst.com/notes_files/mathematics/line_plane_intersection.php Illusion Catalyst - Line Plane Intersection}
+ */
+function linePlaneIntersection(o, p, pt, normal) {
+  const n = vec3.normalize([], normal);
+
+  // line direction
+  const v = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
+
+  const dotVN = vec3.dot(v, n); // v . n
+
+  if (dotVN != 0) {
+    const t = -vec3.dot(vec3.subtract([], o, pt), n) / dotVN; // - (o - pt).n / (v.n)
+    return vec3.scaleAndAdd([], o, v, t); // o + v * t
+  }
   return null;
 }
 

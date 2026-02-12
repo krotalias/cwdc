@@ -568,7 +568,7 @@ export function spherical2Mercator(s, t) {
   // st (uv) to equirectangular
   const lon = s * 2.0 * Math.PI; // [0, 2pi]
   let lat = (t - 0.5) * Math.PI; // [-pi/2, pi/2]
-  lat = clamp(lat, radians(-85.0), radians(85.0));
+  lat = clamp(lat, radians(-85.051129), radians(85.051129));
 
   // equirectangular to mercator
   let x = lon;
