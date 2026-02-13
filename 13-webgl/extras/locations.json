@@ -4640,7 +4640,15 @@
     },
     "Athens": {
         "country": "Greece",
-        "remarkable": ["Socrates, 469-399 BC", "Plato, 428-348 BC"],
+        "remarkable": [
+            "Pericles, 495-429 BC",
+            "Greco-Persian Wars, 499-449 BC",
+            "Peloponnesian War, 431-404 BC",
+            "Acropolis, including the Parthenon, 447-432 BC",
+            "Plague of Athens (75K-100K died), 430-426 BC",
+            "Socrates, 469-399 BC",
+            "Plato, 428-348 BC"
+        ],
         "latitude": 37.9755648,
         "longitude": 23.7348324
     },
