@@ -4698,6 +4698,18 @@
         "latitude": 52.22977,
         "longitude": 21.01178
     },
+    "Epirus": {
+        "country": "Greece",
+        "remarkable": [
+            "Pyrrhus of Epirus, 318-272 BC",
+            "King of Epirus, 306 BC",
+            "One of the greatest generals of antiquity",
+            "Pyrrhic War, 280-275 BC",
+            "Battle of Beneventum (last), 275 BC"
+        ],
+        "latitude": 39.5661,
+        "longitude": 20.7583
+    },
     "Pannonia": {
         "country": "Serbia",
         "remarkable": ["Attila the Hun, 406-453", "Ruler of the Huns, 434"],
@@ -5075,7 +5087,16 @@
     },
     "Carthage": {
         "country": "Punic Empire (Tunisia)",
-        "remarkable": ["Hannibal, 247-183 BC", "Second Punic War, 218 BC"],
+        "remarkable": [
+            "Hamilcar Barca, 275-228 BC",
+            "Fisrt Punic War, 264-241 BC",
+            "Battle of Cape Ecnomus (largest naval battle in history), 256 BC",
+            "Hasdrubal Barca, 245-207 BC",
+            "Battle of the Metaurus (beheaded), 207 BC",
+            "Hannibal Barca, 247-183 BC",
+            "Second Punic War, 218-201 BC",
+            "One of the greatest generals of all time",
+        ],
         "latitude": 36.8548083,
         "longitude": 10.3309924
     },
