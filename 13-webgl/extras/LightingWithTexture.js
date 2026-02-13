@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 390 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 391 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -168,7 +168,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">390 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">391 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -301,9 +301,15 @@
  * between two points on a sphere is along the {@link pointsOnGreatCircle minor arc}
  * of a {@link https://en.wikipedia.org/wiki/Great-circle_distance great circle}
  * or formally a {@link https://faculty.sites.iastate.edu/jia/files/inline-files/geodesics.pdf geodesics}.
- * However, although this is the route planes follow for saving fuel,
+ * However, although this is the route airplanes follow for saving fuel,
  * sailboats and ships usually follow a {@link https://en.wikipedia.org/wiki/Rhumb_line rhumb line} (loxodrome).
  * <a href="../images/Cape Horn-Cape Good Hope.png">Why is that</a>?
+ * </li>
+ * <li>
+ * Implement {@link module:polyhedron.cylindrical2Cartesian cylindrical coordinates},
+ * {@link lineCylinderIntersection line-cylinder intersection} and
+ * {@link linePlaneIntersection line-plane intersection}
+ * to project maps and locations onto cylinders appropriately.
  * </li>
  * </ol>
  *
@@ -638,11 +644,13 @@ const element = {
  * the values are the corresponding RGBA or HTML5 color values.
  * <ul>
  *  <li>loxodrome: [1,0,1,1]    // magenta</li>
+ *  <li>meridian: [1,0,0,1]     // red</li>
  *  <li>great_circle: [0,1,1,1] // cyan</li>
  *  <li>normal: [1,1,0,1]       // yellow</li>
  *  <li>poiAD: [1,0,0]          // red</li>
  *  <li>poiBC: [1,1,0]          // yellow</li>
  *  <li>rhumb: "magenta"</li>
+ *  <li>mer: "red"</li>
  *  <li>gc: "cyan"</li>
  *  <li>unknown: "blue"</li>
  *  <li>ad: "red"</li>
@@ -651,12 +659,14 @@ const element = {
  * @type {Object<String, Array<Number>|String>}
  */
 const colorTable = {
-  loxodrome: [1.0, 0.0, 0.0, 1.0], // red
+  loxodrome: [1.0, 0.0, 1.0, 1.0], // magenta
+  meridian: [1.0, 0.0, 0.0, 1.0], // red
   great_circle: [0.0, 1.0, 1.0, 1.0], // cyan
   normal: [1.0, 1.0, 0.0, 1.0], // yellow
   poiAD: [1.0, 0.0, 0.0], // red
   poiBC: [1.0, 1.0, 0.0], // yellow
-  rhumb: "red",
+  rhumb: "magenta",
+  mer: "red",
   gc: "cyan",
   unknown: "blue",
   ad: "red",
@@ -2306,6 +2316,7 @@ function rhumbLine(ctx, loc1, loc2) {
   if (loxodrome) {
     ctx.moveTo(px, py); // loxodrome
     ctx.lineTo(x, y);
+    ctx.strokeStyle = colorTable.rhumb;
     // relative to the positive y-axis
     bearingAngle = -toDegrees(Math.atan2(dx, dy));
     if (bearingAngle < 0) bearingAngle += 360;
@@ -2314,8 +2325,8 @@ function rhumbLine(ctx, loc1, loc2) {
     ctx.lineTo(x, h);
     ctx.moveTo(0, y); // parallel
     ctx.lineTo(w, y);
+    ctx.strokeStyle = colorTable.mer;
   }
-  ctx.strokeStyle = colorTable.rhumb;
   ctx.stroke();
   ctx.closePath();
 
@@ -3956,13 +3967,15 @@ function drawParallel() {
   // draw parallel
   if (mercatorVertices) {
     if (loxodrome) gl.vertexAttrib4f(a_color, ...colorTable.great_circle);
+    else gl.vertexAttrib4f(a_color, ...colorTable.meridian);
     gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
     gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.LINE_STRIP, 0, nsegments);
   }
 
   // draw meridian
-  gl.vertexAttrib4f(a_color, ...colorTable.loxodrome);
+  if (loxodrome) gl.vertexAttrib4f(a_color, ...colorTable.loxodrome);
+  else gl.vertexAttrib4f(a_color, ...colorTable.meridian);
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
   gl.drawArrays(gl.LINE_STRIP, 0, isCylinder() && !loxodrome ? 2 : nsegments);
