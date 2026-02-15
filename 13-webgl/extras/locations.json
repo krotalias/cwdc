@@ -1,5 +1,5 @@
 {
-    "Null_Island": {
+    "Null Island": {
         "country": "Gulf of Guinea",
         "remarkable": ["Prime Meridian and Equator intersection"],
         "latitude": 0,
@@ -3194,6 +3194,12 @@
         "latitude": 28.1999992,
         "longitude": -177.3499986
     },
+    "Void Island": {
+        "country": "Pacific Ocean",
+        "remarkable": ["Antimeridian and Equator intersection, 2050"],
+        "latitude": 0,
+        "longitude": 180
+    },
     "Anadyr": {
         "country": "Russia",
         "remarkable": [
@@ -3351,6 +3357,21 @@
         ],
         "latitude": -42.880556,
         "longitude": 147.325
+    },
+    "Tinian": {
+        "country": "⚔ Northern Mariana Islands (United States)",
+        "remarkable": [
+            "Battle of Tinian (seized ths islande), 24 July 1944 - 1 August 1944",
+            "The battle saw napalm being used for the first time",
+            "North Field Base for B-29s (operational range 6K km), 1944-1946",
+            "509th Composite Group, 17 December 1944 - 10 July 1946",
+            "Bombed Tokyo (most destructive air raid ever), 9 March 1945",
+            "100K deaths and 41.3 km² burned",
+            "Bombed Kobe, Osaka, and Nagoya, killing 330K-500K civilians",
+            "Flew the atomic bombing raids on Hiroshima and Nagasaki, August 1945"
+        ],
+        "latitude": 15.072044,
+        "longitude": 145.638369
     },
     "Saipan": {
         "country": "⚔ Northern Mariana Islands (United States)",

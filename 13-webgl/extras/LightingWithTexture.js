@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 391 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 393 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -168,7 +168,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">391 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">393 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -662,13 +662,14 @@ const colorTable = {
   loxodrome: [1.0, 0.0, 1.0, 1.0], // magenta
   meridian: [1.0, 0.0, 0.0, 1.0], // red
   great_circle: [0.0, 1.0, 1.0, 1.0], // cyan
+  unknown: [0.0, 0.0, 1.0, 1.0], // blue
   normal: [1.0, 1.0, 0.0, 1.0], // yellow
   poiAD: [1.0, 0.0, 0.0], // red
   poiBC: [1.0, 1.0, 0.0], // yellow
   rhumb: "magenta",
   mer: "red",
   gc: "cyan",
-  unknown: "blue",
+  un: "blue",
   ad: "red",
   bc: "yellow",
 };
@@ -913,6 +914,7 @@ let gpsCoordinates = null;
  * @property {Array<String>} byLongitude city names ordered by longitude.
  * @property {Array<String>} byDate city names ordered by date.
  * @property {Array<String>} current current city names.
+ * @property {Array<String>} previous previous city name.
  * @property {Array<String>} timeline city names ordered by year.
  * @property {Array<String>} country city names in the selected country.
  */
@@ -920,6 +922,7 @@ const cities = {
   byLongitude: null,
   byDate: null,
   current: null,
+  previous: null,
   timeline: null,
   country: null,
 };
@@ -1461,11 +1464,13 @@ function labelForLocation(location) {
     gpsCoordinates[location],
     gpsCoordinates["Rio"],
   ).km;
+  const distance2 = haversine(gpsCoordinates[location], previousLocation).km;
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)}°,
     lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(
       2,
-    )}<br>Distance to Rio: ${distance.toFixed(0)} km`;
+    )}<br>Distance to Rio: ${distance.toFixed(0)} km
+      <br>${cities.previous} to ${location}: ${distance2.toFixed(0)} km`;
 }
 
 /**
@@ -1649,11 +1654,12 @@ const handleKeyPress = ((event) => {
     // a sphere, a cylinder or a subdivision sphere
     const modelsToRotate = [3, 5, 13];
 
-    // has the previous location been already set in any of the two listeners for pointer clicks?
     if (previousLocation.country !== "previous") {
       previousLocation = structuredClone(gpsCoordinates[currentLocation]);
+      cities.previous = currentLocation;
     } else {
-      // previousLocation.country = "";
+      // previous location has been set in any of the two listeners for pointer clicks
+      previousLocation.country = "";
     }
 
     currentLocation = cities.current[cl];
@@ -2455,7 +2461,7 @@ function drawLocationsOnImage() {
     ctx.arc(x, y, 2, 0, Math.PI * 2);
     ctx.fillStyle =
       location === "Unknown"
-        ? colorTable.unknown
+        ? colorTable.un
         : (ctx.fillStyle = gps.remarkable.at(-1).includes(" BC")
             ? colorTable.bc
             : colorTable.ad);
@@ -2963,7 +2969,7 @@ function sortCitiesByDate() {
    */
   const getDate = (v) => {
     if (v == "Unknown") return [Number.MAX_VALUE, 0]; // must be the last
-    if (v == "Null_Island") return [Number.MIN_SAFE_INTEGER, 0]; // must be the first
+    if (v == "Null Island") return [Number.MIN_SAFE_INTEGER, 0]; // must be the first
     // "American Civil War, 12 April 1861-26 May 1865"
     const remDate = gpsCoordinates[v].remarkable.at(-1).split(",");
     // ["American Civil War", "12 April 1861-26 May 1865"]
@@ -3028,6 +3034,20 @@ function sortCitiesByDate() {
   const location = mapped.map((v) => data[v.i]);
 
   return [location, timeline];
+}
+
+/**
+ * Set {@link gpsCoordinates GCS} coordinates for the "Unknown" location,
+ * given its 'uv' coordinates.
+ * @param {Object<{s: Number,t:Number}>} uv uv coordinates ∈ [0,1].
+ * @returns {gpsCoordinates} new gps coordinates of "Unknown" location.
+ */
+function gcsForUnknownLocation(uv) {
+  const unknown = gpsCoordinates["Unknown"];
+  ({ latitude: unknown.latitude, longitude: unknown.longitude } =
+    spherical2gcs(uv));
+  displayLocations(); // unknown location has changed (blue dot)
+  return unknown;
 }
 
 /**
@@ -3378,10 +3398,9 @@ function addListeners() {
 
     previousLocation = structuredClone(gpsCoordinates[currentLocation]);
     previousLocation.country = "previous";
+    cities.previous = currentLocation;
 
-    const unknown = gpsCoordinates["Unknown"];
-    ({ latitude: unknown.latitude, longitude: unknown.longitude } =
-      spherical2gcs(uv));
+    gcsForUnknownLocation(uv);
     currentLocation = cities.current.at(-2);
     const ct = country;
     country = "";
@@ -3603,10 +3622,9 @@ function addListeners() {
 
       previousLocation = structuredClone(gpsCoordinates[currentLocation]);
       previousLocation.country = "previous";
+      cities.previous = currentLocation;
 
-      const unknown = gpsCoordinates["Unknown"];
-      ({ latitude: unknown.latitude, longitude: unknown.longitude } =
-        spherical2gcs(uv));
+      gcsForUnknownLocation(uv);
 
       country = "";
       const position = ch === "g" ? -2 : 0;
@@ -4845,9 +4863,13 @@ function pointsOnLocations() {
 
     arr.set(p, j);
 
-    // red for AD (1,0,0) and yellow for BC (1,1,0)
-    const BC = gcs.remarkable.at(-1).includes("BC");
-    crr.set(BC ? colorTable.poiBC : colorTable.poiAD, j);
+    if (cities.country[i] === "Unknown") {
+      crr.set(colorTable.unknown, j);
+    } else {
+      // red for AD (1,0,0) and yellow for BC (1,1,0)
+      const BC = gcs.remarkable.at(-1).includes("BC");
+      crr.set(BC ? colorTable.poiBC : colorTable.poiAD, j);
+    }
   }
   return [arr, crr];
 }
