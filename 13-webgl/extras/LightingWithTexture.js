@@ -1645,18 +1645,21 @@ const handleKeyPress = ((event) => {
    * Some models, (such as spheres and cylinders) with a texture that represents a map,
    * are rotated towards the camera when the tooltip is on.
    * @param {Number} inc increment to change the current location.
-   * @param {Boolean} [fix=true] whether call {@link setYUp}.
+   * @param {Boolean} [fix=true] whether to call {@link setYUp}.
+   * @param {Boolean} [prev=true] whether to update {@link previousLocation}.
    * @global
    */
-  function updateLocation(inc, fix = true) {
+  function updateLocation(inc, fix = true, prev = true) {
     if (axis === "q") axis = " "; // current meridian will be lost
     const cl = nextLocation(inc, currentLocation, country);
     // a sphere, a cylinder or a subdivision sphere
     const modelsToRotate = [3, 5, 13];
 
     if (previousLocation.country !== "previous") {
-      previousLocation = structuredClone(gpsCoordinates[currentLocation]);
-      cities.previous = currentLocation;
+      if (prev) {
+        previousLocation = structuredClone(gpsCoordinates[currentLocation]);
+        cities.previous = currentLocation;
+      }
     } else {
       // previous location has been set in any of the two listeners for pointer clicks
       previousLocation.country = "";
@@ -2065,7 +2068,7 @@ const handleKeyPress = ((event) => {
       case "J":
         currentLocation = closestSite(gpsCoordinates["Unknown"]);
       case "j":
-        updateLocation(0);
+        updateLocation(0, true, false);
         break;
       case "g":
       case "ArrowRight":
