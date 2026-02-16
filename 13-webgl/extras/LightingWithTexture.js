@@ -381,6 +381,7 @@
  * @see <figure>
  *      <img src="../images/Amsterdan-HongKong.png" height="340" title="rhumb line">
  *      <img src="../images/Amsterdan-HongKong-map.png" height="340" title="rhumb line map">
+ *      <img src="../images/Amsterdan-HongKong-cylinder.png" height="340" title="rhumb line cylinder">
  *      <figcaption style="font-size: 200%">
  *      <a href="https://gisgeography.com/great-circle-geodesic-line-shortest-flight-path/">Rhumb Line (red) and Great Circle (cyan) <br> Amsterdan - Hong Kong (109.55°)</a>
  *      </figcaption>
@@ -647,12 +648,15 @@ const element = {
  *  <li>meridian: [1,0,0,1]     // red</li>
  *  <li>great_circle: [0,1,1,1] // cyan</li>
  *  <li>normal: [1,1,0,1]       // yellow</li>
+ *  <li>unknown: [0,0,1]        // blue</li>
+ *  <li>null: [1,1,1],          // black</li>
  *  <li>poiAD: [1,0,0]          // red</li>
  *  <li>poiBC: [1,1,0]          // yellow</li>
  *  <li>rhumb: "magenta"</li>
  *  <li>mer: "red"</li>
  *  <li>gc: "cyan"</li>
- *  <li>unknown: "blue"</li>
+ *  <li>un: "blue"</li>
+ *  <li>nu: "black"</li>
  *  <li>ad: "red"</li>
  *  <li>bc: "yellow"</li>
  * </ul>
@@ -662,14 +666,16 @@ const colorTable = {
   loxodrome: [1.0, 0.0, 1.0, 1.0], // magenta
   meridian: [1.0, 0.0, 0.0, 1.0], // red
   great_circle: [0.0, 1.0, 1.0, 1.0], // cyan
-  unknown: [0.0, 0.0, 1.0, 1.0], // blue
   normal: [1.0, 1.0, 0.0, 1.0], // yellow
+  unknown: [0.0, 0.0, 1.0], // blue
+  null: [0.0, 0.0, 0.0], // black
   poiAD: [1.0, 0.0, 0.0], // red
   poiBC: [1.0, 1.0, 0.0], // yellow
   rhumb: "magenta",
   mer: "red",
   gc: "cyan",
   un: "blue",
+  nu: "black",
   ad: "red",
   bc: "yellow",
 };
@@ -2462,12 +2468,17 @@ function drawLocationsOnImage() {
 
     ctx.beginPath();
     ctx.arc(x, y, 2, 0, Math.PI * 2);
-    ctx.fillStyle =
-      location === "Unknown"
-        ? colorTable.un
-        : (ctx.fillStyle = gps.remarkable.at(-1).includes(" BC")
-            ? colorTable.bc
-            : colorTable.ad);
+
+    let color;
+    if (location === "Unknown") color = colorTable.un;
+    else if (["Null Island", "Void Island"].includes(location))
+      color = colorTable.nu;
+    else
+      color = gps.remarkable.at(-1).includes(" BC")
+        ? colorTable.bc
+        : colorTable.ad;
+
+    ctx.fillStyle = color;
     ctx.fill();
     ctx.closePath();
   }
@@ -4868,6 +4879,8 @@ function pointsOnLocations() {
 
     if (cities.country[i] === "Unknown") {
       crr.set(colorTable.unknown, j);
+    } else if (["Null Island", "Void Island"].includes(cities.country[i])) {
+      crr.set(colorTable.null, j);
     } else {
       // red for AD (1,0,0) and yellow for BC (1,1,0)
       const BC = gcs.remarkable.at(-1).includes("BC");
