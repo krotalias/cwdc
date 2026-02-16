@@ -2363,7 +2363,7 @@ function rhumbLine(ctx, loc1, loc2) {
  * @see <figure>
  *      <a href="../images/Sidney-Nuuk.png"><img src="../images/Sidney-Nuuk.png" height="256"></a>
  *      <a href="../images/Sidney-Nuuk-map.png"><img src="../images/Sidney-Nuuk-map.png" height="256"></a>
- *      <figcaption style="font-size: 200%">Rhumb Line (red) - Great Circle (cyan)<br> Sidney - Nuuk (52.53°)</figcaption>
+ *      <figcaption style="font-size: 200%">Rhumb Line (red) - Great Circle (cyan)<br>Sidney - Nuuk (16301 km, 52.53°)</figcaption>
  *      </figure>
  */
 function drawLinesOnImage() {
@@ -4513,7 +4513,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * @see <figure>
  *      <a href="../images/Quito-Jerusalem.png"><img src="../images/Quito-Jerusalem.png" height="256"></a>
  *      <a href="../images/Quito-Jerusalem-map.png"><img src="../images/Quito-Jerusalem-map.png" height="256"></a>
- *      <figcaption style="font-size: 200%">Great Circle (cyan) - Rhumb Line (red)<br> Quito - Jerusalem (73.47°)</figcaption>
+ *      <figcaption style="font-size: 200%">Great Circle (cyan) - Rhumb Line (red)<br> Quito - Jerusalem (12247 km, 73.47°)</figcaption>
  *      </figure>
  */
 function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
