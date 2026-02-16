@@ -383,7 +383,7 @@
  *      <img src="../images/Amsterdan-HongKong-map.png" height="340" title="rhumb line map">
  *      <img src="../images/Amsterdan-HongKong-cylinder.png" height="340" title="rhumb line cylinder">
  *      <figcaption style="font-size: 200%">
- *      <a href="https://gisgeography.com/great-circle-geodesic-line-shortest-flight-path/">Rhumb Line (red) and Great Circle (cyan) <br> Amsterdan - Hong Kong (109.55°)</a>
+ *      <a href="https://gisgeography.com/great-circle-geodesic-line-shortest-flight-path/">Rhumb Line (red) and Great Circle (cyan) <br> Amsterdan - Hong Kong (9281 km, 109.55°)</a>
  *      </figcaption>
  *      </figure>
  * @see  <figure>
@@ -649,7 +649,7 @@ const element = {
  *  <li>great_circle: [0,1,1,1] // cyan</li>
  *  <li>normal: [1,1,0,1]       // yellow</li>
  *  <li>unknown: [0,0,1]        // blue</li>
- *  <li>null: [1,1,1],          // black</li>
+ *  <li>null: [0,0,0],          // black</li>
  *  <li>poiAD: [1,0,0]          // red</li>
  *  <li>poiBC: [1,1,0]          // yellow</li>
  *  <li>rhumb: "magenta"</li>
@@ -4432,12 +4432,12 @@ function isPowerOf2(value) {
  *      <a href="../images/Seattle-London.png"><img src="../images/Seattle-London.png" height="256"></a>
  *      <a href="../images/Seattle-London-map.png"><img src="../images/Seattle-London-map.png" height="256"></a>
  *      <a href="../images/cylinder.png"><img src="../images/cylinder.png" height="256"></a>
- *      <figcaption style="font-size: 200%">Seattle - London (87.21°)</figcaption>
+ *      <figcaption style="font-size: 200%">Seattle - London (7707 km, 87.21°)</figcaption>
  *      </figure>
  * @see <figure>
  *      <a href="../images/antimeridian_crossing-fixed.png"><img src="../images/antimeridian_crossing-fixed.png" height="256"></a>
  *      <a href="../images/antimeridian_crossing-map.png"><img src="../images/antimeridian_crossing-map.png" height="256"></a>
- *      <figcaption style="font-size: 200%">Antimeridian crossing fixed <br> San Francisco - Doolittle Raid (268.10°)</figcaption>
+ *      <figcaption style="font-size: 200%">Antimeridian crossing fixed <br> San Francisco - Doolittle Raid (7333 km, 268.10°)</figcaption>
  *      </figure>
  */
 function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
