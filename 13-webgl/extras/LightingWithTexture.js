@@ -2789,7 +2789,7 @@ function lineConeIntersection(o, p, ct, r, height) {
   const a = vec3.sqrLen(v) - Math.pow(vec3.dot(v, h), 2) * (m + 1);
   // 2 * ((v ⋅ w) - m (v ⋅ h)(w ⋅ h) - (v ⋅ h)(w ⋅ h))
   const b = 2 * (vec3.dot(v, w) - vec3.dot(v, h) * vec3.dot(w, h) * (m + 1));
-  // ||w||² - m (w ⋅ h)² - (v ⋅ h)(w ⋅ h)
+  // ||w||² - m (w ⋅ h)² - (w ⋅ h)²
   const c = vec3.sqrLen(w) - Math.pow(vec3.dot(w, h), 2) * (m + 1);
 
   const delta = b * b - 4 * a * c;
