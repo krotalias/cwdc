@@ -509,6 +509,7 @@ export function cylindrical2Cartesian(r, s, y = 1) {
  * y to be the value of the latitude.</li>
  * </ul>
  *  @param {vec3} p a point on the cylinder.
+ *  @param {Number} h height of the cylinder.
  *  @return {Object<r:Number, s:Number, t:Number>} point p in cylindrical coordinates:
  *  <ul>
  *     <li>const [x, y, z] = p</li>
@@ -520,6 +521,73 @@ export function cylindrical2Cartesian(r, s, y = 1) {
  *  </ul>
  */
 export function cartesian2Cylindrical(p, h) {
+  const [x, y, z] = p;
+
+  // atan2 ∈ [-pi,pi] ⇒ theta ∈ [-0.5, 0.5]
+  let theta = Math.atan2(-z, x) / (2 * Math.PI);
+
+  // theta ∈ [0, 1]
+  theta += 0.5;
+
+  return {
+    r: Math.sqrt(x * x + z * z),
+    s: clamp(theta, 0.0, 1.0),
+    t: y / h + 0.5,
+  };
+}
+
+/**
+ * <p>Return a point on the cone given their
+ * {@link https://en.wikipedia.org/wiki/Cylindrical_coordinate_system conical coordinates}: (r, h, θ, y=1).</p>
+ * It is assumed that:
+ * <ul>
+ *  <li>the two systems have the same origin,</li>
+ *  <li>the conical reference plane is the Cartesian xz plane, </li>
+ *  <li>the azimuth is measured from the Cartesian x axis, so that the x axis has θ = 0° (prime meridian).</li>
+ *  <li>x = p[0] = (h - y - h / 2) / h * r cos(θ)</li>
+ *  <li>z = p[2] = -(h - y - h / 2) / h * r sin(θ)</li>
+ *  <li>y = p[1] = y</li>
+ * </ul>
+ *
+ * @param {Number} r cone radius, r ≥ 0.
+ * @param {Number} h cone height, h ≥ 0.
+ * @param {Number} s azimuth angle θ, 0 ≤ θ ≤ 2π.
+ * @param {Number} y height, -h/2 ≤ y ≤ h/2.
+ * @returns {vec3} cartesian point onto the cone.
+ * @see {@link https://mathworld.wolfram.com/Cone.html Cone}
+ * @see {@link https://en.wikipedia.org/wiki/Conical_surface Conical surface}
+ * @see <img src="../images/conical-projection.png" width="256">
+ */
+export function conical2Cartesian(r, h, s, y = 1) {
+  const x = ((h - y - h / 2) / h) * r * Math.cos(s);
+  const z = -((h - y - h / 2) / h) * r * Math.sin(s);
+  return vec3.fromValues(x, y, z);
+}
+
+/**
+ * <p>Return a pair of conical coordinates, in the range [0,1],
+ * corresponding to a point p onto the unit cone.</p>
+ * The forward projection transforms conical coordinates into planar coordinates:
+ * <ul>
+ * <li>if point p is plotted on a plane, we have the
+ * {@link https://docs.qgis.org/3.4/en/docs/gentle_gis_introduction/coordinate_reference_systems.html <i>plate carrée</i> projection},
+ * a special case of the equirectangular projection.</li>
+ * <li>this projection maps x to be the value of the longitude and
+ * y to be the value of the latitude.</li>
+ * </ul>
+ *  @param {vec3} p a point on the cone.
+ *  @param {Number} h height of the cone.
+ *  @return {Object<r:Number, s:Number, t:Number>} point p in conical coordinates:
+ *  <ul>
+ *     <li>const [x, y, z] = p</li>
+ *     <li>r = √(x² + z²)</li>
+ *     <li>s = θ = atan2(-z, x) / 2π + 0.5</li>
+ *     <li>t = y/h + 0.5</li>
+ *     <li>tg(-θ) = -tg(θ) = tan (z/x)
+ *     <li>arctan(-θ) = -arctan(θ) = atan2(z, x)
+ *  </ul>
+ */
+export function cartesian2Conical(p, h) {
   const [x, y, z] = p;
 
   // atan2 ∈ [-pi,pi] ⇒ theta ∈ [-0.5, 0.5]

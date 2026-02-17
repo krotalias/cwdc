@@ -311,6 +311,12 @@
  * {@link linePlaneIntersection line-plane intersection}
  * to project maps and locations onto cylinders appropriately.
  * </li>
+ * <li>
+ * Implement {@link module:polyhedron.conical2Cartesian conical coordinates},
+ * {@link lineConeIntersection line-cone intersection} and
+ * {@link linePlaneIntersection line-plane intersection}
+ * to project maps and locations onto cones appropriately.
+ * </li>
  * </ol>
  *
  * @author {@link https://krotalias.github.io Paulo R. Cavalcanti}
@@ -433,6 +439,8 @@ import {
   spherical2Cartesian,
   cylindrical2Cartesian,
   cartesian2Cylindrical,
+  conical2Cartesian,
+  cartesian2Conical,
 } from "/cwdc/13-webgl/lib/polyhedron.js";
 import {
   vec2,
@@ -742,6 +750,24 @@ function UV2Cylindrical(uv, mercator) {
   const y = height * (uv.t - 0.5);
   const phi = uv.s * 2 * Math.PI - Math.PI;
   return [r, phi, y];
+}
+
+/**
+ * Convert from {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL UV coordinates}
+ * (s, t) to {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system conical coordinates}.
+ * @param {Object<{s: Number,t:Number}>} uv ∈ [0,1].
+ * @return {Array<{Number, Number, Number, Number}>} conical coordinates: [r, h, θ, y].
+ * @function
+ */
+function UV2Conical(uv, mercator) {
+  if (mercator) {
+    uv.t = spherical2Mercator(uv.s, uv.t).y;
+  }
+  const r = 1;
+  const height = 2;
+  const y = height * (uv.t - 0.5);
+  const phi = uv.s * 2 * Math.PI - Math.PI;
+  return [r, height, phi, y];
 }
 
 /**
@@ -1664,8 +1690,8 @@ const handleKeyPress = ((event) => {
   function updateLocation(inc, fix = true, prev = true) {
     if (axis === "q") axis = " "; // current meridian will be lost
     const cl = nextLocation(inc, currentLocation, country);
-    // a sphere, a cylinder or a subdivision sphere
-    const modelsToRotate = [3, 5, 13];
+    // a sphere, a cylinder a cone or a subdivision sphere
+    const modelsToRotate = [1, 3, 5, 13];
 
     if (previousLocation.country !== "previous") {
       if (prev) {
@@ -1959,6 +1985,8 @@ const handleKeyPress = ((event) => {
               ),
           name: "cone",
         });
+        setPosition(currentLocation);
+        displayLocations();
         break;
       case "v":
         gscale = mscale = 0.6;
@@ -3645,6 +3673,13 @@ function addListeners() {
           // mercator projection
           uv.t = mercator2Spherical(uv.s, uv.t).t;
         }
+      } else if (isCone()) {
+        const height = 2;
+        uv = cartesian2Conical(intersection, height);
+        if (mercator) {
+          // mercator projection
+          uv.t = mercator2Spherical(uv.s, uv.t).t;
+        }
       } else {
         uv = cartesian2Spherical(intersection);
       }
@@ -3697,6 +3732,13 @@ function addListeners() {
       if (isCylinder()) {
         const { r, height } = getCylinderParameters(mercator);
         uv = cartesian2Cylindrical(intersection, height);
+        if (mercator) {
+          // mercator projection
+          uv.t = mercator2Spherical(uv.s, uv.t).t;
+        }
+      } else if (isCone()) {
+        const height = 2;
+        uv = cartesian2Conical(intersection, height);
         if (mercator) {
           // mercator projection
           uv.t = mercator2Spherical(uv.s, uv.t).t;
@@ -4081,7 +4123,11 @@ function drawParallel() {
   else gl.vertexAttrib4f(a_color, ...colorTable.meridian);
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.vertexAttribPointer(positionIndex, 3, gl.FLOAT, false, 0, 0);
-  gl.drawArrays(gl.LINE_STRIP, 0, isCylinder() && !loxodrome ? 2 : nsegments);
+  gl.drawArrays(
+    gl.LINE_STRIP,
+    0,
+    (isCylinder() || isCone()) && !loxodrome ? 2 : nsegments,
+  );
 
   gl.disableVertexAttribArray(positionIndex);
   gl.useProgram(null);
@@ -4544,11 +4590,24 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
 
     let p;
     if (isCylinder()) {
-      p = mercator
-        ? cylindrical2Cartesian(
-            ...UV2Cylindrical(mercator2Spherical(...q), mercator),
-          )
-        : cylindrical2Cartesian(r * 1.01, ...q);
+      if (mercator) {
+        p = cylindrical2Cartesian(
+          ...UV2Cylindrical(mercator2Spherical(...q), mercator),
+        );
+      } else {
+        // no loxodrome for equirectangular projection
+        const { r, height } = getCylinderParameters(mercator);
+        p = cylindrical2Cartesian(r * 1.01, ...q);
+      }
+    } else if (isCone()) {
+      if (mercator) {
+        p = conical2Cartesian(
+          ...UV2Conical(mercator2Spherical(...q), mercator),
+        );
+      } else {
+        // no loxodrome for equirectangular projection
+        p = conical2Cartesian(1.01, 2, ...q);
+      }
     } else {
       p = mercator
         ? spherical2Cartesian(...UV2Spherical(mercator2Spherical(...q)), 1.01)
@@ -4649,6 +4708,27 @@ function pointsOnCylParallel(latitude = 0, n = nsegments) {
 }
 
 /**
+ * Return an array with n points on a conical parallel given its
+ * {@link https://www.britannica.com/science/latitude latitude}.
+ * @param {Number} [latitude=0] distance north or south of the Equator: [-90°,90°].
+ * @param {Number} [n={@link nsegments}] number of points.
+ * @return {Float32Array} points on the parallel.
+ */
+function pointsOnConeParallel(latitude = 0, n = nsegments) {
+  const ds = (Math.PI * 2) / (n - 1);
+  const arr = new Float32Array(3 * n);
+
+  const uv = gcs2UV({ latitude, longitude: 0 });
+  const [r, height, phi, y] = UV2Conical(uv, mercator);
+
+  for (let i = 0, j = 0; i < n; ++i, j += 3) {
+    const p = conical2Cartesian(r * 1.01, height, i * ds, y);
+    arr.set(p, j);
+  }
+  return arr;
+}
+
+/**
  * Return an array with 2 points on a cylindrical meridian given its
  * {@link https://en.wikipedia.org/wiki/Longitude longitude}.
  * @param {Number} [longitude=0] distance east or west of the prime meridian: [-180°,180°]
@@ -4671,6 +4751,28 @@ function pointsOnCylMeridian(longitude = 0) {
 }
 
 /**
+ * Return an array with 2 points on a conical meridian given its
+ * {@link https://en.wikipedia.org/wiki/Longitude longitude}.
+ * @param {Number} [longitude=0] distance east or west of the prime meridian: [-180°,180°]
+ * @return {Float32Array} points on the meridian.
+ */
+function pointsOnConeMeridian(longitude = 0) {
+  const n = 2;
+  let j = 0;
+  const arr = new Float32Array(3 * n);
+
+  for (const lat of [90, -90]) {
+    const uv = gcs2UV({ latitude: lat, longitude });
+    const [r, height, phi, y] = UV2Conical(uv, mercator);
+    const p = conical2Cartesian(r * 1.01, height, phi, y);
+    arr.set(p, j);
+    j += 3;
+  }
+
+  return arr;
+}
+
+/**
  * <p>Load a new parallel and meridian,
  * or a {@link pointsOnGreatCircle great circle} and {@link pointsOnLoxodrome loxodrome},
  * into the GPU corresponding to the given location.</p>
@@ -4683,7 +4785,7 @@ function setPosition(location) {
   let parallelVertices = null;
 
   if (loxodrome) {
-    if (isCylinder()) {
+    if (isCylinder() || isCone()) {
       // no great circle
       // do not draw a parallel in this case
       mercatorVertices = null;
@@ -4695,9 +4797,15 @@ function setPosition(location) {
     }
   } else {
     mercatorVertices = true;
-    parallelVertices = isCylinder()
-      ? pointsOnCylParallel(gpsCoordinates[location].latitude)
-      : pointsOnParallel(gpsCoordinates[location].latitude);
+    if (isCylinder()) {
+      parallelVertices = pointsOnCylParallel(gpsCoordinates[location].latitude);
+    } else if (isCone()) {
+      parallelVertices = pointsOnConeParallel(
+        gpsCoordinates[location].latitude,
+      );
+    } else {
+      parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
+    }
   }
 
   if (parallelVertices !== null) {
@@ -4714,9 +4822,17 @@ function setPosition(location) {
     const ba = bearingAngle(previousLocation, gpsCoordinates[location]);
     document.getElementById("lox").innerHTML = `Loxodrome (${ba.toFixed(2)}°)`;
   } else {
-    meridianVertices = isCylinder()
-      ? pointsOnCylMeridian(gpsCoordinates[location].longitude)
-      : pointsOnMeridian(gpsCoordinates[location].longitude);
+    if (isCylinder()) {
+      meridianVertices = pointsOnCylMeridian(
+        gpsCoordinates[location].longitude,
+      );
+    } else if (isCone()) {
+      meridianVertices = pointsOnConeMeridian(
+        gpsCoordinates[location].longitude,
+      );
+    } else {
+      meridianVertices = pointsOnMeridian(gpsCoordinates[location].longitude);
+    }
     document.getElementById("lox").innerHTML = "Loxodrome";
   }
 
@@ -4941,6 +5057,9 @@ function pointsOnLocations() {
     if (isCylinder()) {
       const [r, phi, y] = UV2Cylindrical(uv, mercator);
       p = cylindrical2Cartesian(r, phi, y);
+    } else if (isCone()) {
+      const [r, height, phi, y] = UV2Conical(uv, mercator);
+      p = conical2Cartesian(r, height, phi, y);
     } else {
       const [theta, phi] = UV2Spherical(uv);
       p = spherical2Cartesian(theta, phi, 1);
