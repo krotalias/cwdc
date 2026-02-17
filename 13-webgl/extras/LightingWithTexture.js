@@ -522,6 +522,12 @@ const toDegrees = (a) => (a * 180) / Math.PI;
 const isCylinder = () => element.models.value === "3";
 
 /**
+ * Check if the current model is a cone.
+ * @return {Boolean} true if the current model is a cone, false otherwise.
+ */
+const isCone = () => element.models.value === "1";
+
+/**
  * Convert latitude in radians to Mercator latitude.
  * @param {Number} lat latitude in radians.
  * @returns {Number} Mercator latitude coordinate.
@@ -2702,19 +2708,19 @@ function lineCylinderIntersection(o, p, ct, r, height) {
   // line direction
   const v = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
 
-  const H = vec3.fromValues(ct[0], ct[1] + height / 2, ct[2]); // cylinder top center vector
-  const C = vec3.fromValues(ct[0], ct[1] - height / 2, ct[2]); // cylinder bottom center vector
+  const H = vec3.fromValues(ct[0], ct[1] + height / 2, ct[2]); // cylinder top center
+  const C = vec3.fromValues(ct[0], ct[1] - height / 2, ct[2]); // cylinder bottom center
   const HC = vec3.subtract([], H, C); // H - C
-  const h = vec3.normalize([], HC); // ||H - C||
+  const h = vec3.normalize([], HC); // (H - C) / ||H - C||
   const w = vec3.subtract([], o, C); // o - C;
-  const r2 = r * r; // r square
+  const r2 = r * r; // r²
 
-  // ||v||^2 - (v ⋅ h)^2
-  const a = vec3.dot(v, v) - Math.pow(vec3.dot(v, h), 2);
+  // ||v||² - (v ⋅ h)²
+  const a = vec3.sqrLen(v) - Math.pow(vec3.dot(v, h), 2);
   // 2 * ((v ⋅ w) - (v ⋅ h)(w ⋅ h))
   const b = 2 * (vec3.dot(v, w) - vec3.dot(v, h) * vec3.dot(w, h));
-  // ||w||^2 - (w ⋅ h)^2 - r^2
-  const c = vec3.dot(w, w) - Math.pow(vec3.dot(w, h), 2) - r2;
+  // ||w||² - (w ⋅ h)² - r²
+  const c = vec3.sqrLen(w) - Math.pow(vec3.dot(w, h), 2) - r2;
 
   const delta = b * b - 4 * a * c;
   let dist;
@@ -2745,6 +2751,69 @@ function lineCylinderIntersection(o, p, ct, r, height) {
     }
   } else if (h_int < 0) {
     // The intersection is below the base of the cylinder.
+    // Test the intersection with the base cap.
+    const capBase = linePlaneIntersection(o, p, C, [0, -1, 0]);
+    if (capBase && vec3.sqrDist(capBase, C) <= r2) {
+      return capBase;
+    }
+  }
+  return null;
+}
+
+/**
+ * <p>Find point of intersection between a line and a cone.</p>
+ * The line is defined by its origin and an end point.
+ * The cone is defined by its center, radius and height.
+ * @param {vec3} o ray origin.
+ * @param {vec3} p ray end point.
+ * @param {vec3} ct center of the cone.
+ * @param {Number} r radius of the cone.
+ * @param {Number} height height of the cone.
+ * @returns {vec3|null} intersection point or null, if there is no intersection.
+ * @see {@link https://en.wikipedia.org/wiki/Line-cone_intersection Line-cone intersection}
+ * @see {@link https://www.illusioncatalyst.com/notes_files/mathematics/line_cone_intersection.php Illusion Catalyst - Line Cone Intersection}
+ */
+function lineConeIntersection(o, p, ct, r, height) {
+  // line direction
+  const v = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
+
+  const H = vec3.fromValues(ct[0], ct[1] + height / 2, ct[2]); // cone tip
+  const C = vec3.fromValues(ct[0], ct[1] - height / 2, ct[2]); // cone bottom center
+  const HC = vec3.subtract([], C, H); // C - H
+  const h = vec3.normalize([], HC); // (C - H) / ||C - H||
+  const w = vec3.subtract([], o, H); // o - H;
+  const r2 = r * r; // r²
+  const m = r2 / vec3.sqrLen(HC); // r² / ||C - H||²
+
+  // ||v||² - m (v ⋅ h)² - (v . h)²
+  const a = vec3.sqrLen(v) - Math.pow(vec3.dot(v, h), 2) * (m + 1);
+  // 2 * ((v ⋅ w) - m (v ⋅ h)(w ⋅ h) - (v ⋅ h)(w ⋅ h))
+  const b = 2 * (vec3.dot(v, w) - vec3.dot(v, h) * vec3.dot(w, h) * (m + 1));
+  // ||w||² - m (w ⋅ h)² - (v ⋅ h)(w ⋅ h)
+  const c = vec3.sqrLen(w) - Math.pow(vec3.dot(w, h), 2) * (m + 1);
+
+  const delta = b * b - 4 * a * c;
+  let dist;
+  if (delta > 0) {
+    const sqrt_delta = Math.sqrt(delta);
+    const d1 = (-b + sqrt_delta) / (2 * a);
+    const d2 = (-b - sqrt_delta) / (2 * a);
+    dist = Math.min(d1, d2);
+  } else if (delta == 0) {
+    dist = -b / (2 * a);
+  } else {
+    // no intersection
+    return null;
+  }
+
+  const int = vec3.scaleAndAdd([], o, v, dist); // o + v * dist
+  const h_int = vec3.dot(vec3.subtract([], int, H), h); // (int - H) ⋅ h
+  if (0 < h_int && h_int <= vec3.length(HC)) {
+    // 0 < (int - H) ⋅ h < ||C − H||
+    // intersection inside the cone height
+    return int;
+  } else if (h_int > vec3.length(HC)) {
+    // The intersection is below the base of the cone.
     // Test the intersection with the base cap.
     const capBase = linePlaneIntersection(o, p, C, [0, -1, 0]);
     if (capBase && vec3.sqrDist(capBase, C) <= r2) {
@@ -2855,10 +2924,12 @@ function pixelRayIntersection(x, y) {
     viewport,
   );
 
-  const { r, height } = getCylinderParameters(mercator);
-  return isCylinder()
-    ? lineCylinderIntersection(o, p, [0, 0, 0], r, height)
-    : lineSphereIntersection(o, p, [0, 0, 0], 1);
+  if (isCylinder()) {
+    const { r, height } = getCylinderParameters(mercator);
+    return lineCylinderIntersection(o, p, [0, 0, 0], r, height);
+  } else if (isCone()) {
+    return lineConeIntersection(o, p, [0, 0, 0], 1, 2);
+  } else return lineSphereIntersection(o, p, [0, 0, 0], 1);
 }
 
 /**

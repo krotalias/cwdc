@@ -411,7 +411,7 @@
  *      &lt;img src="../images/Amsterdan-HongKong-map.png" height="340" title="rhumb line map">
  *      &lt;img src="../images/Amsterdan-HongKong-cylinder.png" height="340" title="rhumb line cylinder">
  *      &lt;figcaption style="font-size: 200%">
- *      &lt;a href="https://gisgeography.com/great-circle-geodesic-line-shortest-flight-path/">Rhumb Line (red) and Great Circle (cyan) &lt;br> Amsterdan - Hong Kong (109.55°)&lt;/a>
+ *      &lt;a href="https://gisgeography.com/great-circle-geodesic-line-shortest-flight-path/">Rhumb Line (red) and Great Circle (cyan) &lt;br> Amsterdan - Hong Kong (9281 km, 109.55°)&lt;/a>
  *      &lt;/figcaption>
  *      &lt;/figure>
  * @see  &lt;figure>
@@ -550,6 +550,12 @@ const toDegrees = (a) => (a * 180) / Math.PI;
 const isCylinder = () => element.models.value === "3";
 
 /**
+ * Check if the current model is a cone.
+ * @return {Boolean} true if the current model is a cone, false otherwise.
+ */
+const isCone = () => element.models.value === "1";
+
+/**
  * Convert latitude in radians to Mercator latitude.
  * @param {Number} lat latitude in radians.
  * @returns {Number} Mercator latitude coordinate.
@@ -677,7 +683,7 @@ const element = {
  *  &lt;li>great_circle: [0,1,1,1] // cyan&lt;/li>
  *  &lt;li>normal: [1,1,0,1]       // yellow&lt;/li>
  *  &lt;li>unknown: [0,0,1]        // blue&lt;/li>
- *  &lt;li>null: [1,1,1],          // black&lt;/li>
+ *  &lt;li>null: [0,0,0],          // black&lt;/li>
  *  &lt;li>poiAD: [1,0,0]          // red&lt;/li>
  *  &lt;li>poiBC: [1,1,0]          // yellow&lt;/li>
  *  &lt;li>rhumb: "magenta"&lt;/li>
@@ -2391,7 +2397,7 @@ function rhumbLine(ctx, loc1, loc2) {
  * @see &lt;figure>
  *      &lt;a href="../images/Sidney-Nuuk.png">&lt;img src="../images/Sidney-Nuuk.png" height="256">&lt;/a>
  *      &lt;a href="../images/Sidney-Nuuk-map.png">&lt;img src="../images/Sidney-Nuuk-map.png" height="256">&lt;/a>
- *      &lt;figcaption style="font-size: 200%">Rhumb Line (red) - Great Circle (cyan)&lt;br> Sidney - Nuuk (52.53°)&lt;/figcaption>
+ *      &lt;figcaption style="font-size: 200%">Rhumb Line (red) - Great Circle (cyan)&lt;br>Sidney - Nuuk (16301 km, 52.53°)&lt;/figcaption>
  *      &lt;/figure>
  */
 function drawLinesOnImage() {
@@ -2730,19 +2736,19 @@ function lineCylinderIntersection(o, p, ct, r, height) {
   // line direction
   const v = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
 
-  const H = vec3.fromValues(ct[0], ct[1] + height / 2, ct[2]); // cylinder top center vector
-  const C = vec3.fromValues(ct[0], ct[1] - height / 2, ct[2]); // cylinder bottom center vector
+  const H = vec3.fromValues(ct[0], ct[1] + height / 2, ct[2]); // cylinder top center
+  const C = vec3.fromValues(ct[0], ct[1] - height / 2, ct[2]); // cylinder bottom center
   const HC = vec3.subtract([], H, C); // H - C
-  const h = vec3.normalize([], HC); // ||H - C||
+  const h = vec3.normalize([], HC); // (H - C) / ||H - C||
   const w = vec3.subtract([], o, C); // o - C;
-  const r2 = r * r; // r square
+  const r2 = r * r; // r²
 
-  // ||v||^2 - (v ⋅ h)^2
-  const a = vec3.dot(v, v) - Math.pow(vec3.dot(v, h), 2);
+  // ||v||² - (v ⋅ h)²
+  const a = vec3.sqrLen(v) - Math.pow(vec3.dot(v, h), 2);
   // 2 * ((v ⋅ w) - (v ⋅ h)(w ⋅ h))
   const b = 2 * (vec3.dot(v, w) - vec3.dot(v, h) * vec3.dot(w, h));
-  // ||w||^2 - (w ⋅ h)^2 - r^2
-  const c = vec3.dot(w, w) - Math.pow(vec3.dot(w, h), 2) - r2;
+  // ||w||² - (w ⋅ h)² - r²
+  const c = vec3.sqrLen(w) - Math.pow(vec3.dot(w, h), 2) - r2;
 
   const delta = b * b - 4 * a * c;
   let dist;
@@ -2773,6 +2779,69 @@ function lineCylinderIntersection(o, p, ct, r, height) {
     }
   } else if (h_int &lt; 0) {
     // The intersection is below the base of the cylinder.
+    // Test the intersection with the base cap.
+    const capBase = linePlaneIntersection(o, p, C, [0, -1, 0]);
+    if (capBase &amp;&amp; vec3.sqrDist(capBase, C) &lt;= r2) {
+      return capBase;
+    }
+  }
+  return null;
+}
+
+/**
+ * &lt;p>Find point of intersection between a line and a cone.&lt;/p>
+ * The line is defined by its origin and an end point.
+ * The cone is defined by its center, radius and height.
+ * @param {vec3} o ray origin.
+ * @param {vec3} p ray end point.
+ * @param {vec3} ct center of the cone.
+ * @param {Number} r radius of the cone.
+ * @param {Number} height height of the cone.
+ * @returns {vec3|null} intersection point or null, if there is no intersection.
+ * @see {@link https://en.wikipedia.org/wiki/Line-cone_intersection Line-cone intersection}
+ * @see {@link https://www.illusioncatalyst.com/notes_files/mathematics/line_cone_intersection.php Illusion Catalyst - Line Cone Intersection}
+ */
+function lineConeIntersection(o, p, ct, r, height) {
+  // line direction
+  const v = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
+
+  const H = vec3.fromValues(ct[0], ct[1] + height / 2, ct[2]); // cone tip
+  const C = vec3.fromValues(ct[0], ct[1] - height / 2, ct[2]); // cone bottom center
+  const HC = vec3.subtract([], C, H); // C - H
+  const h = vec3.normalize([], HC); // (C - H) / ||C - H||
+  const w = vec3.subtract([], o, H); // o - H;
+  const r2 = r * r; // r²
+  const m = r2 / vec3.sqrLen(HC); // r² / ||C - H||²
+
+  // ||v||² - m (v ⋅ h)² - (v . h)²
+  const a = vec3.sqrLen(v) - Math.pow(vec3.dot(v, h), 2) * (m + 1);
+  // 2 * ((v ⋅ w) - m (v ⋅ h)(w ⋅ h) - (v ⋅ h)(w ⋅ h))
+  const b = 2 * (vec3.dot(v, w) - vec3.dot(v, h) * vec3.dot(w, h) * (m + 1));
+  // ||w||² - m (w ⋅ h)² - (v ⋅ h)(w ⋅ h)
+  const c = vec3.sqrLen(w) - Math.pow(vec3.dot(w, h), 2) * (m + 1);
+
+  const delta = b * b - 4 * a * c;
+  let dist;
+  if (delta > 0) {
+    const sqrt_delta = Math.sqrt(delta);
+    const d1 = (-b + sqrt_delta) / (2 * a);
+    const d2 = (-b - sqrt_delta) / (2 * a);
+    dist = Math.min(d1, d2);
+  } else if (delta == 0) {
+    dist = -b / (2 * a);
+  } else {
+    // no intersection
+    return null;
+  }
+
+  const int = vec3.scaleAndAdd([], o, v, dist); // o + v * dist
+  const h_int = vec3.dot(vec3.subtract([], int, H), h); // (int - H) ⋅ h
+  if (0 &lt; h_int &amp;&amp; h_int &lt;= vec3.length(HC)) {
+    // 0 &lt; (int - H) ⋅ h &lt; ||C − H||
+    // intersection inside the cone height
+    return int;
+  } else if (h_int > vec3.length(HC)) {
+    // The intersection is below the base of the cone.
     // Test the intersection with the base cap.
     const capBase = linePlaneIntersection(o, p, C, [0, -1, 0]);
     if (capBase &amp;&amp; vec3.sqrDist(capBase, C) &lt;= r2) {
@@ -2883,10 +2952,12 @@ function pixelRayIntersection(x, y) {
     viewport,
   );
 
-  const { r, height } = getCylinderParameters(mercator);
-  return isCylinder()
-    ? lineCylinderIntersection(o, p, [0, 0, 0], r, height)
-    : lineSphereIntersection(o, p, [0, 0, 0], 1);
+  if (isCylinder()) {
+    const { r, height } = getCylinderParameters(mercator);
+    return lineCylinderIntersection(o, p, [0, 0, 0], r, height);
+  } else if (isCone()) {
+    return lineConeIntersection(o, p, [0, 0, 0], 1, 2);
+  } else return lineSphereIntersection(o, p, [0, 0, 0], 1);
 }
 
 /**
@@ -4541,7 +4612,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * @see &lt;figure>
  *      &lt;a href="../images/Quito-Jerusalem.png">&lt;img src="../images/Quito-Jerusalem.png" height="256">&lt;/a>
  *      &lt;a href="../images/Quito-Jerusalem-map.png">&lt;img src="../images/Quito-Jerusalem-map.png" height="256">&lt;/a>
- *      &lt;figcaption style="font-size: 200%">Great Circle (cyan) - Rhumb Line (red)&lt;br> Quito - Jerusalem (73.47°)&lt;/figcaption>
+ *      &lt;figcaption style="font-size: 200%">Great Circle (cyan) - Rhumb Line (red)&lt;br> Quito - Jerusalem (12247 km, 73.47°)&lt;/figcaption>
  *      &lt;/figure>
  */
 function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
@@ -5231,13 +5302,13 @@ const animate = (() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCitiescheckBox">changeCitiescheckBox</a></li><li><a href="global.html#event:changeCountrySelect">changeCountrySelect</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeLocationscheckBox">changeLocationscheckBox</a></li><li><a href="global.html#event:changeLoxodromecheckBox">changeLoxodromecheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:changeTooltipcheckBox">changeTooltipcheckBox</a></li><li><a href="global.html#event:clickAnimation">clickAnimation</a></li><li><a href="global.html#event:clickClosest">clickClosest</a></li><li><a href="global.html#event:clickPrint">clickPrint</a></li><li><a href="global.html#event:contextmenu">contextmenu</a></li><li><a href="global.html#event:dblclick">dblclick</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:keydownCountrySelect">keydownCountrySelect</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:pointerdown-textimg">pointerdown-textimg</a></li><li><a href="global.html#event:pointerdown-theCanvas">pointerdown-theCanvas</a></li><li><a href="global.html#event:pointermove-textimg">pointermove-textimg</a></li><li><a href="global.html#event:pointermove-theCanvas">pointermove-theCanvas</a></li><li><a href="global.html#event:pointerout-textimg">pointerout-textimg</a></li><li><a href="global.html#event:pointerup-theCanvas">pointerup-theCanvas</a></li><li><a href="global.html#event:timeline">timeline</a></li></ul><h3>Global</h3><ul><li><a href="global.html#UV2Cylindrical">UV2Cylindrical</a></li><li><a href="global.html#UV2Spherical">UV2Spherical</a></li><li><a href="global.html#addListeners">addListeners</a></li><li><a href="global.html#animSong">animSong</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#antimeridianCrossing">antimeridianCrossing</a></li><li><a href="global.html#audio">audio</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#bearingAngle">bearingAngle</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#canvastip">canvastip</a></li><li><a href="global.html#checkForMapTexture">checkForMapTexture</a></li><li><a href="global.html#cities">cities</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#cleanLocation">cleanLocation</a></li><li><a href="global.html#closestSite">closestSite</a></li><li><a href="global.html#colorBuffer">colorBuffer</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#country">country</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#currentMeridian">currentMeridian</a></li><li><a href="global.html#cursorPosition">cursorPosition</a></li><li><a href="global.html#decomposeVector">decomposeVector</a></li><li><a href="global.html#displayLocations">displayLocations</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawLinesOnImage">drawLinesOnImage</a></li><li><a href="global.html#drawLocations">drawLocations</a></li><li><a href="global.html#drawLocationsOnImage">drawLocationsOnImage</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#element">element</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#formatNumberWithSign">formatNumberWithSign</a></li><li><a href="global.html#forwardVector">forwardVector</a></li><li><a href="global.html#gcs2Screen">gcs2Screen</a></li><li><a href="global.html#gcs2UV">gcs2UV</a></li><li><a href="global.html#gcsForUnknownLocation">gcsForUnknownLocation</a></li><li><a href="global.html#getAngleBetweenVectors">getAngleBetweenVectors</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getCylinderParameters">getCylinderParameters</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#haversine">haversine</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isCylinder">isCylinder</a></li><li><a href="global.html#isMap">isMap</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#labelForLocation">labelForLocation</a></li><li><a href="global.html#labelForTimeline">labelForTimeline</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lineCylinderIntersection">lineCylinderIntersection</a></li><li><a href="global.html#linePlaneIntersection">linePlaneIntersection</a></li><li><a href="global.html#lineSphereIntersection">lineSphereIntersection</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#locationsBuffer">locationsBuffer</a></li><li><a href="global.html#loxodrome">loxodrome</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#mercatorVertices">mercatorVertices</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#meridianMatrix">meridianMatrix</a></li><li><a href="global.html#meridianPerpVec">meridianPerpVec</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#modelM">modelM</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#phongHighlight">phongHighlight</a></li><li><a href="global.html#pixelRayIntersection">pixelRayIntersection</a></li><li><a href="global.html#playSongFromLink">playSongFromLink</a></li><li><a href="global.html#pointsOnAllLocations">pointsOnAllLocations</a></li><li><a href="global.html#pointsOnCylMeridian">pointsOnCylMeridian</a></li><li><a href="global.html#pointsOnCylParallel">pointsOnCylParallel</a></li><li><a href="global.html#pointsOnGreatCircle">pointsOnGreatCircle</a></li><li><a href="global.html#pointsOnLocations">pointsOnLocations</a></li><li><a href="global.html#pointsOnLoxodrome">pointsOnLoxodrome</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#project">project</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#rhumbLine">rhumbLine</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotMatrix">rotMatrix</a></li><li><a href="global.html#rotateGlobeAroundAxis">rotateGlobeAroundAxis</a></li><li><a href="global.html#rotateModelTowardsCamera">rotateModelTowardsCamera</a></li><li><a href="global.html#rotationMatrix">rotationMatrix</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#saveWebGLCanvasAsPNG">saveWebGLCanvasAsPNG</a></li><li><a href="global.html#scalarTripleProduct">scalarTripleProduct</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setRangeTicks">setRangeTicks</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#setYUp">setYUp</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#sortCitiesByDate">sortCitiesByDate</a></li><li><a href="global.html#spherical2gcs">spherical2gcs</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toDegrees">toDegrees</a></li><li><a href="global.html#toMercator">toMercator</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#unproject">unproject</a></li><li><a href="global.html#updateCurrentMeridian">updateCurrentMeridian</a></li><li><a href="global.html#updateLocation">updateLocation</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCitiescheckBox">changeCitiescheckBox</a></li><li><a href="global.html#event:changeCountrySelect">changeCountrySelect</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeLocationscheckBox">changeLocationscheckBox</a></li><li><a href="global.html#event:changeLoxodromecheckBox">changeLoxodromecheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:changeTooltipcheckBox">changeTooltipcheckBox</a></li><li><a href="global.html#event:clickAnimation">clickAnimation</a></li><li><a href="global.html#event:clickClosest">clickClosest</a></li><li><a href="global.html#event:clickPrint">clickPrint</a></li><li><a href="global.html#event:contextmenu">contextmenu</a></li><li><a href="global.html#event:dblclick">dblclick</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:keydownCountrySelect">keydownCountrySelect</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:pointerdown-textimg">pointerdown-textimg</a></li><li><a href="global.html#event:pointerdown-theCanvas">pointerdown-theCanvas</a></li><li><a href="global.html#event:pointermove-textimg">pointermove-textimg</a></li><li><a href="global.html#event:pointermove-theCanvas">pointermove-theCanvas</a></li><li><a href="global.html#event:pointerout-textimg">pointerout-textimg</a></li><li><a href="global.html#event:pointerup-theCanvas">pointerup-theCanvas</a></li><li><a href="global.html#event:timeline">timeline</a></li></ul><h3>Global</h3><ul><li><a href="global.html#UV2Cylindrical">UV2Cylindrical</a></li><li><a href="global.html#UV2Spherical">UV2Spherical</a></li><li><a href="global.html#addListeners">addListeners</a></li><li><a href="global.html#animSong">animSong</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#antimeridianCrossing">antimeridianCrossing</a></li><li><a href="global.html#audio">audio</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#bearingAngle">bearingAngle</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#canvastip">canvastip</a></li><li><a href="global.html#checkForMapTexture">checkForMapTexture</a></li><li><a href="global.html#cities">cities</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#cleanLocation">cleanLocation</a></li><li><a href="global.html#closestSite">closestSite</a></li><li><a href="global.html#colorBuffer">colorBuffer</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#country">country</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#currentMeridian">currentMeridian</a></li><li><a href="global.html#cursorPosition">cursorPosition</a></li><li><a href="global.html#decomposeVector">decomposeVector</a></li><li><a href="global.html#displayLocations">displayLocations</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawLinesOnImage">drawLinesOnImage</a></li><li><a href="global.html#drawLocations">drawLocations</a></li><li><a href="global.html#drawLocationsOnImage">drawLocationsOnImage</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#element">element</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#formatNumberWithSign">formatNumberWithSign</a></li><li><a href="global.html#forwardVector">forwardVector</a></li><li><a href="global.html#gcs2Screen">gcs2Screen</a></li><li><a href="global.html#gcs2UV">gcs2UV</a></li><li><a href="global.html#gcsForUnknownLocation">gcsForUnknownLocation</a></li><li><a href="global.html#getAngleBetweenVectors">getAngleBetweenVectors</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getCylinderParameters">getCylinderParameters</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#haversine">haversine</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isCone">isCone</a></li><li><a href="global.html#isCylinder">isCylinder</a></li><li><a href="global.html#isMap">isMap</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#labelForLocation">labelForLocation</a></li><li><a href="global.html#labelForTimeline">labelForTimeline</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lineConeIntersection">lineConeIntersection</a></li><li><a href="global.html#lineCylinderIntersection">lineCylinderIntersection</a></li><li><a href="global.html#linePlaneIntersection">linePlaneIntersection</a></li><li><a href="global.html#lineSphereIntersection">lineSphereIntersection</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#locationsBuffer">locationsBuffer</a></li><li><a href="global.html#loxodrome">loxodrome</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#mercatorVertices">mercatorVertices</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#meridianMatrix">meridianMatrix</a></li><li><a href="global.html#meridianPerpVec">meridianPerpVec</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#modelM">modelM</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#phongHighlight">phongHighlight</a></li><li><a href="global.html#pixelRayIntersection">pixelRayIntersection</a></li><li><a href="global.html#playSongFromLink">playSongFromLink</a></li><li><a href="global.html#pointsOnAllLocations">pointsOnAllLocations</a></li><li><a href="global.html#pointsOnCylMeridian">pointsOnCylMeridian</a></li><li><a href="global.html#pointsOnCylParallel">pointsOnCylParallel</a></li><li><a href="global.html#pointsOnGreatCircle">pointsOnGreatCircle</a></li><li><a href="global.html#pointsOnLocations">pointsOnLocations</a></li><li><a href="global.html#pointsOnLoxodrome">pointsOnLoxodrome</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#project">project</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#rhumbLine">rhumbLine</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotMatrix">rotMatrix</a></li><li><a href="global.html#rotateGlobeAroundAxis">rotateGlobeAroundAxis</a></li><li><a href="global.html#rotateModelTowardsCamera">rotateModelTowardsCamera</a></li><li><a href="global.html#rotationMatrix">rotationMatrix</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#saveWebGLCanvasAsPNG">saveWebGLCanvasAsPNG</a></li><li><a href="global.html#scalarTripleProduct">scalarTripleProduct</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setRangeTicks">setRangeTicks</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#setYUp">setYUp</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#sortCitiesByDate">sortCitiesByDate</a></li><li><a href="global.html#spherical2gcs">spherical2gcs</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toDegrees">toDegrees</a></li><li><a href="global.html#toMercator">toMercator</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#unproject">unproject</a></li><li><a href="global.html#updateCurrentMeridian">updateCurrentMeridian</a></li><li><a href="global.html#updateLocation">updateLocation</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Feb 16 2026 10:04:19 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Feb 16 2026 23:28:12 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
