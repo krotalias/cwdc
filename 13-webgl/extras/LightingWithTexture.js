@@ -2805,7 +2805,7 @@ function lineConeIntersection(o, p, ct, r, height) {
   // line direction
   const v = vec3.normalize([], vec3.subtract([], p, o)); // ||p - o||
 
-  const H = vec3.fromValues(ct[0], ct[1] + height / 2, ct[2]); // cone tip
+  const H = vec3.fromValues(ct[0], ct[1] + height / 2, ct[2]); // cone apex (tip)
   const C = vec3.fromValues(ct[0], ct[1] - height / 2, ct[2]); // cone bottom center
   const HC = vec3.subtract([], C, H); // C - H
   const h = vec3.normalize([], HC); // (C - H) / ||C - H||
@@ -5055,14 +5055,11 @@ function pointsOnLocations() {
     const gcs = gpsCoordinates[cities.country[i]];
     const uv = gcs2UV(gcs);
     if (isCylinder()) {
-      const [r, phi, y] = UV2Cylindrical(uv, mercator);
-      p = cylindrical2Cartesian(r, phi, y);
+      p = cylindrical2Cartesian(...UV2Cylindrical(uv, mercator));
     } else if (isCone()) {
-      const [r, height, phi, y] = UV2Conical(uv, mercator);
-      p = conical2Cartesian(r, height, phi, y);
+      p = conical2Cartesian(...UV2Conical(uv, mercator));
     } else {
-      const [theta, phi] = UV2Spherical(uv);
-      p = spherical2Cartesian(theta, phi, 1);
+      p = spherical2Cartesian(...UV2Spherical(uv), 1);
     }
 
     arr.set(p, j);

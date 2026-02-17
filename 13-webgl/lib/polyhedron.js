@@ -473,7 +473,7 @@ export function spherical2Cartesian(s, t, r = 1) {
 
 /**
  * <p>Return a point on the cylinder given their
- * {@link https://en.wikipedia.org/wiki/Cylindrical_coordinate_system cylindrical coordinates}: (r, θ, y=1).</p>
+ * {@link https://en.wikipedia.org/wiki/Cylindrical_coordinate_system cylindrical coordinates}: (r, θ, y).</p>
  * It is assumed that:
  * <ul>
  *  <li>the two systems have the same origin,</li>
@@ -486,12 +486,12 @@ export function spherical2Cartesian(s, t, r = 1) {
  *
  * @param {Number} r radius distance, r ≥ 0.
  * @param {Number} s azimuth angle θ, 0 ≤ θ ≤ 2π.
- * @param {Number} y height.
+ * @param {Number} y y-axis coordinate.
  * @returns {vec3} cartesian point onto the cylinder.
  * @see {@link https://mathworld.wolfram.com/CylindricalCoordinates.html cylindrical coordinates}
  * @see <img src="../images/cylindrical-projection.png" width="256">
  */
-export function cylindrical2Cartesian(r, s, y = 1) {
+export function cylindrical2Cartesian(r, s, y) {
   const x = r * Math.cos(s);
   const z = -r * Math.sin(s);
   return vec3.fromValues(x, y, z);
@@ -556,7 +556,10 @@ export function cartesian2Cylindrical(p, h) {
  * @returns {vec3} cartesian point onto the cone.
  * @see {@link https://mathworld.wolfram.com/Cone.html Cone}
  * @see {@link https://en.wikipedia.org/wiki/Conical_surface Conical surface}
- * @see <img src="../images/conical-projection.png" width="256">
+ * @see <figure>
+ *          <img src="../images/cone.png" width="256">
+ *          <img src="../images/Cone2.png" width="256">
+ *      </figure>
  */
 export function conical2Cartesian(r, h, s, y = 1) {
   const x = ((h - y - h / 2) / h) * r * Math.cos(s);
