@@ -1176,15 +1176,20 @@
         "latitude": -27.59667,
         "longitude": -48.54917
     },
-    "North Atlantic": {
-        "country": "Newfoundland (Canada)",
+    "Titanic": {
+        "country": "North Atlantic (International Waters)",
         "remarkable": [
             "RMS Titanic Maiden voyage (1317 passangers), 10 April 1912",
             "White Star Line (J.P. Morgan and Joseph Bruce Ismay)",
             "Southampton (UK) to New York City (US)",
             "Sunk speed 21 knots (39 km/h), water temperature -2°C, 15 April 1912",
             "John Jacob Astor, Benjamin Guggenheim, Isidor and Ida Straus (deceased)",
-            "Robert Ballard (ocean explorer), 1 September 1985"
+            "Robert Duane Ballard (ocean explorer), 1942-present",
+            "University of Rhode Island (PhD in marine geology and geophysics), 1970-1974",
+            "Navy commander, 1995",
+            "Discovery of the Titanic wreck, 1 September 1985",
+            "DIscovery of the battleship Bismarck, 8 June 1989",
+            "Sinking day, 15 April 1912"
         ],
         "latitude": 41.72583043,
         "longitude": -49.94082957
@@ -5363,6 +5368,15 @@
         ],
         "latitude": 50.049444,
         "longitude": 1.416944
+    },
+    "Southampton": {
+        "country": "Hampshire (United Kingdom)",
+        "remarkable": [
+            "Roman invasion of Britain (settled), 43",
+            "Departure point for the RMS Titanic, 10 April 1912"
+        ],
+        "latitude": 50.89696,
+        "longitude": -1.40416
     },
     "Tortosa": {
         "country": "✝ Almoravid Emirate (Spain)",

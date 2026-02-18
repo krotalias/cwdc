@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 393 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 394 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -168,7 +168,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">393 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4">394 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -658,14 +658,17 @@ const element = {
  * The keys of the table are the path types and
  * the values are the corresponding RGBA or HTML5 color values.
  * <ul>
+ *  ------- {@link drawParallel lines} -----------------
  *  <li>loxodrome: [1,0,1,1]    // magenta</li>
  *  <li>meridian: [1,0,0,1]     // red</li>
  *  <li>great_circle: [0,1,1,1] // cyan</li>
  *  <li>normal: [1,1,0,1]       // yellow</li>
+ *  ------- {@link pointsOnLocations points} --------------
  *  <li>unknown: [0,0,1]        // blue</li>
  *  <li>null: [0,0,0],          // black</li>
  *  <li>poiAD: [1,0,0]          // red</li>
  *  <li>poiBC: [1,1,0]          // yellow</li>
+ *  ------- {@link rhumbLine HTML5} -------------
  *  <li>rhumb: "magenta"</li>
  *  <li>mer: "red"</li>
  *  <li>gc: "cyan"</li>

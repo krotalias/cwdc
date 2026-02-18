@@ -544,8 +544,8 @@ export function cartesian2Cylindrical(p, h) {
  *  <li>the two systems have the same origin,</li>
  *  <li>the conical reference plane is the Cartesian xz plane, </li>
  *  <li>the azimuth is measured from the Cartesian x axis, so that the x axis has θ = 0° (prime meridian).</li>
- *  <li>x = p[0] = (h - y - h / 2) / h * r cos(θ)</li>
- *  <li>z = p[2] = -(h - y - h / 2) / h * r sin(θ)</li>
+ *  <li>x = p[0] = (-y/h + 0.5) / h * r cos(θ)</li>
+ *  <li>z = p[2] = (y/h + 0.5) / h * r sin(θ)</li>
  *  <li>y = p[1] = y</li>
  * </ul>
  *
@@ -561,9 +561,9 @@ export function cartesian2Cylindrical(p, h) {
  *          <img src="../images/Cone2.png" width="256">
  *      </figure>
  */
-export function conical2Cartesian(r, h, s, y = 1) {
-  const x = ((h - y - h / 2) / h) * r * Math.cos(s);
-  const z = -((h - y - h / 2) / h) * r * Math.sin(s);
+export function conical2Cartesian(r, h, s, y) {
+  const x = (-y / h + 0.5) * r * Math.cos(s);
+  const z = (y / h - 0.5) * r * Math.sin(s);
   return vec3.fromValues(x, y, z);
 }
 
