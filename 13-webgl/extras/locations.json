@@ -1188,7 +1188,7 @@
             "University of Rhode Island (PhD in marine geology and geophysics), 1970-1974",
             "Navy commander, 1995",
             "Discovery of the Titanic wreck, 1 September 1985",
-            "DIscovery of the battleship Bismarck, 8 June 1989",
+            "Discovery of the battleship Bismarck, 8 June 1989",
             "Sinking day, 15 April 1912"
         ],
         "latitude": 41.72583043,
@@ -4947,9 +4947,20 @@
     "Rome": {
         "country": "Italy",
         "remarkable": [
+            "Founded by Romulus and Remus, 21 April 753 BC",
             "Gaius Julius Caezar, 100-44 BC",
+            "Gallic Wars, 58-50 BC",
+            "Invasions of Britain, 55-54 BC",
             "Crossing the Rubicon, 10 January 49 BC",
-            "Ides of March assassination, 15 March 49 BC"
+            "Caesar's Civil War, 49-45 BC",
+            "Battle of Pharsalus (defeated Pompey), 9 August 48 BC",
+            "Pompey assassinated in Pelusium (Egypt), 28 September 48 BC",
+            "Arrived in Alexandria, 2 October 48 BC",
+            "Defeated Ptolemy XII in Egypt, 27 March 47 BC",
+            "Ides of March assassination, 15 March 44 BC",
+            "Emperor Vespasian, 69-79",
+            "Emperor Titus Caesar Vespasianus, 79-81",
+            "Colosseum, 70-80"
         ],
         "latitude": 41.902782,
         "longitude": 12.496366
