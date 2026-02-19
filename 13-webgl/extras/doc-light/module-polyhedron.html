@@ -1201,7 +1201,7 @@ y to be the value of the latitude.</li>
     
 
     
-    <h4 class="name" id=".cartesian2Spherical"><span class="type-signature">(static) </span>cartesian2Spherical<span class="signature">(p, r)</span><span class="type-signature"> &rarr; {Object.&lt;s:Number, t:Number>}</span></h4>
+    <h4 class="name" id=".cartesian2Spherical"><span class="type-signature">(static) </span>cartesian2Spherical<span class="signature">(p, r<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object.&lt;s:Number, t:Number>}</span></h4>
     
 
     
@@ -1267,7 +1267,11 @@ with θ remaining the angle in the zx-plane and φ becoming the angle out of tha
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -1292,7 +1296,19 @@ with θ remaining the angle in the zx-plane and φ becoming the angle out of tha
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">a point on the sphere.</td>
@@ -1315,7 +1331,23 @@ with θ remaining the angle in the zx-plane and φ becoming the angle out of tha
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
             
 
             <td class="description last">radius.</td>
@@ -1988,7 +2020,7 @@ It is assumed that:
 
             
 
-            <td class="description last">radius distance, r ≥ 0.</td>
+            <td class="description last">cylinder radius, r ≥ 0.</td>
         </tr>
 
     
@@ -2336,7 +2368,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
 
     
-    <h4 class="name" id=".pointsOnAntiMeridian"><span class="type-signature">(static) </span>pointsOnAntiMeridian<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id=".pointsOnAntiMeridian"><span class="type-signature">(static) </span>pointsOnAntiMeridian<span class="signature">(r<span class="signature-attributes">opt</span>, n<span class="signature-attributes">opt</span>, anti<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -2384,7 +2416,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
 
         <tr>
             
-                <td class="name"><code>n</code></td>
+                <td class="name"><code>r</code></td>
             
 
             <td class="type">
@@ -2411,371 +2443,12 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
             
                 <td class="default">
                 
-                    nsegments
+                    1
                 
                 </td>
             
 
-            <td class="description last">number of points.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line752">line 752</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    points on the anti meridian.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Float32Array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".pointsOnEquator"><span class="type-signature">(static) </span>pointsOnEquator<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Return an array with n points on the equator.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>n</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    nsegments
-                
-                </td>
-            
-
-            <td class="description last">number of points.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line734">line 734</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    points on the equator.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Float32Array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".pointsOnMeridian"><span class="type-signature">(static) </span>pointsOnMeridian<span class="signature">(longitude<span class="signature-attributes">opt</span>, n<span class="signature-attributes">opt</span>, anti<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Return an array with n points on a meridian given its
-<a href="https://en.wikipedia.org/wiki/Longitude">longitude</a>.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>longitude</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-
-            <td class="description last">distance east or west of the prime meridian: [-180°,180°]</td>
+            <td class="description last">sphere radius.</td>
         </tr>
 
     
@@ -2894,7 +2567,522 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line764">line 764</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line758">line 758</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    points on the anti meridian.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Float32Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".pointsOnEquator"><span class="type-signature">(static) </span>pointsOnEquator<span class="signature">(r<span class="signature-attributes">opt</span>, n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Return an array with n points on the equator.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>r</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">sphere radius.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    nsegments
+                
+                </td>
+            
+
+            <td class="description last">number of points.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line736">line 736</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    points on the equator.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Float32Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".pointsOnMeridian"><span class="type-signature">(static) </span>pointsOnMeridian<span class="signature">(longitude<span class="signature-attributes">opt</span>, r<span class="signature-attributes">opt</span>, n<span class="signature-attributes">opt</span>, anti<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Return an array with n points on a meridian given its
+<a href="https://en.wikipedia.org/wiki/Longitude">longitude</a>.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>longitude</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">distance east or west of the prime meridian: [-180°,180°]</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>r</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">sphere radius.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    nsegments
+                
+                </td>
+            
+
+            <td class="description last">number of points.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>anti</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">whether to draw the antimeridian also.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line771">line 771</a>
     </li></ul></dd>
     
 
@@ -2952,7 +3140,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
 
     
-    <h4 class="name" id=".pointsOnParallel"><span class="type-signature">(static) </span>pointsOnParallel<span class="signature">(latitude<span class="signature-attributes">opt</span>, n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    <h4 class="name" id=".pointsOnParallel"><span class="type-signature">(static) </span>pointsOnParallel<span class="signature">(latitude<span class="signature-attributes">opt</span>, r<span class="signature-attributes">opt</span>, n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
     
 
     
@@ -3040,7 +3228,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
 
         <tr>
             
-                <td class="name"><code>n</code></td>
+                <td class="name"><code>r</code></td>
             
 
             <td class="type">
@@ -3067,154 +3255,14 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
             
                 <td class="default">
                 
-                    nsegments
+                    1
                 
                 </td>
             
 
-            <td class="description last">number of points.</td>
+            <td class="description last">sphere radius.</td>
         </tr>
 
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line717">line 717</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    points on the parallel.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Float32Array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".pointsOnPrimeMeridian"><span class="type-signature">(static) </span>pointsOnPrimeMeridian<span class="signature">(n<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Return an array with n points on the prime meridian.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
     
 
         <tr>
@@ -3292,7 +3340,264 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line743">line 743</a>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line718">line 718</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    points on the parallel.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Float32Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".pointsOnPrimeMeridian"><span class="type-signature">(static) </span>pointsOnPrimeMeridian<span class="signature">(r<span class="signature-attributes">opt</span>, n<span class="signature-attributes">opt</span>, anti<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Float32Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Return an array with n points on the prime meridian.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>r</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">sphere radius.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    nsegments
+                
+                </td>
+            
+
+            <td class="description last">number of points.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>anti</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">whether to draw the antimeridian also.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_polyhedron.js.html">lib/polyhedron.js</a>, <a href="lib_polyhedron.js.html#line747">line 747</a>
     </li></ul></dd>
     
 
@@ -3806,7 +4111,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
     
 
     
-    <h4 class="name" id=".spherical2Cartesian"><span class="type-signature">(static) </span>spherical2Cartesian<span class="signature">(s, t, r)</span><span class="type-signature"> &rarr; {<a href="global.html#vec3">vec3</a>}</span></h4>
+    <h4 class="name" id=".spherical2Cartesian"><span class="type-signature">(static) </span>spherical2Cartesian<span class="signature">(s, t, r<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#vec3">vec3</a>}</span></h4>
     
 
     
@@ -3814,7 +4119,7 @@ to a 2D point (θ, φ) in <a href="https://paulbourke.net/geometry/transformatio
 
 
 <div class="description">
-    <p>Return a point on the unit sphere given their
+    <p>Return a point on the sphere given their
 <a href="https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf#page=3">spherical coordinates</a>: (θ, φ, r=1).</p>
 It is assumed that:
 <ul>
@@ -3849,7 +4154,11 @@ It is assumed that:
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -3874,7 +4183,19 @@ It is assumed that:
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">azimuth angle θ, 0 ≤ θ ≤ 2π.</td>
@@ -3897,7 +4218,19 @@ It is assumed that:
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">zenith angle φ, 0 ≤ φ ≤ π.</td>
@@ -3920,10 +4253,26 @@ It is assumed that:
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last">radius distance, r ≥ 0.</td>
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">sphere radius, r ≥ 0.</td>
         </tr>
 
     
@@ -4594,13 +4943,13 @@ vertices, normal vectors, texture coordinates, mercator coordinates and indices.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCitiescheckBox">changeCitiescheckBox</a></li><li><a href="global.html#event:changeCountrySelect">changeCountrySelect</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeLocationscheckBox">changeLocationscheckBox</a></li><li><a href="global.html#event:changeLoxodromecheckBox">changeLoxodromecheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:changeTooltipcheckBox">changeTooltipcheckBox</a></li><li><a href="global.html#event:clickAnimation">clickAnimation</a></li><li><a href="global.html#event:clickClosest">clickClosest</a></li><li><a href="global.html#event:clickPrint">clickPrint</a></li><li><a href="global.html#event:contextmenu">contextmenu</a></li><li><a href="global.html#event:dblclick">dblclick</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:keydownCountrySelect">keydownCountrySelect</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:pointerdown-textimg">pointerdown-textimg</a></li><li><a href="global.html#event:pointerdown-theCanvas">pointerdown-theCanvas</a></li><li><a href="global.html#event:pointermove-textimg">pointermove-textimg</a></li><li><a href="global.html#event:pointermove-theCanvas">pointermove-theCanvas</a></li><li><a href="global.html#event:pointerout-textimg">pointerout-textimg</a></li><li><a href="global.html#event:pointerup-theCanvas">pointerup-theCanvas</a></li><li><a href="global.html#event:timeline">timeline</a></li></ul><h3>Global</h3><ul><li><a href="global.html#UV2Conical">UV2Conical</a></li><li><a href="global.html#UV2Cylindrical">UV2Cylindrical</a></li><li><a href="global.html#UV2Spherical">UV2Spherical</a></li><li><a href="global.html#addListeners">addListeners</a></li><li><a href="global.html#animSong">animSong</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#antimeridianCrossing">antimeridianCrossing</a></li><li><a href="global.html#audio">audio</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#bearingAngle">bearingAngle</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#canvastip">canvastip</a></li><li><a href="global.html#checkForMapTexture">checkForMapTexture</a></li><li><a href="global.html#cities">cities</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#cleanLocation">cleanLocation</a></li><li><a href="global.html#closestSite">closestSite</a></li><li><a href="global.html#colorBuffer">colorBuffer</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#country">country</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#currentMeridian">currentMeridian</a></li><li><a href="global.html#cursorPosition">cursorPosition</a></li><li><a href="global.html#decomposeVector">decomposeVector</a></li><li><a href="global.html#displayLocations">displayLocations</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawLinesOnImage">drawLinesOnImage</a></li><li><a href="global.html#drawLocations">drawLocations</a></li><li><a href="global.html#drawLocationsOnImage">drawLocationsOnImage</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#element">element</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#formatNumberWithSign">formatNumberWithSign</a></li><li><a href="global.html#forwardVector">forwardVector</a></li><li><a href="global.html#gcs2Screen">gcs2Screen</a></li><li><a href="global.html#gcs2UV">gcs2UV</a></li><li><a href="global.html#gcsForUnknownLocation">gcsForUnknownLocation</a></li><li><a href="global.html#getAngleBetweenVectors">getAngleBetweenVectors</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getCylinderParameters">getCylinderParameters</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#haversine">haversine</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isCone">isCone</a></li><li><a href="global.html#isCylinder">isCylinder</a></li><li><a href="global.html#isMap">isMap</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#labelForLocation">labelForLocation</a></li><li><a href="global.html#labelForTimeline">labelForTimeline</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lineConeIntersection">lineConeIntersection</a></li><li><a href="global.html#lineCylinderIntersection">lineCylinderIntersection</a></li><li><a href="global.html#linePlaneIntersection">linePlaneIntersection</a></li><li><a href="global.html#lineSphereIntersection">lineSphereIntersection</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#locationsBuffer">locationsBuffer</a></li><li><a href="global.html#loxodrome">loxodrome</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#mercatorVertices">mercatorVertices</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#meridianMatrix">meridianMatrix</a></li><li><a href="global.html#meridianPerpVec">meridianPerpVec</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#modelM">modelM</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#phongHighlight">phongHighlight</a></li><li><a href="global.html#pixelRayIntersection">pixelRayIntersection</a></li><li><a href="global.html#playSongFromLink">playSongFromLink</a></li><li><a href="global.html#pointsOnAllLocations">pointsOnAllLocations</a></li><li><a href="global.html#pointsOnConeMeridian">pointsOnConeMeridian</a></li><li><a href="global.html#pointsOnConeParallel">pointsOnConeParallel</a></li><li><a href="global.html#pointsOnCylMeridian">pointsOnCylMeridian</a></li><li><a href="global.html#pointsOnCylParallel">pointsOnCylParallel</a></li><li><a href="global.html#pointsOnGreatCircle">pointsOnGreatCircle</a></li><li><a href="global.html#pointsOnLocations">pointsOnLocations</a></li><li><a href="global.html#pointsOnLoxodrome">pointsOnLoxodrome</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#project">project</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#rhumbLine">rhumbLine</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotMatrix">rotMatrix</a></li><li><a href="global.html#rotateGlobeAroundAxis">rotateGlobeAroundAxis</a></li><li><a href="global.html#rotateModelTowardsCamera">rotateModelTowardsCamera</a></li><li><a href="global.html#rotationMatrix">rotationMatrix</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#saveWebGLCanvasAsPNG">saveWebGLCanvasAsPNG</a></li><li><a href="global.html#scalarTripleProduct">scalarTripleProduct</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setRangeTicks">setRangeTicks</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#setYUp">setYUp</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#sortCitiesByDate">sortCitiesByDate</a></li><li><a href="global.html#spherical2gcs">spherical2gcs</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toDegrees">toDegrees</a></li><li><a href="global.html#toMercator">toMercator</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#unproject">unproject</a></li><li><a href="global.html#updateCurrentMeridian">updateCurrentMeridian</a></li><li><a href="global.html#updateLocation">updateLocation</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCitiescheckBox">changeCitiescheckBox</a></li><li><a href="global.html#event:changeCountrySelect">changeCountrySelect</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeLocationscheckBox">changeLocationscheckBox</a></li><li><a href="global.html#event:changeLoxodromecheckBox">changeLoxodromecheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:changeTooltipcheckBox">changeTooltipcheckBox</a></li><li><a href="global.html#event:clickAnimation">clickAnimation</a></li><li><a href="global.html#event:clickClosest">clickClosest</a></li><li><a href="global.html#event:clickPrint">clickPrint</a></li><li><a href="global.html#event:contextmenu">contextmenu</a></li><li><a href="global.html#event:dblclick">dblclick</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:keydownCountrySelect">keydownCountrySelect</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:pointerdown-textimg">pointerdown-textimg</a></li><li><a href="global.html#event:pointerdown-theCanvas">pointerdown-theCanvas</a></li><li><a href="global.html#event:pointermove-textimg">pointermove-textimg</a></li><li><a href="global.html#event:pointermove-theCanvas">pointermove-theCanvas</a></li><li><a href="global.html#event:pointerout-textimg">pointerout-textimg</a></li><li><a href="global.html#event:pointerup-theCanvas">pointerup-theCanvas</a></li><li><a href="global.html#event:timeline">timeline</a></li></ul><h3>Global</h3><ul><li><a href="global.html#UV2Conical">UV2Conical</a></li><li><a href="global.html#UV2Cylindrical">UV2Cylindrical</a></li><li><a href="global.html#UV2Spherical">UV2Spherical</a></li><li><a href="global.html#addListeners">addListeners</a></li><li><a href="global.html#animSong">animSong</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#antimeridianCrossing">antimeridianCrossing</a></li><li><a href="global.html#audio">audio</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#bearingAngle">bearingAngle</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#canvastip">canvastip</a></li><li><a href="global.html#checkForMapTexture">checkForMapTexture</a></li><li><a href="global.html#cities">cities</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#cleanLocation">cleanLocation</a></li><li><a href="global.html#closestSite">closestSite</a></li><li><a href="global.html#colorBuffer">colorBuffer</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#country">country</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#currentMeridian">currentMeridian</a></li><li><a href="global.html#cursorPosition">cursorPosition</a></li><li><a href="global.html#decomposeVector">decomposeVector</a></li><li><a href="global.html#displayLocations">displayLocations</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawLinesOnImage">drawLinesOnImage</a></li><li><a href="global.html#drawLocations">drawLocations</a></li><li><a href="global.html#drawLocationsOnImage">drawLocationsOnImage</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#element">element</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#formatNumberWithSign">formatNumberWithSign</a></li><li><a href="global.html#forwardVector">forwardVector</a></li><li><a href="global.html#gcs2Screen">gcs2Screen</a></li><li><a href="global.html#gcs2UV">gcs2UV</a></li><li><a href="global.html#gcsForUnknownLocation">gcsForUnknownLocation</a></li><li><a href="global.html#getAngleBetweenVectors">getAngleBetweenVectors</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getCylinderParameters">getCylinderParameters</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#globeRadius">globeRadius</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#haversine">haversine</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isCone">isCone</a></li><li><a href="global.html#isCylinder">isCylinder</a></li><li><a href="global.html#isMap">isMap</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#labelForLocation">labelForLocation</a></li><li><a href="global.html#labelForTimeline">labelForTimeline</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lineConeIntersection">lineConeIntersection</a></li><li><a href="global.html#lineCylinderIntersection">lineCylinderIntersection</a></li><li><a href="global.html#linePlaneIntersection">linePlaneIntersection</a></li><li><a href="global.html#lineSphereIntersection">lineSphereIntersection</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#locationsBuffer">locationsBuffer</a></li><li><a href="global.html#loxodrome">loxodrome</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#mercatorVertices">mercatorVertices</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#meridianMatrix">meridianMatrix</a></li><li><a href="global.html#meridianPerpVec">meridianPerpVec</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#modelM">modelM</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#phongHighlight">phongHighlight</a></li><li><a href="global.html#pixelRayIntersection">pixelRayIntersection</a></li><li><a href="global.html#playSongFromLink">playSongFromLink</a></li><li><a href="global.html#pointsOnAllLocations">pointsOnAllLocations</a></li><li><a href="global.html#pointsOnConeMeridian">pointsOnConeMeridian</a></li><li><a href="global.html#pointsOnConeParallel">pointsOnConeParallel</a></li><li><a href="global.html#pointsOnCylMeridian">pointsOnCylMeridian</a></li><li><a href="global.html#pointsOnCylParallel">pointsOnCylParallel</a></li><li><a href="global.html#pointsOnGreatCircle">pointsOnGreatCircle</a></li><li><a href="global.html#pointsOnLocations">pointsOnLocations</a></li><li><a href="global.html#pointsOnLoxodrome">pointsOnLoxodrome</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#project">project</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#rhumbLine">rhumbLine</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotMatrix">rotMatrix</a></li><li><a href="global.html#rotateGlobeAroundAxis">rotateGlobeAroundAxis</a></li><li><a href="global.html#rotateModelTowardsCamera">rotateModelTowardsCamera</a></li><li><a href="global.html#rotationMatrix">rotationMatrix</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#saveWebGLCanvasAsPNG">saveWebGLCanvasAsPNG</a></li><li><a href="global.html#scalarTripleProduct">scalarTripleProduct</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setRangeTicks">setRangeTicks</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#setYUp">setYUp</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#sortCitiesByDate">sortCitiesByDate</a></li><li><a href="global.html#sphereRadius">sphereRadius</a></li><li><a href="global.html#spherical2gcs">spherical2gcs</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toDegrees">toDegrees</a></li><li><a href="global.html#toMercator">toMercator</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#unproject">unproject</a></li><li><a href="global.html#updateCurrentMeridian">updateCurrentMeridian</a></li><li><a href="global.html#updateLocation">updateLocation</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Feb 19 2026 07:15:43 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Feb 19 2026 13:35:32 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -484,6 +484,21 @@ import {
  */
 
 /**
+ * <p>Radius of the sphere.</p>
+ * Subdivision sphere is a unit sphere and
+ * therefore the current globe radius must be
+ * restored to this value.
+ * @type {Number}
+ */
+const sphereRadius = 0.98;
+
+/**
+ * Current radius of the globe.
+ * @type {Number}
+ */
+let globeRadius = sphereRadius;
+
+/**
  * Audio object for playing song from a given url link.
  * @type {Audio}
  */
@@ -1570,7 +1585,7 @@ function gcs2Screen(location, mercatorProjection = false) {
   // and then to screen coordinates.
   // The UV coordinates are in the range [0, 1].
   const uv = gcs2UV(location);
-  const pt = spherical2Cartesian(...UV2Spherical(uv), 1);
+  const pt = spherical2Cartesian(...UV2Spherical(uv), globeRadius);
   if (mercatorProjection) {
     // mercator projection
     uv.t = spherical2Mercator(uv.s, uv.t).y;
@@ -1887,22 +1902,26 @@ const handleKeyPress = ((event) => {
         break;
       case "Z":
         gscale = mscale = 1;
+        globeRadius = sphereRadius;
         element.models.value = "5";
         n = numSubdivisions;
         numSubdivisions = 1;
         theModel = createModel({
-          shape: uvSphereND(1, 48, 24),
+          shape: uvSphereND(globeRadius, 48, 24),
           name: "spherend",
         });
         numSubdivisions = n;
+        setPosition(currentLocation);
+        displayLocations();
         break;
       case "s":
         gscale = mscale = 1;
+        globeRadius = sphereRadius;
         element.models.value = "5";
         theModel = createModel({
           shape: selector.hws
-            ? uvSphere(1, 48, 24)
-            : getModelData(new THREE.SphereGeometry(1, 48, 24)),
+            ? uvSphere(globeRadius, 48, 24)
+            : getModelData(new THREE.SphereGeometry(globeRadius, 48, 24)),
           name: "sphere",
         });
         setPosition(currentLocation);
@@ -1911,6 +1930,7 @@ const handleKeyPress = ((event) => {
       case "S":
         // subdivision sphere
         gscale = mscale = 1;
+        globeRadius = 1;
         element.models.value = "13";
         numSubdivisions = maxSubdivisions;
         theModel = createModel({ poly: subPoly });
@@ -2964,7 +2984,7 @@ function pixelRayIntersection(x, y) {
   } else if (isCone()) {
     const [r, h] = UV2Conical({ s: 0, t: 0 }, mercator);
     return lineConeIntersection(o, p, [0, 0, 0], r, h);
-  } else return lineSphereIntersection(o, p, [0, 0, 0], 1);
+  } else return lineSphereIntersection(o, p, [0, 0, 0], globeRadius);
 }
 
 /**
@@ -3018,7 +3038,7 @@ function formatNumberWithSign(num, decimals) {
 function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
   const intersection = pixelRayIntersection(x, y);
   if (intersection) {
-    const uv = cartesian2Spherical(intersection);
+    const uv = cartesian2Spherical(intersection, globeRadius);
     const gcs = spherical2gcs(uv);
     if (setCurrentMeridian) {
       currentMeridian.longitude = gcs.longitude;
@@ -3688,7 +3708,7 @@ function addListeners() {
           uv.t = mercator2Spherical(uv.s, uv.t).t;
         }
       } else {
-        uv = cartesian2Spherical(intersection);
+        uv = cartesian2Spherical(intersection, globeRadius);
       }
 
       const gcs = spherical2gcs(uv);
@@ -3751,7 +3771,7 @@ function addListeners() {
           uv.t = mercator2Spherical(uv.s, uv.t).t;
         }
       } else {
-        uv = cartesian2Spherical(intersection);
+        uv = cartesian2Spherical(intersection, globeRadius);
       }
 
       previousLocation = structuredClone(gpsCoordinates[currentLocation]);
@@ -4613,12 +4633,15 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
         );
       } else {
         // no loxodrome for equirectangular projection
-        p = conical2Cartesian(1.01, 2, ...q);
+        p = conical2Cartesian(globeRadius * 1.01, 2, ...q);
       }
     } else {
       p = mercator
-        ? spherical2Cartesian(...UV2Spherical(mercator2Spherical(...q)), 1.01)
-        : spherical2Cartesian(...q, 1.01);
+        ? spherical2Cartesian(
+            ...UV2Spherical(mercator2Spherical(...q)),
+            globeRadius * 1.01,
+          )
+        : spherical2Cartesian(...q, globeRadius * 1.01);
     }
     arr.set(p, j);
   }
@@ -4656,9 +4679,11 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
 function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
   const uv1 = gcs2UV(loc1);
   const uv2 = gcs2UV(loc2);
+  // pA in the unit sphere in this case
   const pA = spherical2Cartesian(...UV2Spherical(uv1));
+  // pB in the unit sphere in this case
   const pB = spherical2Cartesian(...UV2Spherical(uv2));
-  const theta = Math.acos(vec3.dot(pA, pB));
+  const theta = vec3.angle(pA, pB);
   const ds = theta / (ns - 1);
   const arr = new Float32Array(3 * ns);
   const mrr = [];
@@ -4683,10 +4708,12 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
       vec3.scale([], v, Math.sin(i * ds)),
     );
 
+    // uv ∈ [0,1]
     const uv = cartesian2Spherical(p);
     mrr.push(spherical2Mercator(uv.s, uv.t));
 
-    vec3.scale(p, p, 1.01);
+    // scale point p
+    vec3.scale(p, p, globeRadius * 1.01);
 
     arr.set(p, j);
   }
@@ -4811,7 +4838,10 @@ function setPosition(location) {
         gpsCoordinates[location].latitude,
       );
     } else {
-      parallelVertices = pointsOnParallel(gpsCoordinates[location].latitude);
+      parallelVertices = pointsOnParallel(
+        gpsCoordinates[location].latitude,
+        globeRadius,
+      );
     }
   }
 
@@ -4838,7 +4868,10 @@ function setPosition(location) {
         gpsCoordinates[location].longitude,
       );
     } else {
-      meridianVertices = pointsOnMeridian(gpsCoordinates[location].longitude);
+      meridianVertices = pointsOnMeridian(
+        gpsCoordinates[location].longitude,
+        globeRadius,
+      );
     }
     document.getElementById("lox").innerHTML = "Loxodrome";
   }
@@ -4970,11 +5003,12 @@ function startForReal(image) {
 
   const parallelVertices = pointsOnParallel(
     gpsCoordinates[currentLocation].latitude,
+    globeRadius,
   );
   gl.bindBuffer(gl.ARRAY_BUFFER, parallelBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, parallelVertices, gl.STATIC_DRAW);
 
-  const [locationsVertices, locationsColors] = pointsOnLocations();
+  const [locationsVertices, locationsColors] = pointsOnAllLocations();
   gl.bindBuffer(gl.ARRAY_BUFFER, locationsBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, locationsVertices, gl.STATIC_DRAW);
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
@@ -4982,6 +5016,7 @@ function startForReal(image) {
 
   const meridianVertices = pointsOnMeridian(
     gpsCoordinates[currentLocation].longitude,
+    globeRadius,
   );
   gl.bindBuffer(gl.ARRAY_BUFFER, meridianBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, meridianVertices, gl.STATIC_DRAW);
@@ -5066,7 +5101,7 @@ function pointsOnLocations() {
     } else if (isCone()) {
       p = conical2Cartesian(...UV2Conical(uv, mercator));
     } else {
-      p = spherical2Cartesian(...UV2Spherical(uv), 1);
+      p = spherical2Cartesian(...UV2Spherical(uv), globeRadius);
     }
 
     arr.set(p, j);
@@ -5117,13 +5152,19 @@ function pointsOnAllLocations() {
     const gcs = gpsCoordinates[cities.current[i]];
     const uv = gcs2UV(gcs);
     const [theta, phi] = UV2Spherical(uv);
-    const p = spherical2Cartesian(theta, phi, 1);
+    const p = spherical2Cartesian(theta, phi, globeRadius);
 
     arr.set(p, j);
 
-    // red for AD (1,0,0) and yellow for BC (1,1,0)
-    const BC = gcs.remarkable.at(-1).includes("BC");
-    crr.set(BC ? colorTable.poiBC : colorTable.poiAD, j);
+    if (cities.country[i] === "Unknown") {
+      crr.set(colorTable.unknown, j);
+    } else if (["Null Island", "Void Island"].includes(cities.country[i])) {
+      crr.set(colorTable.null, j);
+    } else {
+      // red for AD (1,0,0) and yellow for BC (1,1,0)
+      const BC = gcs.remarkable.at(-1).includes("BC");
+      crr.set(BC ? colorTable.poiBC : colorTable.poiAD, j);
+    }
   }
   return [arr, crr];
 }
@@ -5277,7 +5318,11 @@ function newTexture(image) {
  * @returns {vec3} vector perpendicular to the meridian at the given longitude.
  */
 function meridianPerpVec(longitude) {
-  const [x, y, z] = spherical2Cartesian(toRadian(longitude), Math.PI / 2, 1);
+  const [x, y, z] = spherical2Cartesian(
+    toRadian(longitude),
+    Math.PI / 2,
+    globeRadius,
+  );
   return [z, 0, -x];
 }
 

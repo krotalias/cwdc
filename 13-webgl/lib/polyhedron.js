@@ -392,7 +392,7 @@ export const nsegments = 36;
  * with θ remaining the angle in the zx-plane and φ becoming the angle out of that plane.
  *
  *  @param {vec3} p a point on the sphere.
- *  @param {Number} r radius.
+ *  @param {Number} [r=1] radius.
  *  @return {Object<s:Number, t:Number>} point p in spherical coordinates:
  *  <ul>
  *     <li>const [x, y, z] = p</li>
@@ -445,7 +445,7 @@ export function cartesian2Spherical(p, r = 1) {
 }
 
 /**
- * <p>Return a point on the unit sphere given their
+ * <p>Return a point on the sphere given their
  * {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf#page=3 spherical coordinates}: (θ, φ, r=1).</p>
  * It is assumed that:
  * <ul>
@@ -460,7 +460,7 @@ export function cartesian2Spherical(p, r = 1) {
  *
  * @param {Number} s azimuth angle θ, 0 ≤ θ ≤ 2π.
  * @param {Number} t zenith angle φ, 0 ≤ φ ≤ π.
- * @param {Number} r radius distance, r ≥ 0.
+ * @param {Number} [r=1] sphere radius, r ≥ 0.
  * @returns {vec3} cartesian point onto the unit sphere.
  * @see {@link https://mathworld.wolfram.com/SphericalCoordinates.html spherical coordinates}
  * @see <img src="../images/spherical-projection.png" width="256">
@@ -485,7 +485,7 @@ export function spherical2Cartesian(s, t, r = 1) {
  *  <li>y = p[1] = y</li>
  * </ul>
  *
- * @param {Number} r radius distance, r ≥ 0.
+ * @param {Number} r cylinder radius, r ≥ 0.
  * @param {Number} s azimuth angle θ, 0 ≤ θ ≤ 2π.
  * @param {Number} y y-axis coordinate.
  * @returns {vec3} cartesian point onto the cylinder.
@@ -711,16 +711,17 @@ export function rotateUTexture(obj, degrees) {
  * Return an array with n points on a parallel given its
  * {@link https://www.britannica.com/science/latitude latitude}.
  * @param {Number} [latitude=0] distance north or south of the Equator: [-90°,90°].
+ * @param {Number} [r=1] sphere radius.
  * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the parallel.
  */
-export function pointsOnParallel(latitude = 0, n = nsegments) {
+export function pointsOnParallel(latitude = 0, r = 1, n = nsegments) {
   const ds = (Math.PI * 2) / (n - 1);
   const arr = new Float32Array(3 * n);
   let phi = clamp(latitude, -90, 90) + 90;
   phi = radians(phi);
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    const p = spherical2Cartesian(i * ds, phi, 1.01);
+    const p = spherical2Cartesian(i * ds, phi, r * 1.01);
     arr.set(p, j);
   }
   return arr;
@@ -728,40 +729,51 @@ export function pointsOnParallel(latitude = 0, n = nsegments) {
 
 /**
  * Return an array with n points on the equator.
+ * @param {Number} [r=1] sphere radius.
  * @param {Number} [n={@link nsegments}] number of points.
  * @return {Float32Array} points on the equator.
  */
-export function pointsOnEquator(n = nsegments) {
-  return pointsOnParallel(0, n);
+export function pointsOnEquator(r = 1, n = nsegments) {
+  return pointsOnParallel(0, r, n);
 }
 
 /**
  * Return an array with n points on the prime meridian.
+ * @param {Number} [r=1] sphere radius.
  * @param {Number} [n={@link nsegments}] number of points.
+ * @param {Boolean} [anti=false] whether to draw the antimeridian also.
  * @return {Float32Array} points on the prime meridian.
  */
-export function pointsOnPrimeMeridian(n = nsegments) {
-  return pointsOnMeridian(0, n, false);
+export function pointsOnPrimeMeridian(r = 1, n = nsegments) {
+  return pointsOnMeridian(0, r, n, false);
 }
 
 /**
  * Return an array with n points on the anti meridian.
+ * @param {Number} [r=1] sphere radius.
  * @param {Number} [n={@link nsegments}] number of points.
+ * @param {Boolean} [anti=false] whether to draw the antimeridian also.
  * @return {Float32Array} points on the anti meridian.
  */
-export function pointsOnAntiMeridian(n = nsegments) {
-  return pointsOnMeridian(180, n, false);
+export function pointsOnAntiMeridian(r = 1, n = nsegments) {
+  return pointsOnMeridian(180, r, n, false);
 }
 
 /**
  * Return an array with n points on a meridian given its
  * {@link https://en.wikipedia.org/wiki/Longitude longitude}.
  * @param {Number} [longitude=0] distance east or west of the prime meridian: [-180°,180°]
+ * @param {Number} [r=1] sphere radius.
  * @param {Number} [n={@link nsegments}] number of points.
  * @param {Boolean} [anti=false] whether to draw the antimeridian also.
  * @return {Float32Array} points on the meridian.
  */
-export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
+export function pointsOnMeridian(
+  longitude = 0,
+  r = 1,
+  n = nsegments,
+  anti = false,
+) {
   let j = 0;
   let ds = Math.PI / (n - 1);
   if (anti) ds *= 2;
@@ -769,7 +781,7 @@ export function pointsOnMeridian(longitude = 0, n = nsegments, anti = false) {
   let theta = clamp(longitude, -180, 180);
   theta = radians(theta);
   for (let i = 0; i < n; ++i, j += 3) {
-    const p = spherical2Cartesian(theta, i * ds, 1.01);
+    const p = spherical2Cartesian(theta, i * ds, r * 1.01);
     arr.set(p, j);
   }
   return arr;
