@@ -742,6 +742,7 @@ const UV2Spherical = (uv) => {
  * Convert from {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL UV coordinates}
  * (s, t) to {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system cylindrical coordinates}.
  * @param {Object<{s: Number,t:Number}>} uv ∈ [0,1].
+ * @param {Boolean} mercator apply mercator transformation if true.
  * @return {Array<{Number, Number, Number}>} cylindrical coordinates: [r, θ, y].
  * @function
  */
@@ -759,6 +760,7 @@ function UV2Cylindrical(uv, mercator) {
  * Convert from {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL UV coordinates}
  * (s, t) to {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system conical coordinates}.
  * @param {Object<{s: Number,t:Number}>} uv ∈ [0,1].
+ * @param {Boolean} mercator apply mercator transformation if true.
  * @return {Array<{Number, Number, Number, Number}>} conical coordinates: [r, h, θ, y].
  * @function
  */
@@ -1980,11 +1982,12 @@ const handleKeyPress = ((event) => {
       case "C":
         gscale = mscale = 0.8;
         element.models.value = "1";
+        const [rd, ht] = UV2Conical({ s: 0, t: 0 }, mercator);
         theModel = createModel({
           shape: selector.hws
-            ? uvCone(1, 2, 30, 5, false)
+            ? uvCone(rd, ht, 30, 5, false)
             : getModelData(
-                new THREE.ConeGeometry(1, 2, 30, 5, false, -Math.PI / 2),
+                new THREE.ConeGeometry(rd, ht, 30, 5, false, -Math.PI / 2),
               ),
           name: "cone",
         });
@@ -2959,7 +2962,8 @@ function pixelRayIntersection(x, y) {
     const { r, height } = getCylinderParameters(mercator);
     return lineCylinderIntersection(o, p, [0, 0, 0], r, height);
   } else if (isCone()) {
-    return lineConeIntersection(o, p, [0, 0, 0], 1, 2);
+    const [r, h] = UV2Conical({ s: 0, t: 0 }, mercator);
+    return lineConeIntersection(o, p, [0, 0, 0], r, h);
   } else return lineSphereIntersection(o, p, [0, 0, 0], 1);
 }
 

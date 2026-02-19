@@ -392,6 +392,7 @@ export const nsegments = 36;
  * with θ remaining the angle in the zx-plane and φ becoming the angle out of that plane.
  *
  *  @param {vec3} p a point on the sphere.
+ *  @param {Number} r radius.
  *  @return {Object<s:Number, t:Number>} point p in spherical coordinates:
  *  <ul>
  *     <li>const [x, y, z] = p</li>
@@ -424,12 +425,12 @@ export const nsegments = 36;
  * @see <img src="../images/Spherical2.png" width="356">
  *      <img src="../images/Declination.jpg" width="175">
  */
-export function cartesian2Spherical(p) {
+export function cartesian2Spherical(p, r = 1) {
   const [x, y, z] = p;
 
   // acos ∈ [0,pi] ⇒ phi ∈ [0,1]
   // acos (-y) = π - acos (y)
-  const phi = Math.acos(-y) / Math.PI;
+  const phi = Math.acos(-y / r) / Math.PI;
 
   // atan2 ∈ [-pi,pi] ⇒ theta ∈ [-0.5, 0.5]
   let theta = Math.atan2(-z, x) / (2 * Math.PI);
