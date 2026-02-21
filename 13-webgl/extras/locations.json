@@ -53,7 +53,7 @@
         "longitude": -0.1275
     },
     "Broad Street pump": {
-        "country": "Westminster (United Kingdom)",
+        "country": "🔬 Westminster (United Kingdom)",
         "remarkable": [
             "John Snow (physician), 1813-1858",
             "Hunterian school of medicine (University of London), 1836-1840",
@@ -93,7 +93,7 @@
         "longitude": -0.6
     },
     "Woolsthorpe-by-Colsterworth": {
-        "country": "England (United Kingdom)",
+        "country": "🔬 England (United Kingdom)",
         "remarkable": ["Isaac Newton, 1643-1727", "Principia, 5 July 1686"],
         "latitude": 52.8107,
         "longitude": -0.632
@@ -156,7 +156,7 @@
         "longitude": -2.70985882722
     },
     "Shrewsbury": {
-        "country": "England (United Kingdom)",
+        "country": "🔬 England (United Kingdom)",
         "remarkable": [
             "Charles Darwin, 1809-1882",
             "On the Origin of Species, 24 November 1859"
@@ -951,7 +951,7 @@
         "longitude": -43.502164658
     },
     "Palmira": {
-        "country": "Minas Gerais (Brazil)",
+        "country": "🔬 Minas Gerais (Brazil)",
         "remarkable": [
             "Alberto Santos Dumont, 1873-1932",
             "Gasoline baloon, Deutsch premium",
@@ -2177,7 +2177,7 @@
         "longitude": -74.483333
     },
     "Princeton": {
-        "country": "New Jersey (United States)",
+        "country": "🔬 New Jersey (United States)",
         "remarkable": [
             "Dr. Henry Walton (Indiana) Jones Jr., 1 July 1899",
             "Marshall College (fictional), 1920-1924",
@@ -2475,7 +2475,7 @@
         "longitude": -82.38304
     },
     "Springwells Township": {
-        "country": "Michigan (United States)",
+        "country": "🔬 Michigan (United States)",
         "remarkable": [
             "Henry Ford, 1863-1947",
             "Edison Illuminating Company of Detroit, 1891",
@@ -2589,7 +2589,7 @@
         "longitude": -87.6169805
     },
     "Lemont": {
-        "country": "⚔ 🧪 Illinois (United States)",
+        "country": "⚔ 🧪 🔬 Illinois (United States)",
         "remarkable": [
             "Argonne National Laboratory, 8 February 1946",
             "Enrico Fermi's nuclear reactors for the Manhattan Project",
@@ -4168,7 +4168,7 @@
         "longitude": 35.232071
     },
     "Tyre": {
-        "country": "✝ Phoenicia (Lebanon)",
+        "country": "✝ 🔬 Phoenicia (Lebanon)",
         "remarkable": [
             "Marinus of Tyre, geographer and cartographer, 70-130",
             "Equirectangular projection, 100",
@@ -4496,7 +4496,7 @@
         "longitude": 30.08333
     },
     "Alexandria": {
-        "country": "Ptolemaic Kingdom (Egypt)",
+        "country": "🔬 Ptolemaic Kingdom (Egypt)",
         "remarkable": [
             "Ptolemy (Alexander's general) 369-282 BC",
             "Ptolemy I Soter reign, 305-282 BC",
@@ -4549,7 +4549,7 @@
         "longitude": 27.7033614
     },
     "Miletus": {
-        "country": "Anatolia (Turkey)",
+        "country": "🔬 Anatolia (Turkey)",
         "remarkable": [
             "Thales of Miletus (philosopher), 626-548 BC",
             "Brought Egyptian study of mathematics to Greece",
@@ -4581,7 +4581,7 @@
         "longitude": 27.02997
     },
     "Samos": {
-        "country": "Greece",
+        "country": "🔬 Greece",
         "remarkable": [
             "Pythagoras, philosopher, mathematician, 570-495 BC",
             "Pythagorean theorem for right triangles",
@@ -4631,7 +4631,7 @@
         "longitude": 26.4
     },
     "Helsinki": {
-        "country": "Finland",
+        "country": "🔬 Finland",
         "remarkable": [
             "Russian Empire seized Finland, 1809",
             "Grand Duchy of Finland, 1809-1917",
@@ -4656,9 +4656,11 @@
         "longitude": 24.79279
     },
     "Stagira": {
-        "country": "Chalcidian League (Greece)",
+        "country": "🔬 Chalcidian League (Greece)",
         "remarkable": [
             "Aristotle, 384-322 BC",
+            "Metaphysics (XIV books, among the greatest philosophical works)",
+            "On the Heavens, 350 BC",
             "Tutored Alexander The Great, 343 BC"
         ],
         "latitude": 40.5913217,
@@ -4678,6 +4680,19 @@
         "latitude": 37.9755648,
         "longitude": 23.7348324
     },
+    "Chaeronea": {
+        "country": "Greece",
+        "remarkable": [
+            "Philip II of Macedon (Alexander's father), 382-336 BC",
+            "Macedonian King, May 359 - October 336 BC",
+            "Battle of Chaeronea (Philip II x Athens and Thebes), 2 August 338 BC",
+            "Plutarch, 46-120",
+            "Parallel Lives (48 biopics on well-known Greeks and Romans of his day), 98-120",
+            "Moralia (78 essays and transcribed speeches), 100"
+        ],
+        "latitude": 38.495,
+        "longitude": 22.8475
+    },
     "Thermopylae": {
         "country": "Greece",
         "remarkable": ["Battle of Thermopylae, 8 September 480 BC"],
@@ -4688,7 +4703,16 @@
         "country": "Macedon (Greece)",
         "remarkable": [
             "Alexander the Great, 356-323 BC",
-            "Kingship over Macedon, 336 BC"
+            "Kingship over Macedon, 336 BC",
+            "Battle of Thebes, 335 BC",
+            "Battle of Issus (first encounter with Darius), 5 November 333 BC",
+            "Siege of Tyre (built a pier to the island), January 332 BC - July 332 BC",
+            "Egypt (liberator and pharaoh), 332 BC",
+            "Founded the city of Alexandria, 7 April 331 BC",
+            "Battle of Gaugamela (Darius III defeat), 1 October 331 BC",
+            "Conquest of the Achaemenid Persian Empire, 330 BC",
+            "Battle of Hydaspes (last against King Porus in India), May 326 BC",
+            "Died in Babylon, 10 June 323 BC"
         ],
         "latitude": 40.7604079,
         "longitude": 22.5271118
@@ -4825,7 +4849,7 @@
         "longitude": 15.31357
     },
     "Syracuse": {
-        "country": "Italy",
+        "country": "🔬 Italy",
         "remarkable": [
             "Archimedes, 287-212 BC",
             "On the Sphere and Cylinder, 225 BC"
@@ -4935,6 +4959,19 @@
         "latitude": 48.25628,
         "longitude": 13.04343
     },
+    "Leipzig": {
+        "country": "🔬 Holy Roman Empire (Germany)",
+        "remarkable": [
+            "Gottfried Wilhelm Leibniz, 1646-1716",
+            "De Arte Combinatoria, 1666",
+            "Stepped reckoner (calculator with all of the 4 operations), 1673",
+            "Nova Methodus pro Maximis et Minimis (Acta Eruditorum, dx notation), 1684",
+            "De Geometria Recondita et analysi indivisibilium atque infinitorum (Acta Eruditorum, ∫ sign), June 1686",
+            "Imperial Court Councillor to the Habsburgs, 1712"
+        ],
+        "latitude": 51.34,
+        "longitude": 12.375
+    },
     "Copenhagen": {
         "country": "Kingdom of Denmark",
         "remarkable": [
@@ -4955,9 +4992,14 @@
             "Caesar's Civil War, 49-45 BC",
             "Battle of Pharsalus (defeated Pompey), 9 August 48 BC",
             "Pompey assassinated in Pelusium (Egypt), 28 September 48 BC",
-            "Arrived in Alexandria, 2 October 48 BC",
-            "Defeated Ptolemy XII in Egypt, 27 March 47 BC",
+            "Caesar arrived in Alexandria, 2 October 48 BC",
+            "Ptolemy XIII Theos Philopator drowned in the Nile, 13 January 47 BC",
+            "Ptolemy XV Caesarion, 47-30 BC",
             "Ides of March assassination, 15 March 44 BC",
+            "Battle of Actium (Marcus Vipsanius Agrippa), 2 September 31 BC",
+            "Octavian defeated Marcus Antonius and Cleopatra VII",
+            "Octavian captured Alexandria, 1 August 30 BC",
+            "Caesarion executed in Alexandria, 29 August 30 BC",
             "Emperor Vespasian, 69-79",
             "Emperor Titus Caesar Vespasianus, 79-81",
             "Colosseum, 70-80"
@@ -5087,13 +5129,13 @@
         "longitude": 10.4914
     },
     "Vinci": {
-        "country": "Italy",
+        "country": "🔬 Italy",
         "remarkable": ["Leonardo da Vinci, 1452-1519", "Mona Lisa, 1513-1516"],
         "latitude": 43.7873966,
         "longitude": 10.9271055
     },
     "Brunswick": {
-        "country": "Holy Roman Empire (Germany)",
+        "country": "🔬 Holy Roman Empire (Germany)",
         "remarkable": [
             "Carl Friedrich Gauss, 1777-1855",
             "Göttingen Observatory, 1807-1855",
@@ -5106,7 +5148,7 @@
         "longitude": 10.5499978
     },
     "Pisa": {
-        "country": "Duchy of Florence (Italy)",
+        "country": "🔬 Duchy of Florence (Italy)",
         "remarkable": [
             "Tower of Pisa, 1173-1372",
             "Galileo Galilei, 1564-1642",
@@ -5158,7 +5200,7 @@
         "longitude": 10.152923
     },
     "Ulm": {
-        "country": "🏆 German Empire",
+        "country": "🏆 🔬 German Empire",
         "remarkable": [
             "Albert Einstein, 1879-1955",
             "Special relativity, 1905",
@@ -5191,7 +5233,7 @@
         "longitude": 9.716667
     },
     "Milan": {
-        "country": "Duchy of Milan (Italy)",
+        "country": "🔬 Duchy of Milan (Italy)",
         "remarkable": [
             "Sforza Castle (Castello Sforzesco), 1360-1499",
             "Francesco I Sforza (duke), 1401-1466",
@@ -5213,8 +5255,26 @@
         "latitude": 34.337222,
         "longitude": 8.952778
     },
+    "Weil der Stadt": {
+        "country": "🔬 Holy Roman Empire (Germany)",
+        "remarkable": [
+            "Johannes Kepler, 1751-1630",
+            "Protestant school in Graz (Teacher of mathematics and astronomy), 1594-1600",
+            "Mysterium Cosmographicum, 1596",
+            "Imperial mathematician in Prague, 1600-1612",
+            "Tycho Brahe's successor after his death, 24 October 1601",
+            "Astronomiae pars optica, 1604",
+            "De Stella Nova, 1606",
+            "Kepler conjecture, 1611",
+            "Keplerian telescope, 1611",
+            "District Mathematician and teacher in the district school of Lins, 1612-1626",
+            "Harmonices Mundi, 1619"
+        ],
+        "latitude": 48.750833,
+        "longitude": 8.870556
+    },
     "Mühlburg": {
-        "country": "German Confederation (Germany)",
+        "country": "🔬 German Confederation (Germany)",
         "remarkable": [
             "Carl Benz, 1844-1929",
             "First practical modern automobile, 1885"
@@ -5223,7 +5283,7 @@
         "longitude": 8.354665248
     },
     "Free City of Mainz": {
-        "country": "Holy Roman Empire (Germany)",
+        "country": "🔬 Holy Roman Empire (Germany)",
         "remarkable": ["Johannes Gutenberg, 1393-1468", "Printing press, 1440"],
         "latitude": 49.98419,
         "longitude": 8.2791
@@ -5270,7 +5330,7 @@
         "longitude": 5.56749
     },
     "Dole": {
-        "country": "Jura (France)",
+        "country": "🔬 Jura (France)",
         "remarkable": [
             "Louis Pasteur, 1822-1895",
             "École Normale Supérieure, 1843-1845",
