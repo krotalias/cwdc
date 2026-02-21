@@ -2589,7 +2589,7 @@
         "longitude": -87.6169805
     },
     "Lemont": {
-        "country": "⚔ 🧪 🔬 Illinois (United States)",
+        "country": "⚔ 🧪 Illinois (United States)",
         "remarkable": [
             "Argonne National Laboratory, 8 February 1946",
             "Enrico Fermi's nuclear reactors for the Manhattan Project",
@@ -5287,6 +5287,33 @@
         "remarkable": ["Johannes Gutenberg, 1393-1468", "Printing press, 1440"],
         "latitude": 49.98419,
         "longitude": 8.2791
+    },
+    "Basel": {
+        "country": "🔬 Swiss Confederacy",
+        "remarkable": [
+            "Leonhard Paul Euler, 1707-1783",
+            "University of Basel, 1720",
+            "Master of Philosophy, 1723",
+            "Imperial Russian Academy of Sciences (physiology), November 1726",
+            "Letter 'e' for the base of the natural logarithm, 1727",
+            "Lt. medical in the Russian navy, 1727-1730",
+            "Introduced the concept of a function, f(x), 1734",
+            "Basel problem:  ζ(2) = ∑ 1/n² = 1/6 π², 1735",
+            "Solution to the problem of the Seven Bridges of Königsberg, 1735",
+            "Mechanica, 1736",
+            "ζ(s) = ∑ 1/n<sup>s</sup> = ∏ 1/(1-p<sup>-s</sup>), n natural, p prime, 1737",
+            "Grand Prize of the Paris Academy, 1738-1740",
+            "Berlin Academy, 1741-1766",
+            "Introductio in Analysin Infinitorum (published in two parts), 1748",
+            "Eule characteristic (V-E+F=2), 1750-1752",
+            "Greek Σ for summations, 1755",
+            "Du mouvement d'un corps solides quelconque lorsqu'il tourne autour d'un axe mobile, 1760",
+            "Institutiones calculi integralis, 1768-1770",
+            "Letter 'i' to √-1, 1777",
+            "Death from stroke, 18 September 1783"
+        ],
+        "latitude": 47.5582,
+        "longitude": 7.5879
     },
     "Bonn": {
         "country": "Germania Inferior (Germany)",

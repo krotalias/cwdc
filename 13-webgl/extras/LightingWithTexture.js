@@ -2950,7 +2950,8 @@ function zoomOut() {
 /**
  * Creates a ray through the pixel at (x, y)
  * on the canvas, unprojects it, and returns its intersection
- * against the sphere of radius 1 centered at the origin (0, 0, 0).
+ * against a {@link https://mathworld.wolfram.com/QuadraticSurface.html quadric surface}:
+ * {@link lineConeIntersection cone}, {@link lineCylinderIntersection cylinder} or {@link lineSphereIntersection sphere}.
  * @param {Number} x pixel x coordinate.
  * @param {Number} y pixel y coordinate.
  * @returns {vec3|null} intersection point in world coordinates or null if no intersection.
@@ -4578,10 +4579,13 @@ function isPowerOf2(value) {
  *      <a href="../images/Seattle-London.png"><img src="../images/Seattle-London.png" height="256"></a>
  *      <a href="../images/Seattle-London-map.png"><img src="../images/Seattle-London-map.png" height="256"></a>
  *      <a href="../images/cylinder.png"><img src="../images/cylinder.png" height="256"></a>
+ *      <a href="../images/cone-loxodrome.png"><img src="../images/cone-loxodrome.png" height="256"></a>
  *      <figcaption style="font-size: 200%">Seattle - London (7707 km, 87.21°)</figcaption>
  *      </figure>
  * @see <figure>
- *      <a href="../images/antimeridian_crossing-fixed.png"><img src="../images/antimeridian_crossing-fixed.png" height="256"></a>
+ *      <a href="../images/San Francisco-Doolittle Raid, 7333 km, bearing 268.10° (orthodrome in cyan, loxodrome in magenta).png">
+ *      <img src="../images/San Francisco-Doolittle Raid, 7333 km, bearing 268.10° (orthodrome in cyan, loxodrome in magenta).png" height="256"></a>
+ *      <a href="../images/Doolittle.png"><img src="../images/Doolittle.png" height="256"></a>
  *      <a href="../images/antimeridian_crossing-map.png"><img src="../images/antimeridian_crossing-map.png" height="256"></a>
  *      <figcaption style="font-size: 200%">Antimeridian crossing fixed <br> San Francisco - Doolittle Raid (7333 km, 268.10°)</figcaption>
  *      </figure>
@@ -4676,6 +4680,11 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  *      <a href="../images/Quito-Jerusalem.png"><img src="../images/Quito-Jerusalem.png" height="256"></a>
  *      <a href="../images/Quito-Jerusalem-map.png"><img src="../images/Quito-Jerusalem-map.png" height="256"></a>
  *      <figcaption style="font-size: 200%">Great Circle (cyan) - Rhumb Line (red)<br> Quito - Jerusalem (12247 km, 73.47°)</figcaption>
+ *      </figure>
+ * @see <figure>
+ *      <a href="../images/NullIsland-VoidIsland, 20015 km, bearing 90°.png"><img src="../images/NullIsland-VoidIsland, 20015 km, bearing 90°.png" height="256"></a>
+ *      <a href="../images/NullIsland-VoidIsland-map.png"><img src="../images/NullIsland-VoidIsland-map.png" height="256"></a>
+ *      <figcaption style="font-size: 200%">Great Circle (cyan) - Rhumb Line (magenta)<br> Null Island - Void Island (20015 km, 90°)</figcaption>
  *      </figure>
  */
 function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
