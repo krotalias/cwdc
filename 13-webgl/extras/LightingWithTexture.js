@@ -1810,6 +1810,7 @@ const handleKeyPress = ((event) => {
       case "m":
       case "M":
         inc = ch == "m" ? 1 : -1;
+        globeRadius = 1;
         numSubdivisions = mod(numSubdivisions + inc, maxSubdivisions + 1);
         gscale = mscale = 1;
         if (numSubdivisions == 0) {
@@ -1824,6 +1825,8 @@ const handleKeyPress = ((event) => {
           (${theModel.name}
           level ${theModel.level(tri)} →
           ${tri} triangles):`;
+        setPosition(currentLocation);
+        displayLocations();
         break;
       case " ":
         selector.paused = !selector.paused;
@@ -4662,10 +4665,14 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * However, differently from a rhumb line, it is a curve when projected either
  * onto an Equirectangular or Mercator map.
  * <ul>
- * <li>P(t) = C + R cos(t) u + R sin(t) v, t ∈ [0,θ]</li>
+ *  <li>P(t) = C + R cos(t) u + R sin(t) v, t ∈ [0,θ]</li>
+ *  <li>R = {@link globeRadius}</li>
+ *  <li>C = (0, 0, 0)</li>
  * </ul>
  * where u and v are orthonormal vectors on the plane defined by the two points
- * and the center of the sphere: R = 1 and C = (0, 0, 0).
+ * and the center of the sphere.
+ * If the two points are antipodal, then there are an infinite
+ * number of great circles that pass through them.
  * @param {gpsCoordinates} loc1 first location with latitude and longitude.
  * @param {gpsCoordinates} loc2 second location with latitude and longitude.
  * @param {Number} [ns={@link nsegments}] number of points.
@@ -4676,6 +4683,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * @see {@link https://mathworld.wolfram.com/GreatCircle.html Great Circle}
  * @see {@link https://www.transnav.eu/files/A_Novel_Approach_to_Loxodrome_(Rhumb_Line)_Orthodrome_(Great_Circle)_and_Geodesic_Line_in_ECDIS_and_Navigation_in_General,322.pdf A Novel Approach to Loxodrome (Rhumb Line), Orthodrome (Great Circle) and Geodesic Line in ECDIS and Navigation in General}
  * @see {@link https://www.whitman.edu/Documents/Academics/Mathematics/2016/Vezie.pdf A Comparative Analysis of Rhumb Lines and Great Circles}
+ * @see {@link https://paulbourke.net/geometry/circlesphere/ Circles and spheres}
  * @see <figure>
  *      <a href="../images/Quito-Jerusalem.png"><img src="../images/Quito-Jerusalem.png" height="256"></a>
  *      <a href="../images/Quito-Jerusalem-map.png"><img src="../images/Quito-Jerusalem-map.png" height="256"></a>
