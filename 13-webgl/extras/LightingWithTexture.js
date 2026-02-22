@@ -500,6 +500,13 @@ const sphereRadius = 0.98;
 let globeRadius = sphereRadius;
 
 /**
+ * Scaling factor applied to a radius so a line or a
+ * point is rendered on top of its textured surface.
+ * @type {Number}
+ */
+const dr = 1.01;
+
+/**
  * Audio object for playing song from a given url link.
  * @type {Audio}
  */
@@ -4633,7 +4640,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
       } else {
         // no loxodrome for equirectangular projection
         const { r, height } = getCylinderParameters(mercator);
-        p = cylindrical2Cartesian(r * 1.01, ...q);
+        p = cylindrical2Cartesian(r * dr, ...q);
       }
     } else if (isCone()) {
       if (mercator) {
@@ -4642,15 +4649,16 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
         );
       } else {
         // no loxodrome for equirectangular projection
-        p = conical2Cartesian(globeRadius * 1.01, 2, ...q);
+        const [r, h] = UV2Conical({ s: 0, t: 0 }, mercator);
+        p = conical2Cartesian(r * dr, h, ...q);
       }
     } else {
       p = mercator
         ? spherical2Cartesian(
             ...UV2Spherical(mercator2Spherical(...q)),
-            globeRadius * 1.01,
+            globeRadius * dr,
           )
-        : spherical2Cartesian(...q, globeRadius * 1.01);
+        : spherical2Cartesian(...q, globeRadius * dr);
     }
     arr.set(p, j);
   }
@@ -4732,7 +4740,7 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
     mrr.push(spherical2Mercator(uv.s, uv.t));
 
     // scale point p
-    vec3.scale(p, p, globeRadius * 1.01);
+    vec3.scale(p, p, globeRadius * dr);
 
     arr.set(p, j);
   }
@@ -4754,7 +4762,7 @@ function pointsOnCylParallel(latitude = 0, n = nsegments) {
   const [r, phi, y] = UV2Cylindrical(uv, mercator);
 
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    const p = cylindrical2Cartesian(r * 1.01, i * ds, y);
+    const p = cylindrical2Cartesian(r * dr, i * ds, y);
     arr.set(p, j);
   }
   return arr;
@@ -4775,7 +4783,7 @@ function pointsOnConeParallel(latitude = 0, n = nsegments) {
   const [r, height, phi, y] = UV2Conical(uv, mercator);
 
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    const p = conical2Cartesian(r * 1.01, height, i * ds, y);
+    const p = conical2Cartesian(r * dr, height, i * ds, y);
     arr.set(p, j);
   }
   return arr;
@@ -4795,7 +4803,7 @@ function pointsOnCylMeridian(longitude = 0) {
   for (const lat of [90, -90]) {
     const uv = gcs2UV({ latitude: lat, longitude });
     const [r, phi, y] = UV2Cylindrical(uv, mercator);
-    const p = cylindrical2Cartesian(r * 1.01, phi, y);
+    const p = cylindrical2Cartesian(r * dr, phi, y);
     arr.set(p, j);
     j += 3;
   }
@@ -4817,7 +4825,7 @@ function pointsOnConeMeridian(longitude = 0) {
   for (const lat of [90, -90]) {
     const uv = gcs2UV({ latitude: lat, longitude });
     const [r, height, phi, y] = UV2Conical(uv, mercator);
-    const p = conical2Cartesian(r * 1.01, height, phi, y);
+    const p = conical2Cartesian(r * dr, height, phi, y);
     arr.set(p, j);
     j += 3;
   }
@@ -5107,35 +5115,7 @@ function pointsOnLocations() {
     location = cities.current[cl];
   } while (location !== initialLocation);
 
-  const n = cities.country.length;
-  const arr = new Float32Array(3 * n);
-  const crr = new Float32Array(3 * n);
-
-  let p;
-  for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    const gcs = gpsCoordinates[cities.country[i]];
-    const uv = gcs2UV(gcs);
-    if (isCylinder()) {
-      p = cylindrical2Cartesian(...UV2Cylindrical(uv, mercator));
-    } else if (isCone()) {
-      p = conical2Cartesian(...UV2Conical(uv, mercator));
-    } else {
-      p = spherical2Cartesian(...UV2Spherical(uv), globeRadius);
-    }
-
-    arr.set(p, j);
-
-    if (cities.country[i] === "Unknown") {
-      crr.set(colorTable.unknown, j);
-    } else if (["Null Island", "Void Island"].includes(cities.country[i])) {
-      crr.set(colorTable.null, j);
-    } else {
-      // red for AD (1,0,0) and yellow for BC (1,1,0)
-      const BC = gcs.remarkable.at(-1).includes("BC");
-      crr.set(BC ? colorTable.poiBC : colorTable.poiAD, j);
-    }
-  }
-  return [arr, crr];
+  return pointsOnAllLocations(cities.country);
 }
 
 /**
@@ -5155,29 +5135,35 @@ function displayLocations() {
 }
 
 /**
- * Return an array with all points on {@link gpsCoordinates}.
- * @return {Array<Float32Array>} locations points.
+ * Return an array with points on all {@link gpsCoordinates} of the given locations.
+ * @param {Array<String>} [loc={@link cities.current}] locations array.
+ * @return {Array<Float32Array>} locations points and colors.
  * @property {Float32Array} 0 locations coordinate array.
  * @property {Float32Array} 1 locations color array.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.prototype.set()}
  */
-function pointsOnAllLocations() {
-  const n = cities.current.length;
+function pointsOnAllLocations(loc = cities.current) {
+  const n = loc.length;
   const arr = new Float32Array(3 * n);
   const crr = new Float32Array(3 * n);
-  cities.country = cities.current;
 
+  let p;
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
-    const gcs = gpsCoordinates[cities.current[i]];
+    const gcs = gpsCoordinates[loc[i]];
     const uv = gcs2UV(gcs);
-    const [theta, phi] = UV2Spherical(uv);
-    const p = spherical2Cartesian(theta, phi, globeRadius);
+    if (isCylinder()) {
+      p = cylindrical2Cartesian(...UV2Cylindrical(uv, mercator));
+    } else if (isCone()) {
+      p = conical2Cartesian(...UV2Conical(uv, mercator));
+    } else {
+      p = spherical2Cartesian(...UV2Spherical(uv), globeRadius);
+    }
 
     arr.set(p, j);
 
-    if (cities.country[i] === "Unknown") {
+    if (loc[i] === "Unknown") {
       crr.set(colorTable.unknown, j);
-    } else if (["Null Island", "Void Island"].includes(cities.country[i])) {
+    } else if (["Null Island", "Void Island"].includes(loc[i])) {
       crr.set(colorTable.null, j);
     } else {
       // red for AD (1,0,0) and yellow for BC (1,1,0)
