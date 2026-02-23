@@ -257,9 +257,31 @@
         "latitude": -15.933333,
         "longitude": -5.716667
     },
+    "Belfast": {
+        "country": "Northern Ireland (United Kingdom)",
+        "remarkable": [
+            "Largest producer of linen in the world, 1852-1914",
+            "Harland & Wolff shipbuilding, 1861",
+            "Titanic was built in Belfast (largest shipyard in the world), 1912",
+            "Irish Republican Army (Old IRA) campaign (war of independence), 1919-1921",
+            "Government of Ireland Act, 23 December 1920.",
+            "Partition date, 3 May 1921",
+            "Irish Republican Army (IRA), 1922-1969",
+            "Official Irish Republican Army (OIRA), 1969-1972",
+            "Battle of the Bogside (Derry), 12 August 1969 - 14 August 1969",
+            "Bogside Massacre (Bloody Sunday), 30 January 1972",
+            "Provisional IRA (PIRA), all units ordered to dump arms, 28 July 2005"
+        ],
+        "latitude": 54.596,
+        "longitude": -5.93
+    },
     "Dublin": {
         "country": "Ireland",
-        "remarkable": ["Olaf the White, 806-874", "King of Dublin, 853"],
+        "remarkable": [
+            "Olaf the White, 806-874",
+            "King of Dublin, 853",
+            "U2 (Bono, The Edge, Adam Clayton, Larry Mullen), 1976-present"
+        ],
         "latitude": 53.33306,
         "longitude": -6.24889
     },
@@ -4811,7 +4833,11 @@
     },
     "Stockholm": {
         "country": "🏆 Sweden",
-        "remarkable": ["Alfred Nobel, 1833-1896", "Dynamite, 1867"],
+        "remarkable": [
+            "Sweden maintained neutrality in WW II",
+            "Alfred Nobel, 1833-1896",
+            "Dynamite, 1867"
+        ],
         "latitude": 59.33258,
         "longitude": 18.0649
     },
@@ -4876,6 +4902,20 @@
         ],
         "latitude": 44.11972,
         "longitude": 15.24222
+    },
+    "Longyearbyen": {
+        "country": "Svalbard (Norway)",
+        "remarkable": [
+            "World's northernmost settlement with a population ≥ 1K",
+            "John Munro Longyear, 1850-1922",
+            "Arctic Coal Company, 1906-1916",
+            "Longyear City, 1907-1926",
+            "Svalbard Treaty (full Norwegian sovereignty), 9 February 1920",
+            "Almost destroyed by the Kriegsmarine, 8 September 1943",
+            "Founded, 1907"
+        ],
+        "latitude": 78.216667,
+        "longitude": 15.633333
     },
     "Odzala-Kokoua": {
         "country": "Republic of The Congo",
@@ -5164,10 +5204,14 @@
         "longitude": 10.401688
     },
     "Jevnaker": {
-        "country": "(Ringerike) Norway",
+        "country": "⚔ (Ringerike) Norway",
         "remarkable": [
-            "Harald Hardrada, 1015-1066",
-            "King of Norway, 1046-1066"
+            "Harald Hardrada (the last real Viking), 1015-1066",
+            "King of Norway, 1046-1066",
+            "Invaded northern England, September 1066",
+            "Battle of Stamford Bridge (defeated and killed), 25 September 1066",
+            "German occupation (Operation Weserübung), 9 April 1940 - 8 May 1945",
+            "King Haakon VII evacuated to a government-in-exile in London, 7 June 1940"
         ],
         "latitude": 60.23979,
         "longitude": 10.38709
