@@ -5458,6 +5458,25 @@
         "latitude": 50.846667,
         "longitude": 4.3525
     },
+    "Rupelmonde": {
+        "country": "🔬 Flanders (Belgium)",
+        "remarkable": [
+            "Gerardus Mercator, 1512-1594",
+            "University of Leuven (Master degree), 29 August 1530 - 1532",
+            "Orbis Imago (first map of the world, which gave North America its name), 1538",
+            "Charged with heresy and arrested (Lutheran heretics), February 1544 - September 1544",
+            "Celestial globe, 1551",
+            "Moved from Leuven to Duisburg (Germany), 1552-1594",
+            "Wall map of Europe, October 1554",
+            "Nova et Aucta Orbis Terrae Descriptio ad Usum Navigantium Emendate Accommodata, 1569",
+            "The scale of this chart increased with latitude in a very special way",
+            "Constant bearing sailing courses on the sphere are mapped to straight lines on the map",
+            "Atlas Sive Cosmographicae Meditationes de Fabrica Mundi et Fabricati Figura",
+            "Published posthumously by Rumold Mercator, 1595"
+        ],
+        "latitude": 51.126111,
+        "longitude": 4.290833
+    },
     "Dunkirk": {
         "country": "⚔ France",
         "remarkable": ["Dunkirk evacuation, 1 June 1940 - 4 June 1940"],
