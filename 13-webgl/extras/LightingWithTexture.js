@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 400 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 405 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -168,7 +168,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 400 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 405 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -200,7 +200,8 @@
  * to gain a more comprehensive understanding of their rich narratives.</p>
  *
  * <p>It is possible to cycle through the historical figures by country when
- * choosing a {@link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 two letter} ISO country code in the interface.
+ * choosing a {@link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 two letter}
+ * ISO <a href="../images/world-map-codes.png">country code</a> in the interface.
  * For example, selecting "BR" will display all the figures from
  * <a href="https://www.instagram.com/reel/DRZoIE-D2ke/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">Brazil</a>,
  * while "US" will show those from the
@@ -349,6 +350,7 @@
  * @see {@link https://github.com/wbkd/leaflet-truesize leaflet-truesize plugin}
  * @see {@link https://en.wikipedia.org/wiki/Sextant Navigational Sextant}
  * @see {@link https://www.youtube.com/c/CasualNavigationAcademy CasualNavigationAcademy}
+ * @see {@link https://www.youtube.com/watch?v=kkAhhgboukc Why Ships and Planes Use ‘Knots’ Instead of Miles per Hour}
  * @see <iframe title="Mercator World Map" style="width: 970px; height: 600px; transform-origin: 70px 80px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture2.html"></iframe>
  * @see <iframe title="Equirectangular World Map" style="position: relative; top: -280px; margin-bottom: -600px; width: 970px; height: 600px; transform-origin: 70px 0px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture.html"></iframe>
  * @see <figure>
@@ -1577,8 +1579,9 @@ function closestSite(position) {
  * This function uses the {@link project WebGL projection}
  * to convert the geographic coordinates to screen coordinates (pixels).
  * <ul>
- * <li>The projection can be either spherical or Mercator.</li>
- * <li>The spherical projection is used for a globe, while the Mercator projection is used for a map.</li>
+ * <li>The projection can be either cylindrical, conical, spherical or Mercator.</li>
+ * <li>The spherical projection is used for a globe,
+ * while the Mercator projection is used for a map.</li>
  * </ul>
  * @param {GCS} location gcs coordinates.
  * @param {Boolean} [mercatorProjection=false] whether to use Mercator projection.
@@ -1593,7 +1596,14 @@ function gcs2Screen(location, mercatorProjection = false) {
   // and then to screen coordinates.
   // The UV coordinates are in the range [0, 1].
   const uv = gcs2UV(location);
-  const pt = spherical2Cartesian(...UV2Spherical(uv), globeRadius);
+  let pt;
+  if (isCylinder()) {
+    pt = cylindrical2Cartesian(...UV2Cylindrical(uv, mercator));
+  } else if (isCone()) {
+    pt = conical2Cartesian(...UV2Conical(uv, mercator));
+  } else {
+    pt = spherical2Cartesian(...UV2Spherical(uv), globeRadius);
+  }
   if (mercatorProjection) {
     // mercator projection
     uv.t = spherical2Mercator(uv.s, uv.t).y;
