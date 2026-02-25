@@ -59,6 +59,19 @@
  * are the same, meaning that distances along a parallel or meridian (in fact, in all directions) are equally stretched
  * by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.</p>
  *
+ * <a href="https://spivey.oriel.ox.ac.uk/corner/Thomas_Harriot_and_the_Mercator_Map"><img src="../images/Harriot2_sec.png" height="196"></a>
+ * <ul>
+ *  <li> λ = latitude  </li>
+ *  <li> θ = longitude </li>
+ *  <li> δθ = δx </li>
+ *  <li>R cos(λ) / R = δx / d  ⇒ d = δx / cos(λ) = δx sec(λ) </li>
+ *  -------- {@link module:polyhedron.spherical2Mercator on the planar map} --------
+ *  <li>x = θ, -π ≤ θ ≤ π </li>
+ *  <li><span style="display: flex;">y = ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
+ *      <sup>φ</sup> <sub>0</sub></span>sec(λ) dλ = ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2</span></li>
+ *  <li>For a square Mercator map, -π ≤ y ≤ π ⇒ φ ∈ [-85.051129°, 85.051129°]</li>
+ * </ul>
+ *
  * <p>The {@link https://en.wikipedia.org/wiki/Web_Mercator_projection Web Mercator}
  * projection, on the other hand, is a variant of the Mercator projection, which is {@link https://en.wikipedia.org/wiki/Google_Maps widely}
  * used in {@link https://en.wikipedia.org/wiki/Web_mapping web mapping} applications.
@@ -350,7 +363,7 @@
  * @see {@link https://github.com/wbkd/leaflet-truesize leaflet-truesize plugin}
  * @see {@link https://en.wikipedia.org/wiki/Sextant Navigational Sextant}
  * @see {@link https://www.youtube.com/c/CasualNavigationAcademy CasualNavigationAcademy}
- * @see {@link https://www.youtube.com/watch?v=kkAhhgboukc Why Ships and Planes Use ‘Knots’ Instead of Miles per Hour}
+ * @see {@link https://www.youtube.com/watch?v=kkAhhgboukc Why Ships and Planes Use 'Knots' Instead of Miles per Hour}
  * @see <iframe title="Mercator World Map" style="width: 970px; height: 600px; transform-origin: 70px 80px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture2.html"></iframe>
  * @see <iframe title="Equirectangular World Map" style="position: relative; top: -280px; margin-bottom: -600px; width: 970px; height: 600px; transform-origin: 70px 0px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture.html"></iframe>
  * @see <figure>
