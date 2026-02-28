@@ -59,7 +59,12 @@
  * are the same, meaning that distances along a parallel or meridian (in fact, in all directions) are equally stretched
  * by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.</p>
  *
+ * <figure>
  * <a href="https://spivey.oriel.ox.ac.uk/corner/Thomas_Harriot_and_the_Mercator_Map"><img src="../images/Harriot2_sec.png" height="196"></a>
+ * <a href="../images/globe_lat_long.png"><img src="../images/globe_lat_long.png" height="196"></a>
+ * <a href="../images/Meridional Parts.png"><img src="../images/Meridional Parts.png" height="196"></a>
+ *  <figcaption style="font-size: 200%; text-align: center;">{@link https://navlist.net/imgx/Meridional-Parts-Table.pdf Meridional Parts}</figcaption>
+ * </figure>
  * <ul>
  *  <li> λ = latitude  </li>
  *  <li> θ = longitude </li>
@@ -364,6 +369,7 @@
  * @see {@link https://en.wikipedia.org/wiki/Sextant Navigational Sextant}
  * @see {@link https://www.youtube.com/c/CasualNavigationAcademy CasualNavigationAcademy}
  * @see {@link https://www.youtube.com/watch?v=kkAhhgboukc Why Ships and Planes Use 'Knots' Instead of Miles per Hour}
+ * @see {@link https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/bowditch_Vol_2_2019.pdf American Practical Navigator}
  * @see <iframe title="Mercator World Map" style="width: 970px; height: 600px; transform-origin: 70px 80px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture2.html"></iframe>
  * @see <iframe title="Equirectangular World Map" style="position: relative; top: -280px; margin-bottom: -600px; width: 970px; height: 600px; transform-origin: 70px 0px; transform: scale(0.45);" src="/cwdc/13-webgl/extras/LightingWithTexture.html"></iframe>
  * @see <figure>
@@ -1533,25 +1539,51 @@ const cleanLocation = (location) =>
   location.replace(/\(.*?\)/g, "").replace("_", " ");
 
 /**
- * Updates the label (latitude, longitude and secant)
- * of the given {@link gpsCoordinates location}.
+ * <p>Convert from decimal degrees to degrees, minutes and seconds.</p>
+ * @param {Number} dd decimal degrees.
+ * @param {Boolean} [isLongitude=false] whether the decimal degree represents longitude (true) or latitude (false).
+ * @returns {String} DMS string in the format "D° M' S''".
+ * @see {@link https://www.fcc.gov/media/radio/dms-decimal Decimal degrees to DMS converter}
+ */
+function dd2dms(dd, isLongitude = false) {
+  const deg = Math.trunc(Math.abs(dd));
+  const minutesDecimal = (Math.abs(dd) % 1) * 60;
+  const min = Math.trunc(minutesDecimal);
+  const sec = (Math.abs(minutesDecimal) % 1) * 60;
+
+  // Determine the cardinal direction
+  let direction;
+  if (isLongitude) {
+    direction = dd < 0 ? "W" : "E";
+  } else {
+    direction = dd < 0 ? "S" : "N";
+  }
+  return `${deg}° ${min}' ${sec.toFixed(2)}" ${direction}`;
+}
+
+/**
+ * Updates the label (latitude, longitude, secant and meridional parts)
+ * to the information of the given {@link gpsCoordinates location}.
  * @param {String} location name of the location.
  */
 function labelForLocation(location) {
-  const lat = gpsCoordinates[location].latitude;
-  const lon = gpsCoordinates[location].longitude;
+  const gps = gpsCoordinates[location];
+  const rio = gpsCoordinates["Rio"];
+  const lat = gps.latitude;
+  const lon = gps.longitude;
+  const uv = gcs2UV(gps);
+  const merc = spherical2Mercator(uv.s, uv.t);
+  const mp = (merc.y * 2 - 1) * 10800;
   const sec = 1 / Math.cos(toRadian(lat));
-  const distance = haversine(
-    gpsCoordinates[location],
-    gpsCoordinates["Rio"],
-  ).km;
-  const distance2 = haversine(gpsCoordinates[location], previousLocation).km;
+  const distance = haversine(gps, rio).km;
+  const distance2 = haversine(gps, previousLocation).km;
+
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)}°,
-    lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(
-      2,
-    )}<br>Distance to Rio: ${distance.toFixed(0)} km
-      <br>${cities.previous} to ${location}: ${distance2.toFixed(0)} km`;
+    lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(2)}
+    <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp: ${mp.toFixed(2)}
+    <br>Distance to Rio: ${distance.toFixed(0)} km
+    <br>${cities.previous} to ${location}: ${distance2.toFixed(0)} km`;
 }
 
 /**
