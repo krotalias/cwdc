@@ -1720,7 +1720,6 @@ function getCylinderParameters(mercator) {
  */
 const handleKeyPress = ((event) => {
   const kbd = document.getElementById("kbd");
-  const opt = document.getElementById("options");
   const pause = document.getElementById("pause");
   let zoomfactor = 0.7;
   let gscale = 1;
@@ -2251,12 +2250,87 @@ const handleKeyPress = ((event) => {
       default:
         return;
     }
-    opt.innerHTML = `${gl.getParameter(
-      gl.SHADING_LANGUAGE_VERSION,
-    )}<br>${gl.getParameter(gl.VERSION)}`;
+
     if (selector.paused) draw();
   };
 })();
+
+/**
+ * <p>Display GLSL and OpenGL versions,
+ * device pixel ratio, ppi and {@link textimg} length (cm)
+ * in the "options" element.</p>
+ * The standard css pixel length is 1/96 of an inch.
+ * <ol start="0">
+ *  <li> 96     - standard CSS pixel density (1024X768) 13.3" (CRT)</li>
+ *  <li> 96.42  - Sansung Syncmaster (1280X1024) 17" (HD)</li>
+ *  <li> 117.5  - Dell U2515H, (2560x1440) 25" (QHD/2K)</li>
+ *  <li> 128    - MacBook air 2017, (1400x900) 13.3"</li>
+ *  <li> 141.21 - Inspiron 15 5848, (1920x1080) 15.6" (Full HD)</li>
+ *  <li> 163.18 - Dell Plus (3840x2160) 27" (4K UHD)</li>
+ *  <li> 460    - iPhone 13, (1170x2532) 6.1" (retina)</li>
+ * </ol>
+ * @param {Number} index pixel density index.
+ * @see {@link https://www.calculatorsoup.com/calculators/technology/ppi-calculator.php ppi calculator}
+ * @see {@link https://pcmonitors.info/dell/dell-u2515h-with-25-inch-2560-x-1440-panel/ Dell U2515H pixel density}
+ * @see {@link https://blisk.io/devices/details/macbook-air MacBook Air 2017 pixel density}
+ * @see <a href="https://dl.dell.com/manuals/all-products/esuprt_laptop/esuprt_inspiron_laptop/inspiron-15-5548-laptop_reference guide_en-us.pdf">Inspiron 5848 pixel density</a>
+ */
+function displayVersions(index = 0) {
+  const opt = document.getElementById("options");
+  const dpr = getDevicePixelRatio();
+  const ppi = [96, 96.42, 117.5, 128, 141.21, 460];
+  const length = ((textimg.width * dpr) / ppi[index]) * 2.54;
+  opt.innerHTML = `${gl.getParameter(
+    gl.SHADING_LANGUAGE_VERSION,
+  )}<br>${gl.getParameter(gl.VERSION)}
+    <br>DPR: ${dpr.toFixed(2)}
+    (${length.toFixed(2)} cm, ${ppi[index]} ppi)`;
+}
+
+/**
+ * <p>Returns the monitor pixel density given its screen resolution and diagonal length.</p>
+ * @param {Number} widthPixels horizontal resolution.
+ * @param {Number} heightPixels vertical resolution.
+ * @param {Number} diagonalInches diagonal length of the screen.
+ * @returns {Number} pixels per inch.
+ */
+function calculatePPI(widthPixels, heightPixels, diagonalInches) {
+  // Calculate the diagonal resolution in pixels using the Pythagorean theorem
+  const diagonalPixels = Math.sqrt(
+    Math.pow(widthPixels, 2) + Math.pow(heightPixels, 2),
+  );
+
+  // Calculate PPI by dividing diagonal pixels by diagonal inches
+  const ppi = diagonalPixels / diagonalInches;
+
+  return ppi;
+}
+
+/**
+ * Returns the ratio of the resolution in physical pixels to
+ * the resolution in CSS pixels for the current display device.
+ * @returns {Number} device pixel ratio.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio Window: devicePixelRatio property}
+ */
+function getDevicePixelRatio() {
+  let ratio = 1;
+  const ua = navigator.userAgent.toLowerCase();
+  // To account for zoom, change to use deviceXDPI instead of systemXDPI
+  if (
+    window.screen.systemXDPI !== undefined &&
+    window.screen.logicalXDPI !== undefined &&
+    window.screen.systemXDPI > window.screen.logicalXDPI
+  ) {
+    // Only allow for values > 1
+    ratio = window.screen.systemXDPI / window.screen.logicalXDPI; // IE, ios
+  } // ~-1 = 0 same as != -1
+  else if (~ua.indexOf("safari")) {
+    ratio = window.outerWidth / window.innerWidth; // safari
+  } else if (window.devicePixelRatio !== undefined) {
+    ratio = window.devicePixelRatio; // firefox, chrome
+  }
+  return ratio;
+}
 
 /**
  * Play a song from the given url link.
@@ -5008,6 +5082,17 @@ function startForReal(image) {
     handleKeyPress(event);
   });
 
+  /**
+   * <p>The resize event fires when the document view (window) has been resized.</p>
+   * The {@link displayVersions callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+   */
+  window.addEventListener("resize", (event) => {
+    displayVersions(2);
+  });
+
   gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
   if (!gl) {
     console.log("Failed to get the rendering context for WebGL2");
@@ -5149,6 +5234,7 @@ function startForReal(image) {
 
   setRangeTicks(cities.timeline);
   handleKeyPress(createEvent("X"));
+  displayVersions(2);
 
   // start drawing!
   animate();
