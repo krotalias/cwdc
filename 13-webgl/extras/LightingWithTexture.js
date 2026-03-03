@@ -569,6 +569,22 @@ const toRadian = glMatrix.toRadian;
 const toDegrees = (a) => (a * 180) / Math.PI;
 
 /**
+ * Convert kilometers to miles.
+ * @param {Number} a distance in kilometers.
+ * @return {Number} distance in miles.
+ * @function
+ */
+const toMiles = (a) => a * 0.621371;
+
+/**
+ * Convert kilometers to nautical miles.
+ * @param {Number} a distance in kilometers.
+ * @return {Number} distance in nautical miles.
+ * @function
+ */
+const toNauticalMiles = (a) => a * 0.539957;
+
+/**
  * Check if the current model is a cylinder.
  * @return {Boolean} true if the current model is a cylinder, false otherwise.
  */
@@ -1578,6 +1594,12 @@ function labelForLocation(location) {
   const sec = 1 / Math.cos(toRadian(lat));
   const distance = haversine(gps, rio).km;
   const distance2 = haversine(gps, previousLocation).km;
+  const loxDistance = calculateLoxodromeDistance(
+    lat,
+    lon,
+    previousLocation.latitude,
+    previousLocation.longitude,
+  );
 
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)}°,
@@ -1585,8 +1607,9 @@ function labelForLocation(location) {
     <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp: ${mp.toFixed(
       2,
     )}
-    <br>Distance to Rio: ${distance.toFixed(0)} km
-    <br>${cities.previous} to ${location}: ${distance2.toFixed(0)} km`;
+    <br>Distance to Rio: ${distance.toFixed(0)} km (${toMiles(distance).toFixed(0)} mi)
+    <br>${cities.previous} to ${location}: ${distance2.toFixed(0)} km (${toMiles(distance2).toFixed(0)} mi)
+    <br>${cities.previous} to ${location} along loxodrome: ${loxDistance.toFixed(0)} km (${toMiles(loxDistance).toFixed(0)} mi)`;
 }
 
 /**
@@ -2549,6 +2572,36 @@ function rhumbLine(ctx, loc1, loc2) {
   ctx.closePath();
 
   return bearingAngle;
+}
+
+/**
+ * Calculates loxodromic distance (rhumb line) between two points.
+ * @param {number} lat1 - latitude of first point in degrees.
+ * @param {number} lon1 - longitude of first point in degrees.
+ * @param {number} lat2 - latitude of second point in degrees.
+ * @param {number} lon2 - longitude of second point in degrees.
+ * @returns {number} distance in kilometers.
+ */
+function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Earth's mean radius in km
+  const dLat = toRadian(lat2 - lat1);
+  const dLon = toRadian(lon2 - lon1);
+
+  const mp1 = toMercator(toRadian(lat1));
+  const mp2 = toMercator(toRadian(lat2));
+
+  const dmp = mp2 - mp1;
+
+  // q is dLat/dmp, or cos(lat) for E-W line
+  const q = Math.abs(dmp) > 10e-12 ? dLat / dmp : Math.cos(toRadian(lat1));
+
+  // check for anti-meridian crossing
+  const dLonAbs =
+    Math.abs(dLon) > Math.PI ? 2 * Math.PI - Math.abs(dLon) : Math.abs(dLon);
+
+  const distance = Math.sqrt(dLat * dLat + q * q * dLonAbs * dLonAbs) * R;
+
+  return distance;
 }
 
 /**
