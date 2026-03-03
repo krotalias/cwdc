@@ -3868,9 +3868,11 @@
         "country": "Iran, Oman, United Arab Emirates",
         "remarkable": [
             "Strait between Persian Gulf and the Gulf of Oman",
+            "Minimum width of 21 nautical miles (39 km)",
             "20% of the world's liquefied natural gas",
             "25% of seaborne oil trade, 2023",
-            "Never been closed during Middle East conflicts, 2025"
+            "Never been closed during Middle East conflicts, 2025",
+            "Closed by Iran's Islamic Revolutionary Guard Corps, 28 February 2026"
         ],
         "latitude": 26.5666644,
         "longitude": 56.249999
@@ -3885,11 +3887,34 @@
         "latitude": 29.9351669,
         "longitude": 52.8904041
     },
+    "Dubai": {
+        "country": "United Arab Emirates",
+        "remarkable": [
+            "Established as a pearling and fishing village, 1822",
+            "Smallpox epidemic, 1841",
+            "Declared itself a free port, 1901",
+            "Oil exploration contract was signed with the British, but no oil was found, 1937",
+            "Oil was discovered in 1966, and production started in 1969",
+            "Independence from the United Kingdom, 2 December 1971",
+            "Sheikh Zayed bin Sultan Al Nahyan, 1918-2004",
+            "First President of the United Arab Emirates, 2 December 1971 - 2 November 2004"
+        ],
+        "latitude": 25.204722,
+        "longitude": 55.270833
+    },
     "Tehran": {
         "country": "Iran",
         "remarkable": [
+            "Sasanian Empire, 224-651",
+            "Battle of Hormozdgan (ended Parthian dynasty), 28 April 224",
+            "Khosrow II (last Sassanid emperor), 590-628",
+            "Muslim conquest of Persia (Arab conquest of Iran), 633-651",
             "Naser al-Din Shah Qajar, 1831-1896",
-            "Sun Trone, 5 September 1848"
+            "Sun Throne, 5 September 1848",
+            "Pahlavi dynasty, 1925-1979",
+            "Mohammad Reza Pahlavi, Former Shah of Iran, 1919-1980",
+            "Reign, 16 September 1941 - 11 February 1979",
+            "Ayatollah Ruhollah Khomeini declared an Islamic Republic, April 1979"
         ],
         "latitude": 35.7248416,
         "longitude": 51.381653
@@ -3902,6 +3927,20 @@
         ],
         "latitude": 10.44372,
         "longitude": 51.41157
+    },
+    "Doha": {
+        "country": "Qatar",
+        "remarkable": [
+            "Capital of Qatar",
+            "British protectorate, 1916-1971",
+            "Independence from the United Kingdom, 3 September 1971",
+            "Member of the Arab League, 1974",
+            "Tamim bin Hamad Al Thani, 1980-present",
+            "Emir, 25 June 2013 - present",
+            "Qatar National Day (unification), 18 December 1878"
+        ],
+        "latitude": 25.5,
+        "longitude": 51.25
     },
     "Simbirsk": {
         "country": "Russian Empire (Russia)",
