@@ -604,9 +604,15 @@ const isCone = () => element.models.value === "1";
 const toMercator = (lat) => Math.log(Math.tan(Math.PI / 4 + lat / 2));
 
 /**
- * <p>Handle longitudinal crossing of anti-meridian.</p>
+ * <p>Handle longitudinal crossing of anti-meridian for getting the shortest arc.</p>
+ * return Math.abs(deltaLongitude) > Math.PI ? 2 * Math.PI - Math.abs(deltaLongitude) : Math.abs(deltaLongitude);
  * @param {Number} deltaLongitude difference between two longitudes in radians.
- * @return {Number} adjusted difference.
+ * @return {Number} adjusted difference (an arc less than 180 degrees).
+ * @see
+ * <figure>
+ * <img src="../images/Conjugate_Angles.svg.png " title="Conjugate angles" height="200">
+ * <figcaption style="font-size: 200%">Conjugate (explementary) {@link https://en.wikipedia.org/wiki/Angle angles}.</figcaption>
+ * </figure>
  */
 function antimeridianCrossing(deltaLongitude) {
   if (Math.abs(deltaLongitude) > Math.PI) {
@@ -2581,6 +2587,8 @@ function rhumbLine(ctx, loc1, loc2) {
  * @param {number} lat2 - latitude of second point in degrees.
  * @param {number} lon2 - longitude of second point in degrees.
  * @returns {number} distance in kilometers.
+ * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator sailings}
+ * @see {@link https://siranah.de/html/sail020m.htm Notes on Loxodrome Calculations}
  */
 function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
   const R = 6371; // Earth's mean radius in km
@@ -2595,9 +2603,8 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
   // q is dLat/dmp, or cos(lat) for E-W line
   const q = Math.abs(dmp) > 10e-12 ? dLat / dmp : Math.cos(toRadian(lat1));
 
-  // check for anti-meridian crossing
-  const dLonAbs =
-    Math.abs(dLon) > Math.PI ? 2 * Math.PI - Math.abs(dLon) : Math.abs(dLon);
+  // check for antimeridian crossing
+  const dLonAbs = antimeridianCrossing(dLon);
 
   const distance = Math.sqrt(dLat * dLat + q * q * dLonAbs * dLonAbs) * R;
 
