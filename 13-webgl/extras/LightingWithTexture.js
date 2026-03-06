@@ -604,6 +604,14 @@ const isCone = () => element.models.value === "1";
 const toMercator = (lat) => Math.log(Math.tan(Math.PI / 4 + lat / 2));
 
 /**
+ * Check if a given number is zero within a given tolerance.
+ * @param {Number} a given number.
+ * @param {Number} epsilon a sufficient small tolerance.
+ * @returns {Boolean} |a| < epsilon.
+ */
+const isZero = (a, epsilon = 1e-5) => Math.abs(a) < epsilon;
+
+/**
  * <p>Handle longitudinal crossing of anti-meridian for getting the shortest arc.</p>
  * return Math.abs(deltaLongitude) > Math.PI ? 2 * Math.PI - Math.abs(deltaLongitude) : Math.abs(deltaLongitude);
  * @param {Number} deltaLongitude difference between two longitudes in radians.
@@ -2630,12 +2638,12 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
 
     // q is the correction factor (longitude lines converge at the poles)
     // dLat / dmp, or cos(lat) for E-W line (lat1 === lat2)
-    const q = Math.abs(dmp) > 10e-12 ? dLat / dmp : Math.cos(toRadian(lat1));
+    const q = !isZero(dmp) ? dLat / dmp : Math.cos(toRadian(lat1));
 
     return R * Math.sqrt(dLat * dLat + q * q * dLon * dLon);
   } else {
-    if (lat1 === lat2) {
-      // along a parallel
+    if (isZero(dLat)) {
+      // along a parallel (lat1 === lat2)
       return Math.abs(R * dLon * Math.cos(toRadian(lat1)));
     } else {
       const bearing = toRadian(
@@ -2976,7 +2984,7 @@ function lineSphereIntersection(o, p, c, r) {
     const d1 = -a + sqrt_delta;
     const d2 = -a - sqrt_delta;
     dist = Math.min(d1, d2);
-  } else if (delta == 0) {
+  } else if (isZero(delta, 1e-6)) {
     dist = -a;
   } else {
     // no intersection
@@ -3024,7 +3032,7 @@ function lineCylinderIntersection(o, p, ct, r, height) {
     const d1 = (-b + sqrt_delta) / (2 * a);
     const d2 = (-b - sqrt_delta) / (2 * a);
     dist = Math.min(d1, d2);
-  } else if (delta == 0) {
+  } else if (isZero(delta, 1e-6)) {
     dist = -b / (2 * a);
   } else {
     // no intersection
@@ -3094,7 +3102,7 @@ function lineConeIntersection(o, p, ct, r, height) {
     const d1 = (-b + sqrt_delta) / (2 * a);
     const d2 = (-b - sqrt_delta) / (2 * a);
     dist = Math.min(d1, d2);
-  } else if (delta == 0) {
+  } else if (isZero(delta, 1e-6)) {
     dist = -b / (2 * a);
   } else {
     // no intersection
