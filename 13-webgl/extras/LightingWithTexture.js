@@ -1613,9 +1613,17 @@ function labelForLocation(location) {
     <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp: ${mp.toFixed(
       2,
     )}
-    <br>Distance to Rio: ${distance.toFixed(0)} km (${toMiles(distance).toFixed(0)} mi)
-    <br>${cities.previous} to ${location}: ${distance2.toFixed(0)} km (${toMiles(distance2).toFixed(0)} mi)
-    <br>${cities.previous} to ${location} along loxodrome: ${loxDistance.toFixed(0)} km (${toMiles(loxDistance).toFixed(0)} mi)`;
+    <br>Distance to Rio: ${distance.toFixed(0)} km (${toMiles(distance).toFixed(
+      0,
+    )} mi)
+    <br>${cities.previous} to ${location}: ${distance2.toFixed(
+      0,
+    )} km (${toMiles(distance2).toFixed(0)} mi)
+    <br>${
+      cities.previous
+    } to ${location} along loxodrome: ${loxDistance.toFixed(0)} km (${toMiles(
+      loxDistance,
+    ).toFixed(0)} mi)`;
 }
 
 /**
@@ -2581,7 +2589,21 @@ function rhumbLine(ctx, loc1, loc2) {
 }
 
 /**
- * Calculates loxodromic distance (rhumb line) between two points.
+ * <p>Calculates loxodromic (rhumb line) distance between two points.</p>
+ * <ul>
+ *  <li>Δlat (Difference of Latitude): the north-south distance between the departure and destination points,
+ *      measured in minutes of arc or nautical miles (1' = 1 NM).</li>
+ *  <li>Bearing (θ): the constant angle (course) between the meridian and the path of the vessel.</li>
+ *  <li>Departure (Δlat * tan(bearing)): the east-west distance in nautical miles,
+ *      which changes depending on the latitude (narrowing towards the poles).</li>
+ *  <li>Distance (D): the length of the loxodrome, calculated as:</li>
+ *  <ul>
+ *    <li>dLat = lat2 - lat1, in radians</li>
+ *    <li>dLon = lon2 - lon1, in radians</li>
+ *    <li>D = R * |dLat| * sec (bearing), if dLat != 0 </li>
+ *    <li>D = R * |dLon| * cos (lat1), if dLat == 0 </li>
+ *  </ul>
+ * </ul>
  * @param {number} lat1 - latitude of first point in degrees.
  * @param {number} lon1 - longitude of first point in degrees.
  * @param {number} lat2 - latitude of second point in degrees.
@@ -2589,26 +2611,42 @@ function rhumbLine(ctx, loc1, loc2) {
  * @returns {number} distance in kilometers.
  * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator sailings}
  * @see {@link https://siranah.de/html/sail020m.htm Notes on Loxodrome Calculations}
+ * @see {@link https://www.atractor.pt/mat/loxodromica/saber_comprimento1-_en.html The loxodrome and two projections of the sphere}
  */
 function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
   const R = 6371; // Earth's mean radius in km
   const dLat = toRadian(lat2 - lat1);
-  const dLon = toRadian(lon2 - lon1);
+  const dLon = antimeridianCrossing(toRadian(lon2 - lon1));
 
-  const mp1 = toMercator(toRadian(lat1));
-  const mp2 = toMercator(toRadian(lat2));
+  if (true) {
+    // faster: sqrt x cos
+    const mp1 = toMercator(toRadian(lat1));
+    const mp2 = toMercator(toRadian(lat2));
 
-  const dmp = mp2 - mp1;
+    // tan(x) = sin(x)/cos(x), x ≠ π/2 + kπ, k ∈ ℤ
+    // tan(90-x) = 1 / tan(x) = cos(x)/sin(x), x ≠ kπ, k ∈ ℤ
+    // difference in projected latitude: tan(bearing)
+    const dmp = mp2 - mp1;
 
-  // q is dLat/dmp, or cos(lat) for E-W line
-  const q = Math.abs(dmp) > 10e-12 ? dLat / dmp : Math.cos(toRadian(lat1));
+    // q is the correction factor (longitude lines converge at the poles)
+    // dLat / dmp, or cos(lat) for E-W line (lat1 === lat2)
+    const q = Math.abs(dmp) > 10e-12 ? dLat / dmp : Math.cos(toRadian(lat1));
 
-  // check for antimeridian crossing
-  const dLonAbs = antimeridianCrossing(dLon);
-
-  const distance = Math.sqrt(dLat * dLat + q * q * dLonAbs * dLonAbs) * R;
-
-  return distance;
+    return R * Math.sqrt(dLat * dLat + q * q * dLon * dLon);
+  } else {
+    if (lat1 === lat2) {
+      // along a parallel
+      return Math.abs(R * dLon * Math.cos(toRadian(lat1)));
+    } else {
+      const bearing = toRadian(
+        bearingAngle(
+          { latitude: lat1, longitude: lon1 },
+          { latitude: lat2, longitude: lon2 },
+        ),
+      );
+      return Math.abs((R * dLat) / Math.cos(bearing));
+    }
+  }
 }
 
 /**
