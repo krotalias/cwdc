@@ -2653,7 +2653,7 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
 
     // tan(x) = sin(x)/cos(x), x ≠ π/2 + kπ, k ∈ ℤ
     // tan(90-x) = 1 / tan(x) = cos(x)/sin(x), x ≠ kπ, k ∈ ℤ
-    // difference in projected latitude: tan(bearing)
+    // difference in projected latitude in Mercator chart
     const dmp = mp2 - mp1;
 
     // q is the correction factor (longitude lines converge at the poles)

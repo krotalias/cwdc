@@ -2593,7 +2593,7 @@ function rhumbLine(ctx, loc1, loc2) {
  * <ul>
  *  <li>Δlat (Difference of Latitude): the north-south distance between the departure and destination points,
  *      measured in minutes of arc or nautical miles (1' = 1 NM).</li>
- *  <li>Bearing (θ): the constant angle (course) between the meridian and the path of the vessel.</li>
+ *  <li>{@link bearingAngle Bearing} (θ): the constant angle (course) between the meridian and the path of the vessel.</li>
  *  <li>Departure (Δlat * tan(bearing)): the east-west distance in nautical miles,
  *      which changes depending on the latitude (narrowing towards the poles).</li>
  *  <li>Distance (D): the length of the loxodrome, calculated as:</li>
@@ -2625,7 +2625,7 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
 
     // tan(x) = sin(x)/cos(x), x ≠ π/2 + kπ, k ∈ ℤ
     // tan(90-x) = 1 / tan(x) = cos(x)/sin(x), x ≠ kπ, k ∈ ℤ
-    // difference in projected latitude: tan(bearing)
+    // difference in projected latitude in Mercator chart
     const dmp = mp2 - mp1;
 
     // q is the correction factor (longitude lines converge at the poles)
