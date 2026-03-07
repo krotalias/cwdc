@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 405 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 407 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 405 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 407 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -2576,7 +2576,7 @@ function rhumbLine(ctx, loc1, loc2) {
 
   let bearingAngle = null;
   ctx.beginPath();
-  if (loxodrome && mercator) {
+  if (loxodrome) {
     ctx.moveTo(px, py); // loxodrome
     ctx.lineTo(x, y);
     ctx.strokeStyle = colorTable.rhumb;
@@ -4862,7 +4862,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
     vec2.set(p2, uv2.s, uv2.t);
   } else {
     // equirectangular projection (loxodrome is meaningless in this case)
-    vec2.set(p1, ...UV2Spherical(uv1));
+    vec2.set(p1, ...UV2Spherical(uv1)); // [0, 2Π] x [Π, 0]
     vec2.set(p2, ...UV2Spherical(uv2));
   }
   for (let i = 0, j = 0; i < n; ++i, j += 3) {
@@ -4873,30 +4873,34 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
     if (isCylinder()) {
       if (mercator) {
         p = cylindrical2Cartesian(
-          ...UV2Cylindrical(mercator2Spherical(...q), mercator),
+          ...UV2Cylindrical(mercator2Spherical(...q), true),
         );
       } else {
         // no loxodrome for equirectangular projection
-        const { r, height } = getCylinderParameters(mercator);
-        p = cylindrical2Cartesian(r * dr, ...q);
+        q[0] /= 2 * Math.PI;
+        q[1] /= -Math.PI; // [0, 1]
+        const [r, phi, y] = UV2Cylindrical({ s: q[0], t: q[1] }, false);
+        p = cylindrical2Cartesian(r * dr, phi, y);
       }
     } else if (isCone()) {
       if (mercator) {
-        p = conical2Cartesian(
-          ...UV2Conical(mercator2Spherical(...q), mercator),
-        );
+        p = conical2Cartesian(...UV2Conical(mercator2Spherical(...q), true));
       } else {
         // no loxodrome for equirectangular projection
-        const [r, h] = UV2Conical({ s: 0, t: 0 }, mercator);
-        p = conical2Cartesian(r * dr, h, ...q);
+        q[0] /= 2 * Math.PI;
+        q[1] /= -Math.PI; // [0, 1]
+        const [r, h, phi, y] = UV2Conical({ s: q[0], t: q[1] }, false);
+        p = conical2Cartesian(r * dr, h, phi, y);
       }
     } else {
-      p = mercator
-        ? spherical2Cartesian(
-            ...UV2Spherical(mercator2Spherical(...q)),
-            globeRadius * dr,
-          )
-        : spherical2Cartesian(...q, globeRadius * dr);
+      if (mercator) {
+        p = spherical2Cartesian(
+          ...UV2Spherical(mercator2Spherical(...q)),
+          globeRadius * dr,
+        );
+      } else {
+        p = spherical2Cartesian(...q, globeRadius * dr);
+      }
     }
     arr.set(p, j);
   }
