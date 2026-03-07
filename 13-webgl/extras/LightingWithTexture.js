@@ -2193,7 +2193,7 @@ const handleKeyPress = ((event) => {
         mercator = !mercator;
         element.merc.checked = mercator;
       case "F":
-        loxodrome = !loxodrome && mercator;
+        loxodrome = !loxodrome;
         element.loxodrome.checked = loxodrome;
         setPosition(currentLocation);
         break;
@@ -2576,7 +2576,7 @@ function rhumbLine(ctx, loc1, loc2) {
 
   let bearingAngle = null;
   ctx.beginPath();
-  if (loxodrome) {
+  if (loxodrome && mercator) {
     ctx.moveTo(px, py); // loxodrome
     ctx.lineTo(x, y);
     ctx.strokeStyle = colorTable.rhumb;
@@ -4975,7 +4975,11 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
 
     // uv ∈ [0,1]
     const uv = cartesian2Spherical(p);
-    mrr.push(spherical2Mercator(uv.s, uv.t));
+    if (mercator) {
+      mrr.push(spherical2Mercator(uv.s, uv.t));
+    } else {
+      mrr.push({ x: uv.s, y: uv.t });
+    }
 
     // scale point p
     vec3.scale(p, p, globeRadius * dr);
@@ -5502,8 +5506,6 @@ function newTexture(image) {
   document.getElementById("figc").textContent =
     `(${image.width} x ${image.height})`;
   document.getElementById("textures").value = String(textureCnt);
-  // loxodrome only for mercator textures
-  loxodrome = !loxodrome && mercator;
   handleKeyPress(createEvent("F"));
 
   // bind the texture

@@ -3828,6 +3828,17 @@
         "latitude": 24.9056,
         "longitude": 67.0822
     },
+    "Kurgan": {
+        "country": "Kurgan Oblast (Russia)",
+        "remarkable": [
+            "Trans-Siberian Railway line, 9 March 1891 - 21 June 1904",
+            "Russian Ilizarov Scientific Center for Restorative Traumatology and Orthopaedics, December 1971",
+            "Professor Vladimir Ivanovich Shevtsov (general director), 2010",
+            "Founded, 1679"
+        ],
+        "latitude": 55.466667,
+        "longitude": 65.35
+    },
     "Yekaterinburg": {
         "country": "Russia",
         "remarkable": [
@@ -4193,18 +4204,14 @@
         "remarkable": [
             "Muslims conquered Syria from the Byzantines, 634-638",
             "Lordship of Beirut was part of the Kingdom of Jerusalem, 1110-1291",
-            "Mamluk period, 1291-1516",
-            "Kisrawan campaigns (Mamluk military expeditions), 1292-1305",
-            "Ottomans conquered Syria including present-day Lebanon, 24 August 1516 - 1918",
             "Greater Lebanon under a French mandate, 1 September 1920",
             "Full independence, 22 November 1943",
             "Palestinian militants relocated to Lebanon, 1970",
-            "Syrian occupation of Lebanon, 31 May 1976 - 30 April 2005",
-            "Palestine Liberation Organization (PLO) in Lebanon, 28 May 1964 - 2 September 1982",
+            "Syrian occupation of Lebanon, 1976-2005",
             "PLO attacks from Lebanon into Israel, 1977-1978",
             "Israeli invasion of Lebanon, 6 June 1982 - 30 September 1982",
             "Liberation Day (Israeli forces fully withdrew), 25 May 2000",
-            "Hezbollah, 16 February 1985 - present"
+            "Hezbollah, 1985-present"
         ],
         "latitude": 33.898056,
         "longitude": 35.505833
