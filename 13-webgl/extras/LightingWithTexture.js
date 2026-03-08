@@ -817,12 +817,12 @@ const UV2Spherical = (uv) => {
  * Convert from {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL UV coordinates}
  * (s, t) to {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system cylindrical coordinates}.
  * @param {Object<{s: Number,t:Number}>} uv ∈ [0,1].
- * @param {Boolean} mercator apply mercator transformation if true.
+ * @param {Boolean} merc apply mercator transformation if true.
  * @return {Array<{Number, Number, Number}>} cylindrical coordinates: [r, θ, y].
  * @function
  */
-function UV2Cylindrical(uv, mercator) {
-  if (mercator) {
+function UV2Cylindrical(uv, merc = mercator) {
+  if (merc) {
     uv.t = spherical2Mercator(uv.s, uv.t).y;
   }
   const { r, height } = getCylinderParameters(mercator);
@@ -835,12 +835,12 @@ function UV2Cylindrical(uv, mercator) {
  * Convert from {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL UV coordinates}
  * (s, t) to {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system conical coordinates}.
  * @param {Object<{s: Number,t:Number}>} uv ∈ [0,1].
- * @param {Boolean} mercator apply mercator transformation if true.
+ * @param {Boolean} merc apply mercator transformation if true.
  * @return {Array<{Number, Number, Number, Number}>} conical coordinates: [r, h, θ, y].
  * @function
  */
-function UV2Conical(uv, mercator) {
-  if (mercator) {
+function UV2Conical(uv, merc = mercator) {
+  if (merc) {
     uv.t = spherical2Mercator(uv.s, uv.t).y;
   }
   const r = 1;
@@ -4872,10 +4872,10 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
 
     let p;
     if (isCylinder()) {
-      const [r, phi, y] = UV2Cylindrical(uv, mercator);
+      const [r, phi, y] = UV2Cylindrical(uv, false);
       p = cylindrical2Cartesian(r * dr, phi, y);
     } else if (isCone()) {
-      const [r, h, phi, y] = UV2Conical(uv, mercator);
+      const [r, h, phi, y] = UV2Conical(uv, false);
       p = conical2Cartesian(r * dr, h, phi, y);
     } else {
       if (mercator) {
@@ -4930,9 +4930,8 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
 function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
   const uv1 = gcs2UV(loc1);
   const uv2 = gcs2UV(loc2);
-  // pA in the unit sphere in this case
+  // pA and pB in the unit sphere in this case
   const pA = spherical2Cartesian(...UV2Spherical(uv1));
-  // pB in the unit sphere in this case
   const pB = spherical2Cartesian(...UV2Spherical(uv2));
   const theta = vec3.angle(pA, pB);
   const ds = theta / (ns - 1);
@@ -4960,15 +4959,28 @@ function pointsOnGreatCircle(loc1, loc2, ns = nsegments) {
     );
 
     // uv ∈ [0,1]
-    const uv = cartesian2Spherical(p);
-    if (mercator) {
-      mrr.push(spherical2Mercator(uv.s, uv.t));
+    const uv = cartesian2Spherical(p); // map from the globe to the chart
+    if (isCylinder()) {
+      // map from the chart to the cylinder
+      const [r, phi, y] = UV2Cylindrical(uv);
+      vec3.set(p, ...cylindrical2Cartesian(r * dr, phi, y));
+    } else if (isCone()) {
+      // map from the chart to the cone
+      const [r, h, phi, y] = UV2Conical(uv);
+      vec3.set(p, ...conical2Cartesian(r * dr, h, phi, y));
     } else {
-      mrr.push({ x: uv.s, y: uv.t });
+      // scale point p
+      // vec3.scale(p, p, globeRadius * dr);
+      vec3.set(
+        p,
+        ...spherical2Cartesian(...UV2Spherical(uv), globeRadius * dr),
+      );
+      if (mercator) {
+        uv.t = spherical2Mercator(uv.s, uv.t).y;
+      }
     }
 
-    // scale point p
-    vec3.scale(p, p, globeRadius * dr);
+    mrr.push({ x: uv.s, y: uv.t });
 
     arr.set(p, j);
   }
@@ -5074,16 +5086,10 @@ function setPosition(location) {
   let parallelVertices = null;
 
   if (loxodrome) {
-    if (isCylinder() || isCone()) {
-      // no great circle
-      // do not draw a parallel in this case
-      mercatorVertices = null;
-    } else {
-      [parallelVertices, mercatorVertices] = pointsOnGreatCircle(
-        previousLocation,
-        gpsCoordinates[location],
-      );
-    }
+    [parallelVertices, mercatorVertices] = pointsOnGreatCircle(
+      previousLocation,
+      gpsCoordinates[location],
+    );
   } else {
     mercatorVertices = true;
     if (isCylinder()) {
