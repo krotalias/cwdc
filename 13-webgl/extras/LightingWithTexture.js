@@ -4872,33 +4872,17 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
 
     let p;
     if (isCylinder()) {
-      if (mercator) {
-        p = cylindrical2Cartesian(
-          ...UV2Cylindrical(mercator2Spherical(...q), true),
-        );
-      } else {
-        // equirectangular projection
-        const [r, phi, y] = UV2Cylindrical(uv, false);
-        p = cylindrical2Cartesian(r * dr, phi, y);
-      }
+      const [r, phi, y] = UV2Cylindrical(uv, mercator);
+      p = cylindrical2Cartesian(r * dr, phi, y);
     } else if (isCone()) {
-      if (mercator) {
-        p = conical2Cartesian(...UV2Conical(mercator2Spherical(...q), true));
-      } else {
-        // equirectangular projection
-        const [r, h, phi, y] = UV2Conical(uv, false);
-        p = conical2Cartesian(r * dr, h, phi, y);
-      }
+      const [r, h, phi, y] = UV2Conical(uv, mercator);
+      p = conical2Cartesian(r * dr, h, phi, y);
     } else {
       if (mercator) {
-        p = spherical2Cartesian(
-          ...UV2Spherical(mercator2Spherical(...q)),
-          globeRadius * dr,
-        );
-      } else {
-        // equirectangular projection
-        p = spherical2Cartesian(...UV2Spherical(uv), globeRadius * dr);
+        uv.t = mercator2Spherical(...q).t;
       }
+      // equirectangular projection
+      p = spherical2Cartesian(...UV2Spherical(uv), globeRadius * dr);
     }
     arr.set(p, j);
   }
