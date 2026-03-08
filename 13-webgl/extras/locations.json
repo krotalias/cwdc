@@ -27,6 +27,21 @@
         "latitude": -90,
         "longitude": 0
     },
+    "London": {
+        "country": "England (United Kingdom)",
+        "remarkable": [
+            "Greenwich Observatory, 1675",
+            "Prime Meridian, 22 October 1884",
+            "Elizabeth I (Virgin Queen), 1533-1603",
+            "Crowned Queen, 15 January 1559",
+            "The last and longest reigning monarch of the House of Tudor",
+            "Only surviving child of Henry VIII and Anne Boleyn",
+            "Defeated the Spanish Armada, 8 August 1588",
+            "East India Company (EIC), 31 December 1600 - 1 June 1874"
+        ],
+        "latitude": 51.477928,
+        "longitude": -0.001545
+    },
     "East India House": {
         "country": "London (United Kingdom)",
         "remarkable": [
@@ -119,6 +134,15 @@
         ],
         "latitude": 51.841301,
         "longitude": -1.361227
+    },
+    "Southampton": {
+        "country": "Hampshire (United Kingdom)",
+        "remarkable": [
+            "Roman invasion of Britain (settled), 43",
+            "Departure point for the RMS Titanic, 10 April 1912"
+        ],
+        "latitude": 50.89696,
+        "longitude": -1.40416
     },
     "Stratford-upon-Avon": {
         "country": "England (United Kingdom)",
@@ -4140,6 +4164,19 @@
         "latitude": 36.518056,
         "longitude": 36.953611
     },
+    "Nairobi": {
+        "country": "Kenya",
+        "remarkable": [
+            "Uganda Railway between Mombasa and Lake Victoria, 1896-1901",
+            "Tsavo man-eating lions, March 1898 - December 1898",
+            "Supply depot for the Uganda Railway construction (Mile 327), 1899",
+            "Tsavo West National Park, April 1948",
+            "Kenyan independence, 12 December 1963",
+            "Founded, 28 October 1899"
+        ],
+        "latitude": -1.286389,
+        "longitude": 36.817222
+    },
     "Damascus": {
         "country": "✝ Levant (Syria)",
         "remarkable": [
@@ -5648,15 +5685,6 @@
         "latitude": 50.049444,
         "longitude": 1.416944
     },
-    "Southampton": {
-        "country": "Hampshire (United Kingdom)",
-        "remarkable": [
-            "Roman invasion of Britain (settled), 43",
-            "Departure point for the RMS Titanic, 10 April 1912"
-        ],
-        "latitude": 50.89696,
-        "longitude": -1.40416
-    },
     "Tortosa": {
         "country": "✝ Almoravid Emirate (Spain)",
         "remarkable": [
@@ -5666,21 +5694,6 @@
         ],
         "latitude": 40.8125,
         "longitude": 0.521111
-    },
-    "London": {
-        "country": "England (United Kingdom)",
-        "remarkable": [
-            "Greenwich Observatory, 1675",
-            "Prime Meridian, 22 October 1884",
-            "Elizabeth I (Virgin Queen), 1533-1603",
-            "Crowned Queen, 15 January 1559",
-            "The last and longest reigning monarch of the House of Tudor",
-            "Only surviving child of Henry VIII and Anne Boleyn",
-            "Defeated the Spanish Armada, 8 August 1588",
-            "East India Company (EIC), 31 December 1600 - 1 June 1874"
-        ],
-        "latitude": 51.477928,
-        "longitude": -0.001545
     },
     "Unknown": {
         "country": "Pinpointed Location (POI)",
