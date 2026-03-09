@@ -522,6 +522,12 @@ const sphereRadius = 0.98;
 let globeRadius = sphereRadius;
 
 /**
+ * Current device ppi (pixel per inch).
+ * @type {Number}
+ */
+let ppiIndex = 2;
+
+/**
  * Scaling factor applied to a radius so a line or a
  * point is rendered on top of its textured surface.
  * @type {Number}
@@ -2329,7 +2335,7 @@ function displayVersions(index = 0) {
     gl.SHADING_LANGUAGE_VERSION,
   )}<br>${gl.getParameter(gl.VERSION)}
     <br>DPR: ${dpr.toFixed(2)}
-    (${length.toFixed(2)} cm, ${ppi[index]} ppi)`;
+    (${length.toFixed(2)} cm, ${ppi[index]} ppi, ${textimg.width} x ${textimg.height} px)`;
 }
 
 /**
@@ -5192,7 +5198,7 @@ function startForReal(image) {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", (event) => {
-    displayVersions(2);
+    displayVersions(ppiIndex);
   });
 
   gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
@@ -5336,7 +5342,7 @@ function startForReal(image) {
 
   setRangeTicks(cities.timeline);
   handleKeyPress(createEvent("X"));
-  displayVersions(2);
+  displayVersions(ppiIndex);
 
   // start drawing!
   animate();
@@ -5497,8 +5503,9 @@ function newTexture(image) {
   };
   document.getElementById("figc").textContent =
     `(${image.width} x ${image.height})`;
+  displayVersions(ppiIndex);
   document.getElementById("textures").value = String(textureCnt);
-  handleKeyPress(createEvent("F"));
+  setPosition(currentLocation);
 
   // bind the texture
   gl.bindTexture(gl.TEXTURE_2D, textureHandle);
