@@ -823,7 +823,7 @@ const UV2Spherical = (uv) => {
  * Convert from {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL UV coordinates}
  * (s, t) to {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system cylindrical coordinates}.
  * @param {Object<{s: Number,t:Number}>} uv ∈ [0,1].
- * @param {Boolean} merc apply mercator transformation if true.
+ * @param {Boolean} [merc=mercator] apply mercator transformation if true.
  * @return {Array<{Number, Number, Number}>} cylindrical coordinates: [r, θ, y].
  * @function
  */
@@ -841,7 +841,7 @@ function UV2Cylindrical(uv, merc = mercator) {
  * Convert from {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL UV coordinates}
  * (s, t) to {@link https://en.wikipedia.org/wiki/Spherical_coordinate_system conical coordinates}.
  * @param {Object<{s: Number,t:Number}>} uv ∈ [0,1].
- * @param {Boolean} merc apply mercator transformation if true.
+ * @param {Boolean} [merc=mercator] apply mercator transformation if true.
  * @return {Array<{Number, Number, Number, Number}>} conical coordinates: [r, h, θ, y].
  * @function
  */
@@ -1614,7 +1614,13 @@ function labelForLocation(location) {
   const sec = 1 / Math.cos(toRadian(lat));
   const distance = haversine(gps, rio).km;
   const distance2 = haversine(gps, previousLocation).km;
-  const loxDistance = calculateLoxodromeDistance(
+  const loxDistanceSph = calculateLoxodromeDistance(
+    lat,
+    lon,
+    previousLocation.latitude,
+    previousLocation.longitude,
+  );
+  const loxDistanceCyl = calculateLoxodromeDistanceCyl(
     lat,
     lon,
     previousLocation.latitude,
@@ -1635,8 +1641,13 @@ function labelForLocation(location) {
     )} km (${toMiles(distance2).toFixed(0)} mi)
     <br>${
       cities.previous
-    } to ${location} along loxodrome: ${loxDistance.toFixed(0)} km (${toMiles(
-      loxDistance,
+    } to ${location} along loxodrome: ${loxDistanceSph.toFixed(
+      0,
+    )} km (${toMiles(loxDistanceSph).toFixed(0)} mi)
+    <br>${
+      cities.previous
+    } to ${location} along cylinder: ${loxDistanceCyl.toFixed(0)} km (${toMiles(
+      loxDistanceCyl,
     ).toFixed(0)} mi)`;
 }
 
@@ -1749,13 +1760,13 @@ function nextLocation(inc, initialLocation, filter = "") {
 
 /**
  * <p>Get cylinder parameters for plotting the current location on the globe.</p>
- * @param {Boolean} mercator whether to use Mercator projection.
+ * @param {Boolean} [merc=mercator] whether to use Mercator projection.
  * @returns {Object<r:Number, height:Number>} radius and height of the cylinder.
  */
-function getCylinderParameters(mercator) {
-  const r = mercator ? 3 / 8 : 9 / 16;
+function getCylinderParameters(merc = mercator) {
+  const r = merc ? 3 / 8 : 9 / 16;
   const length = 2 * Math.PI * r;
-  const height = mercator ? length : length / 2;
+  const height = merc ? length : length / 2;
   return { r, height };
 }
 
@@ -2329,13 +2340,15 @@ const handleKeyPress = ((event) => {
 function displayVersions(index = 0) {
   const opt = document.getElementById("options");
   const dpr = getDevicePixelRatio();
-  const ppi = [96, 96.42, 117.5, 128, 141.21, 460];
+  const ppi = [96, 96.42, 117.5, 128, 141.21, 163.18, 460];
   const length = ((textimg.width * dpr) / ppi[index]) * 2.54;
   opt.innerHTML = `${gl.getParameter(
     gl.SHADING_LANGUAGE_VERSION,
   )}<br>${gl.getParameter(gl.VERSION)}
     <br>DPR: ${dpr.toFixed(2)}
-    (${length.toFixed(2)} cm, ${ppi[index]} ppi, ${textimg.width} x ${textimg.height} px)`;
+    (${length.toFixed(2)} cm, ${ppi[index]} ppi, ${textimg.width} x ${
+      textimg.height
+    } px)`;
 }
 
 /**
@@ -2661,6 +2674,55 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
       return Math.abs((R * dLat) / Math.cos(bearing));
     }
   }
+}
+
+/**
+ * <p>Calculates loxodromic (rhumb line) distance between two points on cylinder.</p>
+ * <ul>
+ *  <li>Δlat (Difference of Latitude): the north-south distance between the departure and destination points,
+ *      measured in minutes of arc or nautical miles (1' = 1 NM).</li>
+ *  <li>Δlon (Difference of Longitude): the east-west distance between the departure and destination points,
+ *  <li>Distance (D): the length of the loxodrome, calculated as:</li>
+ *  <ul>
+ *    <li>dLat = lat2 - lat1, in radians</li>
+ *    <li>dLon = lon2 - lon1, in radians</li>
+ *    <li> D = √ (R * |dLat|) <sup>2</sup> + (R * |dLon|) <sup>2</sup></li>
+ *  </ul>
+ * </ul>
+ * @param {number} lat1 - latitude of first point in degrees.
+ * @param {number} lon1 - longitude of first point in degrees.
+ * @param {number} lat2 - latitude of second point in degrees.
+ * @param {number} lon2 - longitude of second point in degrees.
+ * @returns {number} distance in kilometers.
+ * @see {@link https://www.gregschool.org/articles-page-6/2017/5/18/finding-the-geodesic-on-a-cylinder-mley2 Finding the Geodesic on a Cylinder}
+ */
+function calculateLoxodromeDistanceCyl(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Earth's mean radius in km
+
+  let dy, dLon;
+  if (true) {
+    // on the cyliner
+    const uv1 = gcs2UV({ latitude: lat1, longitude: lon1 });
+    const uv2 = gcs2UV({ latitude: lat2, longitude: lon2 });
+    const [, phi1, y1] = UV2Cylindrical(uv1);
+    const [, phi2, y2] = UV2Cylindrical(uv2);
+    const { _, height } = getCylinderParameters();
+    let sy = Math.PI / height;
+    if (mercator) sy *= 2;
+    dy = R * sy * (y2 - y1);
+    dLon = R * antimeridianCrossing(phi2 - phi1);
+  } else {
+    // on the chart
+    if (mercator) {
+      lat1 = toMercator(toRadian(lat1));
+      lat2 = toMercator(toRadian(lat2));
+      dy = R * (lat2 - lat1);
+    } else {
+      dy = R * toRadian(lat2 - lat1);
+    }
+    dLon = R * antimeridianCrossing(toRadian(lon2 - lon1));
+  }
+  return Math.sqrt(dy * dy + dLon * dLon);
 }
 
 /**

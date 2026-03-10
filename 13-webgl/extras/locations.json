@@ -2270,6 +2270,17 @@
         "latitude": 20.5499978,
         "longitude": -75.8999964
     },
+    "Syracuse": {
+        "country": "New York (United States)",
+        "remarkable": [
+            "John Wilkinson (lawyer), 1798-1862",
+            "Post office, 4 February 1820 - present",
+            "Syracuse University, 24 March 1870 - present",
+            "Founded, 1 April 1825"
+        ],
+        "latitude": 43.046944,
+        "longitude": -76.144444
+    },
     "Richford": {
         "country": "New York (United States)",
         "remarkable": [
@@ -5006,7 +5017,7 @@
         "latitude": -4.32758,
         "longitude": 15.31357
     },
-    "Syracuse": {
+    "Siracusa": {
         "country": "🔬 Italy",
         "remarkable": [
             "Archimedes, 287-212 BC",
