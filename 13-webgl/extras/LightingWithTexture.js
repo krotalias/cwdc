@@ -606,8 +606,12 @@ const isCone = () => element.models.value === "1";
  * Convert latitude in radians to Mercator latitude.
  * @param {Number} lat latitude in radians.
  * @returns {Number} Mercator latitude coordinate.
+ * @see {@link module:polyhedron.spherical2Mercator spherical2Mercator}
  */
-const toMercator = (lat) => Math.log(Math.tan(Math.PI / 4 + lat / 2));
+const toMercator = (lat) => {
+  lat = clamp(lat, toRadian(-85.051129), toRadian(85.051129));
+  return Math.log(Math.tan(Math.PI / 4 + lat / 2));
+};
 
 /**
  * Check if a given number is zero within a given tolerance.
@@ -1646,7 +1650,7 @@ function labelForLocation(location) {
     )} km (${toMiles(loxDistanceSph).toFixed(0)} mi)
     <br>${
       cities.previous
-    } to ${location} along cylinder: ${loxDistanceCyl.toFixed(0)} km (${toMiles(
+    } to ${location} on the chart (cylinder): ${loxDistanceCyl.toFixed(0)} km (${toMiles(
       loxDistanceCyl,
     ).toFixed(0)} mi)`;
 }
@@ -2686,7 +2690,7 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  *  <ul>
  *    <li>dLat = lat2 - lat1, in radians</li>
  *    <li>dLon = lon2 - lon1, in radians</li>
- *    <li> D = √ (R * |dLat|) <sup>2</sup> + (R * |dLon|) <sup>2</sup></li>
+ *    <li> D = √ (R * dLat) <sup>2</sup> + (R * dLon) <sup>2</sup></li>
  *  </ul>
  * </ul>
  * @param {number} lat1 - latitude of first point in degrees.
@@ -2695,13 +2699,14 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  * @param {number} lon2 - longitude of second point in degrees.
  * @returns {number} distance in kilometers.
  * @see {@link https://www.gregschool.org/articles-page-6/2017/5/18/finding-the-geodesic-on-a-cylinder-mley2 Finding the Geodesic on a Cylinder}
+ * @see <a href="../doc/A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections.pdf">A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections</a>
  */
 function calculateLoxodromeDistanceCyl(lat1, lon1, lat2, lon2) {
   const R = 6371; // Earth's mean radius in km
 
   let dy, dLon;
-  if (true) {
-    // on the cyliner
+  if (false) {
+    // on the cyliner - [0, 1] x [0, 1]
     const uv1 = gcs2UV({ latitude: lat1, longitude: lon1 });
     const uv2 = gcs2UV({ latitude: lat2, longitude: lon2 });
     const [, phi1, y1] = UV2Cylindrical(uv1);
@@ -2712,7 +2717,7 @@ function calculateLoxodromeDistanceCyl(lat1, lon1, lat2, lon2) {
     dy = R * sy * (y2 - y1);
     dLon = R * antimeridianCrossing(phi2 - phi1);
   } else {
-    // on the chart
+    // on the chart - [0, 2π] x [-π/2, π/2]
     if (mercator) {
       lat1 = toMercator(toRadian(lat1));
       lat2 = toMercator(toRadian(lat2));
