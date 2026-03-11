@@ -215,7 +215,7 @@ Step 0.5° ⇒ 60 fps = 30°/s ⇒ 360° in 12s
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5691">line 5691</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5713">line 5713</a>
     </li></ul></dd>
     
 
@@ -5549,7 +5549,7 @@ on the right (intrinsic rotation).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5725">line 5725</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5747">line 5747</a>
     </li></ul></dd>
     
 
@@ -7733,7 +7733,7 @@ so the z-axis points outside the screen.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3535">line 3535</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3557">line 3557</a>
     </li></ul></dd>
     
 
@@ -8409,6 +8409,22 @@ in the range [000°, 360°).
 
 <div class="description">
     <p>Calculates loxodromic (rhumb line) distance between two points on cylinder.</p>
+<p>Loxodromes appear as straight lines on a Mercator chart, but their length on the map
+is generally larger than their actual shorter length on the spherical surface.
+Calculations show that a loxodrome spanning latitudes (e.g., 55°S to 55°N)
+can measure significantly more on the map compared to its actual length on the sphere.</p>
+<p>For example, the length of the loxodrome between:
+<ul>
+ <li>Syracuse, New York (φ1 = 43°00′ N, λ1 = 76°00′ W = −76°00′ E),
+ <li>Moscow (φ2 = 55°45′ N, λ2 = 37°37′ E)
+ <li>R = 6370 km
+ <li>On chart = 12,820.7 km</li>
+ <li>On globe = 8283.2 km</li>
+</ul>
+with the assumed mean radius of the Earth’s sphere is 8283.2 km. The distance
+between New York and Moscow on a map drawn in the Mercator projection
+is 12,820.7 km. This is the length of the loxodrome image on the map, which is
+significantly different from the length of the loxodrome on the sphere.</p>
 <ul>
  <li>Δlat (Difference of Latitude): the north-south distance between the departure and destination points,
      <br>measured in minutes of arc or nautical miles (1' = 1 NM).</li>
@@ -8418,15 +8434,15 @@ in the range [000°, 360°).
    <li>dLat = lat2 - lat1, in radians</li>
    <li>dLon = lon2 - lon1, in radians</li>
    <li>D = √ (R * dLat) <sup>2</sup> + (R * dLon) <sup>2</sup></li>
-   ----------------------------------------
+   ---------------- Area ------------------
    <li>Sphere = 4πR² </li>
    <li>Equator = 2πR </li>
    <li>Chart Equirect = 2πR x πR = 2π²R²</li>
    <li>Chart Mercator = 2πR x 2πR = 4π²R²</li>
    <li>Cylinder = 2πRH = 2πR x πR = 2π²R² (2x1 aspect) </li>
-   ----------------------------------------
+   ----------- Area x Length -------------
    <li>Area(C) = Area(CE) > Area(S)</li>
-   <lI>Loxodrome(C) = Loxodrome(CE) > Loxodrome(S)</li>
+   <lI>Loxodrome(C) = Loxodrome(CE) ≥ Loxodrome(S)</li>
  </ul>
 </ul>
 </div>
@@ -8590,7 +8606,7 @@ in the range [000°, 360°).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2717">line 2717</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2739">line 2739</a>
     </li></ul></dd>
     
 
@@ -8607,6 +8623,12 @@ in the range [000°, 360°).
             <li><figure>
    <img src="../images/Esfera_Arquimedes.png" width="256">
    <figcaption style="font-size: 200%">Archimedes: Area(S) = Area(C) = 2π r x 2r = 4π r²</figcaption>
+</figure>
+<figure>
+   <img src="../images/Syracuse-Moscow.png" height="256">
+   <img src="../images/Syracuse-Moscow-map.png" height="256">
+   <img src="../images/Syracuse-Moscow-cyl.png" height="256">
+   <figcaption style="font-size: 200%">Syracuse - Moscow (80.19°)</figcaption>
 </figure></li>
         </ul>
     </dd>
@@ -9654,7 +9676,7 @@ that can be passed to <a href="global.html#handleKeyPress">handleKeyPress</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2922">line 2922</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2944">line 2944</a>
     </li></ul></dd>
     
 
@@ -10013,7 +10035,7 @@ for a surface with g handles and b boundaries.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4724">line 4724</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4746">line 4746</a>
     </li></ul></dd>
     
 
@@ -10929,7 +10951,7 @@ Then, triggers the animation to update the canvas.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5458">line 5458</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5480">line 5480</a>
     </li></ul></dd>
     
 
@@ -11195,7 +11217,7 @@ Draws axes, applies texture, then draws lines.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4199">line 4199</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4221">line 4221</a>
     </li></ul></dd>
     
 
@@ -11284,7 +11306,7 @@ Uses the <a href="global.html#colorShader">colorShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4400">line 4400</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4422">line 4422</a>
     </li></ul></dd>
     
 
@@ -11386,7 +11408,7 @@ which was set in <a href="global.html#createModel">createModel</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4347">line 4347</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4369">line 4369</a>
     </li></ul></dd>
     
 
@@ -11489,7 +11511,7 @@ is the angle it makes with the y-axis.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2764">line 2764</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2786">line 2786</a>
     </li></ul></dd>
     
 
@@ -11615,7 +11637,7 @@ Uses the <a href="global.html#colorShader">colorShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4503">line 4503</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4525">line 4525</a>
     </li></ul></dd>
     
 
@@ -11704,7 +11726,7 @@ on the texture image.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2845">line 2845</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2867">line 2867</a>
     </li></ul></dd>
     
 
@@ -11793,7 +11815,7 @@ Uses the <a href="global.html#colorShader">colorShader</a> with colors defined i
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4448">line 4448</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4470">line 4470</a>
     </li></ul></dd>
     
 
@@ -11890,7 +11912,7 @@ instead of an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection"
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4238">line 4238</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4260">line 4260</a>
     </li></ul></dd>
     
 
@@ -12050,7 +12072,7 @@ instead of an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection"
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3349">line 3349</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3371">line 3371</a>
     </li></ul></dd>
     
 
@@ -12709,7 +12731,7 @@ given its 'uv' coordinates.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3521">line 3521</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3543">line 3543</a>
     </li></ul></dd>
     
 
@@ -13413,7 +13435,7 @@ However, it does not work with BC dates (negative years).</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3446">line 3446</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3468">line 3468</a>
     </li></ul></dd>
     
 
@@ -13822,7 +13844,7 @@ vertices, normal vectors, texture coordinates, and indices.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4216">line 4216</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4238">line 4238</a>
     </li></ul></dd>
     
 
@@ -13982,7 +14004,7 @@ identified by "textures".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4548">line 4548</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4570">line 4570</a>
     </li></ul></dd>
     
 
@@ -15105,7 +15127,7 @@ Usage:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4878">line 4878</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4900">line 4900</a>
     </li></ul></dd>
     
 
@@ -15219,7 +15241,7 @@ features or fall back to mouse events.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3335">line 3335</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3357">line 3357</a>
     </li></ul></dd>
     
 
@@ -15948,7 +15970,7 @@ The cone is defined by its center, radius and height.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3165">line 3165</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3187">line 3187</a>
     </li></ul></dd>
     
 
@@ -16213,7 +16235,7 @@ The cylinder is defined by its center, radius and height.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3096">line 3096</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3118">line 3118</a>
     </li></ul></dd>
     
 
@@ -16455,7 +16477,7 @@ The plane is defined by a point on it and its normal vector.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3227">line 3227</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3249">line 3249</a>
     </li></ul></dd>
     
 
@@ -16697,7 +16719,7 @@ The sphere is defined by its center and radius.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3059">line 3059</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3081">line 3081</a>
     </li></ul></dd>
     
 
@@ -17324,7 +17346,7 @@ if longitude is in the western hemisphere.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5676">line 5676</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5698">line 5698</a>
     </li></ul></dd>
     
 
@@ -17486,7 +17508,7 @@ The perpendicular vector is in the xz-plane, with y = 0.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5656">line 5656</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5678">line 5678</a>
     </li></ul></dd>
     
 
@@ -17830,7 +17852,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5569">line 5569</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5591">line 5591</a>
     </li></ul></dd>
     
 
@@ -17931,7 +17953,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3259">line 3259</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3281">line 3281</a>
     </li></ul></dd>
     
 
@@ -18224,7 +18246,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3245">line 3245</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3267">line 3267</a>
     </li></ul></dd>
     
 
@@ -18387,7 +18409,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3293">line 3293</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3315">line 3315</a>
     </li></ul></dd>
     
 
@@ -18781,7 +18803,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5477">line 5477</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5499">line 5499</a>
     </li></ul></dd>
     
 
@@ -18968,7 +18990,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5146">line 5146</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5168">line 5168</a>
     </li></ul></dd>
     
 
@@ -19187,7 +19209,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5104">line 5104</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5126">line 5126</a>
     </li></ul></dd>
     
 
@@ -19367,7 +19389,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5124">line 5124</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5146">line 5146</a>
     </li></ul></dd>
     
 
@@ -19586,7 +19608,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5083">line 5083</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5105">line 5105</a>
     </li></ul></dd>
     
 
@@ -19924,7 +19946,7 @@ number of great circles that pass through them.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5016">line 5016</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5038">line 5038</a>
     </li></ul></dd>
     
 
@@ -20136,7 +20158,7 @@ number of great circles that pass through them.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5438">line 5438</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5460">line 5460</a>
     </li></ul></dd>
     
 
@@ -20412,7 +20434,7 @@ this path is a circular helix, which has constant curvature and constant torsion
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4927">line 4927</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4949">line 4949</a>
     </li></ul></dd>
     
 
@@ -20551,7 +20573,7 @@ this path is a circular helix, which has constant curvature and constant torsion
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3266">line 3266</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3288">line 3288</a>
     </li></ul></dd>
     
 
@@ -20639,7 +20661,7 @@ this path is a circular helix, which has constant curvature and constant torsion
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3252">line 3252</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3274">line 3274</a>
     </li></ul></dd>
     
 
@@ -20891,7 +20913,7 @@ this path is a circular helix, which has constant curvature and constant torsion
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2969">line 2969</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2991">line 2991</a>
     </li></ul></dd>
     
 
@@ -21900,7 +21922,7 @@ Ensure preserveDrawingBuffer is true if needed for capturing post-render content
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3403">line 3403</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3425">line 3425</a>
     </li></ul></dd>
     
 
@@ -22209,7 +22231,7 @@ it means the three vectors are coplanar (lie in the same plane).</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2936">line 2936</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2958">line 2958</a>
     </li></ul></dd>
     
 
@@ -22359,7 +22381,7 @@ from &lt;select&gt; element in html.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2893">line 2893</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2915">line 2915</a>
     </li></ul></dd>
     
 
@@ -22664,7 +22686,7 @@ is used as the starting point.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5171">line 5171</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5193">line 5193</a>
     </li></ul></dd>
     
 
@@ -22808,7 +22830,7 @@ is used as the starting point.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4578">line 4578</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4600">line 4600</a>
     </li></ul></dd>
     
 
@@ -22945,7 +22967,7 @@ is used as the starting point.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4562">line 4562</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4584">line 4584</a>
     </li></ul></dd>
     
 
@@ -23039,7 +23061,7 @@ For instance, a cube's face texture coordinates span from 0 to 1.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5522">line 5522</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5544">line 5544</a>
     </li></ul></dd>
     
 
@@ -23453,7 +23475,7 @@ by applying the inverse of the rotation matrix to the north vector.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3429">line 3429</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3451">line 3451</a>
     </li></ul></dd>
     
 
@@ -23808,7 +23830,7 @@ that has the key 'g' pressed, effectively simulating a key press every delay ms.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4180">line 4180</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4202">line 4202</a>
     </li></ul></dd>
     
 
@@ -23981,7 +24003,7 @@ redrawn.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5251">line 5251</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5273">line 5273</a>
     </li></ul></dd>
     
 
@@ -25065,7 +25087,7 @@ redrawn.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3013">line 3013</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3035">line 3035</a>
     </li></ul></dd>
     
 
@@ -25304,7 +25326,7 @@ and displays the coordinates in the <a href="global.html#canvastip">canvastip</a
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3374">line 3374</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3396">line 3396</a>
     </li></ul></dd>
     
 
@@ -26856,7 +26878,7 @@ and the center of the torus is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3273">line 3273</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3295">line 3295</a>
     </li></ul></dd>
     
 
@@ -26944,7 +26966,7 @@ and the center of the torus is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3280">line 3280</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3302">line 3302</a>
     </li></ul></dd>
     
 
@@ -27190,7 +27212,7 @@ Otherwise, just loads a new texture.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4637">line 4637</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4659">line 4659</a>
     </li></ul></dd>
     
 
@@ -27331,7 +27353,7 @@ model or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5525">line 5525</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5547">line 5547</a>
     </li></ul></dd>
     
 
@@ -27419,7 +27441,7 @@ model or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5731">line 5731</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5753">line 5753</a>
     </li></ul></dd>
     
 
@@ -27858,7 +27880,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3549">line 3549</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3571">line 3571</a>
     </li></ul></dd>
     
 
@@ -27954,7 +27976,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3753">line 3753</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3775">line 3775</a>
     </li></ul></dd>
     
 
@@ -28052,7 +28074,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3817">line 3817</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3839">line 3839</a>
     </li></ul></dd>
     
 
@@ -28148,7 +28170,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3740">line 3740</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3762">line 3762</a>
     </li></ul></dd>
     
 
@@ -28244,7 +28266,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3639">line 3639</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3661">line 3661</a>
     </li></ul></dd>
     
 
@@ -28340,7 +28362,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3701">line 3701</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3723">line 3723</a>
     </li></ul></dd>
     
 
@@ -28436,7 +28458,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3652">line 3652</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3674">line 3674</a>
     </li></ul></dd>
     
 
@@ -28532,7 +28554,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3766">line 3766</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3788">line 3788</a>
     </li></ul></dd>
     
 
@@ -28628,7 +28650,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3727">line 3727</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3749">line 3749</a>
     </li></ul></dd>
     
 
@@ -28724,7 +28746,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3714">line 3714</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3736">line 3736</a>
     </li></ul></dd>
     
 
@@ -28820,7 +28842,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3536">line 3536</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3558">line 3558</a>
     </li></ul></dd>
     
 
@@ -28916,7 +28938,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3685">line 3685</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3707">line 3707</a>
     </li></ul></dd>
     
 
@@ -29014,7 +29036,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3806">line 3806</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3828">line 3828</a>
     </li></ul></dd>
     
 
@@ -29110,7 +29132,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3667">line 3667</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3689">line 3689</a>
     </li></ul></dd>
     
 
@@ -29206,7 +29228,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3792">line 3792</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3814">line 3814</a>
     </li></ul></dd>
     
 
@@ -29302,7 +29324,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3779">line 3779</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3801">line 3801</a>
     </li></ul></dd>
     
 
@@ -29398,7 +29420,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3562">line 3562</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3584">line 3584</a>
     </li></ul></dd>
     
 
@@ -29494,7 +29516,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3588">line 3588</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3610">line 3610</a>
     </li></ul></dd>
     
 
@@ -29590,7 +29612,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3575">line 3575</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3597">line 3597</a>
     </li></ul></dd>
     
 
@@ -29686,7 +29708,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3605">line 3605</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3627">line 3627</a>
     </li></ul></dd>
     
 
@@ -29830,7 +29852,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4132">line 4132</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4154">line 4154</a>
     </li></ul></dd>
     
 
@@ -29976,7 +29998,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4143">line 4143</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4165">line 4165</a>
     </li></ul></dd>
     
 
@@ -30075,7 +30097,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5254">line 5254</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5276">line 5276</a>
     </li></ul></dd>
     
 
@@ -30174,7 +30196,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3831">line 3831</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3853">line 3853</a>
     </li></ul></dd>
     
 
@@ -30331,7 +30353,7 @@ and defines its <a href="global.html#ImageLoadCallback">load callback function</
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4612">line 4612</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4634">line 4634</a>
     </li></ul></dd>
     
 
@@ -30490,7 +30512,7 @@ For pen, it is fired when the stylus makes physical contact with the digitizer.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3847">line 3847</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3869">line 3869</a>
     </li></ul></dd>
     
 
@@ -30646,7 +30668,7 @@ subsequent button presses don't fire pointerdown events.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3969">line 3969</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3991">line 3991</a>
     </li></ul></dd>
     
 
@@ -30800,7 +30822,7 @@ how fast the machine is, what other tasks and processes are happening, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3887">line 3887</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3909">line 3909</a>
     </li></ul></dd>
     
 
@@ -30957,7 +30979,7 @@ how fast the machine is, what other tasks and processes are happening, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3989">line 3989</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4011">line 4011</a>
     </li></ul></dd>
     
 
@@ -31111,7 +31133,7 @@ The pointerout event is fired for several reasons including:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3932">line 3932</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3954">line 3954</a>
     </li></ul></dd>
     
 
@@ -31263,7 +31285,7 @@ while other buttons are held down, don't fire pointerup events.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4061">line 4061</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4083">line 4083</a>
     </li></ul></dd>
     
 
@@ -31364,7 +31386,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5273">line 5273</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5295">line 5295</a>
     </li></ul></dd>
     
 
@@ -31517,7 +31539,7 @@ Executed when the slider is changed.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3618">line 3618</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3640">line 3640</a>
     </li></ul></dd>
     
 
@@ -31572,7 +31594,7 @@ Executed when the slider is changed.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Mar 10 2026 21:40:35 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Mar 11 2026 08:04:49 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

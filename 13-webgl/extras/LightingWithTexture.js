@@ -2682,6 +2682,22 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
 
 /**
  * <p>Calculates loxodromic (rhumb line) distance between two points on cylinder.</p>
+ * <p>Loxodromes appear as straight lines on a Mercator chart, but their length on the map
+ * is generally larger than their actual shorter length on the spherical surface.
+ * Calculations show that a loxodrome spanning latitudes (e.g., 55°S to 55°N)
+ * can measure significantly more on the map compared to its actual length on the sphere.</p>
+ * <p>For example, the length of the loxodrome between:
+ * <ul>
+ *  <li>Syracuse, New York (φ1 = 43°00′ N, λ1 = 76°00′ W = −76°00′ E),
+ *  <li>Moscow (φ2 = 55°45′ N, λ2 = 37°37′ E)
+ *  <li>R = 6370 km
+ *  <li>On chart = 12,820.7 km</li>
+ *  <li>On globe = 8283.2 km</li>
+ * </ul>
+ * with the assumed mean radius of the Earth’s sphere is 8283.2 km. The distance
+ * between New York and Moscow on a map drawn in the Mercator projection
+ * is 12,820.7 km. This is the length of the loxodrome image on the map, which is
+ * significantly different from the length of the loxodrome on the sphere.</p>
  * <ul>
  *  <li>Δlat (Difference of Latitude): the north-south distance between the departure and destination points,
  *      <br>measured in minutes of arc or nautical miles (1' = 1 NM).</li>
@@ -2691,15 +2707,15 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  *    <li>dLat = lat2 - lat1, in radians</li>
  *    <li>dLon = lon2 - lon1, in radians</li>
  *    <li>D = √ (R * dLat) <sup>2</sup> + (R * dLon) <sup>2</sup></li>
- *    ----------------------------------------
+ *    ---------------- Area ------------------
  *    <li>Sphere = 4πR² </li>
  *    <li>Equator = 2πR </li>
  *    <li>Chart Equirect = 2πR x πR = 2π²R²</li>
  *    <li>Chart Mercator = 2πR x 2πR = 4π²R²</li>
  *    <li>Cylinder = 2πRH = 2πR x πR = 2π²R² (2x1 aspect) </li>
- *    ----------------------------------------
+ *    ----------- Area x Length -------------
  *    <li>Area(C) = Area(CE) > Area(S)</li>
- *    <lI>Loxodrome(C) = Loxodrome(CE) > Loxodrome(S)</li>
+ *    <lI>Loxodrome(C) = Loxodrome(CE) ≥ Loxodrome(S)</li>
  *  </ul>
  * </ul>
  * @param {number} lat1 - latitude of first point in degrees.
@@ -2712,6 +2728,12 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  * @see <figure>
  *    <img src="../images/Esfera_Arquimedes.png" width="256">
  *    <figcaption style="font-size: 200%">Archimedes: Area(S) = Area(C) = 2π r x 2r = 4π r²</figcaption>
+ * </figure>
+ * <figure>
+ *    <img src="../images/Syracuse-Moscow.png" height="256">
+ *    <img src="../images/Syracuse-Moscow-map.png" height="256">
+ *    <img src="../images/Syracuse-Moscow-cyl.png" height="256">
+ *    <figcaption style="font-size: 200%">Syracuse - Moscow (80.19°)</figcaption>
  * </figure>
  */
 function calculateLoxodromeDistanceCyl(lat1, lon1, lat2, lon2) {
