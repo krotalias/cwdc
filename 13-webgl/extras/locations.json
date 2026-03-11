@@ -2450,6 +2450,17 @@
         "latitude": 9.38743,
         "longitude": -79.91863
     },
+    "Miami": {
+        "country": "Florida (United States)",
+        "remarkable": [
+            "Julia DeForest Tuttle (founder), 1849-1898",
+            "Purchased 640 acres (citrus grower) on the north bank of the Miami River, 1891",
+            "Jim Crow laws (segregation laws in Southern U.S.), 1877-1965",
+            "Incorporated, 28 July 1896"
+        ],
+        "latitude": 25.785996856,
+        "longitude": -80.22116
+    },
     "Cape Canaveral": {
         "country": "Florida (United States)",
         "remarkable": [
