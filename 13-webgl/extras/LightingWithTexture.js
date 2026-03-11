@@ -2710,7 +2710,7 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  * @see {@link https://www.gregschool.org/articles-page-6/2017/5/18/finding-the-geodesic-on-a-cylinder-mley2 Finding the Geodesic on a Cylinder}
  * @see <a href="../doc/A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections.pdf">A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections</a>
  * @see <figure>
- *    <img src="../images/Esfera_Arquímedes.png" width="256">
+ *    <img src="../images/Esfera_Arquimedes.png" width="256">
  *    <figcaption style="font-size: 200%">Archimedes: Area(S) = Area(C) = 2π r x 2r = 4π r²</figcaption>
  * </figure>
  */
