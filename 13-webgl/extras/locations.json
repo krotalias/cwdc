@@ -3988,6 +3988,20 @@
         "latitude": 25.5,
         "longitude": 51.25
     },
+    "Kharg Island": {
+        "country": "Iran",
+        "remarkable": [
+            "Standard Oil Company of Indiana (Amoco Corporation), 1889-1985",
+            "Am erican o il co mpany merged with BP, 1998",
+            "Amoco built and operated the oil terminal on the island, 1960-1979",
+            "Expropriated after the Iranian Revolution, 1979",
+            "Heavy bombing by the Iraqi Air Force, 1980-1988",
+            "Iran exported and swapped 950 million barrels of crude oil, 2009",
+            "It remains the central node for Iran's oil exports, 2026"
+        ],
+        "latitude": 29.245,
+        "longitude": 50.31
+    },
     "Simbirsk": {
         "country": "Russian Empire (Russia)",
         "remarkable": [
