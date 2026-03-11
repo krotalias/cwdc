@@ -1650,9 +1650,9 @@ function labelForLocation(location) {
     )} km (${toMiles(loxDistanceSph).toFixed(0)} mi)
     <br>${
       cities.previous
-    } to ${location} on the chart (cylinder): ${loxDistanceCyl.toFixed(0)} km (${toMiles(
-      loxDistanceCyl,
-    ).toFixed(0)} mi)`;
+    } to ${location} on the chart (cylinder): ${loxDistanceCyl.toFixed(
+      0,
+    )} km (${toMiles(loxDistanceCyl).toFixed(0)} mi)`;
 }
 
 /**
@@ -2684,13 +2684,22 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  * <p>Calculates loxodromic (rhumb line) distance between two points on cylinder.</p>
  * <ul>
  *  <li>Δlat (Difference of Latitude): the north-south distance between the departure and destination points,
- *      measured in minutes of arc or nautical miles (1' = 1 NM).</li>
- *  <li>Δlon (Difference of Longitude): the east-west distance between the departure and destination points,
+ *      <br>measured in minutes of arc or nautical miles (1' = 1 NM).</li>
+ *  <li>Δlon (Difference of Longitude): the east-west distance between the departure and destination points.
  *  <li>Distance (D): the length of the loxodrome, calculated as:</li>
  *  <ul>
  *    <li>dLat = lat2 - lat1, in radians</li>
  *    <li>dLon = lon2 - lon1, in radians</li>
- *    <li> D = √ (R * dLat) <sup>2</sup> + (R * dLon) <sup>2</sup></li>
+ *    <li>D = √ (R * dLat) <sup>2</sup> + (R * dLon) <sup>2</sup></li>
+ *    ----------------------------------------
+ *    <li>Sphere = 4πR² </li>
+ *    <li>Equator = 2πR </li>
+ *    <li>Chart Equirect = 2πR x πR = 2π²R²</li>
+ *    <li>Chart Mercator = 2πR x 2πR = 4π²R²</li>
+ *    <li>Cylinder = 2πRH = 2πR x πR = 2π²R² (2x1 aspect) </li>
+ *    ----------------------------------------
+ *    <li>Area(C) = Area(CE) > Area(S)</li>
+ *    <lI>Loxodrome(C) = Loxodrome(CE) > Loxodrome(S)</li>
  *  </ul>
  * </ul>
  * @param {number} lat1 - latitude of first point in degrees.
@@ -2700,6 +2709,10 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  * @returns {number} distance in kilometers.
  * @see {@link https://www.gregschool.org/articles-page-6/2017/5/18/finding-the-geodesic-on-a-cylinder-mley2 Finding the Geodesic on a Cylinder}
  * @see <a href="../doc/A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections.pdf">A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections</a>
+ * @see <figure>
+ *    <img src="../images/Esfera_Arquímedes.png" width="256">
+ *    <figcaption style="font-size: 200%">Archimedes: Area(S) = Area(C) = 2π r x 2r = 4π r²</figcaption>
+ * </figure>
  */
 function calculateLoxodromeDistanceCyl(lat1, lon1, lat2, lon2) {
   const R = 6371; // Earth's mean radius in km
@@ -2709,7 +2722,7 @@ function calculateLoxodromeDistanceCyl(lat1, lon1, lat2, lon2) {
     // on the cyliner - [0, 1] x [0, 1]
     const uv1 = gcs2UV({ latitude: lat1, longitude: lon1 });
     const uv2 = gcs2UV({ latitude: lat2, longitude: lon2 });
-    const [, phi1, y1] = UV2Cylindrical(uv1);
+    const [, phi1, y1] = UV2Cylindrical(uv1); // [0, 2π] x [-height/2, height/2]
     const [, phi2, y2] = UV2Cylindrical(uv2);
     const { _, height } = getCylinderParameters();
     let sy = Math.PI / height;
