@@ -3952,8 +3952,15 @@ function addListeners() {
 
     element.tooltip.style.top = `${event.offsetY + 15}px`;
     element.tooltip.style.left = `${x}px`;
-    // UV normalized
-    element.tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
+    if (controlPressed) {
+      const gcs = spherical2gcs(uv);
+      const cs = closestSite(gcs);
+      // closest site name and distance in km
+      element.tooltip.innerHTML = `(${cs.site}, ${(cs.distance / 1000).toFixed(0)}km)`;
+    } else {
+      // UV normalized
+      element.tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
+    }
     element.tooltip.style.display = "block";
   });
 
