@@ -528,6 +528,12 @@ let globeRadius = sphereRadius;
 let ppiIndex = 2;
 
 /**
+ * Whether the control key has been held down.
+ * @type {Boolean}
+ */
+let controlPressed = false;
+
+/**
  * Scaling factor applied to a radius so a line or a
  * point is rendered on top of its textured surface.
  * @type {Number}
@@ -1671,7 +1677,7 @@ function labelForTimeline(dat) {
 /**
  * Returns the closest site to the given {@link GCS} position (latitude, longitude).
  * @param {GCS} position GCS coordinates.
- * @return {String} closest site name.
+ * @return {Object<site:String, distance:Number>} closest site name and distance.
  */
 function closestSite(position) {
   let minimumDistance = 50e6;
@@ -1684,7 +1690,7 @@ function closestSite(position) {
       minimumDistance = distance;
     }
   }
-  return closest;
+  return { site: closest, distance: minimumDistance };
 }
 
 /**
@@ -2266,7 +2272,7 @@ const handleKeyPress = ((event) => {
         updateLocation(0);
         break;
       case "J":
-        currentLocation = closestSite(gpsCoordinates["Unknown"]);
+        currentLocation = closestSite(gpsCoordinates["Unknown"]).site;
       case "j":
         updateLocation(0, true, false);
         break;
@@ -4010,7 +4016,8 @@ function addListeners() {
 
   /**
    * <p>Displays the {@link GCS} coordinates (longitude and latitude )
-   * on the globe when pointer is moved upon.</p>
+   * on the globe when pointer is moved upon or the closest site and distance if
+   * ctrl key is pressed while moving the pointer.</p>
    * <p>Sets {@link moving} to true if {@link clicked} is also true.</p>
    * <p>The pointermove event is fired when a pointer changes coordinates,
    * and the pointer has not been canceled by a browser touch-action.
@@ -4073,9 +4080,15 @@ function addListeners() {
 
       canvastip.style.top = `${y + 15}px`;
       canvastip.style.left = `${x}px`;
-      // GCS coordinates
-      canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
+      if (controlPressed) {
+        const cs = closestSite(gcs);
+        // closest site name and distance in km
+        canvastip.innerHTML = `(${cs.site}, ${(cs.distance / 1000).toFixed(0)}km)`;
+      } else {
+        // GCS coordinates
+        canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
                           ${gcs.latitude.toFixed(3)})`;
+      }
       canvastip.style.display = "block";
     }
   });
@@ -5288,8 +5301,24 @@ function startForReal(image) {
       ) > -1
     ) {
       event.preventDefault();
+    } else if (event.key === "Control") {
+      controlPressed = true;
     }
     handleKeyPress(event);
+  });
+
+  /**
+   * <p>Appends an event listener for events whose type attribute value is keyup.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event keyup
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event Element: keyup event}
+   */
+  window.addEventListener("keyup", (event) => {
+    if (event.key === "Control") {
+      controlPressed = false;
+    }
   });
 
   /**
