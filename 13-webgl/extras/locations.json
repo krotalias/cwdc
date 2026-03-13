@@ -4846,6 +4846,17 @@
         "latitude": 46.22141,
         "longitude": 24.79279
     },
+    "Straits of Salamis": {
+        "country": "Greece",
+        "remarkable": [
+            "Themistocles, 524-459 BC",
+            "Persuaded the Athenians to build a fleet of 200 triremes, 483 BC",
+            "Battle of Salamis, 26 September 480 BC",
+            "Governor of Magnesia, 465-459 BC"
+        ],
+        "latitude": 37.951389,
+        "longitude": 23.566667
+    },
     "Stagira": {
         "country": "🔬 Chalcidian League (Greece)",
         "remarkable": [

@@ -4090,7 +4090,14 @@ function addListeners() {
       if (controlPressed) {
         const cs = closestSite(gcs);
         // closest site name and distance in km
-        canvastip.innerHTML = `(${cs.site}, ${(cs.distance / 1000).toFixed(0)}km)`;
+        if (cs.distance > 50e3) {
+          canvastip.innerHTML = `(${cs.site}, ${(cs.distance / 1000).toFixed(0)}km)`;
+        } else {
+          const gpsc = gpsCoordinates[cs.site];
+          canvastip.innerHTML = `${cs.site}, ${gpsc.country}<br>${gpsc.remarkable.join(
+            "<br>",
+          )}`;
+        }
       } else {
         // GCS coordinates
         canvastip.innerHTML = `(${gcs.longitude.toFixed(3)},
