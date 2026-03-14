@@ -3886,6 +3886,24 @@
         "latitude": 8.0883,
         "longitude": 77.5385
     },
+    "Calicut": {
+        "country": "Malabar Coast (India)",
+        "remarkable": [
+            "Zamorins of Calicut, 1124-1806",
+            "Vasco da Gama landed at Kozhikode, 20 May 1498",
+            "Pedro Álvarez Cabral arrived in Calicut, 13 September 1500",
+            "Arab's riot on the PT factory (53 slaughtered), 17 December 1500",
+            "Shore bombardment in retaliation to Calicut's massacre (600 casualties), 22 December 1500",
+            "Cabral arrived in Cochin, 24 December 1500",
+            "A fleet (1.5K men) from Calicut appeared and was defeated, 10 January 1501",
+            "Cabral Signed a treaty with the Cannanore's raja, 15 January 1501",
+            "Six out of thirteen ships returned to Lisbon, 27 June 1501",
+            "Vasco da Gama landed in Kozhikode again, 30 October 1502",
+            "Battle of Calicut, 5 January 1503 - 6 January 1503"
+        ],
+        "latitude": 11.248889,
+        "longitude": 75.783889
+    },
     "Malé": {
         "country": "Maldives",
         "remarkable": [
