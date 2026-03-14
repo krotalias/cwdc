@@ -405,6 +405,39 @@
         "latitude": 28.125833,
         "longitude": -15.435278
     },
+    "Funchal": {
+        "country": "Madeira (Portugal)",
+        "remarkable": [
+            "João Gonçalves Zarco (donatary of Funchal), 1390-1471",
+            "Discovered the island of Madeira, 1 July 1419",
+            "Álvaro Fernandes (nephew and commander of Funchal), 1445-1447",
+            "First European to reach Guiné-Bissau, 1446",
+            "Alvise Cadamosto (Venetian explorer), 1432-1483",
+            "First journey, 22 March 1455",
+            "Celebrated Madeira's Wine culture, 1455",
+            "Status of city by King Manuel I of Portugal, 1508",
+            "Established, 1424"
+        ],
+        "latitude": 32.65,
+        "longitude": -16.916667
+    },
+    "Gorée Island": {
+        "country": "Senegal",
+        "remarkable": [
+            "Álvaro Fernandes anchored at Bezeguiche island, 1445",
+            "Vasco da Gama, 1502",
+            "Dutch West India Company (GWC), 1617",
+            "Johannes de Laet (Dutch geographer), 20 July 1628",
+            "French invasion, 1677",
+            "House of Slaves, 1780-1784",
+            "Slavery was abolished in Senegal, 1848",
+            "World Heritage Site (UNESCO), 17 June 1978",
+            "Dakar-Gorée Swim was launched (4.5-5.2 km), 1985",
+            "First visited by Portuguese (Diníz Dias), 1444"
+        ],
+        "latitude": 14.666944,
+        "longitude": -17.398333
+    },
     "Reykjavik": {
         "country": "Iceland",
         "remarkable": [
