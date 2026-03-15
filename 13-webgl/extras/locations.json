@@ -585,7 +585,7 @@
     "Natal": {
         "country": "⚔ Rio Grande do Norte (Brazil)",
         "remarkable": [
-            "Amerigo Vespucci expedition, 1501-1502",
+            "Amerigo Vespucci and André Gonçalves expedition, 1501-1502",
             "Occupied by Dutch forces, 1633-1654",
             "New Amsterdan, 1633",
             "Holand recognizes Portuguese sovereignty, 1661",
@@ -597,6 +597,22 @@
         ],
         "latitude": -5.783333,
         "longitude": -35.2
+    },
+    "Cape São Roque": {
+        "country": "Rio Grande do Norte (Brazil)",
+        "remarkable": [
+            "The point on the bend of the Brazilian mainland coast",
+            "that is closest to the continent of Africa",
+            "Vicente Yáñez Pinzón, 1462-1504",
+            "Captain of the Niña, 1492-1493",
+            "Set sail from Palos de la Frontera (4 caravels), 19 November 1499",
+            "Anchored on 'cove of Suape (5m)' (Cabo de Santo Agostinho), 26 January 1500",
+            "Rounded the Cape São Roque and reached the Amazon River, February 1500",
+            "Reached Spain, 30 September 1500",
+            "Amerigo Vespucci and Gonçalo Coelho, 17 August 1501"
+        ],
+        "latitude": -5.4825,
+        "longitude": -35.261389
     },
     "Maceió": {
         "country": "Alagoas (Brazil)",
@@ -702,7 +718,14 @@
         "country": "Porto Seguro (Brazil)",
         "remarkable": [
             "Pedro Álvarez Cabral, 1467-1520",
-            "Discovery of Brazil, 22 April 1500"
+            "Departured from Lisbon (fleet of 13 ships), 9 March 1500",
+            "Cape Verde southwest detour (volta do mar), 22 March 1500",
+            "Discovery of Brazil (Ilha de Vera Cruz), 22 April 1500",
+            "Departured to India, 2 May 1500",
+            "Rounded the Cape of Good Hope, lost 4 ships and Bartolomeu Dias, 29 May 1500",
+            "Digo Dias sighted for the 1st time the Insula St. Laurentii (Madagascar), 10 August 1500",
+            "The flagship cast anchor at Calicut (India), 13 September 1500",
+            "2nd Portuguese India Armada, 1500-1501"
         ],
         "latitude": -16.8963207,
         "longitude": -39.4075612
@@ -3886,23 +3909,49 @@
         "latitude": 8.0883,
         "longitude": 77.5385
     },
+    "Cochin": {
+        "country": "Malabar Coast (India)",
+        "remarkable": [
+            "Cabral arrived in Cochin, 24 December 1500",
+            "A fleet (1.5K men) from Calicut appeared and was defeated, 10 January 1501",
+            "Cabral Signed a treaty with the Cannanore's raja, 15 January 1501",
+            "Six out of thirteen ships returned to Lisbon, 27 June 1501"
+        ],
+        "latitude": 9.9667,
+        "longitude": 76.2667
+    },
     "Calicut": {
         "country": "Malabar Coast (India)",
         "remarkable": [
             "Zamorins of Calicut, 1124-1806",
-            "Vasco da Gama landed at Kozhikode, 20 May 1498",
+            "Vasco da Gama, 1469-1524",
+            "1st Portuguese India Armada, 1497-1499",
+            "Departed from Lisbon (4 ships), 8 July 1497",
+            "Landed at Kozhikode for the first time, 20 May 1498",
+            "Returned to Lisboa, September 1499",
             "Pedro Álvarez Cabral arrived in Calicut, 13 September 1500",
             "Arab's riot on the PT factory (53 slaughtered), 17 December 1500",
             "Shore bombardment in retaliation to Calicut's massacre (600 casualties), 22 December 1500",
-            "Cabral arrived in Cochin, 24 December 1500",
-            "A fleet (1.5K men) from Calicut appeared and was defeated, 10 January 1501",
-            "Cabral Signed a treaty with the Cannanore's raja, 15 January 1501",
-            "Six out of thirteen ships returned to Lisbon, 27 June 1501",
+            "4th Portuguese India Armada, 1502-1503",
+            "Set out from Lisbon, 10 February 1502",
+            "Massacre of the pilgrim ship from Mecca (300 killed), September 1502",
             "Vasco da Gama landed in Kozhikode again, 30 October 1502",
-            "Battle of Calicut, 5 January 1503 - 6 January 1503"
+            "Battle of Calicut, 5 January 1503 - 6 January 1503",
+            "Arrived in Lisbon, September 1503"
         ],
         "latitude": 11.248889,
         "longitude": 75.783889
+    },
+    "Cannanore": {
+        "country": "Malabar Coast (India)",
+        "remarkable": [
+            "The old Kolathiri Raja allied to the Portuguese died, 1506",
+            "The new Kōlattiri Raja and the Zamorin of Calicut besieged St. Angelo Fort",
+            "Siege of Cannanore, 27 April 1507 - 27 August 1507",
+            "11 ships (300 men) from the 8th Armada (Tristão da Cunha) arrived, 27 August 1507"
+        ],
+        "latitude": 11.86752,
+        "longitude": 75.35763
     },
     "Malé": {
         "country": "Maldives",
