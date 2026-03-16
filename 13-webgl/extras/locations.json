@@ -377,6 +377,19 @@
         "latitude": 38.7077507,
         "longitude": -9.1365919
     },
+    "Belém Tower": {
+        "country": "Lisbon (Portugal)",
+        "remarkable": [
+            "Armada's departure site (Tagus River estuary)",
+            "Bartolomeu Dias, 18 August 1487",
+            "Vasco da Gama, 8 July 1497",
+            "Pedro Álvarez Cabral, 9 March 1500",
+            "World Heritage by UNESCO, 1983",
+            "Construction (Restelo beach - Tejo river mouth), 1514-1521"
+        ],
+        "latitude": 38.691591,
+        "longitude": -9.216005
+    },
     "Queluz National Palace": {
         "country": "Lisbon (Portugal)",
         "remarkable": [
@@ -718,10 +731,10 @@
         "country": "Porto Seguro (Brazil)",
         "remarkable": [
             "Pedro Álvarez Cabral, 1467-1520",
-            "Departured from Lisbon (fleet of 13 ships), 9 March 1500",
+            "Departed from Lisbon (fleet of 13 ships), 9 March 1500",
             "Cape Verde southwest detour (volta do mar), 22 March 1500",
             "Discovery of Brazil (Ilha de Vera Cruz), 22 April 1500",
-            "Departured to India, 2 May 1500",
+            "Departed to India, 2 May 1500",
             "Rounded the Cape of Good Hope, lost 4 ships and Bartolomeu Dias, 29 May 1500",
             "Digo Dias sighted for the 1st time the Insula St. Laurentii (Madagascar), 10 August 1500",
             "The flagship cast anchor at Calicut (India), 13 September 1500",
@@ -3953,6 +3966,28 @@
         "latitude": 11.86752,
         "longitude": 75.35763
     },
+    "Vasco da Gama": {
+        "country": "Goa (India)",
+        "remarkable": [
+            "Vasco da Gama (1st Count of Vidigueira), 1469-1524",
+            "Governor of Portuguese India, 12 September 1505",
+            "Portuguese defeated the ruling Bijapur sultan, 25 November 1510",
+            "Vasco da Gama arrived in Goa, 11 September 1524",
+            "Died in Cochin, 24 December 1524",
+            "Goa Inquisition, 1560-1812",
+            "Pinto Revolt (Goan priests against Catholic elite), 10 August 1787",
+            "Mormugao Port, 1885",
+            "City was named so by then-Governor Ferreira de Amaral, 1886",
+            "Operation Creek (German merchant ship Ehrenfels), 9 March 1943",
+            "Independence from British Raj, 15 August 1947",
+            "Annexation by India, 19 December 1961",
+            "India's twenty-fifth state, 30 May 1987",
+            "Portuguese Goan (colonial rule), 1510-1961",
+            "Founded, 1543"
+        ],
+        "latitude": 15.398056,
+        "longitude": 73.811111
+    },
     "Malé": {
         "country": "Maldives",
         "remarkable": [
@@ -4234,6 +4269,20 @@
         ],
         "latitude": 34.615807,
         "longitude": 43.678606
+    },
+    "Island of Mozambique": {
+        "country": "Mozambique",
+        "remarkable": [
+            "Vasco da Gama reached the island, 2 March 1498",
+            "Chapel of Nossa Senhora de Baluarte, 1522",
+            "Mozambican War of Independence, 1961-1974",
+            "Mozambique became independent from Portugal, 25 June 1975",
+            "Civil War, 1977-1992",
+            "UNESCO World Heritage Site, 1991",
+            "Portuguese colonisation, 2 March 1498 - 25 June 1975"
+        ],
+        "latitude": -15.036667,
+        "longitude": 40.732778
     },
     "Gulf of Aden": {
         "country": "Yemen",
@@ -5094,6 +5143,7 @@
         "country": "South Africa",
         "remarkable": [
             "Bartolomeu Dias, 1450-1500",
+            "Departure from Lisbon, 18 August 1487",
             "Round the southern tip of Africa, 1488"
         ],
         "latitude": -34.3571503,
