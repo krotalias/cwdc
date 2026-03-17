@@ -490,9 +490,13 @@
         "country": "São Miguel Island, Azores (Portugal)",
         "remarkable": [
             "Vila Franca do Campo devastated by an earthquake and landslide, 22 October 1522",
+            "Won the naval Battle of Vila Franca (against a French squadron), 26 July 1582",
             "Liberal Wars, 1828-1834",
-            "The liberals won over the absolutists in Praia da Vitória (island of Terceira), 1829",
-            "King-Emperor Pedro IV launched his campaign from the Azores, 1832",
+            "Battle of Ladeira da Velha (Miguelist forces defeated), 3 August 1831",
+            "D. Pedro arrived in São Miguel, 22 February 1832",
+            "D. Pedro forces departed to Mindelo, 27 June 1832",
+            "Revolta dos Calcetas (Fort São Brás), 24 April 1835",
+            "Port of Ponta Delagada (artificial harbor), 30 September 1861 - 1942",
             "Autonomous status, 30 April 1976",
             "Settlement, 1432"
         ],
@@ -3798,6 +3802,19 @@
         "latitude": 22.3,
         "longitude": 114.2
     },
+    "Macau": {
+        "country": "China-Portugal",
+        "remarkable": [
+            "Luso-Chinese agreement, 24 June 1554",
+            "Battle of Macau (againts the Dutch), 24 June 1622",
+            "Portuguese Treaty of Peking (perpetual rights), 1 December 1887",
+            "Handover to China, 20 December 1999",
+            "UNESCO World Heritage Site, 2005",
+            "Portuguese lease (500 taels of silver/year), 1557-1887"
+        ],
+        "latitude": 22.19,
+        "longitude": 113.54
+    },
     "Saigon": {
         "country": "Vietnam",
         "remarkable": [
@@ -3990,7 +4007,7 @@
         "longitude": 75.35763
     },
     "Vasco da Gama": {
-        "country": "Goa (India)",
+        "country": "Goa (India-Portugal)",
         "remarkable": [
             "Vasco da Gama (1st Count of Vidigueira), 1469-1524",
             "Governor of Portuguese India, 12 September 1505",
@@ -4294,7 +4311,7 @@
         "longitude": 43.678606
     },
     "Island of Mozambique": {
-        "country": "Mozambique",
+        "country": "Mozambique-Portugal",
         "remarkable": [
             "Vasco da Gama reached the island, 2 March 1498",
             "Chapel of Nossa Senhora de Baluarte, 1522",
