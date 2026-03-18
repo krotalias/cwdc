@@ -215,7 +215,7 @@ Step 0.5° ⇒ 60 fps = 30°/s ⇒ 360° in 12s
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5756">line 5756</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5801">line 5801</a>
     </li></ul></dd>
     
 
@@ -2707,7 +2707,7 @@ this vector is updated to its new position in the extrinsic frame.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1826">line 1826</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1859">line 1859</a>
     </li></ul></dd>
     
 
@@ -4535,7 +4535,7 @@ Used only for displaying a location at the center of the globe.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1810">line 1810</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1843">line 1843</a>
     </li></ul></dd>
     
 
@@ -5621,7 +5621,7 @@ on the right (intrinsic rotation).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5790">line 5790</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5835">line 5835</a>
     </li></ul></dd>
     
 
@@ -5693,7 +5693,7 @@ on the right (intrinsic rotation).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1816">line 1816</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1849">line 1849</a>
     </li></ul></dd>
     
 
@@ -7805,7 +7805,7 @@ so the z-axis points outside the screen.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3563">line 3563</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3608">line 3608</a>
     </li></ul></dd>
     
 
@@ -8219,6 +8219,191 @@ in the range [000°, 360°).
     
 
     
+    <h4 class="name" id="binarySearch"><span class="type-signature"></span>binarySearch<span class="signature">(arr, target)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Performs a binary search on a sorted array to find the index of a target value.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>arr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the sorted array to search.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the value to search for.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1754">line 1754</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the index of the target value if found, otherwise -1.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="calculateLoxodromeDistance"><span class="type-signature"></span>calculateLoxodromeDistance<span class="signature">(lat1, lon1, lat2, lon2)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
 
@@ -8403,7 +8588,7 @@ in the range [000°, 360°).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2653">line 2653</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2698">line 2698</a>
     </li></ul></dd>
     
 
@@ -8678,7 +8863,7 @@ significantly different from the length of the loxodrome on the sphere.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2745">line 2745</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2790">line 2790</a>
     </li></ul></dd>
     
 
@@ -8903,7 +9088,7 @@ significantly different from the length of the loxodrome on the sphere.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2371">line 2371</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2410">line 2410</a>
     </li></ul></dd>
     
 
@@ -9269,7 +9454,7 @@ in the file name. The check is case insensitive.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2456">line 2456</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2495">line 2495</a>
     </li></ul></dd>
     
 
@@ -9748,7 +9933,7 @@ that can be passed to <a href="global.html#handleKeyPress">handleKeyPress</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2950">line 2950</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2995">line 2995</a>
     </li></ul></dd>
     
 
@@ -10107,7 +10292,7 @@ for a surface with g handles and b boundaries.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4773">line 4773</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4818">line 4818</a>
     </li></ul></dd>
     
 
@@ -11023,7 +11208,7 @@ Then, triggers the animation to update the canvas.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5523">line 5523</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5568">line 5568</a>
     </li></ul></dd>
     
 
@@ -11187,7 +11372,7 @@ The standard css pixel length is 1/96 of an inch.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2350">line 2350</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2389">line 2389</a>
     </li></ul></dd>
     
 
@@ -11289,7 +11474,7 @@ Draws axes, applies texture, then draws lines.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4248">line 4248</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4293">line 4293</a>
     </li></ul></dd>
     
 
@@ -11378,7 +11563,7 @@ Uses the <a href="global.html#colorShader">colorShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4449">line 4449</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4494">line 4494</a>
     </li></ul></dd>
     
 
@@ -11480,7 +11665,7 @@ which was set in <a href="global.html#createModel">createModel</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4396">line 4396</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4441">line 4441</a>
     </li></ul></dd>
     
 
@@ -11583,7 +11768,7 @@ is the angle it makes with the y-axis.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2792">line 2792</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2837">line 2837</a>
     </li></ul></dd>
     
 
@@ -11709,7 +11894,7 @@ Uses the <a href="global.html#colorShader">colorShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4552">line 4552</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4597">line 4597</a>
     </li></ul></dd>
     
 
@@ -11798,7 +11983,7 @@ on the texture image.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2873">line 2873</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2918">line 2918</a>
     </li></ul></dd>
     
 
@@ -11887,7 +12072,7 @@ Uses the <a href="global.html#colorShader">colorShader</a> with colors defined i
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4497">line 4497</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4542">line 4542</a>
     </li></ul></dd>
     
 
@@ -11984,7 +12169,7 @@ instead of an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection"
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4287">line 4287</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4332">line 4332</a>
     </li></ul></dd>
     
 
@@ -12144,7 +12329,7 @@ instead of an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection"
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3377">line 3377</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3422">line 3422</a>
     </li></ul></dd>
     
 
@@ -12803,7 +12988,7 @@ given its 'uv' coordinates.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3549">line 3549</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3594">line 3594</a>
     </li></ul></dd>
     
 
@@ -12993,7 +13178,7 @@ given its 'uv' coordinates.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2475">line 2475</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2514">line 2514</a>
     </li></ul></dd>
     
 
@@ -13344,7 +13529,7 @@ given its 'uv' coordinates.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1776">line 1776</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1809">line 1809</a>
     </li></ul></dd>
     
 
@@ -13507,7 +13692,7 @@ However, it does not work with BC dates (negative years).</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3474">line 3474</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3519">line 3519</a>
     </li></ul></dd>
     
 
@@ -13625,7 +13810,7 @@ the resolution in CSS pixels for the current display device.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2389">line 2389</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2428">line 2428</a>
     </li></ul></dd>
     
 
@@ -13916,7 +14101,7 @@ vertices, normal vectors, texture coordinates, and indices.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4265">line 4265</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4310">line 4310</a>
     </li></ul></dd>
     
 
@@ -14076,7 +14261,7 @@ identified by "textures".
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4597">line 4597</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4642">line 4642</a>
     </li></ul></dd>
     
 
@@ -14410,7 +14595,7 @@ When a new texture is selected, triggers callback <a href="global.html#image">im
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1793">line 1793</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1826">line 1826</a>
     </li></ul></dd>
     
 
@@ -15199,7 +15384,7 @@ Usage:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4927">line 4927</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4972">line 4972</a>
     </li></ul></dd>
     
 
@@ -15313,7 +15498,7 @@ features or fall back to mouse events.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3363">line 3363</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3408">line 3408</a>
     </li></ul></dd>
     
 
@@ -16042,7 +16227,7 @@ The cone is defined by its center, radius and height.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3193">line 3193</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3238">line 3238</a>
     </li></ul></dd>
     
 
@@ -16307,7 +16492,7 @@ The cylinder is defined by its center, radius and height.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3124">line 3124</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3169">line 3169</a>
     </li></ul></dd>
     
 
@@ -16549,7 +16734,7 @@ The plane is defined by a point on it and its normal vector.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3255">line 3255</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3300">line 3300</a>
     </li></ul></dd>
     
 
@@ -16791,7 +16976,7 @@ The sphere is defined by its center and radius.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3087">line 3087</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3132">line 3132</a>
     </li></ul></dd>
     
 
@@ -17418,7 +17603,7 @@ if longitude is in the western hemisphere.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5741">line 5741</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5786">line 5786</a>
     </li></ul></dd>
     
 
@@ -17580,7 +17765,7 @@ The perpendicular vector is in the xz-plane, with y = 0.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5721">line 5721</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5766">line 5766</a>
     </li></ul></dd>
     
 
@@ -17924,7 +18109,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5634">line 5634</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5679">line 5679</a>
     </li></ul></dd>
     
 
@@ -18025,7 +18210,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3287">line 3287</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3332">line 3332</a>
     </li></ul></dd>
     
 
@@ -18208,7 +18393,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1755">line 1755</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1788">line 1788</a>
     </li></ul></dd>
     
 
@@ -18318,7 +18503,7 @@ Uses the <a href="global.html#lightingShader">lightingShader</a>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3273">line 3273</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3318">line 3318</a>
     </li></ul></dd>
     
 
@@ -18481,7 +18666,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3321">line 3321</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3366">line 3366</a>
     </li></ul></dd>
     
 
@@ -18643,7 +18828,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2413">line 2413</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2452">line 2452</a>
     </li></ul></dd>
     
 
@@ -18875,7 +19060,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5542">line 5542</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5587">line 5587</a>
     </li></ul></dd>
     
 
@@ -19062,7 +19247,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5195">line 5195</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5240">line 5240</a>
     </li></ul></dd>
     
 
@@ -19281,7 +19466,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5153">line 5153</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5198">line 5198</a>
     </li></ul></dd>
     
 
@@ -19461,7 +19646,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5173">line 5173</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5218">line 5218</a>
     </li></ul></dd>
     
 
@@ -19680,7 +19865,7 @@ against a <a href="https://mathworld.wolfram.com/QuadraticSurface.html">quadric 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5132">line 5132</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5177">line 5177</a>
     </li></ul></dd>
     
 
@@ -20018,7 +20203,7 @@ number of great circles that pass through them.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5065">line 5065</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5110">line 5110</a>
     </li></ul></dd>
     
 
@@ -20230,7 +20415,7 @@ number of great circles that pass through them.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5503">line 5503</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5548">line 5548</a>
     </li></ul></dd>
     
 
@@ -20506,7 +20691,7 @@ this path is a circular helix, which has constant curvature and constant torsion
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4976">line 4976</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5021">line 5021</a>
     </li></ul></dd>
     
 
@@ -20645,7 +20830,7 @@ this path is a circular helix, which has constant curvature and constant torsion
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3294">line 3294</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3339">line 3339</a>
     </li></ul></dd>
     
 
@@ -20733,7 +20918,7 @@ this path is a circular helix, which has constant curvature and constant torsion
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3280">line 3280</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3325">line 3325</a>
     </li></ul></dd>
     
 
@@ -20985,7 +21170,7 @@ this path is a circular helix, which has constant curvature and constant torsion
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2997">line 2997</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3042">line 3042</a>
     </li></ul></dd>
     
 
@@ -21177,7 +21362,7 @@ between two <a href="global.html#GCS">GCS</a> locations on the texture image.</p
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2581">line 2581</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2627">line 2627</a>
     </li></ul></dd>
     
 
@@ -21594,7 +21779,7 @@ This is not a great representation, since all the normals are the same.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2529">line 2529</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2568">line 2568</a>
     </li></ul></dd>
     
 
@@ -21809,7 +21994,7 @@ the standard orientation convention: Europe up and South America down.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2556">line 2556</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2595">line 2595</a>
     </li></ul></dd>
     
 
@@ -21994,7 +22179,7 @@ Ensure preserveDrawingBuffer is true if needed for capturing post-render content
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3431">line 3431</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3476">line 3476</a>
     </li></ul></dd>
     
 
@@ -22186,7 +22371,7 @@ it means the three vectors are coplanar (lie in the same plane).</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2445">line 2445</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2484">line 2484</a>
     </li></ul></dd>
     
 
@@ -22303,7 +22488,7 @@ it means the three vectors are coplanar (lie in the same plane).</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2964">line 2964</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3009">line 3009</a>
     </li></ul></dd>
     
 
@@ -22453,7 +22638,7 @@ from &lt;select&gt; element in html.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2921">line 2921</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2966">line 2966</a>
     </li></ul></dd>
     
 
@@ -22758,7 +22943,7 @@ is used as the starting point.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5220">line 5220</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5265">line 5265</a>
     </li></ul></dd>
     
 
@@ -22902,7 +23087,7 @@ is used as the starting point.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4627">line 4627</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4672">line 4672</a>
     </li></ul></dd>
     
 
@@ -23039,7 +23224,7 @@ is used as the starting point.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4611">line 4611</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4656">line 4656</a>
     </li></ul></dd>
     
 
@@ -23133,7 +23318,7 @@ For instance, a cube's face texture coordinates span from 0 to 1.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5587">line 5587</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5632">line 5632</a>
     </li></ul></dd>
     
 
@@ -23349,7 +23534,7 @@ by applying the inverse of the rotation matrix to the north vector.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2504">line 2504</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line2543">line 2543</a>
     </li></ul></dd>
     
 
@@ -23547,7 +23732,7 @@ by applying the inverse of the rotation matrix to the north vector.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3457">line 3457</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3502">line 3502</a>
     </li></ul></dd>
     
 
@@ -23902,7 +24087,7 @@ that has the key 'g' pressed, effectively simulating a key press every delay ms.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4229">line 4229</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4274">line 4274</a>
     </li></ul></dd>
     
 
@@ -24075,7 +24260,7 @@ redrawn.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5300">line 5300</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5345">line 5345</a>
     </li></ul></dd>
     
 
@@ -25159,7 +25344,7 @@ redrawn.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3041">line 3041</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3086">line 3086</a>
     </li></ul></dd>
     
 
@@ -25398,7 +25583,7 @@ and displays the coordinates in the <a href="global.html#canvastip">canvastip</a
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3402">line 3402</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3447">line 3447</a>
     </li></ul></dd>
     
 
@@ -25642,7 +25827,7 @@ are rotated towards the camera when the tooltip is on.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1847">line 1847</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1880">line 1880</a>
     </li></ul></dd>
     
 
@@ -26950,7 +27135,7 @@ and the center of the torus is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3301">line 3301</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3346">line 3346</a>
     </li></ul></dd>
     
 
@@ -27038,7 +27223,7 @@ and the center of the torus is at (0,0,0).
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3308">line 3308</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3353">line 3353</a>
     </li></ul></dd>
     
 
@@ -27284,7 +27469,7 @@ Otherwise, just loads a new texture.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4686">line 4686</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4731">line 4731</a>
     </li></ul></dd>
     
 
@@ -27425,7 +27610,7 @@ model or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5590">line 5590</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5635">line 5635</a>
     </li></ul></dd>
     
 
@@ -27513,7 +27698,7 @@ model or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5796">line 5796</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5841">line 5841</a>
     </li></ul></dd>
     
 
@@ -27659,7 +27844,7 @@ model or not.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1938">line 1938</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line1971">line 1971</a>
     </li></ul></dd>
     
 
@@ -27952,7 +28137,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3577">line 3577</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3622">line 3622</a>
     </li></ul></dd>
     
 
@@ -28048,7 +28233,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3781">line 3781</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3826">line 3826</a>
     </li></ul></dd>
     
 
@@ -28146,7 +28331,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3845">line 3845</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3890">line 3890</a>
     </li></ul></dd>
     
 
@@ -28242,7 +28427,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3768">line 3768</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3813">line 3813</a>
     </li></ul></dd>
     
 
@@ -28338,7 +28523,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3667">line 3667</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3712">line 3712</a>
     </li></ul></dd>
     
 
@@ -28434,7 +28619,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3729">line 3729</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3774">line 3774</a>
     </li></ul></dd>
     
 
@@ -28530,7 +28715,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3680">line 3680</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3725">line 3725</a>
     </li></ul></dd>
     
 
@@ -28626,7 +28811,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3794">line 3794</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3839">line 3839</a>
     </li></ul></dd>
     
 
@@ -28722,7 +28907,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3755">line 3755</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3800">line 3800</a>
     </li></ul></dd>
     
 
@@ -28818,7 +29003,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3742">line 3742</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3787">line 3787</a>
     </li></ul></dd>
     
 
@@ -28914,7 +29099,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3564">line 3564</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3609">line 3609</a>
     </li></ul></dd>
     
 
@@ -29010,7 +29195,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3713">line 3713</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3758">line 3758</a>
     </li></ul></dd>
     
 
@@ -29108,7 +29293,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3834">line 3834</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3879">line 3879</a>
     </li></ul></dd>
     
 
@@ -29204,7 +29389,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3695">line 3695</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3740">line 3740</a>
     </li></ul></dd>
     
 
@@ -29300,7 +29485,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3820">line 3820</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3865">line 3865</a>
     </li></ul></dd>
     
 
@@ -29396,7 +29581,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3807">line 3807</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3852">line 3852</a>
     </li></ul></dd>
     
 
@@ -29492,7 +29677,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3590">line 3590</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3635">line 3635</a>
     </li></ul></dd>
     
 
@@ -29588,7 +29773,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3616">line 3616</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3661">line 3661</a>
     </li></ul></dd>
     
 
@@ -29684,7 +29869,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3603">line 3603</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3648">line 3648</a>
     </li></ul></dd>
     
 
@@ -29780,7 +29965,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3633">line 3633</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3678">line 3678</a>
     </li></ul></dd>
     
 
@@ -29924,7 +30109,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4181">line 4181</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4226">line 4226</a>
     </li></ul></dd>
     
 
@@ -30070,7 +30255,7 @@ the event is dispatched.</p></p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4192">line 4192</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4237">line 4237</a>
     </li></ul></dd>
     
 
@@ -30169,7 +30354,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5303">line 5303</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5348">line 5348</a>
     </li></ul></dd>
     
 
@@ -30268,7 +30453,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3859">line 3859</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3904">line 3904</a>
     </li></ul></dd>
     
 
@@ -30367,7 +30552,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5324">line 5324</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5369">line 5369</a>
     </li></ul></dd>
     
 
@@ -30522,7 +30707,7 @@ and defines its <a href="global.html#ImageLoadCallback">load callback function</
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4661">line 4661</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4706">line 4706</a>
     </li></ul></dd>
     
 
@@ -30681,7 +30866,7 @@ For pen, it is fired when the stylus makes physical contact with the digitizer.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3875">line 3875</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3920">line 3920</a>
     </li></ul></dd>
     
 
@@ -30837,7 +31022,7 @@ subsequent button presses don't fire pointerdown events.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4004">line 4004</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4049">line 4049</a>
     </li></ul></dd>
     
 
@@ -30991,7 +31176,7 @@ how fast the machine is, what other tasks and processes are happening, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3915">line 3915</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3960">line 3960</a>
     </li></ul></dd>
     
 
@@ -31149,7 +31334,7 @@ how fast the machine is, what other tasks and processes are happening, etc.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4024">line 4024</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4069">line 4069</a>
     </li></ul></dd>
     
 
@@ -31303,7 +31488,7 @@ The pointerout event is fired for several reasons including:
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3967">line 3967</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4012">line 4012</a>
     </li></ul></dd>
     
 
@@ -31455,7 +31640,7 @@ while other buttons are held down, don't fire pointerup events.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4110">line 4110</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line4155">line 4155</a>
     </li></ul></dd>
     
 
@@ -31556,7 +31741,7 @@ the event is dispatched.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5338">line 5338</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line5383">line 5383</a>
     </li></ul></dd>
     
 
@@ -31709,7 +31894,7 @@ Executed when the slider is changed.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3646">line 3646</a>
+        <a href="extras_LightingWithTexture.js.html">extras/LightingWithTexture.js</a>, <a href="extras_LightingWithTexture.js.html#line3691">line 3691</a>
     </li></ul></dd>
     
 
@@ -31758,13 +31943,13 @@ Executed when the slider is changed.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCitiescheckBox">changeCitiescheckBox</a></li><li><a href="global.html#event:changeCountrySelect">changeCountrySelect</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeLocationscheckBox">changeLocationscheckBox</a></li><li><a href="global.html#event:changeLoxodromecheckBox">changeLoxodromecheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:changeTooltipcheckBox">changeTooltipcheckBox</a></li><li><a href="global.html#event:clickAnimation">clickAnimation</a></li><li><a href="global.html#event:clickClosest">clickClosest</a></li><li><a href="global.html#event:clickPrint">clickPrint</a></li><li><a href="global.html#event:contextmenu">contextmenu</a></li><li><a href="global.html#event:dblclick">dblclick</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:keydownCountrySelect">keydownCountrySelect</a></li><li><a href="global.html#event:keyup">keyup</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:pointerdown-textimg">pointerdown-textimg</a></li><li><a href="global.html#event:pointerdown-theCanvas">pointerdown-theCanvas</a></li><li><a href="global.html#event:pointermove-textimg">pointermove-textimg</a></li><li><a href="global.html#event:pointermove-theCanvas">pointermove-theCanvas</a></li><li><a href="global.html#event:pointerout-textimg">pointerout-textimg</a></li><li><a href="global.html#event:pointerup-theCanvas">pointerup-theCanvas</a></li><li><a href="global.html#event:resize">resize</a></li><li><a href="global.html#event:timeline">timeline</a></li></ul><h3>Global</h3><ul><li><a href="global.html#UV2Conical">UV2Conical</a></li><li><a href="global.html#UV2Cylindrical">UV2Cylindrical</a></li><li><a href="global.html#UV2Spherical">UV2Spherical</a></li><li><a href="global.html#addListeners">addListeners</a></li><li><a href="global.html#animSong">animSong</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#antimeridianCrossing">antimeridianCrossing</a></li><li><a href="global.html#audio">audio</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#bearingAngle">bearingAngle</a></li><li><a href="global.html#calculateLoxodromeDistance">calculateLoxodromeDistance</a></li><li><a href="global.html#calculateLoxodromeDistanceCyl">calculateLoxodromeDistanceCyl</a></li><li><a href="global.html#calculatePPI">calculatePPI</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#canvastip">canvastip</a></li><li><a href="global.html#checkForMapTexture">checkForMapTexture</a></li><li><a href="global.html#cities">cities</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#cleanLocation">cleanLocation</a></li><li><a href="global.html#closestSite">closestSite</a></li><li><a href="global.html#colorBuffer">colorBuffer</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#controlPressed">controlPressed</a></li><li><a href="global.html#country">country</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#currentMeridian">currentMeridian</a></li><li><a href="global.html#cursorPosition">cursorPosition</a></li><li><a href="global.html#dd2dms">dd2dms</a></li><li><a href="global.html#decomposeVector">decomposeVector</a></li><li><a href="global.html#displayLocations">displayLocations</a></li><li><a href="global.html#displayVersions">displayVersions</a></li><li><a href="global.html#dr">dr</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawLinesOnImage">drawLinesOnImage</a></li><li><a href="global.html#drawLocations">drawLocations</a></li><li><a href="global.html#drawLocationsOnImage">drawLocationsOnImage</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#element">element</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#formatNumberWithSign">formatNumberWithSign</a></li><li><a href="global.html#forwardVector">forwardVector</a></li><li><a href="global.html#gcs2Screen">gcs2Screen</a></li><li><a href="global.html#gcs2UV">gcs2UV</a></li><li><a href="global.html#gcsForUnknownLocation">gcsForUnknownLocation</a></li><li><a href="global.html#getAngleBetweenVectors">getAngleBetweenVectors</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getCylinderParameters">getCylinderParameters</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDevicePixelRatio">getDevicePixelRatio</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#globeRadius">globeRadius</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#haversine">haversine</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isCone">isCone</a></li><li><a href="global.html#isCylinder">isCylinder</a></li><li><a href="global.html#isMap">isMap</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#isZero">isZero</a></li><li><a href="global.html#labelForLocation">labelForLocation</a></li><li><a href="global.html#labelForTimeline">labelForTimeline</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lineConeIntersection">lineConeIntersection</a></li><li><a href="global.html#lineCylinderIntersection">lineCylinderIntersection</a></li><li><a href="global.html#linePlaneIntersection">linePlaneIntersection</a></li><li><a href="global.html#lineSphereIntersection">lineSphereIntersection</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#locationsBuffer">locationsBuffer</a></li><li><a href="global.html#loxodrome">loxodrome</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#mercatorVertices">mercatorVertices</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#meridianMatrix">meridianMatrix</a></li><li><a href="global.html#meridianPerpVec">meridianPerpVec</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#modelM">modelM</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#phongHighlight">phongHighlight</a></li><li><a href="global.html#pixelRayIntersection">pixelRayIntersection</a></li><li><a href="global.html#playSongFromLink">playSongFromLink</a></li><li><a href="global.html#pointsOnAllLocations">pointsOnAllLocations</a></li><li><a href="global.html#pointsOnConeMeridian">pointsOnConeMeridian</a></li><li><a href="global.html#pointsOnConeParallel">pointsOnConeParallel</a></li><li><a href="global.html#pointsOnCylMeridian">pointsOnCylMeridian</a></li><li><a href="global.html#pointsOnCylParallel">pointsOnCylParallel</a></li><li><a href="global.html#pointsOnGreatCircle">pointsOnGreatCircle</a></li><li><a href="global.html#pointsOnLocations">pointsOnLocations</a></li><li><a href="global.html#pointsOnLoxodrome">pointsOnLoxodrome</a></li><li><a href="global.html#ppiIndex">ppiIndex</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#project">project</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#rhumbLine">rhumbLine</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotMatrix">rotMatrix</a></li><li><a href="global.html#rotateGlobeAroundAxis">rotateGlobeAroundAxis</a></li><li><a href="global.html#rotateModelTowardsCamera">rotateModelTowardsCamera</a></li><li><a href="global.html#rotationMatrix">rotationMatrix</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#saveWebGLCanvasAsPNG">saveWebGLCanvasAsPNG</a></li><li><a href="global.html#scalarTripleProduct">scalarTripleProduct</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setRangeTicks">setRangeTicks</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#setYUp">setYUp</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#sortCitiesByDate">sortCitiesByDate</a></li><li><a href="global.html#sphereRadius">sphereRadius</a></li><li><a href="global.html#spherical2gcs">spherical2gcs</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toDegrees">toDegrees</a></li><li><a href="global.html#toMercator">toMercator</a></li><li><a href="global.html#toMiles">toMiles</a></li><li><a href="global.html#toNauticalMiles">toNauticalMiles</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#unproject">unproject</a></li><li><a href="global.html#updateCurrentMeridian">updateCurrentMeridian</a></li><li><a href="global.html#updateLocation">updateLocation</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-glMatrix.html">glMatrix</a></li><li><a href="module-mat2.html">mat2</a></li><li><a href="module-mat2d.html">mat2d</a></li><li><a href="module-mat3.html">mat3</a></li><li><a href="module-mat4.html">mat4</a></li><li><a href="module-polyhedron.html">polyhedron</a></li><li><a href="module-quat.html">quat</a></li><li><a href="module-quat2.html">quat2</a></li><li><a href="module-vec2.html">vec2</a></li><li><a href="module-vec3.html">vec3</a></li><li><a href="module-vec4.html">vec4</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="SimpleRotator.html">SimpleRotator</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="TeapotGeometry.html">TeapotGeometry</a></li><li><a href="module-polyhedron.Polyhedron.html">Polyhedron</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:changeAxescheckBox">changeAxescheckBox</a></li><li><a href="global.html#event:changeCitiescheckBox">changeCitiescheckBox</a></li><li><a href="global.html#event:changeCountrySelect">changeCountrySelect</a></li><li><a href="global.html#event:changeCullcheckBox">changeCullcheckBox</a></li><li><a href="global.html#event:changeEquatorcheckBox">changeEquatorcheckBox</a></li><li><a href="global.html#event:changeFixUVcheckBox">changeFixUVcheckBox</a></li><li><a href="global.html#event:changeHwscheckBox">changeHwscheckBox</a></li><li><a href="global.html#event:changeLocationscheckBox">changeLocationscheckBox</a></li><li><a href="global.html#event:changeLoxodromecheckBox">changeLoxodromecheckBox</a></li><li><a href="global.html#event:changeMercatorcheckBox">changeMercatorcheckBox</a></li><li><a href="global.html#event:changeMeshcheckBox">changeMeshcheckBox</a></li><li><a href="global.html#event:changeModeInputRadio">changeModeInputRadio</a></li><li><a href="global.html#event:changeModelsSelect">changeModelsSelect</a></li><li><a href="global.html#event:changeRotInputRadio">changeRotInputRadio</a></li><li><a href="global.html#event:changeTextureSelect">changeTextureSelect</a></li><li><a href="global.html#event:changeTexturecheckBox">changeTexturecheckBox</a></li><li><a href="global.html#event:changeTooltipcheckBox">changeTooltipcheckBox</a></li><li><a href="global.html#event:clickAnimation">clickAnimation</a></li><li><a href="global.html#event:clickClosest">clickClosest</a></li><li><a href="global.html#event:clickPrint">clickPrint</a></li><li><a href="global.html#event:contextmenu">contextmenu</a></li><li><a href="global.html#event:dblclick">dblclick</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:keydownCountrySelect">keydownCountrySelect</a></li><li><a href="global.html#event:keyup">keyup</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:pointerdown-textimg">pointerdown-textimg</a></li><li><a href="global.html#event:pointerdown-theCanvas">pointerdown-theCanvas</a></li><li><a href="global.html#event:pointermove-textimg">pointermove-textimg</a></li><li><a href="global.html#event:pointermove-theCanvas">pointermove-theCanvas</a></li><li><a href="global.html#event:pointerout-textimg">pointerout-textimg</a></li><li><a href="global.html#event:pointerup-theCanvas">pointerup-theCanvas</a></li><li><a href="global.html#event:resize">resize</a></li><li><a href="global.html#event:timeline">timeline</a></li></ul><h3>Global</h3><ul><li><a href="global.html#UV2Conical">UV2Conical</a></li><li><a href="global.html#UV2Cylindrical">UV2Cylindrical</a></li><li><a href="global.html#UV2Spherical">UV2Spherical</a></li><li><a href="global.html#addListeners">addListeners</a></li><li><a href="global.html#animSong">animSong</a></li><li><a href="global.html#animate">animate</a></li><li><a href="global.html#antimeridianCrossing">antimeridianCrossing</a></li><li><a href="global.html#audio">audio</a></li><li><a href="global.html#axis">axis</a></li><li><a href="global.html#axisBuffer">axisBuffer</a></li><li><a href="global.html#axisColorBuffer">axisColorBuffer</a></li><li><a href="global.html#axisColors">axisColors</a></li><li><a href="global.html#axisVertices">axisVertices</a></li><li><a href="global.html#bearingAngle">bearingAngle</a></li><li><a href="global.html#binarySearch">binarySearch</a></li><li><a href="global.html#calculateLoxodromeDistance">calculateLoxodromeDistance</a></li><li><a href="global.html#calculateLoxodromeDistanceCyl">calculateLoxodromeDistanceCyl</a></li><li><a href="global.html#calculatePPI">calculatePPI</a></li><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#canvastip">canvastip</a></li><li><a href="global.html#checkForMapTexture">checkForMapTexture</a></li><li><a href="global.html#cities">cities</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#cleanLocation">cleanLocation</a></li><li><a href="global.html#closestSite">closestSite</a></li><li><a href="global.html#colorBuffer">colorBuffer</a></li><li><a href="global.html#colorShader">colorShader</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#controlPressed">controlPressed</a></li><li><a href="global.html#country">country</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#createModel">createModel</a></li><li><a href="global.html#createProgram">createProgram</a></li><li><a href="global.html#cube">cube</a></li><li><a href="global.html#culling">culling</a></li><li><a href="global.html#currentLocation">currentLocation</a></li><li><a href="global.html#currentMeridian">currentMeridian</a></li><li><a href="global.html#cursorPosition">cursorPosition</a></li><li><a href="global.html#dd2dms">dd2dms</a></li><li><a href="global.html#decomposeVector">decomposeVector</a></li><li><a href="global.html#displayLocations">displayLocations</a></li><li><a href="global.html#displayVersions">displayVersions</a></li><li><a href="global.html#dr">dr</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawAxes">drawAxes</a></li><li><a href="global.html#drawLines">drawLines</a></li><li><a href="global.html#drawLinesOnImage">drawLinesOnImage</a></li><li><a href="global.html#drawLocations">drawLocations</a></li><li><a href="global.html#drawLocationsOnImage">drawLocationsOnImage</a></li><li><a href="global.html#drawParallel">drawParallel</a></li><li><a href="global.html#drawTexture">drawTexture</a></li><li><a href="global.html#element">element</a></li><li><a href="global.html#eye">eye</a></li><li><a href="global.html#fixuv">fixuv</a></li><li><a href="global.html#formatNumberWithSign">formatNumberWithSign</a></li><li><a href="global.html#forwardVector">forwardVector</a></li><li><a href="global.html#gcs2Screen">gcs2Screen</a></li><li><a href="global.html#gcs2UV">gcs2UV</a></li><li><a href="global.html#gcsForUnknownLocation">gcsForUnknownLocation</a></li><li><a href="global.html#getAngleBetweenVectors">getAngleBetweenVectors</a></li><li><a href="global.html#getChar">getChar</a></li><li><a href="global.html#getCylinderParameters">getCylinderParameters</a></li><li><a href="global.html#getDate">getDate</a></li><li><a href="global.html#getDevicePixelRatio">getDevicePixelRatio</a></li><li><a href="global.html#getModelData">getModelData</a></li><li><a href="global.html#getModelMatrix">getModelMatrix</a></li><li><a href="global.html#getTextures">getTextures</a></li><li><a href="global.html#getWebGLContext">getWebGLContext</a></li><li><a href="global.html#gl">gl</a></li><li><a href="global.html#globeRadius">globeRadius</a></li><li><a href="global.html#gpsCoordinates">gpsCoordinates</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#haversine">haversine</a></li><li><a href="global.html#image">image</a></li><li><a href="global.html#imageFilename">imageFilename</a></li><li><a href="global.html#indexBuffer">indexBuffer</a></li><li><a href="global.html#initShaders">initShaders</a></li><li><a href="global.html#isCone">isCone</a></li><li><a href="global.html#isCylinder">isCylinder</a></li><li><a href="global.html#isMap">isMap</a></li><li><a href="global.html#isPowerOf2">isPowerOf2</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#isZero">isZero</a></li><li><a href="global.html#labelForLocation">labelForLocation</a></li><li><a href="global.html#labelForTimeline">labelForTimeline</a></li><li><a href="global.html#lightPosition">lightPosition</a></li><li><a href="global.html#lightPropElements">lightPropElements</a></li><li><a href="global.html#lightingShader">lightingShader</a></li><li><a href="global.html#lineBuffer">lineBuffer</a></li><li><a href="global.html#lineConeIntersection">lineConeIntersection</a></li><li><a href="global.html#lineCylinderIntersection">lineCylinderIntersection</a></li><li><a href="global.html#linePlaneIntersection">linePlaneIntersection</a></li><li><a href="global.html#lineSphereIntersection">lineSphereIntersection</a></li><li><a href="global.html#lines">lines</a></li><li><a href="global.html#loadShader">loadShader</a></li><li><a href="global.html#locationsBuffer">locationsBuffer</a></li><li><a href="global.html#loxodrome">loxodrome</a></li><li><a href="global.html#makeNormalMatrixElements">makeNormalMatrixElements</a></li><li><a href="global.html#mat3">mat3</a></li><li><a href="global.html#mat4">mat4</a></li><li><a href="global.html#matPropElements">matPropElements</a></li><li><a href="global.html#maxSubdivisions">maxSubdivisions</a></li><li><a href="global.html#mercator">mercator</a></li><li><a href="global.html#mercatorVertices">mercatorVertices</a></li><li><a href="global.html#meridianBuffer">meridianBuffer</a></li><li><a href="global.html#meridianMatrix">meridianMatrix</a></li><li><a href="global.html#meridianPerpVec">meridianPerpVec</a></li><li><a href="global.html#mod">mod</a></li><li><a href="global.html#modelM">modelM</a></li><li><a href="global.html#modelMatrix">modelMatrix</a></li><li><a href="global.html#mscale">mscale</a></li><li><a href="global.html#newTexture">newTexture</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#nextLocation">nextLocation</a></li><li><a href="global.html#nextTexture">nextTexture</a></li><li><a href="global.html#noTexture">noTexture</a></li><li><a href="global.html#normal">normal</a></li><li><a href="global.html#normalBuffer">normalBuffer</a></li><li><a href="global.html#numSubdivisions">numSubdivisions</a></li><li><a href="global.html#parallelBuffer">parallelBuffer</a></li><li><a href="global.html#phongHighlight">phongHighlight</a></li><li><a href="global.html#pixelRayIntersection">pixelRayIntersection</a></li><li><a href="global.html#playSongFromLink">playSongFromLink</a></li><li><a href="global.html#pointsOnAllLocations">pointsOnAllLocations</a></li><li><a href="global.html#pointsOnConeMeridian">pointsOnConeMeridian</a></li><li><a href="global.html#pointsOnConeParallel">pointsOnConeParallel</a></li><li><a href="global.html#pointsOnCylMeridian">pointsOnCylMeridian</a></li><li><a href="global.html#pointsOnCylParallel">pointsOnCylParallel</a></li><li><a href="global.html#pointsOnGreatCircle">pointsOnGreatCircle</a></li><li><a href="global.html#pointsOnLocations">pointsOnLocations</a></li><li><a href="global.html#pointsOnLoxodrome">pointsOnLoxodrome</a></li><li><a href="global.html#ppiIndex">ppiIndex</a></li><li><a href="global.html#previousLevel">previousLevel</a></li><li><a href="global.html#previousLocation">previousLocation</a></li><li><a href="global.html#previousTexture">previousTexture</a></li><li><a href="global.html#project">project</a></li><li><a href="global.html#projection">projection</a></li><li><a href="global.html#readFileNames">readFileNames</a></li><li><a href="global.html#rhumbLine">rhumbLine</a></li><li><a href="global.html#ring">ring</a></li><li><a href="global.html#rotMatrix">rotMatrix</a></li><li><a href="global.html#rotateGlobeAroundAxis">rotateGlobeAroundAxis</a></li><li><a href="global.html#rotateModelTowardsCamera">rotateModelTowardsCamera</a></li><li><a href="global.html#rotationMatrix">rotationMatrix</a></li><li><a href="global.html#rotator">rotator</a></li><li><a href="global.html#saveWebGLCanvasAsPNG">saveWebGLCanvasAsPNG</a></li><li><a href="global.html#scalarTripleProduct">scalarTripleProduct</a></li><li><a href="global.html#selectModel">selectModel</a></li><li><a href="global.html#selectTexture">selectTexture</a></li><li><a href="global.html#selector">selector</a></li><li><a href="global.html#setNorth">setNorth</a></li><li><a href="global.html#setPosition">setPosition</a></li><li><a href="global.html#setRangeTicks">setRangeTicks</a></li><li><a href="global.html#setTextures">setTextures</a></li><li><a href="global.html#setUVfix">setUVfix</a></li><li><a href="global.html#setYUp">setYUp</a></li><li><a href="global.html#shininess">shininess</a></li><li><a href="global.html#sortCitiesByDate">sortCitiesByDate</a></li><li><a href="global.html#sphereRadius">sphereRadius</a></li><li><a href="global.html#spherical2gcs">spherical2gcs</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startForReal">startForReal</a></li><li><a href="global.html#teapotModel">teapotModel</a></li><li><a href="global.html#texCoordBuffer">texCoordBuffer</a></li><li><a href="global.html#textureCnt">textureCnt</a></li><li><a href="global.html#textureHandle">textureHandle</a></li><li><a href="global.html#theModel">theModel</a></li><li><a href="global.html#toDegrees">toDegrees</a></li><li><a href="global.html#toMercator">toMercator</a></li><li><a href="global.html#toMiles">toMiles</a></li><li><a href="global.html#toNauticalMiles">toNauticalMiles</a></li><li><a href="global.html#toRadian">toRadian</a></li><li><a href="global.html#unproject">unproject</a></li><li><a href="global.html#updateCurrentMeridian">updateCurrentMeridian</a></li><li><a href="global.html#updateLocation">updateLocation</a></li><li><a href="global.html#uvCone">uvCone</a></li><li><a href="global.html#uvCylinder">uvCylinder</a></li><li><a href="global.html#uvSphere">uvSphere</a></li><li><a href="global.html#uvSphereND">uvSphereND</a></li><li><a href="global.html#uvTorus">uvTorus</a></li><li><a href="global.html#vec2">vec2</a></li><li><a href="global.html#vec3">vec3</a></li><li><a href="global.html#vec4">vec4</a></li><li><a href="global.html#vertexBuffer">vertexBuffer</a></li><li><a href="global.html#vertexNormalBuffer">vertexNormalBuffer</a></li><li><a href="global.html#viewMatrix">viewMatrix</a></li><li><a href="global.html#yNorth">yNorth</a></li><li><a href="global.html#zoomIn">zoomIn</a></li><li><a href="global.html#zoomOut">zoomOut</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Mar 13 2026 10:15:32 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Mar 17 2026 22:58:25 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

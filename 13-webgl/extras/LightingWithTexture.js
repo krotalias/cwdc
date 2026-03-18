@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 418 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 423 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 418 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 423 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -1746,6 +1746,39 @@ function gcs2Screen(location, mercatorProjection = false) {
 }
 
 /**
+ * Performs a binary search on a sorted array to find the index of a target value.
+ * @param {Array} arr the sorted array to search.
+ * @param {String|Number} target the value to search for.
+ * @returns {Number} the index of the target value if found, otherwise -1.
+ */
+function binarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left <= right) {
+    // Calculate the middle index, using Math.floor to handle even/odd lengths
+    let mid = Math.floor((left + right) / 2);
+
+    // Check if the target is found at the middle
+    if (arr[mid] === target) {
+      return mid;
+    }
+
+    // If target is greater than the middle element, ignore the left half
+    if (arr[mid] < target) {
+      left = mid + 1;
+    }
+    // If target is less than the middle element, ignore the right half
+    else {
+      right = mid - 1;
+    }
+  }
+
+  // If the loop finishes without finding the target, it's not in the array
+  return -1;
+}
+
+/**
  * Returns the next location starting at {@link currentLocation}.
  * @param {Number} inc increment (-1, 0 or 1).
  * @param {String} initialLocation initial location.
@@ -2256,10 +2289,16 @@ const handleKeyPress = ((event) => {
         for (dt of cities.timeline) {
           if (dt >= date) break;
         }
-        const index = cities.timeline.indexOf(dt);
+        // const index = cities.timeline.indexOf(dt);
+        // binary search for the date in the timeline
+        // cities.timeline is sorted in ascending order, so we can use binary search
+        const index = binarySearch(cities.timeline, dt);
+        const cc = cities.current;
+        cities.current = cities.byDate;
         currentLocation = cities.current[index];
         labelForTimeline(dt);
         updateLocation(0);
+        cities.current = cc;
         break;
       case "R":
         currentLocation = "Rio";
@@ -2527,7 +2566,7 @@ function setYUp(out, rotationMatrix, rotationAxis) {
  * @returns {mat4} out.
  */
 function rotateGlobeAroundAxis(out, angle, axis) {
-  if (Math.abs(angle) < 1e-5) {
+  if (isZero(angle)) {
     // No significant rotation needed
     return mat4.identity(out);
   } else {
@@ -2561,8 +2600,15 @@ function rotateModelTowardsCamera(
   // Calculate rotation axis (cross product)
   const rotationAxis = vec3.create();
   vec3.cross(rotationAxis, modelPosition, modelForward);
+  if (isZero(vec3.sqrLen(rotationAxis))) {
+    vec3.set(rotationAxis, 0, 0, 1); // default rotation axis (z-axis)
+  }
 
   const angle = getAngleBetweenVectors(modelPosition, modelForward);
+  if (isZero(angle)) {
+    // No significant rotation needed
+    return mat4.identity(out);
+  }
 
   rotateGlobeAroundAxis(out, angle, rotationAxis);
 
@@ -2599,13 +2645,12 @@ function rhumbLine(ctx, loc1, loc2) {
   const dx = px - x;
   const dy = py - y;
 
-  if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
-    return null; // same point
-  }
-
   let bearingAngle = null;
   ctx.beginPath();
   if (loxodrome) {
+    if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
+      return null; // same point
+    }
     ctx.moveTo(px, py); // loxodrome
     ctx.lineTo(x, y);
     ctx.strokeStyle = colorTable.rhumb;
