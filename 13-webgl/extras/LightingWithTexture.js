@@ -1694,6 +1694,48 @@ function closestSite(position) {
 }
 
 /**
+ * <p>Creates a JSON file with the GPS coordinates
+ * of the cities sorted by {@link cities date}.</p>
+ * The JSON file will have the following format:
+ * <pre>
+ *  {
+ *    "Thermopylae": {
+ *    "country": "Greece",
+ *    "remarkable": [
+ *       "Battle of Thermopylae, 8 September 480 BC"
+ *    ],
+ *    "latitude": 38.7999968,
+ *    "longitude": 22.5333312
+ *  },
+ *  ...
+ * </pre>
+ * @param {String} filename name of the JSON file to be created.
+ * @see {@link https://www.w3schools.com/js/js_json_intro.asp JavaScript JSON}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON JSON}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Schemes/blob blob: URLs}
+ */
+function saveLocationsByDate(filename) {
+  const locations = {};
+  for (const c of cities.byDate) {
+    locations[c] = gpsCoordinates[c];
+  }
+  const json = JSON.stringify(locations, null, 2);
+  // save the JSON file
+  const dataURL = window.URL.createObjectURL(
+    new Blob([json], { type: "application/json" }),
+  );
+
+  const link = document.createElement("a");
+  link.href = dataURL;
+  link.download = filename;
+
+  document.body.appendChild(link); // Append to body to make it clickable
+  link.click();
+  document.body.removeChild(link); // Clean up the temporary link
+  window.URL.revokeObjectURL(dataURL); // Release the object URL
+}
+
+/**
  * <p>Convert from {@link GCS}
  * (longitude, latitude) to screen coordinates.</p>
  * This function uses the {@link project WebGL projection}
@@ -1750,6 +1792,7 @@ function gcs2Screen(location, mercatorProjection = false) {
  * @param {Array} arr the sorted array to search.
  * @param {String|Number} target the value to search for.
  * @returns {Number} the index of the target value if found, otherwise -1.
+ * @see {@link https://en.wikipedia.org/wiki/Binary_search Binary search}
  */
 function binarySearch(arr, target) {
   let left = 0;
@@ -2330,7 +2373,10 @@ const handleKeyPress = ((event) => {
             `WebGL_Globe-${canvas.width}x${canvas.height}.png`,
           );
         });
-        break;
+        return;
+      case "V":
+        saveLocationsByDate("locationsByDate.json");
+        return;
       case "B":
       case "U":
         const sign = ch == "U" ? -1 : 1;
@@ -3472,6 +3518,7 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
  *
  * @param {Blob} blob image blob.
  * @param {String} filename name of the file to save.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL_static URL: createObjectURL() static method}
  */
 function saveWebGLCanvasAsPNG(blob, filename) {
   if (canvas) {
@@ -3484,6 +3531,7 @@ function saveWebGLCanvasAsPNG(blob, filename) {
     document.body.appendChild(link); // Append to body to make it clickable
     link.click();
     document.body.removeChild(link); // Clean up the temporary link
+    window.URL.revokeObjectURL(dataURL); // Release the object URL
   } else {
     console.error("Canvas element not found.");
   }
