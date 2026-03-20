@@ -3539,9 +3539,9 @@ function saveWebGLCanvasAsPNG(blob, filename) {
 
 /**
  * Return cities ordered by date and the timeline.
- * @return {Array<Array>}
- * @property {Array<String>} 0 location names ordered by date.
- * @property {Array<Number>} 1 location corresponding dates.
+ * @return {Array<Array>} sort-value - array of location names and timeline.
+ * @property {Array<String>} 0 sort-value.location - list of names ordered by date.
+ * @property {Array<Number>} 1 sort-value.timeline - list of corresponding years.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort Array.prototype.sort()}
  * @see {@link https://www.math.uwaterloo.ca/tsp/index.html Traveling Salesman Problem}
  * @see {@link https://en.wikipedia.org/wiki/Timelines_of_Big_History Timelines of Big History}
@@ -3552,7 +3552,7 @@ function sortCitiesByDate() {
   const data = cities.byLongitude;
 
   /**
-   * <p>Return a {@link gpsCoordinates location} historical figure's last date mentioned.<p>
+   * <p>Return a {@link gpsCoordinates location} historical figure's last date mentioned and timeline.<p>
    * In case it is a range of dates (first-second), it returns the first date.
    *
    * <p>I would like to return Date.parse(date).
@@ -3631,6 +3631,58 @@ function sortCitiesByDate() {
   const location = mapped.map((v) => data[v.i]);
 
   return [location, timeline];
+}
+
+/**
+ * Return cities ordered by longitude and longitude list.
+ * @return {Array<Array>} sort-value - array of location names and array of longitudes.
+ * @property {Array<String>} 0 sort-value.location - list of names ordered by longitude.
+ * @property {Array<Number>} 1 sort-value.longitude - list of corresponding longitudes.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort Array.prototype.sort()}
+ * @see {@link https://www.math.uwaterloo.ca/tsp/index.html Traveling Salesman Problem}
+ */
+function sortCitiesByLongitude() {
+  // the array to be sorted
+  const data = cities.byLongitude;
+
+  /**
+   * <p>Return a {@link gpsCoordinates location} historical figure's longitude.<p>
+   *
+   * @param {String} v location name.
+   * @return {Array<Number>} longitude and latitude.
+   * @global
+   * @function
+   */
+  const getLongitude = (v) => {
+    return [gpsCoordinates[v].longitude, gpsCoordinates[v].latitude];
+  };
+
+  // temporary array holds objects with position and sort-value
+  const mapped = data.map((v, i) => {
+    const d = getLongitude(v);
+    return { i, lon: d[0], lat: d[1] };
+  });
+
+  // sorting the mapped array containing the reduced values
+  mapped.sort((a, b) => {
+    if (a.lon > b.lon) {
+      return 1;
+    }
+    if (a.lon < b.lon) {
+      return -1;
+    }
+    return a.lat - b.lat;
+  });
+
+  // mapped is now sorted by longitude
+  const longitudes = mapped.map((v) => v.lon);
+  // and the location names are in the same order
+  // as the sorted mapped array
+  // so we can map the original data to the sorted order
+  // and return the sorted location names
+  const location = mapped.map((v) => data[v.i]);
+
+  return [location, longitudes];
 }
 
 /**
@@ -5572,6 +5624,7 @@ function startForReal(image) {
   newTexture(image);
   addListeners();
   [cities.byDate, cities.timeline] = sortCitiesByDate();
+  [cities.byLongitude] = sortCitiesByLongitude();
   cities.current = selector.cities ? cities.byDate : cities.byLongitude;
 
   // Phong highlight position: (0,0,1) = {-90,0} in GCS
