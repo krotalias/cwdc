@@ -378,14 +378,16 @@
         "longitude": -9.1365919
     },
     "Belém Tower": {
-        "country": "Lisbon (Portugal)",
+        "country": "⛵ Lisbon (Portugal)",
         "remarkable": [
             "Armada's departure site (Tagus River estuary)",
+            "Prince Henry of Portugal, Duke of Viseu, 1394-1460",
             "Bartolomeu Dias, 18 August 1487",
             "Vasco da Gama, 8 July 1497",
             "Pedro Álvarez Cabral, 9 March 1500",
             "World Heritage by UNESCO, 1983",
-            "Construction (Restelo beach - Tejo river mouth), 1514-1521"
+            "Construction (Restelo beach - Tejo river mouth), 1514-1521",
+            "Methodical expeditions started (Henry the Navigator), 1419"
         ],
         "latitude": 38.691591,
         "longitude": -9.216005
@@ -434,8 +436,17 @@
         "latitude": 32.65,
         "longitude": -16.916667
     },
+    "Cap-Vert": {
+        "country": "⛵ Senegal",
+        "remarkable": [
+            "Westernmost point of Africa",
+            "Cape Verde Peninsula (Diníz Dias), 1444"
+        ],
+        "latitude": 14.744722,
+        "longitude": -17.520278
+    },
     "Gorée Island": {
-        "country": "Senegal",
+        "country": "⛵ Senegal",
         "remarkable": [
             "Álvaro Fernandes anchored at Bezeguiche island, 1445",
             "Vasco da Gama, 1502",
@@ -446,7 +457,7 @@
             "Slavery was abolished in Senegal, 1848",
             "World Heritage Site (UNESCO), 5 September 1978",
             "Dakar-Gorée Swim was launched (4.5-5.2 km), 1985",
-            "First visited by Portuguese (Diníz Dias), 1444"
+            "Palma was first visited by Portuguese (Diníz Dias), 1444"
         ],
         "latitude": 14.666944,
         "longitude": -17.398333
@@ -463,16 +474,17 @@
         "longitude": -21.9422367
     },
     "Praia": {
-        "country": "Cabo Verde",
+        "country": "⛵ Cape Verde",
         "remarkable": [
-            "Santiago island was discovered, 1460",
+            "Santiago island was discovered (Diogo Gomes), 1460",
             "Ribeira Grande (Cidade Velha), 1462",
             "Francis Drake raid, 1585",
             "Replaced Cidade Velha as the capital of Santiago, 1770",
             "Battle of Porto Praya, 16 April 1781",
             "First stop of Charles Darwin's voyage (HMS Beagle), 1832",
             "Full independence from Portugal, 5 July 1975",
-            "Founded, 1615"
+            "Founded, 1615",
+            "Portuguese discovery of the archipelago, 1458"
         ],
         "latitude": 14.918,
         "longitude": -23.509
@@ -755,7 +767,7 @@
         "longitude": -38.9465
     },
     "Monte Pascoal": {
-        "country": "Porto Seguro (Brazil)",
+        "country": "⛵ Porto Seguro (Brazil)",
         "remarkable": [
             "Pedro Álvarez Cabral, 1467-1520",
             "Departed from Lisbon (fleet of 13 ships), 9 March 1500",
@@ -765,7 +777,7 @@
             "Rounded the Cape of Good Hope, lost 4 ships and Bartolomeu Dias, 29 May 1500",
             "Digo Dias sighted for the 1st time the Insula St. Laurentii (Madagascar), 10 August 1500",
             "The flagship cast anchor at Calicut (India), 13 September 1500",
-            "2nd Portuguese India Armada, 1500-1501"
+            "2nd Portuguese India Armada, 2 May 1500 - 27 June 1501"
         ],
         "latitude": -16.8963207,
         "longitude": -39.4075612
@@ -3975,7 +3987,7 @@
         "longitude": 77.5385
     },
     "Cochin": {
-        "country": "Malabar Coast (India)",
+        "country": "⛵ Malabar Coast (India)",
         "remarkable": [
             "Cabral arrived in Cochin, 24 December 1500",
             "A fleet (1.5K men) from Calicut appeared and was defeated, 10 January 1501",
@@ -3986,23 +3998,24 @@
         "longitude": 76.2667
     },
     "Calicut": {
-        "country": "Malabar Coast (India)",
+        "country": "⛵ Malabar Coast (India)",
         "remarkable": [
             "Zamorins of Calicut, 1124-1806",
             "Vasco da Gama, 1469-1524",
-            "1st Portuguese India Armada, 1497-1499",
+            "1st Portuguese India Armada, 8 July 1497 - September 1499",
             "Departed from Lisbon (4 ships), 8 July 1497",
             "Landed at Kozhikode for the first time, 20 May 1498",
             "Returned to Lisboa, September 1499",
             "Pedro Álvarez Cabral arrived in Calicut, 13 September 1500",
             "Arab's riot on the PT factory (53 slaughtered), 17 December 1500",
             "Shore bombardment in retaliation to Calicut's massacre (600 casualties), 22 December 1500",
-            "4th Portuguese India Armada, 1502-1503",
+            "4th Portuguese India Armada, 10 February 1502 - September 1503",
             "Set out from Lisbon, 10 February 1502",
             "Massacre of the pilgrim ship from Mecca (300 killed), September 1502",
             "Vasco da Gama landed in Kozhikode again, 30 October 1502",
             "Battle of Calicut, 5 January 1503 - 6 January 1503",
-            "Arrived in Lisbon, September 1503"
+            "Arrived in Lisbon, September 1503",
+            "Discovery of the sea route to India (Kappad), 17 May 1498"
         ],
         "latitude": 11.248889,
         "longitude": 75.783889
@@ -4019,7 +4032,7 @@
         "longitude": 75.35763
     },
     "Vasco da Gama": {
-        "country": "Goa (India-Portugal)",
+        "country": "⛵ Goa (India-Portugal)",
         "remarkable": [
             "Vasco da Gama (1st Count of Vidigueira), 1469-1524",
             "Governor of Portuguese India, 12 September 1505",
@@ -4340,7 +4353,7 @@
         "longitude": 43.678606
     },
     "Island of Mozambique": {
-        "country": "Mozambique-Portugal",
+        "country": "⛵ Mozambique-Portugal",
         "remarkable": [
             "Vasco da Gama reached the island, 2 March 1498",
             "Chapel of Nossa Senhora de Baluarte, 1522",
@@ -5229,7 +5242,7 @@
         "longitude": 18.66
     },
     "Cape of Good Hope": {
-        "country": "South Africa",
+        "country": "⛵ South Africa",
         "remarkable": [
             "Bartolomeu Dias, 1450-1500",
             "Departure from Lisbon, 18 August 1487",
