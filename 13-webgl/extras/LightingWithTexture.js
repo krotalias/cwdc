@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 423 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 426 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 423 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 426 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -1048,8 +1048,9 @@ let gpsCoordinates = null;
  * @property {Array<String>} byLongitude city names ordered by longitude.
  * @property {Array<String>} byDate city names ordered by date.
  * @property {Array<String>} current current city names.
- * @property {Array<String>} previous previous city name.
- * @property {Array<String>} timeline city names ordered by year.
+ * @property {String} previous previous city name.
+ * @property {Array<Number>} timeline list of city years.
+ * @property {Array<Number>} longitude list of city longitudes.
  * @property {Array<String>} country city names in the selected country.
  */
 const cities = {
@@ -1058,6 +1059,7 @@ const cities = {
   current: null,
   previous: null,
   timeline: null,
+  longitude: null,
   country: null,
 };
 
@@ -5626,7 +5628,7 @@ function startForReal(image) {
   newTexture(image);
   addListeners();
   [cities.byDate, cities.timeline] = sortCitiesByDate();
-  [cities.byLongitude] = sortCitiesByLongitude();
+  [cities.byLongitude, cities.longitude] = sortCitiesByLongitude();
   cities.current = selector.cities ? cities.byDate : cities.byLongitude;
 
   // Phong highlight position: (0,0,1) = {-90,0} in GCS

@@ -3201,6 +3201,7 @@
     "San Francisco": {
         "country": "⚔ California (United States)",
         "remarkable": [
+            "Golden Gate Bridge (1.6 km), 5 January 1933 - 27 May 1937",
             "William Halsey Jr. (Fleet Admiral), 1882-1959",
             "Doolittle Raid departure, 2 April 1942"
         ],
@@ -3394,6 +3395,17 @@
         ],
         "latitude": -41.2887953,
         "longitude": 174.7772114
+    },
+    "Attu Island": {
+        "country": "⚔ Alaska (United States)",
+        "remarkable": [
+            "Japanese invasion, 7 June 1942",
+            "45 native Aleuts and two white Americans were imprisoned, 1942-1943",
+            "Only land battle fought in North America during World War II",
+            "Battle of Attu, 11 May 1943 - 30 May 1943"
+        ],
+        "latitude": 52.890556,
+        "longitude": 173.074722
     },
     "Tarawa": {
         "country": "⚔ Kiribati",
@@ -4209,6 +4221,23 @@
         "latitude": 54.316667,
         "longitude": 48.366667
     },
+    "Kwait City": {
+        "country": "Kwait",
+        "remarkable": [
+            "Controled by the Achaemenid Empire, 550 BC - 330 BC",
+            "Alexander the Great colonized the bay of Kuwait, 334 BC - 323 BC",
+            "Part of the Parthian Empire, 127 BC",
+            "Part of the Sassanid Empire, 224-651",
+            "Founded, 1710-1740",
+            "Iraqi merchants took refuge in Kuwait (siege of Basra), 1775-1779",
+            "Emirate of Kuwait (British protectorate), 1899-1961",
+            "Independence from the UK, 19 June 1961",
+            "Gulf War, 2 August 1990 - 17 January 1991",
+            "Iraqi forces driven out, 26 February 1991"
+        ],
+        "latitude": 29.369722,
+        "longitude": 47.978333
+    },
     "Antananarivo": {
         "country": "Madagascar",
         "remarkable": [
@@ -5009,6 +5038,26 @@
         ],
         "latitude": 40.2,
         "longitude": 26.4
+    },
+    "Heraklion": {
+        "country": "⚔ Crete (Greece)",
+        "remarkable": [
+            "Minoan civilization, 3100 BC - 1100 BC",
+            "Palace of Knossos, 1900 BC",
+            "Theseus x Minotaur myth, 515 BC",
+            "Capital of the Emirate of Crete, 827-961",
+            "Byzantine siege, 960 - 6 March 961",
+            "Bought by the Republic of Venice (fourth crusade), 1204",
+            "Cretan War, 1645-1669",
+            "Siege of Candia (Ottomans), 1648 - 27 September 1669",
+            "Ottoman Crete, 1669-1898",
+            "Expulsion of Ottoman forces, 5 November 1898",
+            "Crete was unified with mainland Greece, 1 December 1913",
+            "Cretan Turks relocated (Treaty of Lausanne), 24 July 1923",
+            "Battle of Crete (German invasion), 20 May 1941 - 1 June 1941"
+        ],
+        "latitude": 35.3403,
+        "longitude": 25.1344
     },
     "Helsinki": {
         "country": "🔬 Finland",
