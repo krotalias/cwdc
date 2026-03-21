@@ -1695,7 +1695,8 @@ function closestSite(position) {
 
 /**
  * <p>Creates a JSON file with the GPS coordinates
- * of the cities sorted by {@link cities date}.</p>
+ * of the cities sorted by {@link cities date} or
+ * {@link cities longitude}.</p>
  * The JSON file will have the following format:
  * <pre>
  *  {
@@ -1714,9 +1715,9 @@ function closestSite(position) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON JSON}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Schemes/blob blob: URLs}
  */
-function saveLocationsByDate(filename) {
+function saveLocations(filename) {
   const locations = {};
-  for (const c of cities.byDate) {
+  for (const c of cities.current) {
     locations[c] = gpsCoordinates[c];
   }
   const json = JSON.stringify(locations, null, 2);
@@ -2375,7 +2376,7 @@ const handleKeyPress = ((event) => {
         });
         return;
       case "V":
-        saveLocationsByDate("locationsByDate.json");
+        saveLocations("savedLocations.json");
         return;
       case "B":
       case "U":
@@ -3565,8 +3566,8 @@ function sortCitiesByDate() {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse Date.parse()}
    */
   const getDate = (v) => {
-    if (v == "Unknown") return [Number.MAX_VALUE, 0]; // must be the last
-    if (v == "Null Island") return [Number.MIN_SAFE_INTEGER, 0]; // must be the first
+    if (v == "Unknown") return [Number.MAX_VALUE, 0, 1]; // must be the last
+    if (v == "Null Island") return [Number.MIN_SAFE_INTEGER, 0, 1]; // must be the first
     // "American Civil War, 12 April 1861-26 May 1865"
     const remDate = gpsCoordinates[v].remarkable.at(-1).split(",");
     // ["American Civil War", "12 April 1861-26 May 1865"]
@@ -3654,6 +3655,7 @@ function sortCitiesByLongitude() {
    * @function
    */
   const getLongitude = (v) => {
+    if (v == "Unknown") return [Number.MAX_VALUE, 0]; // must be the last
     return [gpsCoordinates[v].longitude, gpsCoordinates[v].latitude];
   };
 
