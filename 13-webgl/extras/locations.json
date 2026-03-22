@@ -309,6 +309,26 @@
         "latitude": 53.33306,
         "longitude": -6.24889
     },
+    "Cádiz": {
+        "country": "⚓ Spain",
+        "remarkable": [
+            "Columbus set sail (two carracks (naos) and 15 caravels), 25 September 1493",
+            "He arrived back in Cádiz (second voyage), 11 June 1495",
+            "Columbus arrived back in chains (third voyage), 23 August 1500",
+            "Columbus set sail (fourth voyage), 14 March 1502"
+        ],
+        "latitude": 36.535,
+        "longitude": -6.2975
+    },
+    "Sanlúcar de Barrameda": {
+        "country": "⚓ Spain",
+        "remarkable": [
+            "Columbus set sail (third voyage, six ships), 30 May 1498",
+            "Columbus arrived back (fourth voyage, 4 ships), 7 November 1504"
+        ],
+        "latitude": 36.766667,
+        "longitude": -6.35
+    },
     "Tórshavn": {
         "country": "Faroe Islands (Kingdom of Denmark)",
         "remarkable": [
@@ -321,6 +341,19 @@
         ],
         "latitude": 62.011667,
         "longitude": -6.7675
+    },
+    "Palos de La Frontera": {
+        "country": "⚓ Spain",
+        "remarkable": [
+            "Pinzón Brothers",
+            "Martín Alonso Pinzón (captain of the Pinta), 1441-1493",
+            "Francisco Martín Pinzón, 1445-1500",
+            "Vicente Yáñez Pinzón (discoverer of Brazil), 1462-1514",
+            "Columbus set sail (Pinta, Niña, and Santa María), 3 August 1492",
+            "Columbus arrived back (first voyage), 15 March 1493"
+        ],
+        "latitude": 37.228333,
+        "longitude": -6.894444
     },
     "Casablanca": {
         "country": "⚔ Morocco",
@@ -383,6 +416,7 @@
             "Armada's departure site (Tagus River estuary)",
             "Prince Henry of Portugal, Duke of Viseu, 1394-1460",
             "Bartolomeu Dias, 18 August 1487",
+            "Columbus (first voyage) returning to Spain, 4 March 1493",
             "Vasco da Gama, 8 July 1497",
             "Pedro Álvarez Cabral, 9 March 1500",
             "World Heritage by UNESCO, 1983",
@@ -1838,7 +1872,7 @@
         "longitude": -60.70111501
     },
     "Martinique": {
-        "country": "☠  France",
+        "country": "⚓ ☠  France",
         "remarkable": [
             "Columbus landing, 15 June 1502",
             "Spain formally ceded Martinique to France , 1635",
@@ -1847,15 +1881,16 @@
             "Britain controlled the island, 1794-1815",
             "First French overseas territory to enforce slave abolition, 23 May 1848",
             "Mont Pelée erupted, 8 May 1902",
-            "Overseas Department of France, 1946"
+            "Overseas Department of France, 1946",
+            "Martinica, 15 June 1502"
         ],
         "latitude": 14.65,
         "longitude": -61.015
     },
     "Port of Spain": {
-        "country": "☠ Trinidad and Tobago",
+        "country": "⚓ ☠ Trinidad and Tobago",
         "remarkable": [
-            "Columbus third voyage, 1498",
+            "Columbus (third voyage), 31 July 1498",
             "Antonio de Sedeño landed on its southwest coast, 1530",
             "English pirate Walter Raleigh, 22 March 1595",
             "San Rafael encomienda rebelled and killed several priests, 1699",
@@ -1869,15 +1904,16 @@
             "Commercial oil production, 1908-present",
             "Independence from the United Kingdom, 31 August 1962",
             "Republic, 1 August 1976",
-            "Settled, 1560"
+            "Settled, 1560",
+            "Trinidad, 31 July 1498"
         ],
         "latitude": 10.666667,
         "longitude": -61.516667
     },
     "Philipsburg": {
-        "country": "☠ Sint Maarten (Kindom of the Netherlands)",
+        "country": "⚓ ☠ Sint Maarten (Kindom of the Netherlands)",
         "remarkable": [
-            "Columbus second voyage, 11 November 1493",
+            "Columbus (second voyage), 11 November 1493",
             "Treaty of Concordia (divided the island in two), 1648",
             "French control, 1795-1815",
             "French abolished slavery on their side of the island, 1848",
@@ -1885,7 +1921,8 @@
             "Duty-free port, 1939",
             "Self-governing constituent country, 10 October 2010",
             "Hurricane Irma, 6 September 2017",
-            "Established (by John Philips), 1763"
+            "Established (by John Philips), 1763",
+            "San Martin, 11 November 1493"
         ],
         "latitude": 18.023889,
         "longitude": -63.045833
@@ -1907,14 +1944,14 @@
         "longitude": -63.90389
     },
     "St Croix": {
-        "country": "☠ Virgin Islands (United States)",
+        "country": "⚓ ☠ Virgin Islands (United States)",
         "remarkable": [
-            "Columbus second voyage, 1493-1496",
-            "Isla de la Santa Cruz, 14 November 1493",
+            "Columbus (second voyage), 14 November 1493",
             "French colony, 1650-1733",
             "Danish West India Company, 15 June 1733",
             "Sold to United States, 31 March 1917",
-            "U.S. territory and citizenship, 25 February 1927"
+            "U.S. territory and citizenship, 25 February 1927",
+            "Isla de la Santa Cruz, 14 November 1493"
         ],
         "latitude": 17.72751,
         "longitude": -64.74698
@@ -1932,13 +1969,15 @@
         "longitude": -64.80148
     },
     "San Juan": {
-        "country": "☠ 🐇 Puerto Rico (United States)",
+        "country": "⚓ ☠ 🐇 Puerto Rico (United States)",
         "remarkable": [
+            "Columbus (second voyage), 17 November 1493",
             "Spanish possession, 1493-1898",
             "Juan Ponce de León, 1508",
             "Treaty of Paris, 10 December 1898",
             "U.S. citizens, 1917",
-            "Territory of the United States, 25 July 1952"
+            "Territory of the United States, 25 July 1952",
+            "San Juan Bautista, 19 November 1493"
         ],
         "latitude": 18.46633,
         "longitude": -66.10572
@@ -2054,9 +2093,9 @@
         "longitude": -68.935
     },
     "Santo Domingo": {
-        "country": "☠ 🐇 Island of Hispaniola (Dominican Republic)",
+        "country": "⚓ ☠ 🐇 Island of Hispaniola (Dominican Republic)",
         "remarkable": [
-            "Christopher Columbus first voyage, 5 December 1492",
+            "Christopher Columbus (first voyage), 6 December 1492",
             "The King of Spain renamed the entire island to Santo Domingo, 6 December 1508",
             "Devastations of Osorio depopulated the western and northern regions, 1605-1606",
             "French colony occupied those parts of the island (Saint-Domingue), 1625-1697",
@@ -2076,7 +2115,7 @@
             "Rafael Trujillo (Military Dictator), 1891-1961",
             "President, 16 August 1930 - 30 May 1961",
             "Dominican Civil War, 24 April 1965 - 1 September 1965",
-            "Founded, 5 August 1496"
+            "Founded (Bartholomew Columbus), 5 August 1496"
         ],
         "latitude": 18.50012,
         "longitude": -69.98857
@@ -2172,9 +2211,11 @@
         "longitude": -71.96999612
     },
     "Port-au-Prince": {
-        "country": "☠ 🐇 Island of Hispaniola (Haiti)",
+        "country": "⚓ ☠ 🐇 Island of Hispaniola (Haiti)",
         "remarkable": [
-            "Christopher Columbus first voyage, 5 December 1492",
+            "Christopher Columbus (first voyage), 6 December 1492",
+            "Santa María ran aground on a sandbank and was shipwrecked, 25 December 1492",
+            "Fort Navidad (left 39 men there), 26 December 1492",
             "Western portion ceded to France (Saint-Domingue), 1697",
             "Slave insurrection, 21 August 1791",
             "Abolition of slavery in Haiti, 4 April 1792",
@@ -2190,15 +2231,16 @@
             "Earthquake, 12 January 2010",
             "Economy mainly small-scale subsistence farming",
             "Remittances from abroad made up nearly 24% of GDP, 2020",
-            "Founded, 1749"
+            "Founded, 1749",
+            "Hispaniola, 6 December 1492"
         ],
         "latitude": 18.536111,
         "longitude": -72.346389
     },
     "Tortuga": {
-        "country": "☠ Haiti",
+        "country": "⚓ ☠ Haiti",
         "remarkable": [
-            "Columbus first voyage, 6 December 1492",
+            "Columbus (first voyage), 6 December 1492",
             "French and English colonists from Saint Kitts arrived, 1625",
             "Pirate haven, 1625-1640s",
             "French and English colonies and buccaneers's main base of operations, 1630",
@@ -2212,7 +2254,8 @@
             "Lieutenant governor of Jamaica, 1674-1683",
             "Engllish Parliament forbade English subjects to sail under foreign flags, 1680",
             "Treaty of Ratisbon put an end to piracy, 15 August 1684",
-            "Settled, 1625"
+            "Settled, 1625",
+            "Windward Passage, 6 December 1492"
         ],
         "latitude": 19.9969,
         "longitude": -72.6214
@@ -2318,9 +2361,10 @@
         "longitude": -74.13986
     },
     "San Salvador": {
-        "country": "☠ Bahamas",
+        "country": "⚓ ☠ Bahamas",
         "remarkable": [
             "Christopher Columbus, 1451-1506",
+            "First voyage, 3 August 1492 - 15 March 1493",
             "First land sighted and visited in the New World, 12 October 1492",
             "George or John Watling, ????-1681",
             "Watling's Island, 1680-1926",
@@ -2407,16 +2451,16 @@
         "longitude": -76.200499198
     },
     "Port Royal": {
-        "country": "☠ 🐇 Jamaica",
+        "country": "⚓ ☠ 🐇 Jamaica",
         "remarkable": [
-            "Christopher Columbus, 1494",
+            "Christopher Columbus (second voyage), 5 May 1494",
             "Juan de Esquivel, 1509",
             "Spanish settlement, 1518-1655",
             "English invasion of Jamaica, 1655",
             "Safe harbour for privateers and pirates, 1655-1692",
             "Henry Morgan (privateer), 1635-1688",
             "Lieutenant Governor of Jamaica, 5 March 1675",
-            "Destroyed by an earthquake, 7 June 1692 ",
+            "Destroyed by an earthquake, 7 June 1692",
             "Edward Teach (Blackbeard), 1680-1718",
             "Moved to Jamaica with his family, 1695",
             "Piracy Act 1698 (more effectual Suppressions of Piracy), 11 April 1700",
@@ -2426,7 +2470,7 @@
             "Charles Vane hanging, 29 March 1721",
             "Independence from The United Kingdom, 6 August 1962",
             "World Heritage Site (UNESCO), 25 July 2025",
-            "Founded, 1494"
+            "Founded, 4 May 1494"
         ],
         "latitude": 17.9375,
         "longitude": -76.841111
@@ -2614,12 +2658,13 @@
         "longitude": -81.304167
     },
     "George Town": {
-        "country": "☠ Cayman Islands (United Kingdom)",
+        "country": "⚓ ☠ Cayman Islands (United Kingdom)",
         "remarkable": [
-            "Christopher Columbus (Las Tortugas), 10 May 1503",
+            "Christopher Columbus (fourth voyage), 10 May 1503",
             "Treaty of Madrid (English control), 1670",
             "Crown Colony of Jamaica, 22 June 1863",
-            "Crown colony of the Cayman Islands, 4 November 1962"
+            "Crown colony of the Cayman Islands, 4 November 1962",
+            "Las Tortugas, 10 May 1503"
         ],
         "latitude": 19.2866,
         "longitude": -81.37436
@@ -2638,15 +2683,17 @@
         "longitude": -81.425278
     },
     "Havana": {
-        "country": "☠ 🐇 Cuba",
+        "country": "⚓ ☠ 🐇 Cuba",
         "remarkable": [
+            "Christopher Columbus (first voyage), 28 October 1492",
             "USS Maine exploded, 15 February 1898",
             "Spanish-American War, 21 April 1898 - 13 August 1898",
             "Theddy Roosevelt's Rough Riders, 29 May 1898",
             "Battle of San Juan Hill, 1 July 1898",
             "Treaty of Paris, 10 December 1898",
             "U.S. ownership of Puerto Rico, Guam, and the Philippines",
-            "Cuba independence, 10 May 1902"
+            "Cuba independence, 10 May 1902",
+            "Juana, 28 October 1492"
         ],
         "latitude": 23.13302,
         "longitude": -82.38304
@@ -2671,13 +2718,15 @@
         "longitude": -83.15
     },
     "San José": {
-        "country": "🐇 Costa Rica",
+        "country": "⚓ 🐇 Costa Rica",
         "remarkable": [
-            "Christopher Columbus (final voyage), 1502",
+            "Christopher Columbus (fourth voyage), 18 September 1502",
             "Cabildo Eclesiástico de León ordered its foundation, 1736",
             "Defined as a city (Florencio del Castillo), 18 October 1813",
             "Independence from from Spain, 15 September 1821",
-            "Founded, 1736"
+            "Guayabo National Monument, 13 August 1973",
+            "Founded, 1736",
+            "La Huerta (Isla Uvita), 18 September 1502"
         ],
         "latitude": 9.933333,
         "longitude": -84.083333
@@ -2722,29 +2771,31 @@
         "longitude": -85.736497
     },
     "Managua": {
-        "country": "🐇 Nicaragua",
+        "country": "⚓ 🐇 Nicaragua",
         "remarkable": [
-            "Christopher Columbus (fourth voyage), 1502",
+            "Christopher Columbus (fourth voyage), 12 September 1502",
             "Gil González Dávila, 1480-1625",
             "Rivas Department of Nicaragua, 1522",
             "Independence from Spain, 15 September 1821",
             "Earthquake, 31 March 1931",
-            "Founded, 1819"
+            "Founded, 1819",
+            "Cabo Gracias a Dios (Costa dos Mosquitos), 12 September 1502"
         ],
         "latitude": 12.1,
         "longitude": -86.233333
     },
     "Tegucigalpa": {
-        "country": "🐇 Honduras",
+        "country": "⚓ 🐇 Honduras",
         "remarkable": [
-            "Christopher Columbus (fourth voyage), 1502",
+            "Christopher Columbus (fourth voyage), 14 August 1502",
             "Gil González Dávila, 1480-1625",
             "First Spaniard to enter Honduras, March 1524",
             "Spanish Honduras, 1524-1821",
             "Real de Minas de San Miguel de Tegucigalpa, 29 September 1578",
             "Real Villa de San Miguel de Tegucigalpa y Heredia, 10 June 1762",
             "Permanent capital of Honduras, 30 October 1880",
-            "Founded, 29 September 1578"
+            "Founded, 29 September 1578",
+            "Guanaja (Bay Islands), 30 July 1502"
         ],
         "latitude": 14.105833,
         "longitude": -87.204722
@@ -5753,6 +5804,20 @@
         ],
         "latitude": 34.337222,
         "longitude": 8.952778
+    },
+    "Genoa": {
+        "country": "⚓ Italy",
+        "remarkable": [
+            "Christopher Columbus, 1451-1506",
+            "Bartholomew Columbus (brother), 1461-1514",
+            "Diego Columbus (son), 1479-1526",
+            "UNESCO World Heritage Site, 2006",
+            "After the fall of Constantinople, the price of oriental",
+            "trade goods had gone sky-high in Europe, 1453",
+            "Moved to Lisbon after a shipwrecked off the coast of PT, 1476"
+        ],
+        "latitude": 44.411111,
+        "longitude": 8.932778
     },
     "Weil der Stadt": {
         "country": "🔬 Holy Roman Empire (Germany)",
