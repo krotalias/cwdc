@@ -1874,8 +1874,8 @@
     "Martinique": {
         "country": "⚓ ☠  France",
         "remarkable": [
-            "Columbus landing, 15 June 1502",
-            "Spain formally ceded Martinique to France , 1635",
+            "Columbus landing (fourth voyage), 15 June 1502",
+            "Spain formally ceded Martinique to France, 1635",
             "Britain attacked French ships at Martinique, 1667",
             "Blackbeard captured a French frigate named La Concorde, 28 November 1717",
             "Britain controlled the island, 1794-1815",
@@ -1886,6 +1886,18 @@
         ],
         "latitude": 14.65,
         "longitude": -61.015
+    },
+    "Roseau": {
+        "country": "⚓ ☠ Dominica (United Kingdom)",
+        "remarkable": [
+            "Columbus (second voyage), 3 November 1493",
+            "French colonization, 1690-1763",
+            "Great Britain took possession, 1763",
+            "Independence from the United Kingdom, 3 November 1978",
+            "Dominica, 3 November 1493"
+        ],
+        "latitude": 15.3005,
+        "longitude": -61.3504
     },
     "Port of Spain": {
         "country": "⚓ ☠ Trinidad and Tobago",
@@ -2095,7 +2107,7 @@
     "Santo Domingo": {
         "country": "⚓ ☠ 🐇 Island of Hispaniola (Dominican Republic)",
         "remarkable": [
-            "Christopher Columbus (first voyage), 6 December 1492",
+            "Christopher Columbus (second voyage), 23 November 1493",
             "Bartholomew Columbus appointed as an adelantado of Hispaniola, 1496-1498",
             "The King of Spain renamed the entire island to Santo Domingo, 6 December 1508",
             "Devastations of Osorio depopulated the western and northern regions, 1605-1606",
@@ -2116,8 +2128,7 @@
             "Rafael Trujillo (Military Dictator), 1891-1961",
             "President, 16 August 1930 - 30 May 1961",
             "Dominican Civil War, 24 April 1965 - 1 September 1965",
-            "Founded (Bartholomew Columbus), 5 August 1496",
-            "La Isla Española, 5 December 1492"
+            "Founded (Bartholomew Columbus), 5 August 1496"
         ],
         "latitude": 18.50012,
         "longitude": -69.98857
@@ -2212,12 +2223,21 @@
         "latitude": -13.52166458,
         "longitude": -71.96999612
     },
-    "Port-au-Prince": {
-        "country": "⚓ ☠ 🐇 Island of Hispaniola (Haiti)",
+    "La Navidad": {
+        "country": "⚓ Island of Hispaniola (Haiti)",
         "remarkable": [
             "Christopher Columbus (first voyage), 6 December 1492",
             "Santa María ran aground on a sandbank and was shipwrecked, 25 December 1492",
-            "Fort Navidad (left 39 men there), 26 December 1492",
+            "Fort Navidad (39 men left there), 26 December 1492",
+            "La Isla Española, 5 December 1492"
+        ],
+        "latitude": 19.687663916,
+        "longitude": -72.009499962
+    },
+    "Port-au-Prince": {
+        "country": "☠ 🐇 Haiti",
+        "remarkable": [
+            "Christopher Columbus (first voyage), 6 December 1492",
             "Western portion ceded to France (Saint-Domingue), 1697",
             "Slave insurrection, 21 August 1791",
             "Abolition of slavery in Haiti, 4 April 1792",
@@ -2233,14 +2253,13 @@
             "Earthquake, 12 January 2010",
             "Economy mainly small-scale subsistence farming",
             "Remittances from abroad made up nearly 24% of GDP, 2020",
-            "Founded, 1749",
-            "Hispaniola, 6 December 1492"
+            "Founded, 1749"
         ],
         "latitude": 18.536111,
         "longitude": -72.346389
     },
     "Tortuga": {
-        "country": "⚓ ☠ Haiti",
+        "country": "⚓ ☠ Island of Hispaniola (Haiti)",
         "remarkable": [
             "Columbus (first voyage), 6 December 1492",
             "French and English colonists from Saint Kitts arrived, 1625",
@@ -2683,6 +2702,15 @@
         ],
         "latitude": 41.440556,
         "longitude": -81.425278
+    },
+    "Boca Del Drago": {
+        "country": "⚓ Panama",
+        "remarkable": [
+            "Christopher Columbus (fourth voyage), 5 october 1502",
+            "Almirante Bay, 5 october 1502"
+        ],
+        "latitude": 9.424507,
+        "longitude": -82.33532
     },
     "Havana": {
         "country": "⚓ ☠ 🐇 Cuba",
@@ -4152,6 +4180,16 @@
         ],
         "latitude": 56.942222,
         "longitude": 60.473333
+    },
+    "Paria Peninsula": {
+        "country": "⚓ Venezuela",
+        "remarkable": [
+            "Columbus (third voyage), 5 August 1498",
+            "Península de Paria National Park, 12 December 1978",
+            "Gulf of Paria, 5 August 1498"
+        ],
+        "latitude": 10.7,
+        "longitude": -62.5
     },
     "Ras al Hadd": {
         "country": "Oman",
