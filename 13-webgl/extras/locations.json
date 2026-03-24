@@ -2104,6 +2104,29 @@
         "latitude": 12.105,
         "longitude": -68.935
     },
+    "Alcázar de Colón": {
+        "country": "⚓ Santo Domingo (Dominican Republic)",
+        "remarkable": [
+            "Diego Columbus (first-born son), 1479-1526",
+            "Governor of the Indies, August 1508",
+            "2nd Admiral of the Ocean Sea, 20 May 1509 - 23 February 1526",
+            "2nd Viceroy of the Indies, 5 May 1511 - 23 February 1526",
+            "Hispaniola, Puerto Rico, Jamaica and Cuba",
+            "under his power by right of his father, 1511",
+            "Palace construction, 1510-1514",
+            "Diego's residence, 1514-1526",
+            "Ferdinand II recalled Diego to Spain, 1514-1520",
+            "Diego returned to Santo Domingo, 12 November 1520",
+            "Charles V recall him back to Spain, 1523",
+            "Died in La Puebla de Montalbán, 23 February 1526",
+            "María Álvarez de Toledo (widow) remained in the palace until her death, 1549",
+            "Sacked by Sir Francis Drake, 1 January 1586 - 1 February 1586",
+            "UNESCO World Heritage Site, 1990",
+            "Diego arrived in Santo Domingo, 9 July 1509"
+        ],
+        "latitude": 18.4775,
+        "longitude": -69.8828
+    },
     "Santo Domingo": {
         "country": "⚓ ☠ 🐇 Island of Hispaniola (Dominican Republic)",
         "remarkable": [
@@ -2728,6 +2751,24 @@
         "latitude": 23.13302,
         "longitude": -82.38304
     },
+    "Isla Uvita": {
+        "country": "⚓ Costa Rica",
+        "remarkable": [
+            "Christopher Columbus (fourth voyage), 18 September 1502",
+            "La Huerta, 18 September 1502"
+        ],
+        "latitude": 9.9938,
+        "longitude": -83.0113
+    },
+    "Cabo Gracias a Dios": {
+        "country": "⚓ Nicaragua",
+        "remarkable": [
+            "Christopher Columbus (fourth voyage), 12 September 1502",
+            "Costa dos Mosquitos, 12 September 1502"
+        ],
+        "latitude": 14.996667,
+        "longitude": -83.148333
+    },
     "Springwells Township": {
         "country": "🔬 Michigan (United States)",
         "remarkable": [
@@ -2748,18 +2789,26 @@
         "longitude": -83.15
     },
     "San José": {
-        "country": "⚓ 🐇 Costa Rica",
+        "country": "🐇 Costa Rica",
         "remarkable": [
-            "Christopher Columbus (fourth voyage), 18 September 1502",
             "Cabildo Eclesiástico de León ordered its foundation, 1736",
             "Defined as a city (Florencio del Castillo), 18 October 1813",
             "Independence from from Spain, 15 September 1821",
             "Guayabo National Monument, 13 August 1973",
-            "Founded, 1736",
-            "La Huerta (Isla Uvita), 18 September 1502"
+            "Founded, 1736"
         ],
         "latitude": 9.933333,
         "longitude": -84.083333
+    },
+    "Guanaja": {
+        "country": "⚓ Honduras",
+        "remarkable": [
+            "Columbus landed on the mainland (fourth voyage), 14 August 1502",
+            "First time he came across cacao, which is the core of chocolate",
+            "Isla de Los Pinos (Bay Islands), 30 July 1502"
+        ],
+        "latitude": 16.466667,
+        "longitude": -85.883333
     },
     "Point Pleasant": {
         "country": "Ohio (United States)",
@@ -2801,31 +2850,27 @@
         "longitude": -85.736497
     },
     "Managua": {
-        "country": "⚓ 🐇 Nicaragua",
+        "country": "🐇 Nicaragua",
         "remarkable": [
-            "Christopher Columbus (fourth voyage), 12 September 1502",
             "Gil González Dávila, 1480-1625",
             "Rivas Department of Nicaragua, 1522",
             "Independence from Spain, 15 September 1821",
             "Earthquake, 31 March 1931",
-            "Founded, 1819",
-            "Cabo Gracias a Dios (Costa dos Mosquitos), 12 September 1502"
+            "Founded, 1819"
         ],
         "latitude": 12.1,
         "longitude": -86.233333
     },
     "Tegucigalpa": {
-        "country": "⚓ 🐇 Honduras",
+        "country": "🐇 Honduras",
         "remarkable": [
-            "Christopher Columbus (fourth voyage), 14 August 1502",
             "Gil González Dávila, 1480-1625",
             "First Spaniard to enter Honduras, March 1524",
             "Spanish Honduras, 1524-1821",
             "Real de Minas de San Miguel de Tegucigalpa, 29 September 1578",
             "Real Villa de San Miguel de Tegucigalpa y Heredia, 10 June 1762",
             "Permanent capital of Honduras, 30 October 1880",
-            "Founded, 29 September 1578",
-            "Guanaja (Bay Islands), 30 July 1502"
+            "Founded, 29 September 1578"
         ],
         "latitude": 14.105833,
         "longitude": -87.204722
