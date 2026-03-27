@@ -2469,6 +2469,15 @@
         "latitude": 20.5499978,
         "longitude": -75.8999964
     },
+    "Cayo Bariay": {
+        "country": "⚓ Cuba",
+        "remarkable": [
+            "Christopher Columbus (first voyage), 28 October 1492",
+            "Juana, 28 October 1492"
+        ],
+        "latitude": 21.078523,
+        "longitude": -76.02595
+    },
     "Syracuse": {
         "country": "New York (United States)",
         "remarkable": [
@@ -2738,9 +2747,8 @@
         "longitude": -82.33532
     },
     "Havana": {
-        "country": "⚓ ☠ 🐇 Cuba",
+        "country": "☠ 🐇 Cuba",
         "remarkable": [
-            "Christopher Columbus (first voyage), 28 October 1492",
             "USS Maine exploded, 15 February 1898",
             "Spanish-American War, 21 April 1898 - 13 August 1898",
             "Theddy Roosevelt's Rough Riders, 29 May 1898",
@@ -2748,7 +2756,9 @@
             "Treaty of Paris, 10 December 1898",
             "U.S. ownership of Puerto Rico, Guam, and the Philippines",
             "Cuba independence, 10 May 1902",
-            "Juana, 28 October 1492"
+            "Founded San Cristóbal de la Habana, 1514",
+            "Relocated, 16 November 1519",
+            "UNESCO World Heritage Site in 1982"
         ],
         "latitude": 23.13302,
         "longitude": -82.38304
@@ -4137,19 +4147,19 @@
         "remarkable": [
             "Zamorins of Calicut, 1124-1806",
             "Vasco da Gama, 1469-1524",
-            "1st Portuguese India Armada, 8 July 1497 - September 1499",
+            "1st Portuguese India Armada, 8 July 1497 - 18 September 1499",
             "Departed from Lisbon (4 ships), 8 July 1497",
             "Landed at Kozhikode for the first time, 20 May 1498",
-            "Returned to Lisboa, September 1499",
+            "Returned to Lisboa, 18 September 1499",
             "Pedro Álvarez Cabral arrived in Calicut, 13 September 1500",
             "Arab's riot on the PT factory (53 slaughtered), 17 December 1500",
             "Shore bombardment in retaliation to Calicut's massacre (600 casualties), 22 December 1500",
-            "4th Portuguese India Armada, 10 February 1502 - September 1503",
+            "4th Portuguese India Armada, 10 February 1502 - 18 September 1503",
             "Set out from Lisbon, 10 February 1502",
-            "Massacre of the pilgrim ship from Mecca (300 killed), September 1502",
+            "Massacre of the pilgrim ship from Mecca (300 killed), 29 September 1502",
             "Vasco da Gama landed in Kozhikode again, 30 October 1502",
             "Battle of Calicut, 5 January 1503 - 6 January 1503",
-            "Arrived in Lisbon, September 1503",
+            "Arrived in Lisbon, 18 September 1503",
             "Discovery of the sea route to India (Kappad), 17 May 1498"
         ],
         "latitude": 11.248889,
@@ -4173,17 +4183,21 @@
             "Governor of Portuguese India, 12 September 1505",
             "Portuguese defeated the ruling Bijapur sultan, 25 November 1510",
             "Vasco da Gama arrived in Goa, 11 September 1524",
-            "Died in Cochin, 24 December 1524",
+            "Died in Cochin (malária), 24 December 1524",
             "Goa Inquisition, 1560-1812",
+            "Murmugao fort, 1624",
             "Pinto Revolt (Goan priests against Catholic elite), 10 August 1787",
-            "Mormugao Port, 1885",
-            "City was named so by then-Governor Ferreira de Amaral, 1886",
+            "Mormugao Port construction, 1878-1885",
+            "Augusto César Cardoso de Carvalho (102nd Governor), 1886-1889",
+            "Expropriation of the land and master plan (design) of the city, 1886",
+            "Metre-gauge railway line, 1887",
+            "Official designation as Vasco da Gama, September 1917",
             "Operation Creek (German merchant ship Ehrenfels), 9 March 1943",
             "Independence from British Raj, 15 August 1947",
             "Annexation by India, 19 December 1961",
             "India's twenty-fifth state, 30 May 1987",
             "Portuguese Goan (colonial rule), 1510-1961",
-            "Founded, 1543"
+            "Founded (Portuguese control), 1543"
         ],
         "latitude": 15.398056,
         "longitude": 73.811111
