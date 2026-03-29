@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 431 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 440 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 431 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 440 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -3567,6 +3567,7 @@ function sortCitiesByDate() {
    * @return {Array<Number>} year (negative for BC dates), month and day of the date.
    * @global
    * @function
+   * @throws {RangeError} invalid or missing location date.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse Date.parse()}
    */
   const getDate = (v) => {
@@ -3604,14 +3605,20 @@ function sortCitiesByDate() {
 
       // NaN (if date is invalid) is always a falsy value in JavaScript
       return [bc ? -year : year, d.getUTCMonth() || 0, d.getUTCDate() || 1];
+    } else {
+      throw new RangeError("Invalid date!");
     }
-    return [Number.MIN_SAFE_INTEGER, 0, 1]; // must be the first
   };
 
   // temporary array holds objects with position and sort-value
   const mapped = data.map((v, i) => {
-    const d = getDate(v);
-    return { i, year: d[0], month: d[1], day: d[2] };
+    try {
+      const d = getDate(v);
+      return { i, year: d[0], month: d[1], day: d[2] };
+    } catch (e) {
+      console.error(`Error parsing date for location "${v}": ${e.message}`);
+      return { i, year: 3000, month: 0, day: 1 }; // place at the end
+    }
   });
 
   // sorting the mapped array containing the reduced values
@@ -4107,7 +4114,9 @@ function addListeners() {
       const gcs = spherical2gcs(uv);
       const cs = closestSite(gcs);
       // closest site name and distance in km
-      element.tooltip.innerHTML = `(${cs.site}, ${(cs.distance / 1000).toFixed(0)}km)`;
+      element.tooltip.innerHTML = `(${cs.site}, ${(cs.distance / 1000).toFixed(
+        0,
+      )}km)`;
     } else {
       // UV normalized
       element.tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
@@ -4242,12 +4251,14 @@ function addListeners() {
         const cs = closestSite(gcs);
         // closest site name and distance in km
         if (cs.distance > 50e3) {
-          canvastip.innerHTML = `(${cs.site}, ${(cs.distance / 1000).toFixed(0)}km)`;
+          canvastip.innerHTML = `(${cs.site}, ${(cs.distance / 1000).toFixed(
+            0,
+          )}km)`;
         } else {
           const gpsc = gpsCoordinates[cs.site];
-          canvastip.innerHTML = `${cs.site}, ${gpsc.country}<br>${gpsc.remarkable.join(
-            "<br>",
-          )}`;
+          canvastip.innerHTML = `${cs.site}, ${
+            gpsc.country
+          }<br>${gpsc.remarkable.join("<br>")}`;
         }
       } else {
         // GCS coordinates
