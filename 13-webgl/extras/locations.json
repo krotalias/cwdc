@@ -4336,6 +4336,22 @@
         "latitude": 25.204722,
         "longitude": 55.270833
     },
+    "Caspian Sea": {
+        "country": "Central Eurasia",
+        "remarkable": [
+            "World's largest inland body of water",
+            "Tehran Convention, 4 November 2003",
+            "Framework Convention for the Protection of the Marine Environment",
+            "Islamic Republic of Iran, 11 February 1979",
+            "Republic of Azerbaijan, 18 October 1991",
+            "Republic of Kazakhstan, 10 December 1991",
+            "Republic of Turkmenistan, 26 December 1991",
+            "Russian Federation, 26 December 1991",
+            "Enforced (Caspian Sea Day), 12 August 2006"
+        ],
+        "latitude": 40,
+        "longitude": 51
+    },
     "Tehran": {
         "country": "Iran",
         "remarkable": [
@@ -4882,6 +4898,24 @@
         ],
         "latitude": 31.66926,
         "longitude": 34.57149
+    },
+    "Black Sea": {
+        "country": "Eurasia",
+        "remarkable": [
+            "Bucharest Convention, 21 April 1992",
+            "Protection of the Black Sea Against Pollution and its Protocols",
+            "Bulgaria independence from the Ottoman Empire, 22 Septemberber 1908",
+            "Georgia reestablished a sovereign state, 26 May 1918",
+            "Independence from USSR, 9 April 1991",
+            "Romania independence from the Ottoman Empire, 28 April 1877",
+            "Russia (independent Federation), 26 December 1991",
+            "Turkey (Proclamation of the Republic), 29 October 1923",
+            "Ukraine independence from USSR, 24 August 1991",
+            "International Black Sea Action Day, 31 October 1996",
+            "Updated Strategic Action Plan, 17 April 2009"
+        ],
+        "latitude": 43.413029,
+        "longitude": 34.299316
     },
     "Cumania": {
         "country": "✝ Eastern Europe (Ukraine, Romania, Moldova)",
