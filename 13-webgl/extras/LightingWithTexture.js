@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 440 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 443 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 440 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 443 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -591,12 +591,42 @@ const toDegrees = (a) => (a * 180) / Math.PI;
 const toMiles = (a) => a * 0.621371;
 
 /**
- * Convert kilometers to nautical miles.
+ * <p>Convert kilometers to nautical miles.</p>
+ * <p>A nautical mile is a unit of measurement used in
+ * maritime and aviation contexts, defined as exactly 1.852 kilometers
+ * (or approximately 1.15078 miles).
+ * It is the length of one minute of latitude at the equator.</p>
+ * <ul>
+ *  <li>While one minute of latitude is consistently 1 NM,
+ *      one minute of longitude only equals 1 NM at the equator.</li>
+ *  <li>As you move toward the poles, the distance between longitude lines decreases.</li>
+ *  <li>The {@link https://iho.int/ International Hydrographic Organization} adopted the
+ *  "International Nautical Mile" in 1929 at exactly: 1 NM = 1,852 m.</li>
+ *   <li>{@link https://grokipedia.com/page/Earth's_circumference Earth's circunference}: 2 * π * 6371 Km = 40030.1736 km
+ *   <li> 40030 km / 360 / 60 = 1.8532407 km</li>
+ * </ul>
+ *
  * @param {Number} a distance in kilometers.
  * @return {Number} distance in nautical miles.
  * @function
  */
 const toNauticalMiles = (a) => a * 0.539957;
+
+/**
+ * <p>Convert knots to kilometers per hour.</p>
+ * The knot is a unit of speed equal to one nautical mile per hour, exactly 1.852 km/h
+ * <p>Captains in the 1700s tossed ropes overboard with knots spaced out at 50 ft
+ * and used a sand glass that measured half of a minute to approximate the speed of a ship
+ * in nautical miles per hour.</p>
+ * <ul>
+ *  <li>50 ft / 0.5 min = 100 ft / 1 min × 1 nm / 6076 ft × 60 min / h = 0.9875 ≈ 1 nm / h</li>
+ * </ul>
+ * @param {Number} a speed in knots.
+ * @return {Number} speed in kilometers per hour.
+ * @function
+ * @see {@link https://www.kingmanyachtcenter.com/why-boaters-use-knots-instead-of-miles-per-hour/ Why Boaters Use Knots Instead of Miles per Hour}
+ */
+const toKmh = (a) => a * 1.852;
 
 /**
  * Check if the current model is a cylinder.
