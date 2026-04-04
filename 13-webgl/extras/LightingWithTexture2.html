@@ -721,6 +721,7 @@ when using mipmap:
                     // (1) use the value directly as the surface color and ignore the material properties
                     ambientSurface = color;
                     diffuseSurface = color;
+                    specularSurface = color;
                 } else if (modulate == 2) {
                     // (2) modulate intensity of surface color (or of any component)
                     float m = (color.r + color.g + color.b) / 3.0;
@@ -743,7 +744,8 @@ when using mipmap:
                 // specular factor from Phong reflection model
                 float specularFactor = pow(clamp(dot(V, R), 0.0, 1.0), shininess);
 
-                // add the components together, note that vec4 * vec4 is componentwise multiplication,
+                // add the components together
+                // note that vec4 * vec4 is componentwise multiplication,
                 // not a dot product
                 vec4 ambient = ambientLight * ambientSurface;
                 vec4 diffuse = diffuseFactor * diffuseLight * diffuseSurface;
@@ -795,6 +797,6 @@ when using mipmap:
         <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
         <script src="/cwdc/13-webgl/lib/simple-rotator.js"></script>
         <script src="/cwdc/13-webgl/lib/basic-objects-IFS.js"></script>
-        <script src="LightingWithTexture.js" type="module"></script>
+        <script src="./LightingWithTexture.js" type="module"></script>
     </body>
 </html>
