@@ -1208,7 +1208,7 @@ const lightPropElements = {
   // generic white light.
   white_light: new Float32Array([
                     0.5, 0.5, 0.5,
-                    0.7, 0.7, 0.7,
+                    0.6, 0.6, 0.6,
                     0.7, 0.7, 0.7
   ]),
 
@@ -1265,7 +1265,7 @@ const matPropElements = {
  * One entry for each material property.
  * @type {Array<Number>}
  */
-const shininess = [28.0, 30, 20.0, 10.0, 200];
+const shininess = [28.0, 30, 20.0, 10.0, 200, 400];
 
 /**
  * The OpenGL context.
