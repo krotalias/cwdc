@@ -5956,6 +5956,20 @@
         "latitude": 45.4697,
         "longitude": 9.1803
     },
+    "Cagliari": {
+        "country": "Sardinia (Italy)",
+        "remarkable": [
+            "Sardinia came under Roman rule, 238 BC",
+            "Kingdom of Sardinia (Crown of Aragon), 1324-1720",
+            "Battle of Sanluri, 30 June 1409",
+            "The Sardinian Judicate of Arborea x Aragonese-Sicilian army",
+            "Founded the University of Cagliari, 1620",
+            "Ceded to the Alpine House of Savoy, 1720-1861",
+            "Kingdom of Italy, 17 March 1861"
+        ],
+        "latitude": 39.227778,
+        "longitude": 9.111111
+    },
     "El Guettar": {
         "country": "⚔ Tunisia",
         "remarkable": [
