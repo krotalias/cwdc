@@ -3798,8 +3798,8 @@
             "First shōgun of the Tokugawa shogunate, 1603-1868",
             "Doolittle's first bombs dropped 12:25 p.m., 18 April 1942"
         ],
-        "latitude": 35.6762,
-        "longitude": 139.6503
+        "latitude": 35.700330532,
+        "longitude": 139.708997164
     },
     "Hiroshima": {
         "country": "⚔ ☢ Chūgoku (Japan)",
@@ -5997,6 +5997,26 @@
         "latitude": 48.750833,
         "longitude": 8.870556
     },
+    "Ajaccio": {
+        "country": "⚔ Corsiga (France)",
+        "remarkable": [
+            "Ruled by the Republic of Genoa, 1284-1755",
+            "Pasquale Paoli, 1725-1807",
+            "Corsican Republic was proclaimed, 1755",
+            "French conquest of Corsica, 1768-1769",
+            "Battle of Ponte Novu, 15 May 1768 - 9 May 1769",
+            "Siege of Bastia, 4 April 1794 - 22 May 1794",
+            "Siege of Calvi, 4 June 1794 - 10 August 1794",
+            "Horatio Nelson (Captain of the Royal Navy), 1758-1805",
+            "Greatest admiral in history (lost his right eye)",
+            "Anglo-Corsican Kingdom, 19 June 1794 - 11 August 1796",
+            "Exile of Paoli in Britain, October 1795",
+            "French reconquered Bastia, 19 October 1796",
+            "Occupied by Italian and German forces, November 1942 - September 1943"
+        ],
+        "latitude": 41.935,
+        "longitude": 8.745
+    },
     "Mühlburg": {
         "country": "🔬 German Confederation (Germany)",
         "remarkable": [
@@ -6156,6 +6176,19 @@
         ],
         "latitude": 51.126111,
         "longitude": 4.290833
+    },
+    "Palma": {
+        "country": "Majorca (Spain)",
+        "remarkable": [
+            "Islamic control, 902-1229",
+            "James I of Aragon, 1208-1276",
+            "King of Aragon (Count of Barcelona), 12 September 1213 - 27 July 1276",
+            "King of Majorca, 1231-1276",
+            "Ciutat de Mallorca , 31 December 1229",
+            "Founded as a Roman camp, 124 BC"
+        ],
+        "latitude": 39.566667,
+        "longitude": 2.65
     },
     "Dunkirk": {
         "country": "⚔ France",
