@@ -5885,6 +5885,7 @@ function newTexture(image) {
     const canvasimg = document.getElementById("canvasimg");
     canvasimg.width = textimg.width;
     canvasimg.height = textimg.height;
+    displayVersions(ppiIndex);
     if (selector.paused) {
       drawLinesOnImage();
       if (isMap) drawLocationsOnImage();
@@ -5892,7 +5893,6 @@ function newTexture(image) {
   };
   document.getElementById("figc").textContent =
     `(${image.width} x ${image.height})`;
-  displayVersions(ppiIndex);
   document.getElementById("textures").value = String(textureCnt);
   setPosition(currentLocation);
 
