@@ -2030,7 +2030,10 @@ const handleKeyPress = ((event) => {
     element.equator.checked = selector.equator;
     labelForLocation(currentLocation);
 
-    const dat = cities.timeline[cl];
+    const dat = element.byDate.checked
+      ? cities.timeline[cl]
+      : cities.timeline[cities.byDate.indexOf(currentLocation)];
+
     element.timeline.value = dat;
     labelForTimeline(dat);
 
