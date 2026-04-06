@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 443 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 446 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 443 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 446 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -1823,10 +1823,11 @@ function gcs2Screen(location, mercatorProjection = false) {
 }
 
 /**
- * Performs a binary search on a sorted array to find the index of a target value.
+ * <p>Performs a binary search on a sorted array to find the index
+ * of a target in O(log(n)).</p>
  * @param {Array} arr the sorted array to search.
  * @param {String|Number} target the value to search for.
- * @returns {Number} the index of the target value if found, otherwise -1.
+ * @returns {Number} the index of the target value or -1, if not found.
  * @see {@link https://en.wikipedia.org/wiki/Binary_search Binary search}
  */
 function binarySearch(arr, target) {
@@ -1854,6 +1855,57 @@ function binarySearch(arr, target) {
 
   // If the loop finishes without finding the target, it's not in the array
   return -1;
+}
+
+/**
+ * <p>Returns the index of the first element in a sorted array
+ * that is greater or equal to a given target in O(log(n)).</p>
+ * If all elements are smaller than the target, then returns the array's length.
+ * <ul>
+ *  <li>lowerBound([2, 3, 7, 10, 11, 11, 25], 9) → 3 </li>
+ *  <li>lowerBound([2, 3, 7, 10, 11, 11, 25], 11) → 4 </li>
+ *  <li>lowerBound([2, 3, 7, 10, 11, 11, 25], 100) → 7 </li>
+ * </ul>
+ * @param {Array} arr the sorted array to search.
+ * @param {String|Number} target the value to search for.
+ * @returns {Number} first index of a value ≥ target or array's length.
+ * @see {@link https://www.geeksforgeeks.org/dsa/implement-lower-bound/ Lower Bound}
+ * @see {@link https://stackoverflow.com/questions/6553970/find-the-first-element-in-a-sorted-array-that-is-greater-than-the-target Find the first element in a sorted array that is greater than the target}
+ */
+function lowerBound(arr, target) {
+  let low = 0;
+  let high = arr.length; // length to allow "not found" to return arr.length
+
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+
+    if (arr[mid] >= target) {
+      // mid is >= target, the first such element is either mid or to its left
+      high = mid;
+    } else {
+      // mid is < target, the first such element must be to its right
+      low = mid + 1;
+    }
+  }
+  return low; // the index of the first element >= target
+}
+
+/**
+ * <p>Returns the index of the first element in an array
+ * that is greater or equal to a given target in O(n).</p>
+ * If all elements are smaller than the target, then returns the array's length.
+ * @param {Array} arr the sorted array to search.
+ * @param {String|Number} target the value to search for.
+ * @returns {Number} first index of a value ≥ target or array's length.
+ * @see {@link https://www.geeksforgeeks.org/dsa/implement-lower-bound/ Lower Bound}
+ */
+function lowerBoundLinear(arr, target) {
+  for (const [index, value] of arr.entries()) {
+    if (value >= target) {
+      return index;
+    }
+  }
+  return arr.length;
 }
 
 /**
@@ -2363,18 +2415,14 @@ const handleKeyPress = ((event) => {
         break;
       case "X":
         const date = +element.timeline.value;
-        let dt;
-        for (dt of cities.timeline) {
-          if (dt >= date) break;
-        }
-        // const index = cities.timeline.indexOf(dt);
-        // binary search for the date in the timeline
+
+        // search for the date in the timeline
         // cities.timeline is sorted in ascending order, so we can use binary search
-        const index = binarySearch(cities.timeline, dt);
+        const index = lowerBound(cities.timeline, date); // or lowerBoundLinear(cities.timeline, date);
         const cc = cities.current;
         cities.current = cities.byDate;
         currentLocation = cities.current[index];
-        labelForTimeline(dt);
+        labelForTimeline(cities.timeline[index]);
         updateLocation(0);
         cities.current = cc;
         break;
