@@ -713,6 +713,13 @@ const canvastip = document.getElementById("canvastip");
 let country = "";
 
 /**
+ * Returns whether cities are selected by date or longitude.
+ * @returns {Array<Number>} cities.byDate | cities.byLongitude.
+ */
+const getCitiesSelector = () =>
+  selector.cities ? cities.byDate : cities.byLongitude;
+
+/**
  * HTML elements in the interface.
  * @type {Object}
  * @property {HTMLInputElement} mesh checkbox
@@ -1084,6 +1091,8 @@ let gpsCoordinates = null;
  * @property {Array<Number>} timeline list of city years.
  * @property {Array<Number>} longitude list of city longitudes.
  * @property {Array<String>} country city names in the selected country.
+ * @property {Array<{String,Number}>} nameToDate map of city names to dates.
+ * @property {Array<{String,Number}>} nameToLongitude map of city names to longitudes.
  */
 const cities = {
   byLongitude: null,
@@ -1093,6 +1102,8 @@ const cities = {
   timeline: null,
   longitude: null,
   country: null,
+  nameToDate: null,
+  nameToLongitude: null,
 };
 
 /**
@@ -2032,7 +2043,7 @@ const handleKeyPress = ((event) => {
 
     const dat = element.byDate.checked
       ? cities.timeline[cl]
-      : cities.timeline[cities.byDate.indexOf(currentLocation)];
+      : cities.nameToDate[currentLocation];
 
     element.timeline.value = dat;
     labelForTimeline(dat);
@@ -2412,9 +2423,7 @@ const handleKeyPress = ((event) => {
       case "W":
         selector.cities = !selector.cities;
         element.byDate.checked = selector.cities;
-        cities.current = element.byDate.checked
-          ? cities.byDate
-          : cities.byLongitude;
+        cities.current = getCitiesSelector();
         break;
       case "X":
         const date = +element.timeline.value;
@@ -2422,12 +2431,11 @@ const handleKeyPress = ((event) => {
         // search for the date in the timeline
         // cities.timeline is sorted in ascending order, so we can use binary search
         const index = lowerBound(cities.timeline, date); // or lowerBoundLinear(cities.timeline, date);
-        const cc = cities.current;
         cities.current = cities.byDate;
         currentLocation = cities.current[index];
         labelForTimeline(cities.timeline[index]);
         updateLocation(0);
-        cities.current = cc;
+        cities.current = getCitiesSelector();
         break;
       case "R":
         currentLocation = "Rio";
@@ -3625,18 +3633,18 @@ function saveWebGLCanvasAsPNG(blob, filename) {
 
 /**
  * Return cities ordered by date and the timeline.
+ * @param {Array<gpsCoordinates>} [data=cities.byLongitude] array of gpsCoordinates objects.
  * @return {Array<Array>} sort-value - array of location names and timeline.
  * @property {Array<String>} 0 sort-value.location - list of names ordered by date.
  * @property {Array<Number>} 1 sort-value.timeline - list of corresponding years.
+ * @property {Object<{String,Number}>} 2 sort-value.map - map associating city names to dates.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort Array.prototype.sort()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries Object.fromEntries()}
  * @see {@link https://www.math.uwaterloo.ca/tsp/index.html Traveling Salesman Problem}
  * @see {@link https://en.wikipedia.org/wiki/Timelines_of_Big_History Timelines of Big History}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getUTCFullYear Date.prototype.getUTCFullYear()}
  */
-function sortCitiesByDate() {
-  // the array to be sorted
-  const data = cities.byLongitude;
-
+function sortCitiesByDate(data = cities.byLongitude) {
   /**
    * <p>Return a {@link gpsCoordinates location} historical figure's last date mentioned and timeline.<p>
    * In case it is a range of dates (first-second), it returns the first date.
@@ -3723,21 +3731,25 @@ function sortCitiesByDate() {
   // and return the sorted location names
   const location = mapped.map((v) => data[v.i]);
 
-  return [location, timeline];
+  const timemap = Object.fromEntries(
+    location.map((key, index) => [key, timeline[index]]),
+  );
+
+  return [location, timeline, timemap];
 }
 
 /**
  * Return cities ordered by longitude and longitude list.
+ * @param {Array<String>} [data=cities.byLongitude] array of gpsCoordinates objects.
  * @return {Array<Array>} sort-value - array of location names and array of longitudes.
  * @property {Array<String>} 0 sort-value.location - list of names ordered by longitude.
  * @property {Array<Number>} 1 sort-value.longitude - list of corresponding longitudes.
+ * @property {Object<{String,Number}>} 2 sort-value.map - map associating city names to longitudes.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort Array.prototype.sort()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries Object.fromEntries()}
  * @see {@link https://www.math.uwaterloo.ca/tsp/index.html Traveling Salesman Problem}
  */
-function sortCitiesByLongitude() {
-  // the array to be sorted
-  const data = cities.byLongitude;
-
+function sortCitiesByLongitude(data = cities.byLongitude) {
   /**
    * <p>Return a {@link gpsCoordinates location} historical figure's longitude.<p>
    *
@@ -3776,7 +3788,11 @@ function sortCitiesByLongitude() {
   // and return the sorted location names
   const location = mapped.map((v) => data[v.i]);
 
-  return [location, longitudes];
+  const longmap = Object.fromEntries(
+    location.map((key, index) => [key, longitudes[index]]),
+  );
+
+  return [location, longitudes, longmap];
 }
 
 /**
@@ -4902,6 +4918,30 @@ function setRangeTicks(optionNames) {
 }
 
 /**
+ * <p>Sort an array of {@link gpsCoordinates} by
+ * {@link sortCitiesByDate date} and
+ * {@link sortCitiesByLongitude longitude}.</p>
+ * The sorted arrays are stored in the {@link cities} object,
+ * which has the following properties:
+ * <ul>
+ *  <li>byDate: an array of city names sorted by date.</li>
+ *  <li>byLongitude: an array of city names sorted by longitude.</li>
+ *  <li>timeline: an array of dates corresponding to the cities in byDate.</li>
+ *  <li>longitude: an array of longitudes corresponding to the cities in byLongitude.</li>
+ *  <li>nameToDate: a mapping from city names to their corresponding dates.</li>
+ *  <li>nameToLongitude: a mapping from city names to their corresponding longitudes.</li>
+ * </ul>
+ * @param {Array<gpsCoordinates>} [data=cities.byLongitude] array of gpsCoordinates objects.
+ * @see {@link sortCitiesByDate}
+ * @see {@link sortCitiesByLongitude}
+ */
+function sortCities(data = cities.byLongitude) {
+  [cities.byDate, cities.timeline, cities.nameToDate] = sortCitiesByDate(data);
+  [cities.byLongitude, cities.longitude, cities.nameToLongitude] =
+    sortCitiesByLongitude(data);
+}
+
+/**
  * <p>Loads the {@link image texture image} and {@link gpsCoordinates} asynchronously
  * and defines its {@link ImageLoadCallback load callback function}.</p>
  * @param {Event} event load event.
@@ -4912,6 +4952,7 @@ function setRangeTicks(optionNames) {
  * @see {@link https://www.evl.uic.edu/pape/data/Earth/ Earth images}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch Using the Fetch API}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse JSON.parse()}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys Object.keys()}
  * @event load
  */
 window.addEventListener("load", (event) => {
@@ -4919,8 +4960,10 @@ window.addEventListener("load", (event) => {
     .then((response) => response.text())
     .then((json) => {
       gpsCoordinates = JSON.parse(json);
+
       cities.byLongitude = Object.keys(gpsCoordinates);
       cities.current = cities.byLongitude;
+      sortCities(cities.byLongitude);
       currentLocation =
         cities.current[Math.floor(Math.random() * cities.current.length)];
 
@@ -5721,9 +5764,8 @@ function startForReal(image) {
   selectModel();
   newTexture(image);
   addListeners();
-  [cities.byDate, cities.timeline] = sortCitiesByDate();
-  [cities.byLongitude, cities.longitude] = sortCitiesByLongitude();
-  cities.current = selector.cities ? cities.byDate : cities.byLongitude;
+
+  cities.current = getCitiesSelector();
 
   // Phong highlight position: (0,0,1) = {-90,0} in GCS
   const coordinates = gcs2Screen({ longitude: -90, latitude: 0 }, false);
