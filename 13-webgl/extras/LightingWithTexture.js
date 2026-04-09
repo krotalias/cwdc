@@ -1922,22 +1922,20 @@ function lowerBoundLinear(arr, target) {
 /**
  * Returns the next location starting at {@link currentLocation}.
  * @param {Number} inc increment (-1, 0 or 1).
- * @param {String} initialLocation initial location.
+ * @param {Number} initialLocation initial location index.
  * @param {String} filter set of locations to look for.
  * @returns {Number} index of next location.
  */
 function nextLocation(inc, initialLocation, filter = "") {
-  let cl = cities.current.indexOf(initialLocation);
+  let cl = initialLocation;
   if (inc === 0) return cl;
 
-  let location = initialLocation;
   do {
     cl = mod(cl + inc, cities.current.length);
-    location = cities.current[cl];
   } while (
     filter &&
-    location != initialLocation &&
-    !gpsCoordinates[location].country.includes(filter)
+    cl != initialLocation &&
+    !gpsCoordinates[cities.current[cl]].country.includes(filter)
   );
   return cl;
 }
@@ -2020,7 +2018,11 @@ const handleKeyPress = ((event) => {
    */
   function updateLocation(inc, fix = true, prev = true) {
     if (axis === "q") axis = " "; // current meridian will be lost
-    const cl = nextLocation(inc, currentLocation, country);
+    const cl = nextLocation(
+      inc,
+      cities.current.indexOf(currentLocation),
+      country,
+    );
     // a sphere, a cylinder a cone or a subdivision sphere
     const modelsToRotate = [1, 3, 5, 13];
 
@@ -4109,6 +4111,7 @@ function addListeners() {
   element.country.addEventListener("change", (event) => {
     country = element.country.value;
     displayLocations();
+    document.querySelector("#nsites").innerHTML = `${cities.country.length}`;
   });
 
   /**
@@ -5789,14 +5792,15 @@ function startForReal(image) {
 function pointsOnLocations() {
   cities.country = [];
 
-  let cl = nextLocation(1, cities.current[0], country);
-  let location = cities.current[cl];
-  const initialLocation = location;
-  do {
-    cities.country.push(location);
-    cl = nextLocation(1, location, country);
-    location = cities.current[cl];
-  } while (location !== initialLocation);
+  let cl = nextLocation(1, 0, country);
+  if (cl > 0) {
+    // have we found at least one city?
+    const initialLocation = cl;
+    do {
+      cities.country.push(cities.current[cl]);
+      cl = nextLocation(1, cl, country);
+    } while (cl !== initialLocation);
+  }
 
   return pointsOnAllLocations(cities.country);
 }
