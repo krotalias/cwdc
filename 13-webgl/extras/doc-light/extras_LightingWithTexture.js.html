@@ -1744,6 +1744,8 @@ function labelForTimeline(dat) {
   // element.lblTimeline.style.color = dat &lt; 0 ? "gold" : "red";
   dat = `${Math.abs(dat)} ${dat &lt; 0 ? "BC" : "AD"}`;
   element.lblTimeline.innerHTML = `Timeline: ${dat}`;
+  document.querySelector("#ncountry").innerHTML =
+    `${!country ? "the world" : country}`;
   document.querySelector("#nsites").innerHTML = `${cities.country.length}`;
 }
 
@@ -4139,6 +4141,8 @@ function addListeners() {
   element.country.addEventListener("change", (event) => {
     country = element.country.value;
     displayLocations();
+    document.querySelector("#ncountry").innerHTML =
+      `${!country ? "the world" : country}`;
     document.querySelector("#nsites").innerHTML = `${cities.country.length}`;
   });
 
