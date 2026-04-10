@@ -1707,6 +1707,39 @@ function labelForLocation(location) {
 }
 
 /**
+ * Returns a description of the given country.
+ * @param {String} country name of the country.
+ * @return {String} description of the country.
+ */
+function getCountryDescription(country) {
+  switch (country) {
+    case "☠":
+      return "Caribbean";
+    case "⚔":
+      return "World War II";
+    case "✝":
+      return "Crusades";
+    case "☢":
+      return "Radiation Sources";
+    case "🧪":
+      return "National Laboratories";
+    case "⛵":
+      return "Age of Discovery";
+    case "⚓":
+      return "Columbu's Voyages";
+    case "🏆":
+      return "Nobel Prize Winners";
+    case "🐇":
+      return "Bad Bunny's America";
+    case "🔬":
+      return "STEM Members";
+    case "":
+      return "the world";
+  }
+  return country;
+}
+
+/**
  * Updates the label of the timeline to the given date.
  * @param {Number} dat date.
  */
@@ -1717,7 +1750,7 @@ function labelForTimeline(dat) {
   dat = `${Math.abs(dat)} ${dat < 0 ? "BC" : "AD"}`;
   element.lblTimeline.innerHTML = `Timeline: ${dat}`;
   document.querySelector("#ncountry").innerHTML =
-    `${!country ? "the world" : country}`;
+    `${getCountryDescription(country)}`;
   document.querySelector("#nsites").innerHTML = `${cities.country.length}`;
 }
 
@@ -4114,7 +4147,7 @@ function addListeners() {
     country = element.country.value;
     displayLocations();
     document.querySelector("#ncountry").innerHTML =
-      `${!country ? "the world" : country}`;
+      `${getCountryDescription(country)}`;
     document.querySelector("#nsites").innerHTML = `${cities.country.length}`;
   });
 
