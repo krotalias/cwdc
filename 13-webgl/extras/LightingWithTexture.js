@@ -1707,36 +1707,51 @@ function labelForLocation(location) {
 }
 
 /**
- * Returns a description of the given country.
+ * Sets a description for the given country:
+ * its name in element #ncountry and
+ * number of cities in element #nsites.
  * @param {String} country name of the country.
  * @return {String} description of the country.
  */
-function getCountryDescription(country) {
+function setCountryDescription(country) {
+  let c = country;
   switch (country) {
     case "☠":
-      return "Caribbean";
+      c = "Caribbean";
+      break;
     case "⚔":
-      return "World War II";
+      c = "World War II";
+      break;
     case "✝":
-      return "Crusades";
+      c = "Crusades";
+      break;
     case "☢":
-      return "Radiation Sources";
+      c = "Radiation Sources";
+      break;
     case "🧪":
-      return "National Laboratories";
+      c = "National Laboratories";
+      break;
     case "⛵":
-      return "Age of Discovery";
+      c = "Age of Discovery";
+      break;
     case "⚓":
-      return "Columbu's Voyages";
+      c = "Columbu's Voyages";
+      break;
     case "🏆":
-      return "Nobel Prize Winners";
+      c = "Nobel Prize Winners";
+      break;
     case "🐇":
-      return "Bad Bunny's America";
+      c = "Bad Bunny's America";
+      break;
     case "🔬":
-      return "STEM Members";
+      c = "STEM Members";
+      break;
     case "":
-      return "the world";
+      c = "the world";
+      break;
   }
-  return country;
+  document.querySelector("#ncountry").innerHTML = c;
+  document.querySelector("#nsites").innerHTML = `${cities.country.length}`;
 }
 
 /**
@@ -1749,9 +1764,7 @@ function labelForTimeline(dat) {
   // element.lblTimeline.style.color = dat < 0 ? "gold" : "red";
   dat = `${Math.abs(dat)} ${dat < 0 ? "BC" : "AD"}`;
   element.lblTimeline.innerHTML = `Timeline: ${dat}`;
-  document.querySelector("#ncountry").innerHTML =
-    `${getCountryDescription(country)}`;
-  document.querySelector("#nsites").innerHTML = `${cities.country.length}`;
+  setCountryDescription(country);
 }
 
 /**
@@ -4146,9 +4159,7 @@ function addListeners() {
   element.country.addEventListener("change", (event) => {
     country = element.country.value;
     displayLocations();
-    document.querySelector("#ncountry").innerHTML =
-      `${getCountryDescription(country)}`;
-    document.querySelector("#nsites").innerHTML = `${cities.country.length}`;
+    setCountryDescription(country);
   });
 
   /**
@@ -4205,6 +4216,7 @@ function addListeners() {
     country = "";
     handleKeyPress(createEvent("g"));
     country = ct;
+    setCountryDescription(country);
   });
 
   /**
@@ -4475,6 +4487,7 @@ function addListeners() {
     }
     handleKeyPress(createEvent(ch));
     country = ct;
+    setCountryDescription(country);
   });
 
   /**
