@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 446 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 447 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 446 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 447 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -609,6 +609,7 @@ const toMiles = (a) => a * 0.621371;
  * @param {Number} a distance in kilometers.
  * @return {Number} distance in nautical miles.
  * @function
+ * @see {@link https://en.wikipedia.org/wiki/Nautical_mile Nautical mile}
  */
 const toNauticalMiles = (a) => a * 0.539957;
 
@@ -1639,9 +1640,12 @@ const cleanLocation = (location) =>
  */
 function dd2dms(dd, isLongitude = false) {
   const deg = Math.trunc(Math.abs(dd));
-  const minutesDecimal = (Math.abs(dd) % 1) * 60;
+  // toFixed(5) to avoid Math.abs(65.35) % 1 -> 0.3499999999999943
+  // 65.35 -> 0.35 * 60 = 21 and not 20.99999999999966
+  // 65° 21' 0.00'' and not 65° 20' 60.00''
+  const minutesDecimal = (Math.abs(dd) % 1).toFixed(5) * 60;
   const min = Math.trunc(minutesDecimal);
-  const sec = (Math.abs(minutesDecimal) % 1) * 60;
+  const sec = ((Math.abs(minutesDecimal) % 1) * 60).toFixed(2);
 
   // Determine the cardinal direction
   let direction;
@@ -1650,7 +1654,7 @@ function dd2dms(dd, isLongitude = false) {
   } else {
     direction = dd < 0 ? "S" : "N";
   }
-  return `${deg}° ${min}' ${sec.toFixed(2)}" ${direction}`;
+  return `${deg}° ${min}&apos; ${sec}&quot; ${direction}`;
 }
 
 /**
@@ -2884,6 +2888,9 @@ function rhumbLine(ctx, loc1, loc2) {
  * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator sailings}
  * @see {@link https://siranah.de/html/sail020m.htm Notes on Loxodrome Calculations}
  * @see {@link https://www.atractor.pt/mat/loxodromica/saber_comprimento1-_en.html The loxodrome and two projections of the sphere}
+ * @see {@link https://www.siranah.de/html/sail045e.htm Loxodrome Sailing}
+ * @see {@link https://planetcalc.com/713/ Course angle and the distance between the two points on loxodrome}
+ * @see {@link https://www.movable-type.co.uk/scripts/latlong.html Calculate distance, bearing and more between Latitude/Longitude points}
  */
 function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
   const R = 6371; // Earth's mean radius in km
@@ -2908,7 +2915,7 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
   } else {
     if (isZero(dLat)) {
       // along a parallel (lat1 === lat2)
-      return Math.abs(R * dLon * Math.cos(toRadian(lat1)));
+      return R * Math.abs(dLon * Math.cos(toRadian(lat1)));
     } else {
       const bearing = toRadian(
         bearingAngle(
@@ -2916,7 +2923,10 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
           { latitude: lat2, longitude: lon2 },
         ),
       );
-      return Math.abs((R * dLat) / Math.cos(bearing));
+      // nautical miles = minutes of arc along a meridian (1' = 1 NM)
+      // sin(90-bearing) = cos(bearing)
+      // dlat = nm * sin(90-bearing) = nm * cos(bearing)
+      return R * Math.abs(dLat / Math.cos(bearing));
     }
   }
 }
@@ -5592,7 +5602,8 @@ function setPosition(location) {
       gpsCoordinates[location],
     );
     const ba = bearingAngle(previousLocation, gpsCoordinates[location]);
-    document.getElementById("lox").innerHTML = `Loxodrome (${ba.toFixed(2)}°)`;
+    document.getElementById("lox").innerHTML =
+      `Loxodrome (${dd2dms(ba).slice(0, -2)})`;
   } else {
     if (isCylinder()) {
       meridianVertices = pointsOnCylMeridian(

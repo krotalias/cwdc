@@ -188,6 +188,23 @@
         "latitude": 52.71009,
         "longitude": -2.75208
     },
+    "Liverpool": {
+        "country": "England (United Kingdom)",
+        "remarkable": [
+            "The Beatles, 1960-1970",
+            "Brian Epstein (manager), 24 September 1934 - 27 August 1967",
+            "George Martin (producer), 3 January 1926 - 8 March 2016",
+            "John Winston Lennon (rythm guitarist), 9 October 1940 - 8 December 1980",
+            "James Paul McCartney (bassist), 18 June 1942",
+            "George Harrison (lead guitarist), 25 February 1943 - 29 November 2001",
+            "Richard Starkey (Ringo Starr), 7 July 1940",
+            "Drummer, 18 August 1962 - 10 April 1970",
+            "Randolph Peter Best, 24 November 1941",
+            "Drummer, 12 August 1960 - 16 August 1962"
+        ],
+        "latitude": 53.41058,
+        "longitude": -2.97794
+    },
     "Moffat": {
         "country": "⚔ Scotland",
         "remarkable": [
