@@ -843,7 +843,7 @@
             "Discovery of Brazil (Ilha de Vera Cruz), 22 April 1500",
             "Departed to India, 2 May 1500",
             "Rounded the Cape of Good Hope, lost 4 ships and Bartolomeu Dias, 29 May 1500",
-            "Digo Dias sighted for the 1st time the Insula St. Laurentii (Madagascar), 10 August 1500",
+            "Diogo Dias sighted for the 1st time the Insula St. Laurentii (Madagascar), 10 August 1500",
             "The flagship cast anchor at Calicut (India), 13 September 1500",
             "2nd Portuguese India Armada, 2 May 1500 - 27 June 1501"
         ],
@@ -3817,6 +3817,16 @@
         ],
         "latitude": 35.700330532,
         "longitude": 139.708997164
+    },
+    "Osaka": {
+        "country": "⚔ Kansai (Japan)",
+        "remarkable": [
+            "Established, 1889",
+            "Designated city status, 1956",
+            "USAF raids, 13 March 1945"
+        ],
+        "latitude": 34.69374,
+        "longitude": 135.50218
     },
     "Hiroshima": {
         "country": "⚔ ☢ Chūgoku (Japan)",
