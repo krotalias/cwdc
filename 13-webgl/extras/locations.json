@@ -200,13 +200,14 @@
             "Richard Starkey (Ringo Starr), 7 July 1940",
             "Drummer, 18 August 1962 - 10 April 1970",
             "Randolph Peter Best, 24 November 1941",
-            "Drummer, 12 August 1960 - 16 August 1962"
+            "Drummer, 12 August 1960 - 16 August 1962",
+            "The best-selling musical act of all time (600M-1B units sold), 1960-present"
         ],
         "latitude": 53.41058,
         "longitude": -2.97794
     },
     "Moffat": {
-        "country": "⚔ Scotland",
+        "country": "⚔ Scotland (United Kingdom)",
         "remarkable": [
             "Hugh Dowding (Air Chief Marshal), 1882-1970",
             "Battle of Britain, 10 July 1940 - 31 October 1940"
@@ -215,7 +216,7 @@
         "longitude": -3.444884
     },
     "Dunfermline": {
-        "country": "Scotland",
+        "country": "Scotland (United Kingdom)",
         "remarkable": [
             "Andrew Carnegie, 1835-1919",
             "Net worth: $470M or 0.6% GDP (1919) - 18.8B (today)",
@@ -259,6 +260,22 @@
         ],
         "latitude": 50.54944,
         "longitude": -4.14418
+    },
+    "Glasgow": {
+        "country": "🎶 Scotland (United Kingdom)",
+        "remarkable": [
+            "Dire Straits (Deptford, south east London), 1977-1995",
+            "Mark Freuder Knopfler (lead guitarist/singer-songwriter), 1949-present",
+            "David Knopfler (guitarist), 1952-present",
+            "John Edward Illsley (bassist), 1949-present",
+            "David (Pick) Withers (drummer), 1948-present",
+            "Terry Williams (drummer), 1982-1988",
+            "Brothers in Arms first album to sell a million copies on CD, 1985",
+            "UK Albums Chart at number 1 (228 weeks), 1985-1986",
+            "One of the best-selling music artists of all time (100-120M records sold), 1978-present"
+        ],
+        "latitude": 55.86515,
+        "longitude": -4.25763
     },
     "Ceuta": {
         "country": "Spain",
@@ -333,11 +350,16 @@
         "longitude": -5.93
     },
     "Dublin": {
-        "country": "Ireland",
+        "country": "🎶 Republic of Ireland",
         "remarkable": [
             "Olaf the White, 806-874",
             "King of Dublin, 853",
-            "U2 (Bono, The Edge, Adam Clayton, Larry Mullen), 1976-present"
+            "U2, 1976-present",
+            "Paul David Hewson (Bono, singer-songwriter), 1960",
+            "David Howell Evans (The Edge, guitarist/keyboards), 1961",
+            "Adam Charles Clayton (bassist), 1960",
+            "Laurence Joseph Mullen Jr. (drummer), 1960",
+            "One of the best-selling music artists of all time (150-170M records sold), 1976-present"
         ],
         "latitude": 53.33306,
         "longitude": -6.24889
@@ -1005,10 +1027,6 @@
             "Estácio de Sá, 1520 - 20 February 1567",
             "Battle of Rio leaded by Sá and Arariboia",
             "French (and Tamoios) defeat, 20 January 1567",
-            "Machado de Assis, 1839-1908",
-            "Heitor Villa-Lobos, 1887-1959",
-            "• Parisian art scene, 1923-1930",
-            "Arthur Moreira Lima Jr., 1940-2024",
             "Founded, 1 March 1565"
         ],
         "latitude": -22.9068,
@@ -1061,6 +1079,19 @@
         ],
         "latitude": -22.900776,
         "longitude": -43.17644
+    },
+    "Theatro Municipal": {
+        "country": "🎶 Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Opera house inspired by the Paris Opéra of Charles Garnier",
+            "Machado de Assis, 1839-1908",
+            "Heitor Villa-Lobos, 1887-1959",
+            "• Parisian art scene, 1923-1930",
+            "Arthur Moreira Lima Jr., 1940-2024",
+            "Inaugurated, 14 July 1909"
+        ],
+        "latitude": -22.9089,
+        "longitude": -43.1766
     },
     "Palácio Pedro Ernesto": {
         "country": "Rio de Janeiro (Brazil)",
@@ -3091,7 +3122,7 @@
         "longitude": -93.59
     },
     "Ames": {
-        "country": "Iowa (United States)",
+        "country": "🎶 Iowa (United States)",
         "remarkable": [
             "Iowa State University (ISU), 22 March 1858",
             "Oakes Ames, 1804-1873",
@@ -5691,6 +5722,19 @@
         ],
         "latitude": 48.25628,
         "longitude": 13.04343
+    },
+    "Salzburg": {
+        "country": "🎶 ⚔ Austria",
+        "remarkable": [
+            "Wolfgang Amadeus Mozart, 1756-1791",
+            "Employed as a court musician by the ruler of Salzburg, 13 March 1773",
+            "5 violin concertos, 1773-1775",
+            "27 piano concertos, 1776-1791",
+            "6 quartets dedicated to Haydn, 1782-1785",
+            "Don Giovanni (opera), October 1787"
+        ],
+        "latitude": 47.8,
+        "longitude": 13.043333
     },
     "Leipzig": {
         "country": "🔬 Holy Roman Empire (Germany)",
