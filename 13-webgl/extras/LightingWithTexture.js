@@ -92,7 +92,7 @@
  *
  * Misinterpreting Web Mercator for the standard Mercator during coordinate conversion can lead to
  * {@link https://web.archive.org/web/20170329065451/https://earth-info.nga.mil/GandG/wgs84/web_mercator/index.html deviations}
- * as much as 40 km on the ground.</p>
+ * as much as 40 km on the ground. Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.</p>
  *
  * <p>It is impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
  * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
@@ -1676,18 +1676,33 @@ function dd2dms(dd, isLongitude = false) {
 }
 
 /**
- * Updates the label (latitude, longitude, secant and meridional parts)
- * to the information of the given {@link gpsCoordinates location}.
+ * <p>Updates the label (latitude, longitude, secant and meridional parts)
+ * to the information of the given {@link gpsCoordinates location}.</p>
+ * The label is updated in the element with attribute `for="equator"`:
+ * <ul>
+ * <li>sec(lat) is the secant of the latitude, which is the reciprocal
+ * of the cosine of the latitude.</li>
+ * <li>mp(lat) is the meridional part, which is the distance in minutes of longitude
+ * from the equator to a given latitude on a Mercator chart (for a perfect sphere).</li>
+ * </ul>
+ * <pre>
+ *    const gps = gpsCoordinates[location];
+ *    const uv = gcs2UV(gps);
+ *    const merc = spherical2Mercator(uv.s, uv.t);
+ *    const mp = (merc.y * 2 - 1) * 10800;
+ *                        or
+ *    const mp = toDegrees(toMercator(toRadian(lat))) * 60;
+ * </pre>
  * @param {String} location name of the location.
+ * @see {@link https://www.starpath.com/calc/Distance Calculators/parts.html | Meridional Parts Calculator}
+ * @see {@link https://maritimecalc.com/meridional-parts-calculator/ Maritime Calculator}
  */
 function labelForLocation(location) {
   const gps = gpsCoordinates[location];
   const rio = gpsCoordinates["Rio"];
   const lat = gps.latitude;
   const lon = gps.longitude;
-  const uv = gcs2UV(gps);
-  const merc = spherical2Mercator(uv.s, uv.t);
-  const mp = (merc.y * 2 - 1) * 10800;
+  const mp = toDegrees(toMercator(toRadian(lat))) * 60;
   const sec = 1 / Math.cos(toRadian(lat));
   const distance = haversine(gps, rio).km;
   const distance2 = haversine(gps, previousLocation).km;
@@ -1707,7 +1722,7 @@ function labelForLocation(location) {
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)}°,
     lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(2)}
-    <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp: ${mp.toFixed(
+    <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp(lat): ${mp.toFixed(
       2,
     )}
     <br>Distance to Rio: ${distance.toFixed(0)} km (${toMiles(distance).toFixed(
