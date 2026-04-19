@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 450 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 451 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 450 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 451 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -919,6 +919,15 @@ const mod = (n, m) => ((n % m) + m) % m;
 
 /**
  * <p>Calculate distances on the globe using the Haversine Formula.</p>
+ * <pre>
+ * Haversine
+ * formula:   a = sin²(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin²(Δλ/2)
+ *            c = 2 ⋅ atan2( √a, √(1−a) )
+ *            d = R ⋅ c
+ *
+ * where:     φ is latitude, λ is longitude, R is earth’s radius (mean radius = 6,371km);
+ * note:      angles need to be in radians to pass to trig functions!
+ * </pre>
  * Usage:
  * <pre>
  *  const distance = haversine(
@@ -968,6 +977,13 @@ function haversine(gcs1, gcs2) {
  * to determine direction in navigation and surveying.
  * It is represented using three figures (e.g., 045° for Northeast)
  * in the range [000°, 360°).
+ * <pre>
+ * Formula:   Δψ = ln( tan(π/4 + φ2/2) / tan(π/4 + φ1/2) )
+ *            θ = atan2(Δλ, Δψ)
+ *
+ * where:     φ is geodetic latitude, ψ is isometric latitude, λ is longitude,
+ *            Δλ is taking shortest route (<180°), R is the earth’s radius,
+ *            ln is natural log
  * @param {GCS} gcs1 first pair of gcs coordinates.
  * @param {GCS} gcs2 second pair of gcs coordinates.
  * @return {Number} bearing angle in degrees between gcs1 and gcs2.
@@ -975,6 +991,7 @@ function haversine(gcs1, gcs2) {
  * @see {@link https://en.wikipedia.org/wiki/Bearing_(navigation) Bearing (navigation)}
  * @see {@link https://www.youtube.com/watch?v=FI7C8VlbYfI Use a Lensatic Compass with a map & without}
  * @see {@link https://www.youtube.com/watch?v=t650zKlkisw The Easiest Way to Navigate With a Compass}
+ * @see {@link https://www.techscience.com/RIG/v33n1/57061/html New Definitions of the Isometric Latitude and the Mercator Projection}
  */
 function bearingAngle(gcs1, gcs2) {
   let deltaLongitude = toRadian(gcs2.longitude - gcs1.longitude);
@@ -2884,6 +2901,15 @@ function rhumbLine(ctx, loc1, loc2) {
  *    <li>D = R * |dLon| * cos (lat1), if dLat == 0 </li>
  *  </ul>
  * </ul>
+ * <pre>
+ * Formula:   Δψ = ln( tan(π/4 + φ2/2) / tan(π/4 + φ1/2) )
+ *            q = Δφ / Δψ (or cosφ for E-W line)
+ *            d = √(Δφ² + q²⋅Δλ²) ⋅ R 	(Pythagoras)
+ *
+ * where:     φ is geodetic latitude, ψ is isometric latitude, λ is longitude,
+ *            Δλ is taking shortest route (<180°), R is the earth’s radius,
+ *            ln is natural log
+ * </pre>
  * @param {number} lat1 - latitude of first point in degrees.
  * @param {number} lon1 - longitude of first point in degrees.
  * @param {number} lat2 - latitude of second point in degrees.
@@ -2895,6 +2921,7 @@ function rhumbLine(ctx, loc1, loc2) {
  * @see {@link https://www.siranah.de/html/sail045e.htm Loxodrome Sailing}
  * @see {@link https://planetcalc.com/713/ Course angle and the distance between the two points on loxodrome}
  * @see {@link https://www.movable-type.co.uk/scripts/latlong.html Calculate distance, bearing and more between Latitude/Longitude points}
+ * @see {@link https://www.techscience.com/RIG/v33n1/57061/html New Definitions of the Isometric Latitude and the Mercator Projection}
  */
 function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
   const R = 6371; // Earth's mean radius in km
