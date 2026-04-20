@@ -1696,6 +1696,7 @@ function dd2dms(dd, isLongitude = false) {
  * @param {String} location name of the location.
  * @see {@link https://www.starpath.com/calc/Distance Calculators/parts.html | Meridional Parts Calculator}
  * @see {@link https://maritimecalc.com/meridional-parts-calculator/ Maritime Calculator}
+ * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator Sailings}
  */
 function labelForLocation(location) {
   const gps = gpsCoordinates[location];
@@ -1703,6 +1704,22 @@ function labelForLocation(location) {
   const lat = gps.latitude;
   const lon = gps.longitude;
   const mp = toDegrees(toMercator(toRadian(lat))) * 60;
+
+  // bearing angle to previous location using meridional parts
+  const latp = previousLocation.latitude;
+  const lonp = previousLocation.longitude;
+  const mpp = toDegrees(toMercator(toRadian(latp))) * 60;
+  const dmp = mp - mpp;
+  let bearing;
+  if (!isZero(dmp)) {
+    const dlong = (lon - lonp) * 60;
+    bearing = toDegrees(Math.atan2(dlong, dmp));
+    if (bearing < 0) bearing += 360;
+  } else {
+    // if the two locations are on the same parallel, the bearing is either 90° or 270°
+    bearing = lon > lonp ? 90 : 270;
+  }
+
   const sec = 1 / Math.cos(toRadian(lat));
   const distance = haversine(gps, rio).km;
   const distance2 = haversine(gps, previousLocation).km;
@@ -1730,7 +1747,7 @@ function labelForLocation(location) {
     )} mi)
     <br>${cities.previous} to ${location}: ${distance2.toFixed(
       0,
-    )} km (${toMiles(distance2).toFixed(0)} mi)
+    )} km (${toMiles(distance2).toFixed(0)} mi), bearing angle: ${bearing.toFixed(2)}°
     <br>${
       cities.previous
     } to ${location} along loxodrome: ${loxDistanceSph.toFixed(
