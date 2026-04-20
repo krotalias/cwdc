@@ -665,6 +665,7 @@ const isZero = (a, epsilon = 1e-5) => Math.abs(a) < epsilon;
  * <p>Handle longitudinal crossing of anti-meridian for getting the shortest arc.</p>
  * return Math.abs(deltaLongitude) > Math.PI ? 2 * Math.PI - Math.abs(deltaLongitude) : Math.abs(deltaLongitude);
  * @param {Number} deltaLongitude difference between two longitudes in radians.
+ * @param {Boolean} degrees whether the input is in degrees or radians (default: false).
  * @return {Number} adjusted difference (an arc less than 180 degrees).
  * @see
  * <figure>
@@ -672,12 +673,13 @@ const isZero = (a, epsilon = 1e-5) => Math.abs(a) < epsilon;
  * <figcaption style="font-size: 200%">Conjugate (explementary) {@link https://en.wikipedia.org/wiki/Angle angles}.</figcaption>
  * </figure>
  */
-function antimeridianCrossing(deltaLongitude) {
-  if (Math.abs(deltaLongitude) > Math.PI) {
+function antimeridianCrossing(deltaLongitude, degrees = false) {
+  const antimeridian = degrees ? 180 : Math.PI;
+  if (Math.abs(deltaLongitude) > antimeridian) {
     if (deltaLongitude > 0) {
-      deltaLongitude -= 2 * Math.PI;
+      deltaLongitude -= 2 * antimeridian;
     } else {
-      deltaLongitude += 2 * Math.PI;
+      deltaLongitude += 2 * antimeridian;
     }
   }
   return deltaLongitude;
@@ -1712,8 +1714,8 @@ function labelForLocation(location) {
   const dmp = mp - mpp;
   let bearing;
   if (!isZero(dmp)) {
-    const dlong = (lon - lonp) * 60;
-    bearing = toDegrees(Math.atan2(dlong, dmp));
+    const dlong = antimeridianCrossing(lon - lonp, true);
+    bearing = toDegrees(Math.atan2(dlong * 60, dmp));
     if (bearing < 0) bearing += 360;
   } else {
     // if the two locations are on the same parallel, the bearing is either 90° or 270°
@@ -1747,7 +1749,7 @@ function labelForLocation(location) {
     )} mi)
     <br>${cities.previous} to ${location}: ${distance2.toFixed(
       0,
-    )} km (${toMiles(distance2).toFixed(0)} mi), bearing angle: ${bearing.toFixed(2)}°
+    )} km (${toMiles(distance2).toFixed(0)} mi), azimuth: ${bearing.toFixed(2)}°
     <br>${
       cities.previous
     } to ${location} along loxodrome: ${loxDistanceSph.toFixed(
