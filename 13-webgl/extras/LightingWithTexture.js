@@ -628,7 +628,21 @@ const toNauticalMiles = (a) => a * 0.539957;
  * @function
  * @see {@link https://www.kingmanyachtcenter.com/why-boaters-use-knots-instead-of-miles-per-hour/ Why Boaters Use Knots Instead of Miles per Hour}
  */
-const toKmh = (a) => a * 1.852;
+const knotsTokmh = (a) => a * 1.852;
+
+/**
+ * <p>Convert nautical miles to kilometers.</p>
+ * It is the length of one minute of latitude at the equator.
+ * <ul>
+ *   <li>{@link https://grokipedia.com/page/Earth's_circumference Earth's circunference}: 2 * π * 6371 Km = 40030.1736 km
+ *   <li> 40030 km / 360 / 60 = 1.8532407 km</li>
+ * </ul>
+ * @param {Number} a distance in nautical miles.
+ * @return {Number} distance in kilometers.
+ * @function
+ * @see {@link toNauticalMiles} for converting kilometers to nautical miles.
+ */
+const nmTokm = (a) => a * 1.8532407;
 
 /**
  * Check if the current model is a cylinder.
@@ -641,6 +655,25 @@ const isCylinder = () => element.models.value === "3";
  * @return {Boolean} true if the current model is a cone, false otherwise.
  */
 const isCone = () => element.models.value === "1";
+
+/**
+ * Returns the distance in minutes of longitude
+ * from the equator to a given latitude on a Mercator chart (for a perfect sphere).
+ * <pre>
+ *    const gps = gpsCoordinates[location];
+ *    const uv = gcs2UV(gps);
+ *    const merc = spherical2Mercator(uv.s, uv.t);
+ *    const mp = (merc.y * 2 - 1) * 10800;
+ *                        or
+ *    const mp = toDegrees(toMercator(toRadian(lat))) * 60;
+ * </pre>
+ * @param {Number} lat latitude in degrees.
+ * @returns {Number} meridional parts in minutes of longitude.
+ * @see {@link https://en.wikipedia.org/wiki/Meridional_parts Meridional parts}
+ * @see {@link https://www.starpath.com/calc/Distance Calculators/parts.html | Meridional Parts Calculator}
+ * @see {@link https://maritimecalc.com/meridional-parts-calculator/ Maritime Calculator}
+ */
+const meridionalParts = (lat) => toDegrees(toMercator(toRadian(lat))) * 60;
 
 /**
  * Convert latitude in radians to Mercator latitude.
@@ -1007,6 +1040,44 @@ function bearingAngle(gcs1, gcs2) {
   const deltaLatitude = toMercator(lat2) - toMercator(lat1);
 
   return (toDegrees(Math.atan2(deltaLongitude, deltaLatitude)) + 360) % 360;
+}
+
+/**
+ * <p>Returns the azimuth and loxodromic distance between two {@link GCS} coordinates,
+ * by calculating their meridional parts found in navigation tables such as
+ * {@link https://www.survivorlibrary.com/library/useful_tables_from_the_practical_navigator_1874.pdf Bowditch's practical navigator}
+ * and {@link https://www.scribd.com/document/779373992/MERIDIONAL-PARTS-Nories-Tables Norie's tables}.</p>
+ * <p>Azimuth is the clockwise angle between the north direction and the line connecting
+ * the two points and loxodromic distance is their distance along a loxodrome (rhumb line).</p>
+ * @param {Number} lat1 latitude of the first point in degrees.
+ * @param {Number} lon1 longitude of the first point in degrees.
+ * @param {Number} lat2 latitude of the second point in degrees.
+ * @param {Number} lon2 longitude of the second point in degrees.
+ * @returns {Object<{bearing: Number, loxdist: Number, mp1: Number, mp2: Number}>}
+ * bearing angle in degrees, <br>
+ * loxodromic distance in kilometers between (lat1, lon1) and (lat2, lon2) and <br>
+ * meridional parts mp1 and mp2.
+ * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator Sailings}
+ * @see {@link https://navlist.net/Mercator-Sailing-Meridional-Parts-Silverberg-dec-2014-g29514 Mercator Sailing and Meridional Parts}
+ */
+function getAzimuthAndLoxodromeDistance(lat1, lon1, lat2, lon2) {
+  const mp1 = meridionalParts(lat1) || 0;
+  const mp2 = meridionalParts(lat2) || 0;
+  const dmp = mp2 - mp1; // in degrees and minutes
+  let bearing, loxdist;
+  const dlong = antimeridianCrossing(lon2 - lon1, true) * 60; // in minutes
+  if (!isZero(dmp)) {
+    const dlat = (lat2 - lat1) * 60; // in minutes
+    bearing = toDegrees(Math.atan2(dlong, dmp));
+    if (bearing < 0) bearing += 360;
+    loxdist = nmTokm(dlat / Math.cos(toRadian(bearing)));
+  } else {
+    // if the two locations are on the same parallel,
+    // the bearing is either 90° or 270°
+    bearing = lon2 > lon1 ? 90 : 270;
+    loxdist = nmTokm(Math.abs(dlong * Math.cos(toRadian(lat1))));
+  }
+  return { bearing, loxdist, mp1, mp2 };
 }
 
 /**
@@ -1685,43 +1756,24 @@ function dd2dms(dd, isLongitude = false) {
  * <li>sec(lat) is the secant of the latitude, which is the reciprocal
  * of the cosine of the latitude.</li>
  * <li>mp(lat) is the meridional part, which is the distance in minutes of longitude
- * from the equator to a given latitude on a Mercator chart (for a perfect sphere).</li>
+ * from the equator to a given latitude on a Mercator chart.</li>
  * </ul>
- * <pre>
- *    const gps = gpsCoordinates[location];
- *    const uv = gcs2UV(gps);
- *    const merc = spherical2Mercator(uv.s, uv.t);
- *    const mp = (merc.y * 2 - 1) * 10800;
- *                        or
- *    const mp = toDegrees(toMercator(toRadian(lat))) * 60;
- * </pre>
  * @param {String} location name of the location.
- * @see {@link https://www.starpath.com/calc/Distance Calculators/parts.html | Meridional Parts Calculator}
- * @see {@link https://maritimecalc.com/meridional-parts-calculator/ Maritime Calculator}
- * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator Sailings}
  */
 function labelForLocation(location) {
   const gps = gpsCoordinates[location];
   const rio = gpsCoordinates["Rio"];
   const lat = gps.latitude;
   const lon = gps.longitude;
-  const mp = toDegrees(toMercator(toRadian(lat))) * 60;
 
-  // bearing angle to previous location using meridional parts
   const latp = previousLocation.latitude;
   const lonp = previousLocation.longitude;
-  const mpp = toDegrees(toMercator(toRadian(latp))) * 60;
-  const dmp = mp - mpp;
-  let bearing;
-  if (!isZero(dmp)) {
-    const dlong = antimeridianCrossing(lon - lonp, true);
-    bearing = toDegrees(Math.atan2(dlong * 60, dmp));
-    if (bearing < 0) bearing += 360;
-  } else {
-    // if the two locations are on the same parallel, the bearing is either 90° or 270°
-    bearing = lon > lonp ? 90 : 270;
-  }
-
+  const { bearing, loxdist, mp1, mp2 } = getAzimuthAndLoxodromeDistance(
+    latp,
+    lonp,
+    lat,
+    lon,
+  );
   const sec = 1 / Math.cos(toRadian(lat));
   const distance = haversine(gps, rio).km;
   const distance2 = haversine(gps, previousLocation).km;
@@ -1741,7 +1793,7 @@ function labelForLocation(location) {
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)}°,
     lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(2)}
-    <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp(lat): ${mp.toFixed(
+    <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp(lat): ${mp2.toFixed(
       2,
     )}
     <br>Distance to Rio: ${distance.toFixed(0)} km (${toMiles(distance).toFixed(
