@@ -1763,20 +1763,14 @@ function dd2dms(dd, isLongitude = false) {
 function labelForLocation(location) {
   const gps = gpsCoordinates[location];
   const rio = gpsCoordinates["Rio"];
-  const lat = gps.latitude;
-  const lon = gps.longitude;
+  const { latitude: latp, longitude: lonp } = previousLocation;
+  const { latitude: lat, longitude: lon } = gps;
 
-  const latp = previousLocation.latitude;
-  const lonp = previousLocation.longitude;
-  const { bearing, loxdist, mp1, mp2 } = getAzimuthAndLoxodromeDistance(
-    latp,
-    lonp,
-    lat,
-    lon,
-  );
+  const { bearing, mp2 } = getAzimuthAndLoxodromeDistance(latp, lonp, lat, lon);
   const sec = 1 / Math.cos(toRadian(lat));
   const distance = haversine(gps, rio).km;
   const distance2 = haversine(gps, previousLocation).km;
+  // const loxDistance = bearingAngleAndDistance(gps, previousLocation).distance;
   const loxDistanceSph = calculateLoxodromeDistance(lat, lon, latp, lonp);
   const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
 
@@ -3027,10 +3021,8 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  *    <li>D = R * |dLon| * cos (lat1), if dLat == 0 </li>
  *  </ul>
  * </ul>
- * @param {number} lat1 - latitude of first point in degrees.
- * @param {number} lon1 - longitude of first point in degrees.
- * @param {number} lat2 - latitude of second point in degrees.
- * @param {number} lon2 - longitude of second point in degrees.
+ * @param {GCS} gcs1 - latitude and longitude of the first point in degrees.
+ * @param {GCS} gcs2 - latitude and longitude of the second point in degrees.
  * @returns {Object<{bearing: Number, distance: Number}>} An object containing the bearing angle and distance.
  * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator sailings}
  * @see {@link https://siranah.de/html/sail020m.htm Notes on Loxodrome Calculations}
@@ -3040,8 +3032,11 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  * @see {@link https://www.movable-type.co.uk/scripts/latlong.html Calculate distance, bearing and more between Latitude/Longitude points}
  * @see {@link https://www.techscience.com/RIG/v33n1/57061/html New Definitions of the Isometric Latitude and the Mercator Projection}
  */
-function bearingAngleAndDistance(lat1, lon1, lat2, lon2) {
+function bearingAngleAndDistance(gcs1, gcs2) {
   const R = 6371; // Earth's mean radius in km
+  // Coordinates in decimal degrees (e.g. 2.89078, 12.79797)
+  const { latitude: lat1, longitude: lon1 } = gcs1;
+  const { latitude: lat2, longitude: lon2 } = gcs2;
   const dLat = toRadian(lat2 - lat1);
   const dLon = antimeridianCrossing(toRadian(lon2 - lon1));
   if (isZero(dLat)) {
