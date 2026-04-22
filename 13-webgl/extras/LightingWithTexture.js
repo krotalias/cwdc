@@ -3046,7 +3046,10 @@ function bearingAngleAndDistance(lat1, lon1, lat2, lon2) {
   const dLon = antimeridianCrossing(toRadian(lon2 - lon1));
   if (isZero(dLat)) {
     // along a parallel (lat1 === lat2)
-    return R * Math.abs(dLon * Math.cos(toRadian(lat1)));
+    return {
+      bearing: lon2 > lon1 ? 90 : 270,
+      distance: R * Math.abs(dLon * Math.cos(toRadian(lat1))),
+    };
   } else {
     const bearing = bearingAngle(
       { latitude: lat1, longitude: lon1 },
