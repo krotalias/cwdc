@@ -1770,7 +1770,7 @@ function labelForLocation(location) {
   const sec = 1 / Math.cos(toRadian(lat));
   const distance = haversine(gps, rio).km;
   const distance2 = haversine(gps, previousLocation).km;
-  // const loxDistance = bearingAngleAndDistance(gps, previousLocation).distance;
+  const loxDistance = bearingAngleAndDistance(gps, rio).distance;
   const loxDistanceSph = calculateLoxodromeDistance(lat, lon, latp, lonp);
   const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
 
@@ -1782,7 +1782,7 @@ function labelForLocation(location) {
     )}
     <br>Distance to Rio: ${distance.toFixed(0)} km (${toMiles(distance).toFixed(
       0,
-    )} mi)
+    )} mi), along loxodrome ${loxDistance.toFixed(0)} km (${toMiles(loxDistance).toFixed(0)} mi)
     <br>${cities.previous} to ${location}: ${distance2.toFixed(
       0,
     )} km (${toMiles(distance2).toFixed(0)} mi), azimuth: ${bearing.toFixed(2)}°
