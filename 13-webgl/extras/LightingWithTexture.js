@@ -1777,18 +1777,8 @@ function labelForLocation(location) {
   const sec = 1 / Math.cos(toRadian(lat));
   const distance = haversine(gps, rio).km;
   const distance2 = haversine(gps, previousLocation).km;
-  const loxDistanceSph = calculateLoxodromeDistance(
-    lat,
-    lon,
-    previousLocation.latitude,
-    previousLocation.longitude,
-  );
-  const loxDistanceCyl = calculateLoxodromeDistanceCyl(
-    lat,
-    lon,
-    previousLocation.latitude,
-    previousLocation.longitude,
-  );
+  const loxDistanceSph = calculateLoxodromeDistance(lat, lon, latp, lonp);
+  const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
 
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)}°,
@@ -2973,20 +2963,6 @@ function rhumbLine(ctx, loc1, loc2) {
 
 /**
  * <p>Calculates loxodromic (rhumb line) distance between two points.</p>
- * <ul>
- *  <li>Δlat (Difference of Latitude): the north-south distance between the departure and destination points,
- *      measured in minutes of arc or nautical miles (1' = 1 NM).</li>
- *  <li>{@link bearingAngle Bearing} (θ): the constant angle (course) between the meridian and the path of the vessel.</li>
- *  <li>Departure (Δlat * tan(bearing)): the east-west distance in nautical miles,
- *      which changes depending on the latitude (narrowing towards the poles).</li>
- *  <li>Distance (D): the length of the loxodrome, calculated as:</li>
- *  <ul>
- *    <li>dLat = lat2 - lat1, in radians</li>
- *    <li>dLon = lon2 - lon1, in radians</li>
- *    <li>D = R * |dLat| * sec (bearing), if dLat != 0 </li>
- *    <li>D = R * |dLon| * cos (lat1), if dLat == 0 </li>
- *  </ul>
- * </ul>
  * <pre>
  * Formula:   Δψ = ln( tan(π/4 + φ2/2) / tan(π/4 + φ1/2) )
  *            q = Δφ / Δψ (or cosφ for E-W line)
@@ -3029,22 +3005,61 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
     const q = !isZero(dmp) ? dLat / dmp : Math.cos(toRadian(lat1));
 
     return R * Math.sqrt(dLat * dLat + q * q * dLon * dLon);
+  }
+}
+
+/**
+ * <p>Returns the bearing angle (azimuth) and
+ * distance between two points on a loxodrome (rhumb line).</p>
+ * <ul>
+ *  <li>Δlat (Difference of Latitude): the north-south distance between
+ *      the departure and destination points,
+ *      measured in minutes of arc or nautical miles (1' = 1 NM).</li>
+ *  <li>{@link bearingAngle Bearing} (θ): the constant angle (course)
+ *      between the meridian and the path of the vessel.</li>
+ *  <li>Departure (Δlat * tan(bearing)): the east-west distance in nautical miles,
+ *      which changes depending on the latitude (narrowing towards the poles).</li>
+ *  <li>Distance (D): the length of the loxodrome, calculated as:</li>
+ *  <ul>
+ *    <li>dLat = lat2 - lat1, in radians</li>
+ *    <li>dLon = lon2 - lon1, in radians</li>
+ *    <li>D = R * |dLat| * sec (bearing), if dLat != 0 </li>
+ *    <li>D = R * |dLon| * cos (lat1), if dLat == 0 </li>
+ *  </ul>
+ * </ul>
+ * @param {number} lat1 - latitude of first point in degrees.
+ * @param {number} lon1 - longitude of first point in degrees.
+ * @param {number} lat2 - latitude of second point in degrees.
+ * @param {number} lon2 - longitude of second point in degrees.
+ * @returns {Object<{bearing: Number, distance: Number}>} An object containing the bearing angle and distance.
+ * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator sailings}
+ * @see {@link https://siranah.de/html/sail020m.htm Notes on Loxodrome Calculations}
+ * @see {@link https://www.atractor.pt/mat/loxodromica/saber_comprimento1-_en.html The loxodrome and two projections of the sphere}
+ * @see {@link https://www.siranah.de/html/sail045e.htm Loxodrome Sailing}
+ * @see {@link https://planetcalc.com/713/ Course angle and the distance between the two points on loxodrome}
+ * @see {@link https://www.movable-type.co.uk/scripts/latlong.html Calculate distance, bearing and more between Latitude/Longitude points}
+ * @see {@link https://www.techscience.com/RIG/v33n1/57061/html New Definitions of the Isometric Latitude and the Mercator Projection}
+ */
+function bearingAngleAndDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Earth's mean radius in km
+  const dLat = toRadian(lat2 - lat1);
+  const dLon = antimeridianCrossing(toRadian(lon2 - lon1));
+  if (isZero(dLat)) {
+    // along a parallel (lat1 === lat2)
+    return R * Math.abs(dLon * Math.cos(toRadian(lat1)));
   } else {
-    if (isZero(dLat)) {
-      // along a parallel (lat1 === lat2)
-      return R * Math.abs(dLon * Math.cos(toRadian(lat1)));
-    } else {
-      const bearing = toRadian(
-        bearingAngle(
-          { latitude: lat1, longitude: lon1 },
-          { latitude: lat2, longitude: lon2 },
-        ),
-      );
-      // nautical miles = minutes of arc along a meridian (1' = 1 NM)
-      // sin(90-bearing) = cos(bearing)
-      // dlat = nm * sin(90-bearing) = nm * cos(bearing)
-      return R * Math.abs(dLat / Math.cos(bearing));
-    }
+    const bearing = bearingAngle(
+      { latitude: lat1, longitude: lon1 },
+      { latitude: lat2, longitude: lon2 },
+    );
+
+    // nautical miles = minutes of arc along a meridian (1' = 1 NM)
+    // sin(90-bearing) = cos(bearing)
+    // dlat = nm * sin(90-bearing) = nm * cos(toRadian(bearing))
+    return {
+      bearing,
+      distance: R * Math.abs(dLat / Math.cos(toRadian(bearing))),
+    };
   }
 }
 
