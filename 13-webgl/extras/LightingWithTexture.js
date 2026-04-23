@@ -687,6 +687,24 @@ const toMercator = (lat) => {
 };
 
 /**
+ * </p>Convert a latitude difference in degrees to Mercator.</p>
+ * A latitude difference is the angular distance (in degrees) between them,
+ * measured north or south of the Equator.
+ * <p>Note that logarithms transform divisions in subtractions: log(a/b) = log(a) - log(b).</p>
+ * @param {Number} lat1 first latitude in degrees.
+ * @param {Number} lat2 second latitude in degrees.
+ * @returns {Number} (lat2-lat1) in Mercator coordinates.
+ * @see {@link module:polyhedron.spherical2Mercator spherical2Mercator}
+ */
+const diffMercator = (lat1, lat2) => {
+  lat1 = clamp(toRadian(lat1), toRadian(-85.051129), toRadian(85.051129));
+  lat2 = clamp(toRadian(lat2), toRadian(-85.051129), toRadian(85.051129));
+  return Math.log(
+    Math.tan(Math.PI / 4 + lat2 / 2) / Math.tan(Math.PI / 4 + lat1 / 2),
+  );
+};
+
+/**
  * Check if a given number is zero within a given tolerance.
  * @param {Number} a given number.
  * @param {Number} epsilon a sufficient small tolerance.
@@ -1039,11 +1057,8 @@ function bearingAngle(gcs1, gcs2) {
 
   deltaLongitude = antimeridianCrossing(deltaLongitude);
 
-  const lat1 = toRadian(gcs1.latitude);
-  const lat2 = toRadian(gcs2.latitude);
-
   // difference in isometric latitude
-  const deltaLatitude = toMercator(lat2) - toMercator(lat1);
+  const deltaLatitude = diffMercator(gcs1.latitude, gcs2.latitude);
 
   return (toDegrees(Math.atan2(deltaLongitude, deltaLatitude)) + 360) % 360;
 }
@@ -2991,14 +3006,10 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
   const dLon = antimeridianCrossing(toRadian(lon2 - lon1));
 
   if (true) {
-    // faster: sqrt x cos
-    const mp1 = toMercator(toRadian(lat1));
-    const mp2 = toMercator(toRadian(lat2));
-
     // tan(x) = sin(x)/cos(x), x ≠ π/2 + kπ, k ∈ ℤ
     // tan(90-x) = 1 / tan(x) = cos(x)/sin(x), x ≠ kπ, k ∈ ℤ
     // difference in projected latitude in Mercator chart
-    const dmp = mp2 - mp1;
+    const dmp = diffMercator(lat1, lat2);
 
     // q is the correction factor (longitude lines converge at the poles)
     // dLat / dmp, or cos(lat) for E-W line (lat1 === lat2)
@@ -3138,9 +3149,7 @@ function calculateLoxodromeDistanceCyl(lat1, lon1, lat2, lon2) {
   } else {
     // on the chart - [0, 2π] x [-π/2, π/2]
     if (mercator) {
-      lat1 = toMercator(toRadian(lat1));
-      lat2 = toMercator(toRadian(lat2));
-      dy = R * (lat2 - lat1);
+      dy = R * diffMercator(lat1, lat2);
     } else {
       dy = R * toRadian(lat2 - lat1);
     }
