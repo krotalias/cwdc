@@ -1078,6 +1078,9 @@ function bearingAngle(gcs1, gcs2) {
  * and {@link https://www.scribd.com/document/779373992/MERIDIONAL-PARTS-Nories-Tables Norie's tables}.</p>
  * <p>Azimuth is the clockwise angle between the north direction and the line connecting
  * the two points and loxodromic distance is their distance along a loxodrome (rhumb line).</p>
+ * Since the calculation of the loxodromic distance relies on the difference of meridional parts,
+ * which is expressed in nautical miles, there is no need to pass the radius of the globe
+ * as a parameter to calculate it.
  * @param {Number} lat1 latitude of the first point in degrees.
  * @param {Number} lon1 longitude of the first point in degrees.
  * @param {Number} lat2 latitude of the second point in degrees.
@@ -1099,7 +1102,7 @@ function getAzimuthAndLoxodromeDistance(lat1, lon1, lat2, lon2) {
     const dlat = (lat2 - lat1) * 60; // in minutes
     bearing = toDegrees(Math.atan2(dlong, dmp));
     if (bearing < 0) bearing += 360;
-    loxdist = nmTokm(dlat / Math.cos(toRadian(bearing)));
+    loxdist = nmTokm(Math.abs(dlat / Math.cos(toRadian(bearing))));
   } else {
     // if the two locations are on the same parallel,
     // the bearing is either 90° or 270°
@@ -1269,7 +1272,7 @@ const phongHighlight = [];
  * @property {Boolean} paused Arcball x rotation.
  * @property {Boolean} intrinsic rotation around global x local axes.
  * @property {Boolean} equator parallel and meridian of the current location.
- * @property {Boolean} hws model's trigulation algorithm source: three.js x hws.
+ * @property {Boolean} hws model's triangulation algorithm source: three.js x hws.
  * @property {Boolean} tootip location information.
  * @property {Boolean} cities sequential location traversal order.
  * @property {Boolean} locations location points.
