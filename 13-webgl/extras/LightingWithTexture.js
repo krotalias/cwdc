@@ -1019,6 +1019,12 @@ function haversine(gcs1, gcs2) {
  * where:     φ is geodetic latitude, ψ is isometric latitude, λ is longitude,
  *            Δλ is taking shortest route (<180°), R is the earth’s radius,
  *            ln is natural log
+ *
+ * note:  if the two locations are on the same parallel (Δφ = 0),
+ *        the bearing angle is either 90° or 270°
+ *        atan2(±y, 0) is ±π/2, which corresponds to -90° or 90° in degrees.
+ *        atan2(0,0) is 0, which corresponds to 0° in degrees.
+ * </pre>
  * @param {GCS} gcs1 first pair of gcs coordinates.
  * @param {GCS} gcs2 second pair of gcs coordinates.
  * @return {Number} bearing angle in degrees between gcs1 and gcs2.
@@ -3046,10 +3052,7 @@ function bearingAngleAndDistance(gcs1, gcs2) {
       distance: R * Math.abs(dLon * Math.cos(toRadian(lat1))),
     };
   } else {
-    const bearing = bearingAngle(
-      { latitude: lat1, longitude: lon1 },
-      { latitude: lat2, longitude: lon2 },
-    );
+    const bearing = bearingAngle(gcs1, gcs2);
 
     // nautical miles = minutes of arc along a meridian (1' = 1 NM)
     // sin(90-bearing) = cos(bearing)
