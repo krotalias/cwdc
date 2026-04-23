@@ -3016,18 +3016,16 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2, R = earthRadius) {
   const dLat = toRadian(lat2 - lat1);
   const dLon = antimeridianCrossing(toRadian(lon2 - lon1));
 
-  if (true) {
-    // tan(x) = sin(x)/cos(x), x ≠ π/2 + kπ, k ∈ ℤ
-    // tan(90-x) = 1 / tan(x) = cos(x)/sin(x), x ≠ kπ, k ∈ ℤ
-    // difference in projected latitude in Mercator chart
-    const dmp = diffMercator(lat1, lat2);
+  // tan(x) = sin(x)/cos(x), x ≠ π/2 + kπ, k ∈ ℤ
+  // tan(90-x) = 1 / tan(x) = cos(x)/sin(x), x ≠ kπ, k ∈ ℤ
+  // difference in projected latitude in Mercator chart
+  const dmp = diffMercator(lat1, lat2);
 
-    // q is the correction factor (longitude lines converge at the poles)
-    // dLat / dmp, or cos(lat) for E-W line (lat1 === lat2)
-    const q = !isZero(dmp) ? dLat / dmp : Math.cos(toRadian(lat1));
+  // q is the correction factor (longitude lines converge at the poles)
+  // dLat / dmp, or cos(lat) for E-W line (lat1 === lat2)
+  const q = !isZero(dmp) ? dLat / dmp : Math.cos(toRadian(lat1));
 
-    return R * Math.sqrt(dLat * dLat + q * q * dLon * dLon);
-  }
+  return R * Math.sqrt(dLat * dLat + q * q * dLon * dLon);
 }
 
 /**
