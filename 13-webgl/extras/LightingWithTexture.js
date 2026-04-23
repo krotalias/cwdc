@@ -519,6 +519,12 @@ import {
 const sphereRadius = 0.98;
 
 /**
+ * Radius of the earth in kilometers.
+ * @type {Number}
+ */
+const earthRadius = 6371;
+
+/**
  * Current radius of the globe.
  * @type {Number}
  */
@@ -603,7 +609,8 @@ const toMiles = (a) => a * 0.621371;
  *  <li>As you move toward the poles, the distance between longitude lines decreases.</li>
  *  <li>The {@link https://iho.int/ International Hydrographic Organization} adopted the
  *  "International Nautical Mile" in 1929 at exactly: 1 NM = 1,852 m.</li>
- *   <li>{@link https://grokipedia.com/page/Earth's_circumference Earth's circunference}: 2 * π * 6371 Km = 40030.1736 km
+ *   <li>{@link https://grokipedia.com/page/Earth's_circumference Earth's circunference}:
+ *        2 * π * {@link earthRadius} Km = 40030.1736 km
  *   <li> 40030 km / 360 / 60 = 1.8532407 km</li>
  * </ul>
  *
@@ -634,7 +641,8 @@ const knotsTokmh = (a) => a * 1.852;
  * <p>Convert nautical miles to kilometers.</p>
  * It is the length of one minute of latitude at the equator.
  * <ul>
- *   <li>{@link https://grokipedia.com/page/Earth's_circumference Earth's circunference}: 2 * π * 6371 Km = 40030.1736 km
+ *   <li>{@link https://grokipedia.com/page/Earth's_circumference Earth's circunference}:
+ *        2 * π * {@link earthRadius} Km = 40030.1736 km
  *   <li> 40030 km / 360 / 60 = 1.8532407 km</li>
  * </ul>
  * @param {Number} a distance in nautical miles.
@@ -995,17 +1003,17 @@ const mod = (n, m) => ((n % m) + m) % m;
  * </pre>
  * @param {GCS} gcs1 first pair of gcs coordinates.
  * @param {GCS} gcs2 second pair of gcs coordinates.
+ * @param {Number} [R=earthRadius] radius of the globe in kilometers (default: 6371 km).
  * @return {Number} distance between gcs1 and gcs2.
  * @see {@link https://en.wikipedia.org/wiki/Haversine_formula Haversine formula}
  * @see {@link https://community.esri.com/t5/coordinate-reference-systems-blog/distance-on-a-sphere-the-haversine-formula/ba-p/902128 Distance on a sphere: The Haversine Formula}
  * @see {@link https://www.distancecalculator.net/from-alexandria-to-aswan Distance from Alexandria to Aswan}
  */
-function haversine(gcs1, gcs2) {
+function haversine(gcs1, gcs2, R = earthRadius) {
   // Coordinates in decimal degrees (e.g. 2.89078, 12.79797)
   const { latitude: lat1, longitude: lon1 } = gcs1;
   const { latitude: lat2, longitude: lon2 } = gcs2;
 
-  const R = 6371000; // radius of Earth in meters
   const phi_1 = toRadian(lat1);
   const phi_2 = toRadian(lat2);
 
@@ -1018,8 +1026,8 @@ function haversine(gcs1, gcs2) {
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  const m = R * c; // distance in meters
-  const km = m / 1000.0; // distance in kilometers
+  const m = R * c * 1000; // distance in meters
+  const km = m; // distance in kilometers
 
   return { m, km };
 }
@@ -2991,6 +2999,7 @@ function rhumbLine(ctx, loc1, loc2) {
  * @param {number} lon1 - longitude of first point in degrees.
  * @param {number} lat2 - latitude of second point in degrees.
  * @param {number} lon2 - longitude of second point in degrees.
+ * @param {number} R - radius of the Earth in kilometers (default: 6371 km).
  * @returns {number} distance in kilometers.
  * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator sailings}
  * @see {@link https://siranah.de/html/sail020m.htm Notes on Loxodrome Calculations}
@@ -3000,8 +3009,7 @@ function rhumbLine(ctx, loc1, loc2) {
  * @see {@link https://www.movable-type.co.uk/scripts/latlong.html Calculate distance, bearing and more between Latitude/Longitude points}
  * @see {@link https://www.techscience.com/RIG/v33n1/57061/html New Definitions of the Isometric Latitude and the Mercator Projection}
  */
-function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Earth's mean radius in km
+function calculateLoxodromeDistance(lat1, lon1, lat2, lon2, R = earthRadius) {
   const dLat = toRadian(lat2 - lat1);
   const dLon = antimeridianCrossing(toRadian(lon2 - lon1));
 
@@ -3040,6 +3048,7 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  * </ul>
  * @param {GCS} gcs1 - latitude and longitude of the first point in degrees.
  * @param {GCS} gcs2 - latitude and longitude of the second point in degrees.
+ * @param {number} R - radius of the Earth in kilometers (default: 6371 km).
  * @returns {Object<{bearing: Number, distance: Number}>} An object containing the bearing angle and distance.
  * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator sailings}
  * @see {@link https://siranah.de/html/sail020m.htm Notes on Loxodrome Calculations}
@@ -3049,8 +3058,7 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2) {
  * @see {@link https://www.movable-type.co.uk/scripts/latlong.html Calculate distance, bearing and more between Latitude/Longitude points}
  * @see {@link https://www.techscience.com/RIG/v33n1/57061/html New Definitions of the Isometric Latitude and the Mercator Projection}
  */
-function bearingAngleAndDistance(gcs1, gcs2) {
-  const R = 6371; // Earth's mean radius in km
+function bearingAngleAndDistance(gcs1, gcs2, R = earthRadius) {
   // Coordinates in decimal degrees (e.g. 2.89078, 12.79797)
   const { latitude: lat1, longitude: lon1 } = gcs1;
   const { latitude: lat2, longitude: lon2 } = gcs2;
@@ -3117,6 +3125,7 @@ function bearingAngleAndDistance(gcs1, gcs2) {
  * @param {number} lon1 - longitude of first point in degrees.
  * @param {number} lat2 - latitude of second point in degrees.
  * @param {number} lon2 - longitude of second point in degrees.
+ * @param {number} R - radius of the Earth in kilometers (default: 6371 km).
  * @returns {number} distance in kilometers.
  * @see {@link https://www.gregschool.org/articles-page-6/2017/5/18/finding-the-geodesic-on-a-cylinder-mley2 Finding the Geodesic on a Cylinder}
  * @see <a href="../doc/A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections.pdf">A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections</a>
@@ -3131,9 +3140,13 @@ function bearingAngleAndDistance(gcs1, gcs2) {
  *    <figcaption style="font-size: 200%">Syracuse - Moscow (80.19°)</figcaption>
  * </figure>
  */
-function calculateLoxodromeDistanceCyl(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Earth's mean radius in km
-
+function calculateLoxodromeDistanceCyl(
+  lat1,
+  lon1,
+  lat2,
+  lon2,
+  R = earthRadius,
+) {
   let dy, dLon;
   if (false) {
     // on the cyliner - [0, 1] x [0, 1]
@@ -5972,6 +5985,9 @@ function startForReal(image) {
   addListeners();
 
   cities.current = getCitiesSelector();
+
+  document.getElementById("doc").innerHTML +=
+    `(Earth radius = ${earthRadius} km)`;
 
   // Phong highlight position: (0,0,1) = {-90,0} in GCS
   const coordinates = gcs2Screen({ longitude: -90, latitude: 0 }, false);
