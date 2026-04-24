@@ -3043,6 +3043,9 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2, R = earthRadius) {
  *  <ul>
  *    <li>dLat = lat2 - lat1, in radians</li>
  *    <li>dLon = lon2 - lon1, in radians</li>
+ *    <li>nautical miles = minutes of arc along a meridian (1' = 1 NM)</li>
+ *    <li>sin(90-bearing) = cos(bearing)</li>
+ *    <li>dLat = nm * sin(90-bearing) = nm * cos(bearing)</li>
  *    <li>D = R * |dLat| * sec (bearing), if dLat != 0 </li>
  *    <li>D = R * |dLon| * cos (lat1), if dLat == 0 </li>
  *  </ul>
@@ -3072,13 +3075,8 @@ function bearingAngleAndDistance(gcs1, gcs2, R = earthRadius) {
       distance: R * Math.abs(dLon * Math.cos(toRadian(lat1))),
     };
   } else {
-    const bearing = bearingAngle(gcs1, gcs2);
-
-    // nautical miles = minutes of arc along a meridian (1' = 1 NM)
-    // sin(90-bearing) = cos(bearing)
-    // dlat = nm * sin(90-bearing) = nm * cos(toRadian(bearing))
     return {
-      bearing,
+      bearing: bearingAngle(gcs1, gcs2),
       distance: R * Math.abs(dLat / Math.cos(toRadian(bearing))),
     };
   }
@@ -3090,18 +3088,19 @@ function bearingAngleAndDistance(gcs1, gcs2, R = earthRadius) {
  * is generally larger than their actual shorter length on the spherical surface.
  * Calculations show that a loxodrome spanning latitudes (e.g., 55°S to 55°N)
  * can measure significantly more on the map compared to its actual length on the sphere.</p>
- * <p>For example, the length of the loxodrome between:
- * <ul>
- *  <li>Syracuse, New York (φ1 = 43°00′ N, λ1 = 76°00′ W = −76°00′ E),
- *  <li>Moscow (φ2 = 55°45′ N, λ2 = 37°37′ E)
- *  <li>R = 6370 km
- *  <li>On chart = 12,820.7 km</li>
- *  <li>On globe = 8283.2 km</li>
- * </ul>
- * with the assumed mean radius of the Earth’s sphere is 8283.2 km. The distance
- * between New York and Moscow on a map drawn in the Mercator projection
+ *
+ * <p>For example, the length of the loxodrome between Syracuse, New York and
+ * Moscow with the assumed Earth’s radius is 8,283.2 km. The distance
+ * between Syracuse and Moscow on a map drawn in the Mercator projection
  * is 12,820.7 km. This is the length of the loxodrome image on the map, which is
  * significantly different from the length of the loxodrome on the sphere.</p>
+ * <pre>
+ *    Syracuse, New York  (φ1 = 43°00′ N, λ1 = 76°00′ W = −76°00′ E)  (43.046944, -76.144444)
+ *    Moscow              (φ2 = 55°45′ N, λ2 = 37°37′ E)              (55.751244, 37.618423)
+ *    R = 6370 km                                                     R = 6371 km
+ *    On chart = 12,820.7 km                                          On chart = 12,838 km
+ *    On globe = 8,283.2 km                                           On globe = 8,290 km
+ * </pre>
  * <ul>
  *  <li>Δlat (Difference of Latitude): the north-south distance between the departure and destination points,
  *      <br>measured in minutes of arc or nautical miles (1' = 1 NM).</li>
