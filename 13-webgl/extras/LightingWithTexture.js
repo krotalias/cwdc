@@ -1805,6 +1805,7 @@ function labelForLocation(location) {
   const loxDistance = bearingAngleAndDistance(gps, rio).distance;
   const loxDistanceSph = calculateLoxodromeDistance(lat, lon, latp, lonp);
   const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
+  // const distanceCyl = loxodromeDistanceCyl(gps, previousLocation);
 
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)}°,
@@ -3148,27 +3149,33 @@ function calculateLoxodromeDistanceCyl(
   lon2,
   R = earthRadius,
 ) {
-  let dy, dLon;
-  if (false) {
-    // on the cyliner - [0, 1] x [0, 1]
-    const uv1 = gcs2UV({ latitude: lat1, longitude: lon1 });
-    const uv2 = gcs2UV({ latitude: lat2, longitude: lon2 });
-    const [, phi1, y1] = UV2Cylindrical(uv1); // [0, 2π] x [-height/2, height/2]
-    const [, phi2, y2] = UV2Cylindrical(uv2);
-    const { _, height } = getCylinderParameters();
-    let sy = Math.PI / height;
-    if (mercator) sy *= 2;
-    dy = R * sy * (y2 - y1);
-    dLon = R * antimeridianCrossing(phi2 - phi1);
-  } else {
-    // on the chart - [0, 2π] x [-π/2, π/2]
-    if (mercator) {
-      dy = R * diffMercator(lat1, lat2);
-    } else {
-      dy = R * toRadian(lat2 - lat1);
-    }
-    dLon = R * antimeridianCrossing(toRadian(lon2 - lon1));
-  }
+  // on the chart - [0, 2π] x [-π/2, π/2]
+  const dy = R * (mercator ? diffMercator(lat1, lat2) : toRadian(lat2 - lat1));
+
+  const dLon = R * antimeridianCrossing(toRadian(lon2 - lon1));
+
+  return Math.sqrt(dy * dy + dLon * dLon);
+}
+
+/**
+ * Calculates the distance between two points on a cylinder using the loxodrome path.
+ * @param {GCS} gcs1 - latitude and longitude of the first point in degrees.
+ * @param {GCS} gcs2 - latitude and longitude of the second point in degrees.
+ * @param {Number} [R=earthRadius] - radius of the Earth in kilometers (default: 6371 km).
+ * @returns {Number} distance in kilometers.
+ */
+function loxodromeDistanceCyl(gcs1, gcs2, R = earthRadius) {
+  // on the cyliner - [0, 1] x [0, 1]
+  const uv1 = gcs2UV(gcs1);
+  const uv2 = gcs2UV(gcs2);
+  const [, phi1, y1] = UV2Cylindrical(uv1); // [0, 2π] x [-height/2, height/2]
+  const [, phi2, y2] = UV2Cylindrical(uv2);
+  const { _, height } = getCylinderParameters();
+  let sy = Math.PI / height;
+  if (mercator) sy *= 2;
+  const dy = R * sy * (y2 - y1);
+  const dLon = R * antimeridianCrossing(phi2 - phi1);
+
   return Math.sqrt(dy * dy + dLon * dLon);
 }
 
