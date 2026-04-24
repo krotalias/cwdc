@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 451 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 453 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 451 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 453 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -1026,8 +1026,8 @@ function haversine(gcs1, gcs2, R = earthRadius) {
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  const m = R * c * 1000; // distance in meters
-  const km = m; // distance in kilometers
+  const km = R * c; // distance in kilometers
+  const m = km * 1000; // distance in meters
 
   return { m, km };
 }

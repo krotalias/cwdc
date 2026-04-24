@@ -1544,6 +1544,19 @@
         "latitude": 64.166666,
         "longitude": -51.7333304
     },
+    "Oiapoque": {
+        "country": "Amapá (Brazil)",
+        "remarkable": [
+            "Vicente Yáñez Pinzón (Lieutenant), 1462-1514",
+            "First european to reach the mouth of Oiapoque river, 1500",
+            "Annexed after a territorial dispute with France was solved, 1900",
+            "Penal colony of Clevelândia (political and criminal concentration camp), 1924-1926",
+            "Oyapock River Bridge, 2011-2017",
+            "Founded, 23 May 1945"
+        ],
+        "latitude": 3.8259,
+        "longitude": -51.817
+    },
     "Rio Pardo": {
         "country": "Rio Grande do Sul (Brazil)",
         "remarkable": [
@@ -1625,6 +1638,17 @@
         ],
         "latitude": -11.232286,
         "longitude": -53.184815
+    },
+    "Chuí": {
+        "country": "Rio Grande do Sul (Brazil)",
+        "remarkable": [
+            "Cristóvão Pereira de Abreu, 1678-1755",
+            "Military post in Morro de São Miguel (Arroio Chuí), 1737",
+            "Brazil-Uruguay treaty, 12 October 1851",
+            "Founded, 28 December 1995"
+        ],
+        "latitude": -33.6901,
+        "longitude": -53.4567
     },
     "Caçapava do Sul": {
         "country": "Rio Grande do Sul (Brazil)",
