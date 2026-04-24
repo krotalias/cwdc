@@ -3103,8 +3103,9 @@ function bearingAngleAndDistance(gcs1, gcs2, R = earthRadius) {
       distance: R * Math.abs(dLon * Math.cos(toRadian(lat1))),
     };
   } else {
+    const bearing = bearingAngle(gcs1, gcs2);
     return {
-      bearing: bearingAngle(gcs1, gcs2),
+      bearing: bearing,
       distance: R * Math.abs(dLat / Math.cos(toRadian(bearing))),
     };
   }
