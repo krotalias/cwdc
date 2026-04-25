@@ -4312,6 +4312,17 @@
         "latitude": 4.175278,
         "longitude": 73.508889
     },
+    "Islamabad": {
+        "country": "Pakistan",
+        "remarkable": [
+            "Forward capital, 1960",
+            "Konstantinos Apostolos Doxiadis, 1913-1975",
+            "Architect and urban planner of Islamabad, 1960-1965",
+            "Established, 14 August 1967"
+        ],
+        "latitude": 33.693056,
+        "longitude": 73.063889
+    },
     "Karachi": {
         "country": "British India (Pakistan)",
         "remarkable": [
@@ -4369,6 +4380,24 @@
         ],
         "latitude": 22.517,
         "longitude": 59.767
+    },
+    "Ashgabat": {
+        "country": "Turkmenistan",
+        "remarkable": [
+            "Pável Gerásimovich Poltorátskiy, 1888-1918",
+            "Turkmen National Army (TNA), February 1918",
+            "Bolshevik revolutionary, 1917-1918",
+            "Executed by firing squad, 21 July 1918",
+            "Transcaspian Government, 14 July 1918 - July 1919",
+            "British Military Involvment in Transcaspia, 1918-1919",
+            "White Turkestan Army, January 1919",
+            "Renamed Poltoratsk (Turkmen Soviet Socialist Republic), 1919-1927",
+            "Ashgabat earthquake, 6 October 1948",
+            "Aşgabat (Turkmen spelling), 1992",
+            "Founded (Russian strategic military fortress), 1881"
+        ],
+        "latitude": 37.9375,
+        "longitude": 58.38
     },
     "Port Louis": {
         "country": "Mauritius",
