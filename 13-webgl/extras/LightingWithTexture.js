@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 453 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 456 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 453 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 456 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -3150,11 +3150,11 @@ function calculateLoxodromeDistanceCyl(
   R = earthRadius,
 ) {
   // on the chart - [0, 2π] x [-π/2, π/2]
-  const dy = R * (mercator ? diffMercator(lat1, lat2) : toRadian(lat2 - lat1));
+  const dy = mercator ? diffMercator(lat1, lat2) : toRadian(lat2 - lat1);
 
-  const dLon = R * antimeridianCrossing(toRadian(lon2 - lon1));
+  const dLon = antimeridianCrossing(toRadian(lon2 - lon1));
 
-  return Math.sqrt(dy * dy + dLon * dLon);
+  return R * Math.sqrt(dy * dy + dLon * dLon);
 }
 
 /**
@@ -3170,13 +3170,14 @@ function loxodromeDistanceCyl(gcs1, gcs2, R = earthRadius) {
   const uv2 = gcs2UV(gcs2);
   const [, phi1, y1] = UV2Cylindrical(uv1); // [0, 2π] x [-height/2, height/2]
   const [, phi2, y2] = UV2Cylindrical(uv2);
-  const { _, height } = getCylinderParameters();
+  const dLon = antimeridianCrossing(phi2 - phi1);
+
+  const { height } = getCylinderParameters();
   let sy = Math.PI / height;
   if (mercator) sy *= 2;
-  const dy = R * sy * (y2 - y1);
-  const dLon = R * antimeridianCrossing(phi2 - phi1);
+  const dy = sy * (y2 - y1);
 
-  return Math.sqrt(dy * dy + dLon * dLon);
+  return R * Math.sqrt(dy * dy + dLon * dLon);
 }
 
 /**
