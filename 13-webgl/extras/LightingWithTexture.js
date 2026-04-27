@@ -653,6 +653,60 @@ const knotsTokmh = (a) => a * 1.852;
 const nmTokm = (a) => a * 1.8532407;
 
 /**
+ * <p>Object that enables language-sensitive number formatting.</p>
+ * The format() method of Intl.NumberFormat instances formats a number
+ * according to the locale and formatting options of this Intl.NumberFormat object.
+ * <p>This instance formats a distance in kilometers to a string with the appropriate unit.
+ * @param {Number} distance in kilometers.
+ * @return {String} formatted distance in km.
+ * @function
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat Intl.NumberFormat}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/format Intl.NumberFormat.prototype.format()}
+ */
+const fmtkm = new Intl.NumberFormat("en-US", {
+  style: "unit",
+  unit: "kilometer",
+  unitDisplay: "short",
+  maximumFractionDigits: 0,
+});
+
+/**
+ * <p>Object that enables language-sensitive number formatting.</p>
+ * The format() method of Intl.NumberFormat instances formats a number
+ * according to the locale and formatting options of this Intl.NumberFormat object.
+ * <p>This instance formats a distance in miles to a string with the appropriate unit.</p>
+ * @param {Number} distance in miles.
+ * @return {Object} formatted distance in mi.
+ * @function
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat Intl.NumberFormat}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/format Intl.NumberFormat.prototype.format()}
+ */
+const fmtmi = new Intl.NumberFormat("en-US", {
+  style: "unit",
+  unit: "mile",
+  unitDisplay: "short",
+  maximumFractionDigits: 0,
+});
+
+/**
+ * <p>Object that enables language-sensitive number formatting.</p>
+ * The format() method of Intl.NumberFormat instances formats a number
+ * according to the locale and formatting options of this Intl.NumberFormat object.
+ * <p>This instance formats an angle in degrees to a string with the appropriate unit.
+ * @param {Number} angle in degrees.
+ * @return {String} formatted angle in degrees.
+ * @function
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat Intl.NumberFormat}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/format Intl.NumberFormat.prototype.format()}
+ */
+const fmtdeg = new Intl.NumberFormat("en-US", {
+  style: "unit",
+  unit: "degree",
+  unitDisplay: "narrow",
+  maximumFractionDigits: 2,
+});
+
+/**
  * Check if the current model is a cylinder.
  * @return {Boolean} true if the current model is a cylinder, false otherwise.
  */
@@ -1805,7 +1859,7 @@ function labelForLocation(location) {
   const loxDistance = bearingAngleAndDistance(gps, rio).distance;
   const loxDistanceSph = calculateLoxodromeDistance(lat, lon, latp, lonp);
   const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
-  // const distanceCyl = loxodromeDistanceCyl(gps, previousLocation);
+  const badCyl = bearingAngleAndDistanceCyl(gps, previousLocation);
 
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)}°,
@@ -1813,22 +1867,16 @@ function labelForLocation(location) {
     <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp(lat): ${mp2.toFixed(
       2,
     )}
-    <br>Distance to Rio: ${distance.toFixed(0)} km (${toMiles(distance).toFixed(
-      0,
-    )} mi), along loxodrome ${loxDistance.toFixed(0)} km (${toMiles(loxDistance).toFixed(0)} mi)
-    <br>${cities.previous} to ${location}: ${distance2.toFixed(
-      0,
-    )} km (${toMiles(distance2).toFixed(0)} mi), azimuth: ${bearing.toFixed(2)}°
-    <br>${
-      cities.previous
-    } to ${location} along loxodrome: ${loxDistanceSph.toFixed(
-      0,
-    )} km (${toMiles(loxDistanceSph).toFixed(0)} mi)
-    <br>${
-      cities.previous
-    } to ${location} on the chart (cylinder): ${loxDistanceCyl.toFixed(
-      0,
-    )} km (${toMiles(loxDistanceCyl).toFixed(0)} mi)`;
+    <br>Distance to Rio: ${fmtkm.format(distance)} (${fmtmi.format(
+      toMiles(distance),
+    )}), along loxodrome ${fmtkm.format(loxDistance)} (${fmtmi.format(toMiles(loxDistance))})
+    <br>${cities.previous} to ${location}: ${fmtkm.format(distance2)} (${fmtmi.format(toMiles(distance2))}), azimuth: ${fmtdeg.format(bearing)}
+    <br>${cities.previous} to ${location} along loxodrome: ${fmtkm.format(
+      loxDistanceSph,
+    )} (${fmtmi.format(toMiles(loxDistanceSph))})
+    <br>Loxodrome on the chart (cylinder): ${fmtkm.format(
+      loxDistanceCyl,
+    )} (${fmtmi.format(toMiles(loxDistanceCyl))}), bearing: ${fmtdeg.format(badCyl.bearing)}`;
 }
 
 /**
@@ -3158,13 +3206,14 @@ function calculateLoxodromeDistanceCyl(
 }
 
 /**
- * Calculates the distance between two points on a cylinder using the loxodrome path.
+ * <p>Calculates the bearing angle (course) and distance between two points
+ * on a cylinder using the loxodrome path.</p>
  * @param {GCS} gcs1 - latitude and longitude of the first point in degrees.
  * @param {GCS} gcs2 - latitude and longitude of the second point in degrees.
  * @param {Number} [R=earthRadius] - radius of the Earth in kilometers (default: 6371 km).
- * @returns {Number} distance in kilometers.
+ * @returns {Object<{bearing: Number, distance: Number}>} An object containing the bearing angle and distance.
  */
-function loxodromeDistanceCyl(gcs1, gcs2, R = earthRadius) {
+function bearingAngleAndDistanceCyl(gcs1, gcs2, R = earthRadius) {
   // on the cyliner - [0, 1] x [0, 1]
   const uv1 = gcs2UV(gcs1);
   const uv2 = gcs2UV(gcs2);
@@ -3173,11 +3222,14 @@ function loxodromeDistanceCyl(gcs1, gcs2, R = earthRadius) {
   const dLon = antimeridianCrossing(phi2 - phi1);
 
   const { height } = getCylinderParameters();
-  let sy = Math.PI / height;
-  if (mercator) sy *= 2;
+  let sy = Math.PI / height; // [0, 2π] x [-π/2, π/2]
+  if (mercator) sy *= 2; // [0, 2π] x [-π, π] (square)
   const dy = sy * (y2 - y1);
 
-  return R * Math.sqrt(dy * dy + dLon * dLon);
+  return {
+    bearing: (toDegrees(Math.atan2(dLon, dy)) + 180) % 360,
+    distance: R * Math.sqrt(dy * dy + dLon * dLon),
+  };
 }
 
 /**
@@ -3230,9 +3282,9 @@ function drawLinesOnImage() {
     if (bearingAngle !== null) {
       if (colon > -1) {
         remarkable[remarkable.length - 1] =
-          `Bearing Angle: ${bearingAngle.toFixed(2)}°`;
+          `Bearing Angle: ${fmtdeg.format(bearingAngle)}`;
       } else {
-        remarkable.push(`Bearing Angle: ${bearingAngle.toFixed(2)}°`);
+        remarkable.push(`Bearing Angle: ${fmtdeg.format(bearingAngle)}`);
       }
     } else {
       if (colon > -1) {
@@ -5996,7 +6048,7 @@ function startForReal(image) {
   cities.current = getCitiesSelector();
 
   document.getElementById("doc").innerHTML +=
-    `(Earth radius = ${earthRadius} km)`;
+    `(Earth radius = ${fmtkm.format(earthRadius)})`;
 
   // Phong highlight position: (0,0,1) = {-90,0} in GCS
   const coordinates = gcs2Screen({ longitude: -90, latitude: 0 }, false);
