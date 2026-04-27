@@ -1107,7 +1107,7 @@ function haversine(gcs1, gcs2, R = earthRadius) {
  * </pre>
  * @param {GCS} gcs1 first pair of gcs coordinates.
  * @param {GCS} gcs2 second pair of gcs coordinates.
- * @return {Number} bearing angle in degrees between gcs1 and gcs2.
+ * @return {Number} bearing angle in degrees from gcs1 to gcs2.
  * @see {@link https://www.mathsteacher.com.au/year7/ch08_angles/07_bear/bearing.htm Bearings}
  * @see {@link https://en.wikipedia.org/wiki/Bearing_(navigation) Bearing (navigation)}
  * @see {@link https://www.youtube.com/watch?v=FI7C8VlbYfI Use a Lensatic Compass with a map & without}
@@ -1859,7 +1859,7 @@ function labelForLocation(location) {
   const loxDistance = bearingAngleAndDistance(gps, rio).distance;
   const loxDistanceSph = calculateLoxodromeDistance(lat, lon, latp, lonp);
   const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
-  const badCyl = bearingAngleAndDistanceCyl(gps, previousLocation);
+  const badCyl = bearingAngleAndDistanceCyl(previousLocation, gps);
 
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${cleanLocation(location)}</i> (lat: ${lat.toFixed(5)}°,
@@ -3102,7 +3102,7 @@ function calculateLoxodromeDistance(lat1, lon1, lat2, lon2, R = earthRadius) {
  * @param {GCS} gcs1 - latitude and longitude of the first point in degrees.
  * @param {GCS} gcs2 - latitude and longitude of the second point in degrees.
  * @param {number} [R=earthRadius] - radius of the Earth in kilometers (default: 6371 km).
- * @returns {Object<{bearing: Number, distance: Number}>} An object containing the bearing angle and distance.
+ * @returns {Object<{bearing: Number, distance: Number}>} bearing angle from gcs1 to gcs2 and distance.
  * @see {@link https://maritimesa.org/nautical-science-grade-11/2020/10/15/mercator-sailings/ Mercator sailings}
  * @see {@link https://siranah.de/html/sail020m.htm Notes on Loxodrome Calculations}
  * @see {@link https://www.atractor.pt/mat/loxodromica/saber_comprimento1-_en.html The loxodrome and two projections of the sphere}
@@ -3211,7 +3211,7 @@ function calculateLoxodromeDistanceCyl(
  * @param {GCS} gcs1 - latitude and longitude of the first point in degrees.
  * @param {GCS} gcs2 - latitude and longitude of the second point in degrees.
  * @param {Number} [R=earthRadius] - radius of the Earth in kilometers (default: 6371 km).
- * @returns {Object<{bearing: Number, distance: Number}>} An object containing the bearing angle and distance.
+ * @returns {Object<{bearing: Number, distance: Number}>} bearing angle from gcs1 to gcs2 and distance.
  */
 function bearingAngleAndDistanceCyl(gcs1, gcs2, R = earthRadius) {
   // on the cyliner - [0, 1] x [0, 1]
@@ -3227,7 +3227,7 @@ function bearingAngleAndDistanceCyl(gcs1, gcs2, R = earthRadius) {
   const dy = sy * (y2 - y1);
 
   return {
-    bearing: (toDegrees(Math.atan2(dLon, dy)) + 180) % 360,
+    bearing: (toDegrees(Math.atan2(dLon, dy)) + 360) % 360,
     distance: R * Math.sqrt(dy * dy + dLon * dLon),
   };
 }
