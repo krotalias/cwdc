@@ -3924,6 +3924,25 @@
         "latitude": 43.10562,
         "longitude": 131.87353
     },
+    "Kagoshima": {
+        "country": "⚔ Kyushu (Japan)",
+        "remarkable": [
+            "Francisco de Jasso y Azpilicueta, 1506-1552",
+            "Co-founded the Society of Jesus (Jesuits), 1540",
+            "Arrived in Japan, 15 August 1549",
+            "Tōgō Heihachirō, 1848-1934",
+            "Admiral of the fleet, 1863-1913",
+            "Port Arthur battle (Russo-Japanese War), 8 February 1904",
+            "Tsushima Strait naval battle, 27 May 1905",
+            "Destroyed Russia as a naval power in the Eastern Hemisphere",
+            "Sakurajima eruption, 11 January 1914",
+            "Put in charge of the education of Crown Prince Hirohito, 1914-1924",
+            "Founded, 1 April 1889",
+            "USAF raid, 17 June 1945"
+        ],
+        "latitude": 31.596944,
+        "longitude": 130.557222
+    },
     "Nagasaki": {
         "country": "⚔ ☢ Kyushu (Japan)",
         "remarkable": [

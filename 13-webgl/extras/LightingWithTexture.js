@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 456 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 457 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 456 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 457 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -588,6 +588,21 @@ const toRadian = glMatrix.toRadian;
  * @function
  */
 const toDegrees = (a) => (a * 180) / Math.PI;
+
+/**
+ * <p>Convert an angle to its coterminal angle in the range [0°, 360°).</p>
+ * Negative angles and angles greater than a full revolution are more awkward to work with
+ * than those in the range of 0° to 360°, or 0 to 2π.
+ * It would be convenient to replace those out-of-range angles with a
+ * corresponding angle within the range of a single revolution.
+ * @param {Number} n angle in degrees.
+ * @returns {Number} coterminal angle in the range [0°, 360°).
+ * @function
+ * @see {@link https://en.wikipedia.org/wiki/Coterminal_angle Initial and terminal objects}
+ * @see {@link https://courses.lumenlearning.com/ccbcmd-math-1/chapter/coterminal-angles/ Coterminal Angles}
+ * @see {@link https://codegolf.stackexchange.com/questions/118863/find-the-coterminal-angle-on-0-2%CF%80 Find the coterminal angle on [0, 2π)}
+ */
+const coterminalAngle = (n) => ((n % 360) + 360) % 360;
 
 /**
  * Convert kilometers to miles.
@@ -1122,7 +1137,7 @@ function bearingAngle(gcs1, gcs2) {
   // difference in isometric latitude
   const deltaLatitude = diffMercator(gcs1.latitude, gcs2.latitude);
 
-  return (toDegrees(Math.atan2(deltaLongitude, deltaLatitude)) + 360) % 360;
+  return coterminalAngle(toDegrees(Math.atan2(deltaLongitude, deltaLatitude)));
 }
 
 /**
@@ -3227,7 +3242,7 @@ function bearingAngleAndDistanceCyl(gcs1, gcs2, R = earthRadius) {
   const dy = sy * (y2 - y1);
 
   return {
-    bearing: (toDegrees(Math.atan2(dLon, dy)) + 360) % 360,
+    bearing: coterminalAngle(toDegrees(Math.atan2(dLon, dy))),
     distance: R * Math.sqrt(dy * dy + dLon * dLon),
   };
 }
