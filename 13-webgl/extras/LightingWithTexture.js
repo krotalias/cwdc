@@ -1854,9 +1854,9 @@ function labelForLocation(location) {
 
   const { bearing, mp2 } = getAzimuthAndLoxodromeDistance(latp, lonp, lat, lon);
   const sec = 1 / Math.cos(toRadian(lat));
-  const distance = haversine(gps, rio).km;
-  const distance2 = haversine(gps, previousLocation).km;
-  const loxDistance = bearingAngleAndDistance(gps, rio).distance;
+  const distance = haversine(rio, gps).km;
+  const distance2 = haversine(previousLocation, gps).km;
+  const loxDistance = bearingAngleAndDistance(rio, gps).distance;
   const loxDistanceSph = calculateLoxodromeDistance(lat, lon, latp, lonp);
   const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
   const badCyl = bearingAngleAndDistanceCyl(previousLocation, gps);
@@ -1867,7 +1867,7 @@ function labelForLocation(location) {
     <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp(lat): ${mp2.toFixed(
       2,
     )}
-    <br>Distance to Rio: ${fmtkm.format(distance)} (${fmtmi.format(
+    <br>Rio to ${location}: ${fmtkm.format(distance)} (${fmtmi.format(
       toMiles(distance),
     )}), along loxodrome ${fmtkm.format(loxDistance)} (${fmtmi.format(toMiles(loxDistance))})
     <br>${cities.previous} to ${location}: ${fmtkm.format(distance2)} (${fmtmi.format(toMiles(distance2))}), azimuth: ${fmtdeg.format(bearing)}
