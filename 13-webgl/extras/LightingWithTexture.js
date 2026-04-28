@@ -1275,6 +1275,18 @@ let mscale = 1;
 let gpsCoordinates = null;
 
 /**
+ * Name of the current city location.
+ * @type {String}
+ */
+let currentLocation = null;
+
+/**
+ * Attributes of the previous city location.
+ * @type {gpsCoordinates}
+ */
+let previousLocation = { country: "Rio, Brazil" };
+
+/**
  * Object with arrays of city names ordered by different keys.
  * @type {Object}
  * @property {Array<String>} byLongitude city names ordered by longitude.
@@ -1291,25 +1303,13 @@ const cities = {
   byLongitude: null,
   byDate: null,
   current: null,
-  previous: null,
+  previous: previousLocation.country,
   timeline: null,
   longitude: null,
   country: null,
   nameToDate: null,
   nameToLongitude: null,
 };
-
-/**
- * Name of the current city location.
- * @type {String}
- */
-let currentLocation = null;
-
-/**
- * Attributes of the previous city location.
- * @type {gpsCoordinates}
- */
-let previousLocation = { country: "Rio, Brazil" };
 
 /**
  * Current cursor position onto globe.
@@ -1876,6 +1876,7 @@ function labelForLocation(location) {
   const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
   const badCyl = bearingAngleAndDistanceCyl(previousLocation, gps);
   const clocation = cleanLocation(location);
+  const plocation = cleanLocation(cities.previous);
 
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${clocation}</i> (lat: ${lat.toFixed(5)}°,
@@ -1886,9 +1887,9 @@ function labelForLocation(location) {
     <br>Rio to ${clocation}: ${fmtkm.format(distance)} (${fmtmi.format(
       toMiles(distance),
     )}), along loxodrome ${fmtkm.format(loxDistance)} (${fmtmi.format(toMiles(loxDistance))})
-    <br>${cities.previous} to ${clocation}: ${fmtkm.format(distance2)}
+    <br>${plocation} to ${clocation}: ${fmtkm.format(distance2)}
         (${fmtmi.format(toMiles(distance2))}), azimuth: ${fmtdeg.format(bearing)}
-    <br>${cities.previous} to ${clocation} along loxodrome: ${fmtkm.format(
+    <br>${plocation} to ${clocation} along loxodrome: ${fmtkm.format(
       loxDistanceSph,
     )} (${fmtmi.format(toMiles(loxDistanceSph))})
     <br>Loxodrome on the chart (cylinder): ${fmtkm.format(
