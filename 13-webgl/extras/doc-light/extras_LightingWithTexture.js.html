@@ -1903,18 +1903,20 @@ function labelForLocation(location) {
   const loxDistanceSph = calculateLoxodromeDistance(lat, lon, latp, lonp);
   const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
   const badCyl = bearingAngleAndDistanceCyl(previousLocation, gps);
+  const clocation = cleanLocation(location);
 
   document.querySelector('label[for="equator"]').innerHTML =
-    `&lt;i>${cleanLocation(location)}&lt;/i> (lat: ${lat.toFixed(5)}°,
+    `&lt;i>${clocation}&lt;/i> (lat: ${lat.toFixed(5)}°,
     lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(2)}
     &lt;br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp(lat): ${mp2.toFixed(
       2,
     )}
-    &lt;br>Rio to ${location}: ${fmtkm.format(distance)} (${fmtmi.format(
+    &lt;br>Rio to ${clocation}: ${fmtkm.format(distance)} (${fmtmi.format(
       toMiles(distance),
     )}), along loxodrome ${fmtkm.format(loxDistance)} (${fmtmi.format(toMiles(loxDistance))})
-    &lt;br>${cities.previous} to ${location}: ${fmtkm.format(distance2)} (${fmtmi.format(toMiles(distance2))}), azimuth: ${fmtdeg.format(bearing)}
-    &lt;br>${cities.previous} to ${location} along loxodrome: ${fmtkm.format(
+    &lt;br>${cities.previous} to ${clocation}: ${fmtkm.format(distance2)} 
+        (${fmtmi.format(toMiles(distance2))}), azimuth: ${fmtdeg.format(bearing)}
+    &lt;br>${cities.previous} to ${clocation} along loxodrome: ${fmtkm.format(
       loxDistanceSph,
     )} (${fmtmi.format(toMiles(loxDistanceSph))})
     &lt;br>Loxodrome on the chart (cylinder): ${fmtkm.format(
