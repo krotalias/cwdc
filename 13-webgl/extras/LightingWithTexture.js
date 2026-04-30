@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 457 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 458 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -187,7 +187,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 457 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 458 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -1867,11 +1867,16 @@ function labelForLocation(location) {
   const { latitude: latp, longitude: lonp } = previousLocation;
   const { latitude: lat, longitude: lon } = gps;
 
-  const { bearing, mp2 } = getAzimuthAndLoxodromeDistance(latp, lonp, lat, lon);
+  const { bearing: bp, mp2: meridionalParts } = getAzimuthAndLoxodromeDistance(
+    latp,
+    lonp,
+    lat,
+    lon,
+  );
   const sec = 1 / Math.cos(toRadian(lat));
-  const distance = haversine(rio, gps).km;
-  const distance2 = haversine(previousLocation, gps).km;
-  const loxDistance = bearingAngleAndDistance(rio, gps).distance;
+  const drio = haversine(rio, gps).km;
+  const distancep = haversine(previousLocation, gps).km;
+  const { bearing: brio, distance: ldrio } = bearingAngleAndDistance(rio, gps);
   const loxDistanceSph = calculateLoxodromeDistance(lat, lon, latp, lonp);
   const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
   const badCyl = bearingAngleAndDistanceCyl(previousLocation, gps);
@@ -1881,14 +1886,15 @@ function labelForLocation(location) {
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${clocation}</i> (lat: ${lat.toFixed(5)}°,
     lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(2)}
-    <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp(lat): ${mp2.toFixed(
+    <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp(lat): ${meridionalParts.toFixed(
       2,
     )}
-    <br>Rio to ${clocation}: ${fmtkm.format(distance)} (${fmtmi.format(
-      toMiles(distance),
-    )}), along loxodrome ${fmtkm.format(loxDistance)} (${fmtmi.format(toMiles(loxDistance))})
-    <br>${plocation} to ${clocation}: ${fmtkm.format(distance2)}
-        (${fmtmi.format(toMiles(distance2))}), azimuth: ${fmtdeg.format(bearing)}
+    <br>Rio to ${clocation}: ${fmtkm.format(drio)} (${fmtmi.format(
+      toMiles(drio),
+    )}), azimuth: ${fmtdeg.format(brio)}
+    <br>Rio to ${clocation}: along loxodrome ${fmtkm.format(ldrio)} (${fmtmi.format(toMiles(ldrio))})
+    <br>${plocation} to ${clocation}: ${fmtkm.format(distancep)}
+        (${fmtmi.format(toMiles(distancep))}), azimuth: ${fmtdeg.format(bp)}
     <br>${plocation} to ${clocation} along loxodrome: ${fmtkm.format(
       loxDistanceSph,
     )} (${fmtmi.format(toMiles(loxDistanceSph))})

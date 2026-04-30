@@ -3769,7 +3769,7 @@
         "longitude": 152.2
     },
     "Sydney": {
-        "country": "Australia",
+        "country": "New South Wales (Australia)",
         "remarkable": [
             "Arthur Phillip, 1738-1814",
             "Claimed Australian Continent for British Crown, 1770",
@@ -3833,6 +3833,20 @@
         ],
         "latitude": 15.21233,
         "longitude": 145.7545
+    },
+    "Melbourne": {
+        "country": "Victoria (Australia)",
+        "remarkable": [
+            "John Batman, 1801-1839",
+            "Negotiated a treaty with Aboriginal people in Port Phillip, 1835",
+            "Founding of Melbourne",
+            "Victorian gold rush, 1851-1860",
+            "Melbourne International Exhibition, 1880",
+            "Centennial Exhibition, 1888",
+            "Established, 30 August 1835;"
+        ],
+        "latitude": -37.814167,
+        "longitude": 144.963056
     },
     "Dededo": {
         "country": "⚔ Guam (United States)",
@@ -4146,8 +4160,8 @@
         "latitude": -6.175278,
         "longitude": 106.826944
     },
-    "Temüjin (Khan Khentii Post)": {
-        "country": "Mongolia",
+    "Temüjin": {
+        "country": "Khan Khentii Post (Mongolia)",
         "remarkable": [
             "Genghis Khan, 1162-1227",
             "First khan of the Mongol Empire, 1206"
@@ -4810,8 +4824,8 @@
         "latitude": 36.204722,
         "longitude": 36.181667
     },
-    "Alexandretta (İskenderun)": {
-        "country": "✝ Turkey",
+    "Alexandretta": {
+        "country": "✝ İskenderun (Turkey)",
         "remarkable": [
             "Battle of Issus against King Darius III, 380-330 BC",
             "Founded by Alexander (key to the Syrian Gates), 333 BC",
@@ -5181,8 +5195,8 @@
         "latitude": 31.416665,
         "longitude": 31.8166634
     },
-    "Mthethwa Paramountcy (Melmoth)": {
-        "country": "South Africa",
+    "Mthethwa Paramountcy": {
+        "country": "Melmoth (South Africa)",
         "remarkable": ["Shaka Zulu, 1787-1828", "King of the Zulu, 1816-1828"],
         "latitude": -28.586667,
         "longitude": 31.398056
@@ -5319,8 +5333,8 @@
         "latitude": 36.1725297,
         "longitude": 27.9194016
     },
-    "Troy (Hisarlik)": {
-        "country": "Turkey",
+    "Troy": {
+        "country": "Hisarlik (Turkey)",
         "remarkable": [
             "Hector Prince of Troy (Iliad character), 1228 BC",
             "Killed by Achilles leader of Myrmidon forces, 1183 BC"
