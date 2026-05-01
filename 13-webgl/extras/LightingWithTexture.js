@@ -2298,63 +2298,62 @@ const handleKeyPress = ((event) => {
     element.timeline.value = dat;
     labelForTimeline(dat);
 
-    // tooltip is on, and the model should be rotated
-    if (selector.tooltip && modelsToRotate.includes(+element.models.value)) {
-      const location = gpsCoordinates[currentLocation];
-      const coordinates = gcs2Screen(location, mercator);
+    const location = gpsCoordinates[currentLocation];
+    const coordinates = gcs2Screen(location, mercator);
 
+    let [x, y] = coordinates.screen;
+    const pt = coordinates.cartesian;
+    const uv = coordinates.uv;
+    const viewport = coordinates.viewport;
+
+    // the model should be rotated
+    const rotateModel = modelsToRotate.includes(+element.models.value);
+    if (rotateModel) {
+      rotateModelTowardsCamera(rotationMatrix, pt, forwardVector);
+      // update forward vector
+      vec3.copy(forwardVector, pt);
+      mat4.multiply(modelM, modelM, rotationMatrix);
+
+      if (fix) {
+        const rotY = setYUp([], modelM, forwardVector);
+        mat4.multiply(modelM, modelM, rotY);
+      }
+
+      rotator.setViewMatrix(modelM);
+      [x, y] = project([], pt, modelM, viewMatrix, projection, viewport);
+    }
+
+    // tooltip is on and texture is a map
+    if (rotateModel && selector.tooltip && isMap) {
       // current location properties
       const country = location.country || "";
       const remarkable = location.remarkable || [];
 
-      let [x, y] = coordinates.screen;
-      const pt = coordinates.cartesian;
-      const uv = coordinates.uv;
-      const viewport = coordinates.viewport;
+      y = viewport[3] - y;
+      const tmg = parseFloat(getComputedStyle(canvas).marginTop) + 5;
+      const lmg = parseFloat(getComputedStyle(canvas).marginLeft);
+      canvastip.style.top = `${y}px`;
+      canvastip.style.left = `${x}px`;
+      canvastip.innerHTML = `${currentLocation}, ${country}<br>${remarkable.join(
+        "<br>",
+      )}`;
+      canvastip.style.display = "block";
+      const outH = canvastip.offsetTop + canvastip.offsetHeight - viewport[3];
+      const outW = canvastip.offsetLeft + canvastip.offsetWidth - viewport[2];
+      const posy = outH > 0 ? y - outH + tmg : y + tmg;
+      const posx = outW > 0 ? x - outW : x + lmg;
 
-      if (true) {
-        rotateModelTowardsCamera(rotationMatrix, pt, forwardVector);
-        // update forward vector
-        vec3.copy(forwardVector, pt);
-        mat4.multiply(modelM, modelM, rotationMatrix);
+      canvastip.style.top = `${posy}px`;
+      canvastip.style.left = `${posx}px`;
 
-        if (fix) {
-          const rotY = setYUp([], modelM, forwardVector);
-          mat4.multiply(modelM, modelM, rotY);
-        }
-
-        rotator.setViewMatrix(modelM);
-        [x, y] = project([], pt, modelM, viewMatrix, projection, viewport);
-      }
-
-      // on the globe
-      if (isMap) {
-        y = viewport[3] - y;
-        const tmg = parseFloat(getComputedStyle(canvas).marginTop) + 5;
-        const lmg = parseFloat(getComputedStyle(canvas).marginLeft);
-        canvastip.style.top = `${y}px`;
-        canvastip.style.left = `${x}px`;
-        canvastip.innerHTML = `${currentLocation}, ${country}<br>${remarkable.join(
-          "<br>",
-        )}`;
-        canvastip.style.display = "block";
-        const outH = canvastip.offsetTop + canvastip.offsetHeight - viewport[3];
-        const outW = canvastip.offsetLeft + canvastip.offsetWidth - viewport[2];
-        const posy = outH > 0 ? y - outH + tmg : y + tmg;
-        const posx = outW > 0 ? x - outW : x + lmg;
-
-        canvastip.style.top = `${posy}px`;
-        canvastip.style.left = `${posx}px`;
-
-        // on the map
-        x = Math.floor(uv.s * textimg.width);
-        y = Math.floor(uv.t * textimg.height);
-        y = textimg.height - y;
-        element.tooltip.style.top = `${y + 5}px`;
-        element.tooltip.style.left = `${x + 5}px`;
-        element.tooltip.innerHTML = `${cleanLocation(currentLocation)}`;
-        element.tooltip.style.display = "block";
-      }
+      // on the map
+      x = Math.floor(uv.s * textimg.width);
+      y = Math.floor(uv.t * textimg.height);
+      y = textimg.height - y;
+      element.tooltip.style.top = `${y + 5}px`;
+      element.tooltip.style.left = `${x + 5}px`;
+      element.tooltip.innerHTML = `${cleanLocation(currentLocation)}`;
+      element.tooltip.style.display = "block";
     } else {
       element.tooltip.style.display = "none";
       canvastip.style.display = "none";
