@@ -4735,7 +4735,7 @@ function addListeners() {
       // clicked outside the globe on the canvas
       // if clicked on the upper half, rotate around forward vector
       if (event.offsetY < canvas.height / 2)
-        ch = event.offsetX > canvas.width / 2 ? "B" : "U";
+        ch = event.offsetX > canvas.width / 2 ? "B" : "H";
     }
     handleKeyPress(createEvent(ch));
     country = ct;
