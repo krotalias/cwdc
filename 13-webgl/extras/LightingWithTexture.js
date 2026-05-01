@@ -2689,6 +2689,8 @@ const handleKeyPress = ((event) => {
         break;
       case "R":
         currentLocation = "Rio";
+      case "U":
+        if (ch === "U") currentLocation = "Unknown";
       case "O":
         mat4.identity(modelMatrix);
         rotator.setViewMatrix(modelMatrix);
@@ -2722,8 +2724,8 @@ const handleKeyPress = ((event) => {
         saveLocations("savedLocations.json");
         return;
       case "B":
-      case "U":
-        const sign = ch == "U" ? -1 : 1;
+      case "H":
+        const sign = ch == "H" ? -1 : 1;
         const rotF = rotateGlobeAroundAxis(
           [],
           (sign * Math.PI) / 6,
