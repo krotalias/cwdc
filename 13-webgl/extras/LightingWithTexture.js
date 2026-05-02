@@ -2737,7 +2737,7 @@ const handleKeyPress = ((event) => {
           forwardVector,
         );
         mat4.multiply(modelM, modelM, rotF);
-        updateLocation(0, false);
+        updateLocation(0, false, false);
         break;
       case "Q":
         const rotY = setYUp([], modelM, forwardVector);
