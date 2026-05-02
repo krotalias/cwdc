@@ -3761,9 +3761,9 @@
             "16 B-25B Mitchell, crew of five",
             "Cruising range of 2,400 nautical miles (4,400 km)",
             "Targets: Tokyo, Nagoya, Osaka, Kobe, Yokohama",
-            "Take off 8:20 AM (USS Hornet), 18 April 1942",
+            "Take off 8h20 AM (USS Hornet), 18 April 1942",
             "610 nautical miles (1130 km) from Tokyo",
-            "Bailed out 9:20 PM (13h after take off), 18 April 1942"
+            "Bailed out 9h20 PM (13h after take off), 18 April 1942"
         ],
         "latitude": 35.5,
         "longitude": 152.2
@@ -3843,7 +3843,7 @@
             "Victorian gold rush, 1851-1860",
             "Melbourne International Exhibition, 1880",
             "Centennial Exhibition, 1888",
-            "Established, 30 August 1835;"
+            "Established, 30 August 1835"
         ],
         "latitude": -37.814167,
         "longitude": 144.963056
@@ -3899,7 +3899,7 @@
         "remarkable": [
             "Tokugawa Ieyasu, 1543-1616",
             "First shōgun of the Tokugawa shogunate, 1603-1868",
-            "Doolittle's first bombs dropped 12h25 p.m., 18 April 1942"
+            "Doolittle's first bombs dropped 12h25 PM, 18 April 1942"
         ],
         "latitude": 35.700330532,
         "longitude": 139.708997164

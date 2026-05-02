@@ -1892,21 +1892,21 @@ function labelForLocation(location) {
     <br>Rio to ${clocation}:
           ${fmtkm.format(drio)}
          (${fmtmi.format(toMiles(drio))}),
-          azimuth: ${fmtdeg.format(brio)}
+          AZ: ${fmtdeg.format(brio)}
     <br>Rio to ${clocation}:
           along loxodrome ${fmtkm.format(ldrio)}
          (${fmtmi.format(toMiles(ldrio))})
     <br>${plocation} to ${clocation}:
           ${fmtkm.format(distancep)}
          (${fmtmi.format(toMiles(distancep))}),
-          azimuth: ${fmtdeg.format(bp)}
+          AZ: ${fmtdeg.format(bp)}
     <br>${plocation} to ${clocation} along loxodrome:
           ${fmtkm.format(loxDistanceSph)}
          (${fmtmi.format(toMiles(loxDistanceSph))})
     <br>Loxodrome on the chart (cylinder):
           ${fmtkm.format(loxDistanceCyl)}
          (${fmtmi.format(toMiles(loxDistanceCyl))}),
-          bearing: ${fmtdeg.format(badCyl.bearing)}`;
+          AZ: ${fmtdeg.format(badCyl.bearing)}`;
 }
 
 /**
