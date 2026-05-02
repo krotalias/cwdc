@@ -1939,16 +1939,16 @@ function labelForLocation(location, unit) {
           sec(lat): ${sec.toFixed(2)}
     <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}),
           mp(lat): ${meridionalParts.toFixed(2)}
-    <br>Rio to ${clocation}:
+    <br>Rio &rarr; ${clocation}:
           ${fmtDistance(drio, unit)},
           AZ: ${fmtdeg.format(brio)}
-    <br>Rio to ${clocation}:
-          along loxodrome ${fmtDistance(ldrio, unit)}
-    <br>${plocation} to ${clocation}:
+    <br>Rio ↛ ${clocation}
+          along loxodrome: ${fmtDistance(ldrio, unit)}
+    <br>${plocation} &rarr; ${clocation}:
           ${fmtDistance(distancep, unit)},
           AZ: ${fmtdeg.format(bp)}
-    <br>${plocation} to ${clocation} along loxodrome:
-          ${fmtDistance(loxDistanceSph, unit)},
+    <br>${plocation} ↛ ${clocation} along loxodrome:
+          ${fmtDistance(loxDistanceSph, unit)}
     <br>Loxodrome on the chart (cylinder):
           ${fmtDistance(loxDistanceCyl, unit)},
           AZ: ${fmtdeg.format(badCyl.bearing)}`;
@@ -6159,7 +6159,7 @@ function startForReal(image) {
   cities.current = getCitiesSelector();
 
   document.getElementById("doc").innerHTML +=
-    `(Earth radius = ${fmtkm.format(earthRadius)})`;
+    `(Earth radius = <span style="color:#FF0000">${fmtkm.format(earthRadius)}</span>)`;
 
   // Phong highlight position: (0,0,1) = {-90,0} in GCS
   const coordinates = gcs2Screen({ longitude: -90, latitude: 0 }, false);
