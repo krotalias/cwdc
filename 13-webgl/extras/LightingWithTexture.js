@@ -1884,23 +1884,29 @@ function labelForLocation(location) {
   const plocation = cleanLocation(cities.previous);
 
   document.querySelector('label[for="equator"]').innerHTML =
-    `<i>${clocation}</i> (lat: ${lat.toFixed(5)}°,
-    lon: ${lon.toFixed(5)}°), sec(lat): ${sec.toFixed(2)}
-    <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}), mp(lat): ${meridionalParts.toFixed(
-      2,
-    )}
-    <br>Rio to ${clocation}: ${fmtkm.format(drio)} (${fmtmi.format(
-      toMiles(drio),
-    )}), azimuth: ${fmtdeg.format(brio)}
-    <br>Rio to ${clocation}: along loxodrome ${fmtkm.format(ldrio)} (${fmtmi.format(toMiles(ldrio))})
-    <br>${plocation} to ${clocation}: ${fmtkm.format(distancep)}
-        (${fmtmi.format(toMiles(distancep))}), azimuth: ${fmtdeg.format(bp)}
-    <br>${plocation} to ${clocation} along loxodrome: ${fmtkm.format(
-      loxDistanceSph,
-    )} (${fmtmi.format(toMiles(loxDistanceSph))})
-    <br>Loxodrome on the chart (cylinder): ${fmtkm.format(
-      loxDistanceCyl,
-    )} (${fmtmi.format(toMiles(loxDistanceCyl))}), bearing: ${fmtdeg.format(badCyl.bearing)}`;
+    `<i>${clocation}</i>
+         (lat: ${lat.toFixed(5)}°, lon: ${lon.toFixed(5)}°),
+          sec(lat): ${sec.toFixed(2)}
+    <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}),
+          mp(lat): ${meridionalParts.toFixed(2)}
+    <br>Rio to ${clocation}:
+          ${fmtkm.format(drio)}
+         (${fmtmi.format(toMiles(drio))}),
+          azimuth: ${fmtdeg.format(brio)}
+    <br>Rio to ${clocation}:
+          along loxodrome ${fmtkm.format(ldrio)}
+         (${fmtmi.format(toMiles(ldrio))})
+    <br>${plocation} to ${clocation}:
+          ${fmtkm.format(distancep)}
+         (${fmtmi.format(toMiles(distancep))}),
+          azimuth: ${fmtdeg.format(bp)}
+    <br>${plocation} to ${clocation} along loxodrome:
+          ${fmtkm.format(loxDistanceSph)}
+         (${fmtmi.format(toMiles(loxDistanceSph))})
+    <br>Loxodrome on the chart (cylinder):
+          ${fmtkm.format(loxDistanceCyl)}
+         (${fmtmi.format(toMiles(loxDistanceCyl))}),
+          bearing: ${fmtdeg.format(badCyl.bearing)}`;
 }
 
 /**
@@ -5837,14 +5843,14 @@ function setPosition(location) {
   }
 
   let meridianVertices = null;
+  const lox = document.getElementById("lox");
   if (loxodrome) {
     meridianVertices = pointsOnLoxodrome(
       previousLocation,
       gpsCoordinates[location],
     );
     const ba = bearingAngle(previousLocation, gpsCoordinates[location]);
-    document.getElementById("lox").innerHTML =
-      `Loxodrome (${dd2dms(ba).slice(0, -2)})`;
+    lox.innerHTML = `Loxodrome (${dd2dms(ba).slice(0, -2)})`;
   } else {
     if (isCylinder()) {
       meridianVertices = pointsOnCylMeridian(
@@ -5860,7 +5866,7 @@ function setPosition(location) {
         globeRadius,
       );
     }
-    document.getElementById("lox").innerHTML = "Loxodrome";
+    lox.innerHTML = "Loxodrome";
   }
 
   if (meridianVertices !== null) {
