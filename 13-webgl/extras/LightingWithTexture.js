@@ -707,6 +707,22 @@ const fmtmi = new Intl.NumberFormat("en-US", {
  * <p>Object that enables language-sensitive number formatting.</p>
  * The format() method of Intl.NumberFormat instances formats a number
  * according to the locale and formatting options of this Intl.NumberFormat object.
+ * <p>This instance formats a distance in miles to a string with the appropriate unit.</p>
+ * @param {Number} distance in nautical miles.
+ * @return {Object} formatted distance in nm.
+ * @function
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat Intl.NumberFormat}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/format Intl.NumberFormat.prototype.format()}
+ */
+const fmtnm = new Intl.NumberFormat("en-US", {
+  style: "decimal",
+  maximumFractionDigits: 0,
+});
+
+/**
+ * <p>Object that enables language-sensitive number formatting.</p>
+ * The format() method of Intl.NumberFormat instances formats a number
+ * according to the locale and formatting options of this Intl.NumberFormat object.
  * <p>This instance formats an angle in degrees to a string with the appropriate unit.
  * @param {Number} angle in degrees.
  * @return {String} formatted angle in degrees.
@@ -1606,6 +1622,13 @@ let modelMatrix = mat4.create();
 let axis = document.querySelector('input[name="rot"]:checked').value;
 
 /**
+ * Distance unit:
+ * 0: km, 1: mi, 2: nm
+ * @type {String}
+ */
+let unit = document.querySelector('input[name="unit"]:checked').value;
+
+/**
  * Whether uv spherical coordinates should be "fixed",
  * when converted from cartesian
  * {@link https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf (seamless)}.
@@ -1860,8 +1883,9 @@ function dd2dms(dd, isLongitude = false) {
  * from the equator to a given latitude on a Mercator chart.</li>
  * </ul>
  * @param {String} location name of the location.
+ * @param {String} unit "km", "mi", "nm", "all"
  */
-function labelForLocation(location) {
+function labelForLocation(location, unit) {
   const gps = gpsCoordinates[location];
   const rio = gpsCoordinates["Rio"];
   const { latitude: latp, longitude: lonp } = previousLocation;
@@ -1883,6 +1907,32 @@ function labelForLocation(location) {
   const clocation = cleanLocation(location);
   const plocation = cleanLocation(cities.previous);
 
+  /**
+   * Format a distance according to a given unit.
+   * @param {Number} value distance.
+   * @param {String} unit "km", "mi", "nm", "all"
+   * @returns {String} distance in unit.
+   * @global
+   */
+  function fmtDistance(value, unit = "all") {
+    switch (unit) {
+      case "km":
+      case "0":
+        return fmtkm.format(value);
+      case "mi":
+      case "1":
+        return fmtmi.format(toMiles(value));
+      case "nm":
+      case "2":
+        return `${fmtnm.format(toNauticalMiles(value))} nmi`;
+      default:
+        return `
+                ${fmtkm.format(value)}
+                (${fmtmi.format(toMiles(value))})
+                (${fmtnm.format(toNauticalMiles(value))} nmi)`;
+    }
+  }
+
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${clocation}</i>
          (lat: ${lat.toFixed(5)}°, lon: ${lon.toFixed(5)}°),
@@ -1890,22 +1940,17 @@ function labelForLocation(location) {
     <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}),
           mp(lat): ${meridionalParts.toFixed(2)}
     <br>Rio to ${clocation}:
-          ${fmtkm.format(drio)}
-         (${fmtmi.format(toMiles(drio))}),
+          ${fmtDistance(drio, unit)},
           AZ: ${fmtdeg.format(brio)}
     <br>Rio to ${clocation}:
-          along loxodrome ${fmtkm.format(ldrio)}
-         (${fmtmi.format(toMiles(ldrio))})
+          along loxodrome ${fmtDistance(ldrio, unit)}
     <br>${plocation} to ${clocation}:
-          ${fmtkm.format(distancep)}
-         (${fmtmi.format(toMiles(distancep))}),
+          ${fmtDistance(distancep, unit)},
           AZ: ${fmtdeg.format(bp)}
     <br>${plocation} to ${clocation} along loxodrome:
-          ${fmtkm.format(loxDistanceSph)}
-         (${fmtmi.format(toMiles(loxDistanceSph))})
+          ${fmtDistance(loxDistanceSph, unit)},
     <br>Loxodrome on the chart (cylinder):
-          ${fmtkm.format(loxDistanceCyl)}
-         (${fmtmi.format(toMiles(loxDistanceCyl))}),
+          ${fmtDistance(loxDistanceCyl, unit)},
           AZ: ${fmtdeg.format(badCyl.bearing)}`;
 }
 
@@ -2258,6 +2303,16 @@ const handleKeyPress = ((event) => {
   };
 
   /**
+   * Maps unit type for unit ids.
+   * @type {Object<Number,String>}
+   */
+  const unitId = {
+    0: "km",
+    1: "mi",
+    2: "nm",
+  };
+
+  /**
    * <p>Update the {@link currentLocation current} and {@link previousLocation previous} locations
    * and set the position on the globe or map.</p>
    * <p>The previous location is updated only if it has not been set in the
@@ -2295,7 +2350,7 @@ const handleKeyPress = ((event) => {
     setPosition(currentLocation);
     selector.equator = true;
     element.equator.checked = selector.equator;
-    labelForLocation(currentLocation);
+    labelForLocation(currentLocation, unit);
 
     const dat = element.byDate.checked
       ? cities.timeline[cl]
@@ -2456,6 +2511,13 @@ const handleKeyPress = ((event) => {
         selector.paused = false;
         document.getElementById(axis).checked = true;
         animate();
+        break;
+      case "0":
+      case "1":
+      case "2":
+        unit = ch;
+        labelForLocation(currentLocation, unit);
+        document.getElementById([unitId[unit]]).checked = true;
         break;
       case "I":
         selector.intrinsic = true;
@@ -4270,6 +4332,24 @@ function addListeners() {
     });
   }
 
+  if (document.querySelector('input[name="unit"]')) {
+    document.querySelectorAll('input[name="unit"]').forEach((elem) => {
+      /**
+       * @summary Executed when the unit input radio is checked (but not when unchecked).
+       * <p>Appends an event listener for events whose type attribute value is change.<br>
+       * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+       * the event is dispatched.</p>
+       *
+       * @event changeUnitInputRadio
+       * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+       */
+      elem.addEventListener("change", function (event) {
+        const item = event.target.value;
+        handleKeyPress(createEvent(item));
+      });
+    });
+  }
+
   if (document.querySelector('input[name="mode"]')) {
     document.querySelectorAll('input[name="mode"]').forEach((elem) => {
       /**
@@ -6071,7 +6151,7 @@ function startForReal(image) {
   rotator.setViewMatrix(modelMatrix);
   rotator.setViewDistance(0);
 
-  labelForLocation(currentLocation);
+  labelForLocation(currentLocation, unit);
   selectModel();
   newTexture(image);
   addListeners();
