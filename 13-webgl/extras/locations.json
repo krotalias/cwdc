@@ -3334,11 +3334,14 @@
     "Sandia": {
         "country": "🧪 Albuquerque, New Mexico (United States)",
         "remarkable": [
-            "Sandia National Laboratories (SNL), 1949",
+            "Sandia National Laboratories (SNL), 19 November 1948",
+            "Z division (ordnance design, testing and assembly) of Los Alamos, 12 July 1945",
+            "First postwar nuclear tests done by Z Division, 30 June 1946",
             "Sandia Corporation government-owned, contractor-operated model",
             "Wholly owned subsidiary of Western Electric, 5 October 1949",
             "Wholly owned subsidiary of Lockheed Martin, 5 October 1993",
-            "Wholly owned subsidiary of Honeywell International, 1 May 2017 - present"
+            "Wholly owned subsidiary of Honeywell International, 1 May 2017 - present",
+            "Sandia Corporation, 1 November 1949"
         ],
         "latitude": 35.050657,
         "longitude": -106.543136
@@ -5518,16 +5521,18 @@
         "latitude": 46.22141,
         "longitude": 24.79279
     },
-    "Straits of Salamis": {
+    "Marathon": {
         "country": "Greece",
         "remarkable": [
-            "Themistocles, 524-459 BC",
-            "Persuaded the Athenians to build a fleet of 200 triremes, 483 BC",
-            "Battle of Salamis, 26 September 480 BC",
-            "Governor of Magnesia, 465-459 BC"
+            "First attempt by Persian King Darius I to subjugate Greece, 492-490 BC",
+            "Battle of Marathon, 12 September 490 BC",
+            "Legend says that Pheidippides ran from Marathon to Athens",
+            "after the battle to announce the Greek victory and died",
+            "Athenian army marched 40 km back to Athens",
+            "at a very high pace, 12 September 490 BC"
         ],
-        "latitude": 37.951389,
-        "longitude": 23.566667
+        "latitude": 38.153333,
+        "longitude": 23.961944
     },
     "Stagira": {
         "country": "🔬 Chalcidian League (Greece)",
@@ -5553,6 +5558,17 @@
         ],
         "latitude": 37.9755648,
         "longitude": 23.7348324
+    },
+    "Straits of Salamis": {
+        "country": "Greece",
+        "remarkable": [
+            "Themistocles, 524-459 BC",
+            "Persuaded the Athenians to build a fleet of 200 triremes, 483 BC",
+            "Battle of Salamis, 26 September 480 BC",
+            "Governor of Magnesia, 465-459 BC"
+        ],
+        "latitude": 37.951389,
+        "longitude": 23.566667
     },
     "Chaeronea": {
         "country": "Greece",
