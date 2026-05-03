@@ -87,6 +87,50 @@
         "latitude": 51.499998,
         "longitude": -0.1333328
     },
+    "Abbey Road": {
+        "country": "🎶 London (United Kingdom)",
+        "remarkable": [
+            "Pink Floyd, 1965-1994",
+            "Roger Keith (Syd) Barrett (guitar, vocals), 1946-2006",
+            "Left the band (mental health struggles), 6 April 1968",
+            "Nicholas Berkeley (Nick) Mason (drums), 1944",
+            "George Roger Waters (bass guitar, vocals), 1943",
+            "Richard Willian Wright (keyboards, vocals), 1943-2008",
+            "David Jon Gilmour (guitar, vocals), 1946",
+            "Entered the band, 18 February 1968",
+            "Andrew King (Music manager), 1948",
+            "Alan Parsons (Audio engineer), 1948",
+            "Eric Norman Woolfson (APP - singer, songwriter and pianist), 1945-2009",
+            "The Dark Side of the Moon, 1973",
+            "The Alan Parsons Project (APP - 10 albuns), 1975-1990",
+            "The Wall, 1979",
+            "Waters left the band, 1985",
+            "Live 8 concert (Waters rejoined), 2 July 2005",
+            "Best-selling music artists of all time (250M records sold), 1965-present"
+        ],
+        "latitude": 51.532056,
+        "longitude": -0.177333
+    },
+    "Kensington": {
+        "country": "🎶 London (United Kingdom)",
+        "remarkable": [
+            "Queen, 27 June 1970 - 24 November 1991",
+            "Freddie Mercury (Farrokh Bulsara), (vocals and piano), 1946-1991",
+            "Brian Harold May (guitar and vocals), 1947-present",
+            "Roger Meddows Taylor (drums and vocals), 1949-present",
+            "John Richard Deacon (bass), 1951-present",
+            "John Anthony, (producer), 1944-present",
+            "Henry James Beach (manager), 1942-present",
+            "Queen in Rio (Morumbi, 100K people), 20 March 1981",
+            "Rock in Rio (300K people), 11 January 1985 - 20 January 1985",
+            "Love of My Life in unison (friday, 2h AM), 11 January 1985",
+            "Rainy night with a stinky mud (unforgatable performance), 18 January 1985",
+            "Live Aid at Wembley Stadium (greatest rock performances of all time), 13 July 1985",
+            "Best-selling music artists of all time (250-300M records sold), 1970-present"
+        ],
+        "latitude": 51.5,
+        "longitude": -0.19
+    },
     "Normandy": {
         "country": "⚔ France",
         "remarkable": [
@@ -201,7 +245,7 @@
             "Drummer, 18 August 1962 - 10 April 1970",
             "Randolph Peter Best, 24 November 1941",
             "Drummer, 12 August 1960 - 16 August 1962",
-            "The best-selling musical act of all time (600M-1B units sold), 1960-present"
+            "Best-selling musical act of all time (600M-1B units sold), 1960-present"
         ],
         "latitude": 53.41058,
         "longitude": -2.97794
@@ -272,7 +316,7 @@
             "Terry Williams (drummer), 1982-1988",
             "Brothers in Arms first album to sell a million copies on CD, 1985",
             "UK Albums Chart at number 1 (228 weeks), 1985-1986",
-            "One of the best-selling music artists of all time (100-120M records sold), 1978-present"
+            "Best-selling music artists of all time (100-120M records sold), 1978-present"
         ],
         "latitude": 55.86515,
         "longitude": -4.25763
@@ -359,7 +403,7 @@
             "David Howell Evans (The Edge, guitarist/keyboards), 1961",
             "Adam Charles Clayton (bassist), 1960",
             "Laurence Joseph Mullen Jr. (drummer), 1960",
-            "One of the best-selling music artists of all time (150-170M records sold), 1976-present"
+            "Best-selling music artists of all time (150-170M records sold), 1976-present"
         ],
         "latitude": 53.33306,
         "longitude": -6.24889
@@ -5229,8 +5273,13 @@
     "Giza": {
         "country": "Egypt",
         "remarkable": [
-            "Khufu, (Second pharaoh), 2609-2566 BC",
-            "Fourth Dynasty, 2589-2566 BC"
+            "Khufu (Cheops), (Second pharaoh), 2609-2566 BC",
+            "The Great Pyramid of Giza, 2580-2560 BC",
+            "Djedefre (Rhatoisēs), (Third pharaoh), 2566-2558 BC",
+            "Khafre (Chephren), (Fourth pharaoh), 2558-2532 BC",
+            "The Great Sphinx of Giza, 2558-2532 BC",
+            "The Pyramid of Khafre, 2550 BC",
+            "Fourth Dynasty, 2613-2498 BC"
         ],
         "latitude": 29.979175,
         "longitude": 31.134358
