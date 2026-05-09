@@ -23,8 +23,9 @@ when using mipmap:
                 margin-left: 50px;
                 margin-bottom: 20px;
             }
+            label,
             #models,
-            label {
+            #locInfo {
                 font-size: x-large;
                 line-height: 200%;
             }
@@ -82,6 +83,16 @@ when using mipmap:
             }
             label {
                 margin-right: 40px;
+            }
+            .lbllatlon {
+                margin: 0 0 0 25px;
+            }
+            .dms {
+                height: 30px;
+                flex: 0 0 200px;
+                margin: 0 0 0 5px;
+                width: 170px;
+                font-size: 20px;
             }
             .checkbox {
                 column-count: 2;
@@ -526,8 +537,6 @@ when using mipmap:
                     <label for="nm">Nautical Miles</label>
                 </div>
 
-                <br />
-
                 <input
                     type="checkbox"
                     id="equator"
@@ -535,6 +544,16 @@ when using mipmap:
                     value="equator"
                 />
                 <label for="equator">Equator</label>
+
+                <div id="latlon">
+                    <label class="lbllatlon" for="lat">latitude</label>
+                    <input class="dms" type="string" id="lat" name="lat" />
+
+                    <label class="lbllatlon" for="lon"> longitude </label>
+                    <input class="dms" type="string" id="lon" name="lon" />
+                </div>
+
+                <div id="locInfo"></div>
 
                 <input type="checkbox" id="php" name="php" hidden value="php" />
             </form>

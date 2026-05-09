@@ -896,6 +896,9 @@ const getCitiesSelector = () =>
  * @property {HTMLSelectElement} country select
  * @property {HTMLInputElement} loxodrome checkbox
  * @property {HTMLCanvasElement} canvasimg canvas
+ * @property {HTMLInputElement} latitude input
+ * @property {HTMLInputElement} longitude input
+ * @property {HTMLDivElement} locInfo div
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement HTMLElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement HTMLInputElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement HTMLSelectElement}
@@ -931,6 +934,9 @@ const element = {
   country: document.getElementById("country"),
   loxodrome: document.getElementById("loxodrome"),
   canvasimg: document.getElementById("canvasimg"),
+  latitude: document.getElementById("lat"),
+  longitude: document.getElementById("lon"),
+  locinfo: document.querySelector("#locInfo"),
 };
 
 /**
@@ -1871,7 +1877,42 @@ function dd2dms(dd, isLongitude = false) {
   } else {
     direction = dd < 0 ? "S" : "N";
   }
-  return `${deg}° ${min}&apos; ${sec}&quot; ${direction}`;
+  return `${deg}° ${min}' ${sec}" ${direction}`;
+}
+
+/**
+ * <p>Convert from degrees, minutes and seconds to decimal degrees.</p>
+ * @param {Number} degrees degrees.
+ * @param {Number} minutes minutes.
+ * @param {Number} seconds seconds.
+ * @param {String} hemisphere ("S", "N", "E", "W").
+ * @returns {Number} decimal degrees.
+ */
+function dms2dd(degrees, minutes, seconds, hemisphere) {
+  let dd = Number(degrees) + Number(minutes) / 60 + Number(seconds) / (60 * 60);
+
+  hemisphere = hemisphere.toUpperCase();
+  if (hemisphere == "S" || hemisphere == "W") {
+    dd *= -1;
+  } // don't do anything for N or E
+  return dd;
+}
+
+/**
+ * Parses a {@link GCS} coordinate either in
+ * DMS (degrees, minutes, seconds) or
+ * DD (decimal) format
+ * and converts it to decimal degrees.
+ * @param {String} input DMS string.
+ * @returns {Number} latitude or longitude in decimal degrees.
+ */
+function parseDMS(input) {
+  const parts = input.split(/[^\d\w\.]+/);
+  if (parts.length == 1) {
+    return Number(parts[0]);
+  } else if (parts.length >= 4) {
+    return dms2dd(parts[0], parts[1], parts[2], parts[3]);
+  } else return null;
 }
 
 /**
@@ -1935,11 +1976,14 @@ function labelForLocation(location, unit) {
     }
   }
 
+  element.latitude.value = dd2dms(lat);
+  element.longitude.value = dd2dms(lon, true);
+
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${clocation}</i>
-         (lat: ${lat.toFixed(5)}°, lon: ${lon.toFixed(5)}°),
-          sec(lat): ${sec.toFixed(2)}
-    <br>DMS (lat: ${dd2dms(lat)}, lon: ${dd2dms(lon, true)}),
+         (lat: ${lat.toFixed(5)}°, lon: ${lon.toFixed(5)}°)`;
+
+  element.locinfo.innerHTML = `sec(lat): ${sec.toFixed(2)},
           mp(lat): ${meridionalParts.toFixed(2)}
     <br>Rio &rarr; ${clocation}:
           ${fmtDistance(drio, unit)},
@@ -4859,6 +4903,155 @@ function addListeners() {
     });
     event.preventDefault();
     canvas.dispatchEvent(dblclickEvent);
+  });
+
+  /**
+   * <p>Handle inout of gcs coordinates.</p>
+   * The effect is as if a {@link gcsForUnknownLocation unknown location}
+   * has been clicked.
+   */
+  function handleDMS() {
+    const uv = gcs2UV({
+      latitude: parseDMS(element.latitude.value) || 0,
+      longitude: parseDMS(element.longitude.value) || 0,
+    });
+
+    previousLocation = structuredClone(gpsCoordinates[currentLocation]);
+    previousLocation.country = "previous";
+    cities.previous = currentLocation;
+
+    gcsForUnknownLocation(uv);
+
+    const ct = country;
+    country = "";
+    const position = -2;
+    currentLocation = cities.current.at(position);
+
+    handleKeyPress(createEvent("g"));
+    country = ct;
+    setCountryDescription(country);
+  }
+
+  /**
+   * Executed when the country &lt;select&gt; is changed.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleDMS callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeLatitudeValue
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  element.latitude.addEventListener("change", (event) => {
+    event.preventDefault();
+    event.target.blur();
+
+    const regex = /[^\'°\".SNsn0-9\s]+/g;
+
+    // Replace anything that IS NOT in the regex with an empty string
+    event.target.value = event.target.value.replace(regex, "");
+
+    handleDMS();
+  });
+
+  /**
+   * Paste on latitude input.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event Element: paste event}
+   * @event latitudeClipboardEvent
+   * @param {ClipboardEvent} event paste event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent ClipboardEvent}
+   */
+  element.latitude.addEventListener("paste", (event) => {
+    const regex = /[^\'°\".SNsn0-9\s]+/g;
+
+    event.preventDefault();
+
+    let paste = (event.clipboardData || window.clipboardData).getData("text");
+    // replace anything that IS NOT in the regex with an empty string
+    paste = paste.replace(regex, "");
+    paste = paste.toUpperCase();
+
+    const selection = window.getSelection();
+    if (selection.rangeCount) {
+      selection.deleteFromDocument();
+      selection.getRangeAt(0).insertNode(document.createTextNode(paste));
+      selection.collapseToEnd();
+    }
+
+    element.latitude.value = paste;
+    handleDMS();
+  });
+
+  /**
+   * <p>Stop the event from "bubbling" up.</p>
+   * We want to ignore keys pressed inside this input.
+   * @event latitudeKeydown
+   * @param {KeyboardEvent} event keydown event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation Event: stopPropagation() method}
+   */
+  element.latitude.addEventListener("keydown", (e) => {
+    // this stops the event from reaching document or window listeners
+    e.stopPropagation();
+  });
+
+  /**
+   * Executed when the country &lt;select&gt; is changed.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleDMS callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeLongitudeValue
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  element.longitude.addEventListener("change", (event) => {
+    event.preventDefault();
+    event.target.blur();
+
+    const regex = /[^\'°\".EWew0-9\s]+/g;
+
+    // Replace anything that IS NOT in the regex with an empty string
+    event.target.value = event.target.value.replace(regex, "");
+
+    handleDMS();
+  });
+
+  /**
+   * Paste on longitude input.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event Element: paste event}
+   * @event longitudeClipboardEvent
+   * @param {ClipboardEvent} event paste event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent ClipboardEvent}
+   */
+  element.longitude.addEventListener("paste", (event) => {
+    const regex = /[^\'°\".EWew0-9\s]+/g;
+
+    event.preventDefault();
+
+    let paste = (event.clipboardData || window.clipboardData).getData("text");
+    // Replace anything that IS NOT in the regex with an empty string
+    paste = paste.replace(regex, "");
+    paste = paste.toUpperCase();
+
+    const selection = window.getSelection();
+    if (selection.rangeCount) {
+      selection.deleteFromDocument();
+      selection.getRangeAt(0).insertNode(document.createTextNode(paste));
+      selection.collapseToEnd();
+    }
+
+    element.longitude.value = paste;
+    handleDMS();
+  });
+
+  /**
+   * <p>Stop the event from "bubbling" up.</p>
+   * We want to ignore keys pressed inside this input.
+   * @event longitudeKeydown
+   * @param {KeyboardEvent} event keydown event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation Event: stopPropagation() method}
+   */
+  element.longitude.addEventListener("keydown", (e) => {
+    // this stops the event from reaching document or window listeners
+    e.stopPropagation();
   });
 }
 
