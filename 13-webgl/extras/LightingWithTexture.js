@@ -4906,9 +4906,10 @@ function addListeners() {
   });
 
   /**
-   * <p>Handle inout of gcs coordinates.</p>
+   * <p>Handle input of {@link GCS} coordinates.</p>
    * The effect is as if a {@link gcsForUnknownLocation unknown location}
-   * has been clicked.
+   * had been clicked.
+   * @global
    */
   function handleDMS() {
     const uv = gcs2UV({
@@ -4923,6 +4924,7 @@ function addListeners() {
     gcsForUnknownLocation(uv);
 
     const ct = country;
+
     country = "";
     const position = -2;
     currentLocation = cities.current.at(position);
@@ -4933,10 +4935,34 @@ function addListeners() {
   }
 
   /**
+   * Set the color of two given {@link GCS} input elements
+   * and calls {@link handleDMS} when both latitude and longitude
+   * were entered.
+   * @param {HTMLInputElement} elem1 first element.
+   * @param {HTMLInputElement} elem2 second element.
+   * @global
+   */
+  function setColor(elem1, elem2) {
+    const color1 = elem1.style.color;
+    const color2 = elem2.style.color;
+    if (color1 === "red") {
+      elem1.style.color = "black";
+      handleDMS();
+    } else {
+      if (color2 === "red") {
+        elem1.style.color = "black";
+      }
+      elem2.style.color = "red";
+    }
+  }
+
+  /**
    * Executed when the country &lt;select&gt; is changed.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
    * The {@link handleDMS callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
+   * The previous location is set only when both a new latitude and new longitude are entered.
+   * Otherwise, the longitude input field is drawn in "red", so the user is warned for entering a new longitude.
    *
    * @event changeLatitudeValue
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
@@ -4950,11 +4976,13 @@ function addListeners() {
     // replace anything that IS NOT in the regex with an empty string
     event.target.value = event.target.value.replace(regex, "");
 
-    handleDMS();
+    setColor(element.latitude, element.longitude);
   });
 
   /**
-   * Paste on latitude input.
+   * <p>Paste on latitude input.</p>
+   * The previous location is set only when both a new latitude and new longitude are entered.
+   * Otherwise, the longitude input field is drawn in "red", so the user is warned for entering a new longitude.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event Element: paste event}
    * @event latitudeClipboardEvent
    * @param {ClipboardEvent} event paste event.
@@ -4964,6 +4992,7 @@ function addListeners() {
     const regex = /[^\'°\".SNsn0-9\s]+/g;
 
     event.preventDefault();
+    event.target.blur();
 
     let paste = (event.clipboardData || window.clipboardData).getData("text");
     // replace anything that IS NOT in the regex with an empty string
@@ -4971,7 +5000,8 @@ function addListeners() {
     paste = paste.toUpperCase();
 
     element.latitude.value = paste;
-    handleDMS();
+
+    setColor(element.latitude, element.longitude);
   });
 
   /**
@@ -4991,6 +5021,8 @@ function addListeners() {
    * <p>Appends an event listener for events whose type attribute value is change.<br>
    * The {@link handleDMS callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
+   * The previous location is set only when both a new latitude and new longitude are entered.
+   * Otherwise, the latitude input field is drawn in "red", so the user is warned for entering a new latitude.
    *
    * @event changeLongitudeValue
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
@@ -5004,11 +5036,13 @@ function addListeners() {
     // replace anything that IS NOT in the regex with an empty string
     event.target.value = event.target.value.replace(regex, "");
 
-    handleDMS();
+    setColor(element.longitude, element.latitude);
   });
 
   /**
-   * Paste on longitude input.
+   * <p>Paste on longitude input.</p>
+   * The previous location is set only when both a new latitude and new longitude are entered.
+   * Otherwise, the latitude input field is drawn in "red", so the user is warned for entering a new latitude.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event Element: paste event}
    * @event longitudeClipboardEvent
    * @param {ClipboardEvent} event paste event.
@@ -5018,6 +5052,7 @@ function addListeners() {
     const regex = /[^\'°\".EWew0-9\s]+/g;
 
     event.preventDefault();
+    event.target.blur();
 
     let paste = (event.clipboardData || window.clipboardData).getData("text");
     // replace anything that IS NOT in the regex with an empty string
@@ -5025,7 +5060,8 @@ function addListeners() {
     paste = paste.toUpperCase();
 
     element.longitude.value = paste;
-    handleDMS();
+
+    setColor(element.longitude, element.latitude);
   });
 
   /**
