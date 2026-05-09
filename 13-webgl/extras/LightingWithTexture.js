@@ -1871,13 +1871,13 @@ function dd2dms(dd, isLongitude = false) {
   const sec = ((Math.abs(minutesDecimal) % 1) * 60).toFixed(2);
 
   // Determine the cardinal direction
-  let direction;
+  let hemisphere;
   if (isLongitude) {
-    direction = dd < 0 ? "W" : "E";
+    hemisphere = dd < 0 ? "W" : "E";
   } else {
-    direction = dd < 0 ? "S" : "N";
+    hemisphere = dd < 0 ? "S" : "N";
   }
-  return `${deg}° ${min}' ${sec}" ${direction}`;
+  return `${deg}° ${min}' ${sec}" ${hemisphere}`;
 }
 
 /**
@@ -4947,7 +4947,7 @@ function addListeners() {
 
     const regex = /[^\'°\".SNsn0-9\s]+/g;
 
-    // Replace anything that IS NOT in the regex with an empty string
+    // replace anything that IS NOT in the regex with an empty string
     event.target.value = event.target.value.replace(regex, "");
 
     handleDMS();
@@ -4969,13 +4969,6 @@ function addListeners() {
     // replace anything that IS NOT in the regex with an empty string
     paste = paste.replace(regex, "");
     paste = paste.toUpperCase();
-
-    const selection = window.getSelection();
-    if (selection.rangeCount) {
-      selection.deleteFromDocument();
-      selection.getRangeAt(0).insertNode(document.createTextNode(paste));
-      selection.collapseToEnd();
-    }
 
     element.latitude.value = paste;
     handleDMS();
@@ -5008,7 +5001,7 @@ function addListeners() {
 
     const regex = /[^\'°\".EWew0-9\s]+/g;
 
-    // Replace anything that IS NOT in the regex with an empty string
+    // replace anything that IS NOT in the regex with an empty string
     event.target.value = event.target.value.replace(regex, "");
 
     handleDMS();
@@ -5027,16 +5020,9 @@ function addListeners() {
     event.preventDefault();
 
     let paste = (event.clipboardData || window.clipboardData).getData("text");
-    // Replace anything that IS NOT in the regex with an empty string
+    // replace anything that IS NOT in the regex with an empty string
     paste = paste.replace(regex, "");
     paste = paste.toUpperCase();
-
-    const selection = window.getSelection();
-    if (selection.rangeCount) {
-      selection.deleteFromDocument();
-      selection.getRangeAt(0).insertNode(document.createTextNode(paste));
-      selection.collapseToEnd();
-    }
 
     element.longitude.value = paste;
     handleDMS();
