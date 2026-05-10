@@ -832,6 +832,46 @@ function antimeridianCrossing(deltaLongitude, degrees = false) {
 }
 
 /**
+ * <p>Wrap longitude to the range [-180°, 180°).</p>
+ * <p>Longitudes are typically expressed in the range of -180° to 180°,
+ * where positive values indicate east of the Prime Meridian
+ * and negative values indicate west.</p>
+ * @param {Number} longitude in degrees.
+ * @returns {Number} wrapped longitude in the range [-180°, 180°).
+ * @see {@link https://en.wikipedia.org/wiki/Longitude Longitude}
+ */
+function wrapLongitude(longitude) {
+  const wrapped = (longitude + 180) % 360;
+  return wrapped < 0 ? wrapped + 180 : wrapped - 180;
+}
+
+/**
+ * <p>Wrap latitude to the range [-90°, 90°).</p>
+ * <p>Latitudes are typically expressed in the range of -90° to 90°,
+ * where positive values indicate north of the Equator
+ * and negative values indicate south.</p>
+ * Wrapping latitude is slightly more complex than wrapping longitude because,
+ * unlike longitude which repeats every 360°, latitude "bounces" or
+ * reverses direction at the poles (90°) and (-90°).
+ * @param {Number} latitude in degrees.
+ * @returns {Number} wrapped latitude in the range [-90°, 90°).
+ * @see {@link https://en.wikipedia.org/wiki/Latitude Latitude}
+ */
+function wrapLatitude(lat) {
+  // Use a 360-degree period for the math, shifted so 0 is the starting point
+  const wrapped = (lat + 90) % 360;
+  // If result is negative, adjust to positive range
+  const absolute = wrapped < 0 ? wrapped + 360 : wrapped;
+
+  // Between 0-180, it's the upward path; 180-360 is the downward path
+  if (absolute > 180) {
+    return 270 - absolute;
+  } else {
+    return absolute - 90;
+  }
+}
+
+/**
  * <p>Canvas element and its tooltip.</p>
  * <p>Canvas is used for drawing the globe and its tooltip is used for displaying
  * the {@link GCS} coordinates (longitude and latitude) on the globe when pointer is moved upon.</p>
@@ -1862,6 +1902,8 @@ const cleanLocation = (location) =>
  * @see {@link https://www.fcc.gov/media/radio/dms-decimal Decimal degrees to DMS converter}
  */
 function dd2dms(dd, isLongitude = false) {
+  dd = isLongitude ? wrapLongitude(dd) : wrapLatitude(dd);
+  dd = dd.toFixed(5); // 49.99999999999999 -> 50 and not 49° 60' 00''
   const deg = Math.trunc(Math.abs(dd));
   // toFixed(5) to avoid Math.abs(65.35) % 1 -> 0.3499999999999943
   // 65.35 -> 0.35 * 60 = 21 and not 20.99999999999966
@@ -1889,9 +1931,10 @@ function dd2dms(dd, isLongitude = false) {
  * @returns {Number} decimal degrees.
  */
 function dms2dd(degrees, minutes, seconds, hemisphere) {
+  hemisphere = hemisphere.toUpperCase();
+
   let dd = Number(degrees) + Number(minutes) / 60 + Number(seconds) / (60 * 60);
 
-  hemisphere = hemisphere.toUpperCase();
   if (hemisphere == "S" || hemisphere == "W") {
     dd *= -1;
   } // don't do anything for N or E
@@ -1903,11 +1946,11 @@ function dms2dd(degrees, minutes, seconds, hemisphere) {
  * DMS (degrees, minutes, seconds) or
  * DD (decimal) format
  * and converts it to decimal degrees.
- * @param {String} input DMS string.
+ * @param {String} input DD orDMS string.
  * @returns {Number} latitude or longitude in decimal degrees.
  */
 function parseDMS(input) {
-  const parts = input.split(/[^\d\w\.]+/);
+  const parts = input.split(/[^\d\w\.\-]+/);
   if (parts.length == 1) {
     return Number(parts[0]);
   } else if (parts.length >= 4) {
@@ -4971,7 +5014,7 @@ function addListeners() {
     event.preventDefault();
     event.target.blur();
 
-    const regex = /[^\'°\".SNsn0-9\s]+/g;
+    const regex = /[^\'°\".\-SNsn0-9\s]+/g;
 
     // replace anything that IS NOT in the regex with an empty string
     event.target.value = event.target.value.replace(regex, "");
@@ -4989,7 +5032,7 @@ function addListeners() {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent ClipboardEvent}
    */
   element.latitude.addEventListener("paste", (event) => {
-    const regex = /[^\'°\".SNsn0-9\s]+/g;
+    const regex = /[^\'°\".\-SNsn0-9\s]+/g;
 
     event.preventDefault();
     event.target.blur();
@@ -5031,7 +5074,7 @@ function addListeners() {
     event.preventDefault();
     event.target.blur();
 
-    const regex = /[^\'°\".EWew0-9\s]+/g;
+    const regex = /[^\'°\".\-EWew0-9\s]+/g;
 
     // replace anything that IS NOT in the regex with an empty string
     event.target.value = event.target.value.replace(regex, "");
@@ -5049,7 +5092,7 @@ function addListeners() {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent ClipboardEvent}
    */
   element.longitude.addEventListener("paste", (event) => {
-    const regex = /[^\'°\".EWew0-9\s]+/g;
+    const regex = /[^\'°\".\-EWew0-9\s]+/g;
 
     event.preventDefault();
     event.target.blur();
