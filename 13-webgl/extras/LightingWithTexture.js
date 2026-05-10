@@ -2024,7 +2024,7 @@ function labelForLocation(location, unit) {
 
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${clocation}</i>
-         (lat: ${lat.toFixed(5)}°, lon: ${lon.toFixed(5)}°)`;
+         (lat: ${wrapLatitude(lat).toFixed(5)}°, lon: ${wrapLongitude(lon).toFixed(5)}°)`;
 
   element.locinfo.innerHTML = `sec(lat): ${sec.toFixed(2)},
           mp(lat): ${meridionalParts.toFixed(2)}
@@ -3327,11 +3327,11 @@ function bearingAngleAndDistance(gcs1, gcs2, R = earthRadius) {
  * is 12,820.7 km. This is the length of the loxodrome image on the map, which is
  * significantly different from the length of the loxodrome on the sphere.</p>
  * <pre>
- *    Syracuse, New York  (φ1 = 43°00′ N, λ1 = 76°00′ W = −76°00′ E)  (43.046944, -76.144444)
- *    Moscow              (φ2 = 55°45′ N, λ2 = 37°37′ E)              (55.751244, 37.618423)
- *    R = 6370 km                                                     R = 6371 km
- *    On chart = 12,820.7 km                                          On chart = 12,838 km
- *    On globe = 8,283.2 km                                           On globe = 8,290 km
+ *    Syracuse, NY (lat1 = 43°00'00" N, lon1 = 76°00'00" W)  (43.046944, -76.144444)
+ *    Moscow       (lat2 = 55°45'00" N, lon2 = 37°37'00" E)  (55.751244, 37.618423)
+ *    R = 6370 km                                             R = 6371 km
+ *    On chart = 12,820.7 km                                  On chart = 12,838 km
+ *    On globe = 8,283.2 km                                   On globe = 8,290 km
  * </pre>
  * <ul>
  *  <li>Δlat (Difference of Latitude): the north-south distance between the departure and destination points,
