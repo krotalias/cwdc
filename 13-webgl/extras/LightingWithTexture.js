@@ -1902,8 +1902,7 @@ const cleanLocation = (location) =>
  * @see {@link https://www.fcc.gov/media/radio/dms-decimal Decimal degrees to DMS converter}
  */
 function dd2dms(dd, isLongitude = false) {
-  dd = isLongitude ? wrapLongitude(dd) : wrapLatitude(dd);
-  dd = dd.toFixed(5); // 49.99999999999999 -> 50 and not 49° 60' 00''
+  dd = Number(dd.toFixed(5)); // 49.99999999999999 -> 50 and not 49° 60' 00''
   const deg = Math.trunc(Math.abs(dd));
   // toFixed(5) to avoid Math.abs(65.35) % 1 -> 0.3499999999999943
   // 65.35 -> 0.35 * 60 = 21 and not 20.99999999999966
@@ -1912,7 +1911,7 @@ function dd2dms(dd, isLongitude = false) {
   const min = Math.trunc(minutesDecimal);
   const sec = ((Math.abs(minutesDecimal) % 1) * 60).toFixed(2);
 
-  // Determine the cardinal direction
+  // determine the cardinal direction
   let hemisphere;
   if (isLongitude) {
     hemisphere = dd < 0 ? "W" : "E";
@@ -2024,7 +2023,7 @@ function labelForLocation(location, unit) {
 
   document.querySelector('label[for="equator"]').innerHTML =
     `<i>${clocation}</i>
-         (lat: ${wrapLatitude(lat).toFixed(5)}°, lon: ${wrapLongitude(lon).toFixed(5)}°)`;
+         (lat: ${lat.toFixed(5)}°, lon: ${lon.toFixed(5)}°)`;
 
   element.locinfo.innerHTML = `sec(lat): ${sec.toFixed(2)},
           mp(lat): ${meridionalParts.toFixed(2)}
@@ -4950,14 +4949,14 @@ function addListeners() {
 
   /**
    * <p>Handle input of {@link GCS} coordinates.</p>
-   * The effect is as if a {@link gcsForUnknownLocation unknown location}
-   * had been clicked.
+   * The effect is similar to clicking
+   * an {@link gcsForUnknownLocation unknown location}.
    * @global
    */
   function handleDMS() {
     const uv = gcs2UV({
-      latitude: parseDMS(element.latitude.value) || 0,
-      longitude: parseDMS(element.longitude.value) || 0,
+      latitude: wrapLatitude(parseDMS(element.latitude.value) || 0),
+      longitude: wrapLongitude(parseDMS(element.longitude.value) || 0),
     });
 
     previousLocation = structuredClone(gpsCoordinates[currentLocation]);
