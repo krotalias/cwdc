@@ -1896,18 +1896,30 @@ const cleanLocation = (location) =>
 
 /**
  * <p>Convert from decimal degrees to degrees, minutes and seconds.</p>
+ * The calculation is performed using dp decimal places to avoid numerical errors:
+ * <ul>
+ * <li>dd = Number(dd.toFixed(dp))</li>
+ * <li>dd2dms(50) → 50° 0' 0.00" and not 49° 59' 60.00"</li>
+ * <ul>
+ *  <li>49.99999999999999 → 50</li>
+ * </ul>
+ * <li>minutes = (Math.abs(dd) % 1).toFixed(dp) * 60</li>
+ * <li>dd2dms(65.35) → 65° 21' 0.00" and not 65° 20' 60.00" </li>
+ * <ul>
+ *  <li>Math.abs(65.35) % 1 → 0.3499999999999943 </li>
+ *  <li>0.35 * 60 = 21 and not 20.99999999999966 </li>
+ * </ul>
+ * </ul>
  * @param {Number} dd decimal degrees.
  * @param {Boolean} [isLongitude=false] whether the decimal degree represents longitude (true) or latitude (false).
- * @returns {String} DMS string in the format "D° M' S''".
+ * @param {Number} [dp=5] number of decimal places to use – default 5 for d, 5 for m, 2 for s.
+ * @returns {String} DMS string in the format `D° M' S"`.
  * @see {@link https://www.fcc.gov/media/radio/dms-decimal Decimal degrees to DMS converter}
  */
-function dd2dms(dd, isLongitude = false) {
-  dd = Number(dd.toFixed(5)); // 49.99999999999999 -> 50 and not 49° 60' 00''
+function dd2dms(dd, isLongitude = false, dp = 5) {
+  dd = Number(dd.toFixed(dp));
   const deg = Math.trunc(Math.abs(dd));
-  // toFixed(5) to avoid Math.abs(65.35) % 1 -> 0.3499999999999943
-  // 65.35 -> 0.35 * 60 = 21 and not 20.99999999999966
-  // 65° 21' 0.00'' and not 65° 20' 60.00''
-  const minutesDecimal = (Math.abs(dd) % 1).toFixed(5) * 60;
+  const minutesDecimal = (Math.abs(dd) % 1).toFixed(dp) * 60;
   const min = Math.trunc(minutesDecimal);
   const sec = ((Math.abs(minutesDecimal) % 1) * 60).toFixed(2);
 
@@ -1945,7 +1957,7 @@ function dms2dd(degrees, minutes, seconds, hemisphere) {
  * DMS (degrees, minutes, seconds) or
  * DD (decimal) format
  * and converts it to decimal degrees.
- * @param {String} input DD orDMS string.
+ * @param {String} input DD or DMS string.
  * @returns {Number} latitude or longitude in decimal degrees.
  */
 function parseDMS(input) {
