@@ -5877,7 +5877,7 @@ function isPowerOf2(value) {
 
 /**
  * <p>Return an array with n points on a loxodrome (rhumb line) from loc1
- * to loc2.</p>
+ * to loc2, by using linear interpolation on the Mercator chart.</p>
  * While a loxodrome is as a straight line on a Mercator projection,
  * it is a non-linear, curved line on an Equirectangular projection.
  * <p>Loxodromic interpolation follows a path of
@@ -5967,6 +5967,87 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
       p = spherical2Cartesian(...UV2Spherical(uv), globeRadius * dr);
     }
     arr.set(p, j);
+  }
+  return arr;
+}
+
+/**
+ * <p>Parametrization of a loxodrome.</p>
+ * <p>Return the longitude on a rhumb line at latitude, <eM>lat</em>,
+ * given the latitude, <em>lat0</em>, and longitude, <em>long0</em>,
+ * at the beginning of the line and its <em>bearing</em> angle.</p>
+ * A rhumb line is a curve that crosses all meridians at the same angle.
+ * <ul>
+ *    <li>tg(90°-θ) = cotg(θ) = 1 / tg(θ) = Δλ / Δψ</li>
+ *    <li>ℓ<sub>α</sub>: ]0,π[ ⟶ 𝕊<sub>2</sub>
+ *    <li>Z up</li>
+ *    <ul>
+ *      <li>φ ↦ (r cos(θ<sub>α</sub>(φ)) sin(φ), r sin(θ<sub>α</sub>(φ)) sin(φ), r cos(φ))</li></li>
+ *    </ul>
+ *    <li>Y up (north pole)</li>
+ *    <ul>
+ *      <li>φ ↦ (r cos(θ<sub>α</sub>(φ)) sin(φ), -r cos(φ), -r sin(θ<sub>α</sub>(φ)) sin(φ))</li></li>
+ *    </ul>
+ *    <li>θ<sub>α</sub>(φ) = θ₀ + tan (α) [ln (cot (φ/2)) − ln (cot (φ₀/2))]</li>
+ * </ul>
+ * @param {Number} lat0 {@link GCS gcs} latitude of the starting point, in degrees.
+ * @param {Number} long0 {@link GCS gcs} longitude of the starting point, in degrees.
+ * @param {Number} lat {@link GCS gcs} latitude of the point to compute, in degrees.
+ * @param {Number} bearing in degrees, with 0° being north and increasing clockwise.
+ * @returns {Array<Number,Number>} longitude and latitude of the point on the loxodrome in radians.
+ * @see {@link https://math.ucr.edu/~res/math153-2020/week7/unit08/history08a.pdf Loxodromes}
+ */
+function longitudeOnRhumbLine(long0, lat0, lat, bearing) {
+  long0 = toRadian(long0 + 180);
+  lat0 = toRadian(lat0 + 90);
+  lat = toRadian(lat + 90);
+  bearing = toRadian(bearing);
+  const long =
+    long0 +
+    Math.tan(bearing) *
+      (Math.log(1 / Math.tan(lat / 2)) - Math.log(1 / Math.tan(lat0 / 2)));
+
+  return [long, lat];
+}
+
+/**
+ * <p>Return an array with n points on a loxodrome (rhumb line) from loc1
+ * to loc2 on a sphere, by using a {@link longitudeOnRhumbLine parametrization}
+ * of the loxodrome.</p>
+ * @param {gpsCoordinates} loc1 first location with latitude and longitude.
+ * @param {gpsCoordinates} loc2 second location with latitude and longitude.
+ * @param {Number} [n={@link nsegments}] number of points.
+ * @returns {Float32Array} array with cartesian coordinates.
+ * @see {@link https://www.atractor.pt/mat/loxodromica/saber_parametrizacao1-_en.html Parametrization of the loxodrome}
+ */
+function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
+  const dlong = loc2.longitude - loc1.longitude;
+  const dlat = loc2.latitude - loc1.latitude;
+  const lat1 = loc1.latitude;
+  const long1 = loc1.longitude;
+  const arr = new Float32Array(3 * n);
+  const bearing = bearingAngle(loc1, loc2);
+  const ds = 1 / (n - 1);
+  const p = vec3.create();
+  if (isZero(dlat)) {
+    for (let i = 0, j = 0; i < n; ++i, j += 3) {
+      const longi = long1 + i * ds * dlong;
+      vec3.set(
+        p,
+        ...spherical2Cartesian(
+          ...UV2Spherical(gcs2UV({ longitude: longi, latitude: lat1 })),
+          globeRadius,
+        ),
+      );
+      arr.set(p, j);
+    }
+  } else {
+    for (let i = 0, j = 0; i < n; ++i, j += 3) {
+      const lati = lat1 + i * ds * dlat;
+      const [long, lat] = longitudeOnRhumbLine(-long1, lat1, lati, bearing);
+      vec3.set(p, ...spherical2Cartesian(-long, -lat, globeRadius));
+      arr.set(p, j);
+    }
   }
   return arr;
 }
