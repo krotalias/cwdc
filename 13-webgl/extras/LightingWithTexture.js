@@ -752,6 +752,13 @@ const isCylinder = () => element.models.value === "3";
 const isCone = () => element.models.value === "1";
 
 /**
+ * Check if the current model is a sphere.
+ * @return {Boolean} true if the current model is a sphere, false otherwise.
+ */
+const isSphere = () =>
+  element.models.value === "5" || element.models.value === "13";
+
+/**
  * Returns the distance in minutes of longitude
  * from the equator to a given latitude on a Mercator chart (for a perfect sphere).
  * <pre>
@@ -5921,6 +5928,9 @@ function isPowerOf2(value) {
  *      </figure>
  */
 function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
+  if (!mercator && isSphere()) {
+    return pointsOnLoxodrome2(loc1, loc2);
+  }
   const dlong = loc2.longitude - loc1.longitude;
   const loc22 = { ...loc2 };
   // antimeridian crossing testing
