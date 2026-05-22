@@ -759,6 +759,15 @@ const isSphere = () =>
   element.models.value === "5" || element.models.value === "13";
 
 /**
+ * Check if the given character represents a cardinal direction (N, S, E, W).
+ * @param {String} char a character to check.
+ * @return {Boolean} true if the character is a cardinal direction, false otherwise.
+ */
+function isCardinalDirection(char) {
+  return ["n", "s", "e", "w"].includes(char.toLowerCase());
+}
+
+/**
  * Returns the distance in minutes of longitude
  * from the equator to a given latitude on a Mercator chart (for a perfect sphere).
  * <pre>
@@ -1964,16 +1973,47 @@ function dms2dd(degrees, minutes, seconds, hemisphere) {
  * DMS (degrees, minutes, seconds) or
  * DD (decimal) format
  * and converts it to decimal degrees.
+ * <p>Note that only the following characters get here:
+ * <ul>
+ * for latitude:
+ * <ul>
+ *  <li>' ° " . - SNsn 0-9</p></li>
+ * </ul>
+ * for longitude:
+ * <ul>
+ *  <li>' ° " . - EWew 0-9</p></li>
+ * </ul>
+ * </ul>
+ * The input is then split in substrings starting with a digit, a letter, '.' or '-'
+ * <ul>
+ *  <li>".34 abs 123 ns" → Array [  ".34", "s", "123", "ns"  ] </li>
+ * </ul>
  * @param {String} input DD or DMS string.
  * @returns {Number} latitude or longitude in decimal degrees.
+ * @see {@link event:latitudeClipboardEvent}
+ * @see {@link event:longitudeClipboardEvent}
+ * @see {@link dms2dd}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/Symbol.split RegExp.prototype[Symbol.split]()}
+ * @see {@link https://stackoverflow.com/questions/3559883/javascript-split-regex-question Javascript split regex question}
  */
 function parseDMS(input) {
   const parts = input.split(/[^\d\w\.\-]+/);
-  if (parts.length == 1) {
-    return Number(parts[0]);
-  } else if (parts.length >= 4) {
-    return dms2dd(parts[0], parts[1], parts[2], parts[3]);
-  } else return null;
+  switch (parts.length) {
+    case 1: // degrees only
+      return Number(parts[0]);
+    case 2: // degrees + hemisphere
+      if (!isCardinalDirection(parts[1])) break;
+      return dms2dd(parts[0], 0, 0, parts[1]);
+    case 3: // degrees + minutes + hemisphere
+      if (!isCardinalDirection(parts[2])) break;
+      return dms2dd(parts[0], parts[1], 0, parts[2]);
+    case 4: // degrees + minutes + seconds + hemisphere
+      if (!isCardinalDirection(parts[3])) break;
+      return dms2dd(parts[0], parts[1], parts[2], parts[3]);
+    default:
+      break;
+  }
+  return null;
 }
 
 /**
