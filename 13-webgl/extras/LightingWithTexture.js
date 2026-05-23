@@ -527,6 +527,15 @@ const sphereRadius = 0.98;
 const earthRadius = 6371;
 
 /**
+ * <p>Maximum latitude for Mercator projection.</p>
+ * <ul>
+ * <li>tan<sup>-1</sup>(sinh(π)) in degrees</li>
+ * </ul>
+ * @type {Number}
+ */
+const maxLatitude = 85.0511287798066;
+
+/**
  * Current radius of the globe.
  * @type {Number}
  */
@@ -793,7 +802,7 @@ const meridionalParts = (lat) => toDegrees(toMercator(toRadian(lat))) * 60;
  * @see {@link module:polyhedron.spherical2Mercator spherical2Mercator}
  */
 const toMercator = (lat) => {
-  lat = clamp(lat, toRadian(-85.051129), toRadian(85.051129));
+  lat = clamp(lat, toRadian(-maxLatitude), toRadian(maxLatitude));
   return Math.log(Math.tan(Math.PI / 4 + lat / 2));
 };
 
@@ -808,8 +817,8 @@ const toMercator = (lat) => {
  * @see {@link module:polyhedron.spherical2Mercator spherical2Mercator}
  */
 const diffMercator = (lat1, lat2) => {
-  lat1 = clamp(toRadian(lat1), toRadian(-85.051129), toRadian(85.051129));
-  lat2 = clamp(toRadian(lat2), toRadian(-85.051129), toRadian(85.051129));
+  lat1 = clamp(toRadian(lat1), toRadian(-maxLatitude), toRadian(maxLatitude));
+  lat2 = clamp(toRadian(lat2), toRadian(-maxLatitude), toRadian(maxLatitude));
   return Math.log(
     Math.tan(Math.PI / 4 + lat2 / 2) / Math.tan(Math.PI / 4 + lat1 / 2),
   );
@@ -6029,7 +6038,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
  * A rhumb line is a curve that crosses all meridians at the same angle.
  * <ul>
  *    <li>tg(90°-θ) = cotg(θ) = 1 / tg(θ) = Δλ / Δψ</li>
- *    <li>ℓ<sub>α</sub>: ]0,π[ ⟶ 𝕊<sub>2</sub>
+ *    <li>ℓ<sub>α</sub>: (0,π) ⟶ 𝕊<sub>2</sub>
  *    <li>Z up</li>
  *    <ul>
  *      <li>φ ↦ (r cos(θ<sub>α</sub>(φ)) sin(φ), r sin(θ<sub>α</sub>(φ)) sin(φ), r cos(φ))</li></li>
@@ -6073,7 +6082,7 @@ function longitudeOnRhumbLine(long0, lat0, lat, bearing) {
 function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
   const dlong = loc2.longitude - loc1.longitude;
   const dlat = loc2.latitude - loc1.latitude;
-  const lat1 = loc1.latitude;
+  const lat1 = clamp(loc1.latitude, -maxLatitude, maxLatitude);
   const long1 = loc1.longitude;
   const arr = new Float32Array(3 * n);
   const bearing = bearingAngle(loc1, loc2);
