@@ -6108,10 +6108,10 @@ function longitudeOnRhumbLine(long0, lat0, lat, bearing) {
  * @see {@link https://www.atractor.pt/mat/loxodromica/saber_parametrizacao1-_en.html Parametrization of the loxodrome}
  */
 function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
-  const dlong = loc2.longitude - loc1.longitude;
-  const dlat = loc2.latitude - loc1.latitude;
   const lat1 = clamp(loc1.latitude, -maxLatitude, maxLatitude);
   const long1 = loc1.longitude;
+  const dlong = loc2.longitude - long1;
+  const dlat = loc2.latitude - lat1;
   const arr = new Float32Array(3 * n);
   const bearing = bearingAngle(loc1, loc2);
   const ds = 1 / (n - 1);
