@@ -6157,11 +6157,21 @@ function longitudeOnRhumbLine(long0, lat0, lat, bearing) {
  * <p>Return an array with n points on a loxodrome (rhumb line) from loc1
  * to loc2 on a sphere, by using a {@link longitudeOnRhumbLine parametrization}
  * of the loxodrome.</p>
+ * The loxodrome path is calculated in 3D onto the sphere, and not using the planar chart.
+ * Therefore, the correct curve will be traced even for an equirectanguler cylindrical projection,
+ * as opposed to {@link pointsOnLoxodrome}, which is faster but intended to Mercator projections.
  * @param {gpsCoordinates} loc1 first location with latitude and longitude.
  * @param {gpsCoordinates} loc2 second location with latitude and longitude.
  * @param {Number} [n={@link nsegments}] number of points.
  * @returns {Float32Array} array with cartesian coordinates.
  * @see {@link https://www.atractor.pt/mat/loxodromica/saber_parametrizacao1-_en.html Parametrization of the loxodrome}
+ * @see <figure>
+ *      <a href="../images/Cape_Horn-Kurgan-sphere.png"><img src="../images/Cape_Horn-Kurgan-sphere.png" height="256"></a>
+ *      <a href="../images/Cape_Horn-Kurgan-map.png"><img src="../images/Cape_Horn-Kurgan-map.png" height="256"></a>
+ *      <a href="../images/Cape_Horn-Kurgan-cylinder.png"><img src="../images/Cape_Horn-Kurgan-cylinder.png" height="256"></a>
+ *      <a href="../images/Cape_Horn-Kurgan-cone.png"><img src="../images/Cape_Horn-Kurgan-cone.png" height="256"></a>
+ *      <figcaption style="font-size: 200%">Cape Horn - Kurgan (17150 km, 44.51°)</figcaption>
+ *      </figure>
  */
 function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
   const lat1 = clamp(loc1.latitude, -maxLatitude, maxLatitude);
