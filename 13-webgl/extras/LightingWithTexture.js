@@ -3331,7 +3331,7 @@ function equiLox(ctx, loc1, loc2) {
     const q1 = q(lat1);
     const q2 = q(lat2);
     const dq = q2 - q1;
-    const a = dlong / dq;
+    const a = isZero(dq) ? 1 : dlong / dq;
     const beta = -(long2 * q1 - long1 * q2) / dq;
 
     // relative to the positive y-axis
@@ -3342,6 +3342,8 @@ function equiLox(ctx, loc1, loc2) {
     ctx.moveTo(...toScreen(long1, lat1)); // loxodrome
 
     if (isZero(dlong)) {
+      ctx.lineTo(...toScreen(long2, lat2));
+    } else if (isZero(dq)) {
       ctx.lineTo(...toScreen(long2, lat2));
     } else {
       for (let i = 1; i < n; ++i) {
@@ -6173,13 +6175,29 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
   if (isZero(dlat)) {
     for (let i = 0, j = 0; i < n; ++i, j += 3) {
       const longi = long1 + i * ds * dlong;
-      vec3.set(
-        p,
-        ...spherical2Cartesian(
-          ...UV2Spherical(gcs2UV({ longitude: longi, latitude: lat1 })),
-          globeRadius,
-        ),
-      );
+      if (isCylinder()) {
+        vec3.set(
+          p,
+          ...cylindrical2Cartesian(
+            ...UV2Cylindrical(gcs2UV({ longitude: longi, latitude: lat1 })),
+          ),
+        );
+      } else if (isCone()) {
+        vec3.set(
+          p,
+          ...conical2Cartesian(
+            ...UV2Conical(gcs2UV({ longitude: longi, latitude: lat1 })),
+          ),
+        );
+      } else {
+        vec3.set(
+          p,
+          ...spherical2Cartesian(
+            ...UV2Spherical(gcs2UV({ longitude: longi, latitude: lat1 })),
+            globeRadius,
+          ),
+        );
+      }
       arr.set(p, j);
     }
   } else {
