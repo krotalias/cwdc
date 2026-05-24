@@ -3233,7 +3233,9 @@ function rotateModelTowardsCamera(
 
 /**
  * <p>Draw the rhumb line (loxodrome) or the meridian and parallel lines
- * between two {@link GCS} locations on the texture image.</p>
+ * between two {@link GCS} locations on the texture image
+ * for the Mercator projection.</p>
+ * The loxodrome image is a straight line in the projection plane.
  * @param {gpsCoordinates} loc1 previous location.
  * @param {gpsCoordinates} loc2 current location.
  * @returns {Number|null} bearing angle in degrees ∈ [000°, 360°)
@@ -3277,6 +3279,86 @@ function rhumbLine(ctx, loc1, loc2) {
     ctx.lineTo(x, h);
     ctx.moveTo(0, y); // parallel
     ctx.lineTo(w, y);
+    ctx.strokeStyle = colorTable.mer;
+  }
+  ctx.stroke();
+  ctx.closePath();
+
+  return bearingAngle;
+}
+
+/**
+ * <p>Draw the rhumb line (loxodrome) or the meridian and parallel lines
+ * between two {@link GCS} locations on the texture image
+ * for the equirectangular cylindrical projection.</p>
+ * The loxodrome image will NOT be a straight line in the plane of the
+ * equidistant cylindrical projection, but some other curve.
+ * @param {gpsCoordinates} loc1 previous location.
+ * @param {gpsCoordinates} loc2 current location.
+ * @returns {Number|null} bearing angle in degrees ∈ [000°, 360°)
+ * or null, if {@link loxodrome} is false.
+ * @see {@link https://www.mdpi.com/2220-9964/14/4/137 A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections}
+ */
+function equiLox(ctx, loc1, loc2) {
+  const lat1 = toRadian(loc1.latitude, -maxLatitude, maxLatitude);
+  const long1 = toRadian(loc1.longitude);
+  let lat2 = toRadian(loc2.latitude, -maxLatitude, maxLatitude);
+  let long2 = toRadian(loc2.longitude);
+
+  const w = element.canvasimg.width;
+  const h = element.canvasimg.height;
+
+  /**
+   * Map to screen coordinates.
+   * @param {Number} long longitude.
+   * @param {Numer} lat latitude.
+   * @returns {Array<Number, Number>} [x,y]
+   */
+  function toScreen(long, lat) {
+    const x = ((long + Math.PI) / (2 * Math.PI)) * w;
+    const y = h - ((lat + Math.PI / 2) / Math.PI) * h;
+    return [x, y];
+  }
+
+  const q = toMercator;
+  const dlat = lat2 - lat1;
+  const dlong = long2 - long1;
+  const n = 20; // number of points to approximate the loxodrome
+  const ds = 1 / (n - 1);
+
+  let bearingAngle = null;
+  ctx.beginPath();
+  if (loxodrome) {
+    const q1 = q(lat1);
+    const q2 = q(lat2);
+    const dq = q2 - q1;
+    const a = dlong / dq;
+    const beta = -(long2 * q1 - long1 * q2) / dq;
+
+    // relative to the positive y-axis
+    bearingAngle = toDegrees(Math.atan2(dlong, dq));
+    if (bearingAngle < 0) bearingAngle += 360;
+
+    ctx.strokeStyle = colorTable.rhumb;
+    ctx.moveTo(...toScreen(long1, lat1)); // loxodrome
+
+    if (isZero(dlong)) {
+      ctx.lineTo(...toScreen(long2, lat2));
+    } else {
+      for (let i = 1; i < n; ++i) {
+        const xi = long1 + i * ds * dlong;
+        const yi =
+          globeRadius *
+          (2 * Math.atan(Math.exp((xi / globeRadius - beta) / a)) -
+            Math.PI / 2);
+        ctx.lineTo(...toScreen(xi, yi));
+      }
+    }
+  } else {
+    ctx.moveTo(...toScreen(long2, -Math.PI / 2)); // meridian
+    ctx.lineTo(...toScreen(long2, Math.PI / 2));
+    ctx.moveTo(...toScreen(-Math.PI, lat2)); // parallel
+    ctx.lineTo(...toScreen(Math.PI, lat2));
     ctx.strokeStyle = colorTable.mer;
   }
   ctx.stroke();
@@ -3511,19 +3593,20 @@ function drawLinesOnImage() {
     const prev = { ...previousLocation };
     const dlong = location.longitude - previousLocation.longitude;
 
+    const projection = mercator ? rhumbLine : equiLox;
     // antimeridian crossing testing - break line in two segments
     if (dlong > 180 && loxodrome) {
       location.longitude -= 360;
-      rhumbLine(ctx, previousLocation, location); // let clipping handle it
+      projection(ctx, previousLocation, location); // let clipping handle it
       prev.longitude += 360;
-      bearingAngle = rhumbLine(ctx, prev, gpsCoordinates[currentLocation]);
+      bearingAngle = projection(ctx, prev, gpsCoordinates[currentLocation]);
     } else if (dlong < -180 && loxodrome) {
       location.longitude += 360;
-      rhumbLine(ctx, previousLocation, location); // let clipping handle it
+      projection(ctx, previousLocation, location); // let clipping handle it
       prev.longitude -= 360;
-      bearingAngle = rhumbLine(ctx, prev, gpsCoordinates[currentLocation]);
+      bearingAngle = projection(ctx, prev, gpsCoordinates[currentLocation]);
     } else {
-      bearingAngle = rhumbLine(ctx, previousLocation, location);
+      bearingAngle = projection(ctx, previousLocation, location);
     }
 
     const remarkable = gpsCoordinates[currentLocation].remarkable;
