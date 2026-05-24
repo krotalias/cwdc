@@ -3359,8 +3359,6 @@ function equiLox(ctx, loc1, loc2) {
     const q1 = q(lat1);
     const q2 = q(lat2);
     const dq = q2 - q1;
-    const a = isZero(dq) ? 1 : dlong / dq;
-    const beta = -(long2 * q1 - long1 * q2) / dq;
 
     // relative to the positive y-axis
     bearingAngle = toDegrees(Math.atan2(dlong, dq));
@@ -3374,6 +3372,8 @@ function equiLox(ctx, loc1, loc2) {
     } else if (isZero(dq)) {
       ctx.lineTo(...toScreen(long2, lat2));
     } else {
+      const a = dlong / dq;
+      const beta = -(long2 * q1 - long1 * q2) / dq;
       for (let i = 1; i &lt; n; ++i) {
         const xi = long1 + i * ds * dlong;
         const yi =
