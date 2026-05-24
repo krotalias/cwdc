@@ -3321,7 +3321,6 @@ function equiLox(ctx, loc1, loc2) {
   }
 
   const q = toMercator;
-  const dlat = lat2 - lat1;
   const dlong = long2 - long1;
   const n = 20; // number of points to approximate the loxodrome
   const ds = 1 / (n - 1);
@@ -6060,7 +6059,7 @@ function isPowerOf2(value) {
  *      </figure>
  */
 function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
-  if (!mercator && isSphere()) {
+  if (!mercator) {
     return pointsOnLoxodrome2(loc1, loc2);
   }
   const dlong = loc2.longitude - loc1.longitude;
@@ -6170,7 +6169,7 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
   const arr = new Float32Array(3 * n);
   const bearing = bearingAngle(loc1, loc2);
   const ds = 1 / (n - 1);
-  const p = vec3.create();
+  let p = vec3.create();
   if (isZero(dlat)) {
     for (let i = 0, j = 0; i < n; ++i, j += 3) {
       const longi = long1 + i * ds * dlong;
@@ -6187,7 +6186,25 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
     for (let i = 0, j = 0; i < n; ++i, j += 3) {
       const lati = lat1 + i * ds * dlat;
       const [long, lat] = longitudeOnRhumbLine(-long1, lat1, lati, bearing);
-      vec3.set(p, ...spherical2Cartesian(-long, -lat, globeRadius));
+      if (isCylinder()) {
+        const { r, height } = getCylinderParameters(false);
+        p = cylindrical2Cartesian(
+          r * dr,
+          -long - Math.PI,
+          (lat / Math.PI - 0.5) * height,
+        );
+      } else if (isCone()) {
+        const height = 2;
+        const r = 1;
+        p = conical2Cartesian(
+          r,
+          height,
+          -long - Math.PI,
+          (lat / Math.PI - 0.5) * height,
+        );
+      } else {
+        vec3.set(p, ...spherical2Cartesian(-long, -lat, globeRadius));
+      }
       arr.set(p, j);
     }
   }
