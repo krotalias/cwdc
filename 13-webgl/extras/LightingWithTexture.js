@@ -817,8 +817,8 @@ const toMercator = (lat) => {
  * @see {@link module:polyhedron.spherical2Mercator spherical2Mercator}
  */
 const diffMercator = (lat1, lat2) => {
-  lat1 = clamp(toRadian(lat1), toRadian(-maxLatitude), toRadian(maxLatitude));
-  lat2 = clamp(toRadian(lat2), toRadian(-maxLatitude), toRadian(maxLatitude));
+  lat1 = toRadian(clamp(lat1, -maxLatitude, maxLatitude));
+  lat2 = toRadian(clamp(lat2, -maxLatitude, maxLatitude));
   return Math.log(
     Math.tan(Math.PI / 4 + lat2 / 2) / Math.tan(Math.PI / 4 + lat1 / 2),
   );
@@ -3272,15 +3272,16 @@ function rhumbLine(ctx, loc1, loc2) {
   let bearingAngle = null;
   ctx.beginPath();
   if (loxodrome) {
+    // relative to the positive y-axis
+    bearingAngle = -toDegrees(Math.atan2(dx, dy));
+    if (bearingAngle < 0) bearingAngle += 360;
+
     if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
-      return null; // same point
+      return bearingAngle; // same point
     }
     ctx.moveTo(px, py); // loxodrome
     ctx.lineTo(x, y);
     ctx.strokeStyle = colorTable.rhumb;
-    // relative to the positive y-axis
-    bearingAngle = -toDegrees(Math.atan2(dx, dy));
-    if (bearingAngle < 0) bearingAngle += 360;
   } else {
     ctx.moveTo(x, 0); // meridian
     ctx.lineTo(x, h);
@@ -3302,24 +3303,27 @@ function rhumbLine(ctx, loc1, loc2) {
  * equidistant cylindrical projection, but some other curve.
  * @param {gpsCoordinates} loc1 previous location.
  * @param {gpsCoordinates} loc2 current location.
+ * @param {Number} [n=20] number of points to approximate the loxodrome.
  * @returns {Number|null} bearing angle in degrees ∈ [000°, 360°)
  * or null, if {@link loxodrome} is false.
  * @see {@link https://www.mdpi.com/2220-9964/14/4/137 A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections}
  */
-function equiLox(ctx, loc1, loc2) {
-  const lat1 = toRadian(loc1.latitude, -maxLatitude, maxLatitude);
+function equiLox(ctx, loc1, loc2, n = 20) {
+  const lat1 = toRadian(loc1.latitude);
   const long1 = toRadian(loc1.longitude);
-  let lat2 = toRadian(loc2.latitude, -maxLatitude, maxLatitude);
+  let lat2 = toRadian(loc2.latitude);
   let long2 = toRadian(loc2.longitude);
 
   const w = element.canvasimg.width;
   const h = element.canvasimg.height;
 
   /**
-   * Map to screen coordinates.
-   * @param {Number} long longitude.
-   * @param {Numer} lat latitude.
-   * @returns {Array<Number, Number>} [x,y]
+   * Map a pair of (longitude, latitude) coordinates to screen coordinates
+   * in the range [0,{@link element canvasimg.width}) x [0,{@link element canvasimg.height}).
+   * @param {Number} long longitude in radians.
+   * @param {Numer} lat latitude in radians.
+   * @returns {Array<Number, Number>} [x,y] in pixels.
+   * @global
    */
   function toScreen(long, lat) {
     const x = ((long + Math.PI) / (2 * Math.PI)) * w;
@@ -3329,7 +3333,6 @@ function equiLox(ctx, loc1, loc2) {
 
   const q = toMercator;
   const dlong = long2 - long1;
-  const n = 20; // number of points to approximate the loxodrome
   const ds = 1 / (n - 1);
 
   let bearingAngle = null;
