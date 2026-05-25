@@ -1119,8 +1119,7 @@ function UV2Conical(uv, merc = mercator) {
   if (merc) {
     uv.t = spherical2Mercator(uv.s, uv.t).y;
   }
-  const r = 1;
-  const height = 2;
+  const { r, height } = getConeParameters();
   const y = height * (uv.t - 0.5);
   const phi = uv.s * 2 * Math.PI - Math.PI;
   return [r, height, phi, y];
@@ -2396,7 +2395,7 @@ function nextLocation(inc, initialLocation, filter = "") {
 }
 
 /**
- * <p>Get cylinder parameters for plotting the current location on the globe.</p>
+ * <p>Get cylinder parameters for plotting the current location on the cylinder.</p>
  * @param {Boolean} [merc=mercator] whether to use Mercator projection.
  * @returns {Object<r:Number, height:Number>} radius and height of the cylinder.
  */
@@ -2405,6 +2404,14 @@ function getCylinderParameters(merc = mercator) {
   const length = 2 * Math.PI * r;
   const height = merc ? length : length / 2;
   return { r, height };
+}
+
+/**
+ * <p>Get cone parameters for plotting the current location on the cone.</p>
+ * @returns {Object<r:Number, height:Number>} radius and height of the cone.
+ */
+function getConeParameters() {
+  return { r: 1, height: 2 };
 }
 
 /**
@@ -2792,7 +2799,7 @@ const handleKeyPress = ((event) => {
       case "C":
         gscale = mscale = 0.8;
         element.models.value = "1";
-        const [rd, ht] = UV2Conical({ s: 0, t: 0 }, mercator);
+        const { r: rd, height: ht } = getConeParameters();
         theModel = createModel({
           shape: selector.hws
             ? uvCone(rd, ht, 30, 5, false)
@@ -4140,7 +4147,7 @@ function pixelRayIntersection(x, y) {
     const { r, height } = getCylinderParameters(mercator);
     return lineCylinderIntersection(o, p, [0, 0, 0], r, height);
   } else if (isCone()) {
-    const [r, h] = UV2Conical({ s: 0, t: 0 }, mercator);
+    const { r, height: h } = getConeParameters();
     return lineConeIntersection(o, p, [0, 0, 0], r, h);
   } else return lineSphereIntersection(o, p, [0, 0, 0], globeRadius);
 }
@@ -4959,7 +4966,7 @@ function addListeners() {
           uv.t = mercator2Spherical(uv.s, uv.t).t;
         }
       } else if (isCone()) {
-        const height = 2;
+        const { height } = getConeParameters();
         uv = cartesian2Conical(intersection, height);
         if (mercator) {
           // mercator projection
@@ -5037,7 +5044,7 @@ function addListeners() {
           uv.t = mercator2Spherical(uv.s, uv.t).t;
         }
       } else if (isCone()) {
-        const height = 2;
+        const { height } = getConeParameters();
         uv = cartesian2Conical(intersection, height);
         if (mercator) {
           // mercator projection
@@ -6147,8 +6154,7 @@ function longitudeOnRhumbLine(long0, lat0, lat, bearing) {
   bearing = toRadian(bearing);
   const long =
     long0 +
-    Math.tan(bearing) *
-      (Math.log(1 / Math.tan(lat / 2)) - Math.log(1 / Math.tan(lat0 / 2)));
+    Math.tan(bearing) * Math.log(Math.tan(lat0 / 2) / Math.tan(lat / 2));
 
   return [long, lat];
 }
@@ -6222,8 +6228,7 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
           (lat / Math.PI - 0.5) * height,
         );
       } else if (isCone()) {
-        const height = 2;
-        const r = 1;
+        const { r, height } = getConeParameters();
         p = conical2Cartesian(
           r,
           height,
