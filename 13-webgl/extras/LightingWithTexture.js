@@ -3259,10 +3259,12 @@ function rotateModelTowardsCamera(
 }
 
 /**
- * <p>Draw the rhumb line (loxodrome) or the meridian and parallel lines
+ * <p>Draw the rhumb line ({@link loxodrome} is true),
+ * or the meridian and parallel lines otherwise,
  * between two {@link GCS} locations on the texture image
  * for the Mercator projection.</p>
  * The loxodrome image is a straight line in the projection plane.
+ * <p><b>Note</b>: for an equirectangular cylindrical projection, please use {@link equiLox}.
  * @param {gpsCoordinates} loc1 previous location.
  * @param {gpsCoordinates} loc2 current location.
  * @returns {Number|null} bearing angle in degrees ∈ [000°, 360°)
@@ -3316,17 +3318,23 @@ function rhumbLine(ctx, loc1, loc2) {
 }
 
 /**
- * <p>Draw the rhumb line (loxodrome) or the meridian and parallel lines
+ * <p>Draw the rhumb line ({@link loxodrome} is true),
+ * or the meridian and parallel lines otherwise,
  * between two {@link GCS} locations on the texture image
  * for the equirectangular cylindrical projection.</p>
- * The loxodrome image will NOT be a straight line in the plane of the
- * equidistant cylindrical projection, but some other curve.
+ * The loxodrome image <u>will NOT be a straight line</u> in the plane of the
+ * equidistant cylindrical projection, but another curve.
+ * <p><b>Note</b>: for a Mercator projection, please use {@link rhumbLine}.
  * @param {gpsCoordinates} loc1 previous location.
  * @param {gpsCoordinates} loc2 current location.
  * @param {Number} [n=20] number of points to approximate the loxodrome.
  * @returns {Number|null} bearing angle in degrees ∈ [000°, 360°)
  * or null, if {@link loxodrome} is false.
  * @see {@link https://www.mdpi.com/2220-9964/14/4/137 A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections}
+ * @see <figure>
+ *      <a href="../images/sigmoid.png"><img src="../images/sigmoid.png" height="256"></a>
+ *      <figcaption style="font-size: 200%">Loxodrome (magenta) is a <br>sigmoid (S-shaped curve)</figcaption>
+ * </figure>
  */
 function equiLox(ctx, loc1, loc2, n = 20) {
   const lat1 = toRadian(loc1.latitude);
