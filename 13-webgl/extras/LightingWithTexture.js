@@ -796,14 +796,34 @@ function isCardinalDirection(char) {
 const meridionalParts = (lat) => toDegrees(toMercator(toRadian(lat))) * 60;
 
 /**
- * Convert latitude in radians to Mercator latitude.
- * @param {Number} lat latitude in radians.
- * @returns {Number} Mercator latitude coordinate.
+ * <p>Convert latitude in radians to Mercator latitude.</p>
+ * Latitude is {@link clamp clamped} to the range of [-maxLatitude, {@link maxLatitude}]
+ * to avoid singularities at the poles.
+ * <ul>
+ *  <li> φ = lat, -π/2 ≤ φ ≤ π/2</li>
+ *  <li> y = ln [tan (π/4 + φ/2)], -π ≤ y ≤ π</li>
+ * </ul>
+ * @param {Number} lat latitude in radians ∈ [-π/2, π/2].
+ * @returns {Number} Mercator latitude coordinate ∈ [-π, π].
  * @see {@link module:polyhedron.spherical2Mercator spherical2Mercator}
  */
 const toMercator = (lat) => {
   lat = clamp(lat, toRadian(-maxLatitude), toRadian(maxLatitude));
   return Math.log(Math.tan(Math.PI / 4 + lat / 2));
+};
+
+/**
+ * <p>Convert Mercator latitude in radians to spherical latitude.</p>
+ * <ul>
+ *    <li>y = lat, -π ≤ y ≤ π</li>
+ *    <li>φ =	2 atan (exp (y)) - π/2, -85.051129° ≤ φ ≤ 85.051129°</li>
+ * </ul>
+ * @param {Number} y Mercator latitude in radians ∈ [-π, π].
+ * @returns {Number} spherical latitude coordinate ∈ [-π/2, π/2].
+ * @see {@link module:polyhedron.mercator2Spherical mercator2Spherical}
+ */
+const toSpherical = (y) => {
+  return 2 * Math.atan(Math.exp(y)) - Math.PI / 2;
 };
 
 /**
@@ -3358,10 +3378,7 @@ function equiLox(ctx, loc1, loc2, n = 20) {
       const beta = -(long2 * q1 - long1 * q2) / dq;
       for (let i = 1; i < n; ++i) {
         const xi = long1 + i * ds * dlong;
-        const yi =
-          globeRadius *
-          (2 * Math.atan(Math.exp((xi / globeRadius - beta) / a)) -
-            Math.PI / 2);
+        const yi = globeRadius * toSpherical((xi / globeRadius - beta) / a);
         ctx.lineTo(...toScreen(xi, yi));
       }
     }
