@@ -3269,6 +3269,10 @@ function rotateModelTowardsCamera(
  * @param {gpsCoordinates} loc2 current location.
  * @returns {Number|null} bearing angle in degrees ∈ [000°, 360°)
  * or null, if {@link loxodrome} is false.
+ * @see <figure>
+ *      <a href="../images/straight.png"><img src="../images/straight.png" height="256"></a>
+ *      <figcaption style="font-size: 200%">Loxodrome (magenta) is a <br>straight line</figcaption>
+ * </figure>
  */
 function rhumbLine(ctx, loc1, loc2) {
   const uv1 = gcs2UV(loc1);
