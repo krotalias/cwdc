@@ -5266,7 +5266,7 @@
             "Mamluk Sultanate, 1250-1517",
             "Al-Ashraf Khalil, 1260-1293",
             "Sultan of Egypt and Syria, 12 November 1290 - 14 December 1293",
-            "Conquered the last of the Crusader states in Palestine ",
+            "Conquered the last of the Crusader states in Palestine",
             "Final fatal blow to Christian Crusader ambitions in the Holy Land",
             "Siege and fall of Acre, 4 April 1291 - 18 May 1291"
         ],
@@ -5366,12 +5366,24 @@
         "latitude": 41.119444,
         "longitude": 29.075278
     },
-    "Byzantium, (Constantinople)": {
+    "Byzantium (Constantinople, Istanbul)": {
         "country": "Thrace (Turkey)",
         "remarkable": [
             "Byzantium, founded by Greek colonists from Megara, 657 BC",
             "Constantinople, founded by Constantine, 324",
-            "Capital of the Roman, Byzantine, Latin and Ottoman empires, 330-1453"
+            "Established, 11 May 330",
+            "Latin Empire (fourth crusade), 1204-1261",
+            "Andronikos II Palaiologos (Byzantine emperor ), 1259-1332",
+            "Ottomans conquered the city (Mehmed II), 29 May 1453",
+            "Abolishment of the Sultanate, 1 November 1922",
+            "Mehmed VI exiled (persona non grata), 17 November 1922",
+            "Liberation Day of Istanbul, 6 October 1923",
+            "Renamed to İstanbul by the Ottoman Turks, 28 March 1930",
+            "Istanbul pogrom (anti-Greek mob attacks), 6 September 1955",
+            "Expulsions of Istanbulite Greeks, 1964-1965",
+            "UNESCO World Heritage Site, 2 December 1985",
+            "Recep Tayyip Erdoğan (12th President of Turkey), 28 August 2014-present",
+            "Capital of the Roman, Byzantine, Latin and Ottoman empires, 330-1922"
         ],
         "latitude": 41.01224,
         "longitude": 28.976018

@@ -52,7 +52,7 @@
  * ({@link https://en.wikipedia.org/wiki/Conformal_map conformal maps}). The success of the
  * {@link https://en.wikipedia.org/wiki/Mercator_projection Mercator projection}
  * lies in its ability to preserve angles, making it ideal for navigation
- * (directions on the map match the directions on the {@link https://geomag.nrcan.gc.ca/mag_fld/compass-en.php compass}).
+ * ({@link bearingAngle directions} on the map match the directions on the {@link https://geomag.nrcan.gc.ca/mag_fld/compass-en.php compass}).
  * However, it distorts areas,
  * especially near the poles, where landmasses appear {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf much larger}
  * than they are in reality. Meridian and parallel {@link https://en.wikipedia.org/wiki/Scale_(map) scales}
@@ -6223,28 +6223,13 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
   if (isZero(dlat)) {
     for (let i = 0, j = 0; i < n; ++i, j += 3) {
       const longi = long1 + i * ds * dlong;
+      const uv = gcs2UV({ longitude: longi, latitude: lat1 });
       if (isCylinder()) {
-        vec3.set(
-          p,
-          ...cylindrical2Cartesian(
-            ...UV2Cylindrical(gcs2UV({ longitude: longi, latitude: lat1 })),
-          ),
-        );
+        vec3.set(p, ...cylindrical2Cartesian(...UV2Cylindrical(uv)));
       } else if (isCone()) {
-        vec3.set(
-          p,
-          ...conical2Cartesian(
-            ...UV2Conical(gcs2UV({ longitude: longi, latitude: lat1 })),
-          ),
-        );
+        vec3.set(p, ...conical2Cartesian(...UV2Conical(uv)));
       } else {
-        vec3.set(
-          p,
-          ...spherical2Cartesian(
-            ...UV2Spherical(gcs2UV({ longitude: longi, latitude: lat1 })),
-            globeRadius,
-          ),
-        );
+        vec3.set(p, ...spherical2Cartesian(...UV2Spherical(uv), globeRadius));
       }
       arr.set(p, j);
     }
@@ -6256,16 +6241,16 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
         const { r, height } = getCylinderParameters(false);
         p = cylindrical2Cartesian(
           r * dr,
-          -long - Math.PI,
-          (lat / Math.PI - 0.5) * height,
+          -long - Math.PI, // s ∈ [0, 2π)
+          (lat / Math.PI - 0.5) * height, // y ∈ [-height/2, height/2]
         );
       } else if (isCone()) {
         const { r, height } = getConeParameters();
         p = conical2Cartesian(
           r,
           height,
-          -long - Math.PI,
-          (lat / Math.PI - 0.5) * height,
+          -long - Math.PI, // s ∈ [0, 2π)
+          (lat / Math.PI - 0.5) * height, // y ∈ [-height/2, height/2]
         );
       } else {
         vec3.set(p, ...spherical2Cartesian(-long, -lat, globeRadius));
