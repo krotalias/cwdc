@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 461 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 463 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -189,7 +189,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 461 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 463 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -6103,6 +6103,7 @@ function pointsOnLoxodrome(loc1, loc2, n = nsegments) {
   if (!mercator) {
     return pointsOnLoxodrome2(loc1, loc2);
   }
+
   const dlong = loc2.longitude - loc1.longitude;
   const loc22 = { ...loc2 };
   // antimeridian crossing testing
@@ -6259,6 +6260,78 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
     }
   }
   return arr;
+}
+
+/**
+ * Calculate the destination point given the starting point,
+ * bearing angle and distance to travel.
+ * <pre>
+ * Formula:   φ2 = φ1 + δ ⋅ cos θ
+ *            Δψ = ln( tan(π/4 + φ2/2) / tan(π/4 + φ1/2) )
+ *            q = Δφ / Δψ (or cos φ for E-W line)
+ *            Δλ = δ ⋅ sin θ / q
+ *            λ2 = λ1 + Δλ
+ *
+ * where:     δ is angular distance,
+ *            φ is geodetic latitude,
+ *            ψ is isometric latitude,
+ *            λ is longitude,
+ *            Δλ is taking shortest route (<180°),
+ *            ln is natural log, R is the earth’s radius
+ *
+ * Doolittle Raid = loxodromeDestination(
+ *    { latitude: 37.77493, longitude: -122.41942 },
+ *      268.1, 7621,
+ *    ) => { longitude: 152.20187347778597, latitude: 35.502563605922944 } =
+ *         { longitude: 152° 12' 6.75" E, latitude: 35° 30' 9.23" N }
+ *
+ * Dover - Calais = loxodromeDestination(
+ *    { latitude: 51.12556, longitude: 1.33806 },
+ *      116.64, 40.23,
+ *    ) => { longitude: 1.8524241637667456, latitude: 50.96333626077345 } =
+ *         { longitude: 1° 51' 8.71" E, latitude: 50° 57' 48.02" N }
+ * </pre>
+ * @param {gpsCoordinates} loc1 starting location with latitude and longitude.
+ * @param {Number} theta bearing angle.
+ * @param {Number} d distance from loc1 in kilometers.
+ * @param {Number} [R=earthRadius] earth radius.
+ * @return {gpsCoordinates} {longitude, latitude} of the destination point.
+ * @see {@link https://www.movable-type.co.uk/scripts/latlong.html#destPoint Destination point given distance and bearing from start point}
+ */
+function loxodromeDestination(loc1, theta, d, R = earthRadius) {
+  theta = toRadian(theta);
+  const { longitude: long1, latitude: lat1 } = loc1;
+  const rlat1 = toRadian(lat1);
+
+  const angle = d / R; // angular distance in radians
+  const rdlat = angle * Math.cos(theta);
+  let lat2 = lat1 + toDegrees(rdlat);
+
+  const dmp = diffMercator(lat1, lat2);
+
+  // E-W course becomes ill-conditioned with 0/0
+  const q = !isZero(dmp) ? rdlat / dmp : Math.cos(rlat1);
+
+  const rdlong = (angle * Math.sin(theta)) / q; // in radians
+  const long2 = antimeridianCrossing(long1 + toDegrees(rdlong), true);
+
+  // check for some daft bugger going past the pole, normalise latitude if so
+  if (Math.abs(lat2) > 90) lat2 = lat2 > 0 ? 180 - lat2 : -180 - lat2;
+
+  return { longitude: long2, latitude: lat2 };
+}
+
+/**
+ * <p>Calculate the cartesian coordinates of points on a loxodrome
+ * (rhumb line) given a {@link loxodromeDestination starting point},
+ * an angle and distance.</p>
+ * @param {gpsCoordinates} loc1 starting point.
+ * @param {Number} angle bearing angle.
+ * @param {Number} dist distance from loc1 in kilometers.
+ * @returns {Float32Array} array with cartesian coordinates.
+ */
+function pointsOnLoxodrome3(loc1, angle, dist) {
+  return pointsOnLoxodrome(loc1, loxodromeDestination(loc1, angle, dist));
 }
 
 /**

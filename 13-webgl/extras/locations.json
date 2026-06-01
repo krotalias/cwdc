@@ -6491,6 +6491,16 @@
         "latitude": 50.98651,
         "longitude": 2.12807
     },
+    "Calais": {
+        "country": "⚔ France",
+        "remarkable": [
+            "3K British and 800 French troops against the 10th Panzer Division",
+            "Flattened by artillery and precision dive bombing, 22 May 1940 - 27 May 1940",
+            "Only 30 soldiers were evacuated by the Royal Navy, 27 May 1940"
+        ],
+        "latitude": 50.95194,
+        "longitude": 1.85635
+    },
     "Château d'Eu": {
         "country": "Normandy (Brazil-France)",
         "remarkable": [
@@ -6507,6 +6517,17 @@
         ],
         "latitude": 50.049444,
         "longitude": 1.416944
+    },
+    "Dover": {
+        "country": "✝ England (United Kingdom)",
+        "remarkable": [
+            "Siege of Dover Castle, 22 July 1216 - September 1217",
+            "King Henry III, 28 October 1216 - 16 November 1272",
+            "Louis VIII of France invaded England, 21 May 1216",
+            "Defeated at the Battle of Sandwich, 24 August 1217"
+        ],
+        "latitude": 51.118166194,
+        "longitude": 1.324332036
     },
     "Tortosa": {
         "country": "✝ Almoravid Emirate (Spain)",
