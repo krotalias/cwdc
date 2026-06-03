@@ -1027,6 +1027,7 @@ const element = {
   latitude: document.getElementById("lat"),
   longitude: document.getElementById("lon"),
   locinfo: document.querySelector("#locInfo"),
+  search: document.querySelector("#search"),
 };
 
 /**
@@ -4285,9 +4286,24 @@ function saveWebGLCanvasAsPNG(blob, filename) {
 }
 
 /**
- * Return cities ordered by date and the timeline.
+ * <p>Return cities ordered by date and the timeline.</p>
+ * <ul>
+ * <li>location</li>
+ * <ul>
+ * <li>Array(463) [ "Null Island", "Memphis", "Giza", "Luxor", "Thebes", "Aswan", "Troy", "Ionia (İzmir)", "Babylon", "Miletus", … ]</li>
+ * </ul>
+ * <li>timeline</li>
+ * <ul>
+ * <li>Array(463) [ -9007199254740991, -2670, -2613, -2051, -1400, -1279, -1183, -850, -605, -585, … ]</li>
+ * </ul>
+ * <li>timemap</li>
+ * <ul>
+ * <li>Object { "Null Island": -9007199254740991, "Memphis": -2670, "Giza": -2613, "Luxor": -2051, "Thebes": -1400, "Aswan": -1279,
+ *              "Troy": -1183, "Ionia (İzmir)": -850, "Babylon": -605, "Miletus": -585, … }</li>
+ * </ul>
+ * </ul>
  * @param {Array<gpsCoordinates>} [data=cities.byLongitude] array of gpsCoordinates objects.
- * @return {Array<Array>} sort-value - array of location names and timeline.
+ * @return {Array<Array>} sort-value - array of location names, timeline and timemap.
  * @property {Array<String>} 0 sort-value.location - list of names ordered by date.
  * @property {Array<Number>} 1 sort-value.timeline - list of corresponding years.
  * @property {Object<{String,Number}>} 2 sort-value.map - map associating city names to dates.
@@ -4394,7 +4410,7 @@ function sortCitiesByDate(data = cities.byLongitude) {
 /**
  * Return cities ordered by longitude and longitude list.
  * @param {Array<String>} [data=cities.byLongitude] array of gpsCoordinates objects.
- * @return {Array<Array>} sort-value - array of location names and array of longitudes.
+ * @return {Array<Array>} sort-value - array of location names, longitudes and longmap.
  * @property {Array<String>} 0 sort-value.location - list of names ordered by longitude.
  * @property {Array<Number>} 1 sort-value.longitude - list of corresponding longitudes.
  * @property {Object<{String,Number}>} 2 sort-value.map - map associating city names to longitudes.
@@ -5197,7 +5213,7 @@ function addListeners() {
   /**
    * Executed when the country &lt;select&gt; is changed.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
-   * The {@link handleDMS callback} argument sets the callback that will be invoked when
+   * The {@link setColor callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    * The previous location is set only when both a new latitude and new longitude are entered.
    * Otherwise, the longitude input field is drawn in "red", so the user is warned for entering a new longitude.
@@ -5257,7 +5273,7 @@ function addListeners() {
   /**
    * Executed when the country &lt;select&gt; is changed.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
-   * The {@link handleDMS callback} argument sets the callback that will be invoked when
+   * The {@link setColor callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    * The previous location is set only when both a new latitude and new longitude are entered.
    * Otherwise, the latitude input field is drawn in "red", so the user is warned for entering a new latitude.
@@ -5312,6 +5328,36 @@ function addListeners() {
   element.longitude.addEventListener("keydown", (e) => {
     // this stops the event from reaching document or window listeners
     e.stopPropagation();
+  });
+
+  /**
+   * <p>Handle search input for cities.</p>
+   * The effect is similar to clicking
+   * an {@link gcsForUnknownLocation unknown location}.
+   * <p>The keydown event is fired when a key is pressed.</p>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   * @event searchKeydown
+   * @param {KeyboardEvent} event keydown event.
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
+   */
+  element.search.addEventListener("keydown", (event) => {
+    event.stopPropagation();
+    element.search.style.color = "black";
+    if (event.key === "Enter") {
+      const index = cities.current.indexOf(element.search.value);
+      if (index !== -1) {
+        event.target.blur();
+        previousLocation = structuredClone(gpsCoordinates[currentLocation]);
+        previousLocation.country = "previous";
+        cities.previous = currentLocation;
+        currentLocation = cities.current[index];
+        handleKeyPress(createEvent("O"));
+      } else {
+        // city not found, try to find it by name ignoring case and diacritics
+        element.search.style.color = "red";
+      }
+    }
   });
 }
 
