@@ -5345,17 +5345,26 @@ function addListeners() {
     event.stopPropagation();
     element.search.style.color = "black";
     if (event.key === "Enter") {
-      const index = cities.current.indexOf(element.search.value);
-      if (index !== -1) {
+      let result = [];
+      if (element.search.value.length >= 3) {
+        const str = element.search.value.toLowerCase();
+        result = cities.current.filter((c) => c.toLowerCase().includes(str));
+      }
+      if (result.length > 0) {
+        // sort by length to get the closest match first
+        result.sort((a, b) => a.length - b.length);
+        const city = result[0];
         event.target.blur();
         previousLocation = structuredClone(gpsCoordinates[currentLocation]);
         previousLocation.country = "previous";
         cities.previous = currentLocation;
-        currentLocation = cities.current[index];
+        currentLocation = city;
+        element.search.value = city;
         handleKeyPress(createEvent("O"));
       } else {
         // city not found, try to find it by name ignoring case and diacritics
         element.search.style.color = "red";
+        element.search.value = "Not found";
       }
     }
   });
