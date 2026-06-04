@@ -2200,22 +2200,48 @@ function labelForTimeline(dat) {
 }
 
 /**
- * Returns the closest site to the given {@link GCS} position (latitude, longitude).
+ * <p>Returns the closest site to the given {@link GCS} position (latitude, longitude).</p>
+ * An exaustive search is performed by iterating over all the sites
+ * and calculating the distance to each site using the {@link haversine haversine formula}.
+ * The site with the smallest distance is returned as the closest site.
+ * <p>Note that the "Unknown" site is skipped in the search.</p>
+ * <pre>
+ *  let minDist = Infinity;
+ *  for (const site of cities.current) {
+ *    if (site !== "Unknown") {
+ *      // Skip Unknown elements
+ *      const distance = haversine(position, gpsCoordinates[site]).m;
+ *      if (distance < minDist) {
+ *        closest = site;
+ *        minDist = distance;
+ *      }
+ *    }
+ *  }
+ *  return minDist;
+ * </pre>
+ * <p>Alternatively, the closest site could be found using the
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce reduce} method of arrays.</p>
  * @param {GCS} position GCS coordinates.
  * @return {Object<site:String, distance:Number>} closest site name and distance.
+ * @see {@link haversine haversine formula}
+ * @see {@link https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce Array.prototype.reduce()}
  */
 function closestSite(position) {
-  let minimumDistance = 50e6;
   let closest = "";
-  for (const site of cities.current) {
-    if (site === "Unknown") continue;
-    const distance = haversine(position, gpsCoordinates[site]).m;
-    if (distance < minimumDistance) {
-      closest = site;
-      minimumDistance = distance;
+
+  const minDistance = cities.current.reduce((minDist, site) => {
+    if (site !== "Unknown") {
+      // Skip Unknown elements
+      const distance = haversine(position, gpsCoordinates[site]).m;
+      if (distance < minDist) {
+        closest = site;
+        minDist = distance;
+      }
     }
-  }
-  return { site: closest, distance: minimumDistance };
+    return minDist; // minimum distance found so far (accumulator)
+  }, Infinity);
+
+  return { site: closest, distance: minDistance };
 }
 
 /**
