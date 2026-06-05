@@ -3736,7 +3736,7 @@ function drawLinesOnImage() {
  * on the texture image.
  */
 function drawLocationsOnImage() {
-  const canvasimg = document.getElementById("canvasimg");
+  const canvasimg = element.canvasimg;
 
   const ctx = canvasimg.getContext("2d");
   //  ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
@@ -3784,18 +3784,16 @@ function drawLocationsOnImage() {
  * from &lt;select&gt; element in html.
  */
 const selectTexture = (() => {
-  const selectElement = document.getElementById("textures");
-  const chkMerc = document.getElementById("mercator");
   let previousMercator = undefined;
 
   return (getCnt = true) => {
     if (getCnt) {
-      textureCnt = +selectElement.value;
+      textureCnt = +element.textures.value;
     }
     image.src = `./textures/${imageFilename[textureCnt]}`;
     mercator = imageFilename[textureCnt].includes("Mercator");
     isMap = checkForMapTexture(imageFilename[textureCnt]);
-    chkMerc.checked = mercator;
+    element.merc.checked = mercator;
 
     if (previousMercator != mercator) {
       previousMercator = mercator;
@@ -4295,20 +4293,16 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL_static URL: createObjectURL() static method}
  */
 function saveWebGLCanvasAsPNG(blob, filename) {
-  if (canvas) {
-    const dataURL = window.URL.createObjectURL(blob);
+  const dataURL = window.URL.createObjectURL(blob);
 
-    const link = document.createElement("a");
-    link.href = dataURL;
-    link.download = filename;
+  const link = document.createElement("a");
+  link.href = dataURL;
+  link.download = filename;
 
-    document.body.appendChild(link); // Append to body to make it clickable
-    link.click();
-    document.body.removeChild(link); // Clean up the temporary link
-    window.URL.revokeObjectURL(dataURL); // Release the object URL
-  } else {
-    console.error("Canvas element not found.");
-  }
+  document.body.appendChild(link); // Append to body to make it clickable
+  link.click();
+  document.body.removeChild(link); // Clean up the temporary link
+  window.URL.revokeObjectURL(dataURL); // Release the object URL
 }
 
 /**
@@ -5782,8 +5776,7 @@ function drawLocations() {
 function getTextures(optionNames) {
   const initialTexture = optionNames[0];
   optionNames.length = 0;
-  const selectElement = document.getElementById("textures");
-  [...selectElement.options].map((o) => optionNames.push(o.text));
+  [...element.textures.options].map((o) => optionNames.push(o.text));
   optionNames.sort();
   setTextures(optionNames);
   textureCnt = optionNames.indexOf(initialTexture);
@@ -7039,16 +7032,16 @@ function newTexture(image) {
   gl.useProgram(lightingShader);
   const imgSize = document.getElementById("size");
   imgSize.innerHTML = `${imageFilename[textureCnt]}`;
-  const textimg = document.getElementById("textimg");
+  const textimg = element.textimg;
   textimg.src = image.src;
   textimg.onload = () => {
-    const canvasimg = document.getElementById("canvasimg");
+    const canvasimg = element.canvasimg;
     canvasimg.width = textimg.width;
     canvasimg.height = textimg.height;
     displayVersions(ppiIndex);
     if (selector.paused) {
       drawLinesOnImage();
-      if (isMap) drawLocationsOnImage();
+      if (selector.locations && isMap) drawLocationsOnImage();
     }
   };
   document.getElementById("figc").textContent =
