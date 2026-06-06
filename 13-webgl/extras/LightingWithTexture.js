@@ -976,6 +976,8 @@ const getCitiesSelector = () =>
  * @property {HTMLInputElement} tooltip checkbox
  * @property {HTMLInputElement} tip checkbox
  * @property {HTMLInputElement} php checkbox
+ * @property {HTMLInputElement} print button
+ * @property {HTMLInputElement} screenshot checkbox
  * @property {HTMLButtonElement} closest button
  * @property {HTMLButtonElement} animation button
  * @property {HTMLInputElement} byDate checkbox
@@ -1014,6 +1016,7 @@ const element = {
   tip: document.getElementById("tip"),
   php: document.getElementById("php"),
   print: document.getElementById("print"),
+  screenshot: document.getElementById("screenshot"),
   closest: document.getElementById("cls"),
   animation: document.getElementById("anim"),
   byDate: document.getElementById("cities"),
@@ -4620,17 +4623,24 @@ function addListeners() {
   });
 
   /**
-   * @summary Executed when the print element is clicked.
-   * <p>Appends an event listener for events whose type attribute value is click.<br>
+   * @summary Executed when the screenshot element is changed.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * @event clickPrint
-   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   * @event changeScreenshot
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
    */
-  element.print.addEventListener("click", (event) => {
-    handleKeyPress(createEvent("D"));
-    // handleKeyPress(createEvent("P"));
+  // element.print.addEventListener("click", (event) => {
+  // handleKeyPress(createEvent("D"));
+  // handleKeyPress(createEvent("P"));
+  element.screenshot.addEventListener("change", (event) => {
+    if (element.screenshot.value == "Globe") {
+      handleKeyPress(createEvent("D"));
+    } else {
+      handleKeyPress(createEvent("P"));
+    }
+    element.screenshot.value = "Screenshot";
   });
 
   /**
