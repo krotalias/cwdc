@@ -417,7 +417,7 @@
  *      <img src="../images/Amsterdan-HongKong-map.png" height="340" title="rhumb line map">
  *      <img src="../images/Amsterdan-HongKong-cylinder.png" height="340" title="rhumb line cylinder">
  *      <figcaption style="font-size: 200%">
- *      <a href="https://gisgeography.com/great-circle-geodesic-line-shortest-flight-path/">Rhumb Line (red) and Great Circle (cyan) <br> Amsterdan - Hong Kong (9281 km, 109.55°)</a>
+ *      <a href="https://gisgeography.com/great-circle-geodesic-line-shortest-flight-path/">Rhumb Line (magenta) and Great Circle (cyan) <br> Amsterdan - Hong Kong (9281 km, 109.55°)</a>
  *      </figcaption>
  *      </figure>
  * @see  <figure>
@@ -2995,12 +2995,22 @@ const handleKeyPress = ((event) => {
         updateLocation(-1);
         break;
       case "D":
-        canvas.toBlob((blob) => {
+        toBlob(canvas).then((blob) => {
           saveWebGLCanvasAsPNG(
             blob,
             `WebGL_Globe-${canvas.width}x${canvas.height}.png`,
           );
         });
+        return;
+      case "P":
+        const [w, h] = [canvasimg.width * 3, canvasimg.height * 3];
+        const offscreen = new OffscreenCanvas(w, h);
+        chartBackground(offscreen);
+        drawLinesOnImage(offscreen, false);
+        if (selector.locations && isMap) drawLocationsOnImage(offscreen);
+        offscreen
+          .convertToBlob()
+          .then((blob) => saveWebGLCanvasAsPNG(blob, `Chart-${w}x${h}.png`));
         return;
       case "V":
         saveLocations("savedLocations.json");
@@ -3297,6 +3307,7 @@ function rotateModelTowardsCamera(
  * for the Mercator projection.</p>
  * The loxodrome image is a straight line in the projection plane.
  * <p><b>Note</b>: for an equirectangular cylindrical projection, please use {@link equiLox}.
+ * @param {CanvasRenderingContext2D} ctx 2D rendering context of the canvas.
  * @param {gpsCoordinates} loc1 previous location.
  * @param {gpsCoordinates} loc2 current location.
  * @returns {Number|null} bearing angle in degrees ∈ [000°, 360°)
@@ -3309,8 +3320,8 @@ function rotateModelTowardsCamera(
 function rhumbLine(ctx, loc1, loc2) {
   const uv1 = gcs2UV(loc1);
   const uv2 = gcs2UV(loc2);
-  const w = element.canvasimg.width;
-  const h = element.canvasimg.height;
+  const w = ctx.canvas.width;
+  const h = ctx.canvas.height;
   uv1.t = 1 - uv1.t;
   uv2.t = 1 - uv2.t;
   if (mercator) {
@@ -3361,6 +3372,7 @@ function rhumbLine(ctx, loc1, loc2) {
  * The loxodrome image <u>will NOT be a straight line</u> in the plane of the
  * equidistant cylindrical projection, but another curve.
  * <p><b>Note</b>: for a Mercator projection, please use {@link rhumbLine}.
+ * @param {CanvasRenderingContext2D} ctx 2D rendering context of the canvas.
  * @param {gpsCoordinates} loc1 previous location.
  * @param {gpsCoordinates} loc2 current location.
  * @param {Number} [n=20] number of points to approximate the loxodrome.
@@ -3378,8 +3390,8 @@ function equiLox(ctx, loc1, loc2, n = 20) {
   let lat2 = toRadian(loc2.latitude);
   let long2 = toRadian(loc2.longitude);
 
-  const w = element.canvasimg.width;
-  const h = element.canvasimg.height;
+  const w = ctx.canvas.width;
+  const h = ctx.canvas.height;
 
   /**
    * Map a pair of (longitude, latitude) coordinates to screen coordinates
@@ -3645,6 +3657,7 @@ function bearingAngleAndDistanceCyl(gcs1, gcs2, R = earthRadius) {
  * {@link previousLocation previous} to the {@link currentLocation current} location
  * and its {@link https://www.youtube.com/watch?v=sALJGEUe9GA bearing angle}
  * is the angle it makes with the y-axis.
+ * @param {HTMLCanvasElement} [canvasimg=element.canvasimg] the canvas element to draw on.
  * @return {Number|null} bearing angle in degrees ∈ [000°, 360°)
  * or null, if {@link loxodrome} is false.
  * @see <figure>
@@ -3653,12 +3666,13 @@ function bearingAngleAndDistanceCyl(gcs1, gcs2, R = earthRadius) {
  *      <figcaption style="font-size: 200%">Rhumb Line (red) - Great Circle (cyan)<br>Sidney - Nuuk (16301 km, 52.53°)</figcaption>
  *      </figure>
  */
-function drawLinesOnImage() {
+function drawLinesOnImage(canvasimg = element.canvasimg, clear = true) {
   let bearingAngle = null;
 
-  const canvasimg = element.canvasimg;
   const ctx = canvasimg.getContext("2d");
-  ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
+  if (clear) {
+    ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
+  }
 
   if (selector.equator) {
     const location = { ...gpsCoordinates[currentLocation] };
@@ -3734,10 +3748,9 @@ function drawLinesOnImage() {
 /**
  * Draw the {@link gpsCoordinates} locations
  * on the texture image.
+ * @param {HTMLCanvasElement} [canvasimg=element.canvasimg] the canvas element to draw on.
  */
-function drawLocationsOnImage() {
-  const canvasimg = element.canvasimg;
-
+function drawLocationsOnImage(canvasimg = element.canvasimg) {
   const ctx = canvasimg.getContext("2d");
   //  ctx.clearRect(0, 0, canvasimg.width, canvasimg.height);
 
@@ -4283,6 +4296,38 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
 }
 
 /**
+ * <p>Draws the texture image on a canvas as a background.</p>
+ * This allows the texture to be used as a background for the WebGL rendering.
+ * @param {HTMLCanvasElement} [canvas=element.canvasimg] the canvas element to draw on.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation CanvasRenderingContext2D.globalCompositeOperation}
+ */
+function chartBackground(canvas = element.canvasimg) {
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(element.textimg, 0, 0, canvas.width, canvas.height);
+}
+
+/**
+ * <p>Converts the content of a canvas to a Blob object.</p>
+ * This is useful for saving the canvas content as an image file.
+ * @param {HTMLCanvasElement} canvas the canvas element to convert.
+ * @returns {Promise<Blob>} a promise that resolves to a Blob object representing the canvas content.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob HTMLCanvasElement.toBlob()}
+ */
+const toBlob = (canvas, type = "image/png", quality = 0.9) => {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        if (blob) {
+          resolve(blob);
+        } else reject(new Error("Failed to convert canvas to Blob."));
+      },
+      type,
+      quality,
+    );
+  });
+};
+
+/**
  * <p>Saves the current WebGL canvas content as a PNG image.</p>
  * Ensure preserveDrawingBuffer is true if needed for capturing post-render content:
  * <ul>
@@ -4293,7 +4338,7 @@ function updateCurrentMeridian(x, y, setCurrentMeridian = true) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL_static URL: createObjectURL() static method}
  */
 function saveWebGLCanvasAsPNG(blob, filename) {
-  const dataURL = window.URL.createObjectURL(blob);
+  const dataURL = URL.createObjectURL(blob);
 
   const link = document.createElement("a");
   link.href = dataURL;
@@ -4302,7 +4347,7 @@ function saveWebGLCanvasAsPNG(blob, filename) {
   document.body.appendChild(link); // Append to body to make it clickable
   link.click();
   document.body.removeChild(link); // Clean up the temporary link
-  window.URL.revokeObjectURL(dataURL); // Release the object URL
+  URL.revokeObjectURL(dataURL); // Release the object URL
 }
 
 /**
@@ -4585,6 +4630,7 @@ function addListeners() {
    */
   element.print.addEventListener("click", (event) => {
     handleKeyPress(createEvent("D"));
+    // handleKeyPress(createEvent("P"));
   });
 
   /**
@@ -5725,7 +5771,7 @@ function drawParallel() {
 }
 
 /**
- * <p>Draws all location points. </p>
+ * <p>Draws all location points on the globe. </p>
  * Uses the {@link colorShader}.
  */
 function drawLocations() {
