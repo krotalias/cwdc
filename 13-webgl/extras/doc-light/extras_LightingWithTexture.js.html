@@ -3010,7 +3010,7 @@ const handleKeyPress = ((event) => {
         mat4.identity(modelM); // model matrix
         vec3.set(forwardVector, 0, 0, 1); // phong highlight
         mscale = gscale;
-        updateLocation(0);
+        updateLocation(0, true, false);
         break;
       case "J":
         currentLocation = closestSite(gpsCoordinates["Unknown"]).site;
