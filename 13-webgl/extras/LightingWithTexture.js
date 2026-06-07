@@ -352,6 +352,7 @@
  * @since 30/01/2016
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the {@link https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/extras/LightingWithTexture.html fragment shader}
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the {@link https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/extras/LightingWithTexture2.html vertex shader}
+ * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.css">css</a> - CSS file for the interface
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="https://math.rice.edu/~polking/cartography/cart.pdf">Mapping the Sphere<a/>
