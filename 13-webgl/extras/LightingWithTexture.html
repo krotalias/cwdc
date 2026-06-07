@@ -13,6 +13,7 @@ when using mipmap:
 <html lang="en">
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
         <title>Texture with lighting</title>
         <link rel="stylesheet" href="LightingWithTexture.css" />
     </head>
@@ -27,7 +28,7 @@ when using mipmap:
             >
                 Please use a browser that supports "canvas"
             </canvas>
-            <div id="canvastip" role="tooltip"></div>
+            <div id="canvastip" title="remarkable" role="tooltip"></div>
         </div>
 
         <div id="interface">
@@ -35,9 +36,9 @@ when using mipmap:
                 <figure style="margin: 0 15px 10px 0">
                     <div id="size" style="margin-bottom: 3px"></div>
                     <div class="imgcontainer">
-                        <img id="textimg" src="" width="256" />
+                        <img id="textimg" title="Texture" src="" width="256" />
                         <canvas id="canvasimg" width="256"></canvas>
-                        <div id="tooltip" role="tooltip"></div>
+                        <div id="tooltip" title="city" role="tooltip"></div>
                     </div>
                     <figcaption id="figc"></figcaption>
                 </figure>
@@ -75,7 +76,6 @@ when using mipmap:
                     <option value="Globe" title="Globe">Globe</option>
                     <option value="Chart" title="Chart">Chart</option>
                 </select>
-
                 <select
                     name="country"
                     title="country"
@@ -135,8 +135,8 @@ when using mipmap:
             </div>
 
             <div style="width: 40; margin-bottom: 4em">
-                <button id="cls">Closest Site</button>
-                <button id="anim">Animation</button>
+                <button type="button" id="cls">Closest Site</button>
+                <button type="button" id="anim">Animation</button>
             </div>
 
             <div>
@@ -175,7 +175,6 @@ when using mipmap:
                     value="texture"
                 />
                 <label for="texture" style="margin-right: 20px">Texture</label>
-
                 <select
                     name="textures"
                     title="file name"
@@ -446,24 +445,24 @@ when using mipmap:
                     <p>
                         <label><b>Texture:</b></label>
                     </p>
-                    <button onclick="nextTexture()">+</button>
-                    <button onclick="previousTexture()">-</button>
+                    <button type="button" onclick="nextTexture()">+</button>
+                    <button type="button" onclick="previousTexture()">-</button>
                 </div>
 
                 <div class="sideBySide">
                     <p>
                         <label><b>Subdivisions:</b></label>
                     </p>
-                    <button onclick="nextLevel()">+</button>
-                    <button onclick="previousLevel()">-</button>
+                    <button type="button" onclick="nextLevel()">+</button>
+                    <button type="button" onclick="previousLevel()">-</button>
                 </div>
 
                 <div class="sideBySide">
                     <p>
                         <label><b>Zoom:</b></label>
                     </p>
-                    <button onclick="zoomIn()">+</button>
-                    <button onclick="zoomOut()">-</button>
+                    <button type="button" onclick="zoomIn()">+</button>
+                    <button type="button" onclick="zoomOut()">-</button>
                 </div>
             </div>
             <div style="clear: both"></div>
