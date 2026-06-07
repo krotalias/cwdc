@@ -3353,12 +3353,14 @@ function rhumbLine(ctx, loc1, loc2) {
     }
     ctx.moveTo(px, py); // loxodrome
     ctx.lineTo(x, y);
+    ctx.lineWidth = 2;
     ctx.strokeStyle = colorTable.rhumb;
   } else {
     ctx.moveTo(x, 0); // meridian
     ctx.lineTo(x, h);
     ctx.moveTo(0, y); // parallel
     ctx.lineTo(w, y);
+    ctx.lineWidth = 1;
     ctx.strokeStyle = colorTable.mer;
   }
   ctx.stroke();
@@ -3428,6 +3430,7 @@ function equiLox(ctx, loc1, loc2, n = 20) {
     ctx.strokeStyle = colorTable.rhumb;
     ctx.moveTo(...toScreen(long1, lat1)); // loxodrome
 
+    ctx.lineWidth = 3;
     if (isZero(dlong)) {
       ctx.lineTo(...toScreen(long2, lat2));
     } else if (isZero(dq)) {
@@ -3447,6 +3450,7 @@ function equiLox(ctx, loc1, loc2, n = 20) {
     ctx.moveTo(...toScreen(-Math.PI, lat2)); // parallel
     ctx.lineTo(...toScreen(Math.PI, lat2));
     ctx.strokeStyle = colorTable.mer;
+    ctx.lineWidth = 1;
   }
   ctx.stroke();
   ctx.closePath();
@@ -3742,6 +3746,7 @@ function drawLinesOnImage(canvasimg = element.canvasimg, clear = true) {
         }
       }
       ctx.stroke();
+      ctx.lineWidth = 2;
       ctx.closePath();
     }
   }
