@@ -6789,6 +6789,11 @@ function startForReal(image) {
     }
   });
 
+  const root = window.getComputedStyle(document.documentElement);
+  canvas.width = root.getPropertyValue("--canvasw").trim().replace("px", "");
+  canvas.height = root.getPropertyValue("--canvash").trim().replace("px", "");
+  const aspect = canvas.width / canvas.height;
+
   /**
    * <p>The resize event fires when the document view (window) has been resized.</p>
    * The {@link displayVersions callback} argument sets the callback that will be invoked when
@@ -6798,6 +6803,8 @@ function startForReal(image) {
    */
   window.addEventListener("resize", (event) => {
     displayVersions(ppiIndex);
+    // handleWindowResize();
+    // draw();
   });
 
   gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
@@ -6809,6 +6816,31 @@ function startForReal(image) {
       return;
     }
   }
+
+  /**
+   * <p>Fires when the document view (window) has been resized.</p>
+   * Also resizes the canvas and viewport.
+   * @callback handleWindowResize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+   */
+  function handleWindowResize() {
+    let h = window.innerHeight - 20;
+    let w = window.innerWidth - 20;
+    const r = document.querySelector(":root");
+
+    if (h > w) {
+      h = w / aspect; // aspect < 1
+    } else {
+      w = h * aspect; // aspect > 1
+    }
+    canvas.width = w;
+    canvas.height = h;
+    r.style.setProperty("--canvasw", `${w}px`);
+    r.style.setProperty("--canvash", `${h}px`);
+    gl.viewport(0, 0, w, h);
+  }
+
+  handleWindowResize();
 
   // load and compile the shader pair, using utility from the teal book
   let vshaderSource = document.getElementById("vertexColorShader").textContent;

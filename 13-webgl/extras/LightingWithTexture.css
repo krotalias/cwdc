@@ -1,9 +1,25 @@
+:root {
+    --canvasw: 900px;
+    --canvash: 600px;
+    --mleft: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: antiquewhite;
 }
+#theCanvas {
+    width: var(--canvasw);
+    height: var(--canvash);
+    margin-left: var(--mleft);
+}
 #interface {
-    width: 900px;
-    margin-left: 50px;
+    width: var(--canvasw);
+    margin-left: calc(var(--mleft) + 20px);
     margin-bottom: 20px;
 }
 label,
