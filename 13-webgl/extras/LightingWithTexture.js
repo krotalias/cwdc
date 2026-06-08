@@ -6840,7 +6840,17 @@ function startForReal(image) {
     gl.viewport(0, 0, w, h);
   }
 
-  handleWindowResize();
+  /**
+   * Test for mobile devices.
+   * @type {Boolean}
+   */
+  const mobile =
+    Math.min(window.screen.width, window.screen.height) < 768 ||
+    navigator.userAgent.indexOf("Mobi") > -1;
+
+  if (mobile) {
+    handleWindowResize();
+  }
 
   // load and compile the shader pair, using utility from the teal book
   let vshaderSource = document.getElementById("vertexColorShader").textContent;
