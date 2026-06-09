@@ -16,6 +16,7 @@ body {
     width: var(--canvasw);
     height: var(--canvash);
     margin-left: var(--mleft);
+    cursor: crosshair;
 }
 #interface {
     width: var(--canvasw);
@@ -35,7 +36,7 @@ label,
 #legenda {
     float: right;
     width: fit-content;
-    margin-right: 20px;
+    margin: 0 10px 0 0;
     text-align: center;
 }
 .imgcontainer {
@@ -103,9 +104,6 @@ label {
     margin-right: 0;
     padding: 0;
 }
-#theCanvas {
-    cursor: crosshair;
-}
 #tooltip,
 #canvastip {
     position: absolute;
@@ -147,4 +145,11 @@ option {
     color: darkblue;
     width: fit-content;
     text-align: center;
+}
+#textures {
+    font-size: 120%;
+    background-color: wheat;
+    color: black;
+    border: solid 5px lightsteelblue;
+    border-radius: 10%;
 }
