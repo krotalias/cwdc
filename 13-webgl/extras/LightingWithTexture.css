@@ -14,9 +14,11 @@
 
 body {
     background-color: antiquewhite;
-    width: 100%;
-    max-width: var(--canvasw);
     overflow-x: hidden;
+}
+.container {
+    width: var(--canvasw);
+    margin: 0 auto;
 }
 #theCanvas {
     width: var(--canvasw);
