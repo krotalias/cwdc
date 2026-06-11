@@ -6804,29 +6804,28 @@ function startForReal(image) {
 
   /**
    * <p>The resize event fires when the document view (window) has been resized.</p>
-   * The {@link displayVersions callback} argument sets the callback
+   * <p>The {@link displayVersions callback} argument sets the callback
    * that will be invoked when the event is dispatched.</p>
    * @event resize
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", (event) => {
     displayVersions(ppiIndex);
-    //handleWindowResize();
-    //draw();
+    // handleWindowResize;
   });
 
   /**
    * <p>Each time the orientation of the screen changes,
    * the change event of the ScreenOrientation interface is triggered.</p>
-   * The {@link handleWindowResize callback} argument sets the callback
+   * <p>The {@link handleWindowResize callback} argument sets the callback
    * that will be invoked when the event is dispatched.</p>
+   * In landscape mode the browser toolbar and tabs reduce the viewport considerably.
    * @event orientationChange
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Managing_screen_orientation Managing screen orientation}
    */
   screen.orientation.addEventListener("change", (event) => {
     displayVersions(ppiIndex);
-    handleWindowResize();
-    draw();
+    // handleWindowResize;
   });
 
   gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
@@ -6855,15 +6854,13 @@ function startForReal(image) {
     } else {
       w = h * aspect; // aspect > 1
     }
+
     canvas.width = w;
     canvas.height = h;
     r.style.setProperty("--canvasw", `${w}px`);
     r.style.setProperty("--canvash", `${h}px`);
     gl.viewport(0, 0, w, h);
-  }
-
-  if (mobile) {
-    handleWindowResize();
+    draw();
   }
 
   // load and compile the shader pair, using utility from the teal book
@@ -6986,8 +6983,11 @@ function startForReal(image) {
 
   labelForLocation(currentLocation, unit);
   selectModel();
-  newTexture(image);
   addListeners();
+  if (mobile) {
+    handleWindowResize();
+  }
+  newTexture(image);
 
   cities.current = getCitiesSelector();
 
