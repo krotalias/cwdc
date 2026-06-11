@@ -6491,6 +6491,19 @@
         "latitude": 50.98651,
         "longitude": 2.12807
     },
+    "Barcelona": {
+        "country": "Catalonia (Spain)",
+        "remarkable": [
+            "Founded as Barcino, 15 BC",
+            "University of Barcelona, 1450",
+            "Antoni Gaudí i Cornet (Catalan architect and designer), 1852-1926",
+            "Basílica i Temple Expiatori de la Sagrada Família, 1883",
+            "Barcelona Universal Exposition, 8 April 1888",
+            "Futbol Club Barcelona, 29 November 1899"
+        ],
+        "latitude": 41.38879,
+        "longitude": 2.15899
+    },
     "Calais": {
         "country": "⚔ France",
         "remarkable": [

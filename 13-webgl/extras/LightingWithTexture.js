@@ -6789,10 +6789,10 @@ function startForReal(image) {
     }
   });
 
-  const root = window.getComputedStyle(document.documentElement);
-  canvas.width = root.getPropertyValue("--canvasw").trim().replace("px", "");
-  canvas.height = root.getPropertyValue("--canvash").trim().replace("px", "");
-  const aspect = canvas.width / canvas.height;
+  // get canvas dimensions
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+  const aspect = canvas.clientWidth / canvas.clientHeight;
 
   /**
    * <p>The resize event fires when the document view (window) has been resized.</p>
