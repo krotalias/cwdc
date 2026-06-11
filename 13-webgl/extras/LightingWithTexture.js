@@ -6804,17 +6804,29 @@ function startForReal(image) {
 
   /**
    * <p>The resize event fires when the document view (window) has been resized.</p>
-   * The {@link displayVersions callback} argument sets the callback that will be invoked when
-   * the event is dispatched.</p>
+   * The {@link displayVersions callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
    * @event resize
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", (event) => {
     displayVersions(ppiIndex);
-    if (mobile) {
-      handleWindowResize();
-      draw();
-    }
+    //handleWindowResize();
+    //draw();
+  });
+
+  /**
+   * <p>Each time the orientation of the screen changes,
+   * the change event of the ScreenOrientation interface is triggered.</p>
+   * The {@link handleWindowResize callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @event orientationChange
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Managing_screen_orientation Managing screen orientation}
+   */
+  screen.orientation.addEventListener("change", (event) => {
+    displayVersions(ppiIndex);
+    handleWindowResize();
+    draw();
   });
 
   gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
