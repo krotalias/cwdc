@@ -6789,6 +6789,14 @@ function startForReal(image) {
     }
   });
 
+  /**
+   * Test for mobile devices.
+   * @type {Boolean}
+   */
+  const mobile =
+    Math.min(window.screen.width, window.screen.height) < 768 ||
+    navigator.userAgent.indexOf("Mobi") > -1;
+
   // get canvas dimensions
   canvas.width = canvas.clientWidth;
   canvas.height = canvas.clientHeight;
@@ -6803,8 +6811,10 @@ function startForReal(image) {
    */
   window.addEventListener("resize", (event) => {
     displayVersions(ppiIndex);
-    // handleWindowResize();
-    // draw();
+    if (mobile) {
+      handleWindowResize();
+      draw();
+    }
   });
 
   gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
@@ -6839,14 +6849,6 @@ function startForReal(image) {
     r.style.setProperty("--canvash", `${h}px`);
     gl.viewport(0, 0, w, h);
   }
-
-  /**
-   * Test for mobile devices.
-   * @type {Boolean}
-   */
-  const mobile =
-    Math.min(window.screen.width, window.screen.height) < 768 ||
-    navigator.userAgent.indexOf("Mobi") > -1;
 
   if (mobile) {
     handleWindowResize();
