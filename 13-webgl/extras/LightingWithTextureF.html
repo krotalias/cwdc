@@ -1,0 +1,1005 @@
+<!--
+Lighting combined with texture mapping.
+See the fragment shader code "modulate" (1), (2), (3)
+for some options for using the sampled texture value.
+
+I had to use glsl 3.0, so I can call fwidth to remove the artifact created
+when using mipmap:
+    https://forum.unity.com/threads/what-is-this-mipmap-artifact.657052/
+    https://vcg.isti.cnr.it/Publications/2012/Tar12/jgt_tarini.pdf
+-->
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="author" content="Paulo Roma" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Texture with lighting</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="LightingWithTextureFlex.css"
+        />
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="imgcontainer">
+                <canvas id="theCanvas">
+                    Please use a browser that supports "canvas"
+                </canvas>
+                <div id="canvastip" title="remarkable" role="tooltip"></div>
+            </div>
+
+            <div class="interface">
+                <div class="flex-container">
+                    <div class="btns">
+                        <div>
+                            <label id="object" style="margin-right: 0"
+                                ><b>Object:</b></label
+                            >
+                        </div>
+
+                        <div>
+                            <select name="models" title="geometry" id="models">
+                                <option value="0">Capsule</option>
+                                <option value="1">Cone</option>
+                                <option value="2">Cube</option>
+                                <option value="3">Cylinder</option>
+                                <option value="4">Ring</option>
+                                <option value="5" selected>Sphere</option>
+                                <option value="6">Teapot</option>
+                                <option value="7">Torus</option>
+                                <option value="8">Torus Knot</option>
+                                <option value="9">Dodecahedron</option>
+                                <option value="10">Icosahedron</option>
+                                <option value="11">Octahedron</option>
+                                <option value="12">Tetrahedron</option>
+                                <option value="13">Subd Sphere</option>
+                            </select>
+
+                            <div>
+                                <div>
+                                    <select
+                                        name="screenshot"
+                                        title="screenshot"
+                                        id="screenshot"
+                                    >
+                                        <option
+                                            value="Screenshot"
+                                            title="Screenshot"
+                                            selected
+                                        >
+                                            Screenshot
+                                        </option>
+                                        <option value="Globe" title="Globe">
+                                            Globe
+                                        </option>
+                                        <option value="Chart" title="Chart">
+                                            Chart
+                                        </option>
+                                    </select>
+                                    <select
+                                        name="country"
+                                        title="country"
+                                        id="country"
+                                    >
+                                        <option
+                                            value=""
+                                            title="All Countries"
+                                            selected
+                                        >
+                                            All
+                                        </option>
+                                        <option value="Angola" title="Angola">
+                                            AO
+                                        </option>
+                                        <option
+                                            value="Antarctica"
+                                            title="Antarctica"
+                                        >
+                                            AQ
+                                        </option>
+                                        <option
+                                            value="Australia"
+                                            title="Australia"
+                                        >
+                                            AU
+                                        </option>
+                                        <option value="Bahamas" title="Bahamas">
+                                            BS
+                                        </option>
+                                        <option value="Belgium" title="Belgium">
+                                            BE
+                                        </option>
+                                        <option value="Brazil" title="Brazil">
+                                            BR
+                                        </option>
+                                        <option value="Canada" title="Canada">
+                                            CA
+                                        </option>
+                                        <option value="Chile" title="Chile">
+                                            CL
+                                        </option>
+                                        <option value="China" title="China">
+                                            CN
+                                        </option>
+                                        <option value="Cuba" title="Cuba">
+                                            CU
+                                        </option>
+                                        <option value="Denmark" title="Denmark">
+                                            DK
+                                        </option>
+                                        <option value="Egypt" title="Egypt">
+                                            EG
+                                        </option>
+                                        <option value="France" title="France">
+                                            FR
+                                        </option>
+                                        <option value="Germany" title="Germany">
+                                            DE
+                                        </option>
+                                        <option value="Greece" title="Greece">
+                                            GR
+                                        </option>
+                                        <option value="India" title="India">
+                                            IN
+                                        </option>
+                                        <option value="Iran" title="Iran">
+                                            IR
+                                        </option>
+                                        <option value="Iraq" title="Iraq">
+                                            IQ
+                                        </option>
+                                        <option value="Israel" title="Israel">
+                                            IL
+                                        </option>
+                                        <option value="Italy" title="Italy">
+                                            IT
+                                        </option>
+                                        <option value="Lebanon" title="Lebanon">
+                                            LB
+                                        </option>
+                                        <option
+                                            value="Netherlands"
+                                            title="Netherlands"
+                                        >
+                                            NL
+                                        </option>
+                                        <option value="Japan" title="Japan">
+                                            JP
+                                        </option>
+                                        <option
+                                            value="Portugal"
+                                            title="Portugal"
+                                        >
+                                            PT
+                                        </option>
+                                        <option value="Russia" title="Russia">
+                                            RU
+                                        </option>
+                                        <option
+                                            value="Saudi Arabia"
+                                            title="Saudi Arabia"
+                                        >
+                                            SA
+                                        </option>
+                                        <option value="Spain" title="Spain">
+                                            ES
+                                        </option>
+                                        <option value="Syria" title="Syria">
+                                            SY
+                                        </option>
+                                        <option value="Turkey" title="Turkey">
+                                            TR
+                                        </option>
+                                        <option
+                                            value="United Kingdom"
+                                            title="United Kingdom"
+                                        >
+                                            GB
+                                        </option>
+                                        <option
+                                            value="United States"
+                                            title="United States"
+                                        >
+                                            US
+                                        </option>
+                                        <option value="⚔" title="World War II">
+                                            ⚔
+                                        </option>
+                                        <option value="☠" title="Caribbean">
+                                            ☠
+                                        </option>
+                                        <option value="✝" title="Crusades">
+                                            ✝
+                                        </option>
+                                        <option
+                                            value="☢"
+                                            title="Radiation Sources"
+                                        >
+                                            ☢
+                                        </option>
+                                        <option
+                                            value="🧪"
+                                            title="National Laboratories"
+                                        >
+                                            🧪
+                                        </option>
+                                        <option
+                                            value="⛵"
+                                            title="Age of Discovery"
+                                        >
+                                            ⛵
+                                        </option>
+                                        <option
+                                            value="⚓"
+                                            title="Columbu's Voyages"
+                                        >
+                                            ⚓
+                                        </option>
+                                        <option
+                                            value="🏆"
+                                            title="Nobel Prize Winners"
+                                        >
+                                            🏆
+                                        </option>
+                                        <option
+                                            value="🐇"
+                                            title="Bad Bunny's America"
+                                        >
+                                            🐇
+                                        </option>
+                                        <option value="🔬" title="STEM Members">
+                                            🔬
+                                        </option>
+                                        <option value="🎶" title="Music">
+                                            🎶
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="button" id="cls">Closest Site</button>
+                            <button type="button" id="anim">Animation</button>
+                        </div>
+                    </div>
+
+                    <div class="legenda">
+                        <figure style="margin: 0 15px 10px 0">
+                            <div id="size" style="margin-bottom: 3px"></div>
+                            <div class="imgcontainer">
+                                <img
+                                    id="textimg"
+                                    title="Texture"
+                                    src=""
+                                    width="256"
+                                />
+                                <canvas id="canvasimg" width="256"></canvas>
+                                <div
+                                    id="tooltip"
+                                    title="city"
+                                    role="tooltip"
+                                ></div>
+                            </div>
+                            <figcaption id="figc"></figcaption>
+                        </figure>
+                        <div id="options" style="font-size: small"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <label id="lblTimeline" for="timeline"> Timeline </label>
+                    <br />
+                    <input
+                        id="timeline"
+                        name="slider"
+                        type="range"
+                        min="-2700"
+                        max="2030"
+                        step="1"
+                        value="1500"
+                        list="steplist"
+                        style="width: 50%"
+                    />
+                    <datalist id="steplist"></datalist>
+                    <div id="sites">
+                        Around <span id="ncountry"></span> in
+                        <span id="nsites"></span> historical
+                        <a href="/cwdc/13-webgl/extras/locations.json"
+                            >figures</a
+                        >
+                    </div>
+                    <div id="doc">
+                        <a href="/cwdc/13-webgl/extras/doc-light/index.html">
+                            Documentation</a
+                        >
+                    </div>
+                </div>
+
+                <form style="margin-top: 50px">
+                    <input
+                        type="checkbox"
+                        id="texture"
+                        name="texture"
+                        checked
+                        value="texture"
+                    />
+                    <label for="texture" style="margin-right: 20px"
+                        >Texture</label
+                    >
+                    <select name="textures" title="file name" id="textures">
+                        <option value="0">
+                            360/Duomo_de_Santa_Maria_Annunziata.jpg
+                        </option>
+                        <option value="1">360/Duomo_di_Salò.jpg</option>
+                        <option value="2">360/Garda.jpg</option>
+                        <option value="3">360/Gordon_River.jpg</option>
+                        <option value="4">
+                            360/Milan-Basilica_of_San_Carlo_al_Corso.jpg
+                        </option>
+                        <option value="5">360/Via_della_Libertà.jpg</option>
+                        <option value="6">maps/BigEarth.jpg</option>
+                        <option value="7">maps/Earth-1440x720.jpg</option>
+                        <option value="8">
+                            maps/Large_World_Map_unmodified.jpg
+                        </option>
+                        <option value="9">maps/NDVI_84.jpg</option>
+                        <option value="10">maps/Plate-Tectonics.jpg</option>
+                        <option value="11">
+                            maps/earth-Equirectangular+terminator.jpg
+                        </option>
+                        <option value="12">maps/earth2048.bmp</option>
+                        <option value="13">maps/earth-big-nasa.jpg</option>
+                        <option value="14">maps/earth-nasa.jpg</option>
+                        <option value="15">maps/eqs.png</option>
+                        <option value="16">
+                            maps/flat_earth_still_clouds.jpg
+                        </option>
+                        <option value="17" selected>
+                            maps/flat_earth_still_noClouds.jpg
+                        </option>
+                        <option value="18">maps/oceanbottom.png</option>
+                        <option value="19">
+                            world-map-Mercator-Tissot_indicatrix.jpg
+                        </option>
+                        <option value="20">
+                            world-map-Mercator-normal.jpg
+                        </option>
+                        <option value="21">
+                            world-map-Mercator-political2.jpg
+                        </option>
+                        <option value="22">
+                            world-map-Mercator-the_Americas-1562.png
+                        </option>
+                        <option value="23">world-map-Mercator.jpg</option>
+                        <option value="24">world-map-Mercator.png</option>
+                        <option value="25">
+                            world-map-continents-oceans.jpg
+                        </option>
+                        <option value="26">
+                            world-map-equirectangular-Tissot_indicatrix.png
+                        </option>
+                        <option value="27">
+                            world-map-equirectangular-Tissot_indicatrix_30°.jpg
+                        </option>
+                        <option value="28">
+                            world-map-equirectangular.jpg
+                        </option>
+                        <option value="29">world-map-colder-times.jpg</option>
+                        <option value="30">world-map-flag.png</option>
+                        <option value="31">
+                            world-map-political-equirectangular.jpg
+                        </option>
+                        <option value="32">
+                            world-map-placas-tectonicas.jpg
+                        </option>
+                        <option value="33">world-map_3600x1800.png</option>
+                        <option value="34">world-map-SW.jpg</option>
+                        <option value="35">comics/comic-faces.jpg</option>
+                        <option value="36">comics/eye.png</option>
+                        <option value="37">covers/Ghost Busters.jpg</option>
+                        <option value="38">
+                            covers/GhostBusters-album.jpg
+                        </option>
+                        <option value="39">covers/GhostBusters.jpg</option>
+                        <option value="40">covers/lion.jpg</option>
+                        <option value="41">pictures/KC-130M.jpg</option>
+                        <option value="42">pictures/rattle_snake.jpg</option>
+                        <option value="43">pictures/rattlesnake.jpg</option>
+                        <option value="44">pattern/bricks.png</option>
+                        <option value="45">pattern/check64border.png</option>
+                        <option value="46">
+                            pattern/checker_texture_512.png
+                        </option>
+                        <option value="47">
+                            pattern/check-pattern-1024.png
+                        </option>
+                        <option value="48">pattern/check1024border.png</option>
+                        <option value="49">
+                            pattern/citrus-fruit-skin.png
+                        </option>
+                        <option value="50">pattern/uv_grid_opengl.jpg</option>
+                        <option value="51">pattern/uv_grid512.jpg</option>
+                        <option value="52">
+                            pattern/Petone_Pier5.medium.jpg
+                        </option>
+                        <option value="53">pattern/fractal.png</option>
+                        <option value="54">planets/haumea_fictional.jpg</option>
+                        <option value="55">planets/moon1024.bmp</option>
+                        <option value="56">
+                            rocks/Rockplates01.medium.jpg
+                        </option>
+                        <option value="57">rocks/Coastal_Rocks8.jpg</option>
+                    </select>
+
+                    <ul class="checkbox">
+                        <li>
+                            <input
+                                type="checkbox"
+                                id="mesh"
+                                name="mesh"
+                                value="mesh"
+                            />
+                            <label for="mesh">Mesh</label>
+                        </li>
+
+                        <li>
+                            <input
+                                type="checkbox"
+                                id="fixuv"
+                                name="fixuv"
+                                checked
+                                value="fixuv"
+                            />
+                            <label for="fixuv">Fix uv (seamless)</label>
+                        </li>
+
+                        <li>
+                            <input
+                                type="checkbox"
+                                id="culling"
+                                name="culling"
+                                checked
+                                value="culling"
+                            />
+                            <label for="culling">Back Face Culling</label>
+                        </li>
+
+                        <li>
+                            <input
+                                type="checkbox"
+                                id="axes"
+                                name="axes"
+                                value="axes"
+                            />
+                            <label for="axes">Axes</label>
+                        </li>
+
+                        <li>
+                            <input
+                                type="checkbox"
+                                id="mercator"
+                                name="mercator"
+                                value="mercator"
+                            />
+                            <label for="mercator">Mercator Projection</label>
+                        </li>
+
+                        <li>
+                            <input
+                                type="checkbox"
+                                id="loxodrome"
+                                name="loxodrome"
+                                value="loxodrome"
+                            />
+                            <label for="loxodrome" id="lox">Loxodrome</label>
+                        </li>
+
+                        <li>
+                            <input
+                                type="checkbox"
+                                id="hws"
+                                name="hws"
+                                value="hws"
+                            />
+                            <label for="hws">hws models</label><br />
+                        </li>
+
+                        <li>
+                            <input
+                                type="checkbox"
+                                id="tip"
+                                name="tip"
+                                checked
+                                value="tip"
+                            />
+                            <label for="tip">Tooltip</label>
+                        </li>
+
+                        <li>
+                            <input
+                                type="checkbox"
+                                id="cities"
+                                name="cities"
+                                checked
+                                value="cities"
+                            />
+                            <label for="cities">Locations by Date</label>
+                        </li>
+
+                        <li>
+                            <input
+                                type="checkbox"
+                                id="locs"
+                                name="locs"
+                                value="locs"
+                            />
+                            <label for="locs">Locations on Globe</label>
+                        </li>
+                    </ul>
+
+                    <div id="radio">
+                        <input type="radio" id="pause" name="rot" value=" " />
+                        <label for="pause">Arcball</label>
+                        <input type="radio" id="x" name="rot" value="x" />
+                        <label for="x">x</label>
+                        <input
+                            type="radio"
+                            id="y"
+                            name="rot"
+                            checked
+                            value="y"
+                        />
+                        <label for="y">y</label>
+                        <input type="radio" id="z" name="rot" value="z" />
+                        <label for="z">z</label>
+                        <input type="radio" id="q" name="rot" value="q" />
+                        <label for="q">q</label>
+
+                        <input
+                            type="radio"
+                            id="intrinsic"
+                            name="mode"
+                            checked
+                            value="I"
+                        />
+                        <label for="intrinsic">intrinsic</label>
+                        <input
+                            type="radio"
+                            id="extrinsic"
+                            name="mode"
+                            value="e"
+                        />
+                        <label for="extrinsic">extrinsic</label>
+                    </div>
+
+                    <div id="uradio">
+                        <input
+                            type="radio"
+                            id="km"
+                            name="unit"
+                            checked
+                            value="0"
+                        />
+                        <label for="km">Kilometers</label>
+                        <input type="radio" id="mi" name="unit" value="1" />
+                        <label for="mi">Miles</label>
+                        <input type="radio" id="nm" name="unit" value="2" />
+                        <label for="nm">Nautical Miles</label>
+                    </div>
+
+                    <input
+                        type="checkbox"
+                        id="equator"
+                        name="equator"
+                        value="equator"
+                    />
+                    <label for="equator">Equator</label>
+
+                    <div id="latlon">
+                        <label class="lbllatlon" for="lat">latitude</label>
+                        <input class="dms" type="string" id="lat" name="lat" />
+
+                        <label class="lbllatlon" for="lon"> longitude </label>
+                        <input class="dms" type="string" id="lon" name="lon" />
+                    </div>
+
+                    <label class="lbllatlon" for="search"> search </label>
+                    <input
+                        class="dms"
+                        type="string"
+                        id="search"
+                        name="search"
+                        value="Rio"
+                    />
+
+                    <div id="locInfo"></div>
+
+                    <input
+                        type="checkbox"
+                        id="php"
+                        name="php"
+                        checked
+                        hidden
+                        value="php"
+                    />
+                </form>
+
+                <div class="flex-container">
+                    <div class="sideBySide">
+                        <p>
+                            <label><b>Texture:</b></label>
+                        </p>
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="nextTexture()"
+                        >
+                            +
+                        </button>
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="previousTexture()"
+                        >
+                            -
+                        </button>
+                    </div>
+
+                    <div class="sideBySide">
+                        <p>
+                            <label><b>Subdivisions:</b></label>
+                        </p>
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="nextLevel()"
+                        >
+                            +
+                        </button>
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="previousLevel()"
+                        >
+                            -
+                        </button>
+                    </div>
+
+                    <div class="sideBySide">
+                        <p>
+                            <label><b>Zoom:</b></label>
+                        </p>
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="zoomIn()"
+                        >
+                            +
+                        </button>
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="zoomOut()"
+                        >
+                            -
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <details>
+                <summary style="font-size: 200%">
+                    Keyboard controls<span id="kbd">:</span>
+                </summary>
+
+                <ul style="list-style: none">
+                    <li>c/C - cylinder/cone</li>
+                    <li>d - dodecahedron</li>
+                    <li>i - icosahedron</li>
+                    <li>o - octahedron</li>
+                    <li>w - tetrahedron</li>
+                    <li>p - teapot</li>
+                    <li>r - ring</li>
+                    <li>s,S - sphere/subdivision polyhedron</li>
+                    <li>t,T - torus/Torus Knot Geometry</li>
+                    <li>u - capsule</li>
+                    <li>v - cube</li>
+                    <li>a - toggle axes visible/invisible</li>
+                    <li>A - toggle animation on/off</li>
+                    <li>b - toggle back face culling on/off</li>
+                    <li>e,I - extrinsic/intrinsic rotation</li>
+                    <li>E - toggle city position on/off</li>
+                    <li>f - toggle fixuv on/off (sphere by subdivision)</li>
+                    <li>F - toggle loxodrome on/off</li>
+                    <li>K - toggle equirectangular/mercator projection</li>
+                    <li>g,→,G,← - next/previous pre-defined GPS locations</li>
+                    <li>k - toggle texture on/off</li>
+                    <li>D - screenshot of the globe</li>
+                    <li>P - screenshot of the chart</li>
+                    <li>l - toggle mesh+normals visible/invisible</li>
+                    <li>L - toggle locations on globe visible/invisible</li>
+                    <li>n,N - next/previous texture</li>
+                    <li>m,M - increase/decrease number of subdivisions</li>
+                    <li>O - reset rotation</li>
+                    <li>R - reset rotation and set Rio</li>
+                    <li>U - reset rotation and set Unknown</li>
+                    <li>W - toggle sort by date/longitude</li>
+                    <li>
+                        x,y,z - rotation about a local(intrinsic) or
+                        global(extrinsic) axis
+                    </li>
+                    <li>j - goto current GPS location</li>
+                    <li>
+                        J - goto closest GPS location from clicked or "Unknown"
+                        location
+                    </li>
+                    <li>
+                        X - goto GPS location with the closest date to the
+                        Timeline
+                    </li>
+                    <li>B,H - rotate globe around forward vector CCW/CW</li>
+                    <li>q - rotate along the meridian under the cursor</li>
+                    <li>SPACE - toggle arcball/rotation</li>
+                    <li>↑,↓ - Zoom out/in</li>
+                    <li>❖, ⌘ - toggle hws/three.js models</li>
+                    <li>Z - sphere no duplicate vertex</li>
+                    <li>h - toggle pointer tooltip on/off</li>
+                    <li>V - save json file with locations by date</li>
+                    <li>click on globe - display meridian and parallel</li>
+                    <li>click on texture - display meridian and parallel</li>
+                    <li>
+                        ctrl+move cursor - display closest site name and
+                        distance
+                    </li>
+                    <li>
+                        click on canvas first quadrant but outside the globe -
+                        same as "B"
+                    </li>
+                    <li>
+                        click on canvas second quadrant but outside the globe -
+                        same as "U"
+                    </li>
+                    <li>
+                        click on canvas third quadrant but outside the globe -
+                        same as "G"
+                    </li>
+                    <li>
+                        click on canvas fourth quadrant but outside the globe -
+                        same as "g"
+                    </li>
+                </ul>
+            </details>
+        </div>
+
+        <!-- prettier-ignore -->
+        <script id="vertexLightingShader" type="x-shader/x-vertex">#version 300 es
+            precision highp float;
+
+            uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+            uniform mat3 normalMatrix;
+            uniform vec4 lightPosition;
+
+            in vec4 a_Position;
+            in vec3 a_Normal;
+            // Do not define, so texture is not set in LightingWithTexture.js
+            //in vec2 a_TexCoord;
+
+            out vec3 fL;
+            out vec3 fN;
+            out vec3 fV;
+            out vec3 fM;
+            //out vec2 fTexCoord;
+            void main() {
+                // convert position to eye coords: eye = (0,0,0,1)
+                vec4 positionEye = view * model * a_Position;
+
+                // convert light position to eye coords
+                vec4 lightEye = view * lightPosition;
+
+                // vector to light
+                fL = (lightEye - positionEye).xyz;
+
+                // transform normal into eye coords
+                fN = normalMatrix * a_Normal;
+
+                // in object space (no transformation)
+                // normal works for the sphere
+                // fM = a_Normal;
+                fM = a_Position.xyz;
+
+                // vector from vertex position toward view point (eye)
+                fV = normalize(-(positionEye).xyz);
+
+                //fTexCoord = a_TexCoord;
+
+                gl_Position = projection * view * model * a_Position;
+            }
+        </script>
+
+        <!-- prettier-ignore -->
+        <script id="fragmentLightingShader" type="x-shader/x-fragment">#version 300 es
+            precision highp float;
+            out vec4 fragColor;
+
+            uniform mat3 materialProperties;
+            uniform mat3 lightProperties;
+            uniform float shininess;
+            uniform sampler2D sampler;
+            uniform bool u_fix;
+            uniform bool u_mercator;
+
+            in vec3 fL;
+            in vec3 fN;
+            in vec3 fV;
+            in vec3 fM;
+            //in vec2 fTexCoord;
+
+            // calculate texture coordinates, by inverting the parameterization:
+            // cartesian to spherical: https://en.wikipedia.org/wiki/Spherical_coordinate_system
+            // pos = (x,y,z) -> spherical = (theta, phi), theta, phy in [0,1]
+            void cartesian2Spherical(in vec3 pos, out vec2 spherical) {
+                float r = length(pos);
+                float pi = radians(180.0);
+                float phi = acos(-pos.y/r)/pi;               // acos  -> [0,pi]
+                float theta = atan(-pos.z,pos.x)/(2.0 * pi); // atan2 -> [-pi,pi]
+                theta += 0.5; // theta in [0.0,1.0)
+                // construct uvs like Tarini's method
+                if (u_fix) {
+                    float theta2 = fract(theta+0.5)-0.5; // theta2 in [-0.5,0.5)
+                    // uses a small bias to prefer the first 'UV set'
+                    if (fwidth(theta) - fwidth(theta2) > -1e-3) {
+                        theta = theta2;
+                    }
+                }
+                spherical[0] = theta;
+                spherical[1] = phi;
+            }
+
+            // calculate mercator texture coordinates:
+            // spherical to Mercator: https://stackoverflow.com/questions/59907996/shader-that-transforms-a-mercator-projection-to-equirectangular
+            // pos = (lon,lat) -> mercator = (x, y), x, y in [0,1]
+            void spherical2Mercator(in vec2 pos, out vec2 mercator) {
+                float pi = radians(180.0);
+
+                // uv to equirectangular
+                float lon = (pos.x) * 2.0 * pi;   // [0, 2pi]
+                float lat = (pos.y - 0.5f) * pi;  // [-pi/2, pi/2]
+                lat = clamp(lat,radians(-85.0),radians(85.0));
+
+                // equirectangular to mercator
+                float x = lon;
+                float y = log(tan(pi / 4.0 + lat / 2.0)); // [-pi,pi]
+
+                // bring x,y into [0,1] range
+                x = pos.x;
+                y = (y+pi) / (2.0 * pi);
+
+                mercator[0] = x;
+                mercator[1] = y;
+            }
+
+            void main() {
+                // normalize after interpolating
+                vec3 M = fM;
+                // vec3 M = normalize(fM);
+                vec3 N = normalize(fN);
+                vec3 L = normalize(fL);
+                vec3 V = normalize(fV);
+
+                // reflected vector
+                vec3 R = reflect(-L, N);
+
+                // get the columns out of the light and material properties. We keep the surface
+                // properties separate, so we can mess with them using the sampled texture value
+                vec4 ambientSurface = vec4(materialProperties[0], 1.0);
+                vec4 diffuseSurface = vec4(materialProperties[1], 1.0);
+                vec4 specularSurface = vec4(materialProperties[2], 1.0);
+
+                vec4 ambientLight = vec4(lightProperties[0], 1.0);
+                vec4 diffuseLight = vec4(lightProperties[1], 1.0);
+                vec4 specularLight = vec4(lightProperties[2], 1.0);
+
+                vec2 fTexCoord, mercator;
+                cartesian2Spherical(M,fTexCoord);
+
+                vec4 color;
+                // sample from the texture at interpolated texture coordinate
+                if (u_mercator) {
+                    spherical2Mercator(fTexCoord,mercator);
+                    color = texture(sampler, mercator);
+                } else {
+                    color = texture(sampler, fTexCoord);
+                }
+
+                const int modulate = 1;
+                if (modulate == 1) {
+                    // (1) use the value directly as the surface color and ignore the material properties
+                    ambientSurface = color;
+                    diffuseSurface = color;
+                    specularSurface = color;
+                } else if (modulate == 2) {
+                    // (2) modulate intensity of surface color (or of any component)
+                    float m = (color.r + color.g + color.b) / 3.0;
+                    ambientSurface *= m;
+                    diffuseSurface *= m;
+                    specularSurface *= m;
+                } else {
+                    // (3) blend texture using its alpha value (try this with "steve.png")
+                    float m = color.a;
+                    ambientSurface = (1.0 - m) * ambientSurface + m * color;
+                    diffuseSurface = (1.0 - m) * diffuseSurface + m * color;
+                    specularSurface = (1.0 - m) * specularSurface + m * color;
+                }
+
+                // lighting factors as usual
+
+                // Lambert's law, clamp negative values to zero
+                float diffuseFactor = clamp(dot(L, N), 0.0, 1.0);
+
+                // specular factor from Phong reflection model
+                float specularFactor = pow(clamp(dot(V, R), 0.0, 1.0), shininess);
+
+                // add the components together
+                // note that vec4 * vec4 is componentwise multiplication,
+                // not a dot product
+                vec4 ambient = ambientLight * ambientSurface;
+                vec4 diffuse = diffuseFactor * diffuseLight * diffuseSurface;
+                vec4 specular = specularFactor * specularLight * specularSurface;
+                fragColor = ambient + diffuse + specular;
+                fragColor.a = 1.0;
+            }
+        </script>
+
+        <!-- prettier-ignore -->
+        <script id="vertexColorShader" type="x-shader/x-vertex">#version 300 es
+            precision mediump float;
+            // values that stay the same during for all vertices of a single draw call
+            uniform mat4 transform;
+            // data pulled from buffers
+            in vec4 a_Position;
+            in vec4 a_Color;
+            // data passed to the fragment shader to be interpolated
+            out vec4 color;
+            void main() {
+                gl_PointSize = 4.0;
+                color = a_Color;
+                gl_Position = transform * a_Position;
+            }
+        </script>
+
+        <!-- prettier-ignore -->
+        <script id="fragmentColorShader" type="x-shader/x-fragment">#version 300 es
+            precision mediump float;
+            out vec4 fragColor;
+
+            in vec4 color;
+            void main() {
+                fragColor = color;
+            }
+        </script>
+
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js",
+                    "TeapotGeometry": "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/geometries/TeapotGeometry.js"
+                }
+            }
+        </script>
+
+        <!-- for getting ajax
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>-->
+        <script src="/cwdc/13-webgl/lib/teal_book/cuon-utils.js"></script>
+        <script src="/cwdc/13-webgl/lib/simple-rotator.js"></script>
+        <script src="/cwdc/13-webgl/lib/basic-objects-IFS.js"></script>
+        <script src="./LightingWithTexture.js" type="module"></script>
+    </body>
+</html>
