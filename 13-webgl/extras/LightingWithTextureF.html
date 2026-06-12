@@ -42,25 +42,31 @@ when using mipmap:
                         </div>
 
                         <div>
-                            <select name="models" title="geometry" id="models">
-                                <option value="0">Capsule</option>
-                                <option value="1">Cone</option>
-                                <option value="2">Cube</option>
-                                <option value="3">Cylinder</option>
-                                <option value="4">Ring</option>
-                                <option value="5" selected>Sphere</option>
-                                <option value="6">Teapot</option>
-                                <option value="7">Torus</option>
-                                <option value="8">Torus Knot</option>
-                                <option value="9">Dodecahedron</option>
-                                <option value="10">Icosahedron</option>
-                                <option value="11">Octahedron</option>
-                                <option value="12">Tetrahedron</option>
-                                <option value="13">Subd Sphere</option>
-                            </select>
+                            <div class="lbtns">
+                                <select
+                                    name="models"
+                                    title="geometry"
+                                    id="models"
+                                >
+                                    <option value="0">Capsule</option>
+                                    <option value="1">Cone</option>
+                                    <option value="2">Cube</option>
+                                    <option value="3">Cylinder</option>
+                                    <option value="4">Ring</option>
+                                    <option value="5" selected>Sphere</option>
+                                    <option value="6">Teapot</option>
+                                    <option value="7">Torus</option>
+                                    <option value="8">Torus Knot</option>
+                                    <option value="9">Dodecahedron</option>
+                                    <option value="10">Icosahedron</option>
+                                    <option value="11">Octahedron</option>
+                                    <option value="12">Tetrahedron</option>
+                                    <option value="13">Subd Sphere</option>
+                                </select>
+                            </div>
 
                             <div>
-                                <div>
+                                <div class="lbtns">
                                     <select
                                         name="screenshot"
                                         title="screenshot"
@@ -262,12 +268,11 @@ when using mipmap:
                             </div>
                         </div>
 
-                        <div>
+                        <div class="lbtns">
                             <button type="button" id="cls">Closest Site</button>
                             <button type="button" id="anim">Animation</button>
                         </div>
                     </div>
-
                     <div class="legenda">
                         <figure style="margin: 0 15px 10px 0">
                             <div id="size" style="margin-bottom: 3px"></div>
