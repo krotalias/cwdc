@@ -3,7 +3,7 @@
     --canvasw: 900px;
     --canvash: 600px;
     --mleft: 10px;
-    --tline: 100%;
+    --tline: 95%;
 }
 
 *,
@@ -195,6 +195,7 @@ figure {
 }
 #timeline {
     width: var(--tline);
+    accent-color: #ff5733;
 }
 summary {
     font-size: 200%;
