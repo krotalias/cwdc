@@ -1,4 +1,5 @@
 :root {
+    --canvasimgw: 384px;
     --canvasw: 900px;
     --canvash: 600px;
     --mleft: 10px;
@@ -74,7 +75,7 @@ label,
 }
 #canvasimg {
     position: absolute;
-    width: fit-content;
+    width: var(--canvasimgw);
     top: 0px;
     left: 0px;
     pointer-events: none;
@@ -169,6 +170,9 @@ figure {
 }
 #lbltexture {
     margin-right: 20px;
+}
+#textimg {
+    width: var(--canvasimgw);
 }
 #sites,
 #doc {

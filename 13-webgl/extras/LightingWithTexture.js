@@ -350,9 +350,9 @@
  * @license Licensed under the {@link https://www.gnu.org/licenses/lgpl-3.0.en.html LGPLv3}.
  * @copyright © 2024-2026 Paulo R Cavalcanti.
  * @since 30/01/2016
- * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the {@link https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/extras/LightingWithTexture.html fragment shader}
- * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the {@link https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/extras/LightingWithTexture2.html vertex shader}
- * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.css">css</a> - CSS file for the interface
+ * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.html">link</a> - Texture coordinates sampled at each pixel in the {@link https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/extras/LightingWithTextureF.html fragment shader}
+ * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture2.html">link2</a> - Texture coordinates sampled at each vertex in the {@link https://raw.githubusercontent.com/krotalias/cwdc/main/13-webgl/extras/LightingWithTextureV.html vertex shader}
+ * @see <a href="/cwdc/13-webgl/extras/LightingWithTextureFlex.css">css</a> - CSS file for the interface
  * @see <a href="/cwdc/13-webgl/extras/LightingWithTexture.js">source</a>
  * @see <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * @see <a href="https://math.rice.edu/~polking/cartography/cart.pdf">Mapping the Sphere<a/>
@@ -6801,6 +6801,7 @@ function startForReal(image) {
   canvas.width = canvas.clientWidth;
   canvas.height = canvas.clientHeight;
   const aspect = canvas.clientWidth / canvas.clientHeight;
+  canvasimg.width = canvasimg.clientWidth;
 
   /**
    * <p>The resize event fires when the document view (window) has been resized.</p>
