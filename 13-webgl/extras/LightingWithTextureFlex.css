@@ -3,6 +3,7 @@
     --canvasw: 900px;
     --canvash: 600px;
     --mleft: 10px;
+    --tline: 100%;
 }
 
 *,
@@ -149,7 +150,7 @@ datalist {
     justify-content: space-between;
     margin: 0.5em 0;
     color: red;
-    width: 53%;
+    width: var(--tline);
 }
 #options {
     font-size: small;
@@ -193,7 +194,7 @@ figure {
     border-radius: 10%;
 }
 #timeline {
-    width: 50%;
+    width: var(--tline);
 }
 summary {
     font-size: 200%;
