@@ -5388,6 +5388,24 @@
         "latitude": 41.01224,
         "longitude": 28.976018
     },
+    "Pretoria": {
+        "country": "South Africa",
+        "remarkable": [
+            "Elon Reeve Musk, 1971",
+            "Moved to Canada, June 1989",
+            "Queen's University (Ontario), September 1989",
+            "University of Pennsylvania (BA, BS), 1992-1995",
+            "Founder of SpaceX, 14 March 2002",
+            "Tesla foundation, 1 Jyuly 2003",
+            "Primary investor, February 2004",
+            "Legally co-founder, September 2009",
+            "Co-founded OpenAI, 11 December 2015",
+            "Bought Tweeter (X), 27 October 2022",
+            "First trillionaire, 12 June 2026"
+        ],
+        "latitude": -25.746111,
+        "longitude": 28.188056
+    },
     "Rhodes": {
         "country": "Greece",
         "remarkable": [
