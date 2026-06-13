@@ -149,13 +149,26 @@ datalist {
     color: red;
     width: 53%;
 }
-option {
+#options {
+    font-size: small;
     padding: 0;
+}
+#object {
+    margin-right: 0;
+}
+#size {
+    margin-bottom: 3px;
+}
+figure {
+    margin: 0 15px 10px 0;
 }
 #lblTimeline {
     margin-left: 5em;
     font-size: 150%;
     font-style: italic;
+}
+#lbltexture {
+    margin-right: 20px;
 }
 #sites,
 #doc {
@@ -173,4 +186,16 @@ option {
     color: black;
     border: solid 5px lightsteelblue;
     border-radius: 10%;
+}
+#timeline {
+    width: 50%;
+}
+summary {
+    font-size: 200%;
+}
+ul {
+    list-style: none;
+}
+form {
+    margin-top: 50px;
 }

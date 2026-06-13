@@ -36,9 +36,7 @@ when using mipmap:
                 <div class="flex-container">
                     <div class="btns">
                         <div>
-                            <label id="object" style="margin-right: 0"
-                                ><b>Object:</b></label
-                            >
+                            <label id="object"><b>Object:</b></label>
                         </div>
 
                         <div>
@@ -274,8 +272,8 @@ when using mipmap:
                         </div>
                     </div>
                     <div class="legenda">
-                        <figure style="margin: 0 15px 10px 0">
-                            <div id="size" style="margin-bottom: 3px"></div>
+                        <figure>
+                            <div id="size"></div>
                             <div class="imgcontainer">
                                 <img
                                     id="textimg"
@@ -292,7 +290,7 @@ when using mipmap:
                             </div>
                             <figcaption id="figc"></figcaption>
                         </figure>
-                        <div id="options" style="font-size: small"></div>
+                        <div id="options"></div>
                     </div>
                 </div>
 
@@ -308,7 +306,6 @@ when using mipmap:
                         step="1"
                         value="1500"
                         list="steplist"
-                        style="width: 50%"
                     />
                     <datalist id="steplist"></datalist>
                     <div id="sites">
@@ -325,7 +322,7 @@ when using mipmap:
                     </div>
                 </div>
 
-                <form style="margin-top: 50px">
+                <form>
                     <input
                         type="checkbox"
                         id="texture"
@@ -333,9 +330,7 @@ when using mipmap:
                         checked
                         value="texture"
                     />
-                    <label for="texture" style="margin-right: 20px"
-                        >Texture</label
-                    >
+                    <label id="lbltexture" for="texture">Texture</label>
                     <select name="textures" title="file name" id="textures">
                         <option value="0">
                             360/Duomo_de_Santa_Maria_Annunziata.jpg
@@ -701,11 +696,9 @@ when using mipmap:
 
             <br />
             <details>
-                <summary style="font-size: 200%">
-                    Keyboard controls<span id="kbd">:</span>
-                </summary>
+                <summary>Keyboard controls<span id="kbd">:</span></summary>
 
-                <ul style="list-style: none">
+                <ul>
                     <li>c/C - cylinder/cone</li>
                     <li>d - dodecahedron</li>
                     <li>i - icosahedron</li>
