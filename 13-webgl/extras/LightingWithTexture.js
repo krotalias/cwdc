@@ -3777,7 +3777,7 @@ function drawLocationsOnImage(canvasimg = element.canvasimg) {
     const y = uv.t * canvasimg.height;
 
     ctx.beginPath();
-    ctx.arc(x, y, 2, 0, Math.PI * 2);
+    ctx.arc(x, y, 1.5, 0, Math.PI * 2);
 
     let color;
     if (location === "Unknown") color = colorTable.un;
