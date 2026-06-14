@@ -1076,6 +1076,7 @@ const colorTable = {
   nu: "black",
   ad: "red",
   bc: "yellow",
+  tl: "#FF5733",
 };
 
 /**
@@ -2186,8 +2187,12 @@ function setCountryDescription(country) {
       c = "the world";
       break;
   }
-  document.querySelector("#ncountry").innerHTML = c;
-  document.querySelector("#nsites").innerHTML = `${cities.country.length}`;
+  const ncountry = document.querySelector("#ncountry");
+  ncountry.innerHTML = c;
+  ncountry.style.color = colorTable.tl;
+  const nsites = document.querySelector("#nsites");
+  nsites.innerHTML = `${cities.country.length}`;
+  nsites.style.color = colorTable.tl;
 }
 
 /**
