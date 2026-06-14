@@ -1,7 +1,10 @@
 :root {
+    --canvasimgw: 384px;
+    --canvasw: 900px;
     --canvasw: 900px;
     --canvash: 600px;
     --mleft: 10px;
+    --tline: 95%;
 }
 
 *,
@@ -131,7 +134,7 @@ datalist {
     justify-content: space-between;
     margin: 0.5em 0;
     color: red;
-    width: 53%;
+    width: var(--tline);
 }
 #options {
     padding: 0;
@@ -153,6 +156,9 @@ figure {
 #lbltexture {
     margin-right: 20px;
 }
+#textimg {
+    width: var(--canvasimgw);
+}
 #sites,
 #doc {
     margin-top: 2em;
@@ -171,7 +177,7 @@ figure {
     border-radius: 10%;
 }
 #timeline {
-    width: 53%;
+    width: var(--tline);
     accent-color: #ff5733;
 }
 summary {
