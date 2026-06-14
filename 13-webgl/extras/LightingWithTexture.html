@@ -47,107 +47,171 @@ when using mipmap:
                     <div id="options"></div>
                 </div>
 
-                <p>
-                    <label id="object"><b>Object:</b></label>
-                </p>
+                <div class="btns">
+                    <p>
+                        <label id="object"><b>Object:</b></label>
+                    </p>
 
-                <select name="models" title="geometry" id="models">
-                    <option value="0">Capsule</option>
-                    <option value="1">Cone</option>
-                    <option value="2">Cube</option>
-                    <option value="3">Cylinder</option>
-                    <option value="4">Ring</option>
-                    <option value="5" selected>Sphere</option>
-                    <option value="6">Teapot</option>
-                    <option value="7">Torus</option>
-                    <option value="8">Torus Knot</option>
-                    <option value="9">Dodecahedron</option>
-                    <option value="10">Icosahedron</option>
-                    <option value="11">Octahedron</option>
-                    <option value="12">Tetrahedron</option>
-                    <option value="13">Subd Sphere</option>
-                </select>
-
-                <div>
-                    <select
-                        name="screenshot"
-                        title="screenshot"
-                        id="screenshot"
-                    >
-                        <option value="Screenshot" title="Screenshot" selected>
-                            Screenshot
-                        </option>
-                        <option value="Globe" title="Globe">Globe</option>
-                        <option value="Chart" title="Chart">Chart</option>
+                    <select name="models" title="geometry" id="models">
+                        <option value="0">Capsule</option>
+                        <option value="1">Cone</option>
+                        <option value="2">Cube</option>
+                        <option value="3">Cylinder</option>
+                        <option value="4">Ring</option>
+                        <option value="5" selected>Sphere</option>
+                        <option value="6">Teapot</option>
+                        <option value="7">Torus</option>
+                        <option value="8">Torus Knot</option>
+                        <option value="9">Dodecahedron</option>
+                        <option value="10">Icosahedron</option>
+                        <option value="11">Octahedron</option>
+                        <option value="12">Tetrahedron</option>
+                        <option value="13">Subd Sphere</option>
                     </select>
-                    <select name="country" title="country" id="country">
-                        <option value="" title="All Countries" selected>
-                            All
-                        </option>
-                        <option value="Angola" title="Angola">AO</option>
-                        <option value="Antarctica" title="Antarctica">
-                            AQ
-                        </option>
-                        <option value="Australia" title="Australia">AU</option>
-                        <option value="Bahamas" title="Bahamas">BS</option>
-                        <option value="Belgium" title="Belgium">BE</option>
-                        <option value="Brazil" title="Brazil">BR</option>
-                        <option value="Canada" title="Canada">CA</option>
-                        <option value="Chile" title="Chile">CL</option>
-                        <option value="China" title="China">CN</option>
-                        <option value="Cuba" title="Cuba">CU</option>
-                        <option value="Denmark" title="Denmark">DK</option>
-                        <option value="Egypt" title="Egypt">EG</option>
-                        <option value="France" title="France">FR</option>
-                        <option value="Germany" title="Germany">DE</option>
-                        <option value="Greece" title="Greece">GR</option>
-                        <option value="India" title="India">IN</option>
-                        <option value="Iran" title="Iran">IR</option>
-                        <option value="Iraq" title="Iraq">IQ</option>
-                        <option value="Israel" title="Israel">IL</option>
-                        <option value="Italy" title="Italy">IT</option>
-                        <option value="Lebanon" title="Lebanon">LB</option>
-                        <option value="Netherlands" title="Netherlands">
-                            NL
-                        </option>
-                        <option value="Japan" title="Japan">JP</option>
-                        <option value="Portugal" title="Portugal">PT</option>
-                        <option value="Russia" title="Russia">RU</option>
-                        <option value="Saudi Arabia" title="Saudi Arabia">
-                            SA
-                        </option>
-                        <option value="Spain" title="Spain">ES</option>
-                        <option value="Syria" title="Syria">SY</option>
-                        <option value="Turkey" title="Turkey">TR</option>
-                        <option value="United Kingdom" title="United Kingdom">
-                            GB
-                        </option>
-                        <option value="United States" title="United States">
-                            US
-                        </option>
-                        <option value="⚔" title="World War II">⚔</option>
-                        <option value="☠" title="Caribbean">☠</option>
-                        <option value="✝" title="Crusades">✝</option>
-                        <option value="☢" title="Radiation Sources">☢</option>
-                        <option value="🧪" title="National Laboratories">
-                            🧪
-                        </option>
-                        <option value="⛵" title="Age of Discovery">⛵</option>
-                        <option value="⚓" title="Columbu's Voyages">⚓</option>
-                        <option value="🏆" title="Nobel Prize Winners">
-                            🏆
-                        </option>
-                        <option value="🐇" title="Bad Bunny's America">
-                            🐇
-                        </option>
-                        <option value="🔬" title="STEM Members">🔬</option>
-                        <option value="🎶" title="Music">🎶</option>
-                    </select>
-                </div>
 
-                <div>
-                    <button type="button" id="cls">Closest Site</button>
-                    <button type="button" id="anim">Animation</button>
+                    <div>
+                        <div class="lbtns">
+                            <select
+                                name="screenshot"
+                                title="screenshot"
+                                id="screenshot"
+                            >
+                                <option
+                                    value="Screenshot"
+                                    title="Screenshot"
+                                    selected
+                                >
+                                    Screenshot
+                                </option>
+                                <option value="Globe" title="Globe">
+                                    Globe
+                                </option>
+                                <option value="Chart" title="Chart">
+                                    Chart
+                                </option>
+                            </select>
+                            <select name="country" title="country" id="country">
+                                <option value="" title="All Countries" selected>
+                                    All
+                                </option>
+                                <option value="Angola" title="Angola">
+                                    AO
+                                </option>
+                                <option value="Antarctica" title="Antarctica">
+                                    AQ
+                                </option>
+                                <option value="Australia" title="Australia">
+                                    AU
+                                </option>
+                                <option value="Bahamas" title="Bahamas">
+                                    BS
+                                </option>
+                                <option value="Belgium" title="Belgium">
+                                    BE
+                                </option>
+                                <option value="Brazil" title="Brazil">
+                                    BR
+                                </option>
+                                <option value="Canada" title="Canada">
+                                    CA
+                                </option>
+                                <option value="Chile" title="Chile">CL</option>
+                                <option value="China" title="China">CN</option>
+                                <option value="Cuba" title="Cuba">CU</option>
+                                <option value="Denmark" title="Denmark">
+                                    DK
+                                </option>
+                                <option value="Egypt" title="Egypt">EG</option>
+                                <option value="France" title="France">
+                                    FR
+                                </option>
+                                <option value="Germany" title="Germany">
+                                    DE
+                                </option>
+                                <option value="Greece" title="Greece">
+                                    GR
+                                </option>
+                                <option value="India" title="India">IN</option>
+                                <option value="Iran" title="Iran">IR</option>
+                                <option value="Iraq" title="Iraq">IQ</option>
+                                <option value="Israel" title="Israel">
+                                    IL
+                                </option>
+                                <option value="Italy" title="Italy">IT</option>
+                                <option value="Lebanon" title="Lebanon">
+                                    LB
+                                </option>
+                                <option value="Netherlands" title="Netherlands">
+                                    NL
+                                </option>
+                                <option value="Japan" title="Japan">JP</option>
+                                <option value="Portugal" title="Portugal">
+                                    PT
+                                </option>
+                                <option value="Russia" title="Russia">
+                                    RU
+                                </option>
+                                <option
+                                    value="Saudi Arabia"
+                                    title="Saudi Arabia"
+                                >
+                                    SA
+                                </option>
+                                <option value="Spain" title="Spain">ES</option>
+                                <option value="Syria" title="Syria">SY</option>
+                                <option value="Turkey" title="Turkey">
+                                    TR
+                                </option>
+                                <option
+                                    value="United Kingdom"
+                                    title="United Kingdom"
+                                >
+                                    GB
+                                </option>
+                                <option
+                                    value="United States"
+                                    title="United States"
+                                >
+                                    US
+                                </option>
+                                <option value="⚔" title="World War II">
+                                    ⚔
+                                </option>
+                                <option value="☠" title="Caribbean">☠</option>
+                                <option value="✝" title="Crusades">✝</option>
+                                <option value="☢" title="Radiation Sources">
+                                    ☢
+                                </option>
+                                <option
+                                    value="🧪"
+                                    title="National Laboratories"
+                                >
+                                    🧪
+                                </option>
+                                <option value="⛵" title="Age of Discovery">
+                                    ⛵
+                                </option>
+                                <option value="⚓" title="Columbu's Voyages">
+                                    ⚓
+                                </option>
+                                <option value="🏆" title="Nobel Prize Winners">
+                                    🏆
+                                </option>
+                                <option value="🐇" title="Bad Bunny's America">
+                                    🐇
+                                </option>
+                                <option value="🔬" title="STEM Members">
+                                    🔬
+                                </option>
+                                <option value="🎶" title="Music">🎶</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="lbtns">
+                        <button type="button" id="cls">Closest Site</button>
+                        <button type="button" id="anim">Animation</button>
+                    </div>
                 </div>
 
                 <div>
@@ -491,8 +555,18 @@ when using mipmap:
                         <p>
                             <label><b>Texture:</b></label>
                         </p>
-                        <button type="button" onclick="nextTexture()">+</button>
-                        <button type="button" onclick="previousTexture()">
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="nextTexture()"
+                        >
+                            +
+                        </button>
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="previousTexture()"
+                        >
                             -
                         </button>
                     </div>
@@ -501,8 +575,18 @@ when using mipmap:
                         <p>
                             <label><b>Subdivisions:</b></label>
                         </p>
-                        <button type="button" onclick="nextLevel()">+</button>
-                        <button type="button" onclick="previousLevel()">
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="nextLevel()"
+                        >
+                            +
+                        </button>
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="previousLevel()"
+                        >
                             -
                         </button>
                     </div>
@@ -511,8 +595,20 @@ when using mipmap:
                         <p>
                             <label><b>Zoom:</b></label>
                         </p>
-                        <button type="button" onclick="zoomIn()">+</button>
-                        <button type="button" onclick="zoomOut()">-</button>
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="zoomIn()"
+                        >
+                            +
+                        </button>
+                        <button
+                            class="btlevel"
+                            type="button"
+                            onclick="zoomOut()"
+                        >
+                            -
+                        </button>
                     </div>
                 </div>
                 <div class="clear_both"></div>

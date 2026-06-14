@@ -34,6 +34,15 @@ body {
     margin-left: calc(var(--mleft) + 20px);
     margin-bottom: 20px;
 }
+.btns {
+    width: 41%;
+    margin-bottom: 2em;
+}
+.lbtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 label,
 #models,
 #locInfo {
@@ -41,8 +50,8 @@ label,
     line-height: 200%;
 }
 #models {
-    font-size: 200%;
-    width: 40%;
+    font-size: 240%;
+    width: 100%;
 }
 #legenda {
     float: right;
@@ -76,7 +85,6 @@ label,
 #country,
 #screenshot,
 button {
-    font-size: 250%;
     border: 0px;
     outline: 0px;
     border-radius: 8px;
@@ -90,7 +98,10 @@ button {
 #country,
 #screenshot {
     font-size: 200%;
-    padding: 0 40px 0 10px;
+    padding: 0 30px 0 10px;
+}
+.btlevel {
+    font-size: 250%;
 }
 label {
     margin-right: 40px;
