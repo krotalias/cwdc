@@ -111,9 +111,9 @@ label {
 }
 .dms {
     height: 30px;
-    flex: 0 0 200px;
+    flex: 0 0 content;
     margin: 0 0 0 5px;
-    width: 170px;
+    width: 10em;
     font-size: 20px;
 }
 .checkbox {

@@ -1810,10 +1810,27 @@ const viewMatrix = mat4.lookAt(
 );
 
 /**
+ * Canvas aspect ratio.
+ * @type {Number}
+ */
+const aspect = canvas.clientWidth / canvas.clientHeight;
+
+/**
+ * <p>Device Pixel Ratio (DPR).</p>
+ * The ratio of physical pixels to CSS pixels, e.g.:
+ * <ul>
+ *  <li>1.0 for standard displays</li>
+ *  <li>2.0 for retina screens</li>
+ * </ul>
+ * @type {Number}
+ */
+const pixelRatio = window.devicePixelRatio || 1;
+
+/**
  * Projection matrix.
  * @type {mat4}
  */
-const projection = mat4.perspectiveNO([], toRadian(30), 1.5, 0.1, 1000);
+const projection = mat4.perspectiveNO([], toRadian(30), aspect, 0.1, 1000);
 
 /**
  * <p>Decomposes vector v into components parallel and perpendicular to w.</p>
@@ -6797,16 +6814,21 @@ function startForReal(image) {
   /**
    * Test for mobile devices.
    * @type {Boolean}
+   * @global
    */
   const mobile =
     Math.min(window.screen.width, window.screen.height) < 768 ||
-    navigator.userAgent.indexOf("Mobi") > -1;
+    navigator.userAge;
 
-  // get canvas dimensions
-  canvas.width = canvas.clientWidth;
-  canvas.height = canvas.clientHeight;
-  const aspect = canvas.clientWidth / canvas.clientHeight;
-  canvasimg.width = canvasimg.clientWidth;
+  /**
+   * Set {@link canvas} dimensions.
+   * @global
+   */
+  function setCanvasSize() {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    canvasimg.width = canvasimg.clientWidth;
+  }
 
   /**
    * <p>The resize event fires when the document view (window) has been resized.</p>
@@ -6836,6 +6858,8 @@ function startForReal(image) {
       // handleWindowResize();
     });
   }
+
+  setCanvasSize();
 
   gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
   if (!gl) {
