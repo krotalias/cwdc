@@ -208,3 +208,17 @@ ul {
 form {
     margin-top: 50px;
 }
+.sideBySide {
+    float: left;
+    margin-right: 60px;
+}
+.sideBySide:nth-last-child(1) {
+    margin-right: 0;
+    padding-right: 0;
+}
+.clear_both {
+    clear: both;
+}
+.float_right {
+    float: right;
+}
