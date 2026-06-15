@@ -6827,7 +6827,6 @@ function startForReal(image) {
   function setCanvasSize() {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    canvasimg.width = canvasimg.clientWidth;
   }
 
   /**

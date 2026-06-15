@@ -1,6 +1,5 @@
 :root {
-    --canvasimgw: 384px;
-    --canvasw: 900px;
+    --canvasimgw: 0.42;
     --canvasw: 900px;
     --canvash: 600px;
     --mleft: 10px;
@@ -29,13 +28,13 @@ body {
     margin-left: var(--mleft);
     cursor: crosshair;
 }
-#interface {
+.interface {
     width: var(--canvasw);
     margin-left: calc(var(--mleft) + 20px);
     margin-bottom: 20px;
 }
 .btns {
-    width: 41%;
+    width: 45%;
     margin-bottom: 2em;
 }
 .lbtns {
@@ -53,7 +52,7 @@ label,
     font-size: 240%;
     width: 100%;
 }
-#legenda {
+.legenda {
     float: right;
     width: fit-content;
     margin: 0 10px 0 0;
@@ -67,19 +66,11 @@ label,
 }
 #canvasimg {
     position: absolute;
-    width: fit-content;
+    width: calc(var(--canvasw) * var(--canvasimgw));
     top: 0px;
     left: 0px;
     pointer-events: none;
     z-index: 1;
-}
-.sideBySide {
-    float: left;
-    margin-right: 60px;
-}
-.sideBySide:nth-last-child(1) {
-    margin-right: 0;
-    padding-right: 0;
 }
 #models,
 #country,
@@ -97,8 +88,8 @@ button {
 }
 #country,
 #screenshot {
-    font-size: 200%;
-    padding: 0 30px 0 10px;
+    font-size: 190%;
+    padding: 0 30px;
 }
 .btlevel {
     font-size: 250%;
@@ -137,8 +128,8 @@ label {
 #cls,
 #anim,
 #print {
-    font-size: 200%;
-    padding: 10px;
+    font-size: 190%;
+    padding: 10px 20px;
 }
 datalist {
     display: flex;
@@ -152,6 +143,7 @@ datalist {
 }
 #object {
     margin-right: 0;
+    width: 100%;
 }
 #size {
     margin-bottom: 3px;
@@ -168,7 +160,7 @@ figure {
     margin-right: 20px;
 }
 #textimg {
-    width: var(--canvasimgw);
+    width: calc(var(--canvasw) * var(--canvasimgw));
 }
 #sites,
 #doc {
@@ -200,6 +192,14 @@ ul {
 }
 form {
     margin-top: 50px;
+}
+.sideBySide {
+    float: left;
+    margin-right: 60px;
+}
+.sideBySide:nth-last-child(1) {
+    margin-right: 0;
+    padding-right: 0;
 }
 .clear_both {
     clear: both;
