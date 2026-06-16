@@ -555,6 +555,13 @@ let ppiIndex = 1;
 let controlPressed = false;
 
 /**
+ * Whether the alt key (Option or ⌥ on macOS)
+ * has been held down.
+ * @type {Boolean}
+ */
+let altPressed = false;
+
+/**
  * Scaling factor applied to a radius so a line or a
  * point is rendered on top of its textured surface.
  * @type {Number}
@@ -4962,7 +4969,10 @@ function addListeners() {
 
   /**
    * <p>Displays the u and v normalized coordinates on the texture image
-   * when pointer is moved upon.</p>
+   * when pointer is moved upon, or longitude and latitude if the Alt key
+   * is also held down while moving.</p>
+   * <p>If the Control key is held down, displays the
+   * {@link closestSite closest site} instead.<p>
    * <p>The pointermove event is fired when a pointer changes coordinates,
    * and the pointer has not been canceled by a browser touch-action.
    * It's very similar to the mousemove event, but with more features.</p>
@@ -5007,6 +5017,10 @@ function addListeners() {
       element.tooltip.innerHTML = `(${cs.site}, ${(cs.distance / 1000).toFixed(
         0,
       )}km)`;
+    } else if (altPressed) {
+      // gcs coordinates
+      const { latitude, longitude } = spherical2gcs(uv);
+      element.tooltip.innerHTML = `(${longitude.toFixed(3)}, ${latitude.toFixed(3)})`;
     } else {
       // UV normalized
       element.tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
@@ -6793,6 +6807,8 @@ function startForReal(image) {
       event.preventDefault();
     } else if (event.key === "Control") {
       controlPressed = true;
+    } else if (event.key === "Alt") {
+      altPressed = true;
     }
     handleKeyPress(event);
   });
@@ -6802,12 +6818,17 @@ function startForReal(image) {
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
+   * Sets {@link controlPressed} or {@link altPressed} to false
+   * if event.key is "Control" or "Alt" respectively.
+   *
    * @event keyup
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event Element: keyup event}
    */
   window.addEventListener("keyup", (event) => {
     if (event.key === "Control") {
       controlPressed = false;
+    } else if (event.key === "Alt") {
+      altPressed = false;
     }
   });
 
