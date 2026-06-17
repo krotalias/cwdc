@@ -4589,6 +4589,23 @@ function gcsForUnknownLocation(uv) {
  */
 function addListeners() {
   /**
+   * <p>Returns the major IOS version (e.g., 16).</p>
+   * Note: returns 18 for IOS 26.
+   * @returns {Number|null} ios version.
+   * @global
+   */
+  function getIOSVersion() {
+    const ua = navigator.userAgent;
+    if (/iPad|iPhone|iPod/.test(ua)) {
+      const match = ua.match(/OS (\d+)_(\d+)/);
+      if (match) {
+        return parseInt(match[1], 10);
+      }
+    }
+    return null;
+  }
+
+  /**
    * @summary Executed when the mesh checkbox is checked or unchecked.
    * <p>Appends an event listener for events whose type attribute value is change.<br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
@@ -5075,14 +5092,24 @@ function addListeners() {
    * When using a physical mouse, mousedown events fire whenever any button on a mouse is pressed down.
    * pointerdown events fire only upon the first button press;
    * subsequent button presses don't fire pointerdown events.</p>
+   * <p>Note: it is necessary to apply a delay of 50ms for IOS version beyond 17,
+   * so the pointerup event is also fired.</p>
    * @event pointerdown-theCanvas
    * @param {PointerEvent} event a pointer event.
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event Element: pointerdown event}
    * @see {@link https://caniuse.com/pointer Pointer events}
    */
   canvas.addEventListener("pointerdown", (event) => {
-    clicked = true;
-    moving = false;
+    const ios = getIOSVersion();
+    if (ios <= 16) {
+      setTimeout(() => {
+        clicked = true;
+        moving = false;
+      }, 50);
+    } else {
+      clicked = true;
+      moving = false;
+    }
   });
 
   /**
