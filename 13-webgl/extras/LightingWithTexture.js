@@ -6837,7 +6837,9 @@ function startForReal(image) {
     } else if (event.key === "Alt") {
       altPressed = true;
     }
-    handleKeyPress(event);
+    // locations are meaninful only for maps
+    if (isMap || !["ArrowRight", "ArrowLeft", "KeyG"].includes(event.code))
+      handleKeyPress(event);
   });
 
   /**
@@ -7236,6 +7238,11 @@ function newTexture(image) {
     const canvasimg = element.canvasimg;
     canvasimg.width = textimg.width;
     canvasimg.height = textimg.height;
+    textimg.title = isMap
+      ? mercator
+        ? "Mercator"
+        : "Equirectangular"
+      : "Texture";
     displayVersions(ppiIndex);
     if (selector.paused) {
       drawLinesOnImage();
