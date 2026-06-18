@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 465 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 467 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -99,7 +99,20 @@
  * <p>It is impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
  * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
  * calculus (integrals, derivatives — {@link https://en.wikipedia.org/wiki/History_of_calculus Leibniz-Newton}, 1674-1666) or even logarithm tables
- * ({@link https://en.wikipedia.org/wiki/John_Napier John Napier}, 1614).</p>
+ * ({@link https://en.wikipedia.org/wiki/John_Napier John Napier}, 1614).
+ *
+ * This is an example of the need for calculus to solve a navigation technological issue
+ * that had an enormous economic impact. The first application of calculus to solve
+ * this map's meridional spacing was by English mathematician
+ * {@link https://en.wikipedia.org/wiki/Edward_Wright_(mathematician) Edward Wright} in 1599.
+ * Wright's geometric proof conceptually utilized the integral of the
+ * {@link https://liorsinai.github.io/mathematics/2020/08/27/secant-mercator.html secant function}.
+ *
+ * At the time, this closed-form solution was 50 years away from being discovered.
+ * The actual calculus formulation and logarithmic proofs for Mercator's scaling
+ * only emerged in the mid-to-late 1600s, primarily through the works of
+ * {@link https://en.wikipedia.org/wiki/James_Gregory_(mathematician) James Gregory} and
+ * {@link https://en.wikipedia.org/wiki/Isaac_Barrow Isaac Barrow}.</p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
  * can be set in a {@link module:polyhedron.setMercatorCoordinates model} directly or in
@@ -189,7 +202,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 465 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 467 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
