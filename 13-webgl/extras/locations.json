@@ -5688,6 +5688,25 @@
         "latitude": 39.5661,
         "longitude": 20.7583
     },
+    "Belgrade": {
+        "country": "Yugoslavia (Serbia)",
+        "remarkable": [
+            "Yugoslavia (six republics), 1 December 1918 - 27 April 1992",
+            "Yugoslavia was invaded by Nazis and Fascists, 6 April 1941",
+            "Socialist Federal Republic of Yugoslavia (SFRY), 1945-1992",
+            "Slovenia independence and Unity Day, 26 December 1990",
+            "Statehood Day, 25 June 1991",
+            "Independence of Croatia, 25 June 1991",
+            "Diplomatic recognition, 15 January 1992",
+            "Macedonia independence, 8 September 1991",
+            "Republic of North Macedonia, 2009",
+            "Bosnia and Herzegovina independence, 1 March 1992",
+            "Montenegro independence, 3 June 2006",
+            "Serbia independence, 5 June 2006"
+        ],
+        "latitude": 44.82,
+        "longitude": 20.4275
+    },
     "Pannonia": {
         "country": "Serbia",
         "remarkable": ["Attila the Hun, 406-453", "Ruler of the Huns, 434"],
@@ -5752,6 +5771,20 @@
         ],
         "latitude": 43.539444,
         "longitude": 16.483056
+    },
+    "Zagreb": {
+        "country": "Croatia",
+        "remarkable": [
+            "Kingdom of Croatia, 925-1102",
+            "Kingdom of Croatia and Dalmatia, 1102-1526",
+            "Secession from Austria-Hungary, 29 October 1918",
+            "Socialist Republic of Croatia in Yugoslavia, 9 May 1944",
+            "Declaration of independence, 25 June 1991",
+            "Croatia Joined the Eurozone and Schengen Area, 2023",
+            "Full member of NATO, April 2009"
+        ],
+        "latitude": 45.813056,
+        "longitude": 15.9775
     },
     "Kinshasa": {
         "country": "Democratic Republic of the Congo",
