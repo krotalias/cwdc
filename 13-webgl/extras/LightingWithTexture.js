@@ -5975,6 +5975,52 @@ function setRangeTicks(optionNames) {
 }
 
 /**
+ * Set range tick dates of an html &lt;range&gt; element identified by "steplist"
+ * for Safari and mobiles.
+ * @param {Array<Number>} optionNames array of timeline dates.
+ */
+function setRangeTicks2(optionNames) {
+  // create a container for organization
+  const container = document.createElement("div");
+  container.style.display = "flex"; // aligns them side-by-side
+  container.style.gap = "20px"; // adds space between the divs
+
+  const year = 4;
+  const len = element.timeline.getBoundingClientRect().width;
+
+  const elem = document.querySelector(".container");
+  const computedStyle = window.getComputedStyle(elem);
+  const fontSizeString = computedStyle.getPropertyValue("font-size");
+  const fontSizeNum = parseFloat(fontSizeString);
+
+  const christ =
+    (-year - optionNames[1]) / (optionNames.at(-2) - optionNames[1]);
+
+  const christPadding = Math.trunc(christ * len);
+
+  const dates = [
+    { date: `${Math.abs(optionNames[1])} BC`, padding: 0 },
+    { date: `${year} BC`, padding: christPadding - fontSizeNum * 6.6 },
+    {
+      date: `${optionNames[optionNames.length - 2]} AD`,
+      padding: -christPadding * 0.18,
+    },
+  ];
+
+  // loop to create 3 divs with dates
+  for (const d of dates) {
+    const newDiv = document.createElement("div");
+    newDiv.textContent = d.date;
+    newDiv.style.margin = `0 ${d.padding}px`;
+    newDiv.style.color = "red";
+
+    container.appendChild(newDiv);
+  }
+  const referenceElement = document.querySelector("#steplist");
+  referenceElement.insertAdjacentElement("afterend", container);
+}
+
+/**
  * <p>Sort an array of {@link gpsCoordinates} by
  * {@link sortCitiesByDate date} and
  * {@link sortCitiesByLongitude longitude}.</p>
@@ -6884,6 +6930,18 @@ function startForReal(image) {
     navigator.userAge;
 
   /**
+   * Test if running in Safari.
+   * @type {Boolean}
+   * @global
+   */
+  const isSafari =
+    navigator.vendor &&
+    navigator.vendor.indexOf("Apple") > -1 &&
+    navigator.userAgent &&
+    navigator.userAgent.indexOf("CriOS") == -1 &&
+    navigator.userAgent.indexOf("FxiOS") == -1;
+
+  /**
    * Set {@link canvas} dimensions.
    * @global
    */
@@ -7095,6 +7153,9 @@ function startForReal(image) {
   phongHighlight.push(...coordinates.screen);
 
   setRangeTicks(cities.timeline);
+  if (mobile || isSafari) {
+    setRangeTicks2(cities.timeline);
+  }
   handleKeyPress(createEvent("X"));
   displayVersions(ppiIndex);
 
