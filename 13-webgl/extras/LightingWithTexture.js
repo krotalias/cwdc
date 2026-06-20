@@ -7050,7 +7050,7 @@ function startForReal(image) {
    * which would normally be anchored to the layout viewport.</p>
    * <p>The {@link displayVersions callback} argument sets the callback
    * that will be invoked when the event is dispatched.</p>
-   * @event resize
+   * @event viewportResize
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport VisualViewport}
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport/resize_event VisualViewport: resize event}
    */
