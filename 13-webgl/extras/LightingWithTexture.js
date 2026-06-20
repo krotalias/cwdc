@@ -556,12 +556,6 @@ const maxLatitude = 85.0511287798066;
 let globeRadius = sphereRadius;
 
 /**
- * Current device ppi (pixel per inch).
- * @type {Number}
- */
-let ppiIndex = 1;
-
-/**
  * Whether the control key has been held down.
  * @type {Boolean}
  */
@@ -1847,6 +1841,36 @@ const aspect = canvas.clientWidth / canvas.clientHeight;
 const pixelRatio = window.devicePixelRatio || 1;
 
 /**
+ * Test for mobile devices.
+ * @type {Boolean}
+ */
+const mobile =
+  Math.min(window.screen.width, window.screen.height) < 768 ||
+  navigator.userAge;
+
+/**
+ * Test if running in Safari.
+ * @type {Boolean}
+ */
+const isSafari =
+  navigator.vendor &&
+  navigator.vendor.indexOf("Apple") > -1 &&
+  navigator.userAgent &&
+  navigator.userAgent.indexOf("CriOS") == -1 &&
+  navigator.userAgent.indexOf("FxiOS") == -1;
+
+/**
+ * Test if running in IOS.
+ * @type {Boolean}
+ */
+const isIOS =
+  // test for standard iPhone, iPod, and legacy iPad User Agents
+  /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+  // test for modern iPads running iPadOS
+  // (which mimic macOS but have touch capabilities)
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+/**
  * Projection matrix.
  * @type {mat4}
  */
@@ -3097,37 +3121,104 @@ const handleKeyPress = ((event) => {
 })();
 
 /**
- * <p>Display GLSL and OpenGL versions,
- * device pixel ratio, ppi and {@link textimg} length (cm)
- * in the "options" element.</p>
- * The standard css pixel length is 1/96 of an inch.
+ * Monitor resolution table.
  * <ol start="0">
  *  <li> 96     - standard CSS pixel density (1024X768) 13.3" (CRT)</li>
  *  <li> 96.42  - Sansung Syncmaster (1280X1024) 17" (HD)</li>
  *  <li> 117.5  - Dell U2515H, (2560x1440) 25" (QHD/2K)</li>
- *  <li> 128    - MacBook air 2017, (1400x900) 13.3"</li>
+ *  <li> 127.68 - MacBook air 2017, (1440x900) 13.3"</li>
  *  <li> 141.21 - Inspiron 15 5848, (1920x1080) 15.6" (Full HD)</li>
  *  <li> 163.18 - Dell Plus (3840x2160) 27" (4K UHD)</li>
- *  <li> 460    - iPhone 13, (1170x2532) 6.1" (retina)</li>
+ *  <li> 326    - iPhone SE, (320x568) 4" DPR=2 (retina)</li>
+ *  <li> 460    - iPhone 13, (390x844) 6.1" DPR=3 (retina)</li>
+ *  <li> 326    - iPad mini 5, (768x1024) 7.9" DPR=2 (retina)</li>
  * </ol>
+ * @type {Array<Array<Number>>}
+ */
+const monitorTable = [
+  [1024, 768, 13.3],
+  [1280, 1024, 17],
+  [2560, 1440, 25],
+  [1440, 900, 13.3],
+  [1920, 1080, 15.6],
+  [3840, 2160, 27],
+  [320, 568, 4],
+  [390, 844, 6.1],
+  [768, 1024, 7.9],
+];
+
+/**
+ * <p>Display GLSL and OpenGL versions,
+ * device pixel ratio, ppi and {@link textimg} length (cm)
+ * in the "options" element.</p>
+ * The standard css pixel length is 1/96 of an inch.
  * @param {Number} index pixel density index.
  * @see {@link https://www.calculatorsoup.com/calculators/technology/ppi-calculator.php ppi calculator}
  * @see {@link https://pcmonitors.info/dell/dell-u2515h-with-25-inch-2560-x-1440-panel/ Dell U2515H pixel density}
  * @see {@link https://blisk.io/devices/details/macbook-air MacBook Air 2017 pixel density}
  * @see <a href="https://dl.dell.com/manuals/all-products/esuprt_laptop/esuprt_inspiron_laptop/inspiron-15-5548-laptop_reference guide_en-us.pdf">Inspiron 5848 pixel density</a>
  */
-function displayVersions(index = 0) {
+function displayVersions(index) {
   const opt = document.getElementById("options");
+  // IOS returns a fixed value
   const dpr = getDevicePixelRatio();
-  const ppi = [96, 96.42, 117.5, 128, 141.21, 163.18, 460];
-  const length = ((textimg.width * dpr) / ppi[index]) * 2.54;
+
+  const { width, height } = getRealResolution(dpr);
+
+  let ppi = 96;
+
+  if (index) {
+    const ppiValues = [96, 96.42, 117.5, 127.68, 141.21, 163.18, 326, 460];
+    ppi = ppiValues[clamp(index, 0, ppiValues.length - 1)];
+  } else {
+    for (const m of monitorTable) {
+      if (width == m[0] && height == m[1]) {
+        ppi = calculatePPI(...m).toFixed(2);
+        break;
+      }
+    }
+  }
+
+  let ppi_dpr;
+  if (isIOS) {
+    ppi_dpr = 0;
+    ppi *= dpr;
+  } else {
+    ppi_dpr = dpr / ppi;
+  }
+
+  const length = textimg.width * ppi_dpr * 2.54;
+
   opt.innerHTML = `${gl.getParameter(
     gl.SHADING_LANGUAGE_VERSION,
   )}<br>${gl.getParameter(gl.VERSION)}
     <br>DPR: ${dpr.toFixed(2)}
-    (${length.toFixed(2)} cm, ${ppi[index]} ppi, ${textimg.width} x ${
+    (${length.toFixed(2)} cm, ${ppi} ppi, ${textimg.width} x ${
       textimg.height
     } px)`;
+}
+
+/**
+ * Returns the maximum device width and height in pixels.
+ * @param {Number} dpr device pixel ratio.
+ * @returns {Object<witdth:Number, height:Number>}
+ */
+function getRealResolution(dpr) {
+  let width = screen.width;
+  let height = screen.height;
+
+  // console.log(`width: ${width}, height: ${height}, dpr=${dpr}`);
+
+  if (!isSafari && !isIOS) {
+    // we need the real width to address the monitorTable
+    // firefox and chrome divides screen.width by dpr
+    width = (width * dpr).toFixed(0);
+    height = (height * dpr).toFixed(0);
+  }
+
+  // console.log(`width: ${width}, height: ${height}, dpr=${dpr}`);
+
+  return { width, height };
 }
 
 /**
@@ -3158,19 +3249,25 @@ function calculatePPI(widthPixels, heightPixels, diagonalInches) {
 function getDevicePixelRatio() {
   let ratio = 1;
   const ua = navigator.userAgent.toLowerCase();
-  // To account for zoom, change to use deviceXDPI instead of systemXDPI
+  // to account for zoom, change to use deviceXDPI instead of systemXDPI
   if (
     window.screen.systemXDPI !== undefined &&
     window.screen.logicalXDPI !== undefined &&
     window.screen.systemXDPI > window.screen.logicalXDPI
   ) {
-    // Only allow for values > 1
-    ratio = window.screen.systemXDPI / window.screen.logicalXDPI; // IE, ios
+    // older IE
+    // only allow for values > 1
+    ratio = window.screen.systemXDPI / window.screen.logicalXDPI;
+  } else if (isIOS) {
+    // IOS
+    ratio = window.devicePixelRatio;
   } // ~-1 = 0 same as != -1
   else if (~ua.indexOf("safari")) {
-    ratio = window.outerWidth / window.innerWidth; // safari
+    // safari
+    ratio = window.outerWidth / window.innerWidth;
   } else if (window.devicePixelRatio !== undefined) {
-    ratio = window.devicePixelRatio; // firefox, chrome
+    // firefox, chrome
+    ratio = window.devicePixelRatio;
   }
   return ratio;
 }
@@ -6925,27 +7022,6 @@ function startForReal(image) {
   });
 
   /**
-   * Test for mobile devices.
-   * @type {Boolean}
-   * @global
-   */
-  const mobile =
-    Math.min(window.screen.width, window.screen.height) < 768 ||
-    navigator.userAge;
-
-  /**
-   * Test if running in Safari.
-   * @type {Boolean}
-   * @global
-   */
-  const isSafari =
-    navigator.vendor &&
-    navigator.vendor.indexOf("Apple") > -1 &&
-    navigator.userAgent &&
-    navigator.userAgent.indexOf("CriOS") == -1 &&
-    navigator.userAgent.indexOf("FxiOS") == -1;
-
-  /**
    * Set {@link canvas} dimensions.
    * @global
    */
@@ -6962,7 +7038,7 @@ function startForReal(image) {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.addEventListener("resize", (event) => {
-    displayVersions(ppiIndex);
+    displayVersions();
     // handleWindowResize();
   });
 
@@ -6978,7 +7054,7 @@ function startForReal(image) {
   // Check if the modern API exists and has a type
   if (screen.orientation && screen.orientation.type) {
     screen.orientation.addEventListener("change", (event) => {
-      displayVersions(ppiIndex);
+      displayVersions();
       // handleWindowResize();
     });
   }
@@ -7161,7 +7237,7 @@ function startForReal(image) {
     setRangeTicks2(cities.timeline);
   }
   handleKeyPress(createEvent("X"));
-  displayVersions(ppiIndex);
+  displayVersions();
 
   // start drawing!
   animate();
@@ -7321,7 +7397,7 @@ function newTexture(image) {
         ? "Mercator"
         : "Equirectangular"
       : "Texture";
-    displayVersions(ppiIndex);
+    displayVersions();
     if (selector.paused) {
       drawLinesOnImage();
       if (selector.locations && isMap) drawLocationsOnImage();
