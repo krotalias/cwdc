@@ -7044,6 +7044,21 @@ function startForReal(image) {
   });
 
   /**
+   * <p>The resize event of the VisualViewport interface is fired when the
+   * visual viewport is resized. This allows you to position elements relative
+   * to the visual viewport as it is zoomed,
+   * which would normally be anchored to the layout viewport.</p>
+   * <p>The {@link displayVersions callback} argument sets the callback
+   * that will be invoked when the event is dispatched.</p>
+   * @event resize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport VisualViewport}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport/resize_event VisualViewport: resize event}
+   */
+  window.visualViewport.addEventListener("resize", () => {
+    displayVersions();
+  });
+
+  /**
    * <p>Each time the orientation of the screen changes,
    * the change event of the ScreenOrientation interface is triggered.</p>
    * <p>The {@link handleWindowResize callback} argument sets the callback
