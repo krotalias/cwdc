@@ -3181,7 +3181,8 @@ function displayVersions(index) {
 
   let ppi_dpr;
   if (isIOS) {
-    ppi_dpr = 0;
+    const scale = window.visualViewport.scale;
+    ppi_dpr = (1 / ppi) * scale;
     ppi *= dpr;
   } else {
     ppi_dpr = dpr / ppi;
