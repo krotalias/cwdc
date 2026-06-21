@@ -3134,6 +3134,7 @@ const handleKeyPress = ((event) => {
  *  <li> 326    - iPad mini 5, (768x1024) 7.9" DPR=2 (retina)</li>
  * </ol>
  * @type {Array<Array<Number>>}
+ * @see {@link https://docs.photoprism.app/developer-guide/native-apps/device-resolutions/ Mobile Device Resolutions}
  */
 const monitorTable = [
   [1024, 768, 13.3],
@@ -3180,12 +3181,13 @@ function displayVersions(index) {
   }
 
   let ppi_dpr;
+  const scale = window.visualViewport.scale;
   if (isIOS) {
-    const scale = window.visualViewport.scale;
     ppi_dpr = (1 / ppi) * scale;
     ppi *= dpr;
   } else {
     ppi_dpr = dpr / ppi;
+    if (!safari) ppi_dpr *= scale;
   }
 
   const length = textimg.width * ppi_dpr * 2.54;
