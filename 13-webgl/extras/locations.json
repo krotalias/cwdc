@@ -296,6 +296,27 @@
         "latitude": 40.3999984,
         "longitude": -3.6833306
     },
+    "Abidjan": {
+        "country": "Côte d'Ivoire (Ivory Coast)",
+        "remarkable": [
+            "Republic established, 4 December 1958",
+            "Independence from France, 7 August 1960",
+            "Koudou Laurent Gbagbo, 1945",
+            "4th President of Côte d'Ivoire, 26 October 2000 - 11 April 2011",
+            "First Ivorian civil war, 19 Septembr 2002 - 4 March 2007",
+            "French Armed Forces peacekeeping",
+            "Opération Licorne, 22 September 2002 - 21 January 2015",
+            "Alassane Dramane Ouattara defeated Gbagbo in the presidential election, 2010",
+            "Second Ivorian civil war (Ivorian crisis), 28 November 2010 - 11 April 2011",
+            "Ouattara's forces stormed Gbagbo's residence and arrested him, 11 April 2011",
+            "Gbagbo returned from exile (Ouattara invited him back), 17 June 2021",
+            "Founded the African People's Party, October 2021",
+            "France ended their decades-long military presence, 2025",
+            "Founded, 1898"
+        ],
+        "latitude": 5.316667,
+        "longitude": -4.033333
+    },
     "Tavistock": {
         "country": "England (United Kingdom)",
         "remarkable": [
