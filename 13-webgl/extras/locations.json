@@ -124,7 +124,7 @@
             "Queen in Rio (Morumbi, 100K people), 20 March 1981",
             "Rock in Rio (300K people), 11 January 1985 - 20 January 1985",
             "Love of My Life in unison (friday, 2h AM), 11 January 1985",
-            "Rainy night with a stinky mud (unforgatable performance), 18 January 1985",
+            "Rainy night with a stinky mud (unforgattable performance), 18 January 1985",
             "Live Aid at Wembley Stadium (greatest rock performances of all time), 13 July 1985",
             "Best-selling music artists of all time (250-300M records sold), 1970-present"
         ],
@@ -238,7 +238,7 @@
             "The Beatles, 1960-1970",
             "Brian Epstein (manager), 24 September 1934 - 27 August 1967",
             "George Martin (producer), 3 January 1926 - 8 March 2016",
-            "John Winston Lennon (rythm guitarist), 9 October 1940 - 8 December 1980",
+            "John Winston Lennon (rhythm guitarist), 9 October 1940 - 8 December 1980",
             "James Paul McCartney (bassist), 18 June 1942",
             "George Harrison (lead guitarist), 25 February 1943 - 29 November 2001",
             "Richard Starkey (Ringo Starr), 7 July 1940",
@@ -1878,7 +1878,7 @@
             "Pedro I annexed to the Banda Oriental of Brazil, 31 July 1821",
             "Treinta y Tres Orientales re-established the independence, 25 August 1825",
             "Uruguayan Civil War (Fructuoso Rivera x Lavalleja and Manuel Oribe), 1839-1851",
-            "Blancos (Oribe, conservative) and Colorodados (Rivera, liberal), 6 December 1842",
+            "Blancos (Oribe, conservative) and Colorados (Rivera, liberal), 6 December 1842",
             "Sitio Grande (Oribe's siege), 1843-1851",
             "Founded, 1726"
         ],
@@ -2549,7 +2549,7 @@
     "Staten Island": {
         "country": "New York (United States)",
         "remarkable": [
-            "Cornelius Vanderbilt (Comodore), 1794-1877",
+            "Cornelius Vanderbilt (Commodore), 1794-1877",
             "Steamboat entrepreneur, 1817-1846",
             "Accessory Transit Company (of Nicaragua), 1849-1857",
             "New York Central and Hudson River Railroad, 1864-1867",
@@ -4277,7 +4277,7 @@
         "country": "⚔ Malasya",
         "remarkable": [
             "Captured by the Imperial Japanese Army, 11 January 1942",
-            "Japanese surrendered to the British , 15 August 1945",
+            "Japanese surrendered to the British, 15 August 1945",
             "Independence from the United Kingdom, 31 August 1957",
             "Formation of Malaysia, 16 September 1963",
             "Surrender of Japanese forces, 13 September 1945"
@@ -6514,6 +6514,42 @@
         "latitude": 51.126111,
         "longitude": 4.290833
     },
+    "Lagos": {
+        "country": "Nigeria",
+        "remarkable": [
+            "Akitoye, ????-1853",
+            "Oba of Lagos, 1841-1845, 1851-1853",
+            "Britain bombarded Lagos, 1851",
+            "Britain annexed Lagos as a crown colony, August 1861",
+            "Royal Niger Company, 1879-1900",
+            "Battle of Kano (Britain x Sokoto Caliphate), 3 February 1903",
+            "Colony and Protectorate of Nigeria, 1 January 1914",
+            "Ibikunle Alfred Akitoye (western educated and Christian), 1871-1928",
+            "Oba of Lagos (grandson of Oba Akitoye), 1925-1928",
+            "Gained a degree of self-rule, 1954",
+            "Full independence from the UK, 1 October 1960"
+        ],
+        "latitude": 6.456111,
+        "longitude": 3.393611
+    },
+    "Algiers": {
+        "country": "Algeria",
+        "remarkable": [
+            "Ikosim (Icosium) became a small port town in Carthage, 400 BC",
+            "Vandal Kingdom took control of northern Africa, 435",
+            "Subjugated by Belisarius of the Eastern Roman Empire, 534",
+            "Kingdom of Tlemcen targeted by Spaniards, 1501",
+            "Capture of Algiers (ousted the Spanish), 1516",
+            "Capture of Peñón of Algiers, 7 May 1529 - 29 May 1529",
+            "Barbarossa annexed Algiers to the Ottoman Empire, 1529",
+            "Turned to piracy and ransoming (Corsairs of Algiers), 1516-1830",
+            "Miguel de Cervantes held captive, 26 September 1575 - 19 September 1580",
+            "US Barbary Wars, 1801-1805, 1815-1816",
+            "Founded by Buluggin ibn Ziri, 972"
+        ],
+        "latitude": 36.7325,
+        "longitude": 3.087222
+    },
     "Palma": {
         "country": "Majorca (Spain)",
         "remarkable": [
@@ -6521,7 +6557,7 @@
             "James I of Aragon, 1208-1276",
             "King of Aragon (Count of Barcelona), 12 September 1213 - 27 July 1276",
             "King of Majorca, 1231-1276",
-            "Ciutat de Mallorca , 31 December 1229",
+            "Ciutat de Mallorca, 31 December 1229",
             "Founded as a Roman camp, 124 BC"
         ],
         "latitude": 39.566667,
