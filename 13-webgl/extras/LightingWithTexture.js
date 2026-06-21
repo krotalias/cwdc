@@ -3130,11 +3130,14 @@ const handleKeyPress = ((event) => {
  *  <li> 141.21 - Inspiron 15 5848, (1920x1080) 15.6" (Full HD)</li>
  *  <li> 163.18 - Dell Plus (3840x2160) 27" (4K UHD)</li>
  *  <li> 326    - iPhone SE, (320x568) 4" DPR=2 (retina)</li>
+ *  <li> 401    - iPhone 7+, (414x736) 5.5" DPR=3 (retina)</li>
+ *  <li> 326    - iPhone 8, (375x767) 4.7" DPR=2 (retina)</li>
  *  <li> 460    - iPhone 13, (390x844) 6.1" DPR=3 (retina)</li>
  *  <li> 326    - iPad mini 5, (768x1024) 7.9" DPR=2 (retina)</li>
  * </ol>
  * @type {Array<Array<Number>>}
  * @see {@link https://docs.photoprism.app/developer-guide/native-apps/device-resolutions/ Mobile Device Resolutions}
+ * @see {@link https://www.ios-resolution.com/ iOS Resolution }
  */
 const monitorTable = [
   [1024, 768, 13.3],
@@ -3144,6 +3147,8 @@ const monitorTable = [
   [1920, 1080, 15.6],
   [3840, 2160, 27],
   [320, 568, 4],
+  [414, 736, 5.5],
+  [375, 767, 4.7],
   [390, 844, 6.1],
   [768, 1024, 7.9],
 ];
