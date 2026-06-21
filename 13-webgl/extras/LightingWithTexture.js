@@ -3187,7 +3187,7 @@ function displayVersions(index) {
     ppi *= dpr;
   } else {
     ppi_dpr = dpr / ppi;
-    if (!safari) ppi_dpr *= scale;
+    if (!isSafari) ppi_dpr *= scale;
   }
 
   const length = textimg.width * ppi_dpr * 2.54;
