@@ -210,7 +210,7 @@ when using mipmap:
                         <figure>
                             <div id="size"></div>
                             <div class="imgcontainer">
-                                <img id="textimg" title="Texture" src="" />
+                                <img id="textimg" title="Texture" />
                                 <canvas id="canvasimg"></canvas>
                                 <div
                                     id="tooltip"
@@ -534,16 +534,16 @@ when using mipmap:
 
                     <div id="latlon">
                         <label class="lbllatlon" for="lat">latitude</label>
-                        <input class="dms" type="string" id="lat" name="lat" />
+                        <input class="dms" type="text" id="lat" name="lat" />
 
                         <label class="lbllatlon" for="lon"> longitude </label>
-                        <input class="dms" type="string" id="lon" name="lon" />
+                        <input class="dms" type="text" id="lon" name="lon" />
                     </div>
 
                     <label class="lbllatlon" for="search"> search </label>
                     <input
                         class="dms"
-                        type="string"
+                        type="text"
                         id="search"
                         name="search"
                         value="Rio"
@@ -561,7 +561,7 @@ when using mipmap:
                 </form>
 
                 <div class="flex-container">
-                    <div class="sideBySide">
+                    <div>
                         <p>
                             <label><b>Texture:</b></label>
                         </p>
@@ -581,7 +581,7 @@ when using mipmap:
                         </button>
                     </div>
 
-                    <div class="sideBySide">
+                    <div>
                         <p>
                             <label><b>Subdivisions:</b></label>
                         </p>
@@ -601,7 +601,7 @@ when using mipmap:
                         </button>
                     </div>
 
-                    <div class="sideBySide">
+                    <div>
                         <p>
                             <label><b>Zoom:</b></label>
                         </p>
