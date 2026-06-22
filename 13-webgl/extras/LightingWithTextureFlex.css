@@ -58,9 +58,8 @@ body {
     justify-content: space-between;
 }
 label,
-#models,
 #locInfo {
-    font-size: x-large;
+    font-size: 150%;
     line-height: 200%;
 }
 #models {
@@ -96,14 +95,14 @@ button {
     background-color: lightsteelblue;
     color: black;
     height: 2em;
-    padding: 0 40px;
-    margin: 5px 0.25em 5px 0;
+    padding: 0 2em;
+    margin: 0.15em 0.25em 0.15em 0;
     touch-action: manipulation;
 }
 #country,
 #screenshot {
     font-size: 190%;
-    padding: 0 30px;
+    padding: 0 1em;
 }
 .btlevel {
     font-size: 250%;
@@ -142,8 +141,8 @@ label {
 #cls,
 #anim,
 #print {
-    font-size: 190%;
-    padding: 10px 20px;
+    font-size: 180%;
+    padding: 0 1em;
 }
 datalist {
     display: flex;
