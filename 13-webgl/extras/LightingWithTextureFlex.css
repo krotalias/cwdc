@@ -95,7 +95,7 @@ button {
     background-color: lightsteelblue;
     color: black;
     height: 2em;
-    padding: 0 2em;
+    padding: 0 1em;
     margin: 0.15em 0.25em 0.15em 0;
     touch-action: manipulation;
 }
