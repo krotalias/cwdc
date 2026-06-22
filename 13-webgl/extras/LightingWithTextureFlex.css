@@ -98,10 +98,11 @@ button {
     padding: 0 1em;
     margin: 0.15em 0.25em 0.15em 0;
     touch-action: manipulation;
+    white-space: nowrap;
 }
 #country,
 #screenshot {
-    font-size: 190%;
+    font-size: 180%;
     padding: 0 1em;
 }
 .btlevel {
