@@ -2125,7 +2125,7 @@ function dms2dd(degrees, minutes, seconds, hemisphere) {
  * @see {@link https://stackoverflow.com/questions/3559883/javascript-split-regex-question Javascript split regex question}
  */
 function parseDMS(input) {
-  const parts = input.split(/[^\d\w\.\-]+/);
+  const parts = input.trim().split(/[^\d\w\.\-]+/);
   switch (parts.length) {
     case 1: // degrees only
       return Number(parts[0]);
