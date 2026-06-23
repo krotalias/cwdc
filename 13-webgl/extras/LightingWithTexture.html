@@ -525,22 +525,29 @@ when using mipmap:
                     />
                     <label for="equator">Equator</label>
 
-                    <div id="latlon">
-                        <label class="lbllatlon" for="lat">latitude</label>
-                        <input class="dms" type="text" id="lat" name="lat" />
-
-                        <label class="lbllatlon" for="lon"> longitude </label>
-                        <input class="dms" type="text" id="lon" name="lon" />
+                    <div class="flex-container">
+                        <div class="dms auto">
+                            <label class="lbllatlon" for="search">
+                                🔎 city
+                            </label>
+                            <input
+                                type="text"
+                                id="search"
+                                name="search"
+                                placeholder="city name"
+                            />
+                        </div>
+                        <div class="dms initial">
+                            <label class="lbllatlon" for="lat">latitude</label>
+                            <input type="text" id="lat" name="lat" />
+                        </div>
+                        <div class="dms initial">
+                            <label class="lbllatlon" for="lon">
+                                longitude
+                            </label>
+                            <input type="text" id="lon" name="lon" />
+                        </div>
                     </div>
-
-                    <label class="lbllatlon" for="search"> search </label>
-                    <input
-                        class="dms"
-                        type="text"
-                        id="search"
-                        name="search"
-                        value="Rio"
-                    />
 
                     <div id="locInfo"></div>
 

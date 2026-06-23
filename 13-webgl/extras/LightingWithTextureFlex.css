@@ -4,11 +4,13 @@
     --canvash: 600px;
     --mleft: 10px;
     --tline: 95%;
+    --fsize: clamp(2rem, 5vw, 3rem);
 }
 
 *,
 *::before,
 *::after {
+    /* include the borders and padding as part of the CSS width property */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -63,7 +65,7 @@ label,
     line-height: 200%;
 }
 #models {
-    font-size: 240%;
+    font-size: 200%;
     width: 100%;
 }
 .legenda {
@@ -109,17 +111,38 @@ button {
     font-size: 250%;
 }
 label {
-    margin-right: 40px;
+    margin-right: 2em;
+}
+/* represents the first element, counting from the end */
+label:nth-last-child(1) {
+    margin-right: 0;
 }
 .lbllatlon {
-    margin: 0 0 0 25px;
+    margin: 4em;
+}
+#lat,
+#lon,
+#search {
+    text-align: center;
+}
+input[type="text"] {
+    margin: 0;
+    height: 2em;
+    font-size: 120%;
+    min-width: 9em;
 }
 .dms {
-    height: 30px;
-    flex: 0 0 content;
-    margin: 0 0 0 5px;
-    width: 10em;
-    font-size: 20px;
+    justify-content: space-between;
+    margin: 0;
+}
+.initial {
+    flex: initial;
+}
+.auto {
+    flex: auto;
+}
+.none {
+    flex: none;
 }
 .checkbox {
     column-count: 2;
@@ -153,7 +176,7 @@ datalist {
     width: var(--tline);
 }
 #options {
-    font-size: small;
+    font-size: 80%;
     padding: 0;
 }
 #object {
@@ -188,18 +211,19 @@ figure {
     text-align: center;
 }
 #textures {
-    font-size: 120%;
+    font-size: 100%;
     background-color: wheat;
     color: black;
     border: solid 5px lightsteelblue;
     border-radius: 10%;
+    text-align: center;
 }
 #timeline {
     width: var(--tline);
     accent-color: #ff5733;
 }
 summary {
-    font-size: 200%;
+    font-size: var(--fsize);
 }
 ul {
     list-style: none;
