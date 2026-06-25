@@ -897,13 +897,14 @@ when using mipmap:
             precision mediump float;
             // values that stay the same during for all vertices of a single draw call
             uniform mat4 transform;
+            uniform float pointSize;
             // data pulled from buffers
             in vec4 a_Position;
             in vec4 a_Color;
             // data passed to the fragment shader to be interpolated
             out vec4 color;
             void main() {
-                gl_PointSize = 4.0;
+                gl_PointSize = pointSize;
                 color = a_Color;
                 gl_Position = transform * a_Position;
             }

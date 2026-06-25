@@ -526,6 +526,47 @@ import {
  */
 
 /**
+ * Test for mobile devices.
+ * @type {Boolean}
+ */
+const mobile =
+  Math.min(window.screen.width, window.screen.height) < 768 ||
+  navigator.userAge;
+
+/**
+ * Test if running in Safari.
+ * @type {Boolean}
+ */
+const isSafari =
+  navigator.vendor &&
+  navigator.vendor.indexOf("Apple") > -1 &&
+  navigator.userAgent &&
+  navigator.userAgent.indexOf("CriOS") == -1 &&
+  navigator.userAgent.indexOf("FxiOS") == -1;
+
+/**
+ * Test if running in IOS.
+ * @type {Boolean}
+ */
+const isIOS =
+  // test for standard iPhone, iPod, and legacy iPad User Agents
+  /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+  // test for modern iPads running iPadOS
+  // (which mimic macOS but have touch capabilities)
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+/**
+ * <p>Device Pixel Ratio (DPR).</p>
+ * The ratio of physical pixels to CSS pixels, e.g.:
+ * <ul>
+ *  <li>1.0 for standard displays</li>
+ *  <li>2.0 for retina screens</li>
+ * </ul>
+ * @type {Number}
+ */
+const pixelRatio = window.devicePixelRatio || 1;
+
+/**
  * <p>Radius of the sphere.</p>
  * Subdivision sphere is a unit sphere and
  * therefore the current globe radius must be
@@ -539,6 +580,18 @@ const sphereRadius = 0.98;
  * @type {Number}
  */
 const earthRadius = 6371;
+
+/**
+ * Radius of a point location on chart.
+ * @type {Number}
+ */
+const pointRadius = isIOS ? 1.5 / pixelRatio : 1.5;
+
+/**
+ * Meridian / Parallel width.
+ * @type {Number}
+ */
+const lineWidth = isIOS ? 1 : 2;
 
 /**
  * <p>Maximum latitude for Mercator projection.</p>
@@ -1828,47 +1881,6 @@ const viewMatrix = mat4.lookAt(
  * @type {Number}
  */
 const aspect = canvas.clientWidth / canvas.clientHeight;
-
-/**
- * <p>Device Pixel Ratio (DPR).</p>
- * The ratio of physical pixels to CSS pixels, e.g.:
- * <ul>
- *  <li>1.0 for standard displays</li>
- *  <li>2.0 for retina screens</li>
- * </ul>
- * @type {Number}
- */
-const pixelRatio = window.devicePixelRatio || 1;
-
-/**
- * Test for mobile devices.
- * @type {Boolean}
- */
-const mobile =
-  Math.min(window.screen.width, window.screen.height) < 768 ||
-  navigator.userAge;
-
-/**
- * Test if running in Safari.
- * @type {Boolean}
- */
-const isSafari =
-  navigator.vendor &&
-  navigator.vendor.indexOf("Apple") > -1 &&
-  navigator.userAgent &&
-  navigator.userAgent.indexOf("CriOS") == -1 &&
-  navigator.userAgent.indexOf("FxiOS") == -1;
-
-/**
- * Test if running in IOS.
- * @type {Boolean}
- */
-const isIOS =
-  // test for standard iPhone, iPod, and legacy iPad User Agents
-  /iPhone|iPad|iPod/.test(navigator.userAgent) ||
-  // test for modern iPads running iPadOS
-  // (which mimic macOS but have touch capabilities)
-  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
 /**
  * Projection matrix.
@@ -3895,7 +3907,7 @@ function drawLinesOnImage(canvasimg = element.canvasimg, clear = true) {
         }
       }
       ctx.stroke();
-      ctx.lineWidth = 2;
+      ctx.lineWidth = lineWidth;
       ctx.closePath();
     }
   }
@@ -3925,7 +3937,7 @@ function drawLocationsOnImage(canvasimg = element.canvasimg) {
     const y = uv.t * canvasimg.height;
 
     ctx.beginPath();
-    ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+    ctx.arc(x, y, pointRadius, 0, Math.PI * 2);
 
     let color;
     if (location === "Unknown") color = colorTable.un;
@@ -5992,13 +6004,16 @@ function drawLocations() {
   gl.enableVertexAttribArray(colorIndex);
 
   // set transformation to projection * view * model
-  const loc = gl.getUniformLocation(colorShader, "transform");
+  let loc = gl.getUniformLocation(colorShader, "transform");
   const transform = mat4.multiply(
     [],
     projection,
     mat4.multiply([], viewMatrix, getModelMatrix()),
   );
   gl.uniformMatrix4fv(loc, false, transform);
+
+  loc = gl.getUniformLocation(colorShader, "pointSize");
+  gl.uniform1f(loc, isIOS ? 2.0 : 4.0);
 
   // draw locations
   gl.bindBuffer(gl.ARRAY_BUFFER, locationsBuffer);
@@ -6967,7 +6982,8 @@ function setPosition(location) {
 }
 
 /**
- * <p>Creates a textured model and triggers the animation.</p>
+ * <p>Creates a textured model, sets the {@link setCanvasSize canvas size}
+ * and triggers the animation.</p>
  *
  * Basically this function does setup that "should" only have to be done once,<br>
  * while {@link draw draw()} does things that have to be repeated each time the canvas is
@@ -7031,17 +7047,8 @@ function startForReal(image) {
   });
 
   /**
-   * Set {@link canvas} dimensions.
-   * @global
-   */
-  function setCanvasSize() {
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-  }
-
-  /**
    * <p>The resize event fires when the document view (window) has been resized.</p>
-   * <p>The {@link displayVersions callback} argument sets the callback
+   * <p>The {@link handleWindowResize callback} argument sets the callback
    * that will be invoked when the event is dispatched.</p>
    * @event resize
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
@@ -7049,6 +7056,7 @@ function startForReal(image) {
   window.addEventListener("resize", (event) => {
     displayVersions();
     // handleWindowResize();
+    // canvastip.style.display = "none";
   });
 
   /**
@@ -7072,14 +7080,38 @@ function startForReal(image) {
    * <p>The {@link handleWindowResize callback} argument sets the callback
    * that will be invoked when the event is dispatched.</p>
    * In landscape mode the browser toolbar and tabs reduce the viewport considerably.
-   * @event orientationChange
+   * @event screenOrientationChange
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Managing_screen_orientation Managing screen orientation}
    */
   // Check if the modern API exists and has a type
   if (screen.orientation && screen.orientation.type) {
     screen.orientation.addEventListener("change", (event) => {
       displayVersions();
-      // handleWindowResize();
+      handleWindowResize();
+      canvastip.style.display = "none";
+    });
+  } else {
+    /**
+     * <p>The orientationchange event is fired when the orientation
+     * of the device has changed.</p>
+     *
+     * This event is not cancelable and does not bubble.
+     *
+     * <p>The orientationchange event fires immediately,
+     * causing a race condition where the browser's innerWidth and innerHeight
+     * values haven't updated to the new screen dimensions.
+     * Implementing a delay gives the device viewport time to stabilize.</p>
+     * @event orientationchange
+     * @deprecated Listen for the change event of the ScreenOrientation interface instead.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/orientationchange_event Window: orientationchange event}
+     */
+    window.addEventListener("orientationchange", (event) => {
+      // delay execution to allow screen dimensions to update
+      setTimeout(function () {
+        displayVersions();
+        handleWindowResize();
+        canvastip.style.display = "none";
+      }, 200); // 200ms delay is a safe industry standard
     });
   }
 
@@ -7096,28 +7128,42 @@ function startForReal(image) {
   }
 
   /**
+   * Set {@link canvas} dimensions.
+   * @global
+   */
+  function setCanvasSize() {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+  }
+
+  /**
    * <p>Fires when the document view (window) has been resized.</p>
    * Also resizes the canvas and viewport.
+   * @param {Boolean} [d=true] whether to {@link draw redraw} the scene.
    * @callback handleWindowResize
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
-  function handleWindowResize() {
+  function handleWindowResize(d = true) {
     let h = window.innerHeight - 20;
     let w = window.innerWidth - 20;
     const r = document.querySelector(":root");
 
-    if (h > w) {
-      h = w / aspect; // aspect < 1
+    if (true /* h > w */) {
+      // portrait
+      h = (w / aspect).toFixed(0); // aspect < 1
     } else {
-      w = h * aspect; // aspect > 1
+      // landscape
+      w = (h * aspect).toFixed(0); // aspect > 1
     }
 
     canvas.width = w;
     canvas.height = h;
     r.style.setProperty("--canvasw", `${w}px`);
     r.style.setProperty("--canvash", `${h}px`);
-    gl.viewport(0, 0, w, h);
-    draw();
+    if (d) {
+      gl.viewport(0, 0, w, h);
+      draw();
+    }
   }
 
   // load and compile the shader pair, using utility from the teal book
@@ -7241,7 +7287,7 @@ function startForReal(image) {
   labelForLocation(currentLocation, unit);
   selectModel();
   addListeners();
-  if (mobile) {
+  if (isIOS) {
     handleWindowResize();
   }
   newTexture(image);
