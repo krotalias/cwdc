@@ -6103,6 +6103,7 @@ function setRangeTicks(optionNames) {
 function setRangeTicks2(optionNames) {
   // create a container for organization
   const container = document.createElement("div");
+  container.id = "tlid";
   container.style.display = "flex"; // aligns them side-by-side
   container.style.gap = "0px"; // adds space between the divs
 
@@ -6142,7 +6143,12 @@ function setRangeTicks2(optionNames) {
     container.appendChild(newDiv);
   }
   const referenceElement = document.querySelector("#steplist");
-  referenceElement.insertAdjacentElement("afterend", container);
+  const existing = document.querySelector("#tlid");
+  if (existing) {
+    existing.replaceWith(container);
+  } else {
+    referenceElement.insertAdjacentElement("afterend", container);
+  }
 }
 
 /**
@@ -7084,7 +7090,7 @@ function startForReal(image) {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Managing_screen_orientation Managing screen orientation}
    */
   // Check if the modern API exists and has a type
-  if (screen.orientation && screen.orientation.type) {
+  if (screen.orientation && screen.orientation.type && !isIOS) {
     screen.orientation.addEventListener("change", (event) => {
       displayVersions();
       handleWindowResize();
@@ -7110,6 +7116,9 @@ function startForReal(image) {
       setTimeout(function () {
         displayVersions();
         handleWindowResize();
+        if (mobile || isSafari) {
+          setRangeTicks2(cities.timeline);
+        }
         canvastip.style.display = "none";
       }, 200); // 200ms delay is a safe industry standard
     });
