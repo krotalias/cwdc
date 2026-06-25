@@ -2,8 +2,9 @@
     --canvasimgw: 0.42;
     --canvasw: 900px;
     --canvash: 600px;
-    --mleft: 10px;
+    --mleft: 0;
     --tline: 95%;
+    --fsize: 15px;
 }
 
 *,
@@ -15,15 +16,23 @@
     padding: 0;
 }
 
-body {
+body,
+html {
     background-color: antiquewhite;
     overflow-x: hidden;
     /* https://matthewjamestaylor.com/responsive-font-size */
-    font-size: calc(15px + 0.390625vw);
+    font-size: calc(var(--fsize) + 0.390625vw);
+    /* prevents iOS from changing text sizes */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 .container {
     width: var(--canvasw);
     margin: 0 auto;
+}
+img {
+    max-width: 100%;
+    height: auto;
 }
 #theCanvas {
     width: var(--canvasw);
@@ -36,20 +45,22 @@ body {
     justify-content: space-between;
     margin-bottom: 2em;
 }
+/* https://dev.to/drews256/ridiculously-easy-row-and-column-layouts-with-flexbox-1k01 */
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+}
 .interface {
     width: var(--canvasw);
-    margin-left: calc(var(--mleft) + 20px);
-    margin-bottom: 20px;
-}
-/*
-* On screens that are 320px wide or less,
-* make the columns stack on top of each other
-* instead of next to each other
-*/
-@media (max-width: 320px) {
-    .flex-container {
-        flex-direction: column;
-    }
+    margin-left: calc(var(--mleft) + 1em);
 }
 .btns {
     width: 45%;
@@ -63,7 +74,7 @@ body {
 label,
 #locInfo {
     font-size: 1.5rem;
-    line-height: 200%;
+    line-height: 2em;
 }
 #models {
     font-size: 2rem;
@@ -71,7 +82,7 @@ label,
 }
 .legenda {
     width: fit-content;
-    margin: 0 10px 0 0;
+    font-size: 1.5rem;
     text-align: center;
 }
 .imgcontainer {
@@ -109,7 +120,10 @@ button {
     padding: 0 1em;
 }
 .btlevel {
-    font-size: 2.5rem;
+    font-size: 2rem;
+}
+#radio > label {
+    margin-right: 1em;
 }
 label {
     margin-right: 2em;
@@ -127,14 +141,12 @@ label:nth-last-child(1) {
     text-align: center;
 }
 input[type="text"] {
-    margin: 0;
     height: 2em;
     font-size: 1.2rem;
     min-width: 9em;
 }
 .dms {
     justify-content: space-between;
-    margin: 0;
 }
 .initial {
     flex: initial;
@@ -145,10 +157,12 @@ input[type="text"] {
 .none {
     flex: none;
 }
+.column-left,
+.column-right {
+    flex: 1; /* Makes both columns take up equal width */
+}
 .checkbox {
-    column-count: 2;
-    width: 50em;
-    list-style: none;
+    font-size: 1.5rem;
     margin-right: 0;
     padding: 0;
 }
@@ -177,18 +191,18 @@ datalist {
     width: var(--tline);
 }
 #options {
-    font-size: 0.8rem;
+    font-size: 1rem;
     padding: 0;
 }
 #object {
     margin-right: 0;
-    width: 100%;
+    white-space: nowrap;
 }
 #size {
     margin-bottom: 3px;
 }
 figure {
-    margin: 0 15px 10px 0;
+    margin: 0;
 }
 #lblTimeline {
     margin-left: 5em;
@@ -213,11 +227,13 @@ figure {
 }
 #textures {
     font-size: 1rem;
+    height: 2rem;
+    width: 50%;
     background-color: wheat;
     color: black;
-    border: solid 5px lightsteelblue;
+    border: solid 2px lightsteelblue;
     border-radius: 10%;
-    text-align: center;
+    text-align-last: center;
 }
 #timeline {
     width: var(--tline);
@@ -230,12 +246,12 @@ ul {
     list-style: none;
     padding-left: 2em;
 }
-form {
+.form {
     margin-top: 50px;
 }
 .sideBySide {
     float: left;
-    margin-right: 60px;
+    margin-right: 3rem;
 }
 .sideBySide:nth-last-child(1) {
     margin-right: 0;
@@ -246,4 +262,47 @@ form {
 }
 .float_right {
     float: right;
+}
+
+/*
+ * On screens that are 320px wide or less,
+ * make the columns stack on top of each other
+ * instead of next to each other
+ */
+@media (max-width: 320px) {
+    .flex-container {
+        flex-direction: column;
+    }
+    .dms {
+        flex-direction: column;
+    }
+    #object {
+        font-size: 1rem;
+        width: 100%;
+    }
+}
+/*
+ * Your landscape mobile styles here
+ */
+@media (max-width: 568px) and (orientation: landscape) {
+    .flex-container {
+        flex-direction: column;
+    }
+}
+/*
+ * Desktop too.
+ */
+@media (max-width: 500px) {
+    :root {
+        --fsize: 6px;
+    }
+}
+/*
+ * Styles for devices where hover isn't supported
+ * and touch is primary
+ */
+@media (hover: none) and (pointer: coarse) and (max-width: 568px) {
+    :root {
+        --fsize: 6px;
+    }
 }

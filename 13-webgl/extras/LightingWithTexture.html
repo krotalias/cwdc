@@ -14,7 +14,7 @@ when using mipmap:
     <head>
         <meta charset="utf-8" />
         <meta name="author" content="Paulo Roma" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Texture with lighting</title>
         <link rel="stylesheet" type="text/css" href="LightingWithTexture.css" />
     </head>
@@ -78,7 +78,7 @@ when using mipmap:
                                     title="Screenshot"
                                     selected
                                 >
-                                    Screenshot
+                                    Print
                                 </option>
                                 <option value="Globe" title="Globe">
                                     Globe
@@ -213,7 +213,7 @@ when using mipmap:
 
                     <div class="lbtns">
                         <button type="button" id="cls">Closest Site</button>
-                        <button type="button" id="anim">Animation</button>
+                        <button type="button" id="anim">Play</button>
                     </div>
                 </div>
 
@@ -245,227 +245,271 @@ when using mipmap:
                     </div>
                 </div>
 
-                <form>
-                    <input
-                        type="checkbox"
-                        id="texture"
-                        name="texture"
-                        checked
-                        value="texture"
-                    />
-                    <label id="lbltexture" for="texture">Texture</label>
-                    <select name="textures" title="file name" id="textures">
-                        <option value="0">
-                            360/Duomo_de_Santa_Maria_Annunziata.jpg
-                        </option>
-                        <option value="1">360/Duomo_di_Salò.jpg</option>
-                        <option value="2">360/Garda.jpg</option>
-                        <option value="3">360/Gordon_River.jpg</option>
-                        <option value="4">
-                            360/Milan-Basilica_of_San_Carlo_al_Corso.jpg
-                        </option>
-                        <option value="5">360/Via_della_Libertà.jpg</option>
-                        <option value="6">maps/BigEarth.jpg</option>
-                        <option value="7">maps/Earth-1440x720.jpg</option>
-                        <option value="8">
-                            maps/Large_World_Map_unmodified.jpg
-                        </option>
-                        <option value="9">maps/NDVI_84.jpg</option>
-                        <option value="10">maps/Plate-Tectonics.jpg</option>
-                        <option value="11">
-                            maps/earth-Equirectangular+terminator.jpg
-                        </option>
-                        <option value="12">maps/earth2048.bmp</option>
-                        <option value="13">maps/earth-big-nasa.jpg</option>
-                        <option value="14">maps/earth-nasa.jpg</option>
-                        <option value="15">maps/eqs.png</option>
-                        <option value="16">
-                            maps/flat_earth_still_clouds.jpg
-                        </option>
-                        <option value="17" selected>
-                            maps/flat_earth_still_noClouds.jpg
-                        </option>
-                        <option value="18">maps/oceanbottom.png</option>
-                        <option value="181">maps/population_density.png</option>
-                        <option value="19">
-                            world-map-Mercator-Tissot_indicatrix.jpg
-                        </option>
-                        <option value="20">
-                            world-map-Mercator-normal.jpg
-                        </option>
-                        <option value="21">
-                            world-map-Mercator-political2.jpg
-                        </option>
-                        <option value="22">
-                            world-map-Mercator-the_Americas-1562.png
-                        </option>
-                        <option value="23">world-map-Mercator.jpg</option>
-                        <option value="24">world-map-Mercator.png</option>
-                        <option value="25">
-                            world-map-continents-oceans.jpg
-                        </option>
-                        <option value="26">
-                            world-map-equirectangular-Tissot_indicatrix.png
-                        </option>
-                        <option value="27">
-                            world-map-equirectangular-Tissot_indicatrix_30°.jpg
-                        </option>
-                        <option value="28">
-                            world-map-equirectangular.jpg
-                        </option>
-                        <option value="29">world-map-colder-times.jpg</option>
-                        <option value="30">world-map-flag.png</option>
-                        <option value="31">
-                            world-map-political-equirectangular.jpg
-                        </option>
-                        <option value="32">
-                            world-map-placas-tectonicas.jpg
-                        </option>
-                        <option value="33">world-map_3600x1800.png</option>
-                        <option value="34">world-map-SW.jpg</option>
-                        <option value="35">comics/comic-faces.jpg</option>
-                        <option value="36">comics/eye.png</option>
-                        <option value="37">covers/Ghost Busters.jpg</option>
-                        <option value="38">
-                            covers/GhostBusters-album.jpg
-                        </option>
-                        <option value="39">covers/GhostBusters.jpg</option>
-                        <option value="40">covers/lion.jpg</option>
-                        <option value="41">pictures/KC-130M.jpg</option>
-                        <option value="42">pictures/rattle_snake.jpg</option>
-                        <option value="43">pictures/rattlesnake.jpg</option>
-                        <option value="44">pattern/bricks.png</option>
-                        <option value="45">pattern/check64border.png</option>
-                        <option value="46">
-                            pattern/checker_texture_512.png
-                        </option>
-                        <option value="47">
-                            pattern/check-pattern-1024.png
-                        </option>
-                        <option value="48">pattern/check1024border.png</option>
-                        <option value="49">
-                            pattern/citrus-fruit-skin.png
-                        </option>
-                        <option value="50">pattern/uv_grid_opengl.jpg</option>
-                        <option value="51">pattern/uv_grid512.jpg</option>
-                        <option value="52">
-                            pattern/Petone_Pier5.medium.jpg
-                        </option>
-                        <option value="53">pattern/fractal.png</option>
-                        <option value="54">planets/haumea_fictional.jpg</option>
-                        <option value="55">planets/moon1024.bmp</option>
-                        <option value="56">
-                            rocks/Rockplates01.medium.jpg
-                        </option>
-                        <option value="57">rocks/Coastal_Rocks8.jpg</option>
-                    </select>
+                <div class="form">
+                    <div class="row">
+                        <input
+                            type="checkbox"
+                            id="texture"
+                            name="texture"
+                            checked
+                            value="texture"
+                        />
+                        <label id="lbltexture" for="texture">Texture</label>
+                        <select name="textures" title="file name" id="textures">
+                            <option value="0">
+                                360/Duomo_de_Santa_Maria_Annunziata.jpg
+                            </option>
+                            <option value="1">360/Duomo_di_Salò.jpg</option>
+                            <option value="2">360/Garda.jpg</option>
+                            <option value="3">360/Gordon_River.jpg</option>
+                            <option value="4">
+                                360/Milan-Basilica_of_San_Carlo_al_Corso.jpg
+                            </option>
+                            <option value="5">360/Via_della_Libertà.jpg</option>
+                            <option value="6">maps/BigEarth.jpg</option>
+                            <option value="7">maps/Earth-1440x720.jpg</option>
+                            <option value="8">
+                                maps/Large_World_Map_unmodified.jpg
+                            </option>
+                            <option value="9">maps/NDVI_84.jpg</option>
+                            <option value="10">maps/Plate-Tectonics.jpg</option>
+                            <option value="11">
+                                maps/earth-Equirectangular+terminator.jpg
+                            </option>
+                            <option value="12">maps/earth2048.bmp</option>
+                            <option value="13">maps/earth-big-nasa.jpg</option>
+                            <option value="14">maps/earth-nasa.jpg</option>
+                            <option value="15">maps/eqs.png</option>
+                            <option value="16">
+                                maps/flat_earth_still_clouds.jpg
+                            </option>
+                            <option value="17" selected>
+                                maps/flat_earth_still_noClouds.jpg
+                            </option>
+                            <option value="18">maps/oceanbottom.png</option>
+                            <option value="181">
+                                maps/population_density.png
+                            </option>
+                            <option value="19">
+                                world-map-Mercator-Tissot_indicatrix.jpg
+                            </option>
+                            <option value="20">
+                                world-map-Mercator-normal.jpg
+                            </option>
+                            <option value="21">
+                                world-map-Mercator-political2.jpg
+                            </option>
+                            <option value="22">
+                                world-map-Mercator-the_Americas-1562.png
+                            </option>
+                            <option value="23">world-map-Mercator.jpg</option>
+                            <option value="24">world-map-Mercator.png</option>
+                            <option value="25">
+                                world-map-continents-oceans.jpg
+                            </option>
+                            <option value="26">
+                                world-map-equirectangular-Tissot_indicatrix.png
+                            </option>
+                            <option value="27">
+                                world-map-equirectangular-Tissot_indicatrix_30°.jpg
+                            </option>
+                            <option value="28">
+                                world-map-equirectangular.jpg
+                            </option>
+                            <option value="29">
+                                world-map-colder-times.jpg
+                            </option>
+                            <option value="30">world-map-flag.png</option>
+                            <option value="31">
+                                world-map-political-equirectangular.jpg
+                            </option>
+                            <option value="32">
+                                world-map-placas-tectonicas.jpg
+                            </option>
+                            <option value="33">world-map_3600x1800.png</option>
+                            <option value="34">world-map-SW.jpg</option>
+                            <option value="35">comics/comic-faces.jpg</option>
+                            <option value="36">comics/eye.png</option>
+                            <option value="37">covers/Ghost Busters.jpg</option>
+                            <option value="38">
+                                covers/GhostBusters-album.jpg
+                            </option>
+                            <option value="39">covers/GhostBusters.jpg</option>
+                            <option value="40">covers/lion.jpg</option>
+                            <option value="41">pictures/KC-130M.jpg</option>
+                            <option value="42">
+                                pictures/rattle_snake.jpg
+                            </option>
+                            <option value="43">pictures/rattlesnake.jpg</option>
+                            <option value="44">pattern/bricks.png</option>
+                            <option value="45">
+                                pattern/check64border.png
+                            </option>
+                            <option value="46">
+                                pattern/checker_texture_512.png
+                            </option>
+                            <option value="47">
+                                pattern/check-pattern-1024.png
+                            </option>
+                            <option value="48">
+                                pattern/check1024border.png
+                            </option>
+                            <option value="49">
+                                pattern/citrus-fruit-skin.png
+                            </option>
+                            <option value="50">
+                                pattern/uv_grid_opengl.jpg
+                            </option>
+                            <option value="51">pattern/uv_grid512.jpg</option>
+                            <option value="52">
+                                pattern/Petone_Pier5.medium.jpg
+                            </option>
+                            <option value="53">pattern/fractal.png</option>
+                            <option value="54">
+                                planets/haumea_fictional.jpg
+                            </option>
+                            <option value="55">planets/moon1024.bmp</option>
+                            <option value="56">
+                                rocks/Rockplates01.medium.jpg
+                            </option>
+                            <option value="57">rocks/Coastal_Rocks8.jpg</option>
+                        </select>
+                    </div>
 
-                    <ul class="checkbox">
-                        <li>
-                            <input
-                                type="checkbox"
-                                id="mesh"
-                                name="mesh"
-                                value="mesh"
-                            />
-                            <label for="mesh">Mesh</label>
-                        </li>
+                    <div class="row">
+                        <div class="column">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="mesh"
+                                    name="mesh"
+                                    value="mesh"
+                                />
+                                <label for="mesh">Mesh</label>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="loxodrome"
+                                    name="loxodrome"
+                                    value="loxodrome"
+                                />
+                                <label for="loxodrome" id="lox">
+                                    Loxodrome
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
-                        <li>
-                            <input
-                                type="checkbox"
-                                id="fixuv"
-                                name="fixuv"
-                                checked
-                                value="fixuv"
-                            />
-                            <label for="fixuv">Fix uv (seamless)</label>
-                        </li>
+                    <div class="row">
+                        <div class="column">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="fixuv"
+                                    name="fixuv"
+                                    checked
+                                    value="fixuv"
+                                />
+                                <label for="fixuv">Fix uv (seamless)</label>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="hws"
+                                    name="hws"
+                                    value="hws"
+                                />
+                                <label for="hws">hws models</label>
+                            </div>
+                        </div>
+                    </div>
 
-                        <li>
-                            <input
-                                type="checkbox"
-                                id="culling"
-                                name="culling"
-                                checked
-                                value="culling"
-                            />
-                            <label for="culling">Back Face Culling</label>
-                        </li>
+                    <div class="row">
+                        <div class="column">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="culling"
+                                    name="culling"
+                                    checked
+                                    value="culling"
+                                />
+                                <label for="culling">Back Face Culling</label>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="tip"
+                                    name="tip"
+                                    checked
+                                    value="tip"
+                                />
+                                <label for="tip">Tooltip</label>
+                            </div>
+                        </div>
+                    </div>
 
-                        <li>
-                            <input
-                                type="checkbox"
-                                id="axes"
-                                name="axes"
-                                value="axes"
-                            />
-                            <label for="axes">Axes</label>
-                        </li>
+                    <div class="row">
+                        <div class="column">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="axes"
+                                    name="axes"
+                                    checked
+                                    value="axes"
+                                />
+                                <label for="axes">Axes</label>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="cities"
+                                    name="cities"
+                                    checked
+                                    value="cities"
+                                />
+                                <label for="cities">Locations by Date</label>
+                            </div>
+                        </div>
+                    </div>
 
-                        <li>
-                            <input
-                                type="checkbox"
-                                id="mercator"
-                                name="mercator"
-                                value="mercator"
-                            />
-                            <label for="mercator">Mercator Projection</label>
-                        </li>
-
-                        <li>
-                            <input
-                                type="checkbox"
-                                id="loxodrome"
-                                name="loxodrome"
-                                value="loxodrome"
-                            />
-                            <label for="loxodrome" id="lox">Loxodrome</label>
-                        </li>
-
-                        <li>
-                            <input
-                                type="checkbox"
-                                id="hws"
-                                name="hws"
-                                value="hws"
-                            />
-                            <label for="hws">hws models</label><br />
-                        </li>
-
-                        <li>
-                            <input
-                                type="checkbox"
-                                id="tip"
-                                name="tip"
-                                checked
-                                value="tip"
-                            />
-                            <label for="tip">Tooltip</label>
-                        </li>
-
-                        <li>
-                            <input
-                                type="checkbox"
-                                id="cities"
-                                name="cities"
-                                checked
-                                value="cities"
-                            />
-                            <label for="cities">Locations by Date</label>
-                        </li>
-
-                        <li>
-                            <input
-                                type="checkbox"
-                                id="locs"
-                                name="locs"
-                                checked
-                                value="locs"
-                            />
-                            <label for="locs">Locations on Globe</label>
-                        </li>
-                    </ul>
+                    <div class="row">
+                        <div class="column">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="mercator"
+                                    name="mercator"
+                                    value="mercator"
+                                />
+                                <label for="mercator"
+                                    >Mercator Projection</label
+                                >
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    id="locs"
+                                    name="locs"
+                                    checked
+                                    value="locs"
+                                />
+                                <label for="locs">Locations on Globe</label>
+                            </div>
+                        </div>
+                    </div>
 
                     <div id="radio">
                         <input type="radio" id="pause" name="rot" value=" " />
@@ -484,22 +528,23 @@ when using mipmap:
                         <label for="z">z</label>
                         <input type="radio" id="q" name="rot" value="q" />
                         <label for="q">q</label>
-
-                        <input
-                            type="radio"
-                            id="intrinsic"
-                            name="mode"
-                            checked
-                            value="I"
-                        />
-                        <label for="intrinsic">intrinsic</label>
-                        <input
-                            type="radio"
-                            id="extrinsic"
-                            name="mode"
-                            value="e"
-                        />
-                        <label for="extrinsic">extrinsic</label>
+                        <div>
+                            <input
+                                type="radio"
+                                id="intrinsic"
+                                name="mode"
+                                checked
+                                value="I"
+                            />
+                            <label for="intrinsic">intrinsic</label>
+                            <input
+                                type="radio"
+                                id="extrinsic"
+                                name="mode"
+                                value="e"
+                            />
+                            <label for="extrinsic">extrinsic</label>
+                        </div>
                     </div>
 
                     <div id="uradio">
@@ -525,18 +570,16 @@ when using mipmap:
                     />
                     <label for="equator">Equator</label>
 
+                    <div class="dms auto">
+                        <label class="lbllatlon" for="search"> 🔎 city </label>
+                        <input
+                            type="text"
+                            id="search"
+                            name="search"
+                            placeholder="city name"
+                        />
+                    </div>
                     <div class="flex-container">
-                        <div class="dms auto">
-                            <label class="lbllatlon" for="search">
-                                🔎 city
-                            </label>
-                            <input
-                                type="text"
-                                id="search"
-                                name="search"
-                                placeholder="city name"
-                            />
-                        </div>
                         <div class="dms initial">
                             <label class="lbllatlon" for="lat">latitude</label>
                             <input type="text" id="lat" name="lat" />
@@ -556,9 +599,10 @@ when using mipmap:
                         id="php"
                         name="php"
                         hidden
+                        checked
                         value="php"
                     />
-                </form>
+                </div>
 
                 <div class="btset">
                     <div class="sideBySide">
