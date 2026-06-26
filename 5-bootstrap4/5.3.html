@@ -289,8 +289,13 @@
                         </a>
                         B/C Warhawk P-8143 (British Tomahawk), 2nd Sqn ("Panda
                         Bears") in China, the Flying Tigers (American Volunteer
-                        Group), P/O David Lee "Tex" Hill - Nov 1941 (566 km/h)
-                        at 4572 m
+                        Group), P/O
+                        <a
+                            href="https://www.lonestarflight.org/david-lee-“tex”-hill"
+                        >
+                            David Lee "Tex" Hill
+                        </a>
+                        - Nov 1941 (566 km/h) at 4572 m
                     </p>
                     <p>
                         Chance Vought
@@ -358,15 +363,29 @@
                 <div class="col-md-6">
                     <h2 class="text-center">Axis powers!</h2>
                     <p>
-                        Messerschmitt Bf 109G-6/R3 "Gustav" II./JG300 (Long
-                        Range Reconnaissance Fighter, II Gruppe Jagdgeschwader
-                        Fighter Wing 300), Red 2 Rita WNr 490642, P/O Feldwebel
-                        Eberhard Gzik, Brandenburg - Dec 1944 (623 km/h) at
-                        7400m
+                        Messerschmitt
+                        <a
+                            href="https://www.nationalmuseum.af.mil/Visit/Museum-Exhibits/Fact-Sheets/Display/Article/196264/messerschmitt-bf-109g-10/"
+                        >
+                            Bf 109G-6/R3
+                        </a>
+                        "Gustav" II./JG300 (Long Range Reconnaissance Fighter,
+                        II Gruppe Jagdgeschwader Fighter Wing 300), Red 2 Rita
+                        WNr 490642, P/O Feldwebel Eberhard Gzik, Brandenburg -
+                        Dec 1944 (623 km/h) at 7400 m
                     </p>
                     <p>
-                        Focke-Wulf Fw 190A-6 I./JG 54 (Jagdgeschwader 54), P/O
-                        Hauptmann Waiter Nowotny - 1943 (670 kmh) at 6250 m
+                        Focke-Wulf
+                        <a
+                            href="https://en.wikipedia.org/wiki/Jagdgeschwader_54"
+                        >
+                            Fw 190A-6
+                        </a>
+                        I./JG 54 (Jagdgeschwader 54), P/O
+                        <a href="https://en.wikipedia.org/wiki/Walter_Nowotny">
+                            Hauptmann Waiter Nowotny
+                        </a>
+                        - 1943 (670 kmh) at 6250 m
                     </p>
                     <p>
                         Mitsubishi Reisen
@@ -381,15 +400,26 @@
                         1945 (565 km/h) at 6000 m
                     </p>
                     <p>
-                        Nakajima B5N2 "Kate" Type 97-3 Carrier Attack Aircraft
-                        (中島 B5N) was the standard carrier-based torpedo bomber
-                        of the Imperial Japanese Navy - Jan 1937 (378 km/h) at
-                        3600 m
+                        Nakajima
+                        <a
+                            href="https://military.wikia.org/wiki/Nakajima_B5N_Kate"
+                        >
+                            B5N2
+                        </a>
+                        "Kate" Type 97-3 Carrier Attack Aircraft (中島 B5N) was
+                        the standard carrier-based torpedo bomber of the
+                        Imperial Japanese Navy - Jan 1937 (378 km/h) at 3600 m
                     </p>
                     <p>
-                        Fiat G.55 Centauro, 372<sup>a</sup> Squadriglia of 153°
-                        Gruppo in Torino-Mirafiori, Regia Aeronautica - Sep 1943
-                        (623 km/h) at 7000 m
+                        Fiat
+                        <a
+                            href="https://www.militaryfactory.com/aircraft/detail.asp?aircraft_id=812"
+                        >
+                            G.55 Centauro,
+                        </a>
+                        372<sup>a</sup> Squadriglia of 153° Gruppo in
+                        Torino-Mirafiori, Regia Aeronautica - Sep 1943 (623
+                        km/h) at 7000 m
                     </p>
                     <img
                         title="Supermarine Spitfire"
@@ -404,6 +434,17 @@
             const containerElement = document.getElementById("my-container");
             const btn = document.getElementById("btn");
             const row = document.getElementById("article-row");
+            /**
+             * Test if running in IOS.
+             * @type {Boolean}
+             */
+            const isIOS =
+                // test for standard iPhone, iPod, and legacy iPad User Agents
+                /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+                // test for modern iPads running iPadOS
+                // (which mimic macOS but have touch capabilities)
+                (navigator.platform === "MacIntel" &&
+                    navigator.maxTouchPoints > 1);
 
             function toggleContainer() {
                 const newClass =
@@ -425,7 +466,7 @@
             }
 
             function getDevicePixelRatio() {
-                var ratio = 1;
+                let ratio = 1;
                 let ua = navigator.userAgent.toLowerCase();
                 // To account for zoom, change to use deviceXDPI instead of systemXDPI
                 if (
@@ -433,20 +474,27 @@
                     window.screen.logicalXDPI !== undefined &&
                     window.screen.systemXDPI > window.screen.logicalXDPI
                 ) {
+                    // older IE
                     // Only allow for values > 1
                     ratio =
                         window.screen.systemXDPI / window.screen.logicalXDPI; // IE, ios
+                } else if (isIOS) {
+                    // IOS
+                    ratio = window.devicePixelRatio;
                 } // ~-1 = 0 same as != -1
                 else if (~ua.indexOf("safari")) {
-                    ratio = window.outerWidth / window.innerWidth; // safari
+                    // safari
+                    ratio = window.outerWidth / window.innerWidth;
                 } else if (window.devicePixelRatio !== undefined) {
+                    // firefox, chrome
                     ratio = window.devicePixelRatio; // firefox, chrome
                 }
                 return ratio;
             }
 
-            var zoom = (getDevicePixelRatio() * 100).toFixed(0);
-            var didZoom = false;
+            let zoom = (getDevicePixelRatio() * 100).toFixed(0);
+            let scale = window.visualViewport.scale.toFixed(2);
+            let didZoom = false;
 
             (function () {
                 // The resize event fires after the window has been resized.
@@ -496,6 +544,23 @@
                     // console.log("didZoom: change");
                 });
 
+                /**
+                 * <p>The resize event of the VisualViewport interface is fired when the
+                 * visual viewport is resized. This allows you to position elements relative
+                 * to the visual viewport as it is zoomed,
+                 * which would normally be anchored to the layout viewport.</p>
+                 * <p>The {@link displayWindowSize callback} argument sets the callback
+                 * that will be invoked when the event is dispatched.</p>
+                 * @event viewportResize
+                 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport VisualViewport}
+                 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport/resize_event VisualViewport: resize event}
+                 */
+                window.visualViewport.addEventListener("resize", () => {
+                    didZoom = true;
+                    displayWindowSize();
+                    // console.log("didZoom: change");
+                });
+
                 const viewp = document.getElementById("viewp");
 
                 function displayWindowSize() {
@@ -516,6 +581,7 @@
                     }
 
                     if (didZoom) {
+                        scale = window.visualViewport.scale.toFixed(2);
                         zoom = (getDevicePixelRatio() * 100).toFixed(0);
                         didZoom = false;
                     }
@@ -540,7 +606,7 @@
                         .html(`inner: (${iWidth} &times; ${iHeight}) css px<br>
                                     outer: (${oWidth} &times; ${oHeight}) px<br>
                                     screen: (${sWidth} &times; ${sHeight}) px<br>
-                                    zoom: (${zoom} %)`);
+                                    zoom: (${zoom} %) <br> scale: (${scale})`);
                 }
             })();
         </script>

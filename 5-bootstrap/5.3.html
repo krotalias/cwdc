@@ -436,6 +436,17 @@
             const containerElement = document.getElementById("my-container");
             const btn = document.getElementById("btn");
             const row = document.getElementById("article-row");
+            /**
+             * Test if running in IOS.
+             * @type {Boolean}
+             */
+            const isIOS =
+                // test for standard iPhone, iPod, and legacy iPad User Agents
+                /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+                // test for modern iPads running iPadOS
+                // (which mimic macOS but have touch capabilities)
+                (navigator.platform === "MacIntel" &&
+                    navigator.maxTouchPoints > 1);
 
             function toggleContainer() {
                 const newClass =
@@ -457,7 +468,7 @@
             }
 
             function getDevicePixelRatio() {
-                var ratio = 1;
+                let ratio = 1;
                 let ua = navigator.userAgent.toLowerCase();
                 // To account for zoom, change to use deviceXDPI instead of systemXDPI
                 if (
@@ -465,20 +476,27 @@
                     window.screen.logicalXDPI !== undefined &&
                     window.screen.systemXDPI > window.screen.logicalXDPI
                 ) {
+                    // older IE
                     // Only allow for values > 1
                     ratio =
                         window.screen.systemXDPI / window.screen.logicalXDPI; // IE, ios
+                } else if (isIOS) {
+                    // IOS
+                    ratio = window.devicePixelRatio;
                 } // ~-1 = 0 same as != -1
                 else if (~ua.indexOf("safari")) {
-                    ratio = window.outerWidth / window.innerWidth; // safari
+                    // safari
+                    ratio = window.outerWidth / window.innerWidth;
                 } else if (window.devicePixelRatio !== undefined) {
+                    // firefox, chrome
                     ratio = window.devicePixelRatio; // firefox, chrome
                 }
                 return ratio;
             }
 
-            var zoom = (getDevicePixelRatio() * 100).toFixed(0);
-            var didZoom = false;
+            let zoom = (getDevicePixelRatio() * 100).toFixed(0);
+            let scale = window.visualViewport.scale.toFixed(2);
+            let didZoom = false;
 
             (function () {
                 // The resize event fires after the window has been resized.
@@ -528,6 +546,23 @@
                     // console.log("didZoom: change");
                 });
 
+                /**
+                 * <p>The resize event of the VisualViewport interface is fired when the
+                 * visual viewport is resized. This allows you to position elements relative
+                 * to the visual viewport as it is zoomed,
+                 * which would normally be anchored to the layout viewport.</p>
+                 * <p>The {@link displayWindowSize callback} argument sets the callback
+                 * that will be invoked when the event is dispatched.</p>
+                 * @event viewportResize
+                 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport VisualViewport}
+                 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport/resize_event VisualViewport: resize event}
+                 */
+                window.visualViewport.addEventListener("resize", () => {
+                    didZoom = true;
+                    displayWindowSize();
+                    // console.log("didZoom: change");
+                });
+
                 const viewp = document.getElementById("viewp");
 
                 function displayWindowSize() {
@@ -548,6 +583,7 @@
                     }
 
                     if (didZoom) {
+                        scale = window.visualViewport.scale.toFixed(2);
                         zoom = (getDevicePixelRatio() * 100).toFixed(0);
                         didZoom = false;
                     }
@@ -570,9 +606,9 @@
                     }
                     $("#screen")
                         .html(`inner: (${iWidth} &times; ${iHeight}) css px<br>
-                                    outer: (${oWidth} &times; ${oHeight}) px<br>
-                                    screen: (${sWidth} &times; ${sHeight}) px<br>
-                                    zoom: (${zoom} %)`);
+                                            outer: (${oWidth} &times; ${oHeight}) px<br>
+                                            screen: (${sWidth} &times; ${sHeight}) px<br>
+                                            zoom: (${zoom} %) <br> scale: (${scale})`);
                 }
             })();
         </script>
