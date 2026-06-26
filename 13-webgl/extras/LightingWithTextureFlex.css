@@ -265,11 +265,14 @@ ul {
 }
 
 /*
- * On screens that are 320px wide or less,
+ * On screens that are 320px (iPhone SE) wide or less,
  * make the columns stack on top of each other
  * instead of next to each other
  */
-@media (max-width: 320px) {
+@media (max-width: 320px) and (orientation: portrait) {
+    :root {
+        --canvasimgw: 0.99;
+    }
     .flex-container {
         flex-direction: column;
     }
@@ -277,14 +280,14 @@ ul {
         flex-direction: column;
     }
     #object {
-        font-size: 1rem;
+        font-size: 2rem;
         width: 100%;
     }
 }
 /*
  * Your landscape mobile styles here
  */
-@media (max-width: 568px) and (orientation: landscape) {
+@media (320px <= max-width <= 568px) and (orientation: landscape) {
     .flex-container {
         flex-direction: column;
     }
