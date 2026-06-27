@@ -30,6 +30,17 @@ const isIOS =
   // (which mimic macOS but have touch capabilities)
   (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
+/**
+ * Test if running in Safari.
+ * @type {Boolean}
+ */
+const isSafari =
+  navigator.vendor &&
+  navigator.vendor.indexOf("Apple") > -1 &&
+  navigator.userAgent &&
+  navigator.userAgent.indexOf("CriOS") == -1 &&
+  navigator.userAgent.indexOf("FxiOS") == -1;
+
 function toggleContainer() {
   const newClass =
     containerElement.className == "container" ? "container-fluid" : "container";
@@ -50,7 +61,7 @@ function verticalAlignment() {
 /**
  * Returns the ratio of the resolution in physical pixels to
  * the resolution in CSS pixels for the current display device.
- * @returns {Number} device pixel ratio.
+ * @returns {Number} device pixel ratio (DPR).
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio Window: devicePixelRatio property}
  */
 function getDevicePixelRatio() {
@@ -81,6 +92,7 @@ function getDevicePixelRatio() {
 
 let zoom = (getDevicePixelRatio() * 100).toFixed(0);
 let scale = window.visualViewport.scale.toFixed(2);
+let DPR = getDevicePixelRatio().toFixed(2);
 let didZoom = false;
 
 /**
@@ -193,37 +205,59 @@ let didZoom = false;
    */
   function displayWindowSize() {
     /**
-     * This is css pixels.
-     * @type {Number}
+     * Scales a rectangle.
+     * @param {Number} w width.
+     * @param {Number} h height.
+     * @param {Number} s scale factor.
+     * @returns {Array<Number>} scaled rectangle.
      */
-    const iWidth = window.innerWidth;
-    const iHeight = window.innerHeight;
+    function scaleRec(w, h, s) {
+      return [(w * s).toFixed(0), (h * s).toFixed(0)];
+    }
+
     /**
+     * <p>The read-only Window property innerWidth returns the interior width
+     * of the window in css pixels (that is, the width of the window's layout viewport).
+     * That includes the width of the vertical scroll bar, if one is present.</p>
+     * If you need to obtain the width of the window minus the scrollbar and borders,
+     * use the root <html> element's clientWidth property instead.
+     * @type {Number}
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth Window: innerWidth property}
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/CSSOM_view/Viewport_concepts Viewport concepts}
+     * @global
+     */
+    let iWidth = window.innerWidth;
+    let iHeight = window.innerHeight;
+
+    /**
+     * <p>The Window.outerWidth is the width of the outside of the browser window
+     * including all the window chrome.</p>
      * Menu bar height is 22 px in MacOS
      * (oHeight = sHeight - 22).
      * @type {Number}
+     * @global
      */
-    const oWidth = window.outerWidth;
-    const oHeight = window.outerHeight;
+    let oWidth = window.outerWidth;
+    let oHeight = window.outerHeight;
     let sWidth = screen.width;
     let sHeight = screen.height;
 
-    /**
-     * In Firefox, screen.width * window.devicePixelRatio
-     * always gives the number of physical device pixels.
-     * @type {String}
-     */
-    const ua = navigator.userAgent.toLowerCase();
-    if (~ua.indexOf("firefox")) {
-      sWidth *= window.devicePixelRatio;
-      sHeight *= window.devicePixelRatio;
-      sWidth = sWidth.toFixed(0);
-      sHeight = sHeight.toFixed(0);
+    if (isIOS) {
+      // we need the real width
+      // firefox and chrome divides screen.width by dpr
+      const dpr = getDevicePixelRatio();
+      [sWidth, sHeight] = scaleRec(sWidth, sHeight, dpr);
+      [oWidth, oHeight] = scaleRec(oWidth, oHeight, dpr);
+    } else if (!isSafari) {
+      const vps = 1 / window.visualViewport.scale;
+      [iWidth, iHeight] = scaleRec(iWidth, iHeight, vps);
     }
 
     if (didZoom) {
       scale = window.visualViewport.scale.toFixed(2);
-      zoom = (getDevicePixelRatio() * 100).toFixed(0);
+      DPR = getDevicePixelRatio();
+      zoom = (DPR * 100).toFixed(0);
+      DPR = DPR.toFixed(2);
       didZoom = false;
     }
     if (iWidth >= 1200) {
@@ -246,6 +280,7 @@ let didZoom = false;
     $("#screen").html(`inner: (${iWidth} &times; ${iHeight}) css px<br>
                         outer: (${oWidth} &times; ${oHeight}) px<br>
                         screen: (${sWidth} &times; ${sHeight}) px<br>
-                        zoom: (${zoom}%) <br> scale: (${scale})`);
+                        zoom: (${zoom}%) <br>
+                        DPR: ${DPR} <br> scale: (${scale})`);
   }
 })();
