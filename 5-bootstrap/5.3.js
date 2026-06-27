@@ -2,7 +2,10 @@
  * @file
  *
  * Summary.
- * <p>Display information about physical x CSS pixels.</p>
+ * <p>Responsive Web Design.</p>
+ * <p>Display information about physical x CSS pixels,
+ * Bootstrap {@link https://getbootstrap.com/docs/5.3/layout/breakpoints/ breakpoints}
+ * and {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Viewport Viewport elements}.</p>
  *
  * @author {@link https://krotalias.github.io Paulo R. Cavalcanti}
  * @license Licensed under the {@link https://www.gnu.org/licenses/lgpl-3.0.en.html LGPLv3}.
@@ -15,8 +18,22 @@
 
 "use strict";
 
+/**
+ * Container Element.
+ * @type {HTMLElement}
+ */
 const containerElement = document.getElementById("my-container");
+
+/**
+ * Button Element.
+ * @type {HTMLButtonElement}
+ */
 const btn = document.getElementById("btn");
+
+/**
+ * Article Element.
+ * @type {HTMLElement}
+ */
 const row = document.getElementById("article-row");
 
 /**
@@ -41,6 +58,10 @@ const isSafari =
   navigator.userAgent.indexOf("CriOS") == -1 &&
   navigator.userAgent.indexOf("FxiOS") == -1;
 
+/**
+ * <p>Sets the class of the {@link containerElement}: "container" or "container-fluid".</p>
+ * OnClick callback. Fired when the {@link btn} is pressed.
+ */
 function toggleContainer() {
   const newClass =
     containerElement.className == "container" ? "container-fluid" : "container";
@@ -48,6 +69,9 @@ function toggleContainer() {
   containerElement.className = newClass;
 }
 
+/**
+ * Check for the current vertical alignment selected: Start, Center or End.
+ */
 function verticalAlignment() {
   if (document.getElementById("inlineRadio1").checked) {
     row.className = "row align-items-start mt-5";
@@ -90,32 +114,59 @@ function getDevicePixelRatio() {
   return ratio;
 }
 
+/**
+ * Zoom level in % (percentage).
+ * @type {Number}
+ */
 let zoom = (getDevicePixelRatio() * 100).toFixed(0);
+
+/**
+ * Viewport scale.
+ * @type {Number}
+ */
 let scale = window.visualViewport.scale.toFixed(2);
+
+/**
+ * Device Pixel ratio.
+ * @type {Number}
+ */
 let DPR = getDevicePixelRatio().toFixed(2);
+
+/**
+ * Pinch gesture state: entered x ended.
+ * @type {Boolean}
+ */
 let didZoom = false;
 
 /**
- * Anonymous Immediately Invoked Function Expression (IIFE)
- * to run the application.
+ * <p>Anonymous Immediately Invoked Function Expression (IIFE)
+ * to run the application.</p>
+ * Adds all event listeners, update values on the screen
+ * if {@link didZoom} is true and resets {@link didZoom} to false.
  * @function anonymousIIFE
  */
 (function () {
   /**
-   * The resize event fires after the window has been resized.
+   * The {@link displayWindowSize resize} event fires after the window has been resized.
    * @event onresize
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
    */
   window.onresize = displayWindowSize;
 
   /**
-   * The load event fires when a given resource has loaded.
+   * The {@link displayWindowSize load} event fires when a given resource has loaded.
    * @event onload
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event Window: load event}
    */
   window.onload = displayWindowSize;
 
   /**
-   * Keeping track of zoom in and zoom out.
+   * <p>The keydown event is fired when a key is pressed.</p>
+   * Keeps track of zoom in and zoom out and sets {@link didZoom},
+   * when the "=" or "-" keys are pressed while holding the metakey or ctrlKey.
    * @event onkeydown
+   * @see{@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event Element: keydown event}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey KeyboardEvent: metaKey property}
    */
   window.onkeydown = function (event) {
     const meta =
@@ -127,6 +178,26 @@ let didZoom = false;
       //alert("Zoom");
     }
   };
+
+  /**
+   * <p>Click {@link toggleContainer fires} after both the
+   * mousedown and mouseup events have fired, in that order.</p>
+   * Toggles the cantainer type: "container" x "container-fluid".
+   * @event btnClick
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   */
+  btn.onclick = toggleContainer;
+
+  /**
+   * <p>Click {@link verticalAlignment fires} after both the
+   * mousedown and mouseup events have fired, in that order.</p>
+   * Changes the vertical alignment: Start, Centre, End.
+   * @event formClick
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   */
+  for (const elem of document.querySelectorAll(".form-check-input")) {
+    elem.onclick = verticalAlignment;
+  }
 
   /**
    * In Firefox (even in macOS), Opera and Chrome,
@@ -144,9 +215,17 @@ let didZoom = false;
   });
 
   /**
-   * The {@link displayWindowSize callback} is not being called,
-   * and if called here, the actual resize did not occur yet!
+   * <p>The gesturestart event is fired when multiple fingers
+   * contact the touch surface, thus starting a new gesture.
+   * During the gesture, gesturechange events will be fired.
+   * When the gesture has ended, a gestureend event will be fired.</p>
+   *
+   * <p>The {@link displayWindowSize callback} is not being called,
+   * and if called here, the actual resize did not occur yet!</p>
+   *
+   * Sets {@link didZoom} to true.
    * @event gesturestart
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/gesturestart_event Element: gesturestart event}
    */
   window.addEventListener("gesturestart", function (event) {
     didZoom = true;
@@ -155,7 +234,10 @@ let didZoom = false;
   });
 
   /**
+   * <p>The gesturechange event is fired when digits move during a touch gesture.</p>
+   * Sets {@link didZoom} to true.
    * @event gesturechange
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/gesturechange_event Element: gesturechange event}
    */
   window.addEventListener("gesturechange", function (event) {
     didZoom = true;
@@ -164,7 +246,11 @@ let didZoom = false;
   });
 
   /**
+   * <p>The gestureend event is fired when there are no longer
+   * multiple fingers contacting the touch surface, thus ending the gesture.</p>
+   * Sets {@link didZoom} to true.
    * @event gestureend
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/gestureend_event Element: gestureend event}
    */
   window.addEventListener("gestureend", function (event) {
     didZoom = true;
@@ -238,8 +324,8 @@ let didZoom = false;
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/outerWidth Window: outerWidth property}
      * @see {@link https://support.apple.com/guide/mac-help/whats-in-the-menu-bar-mchlp1446/mac What’s in the menu bar on Mac?}
      */
-    let oWidth = window.outerWidth;
-    let oHeight = window.outerHeight;
+    const oWidth = window.outerWidth;
+    const oHeight = window.outerHeight;
 
     /**
      * <p>The Screen.width read-only property returns the width of the screen
@@ -256,7 +342,6 @@ let didZoom = false;
       // firefox and chrome divides screen.width by dpr
       const dpr = getDevicePixelRatio();
       [sWidth, sHeight] = scaleRec(sWidth, sHeight, dpr);
-      [oWidth, oHeight] = scaleRec(oWidth, oHeight, dpr);
     } else if (!isSafari) {
       const vps = 1 / window.visualViewport.scale;
       [iWidth, iHeight] = scaleRec(iWidth, iHeight, vps);
@@ -287,7 +372,7 @@ let didZoom = false;
       $("#screen").css("color", "red");
     }
     $("#screen").html(`inner: (${iWidth} &times; ${iHeight}) css px<br>
-                        outer: (${oWidth} &times; ${oHeight}) px<br>
+                        outer: (${oWidth} &times; ${oHeight}) css px<br>
                         screen: (${sWidth} &times; ${sHeight}) px<br>
                         zoom: (${zoom}%) <br>
                         DPR: ${DPR} <br> scale: (${scale})`);
