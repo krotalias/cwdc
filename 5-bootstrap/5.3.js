@@ -197,10 +197,7 @@ let didZoom = false;
    * in the "screen" element.</p>
    * The standard css pixel length is 1/96 of an inch.
    *
-   * @see {@link https://www.calculatorsoup.com/calculators/technology/ppi-calculator.php ppi calculator}
-   * @see {@link https://pcmonitors.info/dell/dell-u2515h-with-25-inch-2560-x-1440-panel/ Dell U2515H pixel density}
-   * @see {@link https://blisk.io/devices/details/macbook-air MacBook Air 2017 pixel density}
-   * @see <a href="https://dl.dell.com/manuals/all-products/esuprt_laptop/esuprt_inspiron_laptop/inspiron-15-5548-laptop_reference guide_en-us.pdf">Inspiron 5848 pixel density</a>
+   * @see <a href="../widths.gif"><img src="../widths.gif" height="256"></a>
    * @global
    */
   function displayWindowSize() {
@@ -210,6 +207,7 @@ let didZoom = false;
      * @param {Number} h height.
      * @param {Number} s scale factor.
      * @returns {Array<Number>} scaled rectangle.
+     * @global
      */
     function scaleRec(w, h, s) {
       return [(w * s).toFixed(0), (h * s).toFixed(0)];
@@ -230,15 +228,26 @@ let didZoom = false;
     let iHeight = window.innerHeight;
 
     /**
-     * <p>The Window.outerWidth is the width of the outside of the browser window
-     * including all the window chrome.</p>
-     * Menu bar height is 22 px in MacOS
-     * (oHeight = sHeight - 22).
+     * <p>The Window.outerWidth is the width of the outside of the browser window.</p>
+     * It represents the width of the whole browser window including
+     * sidebar (if expanded), window chrome and window resizing borders/handles.
+     * <p>The menu bar on older macOS versions and standard display settings
+     * use 22 to 24 pixels. If the meu bar is not hidden, oHeight = sHeight - 22.</p>
      * @type {Number}
      * @global
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/outerWidth Window: outerWidth property}
+     * @see {@link https://support.apple.com/guide/mac-help/whats-in-the-menu-bar-mchlp1446/mac What’s in the menu bar on Mac?}
      */
     let oWidth = window.outerWidth;
     let oHeight = window.outerHeight;
+
+    /**
+     * <p>The Screen.width read-only property returns the width of the screen
+     * in CSS pixels.</p>
+     * @type {Number}
+     * @global
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Screen/width Screen: width property}
+     */
     let sWidth = screen.width;
     let sHeight = screen.height;
 
