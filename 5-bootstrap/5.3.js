@@ -314,6 +314,33 @@ let didZoom = false;
     let iHeight = window.innerHeight;
 
     /**
+     * The documentElement read-only property of the Document interface returns
+     * the Element that is the root element of the document
+     * (for example, the <html> element for HTML documents).
+     * @global
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/documentElement Document: documentElement property}
+     */
+    const root = document.documentElement;
+
+    /**
+     * <p>The clientWidth read-only property of the Element interface is zero
+     * for inline elements and elements with no CSS;
+     * otherwise, it's the inner width of an element in pixels.
+     * It includes padding but excludes borders, margins, and
+     * vertical scrollbars (if present).</p>
+     *
+     * <p>When clientWidth is used on the root element (the <html> element),
+     * (or on <body> if the document is in quirks mode), the viewport's width
+     * (excluding any scrollbar) is returned.</p>
+     * @type {Number}
+     * @global
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/clientWidth Element: clientWidth property}
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/CSSOM_view/Viewport_concepts Viewport concepts}
+     */
+    const cWidth = root.clientWidth;
+    const cHeight = root.clientHeight;
+
+    /**
      * <p>The Window.outerWidth is the width of the outside of the browser window.</p>
      * It represents the width of the whole browser window including
      * sidebar (if expanded), window chrome and window resizing borders/handles.
@@ -372,8 +399,9 @@ let didZoom = false;
       $("#screen").css("color", "red");
     }
     $("#screen").html(`inner: (${iWidth} &times; ${iHeight}) css px<br>
+                        client: (${cWidth} &times; ${cHeight}) css px<br>
                         outer: (${oWidth} &times; ${oHeight}) css px<br>
-                        screen: (${sWidth} &times; ${sHeight}) px<br>
+                        screen: (${sWidth} &times; ${sHeight}) css px<br>
                         zoom: (${zoom}%) <br>
                         DPR: ${DPR} <br> scale: (${scale})`);
   }
