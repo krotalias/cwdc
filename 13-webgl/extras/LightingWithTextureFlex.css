@@ -196,6 +196,8 @@ datalist {
 }
 #object {
     margin-right: 0;
+    width: 100%;
+    font-size: 1.2rem;
     white-space: nowrap;
 }
 #size {
