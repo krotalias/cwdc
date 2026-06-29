@@ -265,7 +265,7 @@ ul {
 }
 .float_right {
     float: right;
-    width: 50%;
+    width: calc(var(--canvasimgw) * 100%);
     text-align: center;
 }
 
