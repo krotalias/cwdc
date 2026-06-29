@@ -551,10 +551,12 @@
         "country": "Lisbon (Portugal)",
         "remarkable": [
             "Pedro I of Brazil, 1798-1834",
+            "Married D. Maria Leopoldina of Austria, 1817-1826",
             "Emperor of Brazil, 12 October 1822 - 7 April 1831",
             "Independence of Brazil, 7 September 1822",
             "Constitution of Brazil, 25 March 1824",
-            "Pedro IV of Portugal, 10 March 1826 - 2 May 1826"
+            "Pedro IV of Portugal, 10 March 1826 - 2 May 1826",
+            "Married D. Amélia of Leuchtenberg, 1829-1834"
         ],
         "latitude": 38.750725,
         "longitude": -9.259082
@@ -5780,6 +5782,28 @@
         "latitude": 59.33258,
         "longitude": 18.0649
     },
+    "Vienna": {
+        "country": "🎶 Holy Roman Empire (Austria)",
+        "remarkable": [
+            "Joseph Lanner (reformed the waltz), 1801-1843",
+            "Johann Baptist Strauss I, 1804-1849",
+            "Best-known and well loved dance composers in Vienna",
+            "House of Habsburg-Lorraine (Hofburg Palace), 1282-1918",
+            "Habsburg principles: discipline, piety and sense of duty",
+            "Maria Leopoldina of Austria (Archduchess), 1797-1826",
+            "Marriage contract to D. Pedro de Alcântara, 29 November 1816",
+            "Arrived in Rio de Janeiro, 5 November 1817",
+            "Pricess Regent of Brazil, 13 August 1822",
+            "Signed the Decree of Independence, 2 September 1822",
+            "First Empress consort, 1 December 1822",
+            "Regency and farewell reception (assaulted?), 20 November 1826",
+            "D. Pedro I departed to the south, 29 November 1826",
+            "Miscarriage of a 3 month male fetus, 2 December 1826",
+            "Died at the São Cristóvão Palace, 11 December 1826"
+        ],
+        "latitude": 48.206389,
+        "longitude": 16.365278
+    },
     "Salona (Šalata)": {
         "country": "Roman Empire (Croatia)",
         "remarkable": [
@@ -5976,7 +6000,7 @@
         "longitude": 13.04343
     },
     "Salzburg": {
-        "country": "🎶 ⚔ Austria",
+        "country": "🎶 ⚔ Holy Roman Empire (Austria)",
         "remarkable": [
             "Wolfgang Amadeus Mozart, 1756-1791",
             "Employed as a court musician by the ruler of Salzburg, 13 March 1773",
@@ -6429,9 +6453,14 @@
         "country": "Francia (Belgium)",
         "remarkable": [
             "Charlemagne, 2 April 748 - 28 January 814",
-            "First emperor in the West in over 300 years (Father of Europe), 800",
+            "Crowned Roman Emperor (Father of Europe), 25 December 800",
+            "First Emperor in the West in over 300 years (Roman Empire)",
             "King of the Franks, 9 October 768 - 28 January 814",
-            "King of the Lombards, 774 - 28 January 814",
+            "Married Desiderata of the Lombards, 770",
+            "and repudiated her less than a year later, 771",
+            "Siege of Pavia, September 773 - June 774",
+            "Defeated Desiderius, kink of the Lombards (northern Italy)",
+            "King of the Lombards, 5 June 774 - 28 January 814",
             "Emperor of the Carolingian Empire, 25 December 800 - 28 January 814"
         ],
         "latitude": 50.63373,
