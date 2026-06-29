@@ -265,6 +265,8 @@ ul {
 }
 .float_right {
     float: right;
+    width: 50%;
+    text-align: center;
 }
 
 /*
