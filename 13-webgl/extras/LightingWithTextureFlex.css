@@ -90,6 +90,7 @@ label,
     width: fit-content;
     touch-action: manipulation;
     cursor: crosshair;
+    margin: 0 auto;
 }
 #canvasimg {
     position: absolute;
