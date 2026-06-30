@@ -440,6 +440,17 @@
         "latitude": 36.535,
         "longitude": -6.2975
     },
+    "Isles of Scilly": {
+        "country": "English Channel (United Kingdom)",
+        "remarkable": [
+            "21 ships in stormy weather (English Channel), 21 October 1707",
+            "Scilly naval disaster, 22 October 1707",
+            "4 ships wrecked: HMS Association, Eagle, Romney, Firebrand",
+            "Longitude Act 1714, 9 July 1714"
+        ],
+        "latitude": 49.93499626,
+        "longitude": -6.320332052
+    },
     "Sanlúcar de Barrameda": {
         "country": "⚓ Spain",
         "remarkable": [
@@ -2782,6 +2793,28 @@
         "latitude": -0.22,
         "longitude": -78.5125
     },
+    "Juan Fernández Islands": {
+        "country": "Chile",
+        "remarkable": [
+            "Commodore George Anson, 1697-1762",
+            "Royal Navy, 1711-1762",
+            "First Lord of the Admiralty, June 1751",
+            "Six-ship Royal Navy squadron (1.9K men), September 1740",
+            "Sent to attack Spanish possessions in South America",
+            "The squadron reached Madeira, 25 October 1740",
+            "HMS Pearl and Severn failed to round Cape Horn (returned home)",
+            "Lacking a reliable method to find longitude",
+            "sailed west for four days, doubled back for two days to sail east",
+            "Lost about 80 men to scurvy",
+            "Reached the Juan Fernández Islands, June 1741",
+            "with only HMS Centurion, Gloucester, and Tryall",
+            "Captured the galleon Covadonga (cape Espiritu Santo), 20 June 1743",
+            "Seized Spanish navigational charts (Anson Archipelago)",
+            "Reached back to England (188 survivors), 15 June 1744"
+        ],
+        "latitude": -33.641389,
+        "longitude": -78.841111
+    },
     "Staunton": {
         "country": "🏆 Virginia (United States)",
         "remarkable": [
@@ -3823,6 +3856,23 @@
         ],
         "latitude": -6.30916543,
         "longitude": 155.491164702
+    },
+    "Anson Archipelago": {
+        "country": "United States",
+        "remarkable": [
+            "Historical phantom archipelago",
+            "Only Wake and Marcus Islands really exist",
+            "Named after George Anson, 1697-1762",
+            "Who seized Spanish navigational charts, 20 June 1743",
+            "Japan annexed Marcus Island, 1898",
+            "U.S. administration, 1945",
+            "Reverted to Japan, 1968",
+            "United States annexed Wake Island, 1899",
+            "Japan occupation, December 1941 - 1945",
+            "U.S. Pacific Air Forces Support Center, 1945"
+        ],
+        "latitude": 30.75,
+        "longitude": 154.416667
     },
     "Doolittle Raid": {
         "country": "⚔ Pacific Ocean",

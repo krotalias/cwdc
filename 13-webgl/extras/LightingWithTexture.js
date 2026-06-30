@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 471 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 474 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -202,7 +202,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 471 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 474 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -327,9 +327,10 @@
  * </li>
  * </ul>
  * <li>
- * To determine a ship's latitude at sea without a {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS},
+ * To determine a {@link https://historicengland.org.uk/listing/what-is-designation/heritage-highlights/sinking-of-ship-lead-to-invention-of-marine-chronometer/ ship's latitude}
+ * at sea without a {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS},
  * it is necessary to have a {@link https://www.youtube.com/watch?v=00ZEIZsl5xk sextant}.
- * What is necessary to get the ship's longitude?
+ * What is necessary to get the {@link https://www.bbc.com/travel/article/20210729-the-british-shipwreck-that-changed-the-world ship's longitude}?
  * What calculation should be done (it is simpler than you might think)?
  * </li>
  * <li>
@@ -3140,6 +3141,7 @@ const handleKeyPress = ((event) => {
  *  <li> 117.5  - Dell U2515H, (2560x1440) 25" (QHD/2K)</li>
  *  <li> 127.68 - MacBook air 2017, (1440x900) 13.3"</li>
  *  <li> 141.21 - Inspiron 15 5848, (1920x1080) 15.6" (Full HD)</li>
+ *  <li> 141.21 - LG Flatron E2350, (1920x1080) 23" (Full HD)</li>
  *  <li> 163.18 - Dell Plus (3840x2160) 27" (4K UHD)</li>
  *  <li> 326    - iPhone SE, (320x568) 4" DPR=2 (retina)</li>
  *  <li> 401    - iPhone 7+, (414x736) 5.5" DPR=3 (retina)</li>
@@ -3157,6 +3159,7 @@ const monitorTable = [
   [1280, 1024, 17],
   [2560, 1440, 25],
   [1440, 900, 13.3],
+  [1920, 1080, 23], // this will be taken first
   [1920, 1080, 15.6],
   [3840, 2160, 27],
   [320, 568, 4],
