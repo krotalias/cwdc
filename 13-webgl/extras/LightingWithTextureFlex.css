@@ -174,7 +174,7 @@ input[type="text"] {
     background-color: rgba(300 300 300 / 0.5);
     color: black;
     padding: 3px;
-    font-size: clamp(0.8125rem, 0.08vw, 2rem);
+    font-size: 0.57rem;
     display: none;
     pointer-events: none;
 }
