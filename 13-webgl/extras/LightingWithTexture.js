@@ -1474,6 +1474,67 @@ let currentLocation = null;
 let previousLocation = { country: "Rio, Brazil" };
 
 /**
+ * <p>Checks if a city name contains the search string.</p>
+ * @param {String} c city name.
+ * @param {String} str search string.
+ * @returns {Boolean} true if the city name contains the search string,
+ *                    false otherwise.
+ */
+const searchByCity = (c, str) => c.toLowerCase().includes(str);
+
+/**
+ * Checks if a city country contains the search string.
+ * @param {String} c city name.
+ * @param {String} str search string.
+ * @returns {Boolean} true if the city country contains the search string,
+ *                    false otherwise.
+ */
+const searchByCountry = (c, str) =>
+  gpsCoordinates[c].country.toLowerCase().includes(str);
+
+/**
+ * Checks if a city has a remarkable site that contains the search string.
+ * @param {String} c city name.
+ * @param {String} str search string.
+ * @returns {Boolean} true if the city has a remarkable site that contains the search string,
+ *                    false otherwise.
+ */
+const searchByRemarkable = (c, str) => {
+  for (const i of gpsCoordinates[c].remarkable) {
+    let item = i.split(",");
+    if (item.length > 1) {
+      // remove last element because it is a date
+      item = item.slice(0, -1);
+    }
+    if (item.join().toLowerCase().includes(str)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
+ * Checks if a city name, city country or city remarkable site contains the search string.
+ * @param {String} c city name.
+ * @param {String} str search string.
+ * @returns {Boolean} true if the search string was found, or false otherwise.
+ */
+const searchByAnything = (c, str) => {
+  return (
+    searchByCity(c, str) ||
+    searchByCountry(c, str) ||
+    searchByRemarkable(c, str)
+  );
+};
+
+/**
+ * Search predicate: by {@link searchByCity city}, {@link searchByCountry country},
+ * {@link searchByRemarkable remarkable} or {@link searchByAnything anything}.
+ * @type {Function}
+ */
+let searchPredicate = searchByCity;
+
+/**
  * Object with arrays of city names ordered by different keys.
  * @type {Object}
  * @property {Array<String>} byLongitude city names ordered by longitude.
@@ -5610,7 +5671,21 @@ function addListeners() {
   });
 
   /**
-   * <p>Handle search input for cities.</p>
+   * Sets the {@link currentLocation current location} to the given city.
+   * @param {String} c given city.
+   */
+  function setCurrentLocation(c) {
+    previousLocation = structuredClone(gpsCoordinates[currentLocation]);
+    previousLocation.country = "previous";
+    cities.previous = currentLocation;
+    currentLocation = c;
+    handleKeyPress(createEvent("O"));
+  }
+
+  /**
+   * <p>Handle search input for selecting cities.</p>
+   * The input is processed by a {@link searchPredicate search predicate}
+   * that filters the current set of {@link cities}.
    * The effect is similar to clicking
    * an {@link gcsForUnknownLocation unknown location}.
    * <p>The keydown event is fired when a key is pressed.</p>
@@ -5627,19 +5702,16 @@ function addListeners() {
       let result = [];
       if (element.search.value.length >= 3) {
         const str = element.search.value.toLowerCase();
-        result = cities.current.filter((c) => c.toLowerCase().includes(str));
+        result = cities.current.filter((c) => searchPredicate(c, str));
       }
       if (result.length > 0) {
-        // sort by length to get the closest match first
+        // sort city names by length to get the shortest match first
         result.sort((a, b) => a.length - b.length);
+        // alert(result.join("\n"));
         const city = result[0];
         event.target.blur();
-        previousLocation = structuredClone(gpsCoordinates[currentLocation]);
-        previousLocation.country = "previous";
-        cities.previous = currentLocation;
-        currentLocation = city;
         element.search.value = city;
-        handleKeyPress(createEvent("O"));
+        setCurrentLocation(city);
       } else {
         // city not found, try to find it by name ignoring case and diacritics
         element.search.style.color = "red";
