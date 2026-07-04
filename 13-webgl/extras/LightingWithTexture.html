@@ -574,15 +574,32 @@ when using mipmap:
                     />
                     <label for="equator">Equator</label>
 
-                    <div class="dms auto">
-                        <label class="lbllatlon" for="search"> 🔎 city </label>
-                        <input
-                            type="text"
-                            id="search"
-                            name="search"
-                            placeholder="city name"
-                        />
+                    <div class="flex-container">
+                        <div class="dms initial">
+                            <div>
+                                <label class="lblsearch" for="search">
+                                    🔎 string
+                                </label>
+                            </div>
+                            <input
+                                type="text"
+                                id="search"
+                                name="search"
+                                placeholder="query"
+                            />
+                        </div>
+                        <div class="dms auto">
+                            <div>
+                                <label class="lblcity" for="city">
+                                    🔎 result
+                                </label>
+                            </div>
+                            <select name="city" title="search result" id="city">
+                                <option value="0">Empty</option>
+                            </select>
+                        </div>
                     </div>
+
                     <div class="flex-container">
                         <div class="dms initial">
                             <label class="lbllatlon" for="lat">latitude</label>
