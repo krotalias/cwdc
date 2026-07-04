@@ -1060,6 +1060,8 @@ const getCitiesSelector = () =>
  * @property {HTMLInputElement} latitude input
  * @property {HTMLInputElement} longitude input
  * @property {HTMLDivElement} locInfo div
+ * @property {HTMLInputElement} search div
+ * @property {HTMLSelectElement} city sel
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement HTMLElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement HTMLInputElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement HTMLSelectElement}
@@ -1100,6 +1102,7 @@ const element = {
   longitude: document.getElementById("lon"),
   locinfo: document.querySelector("#locInfo"),
   search: document.querySelector("#search"),
+  city: document.querySelector("#city"),
 };
 
 /**
@@ -1532,7 +1535,7 @@ const searchByAnything = (c, str) => {
  * {@link searchByRemarkable remarkable} or {@link searchByAnything anything}.
  * @type {Function}
  */
-let searchPredicate = searchByCity;
+let searchPredicate = searchByAnything;
 
 /**
  * Object with arrays of city names ordered by different keys.
@@ -5232,7 +5235,9 @@ function addListeners() {
     } else if (altPressed) {
       // gcs coordinates
       const { latitude, longitude } = spherical2gcs(uv);
-      element.tooltip.innerHTML = `(${longitude.toFixed(3)}, ${latitude.toFixed(3)})`;
+      element.tooltip.innerHTML = `(${longitude.toFixed(3)}, ${latitude.toFixed(
+        3,
+      )})`;
     } else {
       // UV normalized
       element.tooltip.innerHTML = `(${uv.s.toFixed(3)}, ${uv.t.toFixed(3)})`;
@@ -5671,6 +5676,22 @@ function addListeners() {
   });
 
   /**
+   * Set texture file names of an html &lt;select&gt; element identified by "textures".
+   * @param {Array<String>} optionNames array of texture file names.
+   */
+  function selectCity(optionNames) {
+    const sel = element.city;
+
+    let options_str = "";
+
+    optionNames.forEach((c, index) => {
+      options_str += `<option value="${index}">${c}</option>`;
+    });
+
+    sel.innerHTML = options_str;
+  }
+
+  /**
    * Sets the {@link currentLocation current location} to the given city.
    * @param {String} c given city.
    */
@@ -5708,15 +5729,34 @@ function addListeners() {
         // sort city names by length to get the shortest match first
         result.sort((a, b) => a.length - b.length);
         // alert(result.join("\n"));
+        selectCity(result);
         const city = result[0];
         event.target.blur();
-        element.search.value = city;
+        // element.search.value = city;
+        element.city.selected = city;
         setCurrentLocation(city);
       } else {
         // city not found, try to find it by name ignoring case and diacritics
         element.search.style.color = "red";
         element.search.value = "Not found";
       }
+    }
+  });
+
+  /**
+   * @summary Executed when the city element is changed.
+   * <p>Appends an event listener for events whose type attribute value is change.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event changeCity
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
+   */
+  element.city.addEventListener("change", (event) => {
+    if (element) {
+      const cityName = element.city.options[element.city.value].text;
+      setCurrentLocation(cityName);
+      // element.search.value = cityName;
     }
   });
 }
