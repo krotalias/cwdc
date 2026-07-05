@@ -1554,6 +1554,12 @@ const searchByAnything = (c, str) => {
 let searchPredicate = searchByAnything;
 
 /**
+ * Search result.
+ * @type {Array<String>}
+ */
+let searchResult;
+
+/**
  * Object with arrays of city names ordered by different keys.
  * @type {Object}
  * @property {Array<String>} byLongitude city names ordered by longitude.
@@ -2337,6 +2343,9 @@ function setCountryDescription(country) {
     case "🎶":
       c = "Music";
       break;
+    case "🔎":
+      c = "Search";
+      break;
     case "":
       c = "the world";
       break;
@@ -2345,7 +2354,8 @@ function setCountryDescription(country) {
   ncountry.innerHTML = c;
   ncountry.style.color = colorTable.tl;
   const nsites = document.querySelector("#nsites");
-  nsites.innerHTML = `${cities.country.length}`;
+  nsites.innerHTML =
+    c === "Search" ? `${searchResult.length}` : `${cities.country.length}`;
   nsites.style.color = colorTable.tl;
 }
 
@@ -4815,12 +4825,6 @@ function gcsForUnknownLocation(uv) {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event HTMLElement: change event}
  */
 function addListeners() {
-  /**
-   * Search result.
-   * @type {Array<String>}
-   */
-  let searchResult;
-
   /**
    * <p>Returns the major IOS version (e.g., 16).</p>
    * Note: returns 18 for IOS 26.
