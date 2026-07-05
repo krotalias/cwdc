@@ -1061,7 +1061,7 @@ const getCitiesSelector = () =>
  * @property {HTMLInputElement} longitude input
  * @property {HTMLDivElement} locInfo div
  * @property {HTMLInputElement} search div
- * @property {HTMLSelectElement} city sel
+ * @property {HTMLSelectElement} city select
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement HTMLElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement HTMLInputElement}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement HTMLSelectElement}
@@ -5755,6 +5755,20 @@ function addListeners() {
         element.search.style.color = "red";
         element.search.value = "Not found";
       }
+    }
+  });
+
+  /**
+   * <p>The input event fires when the value of an &lt;input&gt;, &lt;select&gt;, or &lt;textarea&gt; element
+   * has been changed as a direct result of a user action
+   * (such as typing in a textbox or checking a checkbox).</p>
+   * Erases the select search {@link element} if the current value is completely empty.
+   * @event searchInput
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/input_event Element: input event}
+   */
+  element.search.addEventListener("input", (event) => {
+    if (event.target.value === "") {
+      element.city.innerHTML = '<option value="0">Empty</option>';
     }
   });
 
