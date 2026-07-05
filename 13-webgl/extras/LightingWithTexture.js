@@ -5741,7 +5741,8 @@ function addListeners() {
       if (result.length > 0) {
         // sort city names by length to get the shortest match first
         // result.sort((a, b) => a.length - b.length);
-        result.sort((a, b) => a.localeCompare(b));
+        // result.sort((a, b) => a.localeCompare(b));
+        [result, ,] = sortCitiesByDate(result);
         // alert(result.join("\n"));
         selectCity(result);
         const city = result[0];
