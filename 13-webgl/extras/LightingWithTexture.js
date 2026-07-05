@@ -269,6 +269,7 @@
  * <li>⛵ means <i><a href="../images/aod.mp4">Age of Discovery</a></i>,</li>
  * <li>⚓ means <i><a href="../images/Columbus.mp4">Columbus's voyages</a></i>,</li>
  * <li>🎶 means <i><a href="../images/Music.mp4">Music</a></i>,</li>
+ * <li>🔎 means <i><a href="../images/search.mp4">Search</a></i>,</li>
  * <li>BC means <i><a href="https://www.instagram.com/reel/DRHRmcOD_KR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">Before Christ</a></i> and</li>
  * <li>AD means <i><a href="https://en.wikipedia.org/wiki/Anno_Domini">Anno Domini</a></i>.</li>
  * </ul>
@@ -1514,6 +1515,21 @@ const searchByRemarkable = (c, str) => {
     }
   }
   return false;
+};
+
+/**
+ * <p>Adds an {@link https://en.wikipedia.org/wiki/Emoji emoji} symbol to all countries in a given array.</p>
+ * If the symbol is empty, the first symbol of all countries is removed.
+ * @param {Array<String>} c country array.
+ * @param {String} str symbol.
+ */
+const addSymbolInCountry = (arr, str = "") => {
+  if (!arr) return;
+  const len = "🔎".length; // ct[0].length is 1 not 2, go figure...
+  for (const c of arr) {
+    const ct = gpsCoordinates[c].country;
+    gpsCoordinates[c].country = str === "" ? ct.slice(len) : str.concat(ct);
+  }
 };
 
 /**
@@ -4800,6 +4816,12 @@ function gcsForUnknownLocation(uv) {
  */
 function addListeners() {
   /**
+   * Search result.
+   * @type {Array<String>}
+   */
+  let searchResult;
+
+  /**
    * <p>Returns the major IOS version (e.g., 16).</p>
    * Note: returns 18 for IOS 26.
    * @returns {Number|null} ios version.
@@ -5733,19 +5755,21 @@ function addListeners() {
     event.stopPropagation();
     element.search.style.color = "black";
     if (event.key === "Enter") {
-      let result = [];
+      addSymbolInCountry(searchResult);
+      searchResult = [];
       if (element.search.value.length >= 3) {
         const str = element.search.value.toLowerCase();
-        result = cities.current.filter((c) => searchPredicate(c, str));
+        searchResult = cities.current.filter((c) => searchPredicate(c, str));
       }
-      if (result.length > 0) {
+      if (searchResult.length > 0) {
         // sort city names by length to get the shortest match first
-        // result.sort((a, b) => a.length - b.length);
-        // result.sort((a, b) => a.localeCompare(b));
-        [result, ,] = sortCitiesByDate(result);
+        // searchResult.sort((a, b) => a.length - b.length);
+        // searchResult.sort((a, b) => a.localeCompare(b));
+        [searchResult, ,] = sortCitiesByDate(searchResult);
+        addSymbolInCountry(searchResult, "🔎");
         // alert(result.join("\n"));
-        selectCity(result);
-        const city = result[0];
+        selectCity(searchResult);
+        const city = searchResult[0];
         event.target.blur();
         // element.search.value = city;
         element.city.selected = city;
@@ -5769,6 +5793,8 @@ function addListeners() {
   element.search.addEventListener("input", (event) => {
     if (event.target.value === "") {
       element.city.innerHTML = '<option value="0">Empty</option>';
+      addSymbolInCountry(searchResult);
+      searchResult = [];
     }
   });
 
