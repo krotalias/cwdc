@@ -5778,6 +5778,7 @@ function addListeners() {
         // element.search.value = city;
         element.city.selected = city;
         setCurrentLocation(city);
+        displayLocations();
       } else {
         // city not found, try to find it by name ignoring case and diacritics
         element.search.style.color = "red";
