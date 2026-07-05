@@ -5,6 +5,7 @@
     --mleft: 0;
     --tline: 95%;
     --fsize: 15px;
+    --tipsize: 0.57;
 }
 
 *,
@@ -177,7 +178,7 @@ input[type="text"] {
     background-color: rgba(300 300 300 / 0.5);
     color: black;
     padding: 3px;
-    font-size: 0.57rem;
+    font-size: calc(var(--tipsize) * 1rem);
     display: none;
     pointer-events: none;
 }
