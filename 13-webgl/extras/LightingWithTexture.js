@@ -4082,7 +4082,7 @@ const selectTexture = (() => {
 
   return (getCnt = true) => {
     if (getCnt) {
-      textureCnt = +element.textures.value;
+      textureCnt = +element.textures.selectedIndex;
     }
     image.src = `./textures/${imageFilename[textureCnt]}`;
     mercator = imageFilename[textureCnt].includes("Mercator");
@@ -6227,46 +6227,37 @@ function getTextures(optionNames) {
  * @param {Array<String>} optionNames array of texture file names.
  */
 function setTextures(optionNames) {
-  const sel = document.getElementById("textures");
-
   let options_str = "";
-
-  let merc = false;
-  let equi = false;
+  let currentGroup = "";
 
   /**
-   * Add a group for mercator and equirectangular charts.
-   * @param {String} img
+   * Add a group for directories, mercator and equirectangular charts.
+   * @param {String} group
    */
-  function addGroup(opt) {
-    if (!merc && opt.includes("Mercator")) {
-      options_str += `<optgroup label="Mercator Charts">`;
-      merc = true;
-      equi = true;
-    } else if (merc && !opt.includes("Mercator")) {
+  function addGroup(group) {
+    if (currentGroup != group) {
       options_str += `</optgroup>`;
-      merc = false;
-      if (opt.includes("world-map")) {
-        options_str += `<optgroup label="Equirectangular Charts">`;
-        equi = true;
-      } else {
-        equi = false;
-      }
-    } else if (!equi && opt.includes("world-map")) {
-      options_str += `<optgroup label="Equirectangular Charts">`;
-      equi = true;
-    } else if (equi && !opt.includes("world-map")) {
-      options_str += `</optgroup>`;
-      equi = false;
+      options_str += `<optgroup label=${group}>`;
+      currentGroup = group;
     }
   }
 
   optionNames.forEach((img, index) => {
-    addGroup(img);
-    options_str += `<option value="${index}">${img}</option>`;
+    const splt = img.split("/");
+    const fname = splt.pop();
+    let path;
+    if (splt.length > 0) {
+      path = `${splt}/`;
+    } else if (img.includes("Mercator")) {
+      path = "Mercator Charts";
+    } else if (img.includes("world-map")) {
+      path = "Equirectangular Charts";
+    }
+    addGroup(path);
+    options_str += `<option value="${index}">${fname}</option>`;
   });
 
-  sel.innerHTML = options_str;
+  element.textures.innerHTML = options_str;
 }
 
 /**
@@ -7696,7 +7687,7 @@ function newTexture(image) {
   };
   document.getElementById("figc").textContent =
     `(${image.width} x ${image.height})`;
-  document.getElementById("textures").value = String(textureCnt);
+  element.textures.selectedIndex = String(textureCnt);
   setPosition(currentLocation);
 
   // bind the texture
