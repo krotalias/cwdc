@@ -590,6 +590,12 @@ const earthRadius = 6371;
 const pointRadius = isIOS ? 1.5 / pixelRatio : 1.5;
 
 /**
+ * Size of a point location on globe.
+ * @type {Number}
+ */
+const pointSize = isIOS ? 2 : 4;
+
+/**
  * Meridian / Parallel width.
  * @type {Number}
  */
@@ -6188,7 +6194,7 @@ function drawLocations() {
   gl.uniformMatrix4fv(loc, false, transform);
 
   loc = gl.getUniformLocation(colorShader, "pointSize");
-  gl.uniform1f(loc, isIOS ? 2.0 : 4.0);
+  gl.uniform1f(loc, pointSize);
 
   // draw locations
   gl.bindBuffer(gl.ARRAY_BUFFER, locationsBuffer);
@@ -6225,7 +6231,38 @@ function setTextures(optionNames) {
 
   let options_str = "";
 
+  let merc = false;
+  let equi = false;
+
+  /**
+   * Add a group for mercator and equirectangular charts.
+   * @param {String} img
+   */
+  function addGroup(opt) {
+    if (!merc && opt.includes("Mercator")) {
+      options_str += `<optgroup label="Mercator Charts">`;
+      merc = true;
+      equi = true;
+    } else if (merc && !opt.includes("Mercator")) {
+      options_str += `</optgroup>`;
+      merc = false;
+      if (opt.includes("world-map")) {
+        options_str += `<optgroup label="Equirectangular Charts">`;
+        equi = true;
+      } else {
+        equi = false;
+      }
+    } else if (!equi && opt.includes("world-map")) {
+      options_str += `<optgroup label="Equirectangular Charts">`;
+      equi = true;
+    } else if (equi && !opt.includes("world-map")) {
+      options_str += `</optgroup>`;
+      equi = false;
+    }
+  }
+
   optionNames.forEach((img, index) => {
+    addGroup(img);
     options_str += `<option value="${index}">${img}</option>`;
   });
 
