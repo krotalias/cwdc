@@ -243,6 +243,10 @@ figure {
     border-radius: 10%;
     text-align-last: center;
 }
+select option,
+select optgroup {
+    font-size: 1rem;
+}
 #city {
     width: 63%;
     margin: 0 4em;
