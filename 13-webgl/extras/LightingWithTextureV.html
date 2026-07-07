@@ -41,20 +41,34 @@ when using mipmap:
 
                         <div class="lbtns">
                             <select name="models" title="geometry" id="models">
-                                <option value="0">Capsule</option>
-                                <option value="1">Cone</option>
-                                <option value="2">Cube</option>
-                                <option value="3">Cylinder</option>
-                                <option value="4">Ring</option>
-                                <option value="5" selected>Sphere</option>
-                                <option value="6">Teapot</option>
-                                <option value="7">Torus</option>
-                                <option value="8">Torus Knot</option>
-                                <option value="9">Dodecahedron</option>
-                                <option value="10">Icosahedron</option>
-                                <option value="11">Octahedron</option>
-                                <option value="12">Tetrahedron</option>
-                                <option value="13">Subd Sphere</option>
+                                <optgroup label="Stadium of revolution">
+                                    <option value="0">Capsule</option>
+                                </optgroup>
+                                <optgroup label="Annulus">
+                                    <option value="4">Ring</option>
+                                </optgroup>
+                                <optgroup label="Utah Teapot">
+                                    <option value="6">Teapot</option>
+                                </optgroup>
+                                <optgroup label="Genus 1">
+                                    <option value="7">Torus</option>
+                                </optgroup>
+                                <optgroup label="(2,3)-torus knot">
+                                    <option value="8">Torus Knot</option>
+                                </optgroup>
+                                <optgroup label="Quadrics">
+                                    <option value="1">Cone</option>
+                                    <option value="3">Cylinder</option>
+                                    <option value="5" selected>Sphere</option>
+                                </optgroup>
+                                <optgroup label="Platonic Polyhedra">
+                                    <option value="2">Cube</option>
+                                    <option value="9">Dodecahedron</option>
+                                    <option value="10">Icosahedron</option>
+                                    <option value="11">Octahedron</option>
+                                    <option value="12">Tetrahedron</option>
+                                    <option value="13">Subd Sphere</option>
+                                </optgroup>
                             </select>
                         </div>
 
@@ -64,6 +78,10 @@ when using mipmap:
                                 title="screenshot"
                                 id="screenshot"
                             >
+                                <button>
+                                    <!-- This element automatically displays the currently selected text -->
+                                    <selectedcontent></selectedcontent>
+                                </button>
                                 <option
                                     value="Screenshot"
                                     title="Screenshot"
@@ -268,125 +286,169 @@ when using mipmap:
                         />
                         <label id="lbltexture" for="texture">Texture</label>
                         <select name="textures" title="file name" id="textures">
-                            <option value="0">
-                                360/Duomo_de_Santa_Maria_Annunziata.jpg
-                            </option>
-                            <option value="1">360/Duomo_di_Salò.jpg</option>
-                            <option value="2">360/Garda.jpg</option>
-                            <option value="3">360/Gordon_River.jpg</option>
-                            <option value="4">
-                                360/Milan-Basilica_of_San_Carlo_al_Corso.jpg
-                            </option>
-                            <option value="5">360/Via_della_Libertà.jpg</option>
-                            <option value="6">maps/BigEarth.jpg</option>
-                            <option value="7">maps/Earth-1440x720.jpg</option>
-                            <option value="8">
-                                maps/Large_World_Map_unmodified.jpg
-                            </option>
-                            <option value="9">maps/NDVI_84.jpg</option>
-                            <option value="10">maps/Plate-Tectonics.jpg</option>
-                            <option value="11">
-                                maps/earth-Equirectangular+terminator.jpg
-                            </option>
-                            <option value="12">maps/earth2048.bmp</option>
-                            <option value="13">maps/earth-big-nasa.jpg</option>
-                            <option value="14">maps/earth-nasa.jpg</option>
-                            <option value="15">maps/eqs.png</option>
-                            <option value="16">
-                                maps/flat_earth_still_clouds.jpg
-                            </option>
-                            <option value="17">
-                                maps/flat_earth_still_noClouds.jpg
-                            </option>
-                            <option value="18">maps/oceanbottom.png</option>
-                            <option value="181">
-                                maps/population_density.png
-                            </option>
-                            <option value="19">
-                                world-map-Mercator-Tissot_indicatrix.jpg
-                            </option>
-                            <option value="20">
-                                world-map-Mercator-normal.jpg
-                            </option>
-                            <option value="21">
-                                world-map-Mercator-political2.jpg
-                            </option>
-                            <option value="22">
-                                world-map-Mercator-the_Americas-1562.png
-                            </option>
-                            <option value="23" selected>
-                                world-map-Mercator.jpg
-                            </option>
-                            <option value="24">world-map-Mercator.png</option>
-                            <option value="25">
-                                world-map-continents-oceans.jpg
-                            </option>
-                            <option value="26">
-                                world-map-equirectangular-Tissot_indicatrix.png
-                            </option>
-                            <option value="27">
-                                world-map-equirectangular-Tissot_indicatrix_30°.jpg
-                            </option>
-                            <option value="28">
-                                world-map-equirectangular.jpg
-                            </option>
-                            <option value="29">
-                                world-map-colder-times.jpg
-                            </option>
-                            <option value="30">world-map-flag.png</option>
-                            <option value="31">
-                                world-map-political-equirectangular.jpg
-                            </option>
-                            <option value="32">
-                                world-map-placas-tectonicas.jpg
-                            </option>
-                            <option value="33">world-map_3600x1800.png</option>
-                            <option value="34">world-map-SW.jpg</option>
-                            <option value="35">comics/comic-faces.jpg</option>
-                            <option value="36">comics/eye.png</option>
-                            <option value="37">covers/Ghost Busters.jpg</option>
-                            <option value="38">
-                                covers/GhostBusters-album.jpg
-                            </option>
-                            <option value="39">covers/GhostBusters.jpg</option>
-                            <option value="40">covers/lion.jpg</option>
-                            <option value="41">pictures/KC-130M.jpg</option>
-                            <option value="42">
-                                pictures/rattle_snake.jpg
-                            </option>
-                            <option value="43">pictures/rattlesnake.jpg</option>
-                            <option value="44">pattern/bricks.png</option>
-                            <option value="45">
-                                pattern/check64border.png
-                            </option>
-                            <option value="46">
-                                pattern/checker_texture_512.png
-                            </option>
-                            <option value="47">
-                                pattern/check-pattern-1024.png
-                            </option>
-                            <option value="48">
-                                pattern/check1024border.png
-                            </option>
-                            <option value="49">
-                                pattern/citrus-fruit-skin.png
-                            </option>
-                            <option value="50">
-                                pattern/uv_grid_opengl.jpg
-                            </option>
-                            <option value="51">pattern/uv_grid512.jpg</option>
-                            <option value="52">
-                                pattern/Petone_Pier5.medium.jpg
-                            </option>
-                            <option value="53">pattern/fractal.png</option>
-                            <option value="54">
-                                planets/haumea_fictional.jpg
-                            </option>
-                            <option value="55">planets/moon1024.bmp</option>
-                            <option value="56">
-                                rocks/Rockplates01.medium.jpg
-                            </option>
-                            <option value="57">rocks/Coastal_Rocks8.jpg</option>
+                            <optgroup label="360">
+                                <option value="0">
+                                    360/Duomo_de_Santa_Maria_Annunziata.jpg
+                                </option>
+                                <option value="1">360/Duomo_di_Salò.jpg</option>
+                                <option value="2">360/Garda.jpg</option>
+                                <option value="3">360/Gordon_River.jpg</option>
+                                <option value="4">
+                                    360/Milan-Basilica_of_San_Carlo_al_Corso.jpg
+                                </option>
+                                <option value="5">
+                                    360/Via_della_Libertà.jpg
+                                </option>
+                            </optgroup>
+                            <optgroup label="Maps">
+                                <option value="6">maps/BigEarth.jpg</option>
+                                <option value="7">
+                                    maps/Earth-1440x720.jpg
+                                </option>
+                                <option value="8">
+                                    maps/Large_World_Map_unmodified.jpg
+                                </option>
+                                <option value="9">maps/NDVI_84.jpg</option>
+                                <option value="10">
+                                    maps/Plate-Tectonics.jpg
+                                </option>
+                                <option value="11">
+                                    maps/earth-Equirectangular+terminator.jpg
+                                </option>
+                                <option value="12">maps/earth2048.bmp</option>
+                                <option value="13">
+                                    maps/earth-big-nasa.jpg
+                                </option>
+                                <option value="14">maps/earth-nasa.jpg</option>
+                                <option value="15">maps/eqs.png</option>
+                                <option value="16">
+                                    maps/flat_earth_still_clouds.jpg
+                                </option>
+                                <option value="17">
+                                    maps/flat_earth_still_noClouds.jpg
+                                </option>
+                                <option value="18">maps/oceanbottom.png</option>
+                                <option value="181">
+                                    maps/population_density.png
+                                </option>
+                            </optgroup>
+                            <optgroup label="Mercator Charts">
+                                <option value="19">
+                                    world-map-Mercator-Tissot_indicatrix.jpg
+                                </option>
+                                <option value="20">
+                                    world-map-Mercator-normal.jpg
+                                </option>
+                                <option value="21">
+                                    world-map-Mercator-political2.jpg
+                                </option>
+                                <option value="22">
+                                    world-map-Mercator-the_Americas-1562.png
+                                </option>
+                                <option value="23" selected>
+                                    world-map-Mercator.jpg
+                                </option>
+                                <option value="24">
+                                    world-map-Mercator.png
+                                </option>
+                            </optgroup>
+                            <optgroup label="Equirectangular Charts">
+                                <option value="25">
+                                    world-map-continents-oceans.jpg
+                                </option>
+                                <option value="26">
+                                    world-map-equirectangular-Tissot_indicatrix.png
+                                </option>
+                                <option value="27">
+                                    world-map-equirectangular-Tissot_indicatrix_30°.jpg
+                                </option>
+                                <option value="28">
+                                    world-map-equirectangular.jpg
+                                </option>
+                                <option value="29">
+                                    world-map-colder-times.jpg
+                                </option>
+                                <option value="30">world-map-flag.png</option>
+                                <option value="31">
+                                    world-map-political-equirectangular.jpg
+                                </option>
+                                <option value="32">
+                                    world-map-placas-tectonicas.jpg
+                                </option>
+                                <option value="33">
+                                    world-map_3600x1800.png
+                                </option>
+                                <option value="34">world-map-SW.jpg</option>
+                            </optgroup>
+                            <optgroup label="Comics">
+                                <option value="35">
+                                    comics/comic-faces.jpg
+                                </option>
+                                <option value="36">comics/eye.png</option>
+                            </optgroup>
+                            <optgroup label="Covers">
+                                <option value="37">
+                                    covers/Ghost Busters.jpg
+                                </option>
+                                <option value="38">
+                                    covers/GhostBusters-album.jpg
+                                </option>
+                                <option value="39">
+                                    covers/GhostBusters.jpg
+                                </option>
+                                <option value="40">covers/lion.jpg</option>
+                            </optgroup>
+                            <optgroup label="Pictures">
+                                <option value="41">pictures/KC-130M.jpg</option>
+                                <option value="42">
+                                    pictures/rattle_snake.jpg
+                                </option>
+                                <option value="43">
+                                    pictures/rattlesnake.jpg
+                                </option>
+                            </optgroup>
+                            <optgroup label="Patterns">
+                                <option value="44">pattern/bricks.png</option>
+                                <option value="45">
+                                    pattern/check64border.png
+                                </option>
+                                <option value="46">
+                                    pattern/checker_texture_512.png
+                                </option>
+                                <option value="47">
+                                    pattern/check-pattern-1024.png
+                                </option>
+                                <option value="48">
+                                    pattern/check1024border.png
+                                </option>
+                                <option value="49">
+                                    pattern/citrus-fruit-skin.png
+                                </option>
+                                <option value="50">
+                                    pattern/uv_grid_opengl.jpg
+                                </option>
+                                <option value="51">
+                                    pattern/uv_grid512.jpg
+                                </option>
+                                <option value="52">
+                                    pattern/Petone_Pier5.medium.jpg
+                                </option>
+                                <option value="53">pattern/fractal.png</option>
+                            </optgroup>
+                            <optgroup label="Planets">
+                                <option value="54">
+                                    planets/haumea_fictional.jpg
+                                </option>
+                                <option value="55">planets/moon1024.bmp</option>
+                            </optgroup>
+                            <optgroup label="Rocks">
+                                <option value="56">
+                                    rocks/Rockplates01.medium.jpg
+                                </option>
+                                <option value="57">
+                                    rocks/Coastal_Rocks8.jpg
+                                </option>
+                            </optgroup>
                         </select>
                     </div>
 
