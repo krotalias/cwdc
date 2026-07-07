@@ -188,6 +188,20 @@
         "latitude": 50.89696,
         "longitude": -1.40416
     },
+    "Leeds": {
+        "country": "West Yorkshire (United Kingdom-Norway)",
+        "remarkable": [
+            "City status was awarded, 1893",
+            "Erling Haaland (1.95m, 299 goals), 21 July 2000",
+            "Greatest Norwegian player ever",
+            "Red Bull Salzburg, 19 August 2018",
+            "Borussia Dortmund, 29 December 2019",
+            "Manchester City, 10 May 2022",
+            "FIFA Club World Cup, 22 December 2023"
+        ],
+        "latitude": 53.7975,
+        "longitude": -1.543611
+    },
     "Stratford-upon-Avon": {
         "country": "England (United Kingdom)",
         "remarkable": [
