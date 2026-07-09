@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 475 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 476 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -202,7 +202,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 475 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 476 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -5721,8 +5721,8 @@ function addListeners() {
   });
 
   /**
-   * Set texture file names of an html &lt;select&gt; element identified by "textures".
-   * @param {Array<String>} optionNames array of texture file names.
+   * Set city names of an html &lt;select&gt; element identified by "city".
+   * @param {Array<String>} optionNames array of city names.
    */
   function selectCity(optionNames) {
     const sel = element.city;
@@ -6232,7 +6232,9 @@ function setTextures(optionNames) {
 
   /**
    * Add a group for directories, mercator and equirectangular charts.
-   * @param {String} group
+   * @param {String} group description.
+   * @global
+   * @see <a href="../images/select.png"><img src="../images/select.png" height="256"></a>
    */
   function addGroup(group) {
     if (currentGroup != group) {
@@ -6265,7 +6267,6 @@ function setTextures(optionNames) {
  * @param {Array<Number>} optionNames array of timeline dates.
  */
 function setRangeTicks(optionNames) {
-  const sel = element.steplist;
   const timeline = element.timeline;
 
   let options_str = "";
@@ -6295,7 +6296,7 @@ function setRangeTicks(optionNames) {
 
   timeline.min = optionNames[1];
   timeline.max = optionNames.at(-2);
-  sel.innerHTML = options_str;
+  element.steplist.innerHTML = options_str;
 }
 
 /**
