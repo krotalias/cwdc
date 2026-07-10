@@ -5727,7 +5727,9 @@ function addListeners() {
   function selectCity(optionNames) {
     const sel = element.city;
 
-    let options_str = "";
+    let options_str = `<button>
+        <selectedcontent></selectedcontent>
+      </button>`;
 
     optionNames.forEach((c, index) => {
       options_str += `<option value="${index}">${c}</option>`;
@@ -6227,7 +6229,9 @@ function getTextures(optionNames) {
  * @param {Array<String>} optionNames array of texture file names.
  */
 function setTextures(optionNames) {
-  let options_str = "";
+  let options_str = `<button>
+        <selectedcontent></selectedcontent>
+      </button>`;
   let currentGroup = "";
 
   /**
@@ -6238,7 +6242,7 @@ function setTextures(optionNames) {
    */
   function addGroup(group) {
     if (currentGroup != group) {
-      if (options_str) {
+      if (currentGroup) {
         options_str += `</optgroup> <br /> <hr />`;
       }
       options_str += `<optgroup label=${group}>`;
