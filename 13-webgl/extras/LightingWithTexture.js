@@ -6238,7 +6238,9 @@ function setTextures(optionNames) {
    */
   function addGroup(group) {
     if (currentGroup != group) {
-      options_str += `</optgroup>`;
+      if (options_str) {
+        options_str += `</optgroup> <br /> <hr />`;
+      }
       options_str += `<optgroup label=${group}>`;
       currentGroup = group;
     }
