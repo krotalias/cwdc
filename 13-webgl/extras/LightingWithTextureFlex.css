@@ -232,8 +232,8 @@ figure {
     width: fit-content;
     text-align: center;
 }
-#city,
-#textures {
+.custom-select,
+select {
     font-size: 1rem;
     height: 2rem;
     width: 50%;
@@ -243,9 +243,39 @@ figure {
     border-radius: 10%;
     text-align-last: center;
 }
+select,
+::picker(select) {
+    @supports (appearance: base-select) {
+        &,
+        &::picker(select) {
+            appearance: base-select;
+        }
+    }
+}
 select option,
 select optgroup {
     font-size: 1rem;
+}
+select option:checked {
+    font-weight: bold;
+    color: red;
+}
+selectedcontent,
+::picker-icon {
+    margin: auto auto;
+}
+::picker-icon {
+    font-size: 0.7rem;
+}
+::picker(select) {
+    background: inherit;
+    border-color: transparent;
+    border-radius: 0.2em;
+}
+option::checkmark {
+    font-size: 0.3rem;
+    content: "⬤";
+    color: #222;
 }
 #city {
     width: 63%;
