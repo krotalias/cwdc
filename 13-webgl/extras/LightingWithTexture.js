@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 476 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 477 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -202,7 +202,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 476 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 477 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -602,6 +602,19 @@ const pointSize = isIOS ? 2 : 4;
 const lineWidth = isIOS ? 1 : 2;
 
 /**
+ * <p>Whether the meta key (Command or ⌘ on macOS) has been held down.</p>
+ * <ul>
+ *  <li>On macOS, the meta key is the Command key (⌘).</li>
+ *  <li>On Windows and Linux, the meta key is the Control key (Ctrl).</li>
+ * </ul>
+ * @type {Boolean}
+ */
+const meta = (event) =>
+  window.navigator.platform.indexOf("Mac") !== -1
+    ? event.metaKey
+    : event.ctrlKey;
+
+/**
  * <p>Maximum latitude for Mercator projection.</p>
  * <ul>
  * <li>tan<sup>-1</sup>(sinh(π)) in degrees</li>
@@ -628,6 +641,12 @@ let controlPressed = false;
  * @type {Boolean}
  */
 let altPressed = false;
+
+/**
+ * Whether the zoom key has been held down.
+ * @type {Boolean}
+ */
+let zoomPressed = false;
 
 /**
  * Scaling factor applied to a radius so a line or a
@@ -7233,6 +7252,8 @@ function startForReal(image) {
       ) > -1
     ) {
       event.preventDefault();
+    } else if (meta(event) && (event.key === "=" || event.key === "-")) {
+      zoomPressed = true;
     } else if (event.key === "Control") {
       controlPressed = true;
     } else if (event.key === "Alt") {
@@ -7244,22 +7265,30 @@ function startForReal(image) {
   });
 
   /**
+   * In Firefox (even in macOS), Opera and Chrome,
+   * 'meta key + scroll mousewheel' also zooms in and out
+   * @event wheel
+   */
+  window.addEventListener("wheel", function (event) {
+    if (meta(event) && (event.deltaY < 0 || event.deltaY > 0)) {
+      zoomPressed = true;
+    }
+  });
+
+  /**
    * <p>Appends an event listener for events whose type attribute value is keyup.<br>
    * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
    * the event is dispatched.</p>
    *
-   * Sets {@link controlPressed} or {@link altPressed} to false
-   * if event.key is "Control" or "Alt" respectively.
+   * Sets {@link controlPressed}, {@link altPressed}, and {@link zoomPressed} to false
    *
    * @event keyup
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event Element: keyup event}
    */
   window.addEventListener("keyup", (event) => {
-    if (event.key === "Control") {
-      controlPressed = false;
-    } else if (event.key === "Alt") {
-      altPressed = false;
-    }
+    controlPressed = false;
+    altPressed = false;
+    zoomPressed = false;
   });
 
   /**
@@ -7271,8 +7300,10 @@ function startForReal(image) {
    */
   window.addEventListener("resize", (event) => {
     displayVersions();
-    // handleWindowResize();
-    // canvastip.style.display = "none";
+    if (!isIOS && !zoomPressed) {
+      handleWindowResize();
+      canvastip.style.display = "none";
+    }
   });
 
   /**
