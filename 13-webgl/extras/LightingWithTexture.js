@@ -5364,8 +5364,8 @@ function addListeners() {
    * @see {@link https://caniuse.com/pointer Pointer events}
    */
   canvas.addEventListener("pointerdown", (event) => {
-    const ios = getIOSVersion();
-    if (ios <= 16) {
+    const oldIos = isIOS ? getIOSVersion() <= 16 : false;
+    if (oldIos) {
       setTimeout(() => {
         clicked = true;
         moving = false;
@@ -7398,7 +7398,7 @@ function startForReal(image) {
     let w = window.innerWidth - 20;
     const r = document.querySelector(":root");
 
-    if (true /* h > w */) {
+    if (isIOS || h > w) {
       // portrait
       h = (w / aspect).toFixed(0); // aspect < 1
     } else {
