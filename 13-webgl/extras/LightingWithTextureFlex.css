@@ -349,7 +349,7 @@ details {
 /*
  * Desktop too.
  */
-@media (max-width: 500px) {
+@media ((max-width: 500px) or (max-height: 500px)) and (hover: hover) {
     :root {
         --fsize: 6px;
     }

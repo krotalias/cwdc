@@ -1989,7 +1989,7 @@ const viewMatrix = mat4.lookAt(
 );
 
 /**
- * Canvas aspect ratio.
+ * Canvas aspect ratio: width / heigth.
  * @type {Number}
  */
 const aspect = canvas.clientWidth / canvas.clientHeight;
@@ -7388,7 +7388,7 @@ function startForReal(image) {
 
   /**
    * <p>Fires when the document view (window) has been resized.</p>
-   * Also resizes the canvas and viewport.
+   * Also resizes the canvas and viewport taking into account its {@link aspect} ratio.
    * @param {Boolean} [d=true] whether to {@link draw redraw} the scene.
    * @callback handleWindowResize
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
@@ -7398,12 +7398,12 @@ function startForReal(image) {
     let w = window.innerWidth - 20;
     const r = document.querySelector(":root");
 
-    if (isIOS || h > w) {
+    if (isIOS || aspect * h > w) {
       // portrait
-      h = (w / aspect).toFixed(0); // aspect < 1
+      h = (w / aspect).toFixed(0);
     } else {
       // landscape
-      w = (h * aspect).toFixed(0); // aspect > 1
+      w = (h * aspect).toFixed(0);
     }
 
     canvas.width = w;
