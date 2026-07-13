@@ -135,15 +135,16 @@ label:nth-last-child(1) {
     margin-right: 0;
 }
 .lbllatlon {
-    margin: 4em;
+    margin-left: 4em;
 }
 #lat,
 #lon,
 #search {
     text-align: center;
+    margin: 0 2em 2em 0;
 }
 .lblsearch {
-    margin: 4em;
+    margin-left: 4em;
 }
 input[type="text"] {
     height: 2em;
@@ -279,11 +280,12 @@ option::checkmark {
     color: #222;
 }
 #city {
-    width: 63%;
-    margin: 0 4em;
+    width: fit-content;
+    min-width: 16em;
+    margin-bottom: 2em;
 }
 .lblcity {
-    margin-left: 7em;
+    margin: 0 0 0 4em;
 }
 #timeline {
     width: var(--tline);

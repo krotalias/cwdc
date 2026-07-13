@@ -688,8 +688,8 @@ when using mipmap:
                     />
                     <label for="equator">Equator</label>
 
-                    <div class="flex-container">
-                        <div class="dms initial">
+                    <div class="row">
+                        <div class="column initial">
                             <div>
                                 <label class="lblsearch" for="search">
                                     🔎 string
@@ -702,12 +702,10 @@ when using mipmap:
                                 placeholder="query"
                             />
                         </div>
-                        <div class="dms auto">
-                            <div>
-                                <label class="lblcity" for="city">
-                                    🔎 result
-                                </label>
-                            </div>
+                        <div class="column intial">
+                            <label class="lblcity" for="city">
+                                🔎 result
+                            </label>
                             <select name="city" title="search result" id="city">
                                 <button>
                                     <selectedcontent></selectedcontent>
@@ -717,12 +715,12 @@ when using mipmap:
                         </div>
                     </div>
 
-                    <div class="flex-container">
-                        <div class="dms initial">
+                    <div class="row">
+                        <div class="column initial">
                             <label class="lbllatlon" for="lat">latitude</label>
                             <input type="text" id="lat" name="lat" />
                         </div>
-                        <div class="dms initial">
+                        <div class="column initial">
                             <label class="lbllatlon" for="lon">
                                 longitude
                             </label>
