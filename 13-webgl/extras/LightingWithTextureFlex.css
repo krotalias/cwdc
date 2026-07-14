@@ -1,10 +1,16 @@
 :root {
+    /* canvas for texture width percentage */
     --canvasimgw: 0.42;
+    /* canvas width and height */
     --canvasw: 900px;
     --canvash: 600px;
+    /* canvas margin in handleWindowResize */
     --mleft: 20px;
+    /* time line width percentage */
     --tline: 95%;
+    /* minumum font size */
     --fsize: 15px;
+    /* tooltip font size: tipsize * 1rem */
     --tipsize: 0.57;
 }
 
@@ -189,6 +195,8 @@ input[type="text"] {
     font-size: 1.8rem;
     padding: 0 1em;
     width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 datalist {
     display: flex;
@@ -350,7 +358,18 @@ details {
     }
 }
 /*
- * Desktop too.
+ * Desktop very short.
+ */
+@media (height <= 320px) and (hover: hover) {
+    .flex-container {
+        flex-direction: column;
+    }
+    .lbtns {
+        flex-direction: column;
+    }
+}
+/*
+ * Desktop very narrow.
  */
 @media ((max-width: 500px) or (max-height: 500px)) and (hover: hover) {
     :root {
