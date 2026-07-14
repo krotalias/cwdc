@@ -7420,10 +7420,12 @@ function startForReal(image) {
    * @param {Boolean} [d=true] whether to {@link draw redraw} the scene.
    * @callback handleWindowResize
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event Window: resize event}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth Window: innerWidth property}
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/clientWidth Element: clientWidth property}
    */
   function handleWindowResize(d = true) {
-    let h = window.innerHeight - 20;
-    let w = window.innerWidth - 20;
+    let h = window.innerHeight;
+    let w = window.innerWidth;
     const r = document.querySelector(":root");
 
     if (isIOS || aspect * h > w) {
