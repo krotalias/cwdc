@@ -2,7 +2,7 @@
     --canvasimgw: 0.42;
     --canvasw: 900px;
     --canvash: 600px;
-    --mleft: 0;
+    --mleft: 20px;
     --tline: 95%;
     --fsize: 15px;
     --tipsize: 0.57;
@@ -38,7 +38,7 @@ img {
 #theCanvas {
     width: var(--canvasw);
     height: var(--canvash);
-    margin-left: var(--mleft);
+    margin: 0;
     cursor: crosshair;
 }
 .flex-container {
@@ -61,7 +61,7 @@ img {
 }
 .interface {
     width: var(--canvasw);
-    margin-left: calc(var(--mleft) + 1em);
+    margin: 0;
 }
 .btns {
     width: 45%;

@@ -7396,9 +7396,15 @@ function startForReal(image) {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/clientWidth Element: clientWidth property}
    */
   function handleWindowResize(d = true) {
-    let h = window.innerHeight;
-    let w = window.innerWidth;
+    // const r = document.documentElement;
     const r = document.querySelector(":root");
+    const m = +getComputedStyle(r)
+      .getPropertyValue("--mleft")
+      .replace("px", "")
+      .trim();
+
+    let w = window.innerWidth - m;
+    let h = window.innerHeight - m;
 
     if (isIOS || aspect * h > w) {
       // portrait
