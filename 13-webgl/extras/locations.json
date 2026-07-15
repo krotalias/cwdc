@@ -6185,6 +6185,22 @@
         "latitude": 41.902782,
         "longitude": 12.496366
     },
+    "Vatican City": {
+        "country": "Holy See (Vatican City State)",
+        "remarkable": [
+            "Vatican obelisk (Emperor Caligula ), 37",
+            "Constantinian basilica (tomb of Saint Peter), 326",
+            "Gian Lorenzo Bernini (architect and city planner), 1598-1680",
+            "Piazza San Pietro, 1656-1667",
+            "Pope Pius IX, 1846-1878",
+            "Kingdom of Italy, 17 March 1861",
+            "Rome the capital of Italy, 27 March 1861",
+            "Capture of Rome, 20 September 1870",
+            "Lateran Treaty, 11 February 1929"
+        ],
+        "latitude": 41.903333,
+        "longitude": 12.453333
+    },
     "Venice": {
         "country": "🎶 Italy",
         "remarkable": [
