@@ -5012,6 +5012,22 @@
         "latitude": 40.65,
         "longitude": 35.833056
     },
+    "Kampala": {
+        "country": "Buganda (Uganda)",
+        "remarkable": [
+            "Kato Kintu Kakulukuku (first king), late 13th century - early 14th century",
+            "Founder of the Buganda Kingdom, 13th century",
+            "Protectorate of Uganda (British Empire), 18 June 1894 - 9 October 1962",
+            "Idi Amin Dada, 1928-2003",
+            "3rd President of Uganda, 25 January 1971 - 11 April 1979",
+            "Partnership with Muammar Gaddafi, 1972",
+            "Operation Entebbe (Air France flight rescue), 4 July 1976",
+            "Uganda-Tanzania War, 9 October 1978 - 3 June 1979",
+            "Exiled in Saudi Arabia, 11 April 1979 - 16 August 2003"
+        ],
+        "latitude": 0.313611,
+        "longitude": 32.581111
+    },
     "Kibbutz Degania Alef": {
         "country": "Ottoman Empire (Israel)",
         "remarkable": [
@@ -6110,6 +6126,27 @@
         ],
         "latitude": -8.833333,
         "longitude": 13.333333
+    },
+    "Tripoli": {
+        "country": "⚔ Libya",
+        "remarkable": [
+            "Roman province, 74 BC - 640 AD",
+            "Islamic Libya: 647-1556",
+            "Invasion of Tripoli by Habsburg Spain, 1510-1551",
+            "Ottoman Tripolitania, 1551 - 1911",
+            "Italian invasion, 1911 - 1912",
+            "Tripolitanian Republic, 16 November 1918 - 1922",
+            "Italian North Africa (Reconquista della Libia), 1923 - 1943",
+            "Independence of Libya, 24 December 1951",
+            "Muammar Muhammad Abu Minyar al-Gaddafi, 1942-2011",
+            "Libyan Army (Colonel), 1961-2011",
+            "Libyan Arab Republic, 1 September 1969 - 2 March 1977",
+            "Great Socialist People's Libyan Arab Jamahiriya, 2 March 1977 - 20 October 2011",
+            "Libyan Civil War, 15 February 2011 - 23 October 2020",
+            "North African Campaign, 11 June 1940 - 13 May 1943"
+        ],
+        "latitude": 32.866667,
+        "longitude": 13.183333
     },
     "Braunau am Inn": {
         "country": "⚔ Austria",
