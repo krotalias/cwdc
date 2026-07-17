@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 478 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 480 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -49,7 +49,10 @@
  * <p>Maps are transformations from {@link module:polyhedron.cartesian2Spherical 3D space}
  * to {@link module:polyhedron.spherical2Mercator 2D space}, and they can preserve areas
  * ({@link https://en.wikipedia.org/wiki/Equal-area_projection equal-area maps}) or angles
- * ({@link https://en.wikipedia.org/wiki/Conformal_map conformal maps}). The success of the
+ * ({@link https://en.wikipedia.org/wiki/Conformal_map conformal maps}).
+ * In terms of projection invariance, loxodromes appear as {@link https://grokipedia.com/page/loxodromic_navigation straight lines}
+ * on conformal map projections.
+ * Therefore, the success of the
  * {@link https://en.wikipedia.org/wiki/Mercator_projection Mercator projection}
  * lies in its ability to preserve angles, making it ideal for navigation
  * ({@link bearingAngle directions} on the map match the directions on the {@link https://geomag.nrcan.gc.ca/mag_fld/compass-en.php compass}).
@@ -202,7 +205,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 478 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 480 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -383,6 +386,7 @@
  * @see {@link https://spivey.oriel.ox.ac.uk/corner/Thomas_Harriot_and_the_Mercator_Map Thomas Harriot and the Mercator Map}
  * @see {@link https://www.sco.wisc.edu/2022/01/21/how-big-is-a-degree/ How Big is a Degree?}
  * @see {@link https://bestcase.wordpress.com/2014/05/18/the-mercator-saga-part-1/ The Mercator Saga (part 1)}
+ * @see {@link https://grokipedia.com/page/loxodromic_navigation Loxodromic navigation}
  * @see <a href="https://globe-3d-2m2vlb3ft.now.sh">Globe 3D</a>
  * @see <a href="https://en.wikipedia.org/wiki/Earth's_circumference">Earth's circumference</a>
  * @see {@link https://www.thetruesize.com/ The True Size of ...}
