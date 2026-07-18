@@ -81,6 +81,17 @@
  *  <li>For a square Mercator chart, -π ≤ y ≤ π ⇒ φ ∈ [-85.051129°, 85.051129°]</li>
  *  <li>MP = 10800/π * ln [tan (π/4 + φ/2)] minutes of arc length (not using the spheroid shape of the earth)</li>
  *  <li>φ = 2 tan<sup>-1</sup> (e<sup>y</sup>) - π/2, -π ≤ y ≤ π → -85.051129° ≤ φ ≤ 85.051129° </li>
+ *  -------- {@link loxodromeDestination loxodromes} --------
+ *  <li>α = bearing angle (measured clockwise in degrees from north)</li>
+ *  <li>tan(90° - α) = cot(α) = 1/tan(α) = dx/dy </li>
+ *  <li>dx = R cos(φ) dθ </li>
+ *  <li>dy = R dφ</li>
+ *  <li>tan(α) = dx/dy = cos(φ) dθ/dφ </li>
+ *  <li>dθ/dφ  = tan(α) sec(φ) </li>
+ *  <li>∫sec(φ) dφ = 1/tan(α) ∫dθ ⇒ tan(α) ∫sec(φ) dφ = (θ - θ<sub>0</sub>)
+ *  <li>(θ - θ<sub>0</sub>) = <span style="display: inline-flex;"> ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
+ *      <sup>φ</sup> <sub>φ<sub>0</sub></sub></span> tan(α) sec(φ) dφ</span> </li>
+ *  <li>θ(φ) = θ<sub>0</sub> + tan(α) ln [tan (π/4 + φ/2) / tan (π/4 + φ<sub>0</sub>/2)] = θ<sub>0</sub> + {@link bearingAngle}(φ<sub>0</sub>,φ) * ln ({@link diffMercator}(φ, φ<sub>0</sub>))</li>
  * </ul>
  *
  * <p>The {@link https://en.wikipedia.org/wiki/Web_Mercator_projection Web Mercator}
@@ -6900,6 +6911,7 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
  *            λ2 = λ1 + Δλ
  *
  * where:     δ is angular distance,
+ *            θ is the bearing angle
  *            φ is geodetic latitude,
  *            ψ is isometric latitude,
  *            λ is longitude,
@@ -6924,6 +6936,7 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
  * @param {Number} [R=earthRadius] earth radius.
  * @return {gpsCoordinates} {longitude, latitude} of the destination point.
  * @see {@link https://www.movable-type.co.uk/scripts/latlong.html#destPoint Destination point given distance and bearing from start point}
+ * @see {@link https://en.wikipedia.org/wiki/Dead_reckoning Dead reckoning}
  */
 function loxodromeDestination(loc1, theta, d, R = earthRadius) {
   theta = toRadian(theta);
