@@ -124,7 +124,7 @@
             "Queen in Rio (Morumbi, 100K people), 20 March 1981",
             "Rock in Rio (300K people), 11 January 1985 - 20 January 1985",
             "Love of My Life in unison (friday, 2h AM), 11 January 1985",
-            "Rainy night with a stinky mud (unforgattable performance), 18 January 1985",
+            "Rainy night with a stinky mud (unforgettable performance), 18 January 1985",
             "Live Aid at Wembley Stadium (greatest rock performances of all time), 13 July 1985",
             "Best-selling music artists of all time (250-300M records sold), 1970-present"
         ],
@@ -6174,19 +6174,6 @@
         "latitude": 47.8,
         "longitude": 13.043333
     },
-    "Leipzig": {
-        "country": "🔬 Holy Roman Empire (Germany)",
-        "remarkable": [
-            "Gottfried Wilhelm Leibniz, 1646-1716",
-            "De Arte Combinatoria, 1666",
-            "Stepped reckoner (calculator with all of the 4 operations), 1673",
-            "Nova Methodus pro Maximis et Minimis (Acta Eruditorum, dx notation), 1684",
-            "De Geometria Recondita et analysi indivisibilium atque infinitorum (Acta Eruditorum, ∫ sign), June 1686",
-            "Imperial Court Councillor to the Habsburgs, 1712"
-        ],
-        "latitude": 51.34,
-        "longitude": 12.375
-    },
     "Copenhagen": {
         "country": "Kingdom of Denmark",
         "remarkable": [
@@ -6195,6 +6182,35 @@
         ],
         "latitude": 55.67594,
         "longitude": 12.56553
+    },
+    "Antium": {
+        "country": "Roman Empire (Italy)",
+        "remarkable": [
+            "Nero Claudius Caesar Augustus Germanicus, 37-68",
+            "Final emperor of the Julio-Claudian dynasty, 13 October 54 - 9 June 68",
+            "Agrippina the Younger (Caligula's sister, Nero's mother), 15-59",
+            "Killed by Anicetus on Nero's order (suicide?), 23 March 59",
+            "Great Fire of Rome over seven days, 18 July 64 - 27 July 64",
+            "Suetonius wrote that Nero started the fire to clear the site",
+            "Only four of Rome's 17 districts were unaffected",
+            "Nero accused Christians of starting the fire",
+            "who were thrown to the beasts, crucified, and burned alive",
+            "Battle of Vesontio (Rebellion of Caius Iulius Vindex), May 68",
+            "Legions of Germania and Galba in Hispania rebelled",
+            "Nero committed suicide, 9 June 68",
+            "Servius Sulpicius Galba, 3-69",
+            "Assumed the throne following Nero's suicide, 8 June 68 - 15 January 69",
+            "Succedded by Otho, who killed him, 15 January 69 - 16 April 69",
+            "Defeated by Vitellius, 19 April 69 - 20 December 69",
+            "Second Battle of Bedriacum, 24 October 69",
+            "Titus Caesar Vespasianus, 9-79",
+            "Emperor Vespasian, 21 December 69 - 23 June 79",
+            "Constructed the Colosseum, 70-80",
+            "Titus Flavius Caesar Vespasianus Augustus, 30-81",
+            "Emperor, 24 June 79 - 13 September 81"
+        ],
+        "latitude": 41.447947,
+        "longitude": 12.629053
     },
     "Rome": {
         "country": "Italy",
@@ -6214,10 +6230,7 @@
             "Battle of Actium (Marcus Vipsanius Agrippa), 2 September 31 BC",
             "Octavian defeated Marcus Antonius and Cleopatra VII",
             "Octavian captured Alexandria, 1 August 30 BC",
-            "Caesarion executed in Alexandria, 29 August 30 BC",
-            "Emperor Vespasian, 69-79",
-            "Emperor Titus Caesar Vespasianus, 79-81",
-            "Colosseum, 70-80"
+            "Caesarion executed in Alexandria, 29 August 30 BC"
         ],
         "latitude": 41.902782,
         "longitude": 12.496366
@@ -6237,6 +6250,19 @@
         ],
         "latitude": 41.903333,
         "longitude": 12.453333
+    },
+    "Leipzig": {
+        "country": "🔬 Holy Roman Empire (Germany)",
+        "remarkable": [
+            "Gottfried Wilhelm Leibniz, 1646-1716",
+            "De Arte Combinatoria, 1666",
+            "Stepped reckoner (calculator with all of the 4 operations), 1673",
+            "Nova Methodus pro Maximis et Minimis (Acta Eruditorum, dx notation), 1684",
+            "De Geometria Recondita et analysi indivisibilium atque infinitorum (Acta Eruditorum, ∫ sign), June 1686",
+            "Imperial Court Councillor to the Habsburgs, 1712"
+        ],
+        "latitude": 51.34,
+        "longitude": 12.375
     },
     "Venice": {
         "country": "🎶 Italy",
