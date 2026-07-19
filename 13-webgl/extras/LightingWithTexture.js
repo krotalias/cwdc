@@ -6847,9 +6847,10 @@ function longitudeOnRhumbLine(long0, lat0, lat, bearing) {
  * @see {@link https://grokipedia.com/page/loxodromic_navigation Loxodromic navigation}
  */
 function longitudeOnLoxodrome(long0, lat0, lat, bearing) {
-  long0 = toRadian(long0);
+  long0 = toRadian(long0 + 180);
   bearing = toRadian(bearing);
-  const long = long0 + Math.tan(bearing) * Math.log(diffMercator(lat, lat0));
+  const long = long0 + Math.tan(bearing) * diffMercator(lat, lat0);
+  lat = toRadian(lat + 90);
 
   return [long, lat];
 }
@@ -6900,7 +6901,7 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
     for (let i = 0, j = 0; i < n; ++i, j += 3) {
       const lati = lat1 + i * ds * dlat;
       const [long, lat] = longitudeOnRhumbLine(-long1, lat1, lati, bearing);
-      //                = longitudeOnLoxodrome(-long1, lat1, lati, bearing);
+      //                  longitudeOnLoxodrome(-long1, lat1, lati, bearing);
       if (isCylinder()) {
         const { r, height } = getCylinderParameters(false);
         p = cylindrical2Cartesian(
