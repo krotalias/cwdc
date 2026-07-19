@@ -6,7 +6,7 @@
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
  * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
  *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 480 Historical Figures.</a>
+ * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 481 Historical Figures.</a>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -81,7 +81,9 @@
  *  <li>For a square Mercator chart, -π ≤ y ≤ π ⇒ φ ∈ [-85.051129°, 85.051129°]</li>
  *  <li>MP = 10800/π * ln [tan (π/4 + φ/2)] minutes of arc length (not using the spheroid shape of the earth)</li>
  *  <li>φ = 2 tan<sup>-1</sup> (e<sup>y</sup>) - π/2, -π ≤ y ≤ π → -85.051129° ≤ φ ≤ 85.051129° </li>
- *  -------- {@link loxodromeDestination loxodromes} --------
+ *  -------- {@link longitudeOnLoxodrome loxodromes} --------
+ *  <li> φ = latitude  </li>
+ *  <li> θ = longitude </li>
  *  <li>α = bearing angle (measured clockwise in degrees from north)</li>
  *  <li>tan(90° - α) = cot(α) = 1/tan(α) = dx/dy </li>
  *  <li>dx = R cos(φ) dθ </li>
@@ -91,7 +93,7 @@
  *  <li>∫sec(φ) dφ = 1/tan(α) ∫dθ ⇒ tan(α) ∫sec(φ) dφ = (θ - θ<sub>0</sub>)
  *  <li>(θ - θ<sub>0</sub>) = <span style="display: inline-flex;"> ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
  *      <sup>φ</sup> <sub>φ<sub>0</sub></sub></span> tan(α) sec(φ) dφ</span> </li>
- *  <li>θ(φ) = θ<sub>0</sub> + tan(α) ln [tan (π/4 + φ/2) / tan (π/4 + φ<sub>0</sub>/2)] = θ<sub>0</sub> + {@link bearingAngle}(φ<sub>0</sub>,φ) * ln ({@link diffMercator}(φ, φ<sub>0</sub>))</li>
+ *  <li>θ(φ) = θ<sub>0</sub> + tan(α) ln [tan (π/4 + φ/2) / tan (π/4 + φ<sub>0</sub>/2)] = θ<sub>0</sub> + tan(α) * ln ({@link diffMercator}(φ, φ<sub>0</sub>))</li>
  * </ul>
  *
  * <p>The {@link https://en.wikipedia.org/wiki/Web_Mercator_projection Web Mercator}
@@ -216,7 +218,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 480 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 481 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -6831,6 +6833,28 @@ function longitudeOnRhumbLine(long0, lat0, lat, bearing) {
 }
 
 /**
+ * <p>Return the longitude on a loxodrome at latitude, <eM>lat</em>,
+ * given the latitude, <em>lat0</em>, and longitude, <em>long0</em>,
+ * at the beginning of the line and its <em>bearing</em> angle.</p>
+ * A loxodrome is a curve that crosses all meridians at the same angle.
+ * On a Mercator projection, a loxodrome is a straight line,
+ * and this function uses this property to compute the longitude at the given latitude.
+ * @param {Number} lat0 {@link GCS gcs} latitude of the starting point, in degrees.
+ * @param {Number} long0 {@link GCS gcs} longitude of the starting point, in degrees.
+ * @param {Number} lat {@link GCS gcs} latitude of the point to compute, in degrees.
+ * @param {Number} bearing in degrees, with 0° being north and increasing clockwise.
+ * @returns {Array<Number,Number>} longitude and latitude of the point on the loxodrome in radians.
+ * @see {@link https://grokipedia.com/page/loxodromic_navigation Loxodromic navigation}
+ */
+function longitudeOnLoxodrome(long0, lat0, lat, bearing) {
+  long0 = toRadian(long0);
+  bearing = toRadian(bearing);
+  const long = long0 + Math.tan(bearing) * Math.log(diffMercator(lat, lat0));
+
+  return [long, lat];
+}
+
+/**
  * <p>Return an array with n points on a loxodrome (rhumb line) from loc1
  * to loc2 on a sphere, by using a {@link longitudeOnRhumbLine parametrization}
  * of the loxodrome.</p>
@@ -6876,6 +6900,7 @@ function pointsOnLoxodrome2(loc1, loc2, n = nsegments) {
     for (let i = 0, j = 0; i < n; ++i, j += 3) {
       const lati = lat1 + i * ds * dlat;
       const [long, lat] = longitudeOnRhumbLine(-long1, lat1, lati, bearing);
+      //                = longitudeOnLoxodrome(-long1, lat1, lati, bearing);
       if (isCylinder()) {
         const { r, height } = getCylinderParameters(false);
         p = cylindrical2Cartesian(
