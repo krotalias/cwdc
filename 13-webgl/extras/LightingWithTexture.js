@@ -93,7 +93,7 @@
  *  <li>∫sec(φ) dφ = 1/tan(α) ∫dθ ⇒ tan(α) ∫sec(φ) dφ = (θ - θ<sub>0</sub>)
  *  <li>(θ - θ<sub>0</sub>) = <span style="display: inline-flex;"> ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
  *      <sup>φ</sup> <sub>φ<sub>0</sub></sub></span> tan(α) sec(φ) dφ</span> </li>
- *  <li>θ(φ) = θ<sub>0</sub> + tan(α) ln [tan (π/4 + φ/2) / tan (π/4 + φ<sub>0</sub>/2)] = θ<sub>0</sub> + tan(α) * ln ({@link diffMercator}(φ, φ<sub>0</sub>))</li>
+ *  <li>θ(φ) = θ<sub>0</sub> + tan(α) ln [tan (π/4 + φ/2) / tan (π/4 + φ<sub>0</sub>/2)] = θ<sub>0</sub> + tan(α) * {@link diffMercator}(φ, φ<sub>0</sub>)</li>
  * </ul>
  *
  * <p>The {@link https://en.wikipedia.org/wiki/Web_Mercator_projection Web Mercator}
