@@ -3662,7 +3662,7 @@ function rhumbLine(ctx, loc1, loc2) {
     }
     ctx.moveTo(px, py); // loxodrome
     ctx.lineTo(x, y);
-    ctx.lineWidth = 2;
+    ctx.lineWidth = lineWidth;
     ctx.strokeStyle = colorTable.rhumb;
   } else {
     ctx.moveTo(x, 0); // meridian
@@ -3739,7 +3739,7 @@ function equiLox(ctx, loc1, loc2, n = 20) {
     ctx.strokeStyle = colorTable.rhumb;
     ctx.moveTo(...toScreen(long1, lat1)); // loxodrome
 
-    ctx.lineWidth = 3;
+    ctx.lineWidth = lineWidth;
     if (isZero(dlong)) {
       ctx.lineTo(...toScreen(long2, lat2));
     } else if (isZero(dq)) {
@@ -6839,6 +6839,7 @@ function longitudeOnRhumbLine(long0, lat0, lat, bearing) {
  * A loxodrome is a curve that crosses all meridians at the same angle.
  * On a Mercator projection, a loxodrome is a straight line,
  * and this function uses this property to compute the longitude at the given latitude.
+ * <p>Note: this function is identical to {@link longitudeOnRhumbLine}</p>
  * @param {Number} lat0 {@link GCS gcs} latitude of the starting point, in degrees.
  * @param {Number} long0 {@link GCS gcs} longitude of the starting point, in degrees.
  * @param {Number} lat {@link GCS gcs} latitude of the point to compute, in degrees.
