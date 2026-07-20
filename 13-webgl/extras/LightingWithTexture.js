@@ -74,17 +74,18 @@
  *  <li> δθ = δx </li>
  *  <li>R cos(λ) / R = δx / d  ⇒ d = δx / cos(λ) = δx sec(λ) </li>
  *  -------- {@link module:polyhedron.spherical2Mercator on the Mercator chart} --------
- *  <li>(x,y) = M(R,θ,φ=λ)
+ *  <li>(x,y) = M(R,θ,φ)
  *  <li>x = θ, -π ≤ θ ≤ π </li>
  *  <li><span style="display: flex;">y = ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
  *      <sup>φ</sup> <sub>0</sub></span>sec(λ) dλ = ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2</span></li>
  *  <li>For a square Mercator chart, -π ≤ y ≤ π ⇒ φ ∈ [-85.051129°, 85.051129°]</li>
- *  <li>MP = 10800/π * ln [tan (π/4 + φ/2)] minutes of arc length (not using the spheroid shape of the earth)</li>
+ *  <li>MP = 10800/π * ln [tan (π/4 + φ/2)] minutes of arc length (not using the {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)</li>
+ *  <li>MP = {@link toDegrees}({@link toMercator}({@link toRadian}(φ))) * 60</li>
  *  <li>φ = 2 tan<sup>-1</sup> (e<sup>y</sup>) - π/2, -π ≤ y ≤ π → -85.051129° ≤ φ ≤ 85.051129° </li>
  *  -------- {@link longitudeOnLoxodrome loxodromes} --------
  *  <li> φ = latitude  </li>
  *  <li> θ = longitude </li>
- *  <li>α = bearing angle (measured clockwise in degrees from north)</li>
+ *  <li>α = {@link bearingAngle bearing angle} (measured clockwise in degrees from north)</li>
  *  <li>tan(90° - α) = cot(α) = 1/tan(α) = dx/dy </li>
  *  <li>dx = R cos(φ) dθ </li>
  *  <li>dy = R dφ</li>
