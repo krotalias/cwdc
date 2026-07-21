@@ -69,7 +69,7 @@
  *  <figcaption style="font-size: 200%; text-align: center;">{@link https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/bowditch_Vol_2_2019.pdf#page=125 Meridional Parts}</figcaption>
  * </figure>
  * <ul>
- *  <li> φ, λ = latitude  </li>
+ *  <li> φ = latitude (λ in the first picture above) </li>
  *  <li> θ = longitude </li>
  *  <li> δθ = δx </li>
  *  <li>R cos(λ) / R = δx / d  ⇒ d = δx / cos(λ) = δx sec(λ) </li>
