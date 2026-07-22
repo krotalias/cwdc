@@ -2,11 +2,20 @@
  * @file
  *
  * Summary.
- * <p>Equirectangular and Mercator projection viewer using lighting combined with
+ * <ol>
+ * <li>Equirectangular and Mercator projection viewer using lighting combined with
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
- * written in {@link http://vanilla-js.com/ Vanilla Javascript} and {@link https://get.webgl.org/ WebGL}.</p>
- *
- * <p><a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Around the World in 481 Historical Figures.</a>
+ * written in {@link http://vanilla-js.com/ Vanilla JavaScript} and {@link https://get.webgl.org/ WebGL}.</li>
+ * <br>
+ * <li>{@link pointsOnLoxodrome Loxodrome} and {@link pointsOnGreatCircle orthodrome} tracer: Draw
+ * <a href="../images/Baghdad-Osaka.png">paths</a> on the map and globe
+ * when the user selects two points (by clicking either on the map or globe) to get their
+ * {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system GCS} coordinates (longitude and latitude).</li>
+ * <br>
+ * <li>Around the World in 481 <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures</a>:
+ * presents a summary of each location visited by using the arrow keys or clicking on the bottom left or right
+ * of the globe canvas (to advance or recede).</li>
+ * </ol>
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -79,8 +88,8 @@
  *  <li><span style="display: flex;">y = ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
  *      <sup>φ</sup> <sub>0</sub></span>sec(λ) dλ = ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2</span></li>
  *  <li>For a square Mercator chart, -π ≤ y ≤ π ⇒ φ ∈ [-85.051129°, 85.051129°]</li>
- *  <li>MP = 10800/π * ln [tan (π/4 + φ/2)] minutes of arc length (not using the {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)</li>
- *  <li>MP = {@link toDegrees}({@link toMercator}({@link toRadian}(φ))) * 60</li>
+ *  <li>{@link getAzimuthAndLoxodromeDistance MP} = 10800/π * ln [tan (π/4 + φ/2)] minutes of arc length (not using the {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)</li>
+ *  <li>{@link meridionalParts MP} = {@link toDegrees}({@link toMercator}({@link toRadian}(φ))) * 60</li>
  *  <li>φ = 2 tan<sup>-1</sup> (e<sup>y</sup>) - π/2, -π ≤ y ≤ π → -85.051129° ≤ φ ≤ 85.051129° </li>
  *  -------- {@link longitudeOnLoxodrome loxodromes} --------
  *  <li> φ = latitude  </li>
@@ -360,7 +369,8 @@
  * of a {@link https://en.wikipedia.org/wiki/Great-circle_distance great circle}
  * or formally a {@link https://faculty.sites.iastate.edu/jia/files/inline-files/geodesics.pdf geodesics}.
  * However, although this is the route airplanes follow for saving fuel,
- * sailboats and ships usually follow a {@link https://en.wikipedia.org/wiki/Rhumb_line rhumb line} (loxodrome).
+ * {@link https://map.openseamap.org/ sailboats and ships} usually follow a {@link
+ * https://en.wikipedia.org/wiki/Rhumb_line rhumb line} (loxodrome).
  * <a href="../images/Cape Horn-Cape Good Hope.png">Why is that</a>?
  * </li>
  * <li>
@@ -898,12 +908,12 @@ function isCardinalDirection(char) {
  * Returns the distance in minutes of longitude
  * from the equator to a given latitude on a Mercator chart (for a perfect sphere).
  * <pre>
- *    const gps = gpsCoordinates[location];
- *    const uv = gcs2UV(gps);
- *    const merc = spherical2Mercator(uv.s, uv.t);
+ *    const gps = {@link gpsCoordinates}[location];
+ *    const uv = {@link gcs2UV}(gps);
+ *    const merc = {@link module:polyhedron.spherical2Mercator spherical2Mercator}(uv.s, uv.t);
  *    const mp = (merc.y * 2 - 1) * 10800;
  *                        or
- *    const mp = toDegrees(toMercator(toRadian(lat))) * 60;
+ *    const mp = {@link toDegrees}({@link toMercator}({@link toRadian}(lat))) * 60;
  * </pre>
  * @param {Number} lat latitude in degrees.
  * @returns {Number} meridional parts in minutes of longitude.
