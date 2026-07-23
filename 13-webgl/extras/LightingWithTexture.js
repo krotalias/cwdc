@@ -15,6 +15,9 @@
  * <li>Around the World in 481 <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the arrow keys or clicking on the bottom left or right
  * of the globe canvas (to advance or recede).</li>
+ * <br>
+ * <li>Mobile friendly: responsive interface design for running on <a href="../images/Cape_Horn-Kurgan.png">phones</a> and
+ * <a href="../images/Vladvostok.png">tablets</a>.</li>
  * </ol>
  *
  * <p><b>For educational purposes only.</b></p>
