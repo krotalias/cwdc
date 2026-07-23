@@ -1,7 +1,7 @@
 /**
  * @file
  *
- * Summary.
+ * <a href="../LightingWithTextureV.html">Summary</a>.
  * <ol>
  * <li>Equirectangular and Mercator projection viewer using lighting combined with
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
@@ -13,7 +13,7 @@
  * {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system GCS} coordinates (longitude and latitude).</li>
  * <br>
  * <li>Around the World in 481 <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures</a>:
- * presents a summary of each location visited by using the arrow keys or clicking on the bottom left or right
+ * presents a summary of each location visited by using the arrow keys or clicking on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
  * <br>
  * <li>Mobile friendly: responsive interface design for running on <a href="../images/Cape_Horn-Kurgan.png">phones</a> and
