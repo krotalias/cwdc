@@ -16,7 +16,13 @@
  * presents a summary of each location visited by using the arrow keys or clicking on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
  * <br>
- * <li>Mobile friendly: responsive interface design for running on <a href="../images/Cape_Horn-Kurgan.png">phones</a> and
+ * <li>Dial earth: type a pair of {@link GCS latitude and longitude} coordinates and press enter
+ * to go to the {@link handleDMS selected destination} on the map and <a href="../images/SanFrancisco.png">globe</a>;
+ * type a string with more than three characters to get a {@link event:searchKeydown list} of <a href="../images/search.png">matched sites</a>.
+ * Additionally, press the <em>[≈ Site]</em> button to go to the {@link closestSite closest} historical site.</li>
+ * <br>
+ * <li>Mobile friendly: {@link https://en.wikipedia.org/wiki/Responsive_web_design responsive interface design}
+ * for running on <a href="../images/Cape_Horn-Kurgan.png">phones</a> and
  * <a href="../images/Vladvostok.png">tablets</a>.</li>
  * </ol>
  *
