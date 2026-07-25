@@ -11,6 +11,9 @@
  * or {@link https://www.mauriciopoppe.com/notes/computer-graphics/transformation-matrices/rotation/euler-angles/ extrinsic} (around global axes);
  * around <b>X</b>-axis, <b>Y</b>-axis (parallel), <b>Z</b>-axis or <b>q</b> (meridian).</li>
  * <br>
+ * <li>Arcball Paradigm: <a href="/cwdc/13-webgl/extras/doc/ArcBallPresentation.pdf"> natural rotation</a>
+ *  using the mouse or touch and necessary to display the historical {@link event:pointermove-textimg tooltips} (globe should stay still).</li>
+ * <br>
  * <li>{@link pointsOnLoxodrome Loxodrome} and {@link pointsOnGreatCircle orthodrome} tracer: Draw
  * <a href="../images/Baghdad-Osaka.png">paths</a> on the map and globe
  * when the user selects two points (by clicking either on the map or globe) to get their
