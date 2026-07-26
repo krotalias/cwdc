@@ -5554,6 +5554,9 @@
     "Troy": {
         "country": "Hisarlik (Turkey)",
         "remarkable": [
+            "Paris took Helen from her husband (Menelaus) in Sparta",
+            "Agamemnon, powerful king of Mycenae and commander of the Greek forces",
+            "Besieged and burned Troy by using a horse created by Odysseus as a decoy",
             "Hector Prince of Troy (Iliad character), 1228 BC",
             "Killed by Achilles leader of Myrmidon forces, 1183 BC"
         ],
@@ -5588,7 +5591,12 @@
     },
     "Ionia (İzmir)": {
         "country": "Anatolia (Turkey)",
-        "remarkable": ["Homer (King of all poets), 850 BC"],
+        "remarkable": [
+            "Homer, King of all poets, 850 BC",
+            "or just a symbol for a long line of oral storytellers?",
+            "Iliad, 10-year siege of the city of Troy, 800 BC",
+            "Odissey, Odysseus' homecoming journey after 10-year Trojan War, 725 BC"
+        ],
         "latitude": 38.23166,
         "longitude": 27.02997
     },
