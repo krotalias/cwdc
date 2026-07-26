@@ -9,7 +9,8 @@
  * <br>
  * <li>Auto Rotation: {@link https://dominicplein.medium.com/extrinsic-intrinsic-rotation-do-i-multiply-from-right-or-left-357c38c1abfd intrinsic} (around local axes)
  * or {@link https://www.mauriciopoppe.com/notes/computer-graphics/transformation-matrices/rotation/euler-angles/ extrinsic} (around global axes);
- * around <b>X</b>-axis, <b>Y</b>-axis (parallel), <b>Z</b>-axis or <b>q</b> (meridian).</li>
+ * around <b>X</b>-axis, <b>Y</b>-axis (parallel), <b>Z</b>-axis or
+ * <b>q</b>-{@link updateCurrentMeridian meridian}.</li>
  * <br>
  * <li>Arcball Paradigm: <a href="/cwdc/13-webgl/extras/doc/ArcBallPresentation.pdf"> natural rotation</a>
  *  using the mouse or touch and necessary to display the historical {@link event:pointermove-textimg tooltips} (globe should stay still).</li>
@@ -19,7 +20,8 @@
  * when the user selects two points (by clicking either on the map or globe) to get their
  * {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system GCS} coordinates (longitude and latitude).
  * The {@link bearingAngle bearing angle} ({@link getAzimuthAndLoxodromeDistance azimuth}) is measured from the
- * {@link previousLocation previous} to the {@link currentLocation current location}.</li>
+ * {@link previousLocation previous} to the {@link currentLocation current location}.
+ * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
  * <li>Around the World in 481 <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
