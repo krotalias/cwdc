@@ -135,7 +135,8 @@
  *
  * The projection is neither strictly ellipsoidal nor strictly spherical,
  * and it uses spherical development of ellipsoidal coordinates.
- * The underlying geographic coordinates are defined using the WGS 84 ellipsoidal model
+ * The underlying geographic coordinates are defined using the
+ * {@link https://gmd.copernicus.org/preprints/gmd-2016-253/gmd-2016-253-manuscript-version4.pdf WGS 84 ellipsoidal model}
  * of the Earth's surface but are projected as if
  * {@link https://alastaira.wordpress.com/2011/01/23/the-google-maps-bing-maps-spherical-mercator-projection/ defined on a sphere}.
  *
@@ -270,7 +271,8 @@
  * with the creative possibilities that computer graphics offers.</p>
  *
  * <p>Of course, everything could have been implemented using three.js only,
- * although I am not sure OrbitControls would give me the flexibility I needed to build the interface.
+ * although I am not sure {@link https://threejs.org/docs/#OrbitControls OrbitControls}
+ * would give me the flexibility I needed to build the interface.
  * Exploring alternative libraries and frameworks could provide additional tools and features
  * that enhance the user experience and streamline development.
  * Ultimately, the goal is to create an environment where students feel empowered to experiment and innovate,
@@ -629,10 +631,24 @@ const pixelRatio = window.devicePixelRatio || 1;
 const sphereRadius = 0.98;
 
 /**
- * Radius of the earth in kilometers.
+ * <p>Radius of the earth in kilometers.</p>
+ * <ul>
+ *  <li>Mean-radius: 6,371,007.1809 m (radius of sphere of equal surface area)</li>
+ *  <li>Semi-major axis (a): 6,378,137 m (equatorial radius)
+ *  <li>Semi-minor axis (b): 6,356,752.3142 m (polar radius)</li>
+ *  <li>Flattening (f): 1 / 298.257223563 </li>
+ *  <li>First eccentricity (e): 0.0818191908426 </li>
+ *  <li>First eccentricity squared (e²): 0.00669437999014 </li>
+ * </ul>
  * @type {Number}
  */
 const earthRadius = 6371;
+
+/**
+ * First eccentricity of the {@link https://www.jpz.se/Html_filer/wgs_84.html WGS 84}.
+ * @type {Number}
+ */
+const ecc = 0.081819190842622;
 
 /**
  * Radius of a point location on chart.
@@ -953,14 +969,28 @@ const meridionalParts = (lat) => toDegrees(toMercator(toRadian(lat))) * 60;
  * <ul>
  *  <li> φ = lat, -π/2 ≤ φ ≤ π/2</li>
  *  <li> y = ln [tan (π/4 + φ/2)], -π ≤ y ≤ π</li>
+ *  or
+ *  <li> e = 0.0818191908426, eccentricity of the WGS 84 reference ellipsoid</li>
+ *  <li> y = ln [tan (π/4 + φ/2) ⋅ ((1−e⋅sinφ) / (1+e⋅sinφ)) <sup>e/2</sup>], -π ≤ y ≤ π</li>
  * </ul>
  * @param {Number} lat latitude in radians ∈ [-π/2, π/2].
+ * @param {Boolean} wgs whether to apply the wgs84 ellipsoidal model.
  * @returns {Number} Mercator latitude coordinate ∈ [-π, π].
  * @see {@link module:polyhedron.spherical2Mercator spherical2Mercator}
+ * @see {@link https://www.jpz.se/Html_filer/wgs_84.html How WGS 84 defines the Earth}
+ * @see {@link https://www.movable-type.co.uk/scripts/latlong.html#destPoint Movable Type Scripts}
  */
-const toMercator = (lat) => {
+const toMercator = (lat, wgs = false) => {
   lat = clamp(lat, toRadian(-maxLatitude), toRadian(maxLatitude));
-  return Math.log(Math.tan(Math.PI / 4 + lat / 2));
+  const tLat = Math.tan(Math.PI / 4 + lat / 2);
+  if (wgs) {
+    // for obsessives, this is a simplification of the full ellipsoidal version
+    const slat = ecc * Math.sin(lat);
+    const wgs84 = ((1 - slat) / (1 + slat)) ** (ecc / 2);
+    return Math.log(tLat * wgs84);
+  } else {
+    return Math.log(tLat);
+  }
 };
 
 /**
@@ -3745,7 +3775,7 @@ function equiLox(ctx, loc1, loc2, n = 20) {
    * Map a pair of (longitude, latitude) coordinates to screen coordinates
    * in the range [0,{@link element canvasimg.width}) x [0,{@link element canvasimg.height}).
    * @param {Number} long longitude in radians.
-   * @param {Numer} lat latitude in radians.
+   * @param {Number} lat latitude in radians.
    * @returns {Array<Number, Number>} [x,y] in pixels.
    * @global
    */
