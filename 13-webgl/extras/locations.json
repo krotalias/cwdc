@@ -614,7 +614,7 @@
             "Celebrated Madeira's Wine culture, 1455",
             "Status of city by King Manuel I of Portugal, 1508",
             "Cristiano Ronaldo dos Santos Aveiro (1.87m, 976 goals), 5 February 1985",
-            "Sporting CP, 14 August 2022-2003",
+            "Sporting CP, 14 August 2002-2003",
             "Manchester United, 12 August 2003-2009",
             "Real Madrid, 11 June 2009-2018",
             "Best FIFA Men's Player, 2016-2017",
@@ -627,11 +627,13 @@
         "latitude": 32.65,
         "longitude": -16.916667
     },
-    "Cap-Vert": {
-        "country": "⛵ Senegal",
+    "Pointe des Almadies": {
+        "country": "⛵ Dakar (Senegal)",
         "remarkable": [
             "Westernmost point of Africa",
-            "Cape Verde Peninsula (Diníz Dias), 1444"
+            "Critical stop for the Portuguese India Armadas",
+            "Cap-Vert Peninsula (Diníz Dias), 1444",
+            "Angra de Bezeguiche (Diogo Gomes), 1456"
         ],
         "latitude": 14.744722,
         "longitude": -17.520278
