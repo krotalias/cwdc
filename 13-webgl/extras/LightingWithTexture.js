@@ -4782,7 +4782,11 @@ function sortCitiesByDate(data = cities.byLongitude) {
     if (v == "Unknown") return [Number.MAX_VALUE, 0, 1]; // must be the last
     if (v == "Null Island") return [Number.MIN_SAFE_INTEGER, 0, 1]; // must be the first
     // "American Civil War, 12 April 1861-26 May 1865"
-    const remDate = gpsCoordinates[v].remarkable.at(-1).split(",");
+    let remDate = gpsCoordinates[v].remarkable.at(-1).split(",");
+    // skip bearing angle in last line when loxodrome is "on"
+    if (remDate[0].includes("Bearing")) {
+      remDate = gpsCoordinates[v].remarkable.at(-2).split(",");
+    }
     // ["American Civil War", "12 April 1861-26 May 1865"]
     if (remDate.length > 1) {
       let date = remDate.at(-1).split("-");
