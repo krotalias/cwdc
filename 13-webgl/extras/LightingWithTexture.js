@@ -963,6 +963,17 @@ function isCardinalDirection(char) {
 const meridionalParts = (lat) => toDegrees(toMercator(toRadian(lat))) * 60;
 
 /**
+ * For obsessives, this is a simplification of the full ellipsoidal version.
+ * @param {Number} lat latitude.
+ * @return {Number} WGS 84 ellipsoidal version: ((1 − ecc * sin(lat)) / (1 + ecc * sin(lat))) <sup>ecc/2</sup>
+ * @see {@link https://www.movable-type.co.uk/scripts/latlong.html#destPoint Movable Type Scripts}
+ */
+const wgs84 = (lat) => {
+  const slat = ecc * Math.sin(lat);
+  return ((1 - slat) / (1 + slat)) ** (ecc / 2);
+};
+
+/**
  * <p>Convert latitude in radians to Mercator latitude.</p>
  * Latitude is {@link clamp clamped} to the range of [-maxLatitude, {@link maxLatitude}]
  * to avoid singularities at the poles.
@@ -971,26 +982,19 @@ const meridionalParts = (lat) => toDegrees(toMercator(toRadian(lat))) * 60;
  *  <li> y = ln [tan (π/4 + φ/2)], -π ≤ y ≤ π</li>
  *  or
  *  <li> e = 0.0818191908426, eccentricity of the WGS 84 reference ellipsoid</li>
- *  <li> y = ln [tan (π/4 + φ/2) ⋅ ((1−e⋅sinφ) / (1+e⋅sinφ)) <sup>e/2</sup>], -π ≤ y ≤ π</li>
+ *  <li> y = ln [tan (π/4 + φ/2) * ((1 − e * sin(φ)) / (1 + e * sin(φ))) <sup>e/2</sup>], -π ≤ y ≤ π</li>
  * </ul>
  * @param {Number} lat latitude in radians ∈ [-π/2, π/2].
  * @param {Boolean} wgs whether to apply the wgs84 ellipsoidal model.
  * @returns {Number} Mercator latitude coordinate ∈ [-π, π].
  * @see {@link module:polyhedron.spherical2Mercator spherical2Mercator}
  * @see {@link https://www.jpz.se/Html_filer/wgs_84.html How WGS 84 defines the Earth}
- * @see {@link https://www.movable-type.co.uk/scripts/latlong.html#destPoint Movable Type Scripts}
  */
 const toMercator = (lat, wgs = false) => {
   lat = clamp(lat, toRadian(-maxLatitude), toRadian(maxLatitude));
-  const tLat = Math.tan(Math.PI / 4 + lat / 2);
-  if (wgs) {
-    // for obsessives, this is a simplification of the full ellipsoidal version
-    const slat = ecc * Math.sin(lat);
-    const wgs84 = ((1 - slat) / (1 + slat)) ** (ecc / 2);
-    return Math.log(tLat * wgs84);
-  } else {
-    return Math.log(tLat);
-  }
+  let tLat = Math.tan(Math.PI / 4 + lat / 2);
+  if (wgs) tLat *= wgs84(lat);
+  return Math.log(tLat);
 };
 
 /**
