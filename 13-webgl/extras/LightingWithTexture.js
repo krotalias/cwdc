@@ -963,10 +963,22 @@ function isCardinalDirection(char) {
 const meridionalParts = (lat) => toDegrees(toMercator(toRadian(lat))) * 60;
 
 /**
- * For obsessives, this is a simplification of the full ellipsoidal version.
- * @param {Number} lat latitude.
- * @return {Number} WGS 84 ellipsoidal version: ((1 − ecc * sin(lat)) / (1 + ecc * sin(lat))) <sup>ecc/2</sup>
+ * <p>Calculates the ellipsoidal correction term for conformal mapping.</p>
+ * When flattening f = 0 (a perfect sphere), {@link ecc eccentricity} e = 0.
+ * Raising any non-zero fraction to the power of 0 simplifies the entire expression to 1,
+ * reducing ellipsoidal equations back to their simpler spherical equivalents.
+ * For Earth models like WGS 84 where e ≈ 0.081819,
+ * this term slightly scales down the spherical radius to adjust for the equatorial bulge.
+ * <p>Earth's equatorial diameter is about 43 km (27 mi) larger than its polar diameter,
+ * and Saturn has the largest bulge in our solar system,</p>
+ * @param {Number} lat geodetic latitude in radians.
+ * @return {Number} ellipsoidal correction factor: ((1 − ecc * sin(lat)) / (1 + ecc * sin(lat))) <sup>ecc/2</sup>
  * @see {@link https://www.movable-type.co.uk/scripts/latlong.html#destPoint Movable Type Scripts}
+ * @see {@link https://mathworld.wolfram.com/IsometricLatitude.html Isometric Latitude}
+ * @see <figure>
+ *      <a href="../images/spheroid.png"><img src="../images/spheroid.png" height="256"></a>
+ *      <figcaption style="font-size: 120%">{@link https://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf WGS 84 Spheroid}</figcaption>
+ *      </figure>
  */
 const wgs84 = (lat) => {
   const slat = ecc * Math.sin(lat);
@@ -1012,20 +1024,30 @@ const toSpherical = (y) => {
 };
 
 /**
- * </p>Convert a latitude difference in degrees to Mercator.</p>
+ * </p>Convert a geocentric latitude difference in degrees to a Mercator isometric latitude difference in radians.</p>
  * A latitude difference is the angular distance (in degrees) between them,
  * measured north or south of the Equator.
- * <p>Note that logarithms transform divisions in subtractions: log(a/b) = log(a) - log(b).</p>
+ * <p>Geodetic uses a perpendicular line (normal) to the ellipsoidal surface;
+ * geocentric uses a straight line drawn to the Earth's center.</p>
+ * <p>Note that logarithms transform divisions in subtractions:</p>
+ * <ul>
+ *  <li>log(a/b) = log(a) - log(b)</li>
+ *  <li>Δψ = {@link toMercator toMercator}(lat2, wgs) - toMercator(lat1, wgs)</li>
+ * </ul>
  * @param {Number} lat1 first latitude in degrees.
  * @param {Number} lat2 second latitude in degrees.
- * @returns {Number} (lat2-lat1) in Mercator coordinates.
+ * @param {Boolean} wgs whether to apply the wgs84 ellipsoidal model.
+ * @returns {Number} Δψ isometric latitude difference.
  * @see {@link module:polyhedron.spherical2Mercator spherical2Mercator}
+ * @see {@link https://www.mdpi.com/2673-7418/4/2/8 Vector-Algebra Algorithms}
+ * @see <a href="../images/geodetic-latitude-and-geocentric.png"><img src="../images/geodetic-latitude-and-geocentric.png" width="256"></a>
  */
-const diffMercator = (lat1, lat2) => {
+const diffMercator = (lat1, lat2, wgs = false) => {
   lat1 = toRadian(clamp(lat1, -maxLatitude, maxLatitude));
   lat2 = toRadian(clamp(lat2, -maxLatitude, maxLatitude));
+  const w = wgs ? wgs84(lat2) / wgs84(lat1) : 1;
   return Math.log(
-    Math.tan(Math.PI / 4 + lat2 / 2) / Math.tan(Math.PI / 4 + lat1 / 2),
+    (Math.tan(Math.PI / 4 + lat2 / 2) / Math.tan(Math.PI / 4 + lat1 / 2)) * w,
   );
 };
 
@@ -2326,6 +2348,73 @@ function parseDMS(input) {
 }
 
 /**
+ * <p>Calculates the total distance along a rhumb line (loxodrome)
+ * between two points on an ellipsoid.</p>
+ * Uses the WGS84 model parameters for precision.
+ *
+ * <pre>
+ *    // London to New York
+ *    const [lat1, lon1] = [51.5074, -0.1278]; // London
+ *    const [lat2, lon2] = [40.7128, -74.006]; // New York
+ *
+ *    const distance = calculateLoxodromeDistanceWGS84(lat1, lon1, lat2, lon2);
+ *    console.log(`Loxodromic distance: ${distance.toFixed(1)} km`);
+ *
+ *    ----------------------------------------
+ *    Loxodromic course: 258.08°
+ *    Isometric Latitude: -0.272161435475466
+ *    Loxodromic distance: 5809.8 km
+ * </pre>
+ *
+ * @param {number} lat1 - Latitude of starting point in degrees.
+ * @param {number} lon1 - Longitude of starting point in degrees.
+ * @param {number} lat2 - Latitude of destination point in degrees.
+ * @param {number} lon2 - Longitude of destination point in degrees.
+ * @returns {number} Distance along the rhumb line in kilometers.
+ */
+function calculateLoxodromeDistanceWGS84(lat1, lon1, lat2, lon2) {
+  // WGS84 Constants
+  const a = 6378.137; // semi-major axis in kilometers
+  const WGS84_ECC = ecc * ecc; // first eccentricity squared
+
+  // Transform geodetic latitudes to isometric latitudes
+  const dPsi = diffMercator(lat1, lat2, true);
+
+  // Convert inputs to radians
+  const phi1 = toRadian(lat1);
+  const phi2 = toRadian(lat2);
+  const dPhi = phi2 - phi1;
+
+  // Handle crossing the International Date Line
+  const dLon = antimeridianCrossing(toRadian(lon2 - lon1));
+
+  // Calculate heading/bearing angle
+  const bearingRad = Math.atan2(dLon, dPsi);
+
+  // Calculate the mean radius of curvature along the meridian (M_m)
+  // This accounts for the flattening of the Earth along your specific latitude span
+  const phiMean = (phi1 + phi2) / 2.0;
+  const sinPhiMean = Math.sin(phiMean);
+  const tempNode = 1.0 - WGS84_ECC * sinPhiMean * sinPhiMean;
+  const radiusMeridian = (a * (1.0 - WGS84_ECC)) / Math.pow(tempNode, 1.5);
+
+  let distance = 0.0;
+
+  // Case 1: Traveling due East or West along a parallel (constant latitude)
+  if (isZero(Math.abs(dPhi))) {
+    // Calculate radius of parallel at this latitude
+    const radiusParallel = (a * Math.cos(phi1)) / Math.sqrt(tempNode);
+    distance = radiusParallel * Math.abs(dLon);
+  }
+  // Case 2: Standard rhumb-line tracking north/south/diagonally
+  else {
+    distance = (dPhi * radiusMeridian) / Math.cos(bearingRad);
+  }
+
+  return Math.abs(distance);
+}
+
+/**
  * <p>Updates the label (latitude, longitude, secant and meridional parts)
  * to the information of the given {@link gpsCoordinates location}.</p>
  * The label is updated in the element with attribute `for="equator"`:
@@ -2355,6 +2444,12 @@ function labelForLocation(location, unit) {
   const distancep = haversine(previousLocation, gps).km;
   const { bearing: brio, distance: ldrio } = bearingAngleAndDistance(rio, gps);
   const loxDistanceSph = calculateLoxodromeDistance(lat, lon, latp, lonp);
+  const loxDistanceWGS84 = calculateLoxodromeDistanceWGS84(
+    lat,
+    lon,
+    latp,
+    lonp,
+  );
   const loxDistanceCyl = calculateLoxodromeDistanceCyl(lat, lon, latp, lonp);
   const badCyl = bearingAngleAndDistanceCyl(previousLocation, gps);
   const clocation = cleanLocation(location);
@@ -2405,6 +2500,8 @@ function labelForLocation(location, unit) {
           AZ: ${fmtdeg.format(bp)}
     <br>${plocation} ↛ ${clocation} along loxodrome:
           ${fmtDistance(loxDistanceSph, unit)}
+    <br>${plocation} ↛ ${clocation} along WGS84:
+          ${fmtDistance(loxDistanceWGS84, unit)}
     <br>Loxodrome on the chart (cylinder):
           ${fmtDistance(loxDistanceCyl, unit)},
           AZ: ${fmtdeg.format(badCyl.bearing)}`;
