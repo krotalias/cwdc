@@ -645,6 +645,12 @@ const sphereRadius = 0.98;
 const earthRadius = 6371;
 
 /**
+ * Earth semi-major axis of the {@link https://www.jpz.se/Html_filer/wgs_84.html WGS 84}.
+ * @type {Number}
+ */
+const earthMajorAxis = 6378.137;
+
+/**
  * First eccentricity of the {@link https://www.jpz.se/Html_filer/wgs_84.html WGS 84}.
  * @type {Number}
  */
@@ -2349,8 +2355,12 @@ function parseDMS(input) {
 
 /**
  * <p>Calculates the total distance along a rhumb line (loxodrome)
- * between two points on an ellipsoid.</p>
- * Uses the WGS84 model parameters for precision.
+ * between two points on an ellipsoid by
+ * using the WGS84 model parameters for precision.</p>
+ * Switching from a WGS84 ellipsoid model to a simple sphere changes calculated surface distances
+ * by up to 0.5% (~56 parts per 10,000),
+ * creating regional overestimations or underestimations
+ * depending on the azimuth and latitude range.
  *
  * <pre>
  *    // London to New York
@@ -2366,15 +2376,26 @@ function parseDMS(input) {
  *    Loxodromic distance: 5809.8 km
  * </pre>
  *
- * @param {number} lat1 - Latitude of starting point in degrees.
- * @param {number} lon1 - Longitude of starting point in degrees.
- * @param {number} lat2 - Latitude of destination point in degrees.
- * @param {number} lon2 - Longitude of destination point in degrees.
- * @returns {number} Distance along the rhumb line in kilometers.
+ * @param {number} lat1 - latitude of starting point in degrees.
+ * @param {number} lon1 - longitude of starting point in degrees.
+ * @param {number} lat2 - latitude of destination point in degrees.
+ * @param {number} lon2 - longitude of destination point in degrees.
+ * @param {number} [R=earthMajorAxis] - earth semi-major axis in kilometers.
+ * @returns {number} distance along the rhumb line in kilometers.
+ * @see {@link https://en.wikipedia.org/wiki/World_Geodetic_System World Geodetic System}
+ * @see {@link https://www.nist.gov/glossary-term/34691 National Institute of Standards and Technology}
+ * @see {@link https://gnssdecoded.com/wgs-84-world-geodetic-system/ WGS 84 Explained: World Geodetic System 1984}
+ * @see {@link https://arxiv.org/pdf/2212.05818 On auxiliary latitudes}
  */
-function calculateLoxodromeDistanceWGS84(lat1, lon1, lat2, lon2) {
+function calculateLoxodromeDistanceWGS84(
+  lat1,
+  lon1,
+  lat2,
+  lon2,
+  R = earthMajorAxis,
+) {
   // WGS84 Constants
-  const a = 6378.137; // semi-major axis in kilometers
+  const a = R; // semi-major axis in kilometers
   const WGS84_ECC = ecc * ecc; // first eccentricity squared
 
   // Transform geodetic latitudes to isometric latitudes
