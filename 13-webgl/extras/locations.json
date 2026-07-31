@@ -367,6 +367,7 @@
             "Crowned King Philip I of Portugal, 25 April 1581",
             "Sided with Spain when Portugal regained its independence, 1 December 1640",
             "Autonomy status, 14 March 1995",
+            "Morocco views the territory as occupied",
             "Ceded to Spain, 4 August 1578"
         ],
         "latitude": 35.895833,
@@ -5858,6 +5859,16 @@
         "remarkable": ["Attila the Hun, 406-453", "Ruler of the Huns, 434"],
         "latitude": 45.7503869,
         "longitude": 19.5214468
+    },
+    "Tromsø": {
+        "country": "Norway",
+        "remarkable": [
+            "Christian VII, 1749-1808",
+            "King of Denmark and Norway, 14 January 1766 - 13 March 1808",
+            "Established as Kjøpstad, 20 June 1794"
+        ],
+        "latitude": 69.6517,
+        "longitude": 18.9556
     },
     "Free City of Danzig": {
         "country": "⚔ Poland",

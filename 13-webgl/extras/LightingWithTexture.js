@@ -23,7 +23,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
- * <li>Around the World in 481 <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures</a>:
+ * <li>Around the World in 482 <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
@@ -142,7 +142,9 @@
  *
  * Misinterpreting Web Mercator for the standard Mercator during coordinate conversion can lead to
  * {@link https://web.archive.org/web/20170329065451/https://earth-info.nga.mil/GandG/wgs84/web_mercator/index.html deviations}
- * as much as 40 km on the ground. Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.</p>
+ * as much as {@link https://www.sciencedirect.com/science/article/pii/S1195103624008553 40 km} on the ground.
+ * Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.
+ * The only exception is function {@link calculateLoxodromeDistanceWGS84}.</p>
  *
  * <p>It is impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
  * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
@@ -252,7 +254,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 481 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 482 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -1007,6 +1009,11 @@ const wgs84 = (lat) => {
  * @returns {Number} Mercator latitude coordinate ∈ [-π, π].
  * @see {@link module:polyhedron.spherical2Mercator spherical2Mercator}
  * @see {@link https://www.jpz.se/Html_filer/wgs_84.html How WGS 84 defines the Earth}
+ * @see {@link https://www.sciencedirect.com/science/article/pii/S1195103624008553 Web Mercator and Raster Tile Maps}
+ * @see <figure>
+ *  <a href="../images/sphericalXellipsoidal.jpg"><img src="../images/sphericalXellipsoidal.jpg" width="256"></a>
+ *  <figcaption style="font-size: 150%">Spherical X Ellipsoidal</figcaption>
+ * </figure>
  */
 const toMercator = (lat, wgs = false) => {
   lat = clamp(lat, toRadian(-maxLatitude), toRadian(maxLatitude));
@@ -2694,17 +2701,17 @@ function saveLocations(filename) {
  * This function uses the {@link project WebGL projection}
  * to convert the geographic coordinates to screen coordinates (pixels).
  * <ul>
- * <li>The projection can be either cylindrical, conical, spherical or Mercator.</li>
- * <li>The spherical projection is used for a globe,
- * while the Mercator projection is used for a map.</li>
+ *  <li>The projection can be either cylindrical, conical, spherical or Mercator.</li>
+ *  <li>The spherical projection is used for a globe,
+ *  while the Mercator projection is used for a map.</li>
  * </ul>
  * @param {GCS} location gcs coordinates.
  * @param {Boolean} [mercatorProjection=false] whether to use Mercator projection.
- * @return {Coordinates}
- * @property {Array<{x:Number,y:Number}>} Coordinates.screen screen coordinates.
- * @property {vec3} Coordinates.cartesian cartesian coordinates.
- * @property {Object<{s:Number,t:Number}>} Coordinates.uv spherical coordinates in UV space.
- * @property {Array<Number>} Coordinates.viewport viewport dimensions.
+ * @returns {Object} Coordinates object - set of coordinates associated to the given location.
+ * @property {Array<{x:Number,y:Number}>} Coordinates.screen - screen coordinates.
+ * @property {vec3} Coordinates.cartesian - cartesian coordinates.
+ * @property {Object<{s:Number,t:Number}>} Coordinates.uv - spherical coordinates in UV space.
+ * @property {Array<Number>} Coordinates.viewport - viewport dimensions.
  */
 function gcs2Screen(location, mercatorProjection = false) {
   // Convert geographic coordinates to UV coordinates
