@@ -140,19 +140,26 @@
  * of the Earth's surface but are projected as if
  * {@link https://alastaira.wordpress.com/2011/01/23/the-google-maps-bing-maps-spherical-mercator-projection/ defined on a sphere}.
  *
- * Misinterpreting Web Mercator for the standard Mercator during coordinate conversion can lead to
+ * Misinterpreting Web Mercator for the standard Mercator during coordinate {@link northingShift conversion} can lead to
  * {@link https://web.archive.org/web/20170329065451/https://earth-info.nga.mil/GandG/wgs84/web_mercator/index.html deviations}
  * as much as {@link https://www.sciencedirect.com/science/article/pii/S1195103624008553 43 km} on
  * the <a href="../images/Tromsø-chart.png">map</a>
  * (21 km on the <a href="../images/Tromsø-globe.png">ground</a>):
- * <pre>
- *    const Tromsø = {@link gpsCoordinates}["Tromsø"];  // Norway
- *    const { latitude: lat } = Tromsø;
- *    const N_ellipsoid = {@link earthMajorAxis} * {@link toMercator}({@link toRadian}(lat), true);
- *    const N_sphere = {@link earthMajorAxis} * {@link toMercator}({@link toRadian}(lat));
- *    console.log(`Northing shift (${lat}): ${Math.abs(N_ellipsoid - N_sphere)} km`);
- *    // Northing shift (69.6517): 40.11198236709788 km
- * </pre>
+ * <ul style="list-style-type: none;">
+ *    <li>const Tromsø = {@link gpsCoordinates}["Tromsø"];  // Norway</li>
+ *    <li>const { latitude: lat } = Tromsø;</li>
+ *    <li>const psi1 = {@link toMercator}({@link toRadian}(lat), true);</li>
+ *    <li>const psi2 = {@link toMercator}({@link toRadian}(lat));</li>
+ *    <li>const N_ellipsoid = {@link earthMajorAxis} * psi1;</li>
+ *    <li>const N_sphere = {@link earthMajorAxis} * psi2;</li>
+ *    <li>console.log(`Northing shift (${lat}): ${Math.abs(N_ellipsoid - N_sphere)} km`);</li>
+ *    <li>// Northing shift (69.6517): 40.11198236709788 km</li>
+ *    <br>
+ *    <li>const latGlobe = toDegrees(toSpherical(psi1));</li>
+ *    <li>const locGlobe = { latitude: latGlobe, longitude: lon };</li>
+ *    <li>console.log(`Ground shift (${lat}): ${haversine(loc, locGlobe).km.toFixed(2)} km`);</li>
+ *    <li>// Ground shift (69.6517): 13.97 km</li>
+ * </ul>
  * Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.
  * The only exception is function {@link calculateLoxodromeDistanceWGS84}.</p>
  *
@@ -2450,6 +2457,30 @@ function calculateLoxodromeDistanceWGS84(
   }
 
   return Math.abs(distance);
+}
+
+/**
+ * Display the northing shift at the given location.
+ * @param {String} city location.
+ */
+function northingShift(city) {
+  const loc = gpsCoordinates[city];
+  const { latitude: lat, longitude: lon } = loc;
+  const psi1 = toMercator(toRadian(lat), true);
+  const psi2 = toMercator(toRadian(lat));
+  const N_ellipsoid = earthMajorAxis * psi1;
+  const N_sphere = earthMajorAxis * psi2;
+  console.log(
+    `Northing shift (${lat}): ${Math.abs(N_ellipsoid - N_sphere).toFixed(2)} km`,
+  );
+  // Northing shift (69.6517): 40.11198236709788 km
+
+  const latGlobe = toDegrees(toSpherical(psi1));
+  const locGlobe = { latitude: latGlobe, longitude: lon };
+  console.log(
+    `Ground shift (${lat}): ${haversine(loc, locGlobe).km.toFixed(2)} km`,
+  );
+  // Ground shift (69.6517): 13.97 km
 }
 
 /**
@@ -7817,6 +7848,8 @@ function startForReal(image) {
   }
   handleKeyPress(createEvent("X"));
   displayVersions();
+
+  northingShift("Tromsø");
 
   // start drawing!
   animate();
