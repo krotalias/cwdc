@@ -142,7 +142,15 @@
  *
  * Misinterpreting Web Mercator for the standard Mercator during coordinate conversion can lead to
  * {@link https://web.archive.org/web/20170329065451/https://earth-info.nga.mil/GandG/wgs84/web_mercator/index.html deviations}
- * as much as {@link https://www.sciencedirect.com/science/article/pii/S1195103624008553 40 km} on the ground.
+ * as much as {@link https://www.sciencedirect.com/science/article/pii/S1195103624008553 43 km} on the map (21 km on the ground):
+ * <pre>
+ *    const Tromsø = gpsCoordinates["Tromsø"];  // Norway
+ *    const { latitude: lat } = Tromsø;
+ *    const N_ellipsoid = earthMajorAxis * toMercator(toRadian(lat), true);
+ *    const N_sphere = earthMajorAxis * toMercator(toRadian(lat));
+ *    console.log(`Northing shift (${lat}): ${Math.abs(N_ellipsoid - N_sphere)} km`);
+ *    // Northing shift (69.6517): 40.11198236709788 km
+ * </pre>
  * Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.
  * The only exception is function {@link calculateLoxodromeDistanceWGS84}.</p>
  *
