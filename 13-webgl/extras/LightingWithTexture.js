@@ -147,17 +147,19 @@
  * (21 km on the <a href="../images/Tromsø-globe.png">ground</a>):
  * <ul style="list-style-type: none;">
  *    <li>const Tromsø = {@link gpsCoordinates}["Tromsø"];  // Norway</li>
- *    <li>const { latitude: lat } = Tromsø;</li>
+ *    <li>const { latitude: lat, longitude: lon } = Tromsø;</li>
  *    <li>const psi1 = {@link toMercator}({@link toRadian}(lat), true);</li>
  *    <li>const psi2 = {@link toMercator}({@link toRadian}(lat));</li>
  *    <li>const N_ellipsoid = {@link earthMajorAxis} * psi1;</li>
  *    <li>const N_sphere = {@link earthMajorAxis} * psi2;</li>
- *    <li>console.log(`Northing shift (${lat}): ${Math.abs(N_ellipsoid - N_sphere).toFixed(2)} km`);</li>
+ *    <li>const nshift = Math.abs(N_ellipsoid - N_sphere);</li>
+ *    <li>console.log(`Northing shift (${lat}): ${nshift.toFixed(2)} km`);</li>
  *    <li>// Northing shift (69.6517): 40.11 km</li>
  *    <br>
  *    <li>const latGlobe = {@link toDegrees}({@link toSpherical}(psi1));</li>
  *    <li>const locGlobe = { latitude: latGlobe, longitude: lon };</li>
- *    <li>console.log(`Ground shift (${lat}): ${${@link haversine}(loc, locGlobe).km.toFixed(2)} km`);</li>
+ *    <li>const gshift = {@link haversine}(loc, locGlobe).km;</li>
+ *    <li>console.log(`Ground shift (${lat}): ${gshift.toFixed(2)} km`);</li>
  *    <li>// Ground shift (69.6517): 13.97 km</li>
  * </ul>
  * Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.
@@ -2462,6 +2464,7 @@ function calculateLoxodromeDistanceWGS84(
 /**
  * Display the northing shift at the given location.
  * @param {String} city location.
+ * @returns {Number} northing shift in kilometers.
  */
 function northingShift(city) {
   const loc = gpsCoordinates[city];
@@ -2470,9 +2473,8 @@ function northingShift(city) {
   const psi2 = toMercator(toRadian(lat));
   const N_ellipsoid = earthMajorAxis * psi1;
   const N_sphere = earthMajorAxis * psi2;
-  console.log(
-    `Northing shift (${lat}): ${Math.abs(N_ellipsoid - N_sphere).toFixed(2)} km`,
-  );
+  const shift = Math.abs(N_ellipsoid - N_sphere);
+  console.log(`Northing shift (${lat}): ${shift.toFixed(2)} km`);
   // Northing shift (69.6517): 40.11198236709788 km
 
   const latGlobe = toDegrees(toSpherical(psi1));
@@ -2481,6 +2483,7 @@ function northingShift(city) {
     `Ground shift (${lat}): ${haversine(loc, locGlobe).km.toFixed(2)} km`,
   );
   // Ground shift (69.6517): 13.97 km
+  return shift;
 }
 
 /**
