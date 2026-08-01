@@ -152,12 +152,12 @@
  *    <li>const psi2 = {@link toMercator}({@link toRadian}(lat));</li>
  *    <li>const N_ellipsoid = {@link earthMajorAxis} * psi1;</li>
  *    <li>const N_sphere = {@link earthMajorAxis} * psi2;</li>
- *    <li>console.log(`Northing shift (${lat}): ${Math.abs(N_ellipsoid - N_sphere)} km`);</li>
- *    <li>// Northing shift (69.6517): 40.11198236709788 km</li>
+ *    <li>console.log(`Northing shift (${lat}): ${Math.abs(N_ellipsoid - N_sphere).toFixed(2)} km`);</li>
+ *    <li>// Northing shift (69.6517): 40.11 km</li>
  *    <br>
- *    <li>const latGlobe = toDegrees(toSpherical(psi1));</li>
+ *    <li>const latGlobe = {@link toDegrees}({@link toSpherical}(psi1));</li>
  *    <li>const locGlobe = { latitude: latGlobe, longitude: lon };</li>
- *    <li>console.log(`Ground shift (${lat}): ${haversine(loc, locGlobe).km.toFixed(2)} km`);</li>
+ *    <li>console.log(`Ground shift (${lat}): ${${@link haversine}(loc, locGlobe).km.toFixed(2)} km`);</li>
  *    <li>// Ground shift (69.6517): 13.97 km</li>
  * </ul>
  * Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.
