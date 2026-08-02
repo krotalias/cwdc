@@ -215,14 +215,14 @@ the <a href="../images/Tromsø-chart.png">map</a>
    <li>const psi2 = <a href="global.html#toMercator">toMercator</a>(rlat);</li>
    <li>const N_ellipsoid = <a href="global.html#earthMajorAxis">earthMajorAxis</a> * psi1;</li>
    <li>const N_sphere = <a href="global.html#earthMajorAxis">earthMajorAxis</a> * psi2;</li>
-   <li>const nshift = Math.abs(N_ellipsoid - N_sphere);</li>
-   <li>console.log(`Northing shift (${lat}): ${nshift.toFixed(2)} km`);</li>
+   <li>const ndiff = Math.abs(N_ellipsoid - N_sphere);</li>
+   <li>console.log(`Northing difference (${lat}): ${ndiff.toFixed(2)} km`);</li>
    <li>// Northing difference (69.6517): 40.11 km</li>
    <br>
    <li>const latGlobe = <a href="global.html#toDegrees">toDegrees</a>(<a href="global.html#toSpherical">toSpherical</a>(psi1));</li>
    <li>const locGlobe = { latitude: latGlobe, longitude: lon };</li>
-   <li>const gshift = <a href="global.html#haversine">haversine</a>(loc, locGlobe).km;</li>
-   <li>console.log(`Ground shift (${lat}): ${gshift.toFixed(2)} km`);</li>
+   <li>const gdiff = <a href="global.html#haversine">haversine</a>(loc, locGlobe).km;</li>
+   <li>console.log(`Ground difference (${lat}): ${gdiff.toFixed(2)} km`);</li>
    <li>// Ground difference (69.6517): 13.97 km</li>
 </ul>
 Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.

@@ -153,14 +153,14 @@
  *    <li>const psi2 = {@link toMercator}(rlat);</li>
  *    <li>const N_ellipsoid = {@link earthMajorAxis} * psi1;</li>
  *    <li>const N_sphere = {@link earthMajorAxis} * psi2;</li>
- *    <li>const nshift = Math.abs(N_ellipsoid - N_sphere);</li>
- *    <li>console.log(`Northing shift (${lat}): ${nshift.toFixed(2)} km`);</li>
+ *    <li>const ndiff = Math.abs(N_ellipsoid - N_sphere);</li>
+ *    <li>console.log(`Northing difference (${lat}): ${ndiff.toFixed(2)} km`);</li>
  *    <li>// Northing difference (69.6517): 40.11 km</li>
  *    <br>
  *    <li>const latGlobe = {@link toDegrees}({@link toSpherical}(psi1));</li>
  *    <li>const locGlobe = { latitude: latGlobe, longitude: lon };</li>
- *    <li>const gshift = {@link haversine}(loc, locGlobe).km;</li>
- *    <li>console.log(`Ground shift (${lat}): ${gshift.toFixed(2)} km`);</li>
+ *    <li>const gdiff = {@link haversine}(loc, locGlobe).km;</li>
+ *    <li>console.log(`Ground difference (${lat}): ${gdiff.toFixed(2)} km`);</li>
  *    <li>// Ground difference (69.6517): 13.97 km</li>
  * </ul>
  * Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.
