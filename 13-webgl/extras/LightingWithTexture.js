@@ -23,7 +23,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
- * <li>Around the World in 482 <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures</a>:
+ * <li>Around the World in 484 <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
@@ -148,8 +148,9 @@
  * <ul style="list-style-type: none;">
  *    <li>const Tromsø = {@link gpsCoordinates}["Tromsø"];  // Norway</li>
  *    <li>const { latitude: lat, longitude: lon } = Tromsø;</li>
- *    <li>const psi1 = {@link toMercator}({@link toRadian}(lat), true);</li>
- *    <li>const psi2 = {@link toMercator}({@link toRadian}(lat));</li>
+ *    <li>const rlat = {@link toRadian}(lat);</li>
+ *    <li>const psi1 = {@link toMercator}(rlat, true);</li>
+ *    <li>const psi2 = {@link toMercator}(rlat);</li>
  *    <li>const N_ellipsoid = {@link earthMajorAxis} * psi1;</li>
  *    <li>const N_sphere = {@link earthMajorAxis} * psi2;</li>
  *    <li>const nshift = Math.abs(N_ellipsoid - N_sphere);</li>
@@ -273,7 +274,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 482 historical figures</a>.</p>
+ * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 484 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -2469,21 +2470,21 @@ function calculateLoxodromeDistanceWGS84(
 function northingShift(city) {
   const loc = gpsCoordinates[city];
   const { latitude: lat, longitude: lon } = loc;
-  const psi1 = toMercator(toRadian(lat), true);
-  const psi2 = toMercator(toRadian(lat));
+  const rlat = toRadian(lat);
+  const psi1 = toMercator(rlat, true);
+  const psi2 = toMercator(rlat);
   const N_ellipsoid = earthMajorAxis * psi1;
   const N_sphere = earthMajorAxis * psi2;
-  const shift = Math.abs(N_ellipsoid - N_sphere);
-  console.log(`Northing shift (${lat}): ${shift.toFixed(2)} km`);
+  const nshift = Math.abs(N_ellipsoid - N_sphere);
+  console.log(`Northing shift (${lat}): ${nshift.toFixed(2)} km`);
   // Northing shift (69.6517): 40.11198236709788 km
 
   const latGlobe = toDegrees(toSpherical(psi1));
   const locGlobe = { latitude: latGlobe, longitude: lon };
-  console.log(
-    `Ground shift (${lat}): ${haversine(loc, locGlobe).km.toFixed(2)} km`,
-  );
+  const gshift = haversine(loc, locGlobe).km;
+  console.log(`Ground shift (${lat}): ${gshift.toFixed(2)} km`);
   // Ground shift (69.6517): 13.97 km
-  return shift;
+  return nshift;
 }
 
 /**

@@ -5015,6 +5015,18 @@
         "latitude": 40.65,
         "longitude": 35.833056
     },
+    "U-559": {
+        "country": "⚔ Germany",
+        "remarkable": [
+            "German Kriegsmarine started using 4-rotor Enigma (M4), 1 February 1942",
+            "Spotted by a RAF Sunderland, 30 October 1942",
+            "3 RN sailors retrieved Enigma key setting sheets and codebooks, 30 October 1942",
+            "Allowed code-breakers to decrypt 4-rotor U-boat Enigma, November 1942",
+            "U-559 sunk by depth charges from HMS Petard, 30 October 1942"
+        ],
+        "latitude": 31.783333,
+        "longitude": 33.4
+    },
     "Kampala": {
         "country": "Buganda (Uganda)",
         "remarkable": [
@@ -6903,6 +6915,18 @@
         ],
         "latitude": 51.118166194,
         "longitude": 1.324332036
+    },
+    "Dieppe": {
+        "country": "⚔ Normandy (France)",
+        "remarkable": [
+            "Dieppe Raid (Operation Jubilee), 19 August 1942",
+            "4,963 Canadians, 1,075 British, and 50 U.S. Rangers",
+            "3.3K Allied casualties, 916 dead Canadians, 2K captured as POW",
+            "Shaped the successful planning of the D-Day invasion, 6 June 1944",
+            "Philippe Pétain's congratulation letter, 21 August 1942"
+        ],
+        "latitude": 49.93333,
+        "longitude": 1.08333
     },
     "Tortosa": {
         "country": "✝ Almoravid Emirate (Spain)",
