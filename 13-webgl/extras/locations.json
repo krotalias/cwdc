@@ -2221,6 +2221,20 @@
         "latitude": 80.826389,
         "longitude": -66.458333
     },
+    "Fredericton": {
+        "country": "New Brunswick (Canada)",
+        "remarkable": [
+            "Prince Frederick, Duke of York and Albany, 1763-1827",
+            "Established by British loyalists fleeing the American Revolutionary War, 1783",
+            "University of New Brunswick, 13 December 1785",
+            "The oldest English-language university in Canada",
+            "Erected as capital of the New Brunswick province, 1785",
+            "Cultural Capital of Canada, 2009",
+            "Incorporated as a city, 30 March 1848"
+        ],
+        "latitude": 45.945278,
+        "longitude": -66.666667
+    },
     "Caracas": {
         "country": "🐇 Venezuela",
         "remarkable": [
