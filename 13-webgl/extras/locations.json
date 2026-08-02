@@ -2156,6 +2156,24 @@
         "latitude": 18.023889,
         "longitude": -63.045833
     },
+    "Halifax": {
+        "country": "Nova Scotia (Canada)",
+        "remarkable": [
+            "Edward Cornwallis (Lieutenant-General), 1713-1776",
+            "Governor of Nova Scotia, March 1749 - October 1752",
+            "Founded the Town of Halifax, 21 June 1749",
+            "Brought along 1,176 settlers and their families",
+            "Father Le Loutre's War, 1749-1755",
+            "British RN's North American Station headquarters, 1758-1818",
+            "Prince Edward (Field marshal), 1767-1820",
+            "Duke of Kent and Strathearn, 23 April 1799",
+            "Lived in Halifax, 10 May 1794 - 31 August 1800",
+            "Intercolonial Railway, 1 July 1876 - 1918",
+            "Incorporated as a city, 10 April 1841"
+        ],
+        "latitude": 44.6475,
+        "longitude": -63.590556
+    },
     "Porto Velho": {
         "country": "Rondônia (Brazil)",
         "remarkable": [
@@ -3388,6 +3406,20 @@
         "latitude": 19.80782,
         "longitude": -96.91595
     },
+    "Winnipeg": {
+        "country": "Manitoba (Canada)",
+        "remarkable": [
+            "Henry Kelsey (explorer), 1664-1724",
+            "First European to see the Lake Winnipeg, 1690",
+            "Fort Rouge (French trader La Vérendrye), 1738",
+            "Founded by the Selkirk settlers of the Red River Colony, 1812",
+            "1950 Red River flood, 15 April 1950 - 12 June 1950",
+            "Black Friday, 5 May 1950",
+            "Incorporated as a city, 8 November 1873"
+        ],
+        "latitude": 49.895556,
+        "longitude": -97.138611
+    },
     "Gillespie County": {
         "country": "Texas (United States)",
         "remarkable": [
@@ -3414,6 +3446,21 @@
         ],
         "latitude": 19.432608,
         "longitude": -99.133209
+    },
+    "Regina": {
+        "country": "Saskatchewan (Canada)",
+        "remarkable": [
+            "Queen (Regina in Latin) Victoria, 1819-1901",
+            "Victorian era, 20 June 1837, 22 January 1901",
+            "Edgar Dewdney (Lieutenant-governor), 1835-1916",
+            "North-West Territories, 3 December 1881 - 1 July 1888",
+            "Established (site known as Pile of Bones), 1882",
+            "Regina Cyclone, 30 June 1912",
+            "Deadliest tornado in Canadian history",
+            "Incorporated as a city, 19 June 1903"
+        ],
+        "latitude": 50.454722,
+        "longitude": -104.606667
     },
     "Tularosa": {
         "country": "☢ New Mexico (United States)",
