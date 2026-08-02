@@ -140,7 +140,7 @@
  * of the Earth's surface but are projected as if
  * {@link https://alastaira.wordpress.com/2011/01/23/the-google-maps-bing-maps-spherical-mercator-projection/ defined on a sphere}.
  *
- * Misinterpreting Web Mercator for the standard Mercator during coordinate {@link northingShift conversion} can lead to
+ * Misinterpreting Web Mercator for the standard Mercator during coordinate {@link northingDifference conversion} can lead to
  * {@link https://web.archive.org/web/20170329065451/https://earth-info.nga.mil/GandG/wgs84/web_mercator/index.html deviations}
  * as much as {@link https://www.sciencedirect.com/science/article/pii/S1195103624008553 43 km} on
  * the <a href="../images/Tromsø-chart.png">map</a>
@@ -155,13 +155,13 @@
  *    <li>const N_sphere = {@link earthMajorAxis} * psi2;</li>
  *    <li>const nshift = Math.abs(N_ellipsoid - N_sphere);</li>
  *    <li>console.log(`Northing shift (${lat}): ${nshift.toFixed(2)} km`);</li>
- *    <li>// Northing shift (69.6517): 40.11 km</li>
+ *    <li>// Northing difference (69.6517): 40.11 km</li>
  *    <br>
  *    <li>const latGlobe = {@link toDegrees}({@link toSpherical}(psi1));</li>
  *    <li>const locGlobe = { latitude: latGlobe, longitude: lon };</li>
  *    <li>const gshift = {@link haversine}(loc, locGlobe).km;</li>
  *    <li>console.log(`Ground shift (${lat}): ${gshift.toFixed(2)} km`);</li>
- *    <li>// Ground shift (69.6517): 13.97 km</li>
+ *    <li>// Ground difference (69.6517): 13.97 km</li>
  * </ul>
  * Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.
  * The only exception is function {@link calculateLoxodromeDistanceWGS84}.</p>
@@ -2463,11 +2463,19 @@ function calculateLoxodromeDistanceWGS84(
 }
 
 /**
- * Return the northing and global shifts at the given location.
+ * <p>Return the northing and global differences at the given location between
+ * Mercator ({@link https://epsg.io/3395 EPSG:3395}) and Pseudo-Mercator ({@link https://epsg.io/3857 EPSG:3857}) projections.</p>
+ * Pseudo-Mercator is a projected coordinate system used for rendering maps in
+ * {@link https://www.google.com/maps Google Maps}, {@link https://www.openstreetmap.org OpenStreetMap}, etc.
+ * <p>However, it is not a recognised geodetic system and uses spherical development of ellipsoidal coordinates.
+ * Relative to WGS 84 / World Mercator (CRS code 3395) gives errors of 0.7 percent in scale and
+ * differences in northing of up to 43km in the map (21km on the ground).</p>
  * @param {String} city location.
- * @returns {Array<Number>} northing and ground shifts in kilometers.
+ * @returns {Array<Number>} northing and ground differences in kilometers.
+ * @see {@link https://www.ngs.noaa.gov/NCAT/ NGS Coordinate Conversion and Transformation Tool (NCAT)}
+ * @see {@link https://coordinatemapper.com/ CoordinateMapper}
  */
-function northingShift(city) {
+function northingDifference(city) {
   const loc = gpsCoordinates[city];
   const { latitude: lat, longitude: lon } = loc;
   const rlat = toRadian(lat);
@@ -2484,7 +2492,7 @@ function northingShift(city) {
 }
 
 /**
- * <p>Updates the label (latitude, longitude, meridional parts and shifts)
+ * <p>Updates the label (latitude, longitude, meridional parts and northing differences)
  * to the information of the given {@link gpsCoordinates location}.</p>
  * The label is updated in the element with attribute `for="equator"`:
  * <ul>
@@ -2508,7 +2516,7 @@ function labelForLocation(location, unit) {
     lat,
     lon,
   );
-  const [nshift, gshift] = northingShift(location);
+  const [ndiff, gdiff] = northingDifference(location);
   const drio = haversine(rio, gps).km;
   const distancep = haversine(previousLocation, gps).km;
   const { bearing: brio, distance: ldrio } = bearingAngleAndDistance(rio, gps);
@@ -2558,8 +2566,8 @@ function labelForLocation(location, unit) {
          (lat: ${lat.toFixed(5)}°, lon: ${lon.toFixed(5)}°)`;
 
   element.locinfo.innerHTML = `mp(lat): ${meridionalParts.toFixed(2)},
-          nshift: ${nshift.toFixed(2)} km,
-          gshift: ${gshift.toFixed(2)} km
+          ndiff: ${ndiff.toFixed(2)} km,
+          gdiff: ${gdiff.toFixed(2)} km
     <br>Rio &rarr; ${clocation}:
           ${fmtDistance(drio, unit)},
           AZ: ${fmtdeg.format(brio)}
