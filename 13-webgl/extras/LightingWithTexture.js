@@ -2463,9 +2463,9 @@ function calculateLoxodromeDistanceWGS84(
 }
 
 /**
- * Display the northing shift at the given location.
+ * Return the northing and global shifts at the given location.
  * @param {String} city location.
- * @returns {Number} northing shift in kilometers.
+ * @returns {Array<Number>} northing and ground shifts in kilometers.
  */
 function northingShift(city) {
   const loc = gpsCoordinates[city];
@@ -2476,19 +2476,15 @@ function northingShift(city) {
   const N_ellipsoid = earthMajorAxis * psi1;
   const N_sphere = earthMajorAxis * psi2;
   const nshift = Math.abs(N_ellipsoid - N_sphere);
-  console.log(`Northing shift (${lat}): ${nshift.toFixed(2)} km`);
-  // Northing shift (69.6517): 40.11198236709788 km
 
   const latGlobe = toDegrees(toSpherical(psi1));
   const locGlobe = { latitude: latGlobe, longitude: lon };
   const gshift = haversine(loc, locGlobe).km;
-  console.log(`Ground shift (${lat}): ${gshift.toFixed(2)} km`);
-  // Ground shift (69.6517): 13.97 km
-  return nshift;
+  return [nshift, gshift];
 }
 
 /**
- * <p>Updates the label (latitude, longitude, secant and meridional parts)
+ * <p>Updates the label (latitude, longitude, meridional parts and shifts)
  * to the information of the given {@link gpsCoordinates location}.</p>
  * The label is updated in the element with attribute `for="equator"`:
  * <ul>
@@ -2512,7 +2508,7 @@ function labelForLocation(location, unit) {
     lat,
     lon,
   );
-  const sec = 1 / Math.cos(toRadian(lat));
+  const [nshift, gshift] = northingShift(location);
   const drio = haversine(rio, gps).km;
   const distancep = haversine(previousLocation, gps).km;
   const { bearing: brio, distance: ldrio } = bearingAngleAndDistance(rio, gps);
@@ -2561,8 +2557,9 @@ function labelForLocation(location, unit) {
     `<i>${clocation}</i>
          (lat: ${lat.toFixed(5)}°, lon: ${lon.toFixed(5)}°)`;
 
-  element.locinfo.innerHTML = `sec(lat): ${sec.toFixed(2)},
-          mp(lat): ${meridionalParts.toFixed(2)}
+  element.locinfo.innerHTML = `mp(lat): ${meridionalParts.toFixed(2)},
+          nshift: ${nshift.toFixed(2)} km,
+          gshift: ${gshift.toFixed(2)} km
     <br>Rio &rarr; ${clocation}:
           ${fmtDistance(drio, unit)},
           AZ: ${fmtdeg.format(brio)}
@@ -7852,8 +7849,6 @@ function startForReal(image) {
   }
   handleKeyPress(createEvent("X"));
   displayVersions();
-
-  northingShift("Tromsø");
 
   // start drawing!
   animate();
