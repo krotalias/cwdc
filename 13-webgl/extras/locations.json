@@ -2139,6 +2139,26 @@
         "latitude": 10.666667,
         "longitude": -61.516667
     },
+    "Charlottetown": {
+        "country": "Prince Edward Island (Canada)",
+        "remarkable": [
+            "Part of the French colony of Acadia, 1604-1713",
+            "King George II, 1683-1760",
+            "King of Great Britain and Ireland, 11 June 1727 - 25 October 1760",
+            "Port La Joye, 1720",
+            "King George's War, 1744-1748",
+            "Battle at Port-la-Joye (defeated 200 British soldiers), 11 July 1746",
+            "French and Indian War, 1754-1763",
+            "British forces captured Port-la-Joye, August 1758",
+            "Deported 3K French Acadians, 1758-1763",
+            "Founded, 1764",
+            "Named after Queen Charlotte, King George III's wife",
+            "Prince Edward Island (PEI), 29 November 1798",
+            "Incorporated as a City, 17 April 1855"
+        ],
+        "latitude": 46.235278,
+        "longitude": -63.126667
+    },
     "Philipsburg": {
         "country": "⚓ ☠ Sint Maarten (Kindom of the Netherlands)",
         "remarkable": [
@@ -3451,7 +3471,7 @@
         "country": "Saskatchewan (Canada)",
         "remarkable": [
             "Queen (Regina in Latin) Victoria, 1819-1901",
-            "Victorian era, 20 June 1837, 22 January 1901",
+            "Victorian era, 20 June 1837 - 22 January 1901",
             "Edgar Dewdney (Lieutenant-governor), 1835-1916",
             "North-West Territories, 3 December 1881 - 1 July 1888",
             "Established (site known as Pile of Bones), 1882",
