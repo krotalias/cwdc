@@ -2334,6 +2334,20 @@
         "latitude": -16.495833,
         "longitude": -68.133333
     },
+    "Iqaluit": {
+        "country": "Nunavut (Canada)",
+        "remarkable": [
+            "Martin Frobisher (privateer), 1535-1594",
+            "Sails into Frobisher Bay, 7 June 1576",
+            "Known as Frobisher Bay, 1942-1987",
+            "U.S. built Frobisher Bay Air Base, 1942-1963",
+            "Frobisher Bay changed to Iqaluit, 1 January 1987",
+            "Settled, 1942",
+            "City status, 19 April 2001"
+        ],
+        "latitude": 63.749444,
+        "longitude": -68.521667
+    },
     "Pituffik Space Base": {
         "country": "Greenland (Denmark, United States)",
         "remarkable": [
@@ -3603,6 +3617,19 @@
         "latitude": 51.049999,
         "longitude": -114.066666
     },
+    "Yellowknife": {
+        "country": "Northwest Territories (Canada)",
+        "remarkable": [
+            "First discovery of gold (E.A. Blakeney), 1898",
+            "Burwash Mine, 1934",
+            "Established, 1934",
+            "Giant Yellowknife Gold Mines Ltd (7M ounces), 3 June 1948 - 2004",
+            "Incorporated as a municipal district, 30 June 1953",
+            "Incorporated as a City, 1 January 1970"
+        ],
+        "latitude": 62.453611,
+        "longitude": -114.37
+    },
     "Nevada Test Site": {
         "country": "☢ Nevada (United States)",
         "remarkable": [
@@ -3716,6 +3743,17 @@
         ],
         "latitude": 49.260833,
         "longitude": -123.113889
+    },
+    "Whitehorse": {
+        "country": "Yukon (Canada)",
+        "remarkable": [
+            "Discovery of gold in the Klondike, August 1896",
+            "First copper claims staked by Jack McIntyre, 6 July 1898",
+            "Established, 13 June 1898",
+            "Incorporated as a city, 1 June 1950"
+        ],
+        "latitude": 60.7243,
+        "longitude": -135.0549
     },
     "Fangataufa": {
         "country": "☢ French Polynesia (France)",
