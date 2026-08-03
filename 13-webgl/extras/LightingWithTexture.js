@@ -93,21 +93,21 @@
  * by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.</p>
  *
  * <figure>
- * <a href="https://spivey.oriel.ox.ac.uk/corner/Thomas_Harriot_and_the_Mercator_Map"><img src="../images/Harriot2_sec.png" height="196"></a>
+ * <a href="https://spivey.oriel.ox.ac.uk/corner/Thomas_Harriot_and_the_Mercator_Map"><img src="../images/Harriot2_sec2.png" height="196"></a>
  * <a href="../images/globe_lat_long.png"><img src="../images/globe_lat_long.png" height="196"></a>
  * <a href="../images/Meridional Parts.png"><img src="../images/Meridional Parts.png" height="196"></a>
  *  <figcaption style="font-size: 200%; text-align: center;">{@link https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/bowditch_Vol_2_2019.pdf#page=125 Meridional Parts}</figcaption>
  * </figure>
  * <ul>
- *  <li> φ = latitude (λ in the first picture above) </li>
+ *  <li> φ = latitude </li>
  *  <li> θ = longitude </li>
  *  <li> δθ = δx </li>
- *  <li>R cos(λ) / R = δx / d  ⇒ d = δx / cos(λ) = δx sec(λ) </li>
+ *  <li>R cos(φ) / R = δx / d  ⇒ d = δx / cos(φ) = δx sec(φ) </li>
  *  -------- {@link module:polyhedron.spherical2Mercator on the Mercator chart} --------
  *  <li>(x,y) = M(R,θ,φ)
  *  <li>x = θ, -π ≤ θ ≤ π </li>
  *  <li><span style="display: flex;">y = ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
- *      <sup>φ</sup> <sub>0</sub></span>sec(λ) dλ = ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2</span></li>
+ *      <sup>φ</sup> <sub>0</sub></span>sec(φ) dφ = ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2</span></li>
  *  <li>For a square Mercator chart, -π ≤ y ≤ π ⇒ φ ∈ [-85.051129°, 85.051129°]</li>
  *  <li>{@link getAzimuthAndLoxodromeDistance MP} = 10800/π * ln [tan (π/4 + φ/2)] minutes of arc length (not using the {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)</li>
  *  <li>{@link meridionalParts MP} = {@link toDegrees}({@link toMercator}({@link toRadian}(φ))) * 60</li>

@@ -51,7 +51,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.&lt;/li>
  * &lt;br>
- * &lt;li>Around the World in 484 &lt;a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures&lt;/a>:
+ * &lt;li>Around the World in 500 &lt;a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures&lt;/a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).&lt;/li>
@@ -121,21 +121,21 @@
  * by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.&lt;/p>
  *
  * &lt;figure>
- * &lt;a href="https://spivey.oriel.ox.ac.uk/corner/Thomas_Harriot_and_the_Mercator_Map">&lt;img src="../images/Harriot2_sec.png" height="196">&lt;/a>
+ * &lt;a href="https://spivey.oriel.ox.ac.uk/corner/Thomas_Harriot_and_the_Mercator_Map">&lt;img src="../images/Harriot2_sec2.png" height="196">&lt;/a>
  * &lt;a href="../images/globe_lat_long.png">&lt;img src="../images/globe_lat_long.png" height="196">&lt;/a>
  * &lt;a href="../images/Meridional Parts.png">&lt;img src="../images/Meridional Parts.png" height="196">&lt;/a>
  *  &lt;figcaption style="font-size: 200%; text-align: center;">{@link https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/bowditch_Vol_2_2019.pdf#page=125 Meridional Parts}&lt;/figcaption>
  * &lt;/figure>
  * &lt;ul>
- *  &lt;li> φ = latitude (λ in the first picture above) &lt;/li>
+ *  &lt;li> φ = latitude &lt;/li>
  *  &lt;li> θ = longitude &lt;/li>
  *  &lt;li> δθ = δx &lt;/li>
- *  &lt;li>R cos(λ) / R = δx / d  ⇒ d = δx / cos(λ) = δx sec(λ) &lt;/li>
+ *  &lt;li>R cos(φ) / R = δx / d  ⇒ d = δx / cos(φ) = δx sec(φ) &lt;/li>
  *  -------- {@link module:polyhedron.spherical2Mercator on the Mercator chart} --------
  *  &lt;li>(x,y) = M(R,θ,φ)
  *  &lt;li>x = θ, -π ≤ θ ≤ π &lt;/li>
  *  &lt;li>&lt;span style="display: flex;">y = ∫ &lt;span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
- *      &lt;sup>φ&lt;/sup> &lt;sub>0&lt;/sub>&lt;/span>sec(λ) dλ = ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2&lt;/span>&lt;/li>
+ *      &lt;sup>φ&lt;/sup> &lt;sub>0&lt;/sub>&lt;/span>sec(φ) dφ = ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2&lt;/span>&lt;/li>
  *  &lt;li>For a square Mercator chart, -π ≤ y ≤ π ⇒ φ ∈ [-85.051129°, 85.051129°]&lt;/li>
  *  &lt;li>{@link getAzimuthAndLoxodromeDistance MP} = 10800/π * ln [tan (π/4 + φ/2)] minutes of arc length (not using the {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)&lt;/li>
  *  &lt;li>{@link meridionalParts MP} = {@link toDegrees}({@link toMercator}({@link toRadian}(φ))) * 60&lt;/li>
@@ -181,14 +181,14 @@
  *    &lt;li>const psi2 = {@link toMercator}(rlat);&lt;/li>
  *    &lt;li>const N_ellipsoid = {@link earthMajorAxis} * psi1;&lt;/li>
  *    &lt;li>const N_sphere = {@link earthMajorAxis} * psi2;&lt;/li>
- *    &lt;li>const nshift = Math.abs(N_ellipsoid - N_sphere);&lt;/li>
- *    &lt;li>console.log(`Northing shift (${lat}): ${nshift.toFixed(2)} km`);&lt;/li>
+ *    &lt;li>const ndiff = Math.abs(N_ellipsoid - N_sphere);&lt;/li>
+ *    &lt;li>console.log(`Northing difference (${lat}): ${ndiff.toFixed(2)} km`);&lt;/li>
  *    &lt;li>// Northing difference (69.6517): 40.11 km&lt;/li>
  *    &lt;br>
  *    &lt;li>const latGlobe = {@link toDegrees}({@link toSpherical}(psi1));&lt;/li>
  *    &lt;li>const locGlobe = { latitude: latGlobe, longitude: lon };&lt;/li>
- *    &lt;li>const gshift = {@link haversine}(loc, locGlobe).km;&lt;/li>
- *    &lt;li>console.log(`Ground shift (${lat}): ${gshift.toFixed(2)} km`);&lt;/li>
+ *    &lt;li>const gdiff = {@link haversine}(loc, locGlobe).km;&lt;/li>
+ *    &lt;li>console.log(`Ground difference (${lat}): ${gdiff.toFixed(2)} km`);&lt;/li>
  *    &lt;li>// Ground difference (69.6517): 13.97 km&lt;/li>
  * &lt;/ul>
  * Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.
@@ -302,7 +302,7 @@
  * or &lt;a href="../doc/TeseKevinWeiler.pdf">radial-edge&lt;/a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * &lt;p>&lt;b>The application&lt;/b>: Around The World in &lt;a href="../images/Brazil.mp4"> 484 historical figures&lt;/a>.&lt;/p>
+ * &lt;p>&lt;b>The application&lt;/b>: Around The World in &lt;a href="../images/Brazil.mp4"> 500 historical figures&lt;/a>.&lt;/p>
  * &lt;p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?&lt;/p>
  *
@@ -8252,7 +8252,7 @@ const animate = (() => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Aug 02 2026 09:36:23 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Aug 03 2026 09:53:07 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
