@@ -92,12 +92,24 @@
  * are the same, meaning that distances along a parallel or meridian (in fact, in all directions) are equally stretched
  * by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is its latitude.</p>
  *
- * <figure>
- * <a href="https://spivey.oriel.ox.ac.uk/corner/Thomas_Harriot_and_the_Mercator_Map"><img src="../images/Harriot2_sec2.png" height="196"></a>
- * <a href="../images/globe_lat_long.png"><img src="../images/globe_lat_long.png" height="196"></a>
- * <a href="../images/Meridional Parts.png"><img src="../images/Meridional Parts.png" height="196"></a>
- *  <figcaption style="font-size: 200%; text-align: center;">{@link https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/bowditch_Vol_2_2019.pdf#page=125 Meridional Parts}</figcaption>
- * </figure>
+ * <div style="display: flex; flex-wrap: wrap">
+ *  <div style="width: 100%;  max-width: 200px; min-width: 0; margin-left: 50px; font-size: 105%; line-height: 1.2em;">
+ *     <p>At latitude φ, horizontal distances on the chart are magnified by sec(φ) to make the meridians parallel.</p>
+ *     So locally, the vertical distances should be magnified by sec(φ) also to make the projection angle-preserving.
+ *  </div>
+ *  <div style="height: 196px;">
+ *    <a href="https://spivey.oriel.ox.ac.uk/corner/Thomas_Harriot_and_the_Mercator_Map"><img src="../images/Harriot2_sec3.png" height="196"></a>
+ *  </div>
+ *  <div style="height: 196px;">
+ *    <a href="../images/globe_lat_long.png"><img src="../images/globe_lat_long.png" height="196"></a>
+ *  </div>
+ *  <div style="height: 196px; margin-bottom: 80px;">
+ *  <figure>
+ *    <a href="../images/Meridional Parts.png"><img src="../images/Meridional Parts.png" height="196"></a>
+ *    <figcaption style="font-size: 200%; text-align: center;">{@link https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/bowditch_Vol_2_2019.pdf#page=125 Meridional Parts}</figcaption>
+ *  </figure>
+ *  </div>
+ * </div>
  * <ul>
  *  <li> φ = latitude </li>
  *  <li> θ = longitude </li>
@@ -109,7 +121,8 @@
  *  <li><span style="display: flex;">y = ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
  *      <sup>φ</sup> <sub>0</sub></span>sec(φ) dφ = ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2</span></li>
  *  <li>For a square Mercator chart, -π ≤ y ≤ π ⇒ φ ∈ [-85.051129°, 85.051129°]</li>
- *  <li>{@link getAzimuthAndLoxodromeDistance MP} = 10800/π * ln [tan (π/4 + φ/2)] minutes of arc length (not using the {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)</li>
+ *  <li>{@link getAzimuthAndLoxodromeDistance MP} = 10800/π * ln [tan (π/4 + φ/2)] minutes of arc length (not using the
+ *      {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)</li>
  *  <li>{@link meridionalParts MP} = {@link toDegrees}({@link toMercator}({@link toRadian}(φ))) * 60</li>
  *  <li>φ = 2 tan<sup>-1</sup> (e<sup>y</sup>) - π/2, -π ≤ y ≤ π → -85.051129° ≤ φ ≤ 85.051129° </li>
  *  -------- {@link longitudeOnLoxodrome loxodromes} --------
