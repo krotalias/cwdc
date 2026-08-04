@@ -128,10 +128,10 @@
  *  <li>1 {@link toNauticalMiles Nautical Mile} = one minute of longitude at the equator</li>
  *  <li>1 nm =  2 π {@link earthRadius} Km / 21600 = 40030 km / 360 / 60 = 1.8532407 km (1,852 meters)</li>
  *  <li>Earth circumference = 21600 nm (half circumference = 10800 nm)</li>
- *  <li> 1 radian on earth = (10800/π) nm</li>
+ *  <li> 1 radian on earth ≈ (10800/π) nm</li>
  *  <li>{@link getAzimuthAndLoxodromeDistance MP} = (10800/π) * ln [tan (π/4 + φ/2)] minutes of arc length (not using the
  *      {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)</li>
- *  <li>{@link meridionalParts MP} = {@link toDegrees}({@link toMercator}({@link toRadian}(φ))) * 60 nm</li>
+ *  <li>{@link meridionalParts MP} = {@link toDegrees}({@link toMercator}({@link toRadian}(φ))) * 60</li>
  *  -------- {@link longitudeOnLoxodrome loxodromes} --------
  *  <li> φ = latitude  </li>
  *  <li> θ = longitude </li>
