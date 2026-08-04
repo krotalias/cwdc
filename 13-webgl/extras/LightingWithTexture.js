@@ -1,7 +1,7 @@
 /**
  * @file
  *
- * Summary (<a href="../images/aod.mp4">"Sailing is necessary, living is not necessary"</a>)
+ * Summary (<a href="../images/aod.mp4">"Navigare necesse; vivere non est necesse"</a>)
  * <ol>
  * <li>Equirectangular and Mercator projection viewer using lighting combined with
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
