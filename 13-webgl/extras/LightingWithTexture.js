@@ -1,7 +1,7 @@
 /**
  * @file
  *
- * <a href="../LightingWithTextureV.html">Summary</a>.
+ * Summary (<a href="../images/aod.mp4">"Sailing is necessary, living is not necessary"</a>)
  * <ol>
  * <li>Equirectangular and Mercator projection viewer using lighting combined with
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
@@ -36,6 +36,8 @@
  * <li>Mobile Friendly: {@link https://en.wikipedia.org/wiki/Responsive_web_design responsive interface design}
  * for running on <a href="../images/Cape_Horn-Kurgan.png">phones</a> and
  * <a href="../images/Vladvostok.png">tablets</a>.</li>
+ * <br>
+ * <li> <a href="../LightingWithTextureV.html" style="color: red;">Set sail</a> the Application!</li>
  * </ol>
  *
  * <p><b>For educational purposes only.</b></p>
