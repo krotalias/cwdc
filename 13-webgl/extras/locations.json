@@ -6615,6 +6615,21 @@
         "latitude": 48.6767637,
         "longitude": 10.152923
     },
+    "Hamburg": {
+        "country": "⚔ Germany",
+        "remarkable": [
+            "Arthur T. 'Bomber' Harris (Air Chief Marshal), 1892-1984",
+            "Henry Harley Arnold (General of the Air Force), 1886-1950",
+            "Operation Gomorrah, 24 July 1943 - 3 August 1943",
+            "Heaviest assault of aerial warfare (8 days and 7 nights)",
+            "First USAAF raid, 791 bombers, 2.3K tons of bombs, 25 July 1943,",
+            "Death toll: 42K civilians, 37K wounded, 1M homeless, 55 km² destroyed",
+            "61% of the housing stock and 183 out of 524 large factories destroyed",
+            "45% of all German fighters relocated on the home front, August 1943"
+        ],
+        "latitude": 53.550833,
+        "longitude": 9.993611
+    },
     "Ulm": {
         "country": "🏆 🔬 German Empire",
         "remarkable": [
