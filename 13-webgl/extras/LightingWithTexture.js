@@ -1,7 +1,7 @@
 /**
  * @file
  *
- * Summary (<a href="../images/aod.mp4">"Navigare necesse; vivere non est necesse"</a>)
+ * Summary (<a href="../images/aod.mp4">"Navigare necesse; vivere non est necesse"</a>[*])
  * <ol>
  * <li>Equirectangular and Mercator projection viewer using lighting combined with
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
@@ -39,6 +39,19 @@
  * <br>
  * <li> <a href="../LightingWithTextureV.html" style="color: red;">Set sail</a> the Application!</li>
  * </ol>
+ *
+ * [*] Note: according to {@link https://en.wikipedia.org/wiki/Plutarch Plutarch},
+ * {@link https://en.wikipedia.org/wiki/Pompey General Pompey} in 56 BC when informed about a storm,
+ * while sailing to Scili to transport vital grain to a starving Rome, said to his sailors,
+ * "Navigare necesse; vivere non est necesse", which translates to english as "Sailing is necessary; living is not necessary".
+ * In 1914, Portuguese poet {@link https://en.wikipedia.org/wiki/Fernando_Pessoa Fernando Pessoa}
+ * wrote a {@link https://dominiopublico.mec.gov.br/download/texto/jp000001.pdf poem}
+ * and used the verse "Navegar é preciso; viver não é preciso."
+ * However, in Portuguese, the word "preciso" means "necessary" but also "precise".
+ * Therefore, the translation could also be "Sailing is precise; living is not precise," which points to the necessity of some mathematical
+ * knowledge to reach a target location by sea. At last, the song "{@link https://genius.com/Caetano-veloso-os-argonautas-lyrics Os Argonautas}"
+ * was written in 1969 by Brasilian composer
+ * {@link https://en.wikipedia.org/wiki/Caetano_Veloso Caetano Veloso}.
  *
  * <p><b>For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
@@ -121,8 +134,13 @@
  *  -------- {@link module:polyhedron.spherical2Mercator on the Mercator chart} --------
  *  <li>(x,y) = M(R,θ,φ)
  *  <li>x = R θ, -π ≤ θ ≤ π </li>
- *  <li><span style="display: flex;">y = R ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
- *      <sup>φ</sup> <sub>0</sub></span>sec(φ) dφ = R ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2</span></li>
+ *  <li>
+ *    <span style="display: inline-flex;">
+ *      y = R ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
+ *                <sup>φ</sup> <sub>0</sub>
+ *              </span>sec(φ) dφ = R ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2
+ *    </span>
+ *  </li>
  *  <li>For a square Mercator chart, -π ≤ y ≤ π ⇒ φ ∈ [-85.051129°, 85.051129°]</li>
  *  <li>φ = 2 tan<sup>-1</sup> (e<sup>y</sup>) - π/2, -π ≤ y ≤ π → -85.051129° ≤ φ ≤ 85.051129° </li>
  *   -------- {@link meridionalParts Meridional Parts} --------
@@ -144,8 +162,13 @@
  *  <li>tan(α) = dx/dy = cos(φ) dθ/dφ </li>
  *  <li>dθ/dφ  = tan(α) sec(φ) </li>
  *  <li>∫sec(φ) dφ = 1/tan(α) ∫dθ ⇒ tan(α) ∫sec(φ) dφ = (θ - θ<sub>0</sub>)
- *  <li>(θ - θ<sub>0</sub>) = <span style="display: inline-flex;"> ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
- *      <sup>φ</sup> <sub>φ<sub>0</sub></sub></span> tan(α) sec(φ) dφ</span> </li>
+ *  <li>(θ - θ<sub>0</sub>) =
+ *   <span style="display: inline-flex;">
+ *     ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
+ *         <sup>φ</sup> <sub>φ<sub>0</sub></sub>
+ *       </span> tan(α) sec(φ) dφ
+ *   </span>
+ *  </li>
  *  <li>θ(φ) = θ<sub>0</sub> + tan(α) ln [tan (π/4 + φ/2) / tan (π/4 + φ<sub>0</sub>/2)] = θ<sub>0</sub> + tan(α) * {@link diffMercator}(φ, φ<sub>0</sub>)</li>
  *  <li>θ(φ) = {@link longitudeOnLoxodrome}(φ<sub>0</sub>, φ, α) </li>
  * </ul>
@@ -237,6 +260,27 @@
  * The projection is neither equal area nor conformal.
  * In particular, the plate carrée (<em>flat square</em>) has become a standard for
  * {@link https://gisgeography.com/best-free-gis-data-sources-raster-vector/ global raster datasets}.</p>
+ *
+ * <p>All projection types involve some kind of distortion, which is not a problem per se. The real problem is being
+ * tricked by the shape of the chart. The Mercator projection, for instance, stretches land sizes near the poles while keeping
+ * compass directions. Country size changes is a problem for school classrooms if students do not understand what causes it.
+ * To circumvent the map distortion confusion, the flat chart should always be paired with a synced 3D globe.</p>
+ *
+ * The interface we propose to tackle this problem is to present a 3D view of the globe all the time so the real sizes are easily seen.
+ * Every time a user clicks on the chart, the globe rotates to make the corresponding point on the globe face the viewer. This is
+ * accomplished by keeping a forward vector from the origin to the center of the projected sphere, which is the position of the Phong highlight.
+ * The position vector from the origin to the clicked point is then just rotated to become the new {@link rotateModelTowardsCamera forward vector}.
+ *
+ * However, the north (Y-axis) also rotates, and the globe can be positioned in a non-conventional way, for example,
+ * "{@link https://en.wikipedia.org/wiki/The_World_Turned_Upside_Down_(sculpture) upside-down.}"
+ * A {@link setYUp second rotation} around the new forward vector can reset the north vector appropriately. It is amazing what we can do with
+ * a few cross and dot product operations.
+ *
+ * <figure>
+ *    <a href="../images/greenland-globe.png"><img src="../images/greenland-globe.png" height="196"></a>
+ *    <a href="../images/greenland-chart.png"><img src="../images/greenland-chart.png" height="196"></a>
+ *    <figcaption style="font-size: 200%;">Greenland real size</figcaption>
+ * </figure>
  *
  * <p><u>As a final remark</u>, I thought it would be easier to deal with map images as textures, but I was mistaken. I tried, as long as I could,
  * not to rewrite third-party code. Unfortunately, this was impossible. The main issue was that the
