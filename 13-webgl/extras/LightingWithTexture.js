@@ -266,7 +266,7 @@
  * compass directions. Country size changes is a problem for school classrooms if students do not understand what causes it.
  * To circumvent the map distortion confusion, the flat chart should always be paired with a synced 3D globe.</p>
  *
- * The interface we propose to tackle this problem is to present a 3D view of the globe all the time so the real sizes are easily seen.
+ * The interface we propose to tackle this problem presents a 3D view of the globe all the time so the real sizes are easily seen.
  * Every time a user clicks on the chart, the globe rotates to make the corresponding point on the globe face the viewer. This is
  * accomplished by keeping a forward vector from the origin to the center of the projected sphere, which is the position of the Phong highlight.
  * The position vector from the origin to the clicked point is then just rotated to become the new {@link rotateModelTowardsCamera forward vector}.
