@@ -5918,6 +5918,25 @@
         "latitude": 40.7604079,
         "longitude": 22.5271118
     },
+    "Delphi (Pytho)": {
+        "country": "Phocis (Greece)",
+        "remarkable": [
+            "World's center by ancient Greeks, 8th century BC",
+            "Trophonios and Agamedes (mythical architects), 7th century BC",
+            "Built the first Temple of Apollo and the Treasury of the Athenians",
+            "Panhellenic Pythian Games, 582 BC",
+            "Arcaic Temple of Apollo (Alcmeonids of Athens), 510 BC",
+            "Destroyed by an earthquake, 373 BC",
+            "Thracians attacked Delphi, 83 BC",
+            "Restored and renovated by the emperor Domitian, 81-96 AD",
+            "Partly restored by Julian in 363 AD",
+            "Parnassos National Park, 1938",
+            "UNESCO World Heritage Site, 1987",
+            "First inhabited in late Mycenaean times, 1400-1200 BC"
+        ],
+        "latitude": 38.4823,
+        "longitude": 22.5013
+    },
     "Sparta (Lacedaemon)": {
         "country": "Laconia (Greece)",
         "remarkable": [
