@@ -1,7 +1,7 @@
 /**
  * @file
  *
- * Summary (<a href="../images/aod.mp4">"Navigare necesse; vivere non est necesse"</a>[*])
+ * Summary (<a href="../images/aod.mp4">"Navigare necesse; vivere non est necesse"</a> [*])
  * <ol>
  * <li>Equirectangular and Mercator projection viewer using lighting combined with
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
@@ -77,19 +77,72 @@
  * show up due to the discontinuity in the seam when crossing the line with 0 radians on one side and 2π on the other.
  * Some triangles may have edges that cross this line, causing the wrong mipmap level 0 to be chosen.
  *
- * <p>To lay a map onto a sphere, textures should have an aspect ratio of 2:1 for equirectangular projections
- * or 1:1 (squared) for Mercator projections. Finding high-resolution, good-quality,
- * and free {@link https://www.axismaps.com/guide/map-projections cartographic maps}
- * is really difficult.</p>
+ * <p><b>Before satellites and the {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS}<p></b>
+ * <p>During the Age of Discoveries (1418-1620), Portuguese cosmographer
+ * {@link https://en.wikipedia.org/wiki/Pedro_Nunes Pedro Nunes}
+ * was the first mathematician to propose in 1537
+ * the notion of a loxodrome, or course line routes that intersect all meridians with a
+ * constant angle defined by a unique compass direction, thus determining a spiral curve
+ * headed towards the poles. However, he did not address the problem of determining
+ * the azimuth angle for going from
+ * a source location to a destination using a map. The Flemish cartographer
+ * {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator}
+ * has given the answer thirty two years later in 1569.</p>
  *
- * <p>The initial position on the screen takes into account the {@link https://science.nasa.gov/science-research/earth-science/milankovitch-orbital-cycles-and-their-role-in-earths-climate/ obliquity}
- * of the earth ({@link viewMatrix 23.44°}), and the {@link https://en.wikipedia.org/wiki/Phong_reflection_model Phong highlight}
- * projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line}
+ * <p>To locate a ship at sea it is necessary to know its latitude and longitude
+ * with a good degree of accuracy. Two tools were used to determine the latitude: the
+ * {@link https://en.wikipedia.org/wiki/Astrolabe astrolabe} and the
+ * {@link https://en.wikipedia.org/wiki/Sextant sextant}.
+ * The astrolabe measured the altitude of the sun at noon or
+ * the altitude of a star at night.
+ * The sextant was used to measure the angle between a celestial object and the horizon.
+ * Both tools allowed sailors to determine their latitude with reasonable accuracy.
+ * However, determining longitude remained a challenge until the development of accurate
+ * marine chronometers in the 18th century.</p>
+ *
+ * The {@link https://en.wikipedia.org/wiki/Sextant navigation sextant}
+ * invented in 1731 independently by
+ * {@link https://en.wikipedia.org/wiki/John_Hadley John Hadley}
+ * and {@link https://en.wikipedia.org/wiki/Thomas_Godfrey_(inventor) Thomas Godfrey}
+ * was used to measure the angle between a celestial object and the horizon.
+ * It was a crucial tool for determining latitude at sea,
+ * allowing sailors to calculate their position north or south of the equator.
+ * By measuring the angle of the sun at noon or the angle of a star at night,
+ * navigators could determine their latitude with reasonable accuracy.
+ *
+ * <p>The first marine timekeeper to address the longitude problem at sea was
+ * {@link https://en.wikipedia.org/wiki/John_Harrison John Harrison's H1},
+ * completed in 1735. It used a pair of linked balance bars
+ * and temperature-compensating parts to keep accurate time on a rocking ship.
+ * It allowed sailors to compare local time with home port time
+ * ({@link https://en.wikipedia.org/wiki/Greenwich_Mean_Time Greenwich Mean Time})
+ * to find exact east-west positions.
+ *
+ * <p>Prior to the invention of the marine chronometer, sailors relied on
+ * {@link https://en.wikipedia.org/wiki/Dead_reckoning dead reckoning}
+ * and celestial navigation to estimate their longitude. As a consequence,
+ * disasters like the
+ * {@link https://www.bbc.com/travel/article/20210729-the-british-shipwreck-that-changed-the-world Scilly Naval Disaster}
+ * and diseases like {@link https://www.usni.org/magazines/naval-history-magazine/2023/august/ansons-voyage scurvy}
+ * were common among sailors during long voyages.</p>
+ *
+ * <p><b>Computer Graphics for Tracing Courses</b></p>
+ *
+ * <p>To display a globe on the screen, its initial position should take into account the {@link https://science.nasa.gov/science-research/earth-science/milankovitch-orbital-cycles-and-their-role-in-earths-climate/ obliquity}
+ * of the earth ({@link viewMatrix 23.44°}) and illumination parameters, sucha as the
+ * {@link https://en.wikipedia.org/wiki/Phong_reflection_model Phong highlight} position.
+ * In this application, the highlight projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line}
  * if the user has not interacted using the {@link http://courses.cms.caltech.edu/cs171/assignments/hw3/hw3-notes/notes-hw3.html#NotesSection2 Arcball}.
  * If {@link https://www.php.net PHP} is running on the {@link https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server HTTP server},
  * then any image file in directory <a href="/cwdc/13-webgl/extras/textures">textures</a>
  * will be available in the {@link readFileNames menu}. Otherwise, sorry {@link https://pages.github.com GitHub pages},
  * only the images listed in the HTML file.<p>
+ *
+ * <p>Chart maps are images laid onto a sphere as textures and should have an aspect ratio of 2:1 for equirectangular projections
+ * or 1:1 (squared) for Mercator projections. Finding high-resolution, good-quality,
+ * and free {@link https://www.axismaps.com/guide/map-projections cartographic maps}
+ * is really difficult. As long as a parametrization from ℝ² to ℝ³ is known for a surface, a texture can be applied. This is the
+ * case of the quadrics, and this application also supports cones and cylinders.</p>
  *
  * <p>Maps are transformations from {@link module:polyhedron.cartesian2Spherical 3D space}
  * to {@link module:polyhedron.spherical2Mercator 2D space}, and they can preserve areas
