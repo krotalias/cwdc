@@ -78,7 +78,8 @@
  * Some triangles may have edges that cross this line, causing the wrong mipmap level 0 to be chosen.
  *
  * <p><b>Before satellites and the {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS}<p></b>
- * <p>During the Age of Discoveries (1418-1620), Portuguese cosmographer
+ * <p>During the {@link https://en.wikipedia.org/wiki/Age_of_Discovery Age of Discoveries}
+ * (1418-1620), Portuguese cosmographer
  * {@link https://en.wikipedia.org/wiki/Pedro_Nunes Pedro Nunes}
  * was the first mathematician to propose in 1537
  * the notion of a loxodrome, or course line routes that intersect all meridians with a
