@@ -1,7 +1,7 @@
 /**
  * @file
  *
- * Summary (<a href="../images/aod.mp4">"Navigare necesse; vivere non est necesse"</a> [*])
+ * <b style="font-size: 150%;">Summary</b> (<a href="../images/aod.mp4">"Navigare necesse; vivere non est necesse"</a> [*])
  * <ol>
  * <li>Equirectangular and Mercator projection viewer using lighting combined with
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
@@ -53,7 +53,7 @@
  * was written in 1969 by Brasilian composer
  * {@link https://en.wikipedia.org/wiki/Caetano_Veloso Caetano Veloso}.
  *
- * <p><b>For educational purposes only.</b></p>
+ * <p><b style="font-size: 150%;">For educational purposes only.</b></p>
  * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
  * which became {@link https://www.youtube.com/watch?v=uhiCFdWeQfA overly complicated},
  * and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
@@ -77,7 +77,7 @@
  * show up due to the discontinuity in the seam when crossing the line with 0 radians on one side and 2π on the other.
  * Some triangles may have edges that cross this line, causing the wrong mipmap level 0 to be chosen.
  *
- * <p><b>Before satellites and the {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS}<p></b>
+ * <p><b style="font-size: 150%;">Before satellites and the {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS}<p></b>
  * <p>During the {@link https://en.wikipedia.org/wiki/Age_of_Discovery Age of Discoveries}
  * (1418-1620), Portuguese cosmographer
  * {@link https://en.wikipedia.org/wiki/Pedro_Nunes Pedro Nunes}
@@ -127,7 +127,7 @@
  * and diseases like {@link https://www.usni.org/magazines/naval-history-magazine/2023/august/ansons-voyage scurvy}
  * were common among sailors during long voyages.</p>
  *
- * <p><b>Computer Graphics for Tracing Courses</b></p>
+ * <p><b style="font-size: 150%;">Computer Graphics for Tracing Courses</b></p>
  *
  * <p>To display a globe on the screen, its initial position should take into account the {@link https://science.nasa.gov/science-research/earth-science/milankovitch-orbital-cycles-and-their-role-in-earths-climate/ obliquity}
  * of the earth ({@link viewMatrix 23.44°}) and illumination parameters, sucha as the
@@ -395,7 +395,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b>The application</b>: Around The World in <a href="../images/Brazil.mp4"> 500 historical figures</a>.</p>
+ * <p><b style="font-size: 150%;">The application</b>: Around The World in <a href="../images/Brazil.mp4"> 500 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -468,7 +468,7 @@
  * <li>AD means <i><a href="https://en.wikipedia.org/wiki/Anno_Domini">Anno Domini</a></i>.</li>
  * </ul>
  *
- * <p><b>Picking Locations</b></p>
+ * <p><b style="font-size: 150%;">Picking Locations</b></p>
  *
  * The application displays the
  * <a href="/cwdc/13-webgl/extras/locations.json">location</a>
@@ -525,7 +525,7 @@
  * </li>
  * </ol>
  *
- * <p><b>Homework</b></p>
+ * <p><b style="font-size: 150%;">Homework</b></p>
  *
  * <ol>
  * <li>
@@ -1910,7 +1910,7 @@ const phongHighlight = [];
  * @property {Boolean} intrinsic rotation around global x local axes.
  * @property {Boolean} equator parallel and meridian of the current location.
  * @property {Boolean} hws model's triangulation algorithm source: three.js x hws.
- * @property {Boolean} tootip location information.
+ * @property {Boolean} tooltip location information.
  * @property {Boolean} cities sequential location traversal order.
  * @property {Boolean} locations location points.
  */
