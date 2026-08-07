@@ -42,7 +42,7 @@
  *
  * [*] Note: according to {@link https://en.wikipedia.org/wiki/Plutarch Plutarch},
  * {@link https://en.wikipedia.org/wiki/Pompey General Pompey} in 56 BC when informed about a storm,
- * while sailing to Scili to transport vital grain to a starving Rome, said to his sailors,
+ * while sailing to Sicily to transport vital grain to a starving Rome, said to his sailors,
  * "Navigare necesse; vivere non est necesse", which translates to english as "Sailing is necessary; living is not necessary".
  * In 1914, Portuguese poet {@link https://en.wikipedia.org/wiki/Fernando_Pessoa Fernando Pessoa}
  * wrote a {@link https://dominiopublico.mec.gov.br/download/texto/jp000001.pdf poem}
