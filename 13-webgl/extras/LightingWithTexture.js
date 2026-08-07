@@ -54,7 +54,7 @@
  * {@link https://en.wikipedia.org/wiki/Caetano_Veloso Caetano Veloso}.
  *
  * <p><b style="font-size: 150%;">For educational purposes only.</b></p>
- * <p>This is a <b><a href="../images/mapViewer.mp4">demo</a></b> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
+ * <p>This is an application called <a href="../images/mapViewer.mp4"><i>Navigare</i></a> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
  * which became {@link https://www.youtube.com/watch?v=uhiCFdWeQfA overly complicated},
  * and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
@@ -132,7 +132,7 @@
  * <p>To display a globe on the screen, its initial position should take into account the {@link https://science.nasa.gov/science-research/earth-science/milankovitch-orbital-cycles-and-their-role-in-earths-climate/ obliquity}
  * of the earth ({@link viewMatrix 23.44°}) and illumination parameters, sucha as the
  * {@link https://en.wikipedia.org/wiki/Phong_reflection_model Phong highlight} position.
- * In this application, the highlight projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line}
+ * In <i>Navigare</i>, the highlight projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line}
  * if the user has not interacted using the {@link http://courses.cms.caltech.edu/cs171/assignments/hw3/hw3-notes/notes-hw3.html#NotesSection2 Arcball}.
  * If {@link https://www.php.net PHP} is running on the {@link https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server HTTP server},
  * then any image file in directory <a href="/cwdc/13-webgl/extras/textures">textures</a>
@@ -142,8 +142,9 @@
  * <p>Chart maps are images laid onto a sphere as textures and should have an aspect ratio of 2:1 for equirectangular projections
  * or 1:1 (squared) for Mercator projections. Finding high-resolution, good-quality,
  * and free {@link https://www.axismaps.com/guide/map-projections cartographic maps}
- * is really difficult. As long as a parametrization from ℝ² to ℝ³ is known for a surface, a texture can be applied. This is the
- * case of the quadrics, and this application also supports cones and cylinders.</p>
+ * is really difficult. As long as a parametrization from ℝ² to ℝ³ is known for a surface, a texture can be
+ * {@link https://en.wikipedia.org/wiki/Georeferencing georeferenced}. This is the
+ * case of the quadrics, and <i>Navigare</i> also supports cones and cylinders.</p>
  *
  * <p>Maps are transformations from {@link module:polyhedron.cartesian2Spherical 3D space}
  * to {@link module:polyhedron.spherical2Mercator 2D space}, and they can preserve areas
@@ -263,7 +264,7 @@
  *    <li>console.log(`Ground difference (${lat}): ${gdiff.toFixed(2)} km`);</li>
  *    <li>// Ground difference (69.6517): 13.97 km</li>
  * </ul>
- * Nonetheless, all formulae implemented in this application consider the globe as a perfect sphere.
+ * Nonetheless, all formulae implemented in <i>Navigare</i> consider the globe as a perfect sphere.
  * The only exception is function {@link calculateLoxodromeDistanceWGS84}.</p>
  *
  * <p>It is impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
@@ -395,17 +396,19 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b style="font-size: 150%;">The application</b>: Around The World in <a href="../images/Brazil.mp4"> 500 historical figures</a>.</p>
+ * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 500 historical figures</a>.</p>
  * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
- * <p>Therefore, I have always wanted to present, in a graphical way, the connection between historical events in time and space.
- * I think I have been able to implement a reasonable application for doing just that. However, how I implemented it is not the main point.
- * For not using any npm packages or bundlers, I decided to stick only with HTML, CSS, JavaScript,
+ * <p>Therefore, I have always wanted to present, in a graphical way, the connection between historical events in time and space,
+ * and <i>Navigare</i> is an adequate application for accomplishing this goal. However, how <i>Navigare</i> is implemented is not the main point.
+ * For not using any npm packages or bundlers, <i>Navigare</i> sticks only with HTML, CSS, JavaScript,
  * and {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API WebGL},
  * plus some packages, including {@link https://threejs.org/ three.js}.</p>
  *
- * <p>The documentation is extensive because I aimed to use it in an introductory computer graphics course.
+ * <p>The concepts applied in the implementation relie on Linear Algebra for spatial transformations,
+ * Computer Graphics for rendering theory and pipelines, and Web Development frameworks to display and
+ * run the interactive visual content in a browser.
  * However, I have come to realize that computer graphics has become a commodity, much like database management;
  * everyone utilizes it, yet very few people are interested in understanding the underlying mechanics.
  * This trend poses a challenge for educators, as it becomes increasingly important to
@@ -413,15 +416,15 @@
  * By focusing on foundational principles, I hope to encourage students to explore beyond the surface and engage
  * with the creative possibilities that computer graphics offers.</p>
  *
- * <p>Of course, everything could have been implemented using three.js only,
+ * <p>Of course, everything could have been implemented using a package such as three.js only,
  * although I am not sure {@link https://threejs.org/docs/#OrbitControls OrbitControls}
- * would give me the flexibility I needed to build the interface.
- * Exploring alternative libraries and frameworks could provide additional tools and features
+ * would give me the flexibility needed to build the interface.
+ * Nonetheless, exploring alternative libraries and frameworks could provide additional tools and features
  * that enhance the user experience and streamline development.
  * Ultimately, the goal is to create an environment where students feel empowered to experiment and innovate,
  * pushing the boundaries of what they can achieve in graphics programming.</p>
  *
- * <p>I used no AI, and for three or four months when I woke up, I picked up an event and read a lot of material, mainly Wikipedia,
+ * <p><i>Navigare</i> used no AI, and for three or four months, I picked up an event and researched its history,
  * for dating the events associated with a site. As a consequence, it is clear to me now that I know very little about Africa and Australia.
  * This realization has sparked a desire in me to delve deeper into the histories and cultures of these regions.
  * I plan to explore diverse resources, including books, documentaries, and discussions with knowledgeable individuals,
@@ -470,12 +473,12 @@
  *
  * <p><b style="font-size: 150%;">Picking Locations</b></p>
  *
- * The application displays the
+ * <i>Navigare</i> displays the
  * <a href="/cwdc/13-webgl/extras/locations.json">location</a>
  * of a {@link gpsCoordinates city}
  * as the intersection of its line of latitude (parallel) and line of longitude (meridian).
  * <p>When a user picks a point in the chart map, using the mouse or any pointer device,
- *  the application displays its location
+ * <i>Navigare</i> displays its location
  * on the chart map and on the globe by executing the following steps:<p>
  * <ol>
  *   <li>Convert the screen coordinates of the mouse pointer into texture coordinates (u, v), then
