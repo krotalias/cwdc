@@ -530,59 +530,66 @@ field to be considered for sorting (no error checking is done). Examples:
 <li>AD means <i><a href="https://en.wikipedia.org/wiki/Anno_Domini">Anno Domini</a></i>.</li>
 </ul>
 
-<p><b><a href="https://www.youtube.com/watch?v=Otm4RusESNU">Homework</a></b>:</p>
+<p><b>Picking Locations</b></p>
 
-<ol>
-<li>The application displays the
-<a href="/cwdc/13-webgl/extras/locations.json">location</a> (when its name is checked in the interface)
+The application displays the
+<a href="/cwdc/13-webgl/extras/locations.json">location</a>
 of a <a href="global.html#gpsCoordinates">city</a>
-as the intersection of its line of latitude (parallel) and line of longitude (meridian) on the model surface (preferably a map onto a sphere).
-Your task is to pick a point in the texture image (using the mouse or any pointer device) and display its location
-on the texture image (map) and on the 3D model.
-<ul>
-  <li>To do this, you need to convert the screen coordinates of the mouse pointer into texture coordinates (u, v), then
-  into <a href="global.html#spherical2gcs">GCS</a> coordinates (longitude, latitude) using the <a href="global.html#currentLocation">currentLocation</a>, and
-  optionally <a href="module-polyhedron.html#.spherical2Mercator">transforming</a> them to Mercator coordinates.</li>
-  <li>To draw the lines, use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo">lineTo()</a> from
+as the intersection of its line of latitude (parallel) and line of longitude (meridian).
+<p>When a user picks a point in the chart map, using the mouse or any pointer device,
+ the application displays its location
+on the chart map and on the globe by executing the following steps:<p>
+<ol>
+  <li>Convert the screen coordinates of the mouse pointer into texture coordinates (u, v), then
+     into <a href="global.html#spherical2gcs">GCS</a> coordinates (longitude, latitude) using the <a href="global.html#currentLocation">currentLocation</a>, and
+     optionally <a href="module-polyhedron.html#.spherical2Mercator">transforming</a> them to Mercator coordinates.</li>
+  <li>Draw meridian and parallel lines: use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo">lineTo()</a> from
       HTML5 by placing an element &lt;canvas&gt; on top of the element &ltimg&gt.</li>
-  <li>This is simple to accomplish by <a href="https://stackoverflow.com/questions/14824747/overlay-html5-canvas-over-image">nesting</a>
+  <ul>
+   <li>This is simple to accomplish by <a href="https://stackoverflow.com/questions/14824747/overlay-html5-canvas-over-image">nesting</a>
       the &lt;canvas&gt; element with <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">position</a>
       absolute in a &lt;div&gt; element with position relative and the <a href="global.html#newTexture">same size</a> as the image element.</li>
-  <li>The &lt;canvas&gt; element should have a higher <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/z-index">z-index</a>
+   <li>The &lt;canvas&gt; element should have a higher <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/z-index">z-index</a>
       than the image element and ignore
       <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events">pointer events</a>.</li>
-   <li>Finally, define a <a href="global.html#event:pointerdown-textimg">pointerdown</a> event handler to set
+   </ul>
+   <li>Define a <a href="global.html#event:pointerdown-textimg">pointerdown</a> event handler to set
        the <a href="global.html#currentLocation">currentLocation</a> as the <a href="global.html#gpsCoordinates">gpsCoordinates</a> "Unknown" and draw the lines
        by calling <a href="global.html#drawLinesOnImage">drawLinesOnImage</a> in <a href="global.html#draw">draw</a>.</li>
-</ul>
-</li>
+</ol>
 
-<li>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case
-    by casting a ray, <a href="global.html#unproject">unprojecting</a> it, and finding its closest
-    (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
-<ul>
- <li>The easiest way is shooting the ray from the mouse position and <a href="global.html#pixelRayIntersection">intersecting</a>
+When a user picks a point directly onto the globe's surface, it is necessary to implement a 3D pick in this case
+by casting a ray, <a href="global.html#unproject">unprojecting</a> it, and finding its closest
+(first) intersection (relative to the viewer) with the polygonal surface of the model:
+<ol>
+ <li>Shoot the ray from the mouse position and <a href="global.html#pixelRayIntersection">intersect</a>
      it against the surface of an implicit sphere
      by <a href="global.html#lineSphereIntersection">solving</a> a <a href="https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection">second-degree equation</a>.</li>
- <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
+ <ul>
+ <li>Alternatively, intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
- <li>We select a position on the globe by <a href="global.html#event:pointerdown-theCanvas">clicking</a> a mouse button in the WebGL canvas.</li>
- <li>To display the <a href="global.html#GCS">GCS</a> coordinates of the pointer while the globe is spinning, we need to keep track of the
+ </ul>
+ <li>Select a position on the globe by <a href="global.html#event:pointerdown-theCanvas">clicking</a> or pointing directly in the WebGL canvas.</li>
+ <li>Display the <a href="global.html#GCS">GCS</a> coordinates of the pointer: If the globe is spinning, keep track of the
     <a href="global.html#cursorPosition">cursor position</a>
     and then shoot a ray through this position to find its <a href="global.html#pixelRayIntersection">intersection</a> on the globe.</li>
- <li>Because a <a href="global.html#isTouchDevice">touch device</a> does not have a cursor position, we can use the Phong <a href="global.html#phongHighlight">highlight</a>
-     position on the globe as a cursor.
-     To do this, we need to know the initial position of the highlight in world coordinates
-     (0, 0, 1)—or in <a href="global.html#GCS">GCS</a> coordinates (-90°, 0°)—and then transform it into <a href="global.html#gcs2Screen">screen coordinates</a>.</li>
+ <li>Use the Phong <a href="global.html#phongHighlight">highlight</a> position on the globe as a cursor for <a href="global.html#isTouchDevice">touch devices</a>,
+    since they do not have a cursor position:
+     Get its initial position in world coordinates
+     (0, 0, 1)—or in <a href="global.html#GCS">GCS</a> coordinates (-90°, 0°)—and transforms it into <a href="global.html#gcs2Screen">screen coordinates</a>.</li>
 <li>
- To exhibit a location name in 3D, it is necessary to <a href="global.html#project">transform</a> its
-<a href="https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system">GCS</a> coordinates
-into <a href="https://olegvaraksin.medium.com/convert-world-to-screen-coordinates-and-vice-versa-in-webgl-c1d3f2868086">screen coordinates</a>
-(pixels) and use the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">position</a>
-HTML properties "top" and "left" of the WebGL <a href="global.html#canvas">&lt;canvas&gt;</a> element (plus a
-<a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/tooltip_role">tooltip</a> element) to display the text.
+     Exhibit the current location name in 3D: <a href="global.html#project">Transform</a> its
+     <a href="https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system">GCS</a> coordinates
+     into <a href="https://olegvaraksin.medium.com/convert-world-to-screen-coordinates-and-vice-versa-in-webgl-c1d3f2868086">screen coordinates</a>
+     (pixels) and use the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">position</a>
+     HTML properties "top" and "left" of the WebGL <a href="global.html#canvas">&lt;canvas&gt;</a> element (plus a
+     <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/tooltip_role">tooltip</a> element) to display the text.
 </li>
-</ul>
+</ol>
+
+<p><b>Homework</b></p>
+
+<ol>
 <li>
 To determine a <a href="https://historicengland.org.uk/listing/what-is-designation/heritage-highlights/sinking-of-ship-lead-to-invention-of-marine-chronometer/">ship's latitude</a>
 at sea without a <a href="https://en.wikipedia.org/wiki/Global_Positioning_System">GPS</a>,
@@ -614,7 +621,9 @@ Implement <a href="module-polyhedron.html#.conical2Cartesian">conical coordinate
 <a href="global.html#linePlaneIntersection">line-plane intersection</a>
 to project maps and locations onto cones appropriately.
 </li>
-</ol></div>
+</ol>
+
+<a href="https://www.youtube.com/watch?v=Otm4RusESNU">And thtat's all I had to say about that.</a></div>
         
 
         
@@ -1653,7 +1662,7 @@ for interactive 3D model manipulation and visualization.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Aug 06 2026 20:53:27 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Aug 07 2026 07:57:09 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

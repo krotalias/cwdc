@@ -468,59 +468,66 @@
  * <li>AD means <i><a href="https://en.wikipedia.org/wiki/Anno_Domini">Anno Domini</a></i>.</li>
  * </ul>
  *
- * <p><b>{@link https://www.youtube.com/watch?v=Otm4RusESNU Homework}</b>:</p>
+ * <p><b>Picking Locations</b></p>
  *
- * <ol>
- * <li>The application displays the
- * <a href="/cwdc/13-webgl/extras/locations.json">location</a> (when its name is checked in the interface)
+ * The application displays the
+ * <a href="/cwdc/13-webgl/extras/locations.json">location</a>
  * of a {@link gpsCoordinates city}
- * as the intersection of its line of latitude (parallel) and line of longitude (meridian) on the model surface (preferably a map onto a sphere).
- * Your task is to pick a point in the texture image (using the mouse or any pointer device) and display its location
- * on the texture image (map) and on the 3D model.
- * <ul>
- *   <li>To do this, you need to convert the screen coordinates of the mouse pointer into texture coordinates (u, v), then
- *   into {@link spherical2gcs GCS} coordinates (longitude, latitude) using the {@link currentLocation}, and
- *   optionally {@link module:polyhedron.spherical2Mercator transforming} them to Mercator coordinates.</li>
- *   <li>To draw the lines, use the {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo lineTo()} from
+ * as the intersection of its line of latitude (parallel) and line of longitude (meridian).
+ * <p>When a user picks a point in the chart map, using the mouse or any pointer device,
+ *  the application displays its location
+ * on the chart map and on the globe by executing the following steps:<p>
+ * <ol>
+ *   <li>Convert the screen coordinates of the mouse pointer into texture coordinates (u, v), then
+ *      into {@link spherical2gcs GCS} coordinates (longitude, latitude) using the {@link currentLocation}, and
+ *      optionally {@link module:polyhedron.spherical2Mercator transforming} them to Mercator coordinates.</li>
+ *   <li>Draw meridian and parallel lines: use the {@link https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo lineTo()} from
  *       HTML5 by placing an element &lt;canvas&gt; on top of the element &ltimg&gt.</li>
- *   <li>This is simple to accomplish by {@link https://stackoverflow.com/questions/14824747/overlay-html5-canvas-over-image nesting}
+ *   <ul>
+ *    <li>This is simple to accomplish by {@link https://stackoverflow.com/questions/14824747/overlay-html5-canvas-over-image nesting}
  *       the &lt;canvas&gt; element with {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
  *       absolute in a &lt;div&gt; element with position relative and the {@link newTexture same size} as the image element.</li>
- *   <li>The &lt;canvas&gt; element should have a higher {@link https://developer.mozilla.org/en-US/docs/Web/CSS/z-index z-index}
+ *    <li>The &lt;canvas&gt; element should have a higher {@link https://developer.mozilla.org/en-US/docs/Web/CSS/z-index z-index}
  *       than the image element and ignore
  *       {@link https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events pointer events}.</li>
- *    <li>Finally, define a {@link event:pointerdown-textimg pointerdown} event handler to set
+ *    </ul>
+ *    <li>Define a {@link event:pointerdown-textimg pointerdown} event handler to set
  *        the {@link currentLocation} as the {@link gpsCoordinates} "Unknown" and draw the lines
  *        by calling {@link drawLinesOnImage} in {@link draw}.</li>
- * </ul>
- * </li>
+ * </ol>
  *
- * <li>A bigger challenge would be to pick the point directly onto the model's surface, but you'll have to implement a 3D pick in this case
- *     by casting a ray, {@link unproject unprojecting} it, and finding its closest
- *     (first) intersection (relative to the viewer) with the polygonal surface of the model.</li>
- * <ul>
- *  <li>The easiest way is shooting the ray from the mouse position and {@link pixelRayIntersection intersecting}
+ * When a user picks a point directly onto the globe's surface, it is necessary to implement a 3D pick in this case
+ * by casting a ray, {@link unproject unprojecting} it, and finding its closest
+ * (first) intersection (relative to the viewer) with the polygonal surface of the model:
+ * <ol>
+ *  <li>Shoot the ray from the mouse position and {@link pixelRayIntersection intersect}
  *      it against the surface of an implicit sphere
  *      by {@link lineSphereIntersection solving} a {@link https://en.wikipedia.org/wiki/Line–sphere_intersection second-degree equation}.</li>
- *  <li>The other way is to intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
+ *  <ul>
+ *  <li>Alternatively, intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
  *      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
- *  <li>We select a position on the globe by {@link event:pointerdown-theCanvas clicking} a mouse button in the WebGL canvas.</li>
- *  <li>To display the {@link GCS} coordinates of the pointer while the globe is spinning, we need to keep track of the
+ *  </ul>
+ *  <li>Select a position on the globe by {@link event:pointerdown-theCanvas clicking} or pointing directly in the WebGL canvas.</li>
+ *  <li>Display the {@link GCS} coordinates of the pointer: If the globe is spinning, keep track of the
  *     {@link cursorPosition cursor position}
  *     and then shoot a ray through this position to find its {@link pixelRayIntersection intersection} on the globe.</li>
- *  <li>Because a {@link isTouchDevice touch device} does not have a cursor position, we can use the Phong {@link phongHighlight highlight}
- *      position on the globe as a cursor.
- *      To do this, we need to know the initial position of the highlight in world coordinates
- *      (0, 0, 1)—or in {@link GCS} coordinates (-90°, 0°)—and then transform it into {@link gcs2Screen screen coordinates}.</li>
+ *  <li>Use the Phong {@link phongHighlight highlight} position on the globe as a cursor for {@link isTouchDevice touch devices},
+ *     since they do not have a cursor position:
+ *      Get its initial position in world coordinates
+ *      (0, 0, 1)—or in {@link GCS} coordinates (-90°, 0°)—and transforms it into {@link gcs2Screen screen coordinates}.</li>
  * <li>
- *  To exhibit a location name in 3D, it is necessary to {@link project transform} its
- * {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system GCS} coordinates
- * into {@link https://olegvaraksin.medium.com/convert-world-to-screen-coordinates-and-vice-versa-in-webgl-c1d3f2868086 screen coordinates}
- * (pixels) and use the {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
- * HTML properties "top" and "left" of the WebGL {@link canvas &lt;canvas&gt;} element (plus a
- * {@link https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/tooltip_role tooltip} element) to display the text.
+ *      Exhibit the current location name in 3D: {@link project Transform} its
+ *      {@link https://www.ibm.com/docs/en/informix-servers/12.10.0?topic=data-geographic-coordinate-system GCS} coordinates
+ *      into {@link https://olegvaraksin.medium.com/convert-world-to-screen-coordinates-and-vice-versa-in-webgl-c1d3f2868086 screen coordinates}
+ *      (pixels) and use the {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position position}
+ *      HTML properties "top" and "left" of the WebGL {@link canvas &lt;canvas&gt;} element (plus a
+ *      {@link https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/tooltip_role tooltip} element) to display the text.
  * </li>
- * </ul>
+ * </ol>
+ *
+ * <p><b>Homework</b></p>
+ *
+ * <ol>
  * <li>
  * To determine a {@link https://historicengland.org.uk/listing/what-is-designation/heritage-highlights/sinking-of-ship-lead-to-invention-of-marine-chronometer/ ship's latitude}
  * at sea without a {@link https://en.wikipedia.org/wiki/Global_Positioning_System GPS},
@@ -554,6 +561,8 @@
  * to project maps and locations onto cones appropriately.
  * </li>
  * </ol>
+ *
+ * {@link https://www.youtube.com/watch?v=Otm4RusESNU And thtat's all I had to say about that.}
  *
  * @author {@link https://krotalias.github.io Paulo R. Cavalcanti}
  * @author {@link https://www.artstation.com/flavulous Flavia R. Cavalcanti}
