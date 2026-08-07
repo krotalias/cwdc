@@ -37,7 +37,7 @@
  * for running on <a href="../images/Cape_Horn-Kurgan.png">phones</a> and
  * <a href="../images/Vladvostok.png">tablets</a>.</li>
  * <br>
- * <li> <a href="../LightingWithTextureV.html" style="color: red;">Set sail</a> the Application!</li>
+ * <li> <a href="../LightingWithTextureV.html" style="color: red;">Set sail</a> <i>Navigare</i> Application!</li>
  * </ol>
  *
  * [*] Note: according to {@link https://en.wikipedia.org/wiki/Plutarch Plutarch},
@@ -130,7 +130,7 @@
  * <p><b style="font-size: 150%;">Computer Graphics for Tracing Courses</b></p>
  *
  * <p>To display a globe on the screen, its initial position should take into account the {@link https://science.nasa.gov/science-research/earth-science/milankovitch-orbital-cycles-and-their-role-in-earths-climate/ obliquity}
- * of the earth ({@link viewMatrix 23.44°}) and illumination parameters, sucha as the
+ * of the earth ({@link viewMatrix 23.44°}) and illumination parameters, such as the
  * {@link https://en.wikipedia.org/wiki/Phong_reflection_model Phong highlight} position.
  * In <i>Navigare</i>, the highlight projects onto the {@link https://en.wikipedia.org/wiki/Equator equator line}
  * if the user has not interacted using the {@link http://courses.cms.caltech.edu/cs171/assignments/hw3/hw3-notes/notes-hw3.html#NotesSection2 Arcball}.
