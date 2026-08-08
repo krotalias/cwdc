@@ -54,15 +54,17 @@
  * {@link https://en.wikipedia.org/wiki/Caetano_Veloso Caetano Veloso}.
  *
  * <p><b style="font-size: 150%;">For educational purposes only.</b></p>
- * <p>This is an application called <a href="../images/mapViewer.mp4"><i>Navigare</i></a> for teaching {@link https://en.wikipedia.org/wiki/Computer_graphics CG},
- * which became {@link https://www.youtube.com/watch?v=uhiCFdWeQfA overly complicated},
- * and it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
+ * <p>This is an application called <a href="../images/mapViewer.mp4"><i>Navigare</i></a> that employs
+ * {@link https://en.wikipedia.org/wiki/Computer_graphics Computer Graphics} to teach
+ * {@link https://en.wikipedia.org/wiki/Geomatics Geomatics} concepts to the general public.
+ * As a matter of fact, <i>Navigare</i> implementation became {@link https://www.youtube.com/watch?v=uhiCFdWeQfA overly complicated},
+ * but it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
  * except we define a 3x3 matrix for {@link https://learnopengl.com/Lighting/Materials material properties}
  * and a 3x3 matrix for {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Lighting_in_WebGL light properties}
  * that are passed to the fragment shader as
  * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/uniform uniforms}.
  *
- * Edit the {@link lightPropElements light} and {@link matPropElements material} matrices in the global variables to experiment or
+ * Anyone can edit the {@link lightPropElements light} and {@link matPropElements material} matrices in the global variables to experiment or
  * {@link startForReal} to choose a model and select
  * {@link https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals face or vertex normals}.
  * {@link https://threejs.org Three.js} only uses face normals for
@@ -333,7 +335,7 @@
  * rendering them unusable for navigation purposes.</p>
  * <figure>
  *      <a href="../images/sigmoid.png"><img src="../images/sigmoid.png" height="256"></a>
- *      <figcaption style="font-size: 200%">Loxodrome (magenta) is a <br>sigmoid (S-shaped curve)</figcaption>
+ *      <figcaption style="font-size: 150%">Loxodrome (magenta) is a sigmoid (S-shaped curve) <br> in the equirectangular projection</figcaption>
  * </figure>
  *
  * <p>All projection types involve some kind of distortion, which is not a problem per se. The real problem is being
@@ -356,7 +358,7 @@
  * <figure>
  *    <a href="../images/greenland-globe.png"><img src="../images/greenland-globe.png" height="196"></a>
  *    <a href="../images/greenland-chart.png"><img src="../images/greenland-chart.png" height="196"></a>
- *    <figcaption style="font-size: 200%;">Greenland real size and Mercator <br> country size distortion</figcaption>
+ *    <figcaption style="font-size: 150%;">Greenland real size and Mercator country size distortion</figcaption>
  * </figure>
  *
  * <p><u>As a final remark</u>, I thought it would be easier to deal with map images as textures, but I was mistaken. I tried, as long as I could,
@@ -457,7 +459,7 @@
  * ISO <a href="../images/world-map-codes.png">country code</a> in the interface.
  * For example, selecting "BR" will display all the figures from
  * <a href="https://www.instagram.com/reel/DRZoIE-D2ke/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">Brazil</a>,
- * while "US" will show those from the
+ * while "CA" will show those from Canada and "US" from the
  * <A href="https://www.instagram.com/reel/DRHM2NHj7O_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">United States of America</a>.
  *
  * The sorting of dates uses the day, month and year of the last date of the last entry
@@ -4103,7 +4105,7 @@ function rhumbLine(ctx, loc1, loc2) {
  * @see {@link https://www.mdpi.com/2220-9964/14/4/137 A New Derivation of the Formula for the Length of a Loxodrome Arc on a Sphere Using Cylindrical Projections}
  * @see <figure>
  *      <a href="../images/sigmoid.png"><img src="../images/sigmoid.png" height="256"></a>
- *      <figcaption style="font-size: 200%">Loxodrome (magenta) is a <br>sigmoid (S-shaped curve)</figcaption>
+ *      <figcaption style="font-size: 200%">Loxodrome (magenta) is a sigmoid <br> (S-shaped curve) in the equirectangular projection</figcaption>
  * </figure>
  */
 function equiLox(ctx, loc1, loc2, n = 20) {
