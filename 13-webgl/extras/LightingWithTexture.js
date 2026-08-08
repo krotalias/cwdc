@@ -90,6 +90,13 @@
  * {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator}
  * has given the answer thirty two years later in 1569.</p>
  *
+ * <figure>
+ *    <img src="../images/Syracuse-Moscow.png" height="256">
+ *    <img src="../images/Syracuse-Moscow-map.png" height="256">
+ *    <img src="../images/Syracuse-Moscow-cyl.png" height="256">
+ *    <figcaption style="font-size: 200%">Syracuse - Moscow (80.19°)</figcaption>
+ * </figure>
+ *
  * <p>To locate a ship at sea it is necessary to know its latitude and longitude
  * with a good degree of accuracy. Two tools were used to determine the latitude: the
  * {@link https://en.wikipedia.org/wiki/Astrolabe astrolabe} and the
@@ -314,11 +321,19 @@
  * invented the projection in the first century (AD 100).
  * The projection is neither equal area nor conformal.
  * In particular, the plate carrée (<em>flat square</em>) has become a standard for
- * {@link https://gisgeography.com/best-free-gis-data-sources-raster-vector/ global raster datasets}.</p>
+ * {@link https://gisgeography.com/best-free-gis-data-sources-raster-vector/ global raster datasets}.
+ * Loxodromes are no longer straight lines on the equirectangular projection, but possess a sigmoid shape,
+ * rendering them unusable for navigation purposes.</p>
+ * <figure>
+ *      <a href="../images/sigmoid.png"><img src="../images/sigmoid.png" height="256"></a>
+ *      <figcaption style="font-size: 200%">Loxodrome (magenta) is a <br>sigmoid (S-shaped curve)</figcaption>
+ * </figure>
  *
  * <p>All projection types involve some kind of distortion, which is not a problem per se. The real problem is being
  * tricked by the shape of the chart. The Mercator projection, for instance, stretches land sizes near the poles while keeping
- * compass directions. Country size changes is a problem for school classrooms if students do not understand what causes it.
+ * compass directions. {@link https://thetruesize.com/ Country size changes} is a problem
+ * for {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf school classrooms}
+ * if students do not understand what causes it.
  * To circumvent the map distortion confusion, the flat chart should always be paired with a synced 3D globe.</p>
  *
  * The interface we propose to tackle this problem presents a 3D view of the globe all the time so the real sizes are easily seen.
@@ -334,7 +349,7 @@
  * <figure>
  *    <a href="../images/greenland-globe.png"><img src="../images/greenland-globe.png" height="196"></a>
  *    <a href="../images/greenland-chart.png"><img src="../images/greenland-chart.png" height="196"></a>
- *    <figcaption style="font-size: 200%;">Greenland real size</figcaption>
+ *    <figcaption style="font-size: 200%;">Greenland real size and Mercator <br> country size distortion</figcaption>
  * </figure>
  *
  * <p><u>As a final remark</u>, I thought it would be easier to deal with map images as textures, but I was mistaken. I tried, as long as I could,
