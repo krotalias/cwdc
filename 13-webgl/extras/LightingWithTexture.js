@@ -214,6 +214,13 @@
  *  <li>{@link getAzimuthAndLoxodromeDistance MP} = (10800/π) * ln [tan (π/4 + φ/2)] minutes of arc length (not using the
  *      {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)</li>
  *  <li>{@link meridionalParts MP} = {@link toDegrees}({@link toMercator}({@link toRadian}(φ))) * 60</li>
+ *  <li>The {@link https://en.wikipedia.org/wiki/Knot_(unit) knot} is a
+ *    unit of speed equal to one nautical mile per hour, exactly 1.852 km/h (1.15078 mph)</li>
+ *  <li> Captains in the 1700s {@link https://www.kingmanyachtcenter.com/why-boaters-use-knots-instead-of-miles-per-hour/ tossed ropes}
+ *    overboard with knots spaced out at 50 ft
+ *    and used a sand glass that measured half of a minute to approximate the speed
+ *    of a ship in nautical miles per hour</li>
+ *  <li>50 ft / 0.5 min = 100 ft / 1 min × 1 nm / 6076 ft × 60 min / h = 0.9875 ≈ 1 nm / h </li>
  *  -------- {@link longitudeOnLoxodrome loxodromes} --------
  *  <li> φ = latitude  </li>
  *  <li> θ = longitude </li>
@@ -469,6 +476,8 @@
  * </p>
  *
  * <b>Note:</b>
+ * <div style="display: flex; flex-wrap: wrap">
+ * <div style="width: 100%;  max-width: 400px; min-width: 0; margin-left: 50px; font-size: 105%; line-height: 1.5em;">
  * <ul>
  * <li>☠ means <i><a href="../images/Caribbean.mp4">Caribbean</a></i>,</li>
  * <li>🐇 means <i><a href="../images/Bunny.mp4">Bad Bunny</a></i>,</li>
@@ -485,6 +494,14 @@
  * <li>BC means <i><a href="https://www.instagram.com/reel/DRHRmcOD_KR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">Before Christ</a></i> and</li>
  * <li>AD means <i><a href="https://en.wikipedia.org/wiki/Anno_Domini">Anno Domini</a></i>.</li>
  * </ul>
+ * </div>
+ * <div style="height: 256px; margin-bottom: 80px;">
+ * <figure>
+ *    <a href="../images/Vancouver-Fredericton.png"><img src="../images/Vancouver-Fredericton.png" height="256"></a>
+ *    <figcaption style="font-size: 150%;">Vancouver to Fredericton</figcaption>
+ * </figure>
+ * </div>
+ * </div>
  *
  * <p><b style="font-size: 150%;">Picking Locations</b></p>
  *
