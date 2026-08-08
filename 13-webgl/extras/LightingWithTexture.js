@@ -448,8 +448,8 @@
  * Ultimately, the goal is to create an environment where students feel empowered to experiment and innovate,
  * pushing the boundaries of what they can achieve in graphics programming.</p>
  *
- * <p><i>Navigare</i> used no AI, and for three or four months, I picked up an event and researched its history,
- * for dating the events associated with a site. As a consequence, it is clear to me now that I know very little about Africa and Australia.
+ * <p><i>Navigare</i> used no AI and each event was researched one by one about its history
+ * for dating the occurrences associated with a site. As a consequence, it is clear to me now that I know very little about Africa and Australia.
  * This realization has sparked a desire in me to delve deeper into the histories and cultures of these regions.
  * I plan to explore diverse resources, including books, documentaries, and discussions with knowledgeable individuals,
  * to gain a more comprehensive understanding of their rich narratives.</p>
@@ -464,16 +464,26 @@
  *
  * The sorting of dates uses the day, month and year of the last date of the last entry
  * in the <a href="/cwdc/13-webgl/extras/locations.json">remarkable list</a> field.
- * E.g., "The Blitz (Battle of Britain), 10 July 1940 - 11 May 1941" is sorted using "10 July 1940".</p>
- *
+ * E.g., "Battle of Britain, 10 July 1940 - 31 October 1940" is sorted using "10 July 1940".</p>
+ * <pre>
+ *    "Moffat": {
+ *        "country": "⚔ Scotland (United Kingdom)",
+ *        "remarkable": [
+ *            "Hugh Dowding (Air Chief Marshal), 1882-1970",
+ *            "Battle of Britain, 10 July 1940 - 31 October 1940"
+ *        ],
+ *        "latitude": 55.333814,
+ *        "longitude": -3.444884
+ *    },
+ * </pre>
  * <p>Dates should be preceded by a comma in the remarkable list
  * field to be considered for sorting (no error checking is done). Examples:
  * <pre>
- *  , 324                       (1 0 324)
- *  , 657 BC                    (1 0 -657)
- *  , 330-1453                  (1 0 330)
- *  , 10 July 1940 - May 1941   (10 6 1940)
- *  , 15 July 1099              (15 6 1099)
+ *  , 324                               (1 0 324)
+ *  , 657 BC                            (1 0 -657)
+ *  , 330-1453                          (1 0 330)
+ *  , 10 July 1940 - 31 October 1940    (10 6 1940)
+ *  , 15 July 1099                      (15 6 1099)
  * </pre>
  * </p>
  *
