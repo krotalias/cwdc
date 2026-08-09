@@ -53,9 +53,9 @@
  * was written in 1969 by Brasilian composer
  * {@link https://en.wikipedia.org/wiki/Caetano_Veloso Caetano Veloso}.
  *
- * <p><b style="font-size: 150%;">For educational purposes only.</b></p>
+ * <p><b style="font-size: 150%;">Introduction - for educational purposes only</b></p>
  * <p>This is an application called <a href="../images/mapViewer.mp4"><i>Navigare</i></a> that employs
- * {@link https://en.wikipedia.org/wiki/Computer_graphics Computer Graphics} to teach
+ * {@link https://en.wikipedia.org/wiki/Computer_graphics Computer Graphics} to present
  * {@link https://en.wikipedia.org/wiki/Geomatics Geomatics} concepts to the general public.
  * As a matter of fact, <i>Navigare</i> implementation became {@link https://www.youtube.com/watch?v=uhiCFdWeQfA overly complicated},
  * but it is similar to <a href="/cwdc/13-webgl/examples/lighting/content/doc-lighting2/index.html">Lighting2</a>,
@@ -610,21 +610,25 @@
  * </ol>
  *
  * <p><b style="font-size: 150%;">Conclusions</b></p>
- * Since middle school, people learn Geography through planar maps.
+ * Since {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf elementary school},
+ * people learn Geography through planar maps.
  * Nonetheless, the earth is an oblate spheroid, and short distances are geodesics and not
  * straight lines on a piece of paper. Therefore, it is important to realize the difference between
- * distance measurements on the plane and on a sphere.</p>
+ * {@link https://en.wikipedia.org/wiki/Great-circle_distance distance measurements}
+ * on the plane and on a sphere.</p>
  * <p>The interface we propose presents a three-dimensional view of the earth
  * to enhance the perception of the spherical shape of our planet.
  * Furthermore, we discussed
  * the effect of projections in shape distortion and the
- * need of mathematical integration for the development of the Mercator projection
+ * need of mathematical integration for the development of the
+ * {@link https://ccv.eng.wayne.edu/reference/mercator-15dec2015.pdf#page=35 Mercator projection}
  * and its importance for navigation in the past.
  * The ability of associating historical events with their geographical locations
  * sorted by dates
  * is a powerful mechanism for learning and understanding history in a more engaging and interactive way.
  * <p>The code is open source
- * and I guess it will be useful for teachers and students alike.
+ * and hopefully it will be useful for teachers and students alike to enhance their
+ * {@link https://portal.geoacademy.eu/courses/part-3-map-literacy/ map literacy}.
  * <i>Navigare</i> was implemented in a peculiar
  * way, which took advantage of JavaScript's dynamic typing and
  * the flexibility of WebGL to create an interactive and engaging learning experience.
