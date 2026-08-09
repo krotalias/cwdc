@@ -50,7 +50,7 @@
  * However, in Portuguese, the word "preciso" means "necessary" but also "precise".
  * Therefore, the translation could also be "Sailing is precise; living is not precise," which points to the necessity of some mathematical
  * knowledge to reach a target location by sea. At last, the song "{@link https://genius.com/Caetano-veloso-os-argonautas-lyrics Os Argonautas}"
- * was written in 1969 by Brasilian composer
+ * was written in 1969 by Brazilian composer
  * {@link https://en.wikipedia.org/wiki/Caetano_Veloso Caetano Veloso}.
  *
  * <p><b style="font-size: 150%;">Introduction - for educational purposes only</b></p>
@@ -1038,7 +1038,7 @@ const toMiles = (a) => a * 0.621371;
  *  <li>As you move toward the poles, the distance between longitude lines decreases.</li>
  *  <li>The {@link https://iho.int/ International Hydrographic Organization} adopted the
  *  "International Nautical Mile" in 1929 at exactly: 1 NM = 1,852 m.</li>
- *   <li>{@link https://grokipedia.com/page/Earth's_circumference Earth's circunference}:
+ *   <li>{@link https://grokipedia.com/page/Earth's_circumference Earth's circumference}:
  *        2 * π * {@link earthRadius} Km = 40030.1736 km
  *   <li> 40030 km / 360 / 60 = 1.8532407 km</li>
  * </ul>
@@ -1070,7 +1070,7 @@ const knotsTokmh = (a) => a * 1.852;
  * <p>Convert nautical miles to kilometers.</p>
  * It is the length of one minute of latitude at the equator.
  * <ul>
- *   <li>{@link https://grokipedia.com/page/Earth's_circumference Earth's circunference}:
+ *   <li>{@link https://grokipedia.com/page/Earth's_circumference Earth's circumference}:
  *        2 * π * {@link earthRadius} Km = 40030.1736 km
  *   <li> 40030 km / 360 / 60 = 1.8532407 km</li>
  * </ul>
@@ -4396,7 +4396,7 @@ function calculateLoxodromeDistanceCyl(
  * @returns {Object<{bearing: Number, distance: Number}>} bearing angle from gcs1 to gcs2 and distance.
  */
 function bearingAngleAndDistanceCyl(gcs1, gcs2, R = earthRadius) {
-  // on the cyliner - [0, 1] x [0, 1]
+  // on the cylinder - [0, 1] x [0, 1]
   const uv1 = gcs2UV(gcs1);
   const uv2 = gcs2UV(gcs2);
   const [, phi1, y1] = UV2Cylindrical(uv1); // [0, 2π] x [-height/2, height/2]
@@ -7316,7 +7316,7 @@ function longitudeOnLoxodrome(long0, lat0, lat, bearing) {
  * to loc2 on a sphere, by using a {@link longitudeOnRhumbLine parametrization}
  * of the loxodrome.</p>
  * The loxodrome path is calculated in 3D onto the sphere, and not using the planar chart.
- * Therefore, the correct curve will be traced even for an equirectanguler cylindrical projection,
+ * Therefore, the correct curve will be traced even for an equirectangular cylindrical projection,
  * as opposed to {@link pointsOnLoxodrome}, which is faster but intended to Mercator projections.
  * @param {gpsCoordinates} loc1 first location with latitude and longitude.
  * @param {gpsCoordinates} loc2 second location with latitude and longitude.
