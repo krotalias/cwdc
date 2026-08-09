@@ -609,6 +609,29 @@
  * </li>
  * </ol>
  *
+ * <p><b style="font-size: 150%;">Conclusions</b></p>
+ * Since middle school, students learn geography through planar maps.
+ * Nonetheless, the earth is a spherical planet, and short distances are geodesics and not
+ * straight lines on a piece of paper. Therefore, it is important to show the difference between
+ * distance measurements on the plane and on a sphere.</p>
+ * <p>The interface we propose presents a three-dimensional view of the globe
+ * to enhance the 3D perception of the spherical shape of our world.
+ * Furthermore, this approach allows students to visualize the curvature of the earth
+ * and understand why map projections may distort areas and hopefully the
+ * intuition behind mathematical integration in the Mercator projection.
+ * <p>The code is open source and can be used for educational purposes,
+ * and I guess it will be useful for teachers and students alike.
+ * <i>Navigare</i> was implemented in a very peculiar
+ * way, which took advantage of JavaScript's dynamic typing and
+ * the flexibility of WebGL to create an interactive and engaging learning experience.
+ * The interface runs on any modern web browser,
+ * and it is responsive to different screen sizes and resolutions thus
+ * allowing students to access the application from various devices,
+ * including tablets and smartphones. In poor countries this may be the only way
+ * to access the application, and it is important to make it as accessible as possible.
+ *
+ * </p>
+ *
  * {@link https://www.youtube.com/watch?v=Otm4RusESNU And thtat's all I had to say about that.}
  *
  * @author {@link https://krotalias.github.io Paulo R. Cavalcanti}
