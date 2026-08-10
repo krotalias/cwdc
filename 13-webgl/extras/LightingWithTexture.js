@@ -130,7 +130,8 @@
  *
  * <p>Prior to the invention of the marine chronometer, sailors relied on
  * {@link https://en.wikipedia.org/wiki/Dead_reckoning dead reckoning}
- * and celestial navigation to estimate their longitude. As a consequence,
+ * and {@link https://en.wikipedia.org/wiki/Lunar_distance_(navigation) celestial navigation}
+ * to estimate their longitude. As a consequence,
  * disasters like the
  * {@link https://www.bbc.com/travel/article/20210729-the-british-shipwreck-that-changed-the-world Scilly Naval Disaster}
  * and diseases like {@link https://www.usni.org/magazines/naval-history-magazine/2023/august/ansons-voyage scurvy}
@@ -210,7 +211,7 @@
  *   -------- {@link meridionalParts Meridional Parts} --------
  *  <li>Meridional parts quantify vertical chart lengths by scaling them relative to horizontal minute units at the equator</li>
  *  <li>1 {@link toNauticalMiles Nautical Mile} = one minute of longitude at the equator</li>
- *  <li>1 nm =  2 π {@link earthRadius} Km / 21600 = 40030 km / 360 / 60 = 1.8532407 km (1,852 meters)</li>
+ *  <li>1 nm =  2 π {@link earthRadius} Km / 21600 = 40030 km / 360 / 60 = 1.8532407 km (1,852 m or 6,076.12 ft )</li>
  *  <li>Earth circumference = 21600 nm (half circumference = 10800 nm)</li>
  *  <li> 1 radian on earth ≈ (10800/π) nm</li>
  *  <li>{@link getAzimuthAndLoxodromeDistance MP} = (10800/π) * ln [tan (π/4 + φ/2)] minutes of arc length (not using the
@@ -271,14 +272,14 @@
  *    <li>const N_ellipsoid = {@link earthMajorAxis} * psi1;</li>
  *    <li>const N_sphere = {@link earthMajorAxis} * psi2;</li>
  *    <li>const ndiff = Math.abs(N_ellipsoid - N_sphere);</li>
- *    <li>console.log(`Northing difference (${lat}): ${ndiff.toFixed(2)} km`);</li>
- *    <li>// Northing difference (69.6517): 40.11 km</li>
+ *    <li>console.log(`Northing difference (${lat}°): ${ndiff.toFixed(2)} km`);</li>
+ *    <li>// Northing difference (69.6517°): 40.11 km</li>
  *    <br>
  *    <li>const latGlobe = {@link toDegrees}({@link toSpherical}(psi1));</li>
  *    <li>const locGlobe = { latitude: latGlobe, longitude: lon };</li>
  *    <li>const gdiff = {@link haversine}(loc, locGlobe).km;</li>
- *    <li>console.log(`Ground difference (${lat}): ${gdiff.toFixed(2)} km`);</li>
- *    <li>// Ground difference (69.6517): 13.97 km</li>
+ *    <li>console.log(`Ground difference (${lat}°): ${gdiff.toFixed(2)} km`);</li>
+ *    <li>// Ground difference (69.6517°): 13.97 km</li>
  * </ul>
  * Nonetheless, all formulae implemented in <i>Navigare</i> consider the globe as a perfect sphere.
  * The only exception is function {@link calculateLoxodromeDistanceWGS84}.</p>
@@ -612,7 +613,7 @@
  * <p><b style="font-size: 150%;">Conclusions</b></p>
  * Since {@link https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf elementary school},
  * people learn Geography through planar maps.
- * Nonetheless, the earth is an oblate spheroid, and short distances are geodesics and not
+ * Nonetheless, the earth is an oblate spheroid, and shortest distances are geodesics and not
  * straight lines on a piece of paper. Therefore, it is important to realize the difference between
  * {@link https://en.wikipedia.org/wiki/Great-circle_distance distance measurements}
  * on the plane and on a sphere.</p>
