@@ -38,6 +38,8 @@
  * <a href="../images/Vladvostok.png">tablets</a>.</li>
  * <br>
  * <li> <a href="../LightingWithTextureV.html" style="color: red;">Set sail</a> <i>Navigare</i> Application!</li>
+ * <br>
+ * <li>The paper: <a href="../elsevier/navigare/navigare.pdf">"Navigare necesse; vivere non est necesse"</a> is available for download.</li>
  * </ol>
  *
  * [*] Note: according to {@link https://en.wikipedia.org/wiki/Plutarch Plutarch},
@@ -422,10 +424,10 @@
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
  * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 500 historical figures</a>.</p>
- * <p>When I was a child and forced to study history, I was never able to visualize the actual location of an event.
+ * <p>When a child has to study history, he/she is generally not able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
- * <p>Therefore, I have always wanted to present, in a graphical way, the connection between historical events in time and space,
+ * <p>Therefore, it is important to present in a graphical way, the connection between historical events in time and space,
  * and <i>Navigare</i> is an adequate application for accomplishing this goal. However, how <i>Navigare</i> is implemented is not the main point.
  * For not using any npm packages or bundlers, <i>Navigare</i> sticks only with HTML, CSS, JavaScript,
  * and {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API WebGL},
@@ -434,28 +436,25 @@
  * <p>The concepts applied in the implementation relie on Linear Algebra for spatial transformations,
  * Computer Graphics for rendering theory and pipelines, and Web Development frameworks to display and
  * run the interactive visual content in a browser.
- * However, I have come to realize that computer graphics has become a commodity, much like database management;
+ * However, Computer Graphics has become a commodity, much like database management;
  * everyone utilizes it, yet very few people are interested in understanding the underlying mechanics.
  * This trend poses a challenge for educators, as it becomes increasingly important to
  * inspire curiosity and a deeper appreciation for the artistic and technical aspects of graphics programming.
- * By focusing on foundational principles, I hope to encourage students to explore beyond the surface and engage
+ * By focusing on foundational principles, we encourage students to explore beyond the surface and engage
  * with the creative possibilities that computer graphics offers.</p>
  *
  * <p>Of course, everything could have been implemented using a package such as three.js only,
- * although I am not sure {@link https://threejs.org/docs/#OrbitControls OrbitControls}
- * would give me the flexibility needed to build the interface.
+ * although {@link https://threejs.org/docs/#OrbitControls OrbitControls}
+ * does not provide the flexibility needed to build the interface.
  * Nonetheless, exploring alternative libraries and frameworks could provide additional tools and features
  * that enhance the user experience and streamline development.
  * Ultimately, the goal is to create an environment where students feel empowered to experiment and innovate,
  * pushing the boundaries of what they can achieve in graphics programming.</p>
  *
  * <p><i>Navigare</i> used no AI and each event was researched one by one about its history
- * for dating the occurrences associated with a site. As a consequence, it is clear to me now that I know very little about Africa and Australia.
- * This realization has sparked a desire in me to delve deeper into the histories and cultures of these regions.
- * I plan to explore diverse resources, including books, documentaries, and discussions with knowledgeable individuals,
- * to gain a more comprehensive understanding of their rich narratives.</p>
- *
- * <p>It is possible to cycle through the historical figures by country when
+ * for dating the occurrences associated with a site.
+ * All sites are hold in a JSON file called “<a href="/cwdc/13-webgl/extras/locations.json">locations.json</a>”
+ * and it is possible to cycle through the historical figures by country when
  * choosing a {@link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 two letter}
  * ISO <a href="../images/world-map-codes.png">country code</a> in the interface.
  * For example, selecting "BR" will display all the figures from
