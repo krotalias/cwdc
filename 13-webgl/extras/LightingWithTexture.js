@@ -196,7 +196,7 @@
  *  <li> φ = latitude </li>
  *  <li> θ = longitude </li>
  *  <li> R = radius of the sphere</li>
- *  <li> R<sub>♁</sub> = radius of the earth</li>
+ *  <li> C<sub>♁</sub> = circumference of the earth</li>
  *  <li> δθ = δx </li>
  *  <li>R cos(φ) / R = δx / d  ⇒ d = δx / cos(φ) = δx sec(φ) </li>
  *  -------- {@link module:polyhedron.spherical2Mercator on the Mercator chart} --------
@@ -215,7 +215,7 @@
  *  <li>Meridional parts quantify vertical chart lengths by scaling them relative to horizontal minute units at the equator</li>
  *  <li>1 {@link toNauticalMiles Nautical Mile} = one minute of longitude at the equator</li>
  *  <li>1 nm =  2 π {@link earthRadius} Km / 21600 = 40030 km / 360 / 60 = 1.8532407 km (1,852 m or 6,076.12 ft )</li>
- *  <li>R<sub>♁</sub> = 21600 nm (R<sub>♁</sub>/2 = 10800 nm)</li>
+ *  <li>C<sub>♁</sub> = 21600 nm (C<sub>♁</sub>/2 = 10800 nm)</li>
  *  <li> 1 radian on earth ≈ (10800/π) nm</li>
  *  <li>{@link getAzimuthAndLoxodromeDistance MP} = (10800/π) * ln [tan (π/4 + φ/2)] minutes of arc length (not using the
  *      {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)</li>
