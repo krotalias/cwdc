@@ -85,7 +85,7 @@ The <a href="global.html#bearingAngle">bearing angle</a> (<a href="global.html#g
 <a href="global.html#previousLocation">previous</a> to the <a href="global.html#currentLocation">current location</a>.
 Loxodrome <a href="global.html#event:changeLoxodromecheckBox">checkbox</a> must be checked in the interface.</li>
 <br>
-<li>Around the World in 500 <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures</a>:
+<li>Around the World in 500 <a href="../images/Bunny.mp4">Historical Figures</a>:
 presents a summary of each location visited by using the <a href="global.html#event:keydown">arrow keys</a> or
 <a href="global.html#event:pointerup-theCanvas">clicking</a> on the bottom right or left
 of the globe canvas (to advance or recede).</li>
@@ -104,8 +104,8 @@ for running on <a href="../images/Cape_Horn-Kurgan.png">phones</a> and
 <li>The paper: <a href="../elsevier/navigare/navigare.pdf">"Navigare necesse; vivere non est necesse"</a> is available for download.</li>
 </ol>
 
-[*] Note: according to <a href="https://en.wikipedia.org/wiki/Plutarch">Plutarch</a>,
-<a href="https://en.wikipedia.org/wiki/Pompey">General Pompey</a> in 56 BC when informed about a storm,
+[*] Note: according to <a href="https://en.wikipedia.org/wiki/Plutarch">Plutarch</a>, the Roman general
+<a href="https://en.wikipedia.org/wiki/Pompey">Pompey</a> in 56 BC when informed about a storm,
 while sailing to Sicily to transport vital grain to a starving Rome, said to his sailors,
 "Navigare necesse; vivere non est necesse", which translates to english as "Sailing is necessary; living is not necessary".
 In 1914, Portuguese poet <a href="https://en.wikipedia.org/wiki/Fernando_Pessoa">Fernando Pessoa</a>
@@ -160,7 +160,7 @@ has given the answer thirty two years later in 1569.</p>
    <img src="../images/Syracuse-Moscow.png" height="256">
    <img src="../images/Syracuse-Moscow-map.png" height="256">
    <img src="../images/Syracuse-Moscow-cyl.png" height="256">
-   <figcaption style="font-size: 200%">Syracuse - Moscow (80.19°)</figcaption>
+   <figcaption style="font-size: 200%">Syracuse - Moscow (Azimuth: 80.19°)</figcaption>
 </figure>
 
 <p>To locate a ship at sea it is necessary to know its latitude and longitude
@@ -258,6 +258,7 @@ by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is 
  <li> φ = latitude </li>
  <li> θ = longitude </li>
  <li> R = radius of the sphere</li>
+ <li> R<sub>♁</sub> = radius of the earth</li>
  <li> δθ = δx </li>
  <li>R cos(φ) / R = δx / d  ⇒ d = δx / cos(φ) = δx sec(φ) </li>
  -------- <a href="module-polyhedron.html#.spherical2Mercator">on the Mercator chart</a> --------
@@ -276,7 +277,7 @@ by a factor of sec(φ) = 1/cos(φ), where φ ∈ [-85.051129°, 85.051129°] is 
  <li>Meridional parts quantify vertical chart lengths by scaling them relative to horizontal minute units at the equator</li>
  <li>1 <a href="global.html#toNauticalMiles">Nautical Mile</a> = one minute of longitude at the equator</li>
  <li>1 nm =  2 π <a href="global.html#earthRadius">earthRadius</a> Km / 21600 = 40030 km / 360 / 60 = 1.8532407 km (1,852 m or 6,076.12 ft )</li>
- <li>Earth circumference = 21600 nm (half circumference = 10800 nm)</li>
+ <li>R<sub>♁</sub> = 21600 nm (R<sub>♁</sub>/2 = 10800 nm)</li>
  <li> 1 radian on earth ≈ (10800/π) nm</li>
  <li><a href="global.html#getAzimuthAndLoxodromeDistance">MP</a> = (10800/π) * ln [tan (π/4 + φ/2)] minutes of arc length (not using the
      <a href="https://www.youtube.com/watch?v=C43EqeXBxRs">spheroid shape</a> of the earth)</li>
@@ -350,7 +351,8 @@ The only exception is function <a href="global.html#calculateLoxodromeDistanceWG
 
 <p>It is impressive how <a href="https://en.wikipedia.org/wiki/Gerardus_Mercator">Gerardus Mercator</a> was able to create such a projection in a
 <a href="https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html">time</a> (1569) when there was no
-calculus (integrals, derivatives — <a href="https://en.wikipedia.org/wiki/History_of_calculus">Leibniz-Newton</a>, 1674-1666) or even logarithm tables
+calculus (integrals, derivatives — <a href="https://en.wikipedia.org/wiki/History_of_calculus">Leibniz</a> in 1674
+and <a href="https://en.wikipedia.org/wiki/Isaac_Newton">Isaac Newton</a> in 1666) or even logarithm tables
 (<a href="https://en.wikipedia.org/wiki/John_Napier">John Napier</a>, 1614).
 
 This is an example of the need for calculus to solve a navigation technological issue
@@ -364,7 +366,10 @@ At the time, this closed-form solution was 50 years away from being discovered.
 The actual calculus formulation and logarithmic proofs for Mercator's scaling
 only emerged in the mid-to-late 1600s, primarily through the works of
 <a href="https://en.wikipedia.org/wiki/James_Gregory_(mathematician)">James Gregory</a> and
-<a href="https://en.wikipedia.org/wiki/Isaac_Barrow">Isaac Barrow</a>.</p>
+<a href="https://en.wikipedia.org/wiki/Isaac_Barrow">Isaac Barrow</a>,
+who provided in 1670 the first intelligible, closed-form mathematical proof for the integral of
+the secant function, resolving the long-standing problem of the spacing of latitudes for the Mercator map
+projection.</p>
 
 <a href="https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/">Mercator texture coordinates</a>
 can be set in a <a href="module-polyhedron.html#.setMercatorCoordinates">model</a> directly or in
@@ -495,8 +500,10 @@ For not using any npm packages or bundlers, <i>Navigare</i> sticks only with HTM
 and <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API">WebGL</a>,
 plus some packages, including <a href="https://threejs.org/">three.js</a>.</p>
 
-<p>The concepts applied in the implementation relie on Linear Algebra for spatial transformations,
-Computer Graphics for rendering theory and pipelines, and Web Development frameworks to display and
+<p>The concepts applied in the implementation rely on <a href="https://hefferon.net/linearalgebra/">Linear Algebra</a>
+for spatial transformations,
+<a href="https://math.hws.edu/graphicsbook/">Computer Graphics</a>
+for rendering theory and pipelines, and <a href="https://en.wikipedia.org/wiki/Web_development">Web Development</a> frameworks to display and
 run the interactive visual content in a browser.
 However, Computer Graphics has become a commodity, much like database management;
 everyone utilizes it, yet very few people are interested in understanding the underlying mechanics.
@@ -537,6 +544,16 @@ E.g., "Battle of Britain, 10 July 1940 - 31 October 1940" is sorted using "10 Ju
        "latitude": 55.333814,
        "longitude": -3.444884
    },
+   "San Francisco": {
+       "country": "⚔ California (United States)",
+       "remarkable": [
+           "Golden Gate Bridge (1.6 km), 5 January 1933 - 27 May 1937",
+           "William Halsey Jr. (Fleet Admiral), 1882-1959",
+           "Doolittle Raid departure, 2 April 1942"
+       ],
+       "latitude": 37.77493,
+       "longitude": -122.41942
+   },
 </pre>
 <p>Dates should be preceded by a comma in the remarkable list
 field to be considered for sorting (no error checking is done). Examples:
@@ -545,7 +562,7 @@ field to be considered for sorting (no error checking is done). Examples:
  , 657 BC                            (1 0 -657)
  , 330-1453                          (1 0 330)
  , 10 July 1940 - 31 October 1940    (10 6 1940)
- , 15 July 1099                      (15 6 1099)
+ , 2 April 1942                      (2 3 1942)
 </pre>
 </p>
 
@@ -614,7 +631,8 @@ by casting a ray, <a href="global.html#unproject">unprojecting</a> it, and findi
      by <a href="global.html#lineSphereIntersection">solving</a> a <a href="https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection">second-degree equation</a>.</li>
  <ul>
  <li>Alternatively, intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
-     of a face and then checking if the intersection point is inside the corresponding triangle.</li>
+     of a face and then checking if the intersection point is
+     <a href="../doc/g5073.pdf">inside</a> the corresponding triangle.</li>
  </ul>
  <li>Select a position on the globe by <a href="global.html#event:pointerdown-theCanvas">clicking</a> or pointing directly in the WebGL canvas.</li>
  <li>Display the <a href="global.html#GCS">GCS</a> coordinates of the pointer: If the globe is spinning, keep track of the
@@ -1740,7 +1758,7 @@ for interactive 3D model manipulation and visualization.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Aug 11 2026 18:54:04 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Aug 13 2026 05:17:54 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

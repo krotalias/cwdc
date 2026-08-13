@@ -23,7 +23,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
- * <li>Around the World in 500 <a href="../images/Around_The_World_In_212_Historical_Figures.mp4">Historical Figures</a>:
+ * <li>Around the World in 500 <a href="../images/Bunny.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
@@ -42,8 +42,8 @@
  * <li>The paper: <a href="../elsevier/navigare/navigare.pdf">"Navigare necesse; vivere non est necesse"</a> is available for download.</li>
  * </ol>
  *
- * [*] Note: according to {@link https://en.wikipedia.org/wiki/Plutarch Plutarch},
- * {@link https://en.wikipedia.org/wiki/Pompey General Pompey} in 56 BC when informed about a storm,
+ * [*] Note: according to {@link https://en.wikipedia.org/wiki/Plutarch Plutarch}, the Roman general
+ * {@link https://en.wikipedia.org/wiki/Pompey Pompey} in 56 BC when informed about a storm,
  * while sailing to Sicily to transport vital grain to a starving Rome, said to his sailors,
  * "Navigare necesse; vivere non est necesse", which translates to english as "Sailing is necessary; living is not necessary".
  * In 1914, Portuguese poet {@link https://en.wikipedia.org/wiki/Fernando_Pessoa Fernando Pessoa}
@@ -98,7 +98,7 @@
  *    <img src="../images/Syracuse-Moscow.png" height="256">
  *    <img src="../images/Syracuse-Moscow-map.png" height="256">
  *    <img src="../images/Syracuse-Moscow-cyl.png" height="256">
- *    <figcaption style="font-size: 200%">Syracuse - Moscow (80.19°)</figcaption>
+ *    <figcaption style="font-size: 200%">Syracuse - Moscow (Azimuth: 80.19°)</figcaption>
  * </figure>
  *
  * <p>To locate a ship at sea it is necessary to know its latitude and longitude
@@ -196,6 +196,7 @@
  *  <li> φ = latitude </li>
  *  <li> θ = longitude </li>
  *  <li> R = radius of the sphere</li>
+ *  <li> R<sub>♁</sub> = radius of the earth</li>
  *  <li> δθ = δx </li>
  *  <li>R cos(φ) / R = δx / d  ⇒ d = δx / cos(φ) = δx sec(φ) </li>
  *  -------- {@link module:polyhedron.spherical2Mercator on the Mercator chart} --------
@@ -214,7 +215,7 @@
  *  <li>Meridional parts quantify vertical chart lengths by scaling them relative to horizontal minute units at the equator</li>
  *  <li>1 {@link toNauticalMiles Nautical Mile} = one minute of longitude at the equator</li>
  *  <li>1 nm =  2 π {@link earthRadius} Km / 21600 = 40030 km / 360 / 60 = 1.8532407 km (1,852 m or 6,076.12 ft )</li>
- *  <li>Earth circumference = 21600 nm (half circumference = 10800 nm)</li>
+ *  <li>R<sub>♁</sub> = 21600 nm (R<sub>♁</sub>/2 = 10800 nm)</li>
  *  <li> 1 radian on earth ≈ (10800/π) nm</li>
  *  <li>{@link getAzimuthAndLoxodromeDistance MP} = (10800/π) * ln [tan (π/4 + φ/2)] minutes of arc length (not using the
  *      {@link https://www.youtube.com/watch?v=C43EqeXBxRs spheroid shape} of the earth)</li>
@@ -288,7 +289,8 @@
  *
  * <p>It is impressive how {@link https://en.wikipedia.org/wiki/Gerardus_Mercator Gerardus Mercator} was able to create such a projection in a
  * {@link https://personal.math.ubc.ca/~israel/m103/mercator/mercator.html time} (1569) when there was no
- * calculus (integrals, derivatives — {@link https://en.wikipedia.org/wiki/History_of_calculus Leibniz-Newton}, 1674-1666) or even logarithm tables
+ * calculus (integrals, derivatives — {@link https://en.wikipedia.org/wiki/History_of_calculus Leibniz} in 1674
+ * and {@link https://en.wikipedia.org/wiki/Isaac_Newton Isaac Newton} in 1666) or even logarithm tables
  * ({@link https://en.wikipedia.org/wiki/John_Napier John Napier}, 1614).
  *
  * This is an example of the need for calculus to solve a navigation technological issue
@@ -302,7 +304,10 @@
  * The actual calculus formulation and logarithmic proofs for Mercator's scaling
  * only emerged in the mid-to-late 1600s, primarily through the works of
  * {@link https://en.wikipedia.org/wiki/James_Gregory_(mathematician) James Gregory} and
- * {@link https://en.wikipedia.org/wiki/Isaac_Barrow Isaac Barrow}.</p>
+ * {@link https://en.wikipedia.org/wiki/Isaac_Barrow Isaac Barrow},
+ * who provided in 1670 the first intelligible, closed-form mathematical proof for the integral of
+ * the secant function, resolving the long-standing problem of the spacing of latitudes for the Mercator map
+ * projection.</p>
  *
  * {@link https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/mercator-its-not-hip-to-be-square/ Mercator texture coordinates}
  * can be set in a {@link module:polyhedron.setMercatorCoordinates model} directly or in
@@ -433,8 +438,10 @@
  * and {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API WebGL},
  * plus some packages, including {@link https://threejs.org/ three.js}.</p>
  *
- * <p>The concepts applied in the implementation relie on Linear Algebra for spatial transformations,
- * Computer Graphics for rendering theory and pipelines, and Web Development frameworks to display and
+ * <p>The concepts applied in the implementation rely on {@link https://hefferon.net/linearalgebra/ Linear Algebra}
+ * for spatial transformations,
+ * {@link https://math.hws.edu/graphicsbook/ Computer Graphics}
+ * for rendering theory and pipelines, and {@link https://en.wikipedia.org/wiki/Web_development Web Development} frameworks to display and
  * run the interactive visual content in a browser.
  * However, Computer Graphics has become a commodity, much like database management;
  * everyone utilizes it, yet very few people are interested in understanding the underlying mechanics.
@@ -475,6 +482,16 @@
  *        "latitude": 55.333814,
  *        "longitude": -3.444884
  *    },
+ *    "San Francisco": {
+ *        "country": "⚔ California (United States)",
+ *        "remarkable": [
+ *            "Golden Gate Bridge (1.6 km), 5 January 1933 - 27 May 1937",
+ *            "William Halsey Jr. (Fleet Admiral), 1882-1959",
+ *            "Doolittle Raid departure, 2 April 1942"
+ *        ],
+ *        "latitude": 37.77493,
+ *        "longitude": -122.41942
+ *    },
  * </pre>
  * <p>Dates should be preceded by a comma in the remarkable list
  * field to be considered for sorting (no error checking is done). Examples:
@@ -483,7 +500,7 @@
  *  , 657 BC                            (1 0 -657)
  *  , 330-1453                          (1 0 330)
  *  , 10 July 1940 - 31 October 1940    (10 6 1940)
- *  , 15 July 1099                      (15 6 1099)
+ *  , 2 April 1942                      (2 3 1942)
  * </pre>
  * </p>
  *
@@ -552,7 +569,8 @@
  *      by {@link lineSphereIntersection solving} a {@link https://en.wikipedia.org/wiki/Line–sphere_intersection second-degree equation}.</li>
  *  <ul>
  *  <li>Alternatively, intersect the ray against each face of the polygonal surface by testing if the ray intersects the plane
- *      of a face and then checking if the intersection point is inside the corresponding triangle.</li>
+ *      of a face and then checking if the intersection point is
+ *      <a href="../doc/g5073.pdf">inside</a> the corresponding triangle.</li>
  *  </ul>
  *  <li>Select a position on the globe by {@link event:pointerdown-theCanvas clicking} or pointing directly in the WebGL canvas.</li>
  *  <li>Display the {@link GCS} coordinates of the pointer: If the globe is spinning, keep track of the
@@ -4369,7 +4387,7 @@ function bearingAngleAndDistance(gcs1, gcs2, R = earthRadius) {
  *    <img src="../images/Syracuse-Moscow.png" height="256">
  *    <img src="../images/Syracuse-Moscow-map.png" height="256">
  *    <img src="../images/Syracuse-Moscow-cyl.png" height="256">
- *    <figcaption style="font-size: 200%">Syracuse - Moscow (80.19°)</figcaption>
+ *    <figcaption style="font-size: 200%">Syracuse - Moscow (Azimuth: 80.19°)</figcaption>
  * </figure>
  */
 function calculateLoxodromeDistanceCyl(
