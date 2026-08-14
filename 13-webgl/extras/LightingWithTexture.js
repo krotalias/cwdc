@@ -2,6 +2,15 @@
  * @file
  *
  * <b style="font-size: 150%;">Summary</b> (<a href="../images/aod.mp4">"Navigare necesse; vivere non est necesse"</a> [*])
+ *
+ * <p>This work describes Navigare, an application that employs Computer Graphics to present Geomatics
+ * concepts to the general public. Its interface is composed of a 3D globe and a 2D map, both of which are
+ * synchronized to display the same location. A set of predefined historical sites is presented, and users can
+ * select two locations to trace a loxodrome or orthodrome path between them or calculate their distances.
+ * The application also provides information about <a href="../images/Bunny.mp4">each historical site</a>,
+ * including its name, country, longitude, latitude, and a brief description of its significance.
+ * Navigare is {@link https://choosealicense.com/licenses/lgpl-3.0/ open source}
+ * and offers the following functionalities:</p>
  * <ol>
  * <li>Equirectangular and Mercator projection viewer using lighting combined with
  * {@link https://web.engr.oregonstate.edu/~mjb/cs550/PDFs/TextureMapping.4pp.pdf texture mapping}
@@ -105,7 +114,8 @@
  * with a good degree of accuracy. Two tools were used to determine the latitude: the
  * {@link https://en.wikipedia.org/wiki/Astrolabe astrolabe} and the
  * {@link https://en.wikipedia.org/wiki/Sextant sextant}.
- * The astrolabe measured the altitude of the sun at noon or
+ * The {@link https://www.skyatnightmagazine.com/top-astronomy-kit/astrolabe astrolabe}
+ * measured the altitude of the sun at noon or
  * the altitude of a star at night.
  * The sextant was used to measure the angle between a celestial object and the horizon.
  * Both tools allowed sailors to determine their latitude with reasonable accuracy.
@@ -294,13 +304,16 @@
  * ({@link https://en.wikipedia.org/wiki/John_Napier John Napier}, 1614).
  *
  * This is an example of the need for calculus to solve a navigation technological issue
- * that had an enormous economic impact. The first application of calculus to solve
+ * that had an enormous economic impact.</p>
+ *
+ * <p>The first application of calculus to solve
  * this map's meridional spacing was by English mathematician
- * {@link https://en.wikipedia.org/wiki/Edward_Wright_(mathematician) Edward Wright} in 1599.
- * Wright's geometric proof conceptually utilized the integral of the
+ * {@link https://www.lindahall.org/about/news/scientist-of-the-day/edward-wright/ Edward Wright} in 1599.
+ * Wright's {@link https://archive.org/details/bim_early-english-books-1475-1640_errors-in-navigation_wright-edward_1599/mode/1upin "Errors in Navigation"}
+ * geometric proof conceptually utilized the integral of the
  * {@link https://liorsinai.github.io/mathematics/2020/08/27/secant-mercator.html secant function}.
  *
- * At the time, this closed-form solution was 50 years away from being discovered.
+ * At the time, this closed-form solution was half-century away from being discovered.
  * The actual calculus formulation and logarithmic proofs for Mercator's scaling
  * only emerged in the mid-to-late 1600s, primarily through the works of
  * {@link https://en.wikipedia.org/wiki/James_Gregory_(mathematician) James Gregory} and
