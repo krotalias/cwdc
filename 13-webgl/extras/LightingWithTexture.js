@@ -9,6 +9,8 @@
  * select two locations to trace a loxodrome or orthodrome path between them or calculate their distances.
  * The application also provides information about <a href="../images/Bunny.mp4">each historical site</a>,
  * including its name, country, longitude, latitude, and a brief description of its significance.
+ * A Timeline of historical figures is also available, allowing
+ * users to explore the lives and contributions of notable individuals throughout history.</p>
  * Navigare is {@link https://choosealicense.com/licenses/lgpl-3.0/ open source}
  * and offers the following functionalities:</p>
  * <ol>
