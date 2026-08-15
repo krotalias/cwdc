@@ -1,4 +1,6 @@
-pdflatex navigare.tex
+# pdflatex does not support package fontspec
+
+lualatex navigare.tex 
 bibtex navigare
-pdflatex navigare.tex
-pdflatex navigare.tex
+lualatex navigare.tex
+lualatex navigare.tex

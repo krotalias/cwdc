@@ -1,3 +1,5 @@
+% !TEX TS-program = lualatex
+
 \documentclass[onecolumn,3p]{elsarticle}
 
 \usepackage{graphicx,array,xurl,fancyvrb,hyperref,placeins,verbatim}
@@ -10,7 +12,11 @@
 \usepackage{textcomp}
 \usepackage{siunitx}
 \usepackage[english]{babel}
+\usepackage{fontspec}
+\setmonofont{DejaVu Sans Mono}
 \lstset{
+  basicstyle=\ttfamily,
+  escapechar=|,
   literate=
     {æ}{{\ae}}1
     {ø}{{\o}}1
@@ -18,6 +24,7 @@
     {Æ}{{\AE}}1
     {Ø}{{\O}}1
     {Å}{{\AA}}1
+    {⚔}{{\char"2694}}1
 }
 
 \journal{Elsevier Direct}
@@ -404,12 +411,13 @@ when choosing a two letter ISO country code in the interface.
 For example, selecting BR will display all the figures from Brazil,
 while CA will show those from Canada (Figure~\ref{fig:Vancouver}) and US from the United States of America.
 The sorting of dates uses the day, month and year of the last date of the last entry in the remarkable list field.
-\\ \\
+
+\vspace{0.5cm}
 \noindent E.g., ``Battle of Britain, 10 July 1940 - 31 October 1940''\ is sorted using ``10 July 1940''.
 
 \begin{lstlisting}
     "Moffat": {
-        "country": "Scotland (United Kingdom)",
+        "country": "|⚔| Scotland (United Kingdom)",
         "remarkable": [
             "Hugh Dowding (Air Chief Marshal), 1882-1970",
             "Battle of Britain, 10 July 1940 - 31 October 1940"
@@ -418,7 +426,7 @@ The sorting of dates uses the day, month and year of the last date of the last e
         "longitude": -3.444884
     },
     "San Francisco": {
-        "country": "California (United States)",
+        "country": "|⚔| California (United States)",
         "remarkable": [
             "Golden Gate Bridge (1.6 km), 5 January 1933 - 27 May 1937",
             "William Halsey Jr. (Fleet Admiral), 1882-1959",
