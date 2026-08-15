@@ -1,0 +1,4 @@
+pdflatex navigare.tex
+bibtex navigare
+pdflatex navigare.tex
+pdflatex navigare.tex
