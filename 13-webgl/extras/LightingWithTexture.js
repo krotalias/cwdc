@@ -50,7 +50,9 @@
  * <br>
  * <li> <a href="../LightingWithTextureV.html" style="color: red;">Set sail</a> <i>Navigare</i> Application!</li>
  * <br>
- * <li>The paper: <a href="../elsevier/navigare/navigare.pdf">"Navigare necesse; vivere non est necesse"</a> is available for download.</li>
+ * <li>The paper: "Navigare necesse; vivere non est necesse" is available for download,
+ * <a href="../elsevier/navigare/navigare.pdf">single</a> or
+ * <a href="../ieee/navigare/navigare.pdf">double</a> column.</li>
  * </ol>
  *
  * [*] Note: according to {@link https://en.wikipedia.org/wiki/Plutarch Plutarch}, the Roman general
