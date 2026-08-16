@@ -4950,6 +4950,16 @@
         "latitude": 40.181389,
         "longitude": 44.514444
     },
+    "Akkad": {
+        "country": "Mesopotamia (Iraq)",
+        "remarkable": [
+            "Exact location unknown",
+            "Manishtushu third Akkadian ruler, 2270-2255 BC",
+            "Capital of the Akkadian empire, 2334-2113 BC"
+        ],
+        "latitude": 32.5,
+        "longitude": 44.5
+    },
     "Babylon": {
         "country": "Mesopotamia (Iraq)",
         "remarkable": [
@@ -4996,6 +5006,20 @@
         ],
         "latitude": 34.615807,
         "longitude": 43.678606
+    },
+    "Nineveh (Mosul)": {
+        "country": "Mesopotamia (Iraq)",
+        "remarkable": [
+            "Capital and largest city of the Neo-Assyrian Empire, 911 BC - 609 BC",
+            "Medo-Babylonian conquest of the Assyrian Empire, 626 BC - 609 BC",
+            "Fall of Assur, 614 BC",
+            "Fall of Nineveh, 612 BC",
+            "Fall of Harran, 609 BC",
+            "Seat of a bishop of the Church of the East, 15th century",
+            "Settlement (Ninevite 5), 3000 BC"
+        ],
+        "latitude": 36.359444,
+        "longitude": 43.152778
     },
     "Island of Mozambique": {
         "country": "⛵ Mozambique-Portugal",
