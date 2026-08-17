@@ -4520,11 +4520,18 @@
         "longitude": 100.37055
     },
     "Kolkata": {
-        "country": "🏆 India",
+        "country": "🏆 (West Bengal) India",
         "remarkable": [
+            "First mention of the Kalikata village, 1495",
+            "East India Company (EIC) trading license, 1690",
+            "Fort William, 1696",
+            "Kalighat Temple (Hindu goddess Kali), 1809",
+            "Direct Action Day, 16 August 1946",
+            "Great Calcutta Killings (Hindus x Muslims), 1946",
             "Mother Teresa, 1910-1997",
             "Nobel Peace Prize, 1979",
-            "Saint Teresa of Calcutta, 4 September 2016"
+            "Saint Teresa of Calcutta, 4 September 2016",
+            "Capital of India, 20 October 1772 - 12 December 1911"
         ],
         "latitude": 22.56263,
         "longitude": 88.36304
@@ -4571,6 +4578,23 @@
         ],
         "latitude": 8.0883,
         "longitude": 77.5385
+    },
+    "New Delhi": {
+        "country": "Delhi (India)",
+        "remarkable": [
+            "Mughal Empire, 21 April 1526 - 21 September 1857",
+            "Old Delhi, 1648-1857",
+            "Named Shahjahanabad, 1648",
+            "British Raj, 28 June 1858 - 18 July 1947",
+            "George V, 1865-1936",
+            "King of the UK and the British Dominions",
+            "Emperor of India, 6 May 1910 - 20 January 1936",
+            "Edwin Lutyens (architect), 1869-1944",
+            "Established, 12 December 1911",
+            "Inaugurated, 13 February 1931"
+        ],
+        "latitude": 28.6448,
+        "longitude": 77.216721
     },
     "Cochin": {
         "country": "⛵ Malabar Coast (India)",
@@ -5446,6 +5470,18 @@
         ],
         "latitude": 45.44675,
         "longitude": 33.98675
+    },
+    "Yalta": {
+        "country": "⚔ Crimea (Russia/Ukraine)",
+        "remarkable": [
+            "Yalita (ancient Greek colony), 100 BC",
+            "Annexed by the Russian Empire, 1783",
+            "Livadia Palace, 11 September 1911",
+            "Occupied by the German Army, 9 November 1941 - 16 April 1944",
+            "Yalta Conference (2nd big three meeting), 4 February 1945 - 11 February 1945"
+        ],
+        "latitude": 44.499444,
+        "longitude": 34.17
     },
     "Limassol": {
         "country": "✝ Cyprus",
