@@ -5985,8 +5985,13 @@
         "country": "Eastern Roman Empire (Macedonia)",
         "remarkable": [
             "Justinian I, 482-565",
+            "Roman emperor, 527-565",
             "Renovatio imperii, or restoration of the Empire",
-            "The Corpus Juris Civilis (Body of Civil Law), 529-534"
+            "Vandalic War, June 533 - March 534",
+            "The Corpus Juris Civilis (Body of Civil Law), 529-534",
+            "Volcanic winter (darkened skies and lower temperatures), 536",
+            "Late Antique Little Ice Age, 536-660",
+            "Justinianic plague (caused by Yersinia pestis), 541-549"
         ],
         "latitude": 41.90034,
         "longitude": 21.61346
@@ -6809,6 +6814,19 @@
         "remarkable": ["Johannes Gutenberg, 1393-1468", "Printing press, 1440"],
         "latitude": 49.98419,
         "longitude": 8.2791
+    },
+    "Hippo Regius": {
+        "country": "Annaba Province (Algeria)",
+        "remarkable": [
+            "King Genseric, 389-477",
+            "Ruled the Vandals and Alans, 428-477",
+            "Capital of the Vandal Kingdom, 435-439",
+            "Vandalic conquest of Roman Africa, 429-439",
+            "St. Augustine died in Hippo Regius, 28 August 430",
+            "Vandals conquered Carthage, 19 October 439"
+        ],
+        "latitude": 36.8825,
+        "longitude": 7.75
     },
     "Basel": {
         "country": "🔬 Swiss Confederacy",
