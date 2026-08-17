@@ -2609,10 +2609,12 @@
             "Harvard A.B. History, 1900-1903",
             "Columbia Law School, 1903-1907",
             "44th Governor of NY, 1 January 1929 - 31 December 1932",
-            "32th U.S. President, 4 March 1933 - 12 April 1945",
-            "State of the Union (Four Freedoms), 6 January 1941",
+            "32th U.S. President (four terms), 4 March 1933 - 12 April 1945",
             "New Deal, 1933-1938",
-            "Social Security Act, 14 August 1935"
+            "Social Security Act, 14 August 1935",
+            "State of the Union (Four Freedoms), 6 January 1941",
+            "Declared war on Japan, 8 December 1941",
+            "Declared war on Germany and Italy, 11 December 1941"
         ],
         "latitude": 41.76804,
         "longitude": -73.93482
@@ -4208,8 +4210,9 @@
         "remarkable": [
             "Harry S. Truman, 1884-1972",
             "U.S. Army Field Artillery Colonel, 1905-1953",
-            "34th U.S. Vice President, January 20, 1945",
-            "33th U.S. President, 12 April 1945",
+            "34th U.S. Vice President, 20 January, 1945",
+            "33th U.S. President, 12 April 1945 - 20 January 1953",
+            "22nd Amendment (maximum two terms), 27 February 1951",
             "Atomic Bombing (135K casualties), 6 August 1945"
         ],
         "latitude": 34.4,
