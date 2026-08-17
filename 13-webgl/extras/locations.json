@@ -4519,6 +4519,21 @@
         "latitude": -0.30907,
         "longitude": 100.37055
     },
+    "Dhaka": {
+        "country": "Bangladesh",
+        "remarkable": [
+            "Ghurid conquest of Bengal (Muslim conquest), 1202",
+            "Battle of Plassey (EIC x Nawab od Bengal), 23 June 1757",
+            "East Bengal renamed to East Pakistan, 1947",
+            "Non-cooperation movement, 1 March 1971 - 25 March 1971",
+            "Sovereign nation of Bangladesh, 16 December 1971",
+            "Hussain Muhammad Ershad (dictator), 1983 - 1990",
+            "Mass uprising, 4 December 1990",
+            "Established as Jahangirnagar, 1608"
+        ],
+        "latitude": 23.764444,
+        "longitude": 90.388889
+    },
     "Kolkata": {
         "country": "🏆 (West Bengal) India",
         "remarkable": [
