@@ -312,7 +312,7 @@ Misinterpreting Web Mercator for the standard Mercator during coordinate convers
 can lead to deviations as much as 43 km on the map~\cite{stefanakis2017web} (21 km on the ground)~\cite{EPSG3857}:
 
 \begin{lstlisting}[
-    basicstyle=\tiny, %or \small or \footnotesize etc.
+    basicstyle=\tiny, % or \small or \footnotesize etc.
 ]
     const Tromsø = gpsCoordinates["Tromsø"]; // Norway
     const { latitude: lat, longitude: lon } = Tromsø;
@@ -453,7 +453,7 @@ The sorting of dates uses the day, month and year of the last date of the last e
 \noindent E.g., ``Battle of Britain, 10 July 1940 - 31 October 1940''\ is sorted using ``10 July 1940''.
 
 \begin{lstlisting}[
-    basicstyle=\tiny, %or \small or \footnotesize etc.
+    basicstyle=\ttfamily \tiny, % or \small or \footnotesize etc.
 ]
     "Moffat": {
         "country": "|⚔| Scotland (United Kingdom)",
@@ -479,7 +479,7 @@ The sorting of dates uses the day, month and year of the last date of the last e
 Dates should be preceded by a comma in the remarkable list field to be considered for sorting (no error checking is done). Examples:
 
 \begin{lstlisting}[
-    basicstyle=\tiny, %or \small or \footnotesize etc.
+    basicstyle=\tiny, % or \small or \footnotesize etc.
 ]
     , 324                               (1 0 324)
     , 657 BC                            (1 0 -657)
