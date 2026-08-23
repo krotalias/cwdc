@@ -2964,6 +2964,21 @@
         "latitude": 43.653611,
         "longitude": -79.383889
     },
+    "Uniontown": {
+        "country": "Pennsylvania (United States)",
+        "remarkable": [
+            "George Catlett Marshall Jr., 1880-1959",
+            "Virginia Military Institute (VMI), 1897-1901",
+            "15th Chief of Staff of the U.S. Army, 1 September 1939 - 18 November 1945",
+            "Five-star General of the Army, 16 December 1944",
+            "50th Secretary of State, 21 January 1947 - 20 January 1949",
+            "Marshall Plan, 5 June 1947",
+            "$13.3 B ($137 B today) to rebuild Western European economies",
+            "3rd Secretary of Defense, 21 September 1950 - 12 September 1951"
+        ],
+        "latitude": 39.9,
+        "longitude": -79.724444
+    },
     "Panama Canal": {
         "country": "🐇 Panama",
         "remarkable": [
@@ -3418,6 +3433,7 @@
             "Army War College, 1925-1928",
             "SHAEF commander, 1943-1945",
             "D-Day (Operation Overlord), 6 June 1944",
+            "General of the Army, 20 December 1944",
             "34th U.S. President, 20 January 1953"
         ],
         "latitude": 33.743163694,
@@ -4327,9 +4343,10 @@
     "Manila": {
         "country": "⚔ Philippines",
         "remarkable": [
-            "Douglas MacArthur (General of The Army), 1880-1964",
+            "Douglas MacArthur, 1880-1964",
             "Commander of U.S. Army Forces in the Far East, 26 July 1941",
             "Japanese conquest of the Philippines, 8 December 1941 - 8 May 1942",
+            "General of the Army, 18 December 1944",
             "Liberation of the Philippines, 20 October 1944 - 15 August 1945",
             "Battle of Manila, 3 February 1945 - 3 March 1945"
         ],
@@ -4518,6 +4535,22 @@
         ],
         "latitude": -0.30907,
         "longitude": 100.37055
+    },
+    "Clark": {
+        "country": "Missouri (United States)",
+        "remarkable": [
+            "Omar Nelson Bradley, 1893-1981",
+            "West Point, 1 August 1911 - 12 June 1915",
+            "Brigadier General, 20 February 1941",
+            "Captured Bizerte (Tunisia), 7 May 1943",
+            "Operation Husky (Allied invasion of Sicily), 10 July 1943",
+            "Led U.S. First Army during the Normandy landings, 6 June 1944",
+            "Commander of the Twelfth United States Army Group, 14 July 1944",
+            "43 divisions and 1.3 million men (four field armies)",
+            "General of the Army, 22 September 1950"
+        ],
+        "latitude": 39.269722,
+        "longitude": -92.342778
     },
     "Dhaka": {
         "country": "Bangladesh",
@@ -5538,7 +5571,7 @@
         "latitude": 34.674722,
         "longitude": 33.044167
     },
-    "Aswan": {
+    "Syene (Aswan)": {
         "country": "Egypt",
         "remarkable": [
             "Ramses II (Third pharaoh), 1303-1213 BC",
