@@ -877,7 +877,7 @@
     "Alagoas da Lagoa do Sul": {
         "country": "Alagoas (Brazil)",
         "remarkable": [
-            "Deodoro da Fonseca (Field Marshall), 1827-1892",
+            "Deodoro da Fonseca (Field Marshal), 1827-1892",
             "Military School in Rio, 1843-1847",
             "War of Paraguai (hero), 1864-1870",
             "Republican Manifest, 3 December 1870",
@@ -2718,7 +2718,7 @@
             "Faculty member of IAS, 1933-1955",
             "Niels Bohr, 1885-1962",
             "Spring semester, 1939",
-            "J. Robert Oppenheimer, 1904-1967",
+            "Julius Robert Oppenheimer, 1904-1967",
             "Director of IAS, 1947-1966",
             "Kurt Gödel, 1906-1978",
             "Completeness theorem (doctoral dissertation), 1929",
@@ -2965,16 +2965,17 @@
         "longitude": -79.383889
     },
     "Uniontown": {
-        "country": "Pennsylvania (United States)",
+        "country": "⚔ 🏆 Pennsylvania (United States)",
         "remarkable": [
             "George Catlett Marshall Jr., 1880-1959",
             "Virginia Military Institute (VMI), 1897-1901",
             "15th Chief of Staff of the U.S. Army, 1 September 1939 - 18 November 1945",
-            "Five-star General of the Army, 16 December 1944",
+            "General of the Army (Five-Star rank), 16 December 1944",
             "50th Secretary of State, 21 January 1947 - 20 January 1949",
             "Marshall Plan, 5 June 1947",
             "$13.3 B ($137 B today) to rebuild Western European economies",
-            "3rd Secretary of Defense, 21 September 1950 - 12 September 1951"
+            "3rd Secretary of Defense, 21 September 1950 - 12 September 1951",
+            "Nobel Peace Prize, 10 December 1953"
         ],
         "latitude": 39.9,
         "longitude": -79.724444
@@ -3429,12 +3430,14 @@
         "country": "Texas (United States)",
         "remarkable": [
             "Dwight David Eisenhower, 1890-1969",
-            "West Point, 1911-1915",
-            "Army War College, 1925-1928",
-            "SHAEF commander, 1943-1945",
+            "West Point, 14 June 1911 - 12 June 1915",
+            "Army War College, 30 August 1927 - 30 June 1928",
+            "Allied invasion of Italy, 3 September 1943",
+            "SHAEF commander, 24 December 1943 - 14 July 1945",
             "D-Day (Operation Overlord), 6 June 1944",
             "General of the Army, 20 December 1944",
-            "34th U.S. President, 20 January 1953"
+            "34th U.S. President, 20 January 1953",
+            "Reappointed GA to his former date of rank, 22 March 1961"
         ],
         "latitude": 33.743163694,
         "longitude": -96.554497782
@@ -4268,7 +4271,7 @@
     "Nagasaki": {
         "country": "⚔ ☢ Kyushu (Japan)",
         "remarkable": [
-            "Robert Oppenheimer, 1904-1967",
+            "Julius Robert Oppenheimer, 1904-1967",
             "First director of Los Alamos Laboratory, 25 February 1943 - 16 October 1945",
             "Harvard University (BA), September 1922 - 28 May 1925",
             "Physics at Cambridge, September 1925 - September 1926",
@@ -4537,7 +4540,7 @@
         "longitude": 100.37055
     },
     "Clark": {
-        "country": "Missouri (United States)",
+        "country": "⚔ Missouri (United States)",
         "remarkable": [
             "Omar Nelson Bradley, 1893-1981",
             "West Point, 1 August 1911 - 12 June 1915",
@@ -6793,7 +6796,9 @@
         "country": "⚔ Germany",
         "remarkable": [
             "Arthur T. 'Bomber' Harris (Air Chief Marshal), 1892-1984",
-            "Henry Harley Arnold (General of the Air Force), 1886-1950",
+            "Henry Harley Arnold, 1886-1950",
+            "General of the Army, 21 December 1944",
+            "General of the Air Force, 7 May 1949",
             "Operation Gomorrah, 24 July 1943 - 3 August 1943",
             "Heaviest assault of aerial warfare (8 days and 7 nights)",
             "First USAAF raid, 791 bombers, 2.3K tons of bombs, 25 July 1943,",
