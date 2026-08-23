@@ -170,9 +170,9 @@ import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
 
 const drpath =
-  "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/libs/draco/gltf/";
+  "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/libs/draco/gltf/";
 const ktpath =
-  "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/libs/basis/";
+  "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/libs/basis/";
 
 /**
  * ArcballControls zoom and pan do not work on mobile devices.
