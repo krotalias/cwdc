@@ -4316,6 +4316,25 @@
         "latitude": 37.582363,
         "longitude": 127.010418
     },
+    "Leyte Gulf": {
+        "country": "⚔ Philippines",
+        "remarkable": [
+            "MacArthur reaches the shore at Leyte, 20 October 1944",
+            "Battle of Leyte Gulf, 23 October 1944 - 26 October 1944",
+            "Largest naval battle in history (200K personnel involved)",
+            "300 U.S. ships, 1.5K planes X 70 Japanese ships, 300 planes",
+            "Operation Sho-Go, a decoy plan to mislead Halsey's 3rd fleet",
+            "and Thomas Kinkaid's 7th Fleet",
+            "Halsey went north pursuing Japanese carriers and left",
+            "Kinkaid undefended for the first Kamikase attacks",
+            "Battle of the Sibuyan Sea, 24 October 1944",
+            "Battle of Surigao Strait, 25 October 1944",
+            "Battle off Samar, 25 October 1944",
+            "Battle off Cape Engaño, 26 October 1944"
+        ],
+        "latitude": 10.37,
+        "longitude": 125.355
+    },
     "Taipei": {
         "country": "Taiwan",
         "remarkable": [

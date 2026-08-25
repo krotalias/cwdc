@@ -58,11 +58,6 @@
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/ferrari.glb"
                 },
                 {
-                    "id": "111",
-                    "title": "liver.vtk",
-                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/vtk/liver.vtk"
-                },
-                {
                     "id": "112",
                     "title": "Parrot.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Parrot.glb"
