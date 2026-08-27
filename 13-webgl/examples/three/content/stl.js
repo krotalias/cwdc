@@ -456,7 +456,7 @@ function init(dfile) {
    * @type {Object<String:Number>}
    * @global
    */
-  const action = { idle: 0, run: 1, tpose: 2, walk: 3 };
+  const action = { idle: 0, run: 1, tpose: 2, walk: 3, samba: 0 };
 
   /**
    * The fourteen actions for the RobotExpressive model.
@@ -807,12 +807,32 @@ function init(dfile) {
    */
 
   /**
+   * Map materials to movements.
+   * @type {Object<String,String>}
+   * @global
+   */
+  const movement = {
+    d: "walk",
+    g: "run",
+    p: "tpose",
+    q: "samba",
+    P: "idle",
+  };
+
+  /**
+   * Return the current material: "d", "g", "p", "P", "q"
+   * @type {String}
+   * @global
+   */
+  const getMaterial = () =>
+    document.querySelector('input[name="material"]:checked').value;
+
+  /**
    * <p>Current material for STL or VTK files.</p>
    * @type {THREE.Material}
    * @global
    */
-  let material =
-    mat[document.querySelector('input[name="material"]:checked').value];
+  let material = mat[getMaterial()];
 
   /**
    * <p>Handles and keeps track of loaded and pending data.</p>
@@ -1300,6 +1320,7 @@ function init(dfile) {
 
         if (loadedModelName.includes("Soldier")) {
           model.rotation.set(0, Math.PI, 0);
+          atype = movement[getMaterial()];
           mixer.clipAction(geometry.animations[action[atype]]).play();
           modelGeometry = geometry;
           document.getElementById("dull").innerHTML = "Walk";
@@ -1307,11 +1328,20 @@ function init(dfile) {
           document.getElementById("gloss").innerHTML = "TPose";
           document.getElementById("glass").innerHTML = "Idle";
         } else if (loadedModelName.includes("Robot")) {
+          atype = movement[getMaterial()];
           // mixer.clipAction(geometry.animations[actionRobot.indexOf("dance")]).play();
           mixer.clipAction(geometry.animations[action[atype]]).play();
           modelGeometry = geometry;
           document.getElementById("dull").innerHTML = "Jump";
           document.getElementById("metal").innerHTML = "Death";
+          document.getElementById("gloss").innerHTML = "Idle";
+          document.getElementById("glass").innerHTML = "Dance";
+        } else if (loadedModelName.includes("Michelle")) {
+          atype = movement[getMaterial()] == "walk" ? "samba" : "run";
+          mixer.clipAction(geometry.animations[action[atype]]).play();
+          modelGeometry = geometry;
+          document.getElementById("dull").innerHTML = "SambaDance";
+          document.getElementById("metal").innerHTML = "TPose";
           document.getElementById("gloss").innerHTML = "Idle";
           document.getElementById("glass").innerHTML = "Dance";
         } else if (loadedModelName.includes("plane")) {
@@ -1566,23 +1596,22 @@ function init(dfile) {
         case "g":
         case "p":
         case "P":
+        case "q":
           material = mat[ch];
           document.getElementById(ch).checked = true;
           if (mesh) {
             mesh.material = material;
           }
-          atype =
-            ch == "d"
-              ? "walk"
-              : ch == "g"
-                ? "run"
-                : ch == "p"
-                  ? "tpose"
-                  : "idle";
+          atype = movement[ch];
           if (
             mixer &&
-            ["Soldier", "Robot"].some((str) => loadedModelName.includes(str))
+            ["Soldier", "Robot", "Michelle"].some((str) =>
+              loadedModelName.includes(str),
+            )
           ) {
+            if (loadedModelName.includes("Michelle")) {
+              atype = movement[getMaterial()] == "walk" ? "samba" : "run";
+            }
             mixer.stopAllAction();
             mixer.clipAction(modelGeometry.animations[action[atype]]).play();
           }

@@ -198,9 +198,9 @@ import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
 
 const drpath =
-  "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/libs/draco/gltf/";
+  "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/libs/draco/gltf/";
 const ktpath =
-  "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/libs/basis/";
+  "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/libs/basis/";
 
 /**
  * ArcballControls zoom and pan do not work on mobile devices.
@@ -484,7 +484,7 @@ function init(dfile) {
    * @type {Object&lt;String:Number>}
    * @global
    */
-  const action = { idle: 0, run: 1, tpose: 2, walk: 3 };
+  const action = { idle: 0, run: 1, tpose: 2, walk: 3, samba: 0 };
 
   /**
    * The fourteen actions for the RobotExpressive model.
@@ -835,12 +835,32 @@ function init(dfile) {
    */
 
   /**
+   * Map materials to movements.
+   * @type {Object&lt;String,String>}
+   * @global
+   */
+  const movement = {
+    d: "walk",
+    g: "run",
+    p: "tpose",
+    q: "samba",
+    P: "idle",
+  };
+
+  /**
+   * Return the current material: "d", "g", "p", "P", "q"
+   * @type {String}
+   * @global
+   */
+  const getMaterial = () =>
+    document.querySelector('input[name="material"]:checked').value;
+
+  /**
    * &lt;p>Current material for STL or VTK files.&lt;/p>
    * @type {THREE.Material}
    * @global
    */
-  let material =
-    mat[document.querySelector('input[name="material"]:checked').value];
+  let material = mat[getMaterial()];
 
   /**
    * &lt;p>Handles and keeps track of loaded and pending data.&lt;/p>
@@ -1328,6 +1348,7 @@ function init(dfile) {
 
         if (loadedModelName.includes("Soldier")) {
           model.rotation.set(0, Math.PI, 0);
+          atype = movement[getMaterial()];
           mixer.clipAction(geometry.animations[action[atype]]).play();
           modelGeometry = geometry;
           document.getElementById("dull").innerHTML = "Walk";
@@ -1335,11 +1356,20 @@ function init(dfile) {
           document.getElementById("gloss").innerHTML = "TPose";
           document.getElementById("glass").innerHTML = "Idle";
         } else if (loadedModelName.includes("Robot")) {
+          atype = movement[getMaterial()];
           // mixer.clipAction(geometry.animations[actionRobot.indexOf("dance")]).play();
           mixer.clipAction(geometry.animations[action[atype]]).play();
           modelGeometry = geometry;
           document.getElementById("dull").innerHTML = "Jump";
           document.getElementById("metal").innerHTML = "Death";
+          document.getElementById("gloss").innerHTML = "Idle";
+          document.getElementById("glass").innerHTML = "Dance";
+        } else if (loadedModelName.includes("Michelle")) {
+          atype = movement[getMaterial()] == "walk" ? "samba" : "run";
+          mixer.clipAction(geometry.animations[action[atype]]).play();
+          modelGeometry = geometry;
+          document.getElementById("dull").innerHTML = "SambaDance";
+          document.getElementById("metal").innerHTML = "TPose";
           document.getElementById("gloss").innerHTML = "Idle";
           document.getElementById("glass").innerHTML = "Dance";
         } else if (loadedModelName.includes("plane")) {
@@ -1594,23 +1624,22 @@ function init(dfile) {
         case "g":
         case "p":
         case "P":
+        case "q":
           material = mat[ch];
           document.getElementById(ch).checked = true;
           if (mesh) {
             mesh.material = material;
           }
-          atype =
-            ch == "d"
-              ? "walk"
-              : ch == "g"
-                ? "run"
-                : ch == "p"
-                  ? "tpose"
-                  : "idle";
+          atype = movement[ch];
           if (
             mixer &amp;&amp;
-            ["Soldier", "Robot"].some((str) => loadedModelName.includes(str))
+            ["Soldier", "Robot", "Michelle"].some((str) =>
+              loadedModelName.includes(str),
+            )
           ) {
+            if (loadedModelName.includes("Michelle")) {
+              atype = movement[getMaterial()] == "walk" ? "samba" : "run";
+            }
             mixer.stopAllAction();
             mixer.clipAction(modelGeometry.animations[action[atype]]).play();
           }
@@ -1953,13 +1982,13 @@ window.addEventListener("load", (event) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="THREE.ArcballControls.html">ArcballControls</a></li><li><a href="THREE.AxesHelper.html">AxesHelper</a></li><li><a href="THREE.BoxHelper.html">BoxHelper</a></li><li><a href="THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="THREE.Clock.html">Clock</a></li><li><a href="THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="THREE.DataTexture.html">DataTexture</a></li><li><a href="THREE.EXRLoader.html">EXRLoader</a></li><li><a href="THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="THREE.KTX2Loader.html">KTX2Loader</a></li><li><a href="THREE.LineBasicMaterial.html">LineBasicMaterial</a></li><li><a href="THREE.LoadingManager.html">LoadingManager</a></li><li><a href="THREE.MTLLoader.html">MTLLoader</a></li><li><a href="THREE.Material.html">Material</a></li><li><a href="THREE.MeshLambertMaterial.html">MeshLambertMaterial</a></li><li><a href="THREE.MeshPhongMaterial.html">MeshPhongMaterial</a></li><li><a href="THREE.MeshPhysicalMaterial.html">MeshPhysicalMaterial</a></li><li><a href="THREE.MeshStandardMaterial.html">MeshStandardMaterial</a></li><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="THREE.Object3D.html">Object3D</a></li><li><a href="THREE.OrbitControls.html">OrbitControls</a></li><li><a href="THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="THREE.RGBELoader.html">RGBELoader</a></li><li><a href="THREE.RoomEnvironment.html">RoomEnvironment</a></li><li><a href="THREE.STLLoader.html">STLLoader</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.Stats.html">Stats</a></li><li><a href="THREE.TrackballControls.html">TrackballControls</a></li><li><a href="THREE.VTKLoader.html">VTKLoader</a></li><li><a href="THREE.Vector3.html">Vector3</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickFront">clickFront</a></li><li><a href="global.html#event:clickReset">clickReset</a></li><li><a href="global.html#event:clickSide">clickSide</a></li><li><a href="global.html#event:clickTop">clickTop</a></li><li><a href="global.html#event:controls">controls</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:materialRadio">materialRadio</a></li><li><a href="global.html#event:meshChkBox">meshChkBox</a></li><li><a href="global.html#event:modelsSelect">modelsSelect</a></li><li><a href="global.html#event:pointerdown">pointerdown</a></li><li><a href="global.html#event:resize">resize</a></li><li><a href="global.html#event:statsChkBox">statsChkBox</a></li></ul><h3>Global</h3><ul><li><a href="global.html#action">action</a></li><li><a href="global.html#actionRobot">actionRobot</a></li><li><a href="global.html#anonymous">anonymous</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#cameraPos">cameraPos</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#createBoxHelper">createBoxHelper</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#ctrlType">ctrlType</a></li><li><a href="global.html#ctype">ctype</a></li><li><a href="global.html#damp">damp</a></li><li><a href="global.html#delMaterial">delMaterial</a></li><li><a href="global.html#environment">environment</a></li><li><a href="global.html#fnames">fnames</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isEqual">isEqual</a></li><li><a href="global.html#line">line</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#loadModelj">loadModelj</a></li><li><a href="global.html#loadTextures">loadTextures</a></li><li><a href="global.html#loadTexturesAsync">loadTexturesAsync</a></li><li><a href="global.html#loadedModelName">loadedModelName</a></li><li><a href="global.html#material">material</a></li><li><a href="global.html#mesh">mesh</a></li><li><a href="global.html#mobile">mobile</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#modelGeometry">modelGeometry</a></li><li><a href="global.html#modelj">modelj</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#object">object</a></li><li><a href="global.html#orthoView">orthoView</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Externals</h3><ul><li><a href="external-three.html">three</a></li></ul><h3>Namespaces</h3><ul><li><a href="THREE.html">THREE</a></li></ul><h3>Classes</h3><ul><li><a href="THREE.AnimationMixer.html">AnimationMixer</a></li><li><a href="THREE.ArcballControls.html">ArcballControls</a></li><li><a href="THREE.AxesHelper.html">AxesHelper</a></li><li><a href="THREE.BoxHelper.html">BoxHelper</a></li><li><a href="THREE.BufferAttribute.html">BufferAttribute</a></li><li><a href="THREE.BufferGeometry.html">BufferGeometry</a></li><li><a href="THREE.Clock.html">Clock</a></li><li><a href="THREE.DRACOLoader.html">DRACOLoader</a></li><li><a href="THREE.DataTexture.html">DataTexture</a></li><li><a href="THREE.EXRLoader.html">EXRLoader</a></li><li><a href="THREE.GLTFLoader.html">GLTFLoader</a></li><li><a href="THREE.KTX2Loader.html">KTX2Loader</a></li><li><a href="THREE.LineBasicMaterial.html">LineBasicMaterial</a></li><li><a href="THREE.LoadingManager.html">LoadingManager</a></li><li><a href="THREE.MTLLoader.html">MTLLoader</a></li><li><a href="THREE.Material.html">Material</a></li><li><a href="THREE.MeshLambertMaterial.html">MeshLambertMaterial</a></li><li><a href="THREE.MeshPhongMaterial.html">MeshPhongMaterial</a></li><li><a href="THREE.MeshPhysicalMaterial.html">MeshPhysicalMaterial</a></li><li><a href="THREE.MeshStandardMaterial.html">MeshStandardMaterial</a></li><li><a href="THREE.OBJLoader.html">OBJLoader</a></li><li><a href="THREE.Object3D.html">Object3D</a></li><li><a href="THREE.OrbitControls.html">OrbitControls</a></li><li><a href="THREE.PMREMGenerator.html">PMREMGenerator</a></li><li><a href="THREE.PerspectiveCamera.html">PerspectiveCamera</a></li><li><a href="THREE.RGBELoader.html">RGBELoader</a></li><li><a href="THREE.RoomEnvironment.html">RoomEnvironment</a></li><li><a href="THREE.STLLoader.html">STLLoader</a></li><li><a href="THREE.Scene.html">Scene</a></li><li><a href="THREE.Stats.html">Stats</a></li><li><a href="THREE.TrackballControls.html">TrackballControls</a></li><li><a href="THREE.VTKLoader.html">VTKLoader</a></li><li><a href="THREE.Vector3.html">Vector3</a></li><li><a href="THREE.WebGLRenderer.html">WebGLRenderer</a></li><li><a href="module-MeshEdgesGeometry-MeshEdgesGeometry.html">MeshEdgesGeometry</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:clickFront">clickFront</a></li><li><a href="global.html#event:clickReset">clickReset</a></li><li><a href="global.html#event:clickSide">clickSide</a></li><li><a href="global.html#event:clickTop">clickTop</a></li><li><a href="global.html#event:controls">controls</a></li><li><a href="global.html#event:keydown">keydown</a></li><li><a href="global.html#event:load">load</a></li><li><a href="global.html#event:materialRadio">materialRadio</a></li><li><a href="global.html#event:meshChkBox">meshChkBox</a></li><li><a href="global.html#event:modelsSelect">modelsSelect</a></li><li><a href="global.html#event:pointerdown">pointerdown</a></li><li><a href="global.html#event:resize">resize</a></li><li><a href="global.html#event:statsChkBox">statsChkBox</a></li></ul><h3>Global</h3><ul><li><a href="global.html#action">action</a></li><li><a href="global.html#actionRobot">actionRobot</a></li><li><a href="global.html#anonymous">anonymous</a></li><li><a href="global.html#aspect">aspect</a></li><li><a href="global.html#cameraPos">cameraPos</a></li><li><a href="global.html#colorTable">colorTable</a></li><li><a href="global.html#createBoxHelper">createBoxHelper</a></li><li><a href="global.html#createEvent">createEvent</a></li><li><a href="global.html#ctrlType">ctrlType</a></li><li><a href="global.html#ctype">ctype</a></li><li><a href="global.html#damp">damp</a></li><li><a href="global.html#delMaterial">delMaterial</a></li><li><a href="global.html#environment">environment</a></li><li><a href="global.html#fnames">fnames</a></li><li><a href="global.html#getMaterial">getMaterial</a></li><li><a href="global.html#getModels">getModels</a></li><li><a href="global.html#handleKeyPress">handleKeyPress</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isEqual">isEqual</a></li><li><a href="global.html#line">line</a></li><li><a href="global.html#loadModel">loadModel</a></li><li><a href="global.html#loadModelj">loadModelj</a></li><li><a href="global.html#loadTextures">loadTextures</a></li><li><a href="global.html#loadTexturesAsync">loadTexturesAsync</a></li><li><a href="global.html#loadedModelName">loadedModelName</a></li><li><a href="global.html#material">material</a></li><li><a href="global.html#mesh">mesh</a></li><li><a href="global.html#mobile">mobile</a></li><li><a href="global.html#modelCnt">modelCnt</a></li><li><a href="global.html#modelGeometry">modelGeometry</a></li><li><a href="global.html#modelj">modelj</a></li><li><a href="global.html#models">models</a></li><li><a href="global.html#movement">movement</a></li><li><a href="global.html#object">object</a></li><li><a href="global.html#orthoView">orthoView</a></li><li><a href="global.html#runAnimation">runAnimation</a></li><li><a href="global.html#setAnimationLoop">setAnimationLoop</a></li><li><a href="global.html#setModels">setModels</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Mar 31 2025 10:27:18 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Aug 27 2026 09:35:48 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

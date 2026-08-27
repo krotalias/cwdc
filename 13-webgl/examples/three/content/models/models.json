@@ -58,6 +58,11 @@
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/ferrari.glb"
                 },
                 {
+                    "id": "111",
+                    "title": "Michelle.glb",
+                    "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Michelle.glb"
+                },
+                {
                     "id": "112",
                     "title": "Parrot.glb",
                     "url": "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Parrot.glb"
