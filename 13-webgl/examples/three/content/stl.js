@@ -456,7 +456,14 @@ function init(dfile) {
    * @type {Object<String:Number>}
    * @global
    */
-  const action = { idle: 0, run: 1, tpose: 2, walk: 3, samba: 0 };
+  const action = { idle: 0, run: 1, tpose: 2, walk: 3 };
+
+  /**
+   * The two actions for the Michelle model.
+   * @type {Object<String:Number>}
+   * @global
+   */
+  const actionMichelle = { idle: 0, run: 1, tpose: 1, walk: 0 };
 
   /**
    * The fourteen actions for the RobotExpressive model.
@@ -815,12 +822,11 @@ function init(dfile) {
     d: "walk",
     g: "run",
     p: "tpose",
-    q: "samba",
     P: "idle",
   };
 
   /**
-   * Return the current material: "d", "g", "p", "P", "q"
+   * Return the current material: "d", "g", "p", "P"
    * @type {String}
    * @global
    */
@@ -1337,8 +1343,8 @@ function init(dfile) {
           document.getElementById("gloss").innerHTML = "Idle";
           document.getElementById("glass").innerHTML = "Dance";
         } else if (loadedModelName.includes("Michelle")) {
-          atype = movement[getMaterial()] == "walk" ? "samba" : "run";
-          mixer.clipAction(geometry.animations[action[atype]]).play();
+          atype = movement[getMaterial()];
+          mixer.clipAction(geometry.animations[actionMichelle[atype]]).play();
           modelGeometry = geometry;
           document.getElementById("dull").innerHTML = "SambaDance";
           document.getElementById("metal").innerHTML = "TPose";
@@ -1596,24 +1602,26 @@ function init(dfile) {
         case "g":
         case "p":
         case "P":
-        case "q":
           material = mat[ch];
           document.getElementById(ch).checked = true;
           if (mesh) {
             mesh.material = material;
           }
-          atype = movement[ch];
+          atype = movement[getMaterial()];
           if (
             mixer &&
             ["Soldier", "Robot", "Michelle"].some((str) =>
               loadedModelName.includes(str),
             )
           ) {
-            if (loadedModelName.includes("Michelle")) {
-              atype = movement[getMaterial()] == "walk" ? "samba" : "run";
-            }
             mixer.stopAllAction();
-            mixer.clipAction(modelGeometry.animations[action[atype]]).play();
+            if (loadedModelName.includes("Michelle")) {
+              mixer
+                .clipAction(modelGeometry.animations[actionMichelle[atype]])
+                .play();
+            } else {
+              mixer.clipAction(modelGeometry.animations[action[atype]]).play();
+            }
           }
           break;
         case "c":
