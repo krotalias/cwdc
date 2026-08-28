@@ -165,9 +165,10 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
-import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
+import { HDRLoader } from "three/addons/loaders/HDRLoader.js";
 import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
+import { MeshGouraudMaterial } from "three/addons/materials/MeshGouraudMaterial.js";
 
 const drpath =
   "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/libs/draco/gltf/";
@@ -290,12 +291,12 @@ function loadTextures(dfile) {
   /**
    * {@link https://en.wikipedia.org/wiki/High_dynamic_range HDR} image loader
    * for creating environment maps.
-   * @class RGBELoader
+   * @class HDRLoader
    * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/loaders/DataTextureLoader DataTextureLoader}
    * @see {@link https://www.adobe.com/creativecloud/photography/discover/hdr.html What is HDR?}
    */
-  const rgbe_loader = new RGBELoader().setPath("textures/equirectangular/");
+  const hdr_loader = new HDRLoader().setPath("textures/equirectangular/");
 
   /**
    * {@link https://en.wikipedia.org/wiki/OpenEXR EXR} texture loader
@@ -309,7 +310,7 @@ function loadTextures(dfile) {
 
   const promises = [];
   for (const f of Object.keys(fnames)) {
-    const loader = fnames[f].includes(".exr") ? exr_loader : rgbe_loader;
+    const loader = fnames[f].includes(".exr") ? exr_loader : hdr_loader;
     promises.push(
       loader.loadAsync(fnames[f]).then((hdrEquirect) => {
         hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
@@ -340,11 +341,11 @@ function loadTextures(dfile) {
  * @see {@link https://codedamn.com/news/javascript/javascript-async-await-error Mastering Async Await Error Handling}
  */
 async function loadTexturesAsync(dfile) {
-  const rgbe_loader = new RGBELoader().setPath("textures/equirectangular/");
+  const hdr_loader = new HDRLoader().setPath("textures/equirectangular/");
   const exr_loader = new EXRLoader().setPath("textures/");
 
   for (const f of Object.keys(fnames)) {
-    const loader = fnames[f].includes(".exr") ? exr_loader : rgbe_loader;
+    const loader = fnames[f].includes(".exr") ? exr_loader : hdr_loader;
     try {
       const hdrEquirect = await loader.loadAsync(fnames[f]);
       hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
@@ -519,11 +520,11 @@ function init(dfile) {
   /**
    * Object for keeping track of time. This uses performance.now if it is available,
    * otherwise it reverts to the less accurate Date.now.
-   * @class Clock
+   * @class Timer
    * @memberof THREE
-   * @see {@link https://threejs.org/docs/#api/en/core/Clock Clock}
+   * @see {@link https://threejs.org/docs/#api/en/core/Timer Timer}
    */
-  const clock = new THREE.Clock();
+  const clock = new THREE.Timer();
 
   /**
    * Populate the given array with model file names from an
@@ -707,7 +708,34 @@ function init(dfile) {
    * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/MeshLambertMaterial MeshLambertMaterial}
    */
-  mat["d"] = new THREE.MeshLambertMaterial({
+  mat["l"] = new THREE.MeshLambertMaterial({
+    color: colorTable.gold,
+    reflectivity: 2,
+    side: THREE.DoubleSide,
+  });
+
+  /**
+   * <p>A material for non-shiny surfaces, without specular highlights.</p>
+   *
+   * The material uses a non-physically based Lambertian model for calculating reflectance.
+   * This can simulate some surfaces (such as untreated wood or stone) well,
+   * but cannot simulate shiny surfaces with specular highlights (such as varnished wood).
+   *
+   * <p>MeshGouraudMaterial uses per-vertx shading.</p>
+   *
+   * Three.js provides MeshGouraudMaterial as an add-on material
+   * that implements per-vertex lighting (Gouraud shading)
+   * instead of per-pixel shading.
+   *
+   * <p>It was temporarily introduced as an addon in r144 when
+   * MeshLambertMaterial switched from Gouraud shading to per-fragment (Phong) shading.
+   * However, it was fully deprecated and removed shortly after.</p>
+   *
+   * @class MeshGouraudMaterial
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#api/en/materials/MeshGouraudMaterial MeshGouraudMaterial}
+   */
+  mat["d"] = new MeshGouraudMaterial({
     color: colorTable.gold,
     reflectivity: 2,
     side: THREE.DoubleSide,
@@ -754,6 +782,7 @@ function init(dfile) {
     roughness: 0.3,
     metalness: 0.8,
     side: THREE.DoubleSide,
+    // flatShading: true,
   });
 
   /**
@@ -1239,6 +1268,7 @@ function init(dfile) {
       }
       if (!geometry.getAttribute("normal")) {
         geometry.computeVertexNormals();
+        // geometry.computeFlatVertexNormals();
       }
       geometry.center();
       geometry.computeBoundingBox();
@@ -1438,22 +1468,28 @@ function init(dfile) {
    * parameter is a {@link runAnimation callback}, which
    * will be called every available frame.<br>
    * If null is passed, it will stop any already ongoing animation.
-   * @param {function} loop callback.
+   *
+   * <p>The callback function typically receives a time parameter
+   * (a DOMHighResTimeStamp in milliseconds indicating elapsed time),
+   * which is useful for smooth, time-based animations.</p>
+   * @param {function(DOMHighResTimeStamp)} loop callback that accepts a DOMHighResTimeStamp.
    * @function
    * @name setAnimationLoop
    * @global
    */
-  renderer.setAnimationLoop(() => {
-    runAnimation();
+  renderer.setAnimationLoop((timestamp) => {
+    runAnimation(timestamp);
   });
 
   /**
    * <p>Animation loop.</p>
    * Updates {@link THREE.TrackballControls controls},
    * renders the {@link THREE.Scene scene} and updates {@link THREE.Stats statistics}.
+   * @param {Number} timestamp high-resolution time in milliseconds since the page loaded.
    * @global
    */
-  function runAnimation() {
+  function runAnimation(timestamp) {
+    clock.update(timestamp); // updates the internal clock state
     const delta = clock.getDelta();
     if (mixer) {
       mixer.update(delta);

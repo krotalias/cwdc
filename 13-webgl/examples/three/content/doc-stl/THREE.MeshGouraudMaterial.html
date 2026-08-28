@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: EXRLoader</title>
+    <title>JSDoc: Class: MeshGouraudMaterial</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: EXRLoader</h1>
+    <h1 class="page-title">Class: MeshGouraudMaterial</h1>
 
     
 
@@ -29,7 +29,7 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="THREE.html">THREE</a>.</span>EXRLoader<span class="signature">()</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="THREE.html">THREE</a>.</span>MeshGouraudMaterial<span class="signature">()</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -42,7 +42,7 @@
     
 
     
-    <h4 class="name" id="EXRLoader"><span class="type-signature"></span>new EXRLoader<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="MeshGouraudMaterial"><span class="type-signature"></span>new MeshGouraudMaterial<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -50,8 +50,21 @@
 
 
 <div class="description">
-    <a href="https://en.wikipedia.org/wiki/OpenEXR">EXR</a> texture loader
-for creating environments.
+    <p>A material for non-shiny surfaces, without specular highlights.</p>
+
+The material uses a non-physically based Lambertian model for calculating reflectance.
+This can simulate some surfaces (such as untreated wood or stone) well,
+but cannot simulate shiny surfaces with specular highlights (such as varnished wood).
+
+<p>MeshGouraudMaterial uses per-vertx shading.</p>
+
+Three.js provides MeshGouraudMaterial as an add-on material
+that implements per-vertex lighting (Gouraud shading)
+instead of per-pixel shading.
+
+<p>It was temporarily introduced as an addon in r144 when
+MeshLambertMaterial switched from Gouraud shading to per-fragment (Phong) shading.
+However, it was fully deprecated and removed shortly after.</p>
 </div>
 
 
@@ -95,7 +108,7 @@ for creating environments.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stl.js.html">stl.js</a>, <a href="stl.js.html#line301">line 301</a>
+        <a href="stl.js.html">stl.js</a>, <a href="stl.js.html#line717">line 717</a>
     </li></ul></dd>
     
 
@@ -105,9 +118,7 @@ for creating environments.
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="https://threejs.org/docs/#api/en/loaders/DataTextureLoader">DataTextureLoader</a></li>
-        
-            <li><a href="https://massive.io/file-transfer/what-is-an-exr-file/">What is an EXR File?</a></li>
+            <li><a href="https://threejs.org/docs/#api/en/materials/MeshGouraudMaterial">MeshGouraudMaterial</a></li>
         </ul>
     </dd>
     
