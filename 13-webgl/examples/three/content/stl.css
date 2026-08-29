@@ -1,0 +1,115 @@
+:root {
+    --canvasw: 380px;
+    --canvash: 380px;
+    /* disable zoom */
+    touch-action: pan-x pan-y;
+    height: 100%;
+}
+body {
+    background-color: #ffffed;
+    margin: 0;
+    padding: 0;
+    /* controls whether the user can select text. */
+    -webkit-user-select: none; /* safari */
+    user-select: none;
+}
+@media only screen and (max-width: 768px) {
+    body {
+        /*
+                When a target is touched and held on iOS,
+                Safari displays a callout information about the link.
+                This property allows disabling that behavior.
+                */
+        -webkit-touch-callout: none;
+        /* Disable pull-to-refresh */
+        -webkit-overflow: hidden;
+        overflow: hidden;
+    }
+}
+#canvasid {
+    background-color: antiquewhite;
+    border: #ccc solid 3px;
+    width: var(--canvasw);
+    height: var(--canvash);
+}
+.container {
+    display: block;
+    cursor: move;
+    text-align: center;
+    margin-left: 0%;
+}
+.interface {
+    /* display block allows width and height */
+    display: block;
+    width: fit-content;
+    text-align: center;
+    margin: 0 auto;
+    cursor: pointer;
+}
+details {
+    margin-top: 20px;
+}
+button {
+    font-size: 80%;
+    margin-right: 30px;
+    padding: 0 10px 0 10px;
+    border: 0px;
+    outline: 0px;
+    border-radius: 8px;
+    background-color: lightsteelblue;
+    color: black;
+    height: 2em;
+    margin-right: 0.5em;
+    touch-action: manipulation;
+}
+.progress-bar-container {
+    position: absolute;
+    left: 50%;
+    top: calc(var(--canvash) * 0.5);
+    transform: translate(-50%, -50%);
+    width: var(--canvasw);
+    height: var(--canvash);
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#progress-bar {
+    width: 30%;
+    margin-top: 0.5%;
+    height: 2%;
+}
+#labelp {
+    color: white;
+    font-size: 2rem;
+    padding-top: 30%;
+}
+#models {
+    font-size: 100%;
+    background-color: burlywood;
+    color: black;
+    border: solid 5px lightsteelblue;
+    border-radius: 10%;
+    margin-top: 5px;
+    max-width: calc(var(--canvasw) * 0.9);
+}
+
+ul {
+    list-style: none;
+}
+
+summary {
+    font-size: 100%;
+}
+
+.marginTop {
+    margin-top: 1em;
+}
+
+.info {
+    font-size: 70%;
+    padding-bottom: 0;
+    margin-top: -5px;
+    color: red;
+}

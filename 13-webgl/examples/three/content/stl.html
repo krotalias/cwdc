@@ -1,108 +1,11 @@
 <!doctype html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>STL/VTK/OBJ/GLTF Viewer</title>
-    <style>
-        :root {
-            --canvasw: 380px;
-            --canvash: 380px;
-            /* disable zoom */
-            touch-action: pan-x pan-y;
-            height: 100%;
-        }
-        body {
-            background-color: #ffffed;
-            margin: 0;
-            padding: 0;
-            /* controls whether the user can select text. */
-            user-select: none;
-            -webkit-user-select: none; /* safari */
-        }
-        @media only screen and (max-width: 768px) {
-            body {
-                /*
-                When a target is touched and held on iOS,
-                Safari displays a callout information about the link.
-                This property allows disabling that behavior.
-                */
-                -webkit-touch-callout: none;
-                /* Disable pull-to-refresh */
-                overflow: hidden;
-                -webkit-overflow: hidden;
-            }
-        }
-        #canvasid {
-            background-color: antiquewhite;
-            border: #ccc solid 3px;
-            width: var(--canvasw);
-            height: var(--canvash);
-        }
-        .container {
-            display: block;
-            cursor: move;
-            text-align: center;
-            margin-left: 0%;
-        }
-        .interface {
-            /* display block allows width and height */
-            display: block;
-            width: fit-content;
-            text-align: center;
-            margin: 0 auto;
-            cursor: pointer;
-        }
-        details {
-            margin-top: 20px;
-        }
-        button {
-            font-size: 80%;
-            margin-right: 30px;
-            padding: 0 10px 0 10px;
-            border: 0px;
-            outline: 0px;
-            border-radius: 8px;
-            background-color: lightsteelblue;
-            color: black;
-            height: 2em;
-            margin-right: 0.5em;
-            touch-action: manipulation;
-        }
-        .progress-bar-container {
-            position: absolute;
-            left: 50%;
-            top: calc(var(--canvash) * 0.5);
-            transform: translate(-50%, -50%);
-            width: var(--canvasw);
-            height: var(--canvash);
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        #progress-bar {
-            width: 30%;
-            margin-top: 0.5%;
-            height: 2%;
-        }
-        #labelp {
-            color: white;
-            font-size: 2rem;
-            padding-top: 30%;
-        }
-        #models {
-            font-size: 100%;
-            background-color: burlywood;
-            color: black;
-            border: solid 5px lightsteelblue;
-            border-radius: 10%;
-            margin-top: 5px;
-            max-width: calc(var(--canvasw) * 0.9);
-        }
-    </style>
-</head>
-<html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>STL/VTK/OBJ/GLTF Viewer</title>
+        <link rel="stylesheet" type="text/css" href="stl.css" />
+    </head>
     <body>
         <div class="container">
             <canvas id="canvasid" tabindex="0"></canvas>
@@ -115,18 +18,11 @@
             </div>
 
             <div class="interface">
-                <div
-                    style="
-                        font-size: 70%;
-                        padding-bottom: 0;
-                        margin-top: -5px;
-                        color: red;
-                    "
-                >
-                    drag:<img src="rotation.png" width="10px" />,
+                <div class="info">
+                    drag:<img src="rotation.png" title="info" width="10px" />,
                     <span id="info"></span>
                 </div>
-                <select name="models" id="models">
+                <select name="models" title="models" id="models">
                     <option value="0">Dodecahedron_Cube_A.stl</option>
                     <option value="1">Dodecahedron_Cube_B.stl</option>
                     <option value="2">Dodecahedron_Cube_C.stl</option>
@@ -218,14 +114,14 @@
 
                 <input type="checkbox" id="stats" name="stats" value="stats" />
                 <label for="stats">Stats</label>
-                <div style="margin-top: 1em">
-                    <button id="reset">Interp<sub>x</sub></button>
-                    <button id="top">Top<sub>y</sub></button>
-                    <button id="front">Front<sub>z</sub></button>
-                    <button id="side">Side<sub>x</sub></button>
+                <div class="marginTop">
+                    <button type="button" id="reset">Interp<sub>x</sub></button>
+                    <button type="button" id="top">Top<sub>y</sub></button>
+                    <button type="button" id="front">Front<sub>z</sub></button>
+                    <button type="button" id="side">Side<sub>x</sub></button>
                 </div>
 
-                <div style="margin-top: 1em">
+                <div class="marginTop">
                     <input
                         type="radio"
                         id="d"
@@ -243,9 +139,9 @@
                 </div>
 
                 <details>
-                    <summary style="font-size: 100%">Keyboard controls</summary>
+                    <summary>Keyboard controls</summary>
 
-                    <ul style="list-style: none">
+                    <ul>
                         <li>n, N - next/previous model</li>
                         <li>m - toggle mesh on/off</li>
                         <li>a - side view</li>
