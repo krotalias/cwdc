@@ -168,12 +168,12 @@ import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js"
 import { HDRLoader } from "three/addons/loaders/HDRLoader.js";
 import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
 import { MeshEdgesGeometry } from "./MeshEdgesGeometry.js";
-import { MeshGouraudMaterial } from "three/addons/materials/MeshGouraudMaterial.js";
+import { MeshGouraudMaterial } from "./MeshGouraudMaterial.js";
 
 const drpath =
-  "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/libs/draco/gltf/";
+  "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/libs/draco/gltf/";
 const ktpath =
-  "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/libs/basis/";
+  "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/libs/basis/";
 
 /**
  * ArcballControls zoom and pan do not work on mobile devices.
@@ -391,7 +391,12 @@ async function loadTexturesAsync(dfile) {
  */
 
 /**
- * Loads the viewer and starts the {@link runAnimation animation}.
+ * Loads the viewer, starts the {@link runAnimation animation}
+ * and control light sources
+ * ({@link ambLight ambient},
+ * {@link dirLight directional} and
+ * {@link roomEnvironment environment})
+ * for each type of model.
  * @param {String} dfile initial model name.
  */
 function init(dfile) {
@@ -685,9 +690,33 @@ function init(dfile) {
     }
   }
 
-  // light
+  /**
+   * This light globally illuminates all objects in the scene equally.
+   * It cannot be used to cast shadows as it does not have a direction.
+   * @class AmbientLight
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#AmbientLight AmbientLight}
+   */
+
+  /**
+   * <p>Ambient light.</p>
+   * @type {THREE.AmbientLight}
+   * @global
+   */
   const ambLight = new THREE.AmbientLight(colorTable.white, 3);
 
+  /**
+   * A light that gets emitted in a specific direction.
+   * @class DirectionalLight
+   * @memberof THREE
+   * @see {@link https://threejs.org/docs/#DirectionalLight DirectionalLight}
+   */
+
+  /**
+   * <p>Directional light.</p>
+   * @type {THREE.DirectionalLight}
+   * @global
+   */
   const dirLight = new THREE.DirectionalLight(colorTable.white, 1.5);
   dirLight.position.set(200, 200, 1000);
   camera.add(dirLight.target);
@@ -708,7 +737,7 @@ function init(dfile) {
    * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/MeshLambertMaterial MeshLambertMaterial}
    */
-  mat["l"] = new THREE.MeshLambertMaterial({
+  mat["d"] = new THREE.MeshLambertMaterial({
     color: colorTable.gold,
     reflectivity: 2,
     side: THREE.DoubleSide,
@@ -733,9 +762,9 @@ function init(dfile) {
    *
    * @class MeshGouraudMaterial
    * @memberof THREE
-   * @see {@link https://threejs.org/docs/#api/en/materials/MeshGouraudMaterial MeshGouraudMaterial}
+   * @see {@link module:MeshGouraudMaterial MeshGouraudMaterial}
    */
-  mat["d"] = new MeshGouraudMaterial({
+  mat["l"] = new MeshGouraudMaterial({
     color: colorTable.gold,
     reflectivity: 2,
     side: THREE.DoubleSide,
@@ -1041,17 +1070,28 @@ function init(dfile) {
    */
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
   const background = new THREE.Color(colorTable.antiqueWhite);
+
+  /**
+   * This class represents a scene with a basic room setup that
+   * can be used as input for {@link THREE.PMREMGenerator PMREMGenerator}#fromScene.
+   * The resulting PMREM represents the room's lighting and
+   * can be used for Image Based Lighting by assigning it to
+   * {@link THREE.Scene Scene}#environment or directly as an environment map to PBR materials.
+   * @class RoomEnvironment
+   * @extends {THREE.Scene}
+   * @memberof THREE
+   * @see {@link https://github.com/mrdoob/three.js/blob/master/examples/jsm/environments/RoomEnvironment.js RoomEnvironment}
+   * @see {@link https://threejs.org/docs/#api/en/extras/PMREMGenerator.fromScene PMREMGenerator}
+   * @see {@link https://threejs.org/examples/#misc_exporter_usdz USDZ exporter}
+   */
+
+  /**
+   * <p>This is an easy way of lighting a scene by creating
+   * six light sources with different intensities using an "area light material".</p>
+   * @type {THREE.RoomEnvironment}
+   * @global
+   */
   const roomEnvironment = pmremGenerator.fromScene(
-    /**
-     * This is an easy way of lighting a scene
-     * by creating six light sources with different intensities using an "area light material".
-     * @class RoomEnvironment
-     * @extends {THREE.Scene}
-     * @memberof THREE
-     * @see {@link https://github.com/mrdoob/three.js/blob/master/examples/jsm/environments/RoomEnvironment.js RoomEnvironment}
-     * @see {@link https://threejs.org/docs/#api/en/extras/PMREMGenerator.fromScene PMREMGenerator}
-     * @see {@link https://threejs.org/examples/#misc_exporter_usdz USDZ exporter}
-     */
     new RoomEnvironment(renderer),
     0.04,
   ).texture;
@@ -1254,6 +1294,7 @@ function init(dfile) {
     camera.remove(dirLight);
     scene.background = background;
     scene.environment = roomEnvironment;
+    scene.environmentIntensity = 1.0;
 
     if (geometry.isBufferGeometry) {
       // stl, vtk
@@ -1287,6 +1328,7 @@ function init(dfile) {
       scene.add(line);
       camera.add(dirLight);
       line.visible = vis ? vis : false;
+      scene.environmentIntensity = 0.2;
     } else if (geometry.scene) {
       // gltf file
       const model = geometry.scene;
