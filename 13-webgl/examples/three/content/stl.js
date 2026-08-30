@@ -723,7 +723,25 @@ function init(dfile) {
   dirLight.position.set(200, 200, 1000);
   camera.add(dirLight.target);
 
+  /**
+   * Map character identifiers to materials.
+   * <ul>
+   *   <li> "d": {@link THREE.MeshLambertMaterial}
+   *   <li> "g": {@link THREE.MeshStandardMaterial}
+   *   <li> "p": {@link THREE.MeshPhongMaterial}
+   *   <li> "P": {@link THREE.MeshPhysicalMaterial}
+   *   <li> "l": {@link THREE.MeshGouraudMaterial}
+   * </ul>
+   * @type {Object<String,THREE.Material>}
+   * @global
+   */
   const mat = {};
+
+  /**
+   * {@link movement Movement} identifier.
+   * @type {String}
+   * @global
+   */
   let atype = "walk";
 
   /**
@@ -739,7 +757,8 @@ function init(dfile) {
    * (18 February 2026), MeshLambertMaterial and MeshPhongMaterial support
    * {@link THREE.RoomEnvironment scene.environment} image-based lighting (IBL).
    * Previously, these cheaper materials could not use environment maps
-   * for ambient lighting, pushing developers toward the more expensive MeshStandardMaterial.
+   * for ambient lighting, pushing developers toward the more expensive
+   * {@link THREE.MeshStandardMaterial MeshStandardMaterial}.
    * Now you can use IBL with legacy materials, where Physically based rendering (PBR)
    * accuracy is not needed.</p>
    *
@@ -768,7 +787,8 @@ function init(dfile) {
    * instead of per-pixel shading.
    *
    * <p>It was temporarily introduced as an addon in r144 when
-   * MeshLambertMaterial switched from Gouraud shading to per-fragment (Phong) shading.
+   * {@link THREE.MeshLambertMaterial MeshLambertMaterial}
+   * switched from Gouraud shading to per-fragment (Phong) shading.
    * However, it was fully deprecated and removed shortly after.</p>
    *
    * @class MeshGouraudMaterial
@@ -788,8 +808,8 @@ function init(dfile) {
    * <p>A material for shiny surfaces with specular highlights.</p>
    *
    * The material uses a non-physically based Blinn-Phong model for calculating reflectance.
-   * Unlike the Lambertian model used in the MeshLambertMaterial this can simulate
-   * shiny surfaces with specular highlights (such as varnished wood).
+   * Unlike the Lambertian model used in the {@link THREE.MeshLambertMaterial MeshLambertMaterial}
+   * this can simulate shiny surfaces with specular highlights (such as varnished wood).
    *
    * <p>MeshPhongMaterial uses per-fragment shading.</p>
    *
@@ -813,7 +833,8 @@ function init(dfile) {
    * material can be created that will react 'correctly' under all lighting scenarios.</p>
    *
    * In practice this gives a more accurate and realistic looking result
-   * than the MeshLambertMaterial at the cost of being somewhat more computationally expensive.
+   * than the {@link THREE.MeshLambertMaterial MeshLambertMaterial}
+   * at the cost of being somewhat more computationally expensive.
    *
    * <p>MeshStandardMaterial uses per-fragment shading.</p>
    * @class MeshStandardMaterial
@@ -880,7 +901,7 @@ function init(dfile) {
    * <p>Materials describe the appearance of objects.</p>
    * They are defined in a (mostly) renderer-independent way,
    * so you don't have to rewrite materials if you decide to use a different renderer.
-   * @class THREE.Material
+   * @class Material
    * @memberof THREE
    * @see {@link https://threejs.org/docs/#api/en/materials/Material Material}
    */
@@ -1332,6 +1353,12 @@ function init(dfile) {
         geometry.boundingBox.min,
       );
 
+      /**
+       * Class representing triangular polygon mesh based objects.
+       * @class Mesh
+       * @memberof THREE
+       * @see {@link https://threejs.org/docs/#Mesh Mesh}
+       */
       mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(0, 0, 0);
       createBoxHelper(mesh);
