@@ -3374,6 +3374,22 @@
         "latitude": 41.47583143,
         "longitude": -91.572664376
     },
+    "Clark": {
+        "country": "⚔ Missouri (United States)",
+        "remarkable": [
+            "Omar Nelson Bradley, 1893-1981",
+            "West Point, 1 August 1911 - 12 June 1915",
+            "Brigadier General, 20 February 1941",
+            "Captured Bizerte (Tunisia), 7 May 1943",
+            "Operation Husky (Allied invasion of Sicily), 10 July 1943",
+            "Led U.S. First Army during the Normandy landings, 6 June 1944",
+            "Commander of the Twelfth United States Army Group, 14 July 1944",
+            "43 divisions and 1.3 million men (four field armies)",
+            "General of the Army, 22 September 1950"
+        ],
+        "latitude": 39.269722,
+        "longitude": -92.342778
+    },
     "Hope": {
         "country": "Arkansa (United States)",
         "remarkable": [
@@ -4209,6 +4225,12 @@
         "remarkable": [
             "Tokugawa Ieyasu, 1543-1616",
             "First shōgun of the Tokugawa shogunate, 1603-1868",
+            "Hideki Tojo, 1884-1948",
+            "Educated in the Meiji era, 23 October 1868 - 30 July 1912",
+            "General of the Imperial Japanese Army, 1905-1945",
+            "Led the Second Sino-Japanese War, 7 July 1937 - 2 September 1945",
+            "Prime Minister of Japan, 18 October 1941 - 22 July 1944",
+            "Executed by hanging in the Sugamo Prison, 23 December 1948",
             "Doolittle's first bombs dropped 12h25 PM, 18 April 1942"
         ],
         "latitude": 35.700330532,
@@ -4558,21 +4580,39 @@
         "latitude": -0.30907,
         "longitude": 100.37055
     },
-    "Clark": {
-        "country": "⚔ Missouri (United States)",
+    "Naypyidaw": {
+        "country": "⚔ Burma (Myanmar)",
         "remarkable": [
-            "Omar Nelson Bradley, 1893-1981",
-            "West Point, 1 August 1911 - 12 June 1915",
-            "Brigadier General, 20 February 1941",
-            "Captured Bizerte (Tunisia), 7 May 1943",
-            "Operation Husky (Allied invasion of Sicily), 10 July 1943",
-            "Led U.S. First Army during the Normandy landings, 6 June 1944",
-            "Commander of the Twelfth United States Army Group, 14 July 1944",
-            "43 divisions and 1.3 million men (four field armies)",
-            "General of the Army, 22 September 1950"
+            "Burma campaign, December 1944 - 7 August 1945",
+            "Heitarō Kimura, 1888-1948",
+            "General of the Imperial Japanese Army, 1908-1945",
+            "Executed by hanging in the Sugamo Prison, 23 December 1948",
+            "Independence from the British Empire, 4 January 1948",
+            "Republic of the Union of Myanmar, 18 June 1989",
+            "Japanese invasion of Burma, 14 December 1941 - 28 May 1942"
         ],
-        "latitude": 39.269722,
-        "longitude": -92.342778
+        "latitude": 19.7475,
+        "longitude": 96.115
+    },
+    "Kohima": {
+        "country": "⚔ Nagaland (India)",
+        "remarkable": [
+            "Operation U-Go, 6 March 1944 - 22 June 1944",
+            "Japanese offensive against forces of the British Empire",
+            "Battle of Kohima, 4 April 1944 - 22 June 1944"
+        ],
+        "latitude": 25.66639,
+        "longitude": 94.10035
+    },
+    "Imphal": {
+        "country": "⚔ Manipur Kingdom (India)",
+        "remarkable": [
+            "Operation U-Go, 6 March 1944 - 22 June 1944",
+            "Japanese offensive against forces of the British Empire",
+            "Battle of Imphal, 8 March 1944 - 3 July 1944"
+        ],
+        "latitude": 24.8167,
+        "longitude": 93.95
     },
     "Dhaka": {
         "country": "Bangladesh",
