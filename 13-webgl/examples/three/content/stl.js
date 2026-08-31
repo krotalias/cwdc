@@ -1108,11 +1108,11 @@ function init(dfile) {
 
   /**
    * This class represents a scene with a basic room setup that
-   * can be used as input for {@link THREE.PMREMGenerator PMREMGenerator}#fromScene.
+   * can be used as input for {@link THREE.PMREMGenerator PMREMGenerator}.
    * The resulting {@link https://threejs.org/docs/#PMREMGenerator PMREM}
    * represents the room's lighting and
    * can be used for Image Based Lighting by assigning it to
-   * {@link THREE.Scene Scene}#environment or directly as an environment map to PBR materials.
+   * {@link THREE.Scene Scene} or directly as an environment map to PBR materials.
    * @class RoomEnvironment
    * @extends {THREE.Scene}
    * @memberof THREE
