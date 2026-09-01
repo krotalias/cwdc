@@ -4231,10 +4231,29 @@
             "Led the Second Sino-Japanese War, 7 July 1937 - 2 September 1945",
             "Prime Minister of Japan, 18 October 1941 - 22 July 1944",
             "Executed by hanging in the Sugamo Prison, 23 December 1948",
+            "Emperor Hirohito, 1901-1989",
+            "Reign, 25 December 1926 - 7 January 1989",
+            "Potsdam Declaration received, 26 July 1945",
+            "Announced Japan surrender, 15 August 1945",
             "Doolittle's first bombs dropped 12h25 PM, 18 April 1942"
         ],
         "latitude": 35.700330532,
         "longitude": 139.708997164
+    },
+    "USS Missouri": {
+        "country": "⚔ Tokyo Bay (Japan)",
+        "remarkable": [
+            "Launched, 29 January 1944",
+            "Decommissioned (reserve fleet), 26 February 1955",
+            "Reactivated, modernized and recommissioned, 10 May 1986",
+            "Decommissioned (still in Naval Vessel Register), 31 March 1992",
+            "Stricken, 12 January 1995",
+            "Permanently moored as a floating museum at Pearl Harbor, 4 May 1998",
+            "Japan surrender ceremony lasted only 23 minutes",
+            "Japan unconditional surrender 9h02 AM, 2 September 1945"
+        ],
+        "latitude": 35.350283,
+        "longitude": 139.7506
     },
     "Osaka": {
         "country": "⚔ Kansai (Japan)",
@@ -4487,13 +4506,22 @@
         "longitude": 113.54
     },
     "Saigon": {
-        "country": "Vietnam",
+        "country": "⚔ Vietnam",
         "remarkable": [
+            "Colony of France (French Indochina), 1887-1941",
+            "Vichy government under Japanese occupation, 1941 - 9 March 1945",
+            "Japanese Empire of Vietnam, 11 March 1945 - 30 August 1945",
+            "Vietnamese famine, 1944-1945",
             "Ho Chi Minh, 1890-1969",
+            "Viet Minh coalition, 19 May 1941",
             "1st President of the DR of Vietnam, 2 September 1945 - 2 September 1969",
+            "First Indochina War against France, 1946 - 1954",
+            "Associated states within the French Union, 1949-1954",
+            "Fall of Dien Bien Phu (defeat of French Union forces), 7 May 1954",
             "Vietnam War, 1 November 1955 - 30 April 1975",
             "Fall of Saigon, 30 April 1975",
-            "Socialist Republic of Vietnam, 25 April 1976"
+            "Socialist Republic of Vietnam, 25 April 1976",
+            "Japanise rule, 22 September 1940 - 2 September 1945"
         ],
         "latitude": 10.8225,
         "longitude": 106.754
@@ -6546,8 +6574,9 @@
             "Führer of the Nazi Party, 29 July 1921 - 30 April 1945",
             "Chancellor of Germany, 30 January 1933 - 30 April 1945",
             "WW II was the deadliest conflict in history, 1939-1945",
+            "The blood shed and horror of WW II is unprecedented in human history",
             "70 million casualties (soldiers and civilians)",
-            "Japan's capitulation, 2 September 1945"
+            "Germany unconditional surrender, 7 May 1945"
         ],
         "latitude": 48.25628,
         "longitude": 13.04343
