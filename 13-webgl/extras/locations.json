@@ -5119,8 +5119,8 @@
         "latitude": 33.08333,
         "longitude": 44.58333
     },
-    "Stalingrad": {
-        "country": "⚔ Russian Federation",
+    "Stalingrad (Volgograd)": {
+        "country": "⚔ Russia",
         "remarkable": [
             "Georgy Zhukov (Marshal), 1896-1974",
             "Vasily Zaitsev (Soviet sniper), 1915-1991",
@@ -5346,6 +5346,19 @@
         "latitude": 36.58718,
         "longitude": 36.17347
     },
+    "Kursk": {
+        "country": "⚔ Kursk Oblast (Russia)",
+        "remarkable": [
+            "Battle of Kursk, 5 July 1943 - 23 August 1943",
+            "Largest tank battle in history",
+            "Soviet victory over Nazi Germany",
+            "(5K x 3K) tanks, (1.9M x 780K) troops, and (3.5K x 2K) aircraft",
+            "Operation Citadel (German offensive), 5 July 1943 - 16 July 1943",
+            "Operation Kutuzov (Soviet counter-offensive), 12 July 1943 - 18 August 1943"
+        ],
+        "latitude": 51.7,
+        "longitude": 36.1
+    },
     "Amasya": {
         "country": "Ottoman Empire (Turkey)",
         "remarkable": [
@@ -5355,34 +5368,6 @@
         ],
         "latitude": 40.65,
         "longitude": 35.833056
-    },
-    "U-559": {
-        "country": "⚔ Germany",
-        "remarkable": [
-            "German Kriegsmarine started using 4-rotor Enigma (M4), 1 February 1942",
-            "Spotted by a RAF Sunderland, 30 October 1942",
-            "3 RN sailors retrieved Enigma key setting sheets and codebooks, 30 October 1942",
-            "Allowed code-breakers to decrypt 4-rotor U-boat Enigma, November 1942",
-            "U-559 sunk by depth charges from HMS Petard, 30 October 1942"
-        ],
-        "latitude": 31.783333,
-        "longitude": 33.4
-    },
-    "Kampala": {
-        "country": "Buganda (Uganda)",
-        "remarkable": [
-            "Kato Kintu Kakulukuku (first king), late 13th century - early 14th century",
-            "Founder of the Buganda Kingdom, 13th century",
-            "Protectorate of Uganda (British Empire), 18 June 1894 - 9 October 1962",
-            "Idi Amin Dada, 1928-2003",
-            "3rd President of Uganda, 25 January 1971 - 11 April 1979",
-            "Partnership with Muammar Gaddafi, 1972",
-            "Operation Entebbe (Air France flight rescue), 4 July 1976",
-            "Uganda-Tanzania War, 9 October 1978 - 3 June 1979",
-            "Exiled in Saudi Arabia, 11 April 1979 - 16 August 2003"
-        ],
-        "latitude": 0.313611,
-        "longitude": 32.581111
     },
     "Kibbutz Degania Alef": {
         "country": "Ottoman Empire (Israel)",
@@ -5545,6 +5530,20 @@
         "latitude": -2.325165366,
         "longitude": 34.83333
     },
+    "Arsuf": {
+        "country": "✝ Levant (Israel)",
+        "remarkable": [
+            "Third Crusade, 1189-1192",
+            "Levant, Sicily, Iberia, Balkans, Anatolia",
+            "Battle of Arsuf, 7 September 1191",
+            "Knights Hospitaller (rearguard of the crusader army) advance",
+            "forced Richard to regroup and launch a successful counter-attack",
+            "Decisive victory for Richard the Lion-Heart",
+            "which removed Saladin's air of invincibility, 7 September 1191"
+        ],
+        "latitude": 32.2012741949,
+        "longitude": 34.8099667601
+    },
     "Jaffa": {
         "country": "✝ Kingdom of Jerusalem (Palestine, Israel)",
         "remarkable": [
@@ -5617,6 +5616,18 @@
         "latitude": 43.413029,
         "longitude": 34.299316
     },
+    "Yalta": {
+        "country": "⚔ Crimea (Russia/Ukraine)",
+        "remarkable": [
+            "Yalita (ancient Greek colony), 100 BC",
+            "Annexed by the Russian Empire, 1783",
+            "Livadia Palace, 11 September 1911",
+            "Occupied by the German Army, 9 November 1941 - 16 April 1944",
+            "Yalta Conference (2nd big three meeting), 4 February 1945 - 11 February 1945"
+        ],
+        "latitude": 44.499444,
+        "longitude": 34.17
+    },
     "Cumania": {
         "country": "✝ Eastern Europe (Ukraine, Romania, Moldova)",
         "remarkable": [
@@ -5638,17 +5649,17 @@
         "latitude": 45.44675,
         "longitude": 33.98675
     },
-    "Yalta": {
-        "country": "⚔ Crimea (Russia/Ukraine)",
+    "U-559": {
+        "country": "⚔ Germany",
         "remarkable": [
-            "Yalita (ancient Greek colony), 100 BC",
-            "Annexed by the Russian Empire, 1783",
-            "Livadia Palace, 11 September 1911",
-            "Occupied by the German Army, 9 November 1941 - 16 April 1944",
-            "Yalta Conference (2nd big three meeting), 4 February 1945 - 11 February 1945"
+            "German Kriegsmarine started using 4-rotor Enigma (M4), 1 February 1942",
+            "Spotted by a RAF Sunderland, 30 October 1942",
+            "3 RN sailors retrieved Enigma key setting sheets and codebooks, 30 October 1942",
+            "Allowed code-breakers to decrypt 4-rotor U-boat Enigma, November 1942",
+            "U-559 sunk by depth charges from HMS Petard, 30 October 1942"
         ],
-        "latitude": 44.499444,
-        "longitude": 34.17
+        "latitude": 31.783333,
+        "longitude": 33.4
     },
     "Limassol": {
         "country": "✝ Cyprus",
@@ -5702,6 +5713,22 @@
         "latitude": 25.696667,
         "longitude": 32.644444
     },
+    "Kampala": {
+        "country": "Buganda (Uganda)",
+        "remarkable": [
+            "Kato Kintu Kakulukuku (first king), late 13th century - early 14th century",
+            "Founder of the Buganda Kingdom, 13th century",
+            "Protectorate of Uganda (British Empire), 18 June 1894 - 9 October 1962",
+            "Idi Amin Dada, 1928-2003",
+            "3rd President of Uganda, 25 January 1971 - 11 April 1979",
+            "Partnership with Muammar Gaddafi, 1972",
+            "Operation Entebbe (Air France flight rescue), 4 July 1976",
+            "Uganda-Tanzania War, 9 October 1978 - 3 June 1979",
+            "Exiled in Saudi Arabia, 11 April 1979 - 16 August 2003"
+        ],
+        "latitude": 0.313611,
+        "longitude": 32.581111
+    },
     "Suez Canal": {
         "country": "Egypt",
         "remarkable": [
@@ -5717,20 +5744,6 @@
         ],
         "latitude": 30.45499818,
         "longitude": 32.3499986
-    },
-    "Arsuf": {
-        "country": "✝ Levant (Israel)",
-        "remarkable": [
-            "Third Crusade, 1189-1192",
-            "Levant, Sicily, Iberia, Balkans, Anatolia",
-            "Battle of Arsuf, 7 September 1191",
-            "Knights Hospitaller (rearguard of the crusader army) advance",
-            "forced Richard to regroup and launch a successful counter-attack",
-            "Decisive victory for Richard the Lion-Heart",
-            "which removed Saladin's air of invincibility, 7 September 1191"
-        ],
-        "latitude": 32.2012741949,
-        "longitude": 34.8099667601
     },
     "Damietta": {
         "country": "✝ Egypt",
