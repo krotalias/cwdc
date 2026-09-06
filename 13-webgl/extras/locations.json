@@ -4347,6 +4347,20 @@
         "latitude": 32.75,
         "longitude": 129.88333
     },
+    "Punggye-ri ": {
+        "country": "☢ North Korea",
+        "remarkable": [
+            "1st test, 9 October 2006",
+            "2nd test, 25  May 2009",
+            "3th test, 12 February 2013",
+            "4th test, 6 January 2016",
+            "5th test, 9 September 2016",
+            "6th test, 3 September 2017",
+            "Six underground nuclear tests, 2006-2017"
+        ],
+        "latitude": 41.278056,
+        "longitude": 129.0875
+    },
     "Okinawa": {
         "country": "⚔ Japan",
         "remarkable": [
@@ -4358,7 +4372,7 @@
         "longitude": 127.933329
     },
     "Seoul": {
-        "country": "⚔ Korea",
+        "country": "⚔ South Korea",
         "remarkable": [
             "Taejo of Joseon, 1335-1408",
             "Founder of the Joseon Dynasty, 1392-1398",
