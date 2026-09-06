@@ -2140,6 +2140,16 @@
         "latitude": 10.666667,
         "longitude": -61.516667
     },
+    "Paria Peninsula": {
+        "country": "⚓ Venezuela",
+        "remarkable": [
+            "Columbus (third voyage), 5 August 1498",
+            "Península de Paria National Park, 12 December 1978",
+            "Gulf of Paria, 5 August 1498"
+        ],
+        "latitude": 10.7,
+        "longitude": -62.5
+    },
     "Charlottetown": {
         "country": "Prince Edward Island (Canada)",
         "remarkable": [
@@ -3868,6 +3878,20 @@
         "latitude": -16.499701,
         "longitude": -151.770538
     },
+    "Malden Island": {
+        "country": "☢ Kiribati",
+        "remarkable": [
+            "Operation Grapple (nine British atmospheric nuclear tests), 1957-1958",
+            "Three tests, May 1957 - June 1957",
+            "Second test series, 1958",
+            "Grapple X, November 1957",
+            "Grapple Y, April 1958",
+            "Grapple Z (four tests), August 1958 - September 1958",
+            "Moratorium on testing, October 1958"
+        ],
+        "latitude": -4.016667,
+        "longitude": -154.933333
+    },
     "Pai'ea": {
         "country": "Maui (United States)",
         "remarkable": [
@@ -4465,6 +4489,18 @@
         "latitude": 39.916668,
         "longitude": 116.383331
     },
+    "Montebello Islands": {
+        "country": "☢ Australia",
+        "remarkable": [
+            "Operation Hurricane (first British atomic device), 3 October 1952",
+            "First nuclear test in Australia, 3 October 1952",
+            "Operation Mosaic (two more nuclear tests), 1956",
+            "Second nuclear test in Australia, 15 May 1956",
+            "United Kingdom became the third nuclear power, 2 October 1952"
+        ],
+        "latitude": -20.405278,
+        "longitude": 115.566389
+    },
     "Handan": {
         "country": "China",
         "remarkable": [
@@ -4642,6 +4678,23 @@
         ],
         "latitude": 24.8167,
         "longitude": 93.95
+    },
+    "Lop Nur": {
+        "country": "☢ China",
+        "remarkable": [
+            "CHIC (Communist Hydrogen Bomb), 1964-1996",
+            "Project 596 (1st fission design test), 16 October 1964",
+            "CHIC-2 (1st airdrop bomb test), 14 May 1965",
+            "CHIC-4 (1st boosted fission bomb test), 27 October 1966",
+            "CHIC-5 / Project 629 (1st thermonuclear principle test), 28 December 1966",
+            "CHIC-6 (1st full scale thermonuclear (hydrogen) bomb test), 17 June 1967",
+            "CHIC-25 (atmospheric test), 14 December 1978",
+            "CHIC-27 (significant atmospheric test), 16 October 1980",
+            "Last official underground test, 29 July 1996",
+            "45 tests involving 45 devices, 1964-1996"
+        ],
+        "latitude": 40.166667,
+        "longitude": 90.583333
     },
     "Dhaka": {
         "country": "Bangladesh",
@@ -4874,6 +4927,16 @@
         "latitude": 33.693056,
         "longitude": 73.063889
     },
+    "Pokhran": {
+        "country": "☢ Rajasthan (India)",
+        "remarkable": [
+            "Pokhran-I (Smiling Buddha) first successful nuclear bomb test, 18 May 1974",
+            "Pokhran-II (Shakti) five further nuclear tests, 11 May 1998",
+            "Pokhran Test Range (PTR), September 1972"
+        ],
+        "latitude": 26.92,
+        "longitude": 71.92
+    },
     "Karachi": {
         "country": "British India (Pakistan)",
         "remarkable": [
@@ -4896,6 +4959,16 @@
         "latitude": 55.466667,
         "longitude": 65.35
     },
+    "Ras Koh Range": {
+        "country": "☢ Pakistan",
+        "remarkable": [
+            "Six Nuclear tests",
+            "Chagai-I (5 simultaneous underground nuclear tests), 28 May 1998",
+            "Chagai-II, 30 May 1998"
+        ],
+        "latitude": 28.828531,
+        "longitude": 65.194953
+    },
     "Yekaterinburg": {
         "country": "Russia",
         "remarkable": [
@@ -4909,16 +4982,6 @@
         ],
         "latitude": 56.942222,
         "longitude": 60.473333
-    },
-    "Paria Peninsula": {
-        "country": "⚓ Venezuela",
-        "remarkable": [
-            "Columbus (third voyage), 5 August 1498",
-            "Península de Paria National Park, 12 December 1978",
-            "Gulf of Paria, 5 August 1498"
-        ],
-        "latitude": 10.7,
-        "longitude": -62.5
     },
     "Ras al Hadd": {
         "country": "Oman",
@@ -4950,19 +5013,6 @@
         "latitude": 37.9375,
         "longitude": 58.38
     },
-    "Novaya Zemlya": {
-        "country": "☢ Russia",
-        "remarkable": [
-            "Designated as the nuclear weapons testing venue, 31 July 1954",
-            "Hosted 224 nuclear tests (265 megatons of TNT), 1955-1990",
-            "Tsar Bomba, most powerful thermonuclear weapon ever detonated, 30 October 1961",
-            "Significant amount of radioactive fallout spread across the Arctic",
-            "Largest underground test of a nuclear device, 12 September 1973",
-            "Key Dates for the Site, 21 September 1955 - 24 October 1990"
-        ],
-        "latitude": 73.807222,
-        "longitude": 54.981667
-    },
     "Port Louis": {
         "country": "Mauritius",
         "remarkable": [
@@ -4986,16 +5036,6 @@
         "latitude": 26.5666644,
         "longitude": 56.249999
     },
-    "Persepolis": {
-        "country": "Persia (Iran)",
-        "remarkable": [
-            "Xerxes I, 519-465 BC",
-            "Invasion of Greece, 480 BC",
-            "Destroyed by fire by Alexander the Great, 330 BC"
-        ],
-        "latitude": 29.9351669,
-        "longitude": 52.8904041
-    },
     "Dubai": {
         "country": "United Arab Emirates",
         "remarkable": [
@@ -5011,21 +5051,37 @@
         "latitude": 25.204722,
         "longitude": 55.270833
     },
-    "Caspian Sea": {
-        "country": "Central Eurasia",
+    "Novaya Zemlya": {
+        "country": "☢ Russia",
         "remarkable": [
-            "World's largest inland body of water",
-            "Tehran Convention, 4 November 2003",
-            "Framework Convention for the Protection of the Marine Environment",
-            "Islamic Republic of Iran, 11 February 1979",
-            "Republic of Azerbaijan, 18 October 1991",
-            "Republic of Kazakhstan, 10 December 1991",
-            "Republic of Turkmenistan, 26 December 1991",
-            "Russian Federation, 26 December 1991",
-            "Enforced (Caspian Sea Day), 12 August 2006"
+            "Designated as the nuclear weapons testing venue, 31 July 1954",
+            "Hosted 224 nuclear tests (265 megatons of TNT), 1955-1990",
+            "Tsar Bomba, most powerful thermonuclear weapon ever detonated, 30 October 1961",
+            "Significant amount of radioactive fallout spread across the Arctic",
+            "Largest underground test of a nuclear device, 12 September 1973",
+            "Key Dates for the Site, 21 September 1955 - 24 October 1990"
         ],
-        "latitude": 40,
-        "longitude": 51
+        "latitude": 73.807222,
+        "longitude": 54.981667
+    },
+    "Persepolis": {
+        "country": "Persia (Iran)",
+        "remarkable": [
+            "Xerxes I, 519-465 BC",
+            "Invasion of Greece, 480 BC",
+            "Destroyed by fire by Alexander the Great, 330 BC"
+        ],
+        "latitude": 29.9351669,
+        "longitude": 52.8904041
+    },
+    "Ras Hafun promontory": {
+        "country": "Somalia",
+        "remarkable": [
+            "Somali Peninsula (Horn of Africa)",
+            "Member of the Arab League, 1974"
+        ],
+        "latitude": 10.44372,
+        "longitude": 51.41157
     },
     "Tehran": {
         "country": "Iran",
@@ -5045,15 +5101,6 @@
         "latitude": 35.7248416,
         "longitude": 51.381653
     },
-    "Ras Hafun promontory": {
-        "country": "Somalia",
-        "remarkable": [
-            "Somali Peninsula (Horn of Africa)",
-            "Member of the Arab League, 1974"
-        ],
-        "latitude": 10.44372,
-        "longitude": 51.41157
-    },
     "Doha": {
         "country": "Qatar",
         "remarkable": [
@@ -5067,6 +5114,22 @@
         ],
         "latitude": 25.5,
         "longitude": 51.25
+    },
+    "Caspian Sea": {
+        "country": "Central Eurasia",
+        "remarkable": [
+            "World's largest inland body of water",
+            "Tehran Convention, 4 November 2003",
+            "Framework Convention for the Protection of the Marine Environment",
+            "Islamic Republic of Iran, 11 February 1979",
+            "Republic of Azerbaijan, 18 October 1991",
+            "Republic of Kazakhstan, 10 December 1991",
+            "Republic of Turkmenistan, 26 December 1991",
+            "Russian Federation, 26 December 1991",
+            "Enforced (Caspian Sea Day), 12 August 2006"
+        ],
+        "latitude": 40,
+        "longitude": 51
     },
     "Kharg Island": {
         "country": "Iran",
@@ -6855,22 +6918,6 @@
         "latitude": 44.2685063,
         "longitude": 10.9411886
     },
-    "Sommocolonia": {
-        "country": "⚔ Barga (Italy)",
-        "remarkable": [
-            "Brazilian Expeditionary Force",
-            "1st Fighter Squadron (P-47 fighter-bomber), 6 October 1944",
-            "Six squadrons staffed with about 10 pilots each",
-            "48 pilots, 5 killed, 8 bailed out, 6 sick, 3 died (flight accidents)",
-            "Total missions performed, 445",
-            "Total flight hours performed, 6144",
-            "Return to Rio de Janeiro, 18 July 1945",
-            "Presidential Unit Citation, 1986",
-            "Battle of Garfagnana, 26 December 1944 - 28 December 1944"
-        ],
-        "latitude": 44.0922,
-        "longitude": 10.4914
-    },
     "Vinci": {
         "country": "🔬 Italy",
         "remarkable": ["Leonardo da Vinci, 1452-1519", "Mona Lisa, 1513-1516"],
@@ -6889,6 +6936,22 @@
         ],
         "latitude": 52.3166654,
         "longitude": 10.5499978
+    },
+    "Sommocolonia": {
+        "country": "⚔ Barga (Italy)",
+        "remarkable": [
+            "Brazilian Expeditionary Force",
+            "1st Fighter Squadron (P-47 fighter-bomber), 6 October 1944",
+            "Six squadrons staffed with about 10 pilots each",
+            "48 pilots, 5 killed, 8 bailed out, 6 sick, 3 died (flight accidents)",
+            "Total missions performed, 445",
+            "Total flight hours performed, 6144",
+            "Return to Rio de Janeiro, 18 July 1945",
+            "Presidential Unit Citation, 1986",
+            "Battle of Garfagnana, 26 December 1944 - 28 December 1944"
+        ],
+        "latitude": 44.0922,
+        "longitude": 10.4914
     },
     "Pisa": {
         "country": "🔬 Duchy of Florence (Italy)",
@@ -7152,6 +7215,15 @@
         "latitude": 50.735278,
         "longitude": 7.102222
     },
+    "Domrémy la Pucelle": {
+        "country": "France",
+        "remarkable": [
+            "Jeanne d'Arc, 1412 - 30 May 1431",
+            "Siege of Orléans, 12 October 1428 - 8 May 1429"
+        ],
+        "latitude": 48.450001,
+        "longitude": 5.68333
+    },
     "Ardennes": {
         "country": "⚔ Belgium",
         "remarkable": [
@@ -7161,15 +7233,6 @@
         ],
         "latitude": 50.25,
         "longitude": 5.666667
-    },
-    "Domrémy la Pucelle": {
-        "country": "France",
-        "remarkable": [
-            "Jeanne d'Arc, 1412 - 30 May 1431",
-            "Siege of Orléans, 12 October 1428 - 8 May 1429"
-        ],
-        "latitude": 48.450001,
-        "longitude": 5.68333
     },
     "Liège": {
         "country": "Francia (Belgium)",
