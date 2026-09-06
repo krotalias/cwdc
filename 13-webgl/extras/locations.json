@@ -4736,6 +4736,24 @@
         "latitude": 6.93194,
         "longitude": 79.84778
     },
+    "Semipalatinsk Test Site": {
+        "country": "☢ Soviet Union (Kazakhstan)",
+        "remarkable": [
+            "RDS-1, first Soviet nuclear device, 29 August 1949",
+            "RDS-2, second nuclear explosive device, 24 September 1951",
+            "RDS-3, 18 October 1951",
+            "RDS-4, 23 August 1954",
+            "RDS-5, 20 October 1953",
+            "RDS-6s, first Soviet test of a hydrogen bomb, 12 August 1953",
+            "RDS-7, 29 September 1953",
+            "RDS-9, 19 August 1954",
+            "RDS-37, first test of a true hydrogen bomb, 22 November 1955",
+            "Closure but open to the public year-round, 29 August 1991",
+            "456 nuclear tests, 29 August 1949 - 19 October 1989"
+        ],
+        "latitude": 50.116667,
+        "longitude": 78.716667
+    },
     "Kanyakumari": {
         "country": "India",
         "remarkable": [
@@ -4931,6 +4949,19 @@
         ],
         "latitude": 37.9375,
         "longitude": 58.38
+    },
+    "Novaya Zemlya": {
+        "country": "☢ Russia",
+        "remarkable": [
+            "Designated as the nuclear weapons testing venue, 31 July 1954",
+            "Hosted 224 nuclear tests (265 megatons of TNT), 1955-1990",
+            "Tsar Bomba, most powerful thermonuclear weapon ever detonated, 30 October 1961",
+            "Significant amount of radioactive fallout spread across the Arctic",
+            "Largest underground test of a nuclear device, 12 September 1973",
+            "Key Dates for the Site, 21 September 1955 - 24 October 1990"
+        ],
+        "latitude": 73.807222,
+        "longitude": 54.981667
     },
     "Port Louis": {
         "country": "Mauritius",
