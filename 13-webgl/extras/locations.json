@@ -5382,6 +5382,15 @@
     "Moscow": {
         "country": "⚔ Russia",
         "remarkable": [
+            "Established, 1147",
+            "Ivan III Vasilyevich (Ivan the Great), 1440-1505",
+            "Grand Prince of Moscow and all Russia, 28 March 1462 - 27 October 1505",
+            "The Kremlin, 1482-1495",
+            "Ivan IV Vasilyevich (Ivan the Terrible), 1530-1584",
+            "Tsar of all Russia, 16 January 1547 - 18 March 1584",
+            "St. Basil's Cathedral, 1555 - 12 July 1561",
+            "Tenth chapel, 1588",
+            "UNESCO World Heritage Site, 7 December 1990",
             "Ioseb Besarionis dze Jughashvili (Joseph Stalin), 1878-1953",
             "Trotsky and Zinoviev expelled from CPRF, 12 November 1927",
             "Trotsky was deported from the Soviet Union, February 1929",
@@ -5945,12 +5954,20 @@
         "latitude": 31.439722,
         "longitude": 30.389444
     },
-    "Leningrad": {
-        "country": "⚔ Russia",
+    "Leningrad (Saint Petersburg)": {
+        "country": "⚔ Leningrad Oblast (Russia)",
         "remarkable": [
+            "Peter Alekseyevich Romanov (Peter I, Peter The Great), 1672-1725",
+            "Tsar of all Russia, 7 May 1682 - 2 November 1721",
+            "Naval service (Admiral), 1695-1721",
+            "Emperor of Russia, 2 November 1721 - 8 February 1725",
+            "Founder of Saint Petersburg, 27 May 1703",
+            "Petrograd, 31 August 1914 - 26 January 1924",
+            "Leningrad, 26 January 1924 - 6 September 1991",
+            "Restoration (original name), 6 September 1991",
             "Leningrad first, Donetsk Basin second, Moscow third, 6 August 1941",
             "Besieged by Germany and Finland for 872 days, but never captured",
-            "Most destructive and deadliest in history (1.5M deaths from a 3.2M pop.)",
+            "Most destructive and deadliest in history (1.5M deaths out of 3.2M)",
             "Siege of Leningrad, 8 September 1941 - 27 January 1944"
         ],
         "latitude": 59.9375,
