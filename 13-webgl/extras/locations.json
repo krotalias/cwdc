@@ -6397,6 +6397,21 @@
         "latitude": 45.7503869,
         "longitude": 19.5214468
     },
+    "Budapest": {
+        "country": "Hungary",
+        "remarkable": [
+            "Settled by Romans, 41",
+            "Stephen I of Hungary, 975-1038",
+            "King of Hungary, 25 December 1000",
+            "Canonized (Saint Stephen), 1083",
+            "Foundation Day of Hungary, 20 August 1092",
+            "Chain Bridge linking Buda with Pest, 20 November 1849",
+            "Austria-Hungary Empire, 30 March 1867",
+            "Buda and Pest officially merged, 17 November 1873"
+        ],
+        "latitude": 47.4925,
+        "longitude": 19.051389
+    },
     "Tromsø": {
         "country": "Norway",
         "remarkable": [
@@ -6612,6 +6627,23 @@
         ],
         "latitude": 40.751,
         "longitude": 14.487
+    },
+    "Prague": {
+        "country": "Czech Republic",
+        "remarkable": [
+            "Historical capital of Bohemia, 1198-1918",
+            "Charles University, 26 January 1347",
+            "Austria-Hungary Empire, 8 June 1867 - 3 November 1918",
+            "Independence from Austria-Hungary, 28 October 1918",
+            "Czecho-Slovakia state, 28 October 1918 - 29 February 1920",
+            "Czechoslovakia, 29 February 1920 - 31 December 1992",
+            "Czechoslovak Socialist Republic, 21 February 1948 - 17 November 1989",
+            "Velvet Revolution (ended communist rule), 17 November 1989 - 29 December 1989",
+            "Dissolution of Czechoslovakia, 31 December 1992",
+            "Creation of the Czech Republic, 1 January 1993"
+        ],
+        "latitude": 50.0875,
+        "longitude": 14.421389
     },
     "Naples": {
         "country": "Italy",
