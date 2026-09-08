@@ -5720,7 +5720,6 @@
         "remarkable": [
             "Bucharest Convention, 21 April 1992",
             "Protection of the Black Sea Against Pollution and its Protocols",
-            "Bulgaria independence from the Ottoman Empire, 22 Septemberber 1908",
             "Georgia reestablished a sovereign state, 26 May 1918",
             "Independence from USSR, 9 April 1991",
             "Romania independence from the Ottoman Empire, 28 April 1877",
@@ -6249,6 +6248,27 @@
         ],
         "latitude": 37.951389,
         "longitude": 23.566667
+    },
+    "Sofia": {
+        "country": "Bulgaria",
+        "remarkable": [
+            "Roman conquest of Serdica, 29 BC",
+            "Marcus Ulpius Traianus, 53-117",
+            "Roman emperor, 28 January 98 - 9 August 117",
+            "Ulpia Serdica, 117",
+            "Saint Sophia Church, 4th century",
+            "Grand basilica structure (Justinian I), 527-565",
+            "Renamed Sredets in the First Bulgarian Empire (Khan Krum), 809",
+            "Renamed Sofia, 1329",
+            "Conquered by the Ottomans, 1382",
+            "Capital of Bulgaria, 3 April 1879",
+            "Independence from the Ottoman Empire, 22 Septemberber 1908",
+            "Opened the border with Turkey (Big Excursion), 29 May 1989",
+            "Expulsion of Turks and Muslims from Bulgaria (300K), 1989",
+            "Todor Zhivkov (dictator) resigned, 10 November 1989"
+        ],
+        "latitude": 42.7,
+        "longitude": 23.33
     },
     "Chaeronea": {
         "country": "Greece",
