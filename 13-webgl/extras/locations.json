@@ -3651,6 +3651,25 @@
         "latitude": -27.15,
         "longitude": -109.45
     },
+    "Yellowstone": {
+        "country": "Wyoming (United States)",
+        "remarkable": [
+            "Lewis and Clark Expedition, 14 May 1804 - 23 September 1806",
+            "Sakakawea (Lemhi Shoshone), 1788-1812",
+            "John Colter, 7 July 1774 - 7 May 1812",
+            "1st American known to have entered the park, 1807-1808",
+            "Colter's Hell (Shoshone River), 1807-1808",
+            "Colter's Run (Blackfeet altercation, Montana), 1809",
+            "Joined Nathan Boone's rangers, March 1812",
+            "Died of jaundice (icterus), 7 May 1812",
+            "War of 1812, 18 June 1812 - 17 February 1815",
+            "Treaty of Ghent, 24 December 1814",
+            "UNESCO World Heritage Site, 26 September 1978",
+            "First national park (Ulysses S. Grant), 1 March 1872"
+        ],
+        "latitude": 44.6,
+        "longitude": -110.5
+    },
     "Calgary": {
         "country": "Alberta (Canada)",
         "remarkable": [
