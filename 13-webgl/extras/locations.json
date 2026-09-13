@@ -265,6 +265,25 @@
         "latitude": 53.41058,
         "longitude": -2.97794
     },
+    "Edinburgh": {
+        "country": "Scotland (United Kingdom)",
+        "remarkable": [
+            "Burgh charter, 1124",
+            "Burning of Edinburgh by the English, 7 May 1544",
+            "James VI of Scotland (Edinburgh Castle), 1567-1625",
+            "King of Scotland, 24 July 1567 - 27 March 1625",
+            "University of Edinburgh, 14 April 1582",
+            "Union of the Crowns (Scotland and England), 24 March 1603",
+            "King of England and Ireland, 24 March 1603 - 27 March 1625",
+            "Personal union with England and Ireland, 24 March 1603 - 1 May 1707",
+            "City status, 1633",
+            "Kingdom of Great Britain, 1 May 1707 - 1 January 1801",
+            "National Museum of Scotland, 1861-1866",
+            "Independence Recognized, 1 May 1328"
+        ],
+        "latitude": 55.953333,
+        "longitude": -3.189167
+    },
     "Moffat": {
         "country": "⚔ Scotland (United Kingdom)",
         "remarkable": [
@@ -310,6 +329,25 @@
         ],
         "latitude": 40.3999984,
         "longitude": -3.6833306
+    },
+    "Stirling": {
+        "country": "Scotland (United Kingdom)",
+        "remarkable": [
+            "Edward I (Hammer of the Scots ), 1239-1307",
+            "King of England, 20 November 1272 - 7 July 1307",
+            "Superior and Lord paramount of Scotland, 3 June 1291",
+            "English control over Scotland, 1291-1314",
+            "Sir William Wallace (Scottish knight), 1270-1305",
+            "Wars of Scottish Independence, 26 March 1296 - 1 May 1328",
+            "Battle of Stirling Bridge, 11 September 1297",
+            "English invasion of Scotland, 22 July 1298",
+            "Wallace was betrayed and captured, 3 August 1305",
+            "Hanged, drawn, and quartered, 23 August 1305",
+            "Battle of Bannockburn (Robert the Bruce), 23 June 1314",
+            "Treaty of Edinburgh-Northampton, 17 March 1328"
+        ],
+        "latitude": 56.13,
+        "longitude": -3.935
     },
     "Abidjan": {
         "country": "Côte d'Ivoire (Ivory Coast)",
