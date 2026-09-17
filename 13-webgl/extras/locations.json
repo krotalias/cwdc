@@ -5706,6 +5706,24 @@
         "latitude": 29.531944,
         "longitude": 35.005556
     },
+    "Judaea": {
+        "country": "Roman province (Israel)",
+        "remarkable": [
+            "Titus Flavius Vespasianus, 38-81",
+            "First Jewish-Roman War, 66-73",
+            "Charged of ending the Jewish rebellion, 69",
+            "Besieged and captured Jerusalem (destroyed the Second Temple), 70",
+            "Controversial relationship with the Jewish queen Berenice, 79",
+            "Roman Emperor, 24 June 79 - 13 September 81",
+            "1st Roman emperor to succeed his biological father (Flavian dynasty)",
+            "Imperial Relief and State Action following Vesuvius eruption, 24 August 79",
+            "Imperial Response to a fire in Rome (3 days and nights), Spring 80",
+            "Died of a fever and deified by the Roman Senate, 13 September 81",
+            "Succeded by his brother Domitian, 14 September 81 - 18 September 96"
+        ],
+        "latitude": 32.5,
+        "longitude": 34.9
+    },
     "Tel Aviv-Yafo": {
         "country": "Israel",
         "remarkable": [
@@ -6924,13 +6942,12 @@
             "Servius Sulpicius Galba, 3-69",
             "Assumed the throne following Nero's suicide, 8 June 68 - 15 January 69",
             "Succedded by Otho, who killed him, 15 January 69 - 16 April 69",
-            "Defeated by Vitellius, 19 April 69 - 20 December 69",
+            "Defeated by Vitellius and committed suicide, 19 April 69 - 20 December 69",
             "Second Battle of Bedriacum, 24 October 69",
-            "Titus Caesar Vespasianus, 9-79",
+            "Titus Caesar Vespasianus won the civil war, 9-79",
             "Emperor Vespasian, 21 December 69 - 23 June 79",
-            "Constructed the Colosseum, 70-80",
-            "Titus Flavius Caesar Vespasianus Augustus, 30-81",
-            "Emperor, 24 June 79 - 13 September 81"
+            "Constructed the Colosseum (Flavian Amphitheatre), 70-80",
+            "Year of the Four Emperors (Galba, Otho, Vitellius, and Vespasian), 69"
         ],
         "latitude": 41.447947,
         "longitude": 12.629053
