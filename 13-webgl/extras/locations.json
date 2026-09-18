@@ -5629,8 +5629,8 @@
             "Roman Emperor, 23 June 79 - 13 September 81",
             "Eleazar ben Ya'ir (Sicarii leader)",
             "First Jewish-Roman War, 66-73",
-            "Siege of Jerusalem, 70 BC",
-            "Destruction of the Second Temple, August 70 BC",
+            "Siege of Jerusalem, 70",
+            "Destruction of the Second Temple, August 70",
             "Siege and fall of Masada, 16 April 73"
         ],
         "latitude": 31.315556,
@@ -5678,6 +5678,25 @@
         ],
         "latitude": 33.2721211,
         "longitude": 35.1964023
+    },
+    "Betar": {
+        "country": "Roman province (Israel)",
+        "remarkable": [
+            "Roman province, 6 to 135",
+            "Simon bar Kokhba (Jewish military leader), ??-135",
+            "Publius Aelius Hadrianus (Hadrian), 76-138",
+            "Roman Emperor, 11 August 117 - 10 July 138",
+            "Rebuilt Jerusalem as Aelia Capitolina, 130",
+            "Bar Kokhba Revolt (Third Jewish-Roman War), 132-136",
+            "Ban on circumcision, Torah study and Sabbath observance, 132",
+            "General Sextus Julius Severus arrival, 133",
+            "Fall of Betar, 135",
+            "Province of Judaea was renamed Syria Palaestina, 135",
+            "Rome banned Jews from entering Jerusalem, 135",
+            "Aftermath: 580K Jews died and 50K enslaved, 132-136"
+        ],
+        "latitude": 31.693492,
+        "longitude": 35.118037
     },
     "Acre": {
         "country": "✝ Second Kingdom of Jerusalem (Israel)",
