@@ -468,6 +468,20 @@
         "latitude": 54.596,
         "longitude": -5.93
     },
+    "Italica": {
+        "country": "Roman Empire (Spain)",
+        "remarkable": [
+            "Marcus Ulpius Traianus (Roman general), 53-117",
+            "Adopted by Emperor Nerva, who was unpopular with the army, October 97",
+            "Roman emperor, 28 January 98 - 9 August 117",
+            "Second of the Five Good Emperors of the Nerva-Antonine dynasty",
+            "Expanded the Roman Empire to its farthest boundaries",
+            "Decided to adopt Hadrian, his cousin's son, as heir, 108",
+            "Trajan's Column (Rome), 12 May 113"
+        ],
+        "latitude": 37.443889,
+        "longitude": -6.046667
+    },
     "Dublin": {
         "country": "🎶 Republic of Ireland",
         "remarkable": [
