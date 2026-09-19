@@ -333,7 +333,7 @@
     "Stirling": {
         "country": "Scotland (United Kingdom)",
         "remarkable": [
-            "Edward I (Hammer of the Scots ), 1239-1307",
+            "Edward I (Hammer of the Scots), 1239-1307",
             "King of England, 20 November 1272 - 7 July 1307",
             "Superior and Lord paramount of Scotland, 3 June 1291",
             "English control over Scotland, 1291-1314",
@@ -6148,7 +6148,7 @@
             "Constantinople, founded by Constantine, 324",
             "Established, 11 May 330",
             "Latin Empire (fourth crusade), 1204-1261",
-            "Andronikos II Palaiologos (Byzantine emperor ), 1259-1332",
+            "Andronikos II Palaiologos (Byzantine emperor), 1259-1332",
             "Ottomans conquered the city (Mehmed II), 29 May 1453",
             "Abolishment of the Sultanate, 1 November 1922",
             "Mehmed VI exiled (persona non grata), 17 November 1922",
@@ -7009,10 +7009,32 @@
         "latitude": 41.902782,
         "longitude": 12.496366
     },
+    "Mausoleum of Augustus": {
+        "country": "Piazza Augusto Imperatore (Italy)",
+        "remarkable": [
+            "Gaius Octavius (Octavianus), 63 BC - 14 AD",
+            "First Roman emperor (Augustus), 16 January 27 BC - 19 August 14 AD",
+            "Adopted by Julius Caesar in his will, 15 March 44 BC",
+            "March on Rome (youngest elected consul), August 43 BC",
+            "Second Triumvirate regime (He, Antony and Lepidus), 27 November 43 BC - 31 December 33 BC",
+            "Battle of Philippi, 3 October 42 BC",
+            "Lepidus exiled, 36 BC",
+            "Marcus Agrippa (son in law) defeated Antony in Greece, 31 BC",
+            "Princeps, Augustus, Pater Patriae, Pontifex Maximus, month of August, 27 BC",
+            "Established the Praetorian Guard, 27 BC",
+            "Coinaged reform of Augustus, 23 BC",
+            "Official police and fire-fighting services (Vigiles Urbani) in Rome, 6",
+            "Enlarged the Empire: Egypt, Dalmatia, Pannonia, Noricum, Raetia",
+            "possessions in Africa, conquest of Hispania",
+            "Posthumously deified, 19 August 14"
+        ],
+        "latitude": 41.90611,
+        "longitude": 12.47639
+    },
     "Vatican City": {
         "country": "Holy See (Vatican City State)",
         "remarkable": [
-            "Vatican obelisk (Emperor Caligula ), 37",
+            "Vatican obelisk (Emperor Caligula), 37",
             "Constantinian basilica (tomb of Saint Peter), 326",
             "Gian Lorenzo Bernini (architect and city planner), 1598-1680",
             "Piazza San Pietro, 1656-1667",
