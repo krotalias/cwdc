@@ -6803,11 +6803,21 @@
     "Naples": {
         "country": "Italy",
         "remarkable": [
-            "Giuseppe Garibaldi, 1807-1882",
-            "Anita Garibaldi, 1821-1849",
+            "Giuseppe Maria Garibaldi, 1807-1882",
+            "Sentenced to death in absentia by a Genoese military court, 3 June 1834",
+            "Fled to Rio de Janeiro, 1835",
+            "Ana Maria de Jesus Ribeiro (Anita Garibaldi), 1821-1849",
             "Ragamuffin War (Guerra dos Farrapos), 20 September 1835 - 1 March 1845",
             "Commander of the ragamuffin navy, 1 September 1838",
-            "Imperial forces recaptured Laguna (Garibaldi fled with Anita), 5 November 1839"
+            "Garibaldi met Anita, July 1839",
+            "Imperial forces recaptured Laguna (fled with Anita), 5 November 1839",
+            "Garibaldi and Anita moved to Montevideo, 17 June 1841",
+            "Uruguayan Civil War, 1839-1851",
+            "Garibaldi commanded the Uruguayan navy, 1843-1845",
+            "Defeated in the Costa Brava combat (Argentina), 15 August 1842",
+            "Battle of Sant'Antonio, 8 February 1846",
+            "Returned to Italy (First Italian War of Independence), 1848",
+            "Anita Garibaldi died (Mandriole, Italy), 4 August 1849"
         ],
         "latitude": 40.8521602,
         "longitude": 14.2681244
@@ -7443,6 +7453,26 @@
         ],
         "latitude": 36.8825,
         "longitude": 7.75
+    },
+    "Palazzo Carignano": {
+        "country": "Turin (Italy)",
+        "remarkable": [
+            "Vittorio Emanuele Maria Alberto, 1820-1878",
+            "First Italian War of Independence, 23 March 1848 - 22 March 1849",
+            "King of Sardinia (Duke of Savoy), 23 March 1849 - 17 March 1861",
+            "Second Italian War of Independence, 26 April 1859 - 12 July 1859",
+            "Excommunication from the Church (Pope Pius IX), 26 March 1860",
+            "1st King of Italy (Victor Emmanuel II), 17 March 1861 - 9 January 1878",
+            "Expedition of the Thousand (Giuseppe Garibaldi), 1860-1861",
+            "Battle of Castelfidardo over the Papal forces, 28 August 1860",
+            "Third Italian War of Independence, 20 June 1866 - 12 August 1866",
+            "Entered Rome, 20 September 1870",
+            "Rome became the capital of Italy, 2 July 1871",
+            "UNESCO World Heritage Site, 1997",
+            "National Museum of the Italian Risorgimento, 1878"
+        ],
+        "latitude": 45.068889,
+        "longitude": 7.686111
     },
     "Basel": {
         "country": "🔬 Swiss Confederacy",
