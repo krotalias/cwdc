@@ -6748,7 +6748,7 @@
             "Contracted to design a people's car (or 'Volkswagen'), 1934",
             "Replaced the Czechoslovak citizenship for a German citizenship, 1934",
             "Volkswagen in France as part of war reparations, November 1945",
-            "Arrested by French authorities as war a criminal, 15 December 1945",
+            "Arrested by French authorities as a war criminal, 15 December 1945",
             "Condemned to pay 1M francs (ransom or bail?) and released, 1 August 1947",
             "Returned to Stuttgart, 1949",
             "Suffered a stroke and died, 30 January 1951",
@@ -7438,6 +7438,22 @@
         "remarkable": ["Johannes Gutenberg, 1393-1468", "Printing press, 1440"],
         "latitude": 49.98419,
         "longitude": 8.2791
+    },
+    "Kalkriese": {
+        "country": "Lower Saxony (Germany)",
+        "remarkable": [
+            "Publius Quinctilius Varus (Roman general), 46 BC - 9 AD",
+            "Arminius (Germanic chieftain, Roman traitor), 18 BC - 21 AD",
+            "Battle of the Teutoburg Forest, 8 September 9 - 11 September 9",
+            "Roman legions XVII, XVIII, XIX destroyed by Germanic tribes",
+            "Roman Empire lost control of Germania Magna",
+            "Roman Empire never again attempted to conquer Germania Magna",
+            "Emperor Augustus, 63 BC - 14 AD",
+            "Quintilius Varus, give me back my legions!",
+            "Roman legions ambushed in Teutoburg forest, 8 September 9"
+        ],
+        "latitude": 52.4078722,
+        "longitude": 8.1260942
     },
     "Hippo Regius": {
         "country": "Annaba Province (Algeria)",
