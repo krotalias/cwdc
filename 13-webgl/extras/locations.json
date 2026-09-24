@@ -7034,6 +7034,19 @@
             "Caesar arrived in Alexandria, 2 October 48 BC",
             "Ptolemy XIII Theos Philopator drowned in the Nile, 13 January 47 BC",
             "Ptolemy XV Caesarion (Caesar's son), 47-30 BC",
+            "Cleopatra traveled to Rome as a client queen of Egypt, 46-44 BC",
+            "Caesar was titled Dictator perpetuo, 15 February 44 BC"
+        ],
+        "latitude": 41.902782,
+        "longitude": 12.496366
+    },
+    "Theatre of Pompey": {
+        "country": "Italy",
+        "remarkable": [
+            "Gnaeus Pompeius Magnus (Pompey the Great), 106-48 BC",
+            "First Triumvirate (Caesar, Pompey and Crassus), 60-53 BC",
+            "Theatre of Pompey, 55 BC",
+            "Pompey's Theatre was the first permanent theatre in Rome",
             "Ides of March assassination, 15 March 44 BC",
             "Ptolemy XIV died (Cleopatra's brother), August 44 BC",
             "Cleopatra co-ruled with Caesarion, 2 September 44 BC",
@@ -7044,8 +7057,8 @@
             "Cleopatra committed suicide, 10 August 30 BC",
             "Caesarion executed in Alexandria, 29 August 30 BC"
         ],
-        "latitude": 41.902782,
-        "longitude": 12.496366
+        "latitude": 41.8953,
+        "longitude": 12.4736
     },
     "Mausoleum of Augustus": {
         "country": "Piazza Augusto Imperatore (Italy)",
