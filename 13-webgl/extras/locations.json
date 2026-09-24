@@ -5472,7 +5472,19 @@
     },
     "Carrhae": {
         "country": "Turkey",
-        "remarkable": ["Marcus Licinius Crassus, 115-53 BC", "Executed, 53 BC"],
+        "remarkable": [
+            "Marcus Licinius Crassus, 115-53 BC",
+            "Commander under Lucius Cornelius Sulla Felix, 88-80 BC",
+            "The richest man in Rome (200M sesterces)",
+            "Slave trafficking, silver mines and speculative real estate",
+            "Trial regarding the Vestal Virgin Licinia (criminal intimacy), 73 BC",
+            "Crassus errare humanum est (Crassus erred but he was human)",
+            "Departed Rome with 7 legions and 4K cavalry, 14 November 55 BC",
+            "Ignorred the safest route (Armênia) to Mesopotamia and marched through the desert",
+            "Defeated by 9K archers (Parthian shot) and Parthian Cataphract, 53 BC",
+            "Parthians poured molten gold down his throat (rumours?)",
+            "Battle of Carrhae (executed), 9 June 53 BC"
+        ],
         "latitude": 36.8666632,
         "longitude": 39.0333332
     },
