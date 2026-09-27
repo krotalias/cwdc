@@ -4106,9 +4106,12 @@
         "country": "⚔ American Samoa (United States)",
         "remarkable": [
             "Partition of Samoa, 2 December 1899",
-            "Treaty of Cession of Tutuila, 1900",
-            "Treaty of Cession of Manu'a, 1904",
+            "Treaty of Cession of Tutuila, 17 April 1900",
+            "Treaty of Cession of Manu'a, 14 July 1904",
             "Ratification Act, 20 February 1929",
+            "Unincorporated Territory",
+            "American Citizenship not granted at birth",
+            "U.S. nationals can live, work and vote in the U.S.",
             "American Citizenship not granted at birth",
             "Japanese invasion, 11 January 1942",
             "Liberation of American Samoa, 30 August 1942"
@@ -4119,6 +4122,7 @@
     "Midway": {
         "country": "⚔ United States",
         "remarkable": [
+            "U.S. occupied and claimed the atol, 28 August 1867",
             "Raymond A. Spruance (Admiral), 1886-1969",
             "Task Force 16 (Carriers Enterprise and Hornet)",
             "Battle of Midway, 4 June 1942 - 7 June 1942"
@@ -5262,7 +5266,7 @@
         "longitude": 51.41157
     },
     "Tehran": {
-        "country": "Iran",
+        "country": "⚔ Iran",
         "remarkable": [
             "Sasanian Empire, 224-651",
             "Battle of Hormozdgan (ended Parthian dynasty), 28 April 224",
@@ -5271,10 +5275,10 @@
             "Naser al-Din Shah Qajar, 1831-1896",
             "Sun Throne, 5 September 1848",
             "Pahlavi dynasty, 1925-1979",
-            "Tehran Conference (big three 1st meeting), 28 November 1943 - 1 December 1943",
             "Mohammad Reza Pahlavi, Former Shah of Iran, 1919-1980",
             "Reign, 16 September 1941 - 11 February 1979",
-            "Ayatollah Ruhollah Khomeini declared an Islamic Republic, April 1979"
+            "Ayatollah Ruhollah Khomeini declared an Islamic Republic, April 1979",
+            "Tehran Conference (big three 1st meeting), 28 November 1943 - 1 December 1943",
         ],
         "latitude": 35.7248416,
         "longitude": 51.381653
