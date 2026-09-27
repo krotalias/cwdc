@@ -3607,6 +3607,28 @@
         "latitude": 19.432608,
         "longitude": -99.133209
     },
+    "Black Hills": {
+        "country": "South Dakota (United States)",
+        "remarkable": [
+            "Subrange of the greater Rocky Mountain system",
+            "Lakota took the territory from the Cheyenne and Arapaho, 1776-1780",
+            "George Armstrong Custer (Lt. Colonel), 1839-1876",
+            "Black Hills Expedition (gold rush swept in miners), 2 July 1874",
+            "7th Cavalry (1.2K men) arrived in the Black Hills, 22 July 1874",
+            "There is no doubt as to the existence of various metals",
+            "throughout the hills including gold, 15 August 1874",
+            "Gold discovered in the Black Hills (treaty violated), 1874",
+            "Sitting Bull (Tȟatȟáŋka Íyotake), 1831-1890",
+            "Battle of the Little Bighorn, 25 June 1876",
+            "Crazy Horse Surrendered to U.S. forces, May 1877",
+            "Stabbed and killed inf Fort Robinson, 5 September 1877",
+            "Sitting Bull moved to Wood Mountain (Canada), May 1877 - 1881",
+            "Performed with Buffalo Bill's Wild West, 12 June 1885 - October 1885",
+            "Shot and killed in Fort Yates, 15 December 1890"
+        ],
+        "latitude": 43.865848,
+        "longitude": -103.532432
+    },
     "Regina": {
         "country": "Saskatchewan (Canada)",
         "remarkable": [
@@ -3621,6 +3643,51 @@
         ],
         "latitude": 50.454722,
         "longitude": -104.606667
+    },
+    "Kaycee": {
+        "country": "Buffalo (United States)",
+        "remarkable": [
+            "Johnson County War, 1892",
+            "Wyoming Stock Growers Association (WSGA), 4 April 1872",
+            "Cattle barons (mainly Republicans)",
+            "Northern Wyoming Farmers and Stock Growers Association, 1892",
+            "Small homesteaders and independent ranchers",
+            "The Invaders (WSGA recruited 23 gunmen from Texas), March 1892",
+            "Nate Champion killed at the KC Ranch, 9 April 1892",
+            "Invaders surrounded in TA ranch for 3 days, 11 April 1892",
+            "Governor Barber telegraphed President Benjamin Harrison, 12 april 1892",
+            "Sixth Cavalry from Fort McKinney came to rescue them, 13 April 1892",
+            "A friendly and corrupted judicial system dropped the charges",
+            "on the excuse that Johnson County refused to pay for the",
+            "costs of the long prosecution ($18K dollars), January 1893",
+            "Dudley Champion killed, 24 May 1893"
+        ],
+        "latitude": 43.71194,
+        "longitude": -106.63918
+    },
+    "Fort Phil Kearny,": {
+        "country": "Wyoming (United States)",
+        "remarkable": [
+            "First Fort Laramie Treaty, 17 September 1851",
+            "Assigned the western Powder River area and surrounding",
+            "Yellowstone tributaries to the Crow Nation",
+            "Pike's Peak gold rush, July 1858 - 1861",
+            "Colorado Territory, 28 February 1861",
+            "Red Cloud, 1822-1909",
+            "Red Cloud's War, 1866-1868",
+            "Lakota Sioux, Northern Cheyenne, and Northern Arapaho",
+            "Colonel Henry B. Carrington, 1824-1912",
+            "Fort Phil Kearny, 13 July 1866 - August 1868",
+            "Crazy Horse, 1840-1877",
+            "William Judd Fetterman, 1833-1866",
+            "Enlisted (1st Lt.), 14 March 1861",
+            "Regular Army (Captain), 1865",
+            "Fetterman Fight (81 soldiers killed), 21 December 1866",
+            "Wagon Box Fight (1st Sioux War), 2 August 1867",
+            "Treaty of Fort Laramie, 17 November 1868"
+        ],
+        "latitude": 44.570782,
+        "longitude": -106.839233
     },
     "Tularosa": {
         "country": "☢ New Mexico (United States)",
