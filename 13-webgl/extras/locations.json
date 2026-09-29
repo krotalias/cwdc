@@ -4384,6 +4384,8 @@
     "Tesendiap": {
         "country": "⚔ Papua New Guinea",
         "remarkable": [
+            "Territory of Papua (Australian territory), 1 September 1906",
+            "Independence as Papua New Guinea, 16 September 1975",
             "The Phantom is a symbol for tough fighters in PNG",
             "The Ghost Who Walks",
             "Guardian of the Eastern Dark",
@@ -4402,6 +4404,17 @@
         ],
         "latitude": 24.7833302,
         "longitude": 141.3166654
+    },
+    "Jayapura": {
+        "country": "⚔ New Guinea (Indonesia)",
+        "remarkable": [
+            "Captain F.J.P. Sachse (Dutch navy), 28 September 1909",
+            "Hollandia, 7 March 1910 - 1962",
+            "Occupied by Japanese forces, 19 April 1942",
+            "Douglas MacArthur's headquarters, 21 April 1944 - March 1945"
+        ],
+        "latitude": -2.533,
+        "longitude": 140.717
     },
     "Adélie Land": {
         "country": "Géologie Archipelago, Antarctica (France)",
@@ -4803,6 +4816,7 @@
     "Singapore": {
         "country": "⚔ Republic of Singapore",
         "remarkable": [
+            "Island country (Pulau Ujong + 60 satellite islands)",
             "British governor Stamford Raffles, 28 January 1819",
             "Battle of Singapore, 8 February 1942 - 15 February 1942",
             "Japanese occupation, 15 February 1942 - 12 September 1945",
