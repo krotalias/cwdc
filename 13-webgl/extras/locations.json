@@ -4657,14 +4657,32 @@
         "latitude": 31.65083073,
         "longitude": 119.023833238
     },
-    "Borneo": {
-        "country": "⚔ Indonesia",
+    "Tarakan": {
+        "country": "⚔ (North Kalimantan) Indonesia",
         "remarkable": [
+            "Part of the Borneo island",
+            "Large oil refinery center (East Indies), 1940",
+            "Battle of Tarakan, 11 January 1942",
             "Leslie Morshead (Lieutenant General), 1889-1959",
             "Borneo campaign, 1 May 1945 - 21 Jul 1945"
         ],
         "latitude": 3.354681,
         "longitude": 117.596543
+    },
+    "Samarinda": {
+        "country": "(East Kalimantan) Indonesia",
+        "remarkable": [
+            "Part of the Borneo island",
+            "Sultan Hasanuddin, 1631-670",
+            "16th Ruler of The Sultanate of Gowa, 1653-1669",
+            "Indonesian National Hero, 6 November 1973",
+            "Kingdom of Gowa surrendered to Hasanuddin, ",
+            "Treaty of Bongaja, 19 November 1667",
+            "Founded, 1668",
+            "Established as a city, 26 June 1959"
+        ],
+        "latitude": -0.5,
+        "longitude": 117.137778
     },
     "Feng Town": {
         "country": "China",
