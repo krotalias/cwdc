@@ -4409,7 +4409,7 @@
         "country": "⚔ New Guinea (Indonesia)",
         "remarkable": [
             "Captain F.J.P. Sachse (Dutch navy), 28 September 1909",
-            "Hollandia, 7 March 1910 - 1962",
+            "Hollandia, 7 March 1910 - 1 October 1962",
             "Occupied by Japanese forces, 19 April 1942",
             "Douglas MacArthur's headquarters, 21 April 1944 - March 1945"
         ],
@@ -4711,6 +4711,19 @@
         ],
         "latitude": 39.916668,
         "longitude": 116.383331
+    },
+    "Kota Kinabalu": {
+        "country": "Malaysian Borneo (Malasya)",
+        "remarkable": [
+            "Sir Charles Jessel (1st Baronet DL), 1860-1928",
+            "British North Borneo Chartered Company (NBCC), 1 November 1881",
+            "Jesselton founded, 16 November 1899",
+            "Malaysian control of the Borneo territories, 16 September 1963",
+            "Jesselton renamed Kota Kinabalu, 22 December 1967",
+            "KK city status, 2 February 2000"
+        ],
+        "latitude": 5.975,
+        "longitude": 116.0725
     },
     "Montebello Islands": {
         "country": "☢ Australia",
