@@ -4495,6 +4495,17 @@
         "latitude": 43.10562,
         "longitude": 131.87353
     },
+     "Batanta": {
+        "country": "Southwest Papua (Indonesia)",
+        "remarkable": [
+            "Part of the Raja Ampat Islands (Four Kings)",
+            "Economic ties with the Sultanate of Tidore, 1500-1600",
+            "Historically under the rule of the Salawati Kingdom",
+            "Captain William Wilson named the Pitt Strait, 1759"
+        ],
+        "latitude": -0.867778,
+        "longitude": 130.6575
+    },
     "Kagoshima": {
         "country": "⚔ Kyushu (Japan)",
         "remarkable": [
@@ -4736,6 +4747,22 @@
         ],
         "latitude": -20.405278,
         "longitude": 115.566389
+    },
+    "Bandar Seri Begawan": {
+        "country": "Brunei",
+        "remarkable": [
+            "Kampong Ayer built on mudflats, 1363-1402",
+            "Venice of the East, 1521",
+            "Brunei Town declared the capital, 1920",
+            "Renamed in honour of Omar Ali Saifuddien III, 4 October 1970",
+            "Malcolm Stewart Hannibal McArthur, 1872-1934",
+            "Colonial administrator, November 1902",
+            "Dispatched to Brunei, April 1904",
+            "Petroleum and natural gas reserves discovered, 1929",
+            "8th Richest Country in the World, 2026"
+        ],
+        "latitude": 4.890278,
+        "longitude": 114.942222
     },
     "Handan": {
         "country": "China",
