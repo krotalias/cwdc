@@ -3713,17 +3713,31 @@
             "Arrived in New York City, 2 January 1939",
             "First controlled, self-sustaining nuclear chain reaction, 2 December 1942",
             "Died from stomach cancer (caused by nuclear pile?), 28 November 1954",
-            "Los Alamos Laboratory, 1 January 1943",
-            "John von Neumann visit, September 1943",
+            "Manhattan Engineer District (NYC), 13 August 1942",
+            "Los Alamos was the site designated as Project Y during WW II, December 1942"
+        ],
+        "latitude": 35.880556,
+        "longitude": -106.303889
+    },
+    "Los Alamos": {
+        "country": "⚔ ☢ 🧪 New Mexico (United States)",
+        "remarkable": [
+            "Julius Robert Oppenheimer, 1904-1967",
+            "First director, 19 October 1942 - 16 October 1945",
+            "Died from throat cancer, 18 February 1967",
+            "John von Neumann, 20 September 1943 - 1945",
+            "Created explosive Lenses to eliminate the star-shaped",
+            "jetting of the implosion",
+            "Died of pancreatic and bone cancer, 8 February 1957",
             "Fat Man, an implosion-type nuclear weapon",
             "Little Boy, a variant using uranium-235",
             "The Trinity Test, 16 July 1945",
             "Atomic Energy Act, 1 August 1946",
             "Atomic Energy Commission (AEC), 1 January 1947",
-            "Manhattan Engineer District (NYC), 13 August 1942"
+            "Los Alamos National Laboratory, 1 January 1943"
         ],
-        "latitude": 35.880556,
-        "longitude": -106.303889
+        "latitude": 35.878333,
+        "longitude": -106.318611
     },
     "Sandia": {
         "country": "🧪 Albuquerque, New Mexico (United States)",
@@ -6743,6 +6757,25 @@
         ],
         "latitude": 47.4925,
         "longitude": 19.051389
+    },
+    "Báthory utca": {
+        "country": "🔬 Budapest (Hungary)",
+        "remarkable": [
+            "John von Neumann, 1903-1957",
+            "Maybe the most influential scientist of the 20th century",
+            "von Neumann-Bernays-Gödel set theory (NBG), 1925",
+            "Minimax theorem (game theory), 1928",
+            "Ergodic theory, 1932",
+            "Mathematical Foundations of Quantum Mechanics, 1932",
+            "Lattice theory (theory of partially ordered sets), 1935",
+            "Topological groups, 1938",
+            "Los Alamos consultant, 1943-1945",
+            "First Draft of a Report on the EDVAC",
+            "(von Neumann architecture), 30 June 1945",
+            "United States Atomic Energy Commission, 15 March 1955 - 8 February 1957"
+        ],
+        "latitude": 47.5061,
+        "longitude": 19.052
     },
     "Tromsø": {
         "country": "Norway",
