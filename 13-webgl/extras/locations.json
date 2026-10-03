@@ -3335,10 +3335,12 @@
     "Lemont": {
         "country": "⚔ 🧪 Illinois (United States)",
         "remarkable": [
-            "Argonne National Laboratory, 8 February 1946",
+            "Metallurgical Laboratory of the University of Chicago",
+            "Met Lab, February 1942 - 1 July 1946",
             "Enrico Fermi's nuclear reactors for the Manhattan Project",
             "Focused on uranium fission, reactor design, and plutonium chemistry",
-            "Metallurgical Laboratory of the University of Chicago, January 1942 - July 1946"
+            "First controlled, self-sustaining nuclear chain reaction, 2 December 1942",
+            "Argonne National Laboratory, 1 July 1946"
         ],
         "latitude": 41.709166,
         "longitude": -87.981992
@@ -3517,6 +3519,19 @@
         ],
         "latitude": 42.034534,
         "longitude": -93.620369
+    },
+    "Lamar": {
+        "country": "Missouri (United States)",
+        "remarkable": [
+            "Harry S. Truman, 1884-1972",
+            "U.S. Army Field Artillery Colonel, 1905-1953",
+            "34th U.S. Vice President, 20 January, 1945",
+            "Authorized the use of nuclear weapons against Japan, 24 July 1945",
+            "33th U.S. President, 12 April 1945 - 20 January 1953",
+            "22nd Amendment (maximum two terms), 27 February 1951"
+        ],
+        "latitude": 37.497778,
+        "longitude": -94.279167
     },
     "Omaha": {
         "country": "Nebraska (United States)",
@@ -3704,33 +3719,31 @@
         "longitude": -106.019666588
     },
     "Project Y": {
-        "country": "⚔ ☢ 🧪 🏆 New Mexico (United States)",
+        "country": "⚔ New Mexico (United States)",
         "remarkable": [
             "Leslie Richard Groves Jr. (Lieutenant General), 1896-1970",
-            "Director of the Manhattan Project, 23 September 1942",
-            "Enrico Fermi, 1901-1954",
-            "Nobel Prize in Physics, 10 December 1938",
-            "Arrived in New York City, 2 January 1939",
-            "First controlled, self-sustaining nuclear chain reaction, 2 December 1942",
-            "Died from stomach cancer (caused by nuclear pile?), 28 November 1954",
             "Manhattan Engineer District (NYC), 13 August 1942",
-            "Los Alamos was the site designated as Project Y during WW II, December 1942"
+            "Director of the Manhattan Project, 23 September 1942",
+            "Oppenheimer was recruited, 19 October 1942",
+            "Enrico Fermi relocated from Met Lab, September 1944",
+            "Los Alamos was designated as Project Y during WW II, December 1942"
         ],
         "latitude": 35.880556,
         "longitude": -106.303889
     },
     "Los Alamos": {
-        "country": "⚔ ☢ 🧪 New Mexico (United States)",
+        "country": "⚔ 🧪 New Mexico (United States)",
         "remarkable": [
             "Julius Robert Oppenheimer, 1904-1967",
-            "First director, 19 October 1942 - 16 October 1945",
+            "Harvard University (BA), September 1922 - 28 May 1925",
+            "Physics at Cambridge, September 1925 - September 1926",
+            "University of Göttingen (PhD), September 1926 - 11 May 1927",
+            "First director, 25 February 1943 - 16 October 1945",
             "Died from throat cancer, 18 February 1967",
             "John von Neumann, 20 September 1943 - 1945",
             "Created explosive Lenses to eliminate the star-shaped",
             "jetting of the implosion",
             "Died of pancreatic and bone cancer, 8 February 1957",
-            "Fat Man, an implosion-type nuclear weapon",
-            "Little Boy, a variant using uranium-235",
             "The Trinity Test, 16 July 1945",
             "Atomic Energy Act, 1 August 1946",
             "Atomic Energy Commission (AEC), 1 January 1947",
@@ -3738,6 +3751,15 @@
         ],
         "latitude": 35.878333,
         "longitude": -106.318611
+    },
+    "Jornada del Muerto": {
+        "country": "⚔ ☢ Trinity Site, New Mexico (United States)",
+        "remarkable": [
+            "Implosion-design plutonium bomb tested",
+            "The Trinity Test, 16 July 1945"
+        ],
+        "latitude": 33.6772,
+        "longitude": -106.4753
     },
     "Sandia": {
         "country": "🧪 Albuquerque, New Mexico (United States)",
@@ -3771,10 +3793,14 @@
         "longitude": -106.650278
     },
     "Socorro": {
-        "country": "⚔ ☢ New Mexico (United States)",
+        "country": "New Mexico (United States)",
         "remarkable": [
+            "Juan de Oñate y Salazar, 1550-1626",
+            "Led Spanish settlers through the Jornada del Muerto, June 1598",
+            "Nuestra Señora de Perpetuo Socorro, 1626",
             "New Mexico Institute of Mining and Technology (New Mexico Tech), 1889",
-            "The first-ever test of a nuclear weapon (Trinity), 16 July 1945"
+            "Founded as the New Mexico School of Mines, 5 September 1893",
+            "Renamed to New Mexico Institute of Mining and Technology, 1951"
         ],
         "latitude": 34.051389,
         "longitude": -106.888333
@@ -3904,14 +3930,14 @@
     "Livermore": {
         "country": "🧪 🏆 California (United States)",
         "remarkable": [
-            "Lawrence Livermore National Laboratory (LLNL), 2 September 1952",
             "Ernest Orlando Lawrence, 1901 - 1958",
             "University of South Dakota (B.A. in Chemistry), 1919-1922",
             "University of Minnesota (M.A. in Physics), 1922-1923",
             "University of Chicago, 1923-1924",
             "Yale University (Ph.D. in Physics), 1925",
             "1st Director of the Berkeley Radiation Laboratory, 1931-1958",
-            "Nobel Prize in Physics (invention of the cyclotron), 10 December 1939"
+            "Nobel Prize in Physics (invention of the cyclotron), 10 December 1939",
+            "Lawrence Livermore National Laboratory (LLNL), 2 September 1952"
         ],
         "latitude": 37.69,
         "longitude": -121.71
@@ -4487,11 +4513,7 @@
     "Hiroshima": {
         "country": "⚔ ☢ Chūgoku (Japan)",
         "remarkable": [
-            "Harry S. Truman, 1884-1972",
-            "U.S. Army Field Artillery Colonel, 1905-1953",
-            "34th U.S. Vice President, 20 January, 1945",
-            "33th U.S. President, 12 April 1945 - 20 January 1953",
-            "22nd Amendment (maximum two terms), 27 February 1951",
+            "Little Boy (uranium-235), 6 August 1945",
             "Atomic Bombing (135K casualties), 6 August 1945"
         ],
         "latitude": 34.4,
@@ -4542,11 +4564,7 @@
     "Nagasaki": {
         "country": "⚔ ☢ Kyushu (Japan)",
         "remarkable": [
-            "Julius Robert Oppenheimer, 1904-1967",
-            "First director of Los Alamos Laboratory, 25 February 1943 - 16 October 1945",
-            "Harvard University (BA), September 1922 - 28 May 1925",
-            "Physics at Cambridge, September 1925 - September 1926",
-            "University of Göttingen (PhD), September 1926 - 11 May 1927",
+            "Fat Man, an implosion-type nuclear weapon, 9 August 1945",
             "Atomic Bombing (64K casualties), 9 August 1945"
         ],
         "latitude": 32.75,
@@ -7224,6 +7242,19 @@
         ],
         "latitude": 41.841389,
         "longitude": 12.5325
+    },
+    "Via Gaeta": {
+        "country": "🏆 Rome (Italy)",
+        "remarkable": [
+            "Enrico Fermi, 1901-1954",
+            "Nobel Prize in Physics, 10 December 1938",
+            "Arrived in New York City, 2 January 1939",
+            "First controlled, self-sustaining nuclear chain reaction, 2 December 1942",
+            "U.S. citizenship, 11 July 1944",
+            "Died from stomach cancer (caused by nuclear pile?), 28 November 1954"
+        ],
+        "latitude": 41.9062,
+        "longitude": 12.5034
     },
     "Rome": {
         "country": "Italy",
