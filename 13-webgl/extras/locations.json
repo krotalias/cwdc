@@ -1113,7 +1113,7 @@
             "General Tasso Fragoso, 1869-1945",
             "General Mena Barreto, 1874-1933",
             "Admiral Isaías de Noronha, 1873-1963",
-            "Getúlio Vargas provisional government, 3 November 1930 - 20 July 1934",
+            "Vargas provisional government, 3 November 1930 - 20 July 1934",
             "Exiled in Europe and U.S, 20 November 1930 - 18 September 1947"
         ],
         "latitude": -22.370833,
@@ -1917,11 +1917,7 @@
             "Followed the 'crisis of the fake letters' in the Military Club, 1922",
             "Cdr. of the 1st Frontier Battalion (Batalhão Ferroviário) of Santo Ângelo, 1923",
             "Prestes column to depose Artur Bernardes by fighting in 13 states",
-            "1.5K men traversed 25K km, 27 December 1924 - 23 March 1927",
-            "Exiled in Bolivia, Buenos Aires and Montevidéu, 1927-1931",
-            "Communist Manifest, 29 May 1930",
-            "Arrested em Buenos Aires and moved to Montevideo, 2 October 1930",
-            "Sent to USSR with his mother and sisters, 7 November 1931 - 29 December 1934"
+            "1.5K men traversed 25K km, 27 December 1924 - 23 March 1927"
         ],
         "latitude": -28.2995,
         "longitude": -54.2615
@@ -2059,6 +2055,21 @@
         ],
         "latitude": -25.298249,
         "longitude": -57.622533
+    },
+    "La Gaíba": {
+        "country": "Brazil-Bolivia",
+        "remarkable": [
+            "Prestes column (620 men) arrived in Bolivia, 3 February 1927",
+            "Met Astrojildo Pereira (PCB), December 1927",
+            "Moved to Buenos Aires, June 1928 - October 1930",
+            "Communist Manifest, 29 May 1930",
+            "José Félix Uriburu coup d'état, 6 September 1930",
+            "Prestes was arrested, 2 October 1930",
+            "Forced to move to Montevideo with his mother and 4 sisters, 3 October 1930",
+            "Sent to USSR with Leocádia and sisters, 7 November 1931 - 29 December 1934"
+        ],
+        "latitude": -17.772222,
+        "longitude": -57.720278
     },
     "Stanley": {
         "country": "Falkland Islands (United Kingdom)",
