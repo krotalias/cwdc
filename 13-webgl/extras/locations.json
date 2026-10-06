@@ -1291,6 +1291,26 @@
         "latitude": -22.91,
         "longitude": -43.18
     },
+    "Forte de Copacabana": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Fort Copacabana, 28 September 1914",
+            "João Roma de Abreu e Lima (unofficial history), 24 June 1903 - 1986",
+            "Siqueira Campos pointed a pistol to the general's head and",
+            "ordered him to jump from the wall onto the stones on the beach,",
+            "A sargent who convinced Campos otherwise, saved him, 4 July 1922",
+            "Euclides da Fonseca (fort commander) left to negotiate and was",
+            "arrested but had ordered Campos to bombard the city and",
+            "blow up the fort after 2h, which he could not obey, 5 July 1922",
+            "The last privates were released in the morning:",
+            "'You are not cowards, as the officers who already ran away'",
+            "said Campos. However, when he saw the few privates from",
+            "the night shift coming to dutty, he shouted:",
+            "'Join the revolt and come with me to fight!', 6 July 1922"
+        ],
+        "latitude": -22.985822,
+        "longitude": -43.184885
+    },
     "Palácio do Conde dos Arcos": {
         "country": "Rio de Janeiro (Brazil)",
         "remarkable": [
@@ -1443,6 +1463,22 @@
         "latitude": -21.317778,
         "longitude": -43.746944
     },
+    "Volta Redonda": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Companhia Siderúrgica Nacional (CSN), 9 April 1941",
+            "National Steel Mill financed ($20M dollars) by U.S. and U.K.",
+            "Washington Accords, 23 May 1942",
+            "Precursor to Brazil's formal entry into World War II",
+            "Vargas Decree-Law No. 4,352, 1 June 1942",
+            "Companhia Brasileira de Mineração e Siderurgia S.A. and",
+            "Itabira de Mineração S.A. merged to form the",
+            "Companhia Vale do Rio Doce (Vale S.A.), 1 June 1942",
+            "Brazil sent a division with 25K men to WW II, 22 August 1942"
+        ],
+        "latitude": -22.512631,
+        "longitude": -44.11287
+    },
     "Rio Claro": {
         "country": "São Paulo (Brazil)",
         "remarkable": [
@@ -1458,33 +1494,10 @@
             "and was arrested, 4 July 1922",
             "Campos and Gomes survived (badly wounded), 6 July 1922",
             "Siqueira Campos joined the Coluna Prestes, 1924-1927",
-            "Went to Buenos Aires to meet with Luís Carlos Prestes",
-            "to try to convince him to not release a communist manifesto",
-            "Fatal plane crash in Rio da Prata on the way back, 10 May 1930",
             "18 of the Fort, 4 July 1922 - 6 July 1922"
         ],
         "latitude": -22.72306,
         "longitude": -44.13556
-    },
-    "Forte de Copacabana": {
-        "country": "Rio de Janeiro (Brazil)",
-        "remarkable": [
-            "Fort Copacabana, 28 September 1914",
-            "João Roma de Abreu e Lima (unofficial history), 24 June 1903 - 1986",
-            "Siqueira Campos pointed a pistol to the general's head and",
-            "ordered him to jump from the wall onto the stones on the beach,",
-            "A sargent who convinced Campos otherwise, saved him, 4 July 1922",
-            "Euclides da Fonseca (fort commander) left to negotiate and was",
-            "arrested but had ordered Campos to bombard the city and",
-            "blow up the fort after 2h, which he could not obey, 5 July 1922",
-            "The last privates were released in the morning:",
-            "'You are not cowards, as the officers who already ran away'",
-            "said Campos. However, when he saw the few privates from",
-            "the night shift coming to dutty, he shouted:",
-            "'Join the revolt and come with me to fight!', 6 July 1922"
-        ],
-        "latitude": -22.98329,
-        "longitude": -44.18759
     },
     "São Luiz": {
         "country": "Maranhão (Brazil)",
@@ -1968,11 +1981,9 @@
             "Constitutional government, 16 July 1934 - 10 November 1937",
             "FDR meeting, 26 November 1936",
             "Denied visas to Jewish refugees persecuted by Nazis, 25 May 1937",
-            "New State constitution (dictatorship), 10 November 1937 - 29 October 1945",
             "Outlawed all political parties, 2 December 1937",
-            "Brazilian steel mill CSN (Volta Redonda), 9 April 1941",
             "CLT (Consolidation of Labor Laws), 1 May 1943",
-            "Led Brazil into World War II (division with 25K men), 22 August 1942"
+            "New State constitution (dictatorship), 10 November 1937 - 29 October 1945"
         ],
         "latitude": -28.6499974,
         "longitude": -56.0
@@ -2009,6 +2020,17 @@
         ],
         "latitude": -15.5966,
         "longitude": -56.0962
+    },
+    "Playa Ramírez": {
+        "country": "Montevideo-Brazil (Uruguay)",
+        "remarkable": [
+            "Siqueira Campos, 1898-1930",
+            "Went to Buenos Aires to meet Luís Carlos Prestes",
+            "to convince him to not release a communist manifesto",
+            "Fatal plane crash in Rio da Prata on the way back, 10 May 1930"
+        ],
+        "latitude": -34.9,
+        "longitude": -56.16667
     },
     "Montevideo": {
         "country": "🐇 Uruguay",
@@ -7498,7 +7520,8 @@
     "Sommocolonia": {
         "country": "⚔ Barga (Italy)",
         "remarkable": [
-            "Brazilian Expeditionary Force",
+            "Brazilian Expeditionary Force, 13 August 1943 - 6 June 1945",
+            "FEB (Smoking Snakes) combats, September 1944 - May 1945",
             "1st Fighter Squadron (P-47 fighter-bomber), 6 October 1944",
             "Six squadrons staffed with about 10 pilots each",
             "48 pilots, 5 killed, 8 bailed out, 6 sick, 3 died (flight accidents)",
