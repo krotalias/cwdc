@@ -1136,6 +1136,23 @@
         "latitude": -22.88197,
         "longitude": -42.01133
     },
+    "Timóteo": {
+        "country": "Minas Gerais (Brazil)",
+        "remarkable": [
+            "Companhia Aços Especiais Itabira (Acesita), 31 October 1944",
+            "▼ Bank of Brasil corporate control, 1951 - November 1992",
+            "▲ Rebranded to ArcelorMittal Inox Brasil, 2007",
+            "▲ Aperam South America (spun off from ArcelorMittal), 2011",
+            "Founders:",
+            "• Amyntas Jacques de Moraes, 1898-1977",
+            "• Athos Lemos Rache, 1903-1993",
+            "• Percival Farquhar, 1865-1953",
+            "Farquhar left Brazil, 1952",
+            "Died in New York, 4 August 1953"
+        ],
+        "latitude": -19.5822,
+        "longitude": -42.6417
+    },
     "Viçosa": {
         "country": "Minas Gerais (Brazil)",
         "remarkable": [
@@ -1471,9 +1488,11 @@
             "Washington Accords, 23 May 1942",
             "Precursor to Brazil's formal entry into World War II",
             "Vargas Decree-Law No. 4,352, 1 June 1942",
-            "Companhia Brasileira de Mineração e Siderurgia S.A. and",
-            "Itabira de Mineração S.A. merged to form the",
-            "Companhia Vale do Rio Doce (Vale S.A.), 1 June 1942",
+            "Itabira Iron Ore Company (Percival Farquhar), 1911",
+            "▼ Companhia Brasileira de Mineração e Siderurgia S.A. (CBMS), 1939",
+            "▼ Itabira de Mineração S.A., 1941",
+            "CBMS and Itabira de Mineração expropriated and merged (CVRD)",
+            "▲ Companhia Vale do Rio Doce (Vale S.A.), 1 June 1942",
             "Brazil sent a division with 25K men to WW II, 22 August 1942"
         ],
         "latitude": -22.512631,
