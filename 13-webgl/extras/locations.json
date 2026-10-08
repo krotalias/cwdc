@@ -1432,6 +1432,22 @@
         "latitude": -22.90189,
         "longitude": -43.22619
     },
+    "Itabira": {
+        "country": "Minas Gerais (Brazil)",
+        "remarkable": [
+            "Itabira Iron Ore Company (British financiers), 1911",
+            "Acquired by American entrepreneur Percival Farquhar, 1919",
+            "Aggressive concession contract from federal government, 1920",
+            "Monopoly over the export and transport of Brazilian iron ore",
+            "Unfulfilled promise to construct a steel mill to industrialize the ore",
+            "Clash between foreign monopoly and Vargas' economic nationalism, 1930s",
+            "Split to pretend the company was Brazilian, 1939",
+            "▼ Companhia Brasileira de Mineração e Siderurgia S.A. (CBMS), 1939",
+            "▼ Itabira de Mineração S.A., 1941"
+        ],
+        "latitude": -19.651946,
+        "longitude": -43.258657
+    },
     "Ouro Preto": {
         "country": "Minas Gerais (Brazil)",
         "remarkable": [
@@ -1488,9 +1504,6 @@
             "Washington Accords, 23 May 1942",
             "Precursor to Brazil's formal entry into World War II",
             "Vargas Decree-Law No. 4,352, 1 June 1942",
-            "Itabira Iron Ore Company (Percival Farquhar), 1911",
-            "▼ Companhia Brasileira de Mineração e Siderurgia S.A. (CBMS), 1939",
-            "▼ Itabira de Mineração S.A., 1941",
             "CBMS and Itabira de Mineração expropriated and merged (CVRD)",
             "▲ Companhia Vale do Rio Doce (Vale S.A.), 1 June 1942",
             "Brazil sent a division with 25K men to WW II, 22 August 1942"
@@ -1595,6 +1608,31 @@
         ],
         "latitude": -23.5514,
         "longitude": -46.6328
+    },
+    "Araxá": {
+        "country": "Minas Gerais (Brazil)",
+        "remarkable": [
+            "Walther Moreira Salles (banker and diplomat), 1912-2001",
+            "Ambassador to the U.S. in Washington, D.C., 12 June 1952 - 18 August 1953",
+            "Ambassador to the U.S. in Washington, D.C., 23 July 1959 - 16 February 1961",
+            "Djalma Guimarães (geologist) discoveed a large pyrochlore deposit, 1953",
+            "Companhia Brasileira de Metalurgia e Mineração (CBMM), 25 October 1955",
+            "Brazil holds 98.5% of known global niobium reserves",
+            "Controls 80% of the world niobium market",
+            "Strong technology program to increase niobium applications",
+            "• High-strength, low-alloy steels (HSLA)",
+            "• Superalloys for aerospace components (jet engines and turbine blades)",
+            "• Ultra-fast charging lithium-ion batteries",
+            "• Superconducting magnets for MRI scanners",
+            "Arthur William Radford, 1896-1973",
+            "U.S. Navy admiral, 1916-1957",
+            "Commander of the U.S. Pacific Fleet, 7 April 1949 - 1 August 1950",
+            "Member of the board of U.S. mining company Molycorp, 18 December 1957",
+            "Convinced Sales to back and invest in a mining endeavor, 1960",
+            "Group Moreira Salles acquired 70% of the company (100% in 2006), 1965"
+        ],
+        "latitude": -19.6653,
+        "longitude": -46.9286
     },
     "Brodowski": {
         "country": "São Paulo (Brazil)",
@@ -2026,8 +2064,8 @@
             "Minister of War, 5 December 1936 - 3 August 1945",
             "Visited FEB in Italy, 24 September 1944",
             "16th President of Brazil, 31 January 1946 - 31 January 1951",
-            "Constitution of 1946, 18 September 1946",
             "Prohibition of gambling in Brazil, 30 April 1946",
+            "Constitution of 1946, 18 September 1946",
             "Economic stabilization plan (SALTE), 1 May 1948",
             "Created the Superior School of War (ESG), 20 August 1949",
             "TV Tupi (first TV broadcasting), 18 September 1950",
