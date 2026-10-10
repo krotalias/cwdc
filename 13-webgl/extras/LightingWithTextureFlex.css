@@ -1,6 +1,6 @@
 :root {
     /* canvas for texture width percentage */
-    --canvasimgw: 0.42;
+    --canvasimgw: 0.5;
     /* canvas width and height */
     --canvasw: 900px;
     --canvash: 600px;

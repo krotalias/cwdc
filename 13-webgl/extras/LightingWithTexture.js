@@ -34,7 +34,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
- * <li>Around the World in 541 <a href="../images/Bunny.mp4">Historical Figures</a>:
+ * <li>Around the World in 553 <a href="../images/Bunny.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
