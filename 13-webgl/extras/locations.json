@@ -1448,6 +1448,33 @@
         "latitude": -19.651946,
         "longitude": -43.258657
     },
+    "Duque de Caxias": {
+        "country": "Rio de Janeiro (Brazil)",
+        "remarkable": [
+            "Luís Alves de Lima e Silva, 1803-1880",
+            "Royal Military Academy, 4 May 1818 - 1821",
+            "Emperor's Battalion, 18 January 1823",
+            "Siege of Salvador, 28 March 1823 - 2 July 1823",
+            "Captain, 22 January 1824",
+            "Cisplatine War, 1827",
+            "Ragamuffin War, 20 September 1835",
+            "Lieutenant Colonel, 12 September 1837",
+            "Balaiada revolt (Maranhão), 13 December 1838 - 4 March 1841",
+            "Baron of Caxias, 18 July 1841",
+            "President of Rio Grande do Sul, 9 November 1842 - 11 March 1846",
+            "Peace of Poncho Verde, 1 March 1845",
+            "Ended a 10 year civil war, 20 September 1835 - 1 March 1845",
+            "Count of Caxias, 25 March 1845",
+            "Platine War, 18 August 1851 - 3 February 1852",
+            "Lieutenant general, 3 March 1852",
+            "Marquis of Caxias, 26 June 1852",
+            "War of Paraguay, 13 December 1864 - 1 March 1870",
+            "Captured Asunción and returned to Brazil, 1 January 1869",
+            "Duke of Caxias, 23 March 1869"
+        ],
+        "latitude": -22.785833,
+        "longitude": -43.311944
+    },
     "Ouro Preto": {
         "country": "Minas Gerais (Brazil)",
         "remarkable": [
@@ -1802,11 +1829,8 @@
             "Duelled and killed Onofre Pires, 27 February 1844",
             "David José Martins (General Canabarro), 1796-1867",
             "Battle of Porongos (Black Lancers Massacre), 14 November 1844",
-            "Luís Alves de Lima e Silva (Baron of Caxias), 1803-1880",
-            "President of Rio Grande do Sul, 9 November 1842 - 11 March 1846",
-            "Offered a 25% protectionist tariff on imported charque, 25 February 1845",
-            "Peace of Poncho Verde, 1 March 1845",
-            "Ended a 10 year civil war, 20 September 1835 - 1 March 1845"
+            "25% protectionist tariff on imported charque, 25 February 1845",
+            "Peace of Poncho Verde, 1 March 1845"
         ],
         "latitude": -29.943,
         "longitude": -51.7168
@@ -1853,7 +1877,7 @@
             "Gaspar da Silveira Martins, 1835-1901",
             "Judge in Rio, 1858-1860",
             "Minister of Finance, 1878-1879",
-            "Senator of Rio Grande do Sul, 1880-1889",
+            "Senator from Rio Grande do Sul, 1880-1889",
             "Exiled in Europe after the fall of the Empire, 1889",
             "Returned after Deodoro's amnesty, 1892"
         ],
@@ -1934,6 +1958,7 @@
             "Revolução Federalista, 1893-1895",
             "Battle of Passo Fundo, 27 June 1894",
             "Stabbed in the back by Manço de Paiva, 8 September 1915",
+            "Guanabara st. renamed Pinheiro Machado, 1915",
             "Cacimbinhas renamed Pinheiro Machado, 30 October 1915"
         ],
         "latitude": -31.5783,
@@ -1972,7 +1997,7 @@
     "Cruz Alta": {
         "country": "Rio Grande do Sul (Brazil)",
         "remarkable": [
-            "Júlio Prates de Castilhos, 1860-1903",
+            "Júlio Prates de Castilhos (republican, chimango), 1860-1903",
             "Law School (FDUSP), 15 November 1882",
             "President of Rio Grande do Sul, 15 July 1891 - 12 November 1891",
             "State Constitution, 14 July 1891",
@@ -1980,6 +2005,8 @@
             "Castilhismo has strongly influenced Borges de Medeiros and Vargas",
             "Deposed by Deodoro da Fonseca's coup, 3 November 1891",
             "President of Rio Grande do Sul, 25 January 1893 - 24 January 1898",
+            "Convenção de Bagé (Bagé Convention), 31 March 1892",
+            "Gaspar da Silveira Martins acclaimed Federalist leader (maragato)",
             "Federalist revolution (War of the Beheadings), 2 February 1893 - 23 August 1895",
             "Adão Latorre (maragato beheader), 1835-1923",
             "Massacre of Rio Negro (300 chimangos beheaded), 28 November 1893",
