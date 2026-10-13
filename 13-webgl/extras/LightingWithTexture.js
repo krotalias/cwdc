@@ -3342,6 +3342,18 @@ const handleKeyPress = ((event) => {
   }
 
   /**
+   * Zoom in/out the tooltip size by changing the CSS variable --tipsize
+   * @param {Number} scale scale factor.
+   * @global
+   */
+  function setTipSize(scale) {
+    document.documentElement.style.setProperty(
+      "--tipsize",
+      `${tipsize * scale}`,
+    );
+  }
+
+  /**
    * <p>Handler for keydown events.</p>
    * @param {KeyboardEvent} event keyboard event.
    * @callback key_event callback to handle a key pressed.
@@ -3477,6 +3489,7 @@ const handleKeyPress = ((event) => {
             : getModelData(new THREE.SphereGeometry(globeRadius, 48, 24)),
           name: "sphere",
         });
+        setTipSize(mscale);
         setPosition(currentLocation);
         displayLocations();
         break;
@@ -3492,6 +3505,7 @@ const handleKeyPress = ((event) => {
           (${theModel.name}
           level ${theModel.level(tri)} →
           ${tri} triangles):`;
+        setTipSize(mscale);
         setPosition(currentLocation);
         displayLocations();
         break;
@@ -3646,21 +3660,13 @@ const handleKeyPress = ((event) => {
       case "ArrowUp":
         mscale *= zoomfactor;
         mscale = Math.max(gscale * 0.1, mscale);
-        // zoom in/out the tooltip size by changing the CSS variable --tipsize
-        document.documentElement.style.setProperty(
-          "--tipsize",
-          `${tipsize * mscale}`,
-        );
+        setTipSize(mscale);
         updateLocation(0, true, false);
         break;
       case "ArrowDown":
         mscale /= zoomfactor;
         mscale = Math.min(gscale * 3, mscale);
-        // zoom in/out the tooltip size by changing the CSS variable --tipsize
-        document.documentElement.style.setProperty(
-          "--tipsize",
-          `${tipsize * mscale}`,
-        );
+        setTipSize(mscale);
         updateLocation(0, true, false);
         break;
       case "Meta":
