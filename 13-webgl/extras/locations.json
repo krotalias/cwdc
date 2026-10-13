@@ -5531,6 +5531,24 @@
         "latitude": 73.807222,
         "longitude": 54.981667
     },
+    "Pasargadae": {
+        "country": "Persia (Iran)",
+        "remarkable": [
+            "Darius I (the Great), 550-486 BC",
+            "King of Kings of the Achaemenid Empire, 29 September 522 BC - October 486 BC",
+            "Bridge of Darius (760 m), 513 BC",
+            "Designed and built by Mandrocles of Samos, 513 BC",
+            "Built across the Bosphorus Strait to connect Asia and Europe",
+            "aiming at conquering the nomadic Scythians people",
+            "Completely neutralized by scorched-earth tactics and guerrilla warfare",
+            "Scythian campain (Ukraine, Balkans, southern Russia), 513-512 BC",
+            "Fleet Campaign (Mardonius, 600 ships), 492 BC",
+            "Disaster at Mount Athos (lost half fleet to a storm), 492 BC",
+            "First Persian invasion of Greece, 492-490 BC"
+        ],
+        "latitude": 30.2,
+        "longitude": 53.179444
+    },
     "Persepolis": {
         "country": "Persia (Iran)",
         "remarkable": [
@@ -5540,6 +5558,24 @@
         ],
         "latitude": 29.9351669,
         "longitude": 52.8904041
+    },
+    "Anshan": {
+        "country": "Persia (Iran)",
+        "remarkable": [
+            "Astyages (Cyrus' grandfather?), 620?-550 BC",
+            "Last king of the Median Empire, 585-550 BC",
+            "Cyrus the Great, 600-530 BC",
+            "Shahanshah of Persia, 559-530 BC",
+            "Battle of Pasargadae (capture of Ecbatana), 550 BC",
+            "King of Media, 550-530 BC",
+            "Battle of Thymbra (defeat of Croesus), December 547 BC",
+            "King of Lydia, 547-530 BC",
+            "Battle of Opis (Nabonidus Chronicle), September 539 BCE",
+            "King of Babylon, 539-530 BC",
+            "Killed in battle against queen Tomyris of the Massagetae, 530 BC"
+        ],
+        "latitude": 30.011389,
+        "longitude": 52.408611
     },
     "Ras Hafun promontory": {
         "country": "Somalia",
@@ -6750,9 +6786,10 @@
         "country": "Greece",
         "remarkable": [
             "Themistocles, 524-459 BC",
+            "Governor of Magnesia, 465-459 BC",
             "Persuaded the Athenians to build a fleet of 200 triremes, 483 BC",
             "Battle of Salamis, 26 September 480 BC",
-            "Governor of Magnesia, 465-459 BC"
+            "Second Persian invasion of Greece (Xerxes I), 480-479 BC"
         ],
         "latitude": 37.951389,
         "longitude": 23.566667
@@ -6839,7 +6876,7 @@
         "remarkable": [
             "Leonidas, 540-480 BC",
             "King of city-state Sparta, 489 BC",
-            "Second Persian invasion of Greece, 481 BC"
+            "Second Persian invasion of Greece, 480 BC"
         ],
         "latitude": 37.0811452,
         "longitude": 22.4248618

@@ -34,7 +34,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
- * <li>Around the World in 553 <a href="../images/Bunny.mp4">Historical Figures</a>:
+ * <li>Around the World in 557 <a href="../images/Bunny.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
@@ -445,7 +445,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 541 historical figures</a>.</p>
+ * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 557 historical figures</a>.</p>
  * <p>When a child has to study history, he/she is generally not able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -3468,7 +3468,7 @@ const handleKeyPress = ((event) => {
         displayLocations();
         break;
       case "s":
-        gscale = mscale = 1;
+        gscale = mscale = 1.3;
         globeRadius = sphereRadius;
         element.models.value = "5";
         theModel = createModel({
