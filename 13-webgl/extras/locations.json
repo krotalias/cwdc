@@ -5535,7 +5535,8 @@
         "country": "Persia (Iran)",
         "remarkable": [
             "Darius I (the Great), 550-486 BC",
-            "King of Kings of the Achaemenid Empire, 29 September 522 BC - October 486 BC",
+            "King of Kings of the of the Achaemenid Empire and Pharaoh of Egypt",
+            "Reign, 29 September 522 - 8 November 486 BC",
             "Bridge of Darius (760 m), 513 BC",
             "Designed and built by Mandrocles of Samos, 513 BC",
             "Built across the Bosphorus Strait to connect Asia and Europe",
@@ -5671,8 +5672,8 @@
     "Kwait City": {
         "country": "Kwait",
         "remarkable": [
-            "Controlled by the Achaemenid Empire, 550 BC - 330 BC",
-            "Alexander the Great colonized the bay of Kuwait, 334 BC - 323 BC",
+            "Controlled by the Achaemenid Empire, 550-330 BC",
+            "Alexander the Great colonized the bay of Kuwait, 334-323 BC",
             "Part of the Parthian Empire, 127 BC",
             "Part of the Sassanid Empire, 224-651",
             "Founded, 1710-1740",
@@ -5802,13 +5803,13 @@
     "Nineveh (Mosul)": {
         "country": "Mesopotamia (Iraq)",
         "remarkable": [
-            "Capital and largest city of the Neo-Assyrian Empire, 911 BC - 609 BC",
-            "Medo-Babylonian conquest of the Assyrian Empire, 626 BC - 609 BC",
+            "Capital and largest city of the Neo-Assyrian Empire, 911-609 BC",
+            "Medo-Babylonian conquest of the Assyrian Empire, 626-609 BC",
             "Fall of Assur, 614 BC",
             "Fall of Nineveh, 612 BC",
             "Fall of Harran, 609 BC",
             "Seat of a bishop of the Church of the East, 15th century",
-            "Settlement (Ninevite 5), 3000 BC"
+            "Early bronze age settlement (Ninevite 5), 3000 BC"
         ],
         "latitude": 36.359444,
         "longitude": 43.152778
@@ -6601,8 +6602,10 @@
         "longitude": 27.9194016
     },
     "Troy": {
-        "country": "Hisarlik (Turkey)",
+        "country": "Anatolia (Turkey)",
         "remarkable": [
+            "Archaeological Site of Troy (Hissarlik hill), 1870",
+            "UNESCO World Heritage Site, 2 December 1998",
             "Paris took Helen from her husband (Menelaus) in Sparta",
             "Agamemnon, powerful king of Mycenae and commander of the Greek forces",
             "Besieged and burned Troy by using a horse created by Odysseus as a decoy",
@@ -6841,7 +6844,7 @@
             "Kingship over Macedon, 336 BC",
             "Battle of Thebes, 335 BC",
             "Battle of Issus (first encounter with Darius), 5 November 333 BC",
-            "Siege of Tyre (built a pier to the island), January 332 BC - July 332 BC",
+            "Siege of Tyre (built a pier to the island), January 332 - July 332 BC",
             "Egypt (liberator and pharaoh), 332 BC",
             "Founded the city of Alexandria, 7 April 331 BC",
             "Battle of Gaugamela (Darius III defeat), 1 October 331 BC",
@@ -7429,12 +7432,12 @@
     "Via Appia (Appian Way)": {
         "country": "Roman Forum (Italy)",
         "remarkable": [
-            "First Samnite War, 343 BC - 341 BC",
-            "Second Samnite War, 327 BC - 304 BC",
-            "Third Samnite War, 298 BC - 290 BC",
+            "First Samnite War, 343-341 BC",
+            "Second Samnite War, 327-304 BC",
+            "Third Samnite War, 298-290 BC",
             "Appius Claudius Caecus, 340-280 BC",
-            "Roman censor, 312 BC - 308 BC",
-            "Via Appia Antica (Appian Way), 312 BC - 244 BC",
+            "Roman censor, 312-308 BC",
+            "Via Appia Antica (Appian Way), 312-244 BC",
             "Rome to Capua (300 km), 312 BC",
             "Main route to resupply troops during the war",
             "Served as consul twice, 307 BC and 296 BC",
@@ -7504,7 +7507,7 @@
             "First Roman emperor (Augustus), 16 January 27 BC - 19 August 14 AD",
             "Adopted by Julius Caesar in his will, 15 March 44 BC",
             "March on Rome (youngest elected consul), August 43 BC",
-            "Second Triumvirate regime (He, Antony and Lepidus), 27 November 43 BC - 31 December 33 BC",
+            "Second Triumvirate regime (He, Antony and Lepidus), 27 November 43 - 31 December 33 BC",
             "Battle of Philippi, 3 October 42 BC",
             "Lepidus exiled, 22 September 36 BC",
             "Marcus Agrippa (son in law) defeated Antony in Greece, 2 September 31 BC",
