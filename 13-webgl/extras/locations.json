@@ -6604,7 +6604,7 @@
     "Troy": {
         "country": "Anatolia (Turkey)",
         "remarkable": [
-            "Archaeological Site of Troy (Hissarlik hill), 1870",
+            "Archaeological Bronze Age Site of Troy (Hissarlik hill), 1870",
             "UNESCO World Heritage Site, 2 December 1998",
             "Paris took Helen from her husband (Menelaus) in Sparta",
             "Agamemnon, powerful king of Mycenae and commander of the Greek forces",
@@ -6646,8 +6646,9 @@
         "remarkable": [
             "Homer, King of all poets, 850 BC",
             "or just a symbol for a long line of oral storytellers?",
-            "Iliad, 10-year siege of the city of Troy, 800 BC",
-            "Odissey, Odysseus' homecoming journey after 10-year Trojan War, 725 BC"
+            "Iliad, 10-year siege of the city of Troy, 1184 BC",
+            "Odissey, Odysseus' homecoming journey to Ithaca",
+            "after 10-year Trojan War, 16 April 1178 BC"
         ],
         "latitude": 38.23166,
         "longitude": 27.02997
@@ -6655,9 +6656,13 @@
     "Samos": {
         "country": "🔬 Greece",
         "remarkable": [
+            "Heraion of Samos temple, 1700 BC",
+            "Polycrates tyrant of Samos, 574-522 BC",
             "Pythagoras, philosopher, mathematician, 570-495 BC",
             "Pythagorean theorem for right triangles",
-            "Founder of the Pythagorean brotherhood, 525 BC"
+            "Founder of the Pythagorean brotherhood, 525 BC",
+            "Mandrocles of Samos (engineer), 6th century BC",
+            "Pontoon bridge across the turbulent Bosphorus Strait, 513-512 BC"
         ],
         "latitude": 37.7246162,
         "longitude": 26.8192919
@@ -6939,6 +6944,18 @@
         ],
         "latitude": 39.5661,
         "longitude": 20.7583
+    },
+    "Lefkada": {
+        "country": "Ionian Sea (Greece)",
+        "remarkable": [
+            "Linked to Odysseus",
+            "Maybe Homer's Ithaca",
+            "Delian League (Athenian), 478-404 BC",
+            "Joined the Peloponnesian League (Spartan), 550-366 BC",
+            "Peloponnesian War, 4 April 431 - 25 April 404 BC"
+        ],
+        "latitude": 38.716667,
+        "longitude": 20.65
     },
     "Belgrade": {
         "country": "Yugoslavia (Serbia)",
