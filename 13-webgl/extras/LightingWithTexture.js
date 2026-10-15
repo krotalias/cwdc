@@ -34,7 +34,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
- * <li>Around the World in 557 <a href="../images/Bunny.mp4">Historical Figures</a>:
+ * <li>Around the World in 558 <a href="../images/Bunny.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
@@ -168,7 +168,7 @@
  * <figure>
  *      <a href="../images/Southampton-Titanic-ocean-bottom.png"><img src="../images/Southampton-Titanic-ocean-bottom.png" height="256"></a>
  *      <a href="../images/Southampton-Titanic-ocean-bottom-chart.png"><img src="../images/Southampton-Titanic-ocean-bottom-chart.png" height="256"></a>
- *      <figcaption style="font-size: 150%">Ocean bottom as texture <br>Southampton - Titanic resting place</figcaption>
+ *      <figcaption style="font-size: 150%">Ocean bottom as texture <br>Southampton - Titanic resting place (3,790 km, AZ: 254.65°)</figcaption>
  * </figure>
  *
  * <p>Chart maps are images laid onto a sphere as textures and should have an aspect ratio of 2:1 for equirectangular projections
@@ -451,7 +451,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 557 historical figures</a>.</p>
+ * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 558 historical figures</a>.</p>
  * <p>When a child has to study history, he/she is generally not able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
