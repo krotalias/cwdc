@@ -52,6 +52,22 @@
         "latitude": 51.513,
         "longitude": -0.082
     },
+    "Newington Butts": {
+        "country": "🔬 Surrey (United Kingdom)",
+        "remarkable": [
+            "Michael Faraday, 1791-1867",
+            "Invented the first homopolar motor, September 1821",
+            "First isolated benzene from oil gas, 1825",
+            "Faraday's law of electromagnetic induction, 29 August 1831",
+            "Royal Institution of Great Britain, March 1813",
+            "Faraday's laws of electrolysis, 1833",
+            "Faraday cage in 1836",
+            "Faraday's ice pail experiment, 1843",
+            "Faraday effect, 1845"
+        ],
+        "latitude": 51.49499426,
+        "longitude": -0.09986132
+    },
     "10 Downing Street": {
         "country": "⚔ London (United Kingdom)",
         "remarkable": [
@@ -8277,6 +8293,20 @@
         ],
         "latitude": 40.8125,
         "longitude": 0.521111
+    },
+    "Cambridge": {
+        "country": "Cambridgeshire (United Kingdom)",
+        "remarkable": [
+            "James Clerk Maxwell, 1831-1879",
+            "University of Edinburgh, 1847-1850",
+            "Trinity College (Mathematics), Cambridge, 1854",
+            "Adams Prize (rings of Saturn), 1859",
+            "Maxwell's equations, 1850-1870",
+            "A Dynamical Theory of the Electromagnetic Field, 1865",
+            "Maxwell-Boltzmann distribution, 1877"
+        ],
+        "latitude": 52.205,
+        "longitude": 0.1225
     },
     "Unknown": {
         "country": "Pinpointed Location (POI)",
