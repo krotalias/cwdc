@@ -6642,6 +6642,18 @@
         "latitude": 37.5318313,
         "longitude": 27.2798246
     },
+    "Kos": {
+        "country": "🔬 South Aegean (Greece)",
+        "remarkable": [
+            "Hippocrates of Kos, 460-370 BC",
+            "Establish medicine as a science (Father of Medicine)",
+            "Believe that diseases were caused naturally",
+            "not because of superstition and gods",
+            "Hippocratic Corpus, 450-340 BC"
+        ],
+        "latitude": 36.8499966,
+        "longitude": 27.2333324
+    },
     "Smyrna (İzmir)": {
         "country": "Anatolia (Turkey)",
         "remarkable": [
