@@ -7137,6 +7137,20 @@
         "latitude": 45.813056,
         "longitude": 15.9775
     },
+    "Longyearbyen": {
+        "country": "Svalbard (Norway)",
+        "remarkable": [
+            "World's northernmost settlement with a population ≥ 1K",
+            "John Munro Longyear, 1850-1922",
+            "Arctic Coal Company, 1906-1916",
+            "Longyear City, 1907-1926",
+            "Svalbard Treaty (full Norwegian sovereignty), 9 February 1920",
+            "Almost destroyed by the Kriegsmarine, 8 September 1943",
+            "Founded, 1907"
+        ],
+        "latitude": 78.216667,
+        "longitude": 15.633333
+    },
     "Kinshasa": {
         "country": "Democratic Republic of the Congo",
         "remarkable": [
@@ -7158,10 +7172,12 @@
         "longitude": 15.31357
     },
     "Siracusa": {
-        "country": "🔬 Italy",
+        "country": "🔬 Sicily (Italy)",
         "remarkable": [
             "Archimedes, 287-212 BC",
-            "On the Sphere and Cylinder, 225 BC"
+            "On the Sphere and Cylinder, 225 BC",
+            "Siege of Siracusa by the Roman Republic, 213-212 BC",
+            "Killed by a Roman soldier despite Marcellus' instructions, 212 BC"
         ],
         "latitude": 37.075474,
         "longitude": 15.286586
@@ -7185,20 +7201,6 @@
         ],
         "latitude": 44.11972,
         "longitude": 15.24222
-    },
-    "Longyearbyen": {
-        "country": "Svalbard (Norway)",
-        "remarkable": [
-            "World's northernmost settlement with a population ≥ 1K",
-            "John Munro Longyear, 1850-1922",
-            "Arctic Coal Company, 1906-1916",
-            "Longyear City, 1907-1926",
-            "Svalbard Treaty (full Norwegian sovereignty), 9 February 1920",
-            "Almost destroyed by the Kriegsmarine, 8 September 1943",
-            "Founded, 1907"
-        ],
-        "latitude": 78.216667,
-        "longitude": 15.633333
     },
     "Vratislavice nad Nisou": {
         "country": "🔬 Bohemia (Czech Republic)",
@@ -7264,6 +7266,23 @@
         ],
         "latitude": 50.0875,
         "longitude": 14.421389
+    },
+    "Enna": {
+        "country": "Sicily (Italy)",
+        "remarkable": [
+            "Eunus, a slave from Syria, captured the city, 135 BC",
+            "Cleon, a Cilician slave, stormed Agrigentum",
+            "Roman equites did not provide enough food and clothing for their slaves",
+            "Slave-dealing of the Cretan and Cilician pirates",
+            "Thousands of slaves dying every year of toil in the fields",
+            "from dawn to dusk with chains around their legs",
+            "Publius Rupilius (Roman consul), 132 BC",
+            "Took Enna and crucified 20K prisoners, 132 BC",
+            "First Servile War, 135-132 BC",
+            "Second Servile war, 104-100 BC"
+        ],
+        "latitude": 37.563333,
+        "longitude": 14.276111
     },
     "Naples": {
         "country": "Italy",
