@@ -6354,14 +6354,21 @@
         "country": "Egypt",
         "remarkable": [
             "Ramses II (Third pharaoh), 1303-1213 BC",
+            "Statue of Ramesses II, 1300-1250 BC",
+            "Moved from Ramses Square to Giza, 25 August 2006",
+            "Colossal head of Ramesses II (Younger Memnon), 1292-1189 BC",
+            "Relocated to the British Museum, 1816-1819",
+            "Great Temple of Abu Simbel, 1255 BC",
+            "Israelite Exodus, 1250 - 1230 BC",
             "Nineteenth Dynasty, 1279-1213 BC"
         ],
         "latitude": 24.088938,
         "longitude": 32.89983
     },
-    "Thebes": {
+    "Thebes (Luxor)": {
         "country": "Egypt",
         "remarkable": [
+            "Karnak Temple Complex, 1970 BC",
             "Amenhotep III (Ninth pharaoh), 1401-1353 BC",
             "Eighteenth Dynasty, 1390-1353 BC",
             "Tutankhamun (Thirteenth pharaoh), 1341-1323 BC",
@@ -6369,15 +6376,16 @@
             "Discovery of his tomb (Howard Carter), 4 November 1922",
             "Papyrus of Ani, 1250 BC",
             "Compiled for the Theban scribe Ani",
+            "Ramesseum, mortuary temple dedicated to Amun, 1250 BC",
             "Nineteenth Dynasty, 1292-1189 BC",
             "Valley of the Kings (Theban necropolis), 1539-1075 BC",
-            "World Heritage Site (UNESCO), 1979",
+            "UNESCO World Heritage Site, 1979",
             "Luxor Temple, 1400 BC"
         ],
         "latitude": 25.7329051,
         "longitude": 32.7658152
     },
-    "Luxor": {
+    "Luxor (Thebes)": {
         "country": "Egypt",
         "remarkable": [
             "E. A. Wallis Budge, 1857-1934",
@@ -6470,6 +6478,7 @@
     "Giza": {
         "country": "Egypt",
         "remarkable": [
+            "Grand Egyptian Museum, 1 November 2025",
             "Khufu (Cheops), (Second pharaoh), 2609-2566 BC",
             "The Great Pyramid of Giza, 2580-2560 BC",
             "Djedefre (Rhatoisēs), (Third pharaoh), 2566-2558 BC",
