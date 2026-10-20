@@ -2683,22 +2683,15 @@
             "Christopher Columbus (second voyage), 23 November 1493",
             "Bartholomew Columbus appointed as an adelantado of Hispaniola, 1496-1498",
             "Christopher Columbus (third voyage), 19 August 1498",
-            "Francisco de Bobadilla arrested and sent back the Columbus brothers, August 1500",
+            "Francisco de Bobadilla (Viceroy), 23 August 1500 - 15 April 1502",
+            "Arrested and sent back the Columbus brothers, September 1500",
             "Christopher Columbus (fourth voyage), 29 June 1502",
             "The King of Spain renamed the entire island to Santo Domingo, 6 December 1508",
-            "Devastations of Osorio depopulated the western and northern regions, 1605-1606",
-            "French colony occupied those parts of the island (Saint-Domingue), 1625-1697",
             "Massive sugar plantations worked by enslaved Africans (richest in the Caribbean)",
             "½ of all the sugar and coffee in Europe and ⅓ of the Atlantic slave trade",
-            "Spain ceded the Captaincy General of Santo Domingo to France, 1795",
-            "France annexed the entire island of Hispaniola, 1795-1809",
-            "First Empire of Haiti (western side), 1 January 1804 - 17 October 1806",
-            "Jean-Jacques Dessalines was crowned Emperor, 8 October 1804",
-            "Beheadings of Moca (10K people were killed), 28 April 1805",
-            "These massacres triggered two centuries of animosity between the two countries",
-            "Republic of Haiti (annexation of the entire island), 1822-1844",
-            "Dominican War of Independence, 27 February 1844 - 1856",
-            "Second Empire of Haiti, 26 August 1849 - 15 January 1859",
+            "Spain ceded the Captaincy General of Santo Domingo to France, 22 July 1795",
+            "España Boba (Spanish rule), 9 July 1809 - 1 December 1821",
+            "Dominican War of Independence, 27 February 1844 - 24 January 1856",
             "Rafael Trujillo (Military Dictator), 1891-1961",
             "President, 16 August 1930 - 30 May 1961",
             "Dominican Civil War, 24 April 1965 - 1 September 1965",
@@ -2706,6 +2699,22 @@
         ],
         "latitude": 18.50012,
         "longitude": -69.98857
+    },
+    "Cap-Haïtien": {
+        "country": "☠ Island of Hispaniola (Haiti)",
+        "remarkable": [
+            "Devastations of Osorio depopulated the western and northern regions, 1605-1606",
+            "French colony occupied those parts of the island (Saint-Domingue), 1625-1697",
+            "First Empire of Haiti (western side), 1 January 1804 - 17 October 1806",
+            "Jean-Jacques Dessalines was crowned Emperor, 8 October 1804",
+            "Beheadings of Moca (10K people were killed), 28 April 1805",
+            "These massacres triggered two centuries of animosity between the two countries",
+            "Republic of Haiti (annexation of the entire island), 9 February 1822 - 27 February 1844",
+            "Second Empire of Haiti, 26 August 1849 - 15 January 1859",
+            "Founded (Cap-Français), 1670"
+        ],
+        "latitude": 19.75,
+        "longitude": -72.2
     },
     "Oranjestad": {
         "country": "☠ Aruba (Kingdom of the Netherlands)",
@@ -2851,7 +2860,7 @@
             "Engllish Parliament forbade English subjects to sail under foreign flags, 1680",
             "Treaty of Ratisbon put an end to piracy, 15 August 1684",
             "Settled, 1625",
-            "Windward Passage, 6 December 1492"
+            "Windward Passage between Cuba and Hispaniola, 6 December 1492"
         ],
         "latitude": 19.9969,
         "longitude": -72.6214
@@ -6513,7 +6522,7 @@
         "remarkable": [
             "Sultan Qait Bey, 1470",
             "Pierre-François Bouchard (Lieutenant), 1771-1822",
-            "Rosetta Stone (Ptolemy V Epiphanes), 196 BC",
+            "Rosetta Stone (Ptolemy V Epiphanes), 27 March 196 BC",
             "Royal decree written in Greek, Demotic, and Hieroglyphs",
             "Hieroglyphs and Demotic represent two different stages",
             "and styles of writing in ancient Egypt",
