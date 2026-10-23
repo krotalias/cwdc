@@ -2699,11 +2699,13 @@
         "remarkable": [
             "Second Dominican Republic, 15 July 1865 - 15 May 1916",
             "U.S. goverment, 15 May 1916 - 18 September 1924",
-            "Rafael Trujillo (El Jefe, Military Dictator), 1891-1961",
-            "President, 16 August 1930 - 30 May 1961",
+            "Horacio Vásquez (General)",
+            "35th President, 12 July 1924 - 28 February 1930",
+            "Rafael Leónidas Trujillo (Generalissimo of the army), 1891-1961",
+            "36th President (El Jefe), 16 August 1930 - 30 May 1961",
+            "Many Puppet President / Transition Leader in between",
             "Parsley Massacre (Haiti borders, 12K-30K dead), October 1937",
-            "Shot dead in his blue 1957 Chevrolet Bel Air, 30 May 1961",
-            "Dominican Civil War, 24 April 1965 - 1 September 1965"
+            "Shot dead in his blue 1957 Chevrolet Bel Air, 30 May 1961"
         ],
         "latitude": 18.41713,
         "longitude": -70.10682
@@ -2724,6 +2726,19 @@
         ],
         "latitude": 19.4708,
         "longitude": -70.69203
+    },
+    "Bisonó": {
+        "country": "☠ Island of Hispaniola (Dominican Republic)",
+        "remarkable": [
+            "Dominican Civil War, 24 April 1965 - 3 September 1965",
+            "U.S. military intervention, 28 April 1965",
+            "Joaquín Antonio Balaguer Ricardo, 1906-2002",
+            "41st President, 3 August 1960 - 16 January 1962",
+            "45th President (Los Doce Años), 1 July 1966 - 16 August 1978",
+            "49th President, 16 August 1986 - 16 August 1996"
+        ],
+        "latitude": 19.56,
+        "longitude": -70.87
     },
     "Cap-Haïtien": {
         "country": "☠ Island of Hispaniola (France-Haiti)",
