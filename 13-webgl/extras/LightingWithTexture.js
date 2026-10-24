@@ -6069,7 +6069,15 @@ function addListeners() {
   });
 
   /**
-   * Double click as right click.
+   * <p>Double click.</p>
+   * The dblclick event firing after click events is native browser behavior, not a WebGL bug.
+   * When a user double-clicks, the browser registers the interactions in chronological order:
+   * <ul>
+   *  <li>pointerdown → pointerup → click → pointerdown → pointerup → click → dblclick</li>
+   * </ul>
+   * Because the browser cannot predict if a second click is coming, it triggers the first single click immediately.
+   * <p>On mobile touchscreens, a double-tap often triggers native browser zoom-to-fit
+   * or scroll behaviors instead of a clean application event.</p>
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/dblclick_event Element: dblclick event}
    * @event dblclick
    * @param {MouseEvent} event mouse event.
@@ -6086,7 +6094,12 @@ function addListeners() {
       buttons: 2, // right button
     });
     event.preventDefault();
-    canvas.dispatchEvent(dblclickEvent);
+    // double click as right click
+    // canvas.dispatchEvent(dblclickEvent);
+
+    // or, go back two times, to cancel two clicks
+    handleKeyPress(createEvent("G"));
+    handleKeyPress(createEvent("G"));
   });
 
   /**
