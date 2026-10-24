@@ -4088,7 +4088,7 @@
             "War of 1812, 18 June 1812 - 17 February 1815",
             "Treaty of Ghent, 24 December 1814",
             "UNESCO World Heritage Site, 26 September 1978",
-            "First national park (Ulysses S. Grant), 1 March 1872"
+            "First national park (Ulysses S.(impson) Grant), 1 March 1872"
         ],
         "latitude": 44.6,
         "longitude": -110.5
@@ -5019,7 +5019,7 @@
         "longitude": 115.566389
     },
     "Bandar Seri Begawan": {
-        "country": "Brunei",
+        "country": "Borneo (Brunei)",
         "remarkable": [
             "Kampong Ayer built on mudflats, 1363-1402",
             "Venice of the East, 1521",
@@ -5130,6 +5130,7 @@
     "Krakatoa": {
         "country": "Indonesia",
         "remarkable": [
+            "Sunda Strait between Java and Sumatra",
             "Lucas Janszoon Waghenaer (Dutch cartographer), 1533-1606",
             "Pulo Carcata, 1611",
             "Most violent volcanic events in recorded history, 26 August 1883",
