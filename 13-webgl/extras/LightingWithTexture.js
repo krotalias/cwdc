@@ -7897,6 +7897,7 @@ function startForReal(image) {
       displayVersions();
       handleWindowResize();
       canvastip.style.display = "none";
+      handleKeyPress(createEvent("j"));
     });
   } else {
     /**
@@ -7922,6 +7923,7 @@ function startForReal(image) {
           setRangeTicks2(cities.timeline);
         }
         canvastip.style.display = "none";
+        handleKeyPress(createEvent("j"));
       }, 200); // 200ms delay is a safe industry standard
     });
   }
