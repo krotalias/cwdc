@@ -673,6 +673,23 @@
         "latitude": 28.125833,
         "longitude": -15.435278
     },
+    "Museu CR7": {
+        "country": "Madeira (Portugal)",
+        "remarkable": [
+            "Cristiano Ronaldo dos Santos Aveiro (1.87m, 976 goals), 5 February 1985",
+            "Sporting CP, 14 August 2002-2003",
+            "Manchester United, 12 August 2003-2009",
+            "Real Madrid, 11 June 2009-2018",
+            "Best FIFA Men's Player, 2016-2017",
+            "Juventus, 10 July, 2018-2021",
+            "Manchester United, 27 August 2021-2022",
+            "Al-Nassr, 30 December 2022",
+            "UEFA Champions League, 2008-2014-2016-2017-2018",
+            "Museu CR7, 15 December 2013"
+        ],
+        "latitude": 32.644,
+        "longitude": -16.914
+    },
     "Funchal": {
         "country": "Madeira (Portugal)",
         "remarkable": [
@@ -683,16 +700,8 @@
             "Alvise Cadamosto (Venetian explorer), 1432-1483",
             "First journey, 22 March 1455",
             "Celebrated Madeira's Wine culture, 1455",
-            "Status of city by King Manuel I of Portugal, 1508",
-            "Cristiano Ronaldo dos Santos Aveiro (1.87m, 976 goals), 5 February 1985",
-            "Sporting CP, 14 August 2002-2003",
-            "Manchester United, 12 August 2003-2009",
-            "Real Madrid, 11 June 2009-2018",
-            "Best FIFA Men's Player, 2016-2017",
-            "Juventus, 10 July, 2018-2021",
-            "Manchester United, 27 August 2021-2022",
-            "Al-Nassr, 30 December 2022",
-            "UEFA Champions League, 2008-2014-2016-2017-2018",
+            "Status of city by King Manuel I of Portugal, 21 August 1508",
+            "Centro Internacional de Negócios da Madeira (CINM), 20 October 1980",
             "Established, 1424"
         ],
         "latitude": 32.65,
@@ -710,15 +719,16 @@
         "longitude": -17.520278
     },
     "Gorée Island": {
-        "country": "⛵ Senegal",
+        "country": "⛵ Dakar Region (Senegal)",
         "remarkable": [
             "Álvaro Fernandes anchored at Bezeguiche island, 1445",
             "Vasco da Gama, 1502",
-            "Dutch West India Company (GWC), 1617",
+            "GWC purchased the island, 1627",
             "Johannes de Laet (Dutch geographer), 20 July 1628",
-            "French invasion, 1677",
+            "French control (slave-trading base), 15 November 1677",
             "House of Slaves, 1780-1784",
             "Slavery was abolished in Senegal, 1848",
+            "Senegal independence from France, 4 April 1960",
             "World Heritage Site (UNESCO), 5 September 1978",
             "Dakar-Gorée Swim was launched (4.5-5.2 km), 1985",
             "Palma was first visited by Portuguese (Diníz Dias), 1444"
@@ -7148,7 +7158,7 @@
         "remarkable": [
             "Bartolomeu Dias, 1450-1500",
             "Departure from Lisbon, 18 August 1487",
-            "Round the southern tip of Africa, 1488"
+            "Round the southern tip of Africa, 4 February 1488"
         ],
         "latitude": -34.3571503,
         "longitude": 18.4739571
