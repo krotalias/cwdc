@@ -2284,6 +2284,18 @@
         "latitude": -11.60838,
         "longitude": -58.48316
     },
+    "La Casa de D10S": {
+        "country": "Buenos Aires (Argentina)",
+        "remarkable": [
+            "Diego Armando Maradona (El Pibe de Oro, 1.65m, 345 goals), 1960-2020",
+            "Argentinos Juniors, 20 October 1976 - 4 February 1981",
+            "Napoli, 5 July 1984 - 24 March 1991",
+            "13th FIFA World Cup Trophy, Mexico, 29 June 1986",
+            "UEFA Cup with Napoli, 17 May 1989"
+        ],
+        "latitude": -33.9828850349134,
+        "longitude": -58.56372328004171
+    },
     "Bridgetown": {
         "country": "☠ Barbados",
         "remarkable": [
@@ -2296,18 +2308,6 @@
         ],
         "latitude": 13.096944,
         "longitude": -59.613056
-    },
-    "La Casa de D10S": {
-        "country": "Buenos Aires (Argentina)",
-        "remarkable": [
-            "Diego Armando Maradona (El Pibe de Oro, 1.65m, 345 goals), 1960-2020",
-            "Argentinos Juniors, 20 October 1976 - 4 February 1981",
-            "Napoli, 5 July 1984 - 24 March 1991",
-            "13th FIFA World Cup Trophy, Mexico, 29 June 1986",
-            "UEFA Cup with Napoli, 17 May 1989"
-        ],
-        "latitude": -33.9828850349134,
-        "longitude": -58.56372328004171
     },
     "Greenwich Island": {
         "country": "Iquique Cove, Antarctica (Chile)",
