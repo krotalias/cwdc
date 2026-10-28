@@ -702,6 +702,8 @@
             "Celebrated Madeira's Wine culture, 1455",
             "Status of city by King Manuel I of Portugal, 21 August 1508",
             "Centro Internacional de Negócios da Madeira (CINM), 20 October 1980",
+            "Sociedade de Desenvolvimento da Madeira, S.A. (SDM), 30 November 1984",
+            "Granted public concession of CINM, 5 September 1987 - 31 December 2033",
             "Established, 1424"
         ],
         "latitude": 32.65,
@@ -1636,6 +1638,22 @@
         "latitude": -21.6999972,
         "longitude": -45.2666656
     },
+    "Santos": {
+        "country": "São Paulo (Brazil)",
+        "remarkable": [
+            "Brás Cubas (founder), 1507-1592",
+            "Santa Casa de Santos (second hospital in Brazil), 1543",
+            "Governor of the Captaincy of São Vicente, 1545-1549",
+            "Confederação dos Tamoios (union against slavery), 1554-1567",
+            "Governor of the Captaincy of São Vicente, 1555-1556",
+            "Marquesa de Santos (Emperor lover), 12 October 1826",
+            "Port of Santos (2nd busiest in Latin America), 2 February 1892",
+            "Museu Pelé, 15 June 2014",
+            "Founded, 26 January 1546"
+        ],
+        "latitude": -23.9303,
+        "longitude": -46.3328
+    },
     "São Vicente": {
         "country": "São Paulo (Brazil)",
         "remarkable": [
@@ -2229,11 +2247,6 @@
             "Capital of the United Provinces of the Río de la Plata, 1814",
             "Argentine Declaration of Independence, 9 July 1816",
             "Federalization of Buenos Aires, 1880",
-            "Diego Armando Maradona (El Pibe de Oro, 1.65m, 345 goals), 1960-2020",
-            "Argentinos Juniors, 20 October 1976 - 4 February 1981",
-            "Napoli, 5 July 1984 - 24 March 1991",
-            "13th FIFA World Cup Trophy, Mexico, 29 June 1986",
-            "UEFA Cup with Napoli, 17 May 1989",
             "Established, 2 February 1536"
         ],
         "latitude": -34.603889,
@@ -2283,6 +2296,18 @@
         ],
         "latitude": 13.096944,
         "longitude": -59.613056
+    },
+    "La Casa de D10S": {
+        "country": "Buenos Aires (Argentina)",
+        "remarkable": [
+            "Diego Armando Maradona (El Pibe de Oro, 1.65m, 345 goals), 1960-2020",
+            "Argentinos Juniors, 20 October 1976 - 4 February 1981",
+            "Napoli, 5 July 1984 - 24 March 1991",
+            "13th FIFA World Cup Trophy, Mexico, 29 June 1986",
+            "UEFA Cup with Napoli, 17 May 1989"
+        ],
+        "latitude": -33.9828850349134,
+        "longitude": -58.56372328004171
     },
     "Greenwich Island": {
         "country": "Iquique Cove, Antarctica (Chile)",
