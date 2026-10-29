@@ -2923,6 +2923,21 @@
         "latitude": 18.536111,
         "longitude": -72.346389
     },
+    "San José de Cúcuta": {
+        "country": "Norte de Santander (Colombia)",
+        "remarkable": [
+            "Francisco José de Paula Santander y Omaña, 1792-1840",
+            "General of Division, August 1819",
+            "5th Vice President of the Gran Colombia, 3 November 1821 - 19 September 1827",
+            "Setembrine Conspiracy (plot to murder Bolívar), 25 September 1828",
+            "Santander was condemned and exiled, 15 November 1828 - 17 July 1832",
+            "1st President of The Republic of New Granada, 7 October 1832 - 1 April 1837",
+            "Died of cholelithiasis (despite wounds by spear and 2 shots), 6 May 1840",
+            "Founded, 17 June 1733"
+        ],
+        "latitude": 7.8899,
+        "longitude": -72.4793
+    },
     "Tortuga": {
         "country": "⚓ ☠ Island of Hispaniola (Haiti)",
         "remarkable": [
@@ -3020,15 +3035,7 @@
             "Simón Bolívar, 1783-1830",
             "1st President of Colombia, 17 December 1819 - 27 April 1830",
             "Bolívar died of tuberculosis, 17 December 1830",
-            "Francisco José de Paula Santander y Omaña, 1792-1840",
-            "General of Division, August 1819",
-            "5th Vice President of the Gran Colombia, 3 November 1821 - 19 September 1827",
-            "Setembrine Conspiracy (plot to murder Bolívar), 25 September 1828",
-            "Santander was condemned and exiled, 15 November 1828 - 17 July 1832",
-            "President of The Republic of New Granada, 7 October 1832 - 1 April 1837",
             "Republic of Colombia, 4 August 1886",
-            "Secession of the Department of Panama, 3 November 1903",
-            "United States paid a $25M compensation to Colombia, 20 April 1921",
             "Founded, 6 August 1538"
         ],
         "latitude": 4.583333,
@@ -3341,16 +3348,18 @@
         "country": "🐇 Panama",
         "remarkable": [
             "France (Ferdinand de Lesseps), 1 January 1881 - 15 May 1889",
-            "Panama independence, 3 November 1903",
+            "Secession of the Department of Panama, 3 November 1903",
             "Roosevelt's treaty to build and fortify a canal, 18 November 1903",
             "John Findley Wallace (chief engineer), 6 May 1904",
             "Teddy Roosevelt travel to Panama, 8 November 1906",
             "US construction, 1904 - 15 August 1914",
+            "United States paid a $25M compensation to Colombia, 20 April 1921",
             "Singing Sergeants affair, 1976",
             "Torrijos-Carter Treaties, 7 September 1977",
             "U.S. launched an invasion of Panama, 20 December 1989",
             "Manuel Noriega surrendered and was detained as POW, 3 January 1990",
-            "Control transferred to Panama, 31 December 1999"
+            "Control transferred to Panama, 31 December 1999",
+            "Panama independence, 3 November 1903"
         ],
         "latitude": 9.38743,
         "longitude": -79.91863
