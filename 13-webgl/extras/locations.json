@@ -172,6 +172,23 @@
         "latitude": 52.8107,
         "longitude": -0.632
     },
+    "Saint-Denis-de-Gastines": {
+        "country": "🔬 Maine (France)",
+        "remarkable": [
+            "Pierre Fauchard, 1679-1761",
+            "Father of modern dentistry:",
+            "‣ Introduced dental fillings",
+            "‣ Replacement of missing teeth (prosthetics)",
+            "‣ Early orthodontic appliances (gold braces)",
+            "‣ Understanding that sugar acids cause tooth decay",
+            "‣ Dental prophylaxis (teeth cleaning)",
+            "French Royal Navy, 1693",
+            "University of Angers Hospital, 1696-1715",
+            "Le Chirurgien Dentiste (foundation for modern dentistry), 1728"
+        ],
+        "latitude": 48.3428,
+        "longitude": -0.8561
+    },
     "Blenheim Palace": {
         "country": "🏆 Woodstock (United Kingdom)",
         "remarkable": [
@@ -3328,6 +3345,21 @@
         "latitude": 43.653611,
         "longitude": -79.383889
     },
+    "Panama City": {
+        "country": "☠ 🐇  Panama",
+        "remarkable": [
+            "Pedro Arias Dávila (Founder), 1440-1531",
+            "North Africa campaign (Colonel of Infantry), 1508-1511",
+            "Lion of Bugia (Capture of Béjaïa), 1510",
+            "1st Governor of Castilla del Oro, July 1514 - 1526",
+            "Royal Governor of Nicaragua, 1 July 1527 - 6 March 1531",
+            "Henry Morgan sacked and burned the city, 28 January 1671",
+            "Panama Railroad Company, 28 January 1855",
+            "Founded, 15 August 1519"
+        ],
+        "latitude": 8.9711,
+        "longitude": -79.5347
+    },
     "Uniontown": {
         "country": "⚔ 🏆 Pennsylvania (United States)",
         "remarkable": [
@@ -3345,7 +3377,7 @@
         "longitude": -79.724444
     },
     "Panama Canal": {
-        "country": "🐇 Panama",
+        "country": "☠ Panama",
         "remarkable": [
             "France (Ferdinand de Lesseps), 1 January 1881 - 15 May 1889",
             "Secession of the Department of Panama, 3 November 1903",
