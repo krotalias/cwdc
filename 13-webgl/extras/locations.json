@@ -2849,8 +2849,13 @@
         "remarkable": [
             "George Herbert Walker Bush, 1924-2018",
             "Yale B.A. in Economics, 1945-1948",
+            "United States Navy (naval aviator), 9 June 1943",
             "Bonin Islands operations (Bailed out), 2 September 1944",
-            "41th U.S. President, 20 January 1989"
+            "41th U.S. President, 20 January 1989",
+            "U.S. launched an invasion of Panama, 20 December 1989",
+            "Manuel Noriega surrendered and was detained as POW, 3 January 1990",
+            "Gulf War, 2 August 1990 - 28 February 1991",
+            "North American Free Trade Agreement (NAFTA), 1 January 1994"
         ],
         "latitude": 42.24954,
         "longitude": -71.06616
@@ -3384,12 +3389,8 @@
             "Roosevelt's treaty to build and fortify a canal, 18 November 1903",
             "John Findley Wallace (chief engineer), 6 May 1904",
             "Teddy Roosevelt travel to Panama, 8 November 1906",
-            "US construction, 1904 - 15 August 1914",
+            "US construction (82 km), 1904 - 15 August 1914",
             "United States paid a $25M compensation to Colombia, 20 April 1921",
-            "Singing Sergeants affair, 1976",
-            "Torrijos-Carter Treaties, 7 September 1977",
-            "U.S. launched an invasion of Panama, 20 December 1989",
-            "Manuel Noriega surrendered and was detained as POW, 3 January 1990",
             "Control transferred to Panama, 31 December 1999",
             "Panama independence, 3 November 1903"
         ],
@@ -3587,6 +3588,19 @@
         ],
         "latitude": 35.93,
         "longitude": -84.31
+    },
+    "Plains": {
+        "country": "Georgia (United States)",
+        "remarkable": [
+            "James Earl (Jimmy) Carter Jr., 1924-2024",
+            "U.S. Naval Academy, 1946",
+            "39th U.S. President, 20 January 1977 - 20 January 1981",
+            "Singing Sergeants affair, 1976",
+            "Torrijos-Carter Treaties, 7 September 1977",
+            "Camp David Accords (Egypt-Israel peace), 17 September 1978"
+        ],
+        "latitude": 32.033611,
+        "longitude": -84.393333
     },
     "Hodgenville": {
         "country": "Kentucky (United States)",
