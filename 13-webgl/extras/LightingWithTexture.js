@@ -4470,7 +4470,7 @@ function bearingAngleAndDistanceCyl(gcs1, gcs2, R = earthRadius) {
  *
  * @param {Array<String>} remarkable given location remarkable list.
  * @param {String} info data to be appended, which must include the given escape string.
- * @param {String} escape escape string.
+ * @param {String} [escape="\0"] escape string.
  */
 function appendInfoToRemarkable(remarkable, info, escape = "\0") {
   const colon = remarkable.at(-1).indexOf(escape);
