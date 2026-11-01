@@ -2313,6 +2313,27 @@
         "latitude": -33.9828850349134,
         "longitude": -58.56372328004171
     },
+    "Lobos": {
+        "country": "Buenos Aires (Argentina)",
+        "remarkable": [
+            "Juan Domingo Perón, 1895-1974",
+            "Argentine Army, 1913-1945",
+            "Military attaché in Chile (Major), 28 January 1936 - April 1938",
+            "Military attaché in Mussolini's Italy (Colonel), 1939-1941",
+            "Loyalty Day (Peronist movement), 17 October 1945",
+            "Married María Eva Duarte (Evita), 22 October 1945 - 26 July 1952",
+            "29th President of Argentina, 4 Junhe 1946 - 21 September 1955",
+            "Perón lived in exile (Spain), 25 September 1955 - 17 November 1972",
+            "40th President of Argentina, 12 October 1973 - 1 July 1974",
+            "María Estela Martínez Cartas (Isabelita Perón), 4 February 1931",
+            "Married to Perón, 15 November 1961 - 1 July 1974",
+            "41st President of Argentina, 1 July 1974 - 24 March 1976",
+            "Argentine coup d'état, 24 March 1976 - 10 December 1983",
+            "Founded, 2 June 1802"
+        ],
+        "latitude": -35.1864,
+        "longitude": -59.0961
+    },
     "Bridgetown": {
         "country": "☠ Barbados",
         "remarkable": [
