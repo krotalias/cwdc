@@ -34,7 +34,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
- * <li>Around the World in 558 <a href="../images/Bunny.mp4">Historical Figures</a>:
+ * <li>Around the World in 574 <a href="../images/Bunny.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
@@ -451,7 +451,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 558 historical figures</a>.</p>
+ * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 574 historical figures</a>.</p>
  * <p>When a child has to study history, he/she is generally not able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -4464,6 +4464,30 @@ function bearingAngleAndDistanceCyl(gcs1, gcs2, R = earthRadius) {
 }
 
 /**
+ * <p>Append a string at the end of the given location's remarkable list.</p>
+ * A special escape string is used to find out if the information has already been added before.
+ * If the information is null, and has been added before, it is removed.
+ *
+ * @param {Array<String>} remarkable given location remarkable list.
+ * @param {String} info data to be appended, which must include the given escape string.
+ * @param {String} escape escape string.
+ */
+function appendInfoToRemarkable(remarkable, info, escape = "\0") {
+  const colon = remarkable.at(-1).indexOf(escape);
+  if (info !== null) {
+    if (colon > -1) {
+      remarkable[remarkable.length - 1] = info;
+    } else {
+      remarkable.push(info);
+    }
+  } else {
+    if (colon > -1) {
+      remarkable.pop();
+    }
+  }
+}
+
+/**
  * <p>Draw the meridian and parallel lines at the
  * {@link currentLocation} on the {@link element texture image},
  * or the loxodrome and {@link rhumbLine rhumb line}
@@ -4512,19 +4536,12 @@ function drawLinesOnImage(canvasimg = element.canvasimg, clear = true) {
     }
 
     const remarkable = gpsCoordinates[currentLocation].remarkable;
-    const colon = remarkable.at(-1).indexOf(":");
-    if (bearingAngle !== null) {
-      const AZ = `Bearing Angle: ${fmtdeg.format(bearingAngle)}`;
-      if (colon > -1) {
-        remarkable[remarkable.length - 1] = AZ;
-      } else {
-        remarkable.push(AZ);
-      }
-    } else {
-      if (colon > -1) {
-        remarkable.pop();
-      }
-    }
+
+    // add the azimuth of the current location to its remarkable list
+    const AZ = bearingAngle
+      ? `Bearing Angle: ${fmtdeg.format(bearingAngle)}\0`
+      : null;
+    appendInfoToRemarkable(remarkable, AZ);
 
     const country = gpsCoordinates[currentLocation].country || "";
     canvastip.innerHTML = `${currentLocation}, ${country}<br>${remarkable.join(
