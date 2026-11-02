@@ -5965,16 +5965,25 @@
             "King of Iraq, 23 August 1921 - 8 September 1933",
             "Kingdom of Iraq (Independence from the United Kingdom), 3 October 1932",
             "Republic of Iraq, 14 July 1958",
-            "Saddam Hussein, 1937-2006",
-            "President (dictatorship) of Iraq, 1979-2003",
-            "Iran-Iraq war, 22 September 1980 - 20 August 1988",
-            "Gulf War, 2 August 1990 - 17 January 1991",
-            "Second Gulf War, 20 March 2003 - 18 December 2011",
-            "Hanged, 30 December 2006",
             "Established, 30 July 762"
         ],
         "latitude": 33.315278,
         "longitude": 44.366111
+    },
+    "Al-Awja": {
+        "country": "Iraq",
+        "remarkable": [
+            "Saddam Hussein, 1937-2006",
+            "5th President of Iraq, 16 July 1979 - 9 April 2003",
+            "Iran-Iraq war, 22 September 1980 - 20 August 1988",
+            "Gulf War, 2 August 1990 - 17 January 1991",
+            "Second Gulf War, 20 March 2003 - 18 December 2011",
+            "POW (Operation Red Dawn), 13 December 2003",
+            "Hanged, 30 December 2006",
+            "Settled, 1877"
+        ],
+        "latitude": 34.533056,
+        "longitude": 43.733056
     },
     "Tikrit": {
         "country": "✝ Mesopotamia (Iraq)",
