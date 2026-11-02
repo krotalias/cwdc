@@ -7118,6 +7118,8 @@
         "remarkable": [
             "Justinian I, 482-565",
             "Roman emperor, 527-565",
+            "Theodora (wife), 490-548",
+            "Nika riots (her advice saved the reign), January 532",
             "Renovatio imperii, or restoration of the Empire",
             "Vandalic War, June 533 - March 534",
             "The Corpus Juris Civilis (Body of Civil Law), 529-534",
@@ -7191,10 +7193,20 @@
         "longitude": 20.4275
     },
     "Pannonia": {
-        "country": "Serbia",
-        "remarkable": ["Attila the Hun, 406-453", "Ruler of the Huns, 434"],
-        "latitude": 45.7503869,
-        "longitude": 19.5214468
+        "country": "Hungary",
+        "remarkable": [
+            "Attila the Hun (Flagellum Dei), 406-453",
+            "Ruler of the Huns, 434",
+            "Battle of the Utus, 447",
+            "Devastated the Balkans and Greece as far as Thermopylae",
+            "Battle of the Catalaunian Plains, 20 June 451",
+            "Gaul invasion halted by the Visigothic-Roman alliance",
+            "Invaded Italy, 8 June 452",
+            "Met Pope Leo I who persuaded him to spare Rome, July 452",
+            "Died on his wedding night, 453"
+        ],
+        "latitude": 47,
+        "longitude": 20
     },
     "Budapest": {
         "country": "Hungary",
