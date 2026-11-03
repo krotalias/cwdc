@@ -3309,6 +3309,11 @@ const handleKeyPress = ((event) => {
       [x, y] = project([], pt, modelM, viewMatrix, projection, viewport);
     }
 
+    // call draw() first and then display the tooltip
+    // so the remarkable list size was already updated
+    // if the bearing angle was added to it
+    animate();
+
     // tooltip is on and texture is a map
     if (rotateModel && selector.tooltip && isMap) {
       // current location properties
@@ -3344,7 +3349,6 @@ const handleKeyPress = ((event) => {
       element.tooltip.style.display = "none";
       canvastip.style.display = "none";
     }
-    animate();
   }
 
   /**
@@ -4488,16 +4492,22 @@ function appendInfoToRemarkable(remarkable, info, escape = "\0") {
 }
 
 /**
- * <p>Draw the meridian and parallel lines at the
+ * If {@link loxodrome} is selected in the interface:</li>
+ * <ul>
+ *   <li>draw the loxodrome and {@link rhumbLine rhumb line},</li>
+ *   <li>draw the great circle projection,</li>
+ *   <li>{@link appendInfoToRemarkable add} the bearing angle
+ *        to the current location's remarkable list.</li>
+ * </ul>
+ * Otherwise, just draw the meridian and parallel lines at the
  * {@link currentLocation} on the {@link element texture image},
- * or the loxodrome and {@link rhumbLine rhumb line}
- * if {@link loxodrome} is selected,
- * plus the great circle projection.</p>
- * The loxodrome is a straight line connecting the
+ *
+ * <p>The loxodrome is a straight line connecting the
  * {@link previousLocation previous} to the {@link currentLocation current} location
  * and its {@link https://www.youtube.com/watch?v=sALJGEUe9GA bearing angle}
- * is the angle it makes with the y-axis.
+ * is the angle it makes with the y-axis.</p>
  * @param {HTMLCanvasElement} [canvasimg=element.canvasimg] the canvas element to draw on.
+ * @param {Boolean} clear whether to erase the {@link element image canvas} rectangle.
  * @return {Number|null} bearing angle in degrees ∈ [000°, 360°)
  * or null, if {@link loxodrome} is false.
  * @see <figure>
