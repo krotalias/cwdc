@@ -3034,8 +3034,30 @@
         "latitude": 41.76804,
         "longitude": -73.93482
     },
+    "Lincoln Center": {
+        "country": "New York (United States)",
+        "remarkable": [
+            "John Davison Rockefeller III, 1906-1978",
+            "Lincoln Center for the Performing Arts, 1955-1969",
+            "Groundbreaking ceremony (President Eisenhower), 14 May 1959",
+            "• The New York Philharmonic, 7 December 1842",
+            "••• David Geffen Hall, 23 September 1962",
+            "• The New York City Ballet, 11 October 1948",
+            "••• David Hamilton Koch Theater, 24 April 1964",
+            "• The Metropolitan Opera, 16 September 1966",
+            "• The Chamber Music Society of Lincoln Center, 11 September 1969",
+            "• The Juilliard School, 26 October 1969",
+            "10 Lincoln Center Plaza, 1969-present",
+            "NYC Subway train at 66th Street-Lincoln Center",
+            "Chairman, 8 November 1955",
+            "1st president, 1956-1961",
+            "Chairman of the Board, 1961-1970"
+        ],
+        "latitude": 40.7725,
+        "longitude": -73.9839
+    },
     "New York City": {
-        "country": "United States",
+        "country": "New York (United States)",
         "remarkable": [
             "Theodore Roosevelt Jr., 1858-1919",
             "Harvard A.B. History, 1876-1880",
