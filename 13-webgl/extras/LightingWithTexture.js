@@ -1137,7 +1137,7 @@ const fmtkm = new Intl.NumberFormat("en-US", {
   style: "unit",
   unit: "kilometer",
   unitDisplay: "short",
-  maximumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 
 /**
@@ -1155,7 +1155,7 @@ const fmtmi = new Intl.NumberFormat("en-US", {
   style: "unit",
   unit: "mile",
   unitDisplay: "short",
-  maximumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 
 /**
@@ -1171,7 +1171,7 @@ const fmtmi = new Intl.NumberFormat("en-US", {
  */
 const fmtnm = new Intl.NumberFormat("en-US", {
   style: "decimal",
-  maximumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 
 /**
