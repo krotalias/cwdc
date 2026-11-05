@@ -3034,6 +3034,48 @@
         "latitude": 41.76804,
         "longitude": -73.93482
     },
+    "The Met": {
+        "country": "New York (United States)",
+        "remarkable": [
+            "Metropolitan Museum of Art, 13 April 1870",
+            "4th largest museum in the world",
+            "Most-visited museum in the U.S., 5th in the world",
+            "1000 5th Avenue (The Met Fifth Avenue)",
+            "NYC Subway 4, 5, 6, 6 train at 86th Street",
+            "Permanent collection:",
+            "• Classical antiquity",
+            "• Ancient Egypt",
+            "• European masters",
+            "• American and modern art",
+            "• African, Asian, Oceanian, Byzantine, and Islamic art",
+            "The Cloisters at Fort Tryon Park, 10 May 1938",
+            "99 Margaret Corbin Drive (The Cloisters)",
+            "NYC Subway A train at 190th Street",
+            "Collection of art, architecture, artifacts from medieval Europe",
+            "Founded, 13 April 1870"
+        ],
+        "latitude": 40.8211,
+        "longitude": -73.9476
+    },
+    "AMNH": {
+        "country": "New York (United States)",
+        "remarkable": [
+            "American Museum of Natural History, 6 April 1869",
+            "200 Central Park West",
+            "NYC Subway B, C train at 81th Street-AMNH",
+            "8th Avenue/Central Park West, 81st Street",
+            "Ninth Avenue/Columbus Avenue, and 77th Street",
+            "Groundbreaking ceremony (Ulysses S. Grant), 3 June 1874",
+            "Dinosaur hall opened, February 1905",
+            "Reorganized, March 1927",
+            "Hall of African Mammals, 1909",
+            "Completed, 1936",
+            "NY Memorial to Theodore Roosevelt, 19 January 1936",
+            "Opened, 22 December 1877"
+        ],
+        "latitude": 40.780833,
+        "longitude": -73.974444
+    },
     "Lincoln Center": {
         "country": "New York (United States)",
         "remarkable": [
