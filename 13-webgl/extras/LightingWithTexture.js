@@ -1463,6 +1463,8 @@ const getCitiesSelector = () =>
  * @property {HTMLInputElement} print button
  * @property {HTMLInputElement} screenshot checkbox
  * @property {HTMLButtonElement} closest button
+ * @property {HTMLButtonElement} next button
+ * @property {HTMLButtonElement} previous button
  * @property {HTMLButtonElement} animation button
  * @property {HTMLInputElement} byDate checkbox
  * @property {HTMLInputElement} locations checkbox
@@ -1504,6 +1506,8 @@ const element = {
   print: document.getElementById("print"),
   screenshot: document.getElementById("screenshot"),
   closest: document.getElementById("cls"),
+  next: document.getElementById("next") || null,
+  previous: document.getElementById("prev") || null,
   animation: document.getElementById("anim"),
   byDate: document.getElementById("cities"),
   locations: document.getElementById("locs"),
@@ -5465,6 +5469,32 @@ function addListeners() {
    */
   element.closest.addEventListener("click", (event) =>
     handleKeyPress(createEvent("J")),
+  );
+
+  /**
+   * @summary Executed when the next element is clicked.
+   * <p>Appends an event listener for events whose type attribute value is click.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event clickNext
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   */
+  element.next.addEventListener("click", (event) =>
+    handleKeyPress(createEvent("g")),
+  );
+
+  /**
+   * @summary Executed when the previous element is clicked.
+   * <p>Appends an event listener for events whose type attribute value is click.<br>
+   * The {@link handleKeyPress callback} argument sets the callback that will be invoked when
+   * the event is dispatched.</p>
+   *
+   * @event clickPrevious
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event Element: click event}
+   */
+  element.previous.addEventListener("click", (event) =>
+    handleKeyPress(createEvent("G")),
   );
 
   /**
