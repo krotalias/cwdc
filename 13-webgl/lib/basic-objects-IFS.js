@@ -179,7 +179,7 @@ function ring(innerRadius, outerRadius, slices) {
   const normals = new Float32Array(3 * vertexCount);
   const texCoords = new Float32Array(2 * vertexCount);
   const indices = new Uint16Array(
-    innerRadius == 0 ? 3 * slices : 3 * 2 * slices,
+    innerRadius == 0 ? 3 * slices : 3 * 2 * slices
   );
   const d = (2 * Math.PI) / slices;
   let k = 0;
@@ -251,10 +251,18 @@ function ring(innerRadius, outerRadius, slices) {
  * <p>Create a model of a sphere.</p>
  * The z-axis is the axis of the sphere
  * with the north pole on the positive z-axis and the center at (0,0,0).
- * <p>The number of triangles is 2 * slices * stacks, e.g., 48 * 24 * 2 = 2304.
+ *
+ * <p>With 48 slices and 24 stacks:</p>
+ * <ul>
+ *  <li>the number of triangles is: 2 * slices * stacks = 48 * 24 * 2 = 2304,</li>
+ *  <li>the number of vertices is: (slices+1) * (stacks+1) = 49 * 25 = 1225.</li>
+ * </ul>
  * <p>However, two rows and one column of vertices have been duplicated.
- * Without {@link uvSphereND vertex duplication},
- * the number of triangles would be 48 * 23 * 2 = 2208.<br>
+ * Without {@link uvSphereND vertex duplication}:
+ * <ul>
+ *   <li>the number of triangles is: 2 * slices * (stacks-1) = 48 * 23 * 2 = 2208,</li>
+ *   <li>the number of vertices is: slices * (stacks-1) + 2 = 48 * 23 + 2 = 1106</li>
+ * </ul>
  * In fact, this is topologically a cylinder whose vertices on the two borders
  * have the same coordinates of the sphere north/south poles, respectively:
  * <ul>
@@ -267,7 +275,12 @@ function ring(innerRadius, outerRadius, slices) {
  *   (This is the number of vertical slices, bounded by lines of latitude,
  *   the north pole and the south pole.)
  * @return {modelData}
+ *
  * @see <a href="/cwdc/downloads/cg/doc/html/torus_8cpp.html#a6c5b17163125dd32bd7c04a99738d316">sphere</a>
+ * @see <figure>
+ *  <img src="/cwdc/13-webgl/images/rectangle_5-slices_2-rows.jpg" width="256"> <img src="/cwdc/13-webgl/images/graph.png" width="256">
+ *  <figcaption style="font-size: 100%">with duplicate (left): 20 triangles, 18 vertices <br>no duplicate (right): 10 triangles, 7 vertices</figcaption>
+ * </figure>
  */
 function uvSphere(radius, slices, stacks) {
   radius = radius || 0.5;
@@ -367,7 +380,7 @@ function uvSphereND(radius, slices, stacks) {
   normals[indexV++] = 0;
   vertices[indexV] = -radius;
   normals[indexV++] = -1;
-  texCoords[indexT++] = 0.0;
+  texCoords[indexT++] = 0.0; // s coordinate should not be constant
   texCoords[indexT++] = 0.0;
 
   // vertices in the middle of the sphere
