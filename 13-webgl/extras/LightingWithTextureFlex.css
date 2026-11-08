@@ -195,7 +195,7 @@ input[type="text"] {
 #prev,
 #print {
     font-size: 1.8rem;
-    padding: 0 1em;
+    padding: 0;
     width: 100%;
     text-overflow: clip;
     overflow: hidden;
