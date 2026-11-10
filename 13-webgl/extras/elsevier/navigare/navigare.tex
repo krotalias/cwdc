@@ -13,6 +13,7 @@
 \usepackage{siunitx}
 \usepackage[english]{babel}
 \usepackage{fontspec}
+\usepackage{subcaption} % Required for the subfigure environment
 \setmonofont{DejaVu Sans Mono}
 \lstset{
   basicstyle=\ttfamily,
@@ -177,7 +178,26 @@ To display a globe on the screen, its initial position should take into account 
 and illumination parameters, such as the Phong highlight~\cite{phong1975illumination} position. In Navigare, the highlight projects onto the
 equator line if the user has not interacted using the Arcball~\cite{shoemake1992arcball}\cite{shoemake1994arcball}.
 If PHP is running on the HTTP server,
-then any image file in directory textures will be available in the menu. Otherwise, sorry GitHub pages, only the images listed in the HTML file.
+then any image file in directory "textures"~(Figure~\ref{fig:ocean}) will be available in the menu.
+Otherwise, sorry GitHub pages, only the images listed in the HTML file.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/Southampton-Titanic-ocean-bottom.png}
+    \end{subfigure}
+
+    \vspace{0.5cm}
+
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/Southampton-Titanic-ocean-bottom-chart.png}
+    \end{subfigure}
+
+    \caption{Ocean bottom as texture: Southampton - Titanic resting place (Azimuth: 254.65° - 3,790 km)}
+    \label{fig:ocean}
+\end{figure}
 
 Chart maps are images laid onto a sphere as textures and should have an aspect ratio of 2:1
 for equirectangular projections or 1:1 (squared) for Mercator projections.
@@ -247,7 +267,7 @@ $R \cos(\phi) / R = \delta x / d \implies d = \delta x / \cos(\phi) = \delta x\ 
 \item 1 radian on earth $\approx (10800/\pi$) nm
 \item $MP = (10800/\pi) \times \ln [\tan (\pi/4 + \phi/2)]$ minutes of arc length (not using the spheroid shape of the earth)
 \item $MP = toDegrees(toMercator(toRadian(\phi))) \times 60$
-\item The knot is a unit of speed equal to one nautical mile per hour, exactly \num{1.852} \si{\km\per\hour} (\num{1.15078} \si{\m\per\hour})
+\item The knot is a unit of speed equal to one nautical mile per hour, exactly \num{1.852} \si{\km\per\hour} \\ (\num{1.15078} mi \si{\per\hour})
 \item Captains in the 1700s tossed ropes overboard with knots spaced out at 50 ft and used a sand glass
 that measured half of a minute to approximate the speed of a ship in nautical miles per hour
 \item $50 \frac{ft}{0.5 min} = 100 \frac{ft}{1 min} \times 1 \frac{nm}{6076 ft} \times 60 \frac{min}{h} = 0.9875 \approx 1 \frac{nm}{h}$
