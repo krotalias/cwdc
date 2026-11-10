@@ -16,6 +16,7 @@
 \usepackage{xurl}
 \usepackage[utf8]{inputenc} % Automatic in modern TeX, but safely forces UTF-8
 \usepackage{newunicodechar} % Optional package to ease mapping
+\usepackage{subcaption} % Required for the subfigure environment
 
 \usepackage{hyperref}
 \usepackage{listings}
@@ -201,7 +202,26 @@ To display a globe on the screen, its initial position should take into account 
 and illumination parameters, such as the Phong highlight~\cite{phong1975illumination} position. In Navigare, the highlight projects onto the
 equator line if the user has not interacted using the Arcball~\cite{shoemake1992arcball}\cite{shoemake1994arcball}.
 If PHP is running on the HTTP server,
-then any image file in directory textures will be available in the menu. Otherwise, sorry GitHub pages, only the images listed in the HTML file.
+then any image file in directory "textures"~(Figure~\ref{fig:ocean}) will be available in the menu.
+Otherwise, sorry GitHub pages, only the images listed in the HTML file.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/Southampton-Titanic-ocean-bottom.png}
+    \end{subfigure}
+
+    \vspace{0.5cm}
+
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/Southampton-Titanic-ocean-bottom-chart.png}
+    \end{subfigure}
+
+    \caption{Ocean bottom as texture: Southampton - Titanic resting place (Azimuth: 254.65° - 3,790 km)}
+    \label{fig:ocean}
+\end{figure}
 
 Chart maps are images laid onto a sphere as textures and should have an aspect ratio of 2:1
 for equirectangular projections or 1:1 (squared) for Mercator projections.
@@ -223,9 +243,17 @@ So locally, the vertical distances should be magnified by $\sec(\phi)$ also to m
 (Figure~\ref{fig:sec}).
 \begin{figure}[htbp]
     \centering
+
+    \centering
     \includegraphics[height=0.2\textheight]{figs/Harriot2_sec3.png}
     \includegraphics[width=0.2\textwidth]{figs/globe_lat_long.png}
-    \includegraphics[width=0.4\textwidth]{figs/mesh.png}
+
+    \vspace{0.5cm}
+
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/mesh.png}
+    \end{subfigure}
     \caption{Mercator vertical distance.}
     \label{fig:sec}
 \end{figure}
@@ -264,6 +292,7 @@ $R \cos(\phi) / R = \delta x / d \implies d = \delta x / \cos(\phi) = \delta x\ 
 \end{itemize}
 
 \vspace{0.5cm}
+\newpage
 \textbf{Meridional Parts~\cite{Bowditch2024}}
 
 \begin{itemize}
@@ -274,7 +303,7 @@ $R \cos(\phi) / R = \delta x / d \implies d = \delta x / \cos(\phi) = \delta x\ 
 \item 1 radian on earth $\approx (10800/\pi$) nm
 \item $MP = (10800/\pi) \times \ln [\tan (\pi/4 + \phi/2)]$ minutes of arc length (not using the spheroid shape of the earth)
 \item $MP = toDegrees(toMercator(toRadian(\phi))) \times 60$
-\item The knot is a unit of speed equal to one nautical mile per hour, exactly \num{1.852} \si{\km\per\hour} (\num{1.15078} \si{\m\per\hour})
+\item The knot is a unit of speed equal to one nautical mile per hour, exactly \num{1.852} \si{\km\per\hour} (\num{1.15078} mi \si{\per\hour})
 \item Captains in the 1700s tossed ropes overboard with knots spaced out at 50 ft and used a sand glass
 that measured half of a minute to approximate the speed of a ship in nautical miles per hour
 \item $50 \frac{ft}{0.5 min} = 100 \frac{ft}{1 min} \times 1 \frac{nm}{6076 ft} \times 60 \frac{min}{h} = 0.9875$
@@ -283,6 +312,7 @@ that measured half of a minute to approximate the speed of a ship in nautical mi
 \end{itemize}
 
 \vspace{0.5cm}
+\newpage
 \textbf{Loxodromes~\cite{Veness26}}
 
 \begin{itemize}
@@ -401,7 +431,6 @@ and the globe can be positioned in a non-conventional way, for example, ``upside
 A second rotation around the new forward vector can reset the north vector appropriately.
 It is amazing what we can do with a few cross and dot product operations.
 
-\newpage
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.3\textheight]{figs/greenland-globe.png}
@@ -414,7 +443,7 @@ It is amazing what we can do with a few cross and dot product operations.
     \label{fig:greenland}
 \end{figure}
 
-
+\newpage
 \section{The Navigare application Around The World in 500 historical figures}
 
 When a child has to study history, he/she is generally not able to visualize the actual location of an event.
@@ -450,6 +479,7 @@ while CA will show those from Canada (Figure~\ref{fig:Vancouver}) and US from th
 The sorting of dates uses the day, month and year of the last date of the last entry in the remarkable list field.
 
 \vspace{0.5cm}
+\newpage
 \noindent E.g., ``Battle of Britain, 10 July 1940 - 31 October 1940''\ is sorted using ``10 July 1940''.
 
 \begin{lstlisting}[
