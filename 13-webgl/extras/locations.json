@@ -6363,18 +6363,25 @@
         "longitude": 35.232071
     },
     "Tyre": {
-        "country": "✝ 🔬 Phoenicia (Lebanon)",
+        "country": "🔬 Phoenicia (Lebanon)",
         "remarkable": [
             "Marinus of Tyre, geographer and cartographer, 70-130",
-            "Equirectangular projection, 100",
+            "Equirectangular projection, 100"
+        ],
+        "latitude": 33.2721211,
+        "longitude": 35.1964023
+    },
+    "Siege of Tyre": {
+        "country": "✝ Levant (Lebanon)",
+        "remarkable": [
             "Conrad of Montferrat arrived in Tyre, July 1187",
             "Siege of Tyre, 12 November 1187 - 1 January 1188",
             "Saladin dismissed his army and retreated to Acre, 1188",
             "Guy and Sibylla admission refused to Tyre (after released by Saladin), 1188",
             "Guy chose to continue south to lay siege to Acre, 1189"
         ],
-        "latitude": 33.2721211,
-        "longitude": 35.1964023
+        "latitude": 33.270833,
+        "longitude": 35.196111
     },
     "Betar": {
         "country": "Roman province (Israel)",
