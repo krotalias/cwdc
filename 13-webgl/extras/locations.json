@@ -3304,7 +3304,8 @@
             "Declaration of Independence, 4 July 1776",
             "Battle of Yorktown, 28 September 1781 - 19 October 1781",
             "Treaty of Paris (recognized U.S. independence), 3 September 1783",
-            "1st U.S. President, 30 April 1789 - 4 March 1797"
+            "1st U.S. President, 30 April 1789 - 4 March 1797",
+            "Died from throat infection and repeated bloodletting, 14 February 1799"
         ],
         "latitude": 38.188165914,
         "longitude": -76.902663056
@@ -6923,6 +6924,24 @@
         ],
         "latitude": 36.8499966,
         "longitude": 27.2333324
+    },
+    "Pergamon": {
+        "country": "🔬 Bergama (Turkey)",
+        "remarkable": [
+            "Lucius Aurelius Verus, 130-169",
+            "Roman emperor, 7 March 161 - January/February 169",
+            "Parthian campaign of Lucius Verus, 161-166",
+            "Siege of Seleucia in the winter, 165-166",
+            "Aelius Galenus (Galen), 129-216",
+            "Most famous Greek physician and surgeon from the Roman Empire",
+            "His medical theories lasted for 1,5K years in Europe",
+            "Antonine Plague (Galenic Plague), 165-180",
+            "Probably smallpox, but possibly measles",
+            "Broke out again (2K death/day), 189-190",
+            "Total death 5-10 M, 10% of the population of the empire, 189-193"
+        ],
+        "latitude": 39.1325,
+        "longitude": 27.184167
     },
     "Smyrna (İzmir)": {
         "country": "Anatolia (Turkey)",
