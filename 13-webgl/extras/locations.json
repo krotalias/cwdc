@@ -2867,6 +2867,27 @@
         "latitude": -33.433333,
         "longitude": -70.666667
     },
+    "Braintree": {
+        "country": "Massachusetts (United States)",
+        "remarkable": [
+            "John Adams, 1735-1826",
+            "A.B. degree from Harvard College, 1751-1755",
+            "A.M. from Harvard, 1758",
+            "Admitted to the Massachusetts bar, 5 November 1758",
+            "Boston Massacre (defended 8 British soldiers), 5 March 1770",
+            "Delegate from MA to the 2nd Continental Congress, 1776",
+            "Commissioner to France, 27 November 1777 - 8 March 1779",
+            "1st American ambassador to GB, 1 June 1785 - 20 February 1788",
+            "1st U.S. Vice President (Founding Father), 1789-1797",
+            "2nd U.S. President, 4 March 1797 - 4 March 1801",
+            "XYZ Affair, 1797-1798",
+            "Alien and Sedition Acts, 12 February 1798",
+            "Quasi-War with France, 1798-1800",
+            "1st president to live in the White House, 1 November 1800"
+        ],
+        "latitude": 42.206,
+        "longitude": -71.005
+    },
     "Milton": {
         "country": "Massachusetts (United States)",
         "remarkable": [
@@ -3298,7 +3319,7 @@
             "Half King killed Jumonville and his men, 28 May 1754",
             "Surrendered Fort Necessity to the French, 3 July 1754",
             "Forbes Expedition, July 1758 - 25 November 1758",
-            "Married Martha Dandridge Custis (very rich widow), 6 January 1759",
+            "Married Martha Dandridge Custis (wealthy widow), 6 January 1759",
             "Continental Army, 14 June 1775",
             "Commander-in-Chief, 15 June 1775 - 23 December 1783",
             "Declaration of Independence, 4 July 1776",
