@@ -62,7 +62,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.&lt;/li>
  * &lt;br>
- * &lt;li>Around the World in 574 &lt;a href="../images/Bunny.mp4">Historical Figures&lt;/a>:
+ * &lt;li>Around the World in 581 &lt;a href="../images/Bunny.mp4">Historical Figures&lt;/a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).&lt;/li>
@@ -139,7 +139,7 @@
  *    &lt;img src="../images/Syracuse-Moscow.png" height="256">
  *    &lt;img src="../images/Syracuse-Moscow-map.png" height="256">
  *    &lt;img src="../images/Syracuse-Moscow-cyl.png" height="256">
- *    &lt;figcaption style="font-size: 200%">Syracuse - Moscow (Azimuth: 80.19°)&lt;/figcaption>
+ *    &lt;figcaption style="font-size: 200%">Syracuse - Moscow (7,396.1 km, Azimuth: 80.19°)&lt;/figcaption>
  * &lt;/figure>
  *
  * &lt;p>To locate a ship at sea it is necessary to know its latitude and longitude
@@ -194,9 +194,15 @@
  * only the images listed in the HTML file.&lt;p>
  *
  * &lt;figure>
- *      &lt;a href="../images/Southampton-Titanic-ocean-bottom.png">&lt;img src="../images/Southampton-Titanic-ocean-bottom.png" height="256">&lt;/a>
- *      &lt;a href="../images/Southampton-Titanic-ocean-bottom-chart.png">&lt;img src="../images/Southampton-Titanic-ocean-bottom-chart.png" height="256">&lt;/a>
- *      &lt;figcaption style="font-size: 150%">Ocean bottom as texture &lt;br>Southampton - Titanic resting place (3,790 km, AZ: 254.65°)&lt;/figcaption>
+ *      &lt;a href="../images/Southampton-Titanic-ocean-bottom.png">&lt;img src="../images/Southampton-Titanic-ocean-bottom.png" height="216">&lt;/a>
+ *      &lt;a href="../images/Southampton-Titanic-ocean-bottom-chart.png">&lt;img src="../images/Southampton-Titanic-ocean-bottom-chart.png" height="216">&lt;/a>
+ *      &lt;figcaption style="font-size: 150%">Ocean bottom as texture: &lt;br>Southampton - Titanic resting place (3,790 km, AZ: 254.65°)&lt;/figcaption>
+ * &lt;/figure>
+ *
+ * &lt;figure>
+ *      &lt;a href="../images/NYC-Istanbul.png">&lt;img src="../images/NYC-Istanbul.png" height="236">&lt;/a>
+ *      &lt;a href="../images/NYC-Istanbul-chart.png">&lt;img src="../images/NYC-Istanbul-chart.png" height="236">&lt;/a>
+ *      &lt;figcaption style="font-size: 150%">Tectonic plates as texture: &lt;br>New York City - Istanbul (8,069.4 km, AZ: 89.78°)&lt;/figcaption>
  * &lt;/figure>
  *
  * &lt;p>Chart maps are images laid onto a sphere as textures and should have an aspect ratio of 2:1 for equirectangular projections
@@ -235,7 +241,8 @@
  *  &lt;/div>
  *  &lt;div style="height: 196px; margin-bottom: 80px;">
  *  &lt;figure>
- *    &lt;a href="../images/Meridional Parts.png">&lt;img src="../images/Meridional Parts.png" height="196">&lt;/a>
+ *    &lt;a href="../images/Meridional Parts.png">&lt;img src="../images/Meridional Parts.png" height="160">&lt;/a>
+ *    &lt;a href="../images/Mercator_construction.png">&lt;img src="../images/Mercator_construction.png" height="160">&lt;/a>
  *    &lt;figcaption style="font-size: 200%; text-align: center;">{@link https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/bowditch_Vol_2_2019.pdf#page=125 Meridional Parts}&lt;/figcaption>
  *  &lt;/figure>
  *  &lt;/div>
@@ -243,12 +250,14 @@
  * &lt;ul>
  *  &lt;li> φ = latitude &lt;/li>
  *  &lt;li> θ = longitude &lt;/li>
+ *  &lt;li> h(φ) = vertical scale&lt;/li>
  *  &lt;li> R = radius of the sphere&lt;/li>
  *  &lt;li> C&lt;sub>♁&lt;/sub> = circumference of the earth&lt;/li>
  *  &lt;li> δθ = δx &lt;/li>
  *  &lt;li>R cos(φ) / R = δx / d  ⇒ d = δx / cos(φ) = δx sec(φ) &lt;/li>
  *  -------- {@link module:polyhedron.spherical2Mercator on the Mercator chart} --------
  *  &lt;li>(x,y) = M(R,θ,φ)
+ *  &lt;li>h(φ) = dy/dφ = R sec(φ)&lt;/li>
  *  &lt;li>x = R θ, -π ≤ θ ≤ π &lt;/li>
  *  &lt;li>
  *    &lt;span style="display: inline-flex;">
@@ -479,7 +488,7 @@
  * or &lt;a href="../doc/TeseKevinWeiler.pdf">radial-edge&lt;/a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * &lt;p>&lt;b style="font-size: 150%;">The &lt;i>Navigare&lt;/i> application&lt;/b>: Around The World in &lt;a href="../images/Brazil.mp4"> 574 historical figures&lt;/a>.&lt;/p>
+ * &lt;p>&lt;b style="font-size: 150%;">The &lt;i>Navigare&lt;/i> application&lt;/b>: Around The World in &lt;a href="../images/Brazil.mp4"> 581 historical figures&lt;/a>.&lt;/p>
  * &lt;p>When a child has to study history, he/she is generally not able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?&lt;/p>
  *
@@ -726,7 +735,8 @@
  * @see &lt;a href="https://djalil.chafai.net/blog/wp-content/uploads/2011/11/Letac-From-Archimedes-to-Statistics-The-area-of-the-sphere.pdf">From Archimedes to statistics: the area of the sphere&lt;/a>
  * @see &lt;a href="https://cuhkmath.wordpress.com/2018/01/05/archimedes-and-the-area-of-sphere/">Archimedes and the area of sphere&lt;/a>
  * @see &lt;a href="https://arxiv.org/pdf/1905.11214">On some information geometric structures concerning Mercator projections&lt;/a>
- * @see &lt;a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps&lt;/a>
+ * @see &lt;a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps"&lt;/a>
+ * @see &lt;a href="https://liorsinai.github.io/mathematics/2020/08/27/secant-mercator.html">100 years to solve an integral&lt;/a>
  * @see &lt;a href="https://kartoweb.itc.nl/geometrics/Map projections/mappro.html">Map projections&lt;/a>
  * @see {@link https://paulbourke.net/dome/distortion/ "Distortion", the incorrect and correct usage of the word}
  * @see {@link https://ccv.eng.wayne.edu/reference/mercator-15dec2015.pdf#page=35 The Mercator Projections}
@@ -8581,7 +8591,7 @@ const animate = (() => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Nov 08 2026 10:30:36 GMT-0300 (Brasilia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Nov 13 2026 08:36:31 GMT-0300 (Brasilia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -34,7 +34,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
- * <li>Around the World in 574 <a href="../images/Bunny.mp4">Historical Figures</a>:
+ * <li>Around the World in 581 <a href="../images/Bunny.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
@@ -111,7 +111,7 @@
  *    <img src="../images/Syracuse-Moscow.png" height="256">
  *    <img src="../images/Syracuse-Moscow-map.png" height="256">
  *    <img src="../images/Syracuse-Moscow-cyl.png" height="256">
- *    <figcaption style="font-size: 200%">Syracuse - Moscow (Azimuth: 80.19°)</figcaption>
+ *    <figcaption style="font-size: 200%">Syracuse - Moscow (7,396.1 km, Azimuth: 80.19°)</figcaption>
  * </figure>
  *
  * <p>To locate a ship at sea it is necessary to know its latitude and longitude
@@ -166,9 +166,15 @@
  * only the images listed in the HTML file.<p>
  *
  * <figure>
- *      <a href="../images/Southampton-Titanic-ocean-bottom.png"><img src="../images/Southampton-Titanic-ocean-bottom.png" height="256"></a>
- *      <a href="../images/Southampton-Titanic-ocean-bottom-chart.png"><img src="../images/Southampton-Titanic-ocean-bottom-chart.png" height="256"></a>
- *      <figcaption style="font-size: 150%">Ocean bottom as texture <br>Southampton - Titanic resting place (3,790 km, AZ: 254.65°)</figcaption>
+ *      <a href="../images/Southampton-Titanic-ocean-bottom.png"><img src="../images/Southampton-Titanic-ocean-bottom.png" height="216"></a>
+ *      <a href="../images/Southampton-Titanic-ocean-bottom-chart.png"><img src="../images/Southampton-Titanic-ocean-bottom-chart.png" height="216"></a>
+ *      <figcaption style="font-size: 150%">Ocean bottom as texture: <br>Southampton - Titanic resting place (3,790 km, AZ: 254.65°)</figcaption>
+ * </figure>
+ *
+ * <figure>
+ *      <a href="../images/NYC-Istanbul.png"><img src="../images/NYC-Istanbul.png" height="236"></a>
+ *      <a href="../images/NYC-Istanbul-chart.png"><img src="../images/NYC-Istanbul-chart.png" height="236"></a>
+ *      <figcaption style="font-size: 150%">Tectonic plates as texture: <br>New York City - Istanbul (8,069.4 km, AZ: 89.78°)</figcaption>
  * </figure>
  *
  * <p>Chart maps are images laid onto a sphere as textures and should have an aspect ratio of 2:1 for equirectangular projections
@@ -207,7 +213,8 @@
  *  </div>
  *  <div style="height: 196px; margin-bottom: 80px;">
  *  <figure>
- *    <a href="../images/Meridional Parts.png"><img src="../images/Meridional Parts.png" height="196"></a>
+ *    <a href="../images/Meridional Parts.png"><img src="../images/Meridional Parts.png" height="160"></a>
+ *    <a href="../images/Mercator_construction.png"><img src="../images/Mercator_construction.png" height="160"></a>
  *    <figcaption style="font-size: 200%; text-align: center;">{@link https://www.dco.uscg.mil/Portals/9/NMC/pdfs/examinations/bowditch_Vol_2_2019.pdf#page=125 Meridional Parts}</figcaption>
  *  </figure>
  *  </div>
@@ -215,12 +222,14 @@
  * <ul>
  *  <li> φ = latitude </li>
  *  <li> θ = longitude </li>
+ *  <li> h(φ) = vertical scale</li>
  *  <li> R = radius of the sphere</li>
  *  <li> C<sub>♁</sub> = circumference of the earth</li>
  *  <li> δθ = δx </li>
  *  <li>R cos(φ) / R = δx / d  ⇒ d = δx / cos(φ) = δx sec(φ) </li>
  *  -------- {@link module:polyhedron.spherical2Mercator on the Mercator chart} --------
  *  <li>(x,y) = M(R,θ,φ)
+ *  <li>h(φ) = dy/dφ = R sec(φ)</li>
  *  <li>x = R θ, -π ≤ θ ≤ π </li>
  *  <li>
  *    <span style="display: inline-flex;">
@@ -451,7 +460,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 574 historical figures</a>.</p>
+ * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 581 historical figures</a>.</p>
  * <p>When a child has to study history, he/she is generally not able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -698,7 +707,8 @@
  * @see <a href="https://djalil.chafai.net/blog/wp-content/uploads/2011/11/Letac-From-Archimedes-to-Statistics-The-area-of-the-sphere.pdf">From Archimedes to statistics: the area of the sphere</a>
  * @see <a href="https://cuhkmath.wordpress.com/2018/01/05/archimedes-and-the-area-of-sphere/">Archimedes and the area of sphere</a>
  * @see <a href="https://arxiv.org/pdf/1905.11214">On some information geometric structures concerning Mercator projections</a>
- * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps</a>
+ * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps"</a>
+ * @see <a href="https://liorsinai.github.io/mathematics/2020/08/27/secant-mercator.html">100 years to solve an integral</a>
  * @see <a href="https://kartoweb.itc.nl/geometrics/Map projections/mappro.html">Map projections</a>
  * @see {@link https://paulbourke.net/dome/distortion/ "Distortion", the incorrect and correct usage of the word}
  * @see {@link https://ccv.eng.wayne.edu/reference/mercator-15dec2015.pdf#page=35 The Mercator Projections}
