@@ -208,10 +208,11 @@
  *  <div style="height: 196px;">
  *    <a href="https://spivey.oriel.ox.ac.uk/corner/Thomas_Harriot_and_the_Mercator_Map"><img src="../images/Harriot2_sec3.png" height="196"></a>
  *  </div>
- *  <div style="height: 196px;">
+ *  <div style="height: 196px; margin-bottom: 40px;">
  *    <a href="../images/globe_lat_long.png"><img src="../images/globe_lat_long.png" height="196"></a>
  *  </div>
- *  <div style="height: 196px; margin-bottom: 80px;">
+ *
+ *  <div style="height: 320px; margin-bottom: 80px;">
  *  <figure>
  *    <a href="../images/Meridional Parts.png"><img src="../images/Meridional Parts.png" height="160"></a>
  *    <a href="../images/Mercator_construction.png"><img src="../images/Mercator_construction.png" height="160"></a>
@@ -219,6 +220,7 @@
  *  </figure>
  *  </div>
  * </div>
+ *
  * <ul>
  *  <li> φ = latitude </li>
  *  <li> θ = longitude </li>
