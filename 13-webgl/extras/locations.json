@@ -6792,6 +6792,26 @@
         "latitude": 29.979175,
         "longitude": 31.134358
     },
+    "Kyiv (Kiev)": {
+        "country": "⚔ Ukraine",
+        "remarkable": [
+            "Founded, 482",
+            "Capital of Ukraine, 988-present",
+            "Kyivan Rus', 882-1240",
+            "Yaroslav I Vladimirovich, 978-1054",
+            "Grand Prince of Kiev, 1019 - 20 February 1054 ",
+            "Kingdom of Galicia-Volhynia, 1199-1349",
+            "Siege of Kiev by the Mongols, 6 December 1240",
+            "Polish-Lithuanian Commonwealth, 1569-1772",
+            "Russian Empire, 1772-1917",
+            "Nazi invasion, 22 June 1941",
+            "Soviet Union, 1917-1991",
+            "Ukraine Independence, 24 August 1991",
+            "Battle of Kiev, 23 August 1941 - 26 September 1941"
+        ],
+        "latitude": 50.45,
+        "longitude": 30.523333
+    },
     "Dorylaeum": {
         "country": "✝ Anatolia (Turkey)",
         "remarkable": [
