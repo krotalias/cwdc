@@ -2907,12 +2907,17 @@
     "Brookline": {
         "country": "Massachusetts (United States)",
         "remarkable": [
-            "John Fitzgerald Kennedy, 1917-1963",
-            "Harvard College, 1936-1940",
+            "John Fitzgerald Kennedy (JFK), 1917-1963",
+            "Harvard College A.B. (Government), September 1936 - 20 June 1940",
+            "U.S. Naval Reserve, 26 October 1941",
             "PT-109 boat commander, 24 April 1943",
             "Solomon Islands Campaign (sunk), 2 August 1943",
             "Coconut message, 6 August 1943",
             "35th U.S. President, 20 January 1961",
+            "Bay of Pigs Invasion, 17 April 1961 - 19 April 1961",
+            "Cuban Missile Crisis, 16 October 1962 - 28 October 1962",
+            "Equal Pay Act of 1963, 10 June 1963",
+            "Report to the American People on Civil Rights speech, 11 June 1963",
             "Assassinated, 22 November 1963"
         ],
         "latitude": 42.3249987,
@@ -6558,6 +6563,20 @@
         ],
         "latitude": 31.66926,
         "longitude": 34.57149
+    },
+    "Kalinovka": {
+        "country": "Kursk Oblast (Russia)",
+        "remarkable": [
+            "Nikita Sergeyevich Khrushchev, 1894-1971",
+            "Great Purge (arrested and executed 1.5M people), 1936-1938",
+            "Head of the Communist Party in Ukraine, 1937-1949",
+            "First Secretary of the Communist Party, 7 September 1953 - 14 October 1964",
+            "Transferred Crimea from the Russian SFSR to the Ukrainian SSR, 19 February 1954",
+            "Denounced Stalin's abuse of power in the Secret Speech, 25 February 1956",
+            "Khrushchev's 'voluntary' request to retire, 14 October 1964"
+        ],
+        "latitude": 51.9,
+        "longitude": 34.5
     },
     "Black Sea": {
         "country": "Eurasia",
