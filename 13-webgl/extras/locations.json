@@ -6599,7 +6599,8 @@
         "country": "⚔ Crimea (Russia/Ukraine)",
         "remarkable": [
             "Yalita (ancient Greek colony), 100 BC",
-            "Annexed by the Russian Empire, 1783",
+            "Crimean Khanate (Crimean Tatar state), 1441-1783",
+            "Annexed by the Russian Empire, 19 April 1783",
             "Livadia Palace, 11 September 1911",
             "Occupied by the German Army, 9 November 1941 - 16 April 1944",
             "Yalta Conference (2nd big three meeting), 4 February 1945 - 11 February 1945"
@@ -6627,6 +6628,21 @@
         ],
         "latitude": 45.44675,
         "longitude": 33.98675
+    },
+    "Sevastopol": {
+        "country": "⚔ Crimea (Russia/Ukraine)",
+        "remarkable": [
+            "Founded (Akhtiar), 14 June 1783",
+            "Catherine the Great built Sevastopol fortress, 21 February 1784",
+            "Crimean War (Ottoman Empire), 16 October 1853 - 30 March 1856",
+            "Battle of the Alma, 20 September 1854",
+            "Siege of Sevastopol, 17 October 1854 - 9 September 1855",
+            "Battle of Balaclava, 25 October 1854",
+            "Siege of Sevastopol by Germany, 1941-1942",
+            "Liberated by the Red Army, 9 May 1944"
+        ],
+        "latitude": 44.605,
+        "longitude": 33.5225
     },
     "U-559": {
         "country": "⚔ Germany",
@@ -6803,6 +6819,7 @@
             "Kingdom of Galicia-Volhynia, 1199-1349",
             "Siege of Kiev by the Mongols, 6 December 1240",
             "Polish-Lithuanian Commonwealth, 1569-1772",
+            "Treaty of Pereyaslav (Ukraine-Russia reunification), 18 January 1654",
             "Russian Empire, 2 November 1721 - 15 March 1917",
             "Nazi invasion, 22 June 1941",
             "Soviet Union, 30 December 1922 - 26 December 1991",
