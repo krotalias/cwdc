@@ -6985,6 +6985,22 @@
         "latitude": 36.1725297,
         "longitude": 27.9194016
     },
+    "Marmara Island": {
+        "country": "Marmara Sea (Turkey)",
+        "remarkable": [
+            "Prokonnessos was in the route for the Trojan War, 1250 BC",
+            "Proconnesian marble (largest sources for marble in antiquity)",
+            "Aristeas (Greek poet and miracle-worker), 700 - 601 BC",
+            "Alcibiades conquered it for Athens, 410 BC",
+            "Justinian I palace (retreat for Byzantine nobility), 527-565",
+            "Ottoman Marmara, 1479-1652",
+            "Ottoman Greek Orthodox internal exiles (1.2M), 1914-1918",
+            "Population exchange between Greece and Turkey, 1923",
+            "Treaty of Lausanne (Republic of Turkey), 23 August 1923"
+        ],
+        "latitude": 40.6166642,
+        "longitude": 27.6166642
+    },
     "Troy": {
         "country": "Anatolia (Turkey)",
         "remarkable": [
@@ -7229,13 +7245,26 @@
             "Renamed Sofia, 1329",
             "Conquered by the Ottomans, 1382",
             "Capital of Bulgaria, 3 April 1879",
-            "Independence from the Ottoman Empire, 22 Septemberber 1908",
+            "Independence from the Ottoman Empire, 22 September 1908",
             "Opened the border with Turkey (Big Excursion), 29 May 1989",
             "Expulsion of Turks and Muslims from Bulgaria (300K), 1989",
             "Todor Zhivkov (dictator) resigned, 10 November 1989"
         ],
         "latitude": 42.7,
         "longitude": 23.33
+    },
+    "Thessaloniki": {
+        "country": "Macedonia (Greece)",
+        "remarkable": [
+            "Mustafa Kemal Atatürk (Brigadier General), 1881-1938",
+            "Salonica Military School, 1893",
+            "Ottoman Military Academy, 14 March 1899 - 1902",
+            "Salonica captured by Greece (First Balkan War), 27 October 1912",
+            "Founder of the Republic of Turkey, 29 October 1923",
+            "1st President of Turkey, 29 October 1923 - 10 November 1938"
+        ],
+        "latitude": 40.6403,
+        "longitude": 22.9356
     },
     "Chaeronea": {
         "country": "Greece",
