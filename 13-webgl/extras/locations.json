@@ -2888,6 +2888,24 @@
         "latitude": 42.206,
         "longitude": -71.005
     },
+    "Boston": {
+        "country": "Massachusetts (United States)",
+        "remarkable": [
+            "Harvard University (Ivy League), 28 October 1636",
+            "Henry Knox (Major General), 1750-1806",
+            "Witness to the Boston Massacre, 5 March 1770",
+            "1st U.S. Secretary of War, 8 March 1785 - 31 December 1794",
+            "Tea Act (EIC's monopoly on tea sales), 10 May 1773",
+            "Boston Tea Party (tea cargo dumped in the see), 16 December 1773",
+            "Siege of Boston, 19 April 1775 - 17 March 1776 ",
+            "Battles of Lexington and Concord, 19 April 1775",
+            "Battle of Bunker Hill (British pyrrhic victory), 17 June 1775",
+            "British Evacuation Day, 17 March 1776",
+            "Incorporated as a town, 17 September 1630"
+        ],
+        "latitude": 42.360278,
+        "longitude": -71.057778
+    },
     "Milton": {
         "country": "Massachusetts (United States)",
         "remarkable": [
