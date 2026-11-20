@@ -801,7 +801,7 @@
             "D. Pedro arrived in São Miguel, 22 February 1832",
             "D. Pedro forces departed to Mindelo, 27 June 1832",
             "Revolta dos Calcetas (Fort São Brás), 24 April 1835",
-            "Port of Ponta Delagada (artificial harbor), 30 September 1861 - 1942",
+            "Port of Ponta Delgada (artificial harbor), 30 September 1861 - 1942",
             "Autonomous status, 30 April 1976",
             "Settlement, 1432"
         ],
@@ -3129,6 +3129,7 @@
     "New York City": {
         "country": "New York (United States)",
         "remarkable": [
+            "Columbia University (Ivy League), 25 May 1754",
             "Theodore Roosevelt Jr., 1858-1919",
             "Harvard A.B. History, 1876-1880",
             "NYC Board of Police Commissioners (President), 1895-1897",
@@ -3210,7 +3211,7 @@
         "remarkable": [
             "Dr. Henry Walton (Indiana) Jones Jr., 1 July 1899",
             "Marshall College (fictional), 1920-1924",
-            "Princeton University, 1746-present",
+            "Princeton University (Ivy League), 22 October 1746",
             "Henry Jones Sr. (professor of medieval literature), 1872-1951",
             "Institute for Advanced Study (IAS), 1930-present",
             "Albert Einstein, 1879-1955",
@@ -3238,6 +3239,23 @@
         ],
         "latitude": 45.424722,
         "longitude": -75.695
+    },
+    "Philadelphia": {
+        "country": "Pennsylvania (United States)",
+        "remarkable": [
+            "William Penn (founder), 1644-1718",
+            "Benjamin Franklin, 1705-1790",
+            "Founding Father and leading citizen, 6 October 1723 - 17 April 1790",
+            "University of Pennsylvania (Ivy League), 14 November 1740",
+            "Commissioner and Minister to France, 1776-1785",
+            "6th President of Pennsylvania, 18 October 1785 - 5 November 1788",
+            "Hosted the First Continental Congress, 5 September 1774",
+            "Hosted the Second Continental Congress, 1775-1781",
+            "U.S. first capital, 10 May 1775 - 12 December 1776",
+            "Founded, 1682"
+        ],
+        "latitude": 39.9528,
+        "longitude": -75.1636
     },
     "Birán": {
         "country": "☠ Cuba",
