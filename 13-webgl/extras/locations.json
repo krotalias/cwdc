@@ -3050,6 +3050,36 @@
         "latitude": 19.9969,
         "longitude": -72.6214
     },
+    "Hartford": {
+        "country": "Connecticut (United States)",
+        "remarkable": [
+            "Founded, 15 October 1635",
+            "Mark Twain House, 1874-1891",
+            "John Pierpont Morgan, 1837-1913",
+            "J. Pierpont Morgan & Co., 1861-1864",
+            "Net Worth: $80M or 0.3% GDP (1913) - $2.3B (today)",
+            "Edison Electric Company lighted Morgan's house, 8 June 1882",
+            "General Electric, 1892-1913",
+            "U.S. Steel, 1901-1913",
+            "Carnegie Steel Company for $480M ($15B), 2 March 1901"
+        ],
+        "latitude": 41.7625,
+        "longitude": -72.674167
+    },
+    "New Haven": {
+        "country": "Connecticut (United States)",
+        "remarkable": [
+            "John Davenport (Puritan Minister, founder), 1597-1670",
+            "Settled as a town, 3 April 1638",
+            "Edward Hopkins (colonist and politician), 1600-1657",
+            "2nd Governor of the Connecticut Colony, 1640-1655",
+            "His trust financed Hopkins School and Harvard College",
+            "Part of the Connecticut Colony, 1664",
+            "Yale University (Ivy League), 9 October 1701"
+        ],
+        "latitude": 41.3083,
+        "longitude": -72.925
+    },
     "Montreal": {
         "country": "Quebec (Canada)",
         "remarkable": [
@@ -3828,20 +3858,6 @@
         ],
         "latitude": 41.709166,
         "longitude": -87.981992
-    },
-    "Hartford": {
-        "country": "Connecticut (United States)",
-        "remarkable": [
-            "John Pierpont Morgan, 1837-1913",
-            "J. Pierpont Morgan & Co., 1861-1864",
-            "Net Worth: $80M or 0.3% GDP (1913) - $2.3B (today)",
-            "Edison Electric Company lighted Morgan's house, 8 June 1882",
-            "General Electric, 1892-1913",
-            "U.S. Steel, 1901-1913",
-            "Carnegie Steel Company for $480M ($15B), 2 March 1901"
-        ],
-        "latitude": 43.31778,
-        "longitude": -88.37899
     },
     "San Cristóbal Canton": {
         "country": "Galápagos (Ecuador)",
