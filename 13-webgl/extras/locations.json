@@ -2999,6 +2999,17 @@
         "latitude": 19.687663916,
         "longitude": -72.009499962
     },
+    "Hanover NH": {
+        "country": "New Hampshire (United States)",
+        "remarkable": [
+            "Benning Wentworth, 1696-770",
+            "Governor of New Hampshire, 1741-1766",
+            "Dartmouth College (Ivy League), 13 December 1769",
+            "Incorporated, 4 July 1761"
+        ],
+        "latitude": 43.715556,
+        "longitude": -72.191111
+    },
     "Port-au-Prince": {
         "country": "☠ 🐇 Island of Hispaniola (Haiti)",
         "remarkable": [
@@ -3121,6 +3132,21 @@
         ],
         "latitude": 41.76804,
         "longitude": -73.93482
+    },
+    "Westpoint": {
+        "country": "New York (United States)",
+        "remarkable": [
+            "Army has occupied the site, 27 January 1778",
+            "Thomas Jefferson (founder, 3rd U.S. President), 1801-1809",
+            "U.S. Military Academy (B.S. degree, 1.3K cadets/year)",
+            "1st American accredited civil engineering program",
+            "Candidates must hold a nomination from a member of Congress",
+            "Military Peace Establishment Act, 16 March 1802",
+            "Colonel Sylvanus Thayer established the curriculum, 1817-present",
+            "Female cadets, 1976"
+        ],
+        "latitude": 41.395,
+        "longitude": -73.955
     },
     "The Met": {
         "country": "New York (United States)",
