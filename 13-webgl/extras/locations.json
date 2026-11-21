@@ -2950,6 +2950,18 @@
         "latitude": -53.9250254,
         "longitude": -71.3221444
     },
+    "Providence": {
+        "country": "Rhode Island (United States)",
+        "remarkable": [
+            "Roger Williams (Reverend, founder), 1603-1683",
+            "Gaspee Affair (HMS Gaspee burned), 9 June 1772",
+            "Brown University (Ivy League), 15 September 1764",
+            "University of Rhode Island, 19 May 1892",
+            "Settled, June 1636"
+        ],
+        "latitude": 41.823611,
+        "longitude": -71.422222
+    },
     "Maracaibo": {
         "country": "Venezuela",
         "remarkable": [
@@ -3357,6 +3369,24 @@
         ],
         "latitude": 42.35333192,
         "longitude": -76.200499198
+    },
+    "Ithaca": {
+        "country": "New York (United States)",
+        "remarkable": [
+            "Central New York Military Tract, 20 March 1781",
+            "New York's soldiers compensation for the Revolutionary War",
+            "Land commissioners named the first 25 townships, 3 July 1790",
+            "Established as a town, 16 March 1821",
+            "Ezra Cornell (businessman, politician), 1807-1874",
+            "Cornell University (Ivy League), 27 April 1865",
+            "1st Chairman of Cornell University Board of Trustees, 1870-1874",
+            "Ithaca Gun Company, 1880-1987",
+            "Birthplace of the ice cream sundae, 1892",
+            "Ithaca College, 19 September 1892",
+            "Founded, 1790"
+        ],
+        "latitude": 42.456389,
+        "longitude": -76.493056
     },
     "Port Royal": {
         "country": "⚓ ☠ 🐇 Jamaica",
