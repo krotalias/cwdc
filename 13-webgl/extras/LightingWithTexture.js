@@ -34,7 +34,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
- * <li>Around the World in 581 <a href="../images/Bunny.mp4">Historical Figures</a>:
+ * <li>Around the World in 600 <a href="../images/Bunny.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
@@ -168,7 +168,7 @@
  * <figure>
  *      <a href="../images/Southampton-Titanic-ocean-bottom.png"><img src="../images/Southampton-Titanic-ocean-bottom.png" height="216"></a>
  *      <a href="../images/Southampton-Titanic-ocean-bottom-chart.png"><img src="../images/Southampton-Titanic-ocean-bottom-chart.png" height="216"></a>
- *      <figcaption style="font-size: 150%">Ocean bottom as texture: <br>Southampton - Titanic resting place (3,790 km, AZ: 254.65°)</figcaption>
+ *      <figcaption style="font-size: 150%">Ocean bottom as texture: <br>Southampton - Titanic resting place (3,790.4 km, AZ: 254.65°)</figcaption>
  * </figure>
  *
  * <figure>
@@ -462,7 +462,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 581 historical figures</a>.</p>
+ * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 600 historical figures</a>.</p>
  * <p>When a child has to study history, he/she is generally not able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
@@ -709,8 +709,9 @@
  * @see <a href="https://djalil.chafai.net/blog/wp-content/uploads/2011/11/Letac-From-Archimedes-to-Statistics-The-area-of-the-sphere.pdf">From Archimedes to statistics: the area of the sphere</a>
  * @see <a href="https://cuhkmath.wordpress.com/2018/01/05/archimedes-and-the-area-of-sphere/">Archimedes and the area of sphere</a>
  * @see <a href="https://arxiv.org/pdf/1905.11214">On some information geometric structures concerning Mercator projections</a>
- * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps"</a>
+ * @see <a href="https://math.uit.no/ansatte/dennis/MoMS2017-Lec3.pdf">The Mathematics of Maps</a>
  * @see <a href="https://liorsinai.github.io/mathematics/2020/08/27/secant-mercator.html">100 years to solve an integral</a>
+ * @see <a href="https://arxiv.org/html/2611.16810v1#S3.F4">Classification and Geometry of Loxodromic Curves</a>
  * @see <a href="https://kartoweb.itc.nl/geometrics/Map projections/mappro.html">Map projections</a>
  * @see {@link https://paulbourke.net/dome/distortion/ "Distortion", the incorrect and correct usage of the word}
  * @see {@link https://ccv.eng.wayne.edu/reference/mercator-15dec2015.pdf#page=35 The Mercator Projections}

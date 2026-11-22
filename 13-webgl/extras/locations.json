@@ -5395,6 +5395,19 @@
         "latitude": 22.3,
         "longitude": 114.2
     },
+    "Shenzhen": {
+        "country": "Guangdong (China)",
+        "remarkable": [
+            "Developed from a largely rural village area into a city, 1979",
+            "Global technology hub, 26 August 1980",
+            "Shenzhen University, 27 September 1983",
+            "Shenzhen Stock Exchange, 1 December 1990 ",
+            "BYD Company, 10 February 1995",
+            "Settled as a city, 23 January 1979"
+        ],
+        "latitude": 22.546667,
+        "longitude": 114.054444
+    },
     "Macau": {
         "country": "China-Portugal",
         "remarkable": [

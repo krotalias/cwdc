@@ -1028,11 +1028,12 @@ when using mipmap:
             // pos = (lon,lat) -> mercator = (x, y), x, y in [0,1]
             void spherical2Mercator(in vec2 pos, out vec2 mercator) {
                 float pi = radians(180.0);
+                const float maxLatitude = radians(85.0);
 
                 // uv to equirectangular
                 float lon = (pos.x) * 2.0 * pi;   // [0, 2pi]
                 float lat = (pos.y - 0.5f) * pi;  // [-pi/2, pi/2]
-                lat = clamp(lat,radians(-85.0),radians(85.0));
+                lat = clamp(lat,-maxLatitude,maxLatitude);
 
                 // equirectangular to mercator
                 float x = lon;
