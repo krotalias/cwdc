@@ -1060,13 +1060,25 @@
         "latitude": -17.9369,
         "longitude": -38.9465
     },
+    "Prado": {
+        "country": "Bahia (Brazil)",
+        "remarkable": [
+            "Cabral anchored in Recife dos Carapebas (6 km offshore)",
+            "Praia da Barra do Cahy (1st Brazilian beach), 22 April 1500",
+            "Igreja Matriz de Nossa Senhora da Purificação, 1853",
+            "Cumuruxatiba and Escondido, 1896-1898",
+            "Founded, 2 August 1896"
+        ],
+        "latitude": -17.3415,
+        "longitude": -39.2212
+    },
     "Monte Pascoal": {
         "country": "⛵ Porto Seguro (Brazil)",
         "remarkable": [
             "Pedro Álvares Cabral, 1467-1520",
             "Departed from Lisbon (fleet of 13 ships), 9 March 1500",
             "Cape Verde southwest detour (volta do mar), 22 March 1500",
-            "Discovery of Brazil (Ilha de Vera Cruz), 22 April 1500",
+            "Claimed Brazil to Portugal (Ilha de Vera Cruz), 24 April 1500",
             "Departed to India, 2 May 1500",
             "Rounded the Cape of Good Hope, lost 4 ships and Bartolomeu Dias, 29 May 1500",
             "Diogo Dias sighted for the 1st time the Insula St. Laurentii (Madagascar), 10 August 1500",
@@ -3893,6 +3905,17 @@
         ],
         "latitude": 12.1,
         "longitude": -86.233333
+    },
+    "Cancún": {
+        "country": "Quintana Roo (Mexico)",
+        "remarkable": [
+            "Cancún island (Spanish landing at Cape Catoche), 1517",
+            "Planned city created to foster tourism, 20 April 1970",
+            "Riviera Maya (Above national average in homicides), 1999",
+            "Sargassum season (April-October), 2021-present"
+        ],
+        "latitude": 21.160556,
+        "longitude": -86.8475
     },
     "Tegucigalpa": {
         "country": "🐇 Honduras",
