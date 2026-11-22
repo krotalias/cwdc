@@ -3417,6 +3417,25 @@
         "latitude": 42.456389,
         "longitude": -76.493056
     },
+    "Baltimore": {
+        "country": "Maryland (United States)",
+        "remarkable": [
+            "Cecil Calvert, 2nd Baron Baltimore, 1605-1675",
+            "Proprietor of the Maryland colony, 1632-1675",
+            "Battle of Baltimore, 12-14 September 1814",
+            "Bombardment of Fort McHenry, 13-14 September 1814",
+            "Johns Hopkins (merchant and banker), 1795-1873",
+            "Johns Hopkins Colored Orphan Asylum, 1875-1914",
+            "Johns Hopkins University, 22 February 1876",
+            "Johns Hopkins Hospital (JHH), 7 May 1889",
+            "School of Medicine, 1893",
+            "Dr. Gregory House expelled for cheating, 1978-1982",
+            "Best overall hospital in the U.S., 1991-2020",
+            "Founded, 8 August 1729"
+        ],
+        "latitude": 39.289444,
+        "longitude": -76.615278
+    },
     "Port Royal": {
         "country": "⚓ ☠ 🐇 Jamaica",
         "remarkable": [
@@ -4522,6 +4541,22 @@
         ],
         "latitude": 37.317165398,
         "longitude": -122.038499846
+    },
+    "Stanford": {
+        "country": "California (United States)",
+        "remarkable": [
+            "Amasa Leland Stanford, 1824-1893",
+            "Law School (Cazenovia Seminary in Cazenovia, NY), 1841-1845",
+            "President of Central Pacific Railroad, 28 June 1861",
+            "8th Governor of California, 10 January 1862 - 10 December 1863",
+            "Controlled the Southern Pacific Railroad, 1865-1996",
+            "Leland Stanford Winery, 1869",
+            "Palo Alto Stock Farm, 1876-1903",
+            "Leland Stanford Jr. died of typhoid fever, 1868-1884",
+            "Leland Stanford Junior University, 11 November 1885"
+        ],
+        "latitude": 37.4275,
+        "longitude": -122.170278
     },
     "Seattle": {
         "country": "Washington (United States)",
