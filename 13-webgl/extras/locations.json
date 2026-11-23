@@ -7530,7 +7530,7 @@
         "longitude": 21.90333
     },
     "Tauresium": {
-        "country": "Eastern Roman Empire (Macedonia)",
+        "country": "Eastern Roman Empire (North Macedonia)",
         "remarkable": [
             "Justinian I, 482-565",
             "Roman emperor, 527-565",
@@ -7545,6 +7545,22 @@
         ],
         "latitude": 41.90034,
         "longitude": 21.61346
+    },
+    "Skopje": {
+        "country": "North Macedonia",
+        "remarkable": [
+            "Ancient regions of Paeonia and Pelagonia (Bronze age)",
+            "Scupi (Roman military camp), 90-518",
+            "Catastrophic earthquake destroyed Scupi, 518",
+            "Constituent state of Yugoslavia, 29 November 1945 - 27 April 1992",
+            "Josip Broz Tito, 1892-1980",
+            "Prime Minister of Yugoslavia, 29 November 1945 - 29 June 1963",
+            "President of Yugoslavia, 14 January 1953 - 4 May 1980",
+            "Earthquake (6.1 magnitude), 26 July 1963",
+            "Capital of independent North Macedonia, 8 September 1991"
+        ],
+        "latitude": 41.996111,
+        "longitude": 21.431667
     },
     "Warsaw": {
         "country": "⚔ Poland",
