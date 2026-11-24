@@ -1669,6 +1669,19 @@
         "latitude": -21.6999972,
         "longitude": -45.2666656
     },
+    "Qaqortoq": {
+        "country": "Greenland (Kingdom of Denmark)",
+        "remarkable": [
+            "Erik Thorvaldsson (the Red), 950-1003",
+            "Eastern Settlement (Eystribyggð), 985",
+            "Christianity arrived in Greenland, 1000",
+            "Ruins of Hvalsey church (best-preserved Norse ruins), 1300",
+            "Last written record of the Greenlandic Norse, a wedding, September 1408",
+            "Founded, 7 April 1775"
+        ],
+        "latitude": 60.722222,
+        "longitude": -46.040278
+    },
     "Santos": {
         "country": "São Paulo (Brazil)",
         "remarkable": [
@@ -1913,6 +1926,10 @@
     "Nuuk": {
         "country": "Greenland (Kingdom of Denmark)",
         "remarkable": [
+            "Erik Thorvaldsson (the Red), 950-1003",
+            "Founded the 1st European settlement in Greenland, 985-1408",
+            "Western Settlement, 985",
+            "Thule people from coastal Alaska, 1100-1300",
             "Union with Norway, 1262",
             "Hans Egede (Danish founder), 1686-1758",
             "Apostle of Greenland, 1711",
@@ -7473,7 +7490,7 @@
         "longitude": 22.5333312
     },
     "Pella": {
-        "country": "Macedon (Greece)",
+        "country": "Kingdom of Macedon (Greece)",
         "remarkable": [
             "Alexander the Great, 356-323 BC",
             "Kingship over Macedon, 336 BC",
