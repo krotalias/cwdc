@@ -407,10 +407,12 @@ export const nsegments = 36;
  * we can not use North-Clockwise Convention,
  * because the image would be rendered mirrored.
  * <ul>
- *  <li>border ≡ antimeridian
+ *  <li>border ≡ antimeridian</li>
  *  <li>atan2(-z, x) (border at -x axis of the image - wrap left to right) (correct form) or </li>
  *  <li>atan2(z, -x) (border at x axis of the image - wrap right to left). </li>
  *  <li>atan2(z, x) (border at x axis of the image - mirrored). </li>
+ *  <li>atan2(±y, 0) is ±π/2, which corresponds to -90° or 90° in degrees.</li>
+ *  <li>atan2(0,0) is 0, which corresponds to 0° in degrees.</li>
  * </ul>
  *
  * @see {@link https://people.computing.clemson.edu/~dhouse/courses/405/notes/texture-maps.pdf#page=3 Texture Mapping}
@@ -430,7 +432,7 @@ export function cartesian2Spherical(p, r = 1) {
 
   // acos ∈ [0,pi] ⇒ phi ∈ [0,1]
   // acos (-y) = π - acos (y)
-  const phi = Math.acos(-y / r) / Math.PI;
+  const phi = Math.acos(clamp(-y / r, -1, 1)) / Math.PI;
 
   // atan2 ∈ [-pi,pi] ⇒ theta ∈ [-0.5, 0.5]
   let theta = Math.atan2(-z, x) / (2 * Math.PI);
@@ -617,13 +619,13 @@ export function cartesian2Conical(p, h) {
  * place the x-axis of the projection on the equator,
  * and the y-axis at longitude θ<sub>0</sub>, where θ is the longitude and φ is the latitude:
  * <ul>
- *    <li>x =	θ - θ<sub>0</sub>, 0 ≤ θ - θ<sub>0</sub> ≤ 2π</li>
- *    <li><span style="display: flex;">y = ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;"><sup>φ</sup> <sub>0</sub></span>sec(φ) dφ = ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2 → -π ≤ y ≤ π </span></li>
+ *    <li>x = R (θ - θ<sub>0</sub>), 0 ≤ θ - θ<sub>0</sub> ≤ 2π</li>
+ *    <li><span style="display: flex;">y = R ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;"><sup>φ</sup> <sub>0</sub></span>sec(φ) dφ = ln [tan (π/4 + φ/2)], -π/2 < φ < π/2</span></li>
  * </ul>
  * The poles extent to infinity. Therefore, to create a square image,
  * the maximum latitude occurs at y = π, namely:
  * <ul>
- *    <li>φ<sub>max</sub> = 2 atan (e<sup>π</sup>) - π /2 = 85.051129°</li>
+ *    <li>φ<sub>max</sub> = 2 atan (e<sup>y/R</sup>) - π /2 = 85.051129°</li>
  * </ul>
  * As a consequence, we clamp the latitude to &#91;-85°,85°&#93; to avoid any artifact.
  * @param {Number} s longitude (horizontal angle) θ, 0 ≤ θ ≤ 1.

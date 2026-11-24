@@ -34,7 +34,7 @@
  * {@link previousLocation previous} to the {@link currentLocation current location}.
  * Loxodrome {@link event:changeLoxodromecheckBox checkbox} must be checked in the interface.</li>
  * <br>
- * <li>Around the World in 600 <a href="../images/Bunny.mp4">Historical Figures</a>:
+ * <li>Around the World in 601 <a href="../images/Bunny.mp4">Historical Figures</a>:
  * presents a summary of each location visited by using the {@link event:keydown arrow keys} or
  * {@link event:pointerup-theCanvas clicking} on the bottom right or left
  * of the globe canvas (to advance or recede).</li>
@@ -237,11 +237,11 @@
  *    <span style="display: inline-flex;">
  *      y = R ∫ <span style="display: flex; align-items: center; flex-direction: column; font-size: 0.75rem;">
  *                <sup>φ</sup> <sub>0</sub>
- *              </span>sec(φ) dφ = R ln [tan (π/4 + φ/2)], -π/2 ≤ φ ≤ π/2
+ *              </span>sec(φ) dφ = R ln [tan (π/4 + φ/2)], -π/2 < φ < π/2
  *    </span>
  *  </li>
  *  <li>For a square Mercator chart, -π ≤ y ≤ π ⇒ φ ∈ [-85.051129°, 85.051129°]</li>
- *  <li>φ = 2 tan<sup>-1</sup> (e<sup>y</sup>) - π/2, -π ≤ y ≤ π → -85.051129° ≤ φ ≤ 85.051129° </li>
+ *  <li>φ = 2 tan<sup>-1</sup> (e<sup>y/R</sup>) - π/2, -π ≤ y ≤ π → -85.051129° ≤ φ ≤ 85.051129° </li>
  *   -------- {@link meridionalParts Meridional Parts} --------
  *  <li>Meridional parts quantify vertical chart lengths by scaling them relative to horizontal minute units at the equator</li>
  *  <li>1 {@link toNauticalMiles Nautical Mile} = one minute of longitude at the equator</li>
@@ -387,7 +387,7 @@
  * if students do not understand what causes it.
  * To circumvent the map distortion confusion, the flat chart should always be paired with a synced 3D globe.</p>
  *
- * The interface we propose to tackle this problem presents a 3D view of the globe all the time so the real sizes are easily seen.
+ * The interface I propose to tackle this problem presents a 3D view of the globe all the time so the real sizes are easily seen.
  * Every time a user clicks on the chart, the globe rotates to make the corresponding point on the globe face the viewer. This is
  * accomplished by keeping a forward vector from the origin to the center of the projected sphere, which is the position of the Phong highlight.
  * The position vector from the origin to the clicked point is then just rotated to become the new {@link rotateModelTowardsCamera forward vector}.
@@ -462,7 +462,7 @@
  * or <a href="../doc/TeseKevinWeiler.pdf">radial-edge</a> data structures required in
  * {@link https://www.sciencedirect.com/science/article/abs/pii/S0010448596000668?via%3Dihub solid modeling}.
  *
- * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 600 historical figures</a>.</p>
+ * <p><b style="font-size: 150%;">The <i>Navigare</i> application</b>: Around The World in <a href="../images/Brazil.mp4"> 601 historical figures</a>.</p>
  * <p>When a child has to study history, he/she is generally not able to visualize the actual location of an event.
  * For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?</p>
  *
