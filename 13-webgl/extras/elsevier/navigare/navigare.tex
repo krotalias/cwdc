@@ -40,7 +40,7 @@
 \address[1]{Department of Computer Science, Universidade Federal do Rio de Janeiro, Brazil}
 
 \begin{abstract}
-Navigare is an interactive application leveraging Computer Graphics to illustrate Geomatics concepts and aims to enhance map literacy.
+    Navigare is an interactive application leveraging Computer Graphics to illustrate Geomatics concepts and aims to enhance map literacy.
     It provides a mechanism for tracing loxodrome (rhumb-line) and orthodrome (great-circle) paths between two locations on a 3D globe and a 2D map,
     which remain synchronized to display the same geographic coordinates. A configuration file containing predefined locations is used to present
     details for each site, including its name, country, longitude, latitude, and a summary of its significance.
@@ -64,7 +64,8 @@ Therefore, the translation could also be ``Sailing is precise; living is not pre
 which points to the necessity of some mathematical
 knowledge to reach a target location by sea. At last,
 the song ``\href{https://krotalias.github.io/cwdc/13-webgl/extras/images/aod.mp4}{Os Argonautas}''
-was written in 1969 by Brazilian composer \href{https://en.wikipedia.org/wiki/Caetano_Veloso}{Caetano Veloso}.}}
+was written in 1969 by Brazilian composer
+\href{https://en.wikipedia.org/wiki/Caetano_Veloso}{Caetano Veloso}.}}
 
 This work describes \href{https://krotalias.github.io/cwdc/13-webgl/extras/LightingWithTextureV.html}{Navigare},
 an application~\cite{Navigare2026} that employs Computer Graphics to present Geomatics concepts to the general public.
@@ -406,8 +407,7 @@ Navigare sticks only with HTML, CSS, JavaScript, and WebGL, plus some packages, 
 The concepts applied in the implementation rely on Linear Algebra for spatial transformations~\cite{Hefferon2021},
 Computer Graphics for rendering theory and pipelines~\cite{eck2023introduction},
 and Web Development frameworks to display and run the interactive visual content in a browser.
-However, Computer Graphics has become a commodity, much like database management; everyone utilizes it,
-yet very few people are interested in understanding the underlying mechanics.
+However, although many programmers utilize Computer Graphics, very few of them understand its underlying mechanics.
 This trend poses a challenge for educators, as it becomes increasingly important to inspire curiosity and a
 deeper appreciation for the artistic and technical aspects of graphics programming.
 By focusing on foundational principles, students are encouraged to explore beyond the surface and engage with
@@ -434,20 +434,22 @@ In fact, the remarkable list can be tailored to suit the specific interests and 
 providing a curated selection of information that enhances their understanding and engagement with the subject matter.
 
 The sorting of dates uses the day, month and year of the first date of the last entry in the remarkable list field
-and BC (Before Christ) dates are sorted as negative numbers.
+and BC (Before Christ) dates are sorted as negative years.
 
 \vspace{0.5cm}
-\noindent E.g., ``Battle of Britain, 10 July 1940 - 31 October 1940''\ is sorted using ``10 July 1940''.
+\noindent E.g., ``Battle of Thermopylae, 8 September 480 BC - 10 September 480 BC''\ is sorted using ``8 September 480 BC''.
 
 \begin{lstlisting}
-    "Moffat": {
-        "country": "|⚔| Scotland (United Kingdom)",
+    "Thermopylae": {
+        "country": "Greece",
         "remarkable": [
-            "Hugh Dowding (Air Chief Marshal), 1882-1970",
-            "Battle of Britain, 10 July 1940 - 31 October 1940"
+            "Leonidas, 540-480 BC",
+            "King of city-state Sparta, 489 BC",
+            "Second Persian invasion of Greece, 480 BC"
+            "Battle of Thermopylae, 8 September 480 BC - 10 September 480 BC"
         ],
-        "latitude": 55.333814,
-        "longitude": -3.444884
+        "latitude": 38.7999968,
+        "longitude": 22.5333312
     },
     "San Francisco": {
         "country": "|⚔| California (United States)",
