@@ -60,19 +60,18 @@ roma@dcc.ufrj.br}
 \maketitle
 
 \begin{abstract}
-    This work describes Navigare~\cite{Navigare2026},
-    an application that employs Computer Graphics to present Geomatics concepts to the general public.
-    The code is open source and hopefully it will be useful for teachers
-    and students alike to enhance their map literacy.
+    Navigare is an interactive application leveraging Computer Graphics to illustrate Geomatics concepts and aims to enhance map literacy.
+    It provides a mechanism for tracing loxodrome (rhumb-line) and orthodrome (great-circle) paths between two locations on a 3D globe and a 2D map,
+    which remain synchronized to display the same geographic coordinates. A configuration file containing predefined locations is used to present
+    details for each site, including its name, country, longitude, latitude, and a summary of its significance.
+    Users can also calculate geodesic (shortest) distances between pairs of locations.
 \end{abstract}
 
 \begin{IEEEkeywords}
     Geomatics, Computer Graphics, Mercator, Loxodromes, Orthodromes, Geodesics
 \end{IEEEkeywords}
 
-\section{Introduction
-\footnote{
-According to Plutarch,
+\section{Introduction\footnote{According to Plutarch,
 the Roman General Pompey in 56 BC when informed about a storm,
 while sailing to Sicily to transport vital grain to a starving Rome, said to his sailors,
 ``Navigare necesse; vivere non est necesse'', which translates to english as ``Sailing is necessary; living is not necessary''.
@@ -83,10 +82,11 @@ Therefore, the translation could also be ``Sailing is precise; living is not pre
 which points to the necessity of some mathematical
 knowledge to reach a target location by sea. At last,
 the song ``\href{https://krotalias.github.io/cwdc/13-webgl/extras/images/aod.mp4}{Os Argonautas}''
-was written in 1969 by Brazilian composer \href{https://en.wikipedia.org/wiki/Caetano_Veloso}{Caetano Veloso}.}}
+was written in 1969 by Brazilian composer
+\href{https://en.wikipedia.org/wiki/Caetano_Veloso}{Caetano Veloso}.}}
 
 This work describes \href{https://krotalias.github.io/cwdc/13-webgl/extras/LightingWithTextureV.html}{Navigare},
-an application that employs Computer Graphics to present Geomatics concepts to the general public.
+an application~\cite{Navigare2026} that employs Computer Graphics to present Geomatics concepts to the general public.
 Its interface is composed of a 3D globe and a 2D map, both of which are synchronized
 to display the same location. A set of predefined
 historical sites is presented, and users can select two locations to trace a loxodrome or orthodrome
@@ -111,7 +111,7 @@ natural rotation using the mouse or touch and necessary to display the historica
     The bearing angle (azimuth) is measured from the previous to the current location.
     Loxodrome checkbox must be checked in the interface.
 
-\item Around the World in 500 Historical Figures: presents a summary of each location visited by using the arrow keys
+\item Around the World in 600 Historical Figures: presents a summary of each location visited by using the arrow keys
     or clicking on the bottom right or left of the globe canvas (to advance or recede).
 
 \item Dial Earth: type a pair of latitude and longitude coordinates and press enter to go to the
@@ -233,7 +233,8 @@ making it ideal for navigation (directions on the map match the directions on th
 However, it distorts areas, especially near the poles, where landmasses appear much larger than they are in reality.
 Meridian and parallel scales are the same, meaning that distances along a parallel or meridian
 (in fact, in all directions) are equally stretched by a factor of
-$\sec(\phi) = 1/\cos(\phi), \text{where } \phi \in [-85.051129^\circ, 85.051129^\circ]$ is its latitude.
+$\sec(\phi) = 1/\cos(\phi), \text{where } \phi \in [-85.051129^\circ, 85.051129^\circ]$ is its latitude:
+$$R \cos(\phi) / R = \delta x / d \implies d = \delta x / \cos(\phi) = \delta x\ \sec(\phi)$$
 
 At latitude $\phi$, horizontal distances on the chart are magnified by $\sec(\phi)$ to make the meridians parallel.
 So locally, the vertical distances should be magnified by $\sec(\phi)$ also to make the projection angle-preserving~\cite{Oriel1993}
@@ -255,7 +256,6 @@ So locally, the vertical distances should be magnified by $\sec(\phi)$ also to m
     \label{fig:sec}
 \end{figure}
 
-\newpage
 \vspace{0.5cm}
 $\phi$ = latitude, $-\pi/2 < \phi < \pi/2$
 
@@ -268,8 +268,6 @@ R = radius of the sphere
 $R_{\oplus}$ = radius of the earth
 
 $C_{\oplus}$ = circumference of the earth
-
-$R \cos(\phi) / R = \delta x / d \implies d = \delta x / \cos(\phi) = \delta x\ \sec(\phi)$
 
 \vspace{0.5cm}
 \textbf{Mercator chart~\cite{Vezie2016}}
@@ -284,12 +282,13 @@ $R \cos(\phi) / R = \delta x / d \implies d = \delta x / \cos(\phi) = \delta x\ 
 \item $y = R \int_{0}^{\phi } \sec(\phi) d\phi = R\ \ln [\tan (\pi/4 + \phi/2)],$
 \item[] $-\pi/2 < \phi < \pi/2$
 
-\item $\phi = 2\ \tan^{-1} (e^{y/R}), -\pi \leq y \leq \pi$ (square chart)
+\item $\phi = 2\ \tan^{-1} (e^{y/R}), -R\pi \leq y \leq R\pi$ (square chart)
 \item[] $\implies \phi \in [-85.051129^\circ, 85.051129^\circ]$
 
 \end{itemize}
 
 \vspace{0.5cm}
+\newpage
 \textbf{Meridional Parts~\cite{Bowditch2024}}
 
 \begin{itemize}
@@ -309,11 +308,12 @@ that measured half of a minute to approximate the speed of a ship in nautical mi
 \end{itemize}
 
 \vspace{0.5cm}
+\newpage
 \textbf{Loxodromes~\cite{Veness26}}
 
 \begin{itemize}
 \item $\phi$ = latitude, $-85.051129^\circ \leq \phi \leq 85.051129^\circ$
-\item $\theta$ = longitude, $-\pi \leq \theta \leq \pi$
+\item $\theta$ = longitude, $-180^\circ \leq \theta \leq 180^\circ$
 \item $\alpha$ = bearing angle (measured clockwise in degrees from north)
 \item $\tan(90^\circ - \alpha) = \cot(\alpha) = 1/\tan(\alpha) = dx/dy$
 \item $dx = R\ \cos(\phi) d\theta$
@@ -425,7 +425,7 @@ which is the position of the Phong highlight. The position vector from the origi
 then just rotated to become the new forward vector. However, the north (Y-axis) also rotates,
 and the globe can be positioned in a non-conventional way, for example, ``upside-down.''
 A second rotation around the new forward vector can reset the north vector appropriately.
-It is amazing what can be done do with a few cross and dot product operations.
+The whole process can be implemented with a few cross and dot product operations.
 
 \begin{figure}[htbp]
     \centering
@@ -439,7 +439,6 @@ It is amazing what can be done do with a few cross and dot product operations.
     \label{fig:greenland}
 \end{figure}
 
-\newpage
 \section{The Navigare application Around The World in 600 historical figures}
 
 When a child has to study history, he/she is generally not able to visualize the actual location of an event.
@@ -471,10 +470,19 @@ All sites are hold in a JSON file called ``locations.json'' and it is possible t
 when choosing a two letter ISO country code in the interface.
 For example, selecting BR will display all the figures from Brazil,
 while CA will show those from Canada (Figure~\ref{fig:Vancouver}) and US from the United States of America.
-The sorting of dates uses the day, month and year of the first date of the last entry in the remarkable list field.
-BC (Before Christ) dates are sorted as negative numbers.
+
+The content of the remarkable lists is completely arbitrary and should be chosen based on the purpose of
+the information to be delivered to the user. For instance, if the goal is to highlight historical events, the list
+could include significant battles, treaties, or discoveries. Alternatively, for a focus on scientific achievements,
+it might feature notable inventions, breakthroughs, or influential figures in science.
+In fact, the remarkable list can be tailored to suit the specific interests and needs of the audience,
+providing a curated selection of information that enhances their understanding and engagement with the subject matter.
+
+The sorting of dates uses the day, month and year of the first date of the last entry in the remarkable list field
+and BC (Before Christ) dates are sorted as negative numbers.
 
 \vspace{0.5cm}
+\newpage
 \noindent E.g., ``Battle of Britain, 10 July 1940 - 31 October 1940''\ is sorted using ``10 July 1940''.
 
 \begin{lstlisting}[

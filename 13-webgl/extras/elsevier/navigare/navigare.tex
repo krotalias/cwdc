@@ -40,15 +40,11 @@
 \address[1]{Department of Computer Science, Universidade Federal do Rio de Janeiro, Brazil}
 
 \begin{abstract}
-This work describes Navigare,
-an application that employs Computer Graphics to present Geomatics concepts to the general public.
-Its interface is composed of a 3D globe and a 2D map, both of which are synchronized
-to display the same location. A set of predefined
-historical sites is presented, and users can select two locations to trace a loxodrome or orthodrome
-path between them or calculate their distances.
-The application also provides information about each historical site, including its name, country,
-longitude, latitude, and a brief description of its significance. A Timeline of historical figures is also available,
-allowing users to explore the lives and contributions of notable individuals throughout history.
+Navigare is an interactive application leveraging Computer Graphics to illustrate Geomatics concepts and aims to enhance map literacy.
+    It provides a mechanism for tracing loxodrome (rhumb-line) and orthodrome (great-circle) paths between two locations on a 3D globe and a 2D map,
+    which remain synchronized to display the same geographic coordinates. A configuration file containing predefined locations is used to present
+    details for each site, including its name, country, longitude, latitude, and a summary of its significance.
+    Users can also calculate geodesic (shortest) distances between pairs of locations.
 \begin{keyword}
     Geomatics \sep Computer Graphics \sep Mercator \sep Loxodromes \sep Orthodromes \sep Geodesics
 \end{keyword}
@@ -71,7 +67,7 @@ the song ``\href{https://krotalias.github.io/cwdc/13-webgl/extras/images/aod.mp4
 was written in 1969 by Brazilian composer \href{https://en.wikipedia.org/wiki/Caetano_Veloso}{Caetano Veloso}.}}
 
 This work describes \href{https://krotalias.github.io/cwdc/13-webgl/extras/LightingWithTextureV.html}{Navigare},
-an application that employs Computer Graphics to present Geomatics concepts to the general public.
+an application~\cite{Navigare2026} that employs Computer Graphics to present Geomatics concepts to the general public.
 Its interface is composed of a 3D globe and a 2D map, both of which are synchronized
 to display the same location. A set of predefined
 historical sites is presented, and users can select two locations to trace a loxodrome or orthodrome
@@ -96,7 +92,7 @@ natural rotation using the mouse or touch and necessary to display the historica
     The bearing angle (azimuth) is measured from the previous to the current location.
     Loxodrome checkbox must be checked in the interface.
 
-\item Around the World in 500 Historical Figures: presents a summary of each location visited by using the arrow keys
+\item Around the World in 600 Historical Figures: presents a summary of each location visited by using the arrow keys
     or clicking on the bottom right or left of the globe canvas (to advance or recede).
 
 \item Dial Earth: type a pair of latitude and longitude coordinates and press enter to go to the
@@ -114,7 +110,7 @@ required for rendering graphics.
 Basically, it is a device for drawing triangles in parallel (4 billion triangles per second on a modern GPU)
 by executing a vertex shader for each vertex and a fragment shader for each pixel.
 
-A shader is a program writen in GLSL (OpenGL Shading Language)~\cite{glslspec460}
+A shader is a program written in GLSL (OpenGL Shading Language)~\cite{glslspec460}
 that runs on the GPU and is responsible for determining
 how each pixel on the screen should be colored based on the
 geometry, lighting, and texture of the scene. A chart map is a texture (an image) that
@@ -149,7 +145,7 @@ The Flemish cartographer Gerardus Mercator has given the answer thirty two years
     \includegraphics[height=0.3\textheight]{figs/Syracuse-Moscow.png}
     \includegraphics[height=0.25\textheight]{figs/Syracuse-Moscow-map.png}
     \includegraphics[height=0.25\textheight]{figs/Syracuse-Moscow-cyl.png}
-    \caption{Syracuse - Moscow (Azimuth: 80.19\textdegree - 7,396 km)}
+    \caption{Syracuse - Moscow (Azimuth: 80.19\textdegree - 7,396 km, Loxodrome (magenta), Orthodrome (cyan))}
     \label{fig:Syracuse}
 \end{figure}
 
@@ -179,7 +175,7 @@ and illumination parameters, such as the Phong highlight~\cite{phong1975illumina
 equator line if the user has not interacted using the Arcball~\cite{shoemake1992arcball}\cite{shoemake1994arcball}.
 If PHP is running on the HTTP server,
 then any image file in directory "textures"~(Figure~\ref{fig:ocean}) will be available in the menu.
-Otherwise, sorry GitHub pages, only the images listed in the HTML file.
+Otherwise, only the images listed in the HTML file.
 
 \begin{figure}[htbp]
     \centering
@@ -206,13 +202,16 @@ a texture can be georeferenced~\cite{Atractor}.
 This is the case of the quadrics, and Navigare also supports cones and cylinders.
 
 Maps are transformations from 3D space to 2D space, and they can preserve areas (equal-area maps)
-or angles (conformal maps). In terms of projection invariance, loxodromes appear as straight lines on conformal map projections.
+or angles (conformal maps). In terms of projection invariance, loxodromes appear as straight lines
+on conformal map projections only when meridians map to parallel straight lines with a uniform
+angular reference across the chart, as in the normal Mercator projection.
 Therefore, the success of the Mercator projection lies in its ability to preserve angles,
 making it ideal for navigation (directions on the map match the directions on the compass).
 However, it distorts areas, especially near the poles, where landmasses appear much larger than they are in reality.
 Meridian and parallel scales are the same, meaning that distances along a parallel or meridian
 (in fact, in all directions) are equally stretched by a factor of
-$\sec(\phi) = 1/\cos(\phi), \text{where } \phi \in [-85.051129^\circ, 85.051129^\circ]$ is its latitude.
+$\sec(\phi) = 1/\cos(\phi), \text{where } \phi \in [-85.051129^\circ, 85.051129^\circ]$ is its latitude:
+$$R \cos(\phi) / R = \delta x / d \implies d = \delta x / \cos(\phi) = \delta x\ \sec(\phi)$$
 
 At latitude $\phi$, horizontal distances on the chart are magnified by $\sec(\phi)$ to make the meridians parallel.
 So locally, the vertical distances should be magnified by $\sec(\phi)$ also to make the projection angle-preserving~\cite{Oriel1993}
@@ -237,23 +236,19 @@ $R_{\oplus}$ = radius of the earth
 
 $C_{\oplus}$ = circumference of the earth
 
-$\delta\theta = \delta x$
-
-$R \cos(\phi) / R = \delta x / d \implies d = \delta x / \cos(\phi) = \delta x\ \sec(\phi)$
-
 \vspace{0.5cm}
 \textbf{Mercator chart~\cite{Vezie2016}}
 \begin{itemize}
 
 \item $(x,y) = M(R,\theta,\phi)$
 
-\item $x = R\ \theta , -\pi \leq \theta \leq \pi$
+\item $x = R\ \theta , -\pi < \theta < \pi$
 
 \item $y = R \int_{0}^{\phi } \sec(\phi) d\phi = R\ \ln [\tan (\pi/4 + \phi/2)], -\pi/2 \leq \phi \leq \pi/2$
 
-\item For a square Mercator chart, $-\pi \leq y \leq \pi \implies \phi \in [-85.051129^\circ, 85.051129^\circ]$
+\item $\phi = 2\ \tan^{-1} (e^{y/R}), -R\pi \leq y \leq R\pi$ (square chart)
+\item[] $\implies \phi \in [-85.051129^\circ, 85.051129^\circ]$
 
-\item $\phi = 2\ \tan^{-1} (e^{y}) -\pi/2, -\pi \leq y \leq \pi \rightarrow -85.051129^\circ \leq \phi \leq 85.051129^\circ$
 \end{itemize}
 
 \vspace{0.5cm}
@@ -277,8 +272,8 @@ that measured half of a minute to approximate the speed of a ship in nautical mi
 \textbf{Loxodromes~\cite{Veness26}}
 
 \begin{itemize}
-\item $\phi$ = latitude
-\item $\theta$ = longitude
+\item $\phi$ = latitude, $-85.051129^\circ \leq \phi \leq 85.051129^\circ$
+\item $\theta$ = longitude, $-180^\circ \leq \theta \leq 180^\circ$
 \item $\alpha$ = bearing angle (measured clockwise in degrees from north)
 \item $\tan(90^\circ - \alpha) = \cot(\alpha) = 1/\tan(\alpha) = dx/dy$
 \item $dx = R\ \cos(\phi) d\theta$
@@ -326,7 +321,7 @@ The only exceptions are functions
 \href{https://krotalias.github.io/cwdc/13-webgl/extras/doc-light/global.html#calculateLoxodromeDistanceWGS84}{calculateLoxodromeDistanceWGS84}
 and \href{https://krotalias.github.io/cwdc/13-webgl/extras/doc-light/global.html#toMercator}{toMercator}.
 
-It is impressive how Gerardus Mercator was able to create such a projection~\cite{Mercator1569Nova}
+Gerardus Mercator was able to create such a projection~\cite{Mercator1569Nova}
 in a time (1569) when there was no calculus
 (integrals, derivatives — Leibniz in 1674~\cite{Leibniz1684} and Newton in 1666~\cite{Newton1967Whiteside}) or
 even logarithm tables (John Napier, 1614)~\cite{Napier1614}.
@@ -349,7 +344,7 @@ samples texture coordinates for each pixel. Since a unit sphere fits in the WebG
 it is possible to go into each fragment from:
 
 \begin{itemize}
-    \item  cartesian $\rightarrow$ spherical (equirectangular) $\rightarrow$ Mercator
+    \item  cartesian $\rightarrow$ spherical ()equirectangular $\rightarrow$ Mercator
     \item  (x, y, z) $\rightarrow$ (long, lat) $\rightarrow$ (x, y)
     \item  sample texture at (x, y)
 \end{itemize}
@@ -380,14 +375,14 @@ for instance, stretches land sizes near the poles while keeping compass directio
 Country size changes is a problem for school classrooms if students do not understand what causes it.
 To circumvent the map distortion confusion, the flat chart should always be paired with
 a synced 3D globe, as can be seen in Figure~\ref{fig:greenland}.
-The interface we propose to tackle this problem presents a 3D view of the globe all the time so the real sizes are easily seen.
+The interface I propose to tackle this problem presents a 3D view of the globe all the time so the real sizes are easily seen.
 Every time a user clicks on the chart, the globe rotates to make the corresponding point on the globe face the viewer.
 This is accomplished by keeping a forward vector from the origin to the center of the projected sphere,
 which is the position of the Phong highlight. The position vector from the origin to the clicked point is
 then just rotated to become the new forward vector. However, the north (Y-axis) also rotates,
 and the globe can be positioned in a non-conventional way, for example, ``upside-down.''
 A second rotation around the new forward vector can reset the north vector appropriately.
-It is amazing what we can do with a few cross and dot product operations.
+The whole process can be implemented with a few cross and dot product operations.
 
 \begin{figure}[htbp]
     \centering
@@ -398,7 +393,7 @@ It is amazing what we can do with a few cross and dot product operations.
 \end{figure}
 
 
-\section{The Navigare application Around The World in 500 historical figures}
+\section{The Navigare application Around The World in 600 historical figures}
 
 When a child has to study history, he/she is generally not able to visualize the actual location of an event.
 For instance, where were the locations of Thrace, Anatolia, Troy, the Parthian Empire, the Inca Empire, and Rapa Nui?
@@ -415,7 +410,7 @@ However, Computer Graphics has become a commodity, much like database management
 yet very few people are interested in understanding the underlying mechanics.
 This trend poses a challenge for educators, as it becomes increasingly important to inspire curiosity and a
 deeper appreciation for the artistic and technical aspects of graphics programming.
-By focusing on foundational principles, we encourage students to explore beyond the surface and engage with
+By focusing on foundational principles, students are encouraged to explore beyond the surface and engage with
 the creative possibilities that computer graphics offers.
 
 Of course, everything could have been implemented using a package such as three.js only,
@@ -430,7 +425,16 @@ All sites are hold in a JSON file called ``locations.json'' and it is possible t
 when choosing a two letter ISO country code in the interface.
 For example, selecting BR will display all the figures from Brazil,
 while CA will show those from Canada (Figure~\ref{fig:Vancouver}) and US from the United States of America.
-The sorting of dates uses the day, month and year of the last date of the last entry in the remarkable list field.
+
+The content of the remarkable lists is completely arbitrary and should be chosen based on the purpose of
+the information to be delivered to the user. For instance, if the goal is to highlight historical events, the list
+could include significant battles, treaties, or discoveries. Alternatively, for a focus on scientific achievements,
+it might feature notable inventions, breakthroughs, or influential figures in science.
+In fact, the remarkable list can be tailored to suit the specific interests and needs of the audience,
+providing a curated selection of information that enhances their understanding and engagement with the subject matter.
+
+The sorting of dates uses the day, month and year of the first date of the last entry in the remarkable list field
+and BC (Before Christ) dates are sorted as negative numbers.
 
 \vspace{0.5cm}
 \noindent E.g., ``Battle of Britain, 10 July 1940 - 31 October 1940''\ is sorted using ``10 July 1940''.
@@ -470,7 +474,7 @@ Dates should be preceded by a comma in the remarkable list field to be considere
 \begin{figure}[htbp]
     \centering
     \includegraphics[height=0.6\textheight]{figs/Vancouver-Fredericton.png}
-    \caption{Vancouver to Fredericton (Azimuth: 94.98\textdegree - 4,149 km)}
+    \caption{Vancouver to Fredericton (Azimuth: 94.98\textdegree - 4,149 km) and its historical description}
     \label{fig:Vancouver}
 \end{figure}
 
@@ -519,13 +523,13 @@ Nonetheless, the earth is an oblate spheroid, and shortest distances are geodesi
 and not straight lines on a piece of paper.
 Therefore, it is important to realize the difference between distance measurements on the plane and on a sphere.
 
-The interface we propose presents a three-dimensional view of the earth to enhance the perception of the spherical shape of our planet.
-Furthermore, we discussed the effect of projections in shape distortion~\cite{TrueSize} and the need of mathematical integration
-for the development of the Mercator projection and its importance for navigation in the past.
+The interface I propose presents a three-dimensional view of the earth to enhance the perception of the spherical shape of our planet.
+Furthermore, the effect of projections in shape distortion~\cite{TrueSize}, and the need of mathematical integration
+for the development of the Mercator projection - and its importance for navigation in the past - are discussed.
 The ability of associating historical events with their geographical locations sorted by dates is a
 powerful mechanism for learning and understanding history in a more engaging and interactive way.
 
-The code is open source and hopefully it will be useful for teachers and students alike to enhance their map literacy.
+The code is open source~\cite{Navigare2026} and hopefully it will be useful for teachers and students alike to enhance their map literacy.
 Navigare was implemented in a peculiar way, which took advantage of JavaScript's dynamic typing and the flexibility of WebGL
 to create an interactive and engaging learning experience.
 The interface runs on any modern web browser, and it is responsive to different screen sizes and resolutions
