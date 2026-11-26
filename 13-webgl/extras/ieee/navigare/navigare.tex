@@ -234,7 +234,13 @@ However, it distorts areas, especially near the poles, where landmasses appear m
 Meridian and parallel scales are the same, meaning that distances along a parallel or meridian
 (in fact, in all directions) are equally stretched by a factor of
 $\sec(\phi) = 1/\cos(\phi), \text{where } \phi \in [-85.051129^\circ, 85.051129^\circ]$ is its latitude:
-$$R \cos(\phi) / R = \delta x / d \implies d = \delta x / \cos(\phi) = \delta x\ \sec(\phi)$$
+
+\begin{equation}
+\begin{split}
+\frac{R \cos(\phi)} {R} &= \frac{\delta x} {d} \\
+d & = \frac{\delta x} {\cos(\phi)} = \delta x\ \sec(\phi)
+\end{split}
+\end{equation}
 
 At latitude $\phi$, horizontal distances on the chart are magnified by $\sec(\phi)$ to make the meridians parallel.
 So locally, the vertical distances should be magnified by $\sec(\phi)$ also to make the projection angle-preserving~\cite{Oriel1993}
@@ -314,18 +320,24 @@ that measured half of a minute to approximate the speed of a ship in nautical mi
 \begin{itemize}
 \item $\phi$ = latitude, $-85.051129^\circ \leq \phi \leq 85.051129^\circ$
 \item $\theta$ = longitude, $-180^\circ \leq \theta \leq 180^\circ$
-\item $\alpha$ = bearing angle (measured clockwise in degrees from north)
-\item $\tan(90^\circ - \alpha) = \cot(\alpha) = 1/\tan(\alpha) = dx/dy$
-\item $dx = R\ \cos(\phi) d\theta$
-\item $dy = R\ d\phi$
-\item $\tan(\alpha) = dx/dy = \cos(\phi) d\theta/d\phi$
-\item $d\theta/d\phi = \tan(\alpha) \sec(\phi)$
-\item $\int \sec(\phi) d\phi = 1/\tan(\alpha) \int d\theta$
-\item[] ${\implies \tan(\alpha) \int \sec(\phi) d\phi = (\theta - \theta_{0})}$
-\item $(\theta - \theta_{0}) = \int_{\phi_{0}}^{\phi} \tan(\alpha) \sec(\phi) d\phi$
-\item $\theta(\phi) = \theta_{0} + \tan(\alpha)\ \ln [\tan (\pi/4 + \phi/2) / \tan (\pi/4 + \phi_{0}/2)] = \theta_{0} + \tan(\alpha) \times diffMercator(\phi, \phi_{0})$
-\item $\theta(\phi) = \href{https://krotalias.github.io/cwdc/13-webgl/extras/doc-light/global.html#longitudeOnLoxodrome}{longitudeOnLoxodrome(\phi_{0}, \phi, \alpha)}$
+\item $\alpha$ = bearing angle (clockwise in degrees from north)
 \end{itemize}
+
+\begin{equation}
+\begin{split}
+ \tan(90^\circ - \alpha) &= \cot(\alpha) = 1/\tan(\alpha) = dx/dy \\
+ dx &= R\ \cos(\phi) d\theta \\
+ dy &= R\ d\phi \\
+ \tan(\alpha) &= dx/dy = \cos(\phi) d\theta/d\phi \\
+ d\theta/d\phi &= \tan(\alpha) \sec(\phi) \\
+ \int \sec(\phi) d\phi &= 1/\tan(\alpha) \int d\theta \\
+ \tan(\alpha) \int \sec(\phi) d\phi &= (\theta - \theta_{0}) \\
+ \theta - \theta_{0} &= \int_{\phi_{0}}^{\phi} \tan(\alpha) \sec(\phi) d\phi \\
+ \theta(\phi) &= \theta_{0} + \tan(\alpha)\ \ln [\frac{\tan (\frac{\pi}{4} + \frac{\phi}{2})} {\tan (\frac{\pi}{4} + \frac{\phi_{0}}{2})}] \\
+ &= \theta_{0} + \tan(\alpha) \times diffMercator(\phi, \phi_{0}) \\
+ &= \href{https://krotalias.github.io/cwdc/13-webgl/extras/doc-light/global.html\#longitudeOnLoxodrome}{longitudeOnLoxodrome}(\theta_{0}, \phi_{0}, \phi, \alpha)
+\end{split}
+\end{equation}
 
 The Web Mercator projection, on the other hand, is a variant of the Mercator projection,
 which is widely used in web mapping applications.
@@ -458,14 +470,14 @@ deeper appreciation for the artistic and technical aspects of graphics programmi
 By focusing on foundational principles, students are encouraged to explore beyond the surface and engage with
 the creative possibilities that computer graphics offers.
 
-Of course, everything could have been implemented using a package such as three.js only,
+Of course, Navigare could have been implemented using a package such as three.js only,
 although \href{https://threejs.org/docs/#OrbitControls}{OrbitControls} does not provide the flexibility needed to build the interface.
 Nonetheless, exploring alternative libraries and frameworks could provide additional tools and features
 that enhance the user experience and streamline development.
 Ultimately, the goal is to create an environment where students feel empowered to experiment and innovate,
 pushing the boundaries of what they can achieve in graphics programming.
 
-Navigare used no AI and each event was researched one by one about its history for dating the occurrences associated with a site.
+Navigare used no AI and each event was researched for dating the occurrences associated with a site.
 All sites are hold in a JSON file called ``locations.json'' and it is possible to cycle through the historical figures by country,
 when choosing a two letter ISO country code in the interface.
 For example, selecting BR will display all the figures from Brazil,
@@ -479,10 +491,9 @@ In fact, the remarkable list can be tailored to suit the specific interests and 
 providing a curated selection of information that enhances their understanding and engagement with the subject matter.
 
 The sorting of dates uses the day, month and year of the first date of the last entry in the remarkable list field
-and BC (Before Christ) dates are sorted as negative numbers.
+and BC (Before Christ) dates are sorted as negative years.
 
 \vspace{0.5cm}
-\newpage
 \noindent E.g., ``Battle of Britain, 10 July 1940 - 31 October 1940''\ is sorted using ``10 July 1940''.
 
 \begin{lstlisting}[
@@ -568,7 +579,7 @@ When a user picks a point directly onto the globe's surface, it is necessary to 
 \end{enumerate}
 
 \section{Conclusions}
-Since elementary school, people learn Geography through planar maps~\cite{DennisThe}.
+Since elementary school, people learn geography through planar maps.
 Nonetheless, the earth is an oblate spheroid, and shortest distances are geodesics~\cite{Busemann1955}
 and not straight lines on a piece of paper.
 Therefore, it is important to realize the difference between distance measurements on the plane and on a sphere.
