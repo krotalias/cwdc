@@ -147,7 +147,7 @@ Some triangles may have edges that cross this line, causing the wrong mipmap lev
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{figs/Cape_Horn-Kurgan.png}
-    \caption{Cape Horn \to\ Kurgan \\ iPhone 13 (2021) with 6.1" screen \\ Azimuth: 44.53\textdegree, Distance: 17,105.9 km}
+    \caption{Cape Horn \to\ Kurgan \\ iPhone 13 (2021) with 6.1" screen \\ Azimuth: 44.53\textdegree, Distance: 17,105.9 km, Lox: 17,383.1 km}
     \label{fig:capehorn}
 \end{figure}
 
@@ -163,14 +163,13 @@ The Flemish cartographer Gerardus Mercator has given the answer thirty two years
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.3\textheight]{figs/Syracuse-Moscow.png}
+    \includegraphics[width=0.45\textwidth]{figs/Syracuse-Moscow.png}
 \end{figure}
-
 \begin{figure}[htbp]
     \centering
-    \includegraphics[height=0.2\textheight]{figs/Syracuse-Moscow-map.png}
-    \includegraphics[height=0.2\textheight]{figs/Syracuse-Moscow-cyl.png}
-    \caption{Syracuse \to\ Moscow \\ Azimuth: 80.19\textdegree, Distance: 7,396.1 km \\ Loxodrome (magenta), Orthodrome (cyan)}
+    \includegraphics[height=0.25\textheight]{figs/Syracuse-Moscow-map.png}
+    \includegraphics[height=0.25\textheight]{figs/Syracuse-Moscow-cyl.png}
+    \caption{Syracuse \to\ Moscow \\ Azimuth: 80.19\textdegree, Distance: 7,396.1 km, Lox: 8,290.4 km \\ Loxodrome (magenta), Orthodrome (cyan)}
     \label{fig:Syracuse}
 \end{figure}
 
@@ -204,16 +203,16 @@ Otherwise, only the images listed in the HTML file.
 
 \begin{figure}[htbp]
     \centering
-    \begin{subfigure}[b]{0.4\textwidth}
+    \begin{subfigure}[b]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/Southampton-Titanic-ocean-bottom.png}
-        \subcaption{Southampton \to\ Titanic resting place \\ Azimuth: 254.65°, Distance: 3,790.4 km}
+        \subcaption{Southampton \to\ Titanic resting place \\ Azimuth: 254.65°, Distance: 3,790.4 km, Lox: 3,852.6 km}
         \label{fig:oceana}
     \end{subfigure}
 
     \vspace{0.5cm}
 
-    \begin{subfigure}[b]{0.4\textwidth}
+    \begin{subfigure}[b]{0.5\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/Southampton-Titanic-ocean-bottom-chart.png}
         \subcaption{Ocean bottom as texture}
@@ -275,6 +274,7 @@ So locally, the vertical distances should be magnified by $\sec(\phi)$ also to m
     \caption {Mercator projection}
 \end{figure}
 
+\newpage
 \vspace{0.5cm}
 $\phi$ = latitude, $-\pi/2 < \phi < \pi/2$
 
@@ -289,7 +289,6 @@ $R_{\oplus}$ = radius of the earth
 $C_{\oplus}$ = circumference of the earth
 
 \vspace{0.5cm}
-\newpage
 \textbf{Mercator chart~\cite{Vezie2016}}
 \begin{itemize}
 
@@ -361,6 +360,7 @@ of the Earth's surface but are projected as if defined on a sphere.
 Misinterpreting Web Mercator for the standard Mercator during coordinate conversion
 can lead to deviations as much as 43 km on the map~\cite{stefanakis2017web} (21 km on the ground)~\cite{EPSG3857}:
 
+\newpage
 \begin{lstlisting}[
     basicstyle=\tiny, % or \small or \footnotesize etc.
 ]
@@ -453,14 +453,21 @@ The whole process can be implemented with a few cross and dot product operations
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.3\textheight]{figs/greenland-globe.png}
+
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/greenland-globe.png}
+        \subcaption{Greenland real size}
+    \end{subfigure}
 
     \vspace{0.5cm}
+
     \begin{subfigure}[b]{0.4\textwidth}
     \centering
-    \includegraphics[width=0.3\textheight]{figs/greenland-chart.png}
+    \includegraphics[width=\textwidth]{figs/greenland-chart.png}
+    \subcaption {Mercator: Greenland size distortion}
     \end{subfigure}
-    \caption{Greenland real size and Mercator country size distortion}
+    \caption{Greenland}
     \label{fig:greenland}
 \end{figure}
 
@@ -547,8 +554,8 @@ Dates should be preceded by a comma in the remarkable list field to be considere
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.3\textheight]{figs/Vancouver-Fredericton.png}
-    \caption{Vancouver \to \ Fredericton \\ Azimuth: 94.98\textdegree, Distance: 4,148.9 km and description}
+    \includegraphics[width=0.45\textwidth]{figs/Vancouver-Fredericton.png}
+    \caption{Vancouver \to \ Fredericton \\ Azimuth: 94.98\textdegree, Distance: 4,148.9 km, Lox: 4,246.1 km and city description}
     \label{fig:Vancouver}
 \end{figure}
 
@@ -610,6 +617,7 @@ The interface runs on any modern web browser, and it is responsive to different 
 thus allowing users to access the application from various devices, including tablets and smartphones.
 In certain cases this may be the only way to access the application, and it is important to make it as accessible as possible.
 
+\newpage
 \bibliographystyle{elsarticle-num}
 \bibliography{references}
 

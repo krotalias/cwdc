@@ -15,6 +15,7 @@
 \usepackage{fontspec}
 \usepackage{subcaption} % Required for the subfigure environment
 % Allow line breaks globally in all subcaptions
+\usepackage[font=normalsize]{caption} % Matches the main document text size
 \captionsetup[subfigure]{singlelinecheck=off}
 \setmonofont{DejaVu Sans Mono}
 \lstset{
@@ -128,8 +129,8 @@ Some triangles may have edges that cross this line, causing the wrong mipmap lev
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\textwidth]{figs/Cape_Horn-Kurgan.png}
-    \caption{Cape Horn \to\ Kurgan \\ iPhone 13 (2021) with 6.1" screen \\ Azimuth: 44.53\textdegree, Distance: 17,105.9 km}
+    \includegraphics[width=0.55\textwidth]{figs/Cape_Horn-Kurgan.png}
+    \caption{Cape Horn \to\ Kurgan \\ iPhone 13 (2021) with 6.1" screen \\ Azimuth: 44.53\textdegree, Distance: 17,105.9 km, Loxodrome: 17,383.1 km}
     \label{fig:capehorn}
 \end{figure}
 
@@ -148,7 +149,7 @@ The Flemish cartographer Gerardus Mercator has given the answer thirty two years
     \includegraphics[height=0.3\textheight]{figs/Syracuse-Moscow.png}
     \includegraphics[height=0.25\textheight]{figs/Syracuse-Moscow-map.png}
     \includegraphics[height=0.25\textheight]{figs/Syracuse-Moscow-cyl.png}
-    \caption{Syracuse \to\ Moscow \\ Azimuth: 80.19\textdegree - 7,396.1 km \\ Loxodrome (magenta), Orthodrome (cyan)}
+    \caption{Syracuse \to\ Moscow \\ Azimuth: 80.19\textdegree, Distance: 7,396.1 km, Loxodrome: 8,290.4 km \\ Loxodrome (magenta), Orthodrome (cyan)}
     \label{fig:Syracuse}
 \end{figure}
 
@@ -185,7 +186,7 @@ Otherwise, only the images listed in the HTML file.
     \begin{subfigure}[b]{0.7\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/Southampton-Titanic-ocean-bottom.png}
-        \subcaption{Southampton \to\ Titanic resting place \\ Azimuth: 254.65°, Distance: 3,790.4 km}
+        \subcaption{Southampton \to\ Titanic resting place \\ Azimuth: 254.65°, Distance: 3,790.4 km, Loxodrome: 3,852.6 km}
     \end{subfigure}
 
     \vspace{0.5cm}
@@ -203,7 +204,7 @@ Otherwise, only the images listed in the HTML file.
 Chart maps are images laid onto a sphere as textures and should have an aspect ratio of 2:1
 for equirectangular projections or 1:1 (squared) for Mercator projections.
 As long as a parametrization from $\Re^2$ to $\Re^3$ is known for a surface,
-a texture can be georeferenced~\cite{Atractor}.
+a texture can be geo-referenced~\cite{Atractor}.
 This is the case of the quadrics, and Navigare also supports cones and cylinders.
 
 Maps are transformations from 3D space to 2D space, and they can preserve areas (equal-area maps)
@@ -234,7 +235,7 @@ So locally, the vertical distances should be magnified by $\sec(\phi)$ also to m
         \centering
         \includegraphics[height=0.2\textheight]{figs/Harriot2_sec3.png}
         \includegraphics[width=0.5\textwidth]{figs/globe_lat_long.png}
-        \subcaption {$sec(\phi)$ is the Mercator scale factor at latitude $\phi$}
+        \subcaption {$sec(\phi)$: Mercator scale factor at latitude $\phi$}
         \label{fig:seca}
     \end{subfigure}
 
@@ -418,13 +419,26 @@ The whole process can be implemented with a few cross and dot product operations
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[height=0.25\textheight]{figs/greenland-globe.png}
-    \includegraphics[height=0.25\textheight]{figs/greenland-chart.png}
-    \caption{Greenland real size and Mercator country size distortion}
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/greenland-globe.png}
+        \subcaption{Greenland real size}
+    \end{subfigure}
+
+    \hspace{0.5cm}
+
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/greenland-chart.png}
+        \subcaption {Mercator: Greenland size distortion}
+    \end{subfigure}
+
+    \caption{Greenland}
     \label{fig:greenland}
+
 \end{figure}
 
-
+\newpage
 \section{The Navigare application Around The World in 600 historical figures}
 
 When a child has to study history, he/she is generally not able to visualize the actual location of an event.
@@ -468,7 +482,7 @@ The sorting of dates uses the day, month and year of the first date of the last 
 and BC (Before Christ) dates are sorted as negative years.
 
 \vspace{0.5cm}
-\noindent E.g., ``Battle of Thermopylae, 8 September 480 BC - 10 September 480 BC''\ is sorted using ``8 September 480 BC''.
+\noindent E.g., ``Battle of Thermopylae, 8-10 September 480 BC''\ is sorted using ``8 September 480 BC''.
 
 \begin{lstlisting}
     "Thermopylae": {
@@ -494,7 +508,7 @@ and BC (Before Christ) dates are sorted as negative years.
     },
 \end{lstlisting}
 
-Dates should be preceded by a comma in the remarkable list field to be considered for sorting (no error checking is done). Examples:
+Dates should be preceded by a comma in the remarkable list field to be considered for sorting. Examples:
 
 \begin{verbatim}
     , 324                               (1 0 324)
@@ -506,8 +520,8 @@ Dates should be preceded by a comma in the remarkable list field to be considere
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[height=0.6\textheight]{figs/Vancouver-Fredericton.png}
-    \caption{Vancouver \to\ Fredericton \\ Azimuth: 94.98\textdegree, Distance: 4,148.9 km and description}
+    \includegraphics[height=0.8\textheight]{figs/Vancouver-Fredericton.png}
+    \caption{Vancouver \to\ Fredericton \\ Azimuth: 94.98\textdegree, Distance: 4,148.9 km, Loxodrome: 4,246.1 km and city description}
     \label{fig:Vancouver}
 \end{figure}
 
@@ -569,6 +583,7 @@ The interface runs on any modern web browser, and it is responsive to different 
 thus allowing users to access the application from various devices, including tablets and smartphones.
 In certain cases this may be the only way to access the application, and it is important to make it as accessible as possible.
 
+\newpage
 \bibliographystyle{elsarticle-num}
 \bibliography{references}
 
