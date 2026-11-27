@@ -17,6 +17,8 @@
 \usepackage[utf8]{inputenc} % Automatic in modern TeX, but safely forces UTF-8
 \usepackage{newunicodechar} % Optional package to ease mapping
 \usepackage{subcaption} % Required for the subfigure environment
+% Allow line breaks globally in all subcaptions
+\captionsetup[subfigure]{singlelinecheck=off}
 
 \usepackage{hyperref}
 \usepackage{listings}
@@ -145,7 +147,7 @@ Some triangles may have edges that cross this line, causing the wrong mipmap lev
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{figs/Cape_Horn-Kurgan.png}
-    \caption{Cape Horn to Kurgan on iPhone 13 (2021) with 6.1" screen (Azimuth: 44.53\textdegree - 17,106 km)}
+    \caption{Cape Horn \to\ Kurgan \\ iPhone 13 (2021) with 6.1" screen \\ Azimuth: 44.53\textdegree, Distance: 17,105.9 km}
     \label{fig:capehorn}
 \end{figure}
 
@@ -168,7 +170,7 @@ The Flemish cartographer Gerardus Mercator has given the answer thirty two years
     \centering
     \includegraphics[height=0.2\textheight]{figs/Syracuse-Moscow-map.png}
     \includegraphics[height=0.2\textheight]{figs/Syracuse-Moscow-cyl.png}
-    \caption{Syracuse - Moscow (Azimuth: 80.19\textdegree - 7,396 km), Loxodrome (magenta), Orthodrome (cyan)}
+    \caption{Syracuse \to\ Moscow \\ Azimuth: 80.19\textdegree, Distance: 7,396.1 km \\ Loxodrome (magenta), Orthodrome (cyan)}
     \label{fig:Syracuse}
 \end{figure}
 
@@ -205,6 +207,8 @@ Otherwise, only the images listed in the HTML file.
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/Southampton-Titanic-ocean-bottom.png}
+        \subcaption{Southampton \to\ Titanic resting place \\ Azimuth: 254.65°, Distance: 3,790.4 km}
+        \label{fig:oceana}
     \end{subfigure}
 
     \vspace{0.5cm}
@@ -212,10 +216,13 @@ Otherwise, only the images listed in the HTML file.
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/Southampton-Titanic-ocean-bottom-chart.png}
+        \subcaption{Ocean bottom as texture}
+        \label{fig:oceanb}
     \end{subfigure}
 
-    \caption{Ocean bottom as texture: Southampton - Titanic resting place (Azimuth: 254.65° - 3,790 km)}
+    \caption {Titanic maiden voyage April 10, 1912}
     \label{fig:ocean}
+
 \end{figure}
 
 Chart maps are images laid onto a sphere as textures and should have an aspect ratio of 2:1
@@ -244,22 +251,28 @@ d & = \frac{\delta x} {\cos(\phi)} = \delta x\ \sec(\phi)
 
 At latitude $\phi$, horizontal distances on the chart are magnified by $\sec(\phi)$ to make the meridians parallel.
 So locally, the vertical distances should be magnified by $\sec(\phi)$ also to make the projection angle-preserving~\cite{Oriel1993}
-(Figure~\ref{fig:sec}).
+(Figure~\ref{fig:seca}).
 \begin{figure}[htbp]
     \centering
 
-    \centering
-    \includegraphics[height=0.2\textheight]{figs/Harriot2_sec3.png}
-    \includegraphics[width=0.2\textwidth]{figs/globe_lat_long.png}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[height=0.2\textheight]{figs/Harriot2_sec3.png}
+        \includegraphics[width=0.5\textwidth]{figs/globe_lat_long.png}
+        \subcaption {$sec(\phi)$ is the Mercator scale factor at latitude $\phi$}
+        \label{fig:seca}
+    \end{subfigure}
 
     \vspace{0.5cm}
 
     \begin{subfigure}[b]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figs/mesh.png}
+        \subcaption {Normal at each mesh vertex}
+        \label{fig:secb}
     \end{subfigure}
-    \caption{Mercator vertical distance.}
-    \label{fig:sec}
+
+    \caption {Mercator projection}
 \end{figure}
 
 \vspace{0.5cm}
@@ -276,6 +289,7 @@ $R_{\oplus}$ = radius of the earth
 $C_{\oplus}$ = circumference of the earth
 
 \vspace{0.5cm}
+\newpage
 \textbf{Mercator chart~\cite{Vezie2016}}
 \begin{itemize}
 
@@ -294,7 +308,6 @@ $C_{\oplus}$ = circumference of the earth
 \end{itemize}
 
 \vspace{0.5cm}
-\newpage
 \textbf{Meridional Parts~\cite{Bowditch2024}}
 
 \begin{itemize}
@@ -314,7 +327,6 @@ that measured half of a minute to approximate the speed of a ship in nautical mi
 \end{itemize}
 
 \vspace{0.5cm}
-\newpage
 \textbf{Loxodromes~\cite{Veness26}}
 
 \begin{itemize}
@@ -376,7 +388,7 @@ The only exceptions are functions
 \href{https://krotalias.github.io/cwdc/13-webgl/extras/doc-light/global.html#calculateLoxodromeDistanceWGS84}{calculateLoxodromeDistanceWGS84}
 and \href{https://krotalias.github.io/cwdc/13-webgl/extras/doc-light/global.html#toMercator}{toMercator}.
 
-Gerardus Mercator was able to create such a projection~\cite{Mercator1569Nova}
+Gerardus Mercator was able to create his world map projection~\cite{Mercator1569Nova}
 in a time (1569) when there was no calculus
 (integrals, derivatives — Leibniz in 1674~\cite{Leibniz1684} and Newton in 1666~\cite{Newton1967Whiteside}) or
 even logarithm tables (John Napier, 1614)~\cite{Napier1614}.
@@ -536,7 +548,7 @@ Dates should be preceded by a comma in the remarkable list field to be considere
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.3\textheight]{figs/Vancouver-Fredericton.png}
-    \caption{Vancouver to Fredericton (Azimuth: 94.98\textdegree - 4,149 km) and its historical description}
+    \caption{Vancouver \to \ Fredericton \\ Azimuth: 94.98\textdegree, Distance: 4,148.9 km and description}
     \label{fig:Vancouver}
 \end{figure}
 
